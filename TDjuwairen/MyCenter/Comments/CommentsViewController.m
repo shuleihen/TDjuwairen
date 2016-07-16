@@ -191,6 +191,10 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    if (indexPath.row >= [CommentsArray count]) {
+        return;
+    }
+    
     NSDictionary*dic=CommentsArray[indexPath.row];
     SharpDetailsViewController *sharp = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
     sharp.sharp_id=dic[@"sharpcomment_sharpid"];
