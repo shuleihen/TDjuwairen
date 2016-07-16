@@ -1,0 +1,24 @@
+{
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+    "90895ddf-315d-4923-8c4c-8d574b3621a0" : {
+
+    }
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "90895ddf-315d-4923-8c4c-8d574b3621a0" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "0AA269FB-3453-4D63-94B5-819107868E3A",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "90895ddf-315d-4923-8c4c-8d574b3621a0" : ".."
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "TDjuwairen",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "TDjuwairen.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "svn:\/\/450924349%40qq.com@git.oschina.net\/mastudy\/tuandasvn",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Subversion",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "90895ddf-315d-4923-8c4c-8d574b3621a0"
+    }
+  ]
+}
