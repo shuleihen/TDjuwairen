@@ -1072,6 +1072,7 @@
 #pragma mark - 页面出现时加载
 -(void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
     [self setupWithCommentView];
     
@@ -1086,6 +1087,7 @@
 #pragma mark - 监听键盘
 -(void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

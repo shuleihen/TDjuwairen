@@ -113,22 +113,21 @@
         
         NSMutableDictionary *mutableHeaders = [headers mutableCopy];
         
-        NSDate *lastModifiedDate = nil;
-        
         if (fileAttr.count > 0) {
-            if (fileAttr.count > 0) {
-                lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
-            }
+            NSDate *lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+            formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss z";
+            
+            NSString *lastModifiedStr = [formatter stringFromDate:lastModifiedDate];
+            lastModifiedStr = lastModifiedStr.length > 0 ? lastModifiedStr : @"";
+            [mutableHeaders setValue:lastModifiedStr forKey:@"If-Modified-Since"];
+//            if (fileAttr.count > 0) {
+//                lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
+//            }
             
         }
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-        formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-        formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss z";
-        
-        NSString *lastModifiedStr = [formatter stringFromDate:lastModifiedDate];
-        lastModifiedStr = lastModifiedStr.length > 0 ? lastModifiedStr : @"";
-        [mutableHeaders setValue:lastModifiedStr forKey:@"If-Modified-Since"];
         
         return mutableHeaders;
     };

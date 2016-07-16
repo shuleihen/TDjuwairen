@@ -615,6 +615,7 @@
 #pragma mark - 页面出现时
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     /* 成为第一响应者 */
     [self.customSearchBar becomeFirstResponder];
 }
