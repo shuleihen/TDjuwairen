@@ -99,11 +99,6 @@
 @end
 
 @implementation SharpDetailsViewController
-- (void)dealloc
-{
-    
-    NSLog(@"SharpDetail dealloc");
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -119,11 +114,12 @@
     
     [self setupWithStatusBar];             //设置状态栏
     
-    [self requestDataWithComments];
+//    [self requestDataWithComments];
     
     //    [self setupWithCommentView];           //设置评论栏
     
     [self addRefreshView];           //设置刷新
+    [self refreshAction];
     // Do any additional setup after loading the view.
 }
 - (void)setNavigation{
@@ -164,6 +160,7 @@
     __weak FCXRefreshHeaderView *weakHeaderView = headerView;
     //数据表页数为1
     page = 1;
+    [self requestDataWithUrl];
     [self requestDataWithComments];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [weakHeaderView endRefresh];
@@ -346,6 +343,10 @@
                 string = [string stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
             }
         }
+        
+        // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
+        string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
+        
 //        NSString *newstring ;
 //         遍历所有的URL，替换成本地的URL，并异步获取图片
 //        for (NSString *src in urlDicts.allKeys) {
@@ -358,7 +359,7 @@
 //            }
 //        }
 //        if (result.count == 0) {
-        
+//        self.webview.allowsLinkPreview = YES;
             [self.webview loadHTMLString:string baseURL:nil];
 //        }
 //        else
@@ -366,11 +367,11 @@
 //            [self.webview loadHTMLString:newstring baseURL:nil];
 //        }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
+//        dispatch_async(dispatch_get_main_queue(), ^{
 
             /* 数据请求完成后刷新tableview */
             [self.tableview reloadData];
-        });
+//        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"请求失败");
     }];
@@ -513,7 +514,8 @@
                 self.webview.scrollView.scrollEnabled = NO;
                 
                 [cell.contentView addSubview:self.webview];
-                [self requestDataWithUrl];
+//                FIXME: 在cell显示回调里不要去请求数据，你在请求结果有刷新tableview，这样很容易就出现循环
+//                [self requestDataWithUrl];
             }
             return cell;
         }
@@ -763,6 +765,7 @@
             descriptionsNode[p].style.lineHeight=1.7;\
         }";
         
+        
         [webView evaluateJavaScript:s1 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             //
         }];
@@ -824,7 +827,6 @@
             });
         }];
     });
-
 }
 
 /// 页面加载失败时调用
