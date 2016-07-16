@@ -110,6 +110,14 @@
     [self.loadingImageView addSubview:self.loadingLabel];
 }
 
+- (void)stopLoading {
+    [self.loading stopAnimating]; //停止
+    self.loadingLabel.alpha = 0.0;
+    [self.loadingLabel removeFromSuperview];
+    self.loadingImageView.alpha = 0.0;
+    [self.loadingImageView removeFromSuperview];
+}
+
 #pragma mark - 添加刷新
 - (void)addRefreshView {
     
@@ -127,9 +135,9 @@
     
     //自动刷新
 //        footerView.autoLoadMore = self.tableview;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableview reloadData];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.tableview reloadData];
+//    });
 }
 
 - (void)refreshAction {
@@ -163,60 +171,68 @@
 
 #pragma mark - 请求调研列表数据
 -(void)requestDataWithSurveyList{
+    __weak SurveyViewController *wself = self;
     NSString *string = [NSString stringWithFormat:@"%@surveyList/page/%d",kAPI_Sharp,page];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //如果当前请求的是第一页，就清空文章列表数组
-        if (page == 1) {
-            if (isFirstRequest) {
-                NSArray *dataArray = responseObject[@"data"];
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [self.surveyListDataArray addObject:model];
-                }
-                isFirstRequest = NO;
+        NSArray *dataArray = responseObject[@"data"];
+        if (dataArray.count > 0) {
+            NSMutableArray *list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
+            
+            for (NSDictionary *d in dataArray) {
+                SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                [list addObject:model];
             }
-            else
-            {
-                SurveyListModel *mod = self.surveyListDataArray[0];
-                NSArray *data = responseObject[@"data"];
-                for (int i=0 ; i<data.count; i++) {
-                    NSDictionary *d = data[i];
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
-                        [self.surveyListDataArray insertObject:model atIndex:i];
-                    }
-                }
-            }
+            
+            wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
         }
-        else
-        {
-            NSArray *dataArray = responseObject[@"data"];
-            /* 判断数组是否为空 */
-            if ((NSNull *)dataArray != [NSNull null]) {
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [self.surveyListDataArray addObject:model];
-                }
-            }
-        }
+        
+        
+//        if (page == 1) {
+//            if (isFirstRequest) {
+//                NSArray *dataArray = responseObject[@"data"];
+//                for (NSDictionary *d in dataArray) {
+//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+//                    [wself.surveyListDataArray addObject:model];
+//                }
+//                isFirstRequest = NO;
+//            }
+//            else
+//            {
+//                SurveyListModel *mod = self.surveyListDataArray[0];
+//                NSArray *data = responseObject[@"data"];
+//                for (int i=0 ; i<data.count; i++) {
+//                    NSDictionary *d = data[i];
+//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+//                    if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
+//                        [self.surveyListDataArray insertObject:model atIndex:i];
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            NSArray *dataArray = responseObject[@"data"];
+//            /* 判断数组是否为空 */
+//            if ((NSNull *)dataArray != [NSNull null]) {
+//                for (NSDictionary *d in dataArray) {
+//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+//                    [self.surveyListDataArray addObject:model];
+//                }
+//            }
+//        }
         dispatch_async(dispatch_get_main_queue(), ^{
             __weak FCXRefreshFooterView *weakFooterView = footerView;
             [weakFooterView endRefresh];
-            
-            [self.loading stopAnimating]; //停止
-            self.loadingLabel.alpha = 0.0;
-            [self.loadingLabel removeFromSuperview];
-            self.loadingImageView.alpha = 0.0;
-            [self.loadingImageView removeFromSuperview];
-            
-            
-            [self.tableview reloadData];//主线程刷新tableview
+            [wself stopLoading];
+            [wself.tableview reloadData];//主线程刷新tableview
         });
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [wself stopLoading];
         NSLog(@"请求失败");
     }];
     
@@ -258,7 +274,7 @@
 }
 #pragma mark - 设置tableHeaderView无限轮播
 - (void)setupWithTableHeaderView{
-    
+    //FIXME: @hxl setupWithTableHeaderView 方法只在didload中调用一次，如果第一次加载失败，后面就一直不会显示
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight/4) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;//page样式

@@ -99,6 +99,11 @@
 @end
 
 @implementation SharpDetailsViewController
+- (void)dealloc
+{
+    
+    NSLog(@"SharpDetail dealloc");
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -146,11 +151,12 @@
         [weakSelf loadMoreAction];
     }];
     
+//    [self.tableview reloadData];
     //自动刷新
     //    footerView.autoLoadMore = self.autoLoadMore;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableview reloadData];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.tableview reloadData];
+//    });
 }
 
 - (void)refreshAction {

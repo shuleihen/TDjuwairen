@@ -25,4 +25,14 @@
     return model;
 }
 
+- (NSComparisonResult)compare:(SurveyListModel *)other
+{
+    if (self.sharp_wtime.integerValue > other.sharp_wtime.integerValue) {
+        return NSOrderedDescending;
+    } else if (self.sharp_wtime.integerValue < other.sharp_wtime.integerValue) {
+        return NSOrderedAscending;
+    } else {
+        return NSOrderedSame;
+    }
+}
 @end

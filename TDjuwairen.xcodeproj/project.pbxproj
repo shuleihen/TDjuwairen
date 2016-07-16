@@ -1416,6 +1416,8 @@
 				TargetAttributes = {
 					84E333E61CE2BA3D00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeamName = "Zhejiang LianLian YunTong Co.,Ltd";
+						ProvisioningStyle = Manual;
 					};
 					84E333FF1CE2BA3E00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1809,7 +1811,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "ca7c7152-5871-48b8-a25e-2b3c9f128b20";
+				PROVISIONING_PROFILE_SPECIFIER = "SFQKF44DFK/iOS Team Provisioning Profile: com.lianlian.crossborder";
 			};
 			name = Debug;
 		};

@@ -25,9 +25,10 @@
 #import "LoginState.h"
 @interface ViewPointController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    int page;
-    FCXRefreshHeaderView *headerView;
-    FCXRefreshFooterView *footerView;
+//    尽量不要用成员变量，使用属性
+//    int page;
+//    FCXRefreshHeaderView *headerView;
+//    FCXRefreshFooterView *footerView;
     CGSize titlesize;
     BOOL isFirstRequest;
 }
@@ -45,6 +46,9 @@
 @property (nonatomic,strong) UIActivityIndicatorView *loading;
 @property (nonatomic,strong) UILabel *loadingLabel;
 
+@property (nonatomic, strong) FCXRefreshHeaderView *headerView;
+@property (nonatomic, strong) FCXRefreshFooterView *footerView;
+@property (nonatomic, assign) int page;
 @end
 
 @implementation ViewPointController
@@ -54,7 +58,7 @@
     
     [self setupWithNavigation];
     self.loginstate = [LoginState addInstance];
-    page = 1;
+    self.page = 1;
     isFirstRequest = YES;
     self.viewpointListArray = [NSMutableArray array];
     [self requestViewpointData];
@@ -93,6 +97,14 @@
     [self.loadingImageView addSubview:self.loadingLabel];
 }
 
+- (void)stopLoading {
+    [self.loading stopAnimating]; //停止
+    self.loadingLabel.alpha = 0.0;
+    [self.loadingLabel removeFromSuperview];
+    self.loadingImageView.alpha = 0.0;
+    [self.loadingImageView removeFromSuperview];
+}
+
 #pragma mark - 设置navigation
 - (void)setupWithNavigation{
     [self.navigationController.navigationBar setHidden:YES];
@@ -113,102 +125,115 @@
     __weak __typeof(self)weakSelf = self;
     
     //下拉刷新
-    headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
+    self.headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
         [weakSelf refreshAction];
     }];
     
     //上拉加载更多
-    footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
+    self.footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
         [weakSelf loadMoreAction];
     }];
     
     //自动刷新
     //    footerView.autoLoadMore = self.autoLoadMore;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableview reloadData];
-    });
+//    dispatch_async(dispatch_get_main_queue(), ^{
+//        [self.tableview reloadData];
+//    });
 }
 
 - (void)refreshAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
+//    __weak UITableView *weakTableView = self.tableview;
+//    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
     //数据表页数为1
-    page = 1;
+    self.page = 1;
     [self requestViewpointData];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakHeaderView endRefresh];
-        [weakTableView reloadData];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [weakHeaderView endRefresh];
+//        [weakTableView reloadData];
+//    });
 }
 
 - (void)loadMoreAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshFooterView *weakFooterView = footerView;
-    page++;
+//    __weak UITableView *weakTableView = self.tableview;
+//    __weak FCXRefreshFooterView *weakFooterView = footerView;
+//        @hxl 这里先加1，会有问题，在失败的情况page要减1，不然逻辑不对的，考虑换在成功后加1的方式来做
+    self.page++;
     //继续请求
     [self requestViewpointData];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakFooterView endRefresh];
-        [weakTableView reloadData];
-    });
+//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+//        [weakFooterView endRefresh];
+//        [weakTableView reloadData];
+//    });
 }
 
 #pragma mark - 请求数据
 - (void)requestViewpointData{
-    NSString *string = [NSString stringWithFormat:@"%@viewpointList/page/%d",kAPI_Sharp,page];
+    __weak ViewPointController *wself = self;
+    
+    NSString *string = [NSString stringWithFormat:@"%@viewpointList/page/%d",kAPI_Sharp,self.page];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (page == 1) {
-            //            [self.viewpointListArray removeAllObjects];
-            if (isFirstRequest) {
-                NSArray *dataArray = responseObject[@"data"];
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [self.viewpointListArray addObject:model];
-                }
-                isFirstRequest = NO;
+        NSArray *dataArray = responseObject[@"data"];
+        if (dataArray.count > 0) {
+            NSMutableArray *list = [NSMutableArray arrayWithArray:wself.viewpointListArray];
+            
+            for (NSDictionary *d in dataArray) {
+                SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                [list addObject:model];
             }
-            else
-            {
-                SurveyListModel *mod = self.viewpointListArray[0];
-                NSArray *data = responseObject[@"data"];
-                for (int i=0 ; i<data.count; i++) {
-                    NSDictionary *d = data[i];
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
-                        [self.viewpointListArray insertObject:model atIndex:i];
-                    }
-                }
-            }
-        }
-        else
-        {
-            NSArray *dataArray = responseObject[@"data"];
-            /* 判断数组是否为空 */
-            if ((NSNull *)dataArray != [NSNull null]) {
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [self.viewpointListArray addObject:model];
-                }
-            }
+            
+            wself.viewpointListArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            __weak FCXRefreshFooterView *weakFooterView = footerView;
-            [weakFooterView endRefresh];
-            
-            [self.loading stopAnimating]; //停止
-            self.loadingLabel.alpha = 0.0;
-            [self.loadingLabel removeFromSuperview];
-            self.loadingImageView.alpha = 0.0;
-            [self.loadingImageView removeFromSuperview];
-            
-            
-            [self.tableview reloadData];//主线程刷新tableview
-        });
+//        if (page == 1) {
+//            //            [self.viewpointListArray removeAllObjects];
+//            if (isFirstRequest) {
+//                NSArray *dataArray = responseObject[@"data"];
+//                for (NSDictionary *d in dataArray) {
+//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+//                    [self.viewpointListArray addObject:model];
+//                }
+//                isFirstRequest = NO;
+//            }
+//            else
+//            {
+//                SurveyListModel *mod = self.viewpointListArray[0];
+//                NSArray *data = responseObject[@"data"];
+//                for (int i=0 ; i<data.count; i++) {
+//                    NSDictionary *d = data[i];
+//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+//                    if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
+//                        [self.viewpointListArray insertObject:model atIndex:i];
+//                    }
+//                }
+//            }
+//        }
+//        else
+//        {
+//            NSArray *dataArray = responseObject[@"data"];
+//            /* 判断数组是否为空 */
+//            if ((NSNull *)dataArray != [NSNull null]) {
+//                for (NSDictionary *d in dataArray) {
+//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+//                    [self.viewpointListArray addObject:model];
+//                }
+//            }
+//        }
+        
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            __weak FCXRefreshFooterView *weakFooterView = footerView;
+            [wself.footerView endRefresh];
+            [wself.headerView endRefresh];
+            [wself stopLoading];
+            [wself.tableview reloadData];//主线程刷新tableview
+//        });
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+        [wself.footerView endRefresh];
+        [wself.headerView endRefresh];
+        [wself stopLoading];
         NSLog(@"网络出错！请求失败");
     }];
 }

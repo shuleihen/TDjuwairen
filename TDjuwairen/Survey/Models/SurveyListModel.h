@@ -23,4 +23,6 @@
 @property (nonatomic,assign) int sharp_commentNumber;  //文章评论数
 
 +(SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic;
+
+
 @end
