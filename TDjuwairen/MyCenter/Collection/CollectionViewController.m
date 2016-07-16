@@ -324,10 +324,14 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (edit==NO) {
-    NSDictionary*dic=CollectionArray[indexPath.row];
-    SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
-    sharp.sharp_id=dic[@"sharp_id"];
-    [self.navigationController pushViewController:sharp animated:YES];
+        if (indexPath.row >= [CollectionArray count]) {
+            return;
+        }
+        
+        NSDictionary*dic=CollectionArray[indexPath.row];
+        SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+        sharp.sharp_id=dic[@"sharp_id"];
+        [self.navigationController pushViewController:sharp animated:YES];
     }
 }
 
