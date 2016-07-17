@@ -103,6 +103,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self setupWebView];
     [self setNavigation];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
@@ -130,6 +131,15 @@
     [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
     self.navigationItem.backBarButtonItem = backItem;
+}
+
+- (void)setupWebView
+{
+    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight)];
+    self.webview.UIDelegate = self;
+    self.webview.navigationDelegate = self;
+    /* 禁止滚动 */
+    self.webview.scrollView.scrollEnabled = NO;
 }
 
 #pragma mark - 添加刷新
@@ -504,19 +514,21 @@
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                
+                if (self.webview) {
+                    [cell.contentView addSubview:self.webview];
+                }
             }
             
-            if (!self.webview) {
-                self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight)];
-                self.webview.UIDelegate = self;
-                self.webview.navigationDelegate = self;
-                /* 禁止滚动 */
-                self.webview.scrollView.scrollEnabled = NO;
-                
+            // 判断webview 是否添加到cell 上
+            if (!self.webview.superview) {
                 [cell.contentView addSubview:self.webview];
-//                FIXME: 在cell显示回调里不要去请求数据，你在请求结果有刷新tableview，这样很容易就出现循环
-//                [self requestDataWithUrl];
             }
+//            if (self.webview) {
+//                [cell.contentView addSubview:self.webview];
+////                FIXME: 在cell显示回调里不要去请求数据，你在请求结果有刷新tableview，这样很容易就出现循环
+////                [self requestDataWithUrl];
+//            }
             return cell;
         }
         else if (indexPath.row == 2){
