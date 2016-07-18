@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
+
 //刷新
 #import "FCXRefreshFooterView.h"
 #import "FCXRefreshHeaderView.h"
@@ -23,6 +24,7 @@
 #import "SurveyListModel.h"
 #import "SharpDetailsViewController.h"
 #import "SearchViewController.h"
+
 /* 登录状态 */
 #import "LoginState.h"
 
