@@ -765,6 +765,12 @@
             descriptionsNode[p].style.lineHeight=1.7;\
         }";
         
+        //让视频铺满屏幕自适应
+        NSString *s9 = @"var videoNode=document.getElementsByTagName('video');\
+        for(var i=0;i<videoNode.length;i++){\
+        videoNode[i].style.width='100%';\
+        videoNode[i].style.maxHeight='100%';\
+        }";
         
         [webView evaluateJavaScript:s1 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             //
@@ -796,6 +802,10 @@
         }];
         
         [webView evaluateJavaScript:s8 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+        
+        [webView evaluateJavaScript:s9 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             //
         }];
     }
