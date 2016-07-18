@@ -103,34 +103,26 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupWebView];
-    [self setNavigation];
+    [self setupUICommon];
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
     self.loginstate = [LoginState addInstance];
     page = 1;
-    [self setupWithTableView];
     
-    [self setupWithStatusBar];             //设置状态栏
     
-//    [self requestDataWithComments];
-    
-    //    [self setupWithCommentView];           //设置评论栏
-    
-    [self addRefreshView];           //设置刷新
     [self refreshAction];
-    // Do any additional setup after loading the view.
 }
-- (void)setNavigation{
-    //设置返回button
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
+
+#pragma mark UICommon
+- (void)setupUICommon
+{
+    [self setupWebView];
+    [self setupTableView];
+    [self setupCommentView];
+    [self setupStatusBar];
+    [self addRefreshView];
 }
 
 - (void)setupWebView
@@ -138,13 +130,44 @@
     self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight)];
     self.webview.UIDelegate = self;
     self.webview.navigationDelegate = self;
-    /* 禁止滚动 */
     self.webview.scrollView.scrollEnabled = NO;
 }
 
-#pragma mark - 添加刷新
-- (void)addRefreshView {
+- (void)setupTableView
+{
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-50) style:UITableViewStylePlain];
+    self.tableview.delegate = self;
+    self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
+    [self.view addSubview:self.tableview];
+}
+
+- (void)setupCommentView
+{
+    self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-50, kScreenWidth, 50)];
+    [self.backcommentview.backback addTarget:self action:@selector(ClickGOBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.backButton addTarget:self action:@selector(ClickGOBack:) forControlEvents:UIControlEventTouchUpInside];
     
+    [self.backcommentview.backComment addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.ClickComment addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.backcommentview.backShare addTarget:self action:@selector(ClickShare:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.ClickShare addTarget:self action:@selector(ClickShare:) forControlEvents:UIControlEventTouchUpInside];
+    
+    self.backcommentview.commentview.delegate = self;
+    
+    [self.view addSubview:self.backcommentview];
+}
+
+- (void)setupStatusBar
+{
+    UIView *status = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
+    status.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:status];
+}
+
+- (void)addRefreshView
+{
     __weak __typeof(self)weakSelf = self;
     
     //下拉刷新
@@ -156,15 +179,23 @@
     footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
         [weakSelf loadMoreAction];
     }];
-    
-//    [self.tableview reloadData];
-    //自动刷新
-    //    footerView.autoLoadMore = self.autoLoadMore;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.tableview reloadData];
-//    });
 }
 
+- (void)stopLoadView
+{
+    //停止加载样式
+    [_indicator finish];
+    self.loadingImgView.alpha = 0.0;
+    [self.loadingImgView removeFromSuperview];
+    self.loading1.alpha = 0.0;
+    [self.loading1 removeFromSuperview];
+    self.loading2.alpha = 0.0;
+    [self.loading2 removeFromSuperview];
+    self.loadingBackView.alpha = 0.0;
+    [self.loadingBackView removeFromSuperview];
+}
+
+#pragma mark Request Data
 - (void)refreshAction {
     __weak UITableView *weakTableView = self.tableview;
     __weak FCXRefreshHeaderView *weakHeaderView = headerView;
@@ -190,7 +221,7 @@
     });
 }
 
-#pragma mark - 请求评论数据
+
 - (void)requestDataWithComments{
     
     NSString *string = [NSString stringWithFormat:@"%@getSharpComnment/id/%@/page/%d",kAPI_Sharp,self.sharp_id,page];
@@ -225,7 +256,6 @@
     }];
 }
 
-#pragma mark - 请求数据
 - (void)requestDataWithUrl{
     self.loadingBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.loadingBackView.backgroundColor = [UIColor whiteColor];
@@ -279,6 +309,7 @@
         iscollect = data[@"sharp_iscollect"];
         isoriginal = data[@"sharp_isoriginal"];
         sharpimg = data[@"sharp_pic280"];
+        
         if ([commentNum intValue] > 0) {
             NSString *text;
             if ([commentNum intValue] >999) {
@@ -300,37 +331,7 @@
             
             [self.backcommentview addSubview:btn];
         }
-     
-//        NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"<img\\ssrc[^>]*/>" options:NSRegularExpressionAllowCommentsAndWhitespace error:nil];
-//        NSArray *result = [regex matchesInString:string options:NSMatchingReportCompletion range:NSMakeRange(0, string.length)];
-//        
-//        NSMutableDictionary *urlDicts = [[NSMutableDictionary alloc] init];
-//        NSString *docPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-//        
-//        for (NSTextCheckingResult *item in result) {
-//            NSString *imgHtml = [string substringWithRange:[item rangeAtIndex:0]];
-//            
-//            NSArray *tmpArray = nil;
-//            if ([imgHtml rangeOfString:@"src=\""].location != NSNotFound) {
-//                tmpArray = [imgHtml componentsSeparatedByString:@"src=\""];
-//            } else if ([imgHtml rangeOfString:@"src="].location != NSNotFound) {
-//                tmpArray = [imgHtml componentsSeparatedByString:@"src="];
-//            }
-//            
-//            if (tmpArray.count >= 2) {
-//                NSString *src = tmpArray[1];
-//                
-//                NSUInteger loc = [src rangeOfString:@"\""].location;
-//                if (loc != NSNotFound) {
-//                    src = [src substringToIndex:loc];
-//                    if (src.length > 0) {
-//                        NSString *localPath = [docPath stringByAppendingPathComponent:[self md5:src]];
-//                        // 先将链接取个本地名字，且获取完整路径
-//                        [urlDicts setObject:localPath forKey:src];
-//                    }
-//                }
-//            }
-//        }
+        
         if ([typeid isEqualToString:@"3"]) {
             //测试替换iframe标签宽高
             NSString *s = @"iframe";
@@ -357,119 +358,18 @@
         // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
         string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
         
-//        NSString *newstring ;
-//         遍历所有的URL，替换成本地的URL，并异步获取图片
-//        for (NSString *src in urlDicts.allKeys) {
-//            
-//            NSString *localPath = [urlDicts objectForKey:src];
-//            newstring = [string stringByReplacingOccurrencesOfString:src withString:localPath];
-//            // 如果已经缓存过，就不需要重复加载了。
-//            if (![[NSFileManager defaultManager] fileExistsAtPath:localPath]) {
-//                [self downloadImageWithUrl:src];
-//            }
-//        }
-//        if (result.count == 0) {
-//        self.webview.allowsLinkPreview = YES;
-            [self.webview loadHTMLString:string baseURL:nil];
-//        }
-//        else
-//        {
-//            [self.webview loadHTMLString:newstring baseURL:nil];
-//        }
-        
-//        dispatch_async(dispatch_get_main_queue(), ^{
 
-            /* 数据请求完成后刷新tableview */
-            [self.tableview reloadData];
-//        });
+        [self stopLoadView];
+        [self.tableview reloadData];
+        
+        [self.webview loadHTMLString:string baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
+        [self stopLoadView];
     }];
 }
 
 
-
-- (void)downloadImageWithUrl:(NSString *)src {
-    // 注意：这里并没有写专门下载图片的代码，就直接使用了AFN的扩展，只是为了省麻烦而已。
-    UIImageView *imgView = [[UIImageView alloc] init];
-    
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:src]];
-    
-    imgView.image = [UIImage imageNamed:src];
-    [imgView setImageWithURLRequest:request placeholderImage:nil success:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, UIImage * _Nonnull image) {
-        
-        NSData *data = UIImagePNGRepresentation(image);
-        
-        NSString *docPath = [NSHomeDirectory() stringByAppendingPathComponent:@"Documents"];
-        
-        NSString *localPath = [docPath stringByAppendingPathComponent:[self md5:src]];
-        
-        [data writeToFile:localPath atomically:YES];
-        
-        
-        
-    } failure:^(NSURLRequest * _Nonnull request, NSHTTPURLResponse * _Nullable response, NSError * _Nonnull error) {
-        NSLog(@"下载图像失败: %@", src);
-    }];
-    
-    if (self.imageViews == nil) {
-        self.imageViews = [[NSMutableArray alloc] init];
-    }
-    [self.imageViews addObject:imgView];
-}
-
-- (NSString *)md5:(NSString *)sourceContent {
-    if (self == nil || [sourceContent length] == 0) {
-        return nil;
-    }
-    
-    unsigned char digest[16], i;
-    CC_MD5([sourceContent UTF8String], (int)[sourceContent lengthOfBytesUsingEncoding:NSUTF8StringEncoding], digest);
-    NSMutableString *ms = [NSMutableString string];
-    
-    for (i = 0; i < 16; i++) {
-        [ms appendFormat:@"%02x", (int)(digest[i])];
-    }
-    
-    return [ms copy];
-}
-/* 同步请求
- - (void)requestDataWithWebView{
- //同步请求
- NSString *string = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Sharp/show/id/%@",self.sharp_id];
- NSURL *url = [NSURL URLWithString:string];
- //通过URL创建网络请求
- NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
- [request setHTTPMethod:@"GET"];
- NSURLResponse *response = nil;
- NSError *error = nil;
- 
- //创建链接对象，并发送请求，获取结果
- NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
- NSString *str = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
- NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
- NSObject *object = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
- NSDictionary *dic = (NSDictionary *)object;
- 
- NSDictionary *d = dic[@"data"];
- NSString *content = d[@"sharp_content"];
- NSLog(@"%@",content);
- [self.webview loadHTMLString:content baseURL:nil];
- [self.tableview reloadData];
- 
- }
- */
-
-#pragma mark - 设置tableview
-- (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-50) style:UITableViewStylePlain];
-    self.tableview.delegate = self;
-    self.tableview.dataSource = self;
-    self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
-    [self.view addSubview:self.tableview];
-}
-
-#pragma mark - create tableview
+#pragma mark TableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -491,6 +391,43 @@
         {
             return self.commentsDataArray.count + 1;
         }
+    }
+    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 115;
+        }
+        else if(indexPath.row == 1){
+            return self.webview.bounds.size.height;
+        }
+        else if (indexPath.row == 2){
+            return 80;
+        }
+        else if (indexPath.row == 3)
+        {
+            /* 这里是标签栏的高度 */
+            //也要做自适应
+            return 10+self.tagList.frame.size.height+10;
+        }
+        else if(indexPath.row == 4){
+            return 15+originalsize.height+15;
+        }
+        else
+        {
+            return 20;
+        }
+    }
+    else
+    {
+        if (indexPath.row == 0) {
+            return 44;
+        }
+        /* 设置高度自适应 */
+        return 10+15+5+12+10+commentsize.height+10;
     }
     
 }
@@ -524,11 +461,7 @@
             if (!self.webview.superview) {
                 [cell.contentView addSubview:self.webview];
             }
-//            if (self.webview) {
-//                [cell.contentView addSubview:self.webview];
-////                FIXME: 在cell显示回调里不要去请求数据，你在请求结果有刷新tableview，这样很容易就出现循环
-////                [self requestDataWithUrl];
-//            }
+            
             return cell;
         }
         else if (indexPath.row == 2){
@@ -684,26 +617,18 @@
     }
 }
 
-#pragma mark - 滚动tableview时键盘消失
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
 }
 
-#pragma mark - 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-#pragma mark - 设置状态栏
-- (void)setupWithStatusBar{
-    UIView *status = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
-    status.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:status];
-}
 
-// 类似 UIWebView的 -webView: shouldStartLoadWithRequest: navigationType:
+#pragma mark WKNavigationDelegate
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
 
     NSString *strRequest = [navigationAction.request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
@@ -715,13 +640,8 @@
     }
 }
 
-
-#pragma mark - 计算webview的contentsize
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+- (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation
 {
-    if (webView.isLoading) {
-        return;
-    }
     if (![typeid isEqualToString:@"3"]) {
         //减小段落间距
         NSString *s1 = @"var pNode=document.getElementsByTagName('p');\
@@ -746,8 +666,8 @@
         brNode[j].style.lineHeight='1';\
         var brparentNode=brNode[j].parentNode;\
         if(brparentNode.innerHTML=='<br>'){\
-            brNode[j].parentNode.style.lineHeight='4px';\
-            \
+        brNode[j].parentNode.style.lineHeight='4px';\
+        \
         }\
         }";
         
@@ -768,13 +688,13 @@
         
         NSString *s7 = @"var detail_contentNode=document.getElementsByClassName('detail_content');\
         for(var i=0;i<detail_contentNode.length;i++){\
-            detail_contentNode[i].style.padding=0;\
+        detail_contentNode[i].style.padding=0;\
         }";
         
         //更改行间距
         NSString *s8 = @"var descriptionsNode=document.getElementsByClassName('article_descriptions');\
         for(var p=0; p<descriptionsNode.length;p++){\
-            descriptionsNode[p].style.lineHeight=1.7;\
+        descriptionsNode[p].style.lineHeight=1.7;\
         }";
         
         //让视频铺满屏幕自适应
@@ -821,38 +741,30 @@
             //
         }];
     }
+}
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    if (webView.isLoading) {
+        return;
+    }
+
+    __weak SharpDetailsViewController *wself = self;
     
     //获取内容高度
-    //延时1秒。。。加了两秒是为了解决因为线程冲突引起的白屏现象。。5s没有。6sp有
-   
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //获取页面高度，并重置webview的frame
-            CGFloat documentHeight = [result doubleValue];
-            CGRect frame = webView.frame;
-            frame.size.height = documentHeight + 10/*显示不全*/;
-            webView.frame = frame;
-            //主线程刷新UI
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableview reloadData];
-                //停止加载样式
-                [_indicator startAnimating];
-                self.loadingImgView.alpha = 0.0;
-                [self.loadingImgView removeFromSuperview];
-                self.loading1.alpha = 0.0;
-                [self.loading1 removeFromSuperview];
-                self.loading2.alpha = 0.0;
-                [self.loading2 removeFromSuperview];
-                self.loadingBackView.alpha = 0.0;
-                [self.loadingBackView removeFromSuperview];
-
-            });
-        }];
-    });
+    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        //获取页面高度，并重置webview的frame
+        CGFloat documentHeight = [result doubleValue];
+        CGRect frame = webView.frame;
+        frame.size.height = documentHeight + 10;
+        webView.frame = frame;
+        [wself.tableview reloadData];
+    }];
 }
 
 /// 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation;{
+    [self.tableview reloadData];
     NSLog(@"页面加载失败");
 }
 
@@ -903,61 +815,6 @@
     //缩放:设置缩放比例
     recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
     recognizer.scale = 1;
-}
-
-#pragma mark - 设置tableviewcell的高度
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 115;
-        }
-        else if(indexPath.row == 1){
-            return self.webview.frame.size.height+10;
-        }
-        else if (indexPath.row == 2){
-            return 80;
-        }
-        else if (indexPath.row == 3)
-        {
-            /* 这里是标签栏的高度 */
-            //也要做自适应
-            return 10+self.tagList.frame.size.height+10;
-        }
-        else if(indexPath.row == 4){
-            return 15+originalsize.height+15;
-        }
-        else
-        {
-            return 20;
-        }
-    }
-    else
-    {
-        if (indexPath.row == 0) {
-            return 44;
-        }
-        /* 设置高度自适应 */
-        return 10+15+5+12+10+commentsize.height+10;
-    }
-    
-}
-
-#pragma mark - 设置评论条
-- (void)setupWithCommentView{
-    self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-50, kScreenWidth, 50)];
-    [self.backcommentview.backback addTarget:self action:@selector(ClickGOBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.backButton addTarget:self action:@selector(ClickGOBack:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.backcommentview.backComment addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.ClickComment addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.backcommentview.backShare addTarget:self action:@selector(ClickShare:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.ClickShare addTarget:self action:@selector(ClickShare:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.backcommentview.commentview.delegate = self;
-    
-    [self.view addSubview:self.backcommentview];
 }
 
 #pragma mark - 点击收藏或取消收藏
@@ -1105,7 +962,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
-    [self setupWithCommentView];
     
     if (self.loginstate.isLogIn) {
         //进行身份验证
