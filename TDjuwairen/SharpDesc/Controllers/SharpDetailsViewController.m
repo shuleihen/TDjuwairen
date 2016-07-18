@@ -219,7 +219,7 @@
 - (void)requestDataWithUrl{
     self.loadingBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.loadingBackView.backgroundColor = [UIColor whiteColor];
-    [self.view insertSubview:self.loadingBackView belowSubview:self.backcommentview];
+    [self.view addSubview:self.loadingBackView];
     
     self.loadingImgView = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-kScreenWidth/4)/2+10, kScreenHeight/736*298, kScreenWidth/4, kScreenWidth/10)];
     self.loadingImgView.image = [UIImage imageNamed:@"loadingLogo.png"];
@@ -616,7 +616,7 @@
             return cell;
         }
     }
-    /* 这里是评论列表展示 */
+    /* 这里是·列表展示 */
     else
     {
         if (indexPath.row == 0) {
