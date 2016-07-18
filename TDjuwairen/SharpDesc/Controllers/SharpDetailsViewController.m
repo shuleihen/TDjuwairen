@@ -1044,7 +1044,8 @@
 
 #pragma mark - 点击分享
 - (void)ClickShare:(UIButton *)sender{
-    NSLog(@"分享");
+    //释放键盘第一响应
+    [self.backcommentview.commentview resignFirstResponder];
     //1、创建分享参数
     //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     
@@ -1162,7 +1163,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject[@"code"]  isEqualToString:@"200"]) {
-            //收藏成功 弹出提示框
+            //评论成功 弹出提示框
             [self PopSuccess];
             //请求评论数据
             [self requestDataWithComments];
