@@ -229,7 +229,7 @@
 - (void)requestDataWithUrl{
     self.loadingBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.loadingBackView.backgroundColor = [UIColor whiteColor];
-    [self.view insertSubview:self.loadingBackView belowSubview:self.backcommentview];
+    [self.view addSubview:self.loadingBackView];
     
     self.loadingImgView = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-kScreenWidth/4)/2+10, kScreenHeight/736*298, kScreenWidth/4, kScreenWidth/10)];
     self.loadingImgView.image = [UIImage imageNamed:@"loadingLogo.png"];
@@ -628,7 +628,7 @@
             return cell;
         }
     }
-    /* 这里是评论列表展示 */
+    /* 这里是·列表展示 */
     else
     {
         if (indexPath.row == 0) {
@@ -777,6 +777,12 @@
             descriptionsNode[p].style.lineHeight=1.7;\
         }";
         
+        //让视频铺满屏幕自适应
+        NSString *s9 = @"var videoNode=document.getElementsByTagName('video');\
+        for(var i=0;i<videoNode.length;i++){\
+        videoNode[i].style.width='100%';\
+        videoNode[i].style.maxHeight='100%';\
+        }";
         
         [webView evaluateJavaScript:s1 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             //
@@ -808,6 +814,10 @@
         }];
         
         [webView evaluateJavaScript:s8 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+        
+        [webView evaluateJavaScript:s9 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             //
         }];
     }
@@ -1046,7 +1056,8 @@
 
 #pragma mark - 点击分享
 - (void)ClickShare:(UIButton *)sender{
-    NSLog(@"分享");
+    //释放键盘第一响应
+    [self.backcommentview.commentview resignFirstResponder];
     //1、创建分享参数
     //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     
@@ -1164,7 +1175,7 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if ([responseObject[@"code"]  isEqualToString:@"200"]) {
-            //收藏成功 弹出提示框
+            //评论成功 弹出提示框
             [self PopSuccess];
             //请求评论数据
             [self requestDataWithComments];

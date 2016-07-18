@@ -12,6 +12,7 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
+
 //刷新
 #import "FCXRefreshFooterView.h"
 #import "FCXRefreshHeaderView.h"
@@ -23,6 +24,7 @@
 #import "SurveyListModel.h"
 #import "SharpDetailsViewController.h"
 #import "SearchViewController.h"
+
 /* 登录状态 */
 #import "LoginState.h"
 
@@ -233,7 +235,9 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [wself stopLoading];
-        NSLog(@"请求失败");
+        NSLog(@"网络出错！请求失败");
+        //调用刷新来解决页面不出现问题
+        [self refreshAction];
     }];
     
 }
