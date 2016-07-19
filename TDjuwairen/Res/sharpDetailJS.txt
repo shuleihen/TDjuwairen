@@ -1,0 +1,56 @@
+//var pNode=document.getElementsByTagName('p');
+//for(var i in pNode){
+//	pNode[i].style.margin=0;
+//    if(pNode[i].innerHTML=='&nbsp;') {
+//        pNode[i].innerHTML='';
+//    }
+//}
+
+// var spanNode=document.getElementsByTagName('span');
+// for(var x in spanNode){
+// 	if(spanNode[x].innerHTML=='&nbsp;'){
+// 	spanNode[x].innerHTML='';
+// 	}
+// }
+
+// 调整字号
+document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%';
+
+// 删除 <p class="article_descriptions"><br/></p>
+var brNode=document.getElementsByTagName('br');
+for(var j in brNode){
+	// brNode[j].className='';
+	// brNode[j].style.lineHeight='1';
+	var brparentNode=brNode[j].parentNode;
+	if(brparentNode.innerHTML=='<br>'){
+		brparentNode.className='';
+		brparentNode.removeChild(brNode[j])
+		// brNode[j].parentNode.style.lineHeight='4px';
+	}	
+}
+
+
+//修改图片和字之间的距离
+//var labelNode=document.getElementsByClassName('article_photo_label');
+//for(var z=0; z<labelNode.length;z++){
+//	labelNode[z].style.lineHeight=1.6;
+//	labelNode[z].style.fontFamily='AmericanTypewriter-CondensedLight';
+//}
+
+// var emphasisNode=document.getElementsByClassName('article_emphasis');
+// for(var k=0; k<labelNode.length;k++){
+// 	emphasisNode[k].style.lineHeight=1.6;
+// }
+
+//var descriptionsNode=document.getElementsByClassName('article_descriptions');
+//    for(var p=0; p<descriptionsNode.length;p++){
+//    descriptionsNode[p].style.lineHeight=1.7;
+//}
+
+var videoNode=document.getElementsByTagName('video');
+    for(var i=0;i<videoNode.length;i++){
+    videoNode[i].style.width='100%';
+    videoNode[i].style.maxHeight='100%';
+}
+
+

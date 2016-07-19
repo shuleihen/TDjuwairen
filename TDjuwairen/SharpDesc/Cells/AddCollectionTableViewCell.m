@@ -20,7 +20,7 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.addCollection = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-50)/2, 15, 50, 50)];
-        [self addSubview:self.addCollection];
+        [self.contentView addSubview:self.addCollection];
     }
     return self;
 }
