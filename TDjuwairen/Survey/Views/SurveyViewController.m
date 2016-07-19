@@ -30,7 +30,6 @@
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
 {
-    int page;
     FCXRefreshHeaderView *headerView;
     FCXRefreshFooterView *footerView;
     
@@ -57,6 +56,8 @@
 @property (nonatomic,strong) UIImageView *loadingImageView;
 @property (nonatomic,strong) UIActivityIndicatorView *loading;
 @property (nonatomic,strong) UILabel *loadingLabel;
+
+@property (nonatomic, assign) int page;
 @end
 
 @implementation SurveyViewController
@@ -71,7 +72,7 @@
     [self requestToLogin];
     
     self.loginstate = [LoginState addInstance];
-    page = 1;
+    self.page = 1;
     isFirstRequest = YES;
     self.surveyListDataArray = [NSMutableArray array];
     [self requestDataWithSurveyList];//请求调研列表数据
@@ -146,7 +147,7 @@
     __weak UITableView *weakTableView = self.tableview;
     __weak FCXRefreshHeaderView *weakHeaderView = headerView;
     //数据表页数为1
-    page = 1;
+    self.page = 1;
     [self requestDataWithSurveyList];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [weakHeaderView endRefresh];
@@ -157,7 +158,7 @@
 - (void)loadMoreAction {
     __weak UITableView *weakTableView = self.tableview;
     __weak FCXRefreshFooterView *weakFooterView = footerView;
-    page++;
+    self.page++;
     //继续请求
     [self requestDataWithSurveyList];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -174,15 +175,21 @@
 #pragma mark - 请求调研列表数据
 -(void)requestDataWithSurveyList{
     __weak SurveyViewController *wself = self;
-    NSString *string = [NSString stringWithFormat:@"%@surveyList/page/%d",kAPI_Sharp,page];
+    NSString *string = [NSString stringWithFormat:@"%@surveyList/page/%d",kAPI_Sharp,self.page];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         //如果当前请求的是第一页，就清空文章列表数组
         NSArray *dataArray = responseObject[@"data"];
+        
         if (dataArray.count > 0) {
-            NSMutableArray *list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
+            NSMutableArray *list = nil;
+            if (wself.page == 1) {
+                list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+            } else {
+                list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
+            }
             
             for (NSDictionary *d in dataArray) {
                 SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
@@ -193,39 +200,6 @@
         }
         
         
-//        if (page == 1) {
-//            if (isFirstRequest) {
-//                NSArray *dataArray = responseObject[@"data"];
-//                for (NSDictionary *d in dataArray) {
-//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-//                    [wself.surveyListDataArray addObject:model];
-//                }
-//                isFirstRequest = NO;
-//            }
-//            else
-//            {
-//                SurveyListModel *mod = self.surveyListDataArray[0];
-//                NSArray *data = responseObject[@"data"];
-//                for (int i=0 ; i<data.count; i++) {
-//                    NSDictionary *d = data[i];
-//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-//                    if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
-//                        [self.surveyListDataArray insertObject:model atIndex:i];
-//                    }
-//                }
-//            }
-//        }
-//        else
-//        {
-//            NSArray *dataArray = responseObject[@"data"];
-//            /* 判断数组是否为空 */
-//            if ((NSNull *)dataArray != [NSNull null]) {
-//                for (NSDictionary *d in dataArray) {
-//                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-//                    [self.surveyListDataArray addObject:model];
-//                }
-//            }
-//        }
         dispatch_async(dispatch_get_main_queue(), ^{
             __weak FCXRefreshFooterView *weakFooterView = footerView;
             [weakFooterView endRefresh];
@@ -236,6 +210,7 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [wself stopLoading];
         NSLog(@"网络出错！请求失败");
+        // FIXME: 数据下载失败应该是提示用户，不能在去刷新，如果是网络问题或服务器一直返回错误，这样就出现死循环了
         //调用刷新来解决页面不出现问题
         [self refreshAction];
     }];

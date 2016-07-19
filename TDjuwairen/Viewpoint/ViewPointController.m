@@ -177,7 +177,12 @@
     [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSArray *dataArray = responseObject[@"data"];
         if (dataArray.count > 0) {
-            NSMutableArray *list = [NSMutableArray arrayWithArray:wself.viewpointListArray];
+            NSMutableArray *list = nil;
+            if (wself.page == 1) {
+                list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+            } else {
+                list = [NSMutableArray arrayWithArray:wself.viewpointListArray];
+            }
             
             for (NSDictionary *d in dataArray) {
                 SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
