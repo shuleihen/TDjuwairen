@@ -22,3 +22,7 @@ DerivedData
 # Bundler
 .bundle
 
+# cocoapods
+Pods
+Podfile.lock
+TDjuwairen.xcworkspace

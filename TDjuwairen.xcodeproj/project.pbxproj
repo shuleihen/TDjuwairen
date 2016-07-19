@@ -9,7 +9,9 @@
 /* Begin PBXBuildFile section */
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
+		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
 		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
+		237AE4EA1F7FBA2DDFDFF5AA /* libPods-TDjuwairen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F2BED427DCA2A5E1B41FDF /* libPods-TDjuwairen.a */; };
 		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
 		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9C721CFE7C2E0075910D /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 275E9C6A1CFE7C2E0075910D /* EditView.m */; };
@@ -223,8 +225,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0331BC2A9E7CD4B38B61E1A1 /* libPods-TDjuwairenTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairenTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
+		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
 		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
 		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
@@ -324,6 +328,10 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		2D21CB85943725522940399A /* libPods-TDjuwairenUITests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairenUITests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		2FD7874C58589ADB2CB4A490 /* Pods-TDjuwairen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TDjuwairen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen.debug.xcconfig"; sourceTree = "<group>"; };
+		63F2BED427DCA2A5E1B41FDF /* libPods-TDjuwairen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		63FAAE576858462165C4C074 /* Pods-TDjuwairen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TDjuwairen.release.xcconfig"; path = "Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen.release.xcconfig"; sourceTree = "<group>"; };
 		841546E51D20B68F007DB2F0 /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		841546E61D20B68F007DB2F0 /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		841546E81D20B735007DB2F0 /* Guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide1.png; sourceTree = "<group>"; };
@@ -573,6 +581,7 @@
 				84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
 				84E334CB1CE3297A00E5DCEE /* libicucore.tbd in Frameworks */,
+				237AE4EA1F7FBA2DDFDFF5AA /* libPods-TDjuwairen.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1057,6 +1066,8 @@
 				84E334031CE2BA3E00E5DCEE /* TDjuwairenTests */,
 				84E3340E1CE2BA3E00E5DCEE /* TDjuwairenUITests */,
 				84E333E81CE2BA3D00E5DCEE /* Products */,
+				BF60FE61F3017A6FDF694668 /* Pods */,
+				F70B9F0ADFA276EBCA9300AD /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -1095,6 +1106,7 @@
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
 				84E333FB1CE2BA3D00E5DCEE /* Info.plist */,
 				84E334401CE3037200E5DCEE /* PrefixHeader.pch */,
+				194B0A331D3E21DE0023F1C3 /* Podfile */,
 				84E333EA1CE2BA3D00E5DCEE /* Supporting Files */,
 			);
 			path = TDjuwairen;
@@ -1352,6 +1364,25 @@
 			path = MyCenter;
 			sourceTree = "<group>";
 		};
+		BF60FE61F3017A6FDF694668 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				2FD7874C58589ADB2CB4A490 /* Pods-TDjuwairen.debug.xcconfig */,
+				63FAAE576858462165C4C074 /* Pods-TDjuwairen.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				63F2BED427DCA2A5E1B41FDF /* libPods-TDjuwairen.a */,
+				0331BC2A9E7CD4B38B61E1A1 /* libPods-TDjuwairenTests.a */,
+				2D21CB85943725522940399A /* libPods-TDjuwairenUITests.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1359,9 +1390,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84E334141CE2BA3E00E5DCEE /* Build configuration list for PBXNativeTarget "TDjuwairen" */;
 			buildPhases = (
+				CE3D112A7FC4C0E4ED711100 /* 📦 Check Pods Manifest.lock */,
 				84E333E31CE2BA3D00E5DCEE /* Sources */,
 				84E333E41CE2BA3D00E5DCEE /* Frameworks */,
 				84E333E51CE2BA3D00E5DCEE /* Resources */,
+				9CC29E79432CE8DA88EB011B /* 📦 Embed Pods Frameworks */,
+				38F5FD872D9C458381C47453 /* 📦 Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -1527,6 +1561,7 @@
 				275E9CD01CFED0DC0075910D /* 关于我们.png in Resources */,
 				275E9CCA1CFED0DC0075910D /* back.png in Resources */,
 				8497DFCA1CEEEB9600D7D105 /* 视频－未选中@3x.png in Resources */,
+				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				275E9CE41CFED0DC0075910D /* 返回.png in Resources */,
 				275E9CD81CFED0DC0075910D /* 局外人logo.png in Resources */,
 				2764A2311D01501400916844 /* CommentsTableViewCell.xib in Resources */,
@@ -1548,6 +1583,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		38F5FD872D9C458381C47453 /* 📦 Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9CC29E79432CE8DA88EB011B /* 📦 Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE3D112A7FC4C0E4ED711100 /* 📦 Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "📦 Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		84E333E31CE2BA3D00E5DCEE /* Sources */ = {
@@ -1792,6 +1875,7 @@
 		};
 		84E334151CE2BA3E00E5DCEE /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 2FD7874C58589ADB2CB4A490 /* Pods-TDjuwairen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -1823,6 +1907,7 @@
 		};
 		84E334161CE2BA3E00E5DCEE /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 63FAAE576858462165C4C074 /* Pods-TDjuwairen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
