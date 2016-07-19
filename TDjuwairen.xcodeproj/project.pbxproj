@@ -7,11 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		192B0EE51D3E4FB900514606 /* libMBProgressHUD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 192B0EE41D3E4FB900514606 /* libMBProgressHUD.a */; };
+		192B0EE71D3E4FFA00514606 /* libMJRefresh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 192B0EE61D3E4FFA00514606 /* libMJRefresh.a */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
 		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
-		237AE4EA1F7FBA2DDFDFF5AA /* libPods-TDjuwairen.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 63F2BED427DCA2A5E1B41FDF /* libPods-TDjuwairen.a */; };
 		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
 		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9C721CFE7C2E0075910D /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 275E9C6A1CFE7C2E0075910D /* EditView.m */; };
@@ -226,9 +227,11 @@
 
 /* Begin PBXFileReference section */
 		0331BC2A9E7CD4B38B61E1A1 /* libPods-TDjuwairenTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairenTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		192B0EE41D3E4FB900514606 /* libMBProgressHUD.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMBProgressHUD.a; path = "../../Library/Developer/Xcode/DerivedData/TDjuwairen-fpxhheeyarzghkbvxxhafjayeome/Build/Products/Debug-iphonesimulator/MBProgressHUD/libMBProgressHUD.a"; sourceTree = "<group>"; };
+		192B0EE61D3E4FFA00514606 /* libMJRefresh.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libMJRefresh.a; path = "../../Library/Developer/Xcode/DerivedData/TDjuwairen-fpxhheeyarzghkbvxxhafjayeome/Build/Products/Debug-iphonesimulator/MJRefresh/libMJRefresh.a"; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
-		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; };
+		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
 		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
@@ -557,6 +560,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				192B0EE71D3E4FFA00514606 /* libMJRefresh.a in Frameworks */,
+				192B0EE51D3E4FB900514606 /* libMBProgressHUD.a in Frameworks */,
 				2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */,
 				2764A2701D015F9600916844 /* CoreText.framework in Frameworks */,
 				2764A26E1D015F6B00916844 /* Security.framework in Frameworks */,
@@ -581,7 +586,6 @@
 				84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
 				84E334CB1CE3297A00E5DCEE /* libicucore.tbd in Frameworks */,
-				237AE4EA1F7FBA2DDFDFF5AA /* libPods-TDjuwairen.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1376,6 +1380,8 @@
 		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				192B0EE61D3E4FFA00514606 /* libMJRefresh.a */,
+				192B0EE41D3E4FB900514606 /* libMBProgressHUD.a */,
 				63F2BED427DCA2A5E1B41FDF /* libPods-TDjuwairen.a */,
 				0331BC2A9E7CD4B38B61E1A1 /* libPods-TDjuwairenTests.a */,
 				2D21CB85943725522940399A /* libPods-TDjuwairenUITests.a */,
@@ -1455,7 +1461,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = V9B4FLHXSX;
 						DevelopmentTeamName = "Zhejiang LianLian YunTong Co.,Ltd";
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					84E333FF1CE2BA3E00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -1901,7 +1907,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				PROVISIONING_PROFILE_SPECIFIER = "SFQKF44DFK/iOS Team Provisioning Profile: com.lianlian.crossborder";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
 		};

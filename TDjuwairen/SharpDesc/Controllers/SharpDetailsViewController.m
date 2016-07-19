@@ -38,9 +38,11 @@
 #import <CoreMedia/CoreMedia.h>
 /* loading */
 #import "FSSyncSpinner.h"
+#import <MJRefresh/MJRefresh.h>
+
 @import WebKit;
 
-@interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate>
+@interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 {
     int page;
     FCXRefreshHeaderView *headerView;
@@ -71,7 +73,7 @@
 }
 
 @property (nonatomic,strong) UITableView *tableview;
-@property (nonatomic,strong) WKWebView *webview;
+@property (nonatomic,strong) UIWebView *webview;
 @property (nonatomic) BOOL scalesPageToFit;
 /* 评论条 */
 @property (nonatomic,strong) BackCommentView *backcommentview;
@@ -96,9 +98,6 @@
 /* 文章中的所有图片 */
 @property (nonatomic,strong) NSMutableArray *imageViews;
 
-// iOS9 之后会出现内容丢掉，导致白屏问题 http://stackoverflow.com/questions/31994919/how-to-determine-why-wkwebview-is-crashing
-@property (nonatomic, strong) NSString *contentHtml;
-
 @end
 
 @implementation SharpDetailsViewController
@@ -114,7 +113,6 @@
     self.loginstate = [LoginState addInstance];
     page = 1;
     
-    
     [self refreshAction];
 }
 
@@ -125,16 +123,13 @@
     [self setupTableView];
     [self setupCommentView];
     [self setupStatusBar];
-    [self addRefreshView];
 }
 
 - (void)setupWebView
 {
-    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    self.webview.UIDelegate = self;
-    self.webview.navigationDelegate = self;
+    self.webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.webview.delegate = self;
     self.webview.scrollView.scrollEnabled = NO;
-//    self.webview.backgroundColor = [UIColor greenColor];
 }
 
 - (void)setupTableView
@@ -144,6 +139,9 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:self.tableview];
+    
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
 - (void)setupCommentView
@@ -168,21 +166,6 @@
     UIView *status = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
     status.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:status];
-}
-
-- (void)addRefreshView
-{
-    __weak __typeof(self)weakSelf = self;
-    
-    //下拉刷新
-    headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf refreshAction];
-    }];
-    
-    //上拉加载更多
-    footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf loadMoreAction];
-    }];
 }
 
 - (void)stopLoadView
@@ -250,12 +233,12 @@
             NSLog(@"没有更多了");
         }
         
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:1];
-            [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        });
+        NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:1];
+        [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+        [self.tableview.mj_footer endRefreshing];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.tableview.mj_footer endRefreshing];
         NSLog(@"请求失败");
     }];
 }
@@ -373,13 +356,15 @@
         string = [string stringByReplacingOccurrencesOfString:@"<p class='detail_content'>" withString:@""];
         
 //        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p>" withString:@"<p class=\"article_descriptions\"></p>"];
-        wself.contentHtml = string;
+        
         [self stopLoadView];
+        [wself.tableview.mj_header endRefreshing];
         [self.tableview reloadData];
         
         [self.webview loadHTMLString:string baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self stopLoadView];
+        [wself.tableview.mj_header endRefreshing];
     }];
 }
 
@@ -643,101 +628,34 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
-#pragma mark WKNavigationDelegate
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-
-    NSString *strRequest = [navigationAction.request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if([strRequest isEqualToString:@"about:blank"]) {//主页面加载内容
-        decisionHandler(WKNavigationActionPolicyAllow);//允许跳转
-    } else {//截获页面里面的链接点击
-        //do something you want
-        decisionHandler(WKNavigationActionPolicyCancel);//不允许跳转
+#pragma mark UIWebViewDelegate
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSString *strRequest = [request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if([strRequest isEqualToString:@"about:blank"]) {
+        return YES;
+    } else {
+        return NO;
     }
 }
 
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+- (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    if (webView.isLoading) {
+    if ([typeid isEqualToString:@"3"]) {
         return;
     }
+         
+    NSInteger height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] integerValue];
     
-    if (![typeid isEqualToString:@"3"]) {
-        
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"sharpDetailJS" withExtension:@"txt"];
-        NSString *js = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-        
-        __weak SharpDetailsViewController *wself = self;
-        [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-                //获取页面高度，并重置webview的frame
-                CGFloat documentHeight = [result doubleValue];
-                CGRect frame = webView.frame;
-                frame.size.height = documentHeight;
-                webView.frame = frame;
-                [wself.tableview reloadData];
-            }];
-        }];
-    }
-}
-
-/// 页面加载失败时调用
-- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation;{
+    CGRect frame = webView.frame;
+    frame.size.height = height;
+    self.webview.frame = frame;
     [self.tableview reloadData];
-    NSLog(@"页面加载失败");
 }
 
-- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
-//    [self.webview loadHTMLString:self.contentHtml baseURL:nil];
-    NSLog(@"ProcessDidTerminate");
-}
-#pragma mark 显示大图片
--(void)showBigImage:(NSString *)imageUrl{
-    //创建黑色背景，使其背后内容不可操作
-    bgView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    [bgView setBackgroundColor:[UIColor colorWithRed:0.0
-                                               green:0.0
-                                                blue:0.0
-                                               alpha:1.0]];
-    [self.view addSubview:bgView];
     
-    //创建显示图像视图
-    self.imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, (kScreenHeight-240)/2, kScreenWidth, 240)];
-    self.imgView.userInteractionEnabled = YES;
-    self.imgView.center = self.view.center;
-    [self.imgView sd_setImageWithURL:[NSURL URLWithString:imageUrl]];
-    self.imgView.contentMode = UIViewContentModeScaleAspectFill;
-    [bgView addSubview:self.imgView];
-    
-    //添加点击手势
-    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(TapbgView:)];
-    tapGestureRecognizer.numberOfTapsRequired = 1;//连续点击次数
-    tapGestureRecognizer.numberOfTouchesRequired = 1;//touch数量
-    [bgView addGestureRecognizer:tapGestureRecognizer];//把手势加到图片上
-    
-    //添加捏合手势
-    [_imgView addGestureRecognizer:[[UIPinchGestureRecognizer alloc]initWithTarget:self action:@selector(handlePinch:)]];
-    
-}
-//关闭按钮
--(void)removeBigImage
-{
-    bgView.hidden = YES;
-    //    [bgView removeFromSuperview];
-}
-#pragma mark - 单击手势
-- (void)TapbgView:(UITapGestureRecognizer*) recognizer{
-    bgView.hidden = YES;
-    //    [bgView removeFromSuperview];
-}
-
-#pragma mark - 捏合手势
-- (void) handlePinch:(UIPinchGestureRecognizer*) recognizer
-{
-    //缩放:设置缩放比例
-    recognizer.view.transform = CGAffineTransformScale(recognizer.view.transform, recognizer.scale, recognizer.scale);
-    recognizer.scale = 1;
 }
 
 #pragma mark - 点击收藏或取消收藏
