@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
+		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
 		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
 		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9C721CFE7C2E0075910D /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 275E9C6A1CFE7C2E0075910D /* EditView.m */; };
@@ -224,6 +225,7 @@
 /* Begin PBXFileReference section */
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
+		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
 		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
 		275E9C691CFE7C2E0075910D /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
@@ -594,6 +596,7 @@
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */,
 				193EF0791D392CE00043F3EB /* availableTags.plist */,
 				193EF0771D392CB40043F3EB /* simkai.ttf */,
 			);
@@ -1490,6 +1493,7 @@
 				84D8A8CF1CFFDA040072813D /* 收藏@3x.png in Resources */,
 				275E9C961CFE83700075910D /* FeedbackTableViewCell.xib in Resources */,
 				275E9CC91CFED0DC0075910D /* 1.png in Resources */,
+				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				275E9CD51CFED0DC0075910D /* 发送－输入文字后.png in Resources */,
 				84D8A8D01CFFDA040072813D /* 收藏成功@3x.png in Resources */,
 				842B35F21CE977AD00C6E400 /* SurveyTableViewCell.xib in Resources */,

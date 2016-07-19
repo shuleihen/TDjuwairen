@@ -96,6 +96,9 @@
 /* 文章中的所有图片 */
 @property (nonatomic,strong) NSMutableArray *imageViews;
 
+// iOS9 之后会出现内容丢掉，导致白屏问题 http://stackoverflow.com/questions/31994919/how-to-determine-why-wkwebview-is-crashing
+@property (nonatomic, strong) NSString *contentHtml;
+
 @end
 
 @implementation SharpDetailsViewController
@@ -127,10 +130,11 @@
 
 - (void)setupWebView
 {
-    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight)];
+    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webview.UIDelegate = self;
     self.webview.navigationDelegate = self;
     self.webview.scrollView.scrollEnabled = NO;
+//    self.webview.backgroundColor = [UIColor greenColor];
 }
 
 - (void)setupTableView
@@ -292,10 +296,13 @@
         url = [NSString stringWithFormat:@"%@show/id/%@",kAPI_Sharp,self.sharp_id];
         
     }
+    
+    __weak SharpDetailsViewController *wself = self;
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
+//        FIXME: 后面改成对象，不要定义这么变量
         NSDictionary *data = responseObject[@"data"];
         self.sharpTagsArray = data[@"tags"];
         NSString *string = data[@"sharp_content"];
@@ -358,7 +365,15 @@
         // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
         string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
         
-
+        // 去掉图片和图片说明之间的换行
+        // <p class="article_descriptions"><br/></p><p class="article_photo_label"> replace to <p class="article_photo_label"> 
+//        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p><p class=\"article_photo_label\">" withString:@"<p class=\"article_photo_label\">"];
+        
+        // 去掉标题头部的空行 <p class='detail_content'>
+        string = [string stringByReplacingOccurrencesOfString:@"<p class='detail_content'>" withString:@""];
+        
+//        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p>" withString:@"<p class=\"article_descriptions\"></p>"];
+        wself.contentHtml = string;
         [self stopLoadView];
         [self.tableview reloadData];
         
@@ -402,7 +417,7 @@
             return 115;
         }
         else if(indexPath.row == 1){
-            return self.webview.bounds.size.height;
+            return self.webview.frame.size.height;
         }
         else if (indexPath.row == 2){
             return 80;
@@ -476,6 +491,7 @@
             {
                 [cell.addCollection setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
             }
+//            cell.contentView.backgroundColor = [UIColor redColor];
             [cell.addCollection addTarget:self action:@selector(ClickAdd:) forControlEvents:UIControlEventTouchUpInside];
             //设置三秒内不可重复点击
             /* cell的选中样式为无色 */
@@ -640,126 +656,29 @@
     }
 }
 
-- (void)webView:(WKWebView *)webView didCommitNavigation:(null_unspecified WKNavigation *)navigation
-{
-    if (![typeid isEqualToString:@"3"]) {
-        //减小段落间距
-        NSString *s1 = @"var pNode=document.getElementsByTagName('p');\
-        for(var i in pNode){\
-        pNode[i].style.margin=0;\
-        if(pNode[i].innerHTML=='&nbsp;'){\
-        pNode[i].innerHTML='';\
-        }\
-        }";
-        
-        NSString *s2 = @"var spanNode=document.getElementsByTagName('span');\
-        for(var x in spanNode){\
-        if(spanNode[x].innerHTML=='&nbsp;'){\
-        spanNode[x].innerHTML='';\
-        }\
-        }";
-        
-        //br标签高度，
-        NSString *s3 = @"var brNode=document.getElementsByTagName('br');\
-        for(var j in brNode){\
-        brNode[j].className='';\
-        brNode[j].style.lineHeight='1';\
-        var brparentNode=brNode[j].parentNode;\
-        if(brparentNode.innerHTML=='<br>'){\
-        brNode[j].parentNode.style.lineHeight='4px';\
-        \
-        }\
-        }";
-        
-        /* 修改图片和字之间的距离 */
-        NSString *s4 = @"var labelNode=document.getElementsByClassName('article_photo_label');\
-        for(var z=0; z<labelNode.length;z++){\
-        labelNode[z].style.lineHeight=1.6;\
-        labelNode[z].style.fontFamily='AmericanTypewriter-CondensedLight';\
-        }";
-        
-        NSString *s5 = @"var emphasisNode=document.getElementsByClassName('article_emphasis');\
-        for(var k=0; k<labelNode.length;k++){\
-        emphasisNode[k].style.lineHeight=1.6;\
-        }";
-        
-        //调整字号
-        NSString *s6 = @"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '100%'";
-        
-        NSString *s7 = @"var detail_contentNode=document.getElementsByClassName('detail_content');\
-        for(var i=0;i<detail_contentNode.length;i++){\
-        detail_contentNode[i].style.padding=0;\
-        }";
-        
-        //更改行间距
-        NSString *s8 = @"var descriptionsNode=document.getElementsByClassName('article_descriptions');\
-        for(var p=0; p<descriptionsNode.length;p++){\
-        descriptionsNode[p].style.lineHeight=1.7;\
-        }";
-        
-        //让视频铺满屏幕自适应
-        NSString *s9 = @"var videoNode=document.getElementsByTagName('video');\
-        for(var i=0;i<videoNode.length;i++){\
-        videoNode[i].style.width='100%';\
-        videoNode[i].style.maxHeight='100%';\
-        }";
-        
-        [webView evaluateJavaScript:s1 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s2 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s3 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s4 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s5 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s6 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //字体大小
-            //        CGFloat TextSize = [result doubleValue];
-        }];
-        
-        [webView evaluateJavaScript:s7 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s8 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        
-        [webView evaluateJavaScript:s9 completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-    }
-}
-
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     if (webView.isLoading) {
         return;
     }
-
-    __weak SharpDetailsViewController *wself = self;
     
-    //获取内容高度
-    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        //获取页面高度，并重置webview的frame
-        CGFloat documentHeight = [result doubleValue];
-        CGRect frame = webView.frame;
-        frame.size.height = documentHeight + 10;
-        webView.frame = frame;
-        [wself.tableview reloadData];
-    }];
+    if (![typeid isEqualToString:@"3"]) {
+        
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"sharpDetailJS" withExtension:@"txt"];
+        NSString *js = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        
+        __weak SharpDetailsViewController *wself = self;
+        [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                //获取页面高度，并重置webview的frame
+                CGFloat documentHeight = [result doubleValue];
+                CGRect frame = webView.frame;
+                frame.size.height = documentHeight;
+                webView.frame = frame;
+                [wself.tableview reloadData];
+            }];
+        }];
+    }
 }
 
 /// 页面加载失败时调用
@@ -768,7 +687,11 @@
     NSLog(@"页面加载失败");
 }
 
-
+- (void)webViewWebContentProcessDidTerminate:(WKWebView *)webView
+{
+//    [self.webview loadHTMLString:self.contentHtml baseURL:nil];
+    NSLog(@"ProcessDidTerminate");
+}
 #pragma mark 显示大图片
 -(void)showBigImage:(NSString *)imageUrl{
     //创建黑色背景，使其背后内容不可操作
