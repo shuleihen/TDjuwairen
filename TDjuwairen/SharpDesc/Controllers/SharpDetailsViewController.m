@@ -15,12 +15,6 @@
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
 
-
-//刷新
-#import "FCXRefreshFooterView.h"
-#import "FCXRefreshHeaderView.h"
-#import "UIScrollView+FCXRefresh.h"
-
 #import "LoginState.h"
 #import "TitlesTableViewCell.h"
 #import "AddCollectionTableViewCell.h"
@@ -39,14 +33,11 @@
 /* loading */
 #import "FSSyncSpinner.h"
 #import <MJRefresh/MJRefresh.h>
-
-@import WebKit;
+#import <WebKit/WebKit.h>
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 {
     int page;
-    FCXRefreshHeaderView *headerView;
-    FCXRefreshFooterView *footerView;
     
     CGSize commentsize;
     CGSize originalsize;
@@ -184,28 +175,16 @@
 
 #pragma mark Request Data
 - (void)refreshAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
     //数据表页数为1
     page = 1;
     [self requestDataWithUrl];
     [self requestDataWithComments];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakHeaderView endRefresh];
-        [weakTableView reloadData];
-    });
 }
 
 - (void)loadMoreAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshFooterView *weakFooterView = footerView;
-    page++;
+     page++;
     //继续请求
     [self requestDataWithComments];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakFooterView endRefresh];
-        [weakTableView reloadData];
-    });
 }
 
 

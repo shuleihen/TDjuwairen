@@ -13,11 +13,6 @@
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
 
-//刷新
-#import "FCXRefreshFooterView.h"
-#import "FCXRefreshHeaderView.h"
-#import "UIScrollView+FCXRefresh.h"
-
 #import "SurveyNavigationView.h"
 #import "SurveyTableViewCell.h"
 #import "NewTableViewCell.h"
@@ -28,11 +23,10 @@
 /* 登录状态 */
 #import "LoginState.h"
 
+#import <MJRefresh/MJRefresh.h>
+
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
-{
-    FCXRefreshHeaderView *headerView;
-    FCXRefreshFooterView *footerView;
-    
+{    
     CGSize titlesize;
     CGSize descsize;
     BOOL isFirstRequest;
@@ -124,47 +118,20 @@
 #pragma mark - 添加刷新
 - (void)addRefreshView {
     
-    __weak __typeof(self)weakSelf = self;
-    
-    //下拉刷新
-    headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf refreshAction];
-    }];
-    
-    //上拉加载更多
-    footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf loadMoreAction];
-    }];
-    
-    //自动刷新
-//        footerView.autoLoadMore = self.tableview;
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [self.tableview reloadData];
-//    });
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
 - (void)refreshAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
     //数据表页数为1
     self.page = 1;
     [self requestDataWithSurveyList];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakHeaderView endRefresh];
-        [weakTableView reloadData];
-    });
 }
 
 - (void)loadMoreAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshFooterView *weakFooterView = footerView;
     self.page++;
     //继续请求
     [self requestDataWithSurveyList];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakFooterView endRefresh];
-        [weakTableView reloadData];
-    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -199,20 +166,15 @@
             wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
         }
         
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            __weak FCXRefreshFooterView *weakFooterView = footerView;
-            [weakFooterView endRefresh];
-            [wself stopLoading];
-            [wself.tableview reloadData];//主线程刷新tableview
-        });
+        [wself.tableview.mj_header endRefreshing];
+        [wself.tableview.mj_footer endRefreshing];
+        [wself stopLoading];
+        [wself.tableview reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [wself stopLoading];
-        NSLog(@"网络出错！请求失败");
-        // FIXME: 数据下载失败应该是提示用户，不能在去刷新，如果是网络问题或服务器一直返回错误，这样就出现死循环了
-        //调用刷新来解决页面不出现问题
-        //[self refreshAction];
+        [wself.tableview.mj_header endRefreshing];
+        [wself.tableview.mj_footer endRefreshing];
     }];
     
 }
