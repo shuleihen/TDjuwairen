@@ -241,7 +241,7 @@
         [wself stopLoading];
         NSLog(@"网络出错！请求失败");
         //调用刷新来解决页面不出现问题
-        [self refreshAction];
+        //[self refreshAction];
     }];
 }
 
