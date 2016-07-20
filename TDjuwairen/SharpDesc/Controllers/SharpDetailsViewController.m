@@ -301,6 +301,7 @@
             [self.backcommentview addSubview:btn];
         }
         
+        //typeid 为3 表示为视频页内容。这里是为了更改有的视频为优酷视频连接时宽高问题
         if ([typeid isEqualToString:@"3"]) {
             //测试替换iframe标签宽高
             NSString *s = @"iframe";
