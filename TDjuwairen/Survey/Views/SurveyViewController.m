@@ -59,6 +59,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
+/*    FIXME: @fql didLoad 规范 参考 detailController
+    - (void)setupUICommon;
+    - (void)setupTableView;
+    - (void)loadRequest;
+ */
 //    [self judgeAPPVersion];
     
     [self setupWithNavigation];
@@ -186,6 +191,7 @@
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
     
+//    FIXME: @fql 自定义nav单独放到一个方法在添加，在UICommon方法中调用，没一个独立的试图创建和设置，都单独创建一个方法
     self.NavigationView = [[SurveyNavigationView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     [self.NavigationView.searchButton addTarget:self action:@selector(ClickSearchButton:) forControlEvents:UIControlEventTouchUpInside];
     //取消分割线
@@ -204,6 +210,7 @@
     //    self.navigationController.navigationBar.translucent = NO; //设置navigation为不透明，默认为YES半透明
     self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
     
+    // FIXME: @fql 导航条都隐藏了，还设置back按钮干嘛，删除了
     //设置返回button
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
@@ -215,7 +222,7 @@
 }
 #pragma mark - 设置tableHeaderView无限轮播
 - (void)setupWithTableHeaderView{
-    //FIXME: @hxl setupWithTableHeaderView 方法只在didload中调用一次，如果第一次加载失败，后面就一直不会显示
+    //FIXME: @fql setupWithTableHeaderView 方法只在didload中调用一次，如果第一次加载失败，后面就一直不会显示
     // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight/4) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;//page样式
@@ -312,6 +319,7 @@
 
 
 #pragma mark - 点击搜索
+// FIXME: 方法名和变量命名首字母小写
 - (void)ClickSearchButton:(UIButton *)sender{
     SearchViewController *searchView = [self.storyboard instantiateViewControllerWithIdentifier:@"searchview"];
     [self.navigationController pushViewController:searchView animated:YES];

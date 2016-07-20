@@ -107,6 +107,26 @@
     [self refreshAction];
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    if (self.loginstate.isLogIn) {
+        //进行身份验证
+        [self requestAuthentication];
+    }
+    [self registerForKeyboardNotifications];
+    firstClickComment = YES;
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+
 #pragma mark UICommon
 - (void)setupUICommon
 {
@@ -776,27 +796,6 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
-}
-
-#pragma mark - 页面出现时加载
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    if (self.loginstate.isLogIn) {
-        //进行身份验证
-        [self requestAuthentication];
-    }
-    [self registerForKeyboardNotifications];
-    firstClickComment = YES;
-}
-
-#pragma mark - 监听键盘
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)registerForKeyboardNotifications{

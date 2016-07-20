@@ -44,6 +44,7 @@
     NSURLCache *shardCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:shardCache];
     
+//    FIXME: @fql 每一项配置 单独放到一个方法中
     /* 分享SDK */
     //短信验证码
     [SMSSDK registerApp:@"133251c67bb26" withSecret:@"f5535332a67b4228d0b792ef82c2ce34"];
