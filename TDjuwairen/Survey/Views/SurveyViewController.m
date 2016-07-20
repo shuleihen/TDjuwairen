@@ -23,7 +23,7 @@
 /* 登录状态 */
 #import "LoginState.h"
 
-#import <MJRefresh/MJRefresh.h>
+#import "MJRefresh.h"
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
 {    

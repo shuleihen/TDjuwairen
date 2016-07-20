@@ -13,7 +13,7 @@
 #import "LoginState.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
-#import <MJRefresh/MJRefresh.h>
+#import "MJRefresh.h"
 
 
 @interface CommentsViewController ()<UITableViewDelegate,UITableViewDataSource>

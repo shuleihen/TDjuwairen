@@ -32,7 +32,7 @@
 #import <CoreMedia/CoreMedia.h>
 /* loading */
 #import "FSSyncSpinner.h"
-#import <MJRefresh/MJRefresh.h>
+#import "MJRefresh.h"
 #import <WebKit/WebKit.h>
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
