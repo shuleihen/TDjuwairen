@@ -71,7 +71,7 @@
 }
 
 - (void)setupWithTextView{
-    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 184, kScreenWidth, 47)];
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64, kScreenWidth, 47)];
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
@@ -80,7 +80,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, 184+47+1, kScreenWidth, 47)];
+    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64+47+1, kScreenWidth, 47)];
     self.validationText.backgroundColor = [UIColor whiteColor];
     self.validationText.textColor = [UIColor darkGrayColor];
     self.validationText.font = [UIFont systemFontOfSize:14];
@@ -89,9 +89,10 @@
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-80, 184+47+1, 80, 47)];
+    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-80, kScreenWidth/8*3+64+47+1, 80, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
     [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
+    self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.validationBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     //验证码的监听事件
     [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
@@ -144,7 +145,7 @@
 }
 
 - (void)setupWithLogin{
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 184+47+47+1+30, kScreenWidth-30, 50)];
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+64+47+47+1+30, kScreenWidth-30, 50)];
     loginBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.layer.cornerRadius = 5;//圆角半径

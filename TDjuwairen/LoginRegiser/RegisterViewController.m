@@ -1,26 +1,27 @@
 //
-//  ForgetViewController.m
+//  RegisterViewController.m
 //  TDjuwairen
 //
 //  Created by 团大 on 16/7/22.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "ForgetViewController.h"
+#import "RegisterViewController.h"
 #import "LoginState.h"
 #import <SMS_SDK/SMSSDK.h>
 
-@interface ForgetViewController ()
+@interface RegisterViewController ()
 
 @property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
 @property (nonatomic,strong) UITextField *passwordText;
+@property (nonatomic,strong) UITextField *nicknameText;
 
 @end
 
-@implementation ForgetViewController
+@implementation RegisterViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,7 +35,7 @@
     
     [self setupWithNavigation];
     [self setupWithTextField];
-    [self setupWithSubmit];//提交
+    [self setupWithRegisterBtn];
     // Do any additional setup after loading the view.
 }
 
@@ -68,7 +69,7 @@
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
-    self.accountText.placeholder = @"手机号/用户名";
+    self.accountText.placeholder = @"手机号码/邮箱";
     self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
@@ -95,7 +96,7 @@
     self.passwordText.backgroundColor = [UIColor whiteColor];
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
-    self.passwordText.placeholder = @"密码";
+    self.passwordText.placeholder = @"请设置密码(6-20位英文或数字)";
     self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
     self.passwordText.clearButtonMode = UITextFieldViewModeAlways;//右边X号
     self.passwordText.secureTextEntry = YES;//显示为星号
@@ -103,31 +104,25 @@
     //设置显示模式为永远显示(默认不显示)
     self.passwordText.leftViewMode = UITextFieldViewModeAlways;
     
+    self.nicknameText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1+47+1+47+1, kScreenWidth, 47)];
+    self.nicknameText.backgroundColor = [UIColor whiteColor];
+    self.nicknameText.textColor = [UIColor darkGrayColor];
+    self.nicknameText.font = [UIFont systemFontOfSize:14];
+    self.nicknameText.placeholder = @"请设置昵称(昵称只能设置一次，请谨慎选择)";
+    
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
     [self.view addSubview:self.validationBtn];
     [self.view addSubview:self.passwordText];
+    [self.view addSubview:self.nicknameText];
 }
 
-#pragma mark - 点击提交
-- (void)setupWithSubmit{
-    UIButton *submitBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+30, kScreenWidth-30, 50)];
-    submitBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
-    [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
-    submitBtn.layer.cornerRadius = 5;//圆角半径
-    [submitBtn addTarget:self action:@selector(ClickSubmit:) forControlEvents:UIControlEventTouchUpInside];
-    
-    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+30, kScreenWidth-30, 14)];
-    [service setTitle:@"没有绑定手机号码/邮箱？点击联系客服" forState:UIControlStateNormal];
-    service.titleLabel.font = [UIFont systemFontOfSize:14];
-    [service setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
-    
-    [self.view addSubview:submitBtn];
-    [self.view addSubview:service];
-}
-
-- (void)ClickSubmit:(UIButton *)sender{
-    
+- (void)setupWithRegisterBtn{
+    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
+    registerBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+    [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
+    registerBtn.layer.cornerRadius = 5;//圆角半径
+    [registerBtn addTarget:self action:@selector(ClickRegis:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 - (void)ClickSend:(UIButton *)sender{
@@ -171,7 +166,11 @@
     dispatch_resume(_timer);
     
 }
+
+#pragma mark - 点击注册
+- (void)ClickRegis:(UIButton *)sender{
     
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

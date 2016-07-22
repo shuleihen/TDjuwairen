@@ -147,6 +147,7 @@
 		846E51591D41B16600B89A53 /* WXlogin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846E51581D41B16600B89A53 /* WXlogin@3x.png */; };
 		846E515C1D41B3E500B89A53 /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */; };
 		846E515F1D41B99A00B89A53 /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515E1D41B99A00B89A53 /* ForgetViewController.m */; };
+		846E51621D41BCAC00B89A53 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51611D41BCAC00B89A53 /* RegisterViewController.m */; };
 		848019211CEDA02B0045456D /* ViewPointController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019201CEDA02B0045456D /* ViewPointController.m */; };
 		848019251CEDA66C0045456D /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019241CEDA66C0045456D /* VideoViewController.m */; };
 		8497DFBA1CEEE79B00D7D105 /* BackCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497DFB91CEEE79B00D7D105 /* BackCommentView.m */; };
@@ -484,6 +485,8 @@
 		846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileLoginViewController.m; sourceTree = "<group>"; };
 		846E515D1D41B99A00B89A53 /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
 		846E515E1D41B99A00B89A53 /* ForgetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetViewController.m; sourceTree = "<group>"; };
+		846E51601D41BCAC00B89A53 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
+		846E51611D41BCAC00B89A53 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		8480191F1CEDA02B0045456D /* ViewPointController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPointController.h; sourceTree = "<group>"; };
 		848019201CEDA02B0045456D /* ViewPointController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPointController.m; sourceTree = "<group>"; };
 		848019231CEDA66C0045456D /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
@@ -1565,6 +1568,8 @@
 				846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */,
 				846E515D1D41B99A00B89A53 /* ForgetViewController.h */,
 				846E515E1D41B99A00B89A53 /* ForgetViewController.m */,
+				846E51601D41BCAC00B89A53 /* RegisterViewController.h */,
+				846E51611D41BCAC00B89A53 /* RegisterViewController.m */,
 			);
 			path = LoginRegiser;
 			sourceTree = "<group>";
@@ -1852,6 +1857,7 @@
 				842B361A1CE995D500C6E400 /* AFHTTPRequestOperation.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				842B361F1CE995D500C6E400 /* AFURLConnectionOperation.m in Sources */,
+				846E51621D41BCAC00B89A53 /* RegisterViewController.m in Sources */,
 				84E334261CE2BC2D00E5DCEE /* SurveyViewController.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
 				842B362E1CE9B29200C6E400 /* SurveyNavigationView.m in Sources */,
