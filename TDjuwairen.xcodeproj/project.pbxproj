@@ -152,14 +152,14 @@
 		848019211CEDA02B0045456D /* ViewPointController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019201CEDA02B0045456D /* ViewPointController.m */; };
 		848019251CEDA66C0045456D /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019241CEDA66C0045456D /* VideoViewController.m */; };
 		8497DFBA1CEEE79B00D7D105 /* BackCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497DFB91CEEE79B00D7D105 /* BackCommentView.m */; };
-		8497DFC41CEEEB9600D7D105 /* 调研－未选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBC1CEEEB9600D7D105 /* 调研－未选中@3x.png */; };
-		8497DFC51CEEEB9600D7D105 /* 调研－选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBD1CEEEB9600D7D105 /* 调研－选中@3x.png */; };
-		8497DFC61CEEEB9600D7D105 /* 个人中心－未选定@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBE1CEEEB9600D7D105 /* 个人中心－未选定@3x.png */; };
-		8497DFC71CEEEB9600D7D105 /* 个人中心－选定@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBF1CEEEB9600D7D105 /* 个人中心－选定@3x.png */; };
-		8497DFC81CEEEB9600D7D105 /* 观点－未选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC01CEEEB9600D7D105 /* 观点－未选中@3x.png */; };
-		8497DFC91CEEEB9600D7D105 /* 观点－选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC11CEEEB9600D7D105 /* 观点－选中@3x.png */; };
-		8497DFCA1CEEEB9600D7D105 /* 视频－未选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC21CEEEB9600D7D105 /* 视频－未选中@3x.png */; };
-		8497DFCB1CEEEB9600D7D105 /* 视频－选中@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC31CEEEB9600D7D105 /* 视频－选中@3x.png */; };
+		8497DFC41CEEEB9600D7D105 /* SurveyUnSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBC1CEEEB9600D7D105 /* SurveyUnSelect@3x.png */; };
+		8497DFC51CEEEB9600D7D105 /* SurveySelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBD1CEEEB9600D7D105 /* SurveySelect@3x.png */; };
+		8497DFC61CEEEB9600D7D105 /* MyCenterUnSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBE1CEEEB9600D7D105 /* MyCenterUnSelect@3x.png */; };
+		8497DFC71CEEEB9600D7D105 /* MyCenterSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFBF1CEEEB9600D7D105 /* MyCenterSelect@3x.png */; };
+		8497DFC81CEEEB9600D7D105 /* ViewPointUnSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC01CEEEB9600D7D105 /* ViewPointUnSelect@3x.png */; };
+		8497DFC91CEEEB9600D7D105 /* ViewPointSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC11CEEEB9600D7D105 /* ViewPointSelect@3x.png */; };
+		8497DFCA1CEEEB9600D7D105 /* VideoUnSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC21CEEEB9600D7D105 /* VideoUnSelect@3x.png */; };
+		8497DFCB1CEEEB9600D7D105 /* VideoSelect@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFC31CEEEB9600D7D105 /* VideoSelect@3x.png */; };
 		8497DFD81CEEFD8300D7D105 /* 底部评论@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFD71CEEFD8300D7D105 /* 底部评论@3x.png */; };
 		8497DFDA1CEEFDCC00D7D105 /* 底部分享@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFD91CEEFDCC00D7D105 /* 底部分享@3x.png */; };
 		8497DFDC1CEEFDD700D7D105 /* 返回@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8497DFDB1CEEFDD700D7D105 /* 返回@3x.png */; };
@@ -495,14 +495,14 @@
 		848019241CEDA66C0045456D /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		8497DFB81CEEE79B00D7D105 /* BackCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackCommentView.h; sourceTree = "<group>"; };
 		8497DFB91CEEE79B00D7D105 /* BackCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackCommentView.m; sourceTree = "<group>"; };
-		8497DFBC1CEEEB9600D7D105 /* 调研－未选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "调研－未选中@3x.png"; sourceTree = "<group>"; };
-		8497DFBD1CEEEB9600D7D105 /* 调研－选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "调研－选中@3x.png"; sourceTree = "<group>"; };
-		8497DFBE1CEEEB9600D7D105 /* 个人中心－未选定@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个人中心－未选定@3x.png"; sourceTree = "<group>"; };
-		8497DFBF1CEEEB9600D7D105 /* 个人中心－选定@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "个人中心－选定@3x.png"; sourceTree = "<group>"; };
-		8497DFC01CEEEB9600D7D105 /* 观点－未选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "观点－未选中@3x.png"; sourceTree = "<group>"; };
-		8497DFC11CEEEB9600D7D105 /* 观点－选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "观点－选中@3x.png"; sourceTree = "<group>"; };
-		8497DFC21CEEEB9600D7D105 /* 视频－未选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "视频－未选中@3x.png"; sourceTree = "<group>"; };
-		8497DFC31CEEEB9600D7D105 /* 视频－选中@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "视频－选中@3x.png"; sourceTree = "<group>"; };
+		8497DFBC1CEEEB9600D7D105 /* SurveyUnSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SurveyUnSelect@3x.png"; sourceTree = "<group>"; };
+		8497DFBD1CEEEB9600D7D105 /* SurveySelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "SurveySelect@3x.png"; sourceTree = "<group>"; };
+		8497DFBE1CEEEB9600D7D105 /* MyCenterUnSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyCenterUnSelect@3x.png"; sourceTree = "<group>"; };
+		8497DFBF1CEEEB9600D7D105 /* MyCenterSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "MyCenterSelect@3x.png"; sourceTree = "<group>"; };
+		8497DFC01CEEEB9600D7D105 /* ViewPointUnSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ViewPointUnSelect@3x.png"; sourceTree = "<group>"; };
+		8497DFC11CEEEB9600D7D105 /* ViewPointSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "ViewPointSelect@3x.png"; sourceTree = "<group>"; };
+		8497DFC21CEEEB9600D7D105 /* VideoUnSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideoUnSelect@3x.png"; sourceTree = "<group>"; };
+		8497DFC31CEEEB9600D7D105 /* VideoSelect@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "VideoSelect@3x.png"; sourceTree = "<group>"; };
 		8497DFD71CEEFD8300D7D105 /* 底部评论@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "底部评论@3x.png"; sourceTree = "<group>"; };
 		8497DFD91CEEFDCC00D7D105 /* 底部分享@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "底部分享@3x.png"; sourceTree = "<group>"; };
 		8497DFDB1CEEFDD700D7D105 /* 返回@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "返回@3x.png"; sourceTree = "<group>"; };
@@ -1164,14 +1164,14 @@
 				841546E81D20B735007DB2F0 /* Guide1.png */,
 				841546E91D20B735007DB2F0 /* Guide2.png */,
 				841546EA1D20B735007DB2F0 /* Guide3.png */,
-				8497DFBC1CEEEB9600D7D105 /* 调研－未选中@3x.png */,
-				8497DFBD1CEEEB9600D7D105 /* 调研－选中@3x.png */,
-				8497DFBE1CEEEB9600D7D105 /* 个人中心－未选定@3x.png */,
-				8497DFBF1CEEEB9600D7D105 /* 个人中心－选定@3x.png */,
-				8497DFC01CEEEB9600D7D105 /* 观点－未选中@3x.png */,
-				8497DFC11CEEEB9600D7D105 /* 观点－选中@3x.png */,
-				8497DFC21CEEEB9600D7D105 /* 视频－未选中@3x.png */,
-				8497DFC31CEEEB9600D7D105 /* 视频－选中@3x.png */,
+				8497DFBC1CEEEB9600D7D105 /* SurveyUnSelect@3x.png */,
+				8497DFBD1CEEEB9600D7D105 /* SurveySelect@3x.png */,
+				8497DFBE1CEEEB9600D7D105 /* MyCenterUnSelect@3x.png */,
+				8497DFBF1CEEEB9600D7D105 /* MyCenterSelect@3x.png */,
+				8497DFC01CEEEB9600D7D105 /* ViewPointUnSelect@3x.png */,
+				8497DFC11CEEEB9600D7D105 /* ViewPointSelect@3x.png */,
+				8497DFC21CEEEB9600D7D105 /* VideoUnSelect@3x.png */,
+				8497DFC31CEEEB9600D7D105 /* VideoSelect@3x.png */,
 			);
 			path = Tabbar;
 			sourceTree = "<group>";
@@ -1716,9 +1716,9 @@
 				19C347EF1D3F5C5D008ABD16 /* ShareSDK.bundle in Resources */,
 				84E3348B1CE3182C00E5DCEE /* placeholder@2x.png in Resources */,
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
-				8497DFC61CEEEB9600D7D105 /* 个人中心－未选定@3x.png in Resources */,
+				8497DFC61CEEEB9600D7D105 /* MyCenterUnSelect@3x.png in Resources */,
 				84E333F71CE2BA3D00E5DCEE /* Assets.xcassets in Resources */,
-				8497DFC91CEEEB9600D7D105 /* 观点－选中@3x.png in Resources */,
+				8497DFC91CEEEB9600D7D105 /* ViewPointSelect@3x.png in Resources */,
 				275E9CDA1CFED0DC0075910D /* CollectImg.png in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				19C347EA1D3F5C5D008ABD16 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -1734,7 +1734,7 @@
 				275E9CDD1CFED0DC0075910D /* BrowseImg.png in Resources */,
 				846E51301D41A7DF00B89A53 /* EditView.xib in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
-				8497DFC81CEEEB9600D7D105 /* 观点－未选中@3x.png in Resources */,
+				8497DFC81CEEEB9600D7D105 /* ViewPointUnSelect@3x.png in Resources */,
 				84CC347B1CEAE53C00193D9C /* comment@2x.png in Resources */,
 				842B36341CE9BA3100C6E400 /* logo.png in Resources */,
 				271268601D05403700EBEFD0 /* 选中.png in Resources */,
@@ -1747,13 +1747,13 @@
 				84D8A8D01CFFDA040072813D /* 收藏成功@3x.png in Resources */,
 				19C347EC1D3F5C5D008ABD16 /* WeiboSDK.bundle in Resources */,
 				842B35F21CE977AD00C6E400 /* SurveyTableViewCell.xib in Resources */,
-				8497DFCB1CEEEB9600D7D105 /* 视频－选中@3x.png in Resources */,
+				8497DFCB1CEEEB9600D7D105 /* VideoSelect@3x.png in Resources */,
 				846E51321D41A7DF00B89A53 /* FeedbackTableViewCell.xib in Resources */,
 				2712685F1D05403700EBEFD0 /* 未选中.png in Resources */,
 				841546EB1D20B735007DB2F0 /* Guide1.png in Resources */,
 				84F9FE2C1CF822A400683791 /* 暂未发表过评论.png in Resources */,
 				841546ED1D20B735007DB2F0 /* Guide3.png in Resources */,
-				8497DFC41CEEEB9600D7D105 /* 调研－未选中@3x.png in Resources */,
+				8497DFC41CEEEB9600D7D105 /* SurveyUnSelect@3x.png in Resources */,
 				275E9CD71CFED0DC0075910D /* HeadUnLogin.png in Resources */,
 				275E9CE01CFED0DC0075910D /* 给我们评分.png in Resources */,
 				842B36301CE9B66B00C6E400 /* search@2x.png in Resources */,
@@ -1767,18 +1767,18 @@
 				19C347E71D3F5C5D008ABD16 /* ShareSDKUI.bundle in Resources */,
 				846E51571D41B16300B89A53 /* QQlogin@3x.png in Resources */,
 				846E51591D41B16600B89A53 /* WXlogin@3x.png in Resources */,
-				8497DFC71CEEEB9600D7D105 /* 个人中心－选定@3x.png in Resources */,
+				8497DFC71CEEEB9600D7D105 /* MyCenterSelect@3x.png in Resources */,
 				84CC34941CEAFE8B00193D9C /* blueArrow.png in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
 				275E9CDC1CFED0DC0075910D /* NotLogin.png in Resources */,
-				8497DFC51CEEEB9600D7D105 /* 调研－选中@3x.png in Resources */,
+				8497DFC51CEEEB9600D7D105 /* SurveySelect@3x.png in Resources */,
 				275E9CDE1CFED0DC0075910D /* 用户协议同意.png in Resources */,
 				19C347EE1D3F5C5D008ABD16 /* README.txt in Resources */,
 				846E512B1D41A7DF00B89A53 /* CommentsTableViewCell.xib in Resources */,
 				275E9CDF1CFED0DC0075910D /* 用户协议未同意.png in Resources */,
 				275E9CD01CFED0DC0075910D /* 关于我们.png in Resources */,
 				275E9CCA1CFED0DC0075910D /* back.png in Resources */,
-				8497DFCA1CEEEB9600D7D105 /* 视频－未选中@3x.png in Resources */,
+				8497DFCA1CEEEB9600D7D105 /* VideoUnSelect@3x.png in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				275E9CE41CFED0DC0075910D /* 返回.png in Resources */,
 				275E9CD81CFED0DC0075910D /* 局外人logo.png in Resources */,
