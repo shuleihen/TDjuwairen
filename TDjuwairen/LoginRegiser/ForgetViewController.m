@@ -81,6 +81,10 @@
     self.validationText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
+    //竖线
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 80+47+1+18, 1, 12)];
+    label.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    label.layer.borderWidth = 1.0;
     
     self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 80+47+1, 100, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
@@ -106,6 +110,7 @@
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
     [self.view addSubview:self.validationBtn];
+    [self.view addSubview:label];
     [self.view addSubview:self.passwordText];
 }
 

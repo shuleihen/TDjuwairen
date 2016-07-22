@@ -297,11 +297,11 @@
             </objects>
             <point key="canvasLocation" x="-956" y="1926"/>
         </scene>
-        <!--Item-->
+        <!--new-->
         <scene sceneID="2Pf-WV-e9N">
             <objects>
                 <navigationController id="22j-MB-CLh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" image="MyCenterUnSelect.png" selectedImage="MyCenterSelect.png" id="BoF-hT-Tyq"/>
+                    <tabBarItem key="tabBarItem" title="new" image="MyCenterUnSelect.png" selectedImage="MyCenterSelect.png" id="BoF-hT-Tyq"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
