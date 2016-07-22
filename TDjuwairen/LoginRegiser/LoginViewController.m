@@ -265,19 +265,21 @@
      {
          if (state == SSDKResponseStateSuccess)
          {
-//             NSLog(@"uid=%@",user.uid);
-//             NSLog(@"%@",user.credential);
-//             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
              NSLog(@"nickname=%@",user.nickname);
              NSLog(@"icon=%@",user.rawData[@"figureurl_qq_2"]);
              NSString *openid = user.credential.rawData[@"openid"];//rawData 为NSDictionary原始数据
              
              NSDictionary *dic = @{@"openid":openid};
-             NSString *url = [NSString stringWithFormat:@"%@checkQQAccount1_2/",kAPI_Login];
+             NSString *url = [NSString stringWithFormat:@"%@checkQQAccount1_2",kAPI_Login];
              AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
              manager.responseSerializer = [AFJSONResponseSerializer serializer];
+             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
              [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  //
+                 
                  NSLog(@"%@",responseObject);
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  NSLog(@"请求失败");

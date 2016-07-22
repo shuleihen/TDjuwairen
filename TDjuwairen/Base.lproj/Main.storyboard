@@ -51,7 +51,7 @@
         <scene sceneID="CGi-th-78t">
             <objects>
                 <navigationController id="LI6-93-0zO" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="调研" image="调研－未选中.png" selectedImage="调研－选中.png" id="TSD-S2-w6U"/>
+                    <tabBarItem key="tabBarItem" title="调研" image="SurveyUnSelect.png" selectedImage="SurveySelect.png" id="TSD-S2-w6U"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -69,7 +69,7 @@
         <scene sceneID="ixo-pe-ecZ">
             <objects>
                 <navigationController id="ycf-W0-lfw" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="观点" image="观点－未选中.png" selectedImage="观点－选中.png" id="xZQ-Ft-qlN"/>
+                    <tabBarItem key="tabBarItem" title="观点" image="ViewPointUnSelect.png" selectedImage="ViewPointSelect.png" id="xZQ-Ft-qlN"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -96,7 +96,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="观点" image="观点－未选中.png" selectedImage="观点－选中.png" id="jWz-9A-YgH"/>
+                    <tabBarItem key="tabBarItem" title="观点" image="ViewPointUnSelect.png" selectedImage="ViewPointSelect.png" id="jWz-9A-YgH"/>
                     <navigationItem key="navigationItem" id="dIz-Fk-dbc"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -108,7 +108,7 @@
         <scene sceneID="pYs-3V-bMJ">
             <objects>
                 <navigationController id="ga3-vP-UFe" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="视频" image="视频－未选中.png" selectedImage="视频－选中.png" id="kza-97-zxR"/>
+                    <tabBarItem key="tabBarItem" title="视频" image="VideoUnSelect.png" selectedImage="VideoSelect.png" id="kza-97-zxR"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -135,7 +135,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="视频" image="视频－未选中.png" selectedImage="视频－选中.png" id="Jwy-wz-6oB"/>
+                    <tabBarItem key="tabBarItem" title="视频" image="VideoUnSelect.png" selectedImage="VideoSelect.png" id="Jwy-wz-6oB"/>
                     <navigationItem key="navigationItem" id="yTb-gc-Yvh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -213,7 +213,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="调研" image="调研－选中.png" selectedImage="调研－未选中.png" id="lp9-Ol-dw1"/>
+                    <tabBarItem key="tabBarItem" title="调研" image="SurveyUnSelect.png" selectedImage="SurveySelect.png" id="lp9-Ol-dw1"/>
                     <navigationItem key="navigationItem" id="7y9-3G-GZ9"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -301,7 +301,7 @@
         <scene sceneID="2Pf-WV-e9N">
             <objects>
                 <navigationController id="22j-MB-CLh" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="BoF-hT-Tyq"/>
+                    <tabBarItem key="tabBarItem" title="Item" image="MyCenterUnSelect.png" selectedImage="MyCenterSelect.png" id="BoF-hT-Tyq"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -358,7 +358,7 @@
         <scene sceneID="hkZ-iq-yed">
             <objects>
                 <navigationController id="GBt-Q1-ZpJ" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="个人中心" image="个人中心－未选定.png" selectedImage="个人中心－选定.png" id="ggx-dD-ltm"/>
+                    <tabBarItem key="tabBarItem" title="个人中心" image="MyCenterUnSelect.png" selectedImage="MyCenterSelect.png" id="ggx-dD-ltm"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="vyM-YT-0bE">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -2119,10 +2119,16 @@
         </scene>
     </scenes>
     <resources>
+        <image name="MyCenterSelect.png" width="20" height="20"/>
+        <image name="MyCenterUnSelect.png" width="20" height="20"/>
+        <image name="SurveySelect.png" width="20" height="20"/>
+        <image name="SurveyUnSelect.png" width="20" height="20"/>
+        <image name="VideoSelect.png" width="20" height="20"/>
+        <image name="VideoUnSelect.png" width="20" height="20"/>
+        <image name="ViewPointSelect.png" width="20" height="20"/>
+        <image name="ViewPointUnSelect.png" width="20" height="20"/>
         <image name="iconfont-清除缓存.png" width="30" height="30"/>
         <image name="jwr.jpg" width="642" height="242"/>
-        <image name="个人中心－未选定.png" width="20" height="20"/>
-        <image name="个人中心－选定.png" width="20" height="20"/>
         <image name="关于我们.png" width="30" height="22"/>
         <image name="关闭显示.png" width="40" height="26"/>
         <image name="反馈.png" width="30" height="30"/>
@@ -2135,13 +2141,7 @@
         <image name="灰色收藏.png" width="43" height="40"/>
         <image name="用户协议同意.png" width="22" height="22"/>
         <image name="给我们评分.png" width="30" height="24"/>
-        <image name="观点－未选中.png" width="20" height="20"/>
-        <image name="观点－选中.png" width="20" height="20"/>
-        <image name="视频－未选中.png" width="20" height="20"/>
-        <image name="视频－选中.png" width="20" height="20"/>
         <image name="设置.png" width="30" height="30"/>
         <image name="评论.png" width="46" height="40"/>
-        <image name="调研－未选中.png" width="20" height="20"/>
-        <image name="调研－选中.png" width="20" height="20"/>
     </resources>
 </document>

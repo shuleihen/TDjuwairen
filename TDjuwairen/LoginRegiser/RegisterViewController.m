@@ -83,6 +83,11 @@
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
     
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 80+47+1+12, 1, 24)];
+    label.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    label.layer.borderWidth = 1.0;
+    
+    
     self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 80+47+1, 100, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
     [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
@@ -109,10 +114,14 @@
     self.nicknameText.textColor = [UIColor darkGrayColor];
     self.nicknameText.font = [UIFont systemFontOfSize:14];
     self.nicknameText.placeholder = @"请设置昵称(昵称只能设置一次，请谨慎选择)";
+    self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.passwordText.leftViewMode = UITextFieldViewModeAlways;
     
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
     [self.view addSubview:self.validationBtn];
+    [self.view addSubview:label];
     [self.view addSubview:self.passwordText];
     [self.view addSubview:self.nicknameText];
 }
