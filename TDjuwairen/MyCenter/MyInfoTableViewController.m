@@ -86,7 +86,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self setNagivation];
     [self loadImage];
     
@@ -137,7 +136,6 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
     [effectView removeFromSuperview];
 }
 

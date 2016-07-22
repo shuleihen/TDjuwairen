@@ -129,7 +129,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     [self requestBrowser];
     [self setNavigation];
@@ -332,10 +331,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >= [BrowserArray count]) {
-        return;
-    }
-    
     if (edit==NO) {
     NSDictionary*dic=BrowserArray[indexPath.row];
     SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];

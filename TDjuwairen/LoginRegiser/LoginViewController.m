@@ -1,0 +1,229 @@
+//
+//  LoginViewController.m
+//  TDjuwairen
+//
+//  Created by 团大 on 16/7/22.
+//  Copyright © 2016年 团大网络科技. All rights reserved.
+//
+
+#import "LoginViewController.h"
+#import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+
+@interface LoginViewController ()
+
+@property (nonatomic,strong) UITextField *accountText;
+@property (nonatomic,strong) UITextField *passwordText;
+
+@end
+
+@implementation LoginViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
+    
+    //收起键盘手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+    
+    [self setupWithNavigation];
+    [self setupWithLogoImage];
+    [self setupWithTextView];
+    [self setupWithLogin];
+    [self setupWithMobileAndForget];//短信验证和忘记密码
+    [self setupWithQQWXLogin];//第三方登录
+    // Do any additional setup after loading the view.
+}
+
+-(void)viewTapped:(UITapGestureRecognizer*)tap
+{
+    [self.view endEditing:YES];
+}
+
+- (void)setupWithNavigation{
+    [self.navigationController.navigationBar setHidden:NO];
+    //设置navigation背景色
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    self.navigationItem.title = @"登录";
+    // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
+    
+    //设置返回button
+    
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    
+    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    UIImage* image = [UIImage imageNamed:@"back"];
+    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
+    self.navigationItem.backBarButtonItem = backItem;
+    
+    //设置右边注册按钮
+    UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleDone target:self action:@selector(ClickRegister:)];
+    self.navigationItem.rightBarButtonItem = regist;
+}
+
+- (void)setupWithLogoImage{
+    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, 120)];
+    imageview.image = [UIImage imageNamed:@"jwr.jpg"];
+    [self.view addSubview:imageview];
+}
+
+- (void)setupWithTextView{
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 184, kScreenWidth, 47)];
+    self.accountText.backgroundColor = [UIColor whiteColor];
+    self.accountText.textColor = [UIColor darkGrayColor];
+    self.accountText.font = [UIFont systemFontOfSize:14];
+    self.accountText.placeholder = @"手机号/用户名";
+    self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.accountText.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 184+47+1, kScreenWidth, 47)];
+    self.passwordText.backgroundColor = [UIColor whiteColor];
+    self.passwordText.textColor = [UIColor darkGrayColor];
+    self.passwordText.font = [UIFont systemFontOfSize:14];
+    self.passwordText.placeholder = @"密码";
+    self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
+    self.passwordText.clearButtonMode = UITextFieldViewModeAlways;//右边X号
+    self.passwordText.secureTextEntry = YES;//显示为星号
+    self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.passwordText.leftViewMode = UITextFieldViewModeAlways;
+    
+    [self.view addSubview:self.accountText];
+    [self.view addSubview:self.passwordText];
+}
+
+- (void)setupWithLogin{
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 184+47+47+1+30, kScreenWidth-30, 50)];
+    loginBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    loginBtn.layer.cornerRadius = 5;//圆角半径
+    [loginBtn addTarget:self action:@selector(ClickLogin:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:loginBtn];
+}
+
+- (void)setupWithMobileAndForget{
+    UIButton *mobile = [[UIButton alloc]initWithFrame:CGRectMake(15, 184+47+47+1+80+8, 100, 14)];
+    [mobile setTitle:@"手机短信验证登录" forState:UIControlStateNormal];
+    mobile.titleLabel.font = [UIFont systemFontOfSize:12];
+    mobile.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [mobile setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [mobile addTarget:self action:@selector(ClickMobileLogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *forget = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-60, 184+47+47+1+80+8, 60, 14)];
+    [forget setTitle:@"忘记密码？" forState:UIControlStateNormal];
+    forget.titleLabel.font = [UIFont systemFontOfSize:12];
+    forget.titleLabel.textAlignment = NSTextAlignmentLeft;
+    [forget setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
+    [forget addTarget:self action:@selector(ClickForget:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:mobile];
+    [self.view addSubview:forget];
+}
+
+- (void)setupWithQQWXLogin{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/3, 184+47+47+1+80+8+14+40, kScreenWidth/3, 14)];
+    label.text = @"第三方登录";
+    label.textAlignment = NSTextAlignmentCenter;
+    label.font = [UIFont systemFontOfSize:16];
+    [self.view addSubview:label];
+    
+    UIButton *WXLogin = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-120)/3, 184+47+47+1+80+8+14+40+14+30, 60, 60)];
+    [WXLogin setBackgroundImage:[UIImage imageNamed:@"WXlogin"] forState:UIControlStateNormal];
+    WXLogin.layer.cornerRadius = 30;
+    [WXLogin addTarget:self action:@selector(WXlogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UIButton *QQLogin = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-120)/3*2+60, 184+47+47+1+80+8+14+40+14+30, 60, 60)];
+    [QQLogin setBackgroundImage:[UIImage imageNamed:@"QQlogin"] forState:UIControlStateNormal];
+    QQLogin.layer.cornerRadius = 30;
+    [QQLogin addTarget:self action:@selector(QQlogin:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.view addSubview:WXLogin];
+    [self.view addSubview:QQLogin];
+}
+
+#pragma mark - 点击注册
+- (void)ClickRegister:(UIButton *)sender{
+    //
+}
+
+#pragma mark - 点击登录
+- (void)ClickLogin:(UIButton *)sender{
+    //
+}
+
+#pragma mark - 手机短信登录
+- (void)ClickMobileLogin:(UIButton *)sender{
+    
+}
+
+#pragma mark - 忘记密码
+- (void)ClickForget:(UIButton *)sender{
+    
+}
+
+#pragma mark - wx登录
+- (void)WXlogin:(UIButton *)sender{
+    [ShareSDK getUserInfo:SSDKPlatformTypeWechat
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         NSLog(@"%lu",(unsigned long)state);
+         if (state == SSDKResponseStateSuccess)
+         {
+             
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"nickname=%@",user.nickname);
+         }
+         
+         else
+         {
+             NSLog(@"%@",error);
+         }
+         
+     }];
+}
+
+- (void)QQlogin:(UIButton *)sender{
+    /* 取消授权 */
+    [ShareSDK cancelAuthorize:SSDKPlatformTypeQQ];
+    [ShareSDK getUserInfo:SSDKPlatformTypeQQ
+           onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
+     {
+         if (state == SSDKResponseStateSuccess)
+         {
+             NSLog(@"uid=%@",user.uid);
+             NSLog(@"%@",user.credential);
+             NSLog(@"token=%@",user.credential.token);
+             NSLog(@"nickname=%@",user.nickname);
+         }
+         
+         else
+         {
+             NSLog(@"%@",error);
+         }
+         
+     }];
+}
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    // Dispose of any resources that can be recreated.
+}
+
+/*
+#pragma mark - Navigation
+
+// In a storyboard-based application, you will often want to do a little preparation before navigation
+- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+    // Get the new view controller using [segue destinationViewController].
+    // Pass the selected object to the new view controller.
+}
+*/
+
+@end

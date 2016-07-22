@@ -40,7 +40,6 @@
 }
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self setNavgation];
     
     if (self.LoginState.isLogIn==YES) {
@@ -69,7 +68,6 @@
 
 -(void)viewDidDisappear:(BOOL)animated
 {
-    [super viewDidDisappear:animated];
     [effectView removeFromSuperview];
 }
 

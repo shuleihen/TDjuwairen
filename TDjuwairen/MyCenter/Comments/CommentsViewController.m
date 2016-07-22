@@ -13,16 +13,21 @@
 #import "LoginState.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
-#import "MJRefresh.h"
+
+//刷新
+#import "FCXRefreshFooterView.h"
+#import "FCXRefreshHeaderView.h"
+#import "UIScrollView+FCXRefresh.h"
 
 
 @interface CommentsViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     NSMutableArray*CommentsArray;
-//    int page;
+    int page;
     BOOL haveComments;
+    FCXRefreshHeaderView *headerView;
+    FCXRefreshFooterView *footerView;
 }
-@property (nonatomic, assign) NSInteger page;
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong)LoginState*loginState;
 @end
@@ -31,39 +36,62 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [self setupUICommon];
-    
-    self.loginState=[LoginState addInstance];
-    self.page=1;
-    CommentsArray=[NSMutableArray array];
-    
-    [self refreshAction];
-}
-
-- (void)setupUICommon
-{
-    self.title = @"评论管理";
-    [self setupTableView];
-}
-
-- (void)setupTableView
-{
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
+    self.loginState=[LoginState addInstance];
+    self.tableview.contentInset=UIEdgeInsetsMake(-35, 0, 0, 0);
+    page=1;
+    CommentsArray=[NSMutableArray array];
+    [self requestComments];
+    [self addRefreshView];           //设置刷新
     
-    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    // Do any additional setup after loading the view.
+}
+
+- (void)addRefreshView {
+    
+    __weak __typeof(self)weakSelf = self;
+    
+    //下拉刷新
+    headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
+        [weakSelf refreshAction];
+    }];
+    
+    //上拉加载更多
+    footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
+        [weakSelf loadMoreAction];
+    }];
+    
+    //自动刷新
+    //    footerView.autoLoadMore = self.autoLoadMore;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.tableview reloadData];
+        self.tableview.contentInset=UIEdgeInsetsMake(-35, 0, 0, 0);
+    });
 }
 
 - (void)refreshAction {
-    self.page = 1;
-    [self requestCommentsWithPage:self.page];
+    __weak UITableView *weakTableView = self.tableview;
+    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
+    //数据表页数为1
+    page = 1;
+    [self requestComments];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakHeaderView endRefresh];
+        [weakTableView reloadData];
+    });
 }
 
 - (void)loadMoreAction {
+    __weak UITableView *weakTableView = self.tableview;
+    __weak FCXRefreshFooterView *weakFooterView = footerView;
+    page++;
     //继续请求
-    [self requestCommentsWithPage:(self.page + 1)];
+    [self requestComments];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [weakFooterView endRefresh];
+        [weakTableView reloadData];
+    });
 }
 
 - (void)didReceiveMemoryWarning {
@@ -72,29 +100,33 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
+    [self setNavigation];
 }
 
--(void)requestCommentsWithPage:(NSInteger)currentPage
+-(void)setNavigation
 {
-    __weak CommentsViewController *wself = self;
+    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
+    label.text=@"评论管理";
+    self.navigationItem.titleView=label;
+}
+
+-(void)requestComments
+{
     AFHTTPRequestOperationManager*manager=[AFHTTPRequestOperationManager manager];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
     NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/User/getUserComnment"];
     NSDictionary*paras=@{@"userid":self.loginState.userId,
                          @"module_id":@"2",
-                         @"page":[NSString stringWithFormat:@"%d",currentPage]};
+                         @"page":[NSString stringWithFormat:@"%d",page]};
     [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (currentPage==1) {
+        if (page==1) {
             [CommentsArray removeAllObjects];
             NSString*code=[responseObject objectForKey:@"code"];
             if ([code isEqualToString:@"400"]) {
                 haveComments=NO;
             }
-            
-            [wself.tableview.mj_header endRefreshing];
         }
         NSString*code=[responseObject objectForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
@@ -103,14 +135,15 @@
             for (NSDictionary*dic in array) {
                 [CommentsArray addObject:dic];
             }
-            
-            [wself.tableview.mj_footer endRefreshing];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                __weak FCXRefreshFooterView *weakFooterView = footerView;
+                [weakFooterView endRefresh];
+                [self.tableview reloadData];//主线程刷新tableview
+            });
         }
-        [wself.tableview reloadData];
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [wself.tableview.mj_header endRefreshing];
-         [wself.tableview.mj_footer endRefreshing];
+        
     }];
     
 }
@@ -157,10 +190,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row >= [CommentsArray count]) {
-        return;
-    }
-    
     NSDictionary*dic=CommentsArray[indexPath.row];
     SharpDetailsViewController *sharp = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
     sharp.sharp_id=dic[@"sharpcomment_sharpid"];

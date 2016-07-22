@@ -128,7 +128,6 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     [self setNavigation];
     [self requestCollection];
@@ -324,14 +323,10 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (edit==NO) {
-        if (indexPath.row >= [CollectionArray count]) {
-            return;
-        }
-        
-        NSDictionary*dic=CollectionArray[indexPath.row];
-        SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
-        sharp.sharp_id=dic[@"sharp_id"];
-        [self.navigationController pushViewController:sharp animated:YES];
+    NSDictionary*dic=CollectionArray[indexPath.row];
+    SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    sharp.sharp_id=dic[@"sharp_id"];
+    [self.navigationController pushViewController:sharp animated:YES];
     }
 }
 
