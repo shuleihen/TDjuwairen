@@ -160,7 +160,26 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ss7-GD-zFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-988" y="1940"/>
+            <point key="canvasLocation" x="-1320" y="1926"/>
+        </scene>
+        <!--Forget View Controller-->
+        <scene sceneID="aHt-y5-u8N">
+            <objects>
+                <viewController storyboardIdentifier="forget" id="1q5-Ix-xX7" customClass="ForgetViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c5h-jo-4gT"/>
+                        <viewControllerLayoutGuide type="bottom" id="Wha-YS-XXK"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="NRG-Fc-q4U">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qm4-0K-KXw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1320" y="2548"/>
         </scene>
         <!--调研-->
         <scene sceneID="xI0-sp-s8P">
@@ -239,6 +258,25 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="N2S-P9-hju" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1396" y="-303"/>
+        </scene>
+        <!--Mobile Login View Controller-->
+        <scene sceneID="Oja-0g-ETb">
+            <objects>
+                <viewController storyboardIdentifier="mobilelogin" id="Pet-WW-eK4" customClass="MobileLoginViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2q8-Vn-MoW"/>
+                        <viewControllerLayoutGuide type="bottom" id="0dJ-BV-lB8"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Ocg-Cf-UjR">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dL1-8U-PfP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-956" y="1926"/>
         </scene>
         <!--Item-->
         <scene sceneID="2Pf-WV-e9N">

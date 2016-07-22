@@ -145,6 +145,8 @@
 		846E51551D41A95A00B89A53 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51541D41A95A00B89A53 /* LoginViewController.m */; };
 		846E51571D41B16300B89A53 /* QQlogin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846E51561D41B16300B89A53 /* QQlogin@3x.png */; };
 		846E51591D41B16600B89A53 /* WXlogin@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 846E51581D41B16600B89A53 /* WXlogin@3x.png */; };
+		846E515C1D41B3E500B89A53 /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */; };
+		846E515F1D41B99A00B89A53 /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515E1D41B99A00B89A53 /* ForgetViewController.m */; };
 		848019211CEDA02B0045456D /* ViewPointController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019201CEDA02B0045456D /* ViewPointController.m */; };
 		848019251CEDA66C0045456D /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019241CEDA66C0045456D /* VideoViewController.m */; };
 		8497DFBA1CEEE79B00D7D105 /* BackCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497DFB91CEEE79B00D7D105 /* BackCommentView.m */; };
@@ -478,6 +480,10 @@
 		846E51541D41A95A00B89A53 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		846E51561D41B16300B89A53 /* QQlogin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "QQlogin@3x.png"; sourceTree = "<group>"; };
 		846E51581D41B16600B89A53 /* WXlogin@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "WXlogin@3x.png"; sourceTree = "<group>"; };
+		846E515A1D41B3E500B89A53 /* MobileLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileLoginViewController.h; sourceTree = "<group>"; };
+		846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileLoginViewController.m; sourceTree = "<group>"; };
+		846E515D1D41B99A00B89A53 /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
+		846E515E1D41B99A00B89A53 /* ForgetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetViewController.m; sourceTree = "<group>"; };
 		8480191F1CEDA02B0045456D /* ViewPointController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewPointController.h; sourceTree = "<group>"; };
 		848019201CEDA02B0045456D /* ViewPointController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPointController.m; sourceTree = "<group>"; };
 		848019231CEDA66C0045456D /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
@@ -1555,6 +1561,10 @@
 				84F9FE051CF80F3A00683791 /* RegiserTableViewController.m */,
 				846E51531D41A95A00B89A53 /* LoginViewController.h */,
 				846E51541D41A95A00B89A53 /* LoginViewController.m */,
+				846E515A1D41B3E500B89A53 /* MobileLoginViewController.h */,
+				846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */,
+				846E515D1D41B99A00B89A53 /* ForgetViewController.h */,
+				846E515E1D41B99A00B89A53 /* ForgetViewController.m */,
 			);
 			path = LoginRegiser;
 			sourceTree = "<group>";
@@ -1803,6 +1813,7 @@
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				84CC34971CEAFE8B00193D9C /* FCXRefreshFooterView.m in Sources */,
 				846E51361D41A7DF00B89A53 /* MineTableViewController.m in Sources */,
+				846E515C1D41B3E500B89A53 /* MobileLoginViewController.m in Sources */,
 				275E9C8E1CFE830E0075910D /* AgreeViewController.m in Sources */,
 				8497E0651CEF0B2800D7D105 /* TAAnimatedDotView.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
@@ -1890,6 +1901,7 @@
 				842B36371CE9C4C000C6E400 /* SurveyListModel.m in Sources */,
 				846E51391D41A7DF00B89A53 /* SettingTableViewController.m in Sources */,
 				84E56CA21CF6C2F4003E18F2 /* HistoryView.m in Sources */,
+				846E515F1D41B99A00B89A53 /* ForgetViewController.m in Sources */,
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
 				846E512D1D41A7DF00B89A53 /* NoCommentsTableViewCell.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
