@@ -93,6 +93,11 @@
 
 @implementation SharpDetailsViewController
 
+- (void)dealloc
+{
+    [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -141,6 +146,11 @@
     self.webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webview.delegate = self;
     self.webview.scrollView.scrollEnabled = NO;
+    
+    [self.webview.scrollView addObserver:self
+                              forKeyPath:@"contentSize"
+                                 options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+                                 context:nil];
 }
 
 - (void)setupTableView
@@ -191,6 +201,21 @@
     [self.loading2 removeFromSuperview];
     self.loadingBackView.alpha = 0.0;
     [self.loadingBackView removeFromSuperview];
+}
+
+#pragma mark Observe
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentSize"]) {
+        CGSize oldSize = [change[NSKeyValueChangeOldKey] CGSizeValue];
+        CGSize contentSize = [change[NSKeyValueChangeNewKey] CGSizeValue];
+        if (oldSize.height == contentSize.height) {
+            return;
+        }
+        
+        self.webview.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+        [self.tableview reloadData];
+    }
 }
 
 #pragma mark Request Data
@@ -346,14 +371,14 @@
         }
         
         // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
-        string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
+//        string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"preload=\"load\""];
         
         // 去掉图片和图片说明之间的换行
         // <p class="article_descriptions"><br/></p><p class="article_photo_label"> replace to <p class="article_photo_label"> 
 //        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p><p class=\"article_photo_label\">" withString:@"<p class=\"article_photo_label\">"];
         
         // 去掉标题头部的空行 <p class='detail_content'>
-        string = [string stringByReplacingOccurrencesOfString:@"<p class='detail_content'>" withString:@""];
+//        string = [string stringByReplacingOccurrencesOfString:@"<p class='detail_content'>" withString:@""];
         
 //        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p>" withString:@"<p class=\"article_descriptions\"></p>"];
         
@@ -644,13 +669,16 @@
     if ([typeid isEqualToString:@"3"]) {
         return;
     }
-         
-    NSInteger height = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight"] integerValue];
-    
-    CGRect frame = webView.frame;
-    frame.size.height = height;
-    self.webview.frame = frame;
-    [self.tableview reloadData];
+         //document.documentElement.clientHeight
+//    NSInteger h1 = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.clientHeight"] integerValue];
+//    NSInteger h = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] integerValue];
+//    
+////    NSInteger height = webView.scrollView.contentSize.height;
+//    
+//    CGRect frame = webView.frame;
+//    frame.size.height = h;
+//    self.webview.frame = frame;
+//    [self.tableview reloadData];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
