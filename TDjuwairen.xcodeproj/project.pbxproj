@@ -10,6 +10,9 @@
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
+		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
+		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
+		19A7EE5C1D423ED200F833A9 /* README.mdown in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE591D423ED200F833A9 /* README.mdown */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
 		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
 		19C347E41D3F5C5D008ABD16 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19C347C01D3F5C5D008ABD16 /* MOBFoundation.framework */; };
@@ -261,6 +264,10 @@
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		19A7EE561D423ED200F833A9 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
+		19A7EE571D423ED200F833A9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		19A7EE581D423ED200F833A9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		19A7EE591D423ED200F833A9 /* README.mdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.mdown; sourceTree = "<group>"; };
 		19A9721B1D4226A600A9D521 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		19C347C01D3F5C5D008ABD16 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
@@ -705,6 +712,17 @@
 			name = Res;
 			path = TDjuwairen/Res;
 			sourceTree = SOURCE_ROOT;
+		};
+		19A7EE551D423ED200F833A9 /* MBProgressHUD */ = {
+			isa = PBXGroup;
+			children = (
+				19A7EE561D423ED200F833A9 /* LICENSE */,
+				19A7EE571D423ED200F833A9 /* MBProgressHUD.h */,
+				19A7EE581D423ED200F833A9 /* MBProgressHUD.m */,
+				19A7EE591D423ED200F833A9 /* README.mdown */,
+			);
+			path = MBProgressHUD;
+			sourceTree = "<group>";
 		};
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
@@ -1412,6 +1430,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19A7EE551D423ED200F833A9 /* MBProgressHUD */,
 				19C348351D3F76DB008ABD16 /* MJRefresh */,
 				84F9FDB01CF80E0A00683791 /* ELCImagePicker */,
 				8497E0541CEF0B2800D7D105 /* SDCycleScrollView */,
@@ -1744,6 +1763,7 @@
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				846E51261D41A7DF00B89A53 /* CollectionTableViewCell.xib in Resources */,
 				275E9CD51CFED0DC0075910D /* 发送－输入文字后.png in Resources */,
+				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
 				84D8A8D01CFFDA040072813D /* 收藏成功@3x.png in Resources */,
 				19C347EC1D3F5C5D008ABD16 /* WeiboSDK.bundle in Resources */,
 				842B35F21CE977AD00C6E400 /* SurveyTableViewCell.xib in Resources */,
@@ -1845,6 +1865,7 @@
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				846E514F1D41A93000B89A53 /* SetUpTableViewCell.m in Sources */,
+				19A7EE5C1D423ED200F833A9 /* README.mdown in Sources */,
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,
 				84D8A8C11CFFD1760072813D /* SearchResultTableViewCell.m in Sources */,
 				842B36211CE995D500C6E400 /* AFURLResponseSerialization.m in Sources */,
@@ -1879,6 +1900,7 @@
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				842B361B1CE995D500C6E400 /* AFHTTPRequestOperationManager.m in Sources */,
 				19C348711D3F76DB008ABD16 /* MJRefreshStateHeader.m in Sources */,
+				19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */,
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				846E51231D41A7DF00B89A53 /* NoBrowserTableViewCell.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,

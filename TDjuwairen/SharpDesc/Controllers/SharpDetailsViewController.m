@@ -35,6 +35,8 @@
 #import "MJRefresh.h"
 #import <WebKit/WebKit.h>
 
+#import "MBProgressHUD.h"
+
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 {
     int page;
@@ -129,6 +131,7 @@
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.view endEditing:YES];
 }
 
 
@@ -174,14 +177,14 @@
 - (void)setupCommentView
 {
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-50, kScreenWidth, 50)];
-    [self.backcommentview.backback addTarget:self action:@selector(ClickGOBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.backButton addTarget:self action:@selector(ClickGOBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.backback addTarget:self action:@selector(clickGOBack:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.backButton addTarget:self action:@selector(clickGOBack:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.backcommentview.backComment addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.ClickComment addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.backComment addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.ClickComment addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.backcommentview.backShare addTarget:self action:@selector(ClickShare:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.ClickShare addTarget:self action:@selector(ClickShare:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.backShare addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
+    [self.backcommentview.ClickShare addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
     
     self.backcommentview.commentview.delegate = self;
     
@@ -347,7 +350,7 @@
             [btn setBackgroundColor:[UIColor colorWithRed:27/255.0 green:105/255.0 blue:177/255.0 alpha:1.0]];
             [btn setTitle:text forState:UIControlStateNormal];
             //新增点击滑动
-            [btn addTarget:self action:@selector(ClickComments:) forControlEvents:UIControlEventTouchUpInside];
+            [btn addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
             
             [self.backcommentview addSubview:btn];
         }
@@ -508,7 +511,7 @@
                 [cell.addCollection setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
             }
 //            cell.contentView.backgroundColor = [UIColor redColor];
-            [cell.addCollection addTarget:self action:@selector(ClickAdd:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.addCollection addTarget:self action:@selector(clickAdd:) forControlEvents:UIControlEventTouchUpInside];
             //设置三秒内不可重复点击
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -727,8 +730,73 @@
     NSLog(@"页面加载失败");
 }
 
-#pragma mark - 点击收藏或取消收藏
-- (void)ClickAdd:(UIButton *)sender{
+
+#pragma mark - TextFieldDelegate
+- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
+{
+    if (!self.loginstate.isLogIn) {
+        [self gotLoginViewController];
+        return NO;
+    }
+    return YES;
+}
+
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    [self sendCommentWithText:textField.text];
+    return YES;
+}
+
+- (void)gotLoginViewController
+{
+    LoginTableViewController *loginview = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
+    [self.navigationController pushViewController:loginview animated:YES];
+}
+
+- (void)sendCommentWithText:(NSString *)text
+{
+    if (text.length == 0) {
+        return;
+    }
+    
+    
+    NSString *string = [NSString stringWithFormat:@"%@addSharpComnment",kAPI_Sharp];
+    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":self.loginstate.userId,@"sharpcomment":text,@"authenticationStr":self.loginstate.userId,@"encryptedStr":encryptedStr};
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"发表新评论";
+    
+    __weak SharpDetailsViewController *wself = self;
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if ([responseObject[@"code"]  isEqualToString:@"200"]) {
+            hud.labelText = @"评论成功";
+            [hud hide:YES afterDelay:0.2];
+            
+            //请求评论数据
+            [wself requestDataWithComments];
+            
+            //滑动到评论
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [wself.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        } else {
+            hud.labelText = @"评论失败";
+            [hud hide:YES afterDelay:0.2];
+        }
+        
+        wself.backcommentview.commentview.text = @"";
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        hud.labelText = @"评论失败";
+        [hud hide:YES afterDelay:0.2];
+        NSLog(@"请求失败");
+    }];
+}
+
+#pragma mark - Action
+- (void)clickAdd:(UIButton *)sender{
     //点击之后三秒内不可再次点击
     [sender setEnabled:NO];
     int64_t delayInSeconds = 2.0 * 1.0;
@@ -739,27 +807,39 @@
     
     if (self.loginstate.isLogIn) {
         if ([iscollect intValue] == 0) {
-            iscollect = @"1";
-            [sender setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
+            
             
             NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
             NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.sharp_id};
+
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"添加收藏";
+
             AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
             manager.responseSerializer = [AFJSONResponseSerializer serializer];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
             [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 if ([responseObject[@"code"] isEqualToString:@"200"]) {
                     //收藏成功 弹出提示框
-                    [self PopSuccessPrompts];
+                    hud.labelText = @"收藏成功";
+                    [hud hide:YES afterDelay:0.2];
+                    
+                    iscollect = @"1";
+                    [sender setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
+                } else {
+                    hud.labelText = @"收藏失败";
+                    [hud hide:YES afterDelay:0.2];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                hud.labelText = @"收藏失败";
+                [hud hide:YES afterDelay:0.2];
                 NSLog(@"请求失败");
             }];
         }
         else
         {
-            iscollect = @"0";
-            [sender setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"取消收藏";
             
             NSMutableArray *sharpID = [NSMutableArray array];
             [sharpID addObject:self.sharp_id];
@@ -775,33 +855,34 @@
             [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSString*code=[responseObject objectForKey:@"code"];
                 if ([code isEqualToString:@"200"]) {
-                    //取消成功 弹出提示框
-                    [self PopFailPrompts];
+                    iscollect = @"0";
+                    [sender setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
+                 
+                    hud.labelText = @"取消成功";
+                    [hud hide:YES afterDelay:0.2];
                 }
                 else {
-                    NSLog(@"取消失败");
+                    hud.labelText = @"取消失败";
+                    [hud hide:YES afterDelay:0.2];
                 }
             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                hud.labelText = @"取消失败";
+                [hud hide:YES afterDelay:0.2];
                 NSLog(@"请求失败");
             }];
         }
     }
     else
     {
-        //如果没登录，就跳转到登录页面
-        LoginTableViewController *loginview = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
-        [self.navigationController pushViewController:loginview animated:YES];
+        [self gotLoginViewController];
     }
 }
 
-#pragma mark - 点击返回
-- (void)ClickGOBack:(UIButton *)sender{
-//    self.webview.delegate = nil;
+- (void)clickGOBack:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - 点击评论
-- (void)ClickComments:(UIButton *)sender{
+- (void)clickComments:(UIButton *)sender{
     
     //滑动到评论
     
@@ -821,8 +902,7 @@
     }
 }
 
-#pragma mark - 点击分享
-- (void)ClickShare:(UIButton *)sender{
+- (void)clickShare:(UIButton *)sender{
     //释放键盘第一响应
     [self.backcommentview.commentview resignFirstResponder];
     //1、创建分享参数
@@ -862,32 +942,6 @@
      ];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-- (void)registerForKeyboardNotifications{
-    //使用NSNotificationCenter键盘出现时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-    //使用NSNotificationCenter 鍵盤隐藏時
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden) name:UIKeyboardWillHideNotification object:nil];
-}
-
-//当键盘出现时计算键盘的高度大小，用于输入框显示
-- (void)keyboardWasShown:(NSNotification *)aNotification{
-    NSDictionary *info = [aNotification userInfo];
-    //kbSize为键盘尺寸
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
-    [self beginMoveUpAnimation:kbSize.height];
-    
-}
-
-//当键盘隐藏时
-- (void)keyboardWillBeHidden{
-    [self restoreAnimation];
-}
-
 #pragma mark-身份验证
 -(void)requestAuthentication
 {
@@ -908,163 +962,34 @@
     }];
 }
 
-
-#pragma mark - 点击键盘上的发送按钮
--(BOOL)textFieldShouldReturn:(UITextField *)textField
-{
-    /* 添加评论 */
-    NSString *string = [NSString stringWithFormat:@"%@addSharpComnment",kAPI_Sharp];
-    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":self.loginstate.userId,@"sharpcomment":self.backcommentview.commentview.text,@"authenticationStr":self.loginstate.userId,@"encryptedStr":encryptedStr};
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([responseObject[@"code"]  isEqualToString:@"200"]) {
-            //评论成功 弹出提示框
-            [self PopSuccess];
-            //请求评论数据
-            [self requestDataWithComments];
-            
-            //滑动到评论
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:1];
-            [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-            /* 释放第一响应并清空输入的信息 */
-            self.backcommentview.commentview.text = @"";
-            [self.backcommentview.commentview resignFirstResponder];
-        });
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-    }];
-    return YES;
+#pragma mark Keyboard
+- (void)registerForKeyboardNotifications{
+    //使用NSNotificationCenter键盘出现时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    //使用NSNotificationCenter 鍵盤隐藏時
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden) name:UIKeyboardWillHideNotification object:nil];
 }
 
-#pragma mark - 开始编辑时
-- (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
-{
-    //判断当前是否为登录状态,不是则去登录
-    if (!self.loginstate.isLogIn) {
-        [self.backcommentview removeFromSuperview];
-        LoginTableViewController *loginview = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
-        [self.navigationController pushViewController:loginview animated:YES];
-    }
-    return YES;
+- (void)keyboardWasShown:(NSNotification *)aNotification{
+    //当键盘出现时计算键盘的高度大小，用于输入框显示
+    NSDictionary *info = [aNotification userInfo];
+    //kbSize为键盘尺寸
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
+    [self beginMoveUpAnimation:kbSize.height];
 }
-#pragma mark - 开始动画
-- (void)beginMoveUpAnimation:(CGFloat )height{
-    [UIView animateWithDuration:0.1 animations:^{
-        self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
-        self.tableview.transform = CGAffineTransformMakeTranslation(0, -height);
-    }];
-}
-#pragma mark - 还原动画
-- (void)restoreAnimation{
+
+- (void)keyboardWillBeHidden{
     [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformIdentity;
         self.tableview.transform = CGAffineTransformIdentity;
     }];
 }
 
-#pragma mark - 弹出成功提示框
-- (void)PopSuccess{
-    view = [[UIView alloc]init];
-    //取消成功
-    label = [[UILabel alloc]init];
-    NSString *text = @"评论成功";
-    label.text = text;
-    label.textColor = [UIColor whiteColor];
-    UIFont *font = [UIFont systemFontOfSize:16];
-    label.font = font;
-    CGSize size = CGSizeMake(300, 20000.0f);
-    CGSize labsize = [text calculateSize:size font:font];
-    label.frame = CGRectMake(15, 15, labsize.width, labsize.height);
-    
-    view.frame = CGRectMake(0, 0, 15+labsize.width+15, 50);
-    view.backgroundColor = [UIColor blackColor];
-    view.center = self.view.center;
-    
-    [view addSubview:label];
-    [self.view addSubview:view];
-    
-    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(scrollTimer) userInfo:nil repeats:NO];
-}
-- (void)PopSuccessPrompts{
-    view = [[UIView alloc]init];
-    //收藏成功
-    label = [[UILabel alloc]init];
-    NSString *text = @"收藏成功  |";
-    label.text = text;
-    label.textColor = [UIColor whiteColor];
-    UIFont *font = [UIFont systemFontOfSize:16];
-    label.font = font;
-    CGSize size = CGSizeMake(300, 20000.0f);
-    CGSize labelsize = [text calculateSize:size font:font];
-    label.frame = CGRectMake(15, 15, labelsize.width, labelsize.height);
-    //查看按钮
-    button = [[UIButton alloc]init];
-    NSString *btntext = @"  查看";
-    [button setTitle:btntext forState:UIControlStateNormal];
-    [button setTitleColor:[UIColor colorWithRed:92/255.0 green:168/255.0 blue:229/255.0 alpha:1.0] forState:UIControlStateNormal];
-    UIFont *btnfont = [UIFont systemFontOfSize:16];
-    button.titleLabel.font = font;
-    CGSize buttonsize = [btntext calculateSize:size font:btnfont];
-    button.frame = CGRectMake(15+labelsize.width, 15, buttonsize.width, buttonsize.height);
-    
-    [button addTarget:self action:@selector(ClickSee:) forControlEvents:UIControlEventTouchUpInside];
-    
-    view.frame = CGRectMake(0, 0, 15+labelsize.width+buttonsize.width+15, 50);
-    view.backgroundColor = [UIColor blackColor];
-    view.center = self.view.center;
-    
-    [view addSubview:label];
-    [view addSubview:button];
-    
-    [self.view addSubview:view];
-    
-    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(scrollTimer) userInfo:nil repeats:NO];
-}
-
-- (void)PopFailPrompts{
-    view = [[UIView alloc]init];
-    //取消成功
-    label = [[UILabel alloc]init];
-    NSString *text = @"已取消收藏";
-    label.text = text;
-    label.textColor = [UIColor whiteColor];
-    UIFont *font = [UIFont systemFontOfSize:16];
-    label.font = font;
-    CGSize size = CGSizeMake(300, 20000.0f);
-    CGSize labsize = [text calculateSize:size font:font];
-    label.frame = CGRectMake(15, 15, labsize.width, labsize.height);
-    
-    view.frame = CGRectMake(0, 0, 15+labsize.width+15, 50);
-    view.backgroundColor = [UIColor blackColor];
-    view.center = self.view.center;
-    
-    [view addSubview:label];
-    [self.view addSubview:view];
-    
-    myTimer = [NSTimer scheduledTimerWithTimeInterval:1.0f target:self selector:@selector(scrollTimer) userInfo:nil repeats:NO];
-}
-
-- (void)scrollTimer{
-    [UIView animateWithDuration:1.0f animations:^{
-        label.alpha = 0.0f;
-        button.alpha = 0.0f;
-        view.alpha = 0.0f;
-    }completion:^(BOOL finished) {
-        [label removeFromSuperview];
-        [button removeFromSuperview];
-        [view removeFromSuperview];
+- (void)beginMoveUpAnimation:(CGFloat )height{
+    [UIView animateWithDuration:0.1 animations:^{
+        self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
+        self.tableview.transform = CGAffineTransformMakeTranslation(0, -height);
     }];
-}
-- (void)ClickSee:(UIButton *)sender{
-    //跳转到收藏页
-    CollectionViewController *collection = [self.storyboard instantiateViewControllerWithIdentifier:@"CollectionView"];
-    [self.navigationController pushViewController:collection animated:YES];
 }
 
 @end
