@@ -167,7 +167,7 @@
     
 }
 
-#pragma mark - 点击注册
+#pragma mark - 点击完成注册
 - (void)ClickRegis:(UIButton *)sender{
     
 }
