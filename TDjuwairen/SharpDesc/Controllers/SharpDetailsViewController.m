@@ -143,6 +143,12 @@
 
 - (void)setupWebView
 {
+//    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
+//    self.webview.UIDelegate = self;
+//    self.webview.navigationDelegate = self;
+//    self.webview.scrollView.scrollEnabled = NO;
+//    self.webview.scrollView.bounces = NO;
+    
     self.webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     self.webview.delegate = self;
     self.webview.scrollView.scrollEnabled = NO;
@@ -204,7 +210,7 @@
 }
 
 #pragma mark Observe
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"contentSize"]) {
         CGSize oldSize = [change[NSKeyValueChangeOldKey] CGSizeValue];
@@ -669,7 +675,11 @@
     if ([typeid isEqualToString:@"3"]) {
         return;
     }
-         //document.documentElement.clientHeight
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"sharpDetailJS" withExtension:@"txt"];
+    NSString *js = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+    [webView stringByEvaluatingJavaScriptFromString:js];
+    
 //    NSInteger h1 = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.clientHeight"] integerValue];
 //    NSInteger h = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] integerValue];
 //    
@@ -684,6 +694,37 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     
+}
+
+#pragma mark WKNavigationDelegate
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
+    
+    NSString *strRequest = [navigationAction.request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    if([strRequest isEqualToString:@"about:blank"]) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+    } else {
+        decisionHandler(WKNavigationActionPolicyCancel);
+    }
+}
+
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    if (webView.isLoading) {
+        return;
+    }
+    
+    if (![typeid isEqualToString:@"3"]) {
+        
+        NSURL *url = [[NSBundle mainBundle] URLForResource:@"sharpDetailJS" withExtension:@"txt"];
+        NSString *js = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
+        [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
+    }
+}
+
+/// 页面加载失败时调用
+- (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation;{
+    [self.tableview reloadData];
+    NSLog(@"页面加载失败");
 }
 
 #pragma mark - 点击收藏或取消收藏
