@@ -148,6 +148,7 @@
 #pragma mark - 请求调研列表数据
 -(void)requestDataWithSurveyList{
     __weak SurveyViewController *wself = self;
+    // @fql 这里可以不用 weak 类型，在下面的block里面直接使用self，不会造成循环引用
     /*
     NSString *urlPath = [NSString stringWithFormat:@"index.php/Sharp/surveyList/page/%d",self.page];
     
