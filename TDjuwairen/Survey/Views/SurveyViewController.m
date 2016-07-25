@@ -24,6 +24,7 @@
 #import "LoginState.h"
 
 #import "MJRefresh.h"
+#import "NetworkManager.h"
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
 {    
@@ -147,6 +148,42 @@
 #pragma mark - 请求调研列表数据
 -(void)requestDataWithSurveyList{
     __weak SurveyViewController *wself = self;
+    /*
+    NSString *urlPath = [NSString stringWithFormat:@"index.php/Sharp/surveyList/page/%d",self.page];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            NSArray *dataArray = data;
+
+            if (dataArray.count > 0) {
+            NSMutableArray *list = nil;
+            if (wself.page == 1) {
+            list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+            } else {
+            list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
+            }
+
+            for (NSDictionary *d in dataArray) {
+            SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+            [list addObject:model];
+            }
+
+            wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+            }
+
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
+            [wself stopLoading];
+            [wself.tableview reloadData];
+        } else {
+            [wself stopLoading];
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
+        }
+    }];
+    */
+    
     NSString *string = [NSString stringWithFormat:@"%@surveyList/page/%d",kAPI_Sharp,self.page];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -181,7 +218,6 @@
         [wself.tableview.mj_header endRefreshing];
         [wself.tableview.mj_footer endRefreshing];
     }];
-    
 }
 
 #pragma mark - 设置tableview
