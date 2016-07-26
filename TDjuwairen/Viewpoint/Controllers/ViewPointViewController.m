@@ -17,10 +17,15 @@
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
+#import "MJRefresh.h"
+
 @interface ViewPointViewController ()<UIScrollViewDelegate,CategoryDeletate,UITableViewDelegate,UITableViewDataSource>
 {
     int num;
     CGSize titlesize;
+    BOOL isFirstRec;
+    BOOL isFirstNew;
+    BOOL isFirstSpe;
 }
 
 @property (nonatomic,strong) CategoryView *cateview;
@@ -36,6 +41,11 @@
 @property (nonatomic,strong) NSMutableArray *viewNewArr;
 @property (nonatomic,strong) NSMutableArray *viewSpeArr;
 @property (nonatomic,strong) NSArray *dataArr;
+
+//进入页面时的加载
+@property (nonatomic,strong) UIImageView *loadingImageView;
+@property (nonatomic,strong) UIActivityIndicatorView *loading;
+@property (nonatomic,strong) UILabel *loadingLabel;
 
 
 @end
@@ -61,19 +71,94 @@
     [super viewDidLoad];
     self.page = 1;
     num = 0;
+    isFirstRec = YES;
+    isFirstNew = YES;
+    isFirstSpe = YES;
     self.tableviewsArr = [NSMutableArray array];
     self.viewRecArr = [NSMutableArray array];
     self.viewNewArr = [NSMutableArray array];
     self.viewSpeArr = [NSMutableArray array];
     self.dataArr = @[self.viewRecArr,self.viewNewArr,self.viewSpeArr];
     [self setupWithNavigation];
-    [self setupWithCategoryScroll];
-    [self setupWithContentScroll];
+    [self setupWithCategoryScroll];     //设置选择滚动条
+    [self setupWithContentScroll];      //设置内容滚动
     [self requestDataWithNumber:num];
+    
+    [self addRefreshView];           //设置刷新
+    
+    
     // Do any additional setup after loading the view.
 }
 
+#pragma mark - 进入时加载页面
+- (void)setupWithLoading{
+    //加载页面
+    self.loadingImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64)];
+    self.loadingImageView.image = [UIImage imageNamed:@"加载页.png"];
+    
+    self.loading = [[UIActivityIndicatorView alloc]init];
+    self.loading.frame = CGRectMake(kScreenWidth/3+5, kScreenHeight/2, 20, 20);
+    /* 停止的时候消失 */
+    self.loading.hidesWhenStopped = YES;
+    self.loading.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    
+    /* 让指示符开始转 */
+    [self.loading startAnimating];
+    
+    self.loadingLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/3+35, kScreenHeight/2, kScreenWidth/3-20, 20)];
+    self.loadingLabel.text = @"内容加载中";
+    self.loadingLabel.textColor = [UIColor grayColor];
+    self.loadingLabel.font = [UIFont systemFontOfSize:14];
+    
+    [self.view addSubview:self.loadingImageView];
+    [self.loadingImageView addSubview:self.loading];
+    [self.loadingImageView addSubview:self.loadingLabel];
+    
+    
+}
+
+- (void)stopLoading {
+    [self.loading stopAnimating]; //停止
+    self.loadingLabel.alpha = 0.0;
+    [self.loadingLabel removeFromSuperview];
+    self.loadingImageView.alpha = 0.0;
+    [self.loadingImageView removeFromSuperview];
+}
+
+- (void)addRefreshView{
+    for (UITableView *table in self.tableviewsArr) {
+        table.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+        table.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    }
+}
+
+- (void)refreshAction {
+    //数据表页数为1
+    self.page = 1;
+    [self requestDataWithNumber:num];
+}
+
+- (void)loadMoreAction {
+    self.page++;
+    //继续请求
+    [self requestDataWithNumber:num];
+}
+
 - (void)requestDataWithNumber:(int)n{
+
+    if (n == 0 && isFirstRec == YES) {
+        [self setupWithLoading];   //设置加载页面
+        isFirstRec = NO;
+    }
+    if (n == 1 && isFirstNew == YES) {
+        [self setupWithLoading];   //设置加载页面
+        isFirstNew = NO;
+    }
+    if (n == 2 && isFirstSpe == YES) {
+        [self setupWithLoading];   //设置加载页面
+        isFirstSpe = NO;
+    }
+    
     __weak ViewPointViewController *wself = self;
     NSString *urlPath;
     if (n == 0) {
@@ -115,12 +200,18 @@
                         [arr addObject:model];
                     }
                 }
-                
             }
             UITableView *tableview = wself.tableviewsArr[num];
+            [tableview.mj_header endRefreshing];
+            [tableview.mj_footer endRefreshing];
+            [wself stopLoading];
             [tableview reloadData];
         } else {
             NSLog(@"请求失败");
+            UITableView *tableview = wself.tableviewsArr[num];
+            [tableview.mj_header endRefreshing];
+            [tableview.mj_footer endRefreshing];
+            [wself stopLoading];
         }
     }];
     
