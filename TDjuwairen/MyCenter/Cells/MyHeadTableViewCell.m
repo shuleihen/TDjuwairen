@@ -35,6 +35,8 @@
     
     self.headImg = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-60)/2, 52, 60, 60)];
     self.headImg.layer.cornerRadius = 30;
+    self.headImg.layer.borderColor = [UIColor whiteColor].CGColor;
+    self.headImg.layer.borderWidth = 2.0;
     
     self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(0, 125, kScreenWidth, 20)];
     self.nickname.textColor = [UIColor whiteColor];

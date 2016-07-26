@@ -123,7 +123,7 @@
 
 #pragma mark - 添加刷新
 - (void)addRefreshView {
-    
+
     self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }

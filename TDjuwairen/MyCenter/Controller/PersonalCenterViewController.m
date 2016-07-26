@@ -36,8 +36,8 @@
     [super viewDidLoad];
     
     self.loginState = [LoginState addInstance];
-    self.setupImgArr = @[@"SetupImg.png",@"Beedback.png"];
-    self.setupTitleArr = @[@"设置",@"反馈意见"];
+    self.setupImgArr = @[@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
+    self.setupTitleArr = @[@"观点管理",@"设置",@"反馈意见"];
     
     [self setupWithTableView];
     [self setupWithNavigation];
@@ -75,7 +75,7 @@
     }
     else
     {
-        return 2;
+        return 3;
     }
 }
 
@@ -87,6 +87,7 @@
             MyHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
                 cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                
             }
             
             return cell;
@@ -115,7 +116,7 @@
         }
         cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
         cell.title.text = self.setupTitleArr[indexPath.row];
-        cell.title.textColor = [UIColor darkGrayColor];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         return cell;
     }
 }

@@ -86,7 +86,7 @@
         <!--观点-->
         <scene sceneID="D8J-O9-1d0">
             <objects>
-                <viewController id="Ikx-gb-iVR" customClass="ViewPointController" sceneMemberID="viewController">
+                <viewController id="Ikx-gb-iVR" customClass="ViewPointViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EDn-re-Ccp"/>
                         <viewControllerLayoutGuide type="bottom" id="oyR-pu-ooM"/>

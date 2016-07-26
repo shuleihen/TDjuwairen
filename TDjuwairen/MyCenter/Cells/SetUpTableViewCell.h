@@ -12,6 +12,7 @@
 
 @property (nonatomic,strong) UIImageView *imgView;
 @property (nonatomic,strong) UILabel *title;
+@property (nonatomic,strong) UILabel *numberLabel;//右边显示数字
 
 
 @end
