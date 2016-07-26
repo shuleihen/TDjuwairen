@@ -10,6 +10,7 @@
 #import "CategoryView.h"
 #import "NetworkManager.h"
 #import "ViewPointListModel.h"
+#import "SpecialModel.h"
 #import "ViewPointTableViewCell.h"
 #import "ViewSpecialTableViewCell.h"
 
@@ -99,11 +100,22 @@
                 }
                 NSMutableArray *arr = wself.dataArr[num];
                 
-                for (NSDictionary *d in dataArray) {
-                    ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:d];
-                    [list addObject:model];
-                    [arr addObject:model];
+                if (n == 2) {
+                    for (NSDictionary *d in dataArray) {
+                        SpecialModel *model = [SpecialModel getInstanceWithDictionary:d];
+                        [list addObject:model];
+                        [arr addObject:model];
+                    }
                 }
+                else
+                {
+                    for (NSDictionary *d in dataArray) {
+                        ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:d];
+                        [list addObject:model];
+                        [arr addObject:model];
+                    }
+                }
+                
             }
             UITableView *tableview = wself.tableviewsArr[num];
             [tableview reloadData];
@@ -165,13 +177,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     NSMutableArray *arr = self.dataArr[num];
-    if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
-        return arr.count;
-    }
-    else
-    {
-        return 3;
-    }
+    return arr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -211,7 +217,9 @@
         if (cell == nil) {
             cell = [[ViewSpecialTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
-        
+        SpecialModel *model = arr[indexPath.row];
+        cell.titleLabel.text = model.subject_title;
+        cell.pageLabel.text = model.subject_tag;
         return cell;
     }
 }
@@ -225,12 +233,10 @@
     {
         return kScreenWidth/2+40+10;
     }
-    
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    
     int x = self.contentScroll.contentOffset.x/kScreenWidth;
     num = x;
     self.cateview.selectBtn.selected = NO;

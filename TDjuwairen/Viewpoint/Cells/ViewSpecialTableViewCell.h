@@ -12,5 +12,7 @@
 
 @property (nonatomic,strong) UIImageView *imgView;
 @property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic,strong) UILabel *pageLabel;
+@property (nonatomic,strong) UIView *backWhiteView;
 
 @end

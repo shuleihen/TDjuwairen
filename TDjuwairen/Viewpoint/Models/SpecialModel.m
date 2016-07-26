@@ -14,7 +14,7 @@
 {
     SpecialModel *model = [[SpecialModel alloc]init];
     model.subject_logo_max = dic[@"subject_logo_max"];
-    model.subject_tag = dic[@"subject_tag"];
+    model.subject_tag = dic[@"subject_tag"][0];
     model.subject_title = dic[@"subject_title"];
     return model;
 }
