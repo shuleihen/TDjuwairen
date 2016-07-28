@@ -49,6 +49,7 @@
 		19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C3485F1D3F76DB008ABD16 /* UIScrollView+MJExtension.m */; };
 		19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348611D3F76DB008ABD16 /* UIScrollView+MJRefresh.m */; };
 		19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */; };
+		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
 		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
 		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9C8E1CFE830E0075910D /* AgreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275E9C8D1CFE830E0075910D /* AgreeViewController.m */; };
@@ -359,6 +360,8 @@
 		19C348611D3F76DB008ABD16 /* UIScrollView+MJRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+MJRefresh.m"; sourceTree = "<group>"; };
 		19C348621D3F76DB008ABD16 /* UIView+MJExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+MJExtension.h"; sourceTree = "<group>"; };
 		19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
+		19C526261D49EE090039F85D /* TDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewController.h; sourceTree = "<group>"; };
+		19C526271D49EE090039F85D /* TDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewController.m; sourceTree = "<group>"; };
 		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
 		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
 		275E9C8C1CFE830E0075910D /* AgreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreeViewController.h; sourceTree = "<group>"; };
@@ -975,6 +978,23 @@
 			path = Header;
 			sourceTree = "<group>";
 		};
+		19C526241D49EDDC0039F85D /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				19C526251D49EDEE0039F85D /* WebView */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		19C526251D49EDEE0039F85D /* WebView */ = {
+			isa = PBXGroup;
+			children = (
+				19C526261D49EE090039F85D /* TDWebViewController.h */,
+				19C526271D49EE090039F85D /* TDWebViewController.m */,
+			);
+			path = WebView;
+			sourceTree = "<group>";
+		};
 		275E9CAC1CFED0DC0075910D /* MyCenter */ = {
 			isa = PBXGroup;
 			children = (
@@ -1397,6 +1417,7 @@
 		84E333E91CE2BA3D00E5DCEE /* TDjuwairen */ = {
 			isa = PBXGroup;
 			children = (
+				19C526241D49EDDC0039F85D /* Modules */,
 				194131461D4604FD005AAB53 /* Network */,
 				19C347BF1D3F5C5D008ABD16 /* Lib */,
 				193EF0761D392CB40043F3EB /* Res */,
@@ -2095,6 +2116,7 @@
 				842B36231CE995D500C6E400 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
+				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,
 				846E51341D41A7DF00B89A53 /* JWRImageView.m in Sources */,
