@@ -13,6 +13,7 @@
 #import "SpecialModel.h"
 #import "ViewPointTableViewCell.h"
 #import "ViewSpecialTableViewCell.h"
+#import "DescContentViewController.h"
 
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
@@ -162,10 +163,10 @@
     __weak ViewPointViewController *wself = self;
     NSString *urlPath;
     if (n == 0) {
-        urlPath = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/View/recLists1_2/page/%d",self.page];
+        urlPath = [NSString stringWithFormat:@"index.php/View/recLists1_2/page/%d",self.page];
     }
     else if (n == 1){
-        urlPath = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/View/newLists1_2/page/%d",self.page];
+        urlPath = [NSString stringWithFormat:@"index.php/View/newLists1_2/page/%d",self.page];
     }
     else
     {
@@ -225,10 +226,27 @@
     self.navigationItem.title = @"观点";
     // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
-    UIBarButtonItem *publish = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nav_publish@3x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(GoPublish:)];
-    UIBarButtonItem *search = [[UIBarButtonItem alloc]initWithImage:[UIImage imageNamed:@"nav_search@3x.png"] style:UIBarButtonItemStyleDone target:self action:@selector(GoSearch:)];
+
+    UIButton*publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [publish setImage:[UIImage imageNamed:@"nav_publish@3x.png"] forState:UIControlStateNormal];
+    [publish addTarget:self action:@selector(GoPublish:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem*rightItem1 = [[UIBarButtonItem alloc]initWithCustomView:publish];
     
-    self.navigationItem.rightBarButtonItems = @[publish,search];
+    UIButton*search = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [search setImage:[UIImage imageNamed:@"nav_search@3x.png"] forState:UIControlStateNormal];
+    [search addTarget:self action:@selector(GoSearch:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem*rightItem2 = [[UIBarButtonItem alloc]initWithCustomView:search];
+    
+    self.navigationItem.rightBarButtonItems = @[rightItem1,rightItem2];
+    
+    //设置返回button
+    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
+    
+    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    UIImage* image = [UIImage imageNamed:@"back"];
+    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
+    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark - 设置分类滑动条
@@ -241,7 +259,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64-64)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-64)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -323,6 +341,19 @@
     else
     {
         return kScreenWidth/2+40+10;
+    }
+}
+
+#pragma mark - 点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /* 取消选中状态 */
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
+        //跳转到观点详情页
+        DescContentViewController *dc = [self.storyboard instantiateViewControllerWithIdentifier:@"viewDesc"];
+        [self.navigationController pushViewController:dc animated:YES];
     }
 }
 
