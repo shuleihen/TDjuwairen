@@ -20,6 +20,7 @@
     NSString *str = dic[@"view_addtime"];
     NSTimeInterval time = [str doubleValue];
     NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
+//    @fql NSDateFormatter 的创建 非常影响性能，考虑放到单例，或是定义为全局变量
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
     model.view_wtime = [dateFormatter stringFromDate:detaildate];
