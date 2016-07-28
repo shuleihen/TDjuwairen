@@ -67,6 +67,7 @@
 
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) UIWebView *webview;
+//@property (nonatomic,strong) WKWebView *webview;
 @property (nonatomic) BOOL scalesPageToFit;
 /* 评论条 */
 @property (nonatomic,strong) BackCommentView *backcommentview;
@@ -370,41 +371,8 @@
             [self.backcommentview addSubview:btn];
         }
         
-        //typeid 为3 表示为视频页内容。这里是为了更改有的视频为优酷视频连接时宽高问题
-        if ([typeid isEqualToString:@"3"]) {
-            //测试替换iframe标签宽高
-            NSString *s = @"iframe";
-//            NSRange range = [string rangeOfString:s];
-            if ([string rangeOfString:s].location != NSNotFound) {
-                //
-                NSString *oldiframe = @"height=\"500\" width=\"600\"";
-                NSString *newIframe = @"height=\"40%\" width=\"100%\"";
-                string = [string stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
-            }
-        }
-        else {
-            //测试替换iframe标签宽高
-            NSString *s = @"iframe";
-            //            NSRange range = [string rangeOfString:s];
-            if ([string rangeOfString:s].location != NSNotFound) {
-                //
-                NSString *oldiframe = @"height=\"500\" width=\"600\"";
-                NSString *newIframe = @"height=\"250\" width=\"100%\"";
-                string = [string stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
-            }
-        }
-        
         // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
 //        string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"preload=\"load\""];
-        
-        // 去掉图片和图片说明之间的换行
-        // <p class="article_descriptions"><br/></p><p class="article_photo_label"> replace to <p class="article_photo_label"> 
-//        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p><p class=\"article_photo_label\">" withString:@"<p class=\"article_photo_label\">"];
-        
-        // 去掉标题头部的空行 <p class='detail_content'>
-//        string = [string stringByReplacingOccurrencesOfString:@"<p class='detail_content'>" withString:@""];
-        
-//        string = [string stringByReplacingOccurrencesOfString:@"<p class=\"article_descriptions\"><br/></p>" withString:@"<p class=\"article_descriptions\"></p>"];
         
         [self stopLoadView];
         [wself.tableview.mj_header endRefreshing];
@@ -684,6 +652,8 @@
     NSString *strRequest = [request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if([strRequest isEqualToString:@"about:blank"]) {
         return YES;
+    } else if([strRequest hasPrefix:@"http://player.youku.com"]) {
+        return YES;
     } else {
         return NO;
     }
@@ -691,23 +661,6 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    if ([typeid isEqualToString:@"3"]) {
-        return;
-    }
-    
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"sharpDetailJS" withExtension:@"txt"];
-    NSString *js = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-    [webView stringByEvaluatingJavaScriptFromString:js];
-    
-//    NSInteger h1 = [[webView stringByEvaluatingJavaScriptFromString:@"document.documentElement.clientHeight"] integerValue];
-//    NSInteger h = [[webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight"] integerValue];
-//    
-////    NSInteger height = webView.scrollView.contentSize.height;
-//    
-//    CGRect frame = webView.frame;
-//    frame.size.height = h;
-//    self.webview.frame = frame;
-//    [self.tableview reloadData];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
@@ -721,6 +674,8 @@
     NSString *strRequest = [navigationAction.request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     if([strRequest isEqualToString:@"about:blank"]) {
         decisionHandler(WKNavigationActionPolicyAllow);
+    } else if([strRequest hasPrefix:@"http://player.youku.com"]){
+        decisionHandler(WKNavigationActionPolicyAllow);
     } else {
         decisionHandler(WKNavigationActionPolicyCancel);
     }
@@ -728,16 +683,6 @@
 
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
-    if (webView.isLoading) {
-        return;
-    }
-    
-    if (![typeid isEqualToString:@"3"]) {
-        
-        NSURL *url = [[NSBundle mainBundle] URLForResource:@"sharpDetailJS" withExtension:@"txt"];
-        NSString *js = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:nil];
-        [webView evaluateJavaScript:js completionHandler:^(id _Nullable result, NSError * _Nullable error) {}];
-    }
 }
 
 /// 页面加载失败时调用
