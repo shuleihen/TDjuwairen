@@ -386,6 +386,10 @@
                 //
             }];
         }
+        
+        self.nmview.alpha = 0.0;
+        naviShow = NO;
+        
     }else
     {
         NSLog(@"%ld",(long)indexpath);
