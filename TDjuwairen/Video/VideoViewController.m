@@ -22,6 +22,8 @@
 #import "SharpDetailsViewController.h"
 #import "SearchViewController.h"
 
+#import "UIdaynightModel.h"
+
 #import "LoginState.h"
 @interface VideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -38,6 +40,8 @@
 @property (nonatomic,strong) SurveyNavigationView *NavigationView;    //自定义navigation
 
 @property (nonatomic,strong) LoginState *loginstate;
+
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 //进入页面时的加载
 @property (nonatomic,strong) UIImageView *loadingImageView;
@@ -56,6 +60,19 @@
     page = 1;
     isFirstRequest = YES;
     self.VideoListArray = [NSMutableArray array];
+    
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
+    
+    
     [self requestDataWithVideoList];
     [self setupWithTableView];
     
@@ -250,7 +267,7 @@
 {
     [tableView registerNib:[UINib nibWithNibName:@"SurveyTableViewCell" bundle:nil] forCellReuseIdentifier:@"surveycell"];
     SurveyTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"surveycell"];
-    cell.backgroundColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0];
+    
     SurveyListModel *model = self.VideoListArray[indexPath.row];
     cell.titlelabel.text = model.sharp_title;
     [cell.imgview sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
@@ -264,6 +281,10 @@
         cell.commentnumber.text = [NSString stringWithFormat:@"%d",model.sharp_commentNumber];
         
     }
+    cell.backgroundColor = self.daynightmodel.backColor;
+    cell.titlelabel.textColor = self.daynightmodel.textColor;
+    cell.backview.backgroundColor = self.daynightmodel.navigationColor;
+    cell.titlelabel.backgroundColor = self.daynightmodel.navigationColor;
     return cell;
 }
 
@@ -310,6 +331,11 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
+    
+    self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    [self.tableview reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

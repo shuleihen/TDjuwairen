@@ -87,6 +87,7 @@
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		841546E71D20B68F007DB2F0 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841546E61D20B68F007DB2F0 /* GuideViewController.m */; };
 		841546F01D20BC55007DB2F0 /* MTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841546EF1D20BC55007DB2F0 /* MTabBarController.m */; };
+		842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842387701D49B8AF00671404 /* UIdaynightModel.m */; };
 		8427BE471CF29D0600E750E9 /* TitlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427BE451CF29D0600E750E9 /* TitlesTableViewCell.m */; };
 		842B35F11CE977AD00C6E400 /* SurveyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B35EF1CE977AD00C6E400 /* SurveyTableViewCell.m */; };
 		842B35F21CE977AD00C6E400 /* SurveyTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842B35F01CE977AD00C6E400 /* SurveyTableViewCell.xib */; };
@@ -402,6 +403,8 @@
 		841546E61D20B68F007DB2F0 /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		841546EE1D20BC55007DB2F0 /* MTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTabBarController.h; sourceTree = "<group>"; };
 		841546EF1D20BC55007DB2F0 /* MTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTabBarController.m; sourceTree = "<group>"; };
+		8423876F1D49B8AF00671404 /* UIdaynightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdaynightModel.h; sourceTree = "<group>"; };
+		842387701D49B8AF00671404 /* UIdaynightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdaynightModel.m; sourceTree = "<group>"; };
 		8427BE441CF29D0600E750E9 /* TitlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlesTableViewCell.h; sourceTree = "<group>"; };
 		8427BE451CF29D0600E750E9 /* TitlesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitlesTableViewCell.m; sourceTree = "<group>"; };
 		842B35EE1CE977AD00C6E400 /* SurveyTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyTableViewCell.h; sourceTree = "<group>"; };
@@ -1655,6 +1658,8 @@
 				84E48E481D462601008579A2 /* ViewPointListModel.m */,
 				84C1F4011D474064007C26B5 /* SpecialModel.h */,
 				84C1F4021D474064007C26B5 /* SpecialModel.m */,
+				8423876F1D49B8AF00671404 /* UIdaynightModel.h */,
+				842387701D49B8AF00671404 /* UIdaynightModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2036,6 +2041,7 @@
 				84F9FE0A1CF80F3A00683791 /* RegiserTableViewController.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				84E48DF41D45ACCE008579A2 /* ViewPointViewController.m in Sources */,
+				842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */,
 				846E51331D41A7DF00B89A53 /* FeedbackViewController.m in Sources */,
 				846E51251D41A7DF00B89A53 /* CollectionTableViewCell.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,

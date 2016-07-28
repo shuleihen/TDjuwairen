@@ -14,6 +14,7 @@
 #import "ViewPointTableViewCell.h"
 #import "ViewSpecialTableViewCell.h"
 #import "DescContentViewController.h"
+#import "UIdaynightModel.h"
 
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
@@ -42,6 +43,7 @@
 @property (nonatomic,strong) NSMutableArray *viewNewArr;
 @property (nonatomic,strong) NSMutableArray *viewSpeArr;
 @property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 //进入页面时的加载
 @property (nonatomic,strong) UIImageView *loadingImageView;
@@ -80,6 +82,18 @@
     self.viewNewArr = [NSMutableArray array];
     self.viewSpeArr = [NSMutableArray array];
     self.dataArr = @[self.viewRecArr,self.viewNewArr,self.viewSpeArr];
+    
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
+    
     [self setupWithNavigation];
     [self setupWithCategoryScroll];     //设置选择滚动条
     [self setupWithContentScroll];      //设置内容滚动
@@ -222,10 +236,8 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
     //设置navigation背景色
     [self.navigationController.navigationBar setTranslucent:NO];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+
     self.navigationItem.title = @"观点";
-    // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
 
     UIButton*publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [publish setImage:[UIImage imageNamed:@"nav_publish@3x.png"] forState:UIControlStateNormal];
@@ -254,7 +266,6 @@
     self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/2, 40) andTitleArr:self.categoryArr];
     self.cateview.delegate = self;
     [self.view addSubview:self.cateview];
-    
 }
 
 #pragma mark - 设置内容滑动条
@@ -291,7 +302,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-
     NSMutableArray *arr = self.dataArr[num];
     if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
         NSString *identifier = @"cell";
@@ -309,6 +319,7 @@
             isoriginal = @"原创";
         }
         cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
+        
 
         UIFont *font = [UIFont systemFontOfSize:16];
         cell.titleLabel.font = font;
@@ -317,6 +328,10 @@
         titlesize = [model.view_title calculateSize:titlesize font:font];
         cell.titleLabel.text = model.view_title;
         [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
+        
+        cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
+        cell.titleLabel.textColor = self.daynightmodel.textColor;
+        cell.backgroundColor = self.daynightmodel.navigationColor;
         return cell;
     }
     else
@@ -393,6 +408,24 @@
     num = (int)i;
     self.contentScroll.contentOffset = CGPointMake(x, 0);
     [self requestDataWithNumber:num];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    self.view.backgroundColor = self.daynightmodel.navigationColor;
+    
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
+    // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:self.daynightmodel.textColor, NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
+    
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
+    
+    self.contentScroll.backgroundColor = self.daynightmodel.navigationColor;
+    UITableView *tableview = self.tableviewsArr[num];
+    [tableview reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

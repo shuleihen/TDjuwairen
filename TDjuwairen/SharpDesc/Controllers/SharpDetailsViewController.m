@@ -377,6 +377,7 @@
         [wself.tableview.mj_header endRefreshing];
         [self.tableview reloadData];
         
+        NSLog(@"%@",string);
         [self.webview loadHTMLString:string baseURL:nil];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         [self stopLoadView];
