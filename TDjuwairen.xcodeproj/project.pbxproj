@@ -182,6 +182,9 @@
 		84B9B4601D4863B300DDF15B /* btn_night_rijian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B45F1D4863B300DDF15B /* btn_night_rijian@3x.png */; };
 		84B9B4621D4863BA00DDF15B /* btn_yejian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4611D4863BA00DDF15B /* btn_yejian@3x.png */; };
 		84B9B4641D4863C100DDF15B /* btn_jubao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4631D4863C100DDF15B /* btn_jubao@3x.png */; };
+		84B9B4671D489FDD00DDF15B /* SelectFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B9B4661D489FDD00DDF15B /* SelectFontView.m */; };
+		84B9B4691D48A92D00DDF15B /* btn_select2_pre@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4681D48A92D00DDF15B /* btn_select2_pre@3x.png */; };
+		84B9B46D1D48B05B00DDF15B /* btn_select2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B46C1D48B05B00DDF15B /* btn_select2@3x.png */; };
 		84C1F3F81D4725C3007C26B5 /* Guide1.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1F3F51D4725C3007C26B5 /* Guide1.png */; };
 		84C1F3F91D4725C3007C26B5 /* Guide2.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1F3F61D4725C3007C26B5 /* Guide2.png */; };
 		84C1F3FA1D4725C3007C26B5 /* Guide3.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1F3F71D4725C3007C26B5 /* Guide3.png */; };
@@ -556,6 +559,10 @@
 		84B9B45F1D4863B300DDF15B /* btn_night_rijian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_night_rijian@3x.png"; sourceTree = "<group>"; };
 		84B9B4611D4863BA00DDF15B /* btn_yejian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_yejian@3x.png"; sourceTree = "<group>"; };
 		84B9B4631D4863C100DDF15B /* btn_jubao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_jubao@3x.png"; sourceTree = "<group>"; };
+		84B9B4651D489FDD00DDF15B /* SelectFontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFontView.h; sourceTree = "<group>"; };
+		84B9B4661D489FDD00DDF15B /* SelectFontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFontView.m; sourceTree = "<group>"; };
+		84B9B4681D48A92D00DDF15B /* btn_select2_pre@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_select2_pre@3x.png"; sourceTree = "<group>"; };
+		84B9B46C1D48B05B00DDF15B /* btn_select2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_select2@3x.png"; sourceTree = "<group>"; };
 		84C1F3F51D4725C3007C26B5 /* Guide1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide1.png; sourceTree = "<group>"; };
 		84C1F3F61D4725C3007C26B5 /* Guide2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide2.png; sourceTree = "<group>"; };
 		84C1F3F71D4725C3007C26B5 /* Guide3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Guide3.png; sourceTree = "<group>"; };
@@ -1590,6 +1597,8 @@
 		84E48DF81D45BB8D008579A2 /* ViewPointImgs */ = {
 			isa = PBXGroup;
 			children = (
+				84B9B46C1D48B05B00DDF15B /* btn_select2@3x.png */,
+				84B9B4681D48A92D00DDF15B /* btn_select2_pre@3x.png */,
 				84B9B45D1D48637200DDF15B /* btn_fuzhi@3x.png */,
 				84B9B4591D48635100DDF15B /* btn_col@3x.png */,
 				84B9B4571D48634E00DDF15B /* btn_col_pre@3x.png */,
@@ -1612,6 +1621,8 @@
 				84E48E021D45E1AC008579A2 /* CategoryView.m */,
 				84B9B4541D48479A00DDF15B /* NaviMoreView.h */,
 				84B9B4551D48479A00DDF15B /* NaviMoreView.m */,
+				84B9B4651D489FDD00DDF15B /* SelectFontView.h */,
+				84B9B4661D489FDD00DDF15B /* SelectFontView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1889,6 +1900,7 @@
 				84D8A8D01CFFDA040072813D /* 收藏成功@3x.png in Resources */,
 				19C347EC1D3F5C5D008ABD16 /* WeiboSDK.bundle in Resources */,
 				842B35F21CE977AD00C6E400 /* SurveyTableViewCell.xib in Resources */,
+				84B9B46D1D48B05B00DDF15B /* btn_select2@3x.png in Resources */,
 				84E48DFA1D45BBAE008579A2 /* nav_search@3x.png in Resources */,
 				84C1F3F91D4725C3007C26B5 /* Guide2.png in Resources */,
 				8497DFCB1CEEEB9600D7D105 /* VideoSelect@3x.png in Resources */,
@@ -1920,6 +1932,7 @@
 				19C347EE1D3F5C5D008ABD16 /* README.txt in Resources */,
 				846E512B1D41A7DF00B89A53 /* CommentsTableViewCell.xib in Resources */,
 				84C1F3FA1D4725C3007C26B5 /* Guide3.png in Resources */,
+				84B9B4691D48A92D00DDF15B /* btn_select2_pre@3x.png in Resources */,
 				84B9B4641D4863C100DDF15B /* btn_jubao@3x.png in Resources */,
 				275E9CDF1CFED0DC0075910D /* 用户协议未同意.png in Resources */,
 				275E9CD01CFED0DC0075910D /* 关于我们.png in Resources */,
@@ -1963,6 +1976,7 @@
 				842B36261CE995D500C6E400 /* UIButton+AFNetworking.m in Sources */,
 				846E514E1D41A93000B89A53 /* MyInfomationTableViewCell.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
+				84B9B4671D489FDD00DDF15B /* SelectFontView.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
 				846E51381D41A7DF00B89A53 /* AboutViewController.m in Sources */,
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,

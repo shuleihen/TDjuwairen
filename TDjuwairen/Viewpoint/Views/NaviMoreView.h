@@ -8,7 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface NaviMoreView : UIView
+@protocol NaviMoreViewDelegate <NSObject>
 
+- (void)didSelectedWithIndexPath:(NSInteger)indexpath;
+
+@end
+
+@interface NaviMoreView : UIView <UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic,strong) NSArray *imgArr;
+@property (nonatomic,strong) NSArray *titleArr;
+@property (nonatomic,strong) UITableView *tableview;
+@property (nonatomic,assign) id<NaviMoreViewDelegate>delegate;
 
 @end

@@ -347,6 +347,9 @@
 #pragma mark - 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    /* 取消选中状态 */
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
     if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
         //跳转到观点详情页
         DescContentViewController *dc = [self.storyboard instantiateViewControllerWithIdentifier:@"viewDesc"];

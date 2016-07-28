@@ -8,13 +8,6 @@
 
 #import "NaviMoreView.h"
 
-@interface NaviMoreView ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic,strong) NSArray *imgArr;
-@property (nonatomic,strong) NSArray *titleArr;
-@property (nonatomic,strong) UITableView *tableview;
-
-@end
 
 @implementation NaviMoreView
 
@@ -68,6 +61,15 @@
     cell.imageView.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
     cell.textLabel.text = self.titleArr[indexPath.row];
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    /* 取消选中状态 */
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if ([self respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
+        [self.delegate didSelectedWithIndexPath:indexPath.row];
+    }
 }
 
 @end

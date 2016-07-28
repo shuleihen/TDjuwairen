@@ -173,7 +173,9 @@
         AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
         manager.responseSerializer = [AFJSONResponseSerializer  serializer];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
+        //@"http://192.168.1.100/tuanda_web/Appapi/index.php/Subject/newLists1_2/page/%d"
+//        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
+        NSString*url=[NSString stringWithFormat:@"http://192.168.191.1/tuanda_web/Appapi/index.php/Login/loginDo/"];
         NSDictionary*paras=@{@"account":self.accountText.text,
                              @"password":self.passwordText.text};
         
@@ -183,7 +185,7 @@
                 NSLog(@"登陆成功");
                 
                 NSDictionary *dic = responseObject[@"data"];
-                //  NSLog(@"%@",dic);
+                NSLog(@"%@",dic);
                 self.loginState.userId=dic[@"user_id"];
                 self.loginState.userName=dic[@"user_name"];
                 self.loginState.nickName=dic[@"user_nickname"];
@@ -204,7 +206,7 @@
             }
             else
             {
-                UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名，手机号或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:responseObject[@"msg"] preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
                 [aler addAction:conformAction];
                 [self presentViewController:aler animated:YES completion:nil];

@@ -102,8 +102,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+//    [self setupWithNavigation];
     [self setupUICommon];
+    
     
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.commentsDataArray = [NSMutableArray array];
@@ -112,6 +113,20 @@
     page = 1;
     
     [self refreshAction];
+}
+
+- (void)setupWithNavigation{
+    [self.navigationController.navigationBar setHidden:NO];
+    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+    //设置navigation背景色
+    [self.navigationController.navigationBar setTranslucent:NO];
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    
+    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"nav_night_more@3x.png"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(naviMore:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem= rightItem;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -164,7 +179,7 @@
 
 - (void)setupTableView
 {
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-50) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight-70) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -433,7 +448,7 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 115;
+            return 130;
         }
         else if(indexPath.row == 1){
             return self.webview.frame.size.height;
@@ -476,7 +491,8 @@
             }
             titleCell.titleLabel.text = title;
             NSString *custime = [NSString prettyDateWithReference:time];
-            titleCell.usernickname.text = [NSString stringWithFormat:@"%@ · %@",nickname,custime];
+            titleCell.usernickname.text = nickname;
+            titleCell.addtime.text = custime;
             [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:facesmall]];
             return titleCell;
         }

@@ -10,9 +10,9 @@
 
 @interface TitlesTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) UILabel *titleLabel;
 @property (nonatomic,strong) UIImageView *userheadImage;
 @property (nonatomic,strong) UILabel *usernickname;
-
+@property (nonatomic,strong) UILabel *addtime;
+@property (nonatomic,strong) UILabel *titleLabel;
 
 @end
