@@ -335,6 +335,7 @@
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
     
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
     [self.tableview reloadData];
 }
 

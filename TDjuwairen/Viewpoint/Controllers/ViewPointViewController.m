@@ -8,18 +8,19 @@
 
 #import "ViewPointViewController.h"
 #import "CategoryView.h"
-#import "NetworkManager.h"
 #import "ViewPointListModel.h"
 #import "SpecialModel.h"
 #import "ViewPointTableViewCell.h"
 #import "ViewSpecialTableViewCell.h"
 #import "DescContentViewController.h"
 #import "UIdaynightModel.h"
+#import "PublishViewViewController.h"
 
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
 #import "MJRefresh.h"
+#import "NetworkManager.h"
 
 @interface ViewPointViewController ()<UIScrollViewDelegate,CategoryDeletate,UITableViewDelegate,UITableViewDataSource>
 {
@@ -239,10 +240,10 @@
 
     self.navigationItem.title = @"观点";
 
-    UIButton*publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    UIButton *publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [publish setImage:[UIImage imageNamed:@"nav_publish@3x.png"] forState:UIControlStateNormal];
     [publish addTarget:self action:@selector(GoPublish:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem*rightItem1 = [[UIBarButtonItem alloc]initWithCustomView:publish];
+    UIBarButtonItem *rightItem1 = [[UIBarButtonItem alloc]initWithCustomView:publish];
     
     UIButton*search = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [search setImage:[UIImage imageNamed:@"nav_search@3x.png"] forState:UIControlStateNormal];
@@ -270,7 +271,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-64)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-44)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -387,7 +388,9 @@
 }
 
 - (void)GoPublish:(UIButton *)sender{
-    
+    PublishViewViewController *publishview = [self.storyboard instantiateViewControllerWithIdentifier:@"publishview"];
+    publishview.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    [self.navigationController pushViewController:publishview animated:YES];
 }
 
 - (void)GoSearch:(UIButton *)sender{
@@ -425,6 +428,7 @@
     
     self.contentScroll.backgroundColor = self.daynightmodel.navigationColor;
     UITableView *tableview = self.tableviewsArr[num];
+    tableview.backgroundColor = self.daynightmodel.navigationColor;
     [tableview reloadData];
 }
 

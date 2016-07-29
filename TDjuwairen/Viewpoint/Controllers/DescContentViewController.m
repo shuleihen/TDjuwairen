@@ -130,7 +130,7 @@
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
     
     UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    [rightButton setImage:[UIImage imageNamed:@"nav_night_more@3x.png"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"nav_more@3x.png"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(naviMore:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
