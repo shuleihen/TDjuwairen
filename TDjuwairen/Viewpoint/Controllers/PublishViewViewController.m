@@ -9,20 +9,30 @@
 #import "PublishViewViewController.h"
 #import "UIdaynightModel.h"
 #import "BottomEdit.h"
+#import "SecondEdit.h"
 
-@interface PublishViewViewController ()<UITextViewDelegate,BottomEditDelegate>
+#import "NSString+Ext.h"
+
+@interface PublishViewViewController ()<UITextViewDelegate,BottomEditDelegate,SecondEditDelegate>
 {
     NSString *currentTitle;
     NSString *currentDesc;
+    BOOL jiacu;
+    BOOL xieti;
+    BOOL xiahuaxian;
 }
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UIScrollView *scrollview;
 
 @property (nonatomic,strong) UITextField *titleText;
+@property (nonatomic,strong) UIButton *originalBtn;
 @property (nonatomic,strong) UILabel *placeholderLab;
 @property (nonatomic,strong) UITextView *contentText;
 @property (nonatomic,strong) BottomEdit *bottomView;
+@property (nonatomic,strong) SecondEdit *secondView;
+
+@property (nonatomic,strong) UIView *SelSecView;
 
 @end
 
@@ -93,7 +103,18 @@
     self.titleText.layer.borderWidth = 1;
     self.titleText.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
     
+    self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 40, 40)];
+    [self.originalBtn setImage:[UIImage imageNamed:@"btn_select@3x.png"] forState:UIControlStateNormal];
+    [self.originalBtn setImage:[UIImage imageNamed:@"btn_select_pre@3x.png"] forState:UIControlStateSelected];
+    [self.originalBtn addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
+    
+    UILabel *originalLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-40, 0, 40, 40)];
+    originalLabel.text = @"原创";
+    originalLabel.textColor = self.daynightmodel.titleColor;
+    
     [self.scrollview addSubview:self.titleText];
+    [self.scrollview addSubview:self.originalBtn];
+    [self.scrollview addSubview:originalLabel];
 }
 
 - (void)setupWithContentText{
@@ -114,27 +135,16 @@
 }
 
 - (void)setupWithEdit{
-    self.bottomView = [[BottomEdit alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-30, kScreenWidth, 30)];
+    self.bottomView = [[BottomEdit alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-40, kScreenWidth, 40)];
     self.bottomView.delegate = self;
     [self.view addSubview:self.bottomView];
 }
 
--(void)textViewDidChange:(UITextView *)textView
-{
-    if ([self.contentText.text length] > 0) {
-        self.placeholderLab.text = @"";
-        self.placeholderLab.alpha = 0.0;
-    }
-    else
-    {
-        self.placeholderLab.text = @"正文，8000个字以内";
-        self.placeholderLab.alpha = 1.0;
-    }
-    
-}
 
 - (void)clickBack:(UIButton *)sender{
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.SelSecView removeFromSuperview];//移除子视图
+    self.bottomView.selectBtn.selected = NO;
     [self.view endEditing:YES];
     [self keyboardWillBeHidden];
     
@@ -168,6 +178,18 @@
     
 }
 
+#pragma mark - 是否原创 
+- (void)isOriginal:(UIButton *)sender{
+    if (sender.selected == YES) {
+        sender.selected = NO;
+    }
+    else
+    {
+        sender.selected = YES;
+    }
+}
+
+#pragma mark - 点击编辑栏
 - (void)clickEdit:(UIButton *)sender
 {
     int num = (int)sender.tag;
@@ -201,13 +223,209 @@
         }
     }
     else if (num ==3){
+        [self.SelSecView removeFromSuperview];
+        //字体设置
+        self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40)];
+        self.secondView.delegate = self;
+        self.SelSecView = self.secondView;
         
+        [self.view addSubview:self.secondView];
     }
     else if (num == 4){
+        [self.SelSecView removeFromSuperview];//移除子视图
+        //插入
+        NSArray *imgArr = @[@"btn_lianjie@3x.png",@"btn_img@3x.png",@"btn_biaoqian"];
+        NSArray *textArr = @[@"链接",@"图片",@"股票"];
+        self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
+        self.secondView.delegate = self;
+        self.SelSecView = self.secondView;
         
+        [self.view addSubview:self.secondView];
     }
     else {
+        [self.SelSecView removeFromSuperview];//移除子视图
+        //更多
+        NSArray *imgArr = @[@"tab_yulan@3x.png",@"tab_caogao@3x.png"];
+        NSArray *textArr = @[@"预览",@"存为草稿"];
+        self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
+        self.secondView.delegate = self;
+        self.SelSecView = self.secondView;
         
+        [self.view addSubview:self.secondView];
+    }
+}
+
+#pragma mark - 子视图
+- (void)selectFont:(UIButton *)sender
+{
+    int num = (int)sender.tag;
+    if (num == 0) {
+        NSLog(@"加粗");
+        if (sender.selected == YES) {
+            jiacu = YES;
+        }
+        else
+        {
+            jiacu = NO;
+        }
+        if ([self.titleText isFirstResponder]) {
+            if (sender.selected == YES) {
+                if (xieti == YES) {
+                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[UIFont boldSystemFontOfSize:16]. fontName matrix :matrix];
+                    
+                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
+                    self.titleText.font = font;
+                }
+                else
+                {
+                    self.titleText.font = [UIFont boldSystemFontOfSize:16];
+                }
+            }
+            else
+            {
+                if (xieti == YES) {
+                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :16 ]. fontName matrix :matrix];
+                    
+                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
+                    
+                    self.titleText.font = font;
+                }
+                else
+                {
+                    self.titleText.font = [UIFont systemFontOfSize:16];
+                }
+            }
+        }
+        else
+        {
+            self.contentText.font = [UIFont boldSystemFontOfSize:14];
+        }
+    }
+    else if (num == 1)
+    {
+        NSLog(@"倾斜");
+        if (sender.selected == YES) {
+            xieti = YES;
+        }
+        else
+        {
+            xieti = NO;
+        }
+        if ([self.titleText isFirstResponder]) {
+            if (sender.selected == YES) {
+                if (jiacu == YES) {
+                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[UIFont boldSystemFontOfSize:16]. fontName matrix :matrix];
+                    
+                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
+                    self.titleText.font = font;
+                }
+                else
+                {
+                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :16 ]. fontName matrix :matrix];
+                    
+                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
+                                                                     
+                    self.titleText.font = font;
+                }
+            }
+            else
+            {
+                if (jiacu == YES) {
+                    self.titleText.font = [UIFont boldSystemFontOfSize:16];
+                }
+                else
+                {
+                    self.titleText.font = [UIFont systemFontOfSize:16];
+                }
+            }
+        }
+        else
+        {
+            self.contentText.font = [UIFont boldSystemFontOfSize:16];
+        }
+    }
+    else if (num == 2)
+    {
+        NSLog(@"下划线");
+        if (sender.selected == YES) {
+            xiahuaxian = YES;
+        }
+        else
+        {
+            xiahuaxian = NO;
+        }
+        if ([self.titleText isFirstResponder]) {
+            if (sender.selected == YES)
+            {
+                //下划线
+                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
+                self.titleText.attributedText = attribtStr;
+            }
+            else
+            {
+                //下划线
+                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleNone]};
+                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
+                self.titleText.attributedText = attribtStr;
+            }
+        }
+        else
+        {
+            if (sender.selected == YES)
+            {
+                //下划线
+                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
+                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
+                self.titleText.attributedText = attribtStr;
+            }
+            else
+            {
+                //下划线
+                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleNone]};
+                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
+                self.titleText.attributedText = attribtStr;
+            }
+        }
+    }
+    else if (num ==3)
+    {
+        NSLog(@"引用");
+    }
+    else if (num == 4)
+    {
+        NSLog(@"16");
+    }
+    else if (num == 5)
+    {
+        NSLog(@"15");
+    }
+    else if (num == 6)
+    {
+        NSLog(@"14");
+    }
+    else if (num == 7)
+    {
+        NSLog(@"13");
+    }
+    else
+    {
+        NSLog(@"12");
+    }
+}
+
+- (void)clickSecBtn:(LeftRightBtn *)sender
+{
+    int num = (int)sender.tag;
+    if (num == 0) {
+        NSLog(@"%@",sender.textLabel.text);
+    }
+    else{
+        NSLog(@"%@",sender.textLabel.text);
     }
 }
 
@@ -221,9 +439,6 @@
 }
 
 - (void)keyboardWasShown:(NSNotification *)aNotification{
-//    UIButton *button = self.bottomView.subviews[0];
-//    [button setImage:[UIImage imageNamed:@"tab_shouqijianpan@3x.png"] forState:UIControlStateNormal];
-    
     //当键盘出现时计算键盘的高度大小，用于输入框显示
     NSDictionary *info = [aNotification userInfo];
     //kbSize为键盘尺寸
@@ -232,9 +447,6 @@
 }
 
 - (void)keyboardWillBeHidden{
-//    UIButton *button = self.bottomView.subviews[0];
-//    [button setImage:[UIImage imageNamed:@"tab_tanchujianpan@3x.png"] forState:UIControlStateNormal];
-    
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformIdentity;
         self.scrollview.transform = CGAffineTransformIdentity;
@@ -258,6 +470,21 @@
     
     [self registerForKeyboardNotifications];
     [self.titleText becomeFirstResponder];
+    
+}
+
+#pragma mark - textView delegate
+-(void)textViewDidChange:(UITextView *)textView
+{
+    if ([self.contentText.text length] > 0) {
+        self.placeholderLab.text = @"";
+        self.placeholderLab.alpha = 0.0;
+    }
+    else
+    {
+        self.placeholderLab.text = @"正文，8000个字以内";
+        self.placeholderLab.alpha = 1.0;
+    }
     
 }
 

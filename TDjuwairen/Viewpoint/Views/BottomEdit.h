@@ -16,18 +16,7 @@
 @end
 @interface BottomEdit : UIView
 
-@property (nonatomic,strong) UIButton *popKeyboard;
-
-@property (nonatomic,strong) UIButton *undoBtn;
-
-@property (nonatomic,strong) UIButton *replyBtn;
-
-@property (nonatomic,strong) UIButton *fontBtn;
-
-@property (nonatomic,strong) UIButton *addBtn;
-
-@property (nonatomic,strong) UIButton *moreBtn;
-
 //@property (nonatomic,copy) clickBtn block;
+@property (nonatomic,strong) UIButton *selectBtn;
 @property (nonatomic,assign) id<BottomEditDelegate>delegate;
 @end

@@ -12,7 +12,7 @@
 
 @property (nonatomic,strong) NSArray *selectImgArr;
 @property (nonatomic,strong) NSArray *imgArr;
-@property (nonatomic,strong) UIButton *selectBtn;
+
 
 @end
 
@@ -22,6 +22,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         //
+        self.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
         self.imgArr = @[@"tab_shouqijianpan@3x.png",
                         @"tab_chexiao@3x.png",
                         @"tab_huifu@3x.png",
@@ -44,7 +45,7 @@
 - (void)createBtn{
     for (int i = 0; i<self.imgArr.count; i++) {
         
-        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(15+(30+speac)*i, 0, 30, 30)];
+        UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth/self.imgArr.count*i, 5, kScreenWidth/self.imgArr.count, 30)];
         [button setImage:[UIImage imageNamed:self.imgArr[i]] forState:UIControlStateNormal];
         [button setImage:[UIImage imageNamed:self.selectImgArr[i]] forState:UIControlStateSelected];
         button.tag = i;
