@@ -78,7 +78,6 @@
 		275E9CE11CFED0DC0075910D /* SetupImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CC51CFED0DC0075910D /* SetupImg.png */; };
 		275E9CE21CFED0DC0075910D /* CommontImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CC61CFED0DC0075910D /* CommontImg.png */; };
 		275E9CE31CFED0DC0075910D /* 跳转.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CC71CFED0DC0075910D /* 跳转.png */; };
-		275E9CE41CFED0DC0075910D /* 返回.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CC81CFED0DC0075910D /* 返回.png */; };
 		2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2651D015EEE00916844 /* SystemConfiguration.framework */; };
 		2764A2681D015F0A00916844 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2671D015F0A00916844 /* QuartzCore.framework */; };
 		2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2691D015F2900916844 /* CoreTelephony.framework */; };
@@ -436,7 +435,6 @@
 		275E9CC51CFED0DC0075910D /* SetupImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = SetupImg.png; sourceTree = "<group>"; };
 		275E9CC61CFED0DC0075910D /* CommontImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CommontImg.png; sourceTree = "<group>"; };
 		275E9CC71CFED0DC0075910D /* 跳转.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "跳转.png"; sourceTree = "<group>"; };
-		275E9CC81CFED0DC0075910D /* 返回.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "返回.png"; sourceTree = "<group>"; };
 		2764A2651D015EEE00916844 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2764A2671D015F0A00916844 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2764A2691D015F2900916844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -1121,7 +1119,6 @@
 				275E9CC51CFED0DC0075910D /* SetupImg.png */,
 				275E9CC61CFED0DC0075910D /* CommontImg.png */,
 				275E9CC71CFED0DC0075910D /* 跳转.png */,
-				275E9CC81CFED0DC0075910D /* 返回.png */,
 			);
 			path = MyCenter;
 			sourceTree = "<group>";
@@ -2142,7 +2139,6 @@
 				8497DFCA1CEEEB9600D7D105 /* VideoUnSelect@3x.png in Resources */,
 				845CCBA01D4EF501005ABD7B /* tab_yinyong_pre@3x.png in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
-				275E9CE41CFED0DC0075910D /* 返回.png in Resources */,
 				275E9CD81CFED0DC0075910D /* 局外人logo.png in Resources */,
 				845CCB8F1D4EE759005ABD7B /* tab_caogao@3x.png in Resources */,
 			);

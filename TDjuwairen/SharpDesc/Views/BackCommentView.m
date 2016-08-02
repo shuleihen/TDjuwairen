@@ -26,7 +26,7 @@
     [self.backback setBackgroundColor:[UIColor clearColor]];
     
     self.backButton = [[UIButton alloc]initWithFrame:CGRectMake(35/2, 15, 15, 20)];
-    [self.backButton setBackgroundImage:[UIImage imageNamed:@"返回.png"] forState:UIControlStateNormal];
+    [self.backButton setImage:[UIImage imageNamed:@"nav_back.png"] forState:UIControlStateNormal];
     
     self.commentview = [[UITextField alloc]initWithFrame:CGRectMake(50, 10, kScreenWidth-150, 30)];
     self.commentview.layer.cornerRadius = 5;
