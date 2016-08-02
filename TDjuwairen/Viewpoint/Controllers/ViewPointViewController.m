@@ -415,6 +415,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
