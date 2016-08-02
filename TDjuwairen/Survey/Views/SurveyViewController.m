@@ -19,6 +19,7 @@
 #import "SurveyListModel.h"
 #import "SharpDetailsViewController.h"
 #import "SearchViewController.h"
+#import "UIdaynightModel.h"
 
 /* 登录状态 */
 #import "LoginState.h"
@@ -47,6 +48,8 @@
 
 @property (nonatomic,strong) LoginState *loginstate;
 
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
+
 //进入页面时的加载
 @property (nonatomic,strong) UIImageView *loadingImageView;
 @property (nonatomic,strong) UIActivityIndicatorView *loading;
@@ -66,15 +69,26 @@
     - (void)loadRequest;
  */
 //    [self judgeAPPVersion];
+    self.loginstate = [LoginState addInstance];
+    self.page = 1;
+    isFirstRequest = YES;
+    self.surveyListDataArray = [NSMutableArray array];
+    
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
     
     [self setupWithNavigation];
     
     [self requestToLogin];
     
-    self.loginstate = [LoginState addInstance];
-    self.page = 1;
-    isFirstRequest = YES;
-    self.surveyListDataArray = [NSMutableArray array];
     [self requestDataWithSurveyList];//请求调研列表数据
     
     [self setupWithTableView];       //设置tableview
@@ -346,6 +360,11 @@
     
     cell.lineLabel.frame = CGRectMake(0, 15+25+15+titlesize.height+10+55+17, kScreenWidth, 0.5);
     
+    cell.nickname.textColor = self.daynightmodel.titleColor;
+    cell.titleLabel.textColor = self.daynightmodel.textColor;
+    cell.descLabel.textColor = self.daynightmodel.titleColor;
+    cell.backgroundColor = self.daynightmodel.navigationColor;
+    
     return cell;
 }
 
@@ -431,10 +450,17 @@
     [self.navigationController pushViewController:DetailView animated:YES];
 }
 
-//- (void)viewWillAppear:(BOOL)animated{
-//    [self.navigationController.navigationBar setHidden:YES];
-////    [self.tableview setContentOffset:CGPointMake(0.0, 30) animated:YES];
-//}
+- (void)viewWillAppear:(BOOL)animated{
+    self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
+    
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    
+    [self.tableview reloadData];
+    
+    
+}
 
 - (void)requestToLogin{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];

@@ -123,6 +123,25 @@
             </objects>
             <point key="canvasLocation" x="716" y="316"/>
         </scene>
+        <!--Publish View View Controller-->
+        <scene sceneID="foc-ha-7vK">
+            <objects>
+                <viewController storyboardIdentifier="publishview" id="u8P-nU-31H" customClass="PublishViewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="HhY-So-8hm"/>
+                        <viewControllerLayoutGuide type="bottom" id="eG4-wh-Rvy"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="5uV-AS-AY4">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="YCJ-wr-qZf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1055" y="316"/>
+        </scene>
         <!--视频-->
         <scene sceneID="pYs-3V-bMJ">
             <objects>

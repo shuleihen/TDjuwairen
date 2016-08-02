@@ -137,8 +137,16 @@
     //设置第一次启动引导页
     NSFileManager *manager = [NSFileManager defaultManager];
     isFirst = YES;
+    
+    
     isFirst = ![manager fileExistsAtPath:[NSHomeDirectory() stringByAppendingString:@"/Documents/first.txt"]];
     if (isFirst) {
+        //默认为白天模式
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        NSString *daynight = @"yes";
+        [userdefault setValue:daynight forKey:@"daynight"];
+        [userdefault synchronize];
+        
         [manager createFileAtPath:[NSHomeDirectory() stringByAppendingString:@"/Documents/first.txt"] contents:nil attributes:nil];
         UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
         GuideViewController *launchView=[mainStoryBoard instantiateViewControllerWithIdentifier:@"launchView"];
