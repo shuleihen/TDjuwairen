@@ -51,6 +51,8 @@
 		19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348611D3F76DB008ABD16 /* UIScrollView+MJRefresh.m */; };
 		19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */; };
 		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
+		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
+		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
 		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9C8E1CFE830E0075910D /* AgreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275E9C8D1CFE830E0075910D /* AgreeViewController.m */; };
@@ -408,6 +410,10 @@
 		19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		19C526261D49EE090039F85D /* TDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewController.h; sourceTree = "<group>"; };
 		19C526271D49EE090039F85D /* TDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewController.m; sourceTree = "<group>"; };
+		19E5193A1D509C7000CFF149 /* TDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNavigationController.h; sourceTree = "<group>"; };
+		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
+		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
+		19E519401D50A18B00CFF149 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
 		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
 		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
 		275E9C8C1CFE830E0075910D /* AgreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreeViewController.h; sourceTree = "<group>"; };
@@ -1077,6 +1083,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				19E519381D509C3F00CFF149 /* CustomUI */,
 				19C526251D49EDEE0039F85D /* WebView */,
 			);
 			path = Modules;
@@ -1089,6 +1096,32 @@
 				19C526271D49EE090039F85D /* TDWebViewController.m */,
 			);
 			path = WebView;
+			sourceTree = "<group>";
+		};
+		19E519381D509C3F00CFF149 /* CustomUI */ = {
+			isa = PBXGroup;
+			children = (
+				19E519391D509C5300CFF149 /* NavigationController */,
+			);
+			path = CustomUI;
+			sourceTree = "<group>";
+		};
+		19E519391D509C5300CFF149 /* NavigationController */ = {
+			isa = PBXGroup;
+			children = (
+				19E5193A1D509C7000CFF149 /* TDNavigationController.h */,
+				19E5193B1D509C7000CFF149 /* TDNavigationController.m */,
+			);
+			path = NavigationController;
+			sourceTree = "<group>";
+		};
+		19E5193E1D50A18B00CFF149 /* HexColor */ = {
+			isa = PBXGroup;
+			children = (
+				19E5193F1D50A18B00CFF149 /* HexColors.h */,
+				19E519401D50A18B00CFF149 /* HexColors.m */,
+			);
+			path = HexColor;
 			sourceTree = "<group>";
 		};
 		275E9CAC1CFED0DC0075910D /* MyCenter */ = {
@@ -1611,6 +1644,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19E5193E1D50A18B00CFF149 /* HexColor */,
 				19A7EE551D423ED200F833A9 /* MBProgressHUD */,
 				19C348351D3F76DB008ABD16 /* MJRefresh */,
 				84F9FDB01CF80E0A00683791 /* ELCImagePicker */,
@@ -2185,6 +2219,7 @@
 				1968431C1D49FEED0023A0FC /* SharpModel.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				84CBCC4B1D4AED58000DAEA8 /* PublishViewViewController.m in Sources */,
+				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84B9B4671D489FDD00DDF15B /* SelectFontView.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
 				846E51381D41A7DF00B89A53 /* AboutViewController.m in Sources */,
@@ -2253,6 +2288,7 @@
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84F9FE071CF80F3A00683791 /* ForgotTableViewController.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
+				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
 				842B361B1CE995D500C6E400 /* AFHTTPRequestOperationManager.m in Sources */,
 				19C348711D3F76DB008ABD16 /* MJRefreshStateHeader.m in Sources */,
 				19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */,

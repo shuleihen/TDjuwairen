@@ -27,6 +27,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.title = @"登录";
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
     self.loginState = [LoginState addInstance];
@@ -50,22 +51,6 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController.navigationBar setHidden:NO];
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    self.navigationItem.title = @"登录";
-    // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
-    
-    //设置返回button
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
     
     //设置右边注册按钮
     UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleDone target:self action:@selector(ClickRegister:)];
@@ -152,6 +137,10 @@
     [self.view addSubview:WXLogin];
     [self.view addSubview:QQLogin];
 }
+
+//- (BOOL)prefersStatusBarHidden {
+//    return NO;
+//}
 
 #pragma mark - 点击注册
 - (void)ClickRegister:(UIButton *)sender{

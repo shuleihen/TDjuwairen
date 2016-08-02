@@ -40,7 +40,6 @@
     self.setupTitleArr = @[@"观点管理",@"设置",@"反馈意见"];
     
     [self setupWithTableView];
-    [self setupWithNavigation];
     // Do any additional setup after loading the view.
 }
 
@@ -51,17 +50,6 @@
     [self.view addSubview:self.tableview];
 }
 
-- (void)setupWithNavigation{
-    [self.navigationController.navigationBar setHidden:YES];
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
-}
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -206,6 +194,7 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:YES];
+    
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     MyHeadTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     if (self.loginState.isLogIn==YES) {
@@ -226,6 +215,14 @@
         cell.backImg.image=[UIImage imageNamed:@"NotLogin.png"];
     }
 }
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setHidden:NO];
+}
+
 #pragma mark - 跳转到评论管理
 - (void)GoComment:(UIButton *)sender{
     if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面

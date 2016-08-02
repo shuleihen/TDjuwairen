@@ -44,6 +44,8 @@
     NSURLCache *shardCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:shardCache];
     
+    [self setupUICommon];
+    
 //    FIXME: @fql 每一项配置 单独放到一个方法中
     /* 分享SDK */
     //短信验证码
@@ -184,6 +186,15 @@
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+}
+
+- (void)setupUICommon
+{
+    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];
+//    [UINavigationBar appearance].tintColor = [UIColor blueColor];
+    
+    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]};
+    [[UINavigationBar appearance] setTitleTextAttributes:dict];
 }
 
 @end
