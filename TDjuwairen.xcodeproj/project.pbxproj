@@ -178,6 +178,7 @@
 		846E515F1D41B99A00B89A53 /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515E1D41B99A00B89A53 /* ForgetViewController.m */; };
 		846E51621D41BCAC00B89A53 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51611D41BCAC00B89A53 /* RegisterViewController.m */; };
 		846FA59E1D506D2400A41E3C /* EditZiti.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FA59D1D506D2400A41E3C /* EditZiti.m */; };
+		846FA5A11D50862D00A41E3C /* PhotoTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FA5A01D50862D00A41E3C /* PhotoTextAttachment.m */; };
 		848019251CEDA66C0045456D /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019241CEDA66C0045456D /* VideoViewController.m */; };
 		8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */; };
 		8489972C1D4B4D14008EE2BC /* tab_huifu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8489972B1D4B4D14008EE2BC /* tab_huifu@3x.png */; };
@@ -594,6 +595,8 @@
 		846E51611D41BCAC00B89A53 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		846FA59C1D506D2400A41E3C /* EditZiti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditZiti.h; sourceTree = "<group>"; };
 		846FA59D1D506D2400A41E3C /* EditZiti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditZiti.m; sourceTree = "<group>"; };
+		846FA59F1D50862D00A41E3C /* PhotoTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTextAttachment.h; sourceTree = "<group>"; };
+		846FA5A01D50862D00A41E3C /* PhotoTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTextAttachment.m; sourceTree = "<group>"; };
 		848019231CEDA66C0045456D /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		848019241CEDA66C0045456D /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_chexiao@3x.png"; sourceTree = "<group>"; };
@@ -1798,6 +1801,8 @@
 				842387701D49B8AF00671404 /* UIdaynightModel.m */,
 				846FA59C1D506D2400A41E3C /* EditZiti.h */,
 				846FA59D1D506D2400A41E3C /* EditZiti.m */,
+				846FA59F1D50862D00A41E3C /* PhotoTextAttachment.h */,
+				846FA5A01D50862D00A41E3C /* PhotoTextAttachment.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2242,6 +2247,7 @@
 				842B36271CE995D500C6E400 /* UIImageView+AFNetworking.m in Sources */,
 				842B36281CE995D500C6E400 /* UIProgressView+AFNetworking.m in Sources */,
 				84CC34991CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m in Sources */,
+				846FA5A11D50862D00A41E3C /* PhotoTextAttachment.m in Sources */,
 				84D8A8D41CFFE0BB0072813D /* AddCollectionTableViewCell.m in Sources */,
 				846E512C1D41A7DF00B89A53 /* CommentsViewController.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,

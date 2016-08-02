@@ -451,6 +451,7 @@
 }
 
 - (void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;

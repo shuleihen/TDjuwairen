@@ -13,8 +13,9 @@
 #import "EditZiti.h"
 
 #import "NSString+Ext.h"
+#import "PhotoTextAttachment.h"
 
-@interface PublishViewViewController ()<UITextViewDelegate,BottomEditDelegate,SecondEditDelegate>
+@interface PublishViewViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,BottomEditDelegate,SecondEditDelegate>
 {
     NSString *currentTitle;
     NSString *currentDesc;
@@ -22,6 +23,7 @@
     BOOL xieti;
     BOOL xiahuaxian;
     NSUInteger numm;
+    NSRange range;//光标所在位置
 }
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -48,7 +50,7 @@
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.editziti = [EditZiti sharedInstance];
     numm = 0;
-    self.editziti.zihao = 20;
+    self.editziti.zihao = 16;//默认16号字体
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -82,7 +84,7 @@
 }
 
 - (void)setupWithScrollview{
-    self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+    self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-40)];
     
     self.scrollview.backgroundColor = self.daynightmodel.backColor;
     [self.view addSubview:self.scrollview];
@@ -134,8 +136,6 @@
     self.contentText.font = [UIFont systemFontOfSize:14];
     self.contentText.textColor = self.daynightmodel.textColor;
     self.contentText.delegate = self;
-    
-    //    self.contentText.allowsEditingTextAttributes = YES;
     
     self.placeholderLab = [[UILabel alloc]initWithFrame:CGRectMake(8, 8, kScreenWidth/2, 20)];
     self.placeholderLab.text = @"正文，8000个字以内";
@@ -250,6 +250,7 @@
         NSArray *imgArr = @[@"btn_lianjie@3x.png",@"btn_img@3x.png",@"btn_biaoqian"];
         NSArray *textArr = @[@"链接",@"图片",@"股票"];
         self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
+        self.secondView.backgroundColor = self.daynightmodel.navigationColor;
         self.secondView.delegate = self;
         self.SelSecView = self.secondView;
         
@@ -261,6 +262,7 @@
         NSArray *imgArr = @[@"tab_yulan@3x.png",@"tab_caogao@3x.png"];
         NSArray *textArr = @[@"预览",@"存为草稿"];
         self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
+        self.secondView.backgroundColor = self.daynightmodel.navigationColor;
         self.secondView.delegate = self;
         self.SelSecView = self.secondView;
         
@@ -316,44 +318,86 @@
     }
     else if (num == 4)
     {
-        NSLog(@"16");
-        numm = self.contentText.text.length;
-        self.editziti.zihao = 24;
-    }
-    else if (num == 5)
-    {
-        NSLog(@"15");
-        numm = self.contentText.text.length;
-        self.editziti.zihao = 22;
-    }
-    else if (num == 6)
-    {
-        NSLog(@"14");
+        NSLog(@"20");
         numm = self.contentText.text.length;
         self.editziti.zihao = 20;
     }
-    else if (num == 7)
+    else if (num == 5)
     {
-        NSLog(@"13");
+        NSLog(@"18");
         numm = self.contentText.text.length;
         self.editziti.zihao = 18;
+    }
+    else if (num == 6)
+    {
+        NSLog(@"16");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 16;
+    }
+    else if (num == 7)
+    {
+        NSLog(@"14");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 14;
     }
     else
     {
         NSLog(@"12");
         numm = self.contentText.text.length;
-        self.editziti.zihao = 16;
+        self.editziti.zihao = 12;
     }
 }
 
 - (void)clickSecBtn:(LeftRightBtn *)sender
 {
-    int num = (int)sender.tag;
-    if (num == 0) {
-        NSLog(@"%@",sender.textLabel.text);
+    if ([sender.textLabel.text isEqualToString:@"链接"]) {
+        //插入链接
     }
-    else{
-        NSLog(@"%@",sender.textLabel.text);
+    else if ([sender.textLabel.text isEqualToString:@"图片"]){
+        //插入图片
+        UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        UIAlertAction *cameraAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+            picker.delegate = self;
+            picker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+            picker.allowsEditing = YES;
+            [self presentViewController:picker animated:YES completion:nil];
+            
+        }];
+        UIAlertAction *albumAction = [UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            
+            UIImagePickerController *picker = [[UIImagePickerController alloc]init];
+            picker.delegate = self;
+            picker.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            picker.allowsEditing = YES;
+            [self presentViewController:picker animated:YES completion:nil];
+            
+        }];
+        
+        [alertController addAction:cameraAction];
+        [alertController addAction:albumAction];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        
+        [alertController addAction:cancelAction];
+        
+        [self presentViewController:alertController animated:YES completion:nil];
+    }
+    else if ([sender.textLabel.text isEqualToString:@"股票"]){
+        //插入股票
+    }
+    else if ([sender.textLabel.text isEqualToString:@"预览"]){
+        //插入预览
+    }
+    else
+    {
+        //存为草稿
     }
 }
 
@@ -385,7 +429,13 @@
 - (void)beginMoveUpAnimation:(CGFloat )height{
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformMakeTranslation(0, -height);
-        self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
+//        if ([self.titleText isFirstResponder]) {
+            self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
+//        }
+//        else
+//        {
+//            self.scrollview.transform = CGAffineTransformMakeTranslation(0, -height);
+//        }
     }];
 }
 
@@ -396,7 +446,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    
+    [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
     [self.titleText becomeFirstResponder];
     
@@ -531,6 +581,31 @@
         }
     }
     
+}
+
+#pragma mark - 点击确定选择图片上传头像
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
+    
+    [picker dismissViewControllerAnimated:YES completion:nil];
+    
+//    UIImage *Photo = [info objectForKey:UIImagePickerControllerEditedImage];
+//    if (Photo == nil)
+//    {
+        UIImage *Photo = info[UIImagePickerControllerOriginalImage];
+//    }
+    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.contentText.attributedText];
+    
+    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] initWithData:nil ofType:nil] ;
+//    PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
+//    textAttachment.photoSize = CGSizeMake(kScreenWidth-16 , (kScreenWidth-16)/Photo.size.width*Photo.size.height);
+    range = self.contentText.selectedRange;
+    
+    textAttachment.image = Photo; //要添加的图片
+    NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+    [string insertAttributedString:textAttachmentString atIndex:range.location];//index为用户指定要插入图片的位置
+    self.contentText.attributedText = string;
+    self.contentText.selectedRange = NSMakeRange(range.location+1, range.length);
+
 }
 
 - (void)didReceiveMemoryWarning {
