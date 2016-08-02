@@ -48,7 +48,7 @@
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.editziti = [EditZiti sharedInstance];
     numm = 0;
-    self.editziti.zihao = 20;
+    self.editziti.zihao = 16;//默认16号字体
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -316,33 +316,33 @@
     }
     else if (num == 4)
     {
-        NSLog(@"16");
-        numm = self.contentText.text.length;
-        self.editziti.zihao = 24;
-    }
-    else if (num == 5)
-    {
-        NSLog(@"15");
-        numm = self.contentText.text.length;
-        self.editziti.zihao = 22;
-    }
-    else if (num == 6)
-    {
-        NSLog(@"14");
+        NSLog(@"20");
         numm = self.contentText.text.length;
         self.editziti.zihao = 20;
     }
-    else if (num == 7)
+    else if (num == 5)
     {
-        NSLog(@"13");
+        NSLog(@"18");
         numm = self.contentText.text.length;
         self.editziti.zihao = 18;
+    }
+    else if (num == 6)
+    {
+        NSLog(@"16");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 16;
+    }
+    else if (num == 7)
+    {
+        NSLog(@"14");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 14;
     }
     else
     {
         NSLog(@"12");
         numm = self.contentText.text.length;
-        self.editziti.zihao = 16;
+        self.editziti.zihao = 12;
     }
 }
 
