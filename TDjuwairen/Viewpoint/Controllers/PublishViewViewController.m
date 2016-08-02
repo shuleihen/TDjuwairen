@@ -10,6 +10,7 @@
 #import "UIdaynightModel.h"
 #import "BottomEdit.h"
 #import "SecondEdit.h"
+#import "EditZiti.h"
 
 #import "NSString+Ext.h"
 
@@ -20,6 +21,7 @@
     BOOL jiacu;
     BOOL xieti;
     BOOL xiahuaxian;
+    NSUInteger numm;
 }
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -34,6 +36,8 @@
 
 @property (nonatomic,strong) UIView *SelSecView;
 
+@property (nonatomic,strong) EditZiti *editziti;
+
 @end
 
 @implementation PublishViewViewController
@@ -42,6 +46,9 @@
     [super viewDidLoad];
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.editziti = [EditZiti sharedInstance];
+    numm = 0;
+    self.editziti.zihao = 20;
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -51,6 +58,9 @@
     self.scrollview.contentSize = CGSizeMake(kScreenWidth, self.titleText.frame.size.height+self.contentText.frame.size.height);
     [self setupWithEdit];
 }
+
+#pragma mark - 监听editziti
+
 
 - (void)setupWithNavigation{
     self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
@@ -124,7 +134,9 @@
     self.contentText.font = [UIFont systemFontOfSize:14];
     self.contentText.textColor = self.daynightmodel.textColor;
     self.contentText.delegate = self;
-
+    
+    //    self.contentText.allowsEditingTextAttributes = YES;
+    
     self.placeholderLab = [[UILabel alloc]initWithFrame:CGRectMake(8, 8, kScreenWidth/2, 20)];
     self.placeholderLab.text = @"正文，8000个字以内";
     self.placeholderLab.textColor = self.daynightmodel.titleColor;
@@ -178,7 +190,7 @@
     
 }
 
-#pragma mark - 是否原创 
+#pragma mark - 是否原创
 - (void)isOriginal:(UIButton *)sender{
     if (sender.selected == YES) {
         sender.selected = NO;
@@ -226,6 +238,7 @@
         [self.SelSecView removeFromSuperview];
         //字体设置
         self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40)];
+        self.secondView.backgroundColor = self.daynightmodel.navigationColor;
         self.secondView.delegate = self;
         self.SelSecView = self.secondView;
         
@@ -261,6 +274,7 @@
     int num = (int)sender.tag;
     if (num == 0) {
         NSLog(@"加粗");
+        numm = self.contentText.text.length;
         if (sender.selected == YES) {
             jiacu = YES;
         }
@@ -268,44 +282,12 @@
         {
             jiacu = NO;
         }
-        if ([self.titleText isFirstResponder]) {
-            if (sender.selected == YES) {
-                if (xieti == YES) {
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[UIFont boldSystemFontOfSize:16]. fontName matrix :matrix];
-                    
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
-                    self.titleText.font = font;
-                }
-                else
-                {
-                    self.titleText.font = [UIFont boldSystemFontOfSize:16];
-                }
-            }
-            else
-            {
-                if (xieti == YES) {
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :16 ]. fontName matrix :matrix];
-                    
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
-                    
-                    self.titleText.font = font;
-                }
-                else
-                {
-                    self.titleText.font = [UIFont systemFontOfSize:16];
-                }
-            }
-        }
-        else
-        {
-            self.contentText.font = [UIFont boldSystemFontOfSize:14];
-        }
+        
     }
     else if (num == 1)
     {
         NSLog(@"倾斜");
+        numm = self.contentText.text.length;
         if (sender.selected == YES) {
             xieti = YES;
         }
@@ -313,44 +295,12 @@
         {
             xieti = NO;
         }
-        if ([self.titleText isFirstResponder]) {
-            if (sender.selected == YES) {
-                if (jiacu == YES) {
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[UIFont boldSystemFontOfSize:16]. fontName matrix :matrix];
-                    
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
-                    self.titleText.font = font;
-                }
-                else
-                {
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :16 ]. fontName matrix :matrix];
-                    
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :16];
-                                                                     
-                    self.titleText.font = font;
-                }
-            }
-            else
-            {
-                if (jiacu == YES) {
-                    self.titleText.font = [UIFont boldSystemFontOfSize:16];
-                }
-                else
-                {
-                    self.titleText.font = [UIFont systemFontOfSize:16];
-                }
-            }
-        }
-        else
-        {
-            self.contentText.font = [UIFont boldSystemFontOfSize:16];
-        }
+        
     }
     else if (num == 2)
     {
         NSLog(@"下划线");
+        numm = self.contentText.text.length;
         if (sender.selected == YES) {
             xiahuaxian = YES;
         }
@@ -358,39 +308,7 @@
         {
             xiahuaxian = NO;
         }
-        if ([self.titleText isFirstResponder]) {
-            if (sender.selected == YES)
-            {
-                //下划线
-                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
-                self.titleText.attributedText = attribtStr;
-            }
-            else
-            {
-                //下划线
-                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleNone]};
-                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
-                self.titleText.attributedText = attribtStr;
-            }
-        }
-        else
-        {
-            if (sender.selected == YES)
-            {
-                //下划线
-                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleSingle]};
-                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
-                self.titleText.attributedText = attribtStr;
-            }
-            else
-            {
-                //下划线
-                NSDictionary *attribtDic = @{NSUnderlineStyleAttributeName: [NSNumber numberWithInteger:NSUnderlineStyleNone]};
-                NSMutableAttributedString *attribtStr = [[NSMutableAttributedString alloc]initWithString:self.titleText.text attributes:attribtDic];
-                self.titleText.attributedText = attribtStr;
-            }
-        }
+        
     }
     else if (num ==3)
     {
@@ -399,22 +317,32 @@
     else if (num == 4)
     {
         NSLog(@"16");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 24;
     }
     else if (num == 5)
     {
         NSLog(@"15");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 22;
     }
     else if (num == 6)
     {
         NSLog(@"14");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 20;
     }
     else if (num == 7)
     {
         NSLog(@"13");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 18;
     }
     else
     {
         NSLog(@"12");
+        numm = self.contentText.text.length;
+        self.editziti.zihao = 16;
     }
 }
 
@@ -450,6 +378,7 @@
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformIdentity;
         self.scrollview.transform = CGAffineTransformIdentity;
+        [self.secondView removeFromSuperview];
     }];
 }
 
@@ -484,6 +413,122 @@
     {
         self.placeholderLab.text = @"正文，8000个字以内";
         self.placeholderLab.alpha = 1.0;
+    }
+    
+    if (jiacu == YES) {
+        if (xieti == YES) {
+            if (xiahuaxian == YES) {
+                self.editziti.type = @"cuxiexian";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+            else
+            {
+                self.editziti.type = @"cuxie";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+        }
+        else
+        {
+            if (xiahuaxian == YES) {
+                self.editziti.type = @"cuxian";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+            else
+            {
+                self.editziti.type = @"cu";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+        }
+    }
+    else
+    {
+        if (xieti == YES) {
+            if (xiahuaxian == YES) {
+                self.editziti.type = @"xiexian";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+            else
+            {
+                self.editziti.type = @"xie";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+        }
+        else
+        {
+            if (xiahuaxian == YES) {
+                self.editziti.type = @"xian";
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+            else
+            {
+                self.editziti.type = nil;
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
+                self.contentText.attributedText = labelText;
+            }
+        }
     }
     
 }

@@ -177,6 +177,7 @@
 		846E515C1D41B3E500B89A53 /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */; };
 		846E515F1D41B99A00B89A53 /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E515E1D41B99A00B89A53 /* ForgetViewController.m */; };
 		846E51621D41BCAC00B89A53 /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51611D41BCAC00B89A53 /* RegisterViewController.m */; };
+		846FA59E1D506D2400A41E3C /* EditZiti.m in Sources */ = {isa = PBXBuildFile; fileRef = 846FA59D1D506D2400A41E3C /* EditZiti.m */; };
 		848019251CEDA66C0045456D /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 848019241CEDA66C0045456D /* VideoViewController.m */; };
 		8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */; };
 		8489972C1D4B4D14008EE2BC /* tab_huifu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8489972B1D4B4D14008EE2BC /* tab_huifu@3x.png */; };
@@ -590,6 +591,8 @@
 		846E515E1D41B99A00B89A53 /* ForgetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetViewController.m; sourceTree = "<group>"; };
 		846E51601D41BCAC00B89A53 /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
 		846E51611D41BCAC00B89A53 /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
+		846FA59C1D506D2400A41E3C /* EditZiti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditZiti.h; sourceTree = "<group>"; };
+		846FA59D1D506D2400A41E3C /* EditZiti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditZiti.m; sourceTree = "<group>"; };
 		848019231CEDA66C0045456D /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		848019241CEDA66C0045456D /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_chexiao@3x.png"; sourceTree = "<group>"; };
@@ -1791,6 +1794,8 @@
 				84C1F4021D474064007C26B5 /* SpecialModel.m */,
 				8423876F1D49B8AF00671404 /* UIdaynightModel.h */,
 				842387701D49B8AF00671404 /* UIdaynightModel.m */,
+				846FA59C1D506D2400A41E3C /* EditZiti.h */,
+				846FA59D1D506D2400A41E3C /* EditZiti.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2162,6 +2167,7 @@
 				19C348741D3F76DB008ABD16 /* NSBundle+MJRefresh.m in Sources */,
 				84C1F4031D474064007C26B5 /* SpecialModel.m in Sources */,
 				846E514D1D41A93000B89A53 /* MyHeadTableViewCell.m in Sources */,
+				846FA59E1D506D2400A41E3C /* EditZiti.m in Sources */,
 				84F4B6B81CF5753800B8E617 /* NewTableViewCell.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				84CC34981CEAFE8B00193D9C /* FCXRefreshHeaderView.m in Sources */,
