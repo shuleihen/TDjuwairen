@@ -59,6 +59,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    
     [super viewWillAppear:animated];
     [self setNavigationBar];
     self.columns = self.view.bounds.size.width / 80;
