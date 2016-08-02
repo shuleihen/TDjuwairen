@@ -588,16 +588,19 @@
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-//    UIImage *Photo = [info objectForKey:UIImagePickerControllerEditedImage];
-//    if (Photo == nil)
-//    {
-        UIImage *Photo = info[UIImagePickerControllerOriginalImage];
-//    }
+
+    UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
+
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.contentText.attributedText];
+    PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
+    if (Photo.size.width >kScreenWidth) {
+        textAttachment.photoSize = CGSizeMake(kScreenWidth-16 , (kScreenWidth-16)/Photo.size.width*Photo.size.height);
+    }
+    else
+    {
+        textAttachment.photoSize = Photo.size;
+    }
     
-    NSTextAttachment *textAttachment = [[NSTextAttachment alloc] initWithData:nil ofType:nil] ;
-//    PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
-//    textAttachment.photoSize = CGSizeMake(kScreenWidth-16 , (kScreenWidth-16)/Photo.size.width*Photo.size.height);
     range = self.contentText.selectedRange;
     
     textAttachment.image = Photo; //要添加的图片
