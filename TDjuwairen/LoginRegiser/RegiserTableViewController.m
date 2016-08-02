@@ -52,6 +52,7 @@
 //设置navgation
 -(void)setNavgation
 {
+    //    @fql 删除 back 处理
     //设置标题
     UILabel*lable=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
     lable.text=@"注册";

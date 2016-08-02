@@ -73,7 +73,7 @@
 }
 
 -(void)setNavgation{
-    
+    //    @fql 删除 back 处理
     
     //设置返回button
     

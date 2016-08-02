@@ -61,6 +61,7 @@
 //设置navgation
 -(void)setNavgation
 {
+    //    @fql 删除 back 处理
     //标题
     UILabel*Title=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
     Title.text=@"登录";

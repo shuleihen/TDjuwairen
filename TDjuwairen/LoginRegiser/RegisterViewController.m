@@ -45,6 +45,7 @@
 }
 
 - (void)setupWithNavigation{
+    //    @fql 删除 back 处理
     [self.navigationController.navigationBar setHidden:NO];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];

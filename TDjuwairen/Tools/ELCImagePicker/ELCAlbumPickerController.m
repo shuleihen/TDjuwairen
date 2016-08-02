@@ -102,6 +102,7 @@
 }
 
 -(void)setNavigationBar{
+//    @fql 删除 back 处理
     UILabel *navTitle=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 15)];
     navTitle.text=@"选择相册";
     navTitle.font=[UIFont boldSystemFontOfSize:17];

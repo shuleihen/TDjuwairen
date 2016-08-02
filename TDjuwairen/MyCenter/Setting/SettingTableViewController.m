@@ -48,6 +48,7 @@
 
 -(void)setNavigation
 {
+    //    @fql 删除 back 处理
     [self.navigationController.navigationBar setHidden:NO];
     UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
     label.text=@"设置";
