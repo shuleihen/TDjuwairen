@@ -34,27 +34,16 @@
 #import "FSSyncSpinner.h"
 #import "MJRefresh.h"
 #import <WebKit/WebKit.h>
-
+#import "SharpModel.h"
 #import "MBProgressHUD.h"
+#import "NetworkManager.h"
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
 {
-    int page;
-    
     CGSize commentsize;
     CGSize originalsize;
     
-    NSString *typeid;
     NSString *encryptedStr;
-    NSString *title;
-    NSString *nickname;
-    NSString *facesmall;
-    NSString *time;
-    NSString *iscollect;
-    NSString *isoriginal;   //是否原创0是1不是
-    NSString *commentNum;
-    NSString *desc;
-    NSString *sharpimg;
     UIView *bgView;    //点击放大图片背景
     
     UILabel *label;
@@ -91,6 +80,8 @@
 /* 文章中的所有图片 */
 @property (nonatomic,strong) NSMutableArray *imageViews;
 
+@property (nonatomic, strong) SharpModel *sharpInfo;
+@property (nonatomic, assign) int page;
 @end
 
 @implementation SharpDetailsViewController
@@ -110,7 +101,7 @@
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
     self.loginstate = [LoginState addInstance];
-    page = 1;
+    self.page = 1;
     
     [self refreshAction];
 }
@@ -245,145 +236,130 @@
 #pragma mark Request Data
 - (void)refreshAction {
     //数据表页数为1
-    page = 1;
+    self.page = 1;
     [self requestDataWithUrl];
-    [self requestDataWithComments];
+    [self requestCommentDataWithPage:self.page];
 }
 
 - (void)loadMoreAction {
-     page++;
-    //继续请求
-    [self requestDataWithComments];
+    [self requestCommentDataWithPage:(self.page + 1)];
 }
 
 
-- (void)requestDataWithComments{
+- (void)requestCommentDataWithPage:(int)currentPage
+{
+    NSString *string = [NSString stringWithFormat:@"index.php/Sharp/getSharpComnment/id/%@/page/%d",self.sharp_id,currentPage];
     
-    NSString *string = [NSString stringWithFormat:@"%@getSharpComnment/id/%@/page/%d",kAPI_Sharp,self.sharp_id,page];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (page == 1) {
-            [self.commentsDataArray removeAllObjects];
-        }
-        
-        if ([responseObject[@"code"] isEqualToString:@"200"]) {
-            NSArray *arr = responseObject[@"data"];
-            for (NSDictionary *d in arr) {
-                /* 转模型 */
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:string parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:[data count]];
+            for (NSDictionary *d in data) {
                 CommentsModel *model = [CommentsModel getInstanceWithDictionary:d];
-                [self.commentsDataArray addObject:model];
+                [array addObject:model];
             }
+            
+            if (currentPage == 1) {
+                self.commentsDataArray = array;
+            } else {
+                [self.commentsDataArray addObjectsFromArray:array];
+            }
+            
+            self.page = currentPage;
+            NSIndexSet *indexSet = [[NSIndexSet alloc] initWithIndex:1];
+            [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
+            [self.tableview.mj_footer endRefreshing];
+        } else {
+           [self.tableview.mj_footer endRefreshing];
         }
-        else
-        {
-            NSLog(@"没有更多了");
-        }
-        
-        NSIndexSet *indexSet = [[NSIndexSet alloc]initWithIndex:1];
-        [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
-        [self.tableview.mj_footer endRefreshing];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self.tableview.mj_footer endRefreshing];
-        NSLog(@"请求失败");
     }];
 }
 
 - (void)requestDataWithUrl{
-    self.loadingBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    self.loadingBackView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:self.loadingBackView];
+//    self.loadingBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+//    self.loadingBackView.backgroundColor = [UIColor whiteColor];
+//    [self.view addSubview:self.loadingBackView];
+//    
+//    self.loadingImgView = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-kScreenWidth/4)/2+10, kScreenHeight/736*298, kScreenWidth/4, kScreenWidth/10)];
+//    self.loadingImgView.image = [UIImage imageNamed:@"loadingLogo.png"];
+//    [self.loadingBackView addSubview:self.loadingImgView];
+//    
+//    self.loading1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenHeight/2-5, kScreenWidth, 20)];
+//    self.loading1.text = @"投资看公司";
+//    self.loading1.font = [UIFont systemFontOfSize:16];
+//    self.loading1.textColor = [UIColor lightGrayColor];
+//    self.loading1.textAlignment = NSTextAlignmentCenter;
+//    [self.loadingBackView addSubview:self.loading1];
+//    
+//    self.loading2 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenHeight/2+20, kScreenWidth, 20)];
+//    self.loading2.text = @"分享有价值的信息";
+//    self.loading2.font = [UIFont systemFontOfSize:16];
+//    self.loading2.textColor = [UIColor lightGrayColor];
+//    self.loading2.textAlignment = NSTextAlignmentCenter;
+//    [self.loadingBackView addSubview:self.loading2];
+//    
+//    self.indicator = [[FSSyncSpinner alloc]initWithFrame:CGRectMake(-30, 0, 30, 30)];
+//    [self.loadingImgView addSubview:self.indicator];
+//    [self.indicator startAnimating];
     
-    self.loadingImgView = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-kScreenWidth/4)/2+10, kScreenHeight/736*298, kScreenWidth/4, kScreenWidth/10)];
-    self.loadingImgView.image = [UIImage imageNamed:@"loadingLogo.png"];
-    [self.loadingBackView addSubview:self.loadingImgView];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
     
-    self.loading1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenHeight/2-5, kScreenWidth, 20)];
-    self.loading1.text = @"投资看公司";
-    self.loading1.font = [UIFont systemFontOfSize:16];
-    self.loading1.textColor = [UIColor lightGrayColor];
-    self.loading1.textAlignment = NSTextAlignmentCenter;
-    [self.loadingBackView addSubview:self.loading1];
-    
-    self.loading2 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenHeight/2+20, kScreenWidth, 20)];
-    self.loading2.text = @"分享有价值的信息";
-    self.loading2.font = [UIFont systemFontOfSize:16];
-    self.loading2.textColor = [UIColor lightGrayColor];
-    self.loading2.textAlignment = NSTextAlignmentCenter;
-    [self.loadingBackView addSubview:self.loading2];
-    
-    self.indicator = [[FSSyncSpinner alloc]initWithFrame:CGRectMake(-30, 0, 30, 30)];
-    [self.loadingImgView addSubview:self.indicator];
-    [self.indicator startAnimating];
     NSString *url;
     if (self.loginstate.isLogIn) {
-        url = [NSString stringWithFormat:@"%@show/id/%@/userid/%@",kAPI_Sharp,self.sharp_id,self.loginstate.userId];
+        url = [NSString stringWithFormat:@"index.php/Sharp/show/id/%@/userid/%@",self.sharp_id,self.loginstate.userId];
         
     }
     else
     {
-        url = [NSString stringWithFormat:@"%@show/id/%@",kAPI_Sharp,self.sharp_id];
+        url = [NSString stringWithFormat:@"index.php/Sharp/show/id/%@",self.sharp_id];
         
     }
     
-    __weak SharpDetailsViewController *wself = self;
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:url parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        FIXME: 后面改成对象，不要定义这么变量
-        NSDictionary *data = responseObject[@"data"];
-        self.sharpTagsArray = data[@"tags"];
-        NSString *string = data[@"sharp_content"];
-        typeid = data[@"sharp_typeid"];
-        title = data[@"sharp_title"];
-        desc = data[@"sharp_desc"];
-        nickname = data[@"user_nickname"];
-        facesmall = data[@"userinfo_facesmall"];
-        time = data[@"sharp_wtime"];
-        commentNum = data[@"sharpcommentNumbers"];
-        iscollect = data[@"sharp_iscollect"];
-        isoriginal = data[@"sharp_isoriginal"];
-        sharpimg = data[@"sharp_pic280"];
-        
-        if ([commentNum intValue] > 0) {
-            NSString *text;
-            if ([commentNum intValue] >999) {
-                text = @"999+";
-            }else
-            {
-                text = [NSString stringWithFormat:@"%@",commentNum];
-            }
-            CGSize size = CGSizeMake(50, 200.0f);
-            UIFont *font = [UIFont systemFontOfSize:11];
-            CGSize btnsize = [text calculateSize:size font:font];
-            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100+28, 8, btnsize.width+10, btnsize.height)];
-            btn.titleLabel.font = [UIFont systemFontOfSize: 11];
-            btn.layer.cornerRadius = btnsize.height/2;
-            [btn setBackgroundColor:[UIColor colorWithRed:27/255.0 green:105/255.0 blue:177/255.0 alpha:1.0]];
-            [btn setTitle:text forState:UIControlStateNormal];
-            //新增点击滑动
-            [btn addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
-            
-            [self.backcommentview addSubview:btn];
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:url parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            self.sharpInfo = [SharpModel sharpWithDictionary:data];
+            [hud hide:YES afterDelay:0.1];
+//            [self stopLoadView];
+            [self relaodCommentNumber];
+            [self.tableview.mj_header endRefreshing];
+            [self.tableview reloadData];
+            [self.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
+        } else {
+            hud.labelText = @"加载失败";
+            [hud hide:YES afterDelay:0.1];
+//            [self stopLoadView];
+            [self.tableview.mj_header endRefreshing];
         }
-
-        // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
-//        string = [string stringByReplacingOccurrencesOfString:@"preload" withString:@"preload=\"load\""];
-
-        [self stopLoadView];
-        [wself.tableview.mj_header endRefreshing];
-        [self.tableview reloadData];
-        
-        [self.webview loadHTMLString:string baseURL:nil];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [self stopLoadView];
-        [wself.tableview.mj_header endRefreshing];
     }];
 }
 
+- (void)relaodCommentNumber
+{
+    if (self.sharpInfo.sharpCommentNumbers > 0) {
+        NSString *text;
+        if (self.sharpInfo.sharpCommentNumbers >999) {
+            text = @"999+";
+        }else
+        {
+            text = [NSString stringWithFormat:@"%d",self.sharpInfo.sharpCommentNumbers];
+        }
+        CGSize size = CGSizeMake(50, 200.0f);
+        UIFont *font = [UIFont systemFontOfSize:11];
+        CGSize btnsize = [text calculateSize:size font:font];
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100+28, 8, btnsize.width+10, btnsize.height)];
+        btn.titleLabel.font = [UIFont systemFontOfSize: 11];
+        btn.layer.cornerRadius = btnsize.height/2;
+        [btn setBackgroundColor:[UIColor colorWithRed:27/255.0 green:105/255.0 blue:177/255.0 alpha:1.0]];
+        [btn setTitle:text forState:UIControlStateNormal];
+        //新增点击滑动
+        [btn addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.backcommentview addSubview:btn];
+    }
+}
 
 #pragma mark TableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -456,11 +432,11 @@
             if (titleCell == nil) {
                 titleCell = [[TitlesTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleCell"];
             }
-            titleCell.titleLabel.text = title;
-            NSString *custime = [NSString prettyDateWithReference:time];
-            titleCell.usernickname.text = nickname;
+            titleCell.titleLabel.text = self.sharpInfo.sharpTitle;
+            NSString *custime = [NSString prettyDateWithReference:self.sharpInfo.sharpWtime];
+            titleCell.usernickname.text = self.sharpInfo.sharpUserName;
             titleCell.addtime.text = custime;
-            [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:facesmall]];
+            [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.sharpInfo.sharpUserIcon]];
             return titleCell;
         }
         else if(indexPath.row == 1){
@@ -486,7 +462,7 @@
             if (cell == nil) {
                 cell = [[AddCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"addcollectioncell"];
             }
-            if ([iscollect intValue] == 0) {
+            if (!self.sharpInfo.sharpIsCollect) {
                 [cell.addCollection setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
             }
             else
@@ -539,8 +515,8 @@
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             NSString *text;
-            if ([isoriginal isEqualToString:@"1"]) {
-                if ([typeid isEqualToString:@"1"]) {
+            if (self.sharpInfo.sharpIsOriginal) {
+                if (self.sharpInfo.sharpTypeId == 1) {
                     text = @"该篇调研文章是实地调查取材，仅供用户阅读，版权归局外人网站所有，不得擅自以其他媒体等公共形式流传，违者需赔偿我方版权损失， 我方并将保留法律诉讼的权利。";
                 }
                 else
@@ -737,7 +713,7 @@
             [hud hide:YES afterDelay:0.2];
             
             //请求评论数据
-            [wself requestDataWithComments];
+            [wself requestCommentDataWithPage:1];
             
             //滑动到评论
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
@@ -766,7 +742,7 @@
     });
     
     if (self.loginstate.isLogIn) {
-        if ([iscollect intValue] == 0) {
+        if (!self.sharpInfo.sharpIsCollect) {
             
             
             NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
@@ -784,7 +760,7 @@
                     hud.labelText = @"收藏成功";
                     [hud hide:YES afterDelay:0.2];
                     
-                    iscollect = @"1";
+                    self.sharpInfo.sharpIsCollect = true;
                     [sender setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
                 } else {
                     hud.labelText = @"收藏失败";
@@ -815,7 +791,7 @@
             [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
                 NSString*code=[responseObject objectForKey:@"code"];
                 if ([code isEqualToString:@"200"]) {
-                    iscollect = @"0";
+                    self.sharpInfo.sharpIsCollect = false;
                     [sender setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
                  
                     hud.labelText = @"取消成功";
@@ -869,10 +845,10 @@
     //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    [shareParams SSDKSetupShareParamsByText:desc
-                                     images:@[sharpimg]
+    [shareParams SSDKSetupShareParamsByText:self.sharpInfo.sharpDesc
+                                     images:@[self.sharpInfo.sharpThumbnail]
                                         url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Sharp/show/sid/%@",self.sharp_id]]
-                                      title:title
+                                      title:self.sharpInfo.sharpTitle
                                        type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
     [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响

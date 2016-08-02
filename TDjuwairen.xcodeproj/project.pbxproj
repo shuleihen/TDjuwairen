@@ -11,6 +11,7 @@
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194131491D4604FD005AAB53 /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 194131481D4604FD005AAB53 /* NetworkManager.m */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
+		1968431C1D49FEED0023A0FC /* SharpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1968431B1D49FEED0023A0FC /* SharpModel.m */; };
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
 		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
@@ -287,6 +288,8 @@
 		194131471D4604FD005AAB53 /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		194131481D4604FD005AAB53 /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
 		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		1968431A1D49FEED0023A0FC /* SharpModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharpModel.h; sourceTree = "<group>"; };
+		1968431B1D49FEED0023A0FC /* SharpModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharpModel.m; sourceTree = "<group>"; };
 		19A7EE561D423ED200F833A9 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		19A7EE571D423ED200F833A9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		19A7EE581D423ED200F833A9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -1370,6 +1373,8 @@
 			children = (
 				84D8A8DB1D00139F0072813D /* CommentsModel.h */,
 				84D8A8DC1D00139F0072813D /* CommentsModel.m */,
+				1968431A1D49FEED0023A0FC /* SharpModel.h */,
+				1968431B1D49FEED0023A0FC /* SharpModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -1996,6 +2001,7 @@
 				841546E71D20B68F007DB2F0 /* GuideViewController.m in Sources */,
 				842B36261CE995D500C6E400 /* UIButton+AFNetworking.m in Sources */,
 				846E514E1D41A93000B89A53 /* MyInfomationTableViewCell.m in Sources */,
+				1968431C1D49FEED0023A0FC /* SharpModel.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				84B9B4671D489FDD00DDF15B /* SelectFontView.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
