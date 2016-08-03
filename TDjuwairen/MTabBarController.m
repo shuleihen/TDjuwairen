@@ -16,20 +16,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    UITabBar *tabbar = self.tabBar;
-    UITabBarItem *item1 = [tabbar.items objectAtIndex:0];
-    UITabBarItem *item2 = [tabbar.items objectAtIndex:1];
-    UITabBarItem *item3 = [tabbar.items objectAtIndex:2];
-    UITabBarItem *item4 = [tabbar.items objectAtIndex:3];
-    
-    item1.selectedImage  = [[UIImage imageNamed:@"SurveySelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item1.image = [[UIImage imageNamed:@"SurveyUnSelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    item2.selectedImage = [[UIImage imageNamed:@"ViewPointSelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item2.image = [[UIImage imageNamed:@"ViewPointUnSelect@3x"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.selectedImage = [[UIImage imageNamed:@"VideoSelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item3.image = [[UIImage imageNamed:@"VideoUnSelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item4.selectedImage = [[UIImage imageNamed:@"MyCenterSelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    item4.image = [[UIImage imageNamed:@"MyCenterUnSelect@3x.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     
     self.tabBarController.tabBar.translucent = NO;
 }

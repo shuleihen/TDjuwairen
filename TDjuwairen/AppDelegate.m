@@ -202,7 +202,8 @@
     // 设置导航条左右按钮字体和颜色
     NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[UIFont systemFontOfSize:16]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
-    
+ 
+    [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
 }
 
 @end
