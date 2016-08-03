@@ -49,7 +49,7 @@
     [self.navigationController.navigationBar setHidden:NO];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    self.navigationItem.title = @"找回密码";
+    self.title = @"注册";
     // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
     
@@ -114,9 +114,9 @@
     self.nicknameText.textColor = [UIColor darkGrayColor];
     self.nicknameText.font = [UIFont systemFontOfSize:14];
     self.nicknameText.placeholder = @"请设置昵称(昵称只能设置一次，请谨慎选择)";
-    self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    self.nicknameText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
-    self.passwordText.leftViewMode = UITextFieldViewModeAlways;
+    self.nicknameText.leftViewMode = UITextFieldViewModeAlways;
     
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
@@ -132,6 +132,7 @@
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     registerBtn.layer.cornerRadius = 5;//圆角半径
     [registerBtn addTarget:self action:@selector(ClickRegis:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:registerBtn];
 }
 
 - (void)ClickSend:(UIButton *)sender{

@@ -187,7 +187,8 @@
 
 #pragma mark - 点击发布
 - (void)clickPublish:(UIButton *)sender{
-    
+    NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+    NSLog(@"%@",labelText);
 }
 
 #pragma mark - 是否原创
@@ -429,13 +430,7 @@
 - (void)beginMoveUpAnimation:(CGFloat )height{
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformMakeTranslation(0, -height);
-//        if ([self.titleText isFirstResponder]) {
             self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
-//        }
-//        else
-//        {
-//            self.scrollview.transform = CGAffineTransformMakeTranslation(0, -height);
-//        }
     }];
 }
 
