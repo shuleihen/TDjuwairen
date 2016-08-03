@@ -185,11 +185,7 @@
     [self presentViewController:alert animated:YES completion:nil];
 }
 
-#pragma mark - 点击发布
-- (void)clickPublish:(UIButton *)sender{
-    NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
-    NSLog(@"%@",labelText);
-}
+
 
 #pragma mark - 是否原创
 - (void)isOriginal:(UIButton *)sender{
@@ -582,7 +578,7 @@
 }
 
 
-#pragma mark - 点击确定选择图片上传头像
+#pragma mark - 点击确定选择图片
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     [picker dismissViewControllerAnimated:YES completion:nil];
@@ -608,6 +604,26 @@
     self.contentText.attributedText = string;
     self.contentText.selectedRange = NSMakeRange(range.location+1, range.length);
 
+}
+
+#pragma mark - 点击发布
+- (void)clickPublish:(UIButton *)sender{
+    NSAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+    NSLog(@"%@",labelText);
+//    转成NSData再存入plist
+    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
+    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
+    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
+    NSLog(@"%@",data);
+    [data writeToFile:pathFile atomically:YES];//写入plist
+    
+//    //读取plist文件草稿
+//    NSData *outputData = [NSData dataWithContentsOfFile:pathFile];
+//    NSAttributedString *temp = [[NSAttributedString alloc]initWithData:outputData options:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} documentAttributes:nil error:nil];
+//    NSLog(@"%@",temp);
+//    [self.contentText setAttributedText:temp];
+//    numm = self.contentText.text.length;
+    
 }
 
 - (void)didReceiveMemoryWarning {

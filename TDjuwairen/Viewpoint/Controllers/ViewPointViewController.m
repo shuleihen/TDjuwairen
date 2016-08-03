@@ -272,7 +272,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-44)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-40-44)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
