@@ -111,8 +111,6 @@
 - (void)setupWithNavigation{
     //    @fql 删除 back 处理
     [self.navigationController.navigationBar setHidden:YES];
-    //    self.navigationController.navigationBar.translucent = NO; //设置navigation为不透明，默认为YES半透明
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
     
     //设置返回button
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];

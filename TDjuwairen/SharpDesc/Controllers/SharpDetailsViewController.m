@@ -108,10 +108,6 @@
 
 - (void)setupWithNavigation{
     [self.navigationController.navigationBar setHidden:NO];
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
-    //设置navigation背景色
-    [self.navigationController.navigationBar setTranslucent:NO];
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     
     UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [rightButton setImage:[UIImage imageNamed:@"nav_night_more@3x.png"] forState:UIControlStateNormal];
