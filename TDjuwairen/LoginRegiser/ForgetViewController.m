@@ -48,7 +48,7 @@
     [self.navigationController.navigationBar setHidden:NO];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    self.navigationItem.title = @"找回密码";
+    self.title = @"找回密码";
     // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
     
