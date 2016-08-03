@@ -589,15 +589,15 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="局外人logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="kLE-Q1-DnA">
-                                <rect key="frame" x="70" y="138" width="181" height="75"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="kLE-Q1-DnA">
+                                <rect key="frame" x="70" y="138" width="181" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="181" id="diq-m6-HsM"/>
-                                    <constraint firstAttribute="height" constant="75" id="u96-sk-8Mb"/>
+                                    <constraint firstAttribute="height" constant="65" id="u96-sk-8Mb"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投资看公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJT-bd-MNL">
-                                <rect key="frame" x="118" y="244" width="85" height="21"/>
+                                <rect key="frame" x="118" y="234" width="85" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="SPc-Ad-YrT"/>
                                     <constraint firstAttribute="width" constant="85" id="tKD-FY-wgR"/>
@@ -607,14 +607,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="局外人二维码.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="AxJ-71-CRC">
-                                <rect key="frame" x="115" y="414" width="91" height="89"/>
+                                <rect key="frame" x="115" y="404" width="91" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="91" id="6z4-Rv-cHh"/>
                                     <constraint firstAttribute="height" constant="89" id="jlL-Rz-LgY"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享有价值的信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSu-3Y-HdP">
-                                <rect key="frame" x="92" y="273" width="136" height="21"/>
+                                <rect key="frame" x="92" y="263" width="136" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="136" id="9RM-ta-D75"/>
                                     <constraint firstAttribute="height" constant="21" id="Stm-T1-1BR"/>
@@ -624,7 +624,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="局外人微信公众号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwF-So-CtM">
-                                <rect key="frame" x="103" y="385" width="114" height="21"/>
+                                <rect key="frame" x="103" y="375" width="114" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="d5w-In-AFH"/>
                                     <constraint firstAttribute="height" constant="21" id="nGk-On-TLP"/>
@@ -1088,7 +1088,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jwr.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="Ouk-mO-E2U">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ouk-mO-E2U">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="116" id="jN1-iJ-EBF"/>
@@ -1524,7 +1524,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jwr.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="tdC-Lk-pZB">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="tdC-Lk-pZB">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="116" id="EwT-RU-0f4"/>
@@ -1626,7 +1626,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jwr.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="UEx-tm-ESW">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="UEx-tm-ESW">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="116" id="KhD-1s-PVY"/>
@@ -1770,7 +1770,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jwr.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="bbb-yE-F3r">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="bbb-yE-F3r">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="116" id="2Km-qZ-Edm"/>
@@ -1908,7 +1908,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="jwr.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="4Px-E8-0Vw">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Px-E8-0Vw">
                                                     <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="116" id="MvL-GV-VoG"/>
@@ -2166,13 +2166,12 @@
         <image name="ViewPointSelect.png" width="20" height="20"/>
         <image name="ViewPointUnSelect.png" width="20" height="20"/>
         <image name="iconfont-清除缓存.png" width="30" height="30"/>
-        <image name="jwr.jpg" width="642" height="242"/>
+        <image name="logo.png" width="200" height="70"/>
         <image name="关于我们.png" width="30" height="22"/>
         <image name="关闭显示.png" width="40" height="26"/>
         <image name="反馈.png" width="30" height="30"/>
         <image name="发送－未输入文字时.png" width="120" height="60"/>
         <image name="头像 140x140px.png" width="140" height="140"/>
-        <image name="局外人logo.png" width="196" height="70"/>
         <image name="局外人二维码.jpg" width="116" height="116"/>
         <image name="未登录默认背景图.png" width="750" height="420"/>
         <image name="浏览记录.png" width="40" height="40"/>

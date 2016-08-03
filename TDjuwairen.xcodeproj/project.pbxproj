@@ -59,7 +59,6 @@
 		275E9CC91CFED0DC0075910D /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CAD1CFED0DC0075910D /* 1.png */; };
 		275E9CCA1CFED0DC0075910D /* back.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CAE1CFED0DC0075910D /* back.png */; };
 		275E9CCB1CFED0DC0075910D /* iconfont-清除缓存.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CAF1CFED0DC0075910D /* iconfont-清除缓存.png */; };
-		275E9CCC1CFED0DC0075910D /* jwr.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB01CFED0DC0075910D /* jwr.jpg */; };
 		275E9CCD1CFED0DC0075910D /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB11CFED0DC0075910D /* Overlay.png */; };
 		275E9CCE1CFED0DC0075910D /* 上传图片.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB21CFED0DC0075910D /* 上传图片.png */; };
 		275E9CD01CFED0DC0075910D /* 关于我们.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB41CFED0DC0075910D /* 关于我们.png */; };
@@ -68,7 +67,6 @@
 		275E9CD41CFED0DC0075910D /* 发送－未输入文字时.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB81CFED0DC0075910D /* 发送－未输入文字时.png */; };
 		275E9CD51CFED0DC0075910D /* 发送－输入文字后.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB91CFED0DC0075910D /* 发送－输入文字后.png */; };
 		275E9CD71CFED0DC0075910D /* HeadUnLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBB1CFED0DC0075910D /* HeadUnLogin.png */; };
-		275E9CD81CFED0DC0075910D /* 局外人logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBC1CFED0DC0075910D /* 局外人logo.png */; };
 		275E9CD91CFED0DC0075910D /* 局外人二维码.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBD1CFED0DC0075910D /* 局外人二维码.jpg */; };
 		275E9CDA1CFED0DC0075910D /* CollectImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBE1CFED0DC0075910D /* CollectImg.png */; };
 		275E9CDB1CFED0DC0075910D /* 显示密码.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBF1CFED0DC0075910D /* 显示密码.png */; };
@@ -421,7 +419,6 @@
 		275E9CAD1CFED0DC0075910D /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		275E9CAE1CFED0DC0075910D /* back.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = back.png; sourceTree = "<group>"; };
 		275E9CAF1CFED0DC0075910D /* iconfont-清除缓存.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "iconfont-清除缓存.png"; sourceTree = "<group>"; };
-		275E9CB01CFED0DC0075910D /* jwr.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = jwr.jpg; sourceTree = "<group>"; };
 		275E9CB11CFED0DC0075910D /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		275E9CB21CFED0DC0075910D /* 上传图片.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上传图片.png"; sourceTree = "<group>"; };
 		275E9CB41CFED0DC0075910D /* 关于我们.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "关于我们.png"; sourceTree = "<group>"; };
@@ -430,7 +427,6 @@
 		275E9CB81CFED0DC0075910D /* 发送－未输入文字时.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送－未输入文字时.png"; sourceTree = "<group>"; };
 		275E9CB91CFED0DC0075910D /* 发送－输入文字后.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送－输入文字后.png"; sourceTree = "<group>"; };
 		275E9CBB1CFED0DC0075910D /* HeadUnLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadUnLogin.png; sourceTree = "<group>"; };
-		275E9CBC1CFED0DC0075910D /* 局外人logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "局外人logo.png"; sourceTree = "<group>"; };
 		275E9CBD1CFED0DC0075910D /* 局外人二维码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "局外人二维码.jpg"; sourceTree = "<group>"; };
 		275E9CBE1CFED0DC0075910D /* CollectImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CollectImg.png; sourceTree = "<group>"; };
 		275E9CBF1CFED0DC0075910D /* 显示密码.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "显示密码.png"; sourceTree = "<group>"; };
@@ -1134,7 +1130,6 @@
 				275E9CAD1CFED0DC0075910D /* 1.png */,
 				275E9CAE1CFED0DC0075910D /* back.png */,
 				275E9CAF1CFED0DC0075910D /* iconfont-清除缓存.png */,
-				275E9CB01CFED0DC0075910D /* jwr.jpg */,
 				275E9CB11CFED0DC0075910D /* Overlay.png */,
 				275E9CB21CFED0DC0075910D /* 上传图片.png */,
 				275E9CB41CFED0DC0075910D /* 关于我们.png */,
@@ -1143,7 +1138,6 @@
 				275E9CB81CFED0DC0075910D /* 发送－未输入文字时.png */,
 				275E9CB91CFED0DC0075910D /* 发送－输入文字后.png */,
 				275E9CBB1CFED0DC0075910D /* HeadUnLogin.png */,
-				275E9CBC1CFED0DC0075910D /* 局外人logo.png */,
 				275E9CBD1CFED0DC0075910D /* 局外人二维码.jpg */,
 				275E9CBE1CFED0DC0075910D /* CollectImg.png */,
 				275E9CBF1CFED0DC0075910D /* 显示密码.png */,
@@ -2097,7 +2091,6 @@
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
 				845CCB961D4EF492005ABD7B /* tab_jiacu@3x.png in Resources */,
 				846E51211D41A7DF00B89A53 /* BrowserTableViewCell.xib in Resources */,
-				275E9CCC1CFED0DC0075910D /* jwr.jpg in Resources */,
 				846E51241D41A7DF00B89A53 /* NoBrowserTableViewCell.xib in Resources */,
 				275E9CDD1CFED0DC0075910D /* BrowseImg.png in Resources */,
 				846E51301D41A7DF00B89A53 /* EditView.xib in Resources */,
@@ -2178,7 +2171,6 @@
 				8497DFCA1CEEEB9600D7D105 /* VideoUnSelect@3x.png in Resources */,
 				845CCBA01D4EF501005ABD7B /* tab_yinyong_pre@3x.png in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
-				275E9CD81CFED0DC0075910D /* 局外人logo.png in Resources */,
 				845CCB8F1D4EE759005ABD7B /* tab_caogao@3x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
