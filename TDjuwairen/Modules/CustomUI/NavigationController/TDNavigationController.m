@@ -55,8 +55,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationBar.translucent = NO;
-    
     self.navDelegate = [[NavgiationDelegate alloc] initWithNavigationController:self];
     self.delegate = self.navDelegate;
     self.interactivePopGestureRecognizer.delegate = self.navDelegate;

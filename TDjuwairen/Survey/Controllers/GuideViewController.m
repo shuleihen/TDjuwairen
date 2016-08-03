@@ -7,7 +7,7 @@
 //
 
 #import "GuideViewController.h"
-#import "MTabBarController.h"
+
 @interface GuideViewController ()<UIScrollViewDelegate>
 
 @property (nonatomic,strong) UIScrollView *scrollview;
@@ -51,7 +51,7 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.x > 2*kScreenWidth) {
         UIStoryboard *mainStoryBoard = self.storyboard;
-        MTabBarController *tabbarView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"tabbarView"];
+        UITabBarController *tabbarView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"tabbarView"];
         [self presentViewController:tabbarView animated:YES completion:nil];
     }
     int page = floor((scrollView.contentOffset.x - kScreenWidth/2)/kScreenWidth)+1;

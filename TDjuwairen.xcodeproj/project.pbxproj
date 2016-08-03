@@ -97,7 +97,6 @@
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		841546E71D20B68F007DB2F0 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841546E61D20B68F007DB2F0 /* GuideViewController.m */; };
-		841546F01D20BC55007DB2F0 /* MTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841546EF1D20BC55007DB2F0 /* MTabBarController.m */; };
 		842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842387701D49B8AF00671404 /* UIdaynightModel.m */; };
 		8427BE471CF29D0600E750E9 /* TitlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427BE451CF29D0600E750E9 /* TitlesTableViewCell.m */; };
 		842B35F11CE977AD00C6E400 /* SurveyTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842B35EF1CE977AD00C6E400 /* SurveyTableViewCell.m */; };
@@ -484,8 +483,6 @@
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		841546E51D20B68F007DB2F0 /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		841546E61D20B68F007DB2F0 /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
-		841546EE1D20BC55007DB2F0 /* MTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTabBarController.h; sourceTree = "<group>"; };
-		841546EF1D20BC55007DB2F0 /* MTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MTabBarController.m; sourceTree = "<group>"; };
 		8423876F1D49B8AF00671404 /* UIdaynightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdaynightModel.h; sourceTree = "<group>"; };
 		842387701D49B8AF00671404 /* UIdaynightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdaynightModel.m; sourceTree = "<group>"; };
 		8427BE441CF29D0600E750E9 /* TitlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlesTableViewCell.h; sourceTree = "<group>"; };
@@ -1628,8 +1625,6 @@
 				846E50EE1D41A7DF00B89A53 /* MyCenter */,
 				84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */,
 				84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */,
-				841546EE1D20BC55007DB2F0 /* MTabBarController.h */,
-				841546EF1D20BC55007DB2F0 /* MTabBarController.m */,
 				84E333F31CE2BA3D00E5DCEE /* Main.storyboard */,
 				84E333F61CE2BA3D00E5DCEE /* Assets.xcassets */,
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
@@ -2305,7 +2300,6 @@
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				846E51281D41A7DF00B89A53 /* NoCollectionTableViewCell.m in Sources */,
-				841546F01D20BC55007DB2F0 /* MTabBarController.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
 				194131491D4604FD005AAB53 /* NetworkManager.m in Sources */,
 				84F9FE081CF80F3A00683791 /* LoginTableViewController.m in Sources */,
