@@ -26,6 +26,7 @@
 
 #import "MJRefresh.h"
 #import "NetworkManager.h"
+#import "Masonry.h"
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
 {    
@@ -85,8 +86,6 @@
         [self.daynightmodel night];
     }
     
-    [self setupWithNavigation];
-    
     [self requestToLogin];
     
     [self requestDataWithSurveyList];//请求调研列表数据
@@ -98,6 +97,28 @@
     // Do any additional setup after loading the view.
     
     [self setupWithLoading];   //设置加载页面
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
+    
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    
+    [self.tableview reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setHidden:NO];
 }
 
 #pragma mark - 进入时加载页面
@@ -235,10 +256,11 @@
 
 #pragma mark - 设置tableview
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-46) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-44-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
+    
     
 //    FIXME: @fql 自定义nav单独放到一个方法在添加，在UICommon方法中调用，没一个独立的试图创建和设置，都单独创建一个方法
     self.NavigationView = [[SurveyNavigationView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
@@ -253,21 +275,6 @@
     [self setupWithTableHeaderView];
 }
 
-#pragma mark - 设置navigation
-- (void)setupWithNavigation{
-    //    @fql 删除 back 处理
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    // FIXME: @fql 导航条都隐藏了，还设置back按钮干嘛，删除了
-    //设置返回button
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
-    
-}
 #pragma mark - 设置tableHeaderView无限轮播
 - (void)setupWithTableHeaderView{
     //FIXME: @fql setupWithTableHeaderView 方法只在didload中调用一次，如果第一次加载失败，后面就一直不会显示
@@ -370,7 +377,6 @@
     return 15+25+15+titlesize.height+10+55+18;
 }
 
-
 #pragma mark - 点击搜索
 // FIXME: 方法名和变量命名首字母小写
 - (void)ClickSearchButton:(UIButton *)sender{
@@ -447,18 +453,6 @@
     [self.navigationController pushViewController:DetailView animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated{
-    [super viewWillAppear:animated];
-    self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
-    
-    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    
-    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
-    
-    [self.tableview reloadData];
-    
-    
-}
 
 - (void)requestToLogin{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];

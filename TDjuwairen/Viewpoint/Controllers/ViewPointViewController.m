@@ -258,7 +258,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-44)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-104-50)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -267,14 +267,14 @@
     
 
     for (int i = 0; i<self.categoryArr.count; i++) {
-        UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-64-64) style:UITableViewStylePlain];
+        UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-104-50) style:UITableViewStylePlain];
         tableview.delegate = self;
         tableview.dataSource = self;
 
         [self.tableviewsArr addObject:tableview];
         [self.contentScroll addSubview:tableview];
     }
-    self.contentScroll.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-64-64);
+    self.contentScroll.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-104-50);
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

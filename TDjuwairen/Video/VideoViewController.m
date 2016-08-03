@@ -55,7 +55,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupWithNavigation];
     self.loginstate = [LoginState addInstance];
     page = 1;
     isFirstRequest = YES;
@@ -82,6 +81,27 @@
     [self setupWithLoading];    //设置进入加载页面
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController.navigationBar setHidden:YES];
+    
+    self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    [self.tableview reloadData];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setHidden:NO];
+}
+
+
 #pragma mark - 进入时加载页面
 - (void)setupWithLoading{
     //加载页面
@@ -107,19 +127,6 @@
     [self.loadingImageView addSubview:self.loadingLabel];
 }
 
-#pragma mark - 设置navigation
-- (void)setupWithNavigation{
-    //    @fql 删除 back 处理
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    //设置返回button
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
-}
 
 #pragma mark - 刷新
 - (void)addRefreshView {
@@ -231,7 +238,7 @@
 
 #pragma mark - 设置tableview
 -(void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-44) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-44-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
@@ -326,17 +333,6 @@
     [self.navigationController pushViewController:DetailView animated:YES];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
-    
-    self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
-    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    
-    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
-    [self.tableview reloadData];
-}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
