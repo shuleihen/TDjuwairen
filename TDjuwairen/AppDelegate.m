@@ -28,6 +28,8 @@
 #import <SMS_SDK/SMSSDK.h>
 
 #import "GuideViewController.h"
+#import "HexColors.h"
+
 @interface AppDelegate ()
 {
     BOOL isFirst;
@@ -190,11 +192,17 @@
 
 - (void)setupUICommon
 {
-    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];
-//    [UINavigationBar appearance].tintColor = [UIColor blueColor];
+    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];   // 设置导航条背景颜色
+//    [UINavigationBar appearance].tintColor = [UIColor blueColor];     // 设置左右按钮，文字和图片颜色
     
+    // 设置导航条标题字体和颜色
     NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]};
     [[UINavigationBar appearance] setTitleTextAttributes:dict];
+    
+    // 设置导航条左右按钮字体和颜色
+    NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+    
 }
 
 @end
