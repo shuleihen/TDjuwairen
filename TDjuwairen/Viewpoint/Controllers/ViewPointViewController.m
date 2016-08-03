@@ -234,33 +234,19 @@
 }
 
 - (void)setupWithNavigation{
-    //    @fql 删除 back 处理
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
-    //设置navigation背景色
-    [self.navigationController.navigationBar setTranslucent:NO];
-
-    self.navigationItem.title = @"观点";
+    self.title = @"观点";
 
     UIButton *publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    [publish setImage:[UIImage imageNamed:@"nav_publish@3x.png"] forState:UIControlStateNormal];
+    [publish setImage:[UIImage imageNamed:@"nav_publish.png"] forState:UIControlStateNormal];
     [publish addTarget:self action:@selector(GoPublish:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem1 = [[UIBarButtonItem alloc]initWithCustomView:publish];
     
     UIButton*search = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    [search setImage:[UIImage imageNamed:@"nav_search@3x.png"] forState:UIControlStateNormal];
+    [search setImage:[UIImage imageNamed:@"nav_search.png"] forState:UIControlStateNormal];
     [search addTarget:self action:@selector(GoSearch:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem*rightItem2 = [[UIBarButtonItem alloc]initWithCustomView:search];
     
     self.navigationItem.rightBarButtonItems = @[rightItem1,rightItem2];
-    
-    //设置返回button
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
 }
 
 #pragma mark - 设置分类滑动条
@@ -312,7 +298,7 @@
             cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
         ViewPointListModel *model = arr[indexPath.row];
-//        [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+        [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
         NSString *isoriginal;
         if ([model.view_isoriginal isEqualToString:@"0"]) {
             isoriginal = @"转载";
