@@ -103,13 +103,13 @@
 }
 
 - (void)requestWithData{
-    NSString *urlPath = @"http://192.168.1.105/tuanda_web/Appapi/index.php/View/view_show1_2/id/44";
+    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/44",kAPI_bendi];
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.dataDic = data;
             
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.105%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.108%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             

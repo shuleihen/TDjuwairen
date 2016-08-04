@@ -165,7 +165,7 @@
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         //@"http://192.168.1.100/tuanda_web/Appapi/index.php/Subject/newLists1_2/page/%d"
 //        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
-        NSString*url=[NSString stringWithFormat:@"http://192.168.191.1/tuanda_web/Appapi/index.php/Login/loginDo/"];
+        NSString *url = [NSString stringWithFormat:@"%@Login/loginDo/",kAPI_bendi];
         NSDictionary*paras=@{@"account":self.accountText.text,
                              @"password":self.passwordText.text};
         
@@ -263,16 +263,29 @@
              NSLog(@"nickname=%@",user.nickname);
              NSLog(@"icon=%@",user.rawData[@"figureurl_qq_2"]);
              NSString *openid = user.credential.rawData[@"openid"];//rawData 为NSDictionary原始数据
-             
+             NSLog(@"%@",openid);
              NSDictionary *dic = @{@"openid":openid};
-             NSString *url = [NSString stringWithFormat:@"%@checkQQAccount1_2",kAPI_Login];
+//             NSString *url = [NSString stringWithFormat:@"%@checkQQAccount1_2",kAPI_Login];
+             NSString *url = [NSString stringWithFormat:@"%@Login/checkQQAccount1_2",kAPI_bendi];
              AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
              manager.responseSerializer = [AFJSONResponseSerializer serializer];
              manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
              [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
                  //
-                 
-                 NSLog(@"%@",responseObject);
+                 NSDictionary *dic = responseObject[@"data"];
+                 NSLog(@"%@",dic);
+                 if ([dic[@"openid"] isEqualToString:openid] || dic[@"nickname"] == NULL || dic[@"password"] == NULL || dic[@"phone"] == NULL) {
+                     //跳转到补全页面
+                     NSLog(@"补全");
+                 }
+                 else
+                 {
+                     //给loginstate 填充
+                     
+                     //允许登录
+                     NSLog(@"登录");
+                     [self.navigationController popToRootViewControllerAnimated:YES];
+                 }
              } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
                  NSLog(@"请求失败");
              }];

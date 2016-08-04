@@ -185,7 +185,7 @@
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"http://192.168.1.100/tuanda_web/Appapi/index.php/Subject/newLists1_2/page/%d",self.page];//接口暂无
+        urlPath = [NSString stringWithFormat:@"%@Subject/newLists1_2/page/%d",kAPI_bendi,self.page];//接口暂无
     }
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){

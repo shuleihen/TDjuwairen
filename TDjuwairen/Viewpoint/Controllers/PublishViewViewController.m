@@ -14,6 +14,9 @@
 
 #import "NSString+Ext.h"
 #import "PhotoTextAttachment.h"
+#import "UIImageView+WebCache.h"
+#import "AFNetworking.h"
+#import "NetworkManager.h"
 
 @interface PublishViewViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,BottomEditDelegate,SecondEditDelegate>
 {
@@ -23,7 +26,7 @@
     BOOL xieti;
     BOOL xiahuaxian;
     NSUInteger numm;
-    NSRange range;//光标所在位置
+    NSRange currentRange;//当前光标所在位置
 }
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -40,12 +43,17 @@
 
 @property (nonatomic,strong) EditZiti *editziti;
 
+@property (nonatomic,strong) NSMutableArray *imglocArr;
+@property (nonatomic,strong) NSMutableArray *upimgArr;
+
 @end
 
 @implementation PublishViewViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.imglocArr = [NSMutableArray array];
+    self.upimgArr = [NSMutableArray array];
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.editziti = [EditZiti sharedInstance];
@@ -518,12 +526,12 @@
             if (xieti == YES) {
                 if (xiahuaxian == YES) {
                     self.editziti.type = @"xiexian";
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+//                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+//                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+//                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
                     
                     NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
-                    NSDictionary *attr = @{NSFontAttributeName:font,
+                    NSDictionary *attr = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:self.editziti.zihao],
                                            NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
                     [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
                     self.contentText.attributedText = labelText;
@@ -531,12 +539,15 @@
                 else
                 {
                     self.editziti.type = @"xie";
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                    //
+                    currentRange = self.contentText.selectedRange;
+                    
+//                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+//                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+//                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
                     
                     NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
-                    NSDictionary *attr = @{NSFontAttributeName:font,
+                    NSDictionary *attr = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:self.editziti.zihao],
                                            NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
                     [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
                     self.contentText.attributedText = labelText;
@@ -583,9 +594,16 @@
     
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-
-    UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
-
+    //方法1，用原图
+//    UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
+    //方法2，得到数据库中的地址来存放图片
+    NSString *imgurl = @"http://q.qlogo.cn/qqapp/101266993/DCA4CFB9A7D63D39BDC451E0822CE3BC/100";
+    NSString *img = [NSString stringWithFormat:@"<img scr='%@'>",imgurl];
+    [self.upimgArr addObject:img];
+    NSLog(@"%@",img);
+    NSURL *url = [NSURL URLWithString:imgurl];
+    UIImage *Photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.contentText.attributedText];
     PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
     if (Photo.size.width >kScreenWidth) {
@@ -596,34 +614,74 @@
         textAttachment.photoSize = Photo.size;
     }
     
-    range = self.contentText.selectedRange;
-    
+    currentRange = self.contentText.selectedRange;
+    [self.imglocArr addObject:@(currentRange.location)];
     textAttachment.image = Photo; //要添加的图片
     NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-    [string insertAttributedString:textAttachmentString atIndex:range.location];//index为用户指定要插入图片的位置
+
+    [string insertAttributedString:textAttachmentString atIndex:currentRange.location];//index为用户指定要插入图片的位置
+//    NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:img];
+//    [string insertAttributedString:imgtext atIndex:currentRange.location];
+    
     self.contentText.attributedText = string;
-    self.contentText.selectedRange = NSMakeRange(range.location+1, range.length);
+    self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
 
 }
 
 #pragma mark - 点击发布
 - (void)clickPublish:(UIButton *)sender{
-    NSAttributedString *labelText = [self.contentText.attributedText mutableCopy];
-    NSLog(@"%@",labelText);
+    NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
+    NSUInteger cur = 0;
+    
+    for (int i = 0 ; i<self.upimgArr.count; i++) {
+        NSString *str = self.imglocArr[i];
+        NSUInteger loc = [str integerValue];
+        if (i != 0) {
+            cur = [self.upimgArr[i-1] length] + cur;
+        }
+        NSUInteger current = loc+cur;
+        NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:self.upimgArr[i]];
+        [up insertAttributedString:imgtext atIndex:current];
+        
+    }
+    
+
 //    转成NSData再存入plist
-    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
-    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
-    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
-    NSLog(@"%@",data);
-    [data writeToFile:pathFile atomically:YES];//写入plist
+//    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
+//    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
+//    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
+//    NSLog(@"%@",data);
     
-//    //读取plist文件草稿
-//    NSData *outputData = [NSData dataWithContentsOfFile:pathFile];
-//    NSAttributedString *temp = [[NSAttributedString alloc]initWithData:outputData options:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} documentAttributes:nil error:nil];
-//    NSLog(@"%@",temp);
-//    [self.contentText setAttributedText:temp];
-//    numm = self.contentText.text.length;
+    NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
+    NSLog(@"%@",htmlstring);
     
+    NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
+    NSDictionary*para=@{@"userid":@"956",
+                        @"isOrigin":@"1",
+                        @"title":self.titleText.text,
+                        @"is_publish":@"1",
+                        @"viewcontent":htmlstring};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"失败");
+    }];
+    
+}
+
+/** 将富文本格式化为超文本*/
+- (NSString *)htmlStringByHtmlAttributeString:(NSAttributedString *)htmlAttributeString{
+    NSString *htmlString;
+    NSDictionary *exportParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                   NSCharacterEncodingDocumentAttribute:[NSNumber numberWithInt:NSUTF8StringEncoding]};
+    
+    NSData *htmlData = [htmlAttributeString dataFromRange:NSMakeRange(0, htmlAttributeString.length) documentAttributes:exportParams error:nil];
+    htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    return htmlString;
 }
 
 - (void)didReceiveMemoryWarning {

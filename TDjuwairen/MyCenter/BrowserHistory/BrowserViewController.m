@@ -92,6 +92,7 @@
                             @"delete_ids":sharpId,
                             @"module_id":@"2",
                             @"userid":self.loginstate.userId};
+        
         [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSString*code=[responseObject objectForKey:@"code"];
             NSLog(@"%@",responseObject);
