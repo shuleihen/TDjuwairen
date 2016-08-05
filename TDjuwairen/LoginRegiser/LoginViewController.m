@@ -14,6 +14,7 @@
 #import "MobileLoginViewController.h"
 #import "ForgetViewController.h"
 #import "RegisterViewController.h"
+#import "AddUpdatesViewController.h"
 
 @interface LoginViewController ()
 
@@ -277,6 +278,8 @@
                  if ([dic[@"openid"] isEqualToString:openid] || dic[@"nickname"] == NULL || dic[@"password"] == NULL || dic[@"phone"] == NULL) {
                      //跳转到补全页面
                      NSLog(@"补全");
+                     AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
+                     [self.navigationController pushViewController:addview animated:YES];
                  }
                  else
                  {

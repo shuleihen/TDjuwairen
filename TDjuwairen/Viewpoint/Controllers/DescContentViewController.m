@@ -80,6 +80,7 @@
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     
     [self requestWithData];
+    [self requestWithCommentData];
     
     [self setupWithNavigation];
     
@@ -103,17 +104,36 @@
 }
 
 - (void)requestWithData{
-    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/44",kAPI_bendi];
+//    NSString *urlPath = @"http://192.168.1.103/tuanda_web/Appapi/View/view_show1_2/id/55";
+    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/55",kAPI_bendi];
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.dataDic = data;
             
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.108%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.103%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             
             [self.tableview reloadData];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+}
+
+- (void)requestWithCommentData{
+//    NSString *urlPath = @"http://192.168.1.103/tuanda_web/Appapi/View/GetViewComment1_2";
+    NSString *urlPath = [NSString stringWithFormat:@"%@/View/GetViewComment1_2",kAPI_bendi];
+    NSDictionary *dic = @{@"type":@"view",
+                          @"id":@"55",
+                          @"loadedLength":@"10"};
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            NSLog(@"%@",data);
         }
         else
         {
@@ -153,7 +173,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    if (section == 0) {
+        return 2;
+    }
+    else
+    {
+        return 10;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath

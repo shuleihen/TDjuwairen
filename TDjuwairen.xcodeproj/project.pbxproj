@@ -85,6 +85,7 @@
 		2764A26E1D015F6B00916844 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26D1D015F6B00916844 /* Security.framework */; };
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
+		840AA66D1D5434ED00009E44 /* AddUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */; };
 		841546E71D20B68F007DB2F0 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841546E61D20B68F007DB2F0 /* GuideViewController.m */; };
 		841546F01D20BC55007DB2F0 /* MTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841546EF1D20BC55007DB2F0 /* MTabBarController.m */; };
 		842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842387701D49B8AF00671404 /* UIdaynightModel.m */; };
@@ -445,6 +446,8 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		840AA66B1D5434ED00009E44 /* AddUpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddUpdatesViewController.h; sourceTree = "<group>"; };
+		840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddUpdatesViewController.m; sourceTree = "<group>"; };
 		841546E51D20B68F007DB2F0 /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		841546E61D20B68F007DB2F0 /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
 		841546EE1D20BC55007DB2F0 /* MTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MTabBarController.h; sourceTree = "<group>"; };
@@ -1916,6 +1919,8 @@
 				846E515E1D41B99A00B89A53 /* ForgetViewController.m */,
 				846E51601D41BCAC00B89A53 /* RegisterViewController.h */,
 				846E51611D41BCAC00B89A53 /* RegisterViewController.m */,
+				840AA66B1D5434ED00009E44 /* AddUpdatesViewController.h */,
+				840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */,
 			);
 			path = LoginRegiser;
 			sourceTree = "<group>";
@@ -2235,6 +2240,7 @@
 				194131491D4604FD005AAB53 /* NetworkManager.m in Sources */,
 				84F9FE081CF80F3A00683791 /* LoginTableViewController.m in Sources */,
 				842B36241CE995D500C6E400 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
+				840AA66D1D5434ED00009E44 /* AddUpdatesViewController.m in Sources */,
 				84FAE3351D0187650051DCED /* SharpTags.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,

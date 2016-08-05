@@ -85,7 +85,7 @@
     self.navigationItem.rightBarButtonItem = regist;
     
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,30)];
-    [back setImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:back];
     self.navigationItem.leftBarButtonItem = leftItem;
@@ -117,7 +117,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.titleText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.titleText.font = [UIFont systemFontOfSize:16];
+    self.titleText.font = [UIFont systemFontOfSize:22];
     self.titleText.textColor = self.daynightmodel.textColor;
     
     self.titleText.layer.borderWidth = 1;
@@ -486,7 +486,8 @@
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
                     
                     NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
-                    NSDictionary *attr = @{NSFontAttributeName:font,
+                    
+                    NSDictionary *attr = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-BoldOblique" size:self.editziti.zihao],
                                            NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
                     [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
                     self.contentText.attributedText = labelText;
@@ -593,16 +594,44 @@
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info{
     
     [picker dismissViewControllerAnimated:YES completion:nil];
+    //发送图片到数据库得到url
     
     //方法1，用原图
-//    UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
+    UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer=[AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSString *updateurl = @"http://192.168.1.103/tuanda_web/Appapi/index.php/View/upViewContenPic1_2";
+    [manager POST:updateurl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        UIImage *image = Photo;
+        NSData*data=UIImagePNGRepresentation(image);
+        
+        NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
+        formatter.dateFormat = @"yyyyMMddHHmmss";
+        NSString *str = [formatter stringFromDate:[NSDate date]];
+        NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
+        
+        [formData appendPartWithFileData:data name:@"img" fileName:fileName mimeType:@"image/png"];
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dic = responseObject[@"data"];
+        NSLog(@"%@",dic[@"picurl"]);
+        NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
+        NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.103"];
+        NSLog(@"%@",imgu);
+        [self.upimgArr addObject:imgu];
+        NSLog(@"上传成功！");
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"上传失败！");
+    }];
     //方法2，得到数据库中的地址来存放图片
-    NSString *imgurl = @"http://q.qlogo.cn/qqapp/101266993/DCA4CFB9A7D63D39BDC451E0822CE3BC/100";
-    NSString *img = [NSString stringWithFormat:@"<img scr='%@'>",imgurl];
-    [self.upimgArr addObject:img];
-    NSLog(@"%@",img);
-    NSURL *url = [NSURL URLWithString:imgurl];
-    UIImage *Photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+//    NSString *imgurl = @"http://q.qlogo.cn/qqapp/101266993/DCA4CFB9A7D63D39BDC451E0822CE3BC/100";
+//    NSString *img = [NSString stringWithFormat:@"<img scr='%@'>",imgurl];
+//    [self.upimgArr addObject:img];
+//    NSLog(@"%@",img);
+//    
+//    NSURL *url = [NSURL URLWithString:imgurl];
+//    UIImage *Photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.contentText.attributedText];
     PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
@@ -625,7 +654,7 @@
     
     self.contentText.attributedText = string;
     self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
-
+  
 }
 
 #pragma mark - 点击发布
@@ -644,7 +673,6 @@
         [up insertAttributedString:imgtext atIndex:current];
         
     }
-    
 
 //    转成NSData再存入plist
 //    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
@@ -653,6 +681,8 @@
 //    NSLog(@"%@",data);
     
     NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
+    htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     NSLog(@"%@",htmlstring);
     
     NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
@@ -676,11 +706,13 @@
 /** 将富文本格式化为超文本*/
 - (NSString *)htmlStringByHtmlAttributeString:(NSAttributedString *)htmlAttributeString{
     NSString *htmlString;
+    
     NSDictionary *exportParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
                                    NSCharacterEncodingDocumentAttribute:[NSNumber numberWithInt:NSUTF8StringEncoding]};
     
     NSData *htmlData = [htmlAttributeString dataFromRange:NSMakeRange(0, htmlAttributeString.length) documentAttributes:exportParams error:nil];
     htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
+    
     return htmlString;
 }
 

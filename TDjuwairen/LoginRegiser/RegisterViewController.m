@@ -45,24 +45,12 @@
 }
 
 - (void)setupWithNavigation{
-    //    @fql 删除 back 处理
     [self.navigationController.navigationBar setHidden:NO];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.title = @"注册";
     // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
-    
-    //设置返回button
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}]; 
 }
 
 - (void)setupWithTextField{

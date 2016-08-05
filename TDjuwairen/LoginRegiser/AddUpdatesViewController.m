@@ -1,38 +1,42 @@
 //
-//  MobileLoginViewController.m
+//  AddUpdatesViewController.m
 //  TDjuwairen
 //
-//  Created by 团大 on 16/7/22.
+//  Created by 团大 on 16/8/5.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "MobileLoginViewController.h"
+#import "AddUpdatesViewController.h"
+#import "LoginState.h"
 #import <SMS_SDK/SMSSDK.h>
 
-@interface MobileLoginViewController ()
+@interface AddUpdatesViewController ()
 
+@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
+@property (nonatomic,strong) UITextField *passwordText;
+@property (nonatomic,strong) UITextField *nicknameText;
 
 @end
 
-@implementation MobileLoginViewController
+@implementation AddUpdatesViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
-    
+    self.loginState = [LoginState addInstance];
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
     
     [self setupWithNavigation];
-    [self setupWithLogoImage];
-    [self setupWithTextView];
-    [self setupWithLogin];
+    [self setupWithTextField];
+    [self setupWithRegisterBtn];
+    
     // Do any additional setup after loading the view.
 }
 
@@ -46,33 +50,22 @@
     [self.navigationController.navigationBar setHidden:NO];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    self.title = @"手机短信验证登录";
+    self.title = @"信息补全";
     // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
-    
-    //设置右边注册按钮
-    UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册账号" style:UIBarButtonItemStyleDone target:self action:@selector(ClickRegister:)];
-    self.navigationItem.rightBarButtonItem = regist;
 }
 
-- (void)setupWithLogoImage{
-    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, 120)];
-    imageview.contentMode = UIViewContentModeCenter;
-    imageview.image = [UIImage imageNamed:@"logo.png"];
-    [self.view addSubview:imageview];
-}
-
-- (void)setupWithTextView{
-    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64, kScreenWidth, 47)];
+- (void)setupWithTextField{
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, 47)];
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
-    self.accountText.placeholder = @"请输入手机号";
+    self.accountText.placeholder = @"手机号码/邮箱";
     self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64+47+1, kScreenWidth, 47)];
+    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1, kScreenWidth, 47)];
     self.validationText.backgroundColor = [UIColor whiteColor];
     self.validationText.textColor = [UIColor darkGrayColor];
     self.validationText.font = [UIFont systemFontOfSize:14];
@@ -81,11 +74,11 @@
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
     //竖线
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-81, kScreenWidth/8*3+64+47+1+18, 1, 12)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 80+47+1+18, 1, 12)];
     label.layer.borderColor = [UIColor lightGrayColor].CGColor;
     label.layer.borderWidth = 1.0;
     
-    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-80, kScreenWidth/8*3+64+47+1, 80, 47)];
+    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 80+47+1, 100, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
     [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
     self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -94,11 +87,44 @@
     [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
     [self.validationBtn addTarget:self action:@selector(ClickSend:) forControlEvents:UIControlEventTouchUpInside];
     
+    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1+47+1, kScreenWidth, 47)];
+    self.passwordText.backgroundColor = [UIColor whiteColor];
+    self.passwordText.textColor = [UIColor darkGrayColor];
+    self.passwordText.font = [UIFont systemFontOfSize:14];
+    self.passwordText.placeholder = @"请设置密码(6-20位英文或数字)";
+    self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
+    self.passwordText.clearButtonMode = UITextFieldViewModeAlways;//右边X号
+    self.passwordText.secureTextEntry = YES;//显示为星号
+    self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.passwordText.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.nicknameText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1+47+1+47+1, kScreenWidth, 47)];
+    self.nicknameText.backgroundColor = [UIColor whiteColor];
+    self.nicknameText.textColor = [UIColor darkGrayColor];
+    self.nicknameText.font = [UIFont systemFontOfSize:14];
+    self.nicknameText.placeholder = @"请设置昵称(昵称只能设置一次，请谨慎选择)";
+    self.nicknameText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.nicknameText.leftViewMode = UITextFieldViewModeAlways;
+    
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
     [self.view addSubview:self.validationBtn];
     [self.view addSubview:label];
+    [self.view addSubview:self.passwordText];
+    [self.view addSubview:self.nicknameText];
 }
+
+- (void)setupWithRegisterBtn{
+    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
+    registerBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+    [registerBtn setTitle:@"提交" forState:UIControlStateNormal];
+    registerBtn.layer.cornerRadius = 5;//圆角半径
+    [registerBtn addTarget:self action:@selector(ClickAddUpdates:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:registerBtn];
+}
+
 - (void)ClickSend:(UIButton *)sender{
     [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (!error) {
@@ -140,24 +166,9 @@
     dispatch_resume(_timer);
     
 }
-
-- (void)setupWithLogin{
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+64+47+47+1+30, kScreenWidth-30, 50)];
-    loginBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    loginBtn.layer.cornerRadius = 5;//圆角半径
-    [loginBtn addTarget:self action:@selector(ClickLogin:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:loginBtn];
-}
-
-#pragma mark - 点击注册
-- (void)ClickRegister:(UIButton *)sender{
-    //
-}
-
-#pragma mark - 点击登录
-- (void)ClickLogin:(UIButton *)sender{
-    [self.navigationController popToRootViewControllerAnimated:YES];
+#pragma mark - 提交内容
+- (void)ClickAddUpdates:(UIButton *)sender{
+    
 }
 
 - (void)didReceiveMemoryWarning {
