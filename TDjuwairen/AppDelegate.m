@@ -193,6 +193,7 @@
 - (void)setupUICommon
 {
     [UINavigationBar appearance].barTintColor = [UIColor whiteColor];   // 设置导航条背景颜色
+    [UINavigationBar appearance].translucent = NO;
 //    [UINavigationBar appearance].tintColor = [UIColor blueColor];     // 设置左右按钮，文字和图片颜色
     
     // 设置导航条标题字体和颜色
@@ -202,7 +203,9 @@
     // 设置导航条左右按钮字体和颜色
     NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[UIFont systemFontOfSize:16]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
-    
+ 
+    [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
+    [UITabBar appearance].translucent = NO;
 }
 
 @end

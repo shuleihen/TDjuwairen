@@ -59,14 +59,14 @@
 }
 
 - (void)setupWithLogoImage{
-    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenWidth/8*3)];
+    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth/8*3)];
     imageview.contentMode = UIViewContentModeCenter;
     imageview.image = [UIImage imageNamed:@"logo.png"];
     [self.view addSubview:imageview];
 }
 
 - (void)setupWithTextView{
-    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64, kScreenWidth, 47)];
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3, kScreenWidth, 47)];
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
@@ -75,7 +75,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64+47+1, kScreenWidth, 47)];
+    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+47+1, kScreenWidth, 47)];
     self.passwordText.backgroundColor = [UIColor whiteColor];
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
@@ -92,7 +92,7 @@
 }
 
 - (void)setupWithLogin{
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+64+47+47+1+30, kScreenWidth-30, 50)];
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+47+47+1+30, kScreenWidth-30, 50)];
     loginBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
     [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
     loginBtn.layer.cornerRadius = 5;//圆角半径
@@ -101,14 +101,14 @@
 }
 
 - (void)setupWithMobileAndForget{
-    UIButton *mobile = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+64+47+47+1+80+8, 120, 14)];
+    UIButton *mobile = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+47+47+1+80+8, 120, 14)];
     [mobile setTitle:@"手机短信验证登录" forState:UIControlStateNormal];
     mobile.titleLabel.font = [UIFont systemFontOfSize:14];
     mobile.titleLabel.textAlignment = NSTextAlignmentLeft;
     [mobile setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     [mobile addTarget:self action:@selector(ClickMobileLogin:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *forget = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, kScreenWidth/8*3+64+47+47+1+80+8, 80, 14)];
+    UIButton *forget = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, kScreenWidth/8*3+47+47+1+80+8, 80, 14)];
     [forget setTitle:@"忘记密码？" forState:UIControlStateNormal];
     forget.titleLabel.font = [UIFont systemFontOfSize:14];
     forget.titleLabel.textAlignment = NSTextAlignmentRight;
@@ -120,18 +120,18 @@
 }
 
 - (void)setupWithQQWXLogin{
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/3, kScreenWidth/8*3+64+47+47+1+80+8+14+40, kScreenWidth/3, 14)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/3, kScreenWidth/8*3+47+47+1+80+8+14+40, kScreenWidth/3, 14)];
     label.text = @"第三方登录";
     label.textAlignment = NSTextAlignmentCenter;
     label.font = [UIFont systemFontOfSize:16];
     [self.view addSubview:label];
     
-    UIButton *WXLogin = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-120)/3, kScreenWidth/8*3+64+47+47+1+80+8+14+40+14+30, 60, 60)];
+    UIButton *WXLogin = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-120)/3, kScreenWidth/8*3+47+47+1+80+8+14+40+14+30, 60, 60)];
     [WXLogin setBackgroundImage:[UIImage imageNamed:@"WXlogin"] forState:UIControlStateNormal];
     WXLogin.layer.cornerRadius = 30;
     [WXLogin addTarget:self action:@selector(WXlogin:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *QQLogin = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-120)/3*2+60, kScreenWidth/8*3+64+47+47+1+80+8+14+40+14+30, 60, 60)];
+    UIButton *QQLogin = [[UIButton alloc]initWithFrame:CGRectMake((kScreenWidth-120)/3*2+60, kScreenWidth/8*3+47+47+1+80+8+14+40+14+30, 60, 60)];
     [QQLogin setBackgroundImage:[UIImage imageNamed:@"QQlogin"] forState:UIControlStateNormal];
     QQLogin.layer.cornerRadius = 30;
     [QQLogin addTarget:self action:@selector(QQlogin:) forControlEvents:UIControlEventTouchUpInside];
