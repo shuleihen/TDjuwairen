@@ -56,14 +56,14 @@
 }
 
 - (void)setupWithLogoImage{
-    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, 120)];
+    UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
     imageview.contentMode = UIViewContentModeCenter;
     imageview.image = [UIImage imageNamed:@"logo.png"];
     [self.view addSubview:imageview];
 }
 
 - (void)setupWithTextView{
-    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64, kScreenWidth, 47)];
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3, kScreenWidth, 47)];
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
@@ -72,7 +72,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+64+47+1, kScreenWidth, 47)];
+    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, kScreenWidth/8*3+47+1, kScreenWidth, 47)];
     self.validationText.backgroundColor = [UIColor whiteColor];
     self.validationText.textColor = [UIColor darkGrayColor];
     self.validationText.font = [UIFont systemFontOfSize:14];
@@ -81,11 +81,11 @@
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
     //竖线
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-81, kScreenWidth/8*3+64+47+1+18, 1, 12)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-81, kScreenWidth/8*3+47+1+18, 1, 12)];
     label.layer.borderColor = [UIColor lightGrayColor].CGColor;
     label.layer.borderWidth = 1.0;
     
-    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-80, kScreenWidth/8*3+64+47+1, 80, 47)];
+    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-80, kScreenWidth/8*3+47+1, 80, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
     [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
     self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -99,6 +99,16 @@
     [self.view addSubview:self.validationBtn];
     [self.view addSubview:label];
 }
+
+- (void)setupWithLogin{
+    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+47+47+1+30, kScreenWidth-30, 50)];
+    loginBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
+    loginBtn.layer.cornerRadius = 5;//圆角半径
+    [loginBtn addTarget:self action:@selector(ClickLogin:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:loginBtn];
+}
+
 - (void)ClickSend:(UIButton *)sender{
     [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (!error) {
@@ -141,14 +151,7 @@
     
 }
 
-- (void)setupWithLogin{
-    UIButton *loginBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, kScreenWidth/8*3+64+47+47+1+30, kScreenWidth-30, 50)];
-    loginBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
-    [loginBtn setTitle:@"登录" forState:UIControlStateNormal];
-    loginBtn.layer.cornerRadius = 5;//圆角半径
-    [loginBtn addTarget:self action:@selector(ClickLogin:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:loginBtn];
-}
+
 
 #pragma mark - 点击注册
 - (void)ClickRegister:(UIButton *)sender{

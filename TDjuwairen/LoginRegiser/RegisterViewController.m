@@ -36,6 +36,7 @@
     [self setupWithNavigation];
     [self setupWithTextField];
     [self setupWithRegisterBtn];
+    [self setupWithAgreements];
     // Do any additional setup after loading the view.
 }
 
@@ -54,7 +55,7 @@
 }
 
 - (void)setupWithTextField{
-    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, 47)];
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16, kScreenWidth, 47)];
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
@@ -63,7 +64,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1, kScreenWidth, 47)];
+    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1, kScreenWidth, 47)];
     self.validationText.backgroundColor = [UIColor whiteColor];
     self.validationText.textColor = [UIColor darkGrayColor];
     self.validationText.font = [UIFont systemFontOfSize:14];
@@ -72,11 +73,11 @@
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
     //竖线
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 80+47+1+18, 1, 12)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 16+47+1+18, 1, 12)];
     label.layer.borderColor = [UIColor lightGrayColor].CGColor;
     label.layer.borderWidth = 1.0;
     
-    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 80+47+1, 100, 47)];
+    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 16+47+1, 100, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
     [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
     self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -85,7 +86,7 @@
     [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
     [self.validationBtn addTarget:self action:@selector(ClickSend:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1+47+1, kScreenWidth, 47)];
+    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1, kScreenWidth, 47)];
     self.passwordText.backgroundColor = [UIColor whiteColor];
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
@@ -97,7 +98,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.passwordText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.nicknameText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1+47+1+47+1, kScreenWidth, 47)];
+    self.nicknameText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1+47+1, kScreenWidth, 47)];
     self.nicknameText.backgroundColor = [UIColor whiteColor];
     self.nicknameText.textColor = [UIColor darkGrayColor];
     self.nicknameText.font = [UIFont systemFontOfSize:14];
@@ -115,12 +116,23 @@
 }
 
 - (void)setupWithRegisterBtn{
-    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
+    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
     registerBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     registerBtn.layer.cornerRadius = 5;//圆角半径
     [registerBtn addTarget:self action:@selector(ClickRegis:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerBtn];
+}
+
+- (void)setupWithAgreements{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 30)];
+    label.text = @"点击“注册”即表示您已统一并愿意遵守局外人用户协议和隐私政策";
+    label.font = [UIFont systemFontOfSize:12];
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:label.text];
+    [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(21, 4)];
+    [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(26, 4)];
+    label.attributedText = att;
+    [self.view addSubview:label];
 }
 
 - (void)ClickSend:(UIButton *)sender{

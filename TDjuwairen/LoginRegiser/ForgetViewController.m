@@ -54,7 +54,7 @@
 }
 
 - (void)setupWithTextField{
-    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80, kScreenWidth, 47)];
+    self.accountText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16, kScreenWidth, 47)];
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
@@ -63,7 +63,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1, kScreenWidth, 47)];
+    self.validationText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1, kScreenWidth, 47)];
     self.validationText.backgroundColor = [UIColor whiteColor];
     self.validationText.textColor = [UIColor darkGrayColor];
     self.validationText.font = [UIFont systemFontOfSize:14];
@@ -72,11 +72,11 @@
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
     //竖线
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 80+47+1+18, 1, 12)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 16+47+1+18, 1, 12)];
     label.layer.borderColor = [UIColor lightGrayColor].CGColor;
     label.layer.borderWidth = 1.0;
     
-    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 80+47+1, 100, 47)];
+    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 16+47+1, 100, 47)];
     self.validationBtn.backgroundColor = [UIColor clearColor];
     [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
     self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -85,7 +85,7 @@
     [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
     [self.validationBtn addTarget:self action:@selector(ClickSend:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 80+47+1+47+1, kScreenWidth, 47)];
+    self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1, kScreenWidth, 47)];
     self.passwordText.backgroundColor = [UIColor whiteColor];
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
@@ -106,13 +106,13 @@
 
 #pragma mark - 点击提交
 - (void)setupWithSubmit{
-    UIButton *submitBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+30, kScreenWidth-30, 50)];
+    UIButton *submitBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+30, kScreenWidth-30, 50)];
     submitBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
     submitBtn.layer.cornerRadius = 5;//圆角半径
     [submitBtn addTarget:self action:@selector(ClickSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 80+47+1+47+1+47+30, kScreenWidth-30, 14)];
+    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+30, kScreenWidth-30, 14)];
     [service setTitle:@"没有绑定手机号码/邮箱？点击联系客服" forState:UIControlStateNormal];
     service.titleLabel.font = [UIFont systemFontOfSize:14];
     [service setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];

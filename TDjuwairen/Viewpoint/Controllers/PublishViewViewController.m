@@ -11,6 +11,7 @@
 #import "BottomEdit.h"
 #import "SecondEdit.h"
 #import "EditZiti.h"
+#import "LoginState.h"
 
 #import "NSString+Ext.h"
 #import "PhotoTextAttachment.h"
@@ -25,9 +26,11 @@
     BOOL jiacu;
     BOOL xieti;
     BOOL xiahuaxian;
+    NSString *isoriginal;
     NSUInteger numm;
     NSRange currentRange;//当前光标所在位置
 }
+@property (nonatomic,strong) LoginState *loginState;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UIScrollView *scrollview;
@@ -55,10 +58,13 @@
     self.imglocArr = [NSMutableArray array];
     self.upimgArr = [NSMutableArray array];
     
+    self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.editziti = [EditZiti sharedInstance];
     numm = 0;
     self.editziti.zihao = 16;//默认16号字体
+    isoriginal = @"1"; //默认为原创文章
+    
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -125,6 +131,7 @@
     self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 40, 40)];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select@3x.png"] forState:UIControlStateNormal];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select_pre@3x.png"] forState:UIControlStateSelected];
+    self.originalBtn.selected = YES;//默认为原创
     [self.originalBtn addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
     UILabel *originalLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-40, 0, 40, 40)];
@@ -198,10 +205,12 @@
 - (void)isOriginal:(UIButton *)sender{
     if (sender.selected == YES) {
         sender.selected = NO;
+        isoriginal = @"0";
     }
     else
     {
         sender.selected = YES;
+        isoriginal = @"1";
     }
 }
 
@@ -682,11 +691,10 @@
     NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-    NSLog(@"%@",htmlstring);
-    
+
     NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
-    NSDictionary*para=@{@"userid":@"956",
-                        @"isOrigin":@"1",
+    NSDictionary*para=@{@"userid":self.loginState.userId,
+                        @"isOrigin":isoriginal,
                         @"title":self.titleText.text,
                         @"is_publish":@"1",
                         @"viewcontent":htmlstring};
