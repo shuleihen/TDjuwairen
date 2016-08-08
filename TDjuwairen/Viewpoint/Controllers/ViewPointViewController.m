@@ -391,7 +391,7 @@
     }
     else
     {
-        //跳转到个人信息页面
+        //跳转到发布页面
         PublishViewViewController *publishview = [self.storyboard instantiateViewControllerWithIdentifier:@"publishview"];
         publishview.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:publishview animated:YES];
