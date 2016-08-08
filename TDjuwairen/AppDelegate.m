@@ -206,6 +206,7 @@
  
     [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
     [UITabBar appearance].translucent = NO;
+//    [UIView appearance].backgroundColor = []
 }
 
 @end
