@@ -16,15 +16,32 @@
     model.user_id = dic[@"user_id"];
     model.user_headImg = dic[@"userinfo_facesmall"];
     model.user_nickName = dic[@"user_nickname"];
-    model.sharpcomment_id = dic[@"sharpcomment_id"];
-    model.sharpcomment_userid = dic[@"sharpcomment_userid"];
+    model.comment_goodnum = dic[@"comment_goodnum"];
+
     NSString *str = dic[@"sharpcomment_ptime"];
     NSTimeInterval time = [str doubleValue];
     NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+    [dateFormatter setDateFormat:@"MM-dd HH:mm:ss"];
     model.commentTime = [dateFormatter stringFromDate:detaildate];
-    model.comment = dic[@"sharpcomment_text"];
+    
+    NSString *viewstr = dic[@"viewcomment_ptime"];
+    NSTimeInterval viewtime = [viewstr doubleValue];
+    NSDate *viewdetaildate = [NSDate dateWithTimeIntervalSince1970:viewtime];
+    NSDateFormatter *viewdateFormatter = [[NSDateFormatter alloc]init];
+    [viewdateFormatter setDateFormat:@"MM-dd HH:mm:ss"];
+    model.viewcommentTime = [viewdateFormatter stringFromDate:viewdetaildate];
+    
+    model.sharpcomment_id = dic[@"sharpcomment_id"];
+    model.sharpcomment_userid = dic[@"sharpcomment_userid"];
+    model.sharpcomment = dic[@"sharpcomment_text"];
+    
+    model.viewcomment_id = dic[@"viewcomment_viewid"];
+    model.viewcomment_userid = dic[@"viewcomment_userid"];
+    model.viewcomment = dic[@"viewcomment_text"];
+    
+    model.secondArr = dic[@"pcomment"];
+    
     return model;
 }
 

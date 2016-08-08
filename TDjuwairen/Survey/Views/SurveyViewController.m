@@ -117,8 +117,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [self.navigationController.navigationBar setHidden:NO];
+
 }
 
 #pragma mark - 进入时加载页面
@@ -381,6 +380,7 @@
 // FIXME: 方法名和变量命名首字母小写
 - (void)ClickSearchButton:(UIButton *)sender{
     SearchViewController *searchView = [self.storyboard instantiateViewControllerWithIdentifier:@"searchview"];
+    [searchView.navigationController.navigationBar setHidden:NO];
     [self.navigationController pushViewController:searchView animated:YES];
 }
 
