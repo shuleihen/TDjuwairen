@@ -36,7 +36,7 @@
     [self setupWithNavigation];
     [self setupWithTextField];
     [self setupWithRegisterBtn];
-    
+    [self setupWithAgreements];
     // Do any additional setup after loading the view.
 }
 
@@ -123,6 +123,17 @@
     registerBtn.layer.cornerRadius = 5;//圆角半径
     [registerBtn addTarget:self action:@selector(ClickAddUpdates:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:registerBtn];
+}
+
+- (void)setupWithAgreements{
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 30)];
+    label.text = @"点击“注册”即表示您已统一并愿意遵守局外人用户协议和隐私政策";
+    label.font = [UIFont systemFontOfSize:12];
+    NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:label.text];
+    [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(21, 4)];
+    [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(26, 4)];
+    label.attributedText = att;
+    [self.view addSubview:label];
 }
 
 - (void)ClickSend:(UIButton *)sender{

@@ -15,6 +15,8 @@
 #import "DescContentViewController.h"
 #import "UIdaynightModel.h"
 #import "PublishViewViewController.h"
+#import "LoginViewController.h"
+#import "LoginState.h"
 
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
@@ -30,7 +32,7 @@
     BOOL isFirstNew;
     BOOL isFirstSpe;
 }
-
+@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) CategoryView *cateview;
 
 @property (nonatomic,strong) UIScrollView *contentScroll;
@@ -43,7 +45,6 @@
 @property (nonatomic,strong) NSMutableArray *viewRecArr;
 @property (nonatomic,strong) NSMutableArray *viewNewArr;
 @property (nonatomic,strong) NSMutableArray *viewSpeArr;
-@property (nonatomic,strong) NSArray *dataArr;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 //进入页面时的加载
@@ -66,7 +67,9 @@
 - (NSArray *)categoryArr
 {
     if (!_categoryArr) {
-        _categoryArr = @[@"推荐",@"最新",@"专题"];
+        //现在只保留一个最新。。需求如此我也表示无奈- -
+//        _categoryArr = @[@"推荐",@"最新",@"专题"];
+        _categoryArr = @[@"最新"];
     }
     return _categoryArr;
 }
@@ -82,7 +85,7 @@
     self.viewRecArr = [NSMutableArray array];
     self.viewNewArr = [NSMutableArray array];
     self.viewSpeArr = [NSMutableArray array];
-    self.dataArr = @[self.viewRecArr,self.viewNewArr,self.viewSpeArr];
+
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
@@ -177,16 +180,16 @@
     
     __weak ViewPointViewController *wself = self;
     NSString *urlPath;
-    if (n == 0) {
-        urlPath = [NSString stringWithFormat:@"index.php/View/recLists1_2/page/%d",self.page];
-    }
-    else if (n == 1){
+//    if (n == 0) {
+//        urlPath = [NSString stringWithFormat:@"index.php/View/recLists1_2/page/%d",self.page];
+//    }
+//    else if (n == 1){
         urlPath = [NSString stringWithFormat:@"index.php/View/newLists1_2/page/%d",self.page];
-    }
-    else
-    {
-        urlPath = [NSString stringWithFormat:@"%@Subject/newLists1_2/page/%d",kAPI_bendi,self.page];//接口暂无
-    }
+//    }
+//    else
+//    {
+//        urlPath = [NSString stringWithFormat:@"%@Subject/newLists1_2/page/%d",kAPI_bendi,self.page];//接口暂无
+//    }
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
@@ -197,15 +200,14 @@
                 if (wself.page == 1) {
                     list = [NSMutableArray arrayWithCapacity:[dataArray count]];
                 } else {
-                    list = [NSMutableArray arrayWithArray:wself.dataArr[num]];
+                    list = [NSMutableArray arrayWithArray:self.viewNewArr];
                 }
-                NSMutableArray *arr = wself.dataArr[num];
                 
                 if (n == 2) {
                     for (NSDictionary *d in dataArray) {
                         SpecialModel *model = [SpecialModel getInstanceWithDictionary:d];
                         [list addObject:model];
-                        [arr addObject:model];
+                        wself.viewNewArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                     }
                 }
                 else
@@ -213,8 +215,8 @@
                     for (NSDictionary *d in dataArray) {
                         ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:d];
                         [list addObject:model];
-                        [arr addObject:model];
                     }
+                    wself.viewNewArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 }
             }
             UITableView *tableview = wself.tableviewsArr[num];
@@ -285,13 +287,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    NSMutableArray *arr = self.dataArr[num];
-    return arr.count;
+
+//    if (num == 0) {
+        return self.viewNewArr.count;
+//    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSMutableArray *arr = self.dataArr[num];
+    NSMutableArray *arr = self.viewNewArr;
     if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
         NSString *identifier = @"cell";
         ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -357,6 +361,9 @@
     if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
         //跳转到观点详情页
         DescContentViewController *dc = [self.storyboard instantiateViewControllerWithIdentifier:@"viewDesc"];
+        ViewPointListModel *model = self.viewNewArr[indexPath.row];
+        dc.view_id = model.view_id;
+        dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:dc animated:YES];
     }
 }
@@ -374,11 +381,22 @@
     [self requestDataWithNumber:num];
     
 }
-
+#pragma mark - 跳转发布
 - (void)GoPublish:(UIButton *)sender{
-    PublishViewViewController *publishview = [self.storyboard instantiateViewControllerWithIdentifier:@"publishview"];
-    publishview.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-    [self.navigationController pushViewController:publishview animated:YES];
+    if (self.loginState.isLogIn == NO) {
+        //跳转到登录页面
+        LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:login animated:YES];
+    }
+    else
+    {
+        //跳转到发布页面
+        PublishViewViewController *publishview = [self.storyboard instantiateViewControllerWithIdentifier:@"publishview"];
+        publishview.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:publishview animated:YES];
+    }
+    
 }
 
 - (void)GoSearch:(UIButton *)sender{

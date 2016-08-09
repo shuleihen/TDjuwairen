@@ -93,7 +93,7 @@
     [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:back];
-    self.navigationItem.leftBarButtonItem = leftItem;
+    self.navigationItem.backBarButtonItem = leftItem;
 }
 
 - (void)setupWithScrollview{
@@ -129,8 +129,8 @@
     self.titleText.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
     
     self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 40, 40)];
-    [self.originalBtn setImage:[UIImage imageNamed:@"btn_select@3x.png"] forState:UIControlStateNormal];
-    [self.originalBtn setImage:[UIImage imageNamed:@"btn_select_pre@3x.png"] forState:UIControlStateSelected];
+    [self.originalBtn setImage:[UIImage imageNamed:@"btn_select.png"] forState:UIControlStateNormal];
+    [self.originalBtn setImage:[UIImage imageNamed:@"btn_select_pre.png"] forState:UIControlStateSelected];
     self.originalBtn.selected = YES;//默认为原创
     [self.originalBtn addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -406,7 +406,7 @@
         //插入股票
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
-        //插入预览
+        //预览
     }
     else
     {
@@ -442,7 +442,7 @@
 - (void)beginMoveUpAnimation:(CGFloat )height{
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformMakeTranslation(0, -height);
-            self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
+        self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
     }];
 }
 

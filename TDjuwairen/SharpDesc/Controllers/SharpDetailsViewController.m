@@ -21,8 +21,11 @@
 #import "ShowTableViewCell.h"
 #import "CommentsModel.h"
 #import "SharpTags.h"
-#import "LoginTableViewController.h"
+#import "LoginViewController.h"
 #import "CollectionViewController.h"
+#import "UIdaynightModel.h"
+#import "NaviMoreView.h"
+#import "SelectFontView.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -38,7 +41,7 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 
-@interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate>
+@interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate>
 {
     CGSize commentsize;
     CGSize originalsize;
@@ -52,9 +55,15 @@
     NSTimer *myTimer;
     BOOL firstClickComment;
     
+    BOOL naviShow;
+    BOOL fontShow;
+    NSString *fontsize;
 }
 
 @property (nonatomic,strong) UITableView *tableview;
+@property (nonatomic,strong) NaviMoreView *nmview;
+@property (nonatomic,strong) SelectFontView *sfview;
+@property (nonatomic,strong) NSArray *sizeArr;
 @property (nonatomic,strong) UIWebView *webview;
 @property (nonatomic) BOOL scalesPageToFit;
 /* 评论条 */
@@ -81,11 +90,30 @@
 @property (nonatomic,strong) NSMutableArray *imageViews;
 
 @property (nonatomic, strong) SharpModel *sharpInfo;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic, assign) int page;
 @end
 
 @implementation SharpDetailsViewController
 
+- (NaviMoreView *)nmview{
+    if (!_nmview) {
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        _nmview.delegate = self;
+        [self.view addSubview:_nmview];
+    }
+    return _nmview;
+}
+
+- (SelectFontView *)sfview{
+    if (!_sfview) {
+        _sfview = [[SelectFontView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2, 300)];
+        _sfview.center = self.view.center;
+        _sfview.delegate = self;
+        [self.view addSubview:_sfview];
+    }
+    return _sfview;
+}
 - (void)dealloc
 {
     [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
@@ -93,7 +121,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    [self setupWithNavigation];
+    self.sizeArr = @[@"120%",@"110%",@"100%",@"90%"];
+    naviShow = NO;
+    fontShow = NO;
+    fontsize = @"100%";
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     [self setupUICommon];
     
     
@@ -108,18 +140,38 @@
 
 - (void)setupWithNavigation{
     [self.navigationController.navigationBar setHidden:NO];
+    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+    //设置navigation背景色
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
     
-    UIButton*rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    [rightButton setImage:[UIImage imageNamed:@"nav_night_more@3x.png"] forState:UIControlStateNormal];
+    UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"nav_more@3x.png"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(naviMore:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem*rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
+    
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+}
+
+- (void)naviMore:(UIButton *)sender{
+    //显示更多菜单
+    if (naviShow == NO) {
+        self.nmview.alpha = 1.0;
+        naviShow = YES;
+    }
+    else
+    {
+        self.nmview.alpha = 0.0;
+        naviShow = NO;
+    }
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
+//    [self.navigationController.navigationBar setHidden:YES];
     
     if (self.loginstate.isLogIn) {
         //进行身份验证
@@ -143,7 +195,7 @@
     [self setupWebView];
     [self setupTableView];
     [self setupCommentView];
-    [self setupStatusBar];
+    [self setupWithNavigation];
 }
 
 - (void)setupWebView
@@ -166,7 +218,7 @@
 
 - (void)setupTableView
 {
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 20, kScreenWidth, kScreenHeight-70) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
@@ -178,26 +230,11 @@
 
 - (void)setupCommentView
 {
-    self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-50, kScreenWidth, 50)];
-    [self.backcommentview.backback addTarget:self action:@selector(clickGOBack:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.backButton addTarget:self action:@selector(clickGOBack:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.backcommentview.backComment addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.ClickComment addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.backcommentview.backShare addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
-    [self.backcommentview.ClickShare addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
-    
+    self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
+    self.backcommentview.delegate = self;
     self.backcommentview.commentview.delegate = self;
     
     [self.view addSubview:self.backcommentview];
-}
-
-- (void)setupStatusBar
-{
-    UIView *status = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
-    status.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:status];
 }
 
 - (void)stopLoadView
@@ -593,7 +630,7 @@
                 
                 NSString *currenttime = [NSString prettyDateWithReference:model.commentTime];
                 cell.timeLabel.text = currenttime;
-                NSString *text = model.comment;
+                NSString *text = model.sharpcomment;
                 cell.commentsLabel.text = text;
                 UIFont *font = [UIFont systemFontOfSize:15];
                 cell.commentsLabel.font = font;
@@ -682,8 +719,9 @@
 
 - (void)gotLoginViewController
 {
-    LoginTableViewController *loginview = [self.storyboard instantiateViewControllerWithIdentifier:@"LoginView"];
-    [self.navigationController pushViewController:loginview animated:YES];
+    LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+    login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    [self.navigationController pushViewController:login animated:YES];
 }
 
 - (void)sendCommentWithText:(NSString *)text
@@ -810,10 +848,6 @@
     }
 }
 
-- (void)clickGOBack:(UIButton *)sender{
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
 - (void)clickComments:(UIButton *)sender{
     
     //滑动到评论
@@ -922,6 +956,89 @@
         self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
         self.tableview.transform = CGAffineTransformMakeTranslation(0, -height);
     }];
+}
+
+#pragma mark - 浮窗的代理方法
+- (void)didSelectedWithIndexPath:(NSInteger)indexpath
+{
+    if (indexpath == 0) {
+        NSLog(@"%ld",(long)indexpath);
+    }else if (indexpath == 1){
+        NSLog(@"%ld",(long)indexpath);
+    }else if (indexpath == 2){
+        
+        self.sfview.alpha = 1.0;
+        
+    }else if (indexpath == 3){
+        //读取用户设置
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        NSString *daynight = [userdefault objectForKey:@"daynight"];
+        if ([daynight isEqualToString:@"yes"]) {
+            [self.daynightmodel night];
+            daynight = @"no";
+            [userdefault setValue:daynight forKey:@"daynight"];
+            [userdefault synchronize];
+            
+            NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
+            
+            NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
+            var pNode=document.getElementsByTagName('p');\
+            for(var i=0;i<pNode.length;i++){\
+            pNode[i].style.backgroundColor='#222222';\
+            }";
+            
+            [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
+            [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+        }
+        else
+        {
+            [self.daynightmodel day];
+            daynight = @"yes";
+            [userdefault setValue:daynight forKey:@"daynight"];
+            [userdefault synchronize];
+            NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
+            
+            NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
+            var pNode=document.getElementsByTagName('p');\
+            for(var i=0;i<pNode.length;i++){\
+            pNode[i].style.backgroundColor='white';\
+            }";
+            
+            [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
+            [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+        }
+        
+        self.nmview.alpha = 0.0;
+        naviShow = NO;
+        
+    }else
+    {
+        NSLog(@"%ld",(long)indexpath);
+    }
+}
+
+#pragma mark - 更改字体的浮窗
+- (void)clickSure:(UIButton *)sender
+{
+    self.sfview.alpha = 0.0;
+    self.nmview.alpha = 0.0;
+    naviShow = NO;
+    
+    NSString *jsZiti = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontsize];
+    [self.webview stringByEvaluatingJavaScriptFromString:jsZiti];
+    
+}
+
+- (void)clickCancel:(UIButton *)sender
+{
+    self.sfview.alpha = 0.0;
+    self.nmview.alpha = 0.0;
+    naviShow = NO;
+}
+
+- (void)SelectFontWithIndexPath:(NSInteger)indexPath
+{
+    fontsize = self.sizeArr[indexPath];
 }
 
 @end

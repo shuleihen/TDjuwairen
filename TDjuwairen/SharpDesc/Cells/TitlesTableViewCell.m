@@ -30,7 +30,7 @@
         self.addtime.textColor = [UIColor lightGrayColor];
         self.addtime.font = [UIFont systemFontOfSize:12];
         
-        self.titleLabel = [[UILabel alloc]initWithFrame:CGRectMake(15, 10+50+10, kScreenWidth-30, 50)];
+        self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.font = [UIFont systemFontOfSize:16];
         
         [self addSubview:self.userheadImage];

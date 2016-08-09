@@ -18,11 +18,23 @@
 
 @property (nonatomic,copy) NSString *commentTime;//点评时间
 
-@property (nonatomic,copy) NSString *sharpcomment_id;//点评id
+@property (nonatomic,copy) NSString *comment_goodnum;//好评
 
-@property (nonatomic,copy) NSString *comment;//点评内容
+@property (nonatomic,copy) NSString *sharpcomment_id;//调研点评id
 
-@property (nonatomic,copy) NSString *sharpcomment_userid;//点评作者的id
+@property (nonatomic,copy) NSString *sharpcomment;//调研点评内容
+
+@property (nonatomic,copy) NSString *sharpcomment_userid;//调研点评作者的id
+
+@property (nonatomic,copy) NSString *viewcomment_id;//观点点评id
+
+@property (nonatomic,copy) NSString *viewcomment;//观点点评内容
+
+@property (nonatomic,copy) NSString *viewcomment_userid;//观点点评作者
+
+@property (nonatomic,copy) NSString *viewcommentTime;//点评时间
+
+@property (nonatomic,strong) NSArray *secondArr;
 
 + (CommentsModel *)getInstanceWithDictionary:(NSDictionary *)dictionary;
 

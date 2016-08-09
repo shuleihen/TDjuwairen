@@ -10,4 +10,6 @@
 
 @interface DescContentViewController : UIViewController
 
+@property (nonatomic,strong) NSString *view_id;
+
 @end

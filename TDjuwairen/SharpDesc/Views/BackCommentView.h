@@ -8,10 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface BackCommentView : UIView
+@protocol BackCommentViewDelegate <NSObject>
 
-@property (nonatomic,strong) UIButton *backButton;
-@property (nonatomic,strong) UIButton *backback;
+- (void)clickGOBack:(UIButton *)sender;
+
+- (void)clickComments:(UIButton *)sender;
+
+- (void)clickShare:(UIButton *)sender;
+
+@end
+@interface BackCommentView : UIView
 
 @property (nonatomic,strong) UITextField *commentview;
 
@@ -22,5 +28,7 @@
 @property (nonatomic,strong) UIButton *backShare;
 
 @property (nonatomic,strong) UIButton *numBtn;
+
+@property (nonatomic,assign) id<BackCommentViewDelegate>delegate;
 
 @end
