@@ -192,7 +192,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:YES];
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     MyHeadTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
@@ -219,7 +220,7 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 跳转到评论管理
