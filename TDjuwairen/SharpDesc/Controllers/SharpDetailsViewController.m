@@ -92,6 +92,7 @@
 @property (nonatomic, strong) SharpModel *sharpInfo;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic, assign) int page;
+@property (nonatomic,strong) MBProgressHUD *hubload;
 @end
 
 @implementation SharpDetailsViewController
@@ -246,20 +247,6 @@
     [self.view addSubview:self.backcommentview];
 }
 
-- (void)stopLoadView
-{
-    //停止加载样式
-    [_indicator finish];
-    self.loadingImgView.alpha = 0.0;
-    [self.loadingImgView removeFromSuperview];
-    self.loading1.alpha = 0.0;
-    [self.loading1 removeFromSuperview];
-    self.loading2.alpha = 0.0;
-    [self.loading2 removeFromSuperview];
-    self.loadingBackView.alpha = 0.0;
-    [self.loadingBackView removeFromSuperview];
-}
-
 #pragma mark Observe
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
@@ -271,6 +258,10 @@
         }
         
         self.webview.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+        
+        self.hubload.labelText = @"加载完成";
+        [self.hubload hide:YES afterDelay:0.1];
+        
         [self.tableview reloadData];
     }
     
@@ -331,34 +322,9 @@
 }
 
 - (void)requestDataWithUrl{
-//    self.loadingBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-//    self.loadingBackView.backgroundColor = [UIColor whiteColor];
-//    [self.view addSubview:self.loadingBackView];
-//    
-//    self.loadingImgView = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-kScreenWidth/4)/2+10, kScreenHeight/736*298, kScreenWidth/4, kScreenWidth/10)];
-//    self.loadingImgView.image = [UIImage imageNamed:@"loadingLogo.png"];
-//    [self.loadingBackView addSubview:self.loadingImgView];
-//    
-//    self.loading1 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenHeight/2-5, kScreenWidth, 20)];
-//    self.loading1.text = @"投资看公司";
-//    self.loading1.font = [UIFont systemFontOfSize:16];
-//    self.loading1.textColor = [UIColor lightGrayColor];
-//    self.loading1.textAlignment = NSTextAlignmentCenter;
-//    [self.loadingBackView addSubview:self.loading1];
-//    
-//    self.loading2 = [[UILabel alloc]initWithFrame:CGRectMake(0, kScreenHeight/2+20, kScreenWidth, 20)];
-//    self.loading2.text = @"分享有价值的信息";
-//    self.loading2.font = [UIFont systemFontOfSize:16];
-//    self.loading2.textColor = [UIColor lightGrayColor];
-//    self.loading2.textAlignment = NSTextAlignmentCenter;
-//    [self.loadingBackView addSubview:self.loading2];
-//    
-//    self.indicator = [[FSSyncSpinner alloc]initWithFrame:CGRectMake(-30, 0, 30, 30)];
-//    [self.loadingImgView addSubview:self.indicator];
-//    [self.indicator startAnimating];
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+    self.hubload = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hubload.labelText = @"加载中...";
     
     NSString *url;
     if (self.loginstate.isLogIn) {
@@ -375,16 +341,13 @@
     [ma GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.sharpInfo = [SharpModel sharpWithDictionary:data];
-            [hud hide:YES afterDelay:0.1];
-//            [self stopLoadView];
             [self relaodCommentNumber];
             [self.tableview.mj_header endRefreshing];
             [self.tableview reloadData];
             [self.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
         } else {
-            hud.labelText = @"加载失败";
-            [hud hide:YES afterDelay:0.1];
-//            [self stopLoadView];
+            self.hubload.labelText = @"加载失败";
+            [self.hubload hide:YES afterDelay:0.1];
             [self.tableview.mj_header endRefreshing];
         }
     }];

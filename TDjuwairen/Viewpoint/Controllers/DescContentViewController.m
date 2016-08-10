@@ -21,6 +21,7 @@
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
 #import "NSString+Ext.h"
+#import "MBProgressHUD.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -52,6 +53,8 @@
 
 @property (nonatomic,strong) WKWebView *webview;
 @property (nonatomic,strong) UIButton *selTimeHotBtn;
+
+@property (nonatomic,strong) MBProgressHUD *hudload;
 
 @end
 
@@ -98,15 +101,15 @@
     [userdefault addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
     
     self.view.backgroundColor = self.daynightmodel.navigationColor;
-    
-    [self requestWithData];
-    [self requestWithCommentDataWithTimeHot];
+    self.thview.timeBtn.selected = YES;
     
     [self setupWithNavigation];
     
     [self setupWithTableView];
 
     [self setupWithCommentView];
+    [self requestWithData];
+    [self requestWithCommentDataWithTimeHot];
     
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
@@ -135,14 +138,18 @@
 }
 
 - (void)requestWithData{
-    NSString *urlPath = @"http://192.168.1.100/tuanda_web/Appapi/View/view_show1_2/id/55";
+    
+    self.hudload = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hudload.labelText = @"加载中...";
+    
+    NSString *urlPath = @"http://192.168.1.101/tuanda_web/Appapi/View/view_show1_2/id/55";
 //    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.dataDic = data;
             
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.100%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.101%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             
@@ -151,6 +158,8 @@
         else
         {
             NSLog(@"%@",error);
+            self.hudload.labelText = @"加载失败";
+            [self.hudload hide:YES afterDelay:0.1];
         }
     }];
 }
@@ -202,7 +211,7 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 1, kScreenWidth, kScreenHeight-64-50) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -380,6 +389,17 @@
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 20;
+    }
+    else
+    {
+        return 1;
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
@@ -444,6 +464,8 @@
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableview reloadData];
                 //停止加载样式
+                self.hudload.labelText = @"加载完成";
+                [self.hudload hide:YES afterDelay:0.1];
             });
         }];
     });
@@ -587,11 +609,13 @@
     if (sender.selected == YES) {
         sender.selected = NO;
         self.selTimeHotBtn = sender;
+        [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         sender.selected = YES;
         self.selTimeHotBtn = sender;
+        [self requestWithCommentDataWithTimeHot];
     }
 }
 
@@ -601,11 +625,13 @@
     if (sender.selected == YES) {
         sender.selected = NO;
         self.selTimeHotBtn = sender;
+        [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         sender.selected = YES;
         self.selTimeHotBtn = sender;
+        [self requestWithCommentDataWithTimeHot];
     }
 }
 
