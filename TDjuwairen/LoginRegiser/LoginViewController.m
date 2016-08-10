@@ -261,6 +261,13 @@
                      self.loginState.post = dic[@"userinfo_occupation"];
                      self.loginState.personal = dic[@"userinfo_info"];
                      
+                     self.loginState.isLogIn = YES;
+                     
+                     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+                     [accountDefaults setValue:self.accountText.text forKey:@"account"];
+                     [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+                     [accountDefaults synchronize];
+                     
                      AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
                      addview.unionid = unionid;
                      [self.navigationController pushViewController:addview animated:YES];
@@ -352,6 +359,13 @@
                      self.loginState.company = dic[@"userinfo_company"];
                      self.loginState.post = dic[@"userinfo_occupation"];
                      self.loginState.personal = dic[@"userinfo_info"];
+                     self.loginState.isLogIn = YES;
+                     
+                     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+                     [accountDefaults setValue:self.accountText.text forKey:@"account"];
+                     [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+                     [accountDefaults synchronize];
+                     
                      AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
                      addview.qqopenid = openid;
                      [self.navigationController pushViewController:addview animated:YES];

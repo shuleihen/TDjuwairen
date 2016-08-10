@@ -32,13 +32,6 @@
     
     self.tableView.contentInset=UIEdgeInsetsMake(-25, 0, 0, 0);
     [self setNavigationBar];
-//	[self.navigationItem setTitle:@"加载中"];
-
-//    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemCancel target:self.parent action:@selector(cancelImagePicker)];
-    
-    //    UIBarButtonItem *cancelButton = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelImagePicker)];
-    
-    //	[self.navigationItem setRightBarButtonItem:cancelBtn];
     
     UIBarButtonItem *cancelBtn=[[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self.parent action:@selector(cancelImagePicker)];
     cancelBtn.tintColor=[UIColor blackColor];
@@ -102,33 +95,13 @@
 }
 
 -(void)setNavigationBar{
-//    @fql 删除 back 处理
-    UILabel *navTitle=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 15)];
-    navTitle.text=@"选择相册";
-    navTitle.font=[UIFont boldSystemFontOfSize:17];
-    navTitle.textColor=[UIColor blackColor];
-    self.navigationItem.titleView=navTitle;
-    statusView=[[UIView alloc] initWithFrame:CGRectMake(0, -20, [UIScreen mainScreen ].bounds.size.width, 20)];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-   // UIColor *color=[UIColor colorWithRed:217/255.0 green:64/255.0 blue:26/255.0 alpha:1];
-    //    UIColor *color=[UIColor colorWithRed:74.0/255 green:234.0/255 blue:189.0/255 alpha:0];
-   // statusView.backgroundColor=color;
-    [self.navigationController.navigationBar addSubview:statusView];
-   // [self.navigationController.navigationBar setBackgroundColor:color];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
+    self.title = @"选择相册";
 }
 
 - (void)reloadTableView
 {
 	[self.tableView reloadData];
-	[self.navigationItem setTitle:@"选择相册"];
+    self.title = @"选择相册";
 }
 
 - (BOOL)shouldSelectAsset:(ELCAsset *)asset previousCount:(NSUInteger)previousCount

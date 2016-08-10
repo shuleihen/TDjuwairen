@@ -514,7 +514,7 @@
         [formData appendPartWithFileData:data name:self.LoginState.userId fileName:fileName mimeType:@"image/png"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        NSLog(@"%@",responseObject);
         NSLog(@"上传成功！");
         UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

@@ -118,13 +118,6 @@
     [self.navigationController.navigationBar setHidden:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
 }
 
 - (void)setupWithTableView{
@@ -186,6 +179,10 @@
     if (indexPath.row == 0) {
         //修改头像
         UIAlertController*alert=[[UIAlertController alloc]init];
+        //相机
+        [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self takePhoto];
+        }]];
         //相册
         [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
@@ -194,10 +191,6 @@
             elcPicker.returnsOriginalImage = NO; //Only return the fullScreenImage, not the fullResolutionImage
             elcPicker.imagePickerDelegate = self;
             [self presentViewController:elcPicker animated:YES completion:nil];
-        }]];
-        //相机
-        [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self takePhoto];
         }]];
         
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
@@ -465,8 +458,10 @@
         [formData appendPartWithFileData:data name:self.loginState.userId fileName:fileName mimeType:@"image/png"];
         
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+        NSLog(@"%@",responseObject);
         NSLog(@"上传成功！");
+        NSDictionary *dic = responseObject[@"data"];
+        self.loginState.headImage = dic[@"userinfo_facesmall"];
         UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
             [self.navigationController popViewControllerAnimated:YES];

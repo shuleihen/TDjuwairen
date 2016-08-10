@@ -71,27 +71,7 @@
 }
 
 -(void)setNavigationBar{
-    //    @fql 删除 back 处理
-    UILabel *navTitle=[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 30, 15)];
-    navTitle.text=@"选择图片";
-    navTitle.font=[UIFont boldSystemFontOfSize:17];
-    navTitle.textColor=[UIColor blackColor];
-    self.navigationItem.titleView=navTitle;
-    statusView=[[UIView alloc] initWithFrame:CGRectMake(0, -20, [UIScreen mainScreen ].bounds.size.width, 20)];
-    [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
-  //  UIColor *color=[UIColor colorWithRed:217/255.0 green:64/255.0 blue:26/255.0 alpha:1];
-    //    UIColor *color=[UIColor colorWithRed:74.0/255 green:234.0/255 blue:189.0/255 alpha:0];
-  //  statusView.backgroundColor=color;
-    [self.navigationController.navigationBar addSubview:statusView];
-   // [self.navigationController.navigationBar setBackgroundColor:color];
-    
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
+    self.title = @"选择图片";
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
@@ -160,7 +140,14 @@
 			[selectedAssetsImages addObject:[elcAsset asset]];
 		}
 	}
-    [self.parent selectedAssets:selectedAssetsImages];
+    if (selectedAssetsImages.count == 0) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }
+    else
+    {
+        [self.parent selectedAssets:selectedAssetsImages];
+    }
+    
 }
 
 

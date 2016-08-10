@@ -17,6 +17,7 @@
 #import "PublishViewViewController.h"
 #import "LoginViewController.h"
 #import "LoginState.h"
+#import "SearchViewController.h"
 
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
@@ -146,18 +147,18 @@
 
 - (void)addRefreshView{
     for (UITableView *table in self.tableviewsArr) {
-        table.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-        table.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+        table.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
+        table.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     }
 }
 
-- (void)refreshAction {
+- (void)refreshActions{
     //数据表页数为1
     self.page = 1;
     [self requestDataWithNumber:num];
 }
 
-- (void)loadMoreAction {
+- (void)loadMoreActions{
     self.page++;
     //继续请求
     [self requestDataWithNumber:num];
@@ -273,7 +274,6 @@
         UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-104-50) style:UITableViewStylePlain];
         tableview.delegate = self;
         tableview.dataSource = self;
-
         [self.tableviewsArr addObject:tableview];
         [self.contentScroll addSubview:tableview];
     }
@@ -367,7 +367,7 @@
         [self.navigationController pushViewController:dc animated:YES];
     }
 }
-
+#pragma mark - 结束滚动
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     int x = self.contentScroll.contentOffset.x/kScreenWidth;
@@ -378,7 +378,7 @@
     self.cateview.selectBtn = btn;
     
     self.cateview.selectLab.frame = CGRectMake(70*x, 38, 70, 2);
-    [self requestDataWithNumber:num];
+//    [self requestDataWithNumber:num]; //不再请求
     
 }
 #pragma mark - 跳转发布
@@ -400,7 +400,9 @@
 }
 
 - (void)GoSearch:(UIButton *)sender{
+    SearchViewController *searchView = [self.storyboard instantiateViewControllerWithIdentifier:@"searchview"];
     
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 //代理点击方法
@@ -422,6 +424,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.navigationController.navigationBar setHidden:NO];
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
