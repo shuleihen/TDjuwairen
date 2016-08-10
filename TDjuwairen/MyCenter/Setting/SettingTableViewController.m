@@ -116,8 +116,11 @@
             self.loginState.userId=nil;
             
             NSUserDefaults*Defaults=[NSUserDefaults standardUserDefaults];
+            [Defaults setValue:@"" forKey:@"loginStyle"];
             [Defaults setValue:@"" forKey:@"account"];
             [Defaults setValue:@"" forKey:@"password"];
+            [Defaults setValue:@"" forKey:@"openid"];
+            [Defaults setValue:@"" forKey:@"unionid"];
             [Defaults synchronize];
             [self.navigationController popViewControllerAnimated:YES];
         }]];

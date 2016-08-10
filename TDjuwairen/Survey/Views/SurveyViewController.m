@@ -511,7 +511,7 @@
         NSLog(@"微信登录失败");
     }];
     }
-    else
+    else if([loginStyle isEqualToString:@"normal"])
     {
         NSString *account = [user objectForKey:@"account"];
         NSString *password = [user objectForKey:@"password"];
