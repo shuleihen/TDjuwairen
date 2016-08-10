@@ -264,8 +264,8 @@
                      self.loginState.isLogIn = YES;
                      
                      NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:self.accountText.text forKey:@"account"];
-                     [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+                     [accountDefaults setValue:@"WXlogin" forKey:@"loginStyle"];
+                     [accountDefaults setValue:unionid forKey:@"unionid"];
                      [accountDefaults synchronize];
                      
                      AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
@@ -287,8 +287,8 @@
                      self.loginState.isLogIn = YES;
                      
                      NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:self.accountText.text forKey:@"account"];
-                     [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+                     [accountDefaults setValue:@"WXlogin" forKey:@"loginStyle"];
+                     [accountDefaults setValue:unionid forKey:@"unionid"];
                      [accountDefaults synchronize];
                      //允许登录
                      NSLog(@"登录成功");
@@ -362,8 +362,8 @@
                      self.loginState.isLogIn = YES;
                      
                      NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:self.accountText.text forKey:@"account"];
-                     [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+                     [accountDefaults setValue:@"QQlogin" forKey:@"loginStyle"];
+                     [accountDefaults setValue:openid forKey:@"openid"];
                      [accountDefaults synchronize];
                      
                      AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
@@ -385,8 +385,8 @@
                      self.loginState.isLogIn = YES;
                      
                      NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:self.accountText.text forKey:@"account"];
-                     [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+                     [accountDefaults setValue:@"QQlogin" forKey:@"loginStyle"];
+                     [accountDefaults setValue:openid forKey:@"openid"];
                      [accountDefaults synchronize];
                      //允许登录
                      NSLog(@"登录成功");

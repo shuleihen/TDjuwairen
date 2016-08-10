@@ -456,40 +456,99 @@
 
 - (void)requestToLogin{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *account = [user objectForKey:@"account"];
-    NSString *password = [user objectForKey:@"password"];
-    if (account != nil ) {
-        AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer  serializer];
+    NSString *loginStyle = [user objectForKey:@"loginStyle"];
+    NSLog(@"loginStyle is :---%@",loginStyle);
+    if ([loginStyle isEqualToString:@"QQlogin"]) {
+        NSString *openid = [user objectForKey:@"openid"];
+        NSDictionary *dic = @{@"openid":openid};
+        NSString *url = [NSString stringWithFormat:@"%@Login/checkQQAccount1_2",kAPI_bendi];
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
-        NSDictionary*paras=@{@"account":account,
-                             @"password":password};
-        
-        [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
-            if ([code isEqualToString:@"200"]) {
-                NSLog(@"登陆成功");
-                
-                NSDictionary *dic = responseObject[@"data"];
-                self.loginstate.userId=dic[@"user_id"];
-                self.loginstate.userName=dic[@"user_name"];
-                self.loginstate.nickName=dic[@"user_nickname"];
-                self.loginstate.userPhone=dic[@"userinfo_phone"];
-                self.loginstate.headImage=dic[@"userinfo_facesmall"];
-                self.loginstate.company=dic[@"userinfo_company"];
-                self.loginstate.post=dic[@"userinfo_occupation"];
-                self.loginstate.personal=dic[@"userinfo_info"];
-                
-                self.loginstate.isLogIn=YES;
-                
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+        [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            
+            NSDictionary *dic = responseObject[@"data"];
+            self.loginstate.userId=dic[@"user_id"];
+            self.loginstate.userName=dic[@"user_name"];
+            self.loginstate.nickName=dic[@"user_nickname"];
+            self.loginstate.userPhone=dic[@"userinfo_phone"];
+            self.loginstate.headImage=dic[@"userinfo_facesmall"];
+            self.loginstate.company=dic[@"userinfo_company"];
+            self.loginstate.post=dic[@"userinfo_occupation"];
+            self.loginstate.personal=dic[@"userinfo_info"];
+            
+            self.loginstate.isLogIn=YES;
+            
+            [self.navigationController popViewControllerAnimated:YES];
             
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败");
+            NSLog(@"QQ登录失败");
         }];
     }
+    else if ([loginStyle isEqualToString:@"WXlogin"]){
+        NSString *unionid = [user objectForKey:@"unionid"];
+        NSDictionary *dic = @{@"unionid":unionid};
+        NSString *url = [NSString stringWithFormat:@"%@Login/checkWXAccount1_2",kAPI_bendi];
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        [manager POST:url parameters:dic
+    success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSDictionary *dic = responseObject[@"data"];
+        self.loginstate.userId=dic[@"user_id"];
+        self.loginstate.userName=dic[@"user_name"];
+        self.loginstate.nickName=dic[@"user_nickname"];
+        self.loginstate.userPhone=dic[@"userinfo_phone"];
+        self.loginstate.headImage=dic[@"userinfo_facesmall"];
+        self.loginstate.company=dic[@"userinfo_company"];
+        self.loginstate.post=dic[@"userinfo_occupation"];
+        self.loginstate.personal=dic[@"userinfo_info"];
+        
+        self.loginstate.isLogIn=YES;
+        
+        [self.navigationController popViewControllerAnimated:YES];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"微信登录失败");
+    }];
+    }
+    else
+    {
+        NSString *account = [user objectForKey:@"account"];
+        NSString *password = [user objectForKey:@"password"];
+        if (account != nil ) {
+            AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
+            manager.responseSerializer = [AFJSONResponseSerializer  serializer];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+            NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
+            NSDictionary*paras=@{@"account":account,
+                                 @"password":password};
+            
+            [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
+                NSString*code=[responseObject objectForKey:@"code"];
+                if ([code isEqualToString:@"200"]) {
+                    NSLog(@"登陆成功");
+                    
+                    NSDictionary *dic = responseObject[@"data"];
+                    self.loginstate.userId=dic[@"user_id"];
+                    self.loginstate.userName=dic[@"user_name"];
+                    self.loginstate.nickName=dic[@"user_nickname"];
+                    self.loginstate.userPhone=dic[@"userinfo_phone"];
+                    self.loginstate.headImage=dic[@"userinfo_facesmall"];
+                    self.loginstate.company=dic[@"userinfo_company"];
+                    self.loginstate.post=dic[@"userinfo_occupation"];
+                    self.loginstate.personal=dic[@"userinfo_info"];
+                    
+                    self.loginstate.isLogIn=YES;
+                    
+                    [self.navigationController popViewControllerAnimated:YES];
+                }
+                
+            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+                NSLog(@"请求失败");
+            }];
+        }
+    }
+    
 }
 
 #pragma mark - detection
