@@ -19,9 +19,7 @@
 {
     NSMutableArray *resultArr;
     NSMutableArray *searchHistory;
-    NSArray *arr;
-    NSUserDefaults *defaults;
-    
+  
     CGSize titlesize;
 }
 @property (nonatomic,strong) UISearchBar *customSearchBar;
@@ -37,6 +35,9 @@
 @property (nonatomic,strong) NSMutableArray *surveydata;
 @property (nonatomic,strong) NSMutableArray *researchdata;
 @property (nonatomic,strong) NSMutableArray *videodata;
+
+@property (nonatomic,strong) NSUserDefaults *defaults;
+@property (nonatomic,strong) NSArray *arr;
 @end
 
 @implementation SearchViewController
@@ -150,7 +151,7 @@
     
     [self.view addSubview:self.tableview];
     
-    defaults = [NSUserDefaults standardUserDefaults];
+    self.defaults = [NSUserDefaults standardUserDefaults];
     self.tagList = [[HistoryView alloc]initWithFrame:CGRectMake(0, 10, kScreenWidth, 1)];
     
 }
@@ -466,11 +467,11 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     
     NSString *str = [NSString stringWithFormat:@"%@",self.customSearchBar.text];
-    arr = [[NSArray alloc]init];
+    self.arr = [[NSArray alloc]init];
     //读取用户搜索历史
-    arr = [defaults objectForKey:@"searchHistory"];
-    arr = [[arr reverseObjectEnumerator]allObjects];
-    searchHistory = [[NSMutableArray alloc]initWithArray:arr];
+    self.arr = [[self.defaults objectForKey:@"searchHistory"] mutableCopy];
+    self.arr = [[self.arr reverseObjectEnumerator]allObjects];
+    searchHistory = [[NSMutableArray alloc]initWithArray:self.arr];
     BOOL isAlreadyExist = NO;
     for (NSString *temp in searchHistory) {
         if ([str isEqualToString:temp]) {
@@ -478,20 +479,23 @@
         }
     }
     if (!isAlreadyExist) {
-        [searchHistory addObject:self.customSearchBar.text];
+        if (![self.customSearchBar.text isEqualToString:@""]) {
+            [searchHistory addObject:self.customSearchBar.text];
+        }
     }
-    arr = [[NSArray alloc]initWithArray:searchHistory];
-    arr = [[arr reverseObjectEnumerator]allObjects];
-    [defaults setValue:arr forKey:@"searchHistory"];
-    [defaults synchronize];
+    self.arr = [[NSArray alloc]initWithArray:searchHistory];
+    self.arr = [[self.arr reverseObjectEnumerator]allObjects];
+    //替换掉set valuefor key ，因为会报错
+    [self.defaults arrayForKey:@"searchHistory"];
+    [self.defaults synchronize];
     /* 判断当前是历史页面还是搜索列表页面 */
     if (self.customSearchBar.text.length == 0) {
         if (indexPath.row == 2) {
             //点击清空的时候清空搜索历史
             [searchHistory removeAllObjects];
-            arr = [[NSArray alloc]initWithArray:searchHistory];
-            [defaults setValue:arr forKey:@"searchHistory"];
-            [defaults synchronize];
+            self.arr = [[NSArray alloc]initWithArray:searchHistory];
+            [self.defaults arrayForKey:@"searchHistory"];
+            [self.defaults synchronize];
             [self.tableview reloadData];
         }
     }
@@ -563,11 +567,11 @@
 #pragma mark - 搜索栏开始编辑中状态时
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
-    arr = [[NSArray alloc]init];
+    self.arr = [[NSArray alloc]init];
     //读取用户搜索历史
     /* */
-    arr = [defaults objectForKey:@"searchHistory"];
-    searchHistory = [[NSMutableArray alloc]initWithArray:arr];
+    self.arr = [self.defaults objectForKey:@"searchHistory"];
+    searchHistory = [[NSMutableArray alloc]initWithArray:self.arr];
     
     [self.tableview reloadData];
 }
@@ -576,7 +580,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     if (self.customSearchBar.text.length == 0) {
-        searchHistory = [[NSMutableArray alloc]initWithArray:arr];
+        searchHistory = [[NSMutableArray alloc]initWithArray:self.arr];
         [self.tableview reloadData];
     }
     else
@@ -592,11 +596,11 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     NSString *str = [NSString stringWithFormat:@"%@",searchBar.text];
-    arr = [[NSArray alloc]init];
+    self.arr = [[NSArray alloc]init];
     //读取用户搜索历史
-    arr = [defaults objectForKey:@"searchHistory"];
-    arr = [[arr reverseObjectEnumerator]allObjects];
-    searchHistory = [[NSMutableArray alloc]initWithArray:arr];
+    self.arr = [self.defaults objectForKey:@"searchHistory"];
+    self.arr = [[self.arr reverseObjectEnumerator]allObjects];
+    searchHistory = [[NSMutableArray alloc]initWithArray:self.arr];
     BOOL isAlreadyExist = NO;
     for (NSString *temp in searchHistory) {
         if ([str isEqualToString:temp]) {
@@ -604,12 +608,14 @@
         }
     }
     if (!isAlreadyExist) {
-        [searchHistory addObject:searchBar.text];
+        if (![searchBar.text isEqualToString:@""]) {
+            [searchHistory addObject:searchBar.text];
+        }
     }
-    arr = [[NSArray alloc]initWithArray:searchHistory];
-    arr = [[arr reverseObjectEnumerator]allObjects];
-    [defaults setValue:arr forKey:@"searchHistory"];
-    [defaults synchronize];
+    self.arr = [[NSArray alloc]initWithArray:searchHistory];
+    self.arr = [[self.arr reverseObjectEnumerator]allObjects];
+    [self.defaults arrayForKey:@"searchHistory"];
+    [self.defaults synchronize];
 }
 
 #pragma mark - 页面出现时
@@ -617,6 +623,7 @@
 {
     [super viewWillAppear:animated];
     /* 成为第一响应者 */
+    [self.navigationController.navigationBar setHidden:YES];
     [self.customSearchBar becomeFirstResponder];
 }
 

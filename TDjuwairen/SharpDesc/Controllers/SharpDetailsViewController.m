@@ -125,16 +125,25 @@
     naviShow = NO;
     fontShow = NO;
     fontsize = @"100%";
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    [self setupUICommon];
-    
-    
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
     self.loginstate = [LoginState addInstance];
     self.page = 1;
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
+    [userdefault addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
     
+    [self setupUICommon];
+
     [self refreshAction];
 }
 
@@ -262,6 +271,18 @@
         }
         
         self.webview.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+        [self.tableview reloadData];
+    }
+    
+    if ([keyPath isEqualToString:@"daynight"]) {
+        self.view.backgroundColor = self.daynightmodel.navigationColor;
+        self.tableview.backgroundColor = self.daynightmodel.backColor;
+        [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+        [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
+        
+        self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        
+        [self.nmview.tableview reloadData];
         [self.tableview reloadData];
     }
 }
@@ -470,6 +491,11 @@
             titleCell.usernickname.text = self.sharpInfo.sharpUserName;
             titleCell.addtime.text = custime;
             [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.sharpInfo.sharpUserIcon]];
+            
+            titleCell.usernickname.textColor = self.daynightmodel.textColor;
+            titleCell.addtime.textColor = self.daynightmodel.titleColor;
+            titleCell.backgroundColor = self.daynightmodel.navigationColor;
+            
             return titleCell;
         }
         else if(indexPath.row == 1){
@@ -507,6 +533,7 @@
             //设置三秒内不可重复点击
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
             
         }
@@ -539,6 +566,7 @@
             
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
         }
         else if (indexPath.row == 4){
@@ -573,6 +601,7 @@
             [cell.textLabel setFrame:CGRectMake(8, 15, kScreenWidth-16, originalsize.height)];
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
         }
         else
@@ -582,9 +611,9 @@
             if (cell == nil) {
                 cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            cell.backgroundColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = self.daynightmodel.backColor;
             return cell;
         }
     }
@@ -600,6 +629,7 @@
             cell.textLabel.text = @"相关评论";
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
         }
         else
@@ -615,6 +645,9 @@
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 /* cell的选中样式为无色 */
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                cell.textLabel.textColor = self.daynightmodel.textColor;
+                cell.backgroundColor = self.daynightmodel.navigationColor;
                 return cell;
             }
             else
@@ -637,6 +670,10 @@
                 commentsize = CGSizeMake(kScreenWidth-55-15, 20000.0f);
                 commentsize = [text calculateSize:commentsize font:font];
                 [cell.commentsLabel setFrame:CGRectMake(15+30+10, 10+15+5+12+10, kScreenWidth-55-15, commentsize.height)];
+                
+                cell.nicknameLabel.textColor = self.daynightmodel.textColor;
+                cell.timeLabel.textColor = self.daynightmodel.titleColor;
+                cell.commentsLabel.textColor = self.daynightmodel.textColor;
                 
                 return cell;
             }
@@ -669,6 +706,33 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
+        
+        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
+        var pNode=document.getElementsByTagName('p');\
+        for(var i=0;i<pNode.length;i++){\
+        pNode[i].style.backgroundColor='white';\
+        }";
+        
+        [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
+        [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+    }
+    else
+    {
+        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
+        
+        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
+        var pNode=document.getElementsByTagName('p');\
+        for(var i=0;i<pNode.length;i++){\
+        pNode[i].style.backgroundColor='#222222';\
+        }";
+        
+        [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
+        [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+    }
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error

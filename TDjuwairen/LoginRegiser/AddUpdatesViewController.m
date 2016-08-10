@@ -8,6 +8,7 @@
 
 #import "AddUpdatesViewController.h"
 #import "LoginState.h"
+#import "AFNetworking.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface AddUpdatesViewController ()
@@ -126,8 +127,9 @@
 }
 
 - (void)setupWithAgreements{
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 30)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 40)];
     label.text = @"点击“注册”即表示您已统一并愿意遵守局外人用户协议和隐私政策";
+    label.numberOfLines = 0;
     label.font = [UIFont systemFontOfSize:12];
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:label.text];
     [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(21, 4)];
@@ -179,7 +181,91 @@
 }
 #pragma mark - 提交内容
 - (void)ClickAddUpdates:(UIButton *)sender{
+    //判断
+    if ([self.accountText.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }else if ([self.validationText.text isEqualToString:@""]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }else if ([self.passwordText.text isEqualToString:@""]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }
+    else if([self.nicknameText.text isEqualToString:@""])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }
+    else
+    {
+        [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
+            if (!error) {
+                //提交更新
+                [self updateUserinfo];
+            } else {
+                NSLog(@"错误信息：%@",error);
+                if ([self.validationText.text isEqualToString:@""]) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                else{
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            }
+        }];
+    }
+}
+
+- (void)updateUserinfo{
+    NSString *updateurl ;
+    NSDictionary *infoDic;
+    if ([self.qqopenid isEqualToString:@""]) {            //微信登录
+        infoDic = @{@"unionid":self.unionid,
+                    @"phone":self.accountText.text,
+                    @"password":self.passwordText.text,
+                    @"email":@"",
+                    @"nickname":self.nicknameText.text};
+        updateurl = [NSString stringWithFormat:@"%@Login/WXLoginDo1_2",kAPI_bendi];
+    }
+    else                                                  //QQ登录
+    {
+        infoDic = @{@"openid":self.qqopenid,
+                    @"phone":self.accountText.text,
+                    @"password":self.passwordText.text,
+                    @"email":@"",
+                    @"nickname":self.nicknameText.text};
+        updateurl = [NSString stringWithFormat:@"%@Login/qqLoginDo1_2",kAPI_bendi];
+    }
     
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager POST:updateurl parameters:infoDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+        //给loginstate 填充
+        self.loginState.nickName = self.nicknameText.text;
+        self.loginState.userPhone = self.accountText.text;
+        self.loginState.isLogIn = YES;
+        
+        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+        [accountDefaults setValue:self.accountText.text forKey:@"account"];
+        [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+        [accountDefaults synchronize];
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"信息更新失败");
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

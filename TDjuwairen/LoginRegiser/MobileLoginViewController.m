@@ -160,6 +160,9 @@
 
 #pragma mark - 点击登录
 - (void)ClickLogin:(UIButton *)sender{
+    
+    
+    
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
