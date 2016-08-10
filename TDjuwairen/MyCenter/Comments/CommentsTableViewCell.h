@@ -15,6 +15,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *commentsLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sharpImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *line;
 
 -(void)setCellWithDic:(NSDictionary*)dic;
 @end

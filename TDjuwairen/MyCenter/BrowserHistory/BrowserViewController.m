@@ -17,31 +17,31 @@
 
 @interface BrowserViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    NSMutableArray*BrowserArray;
-    NSMutableArray*delArray;
-    UIBarButtonItem*editBtn;
     BOOL haveBrowser;
     BOOL haveSelect;
     BOOL edit;
 }
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property(nonatomic,strong)LoginState*loginstate;
-@property(nonatomic,strong)EditView*editView;
+//@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (nonatomic,strong) UITableView *tableview;
+@property (nonatomic,strong) NSMutableArray *BrowserArray;
+@property (nonatomic,strong) NSMutableArray *delArray;
+@property (nonatomic,strong) UIBarButtonItem *editBtn;
+@property(nonatomic,strong) LoginState *loginstate;
+@property(nonatomic,strong) EditView *editView;
 @end
 
 @implementation BrowserViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableview.dataSource=self;
-    self.tableview.delegate=self;
-    self.tableview.contentInset=UIEdgeInsetsMake(-99, 0, 0, 0);
-    self.tableview.separatorStyle=UITableViewCellSeparatorStyleSingleLine;
-    self.loginstate=[LoginState addInstance];
-    self.tableview.allowsMultipleSelectionDuringEditing=YES;
+    
+    [self setNavigation];
+    [self setupWithTableView];
 
+    self.loginstate = [LoginState addInstance];
+    
     //全选，删除的view视图
-    _editView=[[EditView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50)];
+    _editView = [[EditView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50)];
     //全选button
     [_editView.selectBtn addTarget:self action:@selector(Select:) forControlEvents:UIControlEventTouchUpInside];
     haveSelect=NO;
@@ -49,11 +49,31 @@
     [_editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editView];
 }
+-(void)setNavigation
+{
+    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+    self.title = @"浏览记录";
+    
+    //编辑button
+    self.editBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
+    self.navigationItem.rightBarButtonItem = self.editBtn;
+    edit = NO;
+}
+
+- (void)setupWithTableView{
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    self.tableview.dataSource=self;
+    self.tableview.delegate=self;
+    self.tableview.allowsMultipleSelectionDuringEditing=YES;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableview];
+    
+}
 #pragma mark-全选button的点击事件
 -(void)Select:(UIButton*)sender
 {
     if (haveSelect==NO) {
-    for (int i=0; i<BrowserArray.count; i++) {
+    for (int i=0; i<self.BrowserArray.count; i++) {
         NSIndexPath*indexPath=[NSIndexPath indexPathForItem:i inSection:0];
         [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
     }
@@ -62,7 +82,7 @@
     }
     else
     {
-        for (int i=0; i<BrowserArray.count; i++) {
+        for (int i=0; i<self.BrowserArray.count; i++) {
         NSIndexPath*indexPath=[NSIndexPath indexPathForItem:i inSection:0];
         [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     }
@@ -76,10 +96,10 @@
     NSMutableArray*sharpId=[NSMutableArray array];
     NSArray*selectArr=self.tableview.indexPathsForSelectedRows;
     if (selectArr.count) {
-        delArray=[NSMutableArray array];
-        for (NSIndexPath*indexPath in selectArr) {
-            NSDictionary*dic=[BrowserArray objectAtIndex:indexPath.row];
-            [delArray addObject:dic];
+        self.delArray = [NSMutableArray array];
+        for (NSIndexPath *indexPath in selectArr) {
+            NSDictionary *dic = [self.BrowserArray objectAtIndex:indexPath.row];
+            [self.delArray addObject:dic];
             [sharpId addObject:dic[@"sharp_id"]];
         }
         
@@ -108,16 +128,16 @@
             NSLog(@"1");
         }];
         
-        [BrowserArray removeObjectsInArray:delArray];
+        [self.BrowserArray removeObjectsInArray:self.delArray];
         
         [self.tableview deleteRowsAtIndexPaths:selectArr withRowAnimation:YES];
         [UIView animateWithDuration:0.5 animations:^{
-            _editView.frame=CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-518);
+            _editView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-518);
         } completion:^(BOOL finished) {
             nil;
         }];
         edit=NO;
-        editBtn.title=@"编辑";
+        self.editBtn.title=@"编辑";
         [self.tableview setEditing:NO animated:YES];
     }
 }
@@ -133,21 +153,11 @@
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
     [self requestBrowser];
-    [self setNavigation];
+    
     [self requestAuthentication];
 }
 
--(void)setNavigation
-{
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"浏览记录";
-    self.navigationItem.titleView=label;
-    
-    //编辑button
-    editBtn=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
-    self.navigationItem.rightBarButtonItem=editBtn;
-    edit=NO;
-}
+
 
 //编辑button点击事件
 -(void)editClick
@@ -155,24 +165,24 @@
     
     if (edit==NO) {
     [UIView animateWithDuration:0.5 animations:^{
-        _editView.frame=CGRectMake(0, [UIScreen mainScreen].bounds.size.height-50, [UIScreen mainScreen].bounds.size.width, 50);
+        _editView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-50, [UIScreen mainScreen].bounds.size.width, 50);
     } completion:^(BOOL finished) {
         nil;
     }];
-        edit=YES;
-        editBtn.title=@"取消";
+        edit = YES;
+        self.editBtn.title = @"取消";
         [self.tableview setEditing:YES animated:YES];
         
     }
     else
     {
         [UIView animateWithDuration:0.5 animations:^{
-            _editView.frame=CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
+            _editView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
         } completion:^(BOOL finished) {
             nil;
         }];
-        edit=NO;
-        editBtn.title=@"编辑";
+        edit = NO;
+        self.editBtn.title = @"编辑";
         [self.tableview setEditing:NO animated:YES];
         
         
@@ -202,7 +212,7 @@
 #pragma mark-获取浏览记录的网络请求
 -(void)requestBrowser
 {
-    BrowserArray=[[NSMutableArray alloc]init];
+    self.BrowserArray=[[NSMutableArray alloc]init];
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -217,7 +227,8 @@
             NSArray*arr=dic[@"List"];
             
             for (NSDictionary*dic in arr) {
-                [BrowserArray addObject:dic];
+
+                [self.BrowserArray insertObject:dic atIndex:0];
             }
             [self.tableview reloadData];
         }
@@ -237,7 +248,7 @@
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (haveBrowser) {
-    return BrowserArray.count;
+    return self.BrowserArray.count;
     }
     else{
         return 1;
@@ -247,11 +258,11 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (haveBrowser) {
-        NSDictionary*dic=BrowserArray[indexPath.row];
+        NSDictionary*dic = self.BrowserArray[indexPath.row];
     [tableView registerNib:[UINib nibWithNibName:@"BrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"BrowserCell"];
-    BrowserTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"BrowserCell"];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        editBtn.enabled=YES;
+    BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BrowserCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.editBtn.enabled = YES;
     [cell setCellWithDic:dic];
     
         return cell;
@@ -259,9 +270,9 @@
     else
     {
         [tableView registerNib:[UINib nibWithNibName:@"NoBrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoBrowserCell"];
-        BrowserTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
-        cell.selectionStyle=UITableViewCellSelectionStyleNone;
-        editBtn.enabled=NO;
+        BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        self.editBtn.enabled = NO;
         return cell;
     }
 }
@@ -285,26 +296,26 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (editingStyle==UITableViewCellEditingStyleDelete) {
-        NSDictionary*dic=[BrowserArray objectAtIndex:indexPath.row];
-        NSMutableArray*delarr=[NSMutableArray array];
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        NSDictionary *dic = [self.BrowserArray objectAtIndex:indexPath.row];
+        NSMutableArray *delarr = [NSMutableArray array];
         [delarr addObject:dic[@"sharp_id"]];
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
         manager.responseSerializer=[AFJSONResponseSerializer serializer];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Public/delBrowseHistory"];
-        NSDictionary*para=@{@"authenticationStr":self.loginstate.userId,
-                            @"encryptedStr":self.str,
-                            @"delete_ids":delarr,
-                            @"module_id":@"2",
-                            @"userid":self.loginstate.userId};
+        NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Public/delBrowseHistory"];
+        NSDictionary *para = @{@"authenticationStr":self.loginstate.userId,
+                               @"encryptedStr":self.str,
+                               @"delete_ids":delarr,
+                               @"module_id":@"2",
+                               @"userid":self.loginstate.userId};
         NSLog(@"%@",para);
         [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
+            NSString *code = [responseObject objectForKey:@"code"];
             NSLog(@"%@",responseObject);
             if ([code isEqualToString:@"200"]) {
-                NSArray*arr=responseObject[@"data"];
+//                NSArray*arr=responseObject[@"data"];
                 NSLog(@"删除成功");
             }
             else {
@@ -313,9 +324,9 @@
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
             
         }];
-        NSMutableArray*arr=[NSMutableArray arrayWithArray:BrowserArray];
+        NSMutableArray *arr = [NSMutableArray arrayWithArray:self.BrowserArray];
         [arr removeObjectAtIndex:indexPath.row];
-        BrowserArray=[NSMutableArray arrayWithArray:arr];
+        self.BrowserArray = [NSMutableArray arrayWithArray:arr];
         
         [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
         
@@ -334,9 +345,9 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (edit==NO) {
-    NSDictionary*dic=BrowserArray[indexPath.row];
-    SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
-    sharp.sharp_id=dic[@"sharp_id"];
+    NSDictionary *dic = self.BrowserArray[indexPath.row];
+    SharpDetailsViewController *sharp = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    sharp.sharp_id = dic[@"sharp_id"];
     [self.navigationController pushViewController:sharp animated:YES];
     }
 }

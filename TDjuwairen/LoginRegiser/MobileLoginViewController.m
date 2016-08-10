@@ -7,6 +7,7 @@
 //
 
 #import "MobileLoginViewController.h"
+#import "RegisterViewController.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface MobileLoginViewController ()
@@ -51,7 +52,7 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
     
     //设置右边注册按钮
-    UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册账号" style:UIBarButtonItemStyleDone target:self action:@selector(ClickRegister:)];
+    UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleDone target:self action:@selector(ClickRegister:)];
     self.navigationItem.rightBarButtonItem = regist;
 }
 
@@ -156,6 +157,8 @@
 #pragma mark - 点击注册
 - (void)ClickRegister:(UIButton *)sender{
     //
+    RegisterViewController *regis = [self.storyboard instantiateViewControllerWithIdentifier:@"regis"];
+    [self.navigationController pushViewController:regis animated:YES];
 }
 
 #pragma mark - 点击登录

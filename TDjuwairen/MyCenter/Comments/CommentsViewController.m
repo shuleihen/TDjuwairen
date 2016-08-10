@@ -14,10 +14,8 @@
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
 
-//刷新
-#import "FCXRefreshFooterView.h"
-#import "FCXRefreshHeaderView.h"
 #import "UIScrollView+FCXRefresh.h"
+#import "MJRefresh.h"
 
 
 @interface CommentsViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -25,10 +23,10 @@
     NSMutableArray*CommentsArray;
     int page;
     BOOL haveComments;
-    FCXRefreshHeaderView *headerView;
-    FCXRefreshFooterView *footerView;
+
 }
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+
+@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong)LoginState*loginState;
 @end
 
@@ -36,10 +34,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableview.delegate=self;
-    self.tableview.dataSource=self;
+    
+    [self setNavigation];
+    
+    [self setupWithTableView];
     self.loginState=[LoginState addInstance];
-    self.tableview.contentInset=UIEdgeInsetsMake(-35, 0, 0, 0);
     page=1;
     CommentsArray=[NSMutableArray array];
     [self requestComments];
@@ -50,48 +49,24 @@
 
 - (void)addRefreshView {
     
-    __weak __typeof(self)weakSelf = self;
-    
-    //下拉刷新
-    headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf refreshAction];
-    }];
-    
-    //上拉加载更多
-    footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf loadMoreAction];
-    }];
-    
-    //自动刷新
-    //    footerView.autoLoadMore = self.autoLoadMore;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableview reloadData];
-        self.tableview.contentInset=UIEdgeInsetsMake(-35, 0, 0, 0);
-    });
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+
 }
 
 - (void)refreshAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
-    //数据表页数为1
+
     page = 1;
     [self requestComments];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakHeaderView endRefresh];
-        [weakTableView reloadData];
-    });
+
 }
 
 - (void)loadMoreAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshFooterView *weakFooterView = footerView;
+
     page++;
     //继续请求
     [self requestComments];
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakFooterView endRefresh];
-        [weakTableView reloadData];
-    });
+
 }
 
 - (void)didReceiveMemoryWarning {
@@ -102,18 +77,26 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController.navigationBar setHidden:NO];
-    [self setNavigation];
+    
 }
 
 -(void)setNavigation
 {
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"评论管理";
-    self.navigationItem.titleView=label;
+    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+    self.title = @"评论管理";
+}
+
+- (void)setupWithTableView{
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    self.tableview.delegate=self;
+    self.tableview.dataSource=self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableview];
 }
 
 -(void)requestComments
 {
+    __weak CommentsViewController *wself = self;
     AFHTTPRequestOperationManager*manager=[AFHTTPRequestOperationManager manager];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
@@ -136,17 +119,22 @@
             for (NSDictionary*dic in array) {
                 [CommentsArray addObject:dic];
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                __weak FCXRefreshFooterView *weakFooterView = footerView;
-                [weakFooterView endRefresh];
-                [self.tableview reloadData];//主线程刷新tableview
-            });
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
+            [wself.tableview reloadData];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        [wself.tableview.mj_header endRefreshing];
+        [wself.tableview.mj_footer endRefreshing];
+        [wself.tableview reloadData];
     }];
     
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    return 1;
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

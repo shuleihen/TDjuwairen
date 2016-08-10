@@ -7,11 +7,20 @@
 //
 
 #import "BrowserTableViewCell.h"
+#import "UIdaynightModel.h"
 
+@interface BrowserTableViewCell ()
+
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@end
 @implementation BrowserTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.line.layer.borderColor = self.daynightmodel.backColor.CGColor;
+    self.line.layer.borderWidth = 0.5;
     // Initialization code
 }
 

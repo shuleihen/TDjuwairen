@@ -24,7 +24,7 @@
     BOOL haveCollection;
     BOOL haveSelect;
 }
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (nonatomic,strong) UITableView *tableview;
 @property(nonatomic,strong)LoginState*loginstate;
 @property(nonatomic,strong)EditView*editView;
 @end
@@ -33,11 +33,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableview.dataSource=self;
-    self.tableview.delegate=self;
-    self.tableview.contentInset=UIEdgeInsetsMake(-99, 0, 0, 0);
+    
+    [self setNavigation];
+    
+    [self setupWithTableView];
+    
     self.loginstate=[LoginState addInstance];
-    self.tableview.allowsMultipleSelectionDuringEditing=YES;
+    
     
     //全选，删除的view视图
     _editView=[[EditView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50)];
@@ -47,6 +49,16 @@
     //删除button
     [_editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_editView];
+}
+
+- (void)setupWithTableView{
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    self.tableview.dataSource=self;
+    self.tableview.delegate=self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableview.allowsMultipleSelectionDuringEditing = YES;//多行编辑
+    [self.view addSubview:self.tableview];
+    
 }
 
 -(void)Select:(UIButton*)sender
@@ -129,18 +141,15 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
-    [self setNavigation];
+    
     [self requestCollection];
     [self requestAuthentication];
 }
 
 -(void)setNavigation
 {
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"收藏管理";
-    self.navigationItem.titleView=label;
-    
+    self.title = @"收藏管理";
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //编辑button
     editBtn=[[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
     self.navigationItem.rightBarButtonItem=editBtn;

@@ -686,7 +686,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9k4-Fl-NL4">
-                                <rect key="frame" x="0.0" y="66" width="320" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">                 用户注册及使用APP隐私协议
 在此特别提醒您（用户）在注册成为用户之前，请认真阅读本《用户协议》（以下简称“协议”），确保您充分理解本协议中各条款。请您审慎阅读并选 择接受或不接受本协议。除非您接受本协议所有条款，否则您无权注册、登录或使用本协议所涉服务。您的注册、登录、使用等行为将视为对本协议的接受，并同意 接受本协议各项条款的约束。本协议约定局外人与 用户之间关于“局外人”软件服务（以下简称“服务”）的权利义务。“用户”是指注册、登录、使用本服务的个人。本协议可由局外人 中心随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本APP中查阅最新版协议条款。在修改协议条款后，如果用户不接 受修改后的条款，请立即停止使用局外人提供的服务，用户继续使用局外人提供的服务将被视为接受修改后的协议。 
@@ -745,7 +745,7 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9k4-Fl-NL4" secondAttribute="trailing" id="MQV-dZ-bD2"/>
-                            <constraint firstItem="9k4-Fl-NL4" firstAttribute="top" secondItem="5YR-ac-utE" secondAttribute="top" constant="66" id="PjQ-g6-CXn"/>
+                            <constraint firstItem="9k4-Fl-NL4" firstAttribute="top" secondItem="5YR-ac-utE" secondAttribute="top" id="PjQ-g6-CXn"/>
                             <constraint firstItem="9k4-Fl-NL4" firstAttribute="leading" secondItem="5YR-ac-utE" secondAttribute="leading" id="WtU-VB-ijF"/>
                             <constraint firstItem="etb-V1-WPC" firstAttribute="top" secondItem="9k4-Fl-NL4" secondAttribute="bottom" id="cCQ-rX-wZb"/>
                         </constraints>
@@ -806,7 +806,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="opk-hF-2Bo">
-                                <rect key="frame" x="0.0" y="66" width="320" height="456"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="522"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </tableView>
                         </subviews>
@@ -817,7 +817,7 @@
                             <constraint firstAttribute="trailing" secondItem="opk-hF-2Bo" secondAttribute="trailing" id="Yuh-Gn-F4I"/>
                             <constraint firstItem="o57-7T-Bcu" firstAttribute="top" secondItem="Ads-7P-gDi" secondAttribute="bottom" id="j0Y-8n-DCF"/>
                             <constraint firstItem="Ads-7P-gDi" firstAttribute="top" secondItem="opk-hF-2Bo" secondAttribute="bottom" id="jeC-Ph-qrv"/>
-                            <constraint firstItem="opk-hF-2Bo" firstAttribute="top" secondItem="iYe-E2-VP4" secondAttribute="top" constant="66" id="njU-hD-ZNT"/>
+                            <constraint firstItem="opk-hF-2Bo" firstAttribute="top" secondItem="iYe-E2-VP4" secondAttribute="top" id="njU-hD-ZNT"/>
                             <constraint firstItem="Ads-7P-gDi" firstAttribute="leading" secondItem="iYe-E2-VP4" secondAttribute="leading" id="uMj-9e-05r"/>
                         </constraints>
                     </view>
@@ -2085,7 +2085,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="E1O-sQ-NMP">
-                                <rect key="frame" x="0.0" y="66" width="320" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                         </subviews>
@@ -2093,7 +2093,7 @@
                         <constraints>
                             <constraint firstItem="E1O-sQ-NMP" firstAttribute="leading" secondItem="T4U-p6-cpo" secondAttribute="leading" id="3sx-6H-7eO"/>
                             <constraint firstAttribute="bottom" secondItem="E1O-sQ-NMP" secondAttribute="bottom" id="4wE-mW-JUa"/>
-                            <constraint firstItem="E1O-sQ-NMP" firstAttribute="top" secondItem="T4U-p6-cpo" secondAttribute="top" constant="66" id="Lld-oM-ELa"/>
+                            <constraint firstItem="E1O-sQ-NMP" firstAttribute="top" secondItem="T4U-p6-cpo" secondAttribute="top" id="Lld-oM-ELa"/>
                             <constraint firstAttribute="trailing" secondItem="E1O-sQ-NMP" secondAttribute="trailing" id="rvl-hn-no1"/>
                         </constraints>
                     </view>
@@ -2119,7 +2119,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="0or-6A-rJj">
-                                <rect key="frame" x="0.0" y="66" width="320" height="502"/>
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                             </tableView>
                         </subviews>
@@ -2128,7 +2128,7 @@
                             <constraint firstItem="0or-6A-rJj" firstAttribute="leading" secondItem="Pff-x3-j6a" secondAttribute="leading" id="Goc-jR-soL"/>
                             <constraint firstAttribute="bottom" secondItem="0or-6A-rJj" secondAttribute="bottom" id="Jl3-w9-awd"/>
                             <constraint firstAttribute="trailing" secondItem="0or-6A-rJj" secondAttribute="trailing" id="g4C-fl-TUo"/>
-                            <constraint firstItem="0or-6A-rJj" firstAttribute="top" secondItem="Pff-x3-j6a" secondAttribute="top" constant="66" id="tHb-rF-mBX"/>
+                            <constraint firstItem="0or-6A-rJj" firstAttribute="top" secondItem="Pff-x3-j6a" secondAttribute="top" id="tHb-rF-mBX"/>
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
@@ -2151,24 +2151,9 @@
                     <view key="view" contentMode="scaleToFill" id="vX7-QC-qU1">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="dGP-o5-ay5">
-                                <rect key="frame" x="0.0" y="67" width="320" height="501"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
-                        </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="dGP-o5-ay5" secondAttribute="trailing" id="0Br-E6-1qR"/>
-                            <constraint firstItem="uJQ-eK-D8w" firstAttribute="top" secondItem="dGP-o5-ay5" secondAttribute="bottom" id="QB3-OD-8da"/>
-                            <constraint firstItem="dGP-o5-ay5" firstAttribute="top" secondItem="vX7-QC-qU1" secondAttribute="top" constant="67" id="xWQ-R7-7dR"/>
-                            <constraint firstItem="dGP-o5-ay5" firstAttribute="leading" secondItem="vX7-QC-qU1" secondAttribute="leading" id="yGX-Gc-KHk"/>
-                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <connections>
-                        <outlet property="tableview" destination="dGP-o5-ay5" id="ljh-vg-crq"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gJe-EH-V1V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

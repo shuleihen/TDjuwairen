@@ -8,11 +8,19 @@
 
 #import "CommentsTableViewCell.h"
 #import "UIImageView+AFNetworking.h"
+#import "UIdaynightModel.h"
 
+@interface CommentsTableViewCell ()
+
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@end
 @implementation CommentsTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.line.layer.borderColor = self.daynightmodel.backColor.CGColor;
+    self.line.layer.borderWidth = 0.5;
     // Initialization code
 }
 

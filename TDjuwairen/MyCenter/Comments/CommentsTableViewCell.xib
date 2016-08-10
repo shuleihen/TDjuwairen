@@ -74,6 +74,15 @@
                             <constraint firstItem="dT0-Vo-ntV" firstAttribute="leading" secondItem="BfC-dt-sgM" secondAttribute="trailing" constant="8" id="sCy-Rk-vCr"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="20m-S4-Oqu">
+                        <rect key="frame" x="15" y="135" width="290" height="1"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="k1Y-sa-Dri"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="highlightedColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Zkd-32-Uf4" firstAttribute="leading" secondItem="ipF-GZ-DC7" secondAttribute="trailing" constant="9" id="4Bp-4G-b2Q"/>
@@ -81,20 +90,24 @@
                     <constraint firstItem="ipF-GZ-DC7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="AAs-YH-lfU"/>
                     <constraint firstAttribute="trailing" secondItem="VCQ-KY-JgO" secondAttribute="trailing" constant="8" id="E0Q-ev-BUi"/>
                     <constraint firstItem="DZy-Ac-mqp" firstAttribute="leading" secondItem="ipF-GZ-DC7" secondAttribute="trailing" constant="9" id="EDG-0W-ch4"/>
+                    <constraint firstAttribute="bottom" secondItem="20m-S4-Oqu" secondAttribute="bottom" constant="-1" id="H7M-P3-Esd"/>
                     <constraint firstItem="Zkd-32-Uf4" firstAttribute="top" secondItem="ojR-wQ-0Gr" secondAttribute="bottom" constant="3" id="KCC-uK-3n4"/>
                     <constraint firstAttribute="bottom" secondItem="VCQ-KY-JgO" secondAttribute="bottom" constant="7" id="VAp-AY-w2L"/>
+                    <constraint firstAttribute="trailing" secondItem="20m-S4-Oqu" secondAttribute="trailing" constant="15" id="hAB-Qe-gLa"/>
                     <constraint firstItem="ipF-GZ-DC7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="8" id="lu5-Ld-bg6"/>
                     <constraint firstItem="ojR-wQ-0Gr" firstAttribute="leading" secondItem="ipF-GZ-DC7" secondAttribute="trailing" constant="9" id="m9J-iZ-HYB"/>
                     <constraint firstItem="VCQ-KY-JgO" firstAttribute="top" secondItem="DZy-Ac-mqp" secondAttribute="bottom" constant="8" id="pLp-gE-UBH"/>
                     <constraint firstItem="VCQ-KY-JgO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="62" id="vcT-rX-o3d"/>
                     <constraint firstAttribute="trailing" secondItem="DZy-Ac-mqp" secondAttribute="trailing" constant="8" id="wKY-BN-ab3"/>
                     <constraint firstItem="DZy-Ac-mqp" firstAttribute="top" secondItem="ojR-wQ-0Gr" secondAttribute="bottom" constant="20" id="xOU-Ly-Yin"/>
+                    <constraint firstItem="20m-S4-Oqu" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="zKe-RS-x2y"/>
                 </constraints>
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
                 <outlet property="commentsLabel" destination="DZy-Ac-mqp" id="tbN-pC-Sog"/>
                 <outlet property="headImageView" destination="ipF-GZ-DC7" id="Gnn-9w-HAE"/>
+                <outlet property="line" destination="20m-S4-Oqu" id="E9q-Lq-Mur"/>
                 <outlet property="nicknameLabel" destination="ojR-wQ-0Gr" id="Bmm-od-5su"/>
                 <outlet property="sharpImageView" destination="BfC-dt-sgM" id="kgM-pQ-3bU"/>
                 <outlet property="timeLabel" destination="Zkd-32-Uf4" id="fli-tV-VSJ"/>

@@ -14,6 +14,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *headImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nicknameLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *SelectImageView;
+@property (weak, nonatomic) IBOutlet UILabel *line;
 
 -(void)setCellWithDic:(NSDictionary *)dic;
 @end

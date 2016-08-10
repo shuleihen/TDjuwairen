@@ -8,6 +8,8 @@
 
 #import "RegisterViewController.h"
 #import "LoginState.h"
+#import "AFNetworking.h"
+#import "SurveyViewController.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface RegisterViewController ()
@@ -59,7 +61,7 @@
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
-    self.accountText.placeholder = @"手机号码/邮箱";
+    self.accountText.placeholder = @"手机号码";
     self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
@@ -181,7 +183,135 @@
 
 #pragma mark - 点击完成注册
 - (void)ClickRegis:(UIButton *)sender{
+    //判断
+    if ([self.accountText.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }else if ([self.validationText.text isEqualToString:@""]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }else if ([self.passwordText.text isEqualToString:@""]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }
+    else if([self.nicknameText.text isEqualToString:@""])
+    {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }
+    else
+    {
+        [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
+            if (!error) {
+                //提交注册信息
+                [self SubmitUserinfo];
+            } else {
+                NSLog(@"错误信息：%@",error);
+                if ([self.validationText.text isEqualToString:@""]) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                else{
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            }
+        }];
+    }
+
+}
+
+- (void)SubmitUserinfo{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer=[AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSString*url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/doTelReg/"];
+    NSDictionary*paras = @{@"telephone":self.accountText.text,
+                           @"password":self.passwordText.text,
+                           @"nickname":self.nicknameText.text};
+    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString*code=[responseObject objectForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            
+            UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+                [self requestLogin];
+                
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+            //跳转至主页面
+            SurveyViewController *survey = [self.storyboard instantiateViewControllerWithIdentifier:@"Survey"];
+            [self.navigationController popToViewController:survey animated:YES];
+        }
+        else
+        {
+            NSLog(@"注册失败！");
+            UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册失败" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"请求失败!");
+    }];
+}
+
+- (void)requestLogin{
+    AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer = [AFJSONResponseSerializer  serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSString *url = [NSString stringWithFormat:@"%@Login/loginDo",kAPI_bendi];
+    NSDictionary *paras = @{@"account":self.accountText.text,
+                            @"password":self.passwordText.text};
     
+    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString*code=[responseObject objectForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSLog(@"登陆成功");
+            
+            NSDictionary *dic = responseObject[@"data"];
+            NSLog(@"%@",dic);
+            self.loginState.userId = dic[@"user_id"];
+            self.loginState.userName = dic[@"user_name"];
+            self.loginState.nickName = dic[@"user_nickname"];
+            self.loginState.userPhone = dic[@"userinfo_phone"];
+            self.loginState.headImage = dic[@"userinfo_facesmall"];
+            self.loginState.company = dic[@"userinfo_company"];
+            self.loginState.post = dic[@"userinfo_occupation"];
+            self.loginState.personal = dic[@"userinfo_info"];
+            
+            self.loginState.isLogIn=YES;
+            
+            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+            [accountDefaults setValue:self.accountText.text forKey:@"account"];
+            [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+            [accountDefaults synchronize];
+            
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:responseObject[@"msg"] preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+            [aler addAction:conformAction];
+            [self presentViewController:aler animated:YES completion:nil];
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+        
+        [aler addAction:conformAction];
+        [self presentViewController:aler animated:YES completion:nil];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {
