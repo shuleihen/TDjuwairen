@@ -18,6 +18,7 @@
 #import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
 #import "NetworkManager.h"
+#import "MBProgressHUD.h"
 
 @interface PublishViewViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,BottomEditDelegate,SecondEditDelegate>
 {
@@ -122,7 +123,7 @@
     //设置显示模式为永远显示(默认不显示)
     self.titleText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.titleText.font = [UIFont systemFontOfSize:22];
+    self.titleText.font = [UIFont systemFontOfSize:18];
     self.titleText.textColor = self.daynightmodel.textColor;
     
     self.titleText.layer.borderWidth = 1;
@@ -609,7 +610,7 @@
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *updateurl = @"http://192.168.1.103/tuanda_web/Appapi/index.php/View/upViewContenPic1_2";
+    NSString *updateurl = [NSString stringWithFormat:@"%@View/upViewContenPic1_2",kAPI_bendi];
     [manager POST:updateurl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = Photo;
         NSData*data=UIImagePNGRepresentation(image);
@@ -625,7 +626,7 @@
         NSDictionary *dic = responseObject[@"data"];
         NSLog(@"%@",dic[@"picurl"]);
         NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
-        NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.103"];
+        NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.101"];
         NSLog(@"%@",imgu);
         [self.upimgArr addObject:imgu];
         NSLog(@"上传成功！");
@@ -667,6 +668,10 @@
 
 #pragma mark - 点击发布
 - (void)clickPublish:(UIButton *)sender{
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"发布中...";
+    
     NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
     NSUInteger cur = 0;
     
@@ -704,6 +709,9 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
+        hud.labelText = @"发布成功";
+        [hud hide:YES afterDelay:0.1];
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"失败");
     }];

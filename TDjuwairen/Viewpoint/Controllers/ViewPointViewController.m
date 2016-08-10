@@ -89,6 +89,7 @@
 
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.loginState = [LoginState addInstance];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
     if ([daynight isEqualToString:@"yes"]) {

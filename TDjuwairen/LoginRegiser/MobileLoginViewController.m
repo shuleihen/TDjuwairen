@@ -188,6 +188,7 @@
 
 - (void)requestLogin{
     
+    
     NSString *url = [NSString stringWithFormat:@"%@",kAPI_bendi];
     NSDictionary *dic = @{};
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];

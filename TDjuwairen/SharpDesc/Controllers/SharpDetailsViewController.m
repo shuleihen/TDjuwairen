@@ -637,7 +637,9 @@
                 cell.nicknameLabel.textColor = self.daynightmodel.textColor;
                 cell.timeLabel.textColor = self.daynightmodel.titleColor;
                 cell.commentsLabel.textColor = self.daynightmodel.textColor;
-                
+                /* cell的选中样式为无色 */
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightmodel.navigationColor;
                 return cell;
             }
         }
