@@ -9,19 +9,23 @@
 #import "MyInfoViewController.h"
 #import "MyHeadTableViewCell.h"
 #import "LoginState.h"
+#import "UIdaynightModel.h"
 #import "MyInfomationTableViewCell.h"
 #import "AFNetworking.h"
 #import "ELCImagePickerController.h"
 
-@interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
+@interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) LoginState *loginState;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *TitleArr;
 @property (nonatomic,strong) NSMutableArray *MyInfoArr;
 @property (nonatomic,strong) NSString *str;
 @property (nonatomic,strong) UIImage *headImage;
 @property (nonatomic,strong) UIButton *save;
+@property (nonatomic,strong) UIButton *back;
+@property (nonatomic,strong) UITextField *currentField;
 
 @end
 
@@ -30,6 +34,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.loginState = [LoginState addInstance];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     self.TitleArr = @[@"用户名",@"手机号",@"昵称",@"公司",@"职位",@"个人简介"];
     NSArray *arr = @[self.loginState.userName,
                      self.loginState.userPhone,
@@ -38,9 +43,7 @@
                      self.loginState.post,
                      self.loginState.personal];
     self.MyInfoArr = [NSMutableArray arrayWithArray:arr];
-    
-    [self setupListen];
-    
+
     //身份验证
     [self getValidation];
     [self setupWithNavigation];
@@ -49,40 +52,11 @@
     // Do any additional setup after loading the view.
 }
 - (void)setupListen{
-    //监听键盘通知
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
-    
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
-    
-    //监听TextField内容的改变
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(contentChange) name:UITextFieldTextDidChangeNotification object:nil];
-}
 
-//监听TextField内容的改变，改变保存button的状态
--(void)contentChange
-{
-    self.save.enabled=YES;
-}
-
-- (void)keyboardWillChangeFrame:(NSNotification *)note
-{
-    
-    // 0.取出键盘动画的时间
-    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
-    
-    // 1.取得键盘最后的frame
-    CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
-    
-    // 2.计算控制器的view需要平移的距离
-    CGFloat transformY = keyboardFrame.origin.y - self.view.frame.size.height+120;
-    
-    // 3.执行动画
-    [UIView animateWithDuration:duration animations:^{
-        self.view.transform = CGAffineTransformMakeTranslation(0, transformY);
-    }];
 }
 
 -(void)viewTapped:(UITapGestureRecognizer*)tap
@@ -99,13 +73,13 @@
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
-    NSDictionary*para=@{@"validatestring":self.loginState.userId};
+    NSDictionary*para = @{@"validatestring":self.loginState.userId};
     
     [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
+        NSString *code = [responseObject objectForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+            NSDictionary *dic = responseObject[@"data"];
+            self.str = dic[@"str"];
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -114,7 +88,6 @@
 }
 
 - (void)setupWithNavigation{
-    //    @fql 删除 back 处理
     [self.navigationController.navigationBar setHidden:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
@@ -147,6 +120,7 @@
         if (cell == nil) {
             cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else
@@ -156,8 +130,13 @@
         if (cell == nil) {
             cell = [[MyInfomationTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
+        
+        if (indexPath.row-1 == 1 ||indexPath.row-1 == 2 ) {
+            cell.textfield.enabled = NO;
+        }
         cell.namelabel.text = self.TitleArr[indexPath.row-1];
         cell.textfield.text = self.MyInfoArr[indexPath.row-1];
+        cell.textfield.delegate = self;
         return cell;
     }
 }
@@ -177,6 +156,7 @@
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.row == 0) {
+        
         //修改头像
         UIAlertController*alert=[[UIAlertController alloc]init];
         //相机
@@ -205,17 +185,17 @@
 }
 
 - (void)setupWithBackAndSave{
-    UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(10, 30, 65, 20)];
-    [back setBackgroundImage:[UIImage imageNamed:@"back"] forState:UIControlStateNormal];
-    [back addTarget:self action:@selector(ClickBack:) forControlEvents:UIControlEventTouchUpInside];
+    self.back = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 50, 50)];
+    [self.back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [self.back addTarget:self action:@selector(ClickBack:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.save = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-50, 30, 50, 20)];
+    self.save = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-50, 20, 50, 50)];
     [self.save setTitle:@"保存" forState:UIControlStateNormal];
     [self.save setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
     self.save.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.save addTarget:self action:@selector(ClickSave:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:back];
+    [self.view addSubview:self.back];
     [self.view addSubview:self.save];
 }
 //点击返回
@@ -472,6 +452,53 @@
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"上传失败！");
     }];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+}
+
+#pragma mark -textfield delegate
+-(BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    
+    return YES;
+}
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.currentField = textField;
+    //键盘高度216
+    
+    //滑动效果（动画）
+    NSTimeInterval animationDuration = 0.10f;
+    [UIView beginAnimations:@ "ResizeForKeyboard"  context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    //将视图的Y坐标向上移动，以使下面腾出地方用于软键盘的显示
+    CGPoint view = [self.view convertPoint:CGPointZero fromView:self.currentField];
+    self.tableview.frame = CGRectMake(0.0f, -view.y/2, self.view.frame.size.width, self.view.frame.size.height); //64-216
+    
+    [UIView commitAnimations];
+    self.back.alpha = 0.0f;
+    self.save.alpha = 0.0f;
+}
+
+- (void)textFieldDidEndEditing:(UITextField *)textField
+{
+    //滑动效果
+    NSTimeInterval animationDuration = 0.10f;
+    [UIView beginAnimations:@ "ResizeForKeyboard"  context:nil];
+    [UIView setAnimationDuration:animationDuration];
+    
+    //恢复屏幕
+    self.tableview.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height); //64-216
+    
+    [UIView commitAnimations];
+    self.back.alpha = 1.0f;
+    self.save.alpha = 1.0f;
 }
 
 - (void)didReceiveMemoryWarning {
