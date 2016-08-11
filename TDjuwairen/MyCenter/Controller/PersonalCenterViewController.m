@@ -155,7 +155,7 @@
         if (indexPath.row == 0) {
             if (self.loginState.isLogIn == NO) {
                 //跳转到登录页面
-                LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
@@ -175,7 +175,7 @@
             //跳转到观点管理
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
-                LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
@@ -189,7 +189,7 @@
         else if (indexPath.row == 1) {
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
-                LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
@@ -203,7 +203,7 @@
         {
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
-                LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
@@ -260,7 +260,7 @@
 - (void)GoComment:(UIButton *)sender{
     if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
-        LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }
@@ -275,7 +275,7 @@
 - (void)GoCollect:(UIButton *)sender{
     if (self.loginState.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
-        LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }
@@ -289,7 +289,7 @@
 - (void)GoBrowse:(UIButton *)serder{
     if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
-        LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }

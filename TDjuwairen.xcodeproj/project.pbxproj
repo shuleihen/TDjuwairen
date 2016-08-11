@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		191CB48F1D5C700C00E4AFB5 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 191CB48E1D5C700C00E4AFB5 /* LoginViewController.xib */; };
+		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		19252C101D51E830003E5D18 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19252BF61D51E830003E5D18 /* Info.plist */; };
 		19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252BF81D51E830003E5D18 /* MASCompositeConstraint.m */; };
 		19252C121D51E830003E5D18 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252BFB1D51E830003E5D18 /* MASConstraint.m */; };
@@ -64,6 +66,7 @@
 		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
+		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
 		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9C8E1CFE830E0075910D /* AgreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 275E9C8D1CFE830E0075910D /* AgreeViewController.m */; };
@@ -352,6 +355,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		191CB48E1D5C700C00E4AFB5 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
+		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
+		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		19252BF61D51E830003E5D18 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19252BF71D51E830003E5D18 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		19252BF81D51E830003E5D18 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -464,6 +470,8 @@
 		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
 		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
 		19E519401D50A18B00CFF149 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
+		19FB54431D5C81EA0011BA33 /* YXCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXCheckBox.h; sourceTree = "<group>"; };
+		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
 		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
 		275E9C8C1CFE830E0075910D /* AgreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreeViewController.h; sourceTree = "<group>"; };
@@ -926,6 +934,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */ = {
+			isa = PBXGroup;
+			children = (
+				191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */,
+				191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */,
+			);
+			path = YXTextFieldPanel;
+			sourceTree = "<group>";
+		};
 		19252BF51D51E830003E5D18 /* Masonry */ = {
 			isa = PBXGroup;
 			children = (
@@ -1225,6 +1242,15 @@
 				19E519401D50A18B00CFF149 /* HexColors.m */,
 			);
 			path = HexColor;
+			sourceTree = "<group>";
+		};
+		19FB54421D5C81EA0011BA33 /* YXCheckBox */ = {
+			isa = PBXGroup;
+			children = (
+				19FB54431D5C81EA0011BA33 /* YXCheckBox.h */,
+				19FB54441D5C81EA0011BA33 /* YXCheckBox.m */,
+			);
+			path = YXCheckBox;
 			sourceTree = "<group>";
 		};
 		275E9CAC1CFED0DC0075910D /* MyCenter */ = {
@@ -1745,6 +1771,8 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19FB54421D5C81EA0011BA33 /* YXCheckBox */,
+				191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */,
 				19252BF51D51E830003E5D18 /* Masonry */,
 				19E5193E1D50A18B00CFF149 /* HexColor */,
 				19A7EE551D423ED200F833A9 /* MBProgressHUD */,
@@ -2038,6 +2066,7 @@
 				84F9FE051CF80F3A00683791 /* RegiserTableViewController.m */,
 				846E51531D41A95A00B89A53 /* LoginViewController.h */,
 				846E51541D41A95A00B89A53 /* LoginViewController.m */,
+				191CB48E1D5C700C00E4AFB5 /* LoginViewController.xib */,
 				846E515A1D41B3E500B89A53 /* MobileLoginViewController.h */,
 				846E515B1D41B3E500B89A53 /* MobileLoginViewController.m */,
 				846E515D1D41B99A00B89A53 /* ForgetViewController.h */,
@@ -2296,6 +2325,7 @@
 				19C347EE1D3F5C5D008ABD16 /* README.txt in Resources */,
 				8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */,
 				846E512B1D41A7DF00B89A53 /* CommentsTableViewCell.xib in Resources */,
+				191CB48F1D5C700C00E4AFB5 /* LoginViewController.xib in Resources */,
 				84C1F3FA1D4725C3007C26B5 /* Guide3.png in Resources */,
 				84B9B4691D48A92D00DDF15B /* btn_select2_pre@3x.png in Resources */,
 				84B9B4641D4863C100DDF15B /* btn_jubao@3x.png in Resources */,
@@ -2383,6 +2413,7 @@
 				84FAE3351D0187650051DCED /* SharpTags.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
+				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
 				846E51421D41A8C100B89A53 /* MyInfoViewController.m in Sources */,
 				842B36251CE995D500C6E400 /* UIAlertView+AFNetworking.m in Sources */,
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
@@ -2445,6 +2476,7 @@
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				8427F7401D5835310073AB7F /* FloorView.m in Sources */,
 				84C9C51E1D5C18C800426DF1 /* PreviewViewController.m in Sources */,
+				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				846E51551D41A95A00B89A53 /* LoginViewController.m in Sources */,
 				84F9FE091CF80F3A00683791 /* RegiserSecondTableViewController.m in Sources */,
 				842B36291CE995D500C6E400 /* UIRefreshControl+AFNetworking.m in Sources */,

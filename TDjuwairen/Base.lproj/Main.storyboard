@@ -202,6 +202,7 @@
         <!--Login View Controller-->
         <scene sceneID="3I7-va-hv7">
             <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ss7-GD-zFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController storyboardIdentifier="login" id="sMk-Ld-pAh" customClass="LoginViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Npt-9z-vq8"/>
@@ -214,7 +215,6 @@
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ss7-GD-zFG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1320" y="1926"/>
         </scene>

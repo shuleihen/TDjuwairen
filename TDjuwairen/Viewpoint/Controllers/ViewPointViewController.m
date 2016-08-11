@@ -386,7 +386,7 @@
 - (void)GoPublish:(UIButton *)sender{
     if (self.loginState.isLogIn == NO) {
         //跳转到登录页面
-        LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+        LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }
