@@ -249,6 +249,7 @@
 		84C1F3FA1D4725C3007C26B5 /* Guide3.png in Resources */ = {isa = PBXBuildFile; fileRef = 84C1F3F71D4725C3007C26B5 /* Guide3.png */; };
 		84C1F4001D473ABB007C26B5 /* ViewSpecialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C1F3FF1D473ABB007C26B5 /* ViewSpecialTableViewCell.m */; };
 		84C1F4031D474064007C26B5 /* SpecialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C1F4021D474064007C26B5 /* SpecialModel.m */; };
+		84C9C51E1D5C18C800426DF1 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C9C51D1D5C18C800426DF1 /* PreviewViewController.m */; };
 		84CBCC4B1D4AED58000DAEA8 /* PublishViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCC4A1D4AED58000DAEA8 /* PublishViewViewController.m */; };
 		84CBCC591D4B2866000DAEA8 /* BottomEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCC581D4B2866000DAEA8 /* BottomEdit.m */; };
 		84CBCC5B1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CBCC5A1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png */; };
@@ -725,6 +726,8 @@
 		84C1F3FF1D473ABB007C26B5 /* ViewSpecialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSpecialTableViewCell.m; sourceTree = "<group>"; };
 		84C1F4011D474064007C26B5 /* SpecialModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpecialModel.h; sourceTree = "<group>"; };
 		84C1F4021D474064007C26B5 /* SpecialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialModel.m; sourceTree = "<group>"; };
+		84C9C51C1D5C18C800426DF1 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
+		84C9C51D1D5C18C800426DF1 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		84CBCC491D4AED58000DAEA8 /* PublishViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewViewController.h; sourceTree = "<group>"; };
 		84CBCC4A1D4AED58000DAEA8 /* PublishViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishViewViewController.m; sourceTree = "<group>"; };
 		84CBCC571D4B2866000DAEA8 /* BottomEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomEdit.h; sourceTree = "<group>"; };
@@ -1837,6 +1840,8 @@
 				8444F1BD1D475D10000B2AB0 /* DescContentViewController.m */,
 				84CBCC491D4AED58000DAEA8 /* PublishViewViewController.h */,
 				84CBCC4A1D4AED58000DAEA8 /* PublishViewViewController.m */,
+				84C9C51C1D5C18C800426DF1 /* PreviewViewController.h */,
+				84C9C51D1D5C18C800426DF1 /* PreviewViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2427,6 +2432,7 @@
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				8427F7401D5835310073AB7F /* FloorView.m in Sources */,
+				84C9C51E1D5C18C800426DF1 /* PreviewViewController.m in Sources */,
 				846E51551D41A95A00B89A53 /* LoginViewController.m in Sources */,
 				84F9FE091CF80F3A00683791 /* RegiserSecondTableViewController.m in Sources */,
 				842B36291CE995D500C6E400 /* UIRefreshControl+AFNetworking.m in Sources */,

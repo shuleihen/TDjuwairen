@@ -80,7 +80,7 @@
                 cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             cell.backgroundColor = self.daynightmodel.navigationColor;
-            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
         else

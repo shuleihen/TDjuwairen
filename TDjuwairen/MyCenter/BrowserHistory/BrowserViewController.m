@@ -93,8 +93,8 @@
 #pragma mark-删除button的点击事件
 -(void)Delete:(UIButton*)sender
 {
-    NSMutableArray*sharpId=[NSMutableArray array];
-    NSArray*selectArr=self.tableview.indexPathsForSelectedRows;
+    NSMutableArray *sharpId = [NSMutableArray array];
+    NSArray *selectArr = self.tableview.indexPathsForSelectedRows;
     if (selectArr.count) {
         self.delArray = [NSMutableArray array];
         for (NSIndexPath *indexPath in selectArr) {
@@ -107,11 +107,11 @@
         manager.responseSerializer=[AFJSONResponseSerializer serializer];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
         NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Public/delBrowseHistory"];
-        NSDictionary*para=@{@"authenticationStr":self.loginstate.userId,
-                            @"encryptedStr":self.str,
-                            @"delete_ids":sharpId,
-                            @"module_id":@"2",
-                            @"userid":self.loginstate.userId};
+        NSDictionary *para = @{@"authenticationStr":self.loginstate.userId,
+                               @"encryptedStr":self.str,
+                               @"delete_ids":sharpId,
+                               @"module_id":@"2",
+                               @"userid":self.loginstate.userId};
         
         [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
             NSString*code=[responseObject objectForKey:@"code"];

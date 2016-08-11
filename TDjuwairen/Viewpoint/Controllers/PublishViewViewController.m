@@ -12,6 +12,7 @@
 #import "SecondEdit.h"
 #import "EditZiti.h"
 #import "LoginState.h"
+#import "PreviewViewController.h"
 
 #import "NSString+Ext.h"
 #import "PhotoTextAttachment.h"
@@ -408,10 +409,34 @@
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
+        PreviewViewController *preview = [self.storyboard instantiateViewControllerWithIdentifier:@"preview"];
+        
+        NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
+        NSUInteger cur = 0;
+        
+        for (int i = 0 ; i<self.upimgArr.count; i++) {
+            NSString *str = self.imglocArr[i];
+            NSUInteger loc = [str integerValue];
+            if (i != 0) {
+                cur = [self.upimgArr[i-1] length] + cur;
+            }
+            NSUInteger current = loc+cur;
+            NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:self.upimgArr[i]];
+            [up insertAttributedString:imgtext atIndex:current];
+            
+        }
+        NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
+        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+        
+        preview.html = htmlstring;
+        [self.navigationController pushViewController:preview animated:YES];
+        
     }
     else
     {
         //存为草稿
+        [self saveDrafts];
     }
 }
 
@@ -626,7 +651,7 @@
         NSDictionary *dic = responseObject[@"data"];
         NSLog(@"%@",dic[@"picurl"]);
         NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
-        NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.101"];
+        NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.109"];
         NSLog(@"%@",imgu);
         [self.upimgArr addObject:imgu];
         NSLog(@"上传成功！");
@@ -669,6 +694,64 @@
 #pragma mark - 点击发布
 - (void)clickPublish:(UIButton *)sender{
     
+    [self publishView];
+    
+}
+
+#pragma mark - 保存草稿
+- (void)saveDrafts{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"保存中...";
+    
+    NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
+    NSUInteger cur = 0;
+    
+    for (int i = 0 ; i<self.upimgArr.count; i++) {
+        NSString *str = self.imglocArr[i];
+        NSUInteger loc = [str integerValue];
+        if (i != 0) {
+            cur = [self.upimgArr[i-1] length] + cur;
+        }
+        NSUInteger current = loc+cur;
+        NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:self.upimgArr[i]];
+        [up insertAttributedString:imgtext atIndex:current];
+        
+    }
+    
+    //    转成NSData再存入plist
+    //    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
+    //    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
+    //    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
+    //    NSLog(@"%@",data);
+    
+    NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
+    htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+    htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+    
+    NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
+    NSDictionary*para=@{@"userid":self.loginState.userId,
+                        @"isOrigin":isoriginal,
+                        @"title":self.titleText.text,
+                        @"is_publish":@"0",
+                        @"viewcontent":htmlstring};
+    
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
+        hud.labelText = @"保存成功";
+        [hud hide:YES afterDelay:0.1];
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"失败");
+        hud.labelText = @"保存失败";
+        [hud hide:YES afterDelay:0.1];
+    }];
+}
+
+#pragma mark - 发布文章
+- (void)publishView{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发布中...";
     
@@ -686,17 +769,17 @@
         [up insertAttributedString:imgtext atIndex:current];
         
     }
-
-//    转成NSData再存入plist
-//    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
-//    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
-//    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
-//    NSLog(@"%@",data);
+    
+    //    转成NSData再存入plist
+    //    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
+    //    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
+    //    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
+    //    NSLog(@"%@",data);
     
     NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-
+    
     NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
     NSDictionary*para=@{@"userid":self.loginState.userId,
                         @"isOrigin":isoriginal,
@@ -714,8 +797,9 @@
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"失败");
+        hud.labelText = @"发布失败";
+        [hud hide:YES afterDelay:0.1];
     }];
-    
 }
 
 /** 将富文本格式化为超文本*/

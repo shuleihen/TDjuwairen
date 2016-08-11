@@ -9,13 +9,17 @@
 #import "MobileLoginViewController.h"
 #import "RegisterViewController.h"
 #import "AFNetworking.h"
+#import "LoginState.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface MobileLoginViewController ()
 
+@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
+@property (nonatomic,strong) NSString *validateString;
+@property (nonatomic,strong) NSString *encryptedStr;
 
 @end
 
@@ -25,7 +29,7 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
-    
+    self.validateString = @"tuandawangluokeji";
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -34,6 +38,7 @@
     [self setupWithNavigation];
     [self setupWithLogoImage];
     [self setupWithTextView];
+    [self requestAuthentication];
     [self setupWithLogin];
     // Do any additional setup after loading the view.
 }
@@ -165,39 +170,73 @@
 #pragma mark - 点击登录
 - (void)ClickLogin:(UIButton *)sender{
     
-    [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
-        if (!error) {
+//    [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
+//        if (!error) {
             //请求登录信息
             [self requestLogin];
-        } else {
-            NSLog(@"错误信息：%@",error);
-            if ([self.validationText.text isEqualToString:@""]) {
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
-            else{
-                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
-                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-                [self presentViewController:alert animated:YES completion:nil];
-            }
-        }
-    }];
+//        } else {
+//            NSLog(@"错误信息：%@",error);
+//            if ([self.validationText.text isEqualToString:@""]) {
+//                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
+//                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+//                [self presentViewController:alert animated:YES completion:nil];
+//            }
+//            else{
+//                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+//                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+//                [self presentViewController:alert animated:YES completion:nil];
+//            }
+//        }
+//    }];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)requestLogin{
     
     
-    NSString *url = [NSString stringWithFormat:@"%@",kAPI_bendi];
-    NSDictionary *dic = @{};
+    NSString *url = [NSString stringWithFormat:@"%@/Login/phoneLogin1_2",kAPI_bendi];
+    NSDictionary *dic = @{@"user_phone":self.accountText.text,
+                          @"authenticationStr":self.validateString,
+                          @"encryptedStr":self.encryptedStr};
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
+        if ([responseObject[@"code"] isEqualToString:@"200"]) {
+            NSDictionary *dic = responseObject[@"data"];
+            //loginstate赋值
+        }
+        else
+        {
+            NSLog(@"%@",responseObject[@"msg"]);
+        }
+        
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"登录失败");
+    }];
+}
+
+#pragma mark - 身份验证
+//身份验证
+-(void)requestAuthentication
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer=[AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NSDictionary *para = @{@"validatestring":self.validateString};
+    
+    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString*code=[responseObject objectForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *dic = responseObject[@"data"];
+            self.encryptedStr = dic[@"str"];
+            NSLog(@"%@",self.encryptedStr);
+            
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
     }];
 }
 

@@ -19,5 +19,5 @@
 #define kAPI_Public @"http://appapi.juwairen.net/index.php/Public/"
 #define kAPI_Sharp @"http://appapi.juwairen.net/index.php/Sharp/"
 
-#define kAPI_bendi @"http://192.168.1.101/tuanda_web/Appapi/index.php/"
+#define kAPI_bendi @"http://192.168.1.109/tuanda_web/Appapi/index.php/"
 #endif /* PrefixHeader_pch */

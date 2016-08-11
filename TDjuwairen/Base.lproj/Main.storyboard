@@ -142,6 +142,25 @@
             </objects>
             <point key="canvasLocation" x="1055" y="316"/>
         </scene>
+        <!--Preview View Controller-->
+        <scene sceneID="PDP-HO-zO9">
+            <objects>
+                <viewController storyboardIdentifier="preview" id="7RV-RZ-rqu" customClass="PreviewViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="WtO-Oi-LQw"/>
+                        <viewControllerLayoutGuide type="bottom" id="KdT-sk-bUi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="n6e-jj-LeO">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vLw-zU-COf" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1396" y="316"/>
+        </scene>
         <!--视频-->
         <scene sceneID="pYs-3V-bMJ">
             <objects>
