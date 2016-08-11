@@ -242,6 +242,7 @@
 {
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
     self.backcommentview.delegate = self;
+
     self.backcommentview.commentview.delegate = self;
     
     [self.view addSubview:self.backcommentview];
@@ -974,17 +975,13 @@
 }
 
 - (void)keyboardWillBeHidden{
-    [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformIdentity;
         self.tableview.transform = CGAffineTransformIdentity;
-    }];
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
-    [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
         self.tableview.transform = CGAffineTransformMakeTranslation(0, -height);
-    }];
 }
 
 #pragma mark - 浮窗的代理方法

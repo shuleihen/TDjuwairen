@@ -742,17 +742,11 @@
 
 //当键盘隐藏时
 - (void)keyboardWillBeHidden{
-    [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformIdentity;
-
-    }];
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
-    [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
-        
-    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated
