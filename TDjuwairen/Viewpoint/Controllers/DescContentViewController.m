@@ -142,14 +142,14 @@
     self.hudload = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hudload.labelText = @"加载中...";
     
-    NSString *urlPath = @"http://192.168.1.101/tuanda_web/Appapi/View/view_show1_2/id/55";
+    NSString *urlPath = @"http://192.168.1.109/tuanda_web/Appapi/View/view_show1_2/id/55";
 //    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.dataDic = data;
             
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.101%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.109%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             
@@ -174,7 +174,7 @@
         urlPath = [NSString stringWithFormat:@"%@/View/GetViewComment1_2",kAPI_bendi];
     }
     NSDictionary *dic = @{@"type":@"view",
-                          @"id":@"42",
+                          @"id":@"42", 
                           @"loadedLength":@"0"};
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
@@ -182,7 +182,6 @@
             NSArray *arr = data;
             for (int i = 0; i<arr.count; i++) {
                 NSDictionary *dic = arr[i];
-                NSLog(@"%@",dic);
                 CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
                 [self.FirstcommentArr addObject:fModel];
             }
@@ -743,17 +742,11 @@
 
 //当键盘隐藏时
 - (void)keyboardWillBeHidden{
-    [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformIdentity;
-
-    }];
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
-    [UIView animateWithDuration:0.1 animations:^{
         self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
-        
-    }];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

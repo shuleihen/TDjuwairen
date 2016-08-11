@@ -205,6 +205,19 @@
         if ([responseObject[@"code"] isEqualToString:@"200"]) {
             NSDictionary *dic = responseObject[@"data"];
             //loginstate赋值
+            //给loginstate 填充
+            self.loginState.userId = dic[@"user_id"];
+            self.loginState.userName = dic[@"user_name"];
+            self.loginState.nickName = dic[@"user_nickname"];
+            self.loginState.userPhone = dic[@"userinfo_phone"];
+            self.loginState.headImage = dic[@"userinfo_facesmall"];
+            self.loginState.company = dic[@"userinfo_company"];
+            self.loginState.post = dic[@"userinfo_occupation"];
+            self.loginState.personal = dic[@"userinfo_info"];
+            
+            self.loginState.isLogIn = YES;
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
         }
         else
         {
