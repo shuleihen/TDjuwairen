@@ -16,7 +16,14 @@
     model.view_id = dic[@"view_id"];
     model.view_title = dic[@"view_title"];
     model.user_facemin = dic[@"userinfo_facesmall"];
-    model.user_nickname = dic[@"view_author"];
+    if (!dic[@"user_nickname"]) {
+        model.user_nickname = dic[@"view_author"];
+    }
+    else
+    {
+        model.user_nickname = dic[@"user_nickname"];
+    }
+    
     NSString *str = dic[@"view_addtime"];
     NSTimeInterval time = [str doubleValue];
     NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];

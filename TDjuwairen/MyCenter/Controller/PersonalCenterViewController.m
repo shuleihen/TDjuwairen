@@ -16,6 +16,7 @@
 #import "MyInfoViewController.h"
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
+#import "ViewManagerViewController.h"
 
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
@@ -171,6 +172,21 @@
     else if (indexPath.section == 1)
     {
         if (indexPath.row == 0) {
+            //跳转到观点管理
+            if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+                //跳转到登录页面
+                LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];
+                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:login animated:YES];
+            }
+            else//登录后 跳转设置页面
+            {
+                ViewManagerViewController *viewmanage=[self.storyboard instantiateViewControllerWithIdentifier:@"viewmanage"];
+                [self.navigationController pushViewController:viewmanage animated:YES];
+            }
+            
+        }
+        else if (indexPath.row == 1) {
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
                 LoginViewController *login = [self.storyboard instantiateViewControllerWithIdentifier:@"login"];

@@ -14,6 +14,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         self.btnsArr = [NSMutableArray array];
+        
         [self setupWithScrollview];
         [self createWithArr:arr];
     }

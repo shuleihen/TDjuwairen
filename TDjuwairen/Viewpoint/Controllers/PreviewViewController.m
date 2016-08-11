@@ -42,7 +42,6 @@
     self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
     self.webview.navigationDelegate = self;
     self.webview.UIDelegate = self;
-    NSLog(@"%@",self.html);
     [self.webview loadHTMLString:self.html baseURL:nil];
     
     [self.view addSubview:self.webview];

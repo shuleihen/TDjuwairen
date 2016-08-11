@@ -250,6 +250,8 @@
 		84C1F4001D473ABB007C26B5 /* ViewSpecialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C1F3FF1D473ABB007C26B5 /* ViewSpecialTableViewCell.m */; };
 		84C1F4031D474064007C26B5 /* SpecialModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C1F4021D474064007C26B5 /* SpecialModel.m */; };
 		84C9C51E1D5C18C800426DF1 /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C9C51D1D5C18C800426DF1 /* PreviewViewController.m */; };
+		84C9C5211D5C2C9100426DF1 /* ViewManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C9C5201D5C2C9100426DF1 /* ViewManagerViewController.m */; };
+		84C9C5241D5C470000426DF1 /* ChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C9C5231D5C470000426DF1 /* ChildTableViewController.m */; };
 		84CBCC4B1D4AED58000DAEA8 /* PublishViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCC4A1D4AED58000DAEA8 /* PublishViewViewController.m */; };
 		84CBCC591D4B2866000DAEA8 /* BottomEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CBCC581D4B2866000DAEA8 /* BottomEdit.m */; };
 		84CBCC5B1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CBCC5A1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png */; };
@@ -728,6 +730,10 @@
 		84C1F4021D474064007C26B5 /* SpecialModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpecialModel.m; sourceTree = "<group>"; };
 		84C9C51C1D5C18C800426DF1 /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		84C9C51D1D5C18C800426DF1 /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
+		84C9C51F1D5C2C9100426DF1 /* ViewManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewManagerViewController.h; sourceTree = "<group>"; };
+		84C9C5201D5C2C9100426DF1 /* ViewManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewManagerViewController.m; sourceTree = "<group>"; };
+		84C9C5221D5C470000426DF1 /* ChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildTableViewController.h; sourceTree = "<group>"; };
+		84C9C5231D5C470000426DF1 /* ChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildTableViewController.m; sourceTree = "<group>"; };
 		84CBCC491D4AED58000DAEA8 /* PublishViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewViewController.h; sourceTree = "<group>"; };
 		84CBCC4A1D4AED58000DAEA8 /* PublishViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PublishViewViewController.m; sourceTree = "<group>"; };
 		84CBCC571D4B2866000DAEA8 /* BottomEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomEdit.h; sourceTree = "<group>"; };
@@ -1439,6 +1445,10 @@
 				846E513F1D41A8C100B89A53 /* MyInfoViewController.m */,
 				846E51401D41A8C100B89A53 /* PersonalCenterViewController.h */,
 				846E51411D41A8C100B89A53 /* PersonalCenterViewController.m */,
+				84C9C51F1D5C2C9100426DF1 /* ViewManagerViewController.h */,
+				84C9C5201D5C2C9100426DF1 /* ViewManagerViewController.m */,
+				84C9C5221D5C470000426DF1 /* ChildTableViewController.h */,
+				84C9C5231D5C470000426DF1 /* ChildTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2340,6 +2350,7 @@
 				846E514E1D41A93000B89A53 /* MyInfomationTableViewCell.m in Sources */,
 				1968431C1D49FEED0023A0FC /* SharpModel.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
+				84C9C5211D5C2C9100426DF1 /* ViewManagerViewController.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				84CBCC4B1D4AED58000DAEA8 /* PublishViewViewController.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
@@ -2360,6 +2371,7 @@
 				84B9B4561D48479A00DDF15B /* NaviMoreView.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
+				84C9C5241D5C470000426DF1 /* ChildTableViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				846E51281D41A7DF00B89A53 /* NoCollectionTableViewCell.m in Sources */,
