@@ -62,7 +62,7 @@
 
 - (void)registerPressed:(UIButton *)sender
 {
-    RegisterViewController *regis = [self.storyboard instantiateViewControllerWithIdentifier:@"regis"];
+    RegisterViewController *regis = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"regis"];
     [self.navigationController pushViewController:regis animated:YES];
 }
 
@@ -128,13 +128,13 @@
 
 - (IBAction)mobileLoginPressed:(id)sender
 {
-    MobileLoginViewController *mobilelogin = [self.storyboard instantiateViewControllerWithIdentifier:@"mobilelogin"];
+    MobileLoginViewController *mobilelogin = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"mobilelogin"];
     [self.navigationController pushViewController:mobilelogin animated:YES];
 }
 
 - (IBAction)forgetPasswordPressed:(id)sender
 {
-    ForgetViewController *forget = [self.storyboard instantiateViewControllerWithIdentifier:@"forget"];
+    ForgetViewController *forget = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"forget"];
     [self.navigationController pushViewController:forget animated:YES];
 }
 
