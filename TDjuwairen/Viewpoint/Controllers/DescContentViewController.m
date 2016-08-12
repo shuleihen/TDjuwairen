@@ -311,6 +311,7 @@
         if (cell == nil) {
             cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
         }
+        cell.delegate = self;
         floorviewsize = cell.floorView.frame.size;
         
         NSString *comment = model.viewcomment;
@@ -414,7 +415,20 @@
 #pragma mark - FloorInFloorViewDelegate
 - (void)good:(UIButton *)sender
 {
-    [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
+    if (sender.selected == YES) {
+        sender.selected = NO;
+        [sender setImage:[UIImage imageNamed:@"btn_dianzan_normal"] forState:UIControlStateNormal];
+        NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] - 1];
+        [sender setTitle:str forState:UIControlStateNormal];
+    }
+    else
+    {
+        sender.selected = YES;
+        [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
+        NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
+        [sender setTitle:str forState:UIControlStateNormal];
+    }
+    
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation

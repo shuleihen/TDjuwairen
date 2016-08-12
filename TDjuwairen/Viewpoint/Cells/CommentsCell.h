@@ -30,7 +30,7 @@
 
 @property (nonatomic,strong) UILabel *line;
 
-@property (nonatomic,copy) id<FloorInFloorViewDelegate>delegate;
+@property (nonatomic,assign) id<FloorInFloorViewDelegate>delegate;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andArr:(NSArray *)arr;
 @end
