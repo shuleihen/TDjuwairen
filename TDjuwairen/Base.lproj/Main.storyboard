@@ -466,7 +466,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清除缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-Cj-IIv">
-                                                    <rect key="frame" x="48" y="13" width="68" height="21"/>
+                                                    <rect key="frame" x="35" y="13" width="68" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="68" id="OOj-9L-1s8"/>
                                                         <constraint firstAttribute="height" constant="21" id="fvS-4W-Kf2"/>
@@ -475,15 +475,15 @@
                                                     <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="iconfont-清除缓存.png" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-ko-W9G">
-                                                    <rect key="frame" x="21" y="15" width="17" height="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clear" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-ko-W9G">
+                                                    <rect key="frame" x="15" y="17" width="15" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="17" id="EJZ-fa-lZT"/>
-                                                        <constraint firstAttribute="width" constant="17" id="pqX-MZ-3A5"/>
+                                                        <constraint firstAttribute="height" constant="15" id="EJZ-fa-lZT"/>
+                                                        <constraint firstAttribute="width" constant="15" id="pqX-MZ-3A5"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pZc-jY-R4O">
-                                                    <rect key="frame" x="237" y="13" width="42" height="21"/>
+                                                    <rect key="frame" x="240" y="13" width="42" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="0rm-0P-dMg"/>
                                                         <constraint firstAttribute="width" constant="42" id="SK8-Fk-RQJ"/>
@@ -495,12 +495,21 @@
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="pZc-jY-R4O" firstAttribute="top" secondItem="2nh-gs-mOP" secondAttribute="top" constant="13" id="EUs-ed-pOP"/>
-                                                <constraint firstItem="h9o-Cj-IIv" firstAttribute="leading" secondItem="oGn-ko-W9G" secondAttribute="trailing" constant="10" id="VFO-Zq-FXU"/>
-                                                <constraint firstAttribute="trailing" secondItem="pZc-jY-R4O" secondAttribute="trailing" constant="8" id="le4-Hl-MT9"/>
+                                                <constraint firstItem="h9o-Cj-IIv" firstAttribute="centerY" secondItem="2nh-gs-mOP" secondAttribute="centerY" id="Mji-d1-fZQ"/>
+                                                <constraint firstItem="h9o-Cj-IIv" firstAttribute="leading" secondItem="oGn-ko-W9G" secondAttribute="trailing" constant="5" id="VFO-Zq-FXU"/>
+                                                <constraint firstItem="oGn-ko-W9G" firstAttribute="centerY" secondItem="2nh-gs-mOP" secondAttribute="centerY" id="Ydr-03-nDP"/>
+                                                <constraint firstAttribute="trailing" secondItem="pZc-jY-R4O" secondAttribute="trailing" constant="5" id="le4-Hl-MT9"/>
                                                 <constraint firstItem="oGn-ko-W9G" firstAttribute="top" secondItem="2nh-gs-mOP" secondAttribute="top" constant="15" id="sMB-8F-FIc"/>
+                                                <constraint firstItem="pZc-jY-R4O" firstAttribute="centerY" secondItem="2nh-gs-mOP" secondAttribute="centerY" id="tgh-2U-5dY"/>
                                                 <constraint firstItem="h9o-Cj-IIv" firstAttribute="top" secondItem="2nh-gs-mOP" secondAttribute="top" constant="13" id="xEK-Yx-qVs"/>
-                                                <constraint firstItem="oGn-ko-W9G" firstAttribute="leading" secondItem="2nh-gs-mOP" secondAttribute="leading" constant="21" id="xQJ-y5-hyA"/>
+                                                <constraint firstItem="oGn-ko-W9G" firstAttribute="leading" secondItem="2nh-gs-mOP" secondAttribute="leading" constant="15" id="xQJ-y5-hyA"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="sMB-8F-FIc"/>
+                                                    <exclude reference="xEK-Yx-qVs"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="48" id="922-K1-4PO">
@@ -511,7 +520,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="给我们评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsW-Im-eQk">
-                                                    <rect key="frame" x="48" y="13" width="85" height="21"/>
+                                                    <rect key="frame" x="35" y="13" width="85" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="iG4-HY-ICg"/>
                                                         <constraint firstAttribute="width" constant="85" id="pPq-Z5-nIj"/>
@@ -520,20 +529,28 @@
                                                     <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="给我们评分.png" translatesAutoresizingMaskIntoConstraints="NO" id="7fW-t3-e8J">
-                                                    <rect key="frame" x="21" y="15" width="17" height="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="score" translatesAutoresizingMaskIntoConstraints="NO" id="7fW-t3-e8J">
+                                                    <rect key="frame" x="15" y="15" width="15" height="17"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="17" id="089-vU-R58"/>
+                                                        <constraint firstAttribute="width" constant="15" id="089-vU-R58"/>
                                                         <constraint firstAttribute="height" constant="17" id="PRQ-1u-oJc"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="vsW-Im-eQk" firstAttribute="leading" secondItem="7fW-t3-e8J" secondAttribute="trailing" constant="10" id="YuU-kP-Qae"/>
+                                                <constraint firstItem="vsW-Im-eQk" firstAttribute="centerY" secondItem="JRH-P4-ord" secondAttribute="centerY" id="3aw-XV-c3v"/>
+                                                <constraint firstItem="vsW-Im-eQk" firstAttribute="leading" secondItem="7fW-t3-e8J" secondAttribute="trailing" constant="5" id="YuU-kP-Qae"/>
                                                 <constraint firstItem="7fW-t3-e8J" firstAttribute="top" secondItem="JRH-P4-ord" secondAttribute="top" constant="15" id="apU-bZ-J2B"/>
-                                                <constraint firstItem="7fW-t3-e8J" firstAttribute="leading" secondItem="JRH-P4-ord" secondAttribute="leading" constant="21" id="e6s-6O-E04"/>
+                                                <constraint firstItem="7fW-t3-e8J" firstAttribute="leading" secondItem="JRH-P4-ord" secondAttribute="leading" constant="15" id="e6s-6O-E04"/>
                                                 <constraint firstItem="vsW-Im-eQk" firstAttribute="top" secondItem="JRH-P4-ord" secondAttribute="top" constant="13" id="gIx-fy-GTd"/>
+                                                <constraint firstItem="7fW-t3-e8J" firstAttribute="centerY" secondItem="JRH-P4-ord" secondAttribute="centerY" id="owk-sE-m3X"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="apU-bZ-J2B"/>
+                                                    <exclude reference="gIx-fy-GTd"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="48" id="Ytl-ir-lYp">
@@ -544,7 +561,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于我们" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIL-57-zMZ">
-                                                    <rect key="frame" x="48" y="13" width="68" height="21"/>
+                                                    <rect key="frame" x="35" y="13" width="68" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="aRi-d1-SMc"/>
                                                         <constraint firstAttribute="width" constant="68" id="hbU-ig-Tij"/>
@@ -553,20 +570,28 @@
                                                     <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="关于我们.png" translatesAutoresizingMaskIntoConstraints="NO" id="oRN-WV-bjk">
-                                                    <rect key="frame" x="21" y="15" width="17" height="17"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="about" translatesAutoresizingMaskIntoConstraints="NO" id="oRN-WV-bjk">
+                                                    <rect key="frame" x="15" y="16" width="15" height="15"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="17" id="7Wa-nn-e9O"/>
-                                                        <constraint firstAttribute="height" constant="17" id="EjC-UT-fzQ"/>
+                                                        <constraint firstAttribute="width" constant="15" id="7Wa-nn-e9O"/>
+                                                        <constraint firstAttribute="height" constant="15" id="EjC-UT-fzQ"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="oRN-WV-bjk" firstAttribute="leading" secondItem="exf-o1-UlX" secondAttribute="leading" constant="21" id="JsI-9b-LHB"/>
-                                                <constraint firstItem="BIL-57-zMZ" firstAttribute="leading" secondItem="oRN-WV-bjk" secondAttribute="trailing" constant="10" id="RWB-1H-8ii"/>
+                                                <constraint firstItem="oRN-WV-bjk" firstAttribute="centerY" secondItem="exf-o1-UlX" secondAttribute="centerY" id="Hj9-06-4Ns"/>
+                                                <constraint firstItem="oRN-WV-bjk" firstAttribute="leading" secondItem="exf-o1-UlX" secondAttribute="leading" constant="15" id="JsI-9b-LHB"/>
+                                                <constraint firstItem="BIL-57-zMZ" firstAttribute="leading" secondItem="oRN-WV-bjk" secondAttribute="trailing" constant="5" id="RWB-1H-8ii"/>
+                                                <constraint firstItem="BIL-57-zMZ" firstAttribute="centerY" secondItem="exf-o1-UlX" secondAttribute="centerY" id="V78-Zs-hvf"/>
                                                 <constraint firstItem="BIL-57-zMZ" firstAttribute="top" secondItem="exf-o1-UlX" secondAttribute="top" constant="13" id="bJS-pd-5su"/>
                                                 <constraint firstItem="oRN-WV-bjk" firstAttribute="top" secondItem="exf-o1-UlX" secondAttribute="top" constant="15" id="yIQ-FW-fcx"/>
                                             </constraints>
+                                            <variation key="default">
+                                                <mask key="constraints">
+                                                    <exclude reference="yIQ-FW-fcx"/>
+                                                    <exclude reference="bJS-pd-5su"/>
+                                                </mask>
+                                            </variation>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -2217,9 +2242,10 @@
         <image name="VideoUnSelect.png" width="20" height="20"/>
         <image name="ViewPointSelect.png" width="20" height="20"/>
         <image name="ViewPointUnSelect.png" width="20" height="20"/>
-        <image name="iconfont-清除缓存.png" width="30" height="30"/>
+        <image name="about" width="15" height="11"/>
+        <image name="clear" width="15" height="15"/>
         <image name="logo.png" width="200" height="70"/>
-        <image name="关于我们.png" width="30" height="22"/>
+        <image name="score" width="15" height="12"/>
         <image name="关闭显示.png" width="40" height="26"/>
         <image name="反馈.png" width="30" height="30"/>
         <image name="发送－未输入文字时.png" width="120" height="60"/>
@@ -2229,7 +2255,6 @@
         <image name="浏览记录.png" width="40" height="40"/>
         <image name="灰色收藏.png" width="43" height="40"/>
         <image name="用户协议同意.png" width="22" height="22"/>
-        <image name="给我们评分.png" width="30" height="24"/>
         <image name="设置.png" width="30" height="30"/>
         <image name="评论.png" width="46" height="40"/>
     </resources>
