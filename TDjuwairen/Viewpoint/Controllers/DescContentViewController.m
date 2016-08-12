@@ -58,6 +58,7 @@
 @property (nonatomic,strong) MBProgressHUD *hudload;
 
 @property (nonatomic,strong) NSString *encryptedStr;
+@property (nonatomic,strong) NSString *PID;
 
 @end
 
@@ -179,6 +180,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
+            [self.FirstcommentArr removeAllObjects];
             NSArray *arr = data;
             for (int i = 0; i<arr.count; i++) {
                 NSDictionary *dic = arr[i];
@@ -337,7 +339,6 @@
         cell.line.backgroundColor = self.daynightmodel.titleColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -410,6 +411,13 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1) {
+        CommentsModel *model = self.FirstcommentArr[indexPath.row];
+        NSLog(@"%@",model.user_nickName);
+        [self.backcommentview.commentview becomeFirstResponder];
+        self.PID = model.user_id;
+        
+    }
 }
 
 #pragma mark - FloorInFloorViewDelegate
@@ -747,13 +755,14 @@
 {
     
     //发送评论
+    [self sendCommentWithText:textField.text andPid:self.PID];
+    textField.text = @"";
     [textField resignFirstResponder];
-    [self sendCommentWithText:textField.text];
     return YES;
 }
 
 #pragma mark - 发送评论
-- (void)sendCommentWithText:(NSString *)text{
+- (void)sendCommentWithText:(NSString *)text andPid:(NSString *)pid{
     NSLog(@"%@",text);
     NSString *urlPath = [NSString stringWithFormat:@"%@/View/addViewCommont1_2",kAPI_bendi];
     NSDictionary *dic = @{@"comment_content":text,
@@ -765,6 +774,8 @@
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager POST:urlPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        [self requestWithCommentDataWithTimeHot];
+        
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         hud.labelText = @"评论成功";
@@ -774,7 +785,8 @@
         } completionBlock:^{
             [hud hide:YES afterDelay:0.1f];
         }];
-
+        
+        
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         //
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];

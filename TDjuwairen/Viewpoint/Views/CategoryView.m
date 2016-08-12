@@ -33,6 +33,7 @@
 {
     for (int i = 0; i<arr.count; i++) {
         UIButton *button = [[UIButton alloc]initWithFrame:CGRectMake(70*i, 0, 70, 40)];
+        button.titleLabel.font = [UIFont systemFontOfSize:14];
         [button setTitle:arr[i] forState:UIControlStateNormal];
         [button setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
         
