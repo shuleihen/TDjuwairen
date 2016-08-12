@@ -7,6 +7,7 @@
 //
 
 #import "SelectFontView.h"
+#import "YXFont.h"
 
 @interface SelectFontView ()
 @property (nonatomic,strong) UITableViewCell *selectcell;
@@ -84,7 +85,7 @@
     cell.imageView.image = [UIImage imageNamed:@"btn_select2@3x.png"];
     cell.textLabel.text = self.titleArr[indexPath.row];
     CGFloat flo = [self.fontArr[indexPath.row] floatValue];
-    cell.textLabel.font = [UIFont systemFontOfSize:flo];
+    cell.textLabel.font = [YXFont lightFontSize:flo];
     return cell;
 }
 

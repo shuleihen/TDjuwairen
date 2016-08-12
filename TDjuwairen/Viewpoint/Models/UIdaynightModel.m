@@ -23,7 +23,7 @@
 
 - (void)day
 {
-    self.titleColor = [UIColor lightGrayColor];
+    self.titleColor = [UIColor darkGrayColor];
     self.textColor = [UIColor darkGrayColor];
     self.navigationColor = [UIColor whiteColor];
     self.backColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
