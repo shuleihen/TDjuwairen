@@ -9,6 +9,7 @@
 #import "AddUpdatesViewController.h"
 #import "LoginState.h"
 #import "AFNetworking.h"
+#import "MBProgressHUD.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface AddUpdatesViewController ()
@@ -182,23 +183,55 @@
 - (void)ClickAddUpdates:(UIButton *)sender{
     //判断
     if ([self.accountText.text isEqualToString:@""]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"请输入手机号";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
+        
         return;
     }else if ([self.validationText.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"验证码不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }else if ([self.passwordText.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"密码不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }
     else if([self.nicknameText.text isEqualToString:@""])
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"用户名不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }
     else

@@ -10,6 +10,7 @@
 #import "LoginState.h"
 #import "AFNetworking.h"
 #import "SurveyViewController.h"
+#import "MBProgressHUD.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface RegisterViewController ()
@@ -200,8 +201,18 @@
     }
     else if([self.nicknameText.text isEqualToString:@""])
     {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名不能为空" preferredStyle:UIAlertControllerStyleAlert];
+//        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"用户名不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }
     else
