@@ -25,6 +25,9 @@
 
 - (void)navigationController:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController animated:(BOOL)animated
 {
+    // viewcontroller 不延伸到状态栏下
+    viewController.edgesForExtendedLayout = UIRectEdgeNone;
+    
     if ([navigationController.viewControllers count] > 1) {
         if (!viewController.navigationItem.leftBarButtonItem) {
             UIButton *left = [UIButton buttonWithType:UIButtonTypeCustom];

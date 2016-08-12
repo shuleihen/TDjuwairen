@@ -103,7 +103,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     
@@ -118,6 +118,7 @@
 {
     [super viewWillDisappear:animated];
 
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 #pragma mark - 进入时加载页面
@@ -255,7 +256,7 @@
 
 #pragma mark - 设置tableview
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-44-50) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
