@@ -144,8 +144,14 @@
     self.hudload = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hudload.labelText = @"加载中...";
     
-    NSString *urlPath = @"http://192.168.1.108/tuanda_web/Appapi/View/view_show1_2/id/55";
-//    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
+    NSString *urlPath ;
+    if (self.loginState.isLogIn) {
+        urlPath= [NSString stringWithFormat:@"http://192.168.1.108/tuanda_web/Appapi/View/view_show1_2/id/55/userid/%@",self.loginState.userId];
+    }
+    else
+    {
+        urlPath = [NSString stringWithFormat:@"http://192.168.1.108/tuanda_web/Appapi/View/view_show1_2/id/55"];
+    }
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
