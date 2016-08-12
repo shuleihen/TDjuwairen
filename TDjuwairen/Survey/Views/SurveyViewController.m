@@ -103,7 +103,7 @@
 {
     [super viewWillAppear:animated];
     
-    [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     
@@ -118,6 +118,7 @@
 {
     [super viewWillDisappear:animated];
 
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 #pragma mark - 进入时加载页面
