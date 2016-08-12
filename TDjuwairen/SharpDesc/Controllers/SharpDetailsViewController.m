@@ -985,17 +985,23 @@
 }
 
 #pragma mark - 浮窗的代理方法
-- (void)didSelectedWithIndexPath:(NSInteger)indexpath
+- (void)didSelectedWithIndexPath:(UITableViewCell *)cell
 {
-    if (indexpath == 0) {
-        NSLog(@"%ld",(long)indexpath);
-    }else if (indexpath == 1){
-        NSLog(@"%ld",(long)indexpath);
-    }else if (indexpath == 2){
+    if ([cell.textLabel.text isEqualToString:@"复制链接"]) {
+        NSLog(@"%@",cell.textLabel.text);
+    }
+    else if ([cell.textLabel.text isEqualToString:@"收藏"]){
+        [self addControllers];
+    }
+    else if ([cell.textLabel.text isEqualToString:@"取消收藏"]){
+        
+    }
+    else if ([cell.textLabel.text isEqualToString:@"字体大小"]){
         
         self.sfview.alpha = 1.0;
         
-    }else if (indexpath == 3){
+    }
+    else if ([cell.textLabel.text isEqualToString:@"日间模式"]){
         //读取用户设置
         NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
         NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -1016,30 +1022,65 @@
             [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
             [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
         }
-        else
-        {
-            [self.daynightmodel day];
-            daynight = @"yes";
-            [userdefault setValue:daynight forKey:@"daynight"];
-            [userdefault synchronize];
-            NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
-            
-            NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
-            var pNode=document.getElementsByTagName('p');\
-            for(var i=0;i<pNode.length;i++){\
-            pNode[i].style.backgroundColor='white';\
-            }";
-            
-            [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
-            [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
-        }
-        
         self.nmview.alpha = 0.0;
         naviShow = NO;
         
-    }else
+    }
+    else if([cell.textLabel.text isEqualToString:@"夜间模式"])
     {
-        NSLog(@"%ld",(long)indexpath);
+        //读取用户设置
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        NSString *daynight = [userdefault objectForKey:@"daynight"];
+        [self.daynightmodel day];
+        daynight = @"yes";
+        [userdefault setValue:daynight forKey:@"daynight"];
+        [userdefault synchronize];
+        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
+        
+        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
+        var pNode=document.getElementsByTagName('p');\
+        for(var i=0;i<pNode.length;i++){\
+        pNode[i].style.backgroundColor='white';\
+        }";
+        
+        [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
+        [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+    }
+    else
+    {
+        //举报
+    }
+}
+
+#pragma mark - 点击收藏取消收藏
+- (void)addControllers{
+    if (self.loginstate.isLogIn) {
+        NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
+        NSDictionary *dic = @{@"userid":self.loginstate.userId,
+                              @"module_id":@3,
+                              @"item_id":self.sharp_id};
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"添加收藏";
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if ([responseObject[@"code"] isEqualToString:@"200"]) {
+                //收藏成功 弹出提示框
+                hud.labelText = @"收藏成功";
+                [hud hide:YES afterDelay:0.2];
+                
+            } else {
+                hud.labelText = @"收藏失败";
+                [hud hide:YES afterDelay:0.2];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            hud.labelText = @"收藏失败";
+            [hud hide:YES afterDelay:0.2];
+            NSLog(@"请求失败");
+        }];
     }
 }
 
