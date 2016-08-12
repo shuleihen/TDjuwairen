@@ -10,14 +10,14 @@
 #import "FeedbackTableViewCell.h"
 #import "LoginState.h"
 #import "AFNetworking.h"
-#import "MBProgressHUD.h"
 
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
-
+{
+    NSMutableArray*dataArray;
+}
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (nonatomic,strong) LoginState *loginstate;
-@property (nonatomic,strong) NSMutableArray *dataArray;
+@property(nonatomic,strong)LoginState*loginstate;
 
 @end
 
@@ -33,10 +33,8 @@
     
     self.loginstate=[LoginState addInstance];
     
-    //身份验证
-    [self requestFeedbackAuthentication];
-    
-    [self registerForKeyboardNotifications];
+    //监听键盘通知
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
 //    收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
@@ -46,32 +44,6 @@
     //监听contentTextField内容的改变
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(content) name:UITextFieldTextDidChangeNotification object:nil];
 }
-
-- (void)registerForKeyboardNotifications{
-    //使用NSNotificationCenter键盘出现时
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-    //使用NSNotificationCenter 鍵盤隐藏時
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden) name:UIKeyboardWillHideNotification object:nil];
-}
-
-//当键盘出现时计算键盘的高度大小，用于输入框显示
-- (void)keyboardWasShown:(NSNotification *)aNotification{
-    NSDictionary *info = [aNotification userInfo];
-    //kbSize为键盘尺寸
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
-    [self beginMoveUpAnimation:kbSize.height];
-    
-}
-
-//当键盘隐藏时
-- (void)keyboardWillBeHidden{
-    self.backview.transform = CGAffineTransformIdentity;
-}
-
-- (void)beginMoveUpAnimation:(CGFloat )height{
-    self.backview.transform = CGAffineTransformMakeTranslation(0, -height);
-}
-
 //根据contentTextField内容的改变设置button的状态
 -(void)content
 {
@@ -94,6 +66,24 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)keyboardWillChangeFrame:(NSNotification *)note
+{
+    
+    // 0.取出键盘动画的时间
+    CGFloat duration = [note.userInfo[UIKeyboardAnimationDurationUserInfoKey] doubleValue];
+    
+    // 1.取得键盘最后的frame
+    CGRect keyboardFrame = [note.userInfo[UIKeyboardFrameEndUserInfoKey] CGRectValue];
+    
+    // 2.计算控制器的view需要平移的距离
+    CGFloat transformY = keyboardFrame.origin.y - self.view.frame.size.height;
+    
+    // 3.执行动画
+    [UIView animateWithDuration:duration animations:^{
+        self.view.transform = CGAffineTransformMakeTranslation(0, transformY);
+    }];
 }
 
 
@@ -121,11 +111,33 @@
 
 
 - (IBAction)SendBtn:(UIButton *)sender {
-    if (![self.contentTextField.text isEqualToString:@""]) {
-        [self requestFeedback];
+    if ([self.contentTextField.text isEqualToString:@""]) {
+        
+    }
+    else
+    {
+        [self requestFeedbackAuthentication];
     }
 }
 
+//-(void)textFieldDidBeginEditing:(UITextField *)textField
+//{
+//    if ([self.contentTextField.text isEqualToString:@""]) {
+//        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
+//    }
+//    else {
+//        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－输入文字后"] forState:UIControlStateNormal];
+//    }
+//}
+//-(void)textFieldDidEndEditing:(UITextField *)textField
+//{
+//    if ([self.contentTextField.text isEqualToString:@""]) {
+//        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
+//    }
+//    else {
+//        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－输入文字后"] forState:UIControlStateNormal];
+//    }
+//}
 //身份验证
 -(void)requestFeedbackAuthentication
 {
@@ -140,6 +152,7 @@
         if ([code isEqualToString:@"200"]) {
             NSDictionary*dic=responseObject[@"data"];
             self.str=dic[@"str"];
+            [self requestFeedback];
         }
         
         
@@ -179,24 +192,24 @@
 
 -(void)requestInfo
 {
-    self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
+        dataArray = [[NSMutableArray alloc]initWithCapacity:0];
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/User/getUserFeedback/"];
+    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/getUserFeedback/"];
     NSDictionary *paras = @{@"feedback_os":@"3",
                             @"userid":self.loginstate.userId};
     [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *code = [responseObject objectForKey:@"code"];
+        NSString*code=[responseObject objectForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
             NSLog(@"获取信息成功");
-            NSArray *array = responseObject[@"data"];
-            self.dataArray = [NSMutableArray arrayWithArray:array];
+            NSArray*array=responseObject[@"data"];
+            [dataArray addObjectsFromArray:array];
             [self.tableview reloadData];
         }
         else
         {
-            NSLog(@"当前没有信息");
+            NSLog(@"获取信息失败");
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         
@@ -209,12 +222,12 @@
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.dataArray.count;
+    return dataArray.count;
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary*dic = self.dataArray[indexPath.row];
+    NSDictionary*dic = dataArray[indexPath.row];
     [tableView registerNib:[UINib nibWithNibName:@"FeedbackTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedbackCell"];
     FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
     [cell cellforDic:dic];
@@ -225,7 +238,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    FeedbackTableViewCell *cell = [self tableView:self.tableview cellForRowAtIndexPath:indexPath];
+    FeedbackTableViewCell*cell=[self tableView:_tableview cellForRowAtIndexPath:indexPath];
     
     return cell.frame.size.height;
 //    NSDictionary*dic=dataArray[indexPath.row];

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7lK-lJ-eQn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -463,10 +463,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6S-FE-rT8" id="2nh-gs-mOP">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清除缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-Cj-IIv">
@@ -521,10 +525,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="922-K1-4PO" id="JRH-P4-ord">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="给我们评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsW-Im-eQk">
@@ -566,10 +574,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ytl-ir-lYp" id="exf-o1-UlX">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于我们" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIL-57-zMZ">
@@ -614,7 +626,7 @@
                                         <rect key="frame" x="0.0" y="237" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yzc-Z8-5FW" id="Ruo-uv-Nx2">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退出登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4X-1r-sUh">
@@ -701,10 +713,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
 <<<<<<< HEAD
+<<<<<<< HEAD
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
 =======
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.2.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
 >>>>>>> origin/master
+=======
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                 <rect key="frame" x="130" y="529" width="60" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Duy-kI-WW6"/>
@@ -841,10 +857,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="opk-hF-2Bo">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="522"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ads-7P-gDi">
                                 <rect key="frame" x="0.0" y="522" width="320" height="46"/>
                                 <subviews>
@@ -879,6 +891,10 @@
                                     <constraint firstAttribute="trailing" secondItem="h9p-1i-tJW" secondAttribute="trailing" constant="3" id="t6D-5M-eRa"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="opk-hF-2Bo">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="522"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -894,7 +910,6 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="SendBtn" destination="h9p-1i-tJW" id="Ssr-il-0Sq"/>
-                        <outlet property="backview" destination="Ads-7P-gDi" id="rzb-1w-zUK"/>
                         <outlet property="contentTextField" destination="enN-Qv-18K" id="3zH-99-G32"/>
                         <outlet property="tableview" destination="opk-hF-2Bo" id="BMY-Ud-ByK"/>
                     </connections>
@@ -919,10 +934,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="OHM-Te-NJD" id="yxX-cJ-ykS">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="188"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="188.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="未登录默认背景图.png" translatesAutoresizingMaskIntoConstraints="NO" id="iQr-Fr-0m8">
@@ -963,10 +982,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Osn-tN-noh" id="mxP-HF-7oc">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="66"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="66.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sCG-DB-knW">
@@ -1081,10 +1104,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="A0N-bZ-5uv" id="1Hk-wL-rOg">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="登陆注册" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mjh-Hb-kOf">
@@ -1124,10 +1151,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="O6e-Vp-1r9" id="hJL-bd-5TG">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="反馈意见" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FOr-gv-QSO">
@@ -1192,10 +1223,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="z7p-0Z-iVG" id="8zJ-IY-HW7">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="Ouk-mO-E2U">
@@ -1217,10 +1252,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="TSb-Vq-QPH" id="gVg-QD-qCo">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="手机号/用户名" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Nx9-LJ-NHT">
@@ -1242,10 +1281,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MQD-Yn-HbF" id="6mY-1N-WrA">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="6W2-4r-Kae">
@@ -1305,10 +1348,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KLT-eG-WMX" id="51m-wb-s6d">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="T6C-NG-5Lh">
@@ -1366,10 +1413,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="m4L-Ur-DvT" id="2NW-Ge-1JM">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="188"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="188.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="189"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="未登录默认背景图.png" translatesAutoresizingMaskIntoConstraints="NO" id="j1x-84-zdp">
@@ -1414,10 +1465,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="J8Y-PV-4UM" id="Nh5-Yn-ASg">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="用户名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iHk-VY-MFc">
@@ -1452,10 +1507,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="X8b-xd-JWK" id="Wus-ad-K3x">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hnm-Er-vc0">
@@ -1489,10 +1548,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dUE-4k-unq" id="EzZ-GK-ekA">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="昵称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WTa-ds-v2H">
@@ -1526,10 +1589,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Wsy-g3-vj4" id="JEx-ll-A4U">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vmw-Iv-XpT">
@@ -1563,10 +1630,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AoN-S6-k2V" id="VXj-bq-F5x">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="职位" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="T7g-xS-mNt">
@@ -1600,10 +1671,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="zjY-fp-MNY" id="E4A-sf-J2P">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="个人简介" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dxd-nl-fIB">
@@ -1672,10 +1747,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Z6R-Dw-cPV" id="4mO-ab-xGc">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="tdC-Lk-pZB">
@@ -1697,10 +1776,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="p9t-wv-Brp" id="GAQ-VM-F7b">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="yVS-wg-lsp">
@@ -1726,10 +1809,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="cS5-LV-dfW" id="zqo-Zo-7Xu">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y3y-Un-Suu">
@@ -1786,10 +1873,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gDK-lG-12z" id="Pst-Jf-hlZ">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="UEx-tm-ESW">
@@ -1811,10 +1902,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="3Zq-kM-gdL" id="CmS-P5-XSK">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cpO-Rh-ZAk">
@@ -1855,10 +1950,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Els-kQ-rXY" id="Ndc-jh-i1L">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请设置新密码(6~20位英文或数字)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nDM-d6-57c">
@@ -1884,10 +1983,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="lP1-eF-XwX" id="Bpn-aN-ihi">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D8W-g4-o19">
@@ -1946,10 +2049,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="R7J-xt-yqS" id="BXv-pZ-QVs">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="bbb-yE-F3r">
@@ -1971,10 +2078,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e1Z-lt-Jwg" id="QPP-LG-4Yx">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EVJ-Im-oqY">
@@ -2000,10 +2111,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x9S-sw-pMW" id="qbp-GF-haC">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C6V-dB-eVI">
@@ -2096,10 +2211,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="bvb-PF-gmG" id="grK-sS-KsK">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="4Px-E8-0Vw">
@@ -2121,10 +2240,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="6Q7-jD-QrR" id="Mrj-oY-CAj">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="4cQ-VE-FXf">
@@ -2163,10 +2286,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="v7h-Mf-ztf" id="agF-jN-7MT">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入密码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="9Sx-0g-5ru">
@@ -2188,10 +2315,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="8pa-eH-lpJ" id="lu6-Y1-beK">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="48"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="输入昵称" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="kmg-QG-2UA">
@@ -2217,10 +2348,14 @@
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="e8g-YZ-Aux" id="tzb-be-aqM">
 <<<<<<< HEAD
+<<<<<<< HEAD
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67"/>
 =======
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="67.5"/>
 >>>>>>> origin/master
+=======
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="68"/>
+>>>>>>> parent of d3e5a1b... 修复意见反馈页面错乱
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="q7p-ah-TdT">
