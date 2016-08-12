@@ -70,12 +70,19 @@
 
 - (IBAction)loginBtnPressed:(id)sender
 {
+    [self.view endEditing:YES];
     if (!self.accountText.text.length || !self.passwordText.text.length) {
-        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入用户名或手机号和密码" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-        [aler addAction:conformAction];
-        [self presentViewController:aler animated:YES completion:nil];
         
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"请输入用户名或手机号和密码";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }
     

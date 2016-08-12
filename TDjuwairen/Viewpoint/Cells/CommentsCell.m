@@ -53,7 +53,7 @@
 }
 
 - (void)good:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(good:)]) {
+    if ([self respondsToSelector:@selector(good:)]) {
         [self.delegate good:sender];
     }
 }

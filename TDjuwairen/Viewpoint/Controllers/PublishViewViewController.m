@@ -694,8 +694,41 @@
 
 #pragma mark - 点击发布
 - (void)clickPublish:(UIButton *)sender{
+    [self.view endEditing:YES];
+    if ([self.titleText.text isEqualToString:@""]) {
+        
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"标题不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
+        return ;
+    }
+    else if ([self.contentText.text isEqualToString:@""]){
+
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"内容不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
+        return ;
+    }
+    else
+    {
+        [self publishView];
+    }
     
-    [self publishView];
+    
     
 }
 
