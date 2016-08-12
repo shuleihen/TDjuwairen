@@ -9,6 +9,11 @@
 #import <UIKit/UIKit.h>
 #import "FloorInFloorView.h"
 
+@protocol FloorInFloorViewDelegate <NSObject>
+
+- (void)good:(UIButton *)sender;
+
+@end
 @interface CommentsCell : UITableViewCell
 
 @property (nonatomic,strong) UIImageView *headImg;
@@ -25,6 +30,7 @@
 
 @property (nonatomic,strong) UILabel *line;
 
+@property (nonatomic,copy) id<FloorInFloorViewDelegate>delegate;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andArr:(NSArray *)arr;
 @end

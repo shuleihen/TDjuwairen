@@ -36,7 +36,7 @@
     //监听键盘通知
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(keyboardWillChangeFrame:) name:UIKeyboardWillChangeFrameNotification object:nil];
     
-    //收起键盘手势
+//    收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
@@ -92,6 +92,11 @@
     [super viewWillAppear:animated];
     [self setNavigation];
     [self requestInfo];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 -(void)setNavigation
@@ -192,8 +197,8 @@
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/getUserFeedback/"];
-    NSDictionary*paras=@{@"feedback_os":@"3",
-                         @"userid":self.loginstate.userId};
+    NSDictionary *paras = @{@"feedback_os":@"3",
+                            @"userid":self.loginstate.userId};
     [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSString*code=[responseObject objectForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
@@ -222,9 +227,9 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary*dic=dataArray[indexPath.row];
+    NSDictionary*dic = dataArray[indexPath.row];
     [tableView registerNib:[UINib nibWithNibName:@"FeedbackTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedbackCell"];
-    FeedbackTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
+    FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
     [cell cellforDic:dic];
     [cell setContentText:dic[@"feedback_content"]];
     

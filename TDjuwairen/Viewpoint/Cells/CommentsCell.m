@@ -17,7 +17,7 @@
         self.headImg = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 30)];
         self.headImg.layer.cornerRadius = 15;
         
-        self.nickNameLab = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10, kScreenWidth/3, 15)];
+        self.nickNameLab = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10, kScreenWidth-55-75, 15)];
         self.nickNameLab.font = [UIFont systemFontOfSize:14];
         
         self.numfloor = [[UILabel alloc]initWithFrame:CGRectMake(15, 10+30+10, 30, 15)];
@@ -28,9 +28,11 @@
             [self.floorView setFrame:CGRectMake(55, 10+15+10, kScreenWidth-70, self.floorView.height)];
         }
         
-        self.goodnumBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 10, 80, 15)];
+        self.goodnumBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-60, 10, 60, 15)];
         [self.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
         [self.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+        
+        
         [self.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
         
         self.commentLab = [[UILabel alloc]init];
@@ -51,7 +53,9 @@
 }
 
 - (void)good:(UIButton *)sender{
-    
+    if ([self.delegate respondsToSelector:@selector(good:)]) {
+        [self.delegate good:sender];
+    }
 }
 
 - (void)awakeFromNib {

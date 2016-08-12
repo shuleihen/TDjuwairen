@@ -17,6 +17,7 @@
 #import "BackCommentView.h"
 #import "LoginState.h"
 #import "LoginViewController.h"
+#import "FeedbackViewController.h"
 
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
@@ -27,7 +28,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @import WebKit;
-@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
+@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,FloorInFloorViewDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
 {
     BOOL naviShow;
     BOOL fontShow;
@@ -91,16 +92,7 @@
     firstClickComment = YES;
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.loginState = [LoginState addInstance];
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        [self.daynightmodel day];
-    }
-    else
-    {
-        [self.daynightmodel night];
-    }
-    [userdefault addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
+    
     
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.thview.timeBtn.selected = YES;
@@ -284,6 +276,8 @@
             titleCell.addtime.textColor = self.daynightmodel.titleColor;
             titleCell.titleLabel.textColor = self.daynightmodel.textColor;
             titleCell.backgroundColor = self.daynightmodel.navigationColor;
+            
+            titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return titleCell;
         }
         else
@@ -332,12 +326,17 @@
         cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
         cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
         cell.commentLab.text = model.viewcomment;
+        [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
+        cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
         
+        [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
         cell.nickNameLab.textColor = self.daynightmodel.titleColor;
         cell.numfloor.textColor = self.daynightmodel.titleColor;
         cell.commentLab.textColor = self.daynightmodel.textColor;
         cell.line.backgroundColor = self.daynightmodel.titleColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
+        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
@@ -410,6 +409,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - FloorInFloorViewDelegate
+- (void)good:(UIButton *)sender
+{
+    [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
@@ -569,6 +574,10 @@
     else
     {
         //举报
+        self.nmview.alpha = 0.0;
+        naviShow = NO;
+        FeedbackViewController *feedback = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedbackView"];
+        [self.navigationController pushViewController:feedback animated:YES];
     }
 }
 
@@ -801,6 +810,16 @@
         [self requestAuthentication];
     }
     [self registerForKeyboardNotifications];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
+    [userdefault addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
 }
 //身份验证
 -(void)requestAuthentication
