@@ -23,22 +23,22 @@
     
     self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
     
-    NSArray *imageArray = @[@"Guide1.png",@"Guide2.png",@"Guide3.png"];
-    for (int i = 0; i<imageArray.count; i++) {
+    for (int i = 0; i<3; i++) {
+        NSString *imageName = [NSString stringWithFormat:@"%d-%.0lfH",(i+1),kScreenHeight*[UIScreen mainScreen].scale];
         CGFloat imagex = kScreenWidth * i;
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(imagex, 0, kScreenWidth, kScreenHeight)];
-        image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@",imageArray[i]]];
+        image.image = [UIImage imageNamed:imageName];
         [self.scrollview addSubview:image];
     }
     self.scrollview.pagingEnabled = YES;//设置分页
     self.scrollview.showsHorizontalScrollIndicator = NO;
     self.scrollview.alwaysBounceHorizontal = YES;
-    self.scrollview.contentSize = CGSizeMake(kScreenWidth *imageArray.count, kScreenHeight);
+    self.scrollview.contentSize = CGSizeMake(kScreenWidth *3, kScreenHeight);
     self.scrollview.delegate = self;
     [self.view addSubview:self.scrollview];
     
     self.page = [[UIPageControl alloc]initWithFrame:CGRectMake(0, kScreenHeight-44-10, kScreenWidth, 44)];
-    self.page.numberOfPages = imageArray.count;
+    self.page.numberOfPages = 3;
     self.page.currentPage = 0;
     [self.view addSubview:self.page];
 }
