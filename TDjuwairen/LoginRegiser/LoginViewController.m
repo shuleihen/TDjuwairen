@@ -125,55 +125,6 @@
         }
     }];
 
-    
-//    AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-//    manager.responseSerializer = [AFJSONResponseSerializer  serializer];
-//    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//    NSString *url = [NSString stringWithFormat:@"%@Login/loginDo",kAPI_bendi];
-//    NSDictionary *paras = @{@"account":self.accountText.text,
-//                            @"password":self.passwordText.text};
-//    
-//    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        NSString*code=[responseObject objectForKey:@"code"];
-//        if ([code isEqualToString:@"200"]) {
-//            NSLog(@"登陆成功");
-//            
-//            NSDictionary *dic = responseObject[@"data"];
-//            NSLog(@"%@",dic);
-//            self.loginState.userId = dic[@"user_id"];
-//            self.loginState.userName = dic[@"user_name"];
-//            self.loginState.nickName = dic[@"user_nickname"];
-//            self.loginState.userPhone = dic[@"userinfo_phone"];
-//            self.loginState.headImage = dic[@"userinfo_facesmall"];
-//            self.loginState.company = dic[@"userinfo_company"];
-//            self.loginState.post = dic[@"userinfo_occupation"];
-//            self.loginState.personal = dic[@"userinfo_info"];
-//            
-//            self.loginState.isLogIn=YES;
-//            
-//            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-//            [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
-//            [accountDefaults setValue:self.accountText.text forKey:@"account"];
-//            [accountDefaults setValue:self.passwordText.text forKey:@"password"];
-//            [accountDefaults synchronize];
-//            
-//            [self.navigationController popViewControllerAnimated:YES];
-//        }
-//        else
-//        {
-//            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:responseObject[@"msg"] preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-//            [aler addAction:conformAction];
-//            [self presentViewController:aler animated:YES completion:nil];
-//        }
-//        
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
-//        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-//        
-//        [aler addAction:conformAction];
-//        [self presentViewController:aler animated:YES completion:nil];
-//    }];
 }
 
 - (IBAction)mobileLoginPressed:(id)sender
