@@ -83,7 +83,7 @@
         cell.imageView.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
         cell.textLabel.text = self.titleArr[indexPath.row];
     }
-    cell.textLabel.textColor = self.model.textColor;
+    cell.textLabel.textColor = self.model.titleColor;
     cell.backgroundColor = self.model.navigationColor;
     
     return cell;

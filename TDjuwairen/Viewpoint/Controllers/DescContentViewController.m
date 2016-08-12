@@ -174,7 +174,7 @@
         urlPath = [NSString stringWithFormat:@"%@/View/GetViewComment1_2",kAPI_bendi];
     }
     NSDictionary *dic = @{@"type":@"view",
-                          @"id":@"42", 
+                          @"id":@"42",
                           @"loadedLength":@"0"};
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
@@ -529,7 +529,9 @@
     }
     else if ([cell.textLabel.text isEqualToString:@"字体大小"]){
         
+        self.nmview.alpha = 0.0;
         self.sfview.alpha = 1.0;
+        self.sfview.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
         
     }
     else if ([cell.textLabel.text isEqualToString:@"日间模式"]){
@@ -741,6 +743,54 @@
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    
+    //发送评论
+    [textField resignFirstResponder];
+    [self sendCommentWithText:textField.text];
+    return YES;
+}
+
+#pragma mark - 发送评论
+- (void)sendCommentWithText:(NSString *)text{
+    NSLog(@"%@",text);
+    NSString *urlPath = [NSString stringWithFormat:@"%@/View/addViewCommont1_2",kAPI_bendi];
+    NSDictionary *dic = @{@"comment_content":text,
+                          @"user_id":self.loginState.userId,
+                          @"view_id":@"42",
+                          @"comment_pid":@"38"};
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer = [AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    [manager POST:urlPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        hud.labelText = @"评论成功";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
+
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        //
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        hud.labelText = @"评论失败";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
+    }];
+    
+    
 }
 
 #pragma mark - backcomment.delegate

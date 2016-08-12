@@ -30,11 +30,13 @@
 #import "GuideViewController.h"
 #import "HexColors.h"
 #import "YXFont.h"
+#import "UIdaynightModel.h"
 
 @interface AppDelegate ()
 {
     BOOL isFirst;
 }
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation AppDelegate
@@ -47,6 +49,7 @@
     NSURLCache *shardCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
     [NSURLCache setSharedURLCache:shardCache];
     
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     [self setupUICommon];
     
 //    FIXME: @fql 每一项配置 单独放到一个方法中
@@ -193,7 +196,16 @@
 
 - (void)setupUICommon
 {
-    [UINavigationBar appearance].barTintColor = [UIColor whiteColor];   // 设置导航条背景颜色
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
+    [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
     [UINavigationBar appearance].translucent = NO;
 //    [UINavigationBar appearance].tintColor = [UIColor blueColor];     // 设置左右按钮，文字和图片颜色
     
@@ -205,9 +217,9 @@
     NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
  
+    [UITabBar appearance].barTintColor = self.daynightmodel.navigationColor;
     [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
     [UITabBar appearance].translucent = NO;
-//    [UIView appearance].backgroundColor = []
 }
 
 @end
