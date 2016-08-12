@@ -29,6 +29,7 @@
 
 #import "GuideViewController.h"
 #import "HexColors.h"
+#import "YXFont.h"
 
 @interface AppDelegate ()
 {
@@ -197,11 +198,11 @@
 //    [UINavigationBar appearance].tintColor = [UIColor blueColor];     // 设置左右按钮，文字和图片颜色
     
     // 设置导航条标题字体和颜色
-    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]};
+    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
     [[UINavigationBar appearance] setTitleTextAttributes:dict];
     
     // 设置导航条左右按钮字体和颜色
-    NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[UIFont systemFontOfSize:16]};
+    NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
     [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
  
     [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
