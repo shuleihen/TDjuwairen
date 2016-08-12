@@ -96,7 +96,6 @@
 @end
 
 @implementation SharpDetailsViewController
-
 - (NaviMoreView *)nmview{
     if (!_nmview) {
         _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
@@ -115,9 +114,13 @@
     }
     return _sfview;
 }
+
 - (void)dealloc
 {
     [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    [userdefault removeObserver:self forKeyPath:@"daynight"];
+//    NSLog(@"dealloc");
 }
 
 - (void)viewDidLoad {
@@ -149,8 +152,7 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController.navigationBar setHidden:NO];
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
@@ -181,7 +183,6 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.navigationController.navigationBar setHidden:YES];
     
     if (self.loginstate.isLogIn) {
         //进行身份验证
@@ -259,10 +260,6 @@
         }
         
         self.webview.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
-        
-        self.hubload.labelText = @"加载完成";
-        [self.hubload hide:YES afterDelay:0.1];
-        
         [self.tableview reloadData];
     }
     
@@ -338,18 +335,23 @@
         
     }
     
+    __weak SharpDetailsViewController *wself = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
-            self.sharpInfo = [SharpModel sharpWithDictionary:data];
-            [self relaodCommentNumber];
-            [self.tableview.mj_header endRefreshing];
-            [self.tableview reloadData];
-            [self.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
+            wself.hubload.labelText = @"加载完成";
+            [wself.hubload hide:YES afterDelay:0.1];
+            [wself.tableview.mj_header endRefreshing];
+            
+            wself.sharpInfo = [SharpModel sharpWithDictionary:data];
+            [wself relaodCommentNumber];
+            [wself.tableview reloadData];
+            [wself.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
+            
         } else {
-            self.hubload.labelText = @"加载失败";
-            [self.hubload hide:YES afterDelay:0.1];
-            [self.tableview.mj_header endRefreshing];
+            wself.hubload.labelText = @"加载失败";
+            [wself.hubload hide:YES afterDelay:0.1];
+            [wself.tableview.mj_header endRefreshing];
         }
     }];
 }
