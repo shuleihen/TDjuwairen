@@ -48,7 +48,7 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -21, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     [self.view addSubview:self.tableview];
@@ -67,7 +67,7 @@
     }
     else
     {
-        return 3;
+        return [self.setupTitleArr count];
     }
 }
 
@@ -128,12 +128,12 @@
         }
         else
         {
-            return 67;
+            return 60;
         }
     }
     else
     {
-        return 44;
+        return 45;
     }
 }
 

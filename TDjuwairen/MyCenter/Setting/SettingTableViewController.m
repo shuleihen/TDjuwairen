@@ -22,7 +22,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableView.contentInset =UIEdgeInsetsMake(-33, 0, 0, 0);
+//    self.tableView.contentInset =UIEdgeInsetsMake(-33, 0, 0, 0);
     [self setNavigation];
     self.loginState=[LoginState addInstance];
     
@@ -69,8 +69,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section==0&&indexPath.row==0)//清除缓存
     {
-        UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否清除缓存" preferredStyle:UIAlertControllerStyleActionSheet];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否清除缓存？" preferredStyle:UIAlertControllerStyleActionSheet];
+        [alert addAction:[UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             //取沙盒路径
             NSString *rootPath = NSHomeDirectory();
@@ -107,7 +107,7 @@
     }
     else//退出登录
     {
-        UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录" preferredStyle:UIAlertControllerStyleActionSheet];
+        UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录？" preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
             self.loginState.isLogIn=NO;

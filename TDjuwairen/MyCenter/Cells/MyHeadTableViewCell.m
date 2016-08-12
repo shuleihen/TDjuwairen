@@ -41,7 +41,7 @@
     
     self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(0, 125, kScreenWidth, 20)];
     self.nickname.textColor = [UIColor whiteColor];
-    self.nickname.font = [UIFont systemFontOfSize:14];
+    self.nickname.font = [UIFont systemFontOfSize:15];
     self.nickname.textAlignment = NSTextAlignmentCenter;
     
     if (self.loginState.isLogIn==YES) {
