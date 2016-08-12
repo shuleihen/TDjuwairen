@@ -10,7 +10,7 @@
 
 @protocol NaviMoreViewDelegate <NSObject>
 
-- (void)didSelectedWithIndexPath:(NSInteger)indexpath;
+- (void)didSelectedWithIndexPath:(UITableViewCell*)cell;
 
 @end
 

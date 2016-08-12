@@ -56,6 +56,8 @@
 
 @property (nonatomic,strong) MBProgressHUD *hudload;
 
+@property (nonatomic,strong) NSString *encryptedStr;
+
 @end
 
 @implementation DescContentViewController
@@ -142,14 +144,14 @@
     self.hudload = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hudload.labelText = @"加载中...";
     
-    NSString *urlPath = @"http://192.168.1.109/tuanda_web/Appapi/View/view_show1_2/id/55";
+    NSString *urlPath = @"http://192.168.1.108/tuanda_web/Appapi/View/view_show1_2/id/55";
 //    NSString *urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.dataDic = data;
             
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.109%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.108%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             
@@ -485,17 +487,27 @@
 }
 
 #pragma mark - 浮窗的代理方法
-- (void)didSelectedWithIndexPath:(NSInteger)indexpath
+- (void)didSelectedWithIndexPath:(UITableViewCell *)cell
 {
-    if (indexpath == 0) {
-        NSLog(@"%ld",(long)indexpath);
-    }else if (indexpath == 1){
-        NSLog(@"%ld",(long)indexpath);
-    }else if (indexpath == 2){
+    if ([cell.textLabel.text isEqualToString:@"复制链接"]) {
+        NSLog(@"%@",cell.textLabel.text);
+    }
+    else if ([cell.textLabel.text isEqualToString:@"收藏"]){
+        cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
+        cell.textLabel.text = @"取消收藏";
+        [self addCollection];
+    }
+    else if ([cell.textLabel.text isEqualToString:@"取消收藏"]){
+        cell.imageView.image = [UIImage imageNamed:@"btn_col"];
+        cell.textLabel.text = @"收藏";
+        [self clearCollection];
+    }
+    else if ([cell.textLabel.text isEqualToString:@"字体大小"]){
         
         self.sfview.alpha = 1.0;
         
-    }else if (indexpath == 3){
+    }
+    else if ([cell.textLabel.text isEqualToString:@"日间模式"]){
         //读取用户设置
         NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
         NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -520,35 +532,103 @@
                 //
             }];
         }
-        else
-        {
-            [self.daynightmodel day];
-            daynight = @"yes";
-            [userdefault setValue:daynight forKey:@"daynight"];
-            [userdefault synchronize];
-            NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
-            
-            NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
-            var pNode=document.getElementsByTagName('p');\
-            for(var i=0;i<pNode.length;i++){\
-                pNode[i].style.backgroundColor='white';\
-            }";
-            
-            [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-                //
-            }];
-            [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-                //
-            }];
-        }
-        
         self.nmview.alpha = 0.0;
         naviShow = NO;
         
-    }else
-    {
-        NSLog(@"%ld",(long)indexpath);
     }
+    else if([cell.textLabel.text isEqualToString:@"夜间模式"])
+    {
+        //读取用户设置
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        NSString *daynight = [userdefault objectForKey:@"daynight"];
+        [self.daynightmodel day];
+        daynight = @"yes";
+        [userdefault setValue:daynight forKey:@"daynight"];
+        [userdefault synchronize];
+        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
+        
+        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
+        var pNode=document.getElementsByTagName('p');\
+        for(var i=0;i<pNode.length;i++){\
+        pNode[i].style.backgroundColor='white';\
+        }";
+        
+        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+    }
+    else
+    {
+        //举报
+    }
+}
+
+#pragma mark - 点击收藏取消收藏
+- (void)addCollection{
+    if (self.loginState.isLogIn) {
+        NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
+        NSDictionary *dic = @{@"userid":self.loginState.userId,
+                              @"module_id":@3,
+                              @"item_id":self.view_id};
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"添加收藏";
+        
+        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+        manager.responseSerializer = [AFJSONResponseSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+        [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
+            if ([responseObject[@"code"] isEqualToString:@"200"]) {
+                //收藏成功 弹出提示框
+                hud.labelText = @"收藏成功";
+                [hud hide:YES afterDelay:0.2];
+                
+            } else {
+                hud.labelText = @"收藏失败";
+                [hud hide:YES afterDelay:0.2];
+            }
+        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+            hud.labelText = @"收藏失败";
+            [hud hide:YES afterDelay:0.2];
+            NSLog(@"请求失败");
+        }];
+    }
+}
+
+- (void)clearCollection{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"取消收藏";
+    
+    NSMutableArray *IDArr = [NSMutableArray array];
+    [IDArr addObject:self.view_id];
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer=[AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Collection/delCollect"];
+    NSDictionary *para = @{@"authenticationStr":self.loginState.userId,
+                           @"encryptedStr":self.encryptedStr,
+                           @"delete_ids":IDArr,
+                           @"module_id":@"3",
+                           @"userid":self.loginState.userId};
+    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString*code=[responseObject objectForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            
+            hud.labelText = @"取消成功";
+            [hud hide:YES afterDelay:0.2];
+        }
+        else {
+            hud.labelText = @"取消失败";
+            [hud hide:YES afterDelay:0.2];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        hud.labelText = @"取消失败";
+        [hud hide:YES afterDelay:0.2];
+        NSLog(@"请求失败");
+    }];
 }
 
 #pragma mark - 更改字体的浮窗
@@ -712,9 +792,28 @@
 {
     if (self.loginState.isLogIn) {
         //进行身份验证
-//        [self requestAuthentication];
+        [self requestAuthentication];
     }
     [self registerForKeyboardNotifications];
+}
+//身份验证
+-(void)requestAuthentication
+{
+    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
+    manager.responseSerializer=[AFJSONResponseSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NSDictionary *para = @{@"validatestring":self.loginState.userId};
+    
+    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSString *code = [responseObject objectForKey:@"code"];
+        if ([code isEqualToString:@"200"]) {
+            NSDictionary *dic = responseObject[@"data"];
+            self.encryptedStr = dic[@"str"];
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        
+    }];
 }
 
 #pragma mark - 监听键盘

@@ -409,29 +409,30 @@
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
-        PreviewViewController *preview = [self.storyboard instantiateViewControllerWithIdentifier:@"preview"];
-        
-        NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
-        NSUInteger cur = 0;
-        
-        for (int i = 0 ; i<self.upimgArr.count; i++) {
-            NSString *str = self.imglocArr[i];
-            NSUInteger loc = [str integerValue];
-            if (i != 0) {
-                cur = [self.upimgArr[i-1] length] + cur;
-            }
-            NSUInteger current = loc+cur;
-            NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:self.upimgArr[i]];
-            [up insertAttributedString:imgtext atIndex:current];
+        if (![self.contentText.text isEqualToString:@""]) {
+            PreviewViewController *preview = [self.storyboard instantiateViewControllerWithIdentifier:@"preview"];
             
+            NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
+            NSUInteger cur = 0;
+            
+            for (int i = 0 ; i<self.upimgArr.count; i++) {
+                NSString *str = self.imglocArr[i];
+                NSUInteger loc = [str integerValue];
+                if (i != 0) {
+                    cur = [self.upimgArr[i-1] length] + cur;
+                }
+                NSUInteger current = loc+cur;
+                NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:self.upimgArr[i]];
+                [up insertAttributedString:imgtext atIndex:current];
+                
+            }
+            NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
+            htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+            htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+            
+            preview.html = htmlstring;
+            [self.navigationController pushViewController:preview animated:YES];
         }
-        NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
-        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
-        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-        
-        preview.html = htmlstring;
-        [self.navigationController pushViewController:preview animated:YES];
-        
     }
     else
     {

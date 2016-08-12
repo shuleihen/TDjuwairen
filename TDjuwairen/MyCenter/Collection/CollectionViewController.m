@@ -258,7 +258,7 @@
     else
     {
         [tableView registerNib:[UINib nibWithNibName:@"NoCollectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoCollectionCell"];
-        NoCollectionTableViewCell*cell=[tableView dequeueReusableCellWithIdentifier:@"NoCollectionCell"];
+        NoCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoCollectionCell"];
         cell.selectionStyle=UITableViewCellSelectionStyleNone;
         editBtn.enabled=NO;
         return cell;
@@ -284,8 +284,8 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        NSDictionary*dic=[CollectionArray objectAtIndex:indexPath.row];
-        NSMutableArray*delarr=[NSMutableArray array];
+        NSDictionary *dic = [CollectionArray objectAtIndex:indexPath.row];
+        NSMutableArray *delarr = [NSMutableArray array];
         [delarr addObject:dic[@"sharp_id"]];
         
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];

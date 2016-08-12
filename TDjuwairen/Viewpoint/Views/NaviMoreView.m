@@ -93,8 +93,9 @@
 {
     /* 取消选中状态 */
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     if (indexPath.row == 3) {
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+        
         if ([cell.textLabel.text isEqualToString:@"日间模式"]) {
             cell.imageView.image = [UIImage imageNamed:@"btn_yejian@3x.png"];
             cell.textLabel.text = @"夜间模式";
@@ -108,7 +109,7 @@
     }
     
     if ([self respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
-        [self.delegate didSelectedWithIndexPath:indexPath.row];
+        [self.delegate didSelectedWithIndexPath:cell];
     }
 }
 
