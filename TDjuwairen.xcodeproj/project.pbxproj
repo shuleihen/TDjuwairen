@@ -106,6 +106,7 @@
 		840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */; };
 		840E35091D5DD70700C0BF46 /* ResponsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */; };
 		841C43B01D61A8B500FCFE0D /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C43AF1D61A8B500FCFE0D /* SurveyViewController.m */; };
+		841C43B31D61AB6C00FCFE0D /* InsertTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C43B21D61AB6C00FCFE0D /* InsertTagsView.m */; };
 		842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842387701D49B8AF00671404 /* UIdaynightModel.m */; };
 		8427BE471CF29D0600E750E9 /* TitlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427BE451CF29D0600E750E9 /* TitlesTableViewCell.m */; };
 		8427F7371D582AF00073AB7F /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427F7361D582AF00073AB7F /* CommentsCell.m */; };
@@ -524,6 +525,8 @@
 		840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsListTableViewCell.m; sourceTree = "<group>"; };
 		841C43AE1D61A8B500FCFE0D /* SurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyViewController.h; sourceTree = "<group>"; };
 		841C43AF1D61A8B500FCFE0D /* SurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyViewController.m; sourceTree = "<group>"; };
+		841C43B11D61AB6C00FCFE0D /* InsertTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsertTagsView.h; sourceTree = "<group>"; };
+		841C43B21D61AB6C00FCFE0D /* InsertTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsertTagsView.m; sourceTree = "<group>"; };
 		8423876F1D49B8AF00671404 /* UIdaynightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdaynightModel.h; sourceTree = "<group>"; };
 		842387701D49B8AF00671404 /* UIdaynightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdaynightModel.m; sourceTree = "<group>"; };
 		8427BE441CF29D0600E750E9 /* TitlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlesTableViewCell.h; sourceTree = "<group>"; };
@@ -2009,6 +2012,8 @@
 				8427F73C1D5830120073AB7F /* FloorInFloorView.m */,
 				8427F7411D5863820073AB7F /* TimeHotComView.h */,
 				8427F7421D5863820073AB7F /* TimeHotComView.m */,
+				841C43B11D61AB6C00FCFE0D /* InsertTagsView.h */,
+				841C43B21D61AB6C00FCFE0D /* InsertTagsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2418,6 +2423,7 @@
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				842B36261CE995D500C6E400 /* UIButton+AFNetworking.m in Sources */,
 				841C43B01D61A8B500FCFE0D /* SurveyViewController.m in Sources */,
+				841C43B31D61AB6C00FCFE0D /* InsertTagsView.m in Sources */,
 				845CCB921D4EEB4E005ABD7B /* SecondEdit.m in Sources */,
 				846E514E1D41A93000B89A53 /* MyInfomationTableViewCell.m in Sources */,
 				1968431C1D49FEED0023A0FC /* SharpModel.m in Sources */,

@@ -25,7 +25,7 @@
     self.commentview = [[UITextField alloc]initWithFrame:CGRectMake(15, 10, kScreenWidth-100-15, 30)];
     self.commentview.layer.cornerRadius = 5;
     self.commentview.layer.borderWidth = 0.5;
-    self.commentview.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    
     self.commentview.placeholder = @"自古评论出人才，快来发表评论吧";
     /* return变成发送键 */
     self.commentview.returnKeyType = UIReturnKeySend;
