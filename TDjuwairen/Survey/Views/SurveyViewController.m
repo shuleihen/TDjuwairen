@@ -108,8 +108,9 @@
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    
+    self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    self.NavigationView.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     
     [self.tableview reloadData];
 }
@@ -368,7 +369,7 @@
     cell.titleLabel.textColor = self.daynightmodel.textColor;
     cell.descLabel.textColor = self.daynightmodel.titleColor;
     cell.backgroundColor = self.daynightmodel.navigationColor;
-    
+    cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     return cell;
 }
 

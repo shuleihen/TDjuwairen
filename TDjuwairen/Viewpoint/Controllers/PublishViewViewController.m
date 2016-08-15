@@ -229,6 +229,8 @@
 #pragma mark - 点击编辑栏
 - (void)clickEdit:(UIButton *)sender
 {
+    NSString *tit = self.titleText.text;
+    NSString *des = self.contentText.text;
     int num = (int)sender.tag;
     if (num == 0) {
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
@@ -255,14 +257,22 @@
     }
     else if (num == 2){
         if ([self.titleText isFirstResponder]) {
-            if ([currentTitle isEqualToString:@""]) {
+            if ([currentTitle isEqualToString:@""] || currentTitle == nil) {
+                
+            }
+            else
+            {
                 self.titleText.text = currentTitle;
             }
             
         }
         else
         {
-            if ([currentDesc isEqualToString:@""]) {
+            if ([currentDesc isEqualToString:@""] || currentDesc == nil) {
+                
+            }
+            else
+            {
                 self.contentText.text = currentDesc;
             }
             
@@ -281,8 +291,8 @@
     else if (num == 4){
         [self.SelSecView removeFromSuperview];//移除子视图
         //插入
-        NSArray *imgArr = @[@"btn_lianjie@3x.png",@"btn_img@3x.png",@"btn_biaoqian"];
-        NSArray *textArr = @[@"链接",@"图片",@"股票"];
+        NSArray *imgArr = @[@"btn_img@3x.png",@"btn_biaoqian"];
+        NSArray *textArr = @[@"图片",@"股票"];
         self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
         self.secondView.backgroundColor = self.daynightmodel.navigationColor;
         self.secondView.delegate = self;

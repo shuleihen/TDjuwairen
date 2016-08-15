@@ -13,6 +13,7 @@ typedef void(^SearchButtonBlock)();
 
 @property (nonatomic,strong) UIImageView *logoImage; //logo;
 @property (nonatomic,strong) UIButton *searchButton;       //搜索按钮
+@property (nonatomic,strong) UILabel *line;
 
 @property (nonatomic,copy) SearchButtonBlock block;
 

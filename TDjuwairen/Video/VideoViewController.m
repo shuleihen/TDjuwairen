@@ -84,14 +84,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-//    [self.navigationController.navigationBar setHidden:YES];
+
     [self.navigationController setNavigationBarHidden:YES animated:YES];
-    
+//    
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    
+    self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    self.NavigationView.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     [self.tableview reloadData];
 }
 

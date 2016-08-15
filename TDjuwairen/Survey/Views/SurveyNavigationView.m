@@ -41,13 +41,13 @@
     [self.searchButton setBackgroundColor:[UIColor whiteColor]];
     
     
-    UILabel *line = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-1, kScreenWidth, 1)];
-    line.layer.borderColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0].CGColor;
-    line.layer.borderWidth = 1;
+    self.line = [[UILabel alloc]initWithFrame:CGRectMake(0, self.frame.size.height-1, kScreenWidth, 1)];
+    
+    self.line.layer.borderWidth = 1;
     
     [self addSubview:self.logoImage];
     [self addSubview:self.searchButton];
-    [self addSubview:line];
+    [self addSubview:self.line];
 }
 
 

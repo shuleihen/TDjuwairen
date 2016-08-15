@@ -255,6 +255,7 @@
     //set ui
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.backColor;
+    [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
     [self.tableview reloadData];
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
