@@ -229,8 +229,6 @@
 #pragma mark - 点击编辑栏
 - (void)clickEdit:(UIButton *)sender
 {
-    NSString *tit = self.titleText.text;
-    NSString *des = self.contentText.text;
     int num = (int)sender.tag;
     if (num == 0) {
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
@@ -435,6 +433,9 @@
     }
     else if ([sender.textLabel.text isEqualToString:@"股票"]){
         //插入股票
+        [self.SelSecView removeFromSuperview];
+        
+        
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
