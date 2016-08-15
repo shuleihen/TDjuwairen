@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "AFNetworking.h"
 #import "LoginState.h"
+#import "NetworkManager.h"
 
 @interface MyInfoTableViewController ()<ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate>
 {
@@ -190,198 +191,137 @@
 #pragma mark-修改用户名身份验证
 -(void)requestChangeUserNameAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.LoginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
             self.str=dic[@"str"];
             [self requestrequestChangeUserName];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 #pragma mark-修改用户名
 -(void)requestrequestChangeUserName
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateUsername/"];
-    NSDictionary*paras=@{@"authenticationStr":self.LoginState.userId,
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*paras = @{@"authenticationStr":self.LoginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.LoginState.userId,
                          @"username":self.userNameTextField.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改用户名成功");
+    
+    [manager POST:API_UpdateUserName parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             self.LoginState.userName=self.userNameTextField.text;
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"修改用户名失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
 #pragma mark-修改公司身份验证
 -(void)requestChangeCompanyAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.LoginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            self.str = dic[@"str"];
             [self requestChangeCompany];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 
 #pragma mark-修改公司
 -(void)requestChangeCompany
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateCompanyName/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.LoginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.LoginState.userId,
                          @"CompanyName":self.companyTextField.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改公司成功");
-            self.LoginState.company=self.companyTextField.text;
+    
+    [manager POST:API_UpdateCompanyName parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            self.LoginState.company = self.companyTextField.text;
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"修改公司失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 #pragma mark-修改职务身份验证
 -(void)requestChangePostAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.LoginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            self.str = dic[@"str"];
             [self requestChangePost];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 #pragma mark-修改职务
 -(void)requestChangePost
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateOccupationName/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.LoginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.LoginState.userId,
                          @"occupationName":self.postTextField.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改职务成功");
+    
+    [manager POST:API_UpdateOccupationName parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             self.LoginState.post=self.postTextField.text;
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"修改职务失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
+
 #pragma mark-修改个人简介身份验证
 -(void)requestChangePersonalAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.LoginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            self.str = dic[@"str"];
             [self requestChangePersonal];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 #pragma mark-修改个人简介
 -(void)requestChangePersonal
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateUserinfo/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.LoginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.LoginState.userId,
                          @"Userinfo":self.personalTextField.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改个人简介成功");
+    
+    [manager POST:API_UpdateUserInfo parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             self.LoginState.personal=self.personalTextField.text;
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"修改个人简介失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 
 
@@ -472,29 +412,22 @@
 //上传头像
 -(void)requestHead
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.LoginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            self.str = dic[@"str"];
             [self requestUploadHeadImage];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 
 -(void)requestUploadHeadImage
-{
+{    
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];

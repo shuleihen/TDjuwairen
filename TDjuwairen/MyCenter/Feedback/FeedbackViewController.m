@@ -11,7 +11,7 @@
 #import "ResponsListTableViewCell.h"
 #import "LoginState.h"
 #import "AFNetworking.h"
-
+#import "NetworkManager.h"
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
@@ -131,80 +131,54 @@
 //身份验证
 -(void)requestFeedbackAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.loginstate.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary*dic = data;
             self.str=dic[@"str"];
             [self requestFeedback];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
 //发送反馈意见
 -(void)requestFeedback
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/addUserFeedback/"];
-    NSDictionary*paras=@{@"authenticationStr":self.loginstate.userId,
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*para = @{@"authenticationStr":self.loginstate.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.loginstate.userId,
                          @"feedbackContent":self.contentTextField.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"发送成功");
-            self.contentTextField.text=@"";
+    
+    [manager POST:API_AddUserFeedback parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            self.contentTextField.text = @"";
             [self requestInfo];
+        } else {
             
         }
-        else
-        {
-            NSLog(@"发送失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-
 }
 
 -(void)requestInfo
 {
     self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-//    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/getUserFeedback/"];
-    NSString *url = [NSString stringWithFormat:@"%@/Feedback/getUserFeedbackList1_2",kAPI_bendi];
     
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *paras = @{@"user_id":self.loginstate.userId};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSString *code = [responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"获取信息成功");
-            NSArray *array = responseObject[@"data"];
+    
+    [manager POST:API_GetUserFeedbackList parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            NSArray *array = data;
             [self.dataArray addObjectsFromArray:array];
             [self.tableview reloadData];
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"获取信息失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
     }];
 }
 

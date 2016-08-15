@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "NetworkManager.h"
 
 @interface AddUpdatesViewController ()
 
@@ -266,7 +267,7 @@
                     @"password":self.passwordText.text,
                     @"email":@"",
                     @"nickname":self.nicknameText.text};
-        updateurl = [NSString stringWithFormat:@"%@Login/WXLoginDo1_2",kAPI_bendi];
+        updateurl = [NSString stringWithFormat:@"Login/WXLoginDo1_2"];
     }
     else                                                  //QQ登录
     {
@@ -275,28 +276,25 @@
                     @"password":self.passwordText.text,
                     @"email":@"",
                     @"nickname":self.nicknameText.text};
-        updateurl = [NSString stringWithFormat:@"%@Login/qqLoginDo1_2",kAPI_bendi];
+        updateurl = [NSString stringWithFormat:@"Login/qqLoginDo1_2"];
     }
     
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:updateurl parameters:infoDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        //给loginstate 填充
-        self.loginState.nickName = self.nicknameText.text;
-        self.loginState.userPhone = self.accountText.text;
-        self.loginState.isLogIn = YES;
-        
-        NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-        [accountDefaults setValue:self.accountText.text forKey:@"account"];
-        [accountDefaults setValue:self.passwordText.text forKey:@"password"];
-        [accountDefaults synchronize];
-        
-        [self.navigationController popToRootViewControllerAnimated:YES];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"信息更新失败");
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    [manager POST:updateurl parameters:infoDic completion:^(id data, NSError *error){
+        if (!error) {
+            self.loginState.nickName = self.nicknameText.text;
+            self.loginState.userPhone = self.accountText.text;
+            self.loginState.isLogIn = YES;
+            
+            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+            [accountDefaults setValue:self.accountText.text forKey:@"account"];
+            [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+            [accountDefaults synchronize];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            
+        }
     }];
 }
 

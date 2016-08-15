@@ -148,24 +148,14 @@
          NSLog(@"%lu",(unsigned long)state);
          if (state == SSDKResponseStateSuccess)
          {
-             NSLog(@"uid=%@",user.uid);
-//             NSLog(@"%@",user.credential);
-//             NSLog(@"token=%@",user.credential.token);
-//             NSLog(@"nickname=%@",user.nickname);
              NSString *unionid = user.uid;
+             
+             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
              NSDictionary *dic = @{@"unionid":unionid};
-             NSString *url = [NSString stringWithFormat:@"%@Login/checkWXAccount1_2",kAPI_bendi];
-             AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-             manager.responseSerializer = [AFJSONResponseSerializer serializer];
-             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-             [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 NSDictionary *dic = responseObject[@"data"];
-                 NSLog(@"%@",dic);
-                 if ([dic[@"user_wxunionid"] isEqualToString:@""] ||
-                     [dic[@"user_nickname"] isEqualToString:@""] ||
-                     [dic[@"user_pwd"] isEqualToString:@""] ||
-                     ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
-                     //跳转到补全页面
+             
+             [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
+                 if (!error) {
+                     NSDictionary *dic = data;
                      //给loginstate 填充
                      self.loginState.userId = dic[@"user_id"];
                      self.loginState.userName = dic[@"user_name"];
@@ -182,57 +172,39 @@
                      [accountDefaults setValue:@"WXlogin" forKey:@"loginStyle"];
                      [accountDefaults setValue:unionid forKey:@"unionid"];
                      [accountDefaults synchronize];
+
+                     if ([dic[@"user_wxunionid"] isEqualToString:@""] ||
+                         [dic[@"user_nickname"] isEqualToString:@""] ||
+                         [dic[@"user_pwd"] isEqualToString:@""] ||
+                         ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
+
+                         AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
+                         addview.unionid = unionid;
+                         [self.navigationController pushViewController:addview animated:YES];
+                     } else {
+                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+                         NSDictionary *infoDic = @{@"unionid":unionid,
+                                                   @"nickname":dic[@"user_nickname"],
+                                                   @"password":dic[@"user_pwd"],
+                                                   @"email":dic[@"userinfo_email"],
+                                                   @"phone":dic[@"userinfo_phone"]};
+                         
+                         [manager POST:API_LoginWithWeixin parameters:infoDic completion:^(id data, NSError *error){
+                             if (!error) {
+                                 
+                             } else {
+                                 
+                             }
+                         }];
+                         
+                         [self.navigationController popToRootViewControllerAnimated:YES];
+                     }
                      
-                     AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
-                     addview.unionid = unionid;
-                     [self.navigationController pushViewController:addview animated:YES];
+                 } else {
+                     
                  }
-                 else
-                 {
-                     //给loginstate 填充
-                     self.loginState.userId = dic[@"user_id"];
-                     self.loginState.userName = dic[@"user_name"];
-                     self.loginState.nickName = dic[@"user_nickname"];
-                     self.loginState.userPhone = dic[@"userinfo_phone"];
-                     self.loginState.headImage = dic[@"userinfo_facesmall"];
-                     self.loginState.company = dic[@"userinfo_company"];
-                     self.loginState.post = dic[@"userinfo_occupation"];
-                     self.loginState.personal = dic[@"userinfo_info"];
-                     
-                     self.loginState.isLogIn = YES;
-                     
-                     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:@"WXlogin" forKey:@"loginStyle"];
-                     [accountDefaults setValue:unionid forKey:@"unionid"];
-                     [accountDefaults synchronize];
-                     //允许登录
-                     NSLog(@"登录成功");
-                     NSString *updateurl = [NSString stringWithFormat:@"%@Login/WXLoginDo1_2",kAPI_bendi];
-                     NSDictionary *infoDic = @{@"unionid":unionid,
-                                               @"nickname":dic[@"user_nickname"],
-                                               @"password":dic[@"user_pwd"],
-                                               @"email":dic[@"userinfo_email"],
-                                               @"phone":dic[@"userinfo_phone"]};
-                     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-                     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-                     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-                     [manager POST:updateurl parameters:infoDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         NSLog(@"成功");
-                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         NSLog(@"信息更新失败");
-                     }];
-                     [self.navigationController popToRootViewControllerAnimated:YES];
-                 }
-                 
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 NSLog(@"请求失败");
              }];
          }
-         else
-         {
-             NSLog(@"%@",error);
-         }
-         
      }];
 }
 
@@ -250,43 +222,13 @@
 //             NSLog(@"nickname=%@",user.nickname);
 //             NSLog(@"icon=%@",user.rawData[@"figureurl_qq_2"]);
              NSString *openid = user.credential.rawData[@"openid"];//rawData 为NSDictionary原始数据
-             NSLog(@"%@",openid);
+             
+             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
              NSDictionary *dic = @{@"openid":openid};
-             NSString *url = [NSString stringWithFormat:@"%@Login/checkQQAccount1_2",kAPI_bendi];
-             AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-             manager.responseSerializer = [AFJSONResponseSerializer serializer];
-             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-             [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                 //
-                 NSDictionary *dic = responseObject[@"data"];
-                 NSLog(@"%@",dic);
-                 if ([dic[@"user_qqopenid"] isEqualToString:@""] ||
-                     [dic[@"user_nickname"] isEqualToString:@""] ||
-                     [dic[@"user_pwd"] isEqualToString:@""] ||
-                     ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
-                     //跳转到补全页面
-                     //给loginstate 填充
-                     self.loginState.userId = dic[@"user_id"];
-                     self.loginState.userName = dic[@"user_name"];
-                     self.loginState.nickName = dic[@"user_nickname"];
-                     self.loginState.userPhone = dic[@"userinfo_phone"];
-                     self.loginState.headImage = dic[@"userinfo_facesmall"];
-                     self.loginState.company = dic[@"userinfo_company"];
-                     self.loginState.post = dic[@"userinfo_occupation"];
-                     self.loginState.personal = dic[@"userinfo_info"];
-                     self.loginState.isLogIn = YES;
-                     
-                     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:@"QQlogin" forKey:@"loginStyle"];
-                     [accountDefaults setValue:openid forKey:@"openid"];
-                     [accountDefaults synchronize];
-                     
-                     AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
-                     addview.qqopenid = openid;
-                     [self.navigationController pushViewController:addview animated:YES];
-                 }
-                 else
-                 {
+             
+             [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
+                 if (!error) {
+                     NSDictionary *dic = data;
                      //给loginstate 填充
                      self.loginState.userId = dic[@"user_id"];
                      self.loginState.userName = dic[@"user_name"];
@@ -303,32 +245,39 @@
                      [accountDefaults setValue:@"QQlogin" forKey:@"loginStyle"];
                      [accountDefaults setValue:openid forKey:@"openid"];
                      [accountDefaults synchronize];
-                     //允许登录
-                     NSLog(@"登录成功");
-                     NSString *updateurl = [NSString stringWithFormat:@"%@Login/qqLoginDo1_2",kAPI_bendi];
-                     NSDictionary *infoDic = @{@"openid":openid,
-                                               @"nickname":dic[@"user_nickname"],
-                                               @"password":dic[@"user_pwd"],
-                                               @"email":dic[@"userinfo_email"],
-                                               @"phone":dic[@"userinfo_phone"]};
-                     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-                     manager.responseSerializer = [AFJSONResponseSerializer serializer];
-                     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-                     [manager POST:updateurl parameters:infoDic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                         NSLog(@"成功");
-                     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                         NSLog(@"信息更新失败");
-                     }];
-                     [self.navigationController popToRootViewControllerAnimated:YES];
+                     
+                     if ([dic[@"user_wxunionid"] isEqualToString:@""] ||
+                         [dic[@"user_nickname"] isEqualToString:@""] ||
+                         [dic[@"user_pwd"] isEqualToString:@""] ||
+                         ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
+                         
+                         AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
+                         addview.qqopenid = openid;
+                         [self.navigationController pushViewController:addview animated:YES];
+                     } else {
+                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+                         NSDictionary *infoDic = @{@"openid":openid,
+                                                   @"nickname":dic[@"user_nickname"],
+                                                   @"password":dic[@"user_pwd"],
+                                                   @"email":dic[@"userinfo_email"],
+                                                   @"phone":dic[@"userinfo_phone"]};
+
+                         
+                         [manager POST:API_LoginWithQQ parameters:infoDic completion:^(id data, NSError *error){
+                             if (!error) {
+                                 
+                             } else {
+                                 
+                             }
+                         }];
+                         
+                         [self.navigationController popToRootViewControllerAnimated:YES];
+                     }
+                     
+                 } else {
+                     
                  }
-             } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                 NSLog(@"请求失败");
              }];
-         }
-         
-         else
-         {
-             NSLog(@"%@",error);
          }
          
      }];

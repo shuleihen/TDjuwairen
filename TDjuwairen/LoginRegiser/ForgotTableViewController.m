@@ -9,7 +9,7 @@
 #import "ForgotTableViewController.h"
 #import "ForgotSecondTableViewController.h"
 #import "AFNetworking.h"
-
+#import "NetworkManager.h"
 
 @interface ForgotTableViewController ()
 
@@ -67,31 +67,20 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     else{
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary*para = @{@"telephone":self.forgotTextField.text};
         
-        AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer=[AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkTelephone/"];
-        NSDictionary*para=@{@"telephone":self.forgotTextField.text};
-        [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
-            if ([code isEqualToString:@"200"]) {
-                NSLog(@"手机号未注册！");
+        [manager POST:API_CheckPhone parameters:para completion:^(id data, NSError *error){
+            if (!error) {
                 UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"手机号未注册" preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
-            }
-            else
-            {
+            } else {
                 ForgotSecondTableViewController*forgot=[self.storyboard instantiateViewControllerWithIdentifier:@"ForgotSecondView"];
                 forgot.phone=self.forgotTextField.text;
                 [self.navigationController pushViewController:forgot animated:YES];
             }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败！");
         }];
-
     }
 
 }

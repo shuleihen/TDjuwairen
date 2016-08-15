@@ -10,6 +10,7 @@
 #import "LoginTableViewController.h"
 #import "AFNetworking.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "NetworkManager.h"
 
 @interface ForgotSecondTableViewController ()
 
@@ -110,38 +111,31 @@
     
     if (self.passwordTextField.text.length<=20&&self.passwordTextField.text.length>=6) {
     
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
-    NSDictionary*para=@{@"validatestring":self.phone};
-    
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            [SMSSDK commitVerificationCode:self.VerificationTextField.text phoneNumber:self.phone zone:@"86" result:^(NSError *error) {
-                if (!error) {
-                    NSDictionary*dic=responseObject[@"data"];
-                    self.str=dic[@"str"];
-                    [self requestchangePassword];
-                    
-                }
-                else
-                {
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入验证码！" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault  handler:nil]];
-                    [self presentViewController:alert animated:YES completion:nil];
-                    
-                }
-            }];
-            
-            
-        }
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary*para=@{@"validatestring":self.phone};
         
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+        [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+            if (!error) {
+                
+                [SMSSDK commitVerificationCode:self.VerificationTextField.text phoneNumber:self.phone zone:@"86" result:^(NSError *error) {
+                    if (!error) {
+                        NSDictionary*dic = data;
+                        self.str=dic[@"str"];
+                        [self requestchangePassword];
+                    }
+                    else
+                    {
+                        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入验证码！" preferredStyle:UIAlertControllerStyleAlert];
+                        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault  handler:nil]];
+                        [self presentViewController:alert animated:YES completion:nil];
+                        
+                    }
+                }];
+                
+            } else {
+                
+            }
+        }];
     }
     else
     {
@@ -154,29 +148,22 @@
 //请求重置密码
 -(void)requestchangePassword
 {
-   // NSLog(@"%@",self.str);
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/telFindpwd/"];
-    NSDictionary*paras=@{@"authenticationStr":self.phone,
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*paras = @{@"authenticationStr":self.phone,
                          @"encryptedStr":self.str,
                          @"telephone":self.phone,
                          @"password":self.passwordTextField.text};
     
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
+    [manager POST:API_ResetPasswordk parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"密码重置成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
                 [self.navigationController popToRootViewControllerAnimated:YES];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
+        } else {
             
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 

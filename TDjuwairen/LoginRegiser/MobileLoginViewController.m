@@ -11,6 +11,7 @@
 #import "AFNetworking.h"
 #import "LoginState.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "NetworkManager.h"
 
 @interface MobileLoginViewController ()
 
@@ -192,20 +193,15 @@
 }
 
 - (void)requestLogin{
-    
-    
-    NSString *url = [NSString stringWithFormat:@"%@/Login/phoneLogin1_2",kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *dic = @{@"user_phone":self.accountText.text,
                           @"authenticationStr":self.validateString,
                           @"encryptedStr":self.encryptedStr};
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([responseObject[@"code"] isEqualToString:@"200"]) {
-            NSDictionary *dic = responseObject[@"data"];
-            //loginstate赋值
-            //给loginstate 填充
+
+    
+    [manager POST:API_LoginWithPhone parameters:dic completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
             self.loginState.userId = dic[@"user_id"];
             self.loginState.userName = dic[@"user_name"];
             self.loginState.nickName = dic[@"user_nickname"];
@@ -218,15 +214,10 @@
             self.loginState.isLogIn = YES;
             
             [self.navigationController popToRootViewControllerAnimated:YES];
+
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"%@",responseObject[@"msg"]);
-        }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"登录失败");
     }];
 }
 
@@ -234,22 +225,16 @@
 //身份验证
 -(void)requestAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *para = @{@"validatestring":self.validateString};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary *dic = responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
             self.encryptedStr = dic[@"str"];
-            NSLog(@"%@",self.encryptedStr);
+        } else {
             
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 

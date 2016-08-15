@@ -7,6 +7,7 @@
 //
 
 #import "AFNetworking.h"
+#import "NetworkDefine.h"
 
 @interface NetworkManager : NSObject
 - (id)initWithBaseUrl:(NSString *)baseUrl;

@@ -12,6 +12,7 @@
 #import "LoginState.h"
 #import "AFNetworking.h"
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
+#import "NetworkManager.h"
 
 @interface LoginTableViewController ()
 
@@ -98,53 +99,45 @@
         [self presentViewController:aler animated:YES completion:nil];
     }
     else{
-    AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-     manager.responseSerializer = [AFJSONResponseSerializer  serializer];
-     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
-    NSDictionary*paras=@{@"account":self.accountTextField.text,
-                         @"password":self.passwordTextField.text};
-    
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"登陆成功");
-            
-            NSDictionary *dic = responseObject[@"data"];
-          //  NSLog(@"%@",dic);
-            self.LoginState.userId=dic[@"user_id"];
-            self.LoginState.userName=dic[@"user_name"];
-            self.LoginState.nickName=dic[@"user_nickname"];
-            self.LoginState.userPhone=dic[@"userinfo_phone"];
-            self.LoginState.headImage=dic[@"userinfo_facesmall"];
-            self.LoginState.company=dic[@"userinfo_company"];
-            self.LoginState.post=dic[@"userinfo_occupation"];
-            self.LoginState.personal=dic[@"userinfo_info"];
-            
-            self.LoginState.isLogIn=YES;
-            
-            NSUserDefaults*accountDefaults=[NSUserDefaults standardUserDefaults];
-            [accountDefaults setValue:self.accountTextField.text forKey:@"account"];
-            [accountDefaults setValue:self.passwordTextField.text forKey:@"password"];
-            [accountDefaults synchronize];
-            
-            [self.navigationController popViewControllerAnimated:YES];
-        }
-        else
-        {
-            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名，手机号或密码错误" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-            [aler addAction:conformAction];
-            [self presentViewController:aler animated:YES completion:nil];
-        }
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary*paras = @{@"account":self.accountTextField.text,
+                             @"password":self.passwordTextField.text};
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-        
-        [aler addAction:conformAction];
-        [self presentViewController:aler animated:YES completion:nil];
-    }];
+        [manager POST:API_Login parameters:paras completion:^(id data, NSError *error){
+            if (!error) {
+                NSDictionary *dic = data;
+                self.LoginState.userId=dic[@"user_id"];
+                self.LoginState.userName=dic[@"user_name"];
+                self.LoginState.nickName=dic[@"user_nickname"];
+                self.LoginState.userPhone=dic[@"userinfo_phone"];
+                self.LoginState.headImage=dic[@"userinfo_facesmall"];
+                self.LoginState.company=dic[@"userinfo_company"];
+                self.LoginState.post=dic[@"userinfo_occupation"];
+                self.LoginState.personal=dic[@"userinfo_info"];
+                
+                self.LoginState.isLogIn=YES;
+                
+                NSUserDefaults*accountDefaults=[NSUserDefaults standardUserDefaults];
+                [accountDefaults setValue:self.accountTextField.text forKey:@"account"];
+                [accountDefaults setValue:self.passwordTextField.text forKey:@"password"];
+                [accountDefaults synchronize];
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                if (error.code == NSURLErrorTimedOut) {
+                    UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名，手机号或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                    [aler addAction:conformAction];
+                    [self presentViewController:aler animated:YES completion:nil];
+                } else {
+                    UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                    
+                    [aler addAction:conformAction];
+                    [self presentViewController:aler animated:YES completion:nil];
+                }
+            }
+        }];
     }
 }
 

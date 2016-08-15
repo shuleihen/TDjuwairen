@@ -14,6 +14,7 @@
 #import "EditView.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
+#import "NetworkManager.h"
 
 @interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -94,30 +95,14 @@
             [sharpId addObject:dic[@"sharp_id"]];
         }
         
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer=[AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Collection/delCollect"];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary*para=@{@"authenticationStr":self.loginstate.userId,
                             @"encryptedStr":self.str,
                             @"delete_ids":sharpId,
                             @"module_id":@"2",
                             @"userid":self.loginstate.userId};
-        NSLog(@"%@",para);
-        [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
-            NSLog(@"%@",responseObject);
-            if ([code isEqualToString:@"200"]) {
-                NSArray*arr=responseObject[@"data"];
-                NSLog(@"%@",arr);
-                NSLog(@"删除成功");
-            }
-            else {
-                NSLog(@"删除失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"1");
-        }];
+        
+        [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
         
         [CollectionArray removeObjectsInArray:delArray];
         
@@ -186,51 +171,44 @@
 //身份验证
 -(void)requestAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.loginstate.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary*dic = data;
+            self.str = dic[@"str"];
+        } else {
+            
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
 -(void)requestCollection
 {
     CollectionArray=[[NSMutableArray alloc]init];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Collection/getCollectionlist"];
-    NSDictionary*paras=@{@"userid":self.loginstate.userId};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
+
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*paras = @{@"userid":self.loginstate.userId};
+    
+    [manager POST:API_GetCollectionList parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             haveCollection=YES;
-            NSArray*array=responseObject[@"data"];
-            NSDictionary*dic=array[1];
-            NSArray*arr=dic[@"List"];
+            NSArray*array = data;
+            NSDictionary*dic = array[1];
+            NSArray*arr = dic[@"List"];
             
             for (NSDictionary*dic in arr) {
                 [CollectionArray addObject:dic];
             }
             [self.tableview reloadData];
-        }
-        else if([code isEqualToString:@"300"]){
+        } else {
+            if (error.code == 300) {
+                haveCollection=NO;
+            }
             
-            haveCollection=NO;
             [self.tableview reloadData];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
@@ -288,30 +266,15 @@
         NSMutableArray *delarr = [NSMutableArray array];
         [delarr addObject:dic[@"sharp_id"]];
         
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer=[AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Collection/delCollect"];
-        NSDictionary*para=@{@"authenticationStr":self.loginstate.userId,
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary*para = @{@"authenticationStr":self.loginstate.userId,
                             @"encryptedStr":self.str,
                             @"delete_ids":delarr,
                             @"module_id":@"2",
                             @"userid":self.loginstate.userId};
-        NSLog(@"%@",para);
-        [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
-            NSLog(@"%@",responseObject);
-            if ([code isEqualToString:@"200"]) {
-                NSArray*arr=responseObject[@"data"];
-                NSLog(@"%@",arr);
-                NSLog(@"删除成功");
-            }
-            else {
-                NSLog(@"删除失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"1");
-        }];
+        
+        [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
+        
         NSMutableArray*arr=[NSMutableArray arrayWithArray:CollectionArray];
         [arr removeObjectAtIndex:indexPath.row];
         CollectionArray=[NSMutableArray arrayWithArray:arr];

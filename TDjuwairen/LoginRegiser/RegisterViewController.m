@@ -12,6 +12,7 @@
 #import "SurveyViewController.h"
 #import "MBProgressHUD.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "NetworkManager.h"
 
 @interface RegisterViewController ()
 

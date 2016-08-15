@@ -363,6 +363,7 @@
 		191CB48E1D5C700C00E4AFB5 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
+		1924DFCF1D619EC500FEC383 /* NetworkDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
 		19252BF61D51E830003E5D18 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19252BF71D51E830003E5D18 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		19252BF81D51E830003E5D18 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -1015,6 +1016,7 @@
 			children = (
 				194131471D4604FD005AAB53 /* NetworkManager.h */,
 				194131481D4604FD005AAB53 /* NetworkManager.m */,
+				1924DFCF1D619EC500FEC383 /* NetworkDefine.h */,
 			);
 			path = Network;
 			sourceTree = "<group>";

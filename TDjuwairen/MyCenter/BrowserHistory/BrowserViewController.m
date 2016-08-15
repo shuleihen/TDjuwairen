@@ -14,6 +14,7 @@
 #import "EditView.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
+#import "NetworkManager.h"
 
 @interface BrowserViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -103,30 +104,14 @@
             [sharpId addObject:dic[@"sharp_id"]];
         }
         
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer=[AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Public/delBrowseHistory"];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *para = @{@"authenticationStr":self.loginstate.userId,
                                @"encryptedStr":self.str,
                                @"delete_ids":sharpId,
                                @"module_id":@"2",
                                @"userid":self.loginstate.userId};
         
-        [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
-            NSLog(@"%@",responseObject);
-            if ([code isEqualToString:@"200"]) {
-                NSArray*arr=responseObject[@"data"];
-                NSLog(@"%@",arr);
-                NSLog(@"删除成功");
-            }
-            else {
-                NSLog(@"删除失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"1");
-        }];
+        [manager POST:API_DelBrowseHistory parameters:para completion:^(id data, NSError *error){}];
         
         [self.BrowserArray removeObjectsInArray:self.delArray];
         
@@ -192,20 +177,16 @@
 //身份验证
 -(void)requestAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.loginstate.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary*dic = data;
             self.str=dic[@"str"];
+        } else {
+            
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
@@ -213,33 +194,26 @@
 -(void)requestBrowser
 {
     self.BrowserArray=[[NSMutableArray alloc]init];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Public/getBrowseHistory"];
-    NSDictionary*paras=@{@"userid":self.loginstate.userId};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*paras = @{@"userid":self.loginstate.userId};
+    
+    [manager POST:API_GetBrowseHistory parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             haveBrowser=YES;
-            NSArray*array=responseObject[@"data"];
-            NSDictionary*dic=array[1];
-            NSArray*arr=dic[@"List"];
+            NSArray*array = data;
+            NSDictionary*dic = array[1];
+            NSArray*arr = dic[@"List"];
             
             for (NSDictionary*dic in arr) {
-
+                
                 [self.BrowserArray insertObject:dic atIndex:0];
             }
             [self.tableview reloadData];
-        }
-        else if ([code isEqualToString:@"300"])
-        {
+        } else {
             haveBrowser=NO;
             [self.tableview reloadData];
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
@@ -301,29 +275,15 @@
         NSMutableArray *delarr = [NSMutableArray array];
         [delarr addObject:dic[@"sharp_id"]];
         
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer=[AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Public/delBrowseHistory"];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *para = @{@"authenticationStr":self.loginstate.userId,
                                @"encryptedStr":self.str,
                                @"delete_ids":delarr,
                                @"module_id":@"2",
                                @"userid":self.loginstate.userId};
-        NSLog(@"%@",para);
-        [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString *code = [responseObject objectForKey:@"code"];
-            NSLog(@"%@",responseObject);
-            if ([code isEqualToString:@"200"]) {
-//                NSArray*arr=responseObject[@"data"];
-                NSLog(@"删除成功");
-            }
-            else {
-                NSLog(@"删除失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            
-        }];
+        
+        [manager POST:API_DelBrowseHistory parameters:para completion:^(id data, NSError *error){}];
+        
         NSMutableArray *arr = [NSMutableArray arrayWithArray:self.BrowserArray];
         [arr removeObjectAtIndex:indexPath.row];
         self.BrowserArray = [NSMutableArray arrayWithArray:arr];

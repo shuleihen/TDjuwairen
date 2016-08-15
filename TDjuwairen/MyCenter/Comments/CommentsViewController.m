@@ -13,7 +13,7 @@
 #import "LoginState.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
-
+#import "NetworkManager.h"
 #import "UIScrollView+FCXRefresh.h"
 #import "MJRefresh.h"
 
@@ -96,40 +96,33 @@
 
 -(void)requestComments
 {
-    __weak CommentsViewController *wself = self;
-    AFHTTPRequestOperationManager*manager=[AFHTTPRequestOperationManager manager];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes=[NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/User/getUserComnment"];
-    NSDictionary*paras=@{@"userid":self.loginState.userId,
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*paras = @{@"userid":self.loginState.userId,
                          @"module_id":@"2",
                          @"page":[NSString stringWithFormat:@"%d",page]};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (page==1) {
-            [CommentsArray removeAllObjects];
-            NSString*code=[responseObject objectForKey:@"code"];
-            if ([code isEqualToString:@"400"]) {
-                haveComments=NO;
+    
+    [manager POST:API_GetUserComment parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            if (page == 1) {
+                [CommentsArray removeAllObjects];
             }
-        }
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
+            
             haveComments=YES;
-            NSArray*array=responseObject[@"data"];
+            NSArray*array = data;
             for (NSDictionary*dic in array) {
                 [CommentsArray addObject:dic];
             }
-            [wself.tableview.mj_header endRefreshing];
-            [wself.tableview.mj_footer endRefreshing];
-            [wself.tableview reloadData];
+            [self.tableview.mj_header endRefreshing];
+            [self.tableview.mj_footer endRefreshing];
+            [self.tableview reloadData];
+
+        } else {
+            if (error.code == 400) {
+                haveComments = NO;
+            }
+            [self.tableview reloadData];
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [wself.tableview.mj_header endRefreshing];
-        [wself.tableview.mj_footer endRefreshing];
-        [wself.tableview reloadData];
     }];
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView

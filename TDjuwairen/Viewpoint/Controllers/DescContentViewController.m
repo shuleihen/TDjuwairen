@@ -600,31 +600,24 @@
 #pragma mark - 点击收藏取消收藏
 - (void)addCollection{
     if (self.loginState.isLogIn) {
-        NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
-        NSDictionary *dic = @{@"userid":self.loginState.userId,
-                              @"module_id":@3,
-                              @"item_id":self.view_id};
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"添加收藏";
         
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject[@"code"] isEqualToString:@"200"]) {
-                //收藏成功 弹出提示框
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dic = @{@"userid":self.loginState.userId,
+                              @"module_id":@3,
+                              @"item_id":self.view_id};
+        
+        [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
                 hud.labelText = @"收藏成功";
                 [hud hide:YES afterDelay:0.2];
-                
+
             } else {
                 hud.labelText = @"收藏失败";
                 [hud hide:YES afterDelay:0.2];
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            hud.labelText = @"收藏失败";
-            [hud hide:YES afterDelay:0.2];
-            NSLog(@"请求失败");
         }];
     }
 }
@@ -635,30 +628,22 @@
     
     NSMutableArray *IDArr = [NSMutableArray array];
     [IDArr addObject:self.view_id];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Collection/delCollect"];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *para = @{@"authenticationStr":self.loginState.userId,
                            @"encryptedStr":self.encryptedStr,
                            @"delete_ids":IDArr,
                            @"module_id":@"3",
                            @"userid":self.loginState.userId};
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            
+    
+    [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
+        if (!error) {
             hud.labelText = @"取消成功";
             [hud hide:YES afterDelay:0.2];
-        }
-        else {
+        } else {
             hud.labelText = @"取消失败";
             [hud hide:YES afterDelay:0.2];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        hud.labelText = @"取消失败";
-        [hud hide:YES afterDelay:0.2];
-        NSLog(@"请求失败");
     }];
 }
 
@@ -756,41 +741,24 @@
 
 #pragma mark - 发送评论
 - (void)sendCommentWithText:(NSString *)text{
-    NSLog(@"%@",text);
-    NSString *urlPath = [NSString stringWithFormat:@"%@/View/addViewCommont1_2",kAPI_bendi];
-    NSDictionary *dic = @{@"comment_content":text,
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"发表评论";
+    
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NSDictionary *para = @{@"comment_content":text,
                           @"user_id":self.loginState.userId,
                           @"view_id":@"42",
                           @"comment_pid":@"38"};
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:urlPath parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:hud];
-        hud.labelText = @"评论成功";
-        hud.mode = MBProgressHUDModeText;
-        [hud showAnimated:YES whileExecutingBlock:^{
-            sleep(2);
-        } completionBlock:^{
+    
+    [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.1f];
-        }];
-
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        //
-        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
-        [self.view addSubview:hud];
-        hud.labelText = @"评论失败";
-        hud.mode = MBProgressHUDModeText;
-        [hud showAnimated:YES whileExecutingBlock:^{
-            sleep(2);
-        } completionBlock:^{
+        } else {
+            hud.labelText = @"评论失败";
             [hud hide:YES afterDelay:0.1f];
-        }];
+        }
     }];
-    
-    
 }
 
 #pragma mark - backcomment.delegate
@@ -888,20 +856,16 @@
 //身份验证
 -(void)requestAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *para = @{@"validatestring":self.loginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *code = [responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary *dic = responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
             self.encryptedStr = dic[@"str"];
+        } else {
+            
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 

@@ -17,6 +17,7 @@
 #import "NSString+Ext.h"
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"
+#import "NetworkManager.h"
 
 @interface ChildTableViewController ()
 {
@@ -67,8 +68,6 @@
 
 - (void)requestShowList:(int)typeID
 {
-    __weak ChildTableViewController *wself = self;
-    NSString *url = [NSString stringWithFormat:@"%@View/getUserViewList1_2",kAPI_bendi];
     NSDictionary *para ;
     if (typeID == 0) {
         para = @{@"user_id":self.loginState.userId,
@@ -83,16 +82,15 @@
                  @"page":[NSString stringWithFormat:@"%d",self.page]
                  };
     }
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([responseObject[@"code"] isEqualToString:@"200"]) {
-            NSArray *data = responseObject[@"data"];
-            if (data.count > 0 ) {
+    
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    [manager POST:API_GetUserViewList1_2 parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSArray *array = data;
+            if (array.count > 0 ) {
                 NSMutableArray *list = nil;
-                if (wself.page == 1) {
-                    list = [NSMutableArray arrayWithCapacity:[data count]];
+                if (self.page == 1) {
+                    list = [NSMutableArray arrayWithCapacity:[array count]];
                 }
                 else
                 {
@@ -102,22 +100,20 @@
                     ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:d];
                     [list addObject:model];
                 }
-                wself.listArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+                self.listArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
+        
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            [self.hud hide:YES afterDelay:0.1];
+            [self.tableView reloadData];
+        } else {
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            self.hud.labelText = @"加载失败";
+            [self.hud hide:YES afterDelay:0.1];
+            [self.tableView reloadData];
         }
-        
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-        [self.hud hide:YES afterDelay:0.1];
-        [self.tableView reloadData];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-        self.hud.labelText = @"加载失败";
-        [self.hud hide:YES afterDelay:0.1];
-        [self.tableView reloadData];
     }];
 }
 

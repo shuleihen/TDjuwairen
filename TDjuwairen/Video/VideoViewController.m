@@ -23,8 +23,9 @@
 #import "SearchViewController.h"
 
 #import "UIdaynightModel.h"
-
+#import "NetworkManager.h"
 #import "LoginState.h"
+
 @interface VideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     int page;
