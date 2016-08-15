@@ -16,7 +16,7 @@
         self.headImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 25, 25)];
         self.headImgView.layer.cornerRadius = 25/2;
         
-        self.nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15+25+15, 15, kScreenWidth-55, 20)];
+        self.nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(48, 15, kScreenWidth-55, 20)];
         self.nicknameLabel.textColor = [UIColor darkGrayColor];
         self.nicknameLabel.font = [UIFont systemFontOfSize:12];
         
@@ -25,6 +25,11 @@
         
         self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.font = [UIFont systemFontOfSize:16];
+        
+        self.lineLabel = [[UILabel alloc]init];
+        self.lineLabel.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
+        self.lineLabel.layer.borderWidth = 1;
+        [self addSubview:self.lineLabel];
         
         [self addSubview:self.headImgView];
         [self addSubview:self.nicknameLabel];

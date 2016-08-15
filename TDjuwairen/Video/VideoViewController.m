@@ -85,13 +85,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self.navigationController.navigationBar setHidden:YES];
-    
+
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+//    
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    
+    self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    self.NavigationView.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     [self.tableview reloadData];
 }
 
@@ -99,7 +100,8 @@
 {
     [super viewWillDisappear:animated];
     
-    [self.navigationController.navigationBar setHidden:NO];
+//    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 
@@ -177,13 +179,14 @@
 
 #pragma mark - 请求数据
 -(void)requestDataWithVideoList{
-    NSString *string = [NSString stringWithFormat:@"%@index.php/Sharp/VideoList/page/%d",API_HOST,page];
+//    NSString *string = [NSString stringWithFormat:@"%@VideoList/page/%d",kAPI_Sharp,page];
+    NSString *string = [NSString stringWithFormat:@"%@Sharp/VideoList/page/%d",kAPI_bendi,page];
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
     [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
         if (page == 1) {
-            //            [self.VideoListArray removeAllObjects];
+            
             if (isFirstRequest) {
                 NSArray *dataArray = responseObject[@"data"];
                 for (NSDictionary *d in dataArray) {

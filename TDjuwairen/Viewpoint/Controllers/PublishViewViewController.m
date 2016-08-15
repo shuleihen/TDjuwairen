@@ -43,13 +43,13 @@
 @property (nonatomic,strong) UITextView *contentText;
 @property (nonatomic,strong) BottomEdit *bottomView;
 @property (nonatomic,strong) SecondEdit *secondView;
-
-@property (nonatomic,strong) UIView *SelSecView;
-
 @property (nonatomic,strong) EditZiti *editziti;
 
 @property (nonatomic,strong) NSMutableArray *imglocArr;
 @property (nonatomic,strong) NSMutableArray *upimgArr;
+
+@property (nonatomic,strong) UIView *SelSecView;
+
 
 @end
 
@@ -101,12 +101,16 @@
 - (void)setupWithScrollview{
     self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-40)];
     
-    self.scrollview.backgroundColor = self.daynightmodel.backColor;
+    self.scrollview.backgroundColor = self.daynightmodel.navigationColor;
     [self.view addSubview:self.scrollview];
 }
 
 - (void)setupWithTitleText{
-    self.titleText = [[UITextField alloc]initWithFrame:CGRectMake(-1, 0, kScreenWidth+2, 40)];
+    self.titleText = [[UITextField alloc]initWithFrame:CGRectMake(-1, 0, kScreenWidth, 40)];
+    self.titleText.rightView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 70, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.titleText.rightViewMode = UITextFieldViewModeAlways;
+    
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
     if ([daynight isEqualToString:@"yes"]) {
@@ -130,15 +134,19 @@
     self.titleText.layer.borderWidth = 1;
     self.titleText.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
     
-    self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 0, 40, 40)];
+    self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 5, 40, 30)];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select.png"] forState:UIControlStateNormal];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select_pre.png"] forState:UIControlStateSelected];
     self.originalBtn.selected = YES;//默认为原创
+    [self.originalBtn setBackgroundColor:self.daynightmodel.navigationColor];
     [self.originalBtn addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
-    UILabel *originalLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-40, 0, 40, 40)];
-    originalLabel.text = @"原创";
-    originalLabel.textColor = self.daynightmodel.titleColor;
+    UIButton *originalLabel = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-40, 5, 40, 30)];
+    originalLabel.titleLabel.font = [UIFont systemFontOfSize:16];
+    [originalLabel setTitle:@"原创" forState:UIControlStateNormal];
+    [originalLabel setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
+    [originalLabel setBackgroundColor:self.daynightmodel.navigationColor];
+    [originalLabel addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.scrollview addSubview:self.titleText];
     [self.scrollview addSubview:self.originalBtn];
@@ -181,13 +189,15 @@
         //保存
         
         [self.navigationController popViewControllerAnimated:YES];
-        [self.tabBarController.tabBar setHidden:NO];
+//        [self.tabBarController.tabBar setHidden:NO];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *giveup = [UIAlertAction actionWithTitle:@"放弃编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //
         [self.navigationController popViewControllerAnimated:YES];
-        [self.tabBarController.tabBar setHidden:NO];
+//        [self.tabBarController.tabBar setHidden:NO];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -205,13 +215,13 @@
 
 #pragma mark - 是否原创
 - (void)isOriginal:(UIButton *)sender{
-    if (sender.selected == YES) {
-        sender.selected = NO;
+    if (self.originalBtn.selected == YES) {
+        self.originalBtn.selected = NO;
         isoriginal = @"0";
     }
     else
     {
-        sender.selected = YES;
+        self.originalBtn.selected = YES;
         isoriginal = @"1";
     }
 }
@@ -222,10 +232,13 @@
     int num = (int)sender.tag;
     if (num == 0) {
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
+            sender.selected = YES;
             [self.view endEditing:YES];
+            
         }
         else
         {
+            sender.selected = NO;
             [self.titleText becomeFirstResponder];
         }
     }
@@ -242,11 +255,25 @@
     }
     else if (num == 2){
         if ([self.titleText isFirstResponder]) {
-            self.titleText.text = currentTitle;
+            if ([currentTitle isEqualToString:@""] || currentTitle == nil) {
+                
+            }
+            else
+            {
+                self.titleText.text = currentTitle;
+            }
+            
         }
         else
         {
-            self.contentText.text = currentDesc;
+            if ([currentDesc isEqualToString:@""] || currentDesc == nil) {
+                
+            }
+            else
+            {
+                self.contentText.text = currentDesc;
+            }
+            
         }
     }
     else if (num ==3){
@@ -262,8 +289,8 @@
     else if (num == 4){
         [self.SelSecView removeFromSuperview];//移除子视图
         //插入
-        NSArray *imgArr = @[@"btn_lianjie@3x.png",@"btn_img@3x.png",@"btn_biaoqian"];
-        NSArray *textArr = @[@"链接",@"图片",@"股票"];
+        NSArray *imgArr = @[@"btn_img@3x.png",@"btn_biaoqian"];
+        NSArray *textArr = @[@"图片",@"股票"];
         self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
         self.secondView.backgroundColor = self.daynightmodel.navigationColor;
         self.secondView.delegate = self;
@@ -406,6 +433,9 @@
     }
     else if ([sender.textLabel.text isEqualToString:@"股票"]){
         //插入股票
+        [self.SelSecView removeFromSuperview];
+        
+        
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
@@ -639,7 +669,8 @@
     NSString *updateurl = [NSString stringWithFormat:@"%@View/upViewContenPic1_2",kAPI_bendi];
     [manager POST:updateurl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = Photo;
-        NSData*data=UIImagePNGRepresentation(image);
+//        NSData*data = UIImagePNGRepresentation(image);
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
         
         NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";

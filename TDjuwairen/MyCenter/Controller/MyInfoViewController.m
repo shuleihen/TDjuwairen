@@ -88,7 +88,8 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController.navigationBar setHidden:YES];
+//    [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
 }

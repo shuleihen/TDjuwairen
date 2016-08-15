@@ -105,6 +105,7 @@
 		840E34FE1D5D5EE200C0BF46 /* ViewInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 840E34FD1D5D5EE200C0BF46 /* ViewInfoModel.m */; };
 		840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */; };
 		840E35091D5DD70700C0BF46 /* ResponsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */; };
+		841C43B01D61A8B500FCFE0D /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 841C43AF1D61A8B500FCFE0D /* SurveyViewController.m */; };
 		842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842387701D49B8AF00671404 /* UIdaynightModel.m */; };
 		8427BE471CF29D0600E750E9 /* TitlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427BE451CF29D0600E750E9 /* TitlesTableViewCell.m */; };
 		8427F7371D582AF00073AB7F /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427F7361D582AF00073AB7F /* CommentsCell.m */; };
@@ -291,7 +292,6 @@
 		84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */; };
 		84E334051CE2BA3E00E5DCEE /* TDjuwairenTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334041CE2BA3E00E5DCEE /* TDjuwairenTests.m */; };
 		84E334101CE2BA3E00E5DCEE /* TDjuwairenUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E3340F1CE2BA3E00E5DCEE /* TDjuwairenUITests.m */; };
-		84E334261CE2BC2D00E5DCEE /* SurveyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334251CE2BC2D00E5DCEE /* SurveyViewController.m */; };
 		84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334431CE3123700E5DCEE /* MKAnnotationView+WebCache.m */; };
 		84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334451CE3123700E5DCEE /* NSData+ImageContentType.m */; };
 		84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334471CE3123700E5DCEE /* SDImageCache.m */; };
@@ -522,6 +522,8 @@
 		840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppLoginImg.png; sourceTree = "<group>"; };
 		840E35071D5DD70700C0BF46 /* ResponsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponsListTableViewCell.h; sourceTree = "<group>"; };
 		840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsListTableViewCell.m; sourceTree = "<group>"; };
+		841C43AE1D61A8B500FCFE0D /* SurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyViewController.h; sourceTree = "<group>"; };
+		841C43AF1D61A8B500FCFE0D /* SurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyViewController.m; sourceTree = "<group>"; };
 		8423876F1D49B8AF00671404 /* UIdaynightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdaynightModel.h; sourceTree = "<group>"; };
 		842387701D49B8AF00671404 /* UIdaynightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdaynightModel.m; sourceTree = "<group>"; };
 		8427BE441CF29D0600E750E9 /* TitlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlesTableViewCell.h; sourceTree = "<group>"; };
@@ -807,8 +809,6 @@
 		84E3340B1CE2BA3E00E5DCEE /* TDjuwairenUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TDjuwairenUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E3340F1CE2BA3E00E5DCEE /* TDjuwairenUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TDjuwairenUITests.m; sourceTree = "<group>"; };
 		84E334111CE2BA3E00E5DCEE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		84E334241CE2BC2D00E5DCEE /* SurveyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyViewController.h; path = ../Views/SurveyViewController.h; sourceTree = "<group>"; };
-		84E334251CE2BC2D00E5DCEE /* SurveyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveyViewController.m; path = ../Views/SurveyViewController.m; sourceTree = "<group>"; };
 		84E334401CE3037200E5DCEE /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		84E334421CE3123700E5DCEE /* MKAnnotationView+WebCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MKAnnotationView+WebCache.h"; sourceTree = "<group>"; };
 		84E334431CE3123700E5DCEE /* MKAnnotationView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MKAnnotationView+WebCache.m"; sourceTree = "<group>"; };
@@ -1322,6 +1322,15 @@
 			path = MyCenter;
 			sourceTree = "<group>";
 		};
+		841C43AD1D61A8B500FCFE0D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				841C43AE1D61A8B500FCFE0D /* SurveyViewController.h */,
+				841C43AF1D61A8B500FCFE0D /* SurveyViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		8427BE3D1CF293E700E750E9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
@@ -1773,8 +1782,8 @@
 		84E3341D1CE2BB4500E5DCEE /* Survey */ = {
 			isa = PBXGroup;
 			children = (
+				841C43AD1D61A8B500FCFE0D /* Controllers */,
 				842B35ED1CE9779300C6E400 /* Cells */,
-				84E334211CE2BBF800E5DCEE /* Controllers */,
 				84E334221CE2BBF800E5DCEE /* Models */,
 				84E334231CE2BBF800E5DCEE /* Views */,
 			);
@@ -1826,15 +1835,6 @@
 				84E334411CE3123700E5DCEE /* SDWebImage */,
 			);
 			path = Tools;
-			sourceTree = "<group>";
-		};
-		84E334211CE2BBF800E5DCEE /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				84E334241CE2BC2D00E5DCEE /* SurveyViewController.h */,
-				84E334251CE2BC2D00E5DCEE /* SurveyViewController.m */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		84E334221CE2BBF800E5DCEE /* Models */ = {
@@ -2210,7 +2210,7 @@
 				TargetAttributes = {
 					84E333E61CE2BA3D00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = V9B4FLHXSX;
+						DevelopmentTeam = 64Z8366B65;
 						DevelopmentTeamName = "Zhejiang LianLian YunTong Co.,Ltd";
 						ProvisioningStyle = Automatic;
 					};
@@ -2417,6 +2417,7 @@
 				84CC34981CEAFE8B00193D9C /* FCXRefreshHeaderView.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				842B36261CE995D500C6E400 /* UIButton+AFNetworking.m in Sources */,
+				841C43B01D61A8B500FCFE0D /* SurveyViewController.m in Sources */,
 				845CCB921D4EEB4E005ABD7B /* SecondEdit.m in Sources */,
 				846E514E1D41A93000B89A53 /* MyInfomationTableViewCell.m in Sources */,
 				1968431C1D49FEED0023A0FC /* SharpModel.m in Sources */,
@@ -2485,7 +2486,6 @@
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				842B361F1CE995D500C6E400 /* AFURLConnectionOperation.m in Sources */,
 				846E51621D41BCAC00B89A53 /* RegisterViewController.m in Sources */,
-				84E334261CE2BC2D00E5DCEE /* SurveyViewController.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
 				842B362E1CE9B29200C6E400 /* SurveyNavigationView.m in Sources */,
 				846E514C1D41A93000B89A53 /* ManageButtonTableViewCell.m in Sources */,
@@ -2744,7 +2744,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2d15534b-8cd4-48da-a5d4-e8d214ca3025";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 			};
 			name = Debug;
@@ -2776,7 +2776,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "2d15534b-8cd4-48da-a5d4-e8d214ca3025";
 			};
 			name = Release;
 		};

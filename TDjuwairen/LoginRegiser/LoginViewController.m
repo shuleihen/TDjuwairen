@@ -18,10 +18,12 @@
 #import "YXCheckBox.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
+#import "UIdaynightModel.h"
 
 @interface LoginViewController ()
 
 @property (nonatomic,strong) LoginState *loginState;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) IBOutlet UITextField *accountText;
 @property (nonatomic,strong) IBOutlet UITextField *passwordText;
 @property (strong, nonatomic) IBOutlet YXCheckBox *passwordCheckBox;
@@ -36,6 +38,7 @@
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
     self.loginState = [LoginState addInstance];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -60,6 +63,9 @@
     //设置右边注册按钮
     UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleDone target:self action:@selector(registerPressed:)];
     self.navigationItem.rightBarButtonItem = regist;
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
+    
 }
 
 - (void)registerPressed:(UIButton *)sender

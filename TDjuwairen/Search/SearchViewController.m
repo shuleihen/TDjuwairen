@@ -277,7 +277,7 @@
                 if (cell == nil) {
                     cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                 }
-                cell.imgview.image = [UIImage imageNamed:@"调研－未选中@3x.png"];
+                cell.imgview.image = [UIImage imageNamed:@"SurveyUnSelect.png"];
                 cell.headlabel.text = @"相关调研";
                 
                 /* cell的选中样式为无色 */
@@ -327,7 +327,7 @@
                 if (cell == nil) {
                     cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                 }
-                cell.imgview.image = [UIImage imageNamed:@"观点－未选中@3x.png"];
+                cell.imgview.image = [UIImage imageNamed:@"ViewPointUnSelect.png"];
                 cell.headlabel.text = @"相关观点";
                 /* cell的选中样式为无色 */
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -378,7 +378,7 @@
                 if (cell == nil) {
                     cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                 }
-                cell.imgview.image = [UIImage imageNamed:@"视频－未选中@3x.png"];
+                cell.imgview.image = [UIImage imageNamed:@"VideoUnSelect.png"];
                 cell.headlabel.text = @"相关视频";
                 /* cell的选中样式为无色 */
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -522,6 +522,7 @@
                     SurveyListModel *model = self.researchdata[indexPath.row-1];
                     SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
                     DetailView.sharp_id = model.sharp_id;
+                    
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
                 }
@@ -623,8 +624,13 @@
 {
     [super viewWillAppear:animated];
     /* 成为第一响应者 */
-    [self.navigationController.navigationBar setHidden:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     [self.customSearchBar becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 拖动的时候释放第一响应

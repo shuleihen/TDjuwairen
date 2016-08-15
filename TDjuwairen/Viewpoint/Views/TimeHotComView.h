@@ -22,7 +22,7 @@
 @property (nonatomic,strong) UIButton *hotBtn;
 
 @property (nonatomic,strong) UIButton *louzhu;
-@property (nonatomic,strong) UILabel *just;
+@property (nonatomic,strong) UIButton *just;
 
 @property (nonatomic,assign) id<TimeHotComViewDelegate>delegate;
 @end

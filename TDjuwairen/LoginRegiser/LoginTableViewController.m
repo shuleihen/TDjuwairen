@@ -55,7 +55,8 @@
 {
     [super viewWillAppear:animated];
     [self setNavgation];
-    [self.navigationController.navigationBar setHidden:NO];
+//    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 

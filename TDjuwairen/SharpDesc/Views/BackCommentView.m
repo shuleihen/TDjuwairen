@@ -45,7 +45,7 @@
     [self.backComment setBackgroundColor:[UIColor clearColor]];
     
     self.ClickComment = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100+20, 15, 20, 20)];
-    [self.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+    [self.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
     
     /* 分享按钮 */
     self.backShare = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 0, 50, 50)];
