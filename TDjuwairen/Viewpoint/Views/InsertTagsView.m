@@ -22,20 +22,29 @@
         self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
         self.tagList.BGColor = [UIColor clearColor];
         
-        self.tagsText = [[UITextField alloc]initWithFrame:CGRectMake(15, 50, kScreenWidth-80-15, 30)];
+        self.tagsText = [[UITextField alloc]initWithFrame:CGRectMake(15, 50, kScreenWidth-100-15-15, 30)];
         self.tagsText.layer.cornerRadius = 5;
         self.tagsText.layer.borderWidth = 0.5;
         
-        UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 50, 80, 30)];
+        UIButton *send = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-90, 50, 40, 30)];
         send.layer.cornerRadius = 5;
         send.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+        send.titleLabel.font = [UIFont systemFontOfSize:14];
         [send setTitle:@"添加" forState:UIControlStateNormal];
         [send addTarget:self action:@selector(addTags:) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIButton *clear = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-40, 50, 40, 30)];
+        clear.layer.cornerRadius = 5;
+        clear.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+        clear.titleLabel.font = [UIFont systemFontOfSize:14];
+        [clear setTitle:@"删除" forState:UIControlStateNormal];
+        [clear addTarget:self action:@selector(clearTags:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.tagScroll addSubview:self.tagList];
         [self addSubview:self.tagScroll];
         [self addSubview:self.tagsText];
         [self addSubview:send];
+        [self addSubview:clear];
     }
     return self;
 }
@@ -43,6 +52,22 @@
 - (void)addTags:(UIButton *)sender{
     if (![self.tagsText.text isEqualToString:@""]) {
         [self.listArr addObject:self.tagsText.text];
+        for(UIView *view in [self.tagList subviews])
+        {
+            [view removeFromSuperview];
+        }
+        [self.tagList setTagWithTagArray:self.listArr];
+        self.tagScroll.contentSize = self.tagList.frame.size;
+    }
+}
+
+- (void)clearTags:(UIButton *)sender{
+    if (self.listArr.count > 0) {
+        [self.listArr removeLastObject];
+        for(UIView *view in [self.tagList subviews])
+        {
+            [view removeFromSuperview];
+        }
         [self.tagList setTagWithTagArray:self.listArr];
         self.tagScroll.contentSize = self.tagList.frame.size;
     }

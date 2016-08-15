@@ -907,11 +907,14 @@
 
 //当键盘隐藏时
 - (void)keyboardWillBeHidden{
-        self.backcommentview.transform = CGAffineTransformIdentity;
+//    if (self.inputView) {
+//        <#statements#>
+//    }
+    self.backcommentview.transform = CGAffineTransformIdentity;
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
-        self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
+    self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
 }
 
 - (void)viewDidDisappear:(BOOL)animated

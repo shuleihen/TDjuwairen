@@ -977,13 +977,14 @@
 }
 
 - (void)keyboardWillBeHidden{
-        self.backcommentview.transform = CGAffineTransformIdentity;
-        self.tableview.transform = CGAffineTransformIdentity;
+    
+    self.backcommentview.transform = CGAffineTransformIdentity;
+    self.tableview.transform = CGAffineTransformIdentity;
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
-        self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
-        self.tableview.transform = CGAffineTransformMakeTranslation(0, -height);
+    self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
+    self.tableview.transform = CGAffineTransformMakeTranslation(0, -height);
 }
 
 #pragma mark - 浮窗的代理方法

@@ -51,6 +51,7 @@
 @property (nonatomic,strong) NSMutableArray *upimgArr;
 
 @property (nonatomic,strong) UIView *SelSecView;
+@property (nonatomic,strong) UIButton *selBtnEdit;
 
 
 @end
@@ -235,12 +236,14 @@
     if (num == 0) {
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
             sender.selected = YES;
+            self.selBtnEdit = sender;
             [self.view endEditing:YES];
             
         }
         else
         {
             sender.selected = NO;
+            self.selBtnEdit = sender;
             [self.titleText becomeFirstResponder];
         }
     }
@@ -437,7 +440,7 @@
     else if ([sender.textLabel.text isEqualToString:@"股票"]){
         //插入股票
         [self.SelSecView removeFromSuperview];
-        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 80)];
+        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 80)];
         self.tagsview.backgroundColor = self.daynightmodel.backColor;
         self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
         self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
@@ -498,10 +501,11 @@
 }
 
 - (void)keyboardWillBeHidden{
+    [self.SelSecView removeFromSuperview];
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformIdentity;
         self.scrollview.transform = CGAffineTransformIdentity;
-        [self.secondView removeFromSuperview];
+        
     }];
 }
 
@@ -812,6 +816,7 @@
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
+    
     [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
         NSLog(@"%@",responseObject);
         hud.labelText = @"保存成功";
@@ -822,6 +827,7 @@
         hud.labelText = @"保存失败";
         [hud hide:YES afterDelay:0.1];
     }];
+
 }
 
 #pragma mark - 发布文章
@@ -855,11 +861,11 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
     NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
-    NSDictionary*para=@{@"userid":self.loginState.userId,
-                        @"isOrigin":isoriginal,
-                        @"title":self.titleText.text,
-                        @"is_publish":@"1",
-                        @"viewcontent":htmlstring};
+    NSDictionary *para = @{@"userid":self.loginState.userId,
+                           @"isOrigin":isoriginal,
+                           @"title":self.titleText.text,
+                           @"is_publish":@"1",
+                           @"viewcontent":htmlstring};
     
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
