@@ -181,13 +181,15 @@
         //保存
         
         [self.navigationController popViewControllerAnimated:YES];
-        [self.tabBarController.tabBar setHidden:NO];
+//        [self.tabBarController.tabBar setHidden:NO];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *giveup = [UIAlertAction actionWithTitle:@"放弃编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //
         [self.navigationController popViewControllerAnimated:YES];
-        [self.tabBarController.tabBar setHidden:NO];
+//        [self.tabBarController.tabBar setHidden:NO];
+        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
@@ -639,7 +641,8 @@
     NSString *updateurl = [NSString stringWithFormat:@"%@View/upViewContenPic1_2",kAPI_bendi];
     [manager POST:updateurl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = Photo;
-        NSData*data=UIImagePNGRepresentation(image);
+//        NSData*data = UIImagePNGRepresentation(image);
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
         
         NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";

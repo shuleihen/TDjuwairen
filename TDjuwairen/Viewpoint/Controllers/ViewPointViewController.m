@@ -425,7 +425,8 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController.navigationBar setHidden:NO];
+//    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
