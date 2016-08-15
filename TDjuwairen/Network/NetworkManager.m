@@ -53,8 +53,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"GET"
                                                         URLString:URLString
                                                        parameters:parameters
-                                                   uploadProgress:nil
-                                                 downloadProgress:downloadProgress
+                                        constructingBodyWithBlock:nil
                                                        completion:completion];
     
     [dataTask resume];
@@ -77,8 +76,23 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST"
                                                         URLString:URLString
                                                        parameters:parameters
-                                                   uploadProgress:uploadProgress
-                                                 downloadProgress:nil
+                                        constructingBodyWithBlock:nil
+                                                       completion:completion];
+    
+    [dataTask resume];
+    
+    return dataTask;
+}
+
+- (NSURLSessionDataTask *)POST:(NSString *)URLString
+                    parameters:(id)parameters
+     constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
+                    completion:(void (^)(id data, NSError *error))completion
+{
+    NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST"
+                                                        URLString:URLString
+                                                       parameters:parameters
+                                        constructingBodyWithBlock:block
                                                        completion:completion];
     
     [dataTask resume];
@@ -89,26 +103,16 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
 - (NSURLSessionDataTask *)dataTaskWithHTTPMethod:(NSString *)method
                                        URLString:(NSString *)URLString
                                       parameters:(id)parameters
-                                  uploadProgress:(nullable void (^)(NSProgress *uploadProgress)) uploadProgress
-                                downloadProgress:(nullable void (^)(NSProgress *downloadProgress)) downloadProgress
+                       constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
                                       completion:(void (^)(id data, NSError *error))completion
 {
     NSAssert(completion, @"completion is can not nil");
     
-    NSError *serializationError = nil;
-    NSMutableURLRequest *request = [self.manager.requestSerializer requestWithMethod:method URLString:[[NSURL URLWithString:URLString relativeToURL:self.manager.baseURL] absoluteString] parameters:parameters error:&serializationError];
-    if (serializationError) {
-        if (completion) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wgnu"
-            dispatch_async(dispatch_get_main_queue(), ^{
-                completion(nil, serializationError);
-            });
-#pragma clang diagnostic pop
-        }
-        
-        return nil;
-    }
+    NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:@"POST"
+                                                                                        URLString:[[NSURL URLWithString:URLString relativeToURL:self.manager.baseURL] absoluteString]
+                                                                                       parameters:parameters
+                                                                        constructingBodyWithBlock:block
+                                                                                            error:nil];
     
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request

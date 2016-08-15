@@ -13,6 +13,7 @@
 #import "MyInfomationTableViewCell.h"
 #import "AFNetworking.h"
 #import "ELCImagePickerController.h"
+#import "NetworkManager.h"
 
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
@@ -69,21 +70,16 @@
 }
 
 - (void)getValidation{
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para = @{@"validatestring":self.loginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString *code = [responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary *dic = responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
             self.str = dic[@"str"];
+        } else {
+            
         }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"网络错误，身份验证失败");
     }];
 }
 
@@ -221,26 +217,19 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateUsername/"];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.loginState.userId,
                          @"username":cell.textfield.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改用户名成功");
+    
+    [manager POST:API_UpdateUserName parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             self.loginState.userName = cell.textfield.text;
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"修改用户名失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
 }
 
@@ -249,28 +238,20 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateCompanyName/"];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.loginState.userId,
                          @"CompanyName":cell.textfield.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改公司成功");
-            self.loginState.company=cell.textfield.text;
-        }
-        else
-        {
-            NSLog(@"修改公司失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
     
+    [manager POST:API_UpdateCompanyName parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            self.loginState.company=cell.textfield.text;
+        } else {
+            
+        }
+    }];
 }
 
 #pragma mark-修改职务
@@ -278,28 +259,20 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateOccupationName/"];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.loginState.userId,
                          @"occupationName":cell.textfield.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改职务成功");
-            self.loginState.post=cell.textfield.text;
-        }
-        else
-        {
-            NSLog(@"修改职务失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
     
+    [manager POST:API_UpdateOccupationName parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            self.loginState.post=cell.textfield.text;
+        } else {
+            
+        }
+    }];
 }
 
 #pragma mark-修改个人简介
@@ -307,28 +280,20 @@
 {
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:0];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/updateUserinfo/"];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.loginState.userId,
                          @"Userinfo":cell.textfield.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"修改个人简介成功");
-            self.loginState.personal = cell.textfield.text;
-        }
-        else
-        {
-            NSLog(@"修改个人简介失败");
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
     
+    [manager POST:API_UpdateUserInfo parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            self.loginState.personal = cell.textfield.text;
+        } else {
+            
+        }
+    }];
 }
 
 //打开相机
@@ -397,37 +362,28 @@
 //上传头像
 -(void)requestHead
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*para=@{@"validatestring":self.loginState.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic=responseObject[@"data"];
-            self.str=dic[@"str"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            self.str = dic[@"str"];
             [self requestUploadHeadImage];
+        } else {
+            
         }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
     }];
-    
 }
 
 -(void)requestUploadHeadImage
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/userfaceImgUp/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.loginState.userId};
-    [manager POST:url parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+    [manager POST:API_UploadUserface parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = self.headImage;
         NSData*data=UIImagePNGRepresentation(image);
         
@@ -438,20 +394,17 @@
         
         [formData appendPartWithFileData:data name:self.loginState.userId fileName:fileName mimeType:@"image/png"];
         
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSLog(@"上传成功！");
-        NSDictionary *dic = responseObject[@"data"];
-        self.loginState.headImage = dic[@"userinfo_facesmall"];
-        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [aler addAction:conformAction];
-        [self presentViewController:aler animated:YES completion:nil];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"上传失败！");
+    } completion:^(id data, NSError *error) {
+        if (!error) {
+            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            [aler addAction:conformAction];
+            [self presentViewController:aler animated:YES completion:nil];
+        } else {
+            
+        }
     }];
 }
 

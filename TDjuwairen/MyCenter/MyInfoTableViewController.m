@@ -427,15 +427,13 @@
 }
 
 -(void)requestUploadHeadImage
-{    
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/userfaceImgUp/"];
+{
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":self.LoginState.userId,
                          @"encryptedStr":self.str,
                          @"userid":self.LoginState.userId};
-    [manager POST:url parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+    [manager POST:API_UploadUserface parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image=headImage;
         NSData*data=UIImagePNGRepresentation(image);
         
@@ -446,18 +444,17 @@
         
         [formData appendPartWithFileData:data name:self.LoginState.userId fileName:fileName mimeType:@"image/png"];
         
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        NSLog(@"上传成功！");
-        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self.navigationController popViewControllerAnimated:YES];
-        }];
-        [aler addAction:conformAction];
-        [self presentViewController:aler animated:YES completion:nil];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"上传失败！");
+    } completion:^(id data, NSError *error) {
+        if (!error) {
+            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            [aler addAction:conformAction];
+            [self presentViewController:aler animated:YES completion:nil];
+        } else {
+            
+        }
     }];
 }
 @end
