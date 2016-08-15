@@ -86,7 +86,7 @@
 {
     [super viewWillAppear:animated];
 
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
 //    
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
@@ -100,8 +100,7 @@
 {
     [super viewWillDisappear:animated];
     
-//    [self.navigationController.navigationBar setHidden:NO];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 
