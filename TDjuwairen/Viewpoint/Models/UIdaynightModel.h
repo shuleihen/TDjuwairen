@@ -21,6 +21,8 @@
 
 @property (nonatomic,strong) UIColor *lineColor;//分割线颜色
 
+@property (nonatomic,strong) UIColor *inputColor;//输入框颜色
+
 
 /**
  * 创建单例对象

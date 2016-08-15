@@ -28,6 +28,7 @@
     self.navigationColor = [UIColor whiteColor];
     self.backColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
     self.lineColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0];
+    self.inputColor = [UIColor whiteColor];
 }
 
 - (void)night
@@ -37,6 +38,7 @@
     self.navigationColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
     self.backColor = [UIColor colorWithRed:47/255.0 green:48/255.0 blue:49/255.0 alpha:1.0];
     self.lineColor = [UIColor colorWithRed:47/255.0 green:48/255.0 blue:49/255.0 alpha:1.0];
+    self.inputColor = [UIColor colorWithRed:76/255.0 green:76/255.0 blue:76/255.0 alpha:1.0];
 }
 
 @end

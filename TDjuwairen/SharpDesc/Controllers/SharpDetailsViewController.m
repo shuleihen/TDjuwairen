@@ -243,7 +243,7 @@
 {
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
     self.backcommentview.delegate = self;
-
+    self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.commentview.delegate = self;
     
     [self.view addSubview:self.backcommentview];

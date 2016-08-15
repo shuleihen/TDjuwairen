@@ -13,6 +13,7 @@
 #import "EditZiti.h"
 #import "LoginState.h"
 #import "PreviewViewController.h"
+#import "InsertTagsView.h"
 
 #import "NSString+Ext.h"
 #import "PhotoTextAttachment.h"
@@ -44,6 +45,7 @@
 @property (nonatomic,strong) BottomEdit *bottomView;
 @property (nonatomic,strong) SecondEdit *secondView;
 @property (nonatomic,strong) EditZiti *editziti;
+@property (nonatomic,strong) InsertTagsView *tagsview;
 
 @property (nonatomic,strong) NSMutableArray *imglocArr;
 @property (nonatomic,strong) NSMutableArray *upimgArr;
@@ -396,6 +398,7 @@
         //插入链接
     }
     else if ([sender.textLabel.text isEqualToString:@"图片"]){
+        [self.SelSecView removeFromSuperview];
         //插入图片
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
         
@@ -434,7 +437,13 @@
     else if ([sender.textLabel.text isEqualToString:@"股票"]){
         //插入股票
         [self.SelSecView removeFromSuperview];
+        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 80)];
+        self.tagsview.backgroundColor = self.daynightmodel.backColor;
+        self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
+        self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+        self.SelSecView = self.tagsview;
         
+        [self.view addSubview:self.tagsview];
         
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
