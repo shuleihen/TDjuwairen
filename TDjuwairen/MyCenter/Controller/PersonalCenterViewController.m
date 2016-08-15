@@ -17,13 +17,14 @@
 #import "SettingTableViewController.h"
 #import "FeedbackViewController.h"
 #import "ViewManagerViewController.h"
+#import "DaynightCellTableViewCell.h"
 
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
 #import "BrowserViewController.h"
 #import "UIdaynightModel.h"
 
-@interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
 @property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -41,21 +42,8 @@
     self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    NSString *mod ;
-    NSString *img ;
-    if ([daynight isEqualToString:@"yes"]) {
-        mod = @"夜间模式";
-        img = @"btn_yejian@3x.png";
-    }
-    else
-    {
-        mod = @"日间模式";
-        img = @"btn_night_rijian@3x.png";
-    }
-    self.setupImgArr = @[img,@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
-    self.setupTitleArr = @[mod,@"观点管理",@"设置",@"反馈意见"];
+    self.setupImgArr = @[@"btn_yejian@3x.png",@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
+    self.setupTitleArr = @[@"夜间模式",@"观点管理",@"设置",@"反馈意见"];
     
     [self setupWithTableView];
     // Do any additional setup after loading the view.
@@ -119,18 +107,46 @@
     }
     else
     {
-        NSString *identifier = @"setup";
-        SetUpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[SetUpTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-        }
-        cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
-        cell.title.text = self.setupTitleArr[indexPath.row];
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         
-        cell.backgroundColor = self.daynightmodel.navigationColor;
-        cell.title.textColor = self.daynightmodel.textColor;
-        return cell;
+        
+        if (indexPath.row == 0) {
+            NSString *identifier = @"dn";
+            DaynightCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[DaynightCellTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+            NSString *daynight = [userdefault objectForKey:@"daynight"];
+            if ([daynight isEqualToString:@"yes"]) {
+                [cell.mySwitch setOn:NO];
+            }
+            else
+            {
+                [cell.mySwitch setOn:YES];
+            }
+            cell.delegate = self;
+            cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
+            cell.title.text = self.setupTitleArr[indexPath.row];
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            cell.title.textColor = self.daynightmodel.textColor;
+            return cell;
+        }
+        else
+        {
+            NSString *identifier = @"setup";
+            SetUpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[SetUpTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
+            cell.title.text = self.setupTitleArr[indexPath.row];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            cell.title.textColor = self.daynightmodel.textColor;
+            return cell;
+        }
+        
     }
 }
 
@@ -185,7 +201,7 @@
     }
     else if (indexPath.section == 1)
     {
-        if (indexPath.row == 0) {
+        if (indexPath.row == 1) {
             //跳转到观点管理
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
@@ -200,7 +216,7 @@
             }
             
         }
-        else if (indexPath.row == 1) {
+        else if (indexPath.row == 2) {
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
                 LoginViewController *login = [[LoginViewController alloc] init];
@@ -213,7 +229,7 @@
                 [self.navigationController pushViewController:Setting animated:YES];
             }
         }
-        else
+        else if(indexPath.row == 3)
         {
             if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
@@ -313,6 +329,39 @@
         [self.navigationController pushViewController:browser animated:YES];
     }
 }
+
+- (void)updateSwitchAtIndexPath:(id)sender
+{
+    UISwitch *switchView = (UISwitch *)sender;
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    
+    if ([switchView isOn])
+    {
+        //do something..
+        NSLog(@"开");
+        [self.daynightmodel night];
+        daynight = @"no";
+        [userdefault setValue:daynight forKey:@"daynight"];
+        [userdefault synchronize];
+        self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        self.tableview.backgroundColor = self.daynightmodel.backColor;
+        [self.tableview reloadData];
+    }
+    else
+    {
+        //do something
+        NSLog(@"关");
+        [self.daynightmodel day];
+        daynight = @"yes";
+        [userdefault setValue:daynight forKey:@"daynight"];
+        [userdefault synchronize];
+        self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        self.tableview.backgroundColor = self.daynightmodel.backColor;
+        [self.tableview reloadData];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

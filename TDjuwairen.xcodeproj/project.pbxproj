@@ -276,6 +276,7 @@
 		84CC34971CEAFE8B00193D9C /* FCXRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC348F1CEAFE8B00193D9C /* FCXRefreshFooterView.m */; };
 		84CC34981CEAFE8B00193D9C /* FCXRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC34911CEAFE8B00193D9C /* FCXRefreshHeaderView.m */; };
 		84CC34991CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC34931CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m */; };
+		84D33AD41D6154D600A50E8D /* DaynightCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D33AD31D6154D600A50E8D /* DaynightCellTableViewCell.m */; };
 		84D8A8BF1CFFD1760072813D /* HeadForSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D8A8BA1CFFD1760072813D /* HeadForSectionTableViewCell.m */; };
 		84D8A8C11CFFD1760072813D /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D8A8BD1CFFD1760072813D /* SearchResultTableViewCell.m */; };
 		84D8A8CF1CFFDA040072813D /* 收藏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D8A8CD1CFFDA040072813D /* 收藏@3x.png */; };
@@ -777,6 +778,8 @@
 		84CC34911CEAFE8B00193D9C /* FCXRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCXRefreshHeaderView.m; sourceTree = "<group>"; };
 		84CC34921CEAFE8B00193D9C /* UIScrollView+FCXRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+FCXRefresh.h"; sourceTree = "<group>"; };
 		84CC34931CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+FCXRefresh.m"; sourceTree = "<group>"; };
+		84D33AD21D6154D600A50E8D /* DaynightCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaynightCellTableViewCell.h; sourceTree = "<group>"; };
+		84D33AD31D6154D600A50E8D /* DaynightCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaynightCellTableViewCell.m; sourceTree = "<group>"; };
 		84D8A8B91CFFD1760072813D /* HeadForSectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HeadForSectionTableViewCell.h; sourceTree = "<group>"; };
 		84D8A8BA1CFFD1760072813D /* HeadForSectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HeadForSectionTableViewCell.m; sourceTree = "<group>"; };
 		84D8A8BC1CFFD1760072813D /* SearchResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchResultTableViewCell.h; sourceTree = "<group>"; };
@@ -1532,6 +1535,8 @@
 				846E51491D41A93000B89A53 /* MyInfomationTableViewCell.m */,
 				846E514A1D41A93000B89A53 /* SetUpTableViewCell.h */,
 				846E514B1D41A93000B89A53 /* SetUpTableViewCell.m */,
+				84D33AD21D6154D600A50E8D /* DaynightCellTableViewCell.h */,
+				84D33AD31D6154D600A50E8D /* DaynightCellTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2565,6 +2570,7 @@
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,
 				846E51341D41A7DF00B89A53 /* JWRImageView.m in Sources */,
+				84D33AD41D6154D600A50E8D /* DaynightCellTableViewCell.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
 				846E51201D41A7DF00B89A53 /* BrowserTableViewCell.m in Sources */,
