@@ -18,4 +18,6 @@
 
 @property (nonatomic,strong) UILabel *titleLabel;//标题
 
+@property (nonatomic,strong) UILabel *lineLabel;
+
 @end

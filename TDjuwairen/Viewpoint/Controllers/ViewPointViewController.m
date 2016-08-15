@@ -101,7 +101,7 @@
     }
     
     [self setupWithNavigation];
-    [self setupWithCategoryScroll];     //设置选择滚动条
+//    [self setupWithCategoryScroll];     //设置选择滚动条
     [self setupWithContentScroll];      //设置内容滚动
     [self requestDataWithNumber:num];
     
@@ -263,7 +263,7 @@
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
 //    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-40-44)];
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-104-50)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 1, kScreenWidth, kScreenHeight-44)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -272,9 +272,10 @@
     
 
     for (int i = 0; i<self.categoryArr.count; i++) {
-        UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-104-50) style:UITableViewStylePlain];
+        UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-64-44) style:UITableViewStylePlain];
         tableview.delegate = self;
         tableview.dataSource = self;
+        tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
         [self.tableviewsArr addObject:tableview];
         [self.contentScroll addSubview:tableview];
     }
@@ -322,10 +323,13 @@
         titlesize = [model.view_title calculateSize:titlesize font:font];
         cell.titleLabel.text = model.view_title;
         [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
+        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15, kScreenWidth, 1)];
+        
         
         cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
         cell.titleLabel.textColor = self.daynightmodel.textColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
+        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         return cell;
     }
     else
@@ -425,7 +429,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-//    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     

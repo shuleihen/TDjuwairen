@@ -49,7 +49,6 @@
 }
 
 - (void)setupWithNavigation{
-    //    @fql 删除 back 处理
 //    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     //设置navigation背景色

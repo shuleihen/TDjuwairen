@@ -362,7 +362,7 @@
             [self.thview.hotBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateSelected];
         }
         self.thview.backgroundColor = self.daynightmodel.navigationColor;
-        self.thview.just.textColor = self.daynightmodel.textColor;
+        [self.thview.just setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
         return self.thview;
     }
 }
@@ -704,12 +704,13 @@
 #pragma mark - timehot delegate with comment
 - (void)justLouzhu:(UIButton *)sender
 {
-    if (sender.selected == YES) {
-        sender.selected = NO;
+    
+    if (self.thview.louzhu.selected == YES) {
+        self.thview.louzhu.selected = NO;
     }
     else
     {
-        sender.selected = YES;
+        self.thview.louzhu.selected = YES;
     }
 }
 
@@ -795,23 +796,35 @@
 
 #pragma mark - backcomment.delegate
 - (void)clickComments:(UIButton *)sender{
-    
-    //滑动到评论
-    
-    if (firstClickComment) {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-64) {
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        //回到顶部
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        });
-        firstClickComment = NO;
+        
     }
     else
     {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-        [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        //滑动到评论
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        if (firstClickComment) {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+                [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            });
+            
+            firstClickComment = NO;
+        }
+        else
+        {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
     }
+    
+    
 }
 
 - (void)clickShare:(UIButton *)sender{

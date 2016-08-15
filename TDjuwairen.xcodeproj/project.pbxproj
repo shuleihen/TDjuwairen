@@ -2208,7 +2208,7 @@
 				TargetAttributes = {
 					84E333E61CE2BA3D00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = UGTTBZ4Z9F;
+						DevelopmentTeam = 64Z8366B65;
 						DevelopmentTeamName = "Zhejiang LianLian YunTong Co.,Ltd";
 						ProvisioningStyle = Automatic;
 					};
@@ -2740,7 +2740,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen123;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -2772,7 +2772,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen123;
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 			};

@@ -34,12 +34,13 @@
     self.louzhu = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80-40, 0, 40, 44)];
     [self.louzhu setImage:[UIImage imageNamed:@"btn_select.png"] forState:UIControlStateNormal];
     [self.louzhu setImage:[UIImage imageNamed:@"btn_select_pre.png"] forState:UIControlStateSelected];
-    self.louzhu.selected = YES;//默认为原创
+    self.louzhu.selected = NO;//默认为不看楼主
     [self.louzhu addTarget:self action:@selector(justLouzhu:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.just = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 0, 80, 44)];
-    self.just.text = @"只看楼主";
-    self.just.font = [UIFont systemFontOfSize:16];
+    self.just = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 0, 80, 44)];
+    [self.just setTitle:@"只看楼主" forState:UIControlStateNormal];
+    self.just.titleLabel.font = [UIFont systemFontOfSize:16];
+    [self.just addTarget:self action:@selector(justLouzhu:) forControlEvents:UIControlEventTouchUpInside];
     
     [self addSubview:self.timeBtn];
     [self addSubview:self.hotBtn];

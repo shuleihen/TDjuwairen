@@ -46,7 +46,6 @@
 
 -(void)setNavgation
 {
-    //    @fql 删除 back 处理
     UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
     label.text=@"找回密码";
     self.navigationItem.titleView=label;
