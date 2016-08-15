@@ -176,7 +176,7 @@
 
 #pragma mark - 请求数据
 -(void)requestDataWithVideoList{
-    NSString *string = [NSString stringWithFormat:@"%@/index.php/Sharp/VideoList/page/%d",API_HOST,page];
+    NSString *string = [NSString stringWithFormat:@"%@index.php/Sharp/VideoList/page/%d",API_HOST,page];
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -312,7 +312,7 @@
     
     if (self.loginstate.isLogIn) {     //为登录状态
         //添加浏览记录
-        NSString *strurl = [NSString stringWithFormat:@"%@/index.php/Public/addBrowseHistory",API_HOST];
+        NSString *strurl = [NSString stringWithFormat:@"%@index.php/Public/addBrowseHistory",API_HOST];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":model.sharp_id};
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];

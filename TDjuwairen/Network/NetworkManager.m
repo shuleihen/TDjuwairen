@@ -8,7 +8,6 @@
 
 #import "NetworkManager.h"
 
-NSString *API_HOST              = @"http://appapi.juwairen.net/";
 NSString *NetworkErrorDomain    = @"network.error.domain";
 
 @interface NetworkManager()

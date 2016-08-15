@@ -218,7 +218,7 @@
     }];
     */
     
-    NSString *string = [NSString stringWithFormat:@"%@/index.php/Sharp/surveyList/page/%d",API_HOST,self.page];
+    NSString *string = [NSString stringWithFormat:@"%@index.php/Sharp/surveyList/page/%d",API_HOST,self.page];
     AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
     manager.responseSerializer = [AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
@@ -397,7 +397,7 @@
     
     if (self.loginstate.isLogIn) {     //为登录状态
         //添加浏览记录
-        NSString *strurl = [NSString stringWithFormat:@"%@/index.php/Public/addBrowseHistory",API_HOST];
+        NSString *strurl = [NSString stringWithFormat:@"%@index.php/Public/addBrowseHistory",API_HOST];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.scrollIDArray[index]};
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];
@@ -432,7 +432,7 @@
     
     if (self.loginstate.isLogIn) {     //为登录状态
         //添加浏览记录
-        NSString *strurl = [NSString stringWithFormat:@"%@/index.php/Public/addBrowseHistory",API_HOST];
+        NSString *strurl = [NSString stringWithFormat:@"%@index.php/Public/addBrowseHistory",API_HOST];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":model.sharp_id};
         AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
         manager.responseSerializer = [AFJSONResponseSerializer serializer];

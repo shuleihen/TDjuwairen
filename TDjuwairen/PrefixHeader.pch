@@ -15,7 +15,7 @@
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
-#define API_HOST    @"http://appapi.juwairen.net"
+#define API_HOST    @"http://appapi.juwairen.net/"
 
 #define kAPI_bendi @"http://192.168.1.106/tuanda_web/Appapi/index.php/"
 #endif /* PrefixHeader_pch */

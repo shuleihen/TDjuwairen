@@ -19,5 +19,3 @@
                     parameters:(id)parameters
                     completion:(void (^)(id data, NSError *error))completion;
 @end
-
-extern NSString *API_HOST;
