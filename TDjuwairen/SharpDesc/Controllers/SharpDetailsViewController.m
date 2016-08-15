@@ -763,7 +763,7 @@
     }
     
     
-    NSString *string = [NSString stringWithFormat:@"%@addSharpComnment",kAPI_Sharp];
+    NSString *string = [NSString stringWithFormat:@"%@/index.php/Sharp/addSharpComnment",API_HOST];
     NSDictionary *dic = @{@"id":self.sharp_id,@"userid":self.loginstate.userId,@"sharpcomment":text,@"authenticationStr":self.loginstate.userId,@"encryptedStr":encryptedStr};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
