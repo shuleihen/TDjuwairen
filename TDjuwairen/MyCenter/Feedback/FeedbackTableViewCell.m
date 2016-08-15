@@ -9,7 +9,11 @@
 #import "FeedbackTableViewCell.h"
 #import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
+#import "LoginState.h"
 
+@interface FeedbackTableViewCell ()
+@property (nonatomic,strong) LoginState *loginState;
+@end
 @implementation FeedbackTableViewCell
 
 - (void)awakeFromNib {
@@ -25,19 +29,19 @@
 
 -(void)cellforDic:(NSDictionary *)dic
 {
+    self.loginState = [LoginState addInstance];
     self.timeLabel.text=[self setLabelsTime:[dic[@"feedback_time"]integerValue]];
     self.contentLabel.text=dic[@"feedback_content"];
     //加载头像
-    NSString*url=dic[@"userinfo_facesmall"];
-    [self.headimageView sd_setImageWithURL:[NSURL URLWithString:url] placeholderImage:nil options:SDWebImageRefreshCached];
-    
+    NSString *imagePath = [NSString stringWithFormat:@"%@",self.loginState.headImage];
+    [self.headimageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
 }
 
 -(NSString*)setLabelsTime:(NSInteger)time{
-    NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
-    NSDateFormatter* tempday = [[NSDateFormatter alloc] init];
-    NSDateFormatter* tempYear = [[NSDateFormatter alloc] init];
-    NSInteger timeNow=[[self currentTime] integerValue];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    NSDateFormatter * tempday = [[NSDateFormatter alloc] init];
+    NSDateFormatter * tempYear = [[NSDateFormatter alloc] init];
+    NSInteger timeNow = [[self currentTime] integerValue];
     
     [tempday setDateFormat:@"dd"];
     [tempYear setDateFormat:@"YYYY"];
@@ -80,10 +84,10 @@
 }
 
 -(NSString*)currentTime{
-    NSDateFormatter *commentTime=[[NSDateFormatter alloc] init];
+    NSDateFormatter *commentTime = [[NSDateFormatter alloc] init];
     [commentTime setDateFormat:@"YYYY-MM-dd HH:mm:ss ZZZ"];
-    NSDate *tempDate=[NSDate date];
-    NSString *date=[NSString stringWithFormat:@"%ld",(long)[tempDate timeIntervalSince1970]];
+    NSDate *tempDate = [NSDate date];
+    NSString *date = [NSString stringWithFormat:@"%ld",(long)[tempDate timeIntervalSince1970]];
     return date;
 }
 
@@ -96,7 +100,7 @@
     //设置label的最大行数
     self.contentLabel.numberOfLines = 0;
     CGSize size = CGSizeMake(150, 1000);
- //   CGSize labelSize = [self.contentLabel.text sizeWithFont:self.contentLabel.font constrainedToSize:size lineBreakMode:NSLineBreakByWordWrapping];
+
     NSDictionary *attributes = @{NSFontAttributeName: [UIFont fontWithName:@"HelveticaNeue" size:13]};
     CGSize labelSize = [self.contentLabel.text boundingRectWithSize:size options: NSStringDrawingTruncatesLastVisibleLine | NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading attributes:attributes context:nil].size;
     self.contentLabel.frame = CGRectMake(self.contentLabel.frame.origin.x, self.contentLabel.frame.origin.y, labelSize.width, labelSize.height);

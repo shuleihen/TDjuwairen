@@ -40,8 +40,22 @@
     
     self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.setupImgArr = @[@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
-    self.setupTitleArr = @[@"观点管理",@"设置",@"反馈意见"];
+    
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    NSString *mod ;
+    NSString *img ;
+    if ([daynight isEqualToString:@"yes"]) {
+        mod = @"夜间模式";
+        img = @"btn_yejian@3x.png";
+    }
+    else
+    {
+        mod = @"日间模式";
+        img = @"btn_night_rijian@3x.png";
+    }
+    self.setupImgArr = @[img,@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
+    self.setupTitleArr = @[mod,@"观点管理",@"设置",@"反馈意见"];
     
     [self setupWithTableView];
     // Do any additional setup after loading the view.
@@ -295,7 +309,7 @@
     }
     else//登录后 跳转浏览记录页面
     {
-        BrowserViewController*browser=[self.storyboard instantiateViewControllerWithIdentifier:@"BrowserView"];
+        BrowserViewController *browser = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserView"];
         [self.navigationController pushViewController:browser animated:YES];
     }
 }

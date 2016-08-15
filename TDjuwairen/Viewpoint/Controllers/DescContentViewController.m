@@ -138,18 +138,18 @@
     
     NSString *urlPath ;
     if (self.loginState.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"http://192.168.1.108/tuanda_web/Appapi/View/view_show1_2/id/55/userid/%@",self.loginState.userId];
+        urlPath= [NSString stringWithFormat:@"%@View/view_show1_2/id/55/userid/%@",kAPI_bendi,self.loginState.userId];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"http://192.168.1.108/tuanda_web/Appapi/View/view_show1_2/id/55"];
+        urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/55",kAPI_bendi];
     }
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             self.dataDic = data;
             
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.108%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.106%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             

@@ -103,6 +103,8 @@
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		840AA66D1D5434ED00009E44 /* AddUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */; };
 		840E34FE1D5D5EE200C0BF46 /* ViewInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 840E34FD1D5D5EE200C0BF46 /* ViewInfoModel.m */; };
+		840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */; };
+		840E35091D5DD70700C0BF46 /* ResponsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */; };
 		842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842387701D49B8AF00671404 /* UIdaynightModel.m */; };
 		8427BE471CF29D0600E750E9 /* TitlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427BE451CF29D0600E750E9 /* TitlesTableViewCell.m */; };
 		8427F7371D582AF00073AB7F /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8427F7361D582AF00073AB7F /* CommentsCell.m */; };
@@ -515,6 +517,9 @@
 		840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddUpdatesViewController.m; sourceTree = "<group>"; };
 		840E34FC1D5D5EE200C0BF46 /* ViewInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInfoModel.h; sourceTree = "<group>"; };
 		840E34FD1D5D5EE200C0BF46 /* ViewInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewInfoModel.m; sourceTree = "<group>"; };
+		840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppLoginImg.png; sourceTree = "<group>"; };
+		840E35071D5DD70700C0BF46 /* ResponsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponsListTableViewCell.h; sourceTree = "<group>"; };
+		840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsListTableViewCell.m; sourceTree = "<group>"; };
 		8423876F1D49B8AF00671404 /* UIdaynightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdaynightModel.h; sourceTree = "<group>"; };
 		842387701D49B8AF00671404 /* UIdaynightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdaynightModel.m; sourceTree = "<group>"; };
 		8427BE441CF29D0600E750E9 /* TitlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlesTableViewCell.h; sourceTree = "<group>"; };
@@ -1281,6 +1286,7 @@
 		275E9CAC1CFED0DC0075910D /* MyCenter */ = {
 			isa = PBXGroup;
 			children = (
+				840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */,
 				846E51581D41B16600B89A53 /* WXlogin@3x.png */,
 				846E51561D41B16300B89A53 /* QQlogin@3x.png */,
 				2712685D1D05403700EBEFD0 /* 未选中.png */,
@@ -1474,6 +1480,8 @@
 				846E51101D41A7DF00B89A53 /* FeedbackTableViewCell.xib */,
 				846E51111D41A7DF00B89A53 /* FeedbackViewController.h */,
 				846E51121D41A7DF00B89A53 /* FeedbackViewController.m */,
+				840E35071D5DD70700C0BF46 /* ResponsListTableViewCell.h */,
+				840E35081D5DD70700C0BF46 /* ResponsListTableViewCell.m */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -2284,6 +2292,7 @@
 				84B9B45E1D48637200DDF15B /* btn_fuzhi@3x.png in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				845CCB9A1D4EF4A9005ABD7B /* tab_xieti@3x.png in Resources */,
+				840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */,
 				8497DFC81CEEEB9600D7D105 /* ViewPointUnSelect@3x.png in Resources */,
 				84CC347B1CEAE53C00193D9C /* comment@2x.png in Resources */,
 				842B36341CE9BA3100C6E400 /* logo.png in Resources */,
@@ -2546,6 +2555,7 @@
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
 				846E512F1D41A7DF00B89A53 /* EditView.m in Sources */,
+				840E35091D5DD70700C0BF46 /* ResponsListTableViewCell.m in Sources */,
 				84E3346D1CE3123700E5DCEE /* UIImage+GIF.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				842B36231CE995D500C6E400 /* AFNetworkActivityIndicatorManager.m in Sources */,

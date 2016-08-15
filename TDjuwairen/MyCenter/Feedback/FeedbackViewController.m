@@ -8,6 +8,7 @@
 
 #import "FeedbackViewController.h"
 #import "FeedbackTableViewCell.h"
+#import "ResponsListTableViewCell.h"
 #import "LoginState.h"
 #import "AFNetworking.h"
 
@@ -17,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong)LoginState*loginstate;
 @property (nonatomic,strong) NSMutableArray *dataArray;
-
+@property (nonatomic,assign) int cellheight;
 @end
 
 @implementation FeedbackViewController
@@ -185,16 +186,16 @@
     AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
     manager.responseSerializer=[AFJSONResponseSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/getUserFeedback/"];
-//    NSString *url = [NSString stringWithFormat:@"%@",kAPI_bendi];
+//    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/User/getUserFeedback/"];
+    NSString *url = [NSString stringWithFormat:@"%@/Feedback/getUserFeedbackList1_2",kAPI_bendi];
     
-    NSDictionary *paras = @{@"feedback_os":@"3",
-                            @"userid":self.loginstate.userId};
+    NSDictionary *paras = @{@"user_id":self.loginstate.userId};
     [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        NSLog(@"%@",responseObject);
         NSString *code = [responseObject objectForKey:@"code"];
         if ([code isEqualToString:@"200"]) {
             NSLog(@"获取信息成功");
-            NSArray*array=responseObject[@"data"];
+            NSArray *array = responseObject[@"data"];
             [self.dataArray addObjectsFromArray:array];
             [self.tableview reloadData];
         }
@@ -203,7 +204,7 @@
             NSLog(@"获取信息失败");
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
+        NSLog(@"请求失败");
     }];
 }
 
@@ -219,26 +220,23 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary*dic = self.dataArray[indexPath.row];
-    [tableView registerNib:[UINib nibWithNibName:@"FeedbackTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedbackCell"];
-    FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
-    [cell cellforDic:dic];
-    [cell setContentText:dic[@"feedback_content"]];
+//    [tableView registerNib:[UINib nibWithNibName:@"FeedbackTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedbackCell"];
+//    FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
+//    [cell cellforDic:dic];
+//    [cell setContentText:dic[@"feedback_content"]];
+    NSString *identifier = @"cell";
+    ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+    if (cell == nil) {
+        cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
+    }
+    self.cellheight = cell.viewheight;
     
     return cell;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    FeedbackTableViewCell *cell = [self tableView:_tableview cellForRowAtIndexPath:indexPath];
-    FeedbackTableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    return cell.frame.size.height;
-//    NSDictionary*dic=dataArray[indexPath.row];
-//    NSString*content=dic[@"feedback_content"];
-//    CGSize size = [content calculateSize:CGSizeMake(self.view.frame.size.width - 30, FLT_MAX) font:[UIFont systemFontOfSize:15]];
-//    
-//    CGFloat contentHeight=size.height+40;
-//    
-//    return contentHeight;
+    return self.cellheight;
 }
 
 @end
