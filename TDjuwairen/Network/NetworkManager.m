@@ -65,23 +65,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                     parameters:(id)parameters
                     completion:(void (^)(id data, NSError *error))completion
 {
-    return [self POST:URLString parameters:parameters progress:nil completion:completion];
-}
-
-- (NSURLSessionDataTask *)POST:(NSString *)URLString
-                    parameters:(id)parameters
-                      progress:(void (^)(NSProgress * _Nonnull))uploadProgress
-                    completion:(void (^)(id data, NSError *error))completion
-{
-    NSURLSessionDataTask *dataTask = [self dataTaskWithHTTPMethod:@"POST"
-                                                        URLString:URLString
-                                                       parameters:parameters
-                                        constructingBodyWithBlock:nil
-                                                       completion:completion];
-    
-    [dataTask resume];
-    
-    return dataTask;
+    return [self POST:URLString parameters:parameters constructingBodyWithBlock:nil completion:completion];
 }
 
 - (NSURLSessionDataTask *)POST:(NSString *)URLString
