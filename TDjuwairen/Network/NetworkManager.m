@@ -107,12 +107,20 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                       completion:(void (^)(id data, NSError *error))completion
 {
     NSAssert(completion, @"completion is can not nil");
+    NSMutableURLRequest *request = nil;
     
-    NSMutableURLRequest *request = [self.manager.requestSerializer multipartFormRequestWithMethod:@"POST"
-                                                                                        URLString:[[NSURL URLWithString:URLString relativeToURL:self.manager.baseURL] absoluteString]
-                                                                                       parameters:parameters
-                                                                        constructingBodyWithBlock:block
-                                                                                            error:nil];
+    if ([method isEqualToString:@"GET"]) {
+        request = [self.manager.requestSerializer requestWithMethod:method
+                                                          URLString:[[NSURL URLWithString:URLString relativeToURL:self.manager.baseURL] absoluteString]
+                                                         parameters:parameters
+                                                              error:nil];
+    } else {
+        request = [self.manager.requestSerializer multipartFormRequestWithMethod:method
+                                                                       URLString:[[NSURL URLWithString:URLString relativeToURL:self.manager.baseURL] absoluteString]
+                                                                      parameters:parameters
+                                                       constructingBodyWithBlock:block
+                                                                           error:nil];
+    }
     
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request
