@@ -503,7 +503,6 @@
 }
 
 - (void)keyboardWillBeHidden{
-    [self.SelSecView removeFromSuperview];
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformIdentity;
         self.scrollview.transform = CGAffineTransformIdentity;
