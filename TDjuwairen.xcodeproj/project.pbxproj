@@ -100,6 +100,8 @@
 		2764A26E1D015F6B00916844 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26D1D015F6B00916844 /* Security.framework */; };
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
+		840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */; };
+		840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */; };
 		840AA66D1D5434ED00009E44 /* AddUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */; };
 		840E34FE1D5D5EE200C0BF46 /* ViewInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 840E34FD1D5D5EE200C0BF46 /* ViewInfoModel.m */; };
 		840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */; };
@@ -493,6 +495,8 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
+		840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@3x.png"; sourceTree = "<group>"; };
 		840AA66B1D5434ED00009E44 /* AddUpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddUpdatesViewController.h; sourceTree = "<group>"; };
 		840AA66C1D5434ED00009E44 /* AddUpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddUpdatesViewController.m; sourceTree = "<group>"; };
 		840E34FC1D5D5EE200C0BF46 /* ViewInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewInfoModel.h; sourceTree = "<group>"; };
@@ -1688,6 +1692,8 @@
 				84F9FE2B1CF822A400683791 /* 暂未发表过评论.png */,
 				84B8C1921D30C76F0061CC73 /* loadingLogo@3x.png */,
 				84B8C1961D30CC4F0061CC73 /* 加载页.png */,
+				840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */,
+				840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */,
 				84E3348A1CE3182C00E5DCEE /* placeholder@2x.png */,
 				8497DFCC1CEEECB400D7D105 /* Detail */,
 				8497DFBB1CEEEABF00D7D105 /* Tabbar */,
@@ -2125,6 +2131,7 @@
 				275E9CD91CFED0DC0075910D /* 局外人二维码.jpg in Resources */,
 				8427F74E1D5878490073AB7F /* btn_dianzan_normal@2x.png in Resources */,
 				845CCB981D4EF49D005ABD7B /* tab_xieti_pre@3x.png in Resources */,
+				840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */,
 				84E48DFC1D45BBB1008579A2 /* nav_publish@3x.png in Resources */,
 				84B8C1931D30C76F0061CC73 /* loadingLogo@3x.png in Resources */,
 				84CC34951CEAFE8B00193D9C /* blueArrow@2x.png in Resources */,
@@ -2186,6 +2193,7 @@
 				84B9B46D1D48B05B00DDF15B /* btn_select2@3x.png in Resources */,
 				84E48DFA1D45BBAE008579A2 /* nav_search@3x.png in Resources */,
 				84C1F3F91D4725C3007C26B5 /* Guide2.png in Resources */,
+				840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */,
 				8497DFCB1CEEEB9600D7D105 /* VideoSelect@3x.png in Resources */,
 				84CBCC651D4B29AC000DAEA8 /* tab_tianjia_pre@3x.png in Resources */,
 				846E51321D41A7DF00B89A53 /* FeedbackTableViewCell.xib in Resources */,
