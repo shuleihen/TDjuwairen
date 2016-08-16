@@ -183,8 +183,6 @@
 		846E51331D41A7DF00B89A53 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51121D41A7DF00B89A53 /* FeedbackViewController.m */; };
 		846E51341D41A7DF00B89A53 /* JWRImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51141D41A7DF00B89A53 /* JWRImageView.m */; };
 		846E51351D41A7DF00B89A53 /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51161D41A7DF00B89A53 /* LoginState.m */; };
-		846E51361D41A7DF00B89A53 /* MineTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E51181D41A7DF00B89A53 /* MineTableViewController.m */; };
-		846E51371D41A7DF00B89A53 /* MyInfoTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E511A1D41A7DF00B89A53 /* MyInfoTableViewController.m */; };
 		846E51381D41A7DF00B89A53 /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E511D1D41A7DF00B89A53 /* AboutViewController.m */; };
 		846E51391D41A7DF00B89A53 /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E511F1D41A7DF00B89A53 /* SettingTableViewController.m */; };
 		846E51421D41A8C100B89A53 /* MyInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E513F1D41A8C100B89A53 /* MyInfoViewController.m */; };
@@ -323,11 +321,6 @@
 		84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDB61CF80E0A00683791 /* ELCAssetCell.m */; };
 		84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */; };
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
-		84F9FE061CF80F3A00683791 /* ForgotSecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDFD1CF80F3A00683791 /* ForgotSecondTableViewController.m */; };
-		84F9FE071CF80F3A00683791 /* ForgotTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDFF1CF80F3A00683791 /* ForgotTableViewController.m */; };
-		84F9FE081CF80F3A00683791 /* LoginTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FE011CF80F3A00683791 /* LoginTableViewController.m */; };
-		84F9FE091CF80F3A00683791 /* RegiserSecondTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FE031CF80F3A00683791 /* RegiserSecondTableViewController.m */; };
-		84F9FE0A1CF80F3A00683791 /* RegiserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FE051CF80F3A00683791 /* RegiserTableViewController.m */; };
 		84F9FE2C1CF822A400683791 /* 暂未发表过评论.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F9FE2B1CF822A400683791 /* 暂未发表过评论.png */; };
 		84FAE3351D0187650051DCED /* SharpTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 84FAE3331D0187650051DCED /* SharpTags.m */; };
 /* End PBXBuildFile section */
@@ -625,10 +618,6 @@
 		846E51141D41A7DF00B89A53 /* JWRImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWRImageView.m; sourceTree = "<group>"; };
 		846E51151D41A7DF00B89A53 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
 		846E51161D41A7DF00B89A53 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
-		846E51171D41A7DF00B89A53 /* MineTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MineTableViewController.h; sourceTree = "<group>"; };
-		846E51181D41A7DF00B89A53 /* MineTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MineTableViewController.m; sourceTree = "<group>"; };
-		846E51191D41A7DF00B89A53 /* MyInfoTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyInfoTableViewController.h; sourceTree = "<group>"; };
-		846E511A1D41A7DF00B89A53 /* MyInfoTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyInfoTableViewController.m; sourceTree = "<group>"; };
 		846E511C1D41A7DF00B89A53 /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		846E511D1D41A7DF00B89A53 /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
 		846E511E1D41A7DF00B89A53 /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
@@ -853,16 +842,6 @@
 		84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
 		84F9FDBB1CF80E0A00683791 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
 		84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
-		84F9FDFC1CF80F3A00683791 /* ForgotSecondTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotSecondTableViewController.h; sourceTree = "<group>"; };
-		84F9FDFD1CF80F3A00683791 /* ForgotSecondTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotSecondTableViewController.m; sourceTree = "<group>"; };
-		84F9FDFE1CF80F3A00683791 /* ForgotTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgotTableViewController.h; sourceTree = "<group>"; };
-		84F9FDFF1CF80F3A00683791 /* ForgotTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgotTableViewController.m; sourceTree = "<group>"; };
-		84F9FE001CF80F3A00683791 /* LoginTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginTableViewController.h; sourceTree = "<group>"; };
-		84F9FE011CF80F3A00683791 /* LoginTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginTableViewController.m; sourceTree = "<group>"; };
-		84F9FE021CF80F3A00683791 /* RegiserSecondTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegiserSecondTableViewController.h; sourceTree = "<group>"; };
-		84F9FE031CF80F3A00683791 /* RegiserSecondTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegiserSecondTableViewController.m; sourceTree = "<group>"; };
-		84F9FE041CF80F3A00683791 /* RegiserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegiserTableViewController.h; sourceTree = "<group>"; };
-		84F9FE051CF80F3A00683791 /* RegiserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegiserTableViewController.m; sourceTree = "<group>"; };
 		84F9FE2B1CF822A400683791 /* 暂未发表过评论.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "暂未发表过评论.png"; sourceTree = "<group>"; };
 		84FAE3321D0187650051DCED /* SharpTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharpTags.h; sourceTree = "<group>"; };
 		84FAE3331D0187650051DCED /* SharpTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharpTags.m; sourceTree = "<group>"; };
@@ -1362,10 +1341,6 @@
 				846E51141D41A7DF00B89A53 /* JWRImageView.m */,
 				846E51151D41A7DF00B89A53 /* LoginState.h */,
 				846E51161D41A7DF00B89A53 /* LoginState.m */,
-				846E51171D41A7DF00B89A53 /* MineTableViewController.h */,
-				846E51181D41A7DF00B89A53 /* MineTableViewController.m */,
-				846E51191D41A7DF00B89A53 /* MyInfoTableViewController.h */,
-				846E511A1D41A7DF00B89A53 /* MyInfoTableViewController.m */,
 				846E511B1D41A7DF00B89A53 /* Setting */,
 			);
 			path = MyCenter;
@@ -2027,16 +2002,6 @@
 			children = (
 				275E9C8C1CFE830E0075910D /* AgreeViewController.h */,
 				275E9C8D1CFE830E0075910D /* AgreeViewController.m */,
-				84F9FDFC1CF80F3A00683791 /* ForgotSecondTableViewController.h */,
-				84F9FDFD1CF80F3A00683791 /* ForgotSecondTableViewController.m */,
-				84F9FDFE1CF80F3A00683791 /* ForgotTableViewController.h */,
-				84F9FDFF1CF80F3A00683791 /* ForgotTableViewController.m */,
-				84F9FE001CF80F3A00683791 /* LoginTableViewController.h */,
-				84F9FE011CF80F3A00683791 /* LoginTableViewController.m */,
-				84F9FE021CF80F3A00683791 /* RegiserSecondTableViewController.h */,
-				84F9FE031CF80F3A00683791 /* RegiserSecondTableViewController.m */,
-				84F9FE041CF80F3A00683791 /* RegiserTableViewController.h */,
-				84F9FE051CF80F3A00683791 /* RegiserTableViewController.m */,
 				846E51531D41A95A00B89A53 /* LoginViewController.h */,
 				846E51541D41A95A00B89A53 /* LoginViewController.m */,
 				191CB48E1D5C700C00E4AFB5 /* LoginViewController.xib */,
@@ -2363,7 +2328,6 @@
 				846E51381D41A7DF00B89A53 /* AboutViewController.m in Sources */,
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				84CC34971CEAFE8B00193D9C /* FCXRefreshFooterView.m in Sources */,
-				846E51361D41A7DF00B89A53 /* MineTableViewController.m in Sources */,
 				846E515C1D41B3E500B89A53 /* MobileLoginViewController.m in Sources */,
 				84C1F4001D473ABB007C26B5 /* ViewSpecialTableViewCell.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
@@ -2385,7 +2349,6 @@
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
 				194131491D4604FD005AAB53 /* NetworkManager.m in Sources */,
 				840E34FE1D5D5EE200C0BF46 /* ViewInfoModel.m in Sources */,
-				84F9FE081CF80F3A00683791 /* LoginTableViewController.m in Sources */,
 				840AA66D1D5434ED00009E44 /* AddUpdatesViewController.m in Sources */,
 				84FAE3351D0187650051DCED /* SharpTags.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
@@ -2401,7 +2364,6 @@
 				84D8A8C11CFFD1760072813D /* SearchResultTableViewCell.m in Sources */,
 				84CBCC591D4B2866000DAEA8 /* BottomEdit.m in Sources */,
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
-				84F9FE0A1CF80F3A00683791 /* RegiserTableViewController.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				84E48DF41D45ACCE008579A2 /* ViewPointViewController.m in Sources */,
 				842387711D49B8AF00671404 /* UIdaynightModel.m in Sources */,
@@ -2411,7 +2373,6 @@
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
-				846E51371D41A7DF00B89A53 /* MyInfoTableViewController.m in Sources */,
 				846E51311D41A7DF00B89A53 /* FeedbackTableViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
@@ -2429,7 +2390,6 @@
 				84D8A8D41CFFE0BB0072813D /* AddCollectionTableViewCell.m in Sources */,
 				846E512C1D41A7DF00B89A53 /* CommentsViewController.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
-				84F9FE071CF80F3A00683791 /* ForgotTableViewController.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
 				192AEB931D5DA42700FF6ABF /* GuideViewController.m in Sources */,
@@ -2449,7 +2409,6 @@
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				846E51551D41A95A00B89A53 /* LoginViewController.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
-				84F9FE091CF80F3A00683791 /* RegiserSecondTableViewController.m in Sources */,
 				84F4B6BD1CF59A4F00B8E617 /* SearchViewController.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
@@ -2468,7 +2427,6 @@
 				84D8A8E11D0037490072813D /* ShowTableViewCell.m in Sources */,
 				846E51431D41A8C100B89A53 /* PersonalCenterViewController.m in Sources */,
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,
-				84F9FE061CF80F3A00683791 /* ForgotSecondTableViewController.m in Sources */,
 				848019251CEDA66C0045456D /* VideoViewController.m in Sources */,
 				842B36371CE9C4C000C6E400 /* SurveyListModel.m in Sources */,
 				846E51391D41A7DF00B89A53 /* SettingTableViewController.m in Sources */,
