@@ -48,6 +48,7 @@
 
 @property (nonatomic,strong) NSMutableArray *imglocArr;
 @property (nonatomic,strong) NSMutableArray *upimgArr;
+@property (nonatomic,strong) NSMutableArray *tagsArr;
 
 @property (nonatomic,strong) UIView *SelSecView;
 @property (nonatomic,strong) UIButton *selBtnEdit;
@@ -61,6 +62,7 @@
     [super viewDidLoad];
     self.imglocArr = [NSMutableArray array];
     self.upimgArr = [NSMutableArray array];
+    self.tagsArr = [NSMutableArray array];
     
     self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
@@ -168,8 +170,9 @@
     self.placeholderLab.textColor = self.daynightmodel.titleColor;
     self.placeholderLab.font = [UIFont systemFontOfSize:14];
     
-    [self.scrollview addSubview:self.contentText];
     [self.contentText addSubview:self.placeholderLab];
+    [self.scrollview addSubview:self.contentText];
+    
 }
 
 - (void)setupWithEdit{
@@ -439,12 +442,12 @@
     else if ([sender.textLabel.text isEqualToString:@"股票"]){
         //插入股票
         [self.SelSecView removeFromSuperview];
-        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 80)];
+        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 80) andArr:self.tagsArr];
         self.tagsview.backgroundColor = self.daynightmodel.backColor;
         self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
         self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         self.SelSecView = self.tagsview;
-        
+        self.tagsArr = self.tagsview.listArr;
         [self.view addSubview:self.tagsview];
         
     }
@@ -531,6 +534,7 @@
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
+    [self.SelSecView removeFromSuperview];
     if ([self.contentText.text length] > 0) {
         self.placeholderLab.text = @"";
         self.placeholderLab.alpha = 0.0;
@@ -661,8 +665,6 @@
             }
         }
     }
-    
-    
     
 }
 

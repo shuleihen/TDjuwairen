@@ -11,7 +11,7 @@
 
 #define API_HOST    @"http://appapi.juwairen.net/"
 
-#define kAPI_bendi @"http://192.168.1.106/tuanda_web/Appapi/index.php/"
+#define kAPI_bendi @"http://192.168.1.107/tuanda_web/Appapi/index.php/"
 
 #define API_AddBrowseHistory    @"index.php/Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"index.php/Public/getBrowseHistory"
@@ -47,15 +47,5 @@
 #define API_GetSurveryList      @"index.php/Sharp/surveyList/page"
 #define API_GetVideoList        @"Sharp/VideoList/page"
 #define API_GetBanner           @"index.php/Index/indexBanner"
-#endif /* NetworkDefine_h */
 
-//NetworkManager *manager = [[NetworkManager alloc] init];
-//NSDictionary*para=@{@"validatestring":self.loginstate.userId};
-//
-//[manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
-//    if (!error) {
-//
-//    } else {
-//        
-//    }
-//}];
+#endif /* NetworkDefine_h */

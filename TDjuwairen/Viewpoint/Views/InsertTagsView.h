@@ -18,4 +18,6 @@
 
 @property (nonatomic,strong) NSMutableArray *listArr;
 
+- (instancetype)initWithFrame:(CGRect)frame andArr:(NSMutableArray *)arr;
+
 @end

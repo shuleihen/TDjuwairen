@@ -10,7 +10,7 @@
 
 @implementation InsertTagsView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame andArr:(NSMutableArray *)arr
 {
     if (self = [super initWithFrame:frame]) {
         
@@ -21,6 +21,10 @@
         self.tagList = [[SharpTags alloc]initWithFrame:CGRectMake(0, 5, kScreenWidth, 40)];
         self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
         self.tagList.BGColor = [UIColor clearColor];
+        if (arr.count > 0 ) {
+            self.listArr = arr;
+            [self.tagList setTagWithTagArray:self.listArr];
+        }
         
         self.tagsText = [[UITextField alloc]initWithFrame:CGRectMake(15, 50, kScreenWidth-100-15-15, 30)];
         self.tagsText.layer.cornerRadius = 5;
