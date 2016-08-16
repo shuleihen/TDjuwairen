@@ -250,7 +250,7 @@
 }
 #pragma mark - 点击搜索
 - (void)ClickSearchButton:(UIButton *)sender{
-    SearchViewController *searchView = [self.storyboard instantiateViewControllerWithIdentifier:@"searchview"];
+    SearchViewController *searchView = [[SearchViewController alloc] init];
     [self.navigationController pushViewController:searchView animated:YES];
 }
 
@@ -302,7 +302,7 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     
     SurveyListModel *model = self.VideoListArray[indexPath.row];
-    SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
     DetailView.sharp_id = model.sharp_id;
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     

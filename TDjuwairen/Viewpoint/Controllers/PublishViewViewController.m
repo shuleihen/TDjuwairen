@@ -454,7 +454,7 @@
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
         if (![self.contentText.text isEqualToString:@""]) {
-            PreviewViewController *preview = [self.storyboard instantiateViewControllerWithIdentifier:@"preview"];
+            PreviewViewController *preview = [[PreviewViewController alloc] init];
             
             NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
             NSUInteger cur = 0;

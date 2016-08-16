@@ -504,7 +504,7 @@
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
                     SurveyListModel *model = self.surveydata[indexPath.row-1];
-                    SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+                    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
                     DetailView.sharp_id = model.sharp_id;
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
@@ -516,7 +516,7 @@
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
                     SurveyListModel *model = self.researchdata[indexPath.row-1];
-                    SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+                   SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
                     DetailView.sharp_id = model.sharp_id;
                     
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -531,7 +531,7 @@
                     
                     /* 跳转至详情页 */
                     SurveyListModel *model = self.videodata[indexPath.row-1];
-                    SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+                    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
                     DetailView.sharp_id = model.sharp_id;
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];

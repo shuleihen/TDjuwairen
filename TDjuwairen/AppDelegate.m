@@ -156,8 +156,7 @@
         [userdefault synchronize];
         
         [manager createFileAtPath:[NSHomeDirectory() stringByAppendingString:@"/Documents/first.txt"] contents:nil attributes:nil];
-        UIStoryboard *mainStoryBoard = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-        GuideViewController *launchView=[mainStoryBoard instantiateViewControllerWithIdentifier:@"launchView"];
+        GuideViewController *launchView=[[GuideViewController alloc] init];
         self.window.rootViewController=launchView;
         [self.window makeKeyAndVisible];
     }

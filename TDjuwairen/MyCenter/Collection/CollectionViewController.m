@@ -296,7 +296,7 @@
 {
     if (edit==NO) {
     NSDictionary*dic=CollectionArray[indexPath.row];
-    SharpDetailsViewController*sharp=[self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
     sharp.sharp_id=dic[@"sharp_id"];
     [self.navigationController pushViewController:sharp animated:YES];
     }

@@ -173,7 +173,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     NSDictionary*dic=CommentsArray[indexPath.row];
-    SharpDetailsViewController *sharp = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
     sharp.sharp_id=dic[@"sharpcomment_sharpid"];
     //[self presentViewController:sharp animated:YES completion:nil];
     [self.navigationController pushViewController:sharp animated:YES];

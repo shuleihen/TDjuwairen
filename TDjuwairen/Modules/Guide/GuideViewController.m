@@ -7,6 +7,7 @@
 //
 
 #import "GuideViewController.h"
+#import "UIStoryboard+MainStoryboard.h"
 
 @interface GuideViewController ()<UIScrollViewDelegate>
 
@@ -50,8 +51,7 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.x > 2*kScreenWidth) {
-        UIStoryboard *mainStoryBoard = self.storyboard;
-        UITabBarController *tabbarView = [mainStoryBoard instantiateViewControllerWithIdentifier:@"tabbarView"];
+        UITabBarController *tabbarView = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
         [self presentViewController:tabbarView animated:YES completion:nil];
     }
     int page = floor((scrollView.contentOffset.x - kScreenWidth/2)/kScreenWidth)+1;

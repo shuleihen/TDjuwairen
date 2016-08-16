@@ -163,7 +163,7 @@
 #pragma mark - 点击注册
 - (void)ClickRegister:(UIButton *)sender{
     //
-    RegisterViewController *regis = [self.storyboard instantiateViewControllerWithIdentifier:@"regis"];
+    RegisterViewController *regis = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:regis animated:YES];
 }
 

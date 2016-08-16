@@ -192,7 +192,7 @@
             else
             {
                 //跳转到个人信息页面
-                MyInfoViewController *MyInfo = [self.storyboard instantiateViewControllerWithIdentifier:@"myinfo"];
+                MyInfoViewController *MyInfo = [[MyInfoViewController alloc] init];
                 MyInfo.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:MyInfo animated:YES];
             }
@@ -211,7 +211,7 @@
             }
             else//登录后 跳转设置页面
             {
-                ViewManagerViewController *viewmanage=[self.storyboard instantiateViewControllerWithIdentifier:@"viewmanage"];
+                ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
                 [self.navigationController pushViewController:viewmanage animated:YES];
             }
             
@@ -297,7 +297,7 @@
     }
     else//登录后 跳转评论管理页面
     {
-        CommentsViewController *comments = [self.storyboard instantiateViewControllerWithIdentifier:@"CommentsView"];
+        CommentsViewController *comments = [[CommentsViewController alloc] init];
         [self.navigationController pushViewController:comments animated:YES];
     }
 }
@@ -312,7 +312,7 @@
     }
     else//登录后 跳转收藏管理页面
     {
-        CollectionViewController*collection=[self.storyboard instantiateViewControllerWithIdentifier:@"CollectionView"];
+        CollectionViewController*collection = [[CollectionViewController alloc] init];
         [self.navigationController pushViewController:collection animated:YES];
     }
 }
@@ -326,7 +326,7 @@
     }
     else//登录后 跳转浏览记录页面
     {
-        BrowserViewController *browser = [self.storyboard instantiateViewControllerWithIdentifier:@"BrowserView"];
+        BrowserViewController *browser = [[BrowserViewController alloc] init];
         [self.navigationController pushViewController:browser animated:YES];
     }
 }

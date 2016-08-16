@@ -330,8 +330,7 @@
 #pragma mark - 点击搜索
 // FIXME: 方法名和变量命名首字母小写
 - (void)ClickSearchButton:(UIButton *)sender{
-    SearchViewController *searchView = [self.storyboard instantiateViewControllerWithIdentifier:@"searchview"];
-    
+    SearchViewController *searchView = [[SearchViewController alloc] init];
     [self.navigationController pushViewController:searchView animated:YES];
 }
 
@@ -339,7 +338,7 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     //跳转到详情页
-    SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
     NSString *s = self.scrollIDArray[index];
     NSArray *arr = [s componentsSeparatedByString:@"/"];
     DetailView.sharp_id = [arr lastObject];
@@ -368,7 +367,7 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
-    SharpDetailsViewController *DetailView = [self.storyboard instantiateViewControllerWithIdentifier:@"DetailView"];
+    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
     DetailView.sharp_id = model.sharp_id;
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     

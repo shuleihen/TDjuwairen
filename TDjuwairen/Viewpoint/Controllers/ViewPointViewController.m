@@ -365,7 +365,7 @@
     
     if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
         //跳转到观点详情页
-        DescContentViewController *dc = [self.storyboard instantiateViewControllerWithIdentifier:@"viewDesc"];
+        DescContentViewController *dc = [[DescContentViewController alloc] init];
         ViewPointListModel *model = self.viewNewArr[indexPath.row];
         dc.view_id = model.view_id;
         dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -397,7 +397,7 @@
     else
     {
         //跳转到发布页面
-        PublishViewViewController *publishview = [self.storyboard instantiateViewControllerWithIdentifier:@"publishview"];
+        PublishViewViewController *publishview = [[PublishViewViewController alloc] init];
         publishview.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:publishview animated:YES];
     }
@@ -405,8 +405,7 @@
 }
 
 - (void)GoSearch:(UIButton *)sender{
-    SearchViewController *searchView = [self.storyboard instantiateViewControllerWithIdentifier:@"searchview"];
-    
+    SearchViewController *searchView = [[SearchViewController alloc] init];
     [self.navigationController pushViewController:searchView animated:YES];
 }
 

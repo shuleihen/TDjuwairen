@@ -68,7 +68,7 @@
 
 - (void)registerPressed:(UIButton *)sender
 {
-    RegisterViewController *regis = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"regis"];
+    RegisterViewController *regis = [[RegisterViewController alloc] init];
     [self.navigationController pushViewController:regis animated:YES];
 }
 
@@ -133,13 +133,13 @@
 
 - (IBAction)mobileLoginPressed:(id)sender
 {
-    MobileLoginViewController *mobilelogin = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"mobilelogin"];
+    MobileLoginViewController *mobilelogin = [[MobileLoginViewController alloc] init];
     [self.navigationController pushViewController:mobilelogin animated:YES];
 }
 
 - (IBAction)forgetPasswordPressed:(id)sender
 {
-    ForgetViewController *forget = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateViewControllerWithIdentifier:@"forget"];
+    ForgetViewController *forget = [[ForgetViewController alloc] init];
     [self.navigationController pushViewController:forget animated:YES];
 }
 
@@ -182,7 +182,7 @@
                          [dic[@"user_pwd"] isEqualToString:@""] ||
                          ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
 
-                         AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
+                         AddUpdatesViewController *addview = [[AddUpdatesViewController alloc] init];
                          addview.unionid = unionid;
                          [self.navigationController pushViewController:addview animated:YES];
                      } else {
@@ -255,7 +255,7 @@
                          [dic[@"user_pwd"] isEqualToString:@""] ||
                          ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
                          
-                         AddUpdatesViewController *addview = [self.storyboard instantiateViewControllerWithIdentifier:@"addupdates"];
+                         AddUpdatesViewController *addview = [[AddUpdatesViewController alloc] init];
                          addview.qqopenid = openid;
                          [self.navigationController pushViewController:addview animated:YES];
                      } else {
