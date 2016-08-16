@@ -8,7 +8,6 @@
 
 #import "AddUpdatesViewController.h"
 #import "LoginState.h"
-#import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"

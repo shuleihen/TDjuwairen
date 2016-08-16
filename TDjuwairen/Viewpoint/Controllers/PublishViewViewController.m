@@ -18,7 +18,6 @@
 #import "NSString+Ext.h"
 #import "PhotoTextAttachment.h"
 #import "UIImageView+WebCache.h"
-#import "AFNetworking.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 
@@ -676,13 +675,10 @@
     
     //方法1，用原图
     UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *updateurl = [NSString stringWithFormat:@"%@View/upViewContenPic1_2",kAPI_bendi];
-    [manager POST:updateurl parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    [manager POST:API_UploadContentPic parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
         UIImage *image = Photo;
-//        NSData*data = UIImagePNGRepresentation(image);
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
         
         NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
@@ -691,18 +687,16 @@
         NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
         
         [formData appendPartWithFileData:data name:@"img" fileName:fileName mimeType:@"image/png"];
-        
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = responseObject[@"data"];
-        NSLog(@"%@",dic[@"picurl"]);
-        NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
-        NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.109"];
-        NSLog(@"%@",imgu);
-        [self.upimgArr addObject:imgu];
-        NSLog(@"上传成功！");
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"上传失败！");
+    } completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
+            NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.109"];
+
+            [self.upimgArr addObject:imgu];
+        }
     }];
+    
     //方法2，得到数据库中的地址来存放图片
 //    NSString *imgurl = @"http://q.qlogo.cn/qqapp/101266993/DCA4CFB9A7D63D39BDC451E0822CE3BC/100";
 //    NSString *img = [NSString stringWithFormat:@"<img scr='%@'>",imgurl];
@@ -806,28 +800,22 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
-    NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary*para=@{@"userid":self.loginState.userId,
                         @"isOrigin":isoriginal,
                         @"title":self.titleText.text,
                         @"is_publish":@"0",
                         @"viewcontent":htmlstring};
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        hud.labelText = @"保存成功";
-        [hud hide:YES afterDelay:0.1];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
-        hud.labelText = @"保存失败";
-        [hud hide:YES afterDelay:0.1];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            hud.labelText = @"保存成功";
+            [hud hide:YES afterDelay:0.1];
+        } else {
+            hud.labelText = @"保存失败";
+            [hud hide:YES afterDelay:0.1];
+        }
     }];
-
 }
 
 #pragma mark - 发布文章
@@ -860,25 +848,21 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
-    NSString *url = [NSString stringWithFormat:@"%@View/publishViewDo1_2",kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *para = @{@"userid":self.loginState.userId,
                            @"isOrigin":isoriginal,
                            @"title":self.titleText.text,
                            @"is_publish":@"1",
                            @"viewcontent":htmlstring};
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSLog(@"%@",responseObject);
-        hud.labelText = @"发布成功";
-        [hud hide:YES afterDelay:0.1];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"失败");
-        hud.labelText = @"发布失败";
-        [hud hide:YES afterDelay:0.1];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            hud.labelText = @"发布成功";
+            [hud hide:YES afterDelay:0.1];
+        } else {
+            hud.labelText = @"发布失败";
+            [hud hide:YES afterDelay:0.1];
+        }
     }];
 }
 

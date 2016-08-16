@@ -10,7 +10,6 @@
 #import "BrowserTableViewCell.h"
 #import "NoBrowserTableViewCell.h"
 #import "LoginState.h"
-#import "AFNetworking.h"
 #import "EditView.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"

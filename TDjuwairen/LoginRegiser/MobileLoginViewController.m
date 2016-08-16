@@ -8,7 +8,6 @@
 
 #import "MobileLoginViewController.h"
 #import "RegisterViewController.h"
-#import "AFNetworking.h"
 #import "LoginState.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"

@@ -9,7 +9,6 @@
 #import "MyInfoTableViewController.h"
 #import "ELCImagePickerController.h"
 #import "UIImageView+WebCache.h"
-#import "AFNetworking.h"
 #import "LoginState.h"
 #import "NetworkManager.h"
 

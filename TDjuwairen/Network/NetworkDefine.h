@@ -13,6 +13,7 @@
 
 #define kAPI_bendi @"http://192.168.1.106/tuanda_web/Appapi/index.php/"
 
+#define API_AddBrowseHistory    @"index.php/Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"index.php/Public/getBrowseHistory"
 #define API_DelBrowseHistory    @"index.php/Public/delBrowseHistory"
 #define API_GetApiValidate      @"Public/getapivalidate/"
@@ -32,12 +33,20 @@
 #define API_LoginWithQQ         @"Login/qqLoginDo1_2"
 #define API_LoginWithPhone      @"Login/phoneLogin1_2"
 #define API_CheckPhone          @"Reg/checkTelephone/"
+#define API_RegWithPhone        @"Reg/doTelReg"
+#define API_CheckNickName       @"Reg/checkNickname"
 #define API_UpdateUserName      @"User/updateUsername"
 #define API_UpdateCompanyName   @"User/updateCompanyName"
 #define API_UpdateOccupationName @"User/updateOccupationName"
 #define API_UpdateUserInfo      @"User/updateUserinfo"
 #define API_UploadUserface      @"User/userfaceImgUp"
-
+#define API_UploadContentPic    @"View/upViewContenPic1_2"
+#define API_PushViewDo1_2       @"View/publishViewDo1_2"
+#define API_Search              @"index.php/Search/search"
+#define API_AddSharpComment     @"index.php/Sharp/addSharpComnment"
+#define API_GetSurveryList      @"index.php/Sharp/surveyList/page"
+#define API_GetVideoList        @"Sharp/VideoList/page"
+#define API_GetBanner           @"index.php/Index/indexBanner"
 #endif /* NetworkDefine_h */
 
 //NetworkManager *manager = [[NetworkManager alloc] init];

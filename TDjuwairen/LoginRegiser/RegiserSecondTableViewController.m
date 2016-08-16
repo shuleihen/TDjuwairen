@@ -8,9 +8,9 @@
 
 #import "RegiserSecondTableViewController.h"
 #import <SMS_SDK/SMSSDK.h>
-#import "AFNetworking.h"
 #import "LoginState.h"
 #import "SurveyViewController.h"
+#import "NetworkManager.h"
 
 @interface RegiserSecondTableViewController ()
 @property(nonatomic,strong)LoginState*LoginState;
@@ -121,17 +121,13 @@
     {
         [SMSSDK commitVerificationCode:self.VerificationTextField.text phoneNumber:self.phone zone:@"86" result:^(NSError *error) {
             if (!error) {
-                AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-                manager.responseSerializer=[AFJSONResponseSerializer serializer];
-                manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-                NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/doTelReg/"];
+                NetworkManager *manager = [[NetworkManager alloc] init];
                 NSDictionary*paras=@{@"telephone":self.phone,
                                      @"password":self.password.text,
                                      @"nickname":self.nickname.text};
-                [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                    NSString*code=[responseObject objectForKey:@"code"];
-                    if ([code isEqualToString:@"200"]) {
-                        
+                
+                [manager POST:API_RegWithPhone parameters:paras completion:^(id data, NSError *error){
+                    if (!error) {
                         UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
                         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                             [self requestLogin];
@@ -141,16 +137,11 @@
                         //跳转至主页面
                         SurveyViewController *survey = [self.storyboard instantiateViewControllerWithIdentifier:@"Survey"];
                         [self.navigationController popToViewController:survey animated:YES];
-                    }
-                    else
-                    {
-                        NSLog(@"注册失败！");
+                    } else {
                         UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册失败" preferredStyle:UIAlertControllerStyleAlert];
                         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
                         [self presentViewController:alert animated:YES completion:nil];
                     }
-                } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                    NSLog(@"请求失败!");
                 }];
                 
             } else {
@@ -172,20 +163,14 @@
 
 -(void)requestLogin
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"account":self.phone,
                          @"password":self.password.text};
     
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"登陆成功");
+    [manager POST:API_Login parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary*dic = data;
             
-            NSDictionary*dic=responseObject[@"data"];
-        
             self.LoginState.userId=dic[@"user_id"];
             self.LoginState.userName=dic[@"user_name"];
             self.LoginState.userPhone=dic[@"userinfo_phone"];
@@ -200,23 +185,21 @@
             [accountDefaults synchronize];
             
             [self.navigationController popToRootViewControllerAnimated:YES];
+        } else {
+            if (error.code == NSURLErrorTimedOut) {
+                UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                
+                [aler addAction:conformAction];
+                [self presentViewController:aler animated:YES completion:nil];
+            } else {
+                UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名，手机号或密码错误" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [aler addAction:conformAction];
+                [self presentViewController:aler animated:YES completion:nil];
+            }
         }
-        else
-        {
-            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名，手机号或密码错误" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-            [aler addAction:conformAction];
-            [self presentViewController:aler animated:YES completion:nil];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-        
-        [aler addAction:conformAction];
-        [self presentViewController:aler animated:YES completion:nil];
     }];
-
 }
 
 //完成注册
@@ -228,26 +211,18 @@
     }
     else
     {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkNickname/"];
-    NSDictionary*para=@{@"nickname":self.nickname.text};
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            [self requestRegiser];
-        }
-        else
-        {
-            UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"该昵称已注册" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary*para=@{@"nickname":self.nickname.text};
         
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        
-    }];
+        [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+            if (!error) {
+                [self requestRegiser];
+            } else {
+                UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"该昵称已注册" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }];
     }
 }
 @end

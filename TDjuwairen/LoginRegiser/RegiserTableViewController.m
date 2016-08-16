@@ -9,7 +9,7 @@
 #import "RegiserTableViewController.h"
 #import "RegiserSecondTableViewController.h"
 #import "AgreeViewController.h"
-#import "AFNetworking.h"
+#import "NetworkManager.h"
 
 
 @interface RegiserTableViewController ()
@@ -76,34 +76,20 @@
         [self presentViewController:alert animated:YES completion:nil];
     }
     else{
-        
-        AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer=[AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkTelephone/"];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary*para=@{@"telephone":self.phonetext.text};
-        [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            NSString*code=[responseObject objectForKey:@"code"];
-            if ([code isEqualToString:@"200"]) {
+        
+        [manager POST:API_CheckPhone parameters:para completion:^(id data, NSError *error){
+            if (!error) {
                 RegiserSecondTableViewController*regiser=[self.storyboard instantiateViewControllerWithIdentifier:@"SecondView"];
                 regiser.phone=self.phonetext.text;
                 [self.navigationController pushViewController:regiser animated:YES];
-            }
-            else
-            {
-                NSLog(@"手机号已注册！");
+            } else {
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"手机号已注册！" preferredStyle:UIAlertControllerStyleAlert];
                 [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault  handler:nil]];
                 [self presentViewController:alert animated:YES completion:nil];
             }
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败！");
         }];
-
-        
-        
-        
     }
 }
 

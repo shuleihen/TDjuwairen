@@ -8,8 +8,6 @@
 
 #import "LoginViewController.h"
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
-#import "AFNetworking.h"
-
 #import "LoginState.h"
 #import "MobileLoginViewController.h"
 #import "ForgetViewController.h"

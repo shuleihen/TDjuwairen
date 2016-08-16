@@ -8,8 +8,6 @@
 #import <CommonCrypto/CommonDigest.h>
 
 #import "SharpDetailsViewController.h"
-#import "AFNetworking.h"
-#import "UIImageView+AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "BackCommentView.h"
 #import "NSString+TimeInfo.h"
@@ -763,37 +761,30 @@
     }
     
     
-    NSString *string = [NSString stringWithFormat:@"%@index.php/Sharp/addSharpComnment",API_HOST];
-    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":self.loginstate.userId,@"sharpcomment":text,@"authenticationStr":self.loginstate.userId,@"encryptedStr":encryptedStr};
-    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发表新评论";
     
-    __weak SharpDetailsViewController *wself = self;
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([responseObject[@"code"]  isEqualToString:@"200"]) {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":self.loginstate.userId,@"sharpcomment":text,@"authenticationStr":self.loginstate.userId,@"encryptedStr":encryptedStr};
+    
+    [manager POST:API_AddSharpComment parameters:dic completion:^(id data, NSError *error){
+        if (!error) {
             hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.2];
             
             //请求评论数据
-            [wself requestCommentDataWithPage:1];
+            [self requestCommentDataWithPage:1];
+            
+            self.backcommentview.commentview.text = @"";
             
             //滑动到评论
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-            [wself.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
         } else {
+            
             hud.labelText = @"评论失败";
             [hud hide:YES afterDelay:0.2];
         }
-        
-        wself.backcommentview.commentview.text = @"";
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        hud.labelText = @"评论失败";
-        [hud hide:YES afterDelay:0.2];
-        NSLog(@"请求失败");
     }];
 }
 
@@ -809,20 +800,14 @@
     
     if (self.loginstate.isLogIn) {
         if (!self.sharpInfo.sharpIsCollect) {
-            
-            
-            NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
-            NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.sharp_id};
-
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"添加收藏";
 
-            AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-            manager.responseSerializer = [AFJSONResponseSerializer serializer];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-            [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                if ([responseObject[@"code"] isEqualToString:@"200"]) {
-                    //收藏成功 弹出提示框
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.sharp_id};
+            
+            [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
+                if (!error) {
                     hud.labelText = @"收藏成功";
                     [hud hide:YES afterDelay:0.2];
                     
@@ -832,10 +817,6 @@
                     hud.labelText = @"收藏失败";
                     [hud hide:YES afterDelay:0.2];
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                hud.labelText = @"收藏失败";
-                [hud hide:YES afterDelay:0.2];
-                NSLog(@"请求失败");
             }];
         }
         else
@@ -845,32 +826,25 @@
             
             NSMutableArray *sharpID = [NSMutableArray array];
             [sharpID addObject:self.sharp_id];
-            AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-            manager.responseSerializer=[AFJSONResponseSerializer serializer];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-            NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/index.php/Collection/delCollect"];
+            
+            NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary *para = @{@"authenticationStr":self.loginstate.userId,
                                    @"encryptedStr":encryptedStr,
                                    @"delete_ids":sharpID,
                                    @"module_id":@"2",
                                    @"userid":self.loginstate.userId};
-            [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSString*code=[responseObject objectForKey:@"code"];
-                if ([code isEqualToString:@"200"]) {
+            
+            [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
+                if (!error) {
                     self.sharpInfo.sharpIsCollect = false;
                     [sender setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
-                 
+                    
                     hud.labelText = @"取消成功";
                     [hud hide:YES afterDelay:0.2];
-                }
-                else {
+                } else {
                     hud.labelText = @"取消失败";
                     [hud hide:YES afterDelay:0.2];
                 }
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                hud.labelText = @"取消失败";
-                [hud hide:YES afterDelay:0.2];
-                NSLog(@"请求失败");
             }];
         }
     }
@@ -943,20 +917,16 @@
 #pragma mark-身份验证
 -(void)requestAuthentication
 {
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Public/getapivalidate/"];
-    NSDictionary *para = @{@"validatestring":self.loginstate.userId};
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*para=@{@"validatestring":self.loginstate.userId};
     
-    [manager POST:url parameters:para success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code = [responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSDictionary*dic = responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary*dic = data;
             encryptedStr = dic[@"str"];
+        } else {
+            
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
     }];
 }
 
@@ -1058,7 +1028,7 @@
 #pragma mark - 点击收藏取消收藏
 - (void)addControllers{
     if (self.loginstate.isLogIn) {
-        NSString *string = @"http://appapi.juwairen.net/index.php/Collection/addCollect";
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,
                               @"module_id":@3,
                               @"item_id":self.sharp_id};
@@ -1066,23 +1036,14 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"添加收藏";
         
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject[@"code"] isEqualToString:@"200"]) {
-                //收藏成功 弹出提示框
+        [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
                 hud.labelText = @"收藏成功";
                 [hud hide:YES afterDelay:0.2];
-                
             } else {
                 hud.labelText = @"收藏失败";
                 [hud hide:YES afterDelay:0.2];
             }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            hud.labelText = @"收藏失败";
-            [hud hide:YES afterDelay:0.2];
-            NSLog(@"请求失败");
         }];
     }
 }

@@ -7,7 +7,6 @@
 //
 
 #import "VideoViewController.h"
-#import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
@@ -178,49 +177,47 @@
 
 #pragma mark - 请求数据
 -(void)requestDataWithVideoList{
-//    NSString *string = [NSString stringWithFormat:@"%@VideoList/page/%d",kAPI_Sharp,page];
-    NSString *string = [NSString stringWithFormat:@"%@Sharp/VideoList/page/%d",kAPI_bendi,page];
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if (page == 1) {
-            
-            if (isFirstRequest) {
-                NSArray *dataArray = responseObject[@"data"];
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [self.VideoListArray addObject:model];
+    NSString *string = [NSString stringWithFormat:@"%@/%d",API_GetVideoList,page];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    
+    [manager GET:string parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            if (page == 1) {
+                
+                if (isFirstRequest) {
+                    NSArray *dataArray = data;
+                    for (NSDictionary *d in dataArray) {
+                        SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                        [self.VideoListArray addObject:model];
+                    }
+                    isFirstRequest = NO;
                 }
-                isFirstRequest = NO;
-            }
-            else
-            {
-                SurveyListModel *mod = self.VideoListArray[0];
-                NSArray *data = responseObject[@"data"];
-                for (int i=0 ; i<data.count; i++) {
-                    NSDictionary *d = data[i];
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
-                        [self.VideoListArray insertObject:model atIndex:i];
+                else
+                {
+                    SurveyListModel *mod = self.VideoListArray[0];
+                    NSArray *array = data;
+                    for (int i=0 ; i<array.count; i++) {
+                        NSDictionary *d = array[i];
+                        SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                        if ([model.sharp_wtime intValue] > [mod.sharp_wtime intValue]) {
+                            [self.VideoListArray insertObject:model atIndex:i];
+                        }
                     }
                 }
             }
-        }
-        else
-        {
-            NSArray *dataArray = responseObject[@"data"];
-            /* 判断数组是否为空 */
-            if ((NSNull *)dataArray != [NSNull null]) {
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [self.VideoListArray addObject:model];
+            else
+            {
+                NSArray *dataArray = data;
+                /* 判断数组是否为空 */
+                if ((NSNull *)dataArray != [NSNull null]) {
+                    for (NSDictionary *d in dataArray) {
+                        SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                        [self.VideoListArray addObject:model];
+                    }
                 }
             }
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
-            __weak FCXRefreshFooterView *weakFooterView = footerView;
-            [weakFooterView endRefresh];
+            
+            [footerView endRefresh];
             
             [self.loading stopAnimating]; //停止
             self.loadingLabel.alpha = 0.0;
@@ -228,14 +225,10 @@
             self.loadingImageView.alpha = 0.0;
             [self.loadingImageView removeFromSuperview];
             
-            
             [self.tableview reloadData];//主线程刷新tableview
-        });
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"网络出错！请求失败");
-        //调用刷新来解决页面不出现问题
-        //[self refreshAction];
+        } else {
+            
+        }
     }];
 }
 
@@ -314,22 +307,15 @@
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     
     if (self.loginstate.isLogIn) {     //为登录状态
-        //添加浏览记录
-        NSString *strurl = [NSString stringWithFormat:@"%@index.php/Public/addBrowseHistory",API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":model.sharp_id};
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:strurl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject[@"code"] intValue] == 200) {
-                NSLog(@"插入成功");
+        
+        [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                
+            } else {
+                
             }
-            else
-            {
-                NSLog(@"插入失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败");
         }];
     }
     

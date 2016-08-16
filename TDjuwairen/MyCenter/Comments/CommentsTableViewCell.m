@@ -7,7 +7,7 @@
 //
 
 #import "CommentsTableViewCell.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+WebCache.h"
 #import "UIdaynightModel.h"
 
 @interface CommentsTableViewCell ()
@@ -33,14 +33,14 @@
 -(void)setCellWithDic:(NSDictionary *)dic
 {
     NSString*head=dic[@"userinfo_facesmall"];
-    [self.headImageView setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];
     
     self.nicknameLabel.text=dic[@"user_nickname"];
     self.timeLabel.text=[self setLabelsTime:[dic[@"sharpcomment_ptime"] integerValue]];
     self.commentsLabel.text=dic[@"sharpcomment_text"];
     
     NSString*sharp=dic[@"sharp_pic280"];
-    [self.sharpImageView setImageWithURL:[NSURL URLWithString:sharp] placeholderImage:nil];
+    [self.sharpImageView sd_setImageWithURL:[NSURL URLWithString:sharp] placeholderImage:nil];
     
     self.titleLabel.text=dic[@"sharp_title"];
 }

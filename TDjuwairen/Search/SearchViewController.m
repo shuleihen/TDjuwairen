@@ -8,12 +8,12 @@
 
 #import "SearchViewController.h"
 #import "HistoryView.h"
-#import "AFNetworking.h"
 #import "SurveyListModel.h"
 #import "SearchResultTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+Ext.h"
+#import "NetworkManager.h"
 
 @interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
 {
@@ -67,52 +67,48 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NSString *string = @"http://appapi.juwairen.net/index.php/Search/search";
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager POST:string parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = responseObject[@"data"];
-        
-        NSArray *arr1 = dic[@"sharp_type1"];
-        /* 清空数组 */
-        [self.surveydata removeAllObjects];
-        if ((NSNull *)arr1 != [NSNull null]) {
-            for (NSDictionary *d in arr1) {
-                SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                [self.surveydata addObject:model];
+    
+    [manager POST:API_Search parameters:dic completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            
+            NSArray *arr1 = dic[@"sharp_type1"];
+            /* 清空数组 */
+            [self.surveydata removeAllObjects];
+            if ((NSNull *)arr1 != [NSNull null]) {
+                for (NSDictionary *d in arr1) {
+                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                    [self.surveydata addObject:model];
+                }
             }
-        }
-        
-        NSArray *arr2 = dic[@"sharp_type2"];
-        /* 清空数组 */
-        [self.researchdata removeAllObjects];
-        
-        if ((NSNull *)arr2 != [NSNull null]) {
-            for (NSDictionary *d in arr2) {
-                SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                [self.researchdata addObject:model];
+            
+            NSArray *arr2 = dic[@"sharp_type2"];
+            /* 清空数组 */
+            [self.researchdata removeAllObjects];
+            
+            if ((NSNull *)arr2 != [NSNull null]) {
+                for (NSDictionary *d in arr2) {
+                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                    [self.researchdata addObject:model];
+                }
             }
-        }
-        
-        NSArray *arr3 = dic[@"sharp_type3"];
-        /* 清空数组 */
-        [self.videodata removeAllObjects];
-        if ((NSNull *)arr3 != [NSNull null]) {
-            for (NSDictionary *d in arr3) {
-                SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                [self.videodata addObject:model];
+            
+            NSArray *arr3 = dic[@"sharp_type3"];
+            /* 清空数组 */
+            [self.videodata removeAllObjects];
+            if ((NSNull *)arr3 != [NSNull null]) {
+                for (NSDictionary *d in arr3) {
+                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                    [self.videodata addObject:model];
+                }
             }
-        }
-        
-        /* 调用主线程刷新 */
-        dispatch_async(dispatch_get_main_queue(), ^{
+            
             [self.tableview reloadData];
-        });
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败！");
+        } else {
+            
+        }
     }];
 }
 

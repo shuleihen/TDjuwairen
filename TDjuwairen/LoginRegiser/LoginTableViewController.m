@@ -10,7 +10,6 @@
 #import "RegiserTableViewController.h"
 #import "ForgotTableViewController.h"
 #import "LoginState.h"
-#import "AFNetworking.h"
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
 #import "NetworkManager.h"
 

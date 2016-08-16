@@ -8,7 +8,6 @@
 
 #import "RegisterViewController.h"
 #import "LoginState.h"
-#import "AFNetworking.h"
 #import "SurveyViewController.h"
 #import "MBProgressHUD.h"
 #import <SMS_SDK/SMSSDK.h>
@@ -242,17 +241,13 @@
 }
 
 - (void)SubmitUserinfo{
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer=[AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString*url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/doTelReg/"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras = @{@"telephone":self.accountText.text,
                            @"password":self.passwordText.text,
                            @"nickname":self.nicknameText.text};
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            
+    
+    [manager POST:API_RegWithPhone parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
             UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
@@ -264,33 +259,22 @@
             //跳转至主页面
             SurveyViewController *survey = [self.storyboard instantiateViewControllerWithIdentifier:@"Survey"];
             [self.navigationController popToViewController:survey animated:YES];
-        }
-        else
-        {
-            NSLog(@"注册失败！");
+        } else {
             UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册失败" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败!");
     }];
 }
 
 - (void)requestLogin{
-    AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer  serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    NSString *url = [NSString stringWithFormat:@"%@Login/loginDo",kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *paras = @{@"account":self.accountText.text,
                             @"password":self.passwordText.text};
     
-    [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSString*code=[responseObject objectForKey:@"code"];
-        if ([code isEqualToString:@"200"]) {
-            NSLog(@"登陆成功");
-            
-            NSDictionary *dic = responseObject[@"data"];
+    [manager POST:API_GetApiValidate parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
             NSLog(@"%@",dic);
             self.loginState.userId = dic[@"user_id"];
             self.loginState.userName = dic[@"user_name"];
@@ -309,21 +293,21 @@
             [accountDefaults synchronize];
             
             [self.navigationController popViewControllerAnimated:YES];
+        } else {
+            NSString *message = error.localizedDescription;
+            if (error.code == NSURLErrorTimedOut) {
+                UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                
+                [aler addAction:conformAction];
+                [self presentViewController:aler animated:YES completion:nil];
+            } else {
+                UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                [aler addAction:conformAction];
+                [self presentViewController:aler animated:YES completion:nil];
+            }
         }
-        else
-        {
-            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:responseObject[@"msg"] preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-            [aler addAction:conformAction];
-            [self presentViewController:aler animated:YES completion:nil];
-        }
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"登录失败!请检查网络链接!" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
-        
-        [aler addAction:conformAction];
-        [self presentViewController:aler animated:YES completion:nil];
     }];
 }
 

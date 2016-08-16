@@ -8,7 +8,6 @@
 
 #import "ForgotTableViewController.h"
 #import "ForgotSecondTableViewController.h"
-#import "AFNetworking.h"
 #import "NetworkManager.h"
 
 @interface ForgotTableViewController ()

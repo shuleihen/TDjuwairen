@@ -10,7 +10,6 @@
 #import "FeedbackTableViewCell.h"
 #import "ResponsListTableViewCell.h"
 #import "LoginState.h"
-#import "AFNetworking.h"
 #import "NetworkManager.h"
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>

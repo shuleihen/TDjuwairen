@@ -9,7 +9,6 @@
 #import "CommentsViewController.h"
 #import "CommentsTableViewCell.h"
 #import "NoCommentsTableViewCell.h"
-#import "AFNetworking.h"
 #import "LoginState.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"

@@ -7,7 +7,7 @@
 //
 
 #import "CollectionTableViewCell.h"
-#import "UIImageView+AFNetworking.h"
+#import "UIImageView+WebCache.h"
 #import "UIdaynightModel.h"
 
 @interface CollectionTableViewCell ()
@@ -41,7 +41,7 @@
     self.nicknameLabel.text=dic[@"user_nickname"];
     
     NSString*head=dic[@"userinfo_facesmall"];
-    [self.headImageView setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];
+    [self.headImageView sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];
     
     
     NSString*sharp=dic[@"sharp_pic280"];

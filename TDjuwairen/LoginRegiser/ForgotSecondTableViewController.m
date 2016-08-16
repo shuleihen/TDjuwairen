@@ -8,7 +8,6 @@
 
 #import "ForgotSecondTableViewController.h"
 #import "LoginTableViewController.h"
-#import "AFNetworking.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 

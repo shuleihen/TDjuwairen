@@ -11,8 +11,6 @@
 #import "UIdaynightModel.h"
 #import "ViewPointTableViewCell.h"
 #import "ViewPointListModel.h"
-
-#import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "NSString+Ext.h"
 #import "MJRefresh.h"

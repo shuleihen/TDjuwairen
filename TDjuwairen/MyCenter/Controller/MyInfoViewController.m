@@ -11,7 +11,6 @@
 #import "LoginState.h"
 #import "UIdaynightModel.h"
 #import "MyInfomationTableViewCell.h"
-#import "AFNetworking.h"
 #import "ELCImagePickerController.h"
 #import "NetworkManager.h"
 

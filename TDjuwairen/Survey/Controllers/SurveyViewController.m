@@ -8,7 +8,6 @@
 
 #import "SurveyViewController.h"
 #import "SDCycleScrollView.h"
-#import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
@@ -182,31 +181,29 @@
 #pragma mark - 请求调研列表数据
 -(void)requestDataWithSurveyList{
     __weak SurveyViewController *wself = self;
-    // @fql 这里可以不用 weak 类型，在下面的block里面直接使用self，不会造成循环引用
-    /*
-    NSString *urlPath = [NSString stringWithFormat:@"index.php/Sharp/surveyList/page/%d",self.page];
     
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSString *url = [NSString stringWithFormat:@"%@/%d",API_GetSurveryList,self.page];
+    [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
-
+            
             if (dataArray.count > 0) {
-            NSMutableArray *list = nil;
-            if (wself.page == 1) {
-            list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-            } else {
-            list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
+                NSMutableArray *list = nil;
+                if (wself.page == 1) {
+                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+                } else {
+                    list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
+                }
+                
+                for (NSDictionary *d in dataArray) {
+                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                    [list addObject:model];
+                }
+                
+                wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
-
-            for (NSDictionary *d in dataArray) {
-            SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-            [list addObject:model];
-            }
-
-            wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
-            }
-
+            
             [wself.tableview.mj_header endRefreshing];
             [wself.tableview.mj_footer endRefreshing];
             [wself stopLoading];
@@ -216,42 +213,6 @@
             [wself.tableview.mj_header endRefreshing];
             [wself.tableview.mj_footer endRefreshing];
         }
-    }];
-    */
-    
-    NSString *string = [NSString stringWithFormat:@"%@index.php/Sharp/surveyList/page/%d",API_HOST,self.page];
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //如果当前请求的是第一页，就清空文章列表数组
-        NSArray *dataArray = responseObject[@"data"];
-        
-        if (dataArray.count > 0) {
-            NSMutableArray *list = nil;
-            if (wself.page == 1) {
-                list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-            } else {
-                list = [NSMutableArray arrayWithArray:wself.surveyListDataArray];
-            }
-            
-            for (NSDictionary *d in dataArray) {
-                SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                [list addObject:model];
-            }
-            
-            wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
-        }
-        
-        [wself.tableview.mj_header endRefreshing];
-        [wself.tableview.mj_footer endRefreshing];
-        [wself stopLoading];
-        [wself.tableview reloadData];
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        [wself stopLoading];
-        [wself.tableview.mj_header endRefreshing];
-        [wself.tableview.mj_footer endRefreshing];
     }];
 }
 
@@ -279,44 +240,32 @@
 #pragma mark - 设置tableHeaderView无限轮播
 - (void)setupWithTableHeaderView{
     //FIXME: @fql setupWithTableHeaderView 方法只在didload中调用一次，如果第一次加载失败，后面就一直不会显示
-    // 网络加载 --- 创建自定义图片的pageControlDot的图片轮播器
     SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight/4) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
     cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;//page样式
     cycleScrollView.titlesGroup = self.scrollTitleArray;
     cycleScrollView.imageURLStringsGroup = self.scrollImageArray;
     self.tableview.tableHeaderView = cycleScrollView;
-    //    cycleScrollView.autoScrollTimeInterval = 2.0;// 滚动时间为两秒一张
-    //185534916
-    //请求轮播数据
-    NSString *string = @"http://appapi.juwairen.net/index.php/Index/indexBanner";
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer serializer];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-    [manager GET:string parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        if ([responseObject[@"code"] isEqualToString:@"200"]) {
+
+
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_GetBanner parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
             self.scrollImageArray = [NSMutableArray array];
             self.scrollTitleArray = [NSMutableArray array];
             self.scrollIDArray = [NSMutableArray array];
-            NSArray *dataArr = responseObject[@"data"];
+            NSArray *dataArr = data;
             for (NSDictionary *d in dataArr) {
                 [self.scrollImageArray addObject:d[@"ad_imgurl"]];
                 [self.scrollTitleArray addObject:d[@"ad_title"]];
                 [self.scrollIDArray addObject:d[@"ad_link"]];
             }
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [self.tableview reloadData];//页面刷新
-                cycleScrollView.titlesGroup = self.scrollTitleArray;//设置轮播图片的标题
-                cycleScrollView.imageURLStringsGroup = self.scrollImageArray;//设置轮播图片
-            });
+            
+            [self.tableview reloadData];//页面刷新
+            cycleScrollView.titlesGroup = self.scrollTitleArray;//设置轮播图片的标题
+            cycleScrollView.imageURLStringsGroup = self.scrollImageArray;//设置轮播图片
+        } else {
+            
         }
-        else
-        {
-            NSLog(@"code == 400");
-        }
-        
-        
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"网络出错!");
     }];
 }
 
@@ -397,22 +346,15 @@
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     
     if (self.loginstate.isLogIn) {     //为登录状态
-        //添加浏览记录
-        NSString *strurl = [NSString stringWithFormat:@"%@index.php/Public/addBrowseHistory",API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.scrollIDArray[index]};
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:strurl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject[@"code"] intValue] == 200) {
-                NSLog(@"添加成功");
+        
+        [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                
+            } else {
+                
             }
-            else
-            {
-                NSLog(@"添加失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败");
         }];
     }
     
@@ -432,22 +374,15 @@
     
     
     if (self.loginstate.isLogIn) {     //为登录状态
-        //添加浏览记录
-        NSString *strurl = [NSString stringWithFormat:@"%@index.php/Public/addBrowseHistory",API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":model.sharp_id};
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:strurl parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            if ([responseObject[@"code"] intValue] == 200) {
-                NSLog(@"添加成功");
+        
+        [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                
+            } else {
+                
             }
-            else
-            {
-                NSLog(@"添加失败");
-            }
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"请求失败");
         }];
     }
     
@@ -463,74 +398,67 @@
     if ([loginStyle isEqualToString:@"QQlogin"]) {
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
-        NSString *url = [NSString stringWithFormat:@"%@Login/checkQQAccount1_2",kAPI_bendi];
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:url parameters:dic success:^(AFHTTPRequestOperation *operation, id responseObject) {
-            
-            NSDictionary *dic = responseObject[@"data"];
-            self.loginstate.userId=dic[@"user_id"];
-            self.loginstate.userName=dic[@"user_name"];
-            self.loginstate.nickName=dic[@"user_nickname"];
-            self.loginstate.userPhone=dic[@"userinfo_phone"];
-            self.loginstate.headImage=dic[@"userinfo_facesmall"];
-            self.loginstate.company=dic[@"userinfo_company"];
-            self.loginstate.post=dic[@"userinfo_occupation"];
-            self.loginstate.personal=dic[@"userinfo_info"];
-            
-            self.loginstate.isLogIn=YES;
-            
-            [self.navigationController popViewControllerAnimated:YES];
-            
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            NSLog(@"QQ登录失败");
+        
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NSDictionary*para=@{@"validatestring":self.loginstate.userId};
+        
+        [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                NSDictionary *dic = data;
+                self.loginstate.userId=dic[@"user_id"];
+                self.loginstate.userName=dic[@"user_name"];
+                self.loginstate.nickName=dic[@"user_nickname"];
+                self.loginstate.userPhone=dic[@"userinfo_phone"];
+                self.loginstate.headImage=dic[@"userinfo_facesmall"];
+                self.loginstate.company=dic[@"userinfo_company"];
+                self.loginstate.post=dic[@"userinfo_occupation"];
+                self.loginstate.personal=dic[@"userinfo_info"];
+                
+                self.loginstate.isLogIn=YES;
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                
+            }
         }];
     }
     else if ([loginStyle isEqualToString:@"WXlogin"]){
         NSString *unionid = [user objectForKey:@"unionid"];
         NSDictionary *dic = @{@"unionid":unionid};
-        NSString *url = [NSString stringWithFormat:@"%@Login/checkWXAccount1_2",kAPI_bendi];
-        AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-        manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-        [manager POST:url parameters:dic
-    success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        NSDictionary *dic = responseObject[@"data"];
-        self.loginstate.userId=dic[@"user_id"];
-        self.loginstate.userName=dic[@"user_name"];
-        self.loginstate.nickName=dic[@"user_nickname"];
-        self.loginstate.userPhone=dic[@"userinfo_phone"];
-        self.loginstate.headImage=dic[@"userinfo_facesmall"];
-        self.loginstate.company=dic[@"userinfo_company"];
-        self.loginstate.post=dic[@"userinfo_occupation"];
-        self.loginstate.personal=dic[@"userinfo_info"];
         
-        self.loginstate.isLogIn=YES;
-        
-        [self.navigationController popViewControllerAnimated:YES];
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"微信登录失败");
-    }];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                NSDictionary *dic = data;
+                self.loginstate.userId=dic[@"user_id"];
+                self.loginstate.userName=dic[@"user_name"];
+                self.loginstate.nickName=dic[@"user_nickname"];
+                self.loginstate.userPhone=dic[@"userinfo_phone"];
+                self.loginstate.headImage=dic[@"userinfo_facesmall"];
+                self.loginstate.company=dic[@"userinfo_company"];
+                self.loginstate.post=dic[@"userinfo_occupation"];
+                self.loginstate.personal=dic[@"userinfo_info"];
+                
+                self.loginstate.isLogIn=YES;
+                
+                [self.navigationController popViewControllerAnimated:YES];
+            } else {
+                
+            }
+        }];
     }
     else if([loginStyle isEqualToString:@"normal"])
     {
         NSString *account = [user objectForKey:@"account"];
         NSString *password = [user objectForKey:@"password"];
         if (account != nil ) {
-            AFHTTPRequestOperationManager*manager=[[AFHTTPRequestOperationManager alloc]init];
-            manager.responseSerializer = [AFJSONResponseSerializer  serializer];
-            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObject:@"text/html"];
-            NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Login/loginDo/"];
+            NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary*paras=@{@"account":account,
                                  @"password":password};
             
-            [manager POST:url parameters:paras success:^(AFHTTPRequestOperation *operation, id responseObject) {
-                NSString*code=[responseObject objectForKey:@"code"];
-                if ([code isEqualToString:@"200"]) {
-                    NSLog(@"登陆成功");
-                    
-                    NSDictionary *dic = responseObject[@"data"];
+            [manager POST:API_Login parameters:paras completion:^(id data, NSError *error){
+                if (!error) {
+                    NSDictionary *dic = data;
                     self.loginstate.userId=dic[@"user_id"];
                     self.loginstate.userName=dic[@"user_name"];
                     self.loginstate.nickName=dic[@"user_nickname"];
@@ -543,10 +471,9 @@
                     self.loginstate.isLogIn=YES;
                     
                     [self.navigationController popViewControllerAnimated:YES];
+                } else {
+                    
                 }
-                
-            } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-                NSLog(@"请求失败");
             }];
         }
     }
@@ -555,12 +482,9 @@
 
 #pragma mark - detection
 - (void)judgeAPPVersion{
-    
     NSString *urlStr = @"https://itunes.apple.com/lookup?id=1125295972";
-    AFHTTPRequestOperationManager *manager = [[AFHTTPRequestOperationManager alloc]init];
-    manager.responseSerializer = [AFJSONResponseSerializer  serializer];
-    [manager GET:urlStr parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
+    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject){
         NSDictionary *data = (NSDictionary *)responseObject;
         NSArray *infoContent = [data objectForKey:@"results"];
         //商店版本
@@ -592,10 +516,7 @@
                 [self presentViewController:alert animated:YES completion:nil];
             }
         }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"请求失败");
-    }];
-    
+    } failure:^(NSURLSessionDataTask *task, NSError *error){}];
 }
 
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex

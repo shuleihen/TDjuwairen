@@ -7,7 +7,6 @@
 //
 
 #import "FeedbackTableViewCell.h"
-#import "AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "LoginState.h"
 
