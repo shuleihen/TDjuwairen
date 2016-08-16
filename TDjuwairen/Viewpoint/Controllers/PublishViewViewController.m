@@ -587,12 +587,14 @@
                                            NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
                     [labelText addAttributes:attr range:NSMakeRange(numm, self.contentText.text.length-numm)];
                     self.contentText.attributedText = labelText;
+                    
                 }
                 else
                 {
                     self.editziti.type = @"cu";
+                    
                     CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                    UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
                     
                     NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];

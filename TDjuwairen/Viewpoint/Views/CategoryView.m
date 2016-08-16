@@ -22,7 +22,7 @@
 }
 
 - (void)setupWithScrollview{
-    self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, 70*3, 40)];
+    self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     self.scrollview.backgroundColor = [UIColor whiteColor];
     self.scrollview.showsHorizontalScrollIndicator = NO;
     self.scrollview.showsVerticalScrollIndicator = NO;

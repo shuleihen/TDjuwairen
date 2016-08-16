@@ -58,9 +58,9 @@
 
 #pragma mark - 设置分类滑动条
 - (void)setupWithCategoryScroll{
-    self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/2, 40) andTitleArr:self.categoryArr];
+    self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
     self.cateview.delegate = self;
-    
+    self.cateview.backgroundColor = self.daynightmodel.navigationColor;
     [self.view addSubview:self.cateview];
     
 }
@@ -72,7 +72,7 @@
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
     self.contentScroll.pagingEnabled = YES;
-    
+    self.contentScroll.backgroundColor = self.daynightmodel.navigationColor;
     
     [self.view addSubview:self.contentScroll];
     self.contentScroll.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-104-50);
