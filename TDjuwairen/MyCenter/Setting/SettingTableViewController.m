@@ -57,7 +57,7 @@
     //设置返回button
     UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
     [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"back"];
+    UIImage* image = [UIImage imageNamed:@"nav_back"];
     [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     
     [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
