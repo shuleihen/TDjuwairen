@@ -83,14 +83,13 @@
 }
 
 - (void)setupWithNavigation{
-//    [self.navigationController.navigationBar setHidden:YES];
     [self.navigationController setNavigationBarHidden:YES animated:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -20, kScreenWidth, kScreenHeight+20) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight+20) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
@@ -191,8 +190,8 @@
     self.save.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.save addTarget:self action:@selector(ClickSave:) forControlEvents:UIControlEventTouchUpInside];
     
-    [self.view addSubview:self.back];
-    [self.view addSubview:self.save];
+    [self.tableview addSubview:self.back];
+    [self.tableview addSubview:self.save];
 }
 //点击返回
 - (void)ClickBack:(UIButton *)sender{
