@@ -31,6 +31,11 @@
     effectview.frame = CGRectMake(0, 0, kScreenWidth, 190);
     [self.backImg addSubview:effectview];
     
+    UIView *mask = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
+    mask.backgroundColor = [UIColor blackColor];
+    mask.alpha = 0.3;
+    [self.backImg addSubview:mask];
+    
     self.headImg = [[UIImageView alloc]initWithFrame:CGRectMake((kScreenWidth-60)/2, 52, 60, 60)];
     self.headImg.layer.cornerRadius = 30;
     self.headImg.layer.borderColor = [UIColor whiteColor].CGColor;

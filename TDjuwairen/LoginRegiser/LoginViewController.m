@@ -57,6 +57,7 @@
 
 - (void)setupWithNavigation
 {
+    [self.navigationController setNavigationBarHidden:NO animated:YES]; 
     //设置右边注册按钮
     UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleDone target:self action:@selector(registerPressed:)];
     self.navigationItem.rightBarButtonItem = regist;
