@@ -11,16 +11,18 @@
 #import "SurveyListModel.h"
 #import "SearchResultTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
+#import "NoResultTableViewCell.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 
-@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate>
 {
     NSMutableArray *resultArr;
     NSMutableArray *searchHistory;
   
     CGSize titlesize;
+    CGSize textsize;
 }
 @property (nonatomic,strong) UISearchBar *customSearchBar;
 @property (nonatomic,strong) UITableView *tableview;
@@ -137,7 +139,7 @@
 
 #pragma mark - 设置tableview初始化UserDefaults
 - (void)setupWithTableview{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-44) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -274,7 +276,7 @@
                     cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                 }
                 cell.imgview.image = [UIImage imageNamed:@"SurveyUnSelect.png"];
-                cell.headlabel.text = @"相关调研";
+                cell.headlabel.text = @"调研";
                 
                 /* cell的选中样式为无色 */
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -284,13 +286,22 @@
             {
                 if (self.surveydata.count == 0) {
                     NSString *identifier = @"cell";
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                    NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
                     if (cell == nil) {
-                        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
-                    cell.textLabel.text = @"暂无搜索结果";
-                    cell.textLabel.textColor = [UIColor grayColor];
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                    cell.delegate = self;
+                    NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+                    UIFont *font = [UIFont systemFontOfSize:16];
+                    cell.label.font = font;
+                    cell.label.numberOfLines = 0;
+                    textsize = CGSizeMake(kScreenWidth-100, 500.0);
+                    textsize = [text calculateSize:textsize font:font];
+                    cell.label.text = text;
+                    [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                    
+                    [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
+                    cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
@@ -324,7 +335,7 @@
                     cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                 }
                 cell.imgview.image = [UIImage imageNamed:@"ViewPointUnSelect.png"];
-                cell.headlabel.text = @"相关观点";
+                cell.headlabel.text = @"观点";
                 /* cell的选中样式为无色 */
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
@@ -333,13 +344,22 @@
             {
                 if (self.researchdata.count == 0) {
                     NSString *identifier = @"cell";
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                    NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
                     if (cell == nil) {
-                        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
-                    cell.textLabel.text = @"暂无搜索结果";
-                    cell.textLabel.textColor = [UIColor grayColor];
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                    cell.delegate = self;
+                    NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+                    UIFont *font = [UIFont systemFontOfSize:16];
+                    cell.label.font = font;
+                    cell.label.numberOfLines = 0;
+                    textsize = CGSizeMake(kScreenWidth-100, 500.0);
+                    textsize = [text calculateSize:textsize font:font];
+                    cell.label.text = text;
+                    [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                    
+                    [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
+                    cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
@@ -375,7 +395,7 @@
                     cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                 }
                 cell.imgview.image = [UIImage imageNamed:@"VideoUnSelect.png"];
-                cell.headlabel.text = @"相关视频";
+                cell.headlabel.text = @"视频";
                 /* cell的选中样式为无色 */
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
@@ -384,13 +404,22 @@
             {
                 if (self.videodata.count == 0) {
                     NSString *identifier = @"cell";
-                    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                    NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
                     if (cell == nil) {
-                        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
                     }
-                    cell.textLabel.text = @"暂无搜索结果";
-                    cell.textLabel.textColor = [UIColor grayColor];
-                    cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                    cell.delegate = self;
+                    NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+                    UIFont *font = [UIFont systemFontOfSize:16];
+                    cell.label.font = font;
+                    cell.label.numberOfLines = 0;
+                    textsize = CGSizeMake(kScreenWidth-100, 500.0);
+                    textsize = [text calculateSize:textsize font:font];
+                    cell.label.text = text;
+                    [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                    
+                    [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
+                    cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
@@ -439,7 +468,36 @@
         }
         else
         {
-            return 15 + titlesize.height + 15;
+            if (indexPath.section == 0) {
+                if (self.surveydata.count == 0) {
+                    return 10+40+10+textsize.height+30+40;
+                }
+                else
+                {
+                    return 15 + titlesize.height + 15;
+                }
+            }
+            else if (indexPath.section == 1)
+            {
+                if (self.researchdata.count == 0) {
+                    return 10+40+10+textsize.height+30+40;
+                }
+                else
+                {
+                    return 15 + titlesize.height + 15;
+                }
+            }
+            else
+            {
+                if (self.videodata.count == 0) {
+                    return 10+40+10+textsize.height+30+40;
+                }
+                else
+                {
+                    return 15 + titlesize.height + 15;
+                }
+            }
+            
         }
     }
     
@@ -453,7 +511,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    return 1;
+    return 5;
 }
 
 #pragma mark - 点击cell
@@ -633,6 +691,12 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.customSearchBar resignFirstResponder];
+}
+
+#pragma mark - 点击提交
+- (void)clickSubmit:(UIButton *)sender
+{
+    NSLog(@"提交");
 }
 
 - (void)didReceiveMemoryWarning {
