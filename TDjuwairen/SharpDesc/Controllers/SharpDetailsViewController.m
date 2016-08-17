@@ -856,21 +856,32 @@
 
 - (void)clickComments:(UIButton *)sender{
     
-    //滑动到评论
-    
-    if (firstClickComment) {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-64) {
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        //回到顶部
+        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
-        });
-        firstClickComment = NO;
+        
     }
     else
     {
-        NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
-        [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        //滑动到评论
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        if (firstClickComment) {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.7 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+                [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            });
+            
+            firstClickComment = NO;
+        }
+        else
+        {
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        }
     }
 }
 
