@@ -50,6 +50,7 @@
 }
 
 - (void)setupWithNavigation{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"观点管理";
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];

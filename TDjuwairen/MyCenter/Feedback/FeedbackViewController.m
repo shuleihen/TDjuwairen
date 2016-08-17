@@ -11,11 +11,13 @@
 #import "ResponsListTableViewCell.h"
 #import "LoginState.h"
 #import "NetworkManager.h"
+#import "UIdaynightModel.h"
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong)LoginState*loginstate;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,assign) int cellheight;
 @end
@@ -31,8 +33,11 @@
     self.contentTextField.delegate=self;
     
     self.loginstate=[LoginState addInstance];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     
     [self registerForKeyboardNotifications];
+    
+    [self setupWithNavigation];
 //    收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -40,6 +45,14 @@
     
     //监听contentTextField内容的改变
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(content) name:UITextFieldTextDidChangeNotification object:nil];
+}
+
+- (void)setupWithNavigation{
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    self.title = @"意见反馈";
+    //设置navigation背景色
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 - (void)registerForKeyboardNotifications{

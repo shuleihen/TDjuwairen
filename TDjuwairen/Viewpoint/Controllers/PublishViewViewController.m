@@ -432,7 +432,6 @@
         [alertController addAction:albumAction];
         
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
         }];
         
         [alertController addAction:cancelAction];
@@ -858,7 +857,7 @@
                            @"is_publish":@"1",
                            @"viewcontent":htmlstring};
     
-    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+    [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"发布成功";
             [hud hide:YES afterDelay:0.1];
