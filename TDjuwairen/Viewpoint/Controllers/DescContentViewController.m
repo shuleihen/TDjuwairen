@@ -905,9 +905,7 @@
 
 //当键盘隐藏时
 - (void)keyboardWillBeHidden{
-//    if (self.inputView) {
-//        <#statements#>
-//    }
+
     self.backcommentview.transform = CGAffineTransformIdentity;
 }
 

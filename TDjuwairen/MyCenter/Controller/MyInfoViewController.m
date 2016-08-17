@@ -87,7 +87,7 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight+20) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -1, kScreenWidth, kScreenHeight+20) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];

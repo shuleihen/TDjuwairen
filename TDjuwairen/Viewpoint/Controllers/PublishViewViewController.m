@@ -51,6 +51,7 @@
 
 @property (nonatomic,strong) UIView *SelSecView;
 @property (nonatomic,strong) UIButton *selBtnEdit;
+@property (nonatomic,copy) NSString *selType;
 
 
 @end
@@ -530,7 +531,7 @@
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
-    [self.SelSecView removeFromSuperview];
+//    [self.SelSecView removeFromSuperview];
     if ([self.contentText.text length] > 0) {
         self.placeholderLab.text = @"";
         self.placeholderLab.alpha = 0.0;
@@ -540,6 +541,8 @@
         self.placeholderLab.text = @"正文，8000个字以内";
         self.placeholderLab.alpha = 1.0;
     }
+
+    
     if (self.contentText.text.length > numm) {
         if (jiacu == YES) {
             if (xieti == YES) {
@@ -558,6 +561,7 @@
                 else
                 {
                     self.editziti.type = @"cuxie";
+
                     CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
                     UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
@@ -574,6 +578,7 @@
             {
                 if (xiahuaxian == YES) {
                     self.editziti.type = @"cuxian";
+
                     CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                     UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
@@ -588,7 +593,7 @@
                 else
                 {
                     self.editziti.type = @"cu";
-                    
+
                     CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                     UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
@@ -606,6 +611,7 @@
             if (xieti == YES) {
                 if (xiahuaxian == YES) {
                     self.editziti.type = @"xiexian";
+
 //                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
 //                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
 //                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
@@ -619,7 +625,7 @@
                 else
                 {
                     self.editziti.type = @"xie";
-                    //
+
                     currentRange = self.contentText.selectedRange;
                     
 //                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
@@ -637,6 +643,7 @@
             {
                 if (xiahuaxian == YES) {
                     self.editziti.type = @"xian";
+
                     CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                     UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
@@ -650,6 +657,7 @@
                 else
                 {
                     self.editziti.type = nil;
+
                     CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                     UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                     UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
