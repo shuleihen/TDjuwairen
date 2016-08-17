@@ -89,7 +89,7 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight+20) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight+20) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
@@ -99,17 +99,23 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 7;
+    if (section == 0) {
+        return 1;
+    }
+    else
+    {
+        return 6;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         NSString *identifier = @"headcell";
         MyHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
@@ -129,21 +135,33 @@
         if (indexPath.row-1 == 1 ||indexPath.row-1 == 2 ) {
             cell.textfield.enabled = NO;
         }
-        cell.namelabel.text = self.TitleArr[indexPath.row-1];
-        cell.textfield.text = self.MyInfoArr[indexPath.row-1];
+        cell.namelabel.text = self.TitleArr[indexPath.row];
+        cell.textfield.text = self.MyInfoArr[indexPath.row];
         cell.textfield.delegate = self;
+        
         return cell;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         return 190;
     }
     else
     {
         return 47;
+    }
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section == 0) {
+        return 0.1;
+    }
+    else
+    {
+        return 20;
     }
 }
 
@@ -181,12 +199,12 @@
 
 - (void)setupWithBackAndSave{
     self.back = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 50, 50)];
-    [self.back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [self.back setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
     [self.back addTarget:self action:@selector(ClickBack:) forControlEvents:UIControlEventTouchUpInside];
     
     self.save = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-50, 20, 50, 50)];
     [self.save setTitle:@"保存" forState:UIControlStateNormal];
-    [self.save setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    [self.save setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     self.save.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.save addTarget:self action:@selector(ClickSave:) forControlEvents:UIControlEventTouchUpInside];
     
