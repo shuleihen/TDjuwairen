@@ -294,6 +294,7 @@
     else//登录后 跳转评论管理页面
     {
         CommentsViewController *comments = [[CommentsViewController alloc] init];
+        comments.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:comments animated:YES];
     }
 }
@@ -308,11 +309,12 @@
     }
     else//登录后 跳转收藏管理页面
     {
-        CollectionViewController*collection = [[CollectionViewController alloc] init];
+        CollectionViewController *collection = [[CollectionViewController alloc] init];
+        collection.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:collection animated:YES];
     }
 }
-#pragma mark - 跳转到浏览浏览记录
+#pragma mark - 跳转到浏览记录
 - (void)GoBrowse:(UIButton *)serder{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
@@ -323,6 +325,7 @@
     else//登录后 跳转浏览记录页面
     {
         BrowserViewController *browser = [[BrowserViewController alloc] init];
+        browser.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:browser animated:YES];
     }
 }

@@ -109,6 +109,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request
                        completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+//                           NSLog(@"%@",responseObject);
                            if (error) {
                                dispatch_async(dispatch_get_main_queue(), ^{
                                    completion(nil, error);

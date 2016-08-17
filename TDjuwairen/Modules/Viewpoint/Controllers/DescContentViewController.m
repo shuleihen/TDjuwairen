@@ -18,6 +18,7 @@
 #import "LoginState.h"
 #import "LoginViewController.h"
 #import "FeedbackViewController.h"
+#import "SharpTags.h"
 
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
@@ -58,6 +59,9 @@
 
 @property (nonatomic,strong) NSString *encryptedStr;
 
+@property (nonatomic,strong) SharpTags *tagList;
+@property (nonatomic,strong) NSMutableArray *sharpTagsArray;
+
 @end
 
 @implementation DescContentViewController
@@ -84,6 +88,7 @@
     [super viewDidLoad];
     
     self.FirstcommentArr = [NSMutableArray array];
+    self.sharpTagsArray = [NSMutableArray array];
     self.sizeArr = @[@"120%",@"110%",@"100%",@"90%"];
     naviShow = NO;
     fontShow = NO;
@@ -147,6 +152,7 @@
         if (!error) {
             self.dataDic = data;
             
+            self.sharpTagsArray = self.dataDic[@"tags"];
             NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.103%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
@@ -234,7 +240,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 2;
+        return 3;
     }
     else
     {
@@ -278,7 +284,7 @@
             titleCell.selectionStyle = UITableViewCellSelectionStyleNone;
             return titleCell;
         }
-        else
+        else if(indexPath.row == 1)
         {
             NSString *identifier = @"cell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -297,6 +303,38 @@
             [self.webview setBackgroundColor:self.daynightmodel.navigationColor];
             [self.webview.scrollView setBackgroundColor:self.daynightmodel.navigationColor];
             
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            return cell;
+        }
+        else
+        {
+            /* 这里是文章标签 */
+            NSString *identifier = @"tagscell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            cell.backgroundColor = [UIColor clearColor];
+            [self.tagList removeFromSuperview];
+            self.tagList = [[SharpTags alloc]initWithFrame:CGRectMake(0, 15, kScreenWidth, 1)];
+            self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+            self.tagList.BGColor = [UIColor clearColor];
+            
+            /* 判断sharpTagsArray是否为空 */
+            if ((NSNull *)self.sharpTagsArray != [NSNull null]) {
+                NSArray *arr = [NSArray array];
+                if (self.sharpTagsArray.count > 4) {
+                    arr = [self.sharpTagsArray subarrayWithRange:NSMakeRange(0, 4)];
+                }else
+                {
+                    arr = self.sharpTagsArray;
+                }
+                [self.tagList setTagWithTagArray:arr];
+            }
+            [cell addSubview:self.tagList];
+            
+            /* cell的选中样式为无色 */
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
         }
@@ -371,9 +409,13 @@
         if (indexPath.row == 0) {
             return 130;
         }
-        else
+        else if(indexPath.row == 1)
         {
             return self.webview.frame.size.height;
+        }
+        else
+        {
+            return 10 + self.tagList.frame.size.height + 10;
         }
     }
     else

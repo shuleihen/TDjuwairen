@@ -340,6 +340,7 @@
             [wself.tableview.mj_header endRefreshing];
             
             wself.sharpInfo = [SharpModel sharpWithDictionary:data];
+            self.sharpTagsArray = wself.sharpInfo.sharpTags;
             [wself relaodCommentNumber];
             [wself.tableview reloadData];
             [wself.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];

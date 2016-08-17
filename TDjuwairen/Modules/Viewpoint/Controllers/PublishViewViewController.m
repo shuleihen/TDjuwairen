@@ -808,12 +808,15 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
+    NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-    NSDictionary*para=@{@"userid":US.userId,
-                        @"isOrigin":isoriginal,
-                        @"title":self.titleText.text,
-                        @"is_publish":@"0",
-                        @"viewcontent":htmlstring};
+    NSDictionary *para = @{@"userid":US.userId,
+                           @"isOrigin":isoriginal,
+                           @"title":self.titleText.text,
+                           @"is_publish":@"0",
+                           @"viewcontent":htmlstring,
+                           @"tags":tags
+                           };
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -828,6 +831,7 @@
 
 #pragma mark - 发布文章
 - (void)publishView{
+    [self.SelSecView removeFromSuperview];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发布中...";
     
@@ -857,12 +861,17 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
     
+    
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    
+    NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
     NSDictionary *para = @{@"userid":US.userId,
                            @"isOrigin":isoriginal,
                            @"title":self.titleText.text,
                            @"is_publish":@"1",
-                           @"viewcontent":htmlstring};
+                           @"viewcontent":htmlstring,
+                           @"tags":tags
+                           };
     
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -873,6 +882,7 @@
             [hud hide:YES afterDelay:0.1];
         }
     }];
+ 
 }
 
 /** 将富文本格式化为超文本*/

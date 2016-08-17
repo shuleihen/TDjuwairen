@@ -58,7 +58,7 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
     self.tableview.allowsMultipleSelectionDuringEditing=YES;
