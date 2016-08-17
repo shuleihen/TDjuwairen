@@ -20,7 +20,6 @@
 
 @interface LoginViewController ()
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) IBOutlet UITextField *accountText;
 @property (nonatomic,strong) IBOutlet UITextField *passwordText;
@@ -35,7 +34,7 @@
     self.title = @"登录";
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
-    self.loginState = [LoginState addInstance];
+
     self.daynightmodel = [UIdaynightModel sharedInstance];
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
@@ -103,16 +102,16 @@
             
             
             NSDictionary *dic = data;
-            self.loginState.userId = dic[@"user_id"];
-            self.loginState.userName = dic[@"user_name"];
-            self.loginState.nickName = dic[@"user_nickname"];
-            self.loginState.userPhone = dic[@"userinfo_phone"];
-            self.loginState.headImage = dic[@"userinfo_facesmall"];
-            self.loginState.company = dic[@"userinfo_company"];
-            self.loginState.post = dic[@"userinfo_occupation"];
-            self.loginState.personal = dic[@"userinfo_info"];
+            US.userId = dic[@"user_id"];
+            US.userName = dic[@"user_name"];
+            US.nickName = dic[@"user_nickname"];
+            US.userPhone = dic[@"userinfo_phone"];
+            US.headImage = dic[@"userinfo_facesmall"];
+            US.company = dic[@"userinfo_company"];
+            US.post = dic[@"userinfo_occupation"];
+            US.personal = dic[@"userinfo_info"];
             
-            self.loginState.isLogIn=YES;
+            US.isLogIn=YES;
             
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
             [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
@@ -161,16 +160,16 @@
                  if (!error) {
                      NSDictionary *dic = data;
                      //给loginstate 填充
-                     self.loginState.userId = dic[@"user_id"];
-                     self.loginState.userName = dic[@"user_name"];
-                     self.loginState.nickName = dic[@"user_nickname"];
-                     self.loginState.userPhone = dic[@"userinfo_phone"];
-                     self.loginState.headImage = dic[@"userinfo_facesmall"];
-                     self.loginState.company = dic[@"userinfo_company"];
-                     self.loginState.post = dic[@"userinfo_occupation"];
-                     self.loginState.personal = dic[@"userinfo_info"];
+                     US.userId = dic[@"user_id"];
+                     US.userName = dic[@"user_name"];
+                     US.nickName = dic[@"user_nickname"];
+                     US.userPhone = dic[@"userinfo_phone"];
+                     US.headImage = dic[@"userinfo_facesmall"];
+                     US.company = dic[@"userinfo_company"];
+                     US.post = dic[@"userinfo_occupation"];
+                     US.personal = dic[@"userinfo_info"];
                      
-                     self.loginState.isLogIn = YES;
+                     US.isLogIn = YES;
                      
                      NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
                      [accountDefaults setValue:@"WXlogin" forKey:@"loginStyle"];
@@ -234,16 +233,16 @@
                  if (!error) {
                      NSDictionary *dic = data;
                      //给loginstate 填充
-                     self.loginState.userId = dic[@"user_id"];
-                     self.loginState.userName = dic[@"user_name"];
-                     self.loginState.nickName = dic[@"user_nickname"];
-                     self.loginState.userPhone = dic[@"userinfo_phone"];
-                     self.loginState.headImage = dic[@"userinfo_facesmall"];
-                     self.loginState.company = dic[@"userinfo_company"];
-                     self.loginState.post = dic[@"userinfo_occupation"];
-                     self.loginState.personal = dic[@"userinfo_info"];
+                     US.userId = dic[@"user_id"];
+                     US.userName = dic[@"user_name"];
+                     US.nickName = dic[@"user_nickname"];
+                     US.userPhone = dic[@"userinfo_phone"];
+                     US.headImage = dic[@"userinfo_facesmall"];
+                     US.company = dic[@"userinfo_company"];
+                     US.post = dic[@"userinfo_occupation"];
+                     US.personal = dic[@"userinfo_info"];
                      
-                     self.loginState.isLogIn = YES;
+                     US.isLogIn = YES;
                      
                      NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
                      [accountDefaults setValue:@"QQlogin" forKey:@"loginStyle"];

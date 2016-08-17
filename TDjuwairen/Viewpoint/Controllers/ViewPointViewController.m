@@ -33,7 +33,6 @@
     BOOL isFirstNew;
     BOOL isFirstSpe;
 }
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) CategoryView *cateview;
 
 @property (nonatomic,strong) UIScrollView *contentScroll;
@@ -89,7 +88,6 @@
 
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.loginState = [LoginState addInstance];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
     if ([daynight isEqualToString:@"yes"]) {
@@ -388,7 +386,7 @@
 }
 #pragma mark - 跳转发布
 - (void)GoPublish:(UIButton *)sender{
-    if (self.loginState.isLogIn == NO) {
+    if (US.isLogIn == NO) {
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar

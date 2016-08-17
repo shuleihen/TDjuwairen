@@ -12,14 +12,12 @@
 
 @interface MyHeadTableViewCell ()
 
-@property (nonatomic,strong) LoginState *loginState;
 @end
 @implementation MyHeadTableViewCell
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.loginState = [LoginState addInstance];
         [self create];
     }
     return self;
@@ -44,15 +42,15 @@
     self.nickname.font = [UIFont systemFontOfSize:15];
     self.nickname.textAlignment = NSTextAlignmentCenter;
     
-    if (self.loginState.isLogIn==YES) {
+    if (US.isLogIn==YES) {
         //加载头像
-        NSString*imagePath=[NSString stringWithFormat:@"%@",self.loginState.headImage];
+        NSString*imagePath=[NSString stringWithFormat:@"%@",US.headImage];
         [self.headImg sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
         
-        self.nickname.text = self.loginState.nickName;
+        self.nickname.text = US.nickName;
         
         //加载模糊背景图片
-        NSString*Path = [NSString stringWithFormat:@"%@",self.loginState.headImage];
+        NSString*Path = [NSString stringWithFormat:@"%@",US.headImage];
         [self.backImg sd_setImageWithURL:[NSURL URLWithString:Path] placeholderImage:nil options:SDWebImageRefreshCached];
     }
     else

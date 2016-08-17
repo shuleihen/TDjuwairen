@@ -15,7 +15,6 @@
 {
     float size;
 }
-@property (strong,nonatomic)LoginState *loginState;
 @end
 
 @implementation SettingTableViewController
@@ -24,7 +23,6 @@
     [super viewDidLoad];
 //    self.tableView.contentInset =UIEdgeInsetsMake(-33, 0, 0, 0);
     [self setNavigation];
-    self.loginState=[LoginState addInstance];
     
     //获取沙盒路径
     NSString*rootPath=NSHomeDirectory();
@@ -110,10 +108,10 @@
         UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录？" preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
-            self.loginState.isLogIn=NO;
-            self.loginState.userName=nil;
-            self.loginState.headImage=nil;
-            self.loginState.userId=nil;
+            US.isLogIn=NO;
+            US.userName=nil;
+            US.headImage=nil;
+            US.userId=nil;
             
             NSUserDefaults*Defaults=[NSUserDefaults standardUserDefaults];
             [Defaults setValue:@"" forKey:@"loginStyle"];

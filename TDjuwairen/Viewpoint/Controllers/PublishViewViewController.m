@@ -32,7 +32,6 @@
     NSUInteger numm;
     NSRange currentRange;//当前光标所在位置
 }
-@property (nonatomic,strong) LoginState *loginState;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UIScrollView *scrollview;
@@ -64,7 +63,6 @@
     self.upimgArr = [NSMutableArray array];
     self.tagsArr = [NSMutableArray array];
     
-    self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.editziti = [EditZiti sharedInstance];
     numm = 0;
@@ -803,7 +801,7 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-    NSDictionary*para=@{@"userid":self.loginState.userId,
+    NSDictionary*para=@{@"userid":US.userId,
                         @"isOrigin":isoriginal,
                         @"title":self.titleText.text,
                         @"is_publish":@"0",
@@ -851,7 +849,7 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-    NSDictionary *para = @{@"userid":self.loginState.userId,
+    NSDictionary *para = @{@"userid":US.userId,
                            @"isOrigin":isoriginal,
                            @"title":self.titleText.text,
                            @"is_publish":@"1",

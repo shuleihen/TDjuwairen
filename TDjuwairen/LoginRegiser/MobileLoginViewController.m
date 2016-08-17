@@ -14,7 +14,6 @@
 
 @interface MobileLoginViewController ()
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
@@ -201,16 +200,16 @@
     [manager POST:API_LoginWithPhone parameters:dic completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
-            self.loginState.userId = dic[@"user_id"];
-            self.loginState.userName = dic[@"user_name"];
-            self.loginState.nickName = dic[@"user_nickname"];
-            self.loginState.userPhone = dic[@"userinfo_phone"];
-            self.loginState.headImage = dic[@"userinfo_facesmall"];
-            self.loginState.company = dic[@"userinfo_company"];
-            self.loginState.post = dic[@"userinfo_occupation"];
-            self.loginState.personal = dic[@"userinfo_info"];
+            US.userId = dic[@"user_id"];
+            US.userName = dic[@"user_name"];
+            US.nickName = dic[@"user_nickname"];
+            US.userPhone = dic[@"userinfo_phone"];
+            US.headImage = dic[@"userinfo_facesmall"];
+            US.company = dic[@"userinfo_company"];
+            US.post = dic[@"userinfo_occupation"];
+            US.personal = dic[@"userinfo_info"];
             
-            self.loginState.isLogIn = YES;
+            US.isLogIn = YES;
             
             [self.navigationController popToRootViewControllerAnimated:YES];
 

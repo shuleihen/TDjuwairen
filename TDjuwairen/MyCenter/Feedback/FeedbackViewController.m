@@ -16,7 +16,6 @@
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
-@property (nonatomic,strong)LoginState*loginstate;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,assign) int cellheight;
@@ -32,7 +31,6 @@
     self.tableview.dataSource=self;
     self.contentTextField.delegate=self;
     
-    self.loginstate=[LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     [self registerForKeyboardNotifications];
@@ -144,7 +142,7 @@
 -(void)requestFeedbackAuthentication
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para=@{@"validatestring":self.loginstate.userId};
+    NSDictionary*para=@{@"validatestring":US.userId};
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -161,9 +159,9 @@
 -(void)requestFeedback
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para = @{@"authenticationStr":self.loginstate.userId,
+    NSDictionary*para = @{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
-                         @"userid":self.loginstate.userId,
+                         @"userid":US.userId,
                          @"feedbackContent":self.contentTextField.text};
     
     [manager POST:API_AddUserFeedback parameters:para completion:^(id data, NSError *error){
@@ -181,7 +179,7 @@
     self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-    NSDictionary *paras = @{@"user_id":self.loginstate.userId};
+    NSDictionary *paras = @{@"user_id":US.userId};
     
     [manager POST:API_GetUserFeedbackList parameters:paras completion:^(id data, NSError *error){
         if (!error) {

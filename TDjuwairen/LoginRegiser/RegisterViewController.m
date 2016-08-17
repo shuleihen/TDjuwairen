@@ -15,7 +15,6 @@
 
 @interface RegisterViewController ()
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
@@ -30,7 +29,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
-    self.loginState = [LoginState addInstance];
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -276,16 +274,16 @@
         if (!error) {
             NSDictionary *dic = data;
             NSLog(@"%@",dic);
-            self.loginState.userId = dic[@"user_id"];
-            self.loginState.userName = dic[@"user_name"];
-            self.loginState.nickName = dic[@"user_nickname"];
-            self.loginState.userPhone = dic[@"userinfo_phone"];
-            self.loginState.headImage = dic[@"userinfo_facesmall"];
-            self.loginState.company = dic[@"userinfo_company"];
-            self.loginState.post = dic[@"userinfo_occupation"];
-            self.loginState.personal = dic[@"userinfo_info"];
+            US.userId = dic[@"user_id"];
+            US.userName = dic[@"user_name"];
+            US.nickName = dic[@"user_nickname"];
+            US.userPhone = dic[@"userinfo_phone"];
+            US.headImage = dic[@"userinfo_facesmall"];
+            US.company = dic[@"userinfo_company"];
+            US.post = dic[@"userinfo_occupation"];
+            US.personal = dic[@"userinfo_info"];
             
-            self.loginState.isLogIn=YES;
+            US.isLogIn=YES;
             
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
             [accountDefaults setValue:self.accountText.text forKey:@"account"];

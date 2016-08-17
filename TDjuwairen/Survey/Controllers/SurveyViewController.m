@@ -46,8 +46,6 @@
 
 @property (nonatomic,strong) SurveyNavigationView *NavigationView;    //自定义navigation
 
-@property (nonatomic,strong) LoginState *loginstate;
-
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 //进入页面时的加载
@@ -63,13 +61,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-/*    FIXME: @fql didLoad 规范 参考 detailController
-    - (void)setupUICommon;
-    - (void)setupTableView;
-    - (void)loadRequest;
- */
-//    [self judgeAPPVersion];
-    self.loginstate = [LoginState addInstance];
     self.page = 1;
     isFirstRequest = YES;
     self.surveyListDataArray = [NSMutableArray array];
@@ -344,9 +335,9 @@
     DetailView.sharp_id = [arr lastObject];
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     
-    if (self.loginstate.isLogIn) {     //为登录状态
+    if (US.isLogIn) {     //为登录状态
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.scrollIDArray[index]};
+        NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":self.scrollIDArray[index]};
         
         [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
             if (!error) {
@@ -372,9 +363,9 @@
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     
     
-    if (self.loginstate.isLogIn) {     //为登录状态
+    if (US.isLogIn) {     //为登录状态
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":model.sharp_id};
+        NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":model.sharp_id};
         
         [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
             if (!error) {
@@ -399,21 +390,21 @@
         NSDictionary *dic = @{@"openid":openid};
         
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-        NSDictionary*para=@{@"validatestring":self.loginstate.userId};
+        NSDictionary*para=@{@"validatestring":US.userId};
         
         [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;
-                self.loginstate.userId=dic[@"user_id"];
-                self.loginstate.userName=dic[@"user_name"];
-                self.loginstate.nickName=dic[@"user_nickname"];
-                self.loginstate.userPhone=dic[@"userinfo_phone"];
-                self.loginstate.headImage=dic[@"userinfo_facesmall"];
-                self.loginstate.company=dic[@"userinfo_company"];
-                self.loginstate.post=dic[@"userinfo_occupation"];
-                self.loginstate.personal=dic[@"userinfo_info"];
+                US.userId=dic[@"user_id"];
+                US.userName=dic[@"user_name"];
+                US.nickName=dic[@"user_nickname"];
+                US.userPhone=dic[@"userinfo_phone"];
+                US.headImage=dic[@"userinfo_facesmall"];
+                US.company=dic[@"userinfo_company"];
+                US.post=dic[@"userinfo_occupation"];
+                US.personal=dic[@"userinfo_info"];
                 
-                self.loginstate.isLogIn=YES;
+                US.isLogIn=YES;
                 
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
@@ -429,16 +420,16 @@
         [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;
-                self.loginstate.userId=dic[@"user_id"];
-                self.loginstate.userName=dic[@"user_name"];
-                self.loginstate.nickName=dic[@"user_nickname"];
-                self.loginstate.userPhone=dic[@"userinfo_phone"];
-                self.loginstate.headImage=dic[@"userinfo_facesmall"];
-                self.loginstate.company=dic[@"userinfo_company"];
-                self.loginstate.post=dic[@"userinfo_occupation"];
-                self.loginstate.personal=dic[@"userinfo_info"];
+                US.userId=dic[@"user_id"];
+                US.userName=dic[@"user_name"];
+                US.nickName=dic[@"user_nickname"];
+                US.userPhone=dic[@"userinfo_phone"];
+                US.headImage=dic[@"userinfo_facesmall"];
+                US.company=dic[@"userinfo_company"];
+                US.post=dic[@"userinfo_occupation"];
+                US.personal=dic[@"userinfo_info"];
                 
-                self.loginstate.isLogIn=YES;
+                US.isLogIn=YES;
                 
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
@@ -458,16 +449,16 @@
             [manager POST:API_Login parameters:paras completion:^(id data, NSError *error){
                 if (!error) {
                     NSDictionary *dic = data;
-                    self.loginstate.userId=dic[@"user_id"];
-                    self.loginstate.userName=dic[@"user_name"];
-                    self.loginstate.nickName=dic[@"user_nickname"];
-                    self.loginstate.userPhone=dic[@"userinfo_phone"];
-                    self.loginstate.headImage=dic[@"userinfo_facesmall"];
-                    self.loginstate.company=dic[@"userinfo_company"];
-                    self.loginstate.post=dic[@"userinfo_occupation"];
-                    self.loginstate.personal=dic[@"userinfo_info"];
+                    US.userId=dic[@"user_id"];
+                    US.userName=dic[@"user_name"];
+                    US.nickName=dic[@"user_nickname"];
+                    US.userPhone=dic[@"userinfo_phone"];
+                    US.headImage=dic[@"userinfo_facesmall"];
+                    US.company=dic[@"userinfo_company"];
+                    US.post=dic[@"userinfo_occupation"];
+                    US.personal=dic[@"userinfo_info"];
                     
-                    self.loginstate.isLogIn=YES;
+                    US.isLogIn=YES;
                     
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {

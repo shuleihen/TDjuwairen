@@ -26,7 +26,6 @@
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *setupImgArr;
@@ -39,7 +38,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     self.setupImgArr = @[@"btn_yejian@3x.png",@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
@@ -183,7 +181,7 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            if (self.loginState.isLogIn == NO) {
+            if (US.isLogIn == NO) {
                 //跳转到登录页面
                 LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -203,7 +201,7 @@
     {
         if (indexPath.row == 1) {
             //跳转到观点管理
-            if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
                 LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -217,7 +215,7 @@
             
         }
         else if (indexPath.row == 2) {
-            if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
                 LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -231,7 +229,7 @@
         }
         else if(indexPath.row == 3)
         {
-            if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
                 LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -260,15 +258,15 @@
     
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
     MyHeadTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    if (self.loginState.isLogIn == YES) {
+    if (US.isLogIn == YES) {
         //加载头像
-        NSString*imagePath=[NSString stringWithFormat:@"%@",self.loginState.headImage];
+        NSString*imagePath=[NSString stringWithFormat:@"%@",US.headImage];
         [cell.headImg sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
         
-        cell.nickname.text = self.loginState.nickName;
+        cell.nickname.text = US.nickName;
         
         //加载模糊背景图片
-        NSString*Path=[NSString stringWithFormat:@"%@",self.loginState.headImage];
+        NSString*Path=[NSString stringWithFormat:@"%@",US.headImage];
         [cell.backImg sd_setImageWithURL:[NSURL URLWithString:Path] placeholderImage:nil options:SDWebImageRefreshCached];
     }
     else
@@ -287,7 +285,7 @@
 
 #pragma mark - 跳转到评论管理
 - (void)GoComment:(UIButton *)sender{
-    if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+    if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -302,7 +300,7 @@
 
 #pragma mark - 跳转到收藏管理
 - (void)GoCollect:(UIButton *)sender{
-    if (self.loginState.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
+    if (US.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -316,7 +314,7 @@
 }
 #pragma mark - 跳转到浏览浏览记录
 - (void)GoBrowse:(UIButton *)serder{
-    if (self.loginState.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+    if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar

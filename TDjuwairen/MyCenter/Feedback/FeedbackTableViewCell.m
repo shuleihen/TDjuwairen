@@ -11,7 +11,6 @@
 #import "LoginState.h"
 
 @interface FeedbackTableViewCell ()
-@property (nonatomic,strong) LoginState *loginState;
 @end
 @implementation FeedbackTableViewCell
 
@@ -28,11 +27,10 @@
 
 -(void)cellforDic:(NSDictionary *)dic
 {
-    self.loginState = [LoginState addInstance];
     self.timeLabel.text=[self setLabelsTime:[dic[@"feedback_time"]integerValue]];
     self.contentLabel.text=dic[@"feedback_content"];
     //加载头像
-    NSString *imagePath = [NSString stringWithFormat:@"%@",self.loginState.headImage];
+    NSString *imagePath = [NSString stringWithFormat:@"%@",US.headImage];
     [self.headimageView sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
 }
 

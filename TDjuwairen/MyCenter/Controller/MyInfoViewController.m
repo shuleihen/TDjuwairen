@@ -16,7 +16,6 @@
 
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *TitleArr;
@@ -33,15 +32,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.loginState = [LoginState addInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.TitleArr = @[@"用户名",@"手机号",@"昵称",@"公司",@"职位",@"个人简介"];
-    NSArray *arr = @[self.loginState.userName,
-                     self.loginState.userPhone,
-                     self.loginState.nickName,
-                     self.loginState.company,
-                     self.loginState.post,
-                     self.loginState.personal];
+    NSArray *arr = @[US.userName,
+                     US.userPhone,
+                     US.nickName,
+                     US.company,
+                     US.post,
+                     US.personal];
     self.MyInfoArr = [NSMutableArray arrayWithArray:arr];
 
     //身份验证
@@ -70,7 +68,7 @@
 
 - (void)getValidation{
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para = @{@"validatestring":self.loginState.userId};
+    NSDictionary*para = @{@"validatestring":US.userId};
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -218,14 +216,14 @@
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
+    NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
-                         @"userid":self.loginState.userId,
+                         @"userid":US.userId,
                          @"username":cell.textfield.text};
     
     [manager POST:API_UpdateUserName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            self.loginState.userName = cell.textfield.text;
+            US.userName = cell.textfield.text;
         } else {
             
         }
@@ -239,14 +237,14 @@
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
+    NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
-                         @"userid":self.loginState.userId,
+                         @"userid":US.userId,
                          @"CompanyName":cell.textfield.text};
     
     [manager POST:API_UpdateCompanyName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            self.loginState.company=cell.textfield.text;
+            US.company=cell.textfield.text;
         } else {
             
         }
@@ -260,14 +258,14 @@
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
+    NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
-                         @"userid":self.loginState.userId,
+                         @"userid":US.userId,
                          @"occupationName":cell.textfield.text};
     
     [manager POST:API_UpdateOccupationName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            self.loginState.post=cell.textfield.text;
+            US.post=cell.textfield.text;
         } else {
             
         }
@@ -281,14 +279,14 @@
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
+    NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
-                         @"userid":self.loginState.userId,
+                         @"userid":US.userId,
                          @"Userinfo":cell.textfield.text};
     
     [manager POST:API_UpdateUserInfo parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            self.loginState.personal = cell.textfield.text;
+            US.personal = cell.textfield.text;
         } else {
             
         }
@@ -362,7 +360,7 @@
 -(void)requestHead
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para=@{@"validatestring":self.loginState.userId};
+    NSDictionary*para=@{@"validatestring":US.userId};
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -378,9 +376,9 @@
 -(void)requestUploadHeadImage
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":self.loginState.userId,
+    NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
-                         @"userid":self.loginState.userId};
+                         @"userid":US.userId};
     
     [manager POST:API_UploadUserface parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = self.headImage;
@@ -391,7 +389,7 @@
         NSString *str = [formatter stringFromDate:[NSDate date]];
         NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
         
-        [formData appendPartWithFileData:data name:self.loginState.userId fileName:fileName mimeType:@"image/png"];
+        [formData appendPartWithFileData:data name:US.userId fileName:fileName mimeType:@"image/png"];
         
     } completion:^(id data, NSError *error) {
         if (!error) {

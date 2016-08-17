@@ -2087,8 +2087,8 @@
 				TargetAttributes = {
 					84E333E61CE2BA3D00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = 64Z8366B65;
-						DevelopmentTeamName = "Zhejiang LianLian YunTong Co.,Ltd";
+						DevelopmentTeam = V9B4FLHXSX;
+						DevelopmentTeamName = "HangZhou TuanDa NetworkTechnology Co., Ltd.";
 						ProvisioningStyle = Automatic;
 					};
 					84E333FF1CE2BA3E00E5DCEE = {

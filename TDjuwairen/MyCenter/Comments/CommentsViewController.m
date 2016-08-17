@@ -26,7 +26,6 @@
 }
 
 @property (nonatomic,strong) UITableView *tableview;
-@property (nonatomic,strong)LoginState*loginState;
 @end
 
 @implementation CommentsViewController
@@ -37,7 +36,7 @@
     [self setNavigation];
     
     [self setupWithTableView];
-    self.loginState=[LoginState addInstance];
+
     page=1;
     CommentsArray=[NSMutableArray array];
     [self requestComments];
@@ -97,7 +96,7 @@
 -(void)requestComments
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras = @{@"userid":self.loginState.userId,
+    NSDictionary*paras = @{@"userid":US.userId,
                          @"module_id":@"2",
                          @"page":[NSString stringWithFormat:@"%d",page]};
     

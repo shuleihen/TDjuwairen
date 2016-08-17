@@ -38,7 +38,6 @@
     CGSize floorviewsize;
     BOOL firstClickComment;
 }
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NaviMoreView *nmview;
 @property (nonatomic,strong) SelectFontView *sfview;
@@ -91,7 +90,6 @@
     fontsize = @"100%";
     firstClickComment = YES;
     self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.loginState = [LoginState addInstance];
     
     
     self.view.backgroundColor = self.daynightmodel.navigationColor;
@@ -137,8 +135,8 @@
     self.hudload.labelText = @"加载中...";
     
     NSString *urlPath ;
-    if (self.loginState.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"%@View/view_show1_2/id/55/userid/%@",kAPI_bendi,self.loginState.userId];
+    if (US.isLogIn) {
+        urlPath= [NSString stringWithFormat:@"%@View/view_show1_2/id/55/userid/%@",kAPI_bendi,US.userId];
     }
     else
     {
@@ -599,13 +597,13 @@
 
 #pragma mark - 点击收藏取消收藏
 - (void)addCollection{
-    if (self.loginState.isLogIn) {
+    if (US.isLogIn) {
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"添加收藏";
         
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":self.loginState.userId,
+        NSDictionary *dic = @{@"userid":US.userId,
                               @"module_id":@3,
                               @"item_id":self.view_id};
         
@@ -630,11 +628,11 @@
     [IDArr addObject:self.view_id];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *para = @{@"authenticationStr":self.loginState.userId,
+    NSDictionary *para = @{@"authenticationStr":US.userId,
                            @"encryptedStr":self.encryptedStr,
                            @"delete_ids":IDArr,
                            @"module_id":@"3",
-                           @"userid":self.loginState.userId};
+                           @"userid":US.userId};
     
     [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -747,7 +745,7 @@
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *para = @{@"comment_content":text,
-                          @"user_id":self.loginState.userId,
+                          @"user_id":US.userId,
                           @"view_id":@"42",
                           @"comment_pid":@"38"};
     
@@ -838,7 +836,7 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     //判断当前是否为登录状态,不是则去登录
-    if (!self.loginState.isLogIn) {
+    if (!US.isLogIn) {
         [self.backcommentview removeFromSuperview];
         //登录
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -850,7 +848,7 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    if (self.loginState.isLogIn) {
+    if (US.isLogIn) {
         //进行身份验证
         [self requestAuthentication];
     }
@@ -870,7 +868,7 @@
 -(void)requestAuthentication
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *para = @{@"validatestring":self.loginState.userId};
+    NSDictionary *para = @{@"validatestring":US.userId};
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {

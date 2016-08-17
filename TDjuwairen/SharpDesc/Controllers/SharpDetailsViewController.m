@@ -80,8 +80,6 @@
 
 @property (nonatomic,strong) SharpTags *tagList;
 
-@property (nonatomic,strong) LoginState *loginstate;
-
 /* 点击放大图片 */
 @property (nonatomic,strong) UIImageView *imgView;
 /* 文章中的所有图片 */
@@ -130,7 +128,7 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
-    self.loginstate = [LoginState addInstance];
+
     self.page = 1;
     self.daynightmodel = [UIdaynightModel sharedInstance];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
@@ -182,7 +180,7 @@
 {
     [super viewWillAppear:animated];
     
-    if (self.loginstate.isLogIn) {
+    if (US.isLogIn) {
         //进行身份验证
         [self requestAuthentication];
     }
@@ -323,8 +321,8 @@
     self.hubload.labelText = @"加载中...";
     
     NSString *url;
-    if (self.loginstate.isLogIn) {
-        url = [NSString stringWithFormat:@"index.php/Sharp/show/id/%@/userid/%@",self.sharp_id,self.loginstate.userId];
+    if (US.isLogIn) {
+        url = [NSString stringWithFormat:@"index.php/Sharp/show/id/%@/userid/%@",self.sharp_id,US.userId];
         
     }
     else
@@ -733,7 +731,7 @@
 #pragma mark - TextFieldDelegate
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
-    if (!self.loginstate.isLogIn) {
+    if (!US.isLogIn) {
         [self gotLoginViewController];
         return NO;
     }
@@ -765,7 +763,7 @@
     hud.labelText = @"发表新评论";
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":self.loginstate.userId,@"sharpcomment":text,@"authenticationStr":self.loginstate.userId,@"encryptedStr":encryptedStr};
+    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":US.userId,@"sharpcomment":text,@"authenticationStr":US.userId,@"encryptedStr":encryptedStr};
     
     [manager POST:API_AddSharpComment parameters:dic completion:^(id data, NSError *error){
         if (!error) {
@@ -798,13 +796,13 @@
         [sender setEnabled:YES];
     });
     
-    if (self.loginstate.isLogIn) {
+    if (US.isLogIn) {
         if (!self.sharpInfo.sharpIsCollect) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"添加收藏";
 
             NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":self.sharp_id};
+            NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":self.sharp_id};
             
             [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
                 if (!error) {
@@ -828,11 +826,11 @@
             [sharpID addObject:self.sharp_id];
             
             NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *para = @{@"authenticationStr":self.loginstate.userId,
+            NSDictionary *para = @{@"authenticationStr":US.userId,
                                    @"encryptedStr":encryptedStr,
                                    @"delete_ids":sharpID,
                                    @"module_id":@"2",
-                                   @"userid":self.loginstate.userId};
+                                   @"userid":US.userId};
             
             [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
                 if (!error) {
@@ -918,7 +916,7 @@
 -(void)requestAuthentication
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para=@{@"validatestring":self.loginstate.userId};
+    NSDictionary*para=@{@"validatestring":US.userId};
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -1027,9 +1025,9 @@
 
 #pragma mark - 点击收藏取消收藏
 - (void)addControllers{
-    if (self.loginstate.isLogIn) {
+    if (US.isLogIn) {
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":self.loginstate.userId,
+        NSDictionary *dic = @{@"userid":US.userId,
                               @"module_id":@3,
                               @"item_id":self.sharp_id};
         

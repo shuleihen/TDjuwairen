@@ -8,61 +8,24 @@
 
 #import "LoginState.h"
 
-static LoginState *addObject=nil;//设置静态实例，初始化
 @implementation LoginState
 
-/* @fql 创建单例模式，
- + (instancetype)sharedInstance
- {
-     static dispatch_once_t onceToken;
-     static AIFApiProxy *sharedInstance = nil;
-     dispatch_once(&onceToken, ^{
-        sharedInstance = [[AIFApiProxy alloc] init];
-     });
-     return sharedInstance;
- }
- 
- - (id)init 
- {
++ (instancetype)sharedInstance
+{
+    static dispatch_once_t onceToken;
+    static LoginState *sharedInstance = nil;
+    dispatch_once(&onceToken, ^{
+        sharedInstance = [[LoginState alloc] init];
+    });
+    return sharedInstance;
+}
+
+- (id)init 
+{
     if (self = [super init]) {
-        // 初始化数据
+    // 初始化数据
     }
- 
-    return self;
- }
- */
 
-+(LoginState *)addInstance //检查示例是否为空 否则创建
-{
-    @synchronized (self) {//同步
-        if (addObject==nil) {
-            addObject=[[self alloc]init];//没有，允许创建
-        }
-    }
-    return addObject;
-}
-
-+(id)allocWithZone:(struct _NSZone *)zone
-{
-    @synchronized (self) {
-        if (addObject==nil) {
-            addObject=[super allocWithZone:zone];
-        }
-        return addObject;
-    }
-    return nil;
-}
-
--(id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
--(id)init
-{
-    @synchronized(self) {
-        self =[super init];
-    }
     return self;
 }
 

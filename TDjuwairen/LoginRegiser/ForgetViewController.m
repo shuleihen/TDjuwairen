@@ -12,7 +12,6 @@
 
 @interface ForgetViewController ()
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
@@ -26,7 +25,6 @@
     [super viewDidLoad];
     
     self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
-    self.loginState = [LoginState addInstance];
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;

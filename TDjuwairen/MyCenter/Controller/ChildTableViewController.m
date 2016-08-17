@@ -24,7 +24,6 @@
 }
 @property (nonatomic,assign) int page;
 
-@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) NSMutableArray *listArr;
 @property (nonatomic,strong) MBProgressHUD *hud;
@@ -38,7 +37,7 @@
     self.listArr = [NSMutableArray array];
     self.page = 1;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.loginState = [LoginState addInstance];
+
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -68,14 +67,14 @@
 {
     NSDictionary *para ;
     if (typeID == 0) {
-        para = @{@"user_id":self.loginState.userId,
+        para = @{@"user_id":US.userId,
                  @"type":@"publish1",
                  @"page":[NSString stringWithFormat:@"%d",self.page]
                  };
     }
     else
     {
-        para = @{@"user_id":self.loginState.userId,
+        para = @{@"user_id":US.userId,
                  @"type":@"publish0",
                  @"page":[NSString stringWithFormat:@"%d",self.page]
                  };

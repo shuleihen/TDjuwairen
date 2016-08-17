@@ -39,8 +39,6 @@
 
 @property (nonatomic,strong) SurveyNavigationView *NavigationView;    //自定义navigation
 
-@property (nonatomic,strong) LoginState *loginstate;
-
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 //进入页面时的加载
@@ -55,7 +53,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.loginstate = [LoginState addInstance];
     page = 1;
     isFirstRequest = YES;
     self.VideoListArray = [NSMutableArray array];
@@ -306,9 +303,9 @@
     DetailView.sharp_id = model.sharp_id;
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     
-    if (self.loginstate.isLogIn) {     //为登录状态
+    if (US.isLogIn) {     //为登录状态
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":self.loginstate.userId,@"module_id":@2,@"item_id":model.sharp_id};
+        NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":model.sharp_id};
         
         [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
             if (!error) {

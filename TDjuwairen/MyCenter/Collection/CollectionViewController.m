@@ -25,7 +25,6 @@
     BOOL haveSelect;
 }
 @property (nonatomic,strong) UITableView *tableview;
-@property(nonatomic,strong)LoginState*loginstate;
 @property(nonatomic,strong)EditView*editView;
 @end
 
@@ -37,9 +36,6 @@
     [self setNavigation];
     
     [self setupWithTableView];
-    
-    self.loginstate=[LoginState addInstance];
-    
     
     //全选，删除的view视图
     _editView=[[EditView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50)];
@@ -95,11 +91,11 @@
         }
         
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary*para=@{@"authenticationStr":self.loginstate.userId,
+        NSDictionary*para=@{@"authenticationStr":US.userId,
                             @"encryptedStr":self.str,
                             @"delete_ids":sharpId,
                             @"module_id":@"2",
-                            @"userid":self.loginstate.userId};
+                            @"userid":US.userId};
         
         [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
         
@@ -171,7 +167,7 @@
 -(void)requestAuthentication
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para=@{@"validatestring":self.loginstate.userId};
+    NSDictionary*para=@{@"validatestring":US.userId};
     
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -188,7 +184,7 @@
     CollectionArray=[[NSMutableArray alloc]init];
 
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras = @{@"userid":self.loginstate.userId};
+    NSDictionary*paras = @{@"userid":US.userId};
     
     [manager POST:API_GetCollectionList parameters:paras completion:^(id data, NSError *error){
         if (!error) {
@@ -266,11 +262,11 @@
         [delarr addObject:dic[@"sharp_id"]];
         
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary*para = @{@"authenticationStr":self.loginstate.userId,
+        NSDictionary*para = @{@"authenticationStr":US.userId,
                             @"encryptedStr":self.str,
                             @"delete_ids":delarr,
                             @"module_id":@"2",
-                            @"userid":self.loginstate.userId};
+                            @"userid":US.userId};
         
         [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
         
