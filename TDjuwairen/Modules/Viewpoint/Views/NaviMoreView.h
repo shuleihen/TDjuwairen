@@ -20,4 +20,6 @@
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,assign) id<NaviMoreViewDelegate>delegate;
 
+- (instancetype)initWithFrame:(CGRect)frame withString:(NSString *)iscollect;
+
 @end

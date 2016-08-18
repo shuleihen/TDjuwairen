@@ -37,6 +37,7 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(15, 15+20+15, self.frame.size.width-30, self.frame.size.height-70-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.scrollEnabled = NO;
     
     UIButton *sureBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.frame.size.width-70, self.frame.size.height-55, 40, 30)];

@@ -17,7 +17,7 @@
 
 @implementation NaviMoreView
 
-- (instancetype)initWithFrame:(CGRect)frame
+- (instancetype)initWithFrame:(CGRect)frame withString:(NSString *)iscollect
 {
     if (self = [super initWithFrame:frame]) {
         self.model = [UIdaynightModel sharedInstance];
@@ -26,17 +26,29 @@
         NSString *daynight = [userdefalut objectForKey:@"daynight"];
         NSString *mod ;//模式
         NSString *img ;//图片
+        NSString *coll;//收藏
+        NSString *colImg;
         if ([daynight isEqualToString:@"yes"]) {
             mod = @"夜间模式";
-            img = @"btn_yejian@3x.png";
+            img = @"btn_yejian.png";
         }
         else
         {
             mod = @"日间模式";
-            img = @"btn_night_rijian@3x.png";
+            img = @"btn_night_rijian.png";
         }
-        self.imgArr = @[@"btn_fuzhi@3x.png",@"btn_col@3x.png",@"btn_ziti@3x.png",img,@"btn_jubao@3x.png"];
-        self.titleArr = @[@"复制链接",@"收藏",@"字体大小",mod,@"举报"];
+        if ([iscollect isEqualToString:@"yes"]) {
+            coll = @"收藏";
+            colImg = @"btn_col.png";
+        }
+        else
+        {
+            coll = @"取消收藏";
+            colImg = @"btn_col_pre.png";
+        }
+        
+        self.imgArr = @[@"btn_fuzhi.png",colImg,@"btn_ziti.png",img,@"btn_jubao.png"];
+        self.titleArr = @[@"复制链接",coll,@"字体大小",mod,@"举报"];
         
         
         [self setupWithViewShadow];
