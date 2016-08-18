@@ -478,6 +478,8 @@
     }
     else
     {
+        [self.view endEditing:YES];
+        [self.SelSecView removeFromSuperview];
         //存为草稿
         [self saveDrafts];
     }
@@ -531,7 +533,6 @@
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
-//    [self.SelSecView removeFromSuperview];
     if ([self.contentText.text length] > 0) {
         self.placeholderLab.text = @"";
         self.placeholderLab.alpha = 0.0;
@@ -684,8 +685,9 @@
     //方法1，用原图
     UIImage *Photo = info[UIImagePickerControllerOriginalImage];//原图
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:API_UploadContentPic parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
+        NSLog(@"完成");
         UIImage *image = Photo;
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
         
@@ -699,7 +701,7 @@
         if (!error) {
             NSDictionary *dic = data;
             NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
-            NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"localhost" withString:@"192.168.1.109"];
+            NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"http://localhost/tuanda_web/Public" withString:@"http://static.juwairen.net"];
 
             [self.upimgArr addObject:imgu];
         }
@@ -798,27 +800,33 @@
         
     }
     
-    //    转成NSData再存入plist
-    //    NSString *path = [(NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES)) objectAtIndex:0];  //获得沙箱的 Document 的地址
-    //    NSString *pathFile = [path stringByAppendingPathComponent:@"text"];
-    //    NSData *data = [labelText dataFromRange:NSMakeRange(0, labelText.length) documentAttributes:@{NSDocumentTypeDocumentAttribute:NSRTFDTextDocumentType} error:nil];//将NSAttributedString转成NSData;
-    //    NSLog(@"%@",data);
-    
     NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
-    NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-    NSDictionary *para = @{@"userid":US.userId,
-                           @"isOrigin":isoriginal,
-                           @"title":self.titleText.text,
-                           @"is_publish":@"0",
-                           @"viewcontent":htmlstring,
-                           @"tags":tags
-                           };
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSDictionary *para ;
+    if (self.tagsArr.count == 0) {
+        para = @{@"userid":@"1324",
+                 @"isOrigin":isoriginal,
+                 @"title":self.titleText.text,
+                 @"is_publish":@"1",
+                 @"viewcontent":htmlstring,
+                 };
+    }
+    else
+    {
+        NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
+        para = @{@"userid":@"1324",
+                 @"isOrigin":isoriginal,
+                 @"title":self.titleText.text,
+                 @"is_publish":@"1",
+                 @"viewcontent":htmlstring,
+                 @"tags":tags
+                 };
+    }
     
-    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+    [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"保存成功";
             [hud hide:YES afterDelay:0.1];
@@ -862,16 +870,28 @@
     
     
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     
-    NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
-    NSDictionary *para = @{@"userid":US.userId,
-                           @"isOrigin":isoriginal,
-                           @"title":self.titleText.text,
-                           @"is_publish":@"1",
-                           @"viewcontent":htmlstring,
-                           @"tags":tags
-                           };
+    NSDictionary *para ;
+    if (self.tagsArr.count == 0) {
+        para = @{@"userid":@"1324",
+                   @"isOrigin":isoriginal,
+                   @"title":self.titleText.text,
+                   @"is_publish":@"1",
+                   @"viewcontent":htmlstring,
+                 };
+    }
+    else
+    {
+        NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
+        para = @{@"userid":@"1324",
+                   @"isOrigin":isoriginal,
+                   @"title":self.titleText.text,
+                   @"is_publish":@"1",
+                   @"viewcontent":htmlstring,
+                   @"tags":tags
+                 };
+    }
     
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {

@@ -8,6 +8,7 @@
 
 #import "ResponsListTableViewCell.h"
 #import "NSString+Ext.h"
+#import "UIImageView+WebCache.h"
 
 @interface ResponsListTableViewCell ()
 {
@@ -27,6 +28,7 @@
                 UIView *view = [[UIView alloc]init];
                 
                 UIImageView *head = [[UIImageView alloc]initWithFrame:CGRectMake(kScreenWidth-15-45, 10, 45, 45)];
+                [head sd_setImageWithURL:[NSURL URLWithString:self.loginState.headImage]];
                 UILabel *content = [[UILabel alloc]init];
                 
                 NSString *text = dic[@"feedback_content"];
@@ -66,6 +68,7 @@
                 UIView *view = [[UIView alloc]init];
                 
                 UIImageView *head = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 45, 45)];
+                [head sd_setImageWithURL:[NSURL URLWithString:@"http://static.juwairen.net/Pc/Static/Default/Images/facesmall.png"]];
                 UILabel *content = [[UILabel alloc]init];
                 
                 NSString *text = dic[@"response_content"];

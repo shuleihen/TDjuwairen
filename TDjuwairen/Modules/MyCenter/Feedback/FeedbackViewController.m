@@ -179,7 +179,7 @@
 {
     self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *paras = @{@"user_id":US.userId};
     
     [manager POST:API_GetUserFeedbackList parameters:paras completion:^(id data, NSError *error){

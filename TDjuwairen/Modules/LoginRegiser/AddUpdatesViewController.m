@@ -260,13 +260,13 @@
 - (void)updateUserinfo{
     NSString *updateurl ;
     NSDictionary *infoDic;
-    if ([self.qqopenid isEqualToString:@""]) {            //微信登录
+    if (self.qqopenid == nil) {            //微信登录
         infoDic = @{@"unionid":self.unionid,
                     @"phone":self.accountText.text,
                     @"password":self.passwordText.text,
                     @"email":@"",
                     @"nickname":self.nicknameText.text};
-        updateurl = [NSString stringWithFormat:@"Login/WXLoginDo1_2"];
+        updateurl = [NSString stringWithFormat:@"index.php/Login/WXLoginDo1_2"];
     }
     else                                                  //QQ登录
     {
@@ -275,10 +275,10 @@
                     @"password":self.passwordText.text,
                     @"email":@"",
                     @"nickname":self.nicknameText.text};
-        updateurl = [NSString stringWithFormat:@"Login/qqLoginDo1_2"];
+        updateurl = [NSString stringWithFormat:@"index.php/Login/qqLoginDo1_2"];
     }
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:updateurl parameters:infoDic completion:^(id data, NSError *error){
         if (!error) {
             US.nickName = self.nicknameText.text;
