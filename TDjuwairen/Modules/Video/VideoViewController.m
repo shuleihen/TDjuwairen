@@ -10,26 +10,19 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
-//刷新
-#import "FCXRefreshFooterView.h"
-#import "FCXRefreshHeaderView.h"
-#import "UIScrollView+FCXRefresh.h"
-
 #import "SurveyNavigationView.h"
 #import "SurveyListModel.h"
 #import "SurveyTableViewCell.h"
 #import "SharpDetailsViewController.h"
 #import "SearchViewController.h"
-
 #import "UIdaynightModel.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
+#import "MJRefresh.h"
 
 @interface VideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     int page;
-    FCXRefreshHeaderView *headerView;
-    FCXRefreshFooterView *footerView;
     BOOL isFirstRequest;
 }
 @property (nonatomic,strong) NSMutableArray *VideoListArray;//文章列表数据
@@ -127,48 +120,29 @@
 
 
 #pragma mark - 刷新
-- (void)addRefreshView {
-    
-    __weak __typeof(self)weakSelf = self;
-    
-    //下拉刷新
-    headerView = [self.tableview addHeaderWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf refreshAction];
-    }];
-    
-    //上拉加载更多
-    footerView = [self.tableview addFooterWithRefreshHandler:^(FCXRefreshBaseView *refreshView) {
-        [weakSelf loadMoreAction];
-    }];
-    
-    //自动刷新
-    //    footerView.autoLoadMore = self.autoLoadMore;
-    dispatch_async(dispatch_get_main_queue(), ^{
-        [self.tableview reloadData];
-    });
+- (void)addRefreshView
+{
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
 - (void)refreshAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshHeaderView *weakHeaderView = headerView;
     //数据表页数为1
     page = 1;
     [self requestDataWithVideoList];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakHeaderView endRefresh];
-        [weakTableView reloadData];
+        [self.tableview.mj_header endRefreshing];
+        [self.tableview reloadData];
     });
 }
 
 - (void)loadMoreAction {
-    __weak UITableView *weakTableView = self.tableview;
-    __weak FCXRefreshFooterView *weakFooterView = footerView;
     page++;
     //继续请求
     [self requestDataWithVideoList];
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [weakFooterView endRefresh];
-        [weakTableView reloadData];
+        [self.tableview.mj_footer endRefreshing];
+        [self.tableview reloadData];
     });
 }
 
@@ -214,7 +188,7 @@
                 }
             }
             
-            [footerView endRefresh];
+            [self.tableview.mj_footer endRefreshing];
             
             [self.loading stopAnimating]; //停止
             self.loadingLabel.alpha = 0.0;

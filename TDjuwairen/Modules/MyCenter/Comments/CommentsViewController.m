@@ -13,7 +13,6 @@
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"
-#import "UIScrollView+FCXRefresh.h"
 #import "MJRefresh.h"
 
 

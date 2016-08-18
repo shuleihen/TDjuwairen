@@ -265,12 +265,6 @@
 		84CBCC651D4B29AC000DAEA8 /* tab_tianjia_pre@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CBCC641D4B29AC000DAEA8 /* tab_tianjia_pre@3x.png */; };
 		84CBCC671D4B29B3000DAEA8 /* tab_more_pre@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CBCC661D4B29B3000DAEA8 /* tab_more_pre@3x.png */; };
 		84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC34871CEAEC2A00193D9C /* NSString+TimeInfo.m */; };
-		84CC34941CEAFE8B00193D9C /* blueArrow.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC348A1CEAFE8B00193D9C /* blueArrow.png */; };
-		84CC34951CEAFE8B00193D9C /* blueArrow@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CC348B1CEAFE8B00193D9C /* blueArrow@2x.png */; };
-		84CC34961CEAFE8B00193D9C /* FCXRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC348D1CEAFE8B00193D9C /* FCXRefreshBaseView.m */; };
-		84CC34971CEAFE8B00193D9C /* FCXRefreshFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC348F1CEAFE8B00193D9C /* FCXRefreshFooterView.m */; };
-		84CC34981CEAFE8B00193D9C /* FCXRefreshHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC34911CEAFE8B00193D9C /* FCXRefreshHeaderView.m */; };
-		84CC34991CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CC34931CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m */; };
 		84D7AC271D6403E000023D57 /* nav_backwhite@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC251D6403E000023D57 /* nav_backwhite@2x.png */; };
 		84D7AC281D6403E000023D57 /* nav_backwhite@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC261D6403E000023D57 /* nav_backwhite@3x.png */; };
 		84D7AC301D642DEE00023D57 /* bg_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC2C1D642DEE00023D57 /* bg_big@2x.png */; };
@@ -751,16 +745,6 @@
 		84CBCC661D4B29B3000DAEA8 /* tab_more_pre@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_more_pre@3x.png"; sourceTree = "<group>"; };
 		84CC34861CEAEC2A00193D9C /* NSString+TimeInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+TimeInfo.h"; sourceTree = "<group>"; };
 		84CC34871CEAEC2A00193D9C /* NSString+TimeInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+TimeInfo.m"; sourceTree = "<group>"; };
-		84CC348A1CEAFE8B00193D9C /* blueArrow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = blueArrow.png; sourceTree = "<group>"; };
-		84CC348B1CEAFE8B00193D9C /* blueArrow@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "blueArrow@2x.png"; sourceTree = "<group>"; };
-		84CC348C1CEAFE8B00193D9C /* FCXRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCXRefreshBaseView.h; sourceTree = "<group>"; };
-		84CC348D1CEAFE8B00193D9C /* FCXRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCXRefreshBaseView.m; sourceTree = "<group>"; };
-		84CC348E1CEAFE8B00193D9C /* FCXRefreshFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCXRefreshFooterView.h; sourceTree = "<group>"; };
-		84CC348F1CEAFE8B00193D9C /* FCXRefreshFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCXRefreshFooterView.m; sourceTree = "<group>"; };
-		84CC34901CEAFE8B00193D9C /* FCXRefreshHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FCXRefreshHeaderView.h; sourceTree = "<group>"; };
-		84CC34911CEAFE8B00193D9C /* FCXRefreshHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FCXRefreshHeaderView.m; sourceTree = "<group>"; };
-		84CC34921CEAFE8B00193D9C /* UIScrollView+FCXRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIScrollView+FCXRefresh.h"; sourceTree = "<group>"; };
-		84CC34931CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIScrollView+FCXRefresh.m"; sourceTree = "<group>"; };
 		84D7AC251D6403E000023D57 /* nav_backwhite@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_backwhite@2x.png"; sourceTree = "<group>"; };
 		84D7AC261D6403E000023D57 /* nav_backwhite@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_backwhite@3x.png"; sourceTree = "<group>"; };
 		84D7AC2C1D642DEE00023D57 /* bg_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_big@2x.png"; sourceTree = "<group>"; };
@@ -1752,23 +1736,6 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		84CC34891CEAFE8B00193D9C /* FCXRefreshView */ = {
-			isa = PBXGroup;
-			children = (
-				84CC348A1CEAFE8B00193D9C /* blueArrow.png */,
-				84CC348B1CEAFE8B00193D9C /* blueArrow@2x.png */,
-				84CC348C1CEAFE8B00193D9C /* FCXRefreshBaseView.h */,
-				84CC348D1CEAFE8B00193D9C /* FCXRefreshBaseView.m */,
-				84CC348E1CEAFE8B00193D9C /* FCXRefreshFooterView.h */,
-				84CC348F1CEAFE8B00193D9C /* FCXRefreshFooterView.m */,
-				84CC34901CEAFE8B00193D9C /* FCXRefreshHeaderView.h */,
-				84CC34911CEAFE8B00193D9C /* FCXRefreshHeaderView.m */,
-				84CC34921CEAFE8B00193D9C /* UIScrollView+FCXRefresh.h */,
-				84CC34931CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m */,
-			);
-			path = FCXRefreshView;
-			sourceTree = "<group>";
-		};
 		84D8DFA71CE451FB00A65CE0 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
@@ -1882,7 +1849,6 @@
 				84F9FDB01CF80E0A00683791 /* ELCImagePicker */,
 				8497E0541CEF0B2800D7D105 /* SDCycleScrollView */,
 				84CC347C1CEAE75700193D9C /* Utility */,
-				84CC34891CEAFE8B00193D9C /* FCXRefreshView */,
 				1924DFD01D62B49C00FEC383 /* AFNetworking */,
 				84E334411CE3123700E5DCEE /* SDWebImage */,
 			);
@@ -2163,7 +2129,6 @@
 				84E48DFC1D45BBB1008579A2 /* nav_publish@3x.png in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				84B8C1931D30C76F0061CC73 /* loadingLogo@3x.png in Resources */,
-				84CC34951CEAFE8B00193D9C /* blueArrow@2x.png in Resources */,
 				848997361D4B5315008EE2BC /* btn_select_pre@3x.png in Resources */,
 				275E9CD31CFED0DC0075910D /* Beedback.png in Resources */,
 				8489972C1D4B4D14008EE2BC /* tab_huifu@3x.png in Resources */,
@@ -2254,7 +2219,6 @@
 				845CCBA41D4F028D005ABD7B /* tab_h1_pre@3x.png in Resources */,
 				1955B4631D644D9800DC102E /* BrowserTableViewCell.xib in Resources */,
 				8497DFC71CEEEB9600D7D105 /* MyCenterSelect@3x.png in Resources */,
-				84CC34941CEAFE8B00193D9C /* blueArrow.png in Resources */,
 				845CCB941D4EF48C005ABD7B /* tab_jiacu_pre@3x.png in Resources */,
 				84B9B45A1D48635100DDF15B /* btn_col@3x.png in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
@@ -2315,7 +2279,6 @@
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
 				1955B4761D644D9800DC102E /* ChildTableViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
-				84CC34981CEAFE8B00193D9C /* FCXRefreshHeaderView.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				1955B4681D644D9800DC102E /* ManageButtonTableViewCell.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
@@ -2340,7 +2303,6 @@
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
-				84CC34971CEAFE8B00193D9C /* FCXRefreshFooterView.m in Sources */,
 				1955B47C1D644D9800DC102E /* FeedbackTableViewCell.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */,
@@ -2405,7 +2367,6 @@
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				1955B4831D644D9800DC102E /* SettingTableViewController.m in Sources */,
 				1955B4BD1D644DB400DC102E /* SurveyViewController.m in Sources */,
-				84CC34991CEAFE8B00193D9C /* UIScrollView+FCXRefresh.m in Sources */,
 				1955B4BB1D644DB400DC102E /* SurveyTableViewCell.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
@@ -2432,7 +2393,6 @@
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
 				84B8C18E1D30C6D00061CC73 /* FSSyncSpinner.m in Sources */,
-				84CC34961CEAFE8B00193D9C /* FCXRefreshBaseView.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				1955B4871D644D9800DC102E /* NoResultTableViewCell.m in Sources */,
