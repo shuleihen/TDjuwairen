@@ -152,7 +152,7 @@
     self.tableview.backgroundColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0];
     /* 去掉分割线 */
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self.tableview registerNib:[UINib nibWithNibName:@"AllNoResultTableViewCell" bundle:nil] forCellReuseIdentifier:@"allno"];
     [self.view addSubview:self.tableview];
     
     self.defaults = [NSUserDefaults standardUserDefaults];
@@ -288,7 +288,6 @@
     else
     {
         if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-            [tableView registerNib:[UINib nibWithNibName:@"AllNoResultTableViewCell" bundle:nil] forCellReuseIdentifier:@"allno"];
             AllNoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allno"];
             cell.promptLab.text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
