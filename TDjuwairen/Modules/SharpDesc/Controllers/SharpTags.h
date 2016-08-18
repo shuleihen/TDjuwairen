@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol SharpTagsDelegate <NSObject>
+
+- (void)ClickTags:(UIButton *)sender;
+
+@end
+
 @interface SharpTags : UIView
 {
     CGRect previousFrame;
@@ -17,6 +23,8 @@
 @property (nonatomic,retain) UIColor *BGColor;
 /* 设置标签颜色 */
 @property (nonatomic,retain) UIColor *signalTagColor;
+
+@property (nonatomic,assign) id<SharpTagsDelegate>delegate;
 /* 标签文本赋值 */
 - (void)setTagWithTagArray:(NSArray *)arr;
 

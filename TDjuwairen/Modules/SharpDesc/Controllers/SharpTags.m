@@ -50,7 +50,7 @@
         tag.clipsToBounds=YES;
         /* 添加点击事件 */
         TagsTitle = str;
-//        [tag addTarget:self action:@selector(ClickTags:) forControlEvents:UIControlEventTouchUpInside];
+        [tag addTarget:self action:@selector(ClickTags:) forControlEvents:UIControlEventTouchUpInside];
         NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:15]};
         CGSize Size_str=[str sizeWithAttributes:attrs];
         Size_str.width += HORIZONTAL_PADDING*2;
@@ -82,6 +82,12 @@
     CGRect tempFrame = view.frame;
     tempFrame.size.height = hight;
     view.frame = tempFrame;
+}
+
+- (void)ClickTags:(UIButton *)sender{
+    if ([self.delegate respondsToSelector:@selector(ClickTags:)]) {
+        [self.delegate ClickTags:sender];
+    }
 }
 
 @end

@@ -15,6 +15,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.headImgView = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 25, 25)];
         self.headImgView.layer.cornerRadius = 25/2;
+        self.headImgView.layer.masksToBounds = YES;
         
         self.nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(48, 15, kScreenWidth-55, 20)];
         self.nicknameLabel.textColor = [UIColor darkGrayColor];

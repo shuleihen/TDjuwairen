@@ -60,6 +60,11 @@
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
     // Do any additional setup after loading the view.
+    
+    if (self.searchTags != nil) {
+        self.customSearchBar.text = self.searchTags;
+        [self requestDataWithText];
+    }
 }
 
 -(void)viewTapped:(UITapGestureRecognizer*)tap
@@ -139,7 +144,7 @@
 
 #pragma mark - 设置tableview初始化UserDefaults
 - (void)setupWithTableview{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-44) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -161,7 +166,14 @@
     }
     else
     {
-        return 3;
+//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+//            return 1;
+//        }
+//        else
+//        {
+            return 3;
+//        }
+        
     }
     
 }
@@ -173,34 +185,41 @@
     }
     else
     {
-        if (section == 0) {
-            if (self.surveydata.count == 0) {
-                return 2;
+//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+//            return 1;
+//        }
+//        else
+//        {
+            if (section == 0) {
+                if (self.surveydata.count == 0) {
+                    return 2;
+                }
+                else
+                {
+                    return self.surveydata.count+1;
+                }
+            }
+            else if (section == 1){
+                if (self.researchdata.count == 0) {
+                    return 2;
+                }
+                else
+                {
+                    return self.researchdata.count+1;
+                }
             }
             else
             {
-                return self.surveydata.count+1;
+                if (self.videodata.count == 0) {
+                    return 2;
+                }
+                else
+                {
+                    return self.videodata.count+1;
+                }
             }
-        }
-        else if (section == 1){
-            if (self.researchdata.count == 0) {
-                return 2;
-            }
-            else
-            {
-                return self.researchdata.count+1;
-            }
-        }
-        else
-        {
-            if (self.videodata.count == 0) {
-                return 2;
-            }
-            else
-            {
-                return self.videodata.count+1;
-            }
-        }
+//        }
+        
     }
 }
 
@@ -267,184 +286,194 @@
     /* 用户输入文本之后 */
     else
     {
-        /* 当搜索栏中有字的时候 */
-        if (indexPath.section == 0) {
-            if (indexPath.row == 0) {
-                /* 这里是标题 */
-                HeadForSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headcell"];
-                if (cell == nil) {
-                    cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
-                }
-                cell.imgview.image = [UIImage imageNamed:@"SurveyUnSelect.png"];
-                cell.headlabel.text = @"调研";
-                
-                /* cell的选中样式为无色 */
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return cell;
-            }
-            else
-            {
-                if (self.surveydata.count == 0) {
-                    NSString *identifier = @"cell";
-                    NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+//            if (cell == nil) {
+//                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+//            }
+//            return cell;
+//        }
+//        else
+//        {
+            /* 当搜索栏中有字的时候 */
+            if (indexPath.section == 0) {
+                if (indexPath.row == 0) {
+                    /* 这里是标题 */
+                    HeadForSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headcell"];
                     if (cell == nil) {
-                        cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                     }
-                    cell.delegate = self;
-                    NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
-                    UIFont *font = [UIFont systemFontOfSize:16];
-                    cell.label.font = font;
-                    cell.label.numberOfLines = 0;
-                    textsize = CGSizeMake(kScreenWidth-100, 500.0);
-                    textsize = [text calculateSize:textsize font:font];
-                    cell.label.text = text;
-                    [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                    cell.imgview.image = [UIImage imageNamed:@"SurveyUnSelect.png"];
+                    cell.headlabel.text = @"调研";
                     
-                    [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
-                    cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
                 }
                 else
                 {
-                    SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
-                    if (cell == nil) {
-                        cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                    if (self.surveydata.count == 0) {
+                        NSString *identifier = @"cell";
+                        NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                        if (cell == nil) {
+                            cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        }
+                        cell.delegate = self;
+                        NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+                        UIFont *font = [UIFont systemFontOfSize:16];
+                        cell.label.font = font;
+                        cell.label.numberOfLines = 0;
+                        textsize = CGSizeMake(kScreenWidth-100, 500.0);
+                        textsize = [text calculateSize:textsize font:font];
+                        cell.label.text = text;
+                        [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                        
+                        [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
+                        cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
+                        /* cell的选中样式为无色 */
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        return cell;
                     }
-                    SurveyListModel *model = self.surveydata[indexPath.row-1];
-                    NSString *text = model.sharp_title;
-                    cell.titleLabel.text = text;
-                    UIFont *font = [UIFont systemFontOfSize:16];
-                    cell.titleLabel.font = font;
-                    titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
-                    titlesize = [text calculateSize:titlesize font:font];
-                    [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
-                    
-                    [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
-                    
-                    return cell;
+                    else
+                    {
+                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+                        if (cell == nil) {
+                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                        }
+                        SurveyListModel *model = self.surveydata[indexPath.row-1];
+                        NSString *text = model.sharp_title;
+                        cell.titleLabel.text = text;
+                        UIFont *font = [UIFont systemFontOfSize:16];
+                        cell.titleLabel.font = font;
+                        titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
+                        titlesize = [text calculateSize:titlesize font:font];
+                        [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
+                        
+                        [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
+                        
+                        return cell;
+                    }
                 }
             }
-        }
-        else if (indexPath.section == 1){
-            if (indexPath.row == 0) {
-                /* 这里是标题 */
-                HeadForSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headcell"];
-                if (cell == nil) {
-                    cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
-                }
-                cell.imgview.image = [UIImage imageNamed:@"ViewPointUnSelect.png"];
-                cell.headlabel.text = @"观点";
-                /* cell的选中样式为无色 */
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return cell;
-            }
-            else
-            {
-                if (self.researchdata.count == 0) {
-                    NSString *identifier = @"cell";
-                    NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            else if (indexPath.section == 1){
+                if (indexPath.row == 0) {
+                    /* 这里是标题 */
+                    HeadForSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headcell"];
                     if (cell == nil) {
-                        cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                     }
-                    cell.delegate = self;
-                    NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
-                    UIFont *font = [UIFont systemFontOfSize:16];
-                    cell.label.font = font;
-                    cell.label.numberOfLines = 0;
-                    textsize = CGSizeMake(kScreenWidth-100, 500.0);
-                    textsize = [text calculateSize:textsize font:font];
-                    cell.label.text = text;
-                    [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
-                    
-                    [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
-                    cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
+                    cell.imgview.image = [UIImage imageNamed:@"ViewPointUnSelect.png"];
+                    cell.headlabel.text = @"观点";
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
                 }
                 else
                 {
-                    SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
-                    if (cell == nil) {
-                        cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                    if (self.researchdata.count == 0) {
+                        NSString *identifier = @"cell";
+                        NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                        if (cell == nil) {
+                            cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        }
+                        cell.delegate = self;
+                        NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+                        UIFont *font = [UIFont systemFontOfSize:16];
+                        cell.label.font = font;
+                        cell.label.numberOfLines = 0;
+                        textsize = CGSizeMake(kScreenWidth-100, 500.0);
+                        textsize = [text calculateSize:textsize font:font];
+                        cell.label.text = text;
+                        [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                        
+                        [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
+                        cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
+                        /* cell的选中样式为无色 */
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        return cell;
                     }
-                    SurveyListModel *model = self.researchdata[indexPath.row-1];
-                    NSString *text = model.sharp_title;
-                    cell.titleLabel.text = text;
-                    UIFont *font = [UIFont systemFontOfSize:16];
-                    cell.titleLabel.font = font;
-                    titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
-                    titlesize = [text calculateSize:titlesize font:font];
-                    [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
+                    else
+                    {
+                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+                        if (cell == nil) {
+                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                        }
+                        SurveyListModel *model = self.researchdata[indexPath.row-1];
+                        NSString *text = model.sharp_title;
+                        cell.titleLabel.text = text;
+                        UIFont *font = [UIFont systemFontOfSize:16];
+                        cell.titleLabel.font = font;
+                        titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
+                        titlesize = [text calculateSize:titlesize font:font];
+                        [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
+                        
+                        [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
+                        
+                        return cell;
+                    }
                     
-                    [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
-                    
-                    return cell;
                 }
-                
-            }
-        }
-        else
-        {
-            if (indexPath.row == 0) {
-                /* 这里是标题 */
-                HeadForSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headcell"];
-                if (cell == nil) {
-                    cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
-                }
-                cell.imgview.image = [UIImage imageNamed:@"VideoUnSelect.png"];
-                cell.headlabel.text = @"视频";
-                /* cell的选中样式为无色 */
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                return cell;
             }
             else
             {
-                if (self.videodata.count == 0) {
-                    NSString *identifier = @"cell";
-                    NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                if (indexPath.row == 0) {
+                    /* 这里是标题 */
+                    HeadForSectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"headcell"];
                     if (cell == nil) {
-                        cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                     }
-                    cell.delegate = self;
-                    NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
-                    UIFont *font = [UIFont systemFontOfSize:16];
-                    cell.label.font = font;
-                    cell.label.numberOfLines = 0;
-                    textsize = CGSizeMake(kScreenWidth-100, 500.0);
-                    textsize = [text calculateSize:textsize font:font];
-                    cell.label.text = text;
-                    [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
-                    
-                    [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
-                    cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
+                    cell.imgview.image = [UIImage imageNamed:@"VideoUnSelect.png"];
+                    cell.headlabel.text = @"视频";
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
                     return cell;
                 }
                 else
                 {
-                    SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
-                    if (cell == nil) {
-                        cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                    if (self.videodata.count == 0) {
+                        NSString *identifier = @"cell";
+                        NoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                        if (cell == nil) {
+                            cell = [[NoResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                        }
+                        cell.delegate = self;
+                        NSString *text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+                        UIFont *font = [UIFont systemFontOfSize:16];
+                        cell.label.font = font;
+                        cell.label.numberOfLines = 0;
+                        textsize = CGSizeMake(kScreenWidth-100, 500.0);
+                        textsize = [text calculateSize:textsize font:font];
+                        cell.label.text = text;
+                        [cell.label setFrame:CGRectMake(50, 10+40+10, kScreenWidth-100, textsize.height)];
+                        
+                        [cell.submit setFrame:CGRectMake(50, 10+40+10+textsize.height+30, 70, 30)];
+                        cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
+                        /* cell的选中样式为无色 */
+                        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        return cell;
                     }
-                    SurveyListModel *model = self.videodata[indexPath.row-1];
-                    NSString *text = model.sharp_title;
-                    cell.titleLabel.text = text;
-                    UIFont *font = [UIFont systemFontOfSize:16];
-                    cell.titleLabel.font = font;
-                    titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
-                    titlesize = [text calculateSize:titlesize font:font];
-                    [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
-                    
-                    [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
-                    
-                    return cell;
+                    else
+                    {
+                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+                        if (cell == nil) {
+                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                        }
+                        SurveyListModel *model = self.videodata[indexPath.row-1];
+                        NSString *text = model.sharp_title;
+                        cell.titleLabel.text = text;
+                        UIFont *font = [UIFont systemFontOfSize:16];
+                        cell.titleLabel.font = font;
+                        titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
+                        titlesize = [text calculateSize:titlesize font:font];
+                        [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
+                        
+                        [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
+                        
+                        return cell;
+                    }
                 }
             }
-        }
+//        }
     }
     
 }
@@ -463,42 +492,49 @@
     }
     else
     {
-        if (indexPath.row == 0) {
-            return 44;
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            return kScreenWidth-64;
         }
         else
         {
-            if (indexPath.section == 0) {
-                if (self.surveydata.count == 0) {
-                    return 10+40+10+textsize.height+30+40;
-                }
-                else
-                {
-                    return 15 + titlesize.height + 15;
-                }
-            }
-            else if (indexPath.section == 1)
-            {
-                if (self.researchdata.count == 0) {
-                    return 10+40+10+textsize.height+30+40;
-                }
-                else
-                {
-                    return 15 + titlesize.height + 15;
-                }
+            if (indexPath.row == 0) {
+                return 44;
             }
             else
             {
-                if (self.videodata.count == 0) {
-                    return 10+40+10+textsize.height+30+40;
+                if (indexPath.section == 0) {
+                    if (self.surveydata.count == 0) {
+                        return 10+40+10+textsize.height+30+40;
+                    }
+                    else
+                    {
+                        return 15 + titlesize.height + 15;
+                    }
+                }
+                else if (indexPath.section == 1)
+                {
+                    if (self.researchdata.count == 0) {
+                        return 10+40+10+textsize.height+30+40;
+                    }
+                    else
+                    {
+                        return 15 + titlesize.height + 15;
+                    }
                 }
                 else
                 {
-                    return 15 + titlesize.height + 15;
+                    if (self.videodata.count == 0) {
+                        return 10+40+10+textsize.height+30+40;
+                    }
+                    else
+                    {
+                        return 15 + titlesize.height + 15;
+                    }
                 }
+                
             }
-            
         }
+        
     }
     
 }

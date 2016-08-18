@@ -24,6 +24,7 @@
 #import "UIdaynightModel.h"
 #import "NaviMoreView.h"
 #import "SelectFontView.h"
+#import "SearchViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -37,7 +38,7 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 
-@interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate>
+@interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,SharpTagsDelegate>
 {
     CGSize commentsize;
     CGSize originalsize;
@@ -501,6 +502,7 @@
             cell.backgroundColor = [UIColor clearColor];
             [self.tagList removeFromSuperview];
             self.tagList = [[SharpTags alloc]initWithFrame:CGRectMake(0, 15, kScreenWidth, 1)];
+            self.tagList.delegate = self;
             self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
             self.tagList.BGColor = [UIColor clearColor];
             
@@ -641,6 +643,16 @@
     [self.backcommentview.commentview resignFirstResponder];
 }
 
+#pragma mark - 标签代理方法
+- (void)ClickTags:(UIButton *)sender
+{
+    NSLog(@"%@",sender.titleLabel.text);
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.searchTags = sender.titleLabel.text;
+    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    [self.navigationController pushViewController:searchView animated:YES];
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
@@ -769,6 +781,7 @@
             //滑动到评论
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.tableview reloadData];
         } else {
             
             hud.labelText = @"评论失败";
