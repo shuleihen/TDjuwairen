@@ -811,13 +811,20 @@
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"comment_content":text,
                           @"user_id":US.userId,
-                          @"view_id":@"42",
+                          @"view_id":self.view_id,
                           @"comment_pid":@"38"};
     
     [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.1f];
+            
+            [self requestWithCommentDataWithTimeHot];
+            self.backcommentview.commentview.text = @"";
+            //滑动到评论
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.tableview reloadData];
         } else {
             hud.labelText = @"评论失败";
             [hud hide:YES afterDelay:0.1f];
