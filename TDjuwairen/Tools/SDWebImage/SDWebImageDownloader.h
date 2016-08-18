@@ -15,7 +15,7 @@ typedef NS_OPTIONS(NSUInteger, SDWebImageDownloaderOptions) {
     SDWebImageDownloaderProgressiveDownload = 1 << 1,
 
     /**
-     * By default, request prevent the of NSURLCache. With this flag, NSURLCache
+     * By default, request prevent the use of NSURLCache. With this flag, NSURLCache
      * is used with default policies.
      */
     SDWebImageDownloaderUseNSURLCache = 1 << 2,
@@ -110,6 +110,11 @@ typedef NSDictionary *(^SDWebImageDownloaderHeadersFilterBlock)(NSURL *url, NSDi
 + (SDWebImageDownloader *)sharedDownloader;
 
 /**
+ *  Set the default URL credential to be set for request operations.
+ */
+@property (strong, nonatomic) NSURLCredential *urlCredential;
+
+/**
  * Set username
  */
 @property (strong, nonatomic) NSString *username;
@@ -182,5 +187,10 @@ typedef NSDictionary *(^SDWebImageDownloaderHeadersFilterBlock)(NSURL *url, NSDi
  * Sets the download queue suspension state
  */
 - (void)setSuspended:(BOOL)suspended;
+
+/**
+ * Cancels all download operations in the queue
+ */
+- (void)cancelAllDownloads;
 
 @end

@@ -562,9 +562,9 @@
                 {
                     self.editziti.type = @"cuxie";
 
-                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
-                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+//                    CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+//                    UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+//                    UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
                     
                     NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                     
