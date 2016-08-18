@@ -389,9 +389,7 @@
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-        NSDictionary*para=@{@"validatestring":US.userId};
-        
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];        
         [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;
