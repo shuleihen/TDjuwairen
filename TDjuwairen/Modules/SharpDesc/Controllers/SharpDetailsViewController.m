@@ -25,6 +25,7 @@
 #import "NaviMoreView.h"
 #import "SelectFontView.h"
 #import "SearchViewController.h"
+#import "FeedbackViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -984,7 +985,9 @@
     }
     else if ([cell.textLabel.text isEqualToString:@"字体大小"]){
         
+        self.nmview.alpha = 0.0;
         self.sfview.alpha = 1.0;
+        self.sfview.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
         
     }
     else if ([cell.textLabel.text isEqualToString:@"日间模式"]){
@@ -1035,6 +1038,10 @@
     else
     {
         //举报
+        self.nmview.alpha = 0.0;
+        naviShow = NO;
+        FeedbackViewController *feedback = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedbackView"];
+        [self.navigationController pushViewController:feedback animated:YES];
     }
 }
 

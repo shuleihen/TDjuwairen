@@ -669,6 +669,7 @@
         naviShow = NO;
         FeedbackViewController *feedback = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedbackView"];
         [self.navigationController pushViewController:feedback animated:YES];
+        
     }
 }
 
