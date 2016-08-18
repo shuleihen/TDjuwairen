@@ -88,7 +88,7 @@
     
     [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
     [UINavigationBar appearance].translucent = NO;
-//    [UINavigationBar appearance].tintColor = [UIColor blueColor];     // 设置左右按钮，文字和图片颜色
+    [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
     
     // 设置导航条标题字体和颜色
     NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};

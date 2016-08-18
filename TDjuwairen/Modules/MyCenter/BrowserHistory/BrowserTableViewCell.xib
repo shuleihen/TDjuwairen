@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -11,7 +11,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="px0-hA-ONT">
@@ -29,7 +29,7 @@
                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-YS-05B">
+                    <imageView hidden="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="nNh-YS-05B">
                         <rect key="frame" x="-25" y="35" width="20" height="20"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="20" id="Nje-w4-FlJ"/>
@@ -43,19 +43,9 @@
                             <constraint firstAttribute="height" constant="75" id="34T-rd-rMN"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JWC-NX-d3r">
-                        <rect key="frame" x="15" y="89" width="290" height="1"/>
-                        <constraints>
-                            <constraint firstAttribute="height" constant="1" id="vyh-Gy-Tyw"/>
-                        </constraints>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="px0-hA-ONT" firstAttribute="leading" secondItem="tC0-2T-ySx" secondAttribute="trailing" constant="4" id="082-hk-OKK"/>
-                    <constraint firstItem="JWC-NX-d3r" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="2we-vq-1HP"/>
                     <constraint firstAttribute="trailing" secondItem="BIo-X4-0cZ" secondAttribute="trailing" constant="12" id="Gt1-2C-ezA"/>
                     <constraint firstItem="tC0-2T-ySx" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="8" id="H1s-n7-Gau"/>
                     <constraint firstAttribute="bottom" secondItem="BIo-X4-0cZ" secondAttribute="bottom" constant="8" id="OX7-82-T3l"/>
@@ -63,8 +53,6 @@
                     <constraint firstItem="nNh-YS-05B" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="UBR-oB-o5r"/>
                     <constraint firstItem="px0-hA-ONT" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="5" id="UbA-WR-vQO"/>
                     <constraint firstAttribute="trailing" secondItem="px0-hA-ONT" secondAttribute="trailing" constant="8" id="Uim-GZ-YWZ"/>
-                    <constraint firstAttribute="bottom" secondItem="JWC-NX-d3r" secondAttribute="bottom" constant="-1" id="f6i-nb-jSB"/>
-                    <constraint firstAttribute="trailing" secondItem="JWC-NX-d3r" secondAttribute="trailing" constant="15" id="sd7-95-LPg"/>
                     <constraint firstItem="BIo-X4-0cZ" firstAttribute="leading" secondItem="tC0-2T-ySx" secondAttribute="trailing" constant="8" id="vt7-yb-zFA"/>
                     <constraint firstItem="BIo-X4-0cZ" firstAttribute="top" secondItem="px0-hA-ONT" secondAttribute="bottom" constant="3" id="vxd-92-1Tl"/>
                     <constraint firstItem="tC0-2T-ySx" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="3" id="xAg-Xz-FxO"/>
@@ -75,7 +63,6 @@
                 <outlet property="SelectImageView" destination="nNh-YS-05B" id="bNm-5B-yyl"/>
                 <outlet property="SharpImage" destination="tC0-2T-ySx" id="zkD-IJ-zKp"/>
                 <outlet property="SharpTitle" destination="px0-hA-ONT" id="fx0-A9-VSy"/>
-                <outlet property="line" destination="JWC-NX-d3r" id="Xqv-3p-03X"/>
                 <outlet property="timeLabel" destination="BIo-X4-0cZ" id="Jvw-gb-PnC"/>
             </connections>
             <point key="canvasLocation" x="355" y="229"/>

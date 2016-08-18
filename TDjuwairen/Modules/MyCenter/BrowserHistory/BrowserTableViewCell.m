@@ -8,72 +8,20 @@
 
 #import "BrowserTableViewCell.h"
 #import "UIdaynightModel.h"
+#import "UIImageView+WebCache.h"
 
 @interface BrowserTableViewCell ()
-
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
+
 @implementation BrowserTableViewCell
-
-- (void)awakeFromNib {
-    [super awakeFromNib];
-    
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.line.layer.borderColor = self.daynightmodel.backColor.CGColor;
-    self.line.layer.borderWidth = 0.5;
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    if (selected) {
-        self.SelectImageView.image=[UIImage imageNamed:@"选中"];
-    }
-    else
-    {
-        self.SelectImageView.image=[UIImage imageNamed:@"未选中"];
-    }
-}
 
 -(void)setCellWithDic:(NSDictionary *)dic
 {
-    self.timeLabel.text=[NSString stringWithFormat:@"%@浏览",[self setLabelsTime:[dic[@"history_item_time"]integerValue]]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%@浏览",[self setLabelsTime:[dic[@"history_item_time"]integerValue]]];
+    self.SharpTitle.text = dic[@"sharp_title"];
     
-    self.SharpTitle.text=dic[@"sharp_title"];
-    
-    //加载头像
     NSString*url=dic[@"sharp_pic280"];
-    NSArray*arr=[url pathComponents];
-    NSString*imageName=[arr objectAtIndex:[arr count]-1];
-    NSString*rootPath=NSHomeDirectory();
-    NSString*path=[NSString stringWithFormat:@"%@/Documents/%@",rootPath,imageName];
-    
-    //如果图片存在，那么直接获取到图片
-    NSFileManager *manager = [NSFileManager defaultManager];
-    if ([manager fileExistsAtPath:path]) {
-        UIImage *image = [UIImage imageNamed:path];
-        self.SharpImage.image = image;
-        return;
-    }
-    else
-    {
-    //如果不存在，那么使用多线程来下载图片
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSURL *url1 = [NSURL URLWithString:url];
-        NSData *data = [NSData dataWithContentsOfURL:url1];
-        UIImage *img = [UIImage imageWithData:data];
-        dispatch_sync(dispatch_get_main_queue(), ^{
-            self.SharpImage.image = img;
-            //保存到本地
-            // NSLog(@"%@",url1);
-            [data writeToFile:path atomically:YES];
-        });
-    });
-    }
-
-    
-    
+    [self.SharpImage sd_setImageWithURL:[NSURL URLWithString:url]];
 }
 
 -(NSString*)setLabelsTime:(NSInteger)time{

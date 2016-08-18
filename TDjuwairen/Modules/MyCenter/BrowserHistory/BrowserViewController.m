@@ -25,7 +25,8 @@
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSMutableArray *BrowserArray;
 @property (nonatomic,strong) NSMutableArray *delArray;
-@property (nonatomic,strong) UIBarButtonItem *editBtn;
+@property (nonatomic,strong) UIBarButtonItem *editItem;
+@property (nonatomic, strong) UIBarButtonItem *cancelItem;
 @property(nonatomic,strong) EditView *editView;
 @end
 
@@ -36,24 +37,31 @@
     
     [self setNavigation];
     [self setupWithTableView];
+    [self setupEditToolView];
     
-    //全选，删除的view视图
-    _editView = [[EditView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50)];
-    //全选button
-    [_editView.selectBtn addTarget:self action:@selector(Select:) forControlEvents:UIControlEventTouchUpInside];
     haveSelect=NO;
-    //删除button
-    [_editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_editView];
 }
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+    
+    [self requestBrowser];
+    [self requestAuthentication];
+}
+
 -(void)setNavigation
 {
     self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
     self.title = @"浏览记录";
     
     //编辑button
-    self.editBtn = [[UIBarButtonItem alloc]initWithTitle:@"编辑" style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
-    self.navigationItem.rightBarButtonItem = self.editBtn;
+    self.editItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_delete"] style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
+    self.cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
+    
+    self.navigationItem.rightBarButtonItem = self.editItem;
     edit = NO;
 }
 
@@ -61,37 +69,81 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
-    self.tableview.allowsMultipleSelectionDuringEditing=YES;
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableview.allowsMultipleSelectionDuringEditing = YES;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableview.separatorInset = UIEdgeInsetsZero;
+    self.tableview.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableview];
     
+    [self.tableview registerNib:[UINib nibWithNibName:@"BrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"BrowserCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"NoBrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoBrowserCell"];
 }
-#pragma mark-全选button的点击事件
--(void)Select:(UIButton*)sender
+
+- (void)setupEditToolView
 {
-    if (haveSelect==NO) {
-    for (int i=0; i<self.BrowserArray.count; i++) {
-        NSIndexPath*indexPath=[NSIndexPath indexPathForItem:i inSection:0];
-        [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionTop];
-    }
-        [_editView.selectBtn setTitle:@"取消全选" forState:UIControlStateNormal];
-        haveSelect=YES;
+    self.editView = [[EditView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50)];
+    [self.editView.selectBtn addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
+    [self.editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:_editView];
+}
+
+-(void)editClick
+{
+    if (edit==NO) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds)-50, CGRectGetWidth(self.view.bounds), 50);
+        } completion:^(BOOL finished) {
+            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-50);
+        }];
+        
+        edit = YES;
+        self.navigationItem.rightBarButtonItem = self.cancelItem;
+        [self.tableview setEditing:YES animated:YES];
     }
     else
     {
-        for (int i=0; i<self.BrowserArray.count; i++) {
-        NSIndexPath*indexPath=[NSIndexPath indexPathForItem:i inSection:0];
-        [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+        [UIView animateWithDuration:0.3 animations:^{
+            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+            self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50);
+        } completion:^(BOOL finished) {
+            
+        }];
+        
+        [self.editView.selectBtn setTitle:@"全选" forState:UIControlStateNormal];
+        
+        edit = NO;
+        haveSelect = NO;
+        self.navigationItem.rightBarButtonItem = self.editItem;
+        [self.tableview setEditing:NO animated:YES];
     }
-        [_editView.selectBtn setTitle:@"全选" forState:UIControlStateNormal];
+}
+
+-(void)allSelect:(UIButton*)sender
+{
+    if (haveSelect==NO) {
+        for (int i=0; i<self.BrowserArray.count; i++) {
+            NSIndexPath*indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
+        }
+        
+        [self.editView.selectBtn setTitle:@"取消全选" forState:UIControlStateNormal];
+        haveSelect=YES;
+    } else {
+        for (int i=0; i<self.BrowserArray.count; i++) {
+            NSIndexPath*indexPath = [NSIndexPath indexPathForItem:i inSection:0];
+            [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+        }
+        
+        [self.editView.selectBtn setTitle:@"全选" forState:UIControlStateNormal];
         haveSelect=NO;
     }
 }
-#pragma mark-删除button的点击事件
+
 -(void)Delete:(UIButton*)sender
 {
     NSMutableArray *sharpId = [NSMutableArray array];
     NSArray *selectArr = self.tableview.indexPathsForSelectedRows;
+    
     if (selectArr.count) {
         self.delArray = [NSMutableArray array];
         for (NSIndexPath *indexPath in selectArr) {
@@ -110,64 +162,18 @@
         [manager POST:API_DelBrowseHistory parameters:para completion:^(id data, NSError *error){}];
         
         [self.BrowserArray removeObjectsInArray:self.delArray];
+        [self.tableview deleteRowsAtIndexPaths:selectArr withRowAnimation:UITableViewRowAnimationLeft];
         
-        [self.tableview deleteRowsAtIndexPaths:selectArr withRowAnimation:YES];
-        [UIView animateWithDuration:0.5 animations:^{
-            _editView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-518);
+        [UIView animateWithDuration:0.3 animations:^{
+            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+            self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50);
         } completion:^(BOOL finished) {
-            nil;
+            
         }];
+        
         edit=NO;
-        self.editBtn.title=@"编辑";
+        self.navigationItem.rightBarButtonItem = self.editItem;
         [self.tableview setEditing:NO animated:YES];
-    }
-}
-
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-//    [self.navigationController.navigationBar setHidden:NO];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self requestBrowser];
-    
-    [self requestAuthentication];
-}
-
-
-
-//编辑button点击事件
--(void)editClick
-{
-    
-    if (edit==NO) {
-    [UIView animateWithDuration:0.5 animations:^{
-        _editView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height-50, [UIScreen mainScreen].bounds.size.width, 50);
-    } completion:^(BOOL finished) {
-        nil;
-    }];
-        edit = YES;
-        self.editBtn.title = @"取消";
-        [self.tableview setEditing:YES animated:YES];
-        
-    }
-    else
-    {
-        [UIView animateWithDuration:0.5 animations:^{
-            _editView.frame = CGRectMake(0, [UIScreen mainScreen].bounds.size.height, [UIScreen mainScreen].bounds.size.width, 50);
-        } completion:^(BOOL finished) {
-            nil;
-        }];
-        edit = NO;
-        self.editBtn.title = @"编辑";
-        [self.tableview setEditing:NO animated:YES];
-        
-        
     }
 }
 
@@ -230,20 +236,15 @@
 {
     if (haveBrowser) {
         NSDictionary*dic = self.BrowserArray[indexPath.row];
-    [tableView registerNib:[UINib nibWithNibName:@"BrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"BrowserCell"];
-    BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BrowserCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.editBtn.enabled = YES;
-    [cell setCellWithDic:dic];
+        
+        BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BrowserCell"];
+        [cell setCellWithDic:dic];
     
         return cell;
     }
     else
     {
-        [tableView registerNib:[UINib nibWithNibName:@"NoBrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoBrowserCell"];
         BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        self.editBtn.enabled = NO;
         return cell;
     }
 }
@@ -286,8 +287,7 @@
         self.BrowserArray = [NSMutableArray arrayWithArray:arr];
         
         [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
-        
-            }
+    }
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -296,16 +296,16 @@
 
 -(UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return UITableViewCellEditingStyleNone|UITableViewCellEditingStyleDelete;
+    return UITableViewCellEditingStyleDelete;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (edit==NO) {
-    NSDictionary *dic = self.BrowserArray[indexPath.row];
-    SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
-    sharp.sharp_id = dic[@"sharp_id"];
-    [self.navigationController pushViewController:sharp animated:YES];
+{    
+    if (edit == NO) {
+        NSDictionary *dic = self.BrowserArray[indexPath.row];
+        SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
+        sharp.sharp_id = dic[@"sharp_id"];
+        [self.navigationController pushViewController:sharp animated:YES];
     }
 }
 

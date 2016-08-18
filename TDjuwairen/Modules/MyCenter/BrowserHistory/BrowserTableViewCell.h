@@ -13,7 +13,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *SharpTitle;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *SelectImageView;
-@property (weak, nonatomic) IBOutlet UILabel *line;
 
 -(void)setCellWithDic:(NSDictionary *)dic;
 @end

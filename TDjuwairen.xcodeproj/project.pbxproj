@@ -167,8 +167,6 @@
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54481D5D7DF40011BA33 /* YXFont.m */; };
-		2712685F1D05403700EBEFD0 /* 未选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685D1D05403700EBEFD0 /* 未选中.png */; };
-		271268601D05403700EBEFD0 /* 选中.png in Resources */ = {isa = PBXBuildFile; fileRef = 2712685E1D05403700EBEFD0 /* 选中.png */; };
 		275E9CC91CFED0DC0075910D /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CAD1CFED0DC0075910D /* 1.png */; };
 		275E9CCD1CFED0DC0075910D /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB11CFED0DC0075910D /* Overlay.png */; };
 		275E9CCE1CFED0DC0075910D /* 上传图片.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB21CFED0DC0075910D /* 上传图片.png */; };
@@ -192,7 +190,6 @@
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */; };
 		840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */; };
-		840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */ = {isa = PBXBuildFile; fileRef = 840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */; };
 		8427F7451D58682F0073AB7F /* btn_select_pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8427F7441D58682F0073AB7F /* btn_select_pre@2x.png */; };
 		8427F7471D5868390073AB7F /* btn_select@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8427F7461D5868390073AB7F /* btn_select@2x.png */; };
 		8427F74A1D5878440073AB7F /* btn_dianzan_pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8427F7481D5878440073AB7F /* btn_dianzan_pre@2x.png */; };
@@ -646,8 +643,6 @@
 		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		19FB54471D5D7DF40011BA33 /* YXFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXFont.h; sourceTree = "<group>"; };
 		19FB54481D5D7DF40011BA33 /* YXFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXFont.m; sourceTree = "<group>"; };
-		2712685D1D05403700EBEFD0 /* 未选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "未选中.png"; sourceTree = "<group>"; };
-		2712685E1D05403700EBEFD0 /* 选中.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "选中.png"; sourceTree = "<group>"; };
 		275E9CAD1CFED0DC0075910D /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
 		275E9CB11CFED0DC0075910D /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		275E9CB21CFED0DC0075910D /* 上传图片.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上传图片.png"; sourceTree = "<group>"; };
@@ -671,7 +666,6 @@
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
 		840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@3x.png"; sourceTree = "<group>"; };
-		840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AppLoginImg.png; sourceTree = "<group>"; };
 		8427F7441D58682F0073AB7F /* btn_select_pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_select_pre@2x.png"; sourceTree = "<group>"; };
 		8427F7461D5868390073AB7F /* btn_select@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_select@2x.png"; sourceTree = "<group>"; };
 		8427F7481D5878440073AB7F /* btn_dianzan_pre@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_dianzan_pre@2x.png"; sourceTree = "<group>"; };
@@ -1685,9 +1679,6 @@
 		275E9CAC1CFED0DC0075910D /* MyCenter */ = {
 			isa = PBXGroup;
 			children = (
-				840E35051D5DC4CC00C0BF46 /* AppLoginImg.png */,
-				2712685D1D05403700EBEFD0 /* 未选中.png */,
-				2712685E1D05403700EBEFD0 /* 选中.png */,
 				275E9CAD1CFED0DC0075910D /* 1.png */,
 				275E9CB11CFED0DC0075910D /* Overlay.png */,
 				275E9CB21CFED0DC0075910D /* 上传图片.png */,
@@ -2181,9 +2172,7 @@
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				845CCB9A1D4EF4A9005ABD7B /* tab_xieti@3x.png in Resources */,
 				84D7AC321D642DEE00023D57 /* bg@2x.png in Resources */,
-				840E35061D5DC4CC00C0BF46 /* AppLoginImg.png in Resources */,
 				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
-				271268601D05403700EBEFD0 /* 选中.png in Resources */,
 				84D8A8CF1CFFDA040072813D /* 收藏@3x.png in Resources */,
 				275E9CC91CFED0DC0075910D /* 1.png in Resources */,
 				845CCBAA1D4F0298005ABD7B /* tab_h2@3x.png in Resources */,
@@ -2205,7 +2194,6 @@
 				1955B4BC1D644DB400DC102E /* SurveyTableViewCell.xib in Resources */,
 				840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */,
 				84CBCC651D4B29AC000DAEA8 /* tab_tianjia_pre@3x.png in Resources */,
-				2712685F1D05403700EBEFD0 /* 未选中.png in Resources */,
 				845CCBA21D4EF506005ABD7B /* tab_yingyong@3x.png in Resources */,
 				275E9CD71CFED0DC0075910D /* HeadUnLogin.png in Resources */,
 				8427F74A1D5878440073AB7F /* btn_dianzan_pre@2x.png in Resources */,
