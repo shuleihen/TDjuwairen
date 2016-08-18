@@ -108,28 +108,30 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request
-                       completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
-//                           NSLog(@"%@",responseObject);
-                           if (error) {
-                               dispatch_async(dispatch_get_main_queue(), ^{
-                                   completion(nil, error);
-                               });
-                           } else {
-                               NSInteger code = [responseObject[@"code"] integerValue];
-                               if (code == 200) {
-                                   id data = responseObject[@"data"];
-                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                       completion(data, nil);
-                                   });
-                               } else {
-                                   NSString *msg = responseObject[@"msg"];
-                                   NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
-                                   dispatch_async(dispatch_get_main_queue(), ^{
-                                       completion(nil, error);
-                                   });
-                               }
-                           }
-                       }];
+                                  uploadProgress:nil
+                                downloadProgress:nil
+                               completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
+
+                                   if (error) {
+                                       dispatch_async(dispatch_get_main_queue(), ^{
+                                           completion(nil, error);
+                                       });
+                                   } else {
+                                       NSInteger code = [responseObject[@"code"] integerValue];
+                                       if (code == 200) {
+                                           id data = responseObject[@"data"];
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               completion(data, nil);
+                                           });
+                                       } else {
+                                           NSString *msg = responseObject[@"msg"];
+                                           NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               completion(nil, error);
+                                           });
+                                       }
+                                   }
+                               }];
     
     return dataTask;
 }
