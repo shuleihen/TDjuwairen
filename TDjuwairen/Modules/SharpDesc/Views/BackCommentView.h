@@ -10,10 +10,7 @@
 
 @protocol BackCommentViewDelegate <NSObject>
 
-- (void)clickGOBack:(UIButton *)sender;
-
 - (void)clickComments:(UIButton *)sender;
-
 - (void)clickShare:(UIButton *)sender;
 
 @end
