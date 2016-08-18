@@ -240,6 +240,8 @@
 		8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E05F1CEF0B2800D7D105 /* SDCollectionViewCell.m */; };
 		8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0611CEF0B2800D7D105 /* SDCycleScrollView.m */; };
 		8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0631CEF0B2800D7D105 /* UIView+SDExtension.m */; };
+		84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */; };
+		84AAEFDE1D65A3E300755277 /* AllNoResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */; };
 		84B8C1971D30CC4F0061CC73 /* LaunchImageNum.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B8C1961D30CC4F0061CC73 /* LaunchImageNum.png */; };
 		84B9B4581D48634E00DDF15B /* btn_col_pre@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4571D48634E00DDF15B /* btn_col_pre@3x.png */; };
 		84B9B45A1D48635100DDF15B /* btn_col@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4591D48635100DDF15B /* btn_col@3x.png */; };
@@ -724,6 +726,9 @@
 		8497E0611CEF0B2800D7D105 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		8497E0621CEF0B2800D7D105 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		8497E0631CEF0B2800D7D105 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
+		84AAEFDA1D65A3E300755277 /* AllNoResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllNoResultTableViewCell.h; sourceTree = "<group>"; };
+		84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllNoResultTableViewCell.m; sourceTree = "<group>"; };
+		84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllNoResultTableViewCell.xib; sourceTree = "<group>"; };
 		84B8C1961D30CC4F0061CC73 /* LaunchImageNum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImageNum.png; sourceTree = "<group>"; };
 		84B9B4571D48634E00DDF15B /* btn_col_pre@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_col_pre@3x.png"; sourceTree = "<group>"; };
 		84B9B4591D48635100DDF15B /* btn_col@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_col@3x.png"; sourceTree = "<group>"; };
@@ -1152,6 +1157,9 @@
 				1955B40A1D644D9800DC102E /* NoResultTableViewCell.m */,
 				1955B40B1D644D9800DC102E /* SearchResultTableViewCell.h */,
 				1955B40C1D644D9800DC102E /* SearchResultTableViewCell.m */,
+				84AAEFDA1D65A3E300755277 /* AllNoResultTableViewCell.h */,
+				84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */,
+				84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -2240,6 +2248,7 @@
 				845CCBA81D4F0295005ABD7B /* tab_h2_pre@3x.png in Resources */,
 				8427F7531D588B740073AB7F /* tab_share@3x.png in Resources */,
 				845CCBA01D4EF501005ABD7B /* tab_yinyong_pre@3x.png in Resources */,
+				84AAEFDE1D65A3E300755277 /* AllNoResultTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				845CCB8F1D4EE759005ABD7B /* tab_caogao@3x.png in Resources */,
 				1955B45F1D644D9800DC102E /* LoginViewController.xib in Resources */,
@@ -2364,6 +2373,7 @@
 				1955B4781D644D9800DC102E /* PersonalCenterViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				1955B46F1D644D9800DC102E /* NoCollectionTableViewCell.m in Sources */,
+				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				1955B4831D644D9800DC102E /* SettingTableViewController.m in Sources */,

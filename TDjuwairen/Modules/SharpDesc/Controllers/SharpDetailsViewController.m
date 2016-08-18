@@ -38,6 +38,7 @@
 #import "SharpModel.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
+#import "UIStoryboard+MainStoryboard.h"
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,SharpTagsDelegate>
 {
@@ -86,7 +87,17 @@
 @implementation SharpDetailsViewController
 - (NaviMoreView *)nmview{
     if (!_nmview) {
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+//        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        NSString *str ;
+        if (!self.sharpInfo.sharpIsCollect) {
+            str = @"yes";
+        }
+        else
+        {
+            str = @"no";
+        }
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:str];
+        
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
     }
@@ -642,6 +653,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
+        
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - 标签代理方法
@@ -859,7 +878,7 @@
 
 - (void)clickComments:(UIButton *)sender{
     
-    if (self.tableview.contentOffset.y > self.webview.frame.size.height-64) {
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -978,10 +997,14 @@
         NSLog(@"%@",cell.textLabel.text);
     }
     else if ([cell.textLabel.text isEqualToString:@"收藏"]){
-        [self addControllers];
+        cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
+        cell.textLabel.text = @"取消收藏";
+        [self addCollection];
     }
     else if ([cell.textLabel.text isEqualToString:@"取消收藏"]){
-        
+        cell.imageView.image = [UIImage imageNamed:@"btn_col"];
+        cell.textLabel.text = @"收藏";
+        [self clearCollection];
     }
     else if ([cell.textLabel.text isEqualToString:@"字体大小"]){
         
@@ -1040,17 +1063,17 @@
         //举报
         self.nmview.alpha = 0.0;
         naviShow = NO;
-        FeedbackViewController *feedback = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedbackView"];
+        FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
         [self.navigationController pushViewController:feedback animated:YES];
     }
 }
 
 #pragma mark - 点击收藏取消收藏
-- (void)addControllers{
+- (void)addCollection{
     if (US.isLogIn) {
         NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dic = @{@"userid":US.userId,
-                              @"module_id":@3,
+                              @"module_id":@2,
                               @"item_id":self.sharp_id};
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -1060,12 +1083,38 @@
             if (!error) {
                 hud.labelText = @"收藏成功";
                 [hud hide:YES afterDelay:0.2];
+                self.sharpInfo.sharpIsCollect = true;
             } else {
                 hud.labelText = @"收藏失败";
                 [hud hide:YES afterDelay:0.2];
             }
         }];
     }
+}
+
+- (void)clearCollection{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"取消收藏";
+    
+    NSMutableArray *IDArr = [NSMutableArray array];
+    [IDArr addObject:self.sharp_id];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *para = @{@"authenticationStr":US.userId,
+                           @"encryptedStr":encryptedStr,
+                           @"delete_ids":IDArr,
+                           @"module_id":@"2",
+                           @"userid":US.userId};
+    
+    [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            hud.labelText = @"取消成功";
+            [hud hide:YES afterDelay:0.2];
+        } else {
+            hud.labelText = @"取消失败";
+            [hud hide:YES afterDelay:0.2];
+        }
+    }];
 }
 
 #pragma mark - 更改字体的浮窗

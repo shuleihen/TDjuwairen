@@ -12,11 +12,13 @@
 #import "SearchResultTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
 #import "NoResultTableViewCell.h"
+#import "AllNoResultTableViewCell.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
+#import "MBProgressHUD.h"
 
-@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate,AllNoResultTableViewCellDelegate>
 {
     NSMutableArray *resultArr;
     NSMutableArray *searchHistory;
@@ -151,7 +153,7 @@
     self.tableview.backgroundColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0];
     /* 去掉分割线 */
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    [self.tableview registerNib:[UINib nibWithNibName:@"AllNoResultTableViewCell" bundle:nil] forCellReuseIdentifier:@"allno"];
     [self.view addSubview:self.tableview];
     
     self.defaults = [NSUserDefaults standardUserDefaults];
@@ -166,13 +168,13 @@
     }
     else
     {
-//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-//            return 1;
-//        }
-//        else
-//        {
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            return 1;
+        }
+        else
+        {
             return 3;
-//        }
+        }
         
     }
     
@@ -185,11 +187,11 @@
     }
     else
     {
-//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-//            return 1;
-//        }
-//        else
-//        {
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            return 1;
+        }
+        else
+        {
             if (section == 0) {
                 if (self.surveydata.count == 0) {
                     return 2;
@@ -201,7 +203,7 @@
             }
             else if (section == 1){
                 if (self.researchdata.count == 0) {
-                    return 2;
+                    return 0;
                 }
                 else
                 {
@@ -211,14 +213,14 @@
             else
             {
                 if (self.videodata.count == 0) {
-                    return 2;
+                    return 0;
                 }
                 else
                 {
                     return self.videodata.count+1;
                 }
             }
-//        }
+        }
         
     }
 }
@@ -286,15 +288,15 @@
     /* 用户输入文本之后 */
     else
     {
-//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//            if (cell == nil) {
-//                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//            }
-//            return cell;
-//        }
-//        else
-//        {
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            AllNoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allno"];
+            cell.delegate = self;
+            cell.promptLab.text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        else
+        {
             /* 当搜索栏中有字的时候 */
             if (indexPath.section == 0) {
                 if (indexPath.row == 0) {
@@ -473,7 +475,7 @@
                     }
                 }
             }
-//        }
+        }
     }
     
 }
@@ -493,7 +495,7 @@
     else
     {
         if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-            return kScreenWidth-64;
+            return kScreenHeight-64;
         }
         else
         {
@@ -731,7 +733,30 @@
 #pragma mark - 点击提交
 - (void)clickSubmit:(UIButton *)sender
 {
-    NSLog(@"提交");
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    
+    hud.labelText = @"提交成功";
+    hud.mode = MBProgressHUDModeText;
+    [hud showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [hud hide:YES afterDelay:0.1f];
+    }];
+}
+
+- (void)submitClick:(id)sender
+{
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    
+    hud.labelText = @"提交成功";
+    hud.mode = MBProgressHUDModeText;
+    [hud showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [hud hide:YES afterDelay:0.1f];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -25,6 +25,7 @@
 #import "NetworkManager.h"
 #import "NSString+Ext.h"
 #import "MBProgressHUD.h"
+#import "UIStoryboard+MainStoryboard.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -667,7 +668,7 @@
         //举报
         self.nmview.alpha = 0.0;
         naviShow = NO;
-        FeedbackViewController *feedback = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedbackView"];
+        FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
         [self.navigationController pushViewController:feedback animated:YES];
         
     }
@@ -847,7 +848,7 @@
 
 #pragma mark - backcomment.delegate
 - (void)clickComments:(UIButton *)sender{
-    if (self.tableview.contentOffset.y > self.webview.frame.size.height-250) {
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -879,7 +880,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (self.tableview.contentOffset.y > self.webview.frame.size.height-250) {
+    [self.backcommentview.commentview resignFirstResponder];
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
     }
