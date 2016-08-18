@@ -389,8 +389,8 @@
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-        NSDictionary*para=@{@"validatestring":US.userId};
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+//        NSDictionary*para=@{@"validatestring":US.userId};
         
         [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
@@ -416,7 +416,7 @@
         NSString *unionid = [user objectForKey:@"unionid"];
         NSDictionary *dic = @{@"unionid":unionid};
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;

@@ -191,7 +191,7 @@
 }
 
 - (void)requestLogin{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"user_phone":self.accountText.text,
                           @"authenticationStr":self.validateString,
                           @"encryptedStr":self.encryptedStr};

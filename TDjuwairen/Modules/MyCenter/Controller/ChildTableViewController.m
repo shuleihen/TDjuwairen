@@ -16,6 +16,7 @@
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
+#import "LoginState.h"
 
 @interface ChildTableViewController ()
 {
@@ -27,6 +28,7 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) NSMutableArray *listArr;
 @property (nonatomic,strong) MBProgressHUD *hud;
+@property (nonatomic,strong) LoginState *loginState;
 
 @end
 
@@ -39,6 +41,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
 
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.loginState = [LoginState sharedInstance];
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"加载中...";
@@ -80,7 +83,7 @@
                  };
     }
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:API_GetUserViewList1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             NSArray *array = data;
@@ -125,43 +128,69 @@
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.listArr.count;
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+{
+    if (self.listArr.count > 0) {
+        return self.listArr.count;
+    }
+    else
+    {
+        return 1;
+    }
+    
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"cell";
-    ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    if (self.listArr.count == 0) {
+        NSString *identifier = @"ce";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        cell.textLabel.text = @"您当前还没有发布观点或草稿";
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.font = [UIFont systemFontOfSize:16];
+        
+        cell.textLabel.textColor = self.daynightmodel.titleColor;
+        cell.backgroundColor = self.daynightmodel.navigationColor;
+        return cell;
     }
-    ViewPointListModel *model = self.listArr[indexPath.row];
-    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-    NSString *isoriginal;
-    if ([model.view_isoriginal isEqualToString:@"0"]) {
-        isoriginal = @"转载";
-    }else
+    else
     {
-        isoriginal = @"原创";
+        NSString *identifier = @"cell";
+        ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        ViewPointListModel *model = self.listArr[indexPath.row];
+        [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:self.loginState.headImage]];
+        NSString *isoriginal;
+        if ([model.view_isoriginal isEqualToString:@"0"]) {
+            isoriginal = @"转载";
+        }else
+        {
+            isoriginal = @"原创";
+        }
+        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",self.loginState.userName,model.view_wtime,isoriginal];
+        
+        
+        UIFont *font = [UIFont systemFontOfSize:16];
+        cell.titleLabel.font = font;
+        cell.titleLabel.numberOfLines = 0;
+        titlesize = CGSizeMake(kScreenWidth-30, 500.0);
+        titlesize = [model.view_title calculateSize:titlesize font:font];
+        cell.titleLabel.text = model.view_title;
+        [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
+        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15, kScreenWidth, 1)];
+        
+        cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
+        cell.titleLabel.textColor = self.daynightmodel.textColor;
+        cell.backgroundColor = self.daynightmodel.navigationColor;
+        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+        return cell;
     }
-    cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
     
-    
-    UIFont *font = [UIFont systemFontOfSize:16];
-    cell.titleLabel.font = font;
-    cell.titleLabel.numberOfLines = 0;
-    titlesize = CGSizeMake(kScreenWidth-30, 500.0);
-    titlesize = [model.view_title calculateSize:titlesize font:font];
-    cell.titleLabel.text = model.view_title;
-    [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-    [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15, kScreenWidth, 1)];
-    
-    cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
-    cell.titleLabel.textColor = self.daynightmodel.textColor;
-    cell.backgroundColor = self.daynightmodel.navigationColor;
-    cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
-    return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

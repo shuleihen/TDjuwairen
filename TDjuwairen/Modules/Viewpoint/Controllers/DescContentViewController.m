@@ -141,11 +141,11 @@
     
     NSString *urlPath ;
     if (US.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"%@View/view_show1_2/id/55/userid/%@",kAPI_bendi,US.userId];
+        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/userid/%@",API_HOST,self.view_id,US.userId];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@View/view_show1_2/id/55",kAPI_bendi];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",API_HOST,self.view_id];
     }
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
@@ -153,7 +153,7 @@
             self.dataDic = data;
             
             self.sharpTagsArray = self.dataDic[@"tags"];
-            NSString *urlpath = [NSString stringWithFormat:@"http://192.168.1.103%@",self.dataDic[@"view_content_url"]];
+            NSString *urlpath = [NSString stringWithFormat:@"http://appapi.juwairen.net%@",self.dataDic[@"view_content_url"]];
 
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
             
@@ -171,14 +171,14 @@
 - (void)requestWithCommentDataWithTimeHot{
     NSString *urlPath ;
     if (self.thview.timeBtn.selected == YES) {
-        urlPath = [NSString stringWithFormat:@"%@/View/GetViewComment1_2",kAPI_bendi];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@/View/GetViewComment1_2",kAPI_bendi];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
     }
     NSDictionary *dic = @{@"type":@"view",
-                          @"id":@"42",
+                          @"id":self.view_id,
                           @"loadedLength":@"0"};
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
@@ -219,7 +219,6 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.backgroundColor = self.daynightmodel.backColor;
-    
     [self.view addSubview:self.tableview];
 }
 
@@ -244,7 +243,13 @@
     }
     else
     {
-        return self.FirstcommentArr.count;
+        if (self.FirstcommentArr.count > 0) {
+            return self.FirstcommentArr.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }
 
@@ -341,40 +346,58 @@
     }
     else
     {
-        NSString *identifier = @"commentCell";
-        CommentsModel *model = self.FirstcommentArr[indexPath.row];
-        CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+        if (self.FirstcommentArr.count == 0) {
+            NSString *identifier = @"cell";
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            cell.textLabel.text = @"当前文章还没有评论";
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            /* cell的选中样式为无色 */
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.textLabel.textColor = self.daynightmodel.textColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            return cell;
         }
-        cell.delegate = self;
-        floorviewsize = cell.floorView.frame.size;
-        
-        NSString *comment = model.viewcomment;
-        UIFont *font = [UIFont systemFontOfSize:16];
-        cell.commentLab.font = font;
-        cell.commentLab.numberOfLines = 0;
-        commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
-        commentsize = [comment calculateSize:commentsize font:font];
-        [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
-        
-        NSString *s = [NSString stringWithFormat:@"http://static.juwairen.net/Pc/Uploads/Images/Face/%@",model.user_headImg];
-        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:s]];
-        cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
-        cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
-        cell.commentLab.text = model.viewcomment;
-        [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
-        cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        
-        [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
-        cell.nickNameLab.textColor = self.daynightmodel.titleColor;
-        cell.numfloor.textColor = self.daynightmodel.titleColor;
-        cell.commentLab.textColor = self.daynightmodel.textColor;
-        cell.line.backgroundColor = self.daynightmodel.titleColor;
-        cell.backgroundColor = self.daynightmodel.navigationColor;
-        
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        else
+        {
+            NSString *identifier = @"commentCell";
+            CommentsModel *model = self.FirstcommentArr[indexPath.row];
+            CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+            }
+            cell.delegate = self;
+            floorviewsize = cell.floorView.frame.size;
+            
+            NSString *comment = model.viewcomment;
+            UIFont *font = [UIFont systemFontOfSize:16];
+            cell.commentLab.font = font;
+            cell.commentLab.numberOfLines = 0;
+            commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
+            commentsize = [comment calculateSize:commentsize font:font];
+            [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
+            
+            NSString *s = [NSString stringWithFormat:@"http://static.juwairen.net/Pc/Uploads/Images/Face/%@",model.user_headImg];
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:s]];
+            cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
+            cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
+            cell.commentLab.text = model.viewcomment;
+            [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
+            cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            
+            [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
+            cell.nickNameLab.textColor = self.daynightmodel.titleColor;
+            cell.numfloor.textColor = self.daynightmodel.titleColor;
+            cell.commentLab.textColor = self.daynightmodel.textColor;
+            cell.line.backgroundColor = self.daynightmodel.titleColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     }
 }
 
@@ -785,7 +808,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发表评论";
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"comment_content":text,
                           @"user_id":US.userId,
                           @"view_id":@"42",
@@ -804,7 +827,7 @@
 
 #pragma mark - backcomment.delegate
 - (void)clickComments:(UIButton *)sender{
-    if (self.tableview.contentOffset.y > self.webview.frame.size.height-64) {
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-250) {
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
@@ -831,8 +854,19 @@
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
     }
-    
-    
+
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-250) {
+        
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+    }
 }
 
 - (void)clickShare:(UIButton *)sender{

@@ -154,12 +154,13 @@
          {
              NSString *unionid = user.uid;
              
-             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
              NSDictionary *dic = @{@"unionid":unionid};
              
              [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
                  if (!error) {
                      NSDictionary *dic = data;
+                     NSLog(@"%@",dic);
                      //给loginstate 填充
                      US.userId = dic[@"user_id"];
                      US.userName = dic[@"user_name"];
@@ -186,7 +187,7 @@
                          addview.unionid = unionid;
                          [self.navigationController pushViewController:addview animated:YES];
                      } else {
-                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
                          NSDictionary *infoDic = @{@"unionid":unionid,
                                                    @"nickname":dic[@"user_nickname"],
                                                    @"password":dic[@"user_pwd"],
@@ -227,7 +228,7 @@
 //             NSLog(@"icon=%@",user.rawData[@"figureurl_qq_2"]);
              NSString *openid = user.credential.rawData[@"openid"];//rawData 为NSDictionary原始数据
              
-             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
              NSDictionary *dic = @{@"openid":openid};
              
              [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
@@ -259,7 +260,7 @@
                          addview.qqopenid = openid;
                          [self.navigationController pushViewController:addview animated:YES];
                      } else {
-                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
                          NSDictionary *infoDic = @{@"openid":openid,
                                                    @"nickname":dic[@"user_nickname"],
                                                    @"password":dic[@"user_pwd"],
