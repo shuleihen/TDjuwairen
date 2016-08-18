@@ -251,7 +251,6 @@
 		8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E05F1CEF0B2800D7D105 /* SDCollectionViewCell.m */; };
 		8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0611CEF0B2800D7D105 /* SDCycleScrollView.m */; };
 		8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0631CEF0B2800D7D105 /* UIView+SDExtension.m */; };
-		84B8C1931D30C76F0061CC73 /* loadingLogo@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B8C1921D30C76F0061CC73 /* loadingLogo@3x.png */; };
 		84B8C1971D30CC4F0061CC73 /* LaunchImageNum.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B8C1961D30CC4F0061CC73 /* LaunchImageNum.png */; };
 		84B9B4581D48634E00DDF15B /* btn_col_pre@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4571D48634E00DDF15B /* btn_col_pre@3x.png */; };
 		84B9B45A1D48635100DDF15B /* btn_col@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4591D48635100DDF15B /* btn_col@3x.png */; };
@@ -323,7 +322,6 @@
 		84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDB61CF80E0A00683791 /* ELCAssetCell.m */; };
 		84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */; };
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
-		84F9FE2C1CF822A400683791 /* 暂未发表过评论.png in Resources */ = {isa = PBXBuildFile; fileRef = 84F9FE2B1CF822A400683791 /* 暂未发表过评论.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -751,7 +749,6 @@
 		8497E0611CEF0B2800D7D105 /* SDCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SDCycleScrollView.m; sourceTree = "<group>"; };
 		8497E0621CEF0B2800D7D105 /* UIView+SDExtension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+SDExtension.h"; sourceTree = "<group>"; };
 		8497E0631CEF0B2800D7D105 /* UIView+SDExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+SDExtension.m"; sourceTree = "<group>"; };
-		84B8C1921D30C76F0061CC73 /* loadingLogo@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loadingLogo@3x.png"; sourceTree = "<group>"; };
 		84B8C1961D30CC4F0061CC73 /* LaunchImageNum.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = LaunchImageNum.png; sourceTree = "<group>"; };
 		84B9B4571D48634E00DDF15B /* btn_col_pre@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_col_pre@3x.png"; sourceTree = "<group>"; };
 		84B9B4591D48635100DDF15B /* btn_col@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_col@3x.png"; sourceTree = "<group>"; };
@@ -857,7 +854,6 @@
 		84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
 		84F9FDBB1CF80E0A00683791 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
 		84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
-		84F9FE2B1CF822A400683791 /* 暂未发表过评论.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "暂未发表过评论.png"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1888,8 +1884,6 @@
 			children = (
 				84E48DF81D45BB8D008579A2 /* ViewPointImgs */,
 				275E9CAC1CFED0DC0075910D /* MyCenter */,
-				84F9FE2B1CF822A400683791 /* 暂未发表过评论.png */,
-				84B8C1921D30C76F0061CC73 /* loadingLogo@3x.png */,
 				84B8C1961D30CC4F0061CC73 /* LaunchImageNum.png */,
 				840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */,
 				840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */,
@@ -2194,7 +2188,6 @@
 				840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */,
 				84E48DFC1D45BBB1008579A2 /* nav_publish@3x.png in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
-				84B8C1931D30C76F0061CC73 /* loadingLogo@3x.png in Resources */,
 				848997361D4B5315008EE2BC /* btn_select_pre@3x.png in Resources */,
 				275E9CD31CFED0DC0075910D /* Beedback.png in Resources */,
 				8489972C1D4B4D14008EE2BC /* tab_huifu@3x.png in Resources */,
@@ -2260,7 +2253,6 @@
 				8497DFCB1CEEEB9600D7D105 /* VideoSelect@3x.png in Resources */,
 				84CBCC651D4B29AC000DAEA8 /* tab_tianjia_pre@3x.png in Resources */,
 				2712685F1D05403700EBEFD0 /* 未选中.png in Resources */,
-				84F9FE2C1CF822A400683791 /* 暂未发表过评论.png in Resources */,
 				8497DFC41CEEEB9600D7D105 /* SurveyUnSelect@3x.png in Resources */,
 				845CCBA21D4EF506005ABD7B /* tab_yingyong@3x.png in Resources */,
 				275E9CD71CFED0DC0075910D /* HeadUnLogin.png in Resources */,
