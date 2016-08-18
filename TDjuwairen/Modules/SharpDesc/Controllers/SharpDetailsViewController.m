@@ -653,6 +653,14 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
+        
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+    }
+    else
+    {
+        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+    }
 }
 
 #pragma mark - 标签代理方法
@@ -870,7 +878,7 @@
 
 - (void)clickComments:(UIButton *)sender{
     
-    if (self.tableview.contentOffset.y > self.webview.frame.size.height-64) {
+    if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
