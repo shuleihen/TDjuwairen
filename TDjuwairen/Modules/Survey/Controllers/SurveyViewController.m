@@ -322,6 +322,7 @@
 // FIXME: 方法名和变量命名首字母小写
 - (void)ClickSearchButton:(UIButton *)sender{
     SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     [self.navigationController pushViewController:searchView animated:YES];
 }
 
@@ -389,8 +390,7 @@
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
         
-
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];        
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;

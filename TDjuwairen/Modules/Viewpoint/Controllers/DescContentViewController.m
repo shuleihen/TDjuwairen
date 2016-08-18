@@ -19,6 +19,7 @@
 #import "LoginViewController.h"
 #import "FeedbackViewController.h"
 #import "SharpTags.h"
+#import "SearchViewController.h"
 
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
@@ -29,7 +30,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @import WebKit;
-@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,FloorInFloorViewDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
+@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,FloorInFloorViewDelegate,SharpTagsDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
 {
     BOOL naviShow;
     BOOL fontShow;
@@ -322,6 +323,7 @@
             cell.backgroundColor = [UIColor clearColor];
             [self.tagList removeFromSuperview];
             self.tagList = [[SharpTags alloc]initWithFrame:CGRectMake(0, 15, kScreenWidth, 1)];
+            self.tagList.delegate = self;
             self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
             self.tagList.BGColor = [UIColor clearColor];
             
@@ -473,6 +475,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+#pragma mark - 标签代理方法
+- (void)ClickTags:(UIButton *)sender
+{
+    NSLog(@"%@",sender.titleLabel.text);
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.searchTags = sender.titleLabel.text;
+    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 #pragma mark - FloorInFloorViewDelegate
@@ -811,13 +823,20 @@
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"comment_content":text,
                           @"user_id":US.userId,
-                          @"view_id":@"42",
+                          @"view_id":self.view_id,
                           @"comment_pid":@"38"};
     
     [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.1f];
+            
+            [self requestWithCommentDataWithTimeHot];
+            self.backcommentview.commentview.text = @"";
+            //滑动到评论
+            NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
+            [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
+            [self.tableview reloadData];
         } else {
             hud.labelText = @"评论失败";
             [hud hide:YES afterDelay:0.1f];

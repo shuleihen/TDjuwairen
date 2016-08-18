@@ -829,10 +829,10 @@
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"保存成功";
-            [hud hide:YES afterDelay:0.1];
+            [hud hide:YES afterDelay:1];
         } else {
             hud.labelText = @"保存失败";
-            [hud hide:YES afterDelay:0.1];
+            [hud hide:YES afterDelay:1];
         }
     }];
 }
@@ -896,10 +896,10 @@
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"发布成功";
-            [hud hide:YES afterDelay:0.1];
+            [hud hide:YES afterDelay:1];
         } else {
             hud.labelText = @"发布失败";
-            [hud hide:YES afterDelay:0.1];
+            [hud hide:YES afterDelay:1];
         }
     }];
  

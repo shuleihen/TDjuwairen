@@ -21,6 +21,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.userHead = [[UIImageView alloc]initWithFrame:CGRectMake(15, 15, 25, 25)];
         self.userHead.layer.cornerRadius = 25/2;
+        self.userHead.layer.masksToBounds = YES;
         [self addSubview:self.userHead];
         
         self.nickname = [[UILabel alloc]initWithFrame:CGRectMake(48, 15, kScreenWidth-48-8, 25)];
