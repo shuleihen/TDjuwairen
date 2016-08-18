@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7lK-lJ-eQn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
@@ -30,7 +30,7 @@
         <scene sceneID="CGi-th-78t">
             <objects>
                 <navigationController id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="调研" image="SurveyUnSelect.png" selectedImage="SurveySelect.png" id="TSD-S2-w6U"/>
+                    <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -48,7 +48,7 @@
         <scene sceneID="ixo-pe-ecZ">
             <objects>
                 <navigationController id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="观点" image="ViewPointUnSelect.png" selectedImage="ViewPointSelect.png" id="xZQ-Ft-qlN"/>
+                    <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -75,7 +75,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="观点" image="ViewPointUnSelect.png" selectedImage="ViewPointSelect.png" id="jWz-9A-YgH"/>
+                    <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="jWz-9A-YgH"/>
                     <navigationItem key="navigationItem" id="dIz-Fk-dbc"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -87,7 +87,7 @@
         <scene sceneID="pYs-3V-bMJ">
             <objects>
                 <navigationController id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="视频" image="VideoUnSelect.png" selectedImage="VideoSelect.png" id="kza-97-zxR"/>
+                    <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -114,7 +114,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="视频" image="VideoUnSelect.png" selectedImage="VideoSelect.png" id="Jwy-wz-6oB"/>
+                    <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="Jwy-wz-6oB"/>
                     <navigationItem key="navigationItem" id="yTb-gc-Yvh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -135,7 +135,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="调研" image="SurveyUnSelect.png" selectedImage="SurveySelect.png" id="lp9-Ol-dw1"/>
+                    <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="lp9-Ol-dw1"/>
                     <navigationItem key="navigationItem" id="7y9-3G-GZ9"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -143,11 +143,11 @@
             </objects>
             <point key="canvasLocation" x="-5368" y="-413"/>
         </scene>
-        <!--个人中心-->
+        <!--我的-->
         <scene sceneID="2Pf-WV-e9N">
             <objects>
                 <navigationController id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="个人中心" image="MyCenterUnSelect.png" selectedImage="MyCenterSelect.png" id="BoF-hT-Tyq"/>
+                    <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -161,7 +161,7 @@
             </objects>
             <point key="canvasLocation" x="-4158" y="-1089"/>
         </scene>
-        <!--Personal Center View Controller-->
+        <!--我的-->
         <scene sceneID="qrJ-Kp-8qb">
             <objects>
                 <viewController id="fon-Ns-hbc" customClass="PersonalCenterViewController" sceneMemberID="viewController">
@@ -174,6 +174,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="7TB-Kd-TuQ"/>
                     <navigationItem key="navigationItem" id="7Zm-rV-xa8"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -196,7 +197,7 @@
                                         <rect key="frame" x="0.0" y="35" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N6S-FE-rT8" id="2nh-gs-mOP">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="清除缓存" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h9o-Cj-IIv">
@@ -209,7 +210,7 @@
                                                     <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="clear" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-ko-W9G">
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clear" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-ko-W9G">
                                                     <rect key="frame" x="15" y="17" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="EJZ-fa-lZT"/>
@@ -250,7 +251,7 @@
                                         <rect key="frame" x="0.0" y="83" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="922-K1-4PO" id="JRH-P4-ord">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="给我们评分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vsW-Im-eQk">
@@ -291,7 +292,7 @@
                                         <rect key="frame" x="0.0" y="131" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ytl-ir-lYp" id="exf-o1-UlX">
-                                            <rect key="frame" x="0.0" y="0.0" width="287" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="287" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关于我们" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIL-57-zMZ">
@@ -336,7 +337,7 @@
                                         <rect key="frame" x="0.0" y="237" width="320" height="48"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yzc-Z8-5FW" id="Ruo-uv-Nx2">
-                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="320" height="47.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="退出登录" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a4X-1r-sUh">
@@ -422,7 +423,7 @@
                                 <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
                                 <rect key="frame" x="130" y="529" width="60" height="19"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Duy-kI-WW6"/>
@@ -623,18 +624,18 @@
         </scene>
     </scenes>
     <resources>
-        <image name="MyCenterSelect.png" width="20" height="20"/>
-        <image name="MyCenterUnSelect.png" width="20" height="20"/>
-        <image name="SurveySelect.png" width="20" height="20"/>
-        <image name="SurveyUnSelect.png" width="20" height="20"/>
-        <image name="VideoSelect.png" width="20" height="20"/>
-        <image name="VideoUnSelect.png" width="20" height="20"/>
-        <image name="ViewPointSelect.png" width="20" height="20"/>
-        <image name="ViewPointUnSelect.png" width="20" height="20"/>
         <image name="about" width="15" height="11"/>
         <image name="clear" width="15" height="15"/>
         <image name="logo.png" width="200" height="70"/>
         <image name="score" width="15" height="12"/>
+        <image name="tab_survey_normal" width="20" height="20"/>
+        <image name="tab_survey_selected" width="20" height="20"/>
+        <image name="tab_users_normal" width="20" height="20"/>
+        <image name="tab_users_selected" width="20" height="20"/>
+        <image name="tab_video_normal" width="20" height="20"/>
+        <image name="tab_video_selected" width="20" height="20"/>
+        <image name="tab_viewPoint_normal" width="20" height="20"/>
+        <image name="tab_viewPoint_selected" width="20" height="20"/>
         <image name="发送－未输入文字时.png" width="120" height="60"/>
         <image name="局外人二维码.jpg" width="116" height="116"/>
     </resources>

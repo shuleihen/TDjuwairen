@@ -40,7 +40,7 @@
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
-    self.setupImgArr = @[@"btn_yejian@3x.png",@"ViewPointUnSelect@3x.png",@"SetupImg.png",@"Beedback.png"];
+    self.setupImgArr = @[@"btn_yejian@3x.png",@"tab_viewPoint_normal",@"SetupImg.png",@"Beedback.png"];
     self.setupTitleArr = @[@"夜间模式",@"观点管理",@"设置",@"反馈意见"];
     
     [self setupWithTableView];

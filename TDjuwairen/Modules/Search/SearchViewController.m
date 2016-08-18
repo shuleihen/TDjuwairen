@@ -303,7 +303,7 @@
                     if (cell == nil) {
                         cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                     }
-                    cell.imgview.image = [UIImage imageNamed:@"SurveyUnSelect.png"];
+                    cell.imgview.image = [UIImage imageNamed:@"tab_survey_normal"];
                     cell.headlabel.text = @"调研";
                     
                     /* cell的选中样式为无色 */
@@ -362,7 +362,7 @@
                     if (cell == nil) {
                         cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                     }
-                    cell.imgview.image = [UIImage imageNamed:@"ViewPointUnSelect.png"];
+                    cell.imgview.image = [UIImage imageNamed:@"tab_viewPoint_normal"];
                     cell.headlabel.text = @"观点";
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -422,7 +422,7 @@
                     if (cell == nil) {
                         cell = [[HeadForSectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"headcell"];
                     }
-                    cell.imgview.image = [UIImage imageNamed:@"VideoUnSelect.png"];
+                    cell.imgview.image = [UIImage imageNamed:@"tab_video_normal"];
                     cell.headlabel.text = @"视频";
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
