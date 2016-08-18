@@ -30,7 +30,9 @@
         <scene sceneID="CGi-th-78t">
             <objects>
                 <navigationController id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U"/>
+                    <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
+                    </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -48,7 +50,9 @@
         <scene sceneID="ixo-pe-ecZ">
             <objects>
                 <navigationController id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN"/>
+                    <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
+                    </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -62,7 +66,7 @@
             </objects>
             <point key="canvasLocation" x="-4949" y="-1089"/>
         </scene>
-        <!--观点-->
+        <!--View Point View Controller-->
         <scene sceneID="D8J-O9-1d0">
             <objects>
                 <viewController id="Ikx-gb-iVR" customClass="ViewPointViewController" sceneMemberID="viewController">
@@ -75,7 +79,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="jWz-9A-YgH"/>
                     <navigationItem key="navigationItem" id="dIz-Fk-dbc"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -87,7 +90,9 @@
         <scene sceneID="pYs-3V-bMJ">
             <objects>
                 <navigationController id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR"/>
+                    <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
+                    </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -101,7 +106,7 @@
             </objects>
             <point key="canvasLocation" x="-4544" y="-1089"/>
         </scene>
-        <!--视频-->
+        <!--Video View Controller-->
         <scene sceneID="f4H-0B-gUx">
             <objects>
                 <viewController id="iCv-vS-xsX" customClass="VideoViewController" sceneMemberID="viewController">
@@ -114,7 +119,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="Jwy-wz-6oB"/>
                     <navigationItem key="navigationItem" id="yTb-gc-Yvh"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -122,7 +126,7 @@
             </objects>
             <point key="canvasLocation" x="-4544" y="-419"/>
         </scene>
-        <!--调研-->
+        <!--Survey View Controller-->
         <scene sceneID="xI0-sp-s8P">
             <objects>
                 <viewController storyboardIdentifier="Survey" id="W7c-UX-fFd" customClass="SurveyViewController" sceneMemberID="viewController">
@@ -135,7 +139,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="lp9-Ol-dw1"/>
                     <navigationItem key="navigationItem" id="7y9-3G-GZ9"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
@@ -147,7 +150,9 @@
         <scene sceneID="2Pf-WV-e9N">
             <objects>
                 <navigationController id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq"/>
+                    <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
+                    </tabBarItem>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
@@ -161,7 +166,7 @@
             </objects>
             <point key="canvasLocation" x="-4158" y="-1089"/>
         </scene>
-        <!--我的-->
+        <!--Personal Center View Controller-->
         <scene sceneID="qrJ-Kp-8qb">
             <objects>
                 <viewController id="fon-Ns-hbc" customClass="PersonalCenterViewController" sceneMemberID="viewController">
@@ -174,7 +179,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="7TB-Kd-TuQ"/>
                     <navigationItem key="navigationItem" id="7Zm-rV-xa8"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
