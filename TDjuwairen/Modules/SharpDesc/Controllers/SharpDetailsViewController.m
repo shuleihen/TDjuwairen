@@ -31,8 +31,6 @@
 //测试
 #import <AVFoundation/AVFoundation.h>
 #import <CoreMedia/CoreMedia.h>
-/* loading */
-#import "FSSyncSpinner.h"
 #import "MJRefresh.h"
 #import <WebKit/WebKit.h>
 #import "SharpModel.h"
@@ -66,14 +64,6 @@
 @property (nonatomic) BOOL scalesPageToFit;
 /* 评论条 */
 @property (nonatomic,strong) BackCommentView *backcommentview;
-/* 加载页 */
-@property (nonatomic,strong) UIView *loadingBackView;
-/* 设置加载控件 */
-@property (nonatomic,strong) FSSyncSpinner *indicator;
-/* 设置加载图片 */
-@property (nonatomic,strong) UIImageView *loadingImgView;
-@property (nonatomic,strong) UILabel *loading1;
-@property (nonatomic,strong) UILabel *loading2;
 
 @property (nonatomic,strong) NSMutableArray *commentsDataArray;
 @property (nonatomic,strong) NSArray *sharpTagsArray;
