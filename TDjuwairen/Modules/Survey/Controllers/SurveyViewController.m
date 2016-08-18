@@ -389,9 +389,13 @@
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
         
+<<<<<<< HEAD
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
 //        NSDictionary*para=@{@"validatestring":US.userId};
         
+=======
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];        
+>>>>>>> origin/master
         [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;
@@ -474,7 +478,7 @@
 - (void)judgeAPPVersion{
     NSString *urlStr = @"https://itunes.apple.com/lookup?id=1125295972";
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
-    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject){
+    [manager GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject){
         NSDictionary *data = (NSDictionary *)responseObject;
         NSArray *infoContent = [data objectForKey:@"results"];
         //商店版本

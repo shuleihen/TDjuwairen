@@ -604,21 +604,20 @@
     
     [self.navigationController popViewControllerAnimated:YES];
 }
-/*
- #pragma mark - 谓词搜索...
- - (void)updateSearchResultsForSearchController:(UISearchController *)searchController
- {
- NSString *searchString = [self.customSearchBar text];
- NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[c] %@",searchString];
- if (self.searchList) {
- [self.searchList removeAllObjects];
- }
- //得到搜索结果
- self.searchList = [NSMutableArray arrayWithArray:[self.dataArray filteredArrayUsingPredicate:predicate]];
- //刷新tableview
- [self.tableview reloadData];
- }
- */
+
+#pragma mark - 谓词搜索...
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+//    NSString *searchString = [self.customSearchBar text];
+//    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[c] %@",searchString];
+//    if (self.searchList) {
+//    [self.searchList removeAllObjects];
+//    }
+//    //得到搜索结果
+//    self.searchList = [NSMutableArray arrayWithArray:[self.dataArray filteredArrayUsingPredicate:predicate]];
+//    //刷新tableview
+//    [self.tableview reloadData];
+}
 #pragma mark - 搜索栏开始编辑中状态时
 - (void)searchBarTextDidBeginEditing:(UISearchBar *)searchBar
 {
