@@ -12,6 +12,7 @@
 #import "SearchResultTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
 #import "NoResultTableViewCell.h"
+#import "AllNoResultTableViewCell.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
@@ -166,13 +167,13 @@
     }
     else
     {
-//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-//            return 1;
-//        }
-//        else
-//        {
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            return 1;
+        }
+        else
+        {
             return 3;
-//        }
+        }
         
     }
     
@@ -185,11 +186,11 @@
     }
     else
     {
-//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-//            return 1;
-//        }
-//        else
-//        {
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            return 1;
+        }
+        else
+        {
             if (section == 0) {
                 if (self.surveydata.count == 0) {
                     return 2;
@@ -201,7 +202,7 @@
             }
             else if (section == 1){
                 if (self.researchdata.count == 0) {
-                    return 2;
+                    return 0;
                 }
                 else
                 {
@@ -211,14 +212,14 @@
             else
             {
                 if (self.videodata.count == 0) {
-                    return 2;
+                    return 0;
                 }
                 else
                 {
                     return self.videodata.count+1;
                 }
             }
-//        }
+        }
         
     }
 }
@@ -286,15 +287,15 @@
     /* 用户输入文本之后 */
     else
     {
-//        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-//            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
-//            if (cell == nil) {
-//                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
-//            }
-//            return cell;
-//        }
-//        else
-//        {
+        if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
+            [tableView registerNib:[UINib nibWithNibName:@"AllNoResultTableViewCell" bundle:nil] forCellReuseIdentifier:@"allno"];
+            AllNoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allno"];
+            cell.promptLab.text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        else
+        {
             /* 当搜索栏中有字的时候 */
             if (indexPath.section == 0) {
                 if (indexPath.row == 0) {
@@ -473,7 +474,7 @@
                     }
                 }
             }
-//        }
+        }
     }
     
 }
@@ -493,7 +494,7 @@
     else
     {
         if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
-            return kScreenWidth-64;
+            return kScreenHeight-64;
         }
         else
         {
