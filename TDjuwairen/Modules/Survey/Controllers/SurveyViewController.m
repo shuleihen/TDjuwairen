@@ -472,7 +472,7 @@
 - (void)judgeAPPVersion{
     NSString *urlStr = @"https://itunes.apple.com/lookup?id=1125295972";
     AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
-    [manager GET:urlStr parameters:nil success:^(NSURLSessionDataTask *task, id responseObject){
+    [manager GET:urlStr parameters:nil progress:nil success:^(NSURLSessionDataTask *task, id responseObject){
         NSDictionary *data = (NSDictionary *)responseObject;
         NSArray *infoContent = [data objectForKey:@"results"];
         //商店版本
