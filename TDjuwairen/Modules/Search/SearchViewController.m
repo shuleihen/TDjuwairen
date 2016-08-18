@@ -16,8 +16,9 @@
 #import "SharpDetailsViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
+#import "MBProgressHUD.h"
 
-@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate,AllNoResultTableViewCellDelegate>
 {
     NSMutableArray *resultArr;
     NSMutableArray *searchHistory;
@@ -289,6 +290,7 @@
     {
         if (self.surveydata.count == 0 && self.researchdata.count == 0 && self.videodata.count == 0) {
             AllNoResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"allno"];
+            cell.delegate = self;
             cell.promptLab.text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -731,7 +733,30 @@
 #pragma mark - 点击提交
 - (void)clickSubmit:(UIButton *)sender
 {
-    NSLog(@"提交");
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    
+    hud.labelText = @"提交成功";
+    hud.mode = MBProgressHUDModeText;
+    [hud showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [hud hide:YES afterDelay:0.1f];
+    }];
+}
+
+- (void)submitClick:(id)sender
+{
+    MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:hud];
+    
+    hud.labelText = @"提交成功";
+    hud.mode = MBProgressHUDModeText;
+    [hud showAnimated:YES whileExecutingBlock:^{
+        sleep(2);
+    } completionBlock:^{
+        [hud hide:YES afterDelay:0.1f];
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

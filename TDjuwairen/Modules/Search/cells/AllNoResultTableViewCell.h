@@ -8,8 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
+
+@protocol AllNoResultTableViewCellDelegate <NSObject>
+
+- (IBAction)submitClick:(id)sender;
+
+@end
 @interface AllNoResultTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *promptLab;
+
+@property (nonatomic,assign) id<AllNoResultTableViewCellDelegate>delegate;
+
 - (IBAction)submitClick:(id)sender;
 
 @end

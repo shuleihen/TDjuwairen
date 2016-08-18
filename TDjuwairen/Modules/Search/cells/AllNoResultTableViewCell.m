@@ -23,5 +23,8 @@
 }
 
 - (IBAction)submitClick:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(submitClick:)]) {
+        [self.delegate submitClick:sender];
+    }
 }
 @end
