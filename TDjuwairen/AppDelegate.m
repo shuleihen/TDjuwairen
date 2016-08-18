@@ -23,6 +23,7 @@
 #import "HexColors.h"
 #import "YXFont.h"
 #import "UIdaynightModel.h"
+#import "CocoaLumberjack.h"
 
 @interface AppDelegate ()
 @end
@@ -38,6 +39,7 @@
     [self setupShareSDK];
     [self setupWebImageCache];
     [self checkSwitchToGuide];
+    [self setupLog];
     
     return YES;
 }
@@ -212,5 +214,22 @@
         [userdefault setObject:@"yes" forKey:@"daynight"];
         [userdefault synchronize];
     }
+}
+
+- (void)setupLog
+{
+    [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
+    [DDLog addLogger:[DDASLLogger sharedInstance]]; // ASL = Apple System Logs
+    
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.rollingFrequency = 60*60*24;         // 24 hours
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [DDLog addLogger:fileLogger];
+    
+//    DDLogVerbose(@"Verbose");
+//    DDLogDebug(@"Debug");
+//    DDLogInfo(@"Info");
+//    DDLogWarn(@"Warn");
+//    DDLogError(@"Error");
 }
 @end
