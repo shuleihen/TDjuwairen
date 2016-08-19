@@ -615,8 +615,7 @@
     }
     self.arr = [[NSArray alloc]initWithArray:searchHistory];
     self.arr = [[self.arr reverseObjectEnumerator]allObjects];
-    //替换掉set valuefor key ，因为会报错
-    [self.defaults arrayForKey:@"searchHistory"];
+    [self.defaults setObject:self.arr forKey:@"searchHistory"];
     [self.defaults synchronize];
     /* 判断当前是历史页面还是搜索列表页面 */
     if (self.customSearchBar.text.length == 0) {
@@ -624,7 +623,7 @@
             //点击清空的时候清空搜索历史
             [searchHistory removeAllObjects];
             self.arr = [[NSArray alloc]initWithArray:searchHistory];
-            [self.defaults arrayForKey:@"searchHistory"];
+            [self.defaults setObject:self.arr forKey:@"searchHistory"];
             [self.defaults synchronize];
             [self.tableview reloadData];
         }
@@ -744,7 +743,7 @@
     }
     self.arr = [[NSArray alloc]initWithArray:searchHistory];
     self.arr = [[self.arr reverseObjectEnumerator]allObjects];
-    [self.defaults arrayForKey:@"searchHistory"];
+    [self.defaults setObject:self.arr forKey:@"searchHistory"];
     [self.defaults synchronize];
 }
 
