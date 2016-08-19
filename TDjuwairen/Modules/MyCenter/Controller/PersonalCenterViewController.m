@@ -23,6 +23,8 @@
 #import "CollectionViewController.h"
 #import "BrowserViewController.h"
 #import "UIdaynightModel.h"
+#import "HexColors.h"
+#import "YXFont.h"
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
@@ -127,6 +129,8 @@
             cell.title.text = self.setupTitleArr[indexPath.row];
             cell.backgroundColor = self.daynightmodel.navigationColor;
             cell.title.textColor = self.daynightmodel.textColor;
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
         else
@@ -346,6 +350,18 @@
         [userdefault synchronize];
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
         self.tableview.backgroundColor = self.daynightmodel.backColor;
+        
+        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+        
         [self.tableview reloadData];
     }
     else
@@ -358,6 +374,18 @@
         [userdefault synchronize];
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
         self.tableview.backgroundColor = self.daynightmodel.backColor;
+        
+        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+        
         [self.tableview reloadData];
     }
 }

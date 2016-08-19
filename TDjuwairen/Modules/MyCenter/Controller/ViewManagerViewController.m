@@ -39,6 +39,7 @@
     [super viewDidLoad];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.tableviewsArr = [NSMutableArray array];
+    self.view.backgroundColor = self.daynightmodel.navigationColor;
     
     [self setupWithNavigation];
     [self setupWithCategoryScroll];     //设置选择滚动条
@@ -52,7 +53,6 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"观点管理";
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:self.daynightmodel.titleColor}];
 }
 
 #pragma mark - 设置分类滑动条
@@ -69,7 +69,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-104-50)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-104-50)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;

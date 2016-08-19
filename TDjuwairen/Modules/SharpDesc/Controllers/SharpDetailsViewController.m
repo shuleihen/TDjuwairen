@@ -39,6 +39,8 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "HexColors.h"
+#import "YXFont.h"
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,SharpTagsDelegate>
 {
@@ -83,6 +85,8 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic, assign) int page;
 @property (nonatomic,strong) MBProgressHUD *hubload;
+
+@property (nonatomic,assign) int comentheight;
 @end
 
 @implementation SharpDetailsViewController
@@ -129,6 +133,7 @@
     naviShow = NO;
     fontShow = NO;
     fontsize = @"100%";
+    self.comentheight = 0;
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
@@ -149,6 +154,15 @@
     [self setupUICommon];
 
     [self refreshAction];
+    //收起键盘手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)viewTapped:(UIButton *)sender{
+    [self.view endEditing:YES];
+    self.nmview.alpha = 0.0;
 }
 
 - (void)setupWithNavigation{
@@ -274,6 +288,11 @@
         [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
         
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        
+        self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+        self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+        self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
+        self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         
         [self.nmview.tableview reloadData];
         [self.tableview reloadData];
@@ -443,8 +462,22 @@
         if (indexPath.row == 0) {
             return 44;
         }
-        /* 设置高度自适应 */
-        return 10+15+5+12+10+commentsize.height+10;
+        else
+        {
+            if (self.commentsDataArray.count == 0) {
+                return kScreenHeight-64-44;
+            }
+            else
+            {
+                if (indexPath.row == self.commentsDataArray.count-1) {
+                    if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count-1) > 10+15+5+12+10+commentsize.height+10) {
+                        return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count-1);
+                    }
+                }
+                /* 设置高度自适应 */
+                return 10+15+5+12+10+commentsize.height+10;
+            }
+        }
     }
     
 }
@@ -1037,6 +1070,17 @@
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
             
+            [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+            [UINavigationBar appearance].translucent = NO;
+            [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+            // 设置导航条标题字体和颜色
+            NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+            [[UINavigationBar appearance] setTitleTextAttributes:dict];
+            
+            // 设置导航条左右按钮字体和颜色
+            NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+            [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+            
             NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
             
             NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
@@ -1061,6 +1105,18 @@
         daynight = @"yes";
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
+        
+        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+        
         NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
         
         NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\

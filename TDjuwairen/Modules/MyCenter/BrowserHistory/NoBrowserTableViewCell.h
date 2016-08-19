@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface NoBrowserTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end

@@ -23,7 +23,6 @@
 
 - (void)setupWithScrollview{
     self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
-    self.scrollview.backgroundColor = [UIColor whiteColor];
     self.scrollview.showsHorizontalScrollIndicator = NO;
     self.scrollview.showsVerticalScrollIndicator = NO;
     [self addSubview:self.scrollview];
@@ -55,10 +54,10 @@
     [self addSubview:self.selectLab];
     
     self.line1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-    self.line1.layer.borderWidth = 1;
+    self.line1.layer.borderWidth = 0.1;
     
-    self.line2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, 1)];
-    self.line2.layer.borderWidth = 1;
+    self.line2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, kScreenWidth, 1)];
+    self.line2.layer.borderWidth = 0.1;
     [self addSubview:self.line1];
     [self addSubview:self.line2];
 }

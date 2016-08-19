@@ -897,6 +897,8 @@
         if (!error) {
             hud.labelText = @"发布成功";
             [hud hide:YES afterDelay:1];
+            
+            [self.navigationController popViewControllerAnimated:YES];
         } else {
             hud.labelText = @"发布失败";
             [hud hide:YES afterDelay:1];

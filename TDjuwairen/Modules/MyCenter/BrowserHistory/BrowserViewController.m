@@ -14,6 +14,7 @@
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"
+#import "UIdaynightModel.h"
 
 @interface BrowserViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -28,6 +29,7 @@
 @property (nonatomic,strong) UIBarButtonItem *editItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelItem;
 @property(nonatomic,strong) EditView *editView;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation BrowserViewController
@@ -35,11 +37,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    haveSelect = NO;
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    
     [self setNavigation];
     [self setupWithTableView];
     [self setupEditToolView];
-    
-    haveSelect=NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -70,13 +73,15 @@
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
     self.tableview.allowsMultipleSelectionDuringEditing = YES;
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.separatorInset = UIEdgeInsetsZero;
     self.tableview.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableview];
     
     [self.tableview registerNib:[UINib nibWithNibName:@"BrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"BrowserCell"];
     [self.tableview registerNib:[UINib nibWithNibName:@"NoBrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoBrowserCell"];
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
 }
 
 - (void)setupEditToolView
@@ -244,7 +249,9 @@
     }
     else
     {
-        BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
+        NoBrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
+        cell.backgroundColor = self.daynightmodel.backColor;
+        cell.label.textColor = self.daynightmodel.textColor;
         return cell;
     }
 }

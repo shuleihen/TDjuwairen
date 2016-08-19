@@ -26,6 +26,8 @@
 #import "NSString+Ext.h"
 #import "MBProgressHUD.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "HexColors.h"
+#import "YXFont.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -127,6 +129,7 @@
 
 - (void)viewTapped:(UIButton *)sender{
     [self.view endEditing:YES];
+    self.nmview.alpha = 0.0;
 }
 
 #pragma mark - 监听daynight
@@ -139,6 +142,11 @@
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
     
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+    self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+    self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
+    self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     
     [self.nmview.tableview reloadData];
     [self.tableview reloadData];
@@ -462,8 +470,19 @@
     }
     else
     {
-
-        return 10+15+10+floorviewsize.height+15+commentsize.height+15;
+        if (self.FirstcommentArr.count == 0) {
+            return kScreenHeight-64-44;
+        }
+        else
+        {
+            if (indexPath.row == self.FirstcommentArr.count-1) {
+                if (kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.FirstcommentArr.count-1) > 10+15+10+floorviewsize.height+15+commentsize.height+15) {
+                    return kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.FirstcommentArr.count-1);
+                }
+            }
+            return 10+15+10+floorviewsize.height+15+commentsize.height+15;
+        }
+        
     }
 }
 
@@ -649,6 +668,17 @@
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
             
+            [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+            [UINavigationBar appearance].translucent = NO;
+            [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+            // 设置导航条标题字体和颜色
+            NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+            [[UINavigationBar appearance] setTitleTextAttributes:dict];
+            
+            // 设置导航条左右按钮字体和颜色
+            NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+            [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+            
             NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
             
             NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
@@ -677,6 +707,18 @@
         daynight = @"yes";
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
+        
+        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+        
         NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
         
         NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\

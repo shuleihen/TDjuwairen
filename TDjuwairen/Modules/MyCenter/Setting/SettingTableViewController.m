@@ -38,6 +38,8 @@
     if ([self.cacheLabel.text floatValue]<0.1) {
         self.cacheLabel.text=@"0.00M";
     }
+    
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.view.backgroundColor = self.daynightmodel.backColor;
     self.cell1.backgroundColor = self.daynightmodel.navigationColor;
     self.lab1.textColor = self.daynightmodel.textColor;
@@ -62,7 +64,6 @@
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"设置";
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:self.daynightmodel.titleColor}];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

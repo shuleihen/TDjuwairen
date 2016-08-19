@@ -69,6 +69,7 @@
 
 - (void)requestShowList:(int)typeID
 {
+    ID = typeID;
     NSDictionary *para ;
     if (typeID == 0) {
         para = @{@"user_id":US.userId,
@@ -155,6 +156,7 @@
         
         cell.textLabel.textColor = self.daynightmodel.titleColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
+        
         return cell;
     }
     else
@@ -189,9 +191,15 @@
         cell.titleLabel.textColor = self.daynightmodel.textColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
         cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

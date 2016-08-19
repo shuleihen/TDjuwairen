@@ -22,8 +22,6 @@
 @property (nonatomic,strong) NSMutableArray *MyInfoArr;
 @property (nonatomic,strong) NSString *str;
 @property (nonatomic,strong) UIImage *headImage;
-@property (nonatomic,strong) UIButton *save;
-@property (nonatomic,strong) UIButton *back;
 @property (nonatomic,strong) UITextField *currentField;
 
 @end
@@ -46,7 +44,6 @@
     [self getValidation];
     [self setupWithNavigation];
     [self setupWithTableView];
-    [self setupWithBackAndSave];
     // Do any additional setup after loading the view.
 }
 - (void)setupListen{
@@ -81,9 +78,14 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
+    
+    self.title = @"个人信息";
+    
+    UIBarButtonItem *save = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(ClickSave:)];
+    self.navigationItem.rightBarButtonItem = save;
 }
 
 - (void)setupWithTableView{
@@ -195,20 +197,6 @@
     
 }
 
-- (void)setupWithBackAndSave{
-    self.back = [[UIButton alloc]initWithFrame:CGRectMake(0, 20, 50, 50)];
-    [self.back setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
-    [self.back addTarget:self action:@selector(ClickBack:) forControlEvents:UIControlEventTouchUpInside];
-    
-    self.save = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-50, 20, 50, 50)];
-    [self.save setTitle:@"保存" forState:UIControlStateNormal];
-    [self.save setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    self.save.titleLabel.font = [UIFont systemFontOfSize:16];
-    [self.save addTarget:self action:@selector(ClickSave:) forControlEvents:UIControlEventTouchUpInside];
-    
-    [self.tableview addSubview:self.back];
-    [self.tableview addSubview:self.save];
-}
 //点击返回
 - (void)ClickBack:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
@@ -452,8 +440,6 @@
     self.tableview.frame = CGRectMake(0.0f, -view.y/2, self.view.frame.size.width, self.view.frame.size.height); //64-216
     
     [UIView commitAnimations];
-    self.back.alpha = 0.0f;
-    self.save.alpha = 0.0f;
 }
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
@@ -467,8 +453,6 @@
     self.tableview.frame = CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height); //64-216
     
     [UIView commitAnimations];
-    self.back.alpha = 1.0f;
-    self.save.alpha = 1.0f;
 }
 
 - (void)didReceiveMemoryWarning {

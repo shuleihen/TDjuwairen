@@ -27,18 +27,22 @@
     [super setSelected:selected animated:animated];
     
     if (selected) {
-        self.SelectImageView.image=[UIImage imageNamed:@"选中"];
+        self.SelectImageView.image = [UIImage imageNamed:@"选中"];
     }
     else
     {
-        self.SelectImageView.image=[UIImage imageNamed:@"未选中"];
+        self.SelectImageView.image = [UIImage imageNamed:@"未选中"];
     }
 
 }
 -(void)setCellWithDic:(NSDictionary *)dic
 {
+    self.backgroundColor = self.daynightmodel.navigationColor;
     self.titleLabel.text=dic[@"sharp_title"];
     self.nicknameLabel.text=dic[@"user_nickname"];
+    
+    self.titleLabel.textColor = self.daynightmodel.textColor;
+    self.nicknameLabel.textColor = self.daynightmodel.titleColor;
     
     NSString*head=dic[@"userinfo_facesmall"];
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];

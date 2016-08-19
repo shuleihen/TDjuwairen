@@ -14,6 +14,7 @@
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"
+#import "UIdaynightModel.h"
 
 @interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -29,6 +30,7 @@
 @property (nonatomic, strong) UIBarButtonItem *cancelItem;
 @property (nonatomic,strong) NSMutableArray *CollectionArray;
 @property (nonatomic,strong) NSMutableArray *delArray;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation CollectionViewController
@@ -36,12 +38,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    haveSelect = NO;
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    
     [self setNavigation];
     
     [self setupWithTableView];
     
     [self setupEditToolView];
-    haveSelect = NO;
+    
+    
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -50,6 +56,7 @@
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     [self requestCollection];
     [self requestAuthentication];
+
 }
 
 -(void)setNavigation
@@ -70,14 +77,16 @@
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
     self.tableview.allowsMultipleSelectionDuringEditing = YES;
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.separatorInset = UIEdgeInsetsZero;
     self.tableview.tableFooterView = [[UIView alloc] init];
+    
+
     [self.view addSubview:self.tableview];
     
     [self.tableview registerNib:[UINib nibWithNibName:@"CollectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"CollectionCell"];
     [self.tableview registerNib:[UINib nibWithNibName:@"NoCollectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoCollectionCell"];
-    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
 }
 
 - (void)setupEditToolView
@@ -256,6 +265,8 @@
     {
         
         NoCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoCollectionCell"];
+        cell.backgroundColor = self.daynightmodel.backColor;
+        cell.label.textColor = self.daynightmodel.textColor;
 
         return cell;
     }
