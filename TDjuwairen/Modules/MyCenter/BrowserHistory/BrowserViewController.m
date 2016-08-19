@@ -84,12 +84,12 @@
     self.editView = [[EditView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50)];
     [self.editView.selectBtn addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
     [self.editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_editView];
+    [self.view addSubview:self.editView];
 }
 
 -(void)editClick
 {
-    if (edit==NO) {
+    if (edit == NO) {
         [UIView animateWithDuration:0.3 animations:^{
             self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds)-50, CGRectGetWidth(self.view.bounds), 50);
         } completion:^(BOOL finished) {
