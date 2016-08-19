@@ -10,18 +10,21 @@
 #import "LoginState.h"
 #import <StoreKit/SKStoreProductViewController.h>
 #import "AboutViewController.h"
+#import "UIdaynightModel.h"
 
 @interface SettingTableViewController ()<SKStoreProductViewControllerDelegate>
 {
     float size;
 }
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation SettingTableViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-//    self.tableView.contentInset =UIEdgeInsetsMake(-33, 0, 0, 0);
+    
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     [self setNavigation];
     
     //获取沙盒路径
@@ -35,6 +38,17 @@
     if ([self.cacheLabel.text floatValue]<0.1) {
         self.cacheLabel.text=@"0.00M";
     }
+    self.view.backgroundColor = self.daynightmodel.backColor;
+    self.cell1.backgroundColor = self.daynightmodel.navigationColor;
+    self.lab1.textColor = self.daynightmodel.textColor;
+    
+    self.cell2.backgroundColor = self.daynightmodel.navigationColor;
+    self.lab2.textColor = self.daynightmodel.textColor;
+    
+    self.cell3.backgroundColor = self.daynightmodel.navigationColor;
+    self.lab3.textColor = self.daynightmodel.textColor;
+    
+    self.cell4.backgroundColor = self.daynightmodel.navigationColor;
     
 }
 
@@ -46,20 +60,9 @@
 
 -(void)setNavigation
 {
-//    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"设置";
-    self.navigationItem.titleView=label;
-    
-    //设置返回button
-    UIBarButtonItem *backItem = [[UIBarButtonItem alloc] init];
-    [backItem setBackgroundImage:[UIImage new] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    UIImage* image = [UIImage imageNamed:@"nav_back"];
-    [backItem setBackButtonBackgroundImage:[image resizableImageWithCapInsets:UIEdgeInsetsMake(0, 60, 0, 10)] forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    
-    [backItem setBackButtonTitlePositionAdjustment:UIOffsetMake(-400.f, 0) forBarMetrics:UIBarMetricsDefault];
-    self.navigationItem.backBarButtonItem = backItem;
+    self.title = @"设置";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:self.daynightmodel.titleColor}];
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

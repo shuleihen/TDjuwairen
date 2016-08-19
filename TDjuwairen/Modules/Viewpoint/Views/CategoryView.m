@@ -54,15 +54,13 @@
     self.selectLab.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
     [self addSubview:self.selectLab];
     
-    UILabel *line1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-    line1.layer.borderWidth = 1;
-    line1.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
+    self.line1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    self.line1.layer.borderWidth = 1;
     
-    UILabel *line2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, 1)];
-    line2.layer.borderWidth = 1;
-    line2.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
-    [self addSubview:line1];
-    [self addSubview:line2];
+    self.line2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, 1)];
+    self.line2.layer.borderWidth = 1;
+    [self addSubview:self.line1];
+    [self addSubview:self.line2];
 }
 
 - (void)ClickBtn:(UIButton *)sender{

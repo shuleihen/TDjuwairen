@@ -65,12 +65,18 @@
 @property (nonatomic,strong) SharpTags *tagList;
 @property (nonatomic,strong) NSMutableArray *sharpTagsArray;
 
+@property (nonatomic,strong) NSString *pid;
+
 @end
 
 @implementation DescContentViewController
 - (NaviMoreView *)nmview{
     if (!_nmview) {
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        //        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        NSString *str = @"yes";
+
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:str];
+        
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
     }
@@ -97,6 +103,7 @@
     fontShow = NO;
     fontsize = @"100%";
     firstClickComment = YES;
+    self.pid = @"0";
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     
@@ -228,9 +235,9 @@
 
 - (void)setupWithCommentView{
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
-    
     self.backcommentview.backgroundColor = self.daynightmodel.backColor;
     self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+    self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
     self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.delegate = self;
     self.backcommentview.commentview.delegate = self;
@@ -485,6 +492,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+    [self.backcommentview.commentview becomeFirstResponder];
+    
+    CommentsModel *fModel = self.FirstcommentArr[indexPath.row];
+    self.backcommentview.commentview.placeholder = [NSString stringWithFormat:@"回复 %@:",fModel.user_nickName];
+    self.pid = fModel.viewcomment_id;
 }
 
 #pragma mark - 标签代理方法
@@ -835,7 +847,7 @@
 }
 
 #pragma mark - 发送评论
-- (void)sendCommentWithText:(NSString *)text{
+- (void)sendCommentWithText:(NSString *)text {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发表评论";
     
@@ -843,15 +855,18 @@
     NSDictionary *para = @{@"comment_content":text,
                           @"user_id":US.userId,
                           @"view_id":self.view_id,
-                          @"comment_pid":@"38"};
+                          @"comment_pid":self.pid};
     
     [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.1f];
             
+            self.pid = @"0";//成功后清零
+            
             [self requestWithCommentDataWithTimeHot];
             self.backcommentview.commentview.text = @"";
+            self.backcommentview.commentview.placeholder = @"自古评论出人才，快来发表评论吧";
             //滑动到评论
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -1022,6 +1037,7 @@
 - (void)keyboardWillBeHidden{
 
     self.backcommentview.transform = CGAffineTransformIdentity;
+    self.backcommentview.commentview.placeholder = @"自古评论出人才，快来发表评论吧";
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{

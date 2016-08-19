@@ -37,6 +37,7 @@
     model.sharpcomment = dic[@"sharpcomment_text"];
     
     model.viewcomment_id = dic[@"viewcomment_id"];
+    model.viewcomment_pid = dic[@"viewcomment_pid"];
     model.viewcomment_userid = dic[@"viewcomment_userid"];
     model.viewcomment = dic[@"viewcomment_text"];
     

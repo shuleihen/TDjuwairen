@@ -372,6 +372,13 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="cacheLabel" destination="pZc-jY-R4O" id="9Xw-6A-TVD"/>
+                        <outlet property="cell1" destination="N6S-FE-rT8" id="0pV-3m-2Ba"/>
+                        <outlet property="cell2" destination="922-K1-4PO" id="LNs-Iu-hcN"/>
+                        <outlet property="cell3" destination="Ytl-ir-lYp" id="BTQ-Qc-aRM"/>
+                        <outlet property="cell4" destination="Yzc-Z8-5FW" id="jxC-Ln-69u"/>
+                        <outlet property="lab1" destination="h9o-Cj-IIv" id="DAo-Yu-Nni"/>
+                        <outlet property="lab2" destination="vsW-Im-eQk" id="fDa-d5-ioG"/>
+                        <outlet property="lab3" destination="BIL-57-zMZ" id="MdC-SQ-2R2"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1vF-LP-Opp" userLabel="First Responder" sceneMemberID="firstResponder"/>

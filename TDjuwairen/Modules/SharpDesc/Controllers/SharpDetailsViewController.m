@@ -246,6 +246,7 @@
     self.backcommentview.delegate = self;
     self.backcommentview.backgroundColor = self.daynightmodel.backColor;
     self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+    self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
     self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.commentview.delegate = self;
     

@@ -48,9 +48,6 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"意见反馈";
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 - (void)registerForKeyboardNotifications{
@@ -110,6 +107,11 @@
     [super viewWillAppear:animated];
     [self setNavigation];
     [self requestInfo];
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    self.backView.backgroundColor = self.daynightmodel.backColor;
+    self.contentTextField.backgroundColor = self.daynightmodel.inputColor;
+    self.contentTextField.textColor = self.daynightmodel.textColor;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -120,9 +122,8 @@
 
 -(void)setNavigation
 {
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"意见反馈";
-    self.navigationItem.titleView=label;
+    self.title = @"意见反馈";
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:self.daynightmodel.titleColor}];
     self.SendBtn.layer.cornerRadius = 3;
     [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
 }

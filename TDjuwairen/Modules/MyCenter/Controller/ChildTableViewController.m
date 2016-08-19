@@ -46,6 +46,7 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"加载中...";
     
+    
     [self addRefreshView];     //设置刷新
 }
 

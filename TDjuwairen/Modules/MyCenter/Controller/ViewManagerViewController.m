@@ -52,9 +52,7 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"观点管理";
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:18],NSForegroundColorAttributeName:self.daynightmodel.titleColor}];
 }
 
 #pragma mark - 设置分类滑动条
@@ -62,6 +60,9 @@
     self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
     self.cateview.delegate = self;
     self.cateview.backgroundColor = self.daynightmodel.navigationColor;
+    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
+    self.cateview.line1.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+    self.cateview.line2.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
     [self.view addSubview:self.cateview];
     
 }
@@ -86,7 +87,7 @@
         ChildTableViewController *vc  = [[ChildTableViewController alloc] init];
         vc.delegate = self;
         vc.title  =  self.categoryArr[i];
-        vc.view.backgroundColor = [UIColor whiteColor];
+        vc.view.backgroundColor = self.daynightmodel.navigationColor;
         
         [self.tableviewsArr addObject:vc];
         [self addChildViewController:vc];

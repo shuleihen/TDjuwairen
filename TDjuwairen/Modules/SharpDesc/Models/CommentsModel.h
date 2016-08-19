@@ -28,6 +28,8 @@
 
 @property (nonatomic,copy) NSString *viewcomment_id;//观点点评id
 
+@property (nonatomic,copy) NSString *viewcomment_pid;//观点父ID
+
 @property (nonatomic,copy) NSString *viewcomment;//观点点评内容
 
 @property (nonatomic,copy) NSString *viewcomment_userid;//观点点评作者
