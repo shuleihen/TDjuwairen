@@ -341,9 +341,10 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     NSData *data = UIImageJPEGRepresentation(image, 0.75);
-    UIImage *reSizeImg=[UIImage imageWithData:data];
-    reSizeImg=[self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
-    self.headImage=reSizeImg;
+    UIImage *reSizeImg = [UIImage imageWithData:data];
+    reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
+    self.headImage = reSizeImg;
+    
     [self requestHead];
 }
 
@@ -353,9 +354,9 @@
     
     [self dismissViewControllerAnimated:YES completion:nil];
     NSData *data = UIImageJPEGRepresentation(img, 0.75);
-    UIImage *reSizeImg=[UIImage imageWithData:data];
-    reSizeImg=[self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
-    self.headImage=reSizeImg;
+    UIImage *reSizeImg = [UIImage imageWithData:data];
+    reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
+    self.headImage = reSizeImg;
     //上传头像
     [self requestHead];
 }
@@ -399,7 +400,8 @@
     
     [manager POST:API_UploadUserface parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = self.headImage;
-        NSData*data=UIImagePNGRepresentation(image);
+        
+        NSData *data = UIImageJPEGRepresentation(image, 0.5);
         
         NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";

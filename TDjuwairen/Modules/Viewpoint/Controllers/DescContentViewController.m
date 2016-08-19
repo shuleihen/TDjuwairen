@@ -51,6 +51,7 @@
 @property (nonatomic,strong) NSMutableArray *FirstcommentArr;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (nonatomic,strong) LoginState *loginState;
 
 @property (nonatomic,strong) NSArray *sizeArr;
 
@@ -185,6 +186,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
+            [self.FirstcommentArr removeAllObjects];
             NSArray *arr = data;
             for (int i = 0; i<arr.count; i++) {
                 NSDictionary *dic = arr[i];
@@ -226,6 +228,9 @@
 
 - (void)setupWithCommentView{
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
+    
+    self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+    self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
     self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.delegate = self;
     self.backcommentview.commentview.delegate = self;
@@ -274,8 +279,9 @@
             
             titleCell.usernickname.text = self.dataDic[@"view_author"];
             titleCell.addtime.text = custime;
+            
             NSString *text = self.dataDic[@"view_title"];
-            UIFont *font = [UIFont systemFontOfSize:16];
+            UIFont *font = [UIFont systemFontOfSize:20];
             titleCell.titleLabel.font = font;
             titleCell.titleLabel.numberOfLines = 0;
             titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
@@ -370,6 +376,7 @@
             CommentsModel *model = self.FirstcommentArr[indexPath.row];
             CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
+                NSLog(@"%@",model.secondArr);
                 cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
             }
             cell.delegate = self;
@@ -388,8 +395,10 @@
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
             cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
             cell.commentLab.text = model.viewcomment;
+            NSLog(@"%@",model.comment_goodnum);
             [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
             cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            cell.goodnumBtn.tag = [model.viewcomment_id integerValue];
             
             [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
             cell.nickNameLab.textColor = self.daynightmodel.titleColor;
@@ -433,7 +442,7 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 130;
+            return 10+50+10+titlesize.height+10;
         }
         else if(indexPath.row == 1)
         {
@@ -491,19 +500,27 @@
 #pragma mark - FloorInFloorViewDelegate
 - (void)good:(UIButton *)sender
 {
-    if (sender.selected == YES) {
-        sender.selected = NO;
-        [sender setImage:[UIImage imageNamed:@"btn_dianzan_normal"] forState:UIControlStateNormal];
-        NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] - 1];
-        [sender setTitle:str forState:UIControlStateNormal];
-    }
-    else
-    {
-        sender.selected = YES;
-        [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
-        NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
-        [sender setTitle:str forState:UIControlStateNormal];
-    }
+    NSLog(@"%ld",(long)sender.tag);
+    NSString *comment_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+    self.loginState = [LoginState sharedInstance];
+    //点赞
+    NSDictionary *dic = @{@"userid":self.loginState.userId,
+                          @"comment_id":comment_id};
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    [ma POST:API_AddGoodComment1_2 parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            NSLog(@"成功");
+                sender.selected = YES;
+                [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
+                NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
+                [sender setTitle:str forState:UIControlStateNormal];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+    
     
 }
 

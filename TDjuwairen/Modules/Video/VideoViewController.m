@@ -243,6 +243,7 @@
     
     SurveyListModel *model = self.VideoListArray[indexPath.row];
     cell.titlelabel.text = model.sharp_title;
+    cell.imgview.layer.masksToBounds = YES;
     [cell.imgview sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
     [cell.userhead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
     NSString *currenttiem = [NSString prettyDateWithReference:model.sharp_wtime];

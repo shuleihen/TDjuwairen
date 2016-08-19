@@ -42,6 +42,7 @@
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,SharpTagsDelegate>
 {
+    CGSize titlesize;
     CGSize commentsize;
     CGSize originalsize;
     
@@ -231,6 +232,7 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.backgroundColor = self.daynightmodel.backColor;
     self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:self.tableview];
     
@@ -242,6 +244,8 @@
 {
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
     self.backcommentview.delegate = self;
+    self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+    self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
     self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.commentview.delegate = self;
     
@@ -411,7 +415,7 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 130;
+            return 75+titlesize.height+10;
         }
         else if(indexPath.row == 1){
             return self.webview.frame.size.height;
@@ -452,7 +456,15 @@
             if (titleCell == nil) {
                 titleCell = [[TitlesTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleCell"];
             }
-            titleCell.titleLabel.text = self.sharpInfo.sharpTitle;
+            NSString *text = self.sharpInfo.sharpTitle;
+            UIFont *font = [UIFont systemFontOfSize:20];
+            titleCell.titleLabel.font = font;
+            titleCell.titleLabel.numberOfLines = 0;
+            titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
+            titlesize = [text calculateSize:titlesize font:font];
+            titleCell.titleLabel.text = text;
+            [titleCell.titleLabel setFrame:CGRectMake(15, 75, kScreenWidth-30, titlesize.height)];
+            
             NSString *custime = [NSString prettyDateWithReference:self.sharpInfo.sharpWtime];
             titleCell.usernickname.text = self.sharpInfo.sharpUserName;
             titleCell.addtime.text = custime;
@@ -460,6 +472,7 @@
             
             titleCell.usernickname.textColor = self.daynightmodel.textColor;
             titleCell.addtime.textColor = self.daynightmodel.titleColor;
+            titleCell.titleLabel.textColor = self.daynightmodel.textColor;
             titleCell.backgroundColor = self.daynightmodel.navigationColor;
             
             return titleCell;

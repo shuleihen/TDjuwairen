@@ -54,7 +54,7 @@
 
 -(void)setNavigation
 {
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+
     self.title = @"收藏管理";
 
     //编辑button

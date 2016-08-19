@@ -96,7 +96,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
-    
+    [self.NavigationView.searchButton setBackgroundColor:self.daynightmodel.inputColor];
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;

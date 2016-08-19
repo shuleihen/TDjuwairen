@@ -13,15 +13,16 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andArr:(NSArray *)arr
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
         self.headImg = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 30)];
         self.headImg.layer.cornerRadius = 15;
+        self.headImg.layer.masksToBounds = YES;
         
         self.nickNameLab = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10, kScreenWidth-55-75, 15)];
         self.nickNameLab.font = [UIFont systemFontOfSize:14];
         
         self.numfloor = [[UILabel alloc]initWithFrame:CGRectMake(15, 10+30+10, 30, 15)];
         self.numfloor.font = [UIFont systemFontOfSize:12];
+        self.numfloor.textAlignment = NSTextAlignmentCenter;
         
         if (arr.count > 0) {
             self.floorView = [[FloorInFloorView alloc]initWithArr:arr];
@@ -43,6 +44,7 @@
         self.line.layer.borderWidth = 1;
         
         [self addSubview:self.headImg];
+        [self addSubview:self.numfloor];
         [self addSubview:self.nickNameLab];
         [self addSubview:self.goodnumBtn];
         [self addSubview:self.floorView];

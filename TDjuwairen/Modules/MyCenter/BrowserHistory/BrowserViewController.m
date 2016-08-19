@@ -54,7 +54,7 @@
 
 -(void)setNavigation
 {
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+
     self.title = @"浏览记录";
     
     //编辑button
@@ -207,7 +207,7 @@
             NSArray*array = data;
             NSDictionary*dic = array[1];
             NSArray*arr = dic[@"List"];
-            
+           
             for (NSDictionary*dic in arr) {
                 
                 [self.BrowserArray insertObject:dic atIndex:0];
