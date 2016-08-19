@@ -128,7 +128,6 @@
     naviShow = NO;
     fontShow = NO;
     fontsize = @"100%";
-    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
 

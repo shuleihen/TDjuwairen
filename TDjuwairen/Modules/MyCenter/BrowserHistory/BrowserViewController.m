@@ -54,7 +54,6 @@
 
 -(void)setNavigation
 {
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
     self.title = @"浏览记录";
     
     //编辑button

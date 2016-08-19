@@ -28,9 +28,7 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)setupWithNavigation{
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
-    
+- (void)setupWithNavigation{    
     self.title = @"预览";
     
     //设置navigation背景色

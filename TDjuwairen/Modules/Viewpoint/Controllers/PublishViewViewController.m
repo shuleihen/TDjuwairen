@@ -83,9 +83,7 @@
 #pragma mark - 监听editziti
 
 
-- (void)setupWithNavigation{
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
-    
+- (void)setupWithNavigation{    
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
