@@ -105,7 +105,6 @@
                     [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
                     timeLab.text = [dateFormatter stringFromDate:detaildate];
                     
-                    
                     view.frame = CGRectMake(0, self.viewheight, kScreenWidth, 10+contentsize.height+8+14+10);
                     
                     self.viewheight = self.viewheight + 10+contentsize.height+8+14+10;

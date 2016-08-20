@@ -7,7 +7,6 @@
 //
 
 #import "FeedbackViewController.h"
-#import "FeedbackTableViewCell.h"
 #import "ResponsListTableViewCell.h"
 #import "LoginState.h"
 #import "NetworkManager.h"

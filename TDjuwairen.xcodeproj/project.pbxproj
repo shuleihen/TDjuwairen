@@ -63,8 +63,6 @@
 		1955B4791D644D9800DC102E /* ViewManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3E91D644D9800DC102E /* ViewManagerViewController.m */; };
 		1955B47A1D644D9800DC102E /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3EB1D644D9800DC102E /* EditView.m */; };
 		1955B47B1D644D9800DC102E /* EditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3EC1D644D9800DC102E /* EditView.xib */; };
-		1955B47C1D644D9800DC102E /* FeedbackTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3EF1D644D9800DC102E /* FeedbackTableViewCell.m */; };
-		1955B47D1D644D9800DC102E /* FeedbackTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3F01D644D9800DC102E /* FeedbackTableViewCell.xib */; };
 		1955B47E1D644D9800DC102E /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F21D644D9800DC102E /* FeedbackViewController.m */; };
 		1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */; };
 		1955B4801D644D9800DC102E /* JWRImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F61D644D9800DC102E /* JWRImageView.m */; };
@@ -437,9 +435,6 @@
 		1955B3EA1D644D9800DC102E /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
 		1955B3EB1D644D9800DC102E /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
 		1955B3EC1D644D9800DC102E /* EditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditView.xib; sourceTree = "<group>"; };
-		1955B3EE1D644D9800DC102E /* FeedbackTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackTableViewCell.h; sourceTree = "<group>"; };
-		1955B3EF1D644D9800DC102E /* FeedbackTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackTableViewCell.m; sourceTree = "<group>"; };
-		1955B3F01D644D9800DC102E /* FeedbackTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = FeedbackTableViewCell.xib; sourceTree = "<group>"; };
 		1955B3F11D644D9800DC102E /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		1955B3F21D644D9800DC102E /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		1955B3F31D644D9800DC102E /* ResponsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponsListTableViewCell.h; sourceTree = "<group>"; };
@@ -1099,9 +1094,6 @@
 		1955B3ED1D644D9800DC102E /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
-				1955B3EE1D644D9800DC102E /* FeedbackTableViewCell.h */,
-				1955B3EF1D644D9800DC102E /* FeedbackTableViewCell.m */,
-				1955B3F01D644D9800DC102E /* FeedbackTableViewCell.xib */,
 				1955B3F11D644D9800DC102E /* FeedbackViewController.h */,
 				1955B3F21D644D9800DC102E /* FeedbackViewController.m */,
 				1955B3F31D644D9800DC102E /* ResponsListTableViewCell.h */,
@@ -2241,7 +2233,6 @@
 				275E9CDE1CFED0DC0075910D /* 用户协议同意.png in Resources */,
 				19C347EE1D3F5C5D008ABD16 /* README.txt in Resources */,
 				8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */,
-				1955B47D1D644D9800DC102E /* FeedbackTableViewCell.xib in Resources */,
 				84D7AC391D64318D00023D57 /* btn_normal@2x.png in Resources */,
 				84B9B4691D48A92D00DDF15B /* btn_select2_pre@3x.png in Resources */,
 				84B9B4641D4863C100DDF15B /* btn_jubao@3x.png in Resources */,
@@ -2315,7 +2306,6 @@
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
-				1955B47C1D644D9800DC102E /* FeedbackTableViewCell.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */,

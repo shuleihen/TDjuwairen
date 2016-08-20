@@ -29,9 +29,8 @@
             [self.floorView setFrame:CGRectMake(55, 10+15+10, kScreenWidth-70, self.floorView.height)];
         }
         
-        self.goodnumBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-60, 10, 60, 15)];
-        [self.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
-        [self.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+        self.goodnumBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-60, 10, 60, 30)];
+        
         
         
         [self.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];

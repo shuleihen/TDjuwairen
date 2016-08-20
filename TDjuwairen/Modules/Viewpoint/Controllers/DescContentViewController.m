@@ -108,7 +108,7 @@
     firstClickComment = YES;
     self.pid = @"0";
     self.daynightmodel = [UIdaynightModel sharedInstance];
-    
+    self.loginState = [LoginState sharedInstance];
     
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.thview.timeBtn.selected = YES;
@@ -192,17 +192,22 @@
     NSString *urlPath ;
     NSDictionary *dic;
     if (timehot == YES) {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
-        dic = @{@"type":@"view",
-                @"id":self.view_id,
-                @"loadedLength":@"0"};
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",kAPI_bendi];
+        dic = @{
+                @"view_id":@"95",
+                @"user_id":self.loginState.userId,
+                @"loadedLength":@"0"
+                };
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
-        dic = @{@"type":@"hot",
-                @"id":self.view_id,
-                @"loadedLength":@"0"};
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",kAPI_bendi];
+        dic = @{
+                @"type":@"hot",
+                @"view_id":@"95",
+                @"user_id":self.loginState.userId,
+                @"loadedLength":@"0"
+                };
     }
     
     NetworkManager *ma = [[NetworkManager alloc] init];
@@ -210,6 +215,7 @@
         if (!error) {
             [self.FirstcommentArr removeAllObjects];
             NSArray *arr = data;
+            NSLog(@"%lu",(unsigned long)arr.count);
             for (int i = 0; i<arr.count; i++) {
                 NSDictionary *dic = arr[i];
                 CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
@@ -397,9 +403,14 @@
             NSString *identifier = @"commentCell";
             CommentsModel *model = self.FirstcommentArr[indexPath.row];
             CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
+            if (model.secondArr.count > 0) {
+                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+            }
+            else
+            {
                 cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
             }
+            
             cell.delegate = self;
             cell.floorView.delegate = self;
             floorviewsize = cell.floorView.frame.size;
@@ -418,10 +429,23 @@
             cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
             cell.commentLab.text = model.viewcomment;
             
+            
             [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
             cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             cell.goodnumBtn.tag = [model.viewcomment_id integerValue];
+            [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
+            [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+            //判断点过没有
+            int status = [model.commentStatus intValue];
+            if (status == 0) {
+                cell.goodnumBtn.selected = NO;
+            }
+            else
+            {
+                cell.goodnumBtn.selected = YES;
+            }
             
+    
             [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
             cell.nickNameLab.textColor = self.daynightmodel.titleColor;
             cell.numfloor.textColor = self.daynightmodel.titleColor;
@@ -550,26 +574,28 @@
 - (void)good:(UIButton *)sender
 {
     if (self.loginState.isLogIn == YES) {
-        NSLog(@"%ld",(long)sender.tag);
-        NSString *comment_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
-        self.loginState = [LoginState sharedInstance];
-        //点赞
-        NSDictionary *dic = @{@"userid":self.loginState.userId,
-                              @"comment_id":comment_id};
-        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-        [ma POST:API_AddGoodComment1_2 parameters:dic completion:^(id data, NSError *error) {
-            if (!error) {
-                NSLog(@"成功");
-                sender.selected = YES;
-                [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
-                NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
-                [sender setTitle:str forState:UIControlStateNormal];
-            }
-            else
-            {
-                NSLog(@"%@",error);
-            }
-        }];
+        if (sender.selected == NO) {
+            NSLog(@"%ld",(long)sender.tag);
+            NSString *comment_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+            self.loginState = [LoginState sharedInstance];
+            //点赞
+            NSDictionary *dic = @{@"userid":self.loginState.userId,
+                                  @"comment_id":comment_id};
+            NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+            [ma POST:API_AddGoodComment1_2 parameters:dic completion:^(id data, NSError *error) {
+                if (!error) {
+                    NSLog(@"成功");
+                    sender.selected = YES;
+                    [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
+                    NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
+                    [sender setTitle:str forState:UIControlStateNormal];
+                }
+                else
+                {
+                    NSLog(@"%@",error);
+                }
+            }];
+        }
     }
     else
     {
@@ -876,10 +902,35 @@
     
     if (self.thview.louzhu.selected == YES) {
         self.thview.louzhu.selected = NO;
+        [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         self.thview.louzhu.selected = YES;
+        NSString * urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",kAPI_bendi];
+        NSDictionary *dic = @{
+                              @"type":@"my",
+                              @"view_id":@"95",
+                              @"user_id":self.loginState.userId,
+                              @"loadedLength":@"0"
+                              };
+        NetworkManager *ma = [[NetworkManager alloc] init];
+        [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                [self.FirstcommentArr removeAllObjects];
+                NSArray *arr = data;
+                for (int i = 0; i<arr.count; i++) {
+                    NSDictionary *dic = arr[i];
+                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
+                    [self.FirstcommentArr addObject:fModel];
+                }
+                [self.tableview reloadData];
+            }
+            else
+            {
+                NSLog(@"%@",error);
+            }
+        }];
     }
 }
 

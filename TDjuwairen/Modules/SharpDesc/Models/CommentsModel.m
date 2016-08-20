@@ -17,6 +17,7 @@
     model.user_headImg = dic[@"userinfo_facesmall"];
     model.user_nickName = dic[@"user_nickname"];
     model.comment_goodnum = dic[@"comment_goodnum"];
+    model.commentStatus = dic[@"commentassessStatus"];
 
     NSString *str = dic[@"sharpcomment_ptime"];
     NSTimeInterval time = [str doubleValue];

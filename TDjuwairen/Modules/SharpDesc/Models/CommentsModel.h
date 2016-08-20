@@ -36,6 +36,8 @@
 
 @property (nonatomic,copy) NSString *viewcommentTime;//点评时间
 
+@property (nonatomic,copy) NSString *commentStatus; //是否点赞过
+
 @property (nonatomic,strong) NSArray *secondArr;
 
 + (CommentsModel *)getInstanceWithDictionary:(NSDictionary *)dictionary;
