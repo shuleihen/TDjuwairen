@@ -42,6 +42,7 @@
     CGSize commentsize;
     CGSize floorviewsize;
     BOOL firstClickComment;
+    BOOL timehot;
 }
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NaviMoreView *nmview;
@@ -111,6 +112,7 @@
     
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.thview.timeBtn.selected = YES;
+    timehot = YES;
     
     [self setupWithNavigation];
     
@@ -189,7 +191,7 @@
 - (void)requestWithCommentDataWithTimeHot{
     NSString *urlPath ;
     NSDictionary *dic;
-    if (self.thview.timeBtn.selected == YES) {
+    if (timehot == YES) {
         urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
         dic = @{@"type":@"view",
                 @"id":self.view_id,
@@ -198,7 +200,7 @@
     else
     {
         urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
-        dic = @{@"type":@"view",
+        dic = @{@"type":@"hot",
                 @"id":self.view_id,
                 @"loadedLength":@"0"};
     }
@@ -886,12 +888,14 @@
     self.selTimeHotBtn.selected = NO;
     if (sender.selected == YES) {
         sender.selected = NO;
+        timehot = YES;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         sender.selected = YES;
+        timehot = YES;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
@@ -902,12 +906,14 @@
     self.selTimeHotBtn.selected = NO;
     if (sender.selected == YES) {
         sender.selected = NO;
+        timehot = NO;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         sender.selected = YES;
+        timehot = NO;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
