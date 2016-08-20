@@ -105,6 +105,7 @@
             </tableViewCellContentView>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
             <connections>
+                <outlet property="backView" destination="VCQ-KY-JgO" id="JZV-Ts-ooL"/>
                 <outlet property="commentsLabel" destination="DZy-Ac-mqp" id="tbN-pC-Sog"/>
                 <outlet property="headImageView" destination="ipF-GZ-DC7" id="Gnn-9w-HAE"/>
                 <outlet property="line" destination="20m-S4-Oqu" id="E9q-Lq-Mur"/>

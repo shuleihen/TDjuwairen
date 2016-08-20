@@ -12,11 +12,13 @@
 #import "LoginState.h"
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,assign) int cellheight;
 @end
@@ -30,7 +32,9 @@
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.contentTextField.delegate=self;
+    self.cellheight = 80;
     
+    self.loginState = [LoginState sharedInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     [self registerForKeyboardNotifications];
@@ -182,6 +186,7 @@
     self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSLog(@"%@",US.userId);
     NSDictionary *paras = @{@"user_id":US.userId};
     
     [manager POST:API_GetUserFeedbackList parameters:paras completion:^(id data, NSError *error){
@@ -206,19 +211,22 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary*dic = self.dataArray[indexPath.row];
-//    [tableView registerNib:[UINib nibWithNibName:@"FeedbackTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedbackCell"];
-//    FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
-//    [cell cellforDic:dic];
-//    [cell setContentText:dic[@"feedback_content"]];
-    NSString *identifier = @"cell";
-    ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
+    if (self.dataArray.count > 0) {
+        NSDictionary*dic = self.dataArray[indexPath.row];
+        NSString *identifier = @"cell";
+        ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
+        }
+        self.cellheight = cell.viewheight;
+        
+        return cell;
     }
-    self.cellheight = cell.viewheight;
-    
-    return cell;
+    else
+    {
+        return nil;
+    }
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

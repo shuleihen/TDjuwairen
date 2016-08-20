@@ -89,7 +89,7 @@
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
     self.passwordText.placeholder = @"密码";
-    self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
+//    self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
     self.passwordText.clearButtonMode = UITextFieldViewModeAlways;//右边X号
     self.passwordText.secureTextEntry = YES;//显示为星号
     self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];

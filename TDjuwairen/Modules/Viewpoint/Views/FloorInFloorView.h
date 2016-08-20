@@ -9,10 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "FloorView.h"
 
+@protocol FloorInFloorViewDelegate <NSObject>
+
+- (void)replyThis:(FloorView *)sender;
+
+@end
+
 @interface FloorInFloorView : UIView
 
 @property (nonatomic,assign) int height;
 @property (nonatomic,strong) UIView *view;
+
+@property (nonatomic,assign) id<FloorInFloorViewDelegate>delegate;
 
 - (instancetype)initWithArr:(NSArray *)arr;
 

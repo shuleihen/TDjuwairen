@@ -469,9 +469,9 @@
             }
             else
             {
-                if (indexPath.row == self.commentsDataArray.count-1) {
-                    if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count-1) > 10+15+5+12+10+commentsize.height+10) {
-                        return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count-1);
+                if (indexPath.row == self.commentsDataArray.count) {
+                    if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count) > 10+15+5+12+10+commentsize.height+10) {
+                        return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count);
                     }
                 }
                 /* 设置高度自适应 */
@@ -700,6 +700,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
+    self.nmview.alpha = 0.0;
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
@@ -1133,8 +1134,18 @@
         //举报
         self.nmview.alpha = 0.0;
         naviShow = NO;
-        FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
-        [self.navigationController pushViewController:feedback animated:YES];
+        if (US.isLogIn == NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            [self.navigationController pushViewController:feedback animated:YES];
+            
+        }
     }
 }
 

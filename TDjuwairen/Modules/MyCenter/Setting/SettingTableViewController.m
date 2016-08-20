@@ -39,7 +39,8 @@
         self.cacheLabel.text=@"0.00M";
     }
     
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableView.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
     self.view.backgroundColor = self.daynightmodel.backColor;
     self.cell1.backgroundColor = self.daynightmodel.navigationColor;
     self.lab1.textColor = self.daynightmodel.textColor;
@@ -104,7 +105,7 @@
     }
     else if (indexPath.section==0&&indexPath.row==2)//关于我们
     {
-        AboutViewController*about=[self.storyboard instantiateViewControllerWithIdentifier:@"AboutView"];
+        AboutViewController *about = [self.storyboard instantiateViewControllerWithIdentifier:@"AboutView"];
         [self.navigationController pushViewController:about animated:YES];
     }
     else//退出登录

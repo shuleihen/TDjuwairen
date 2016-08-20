@@ -15,6 +15,7 @@
 #import "NetworkManager.h"
 #import "MJRefresh.h"
 #import "UIdaynightModel.h"
+#import "CommentManagerModel.h"
 
 
 @interface CommentsViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -115,9 +116,9 @@
                 }
                 
                 for (NSDictionary *d in dataArray) {
-                    [list addObject:d];
+                    CommentManagerModel *model = [CommentManagerModel getInstanceWithDictionary:d];
+                    [list addObject:model];
                 }
-                
                 wself.CommentsArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
             [wself.tableview.mj_header endRefreshing];
@@ -151,10 +152,9 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.CommentsArray.count > 0) {
-        NSDictionary *dic = self.CommentsArray[indexPath.row];
-        
+        CommentManagerModel *model = self.CommentsArray[indexPath.row];
         CommentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentsCell"];
-        [cell setCellWithDic:dic];
+        [cell setCellWithDic:model];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -175,7 +175,7 @@
         return 136;
     }
     else{
-        return 518;
+        return kScreenHeight-64;
     }
 }
 
@@ -183,9 +183,9 @@
 {
 
     if (self.CommentsArray.count > 0) {
-        NSDictionary *dic = self.CommentsArray[indexPath.row];
+        CommentManagerModel *model = self.CommentsArray[indexPath.row];
         SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
-        sharp.sharp_id = dic[@"sharpcomment_sharpid"];
+        sharp.sharp_id = model.sharpcomment_sharpid;
         [self.navigationController pushViewController:sharp animated:YES];
     }
     else

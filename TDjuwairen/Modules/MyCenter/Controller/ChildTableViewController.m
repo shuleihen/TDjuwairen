@@ -17,6 +17,8 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
+#import "DescContentViewController.h"
+#import "PublishViewViewController.h"
 
 @interface ChildTableViewController ()
 {
@@ -175,7 +177,7 @@
         {
             isoriginal = @"原创";
         }
-        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",self.loginState.userName,model.view_wtime,isoriginal];
+        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",self.loginState.nickName,model.view_wtime,isoriginal];
         
         
         UIFont *font = [UIFont systemFontOfSize:16];
@@ -200,6 +202,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+        if (self.listArr.count > 0) {
+            DescContentViewController *dc = [[DescContentViewController alloc] init];
+            ViewPointListModel *model = self.listArr[indexPath.row];
+            dc.view_id = model.view_id;
+            dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:dc animated:YES];
+        }
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

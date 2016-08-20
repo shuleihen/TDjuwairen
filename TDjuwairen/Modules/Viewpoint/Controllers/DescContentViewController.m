@@ -33,7 +33,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @import WebKit;
-@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,FloorInFloorViewDelegate,SharpTagsDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
+@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,CommentsCellDelegate,FloorInFloorViewDelegate,SharpTagsDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
 {
     BOOL naviShow;
     BOOL fontShow;
@@ -188,16 +188,21 @@
 
 - (void)requestWithCommentDataWithTimeHot{
     NSString *urlPath ;
+    NSDictionary *dic;
     if (self.thview.timeBtn.selected == YES) {
         urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
+        dic = @{@"type":@"view",
+                @"id":self.view_id,
+                @"loadedLength":@"0"};
     }
     else
     {
         urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
+        dic = @{@"type":@"view",
+                @"id":self.view_id,
+                @"loadedLength":@"0"};
     }
-    NSDictionary *dic = @{@"type":@"view",
-                          @"id":self.view_id,
-                          @"loadedLength":@"0"};
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
@@ -391,10 +396,10 @@
             CommentsModel *model = self.FirstcommentArr[indexPath.row];
             CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
-                NSLog(@"%@",model.secondArr);
                 cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
             }
             cell.delegate = self;
+            cell.floorView.delegate = self;
             floorviewsize = cell.floorView.frame.size;
             
             NSString *comment = model.viewcomment;
@@ -410,7 +415,7 @@
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
             cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
             cell.commentLab.text = model.viewcomment;
-            NSLog(@"%@",model.comment_goodnum);
+            
             [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
             cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             cell.goodnumBtn.tag = [model.viewcomment_id integerValue];
@@ -511,12 +516,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    [self.backcommentview.commentview becomeFirstResponder];
-    
-    CommentsModel *fModel = self.FirstcommentArr[indexPath.row];
-    self.backcommentview.commentview.placeholder = [NSString stringWithFormat:@"回复 %@:",fModel.user_nickName];
-    self.pid = fModel.viewcomment_id;
+    if (self.FirstcommentArr.count > 0) {
+        [self.backcommentview.commentview becomeFirstResponder];
+        CommentsModel *fModel = self.FirstcommentArr[indexPath.row];
+        self.backcommentview.commentview.placeholder = [NSString stringWithFormat:@"回复 %@:",fModel.user_nickName];
+        self.pid = fModel.viewcomment_id;
+    }
 }
+
+- (void)replyThis:(FloorView *)sender
+{
+    if (self.FirstcommentArr.count > 0) {
+        [self.backcommentview.commentview becomeFirstResponder];
+        self.backcommentview.commentview.placeholder = [NSString stringWithFormat:@"回复 %@:",sender.nicknameLab.text];
+        self.pid = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+    }
+}
+
 
 #pragma mark - 标签代理方法
 - (void)ClickTags:(UIButton *)sender
@@ -531,26 +547,35 @@
 #pragma mark - FloorInFloorViewDelegate
 - (void)good:(UIButton *)sender
 {
-    NSLog(@"%ld",(long)sender.tag);
-    NSString *comment_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
-    self.loginState = [LoginState sharedInstance];
-    //点赞
-    NSDictionary *dic = @{@"userid":self.loginState.userId,
-                          @"comment_id":comment_id};
-    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    [ma POST:API_AddGoodComment1_2 parameters:dic completion:^(id data, NSError *error) {
-        if (!error) {
-            NSLog(@"成功");
+    if (self.loginState.isLogIn == YES) {
+        NSLog(@"%ld",(long)sender.tag);
+        NSString *comment_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+        self.loginState = [LoginState sharedInstance];
+        //点赞
+        NSDictionary *dic = @{@"userid":self.loginState.userId,
+                              @"comment_id":comment_id};
+        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        [ma POST:API_AddGoodComment1_2 parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                NSLog(@"成功");
                 sender.selected = YES;
                 [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
                 NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
                 [sender setTitle:str forState:UIControlStateNormal];
-        }
-        else
-        {
-            NSLog(@"%@",error);
-        }
-    }];
+            }
+            else
+            {
+                NSLog(@"%@",error);
+            }
+        }];
+    }
+    else
+    {
+        //跳转到登录页面
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:login animated:YES];
+    }
     
     
 }
@@ -739,9 +764,18 @@
         //举报
         self.nmview.alpha = 0.0;
         naviShow = NO;
-        FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
-        [self.navigationController pushViewController:feedback animated:YES];
-        
+        if (US.isLogIn == NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            [self.navigationController pushViewController:feedback animated:YES];
+            
+        }
     }
 }
 
@@ -955,6 +989,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
+    self.nmview.alpha = 0.0;
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];

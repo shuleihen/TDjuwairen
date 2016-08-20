@@ -55,10 +55,11 @@
 }
 
 - (void)good:(UIButton *)sender{
-    if ([self respondsToSelector:@selector(good:)]) {
+    if ([self.delegate respondsToSelector:@selector(good:)]) {
         [self.delegate good:sender];
     }
 }
+
 
 - (void)awakeFromNib {
     [super awakeFromNib];

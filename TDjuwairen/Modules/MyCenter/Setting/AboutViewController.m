@@ -7,8 +7,11 @@
 //
 
 #import "AboutViewController.h"
+#import "UIdaynightModel.h"
 
 @interface AboutViewController ()
+
+
 
 @end
 
@@ -16,6 +19,11 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
+    self.labe1.textColor = daynightmodel.textColor;
+    self.labe2.textColor = daynightmodel.textColor;
+    self.label3.textColor = daynightmodel.titleColor;
+    self.view.backgroundColor = daynightmodel.navigationColor;
     // Do any additional setup after loading the view.
 }
 

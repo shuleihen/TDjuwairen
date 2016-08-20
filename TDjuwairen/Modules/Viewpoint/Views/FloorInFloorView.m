@@ -60,6 +60,10 @@
             
             self.height = view.frame.size.height;
             
+            NSString *viewcomment_id = d[@"viewcomment_id"];
+            view.tag = [viewcomment_id integerValue];
+            [view addTarget:self action:@selector(replyThis:) forControlEvents:UIControlEventTouchUpInside];
+            
             if (i == 0) {
                 [self addSubview:view];
                 self.view = view;
@@ -70,6 +74,13 @@
         }
     }
     return self;
+}
+
+- (void)replyThis:(FloorView *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(replyThis:)]) {
+        [self.delegate replyThis:sender];
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context

@@ -279,7 +279,7 @@
     }
     else
     {
-        return 568;
+        return kScreenHeight-64;
     }
 }
 
@@ -325,10 +325,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (edit == NO) {
-    NSDictionary *dic = self.CollectionArray[indexPath.row];
-    SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
-    sharp.sharp_id = dic[@"sharp_id"];
-    [self.navigationController pushViewController:sharp animated:YES];
+        if (self.CollectionArray.count > 0) {
+            NSDictionary *dic = self.CollectionArray[indexPath.row];
+            SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
+            sharp.sharp_id = dic[@"sharp_id"];
+            [self.navigationController pushViewController:sharp animated:YES];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 

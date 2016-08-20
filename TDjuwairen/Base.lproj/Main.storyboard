@@ -214,8 +214,8 @@
                                                     <color key="textColor" red="0.39215686274509803" green="0.39215686274509803" blue="0.39215686274509803" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" image="clear" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-ko-W9G">
-                                                    <rect key="frame" x="15" y="17" width="15" height="15"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="clear" translatesAutoresizingMaskIntoConstraints="NO" id="oGn-ko-W9G">
+                                                    <rect key="frame" x="15" y="16" width="15" height="15"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="15" id="EJZ-fa-lZT"/>
                                                         <constraint firstAttribute="width" constant="15" id="pqX-MZ-3A5"/>
@@ -468,6 +468,11 @@
                         </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <connections>
+                        <outlet property="labe1" destination="nJT-bd-MNL" id="AgS-OW-K6D"/>
+                        <outlet property="labe2" destination="iSu-3Y-HdP" id="80K-0s-4RJ"/>
+                        <outlet property="label3" destination="XwF-So-CtM" id="U4h-3S-fyO"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wux-1k-8gK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -53,6 +53,8 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -1, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
     [self.view addSubview:self.tableview];
 }
 
@@ -349,6 +351,7 @@
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
         self.tableview.backgroundColor = self.daynightmodel.backColor;
         
         [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
@@ -373,6 +376,7 @@
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
         self.tableview.backgroundColor = self.daynightmodel.backColor;
         
         [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色

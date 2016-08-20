@@ -30,77 +30,28 @@
     // Configure the view for the selected state
 }
 
--(void)setCellWithDic:(NSDictionary *)dic
+-(void)setCellWithDic:(CommentManagerModel *)model
 {
-    NSString *head = dic[@"userinfo_facesmall"];
+    NSString *head = model.userinfo_facesmall;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];
     
-    self.nicknameLabel.text=dic[@"user_nickname"];
-    self.timeLabel.text=[self setLabelsTime:[dic[@"sharpcomment_ptime"] integerValue]];
-    self.commentsLabel.text=dic[@"sharpcomment_text"];
+    self.nicknameLabel.text = model.user_nickname;
+    self.timeLabel.text = model.sharpcomment_ptime ;
+    self.commentsLabel.text = model.sharpcomment_text;
     
-    NSString *sharp = dic[@"sharp_pic280"];
+    NSString *sharp = model.sharp_pic280;
     [self.sharpImageView sd_setImageWithURL:[NSURL URLWithString:sharp] placeholderImage:nil];
     
-    self.titleLabel.text=dic[@"sharp_title"];
+    self.titleLabel.text=model.sharp_title;
     
     self.nicknameLabel.textColor = self.daynightmodel.textColor;
     self.timeLabel.textColor = self.daynightmodel.textColor;
     self.commentsLabel.textColor = self.daynightmodel.textColor;
     self.titleLabel.textColor = self.daynightmodel.textColor;
-}
-
--(NSString*)setLabelsTime:(NSInteger)time{
-    NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
-    NSDateFormatter* tempday = [[NSDateFormatter alloc] init];
-    NSDateFormatter* tempYear = [[NSDateFormatter alloc] init];
-    NSInteger timeNow=[[self currentTime] integerValue];
-    
-    [tempday setDateFormat:@"dd"];
-    [tempYear setDateFormat:@"YYYY"];
-    
-    NSInteger minute=(timeNow-time)/60;
-    
-    if (0<=minute&&minute<=5) {
-        return [NSString stringWithFormat:@"刚刚"];
-    }
-    
-    else if (5<minute&&minute<=60) {
-        return [NSString stringWithFormat:@"%ld分钟前",(long)minute];
-    }
-    
-    else if ([[tempday stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeNow]] isEqualToString:[tempday stringFromDate:[NSDate dateWithTimeIntervalSince1970:time]]]){
-        [formatter setDateFormat:@"HH:mm"];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
-        return [NSString stringWithFormat:@"今天 %@",[formatter stringFromDate:date]];
-    }
-    
-    else if ([[tempday stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeNow]] intValue]-[[tempday stringFromDate:[NSDate dateWithTimeIntervalSince1970:time]]intValue ]==1) {
-        [formatter setDateFormat:@"HH:mm"];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
-        return [NSString stringWithFormat:@"昨天 %@",[formatter stringFromDate:date]];
-    }
-    
-    else if ([[tempday stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeNow]] intValue]-[[tempday stringFromDate:[NSDate dateWithTimeIntervalSince1970:time]]intValue ]!=1 && [[tempYear stringFromDate:[NSDate dateWithTimeIntervalSince1970:timeNow]] isEqualToString:[tempYear stringFromDate:[NSDate dateWithTimeIntervalSince1970:time]]]) {
-        [formatter setDateFormat:@"MM-dd HH:mm"];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
-        return [NSString stringWithFormat:@"%@",[formatter stringFromDate:date]];
-    }
-    
-    else{
-        [formatter setDateFormat:@"YYYY-MM-dd HH:mm"];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:time];
-        return [NSString stringWithFormat:@"%@",[formatter stringFromDate:date]];
-    }
-    
+    self.backView.backgroundColor = self.daynightmodel.backColor;
+    self.backgroundColor = self.daynightmodel.navigationColor;
     
 }
 
--(NSString*)currentTime{
-    NSDateFormatter *commentTime=[[NSDateFormatter alloc] init];
-    [commentTime setDateFormat:@"YYYY-MM-dd HH:mm:ss ZZZ"];
-    NSDate *tempDate=[NSDate date];
-    NSString *date=[NSString stringWithFormat:@"%ld",(long)[tempDate timeIntervalSince1970]];
-    return date;
-}
+
 @end

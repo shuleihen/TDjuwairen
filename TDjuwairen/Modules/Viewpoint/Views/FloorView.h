@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FloorView : UIView
+@interface FloorView : UIButton
 
 @property (nonatomic,strong) UILabel *nicknameLab;
 

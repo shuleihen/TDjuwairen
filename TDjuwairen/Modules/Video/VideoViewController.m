@@ -223,6 +223,7 @@
 #pragma mark - 点击搜索
 - (void)ClickSearchButton:(UIButton *)sender{
     SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchView animated:YES];
 }
 

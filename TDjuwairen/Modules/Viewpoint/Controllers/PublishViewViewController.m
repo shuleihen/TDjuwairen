@@ -528,6 +528,19 @@
     [self registerForKeyboardNotifications];
     [self.titleText becomeFirstResponder];
     
+    if (self.titleStr != nil && self.contentStr != nil) {
+        self.titleText.text = self.titleStr;
+        self.contentText.text = self.contentStr;
+        self.placeholderLab.text = @"";
+        self.placeholderLab.alpha = 0.0;
+        
+//        NSString *htmlstring ;
+//        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+//        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+//        self.contentText.attributedText = [self htmlAttributeStringByHtmlString:self.content];
+//        NSLog(@"%@",self.contentText.attributedText);
+    }
+    
 }
 
 #pragma mark - textView delegate
@@ -918,6 +931,17 @@
     htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
     
     return htmlString;
+}
+
+/** 将超文本格式化为富文本*/
+- (NSAttributedString *)htmlAttributeStringByHtmlString:(NSString *)htmlString{
+    NSAttributedString *attributeString;
+    NSData *htmlData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *importParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
+                                   NSCharacterEncodingDocumentAttribute:[NSNumber numberWithInt:NSUTF8StringEncoding]};
+    NSError *error = nil;
+    attributeString = [[NSAttributedString alloc] initWithData:htmlData options:importParams documentAttributes:NULL error:&error];
+    return attributeString;
 }
 
 - (void)didReceiveMemoryWarning {
