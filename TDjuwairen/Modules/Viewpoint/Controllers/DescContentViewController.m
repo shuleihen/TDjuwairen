@@ -43,6 +43,7 @@
     CGSize floorviewsize;
     BOOL firstClickComment;
     BOOL timehot;
+    BOOL firstLoadComment;
 }
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NaviMoreView *nmview;
@@ -62,6 +63,8 @@
 @property (nonatomic,strong) UIButton *selTimeHotBtn;
 
 @property (nonatomic,strong) MBProgressHUD *hudload;
+
+@property (nonatomic,strong) MBProgressHUD *hudloadCom;
 
 @property (nonatomic,strong) NSString *encryptedStr;
 
@@ -104,7 +107,9 @@
     self.sizeArr = @[@"120%",@"110%",@"100%",@"90%"];
     naviShow = NO;
     fontShow = NO;
+    
     fontsize = @"100%";
+    firstLoadComment = YES;
     firstClickComment = YES;
     self.pid = @"0";
     self.daynightmodel = [UIdaynightModel sharedInstance];
@@ -189,29 +194,31 @@
 }
 
 - (void)requestWithCommentDataWithTimeHot{
-    NSString *urlPath ;
+    
+    if (!firstLoadComment == YES) {
+        self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hudloadCom.labelText = @"加载中...";
+    }
     NSDictionary *dic;
     if (timehot == YES) {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",kAPI_bendi];
         dic = @{
-                @"view_id":@"95",
+                @"view_id":self.view_id,
                 @"user_id":self.loginState.userId,
                 @"loadedLength":@"0"
                 };
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",kAPI_bendi];
         dic = @{
                 @"type":@"hot",
-                @"view_id":@"95",
+                @"view_id":self.view_id,
                 @"user_id":self.loginState.userId,
                 @"loadedLength":@"0"
                 };
     }
     
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
             [self.FirstcommentArr removeAllObjects];
             NSArray *arr = data;
@@ -221,10 +228,17 @@
                 CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
                 [self.FirstcommentArr addObject:fModel];
             }
+            if (!firstLoadComment == YES) {
+                self.hudloadCom.labelText = @"加载完成";
+                [self.hudloadCom hide:YES afterDelay:0.1];
+            }
+            firstLoadComment = NO;
             [self.tableview reloadData];
         }
         else
         {
+            self.hudloadCom.labelText = @"加载完成";
+            [self.hudloadCom hide:YES afterDelay:0.1];
             NSLog(@"%@",error);
         }
     }];
@@ -384,12 +398,17 @@
     else
     {
         if (self.FirstcommentArr.count == 0) {
-            NSString *identifier = @"cell";
+            NSString *identifier = @"commentCell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            
+            if (self.thview.louzhu.selected == YES) {
+                cell.textLabel.text = @"该作者没有对自己的文章发表评论";
             }
-            cell.textLabel.text = @"当前文章还没有评论";
+            else
+            {
+                cell.textLabel.text = @"当前文章还没有评论";
+            }
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -906,16 +925,17 @@
     }
     else
     {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"加载中...";
         self.thview.louzhu.selected = YES;
-        NSString * urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",kAPI_bendi];
         NSDictionary *dic = @{
                               @"type":@"my",
-                              @"view_id":@"95",
+                              @"view_id":self.view_id,
                               @"user_id":self.loginState.userId,
                               @"loadedLength":@"0"
                               };
-        NetworkManager *ma = [[NetworkManager alloc] init];
-        [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
+        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
                 [self.FirstcommentArr removeAllObjects];
                 NSArray *arr = data;
@@ -924,10 +944,17 @@
                     CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
                     [self.FirstcommentArr addObject:fModel];
                 }
+                
+                hud.labelText = @"加载完成";
+                [hud hide:YES afterDelay:0.1];
                 [self.tableview reloadData];
             }
             else
             {
+                hud.labelText = @"加载完成";
+                [hud hide:YES afterDelay:0.1];
+                [self.FirstcommentArr removeAllObjects];
+                [self.tableview reloadData];
                 NSLog(@"%@",error);
             }
         }];
@@ -937,6 +964,7 @@
 - (void)selectTime:(UIButton *)sender
 {
     self.selTimeHotBtn.selected = NO;
+    self.thview.louzhu.selected = NO;
     if (sender.selected == YES) {
         sender.selected = NO;
         timehot = YES;
@@ -955,6 +983,7 @@
 - (void)selectHot:(UIButton *)sender
 {
     self.selTimeHotBtn.selected = NO;
+    self.thview.louzhu.selected = NO;
     if (sender.selected == YES) {
         sender.selected = NO;
         timehot = NO;
