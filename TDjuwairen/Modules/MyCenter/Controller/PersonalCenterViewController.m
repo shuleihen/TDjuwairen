@@ -213,7 +213,7 @@
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
-            else//登录后 跳转设置页面
+            else//登录后 跳转观点管理页面
             {
                 ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
                 [self.navigationController pushViewController:viewmanage animated:YES];

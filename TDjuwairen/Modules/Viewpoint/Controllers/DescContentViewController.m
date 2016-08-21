@@ -200,48 +200,69 @@
         self.hudloadCom.labelText = @"加载中...";
     }
     NSDictionary *dic;
-    if (timehot == YES) {
-        dic = @{
-                @"view_id":self.view_id,
-                @"user_id":self.loginState.userId,
-                @"loadedLength":@"0"
-                };
-    }
-    else
-    {
-        dic = @{
-                @"type":@"hot",
-                @"view_id":self.view_id,
-                @"user_id":self.loginState.userId,
-                @"loadedLength":@"0"
-                };
-    }
-    
-    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
-        if (!error) {
-            [self.FirstcommentArr removeAllObjects];
-            NSArray *arr = data;
-            NSLog(@"%lu",(unsigned long)arr.count);
-            for (int i = 0; i<arr.count; i++) {
-                NSDictionary *dic = arr[i];
-                CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
-                [self.FirstcommentArr addObject:fModel];
+        if (timehot == YES) {
+            if (self.loginState.isLogIn == YES) {
+                dic = @{
+                        @"view_id":self.view_id,
+                        @"user_id":self.loginState.userId,
+                        @"loadedLength":@"0"
+                        };
             }
-            if (!firstLoadComment == YES) {
-                self.hudloadCom.labelText = @"加载完成";
-                [self.hudloadCom hide:YES afterDelay:0.1];
+            else
+            {
+                dic = @{
+                        @"view_id":self.view_id,
+                        @"loadedLength":@"0"
+                        };
             }
-            firstLoadComment = NO;
-            [self.tableview reloadData];
+            
         }
         else
         {
-            self.hudloadCom.labelText = @"加载完成";
-            [self.hudloadCom hide:YES afterDelay:0.1];
-            NSLog(@"%@",error);
+            if (self.loginState.isLogIn == YES) {
+                dic = @{
+                        @"type":@"hot",
+                        @"view_id":self.view_id,
+                        @"user_id":self.loginState.userId,
+                        @"loadedLength":@"0"
+                        };
+            }
+            else
+            {
+                dic = @{
+                        @"type":@"hot",
+                        @"view_id":self.view_id,
+                        @"loadedLength":@"0"
+                        };
+            }
         }
-    }];
+        
+        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                [self.FirstcommentArr removeAllObjects];
+                NSArray *arr = data;
+                NSLog(@"%lu",(unsigned long)arr.count);
+                for (int i = 0; i<arr.count; i++) {
+                    NSDictionary *dic = arr[i];
+                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
+                    [self.FirstcommentArr addObject:fModel];
+                }
+                if (!firstLoadComment == YES) {
+                    self.hudloadCom.labelText = @"加载完成";
+                    [self.hudloadCom hide:YES afterDelay:0.1];
+                }
+                firstLoadComment = NO;
+                [self.tableview reloadData];
+            }
+            else
+            {
+                self.hudloadCom.labelText = @"加载完成";
+                [self.hudloadCom hide:YES afterDelay:0.1];
+                NSLog(@"%@",error);
+            }
+        }];
+    
 }
 
 - (void)setupWithNavigation{

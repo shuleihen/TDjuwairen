@@ -493,7 +493,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9k4-Fl-NL4">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">                 用户注册及使用APP隐私协议
+                                <mutableString key="text">                 用户注册及使用APP隐私协议
 在此特别提醒您（用户）在注册成为用户之前，请认真阅读本《用户协议》（以下简称“协议”），确保您充分理解本协议中各条款。请您审慎阅读并选 择接受或不接受本协议。除非您接受本协议所有条款，否则您无权注册、登录或使用本协议所涉服务。您的注册、登录、使用等行为将视为对本协议的接受，并同意 接受本协议各项条款的约束。本协议约定局外人与 用户之间关于“局外人”软件服务（以下简称“服务”）的权利义务。“用户”是指注册、登录、使用本服务的个人。本协议可由局外人 中心随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本APP中查阅最新版协议条款。在修改协议条款后，如果用户不接 受修改后的条款，请立即停止使用局外人提供的服务，用户继续使用局外人提供的服务将被视为接受修改后的协议。 
 一、账号注册
 1、用户在使用本服务前需要注册一个“局外人”账号。“局外人”账号应当使用手机号码绑定注册，请用户使用尚未与 “局外人”账号绑定的手机号码，以及未被局外人根据本协议封禁的手机号码注册“局外人”账号。局外人可以根据用户需求或产品需要对账号注册和绑定的方式进行变更，而无须事先通知用户。 
@@ -542,7 +542,7 @@
 1、局外人郑重提醒用户注意本协议中免除局外人责任和限制用户权利的条款，请用户仔细阅读，自主考虑风险。未成年人应在法定监护人的陪同下阅读本协议。 
 2、本协议的效力、解释及纠纷的解决，适用于中华人民共和国法律。若用户和局外人之间发生任何纠纷或争议，首先应友好协商解决，协商不成的，用户同意将纠纷或争议提交局外人住所地有管辖权的人民法院管辖。 
 3、本协议的任何条款无论因何种原因无效或不具可执行性，其余条款仍有效，对双方具有约束力。
-</string>
+</mutableString>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

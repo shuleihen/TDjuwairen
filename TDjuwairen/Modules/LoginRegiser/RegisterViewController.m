@@ -10,15 +10,18 @@
 #import "LoginState.h"
 #import "SurveyViewController.h"
 #import "MBProgressHUD.h"
+#import "AgreeViewController.h"
+#import "UIStoryboard+MainStoryboard.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 
-@interface RegisterViewController ()
+@interface RegisterViewController ()<UITextFieldDelegate>
 
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
 @property (nonatomic,strong) UITextField *passwordText;
+@property (nonatomic,strong) UITextField *surePassword;
 @property (nonatomic,strong) UITextField *nicknameText;
 
 @end
@@ -62,6 +65,7 @@
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
     self.accountText.placeholder = @"手机号码";
+    self.accountText.delegate = self;
     self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
@@ -71,6 +75,7 @@
     self.validationText.textColor = [UIColor darkGrayColor];
     self.validationText.font = [UIFont systemFontOfSize:14];
     self.validationText.placeholder = @"请输入验证码";
+    self.validationText.delegate = self;
     self.validationText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
@@ -93,18 +98,31 @@
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
     self.passwordText.placeholder = @"请设置密码(6-20位英文或数字)";
-//    self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
+    self.passwordText.delegate = self;
     self.passwordText.clearButtonMode = UITextFieldViewModeAlways;//右边X号
     self.passwordText.secureTextEntry = YES;//显示为星号
     self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.passwordText.leftViewMode = UITextFieldViewModeAlways;
     
-    self.nicknameText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1+47+1, kScreenWidth, 47)];
+    self.surePassword = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1+47+1, kScreenWidth, 47)];
+    self.surePassword.backgroundColor = [UIColor whiteColor];
+    self.surePassword.textColor = [UIColor darkGrayColor];
+    self.surePassword.font = [UIFont systemFontOfSize:14];
+    self.surePassword.placeholder = @"请再次输入密码";
+    self.surePassword.delegate = self;
+    self.surePassword.clearButtonMode = UITextFieldViewModeAlways;//右边X号
+    self.surePassword.secureTextEntry = YES;//显示为星号
+    self.surePassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.surePassword.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.nicknameText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1+47+1+47+1, kScreenWidth, 47)];
     self.nicknameText.backgroundColor = [UIColor whiteColor];
     self.nicknameText.textColor = [UIColor darkGrayColor];
     self.nicknameText.font = [UIFont systemFontOfSize:14];
     self.nicknameText.placeholder = @"请设置昵称(昵称只能设置一次，请谨慎选择)";
+    self.nicknameText.delegate = self;
     self.nicknameText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.nicknameText.leftViewMode = UITextFieldViewModeAlways;
@@ -114,11 +132,12 @@
     [self.view addSubview:self.validationBtn];
     [self.view addSubview:label];
     [self.view addSubview:self.passwordText];
+    [self.view addSubview:self.surePassword];
     [self.view addSubview:self.nicknameText];
 }
 
 - (void)setupWithRegisterBtn{
-    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
+    UIButton *registerBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
     registerBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
     [registerBtn setTitle:@"注册" forState:UIControlStateNormal];
     registerBtn.layer.cornerRadius = 5;//圆角半径
@@ -127,7 +146,7 @@
 }
 
 - (void)setupWithAgreements{
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 30)];
+    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 30)];
     label.text = @"点击“注册”即表示您已统一并愿意遵守局外人用户协议和隐私政策";
     label.font = [UIFont systemFontOfSize:12];
     label.numberOfLines = 0;
@@ -135,8 +154,18 @@
     [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(21, 4)];
     [att addAttribute:NSForegroundColorAttributeName value:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] range:NSMakeRange(26, 4)];
     
+    label.userInteractionEnabled=YES;
+    UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(labelTouchUpInside:)];
+    
+    [label addGestureRecognizer:labelTapGestureRecognizer];
+    
     label.attributedText = att;
     [self.view addSubview:label];
+}
+
+- (void)labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
+    AgreeViewController *agreeview = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"AgreeView"];
+    [self.navigationController pushViewController:agreeview animated:YES];
 }
 
 - (void)ClickSend:(UIButton *)sender{
@@ -185,27 +214,61 @@
 - (void)ClickRegis:(UIButton *)sender{
     //判断
     if ([self.accountText.text isEqualToString:@""]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"请输入手机号";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }else if ([self.validationText.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"验证码不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }else if ([self.passwordText.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"密码不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
         return;
     }
     else if([self.nicknameText.text isEqualToString:@""])
     {
-//        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"用户名不能为空" preferredStyle:UIAlertControllerStyleAlert];
-//        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         
         hud.labelText = @"用户名不能为空";
+        hud.mode = MBProgressHUDModeText;
+        [hud showAnimated:YES whileExecutingBlock:^{
+            sleep(2);
+        } completionBlock:^{
+            [hud hide:YES afterDelay:0.1f];
+        }];
+        return;
+    }
+    else if (![self.passwordText.text isEqualToString:self.surePassword.text]){
+        MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
+        [self.view addSubview:hud];
+        
+        hud.labelText = @"两次输入密码不一样";
         hud.mode = MBProgressHUDModeText;
         [hud showAnimated:YES whileExecutingBlock:^{
             sleep(2);
@@ -307,6 +370,12 @@
             }
         }
     }];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return textField;
 }
 
 - (void)didReceiveMemoryWarning {

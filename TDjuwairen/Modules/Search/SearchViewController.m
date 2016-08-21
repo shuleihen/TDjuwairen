@@ -82,11 +82,10 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NSString *string = [NSString stringWithFormat:@"%@index.php/Search/search1_2",kAPI_bendi];
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
     
-    [manager POST:string parameters:dic completion:^(id data, NSError *error){
+    [manager POST:API_Search1_2 parameters:dic completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
             

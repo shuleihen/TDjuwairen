@@ -7,6 +7,7 @@
 //
 
 #import "AgreeViewController.h"
+#import "UIdaynightModel.h"
 
 @interface AgreeViewController ()
 
@@ -16,8 +17,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.textView.contentInset=UIEdgeInsetsMake(-66, 0, 0, 0);
+    
+    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
+    
     [self setNavigation];
+    self.textView.backgroundColor = daynightmodel.navigationColor;
+    self.textView.textColor = daynightmodel.textColor;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -27,8 +32,6 @@
 
 -(void)setNavigation
 {
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"用户协议";
-    self.navigationItem.titleView=label;
+    self.title = @"用户协议";
 }
 @end
