@@ -443,13 +443,13 @@
             NSString *identifier = @"commentCell";
             CommentsModel *model = self.FirstcommentArr[indexPath.row];
             CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (model.secondArr.count > 0) {
-                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
-            }
-            else
-            {
+//            if (model.secondArr.count > 0) {
+//                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+//            }
+//            else
+//            {
                 cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
-            }
+//            }
             
             cell.delegate = self;
             cell.floorView.delegate = self;
@@ -462,11 +462,10 @@
             commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
             commentsize = [comment calculateSize:commentsize font:font];
             [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
-            
-            NSString *s = [NSString stringWithFormat:@"http://static.juwairen.net/Pc/Uploads/Images/Face/%@",model.user_headImg];
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:s]];
+
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.user_headImg]];
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
-            cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
+            cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.FirstcommentArr.count-(int)indexPath.row];
             cell.commentLab.text = model.viewcomment;
             
             

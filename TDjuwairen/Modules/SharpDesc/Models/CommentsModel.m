@@ -14,7 +14,7 @@
 {
     CommentsModel *model = [[CommentsModel alloc]init];
     model.user_id = dic[@"user_id"];
-    model.user_headImg = dic[@"userinfo_facesmall"];
+    model.user_headImg = dic[@"userinfo_facemedium"];
     model.user_nickName = dic[@"user_nickname"];
     model.comment_goodnum = dic[@"comment_goodnum"];
     model.commentStatus = dic[@"commentassessStatus"];
