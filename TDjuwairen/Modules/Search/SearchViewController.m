@@ -9,11 +9,13 @@
 #import "SearchViewController.h"
 #import "HistoryView.h"
 #import "SurveyListModel.h"
+#import "ViewPointListModel.h"
 #import "SearchResultTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
 #import "NoResultTableViewCell.h"
 #import "AllNoResultTableViewCell.h"
 #import "SharpDetailsViewController.h"
+#import "DescContentViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
@@ -80,14 +82,15 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
+    NSString *string = [NSString stringWithFormat:@"%@index.php/Search/search1_2",kAPI_bendi];
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
     
-    [manager POST:API_Search parameters:dic completion:^(id data, NSError *error){
+    [manager POST:string parameters:dic completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
             
-            NSArray *arr1 = dic[@"sharp_type1"];
+            NSArray *arr1 = dic[@"surveyList"];
             /* 清空数组 */
             [self.surveydata removeAllObjects];
             if ((NSNull *)arr1 != [NSNull null]) {
@@ -97,18 +100,18 @@
                 }
             }
             
-            NSArray *arr2 = dic[@"sharp_type2"];
+            NSArray *arr2 = dic[@"viewList"];
             /* 清空数组 */
             [self.researchdata removeAllObjects];
             
             if ((NSNull *)arr2 != [NSNull null]) {
                 for (NSDictionary *d in arr2) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                    ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:d];
                     [self.researchdata addObject:model];
                 }
             }
             
-            NSArray *arr3 = dic[@"sharp_type3"];
+            NSArray *arr3 = dic[@"videoList"];
             /* 清空数组 */
             [self.videodata removeAllObjects];
             if ((NSNull *)arr3 != [NSNull null]) {
@@ -120,7 +123,7 @@
             
             [self.tableview reloadData];
         } else {
-            
+            NSLog(@"%@",error);
         }
     }];
 }
@@ -428,8 +431,8 @@
                         if (cell == nil) {
                             cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
                         }
-                        SurveyListModel *model = self.researchdata[indexPath.row-1];
-                        NSString *text = model.sharp_title;
+                        ViewPointListModel *model = self.researchdata[indexPath.row-1];
+                        NSString *text = model.view_title;
                         cell.titleLabel.text = text;
                         UIFont *font = [UIFont systemFontOfSize:16];
                         cell.titleLabel.font = font;
@@ -648,10 +651,9 @@
             if (self.researchdata.count != 0) {
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
-                    SurveyListModel *model = self.researchdata[indexPath.row-1];
-                   SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
-                    DetailView.sharp_id = model.sharp_id;
-                    
+                    ViewPointListModel *model = self.researchdata[indexPath.row-1];
+                   DescContentViewController *DetailView = [[DescContentViewController alloc] init];
+                    DetailView.view_id = model.view_id;
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
                 }
