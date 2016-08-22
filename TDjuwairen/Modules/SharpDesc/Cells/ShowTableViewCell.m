@@ -23,6 +23,7 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         self.headImg = [[UIImageView alloc]initWithFrame:CGRectMake(15, 10, 30, 30)];
         self.headImg.layer.cornerRadius = 15;
+        self.headImg.layer.masksToBounds = YES;
         
         self.nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10, kScreenWidth/3, 15)];
         self.nicknameLabel.font = [UIFont systemFontOfSize:14];

@@ -242,7 +242,6 @@
             if (!error) {
                 [self.FirstcommentArr removeAllObjects];
                 NSArray *arr = data;
-                NSLog(@"%lu",(unsigned long)arr.count);
                 for (int i = 0; i<arr.count; i++) {
                     NSDictionary *dic = arr[i];
                     CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];

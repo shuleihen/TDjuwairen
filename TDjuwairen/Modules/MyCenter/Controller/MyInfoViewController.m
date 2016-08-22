@@ -17,6 +17,7 @@
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *TitleArr;
 @property (nonatomic,strong) NSMutableArray *MyInfoArr;
@@ -31,6 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.loginState = [LoginState sharedInstance];
     self.TitleArr = @[@"用户名",@"手机号",@"昵称",@"公司",@"职位",@"个人简介"];
     NSArray *arr = @[US.userName,
                      US.userPhone,
@@ -204,6 +206,7 @@
 
 //点击保存信息
 - (void)ClickSave:(UIButton *)sender{
+    [self.view endEditing:YES];
     //修改用户名
     [self requestrequestChangeUserName];
     //修改公司名
@@ -217,14 +220,17 @@
 #pragma mark-修改用户名
 -(void)requestrequestChangeUserName
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:1 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:1];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":US.userId,
-                         @"encryptedStr":self.str,
-                         @"userid":US.userId,
-                         @"username":cell.textfield.text};
+    NSLog(@"%@",US.userId);
+    NSLog(@"%@",self.str);
+    NSLog(@"%@",cell.textfield.text);
+    NSDictionary *paras = @{@"authenticationStr":self.loginState.userId,
+                            @"encryptedStr":self.str,
+                            @"userid":self.loginState.userId,
+                            @"username":cell.textfield.text};
     
     [manager POST:API_UpdateUserName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
@@ -238,7 +244,7 @@
 #pragma mark-修改公司
 -(void)requestChangeCompany
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:3 inSection:1];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -259,7 +265,7 @@
 #pragma mark-修改职务
 -(void)requestChangePost
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:4 inSection:1];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -280,7 +286,7 @@
 #pragma mark-修改个人简介
 -(void)requestChangePersonal
 {
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:0];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:5 inSection:1];
     MyInfomationTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     
     NetworkManager *manager = [[NetworkManager alloc] init];

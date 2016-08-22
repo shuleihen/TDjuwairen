@@ -338,7 +338,9 @@
     
     if (US.isLogIn) {     //为登录状态
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":self.scrollIDArray[index]};
+        NSDictionary *dic = @{@"userid":US.userId,
+                              @"module_id":@2,
+                              @"item_id":self.scrollIDArray[index]};
         
         [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
             if (!error) {
