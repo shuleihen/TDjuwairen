@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *user_id;
 
 @property (nonatomic,copy) NSString *user_headImg;
+@property (nonatomic,copy) NSString *userinfo_facemedium;
 
 @property (nonatomic,copy) NSString *user_nickName;
 

@@ -462,7 +462,7 @@
             commentsize = [comment calculateSize:commentsize font:font];
             [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
 
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.user_headImg]];
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
             cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.FirstcommentArr.count-(int)indexPath.row];
             cell.commentLab.text = model.viewcomment;

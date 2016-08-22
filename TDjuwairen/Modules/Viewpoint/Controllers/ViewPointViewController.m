@@ -196,7 +196,7 @@
             NSArray *dataArray = data;
             if (dataArray.count > 0) {
                 NSMutableArray *list = nil;
-
+                
                 if (wself.page == 1) {
                     list = [NSMutableArray arrayWithCapacity:[dataArray count]];
                 } else {
@@ -321,7 +321,7 @@
         titlesize = [model.view_title calculateSize:titlesize font:font];
         cell.titleLabel.text = model.view_title;
         [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15, kScreenWidth, 1)];
+        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15-1, kScreenWidth, 1)];
         
         
         cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
@@ -381,7 +381,6 @@
     self.cateview.selectBtn = btn;
     
     self.cateview.selectLab.frame = CGRectMake(70*x, 38, 70, 2);
-//    [self requestDataWithNumber:num]; //不再请求
     
 }
 #pragma mark - 跳转发布
