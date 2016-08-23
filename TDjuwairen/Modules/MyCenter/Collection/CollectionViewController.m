@@ -212,7 +212,7 @@
 {
     self.CollectionArray = [[NSMutableArray alloc]init];
     
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *paras = @{@"userid":US.userId};
     
     [manager POST:API_GetCollectionList parameters:paras completion:^(id data, NSError *error){

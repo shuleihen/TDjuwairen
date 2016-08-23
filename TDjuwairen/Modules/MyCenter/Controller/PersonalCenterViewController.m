@@ -103,7 +103,10 @@
             [cell.CommentManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
             [cell.CollectManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
             [cell.BrowseManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-            cell.backgroundColor = self.daynightmodel.navigationColor;
+            cell.CommentManage.backgroundColor = self.daynightmodel.navigationColor;
+            cell.CollectManage.backgroundColor = self.daynightmodel.navigationColor;
+            cell.BrowseManage.backgroundColor = self.daynightmodel.navigationColor;
+            cell.backgroundColor = self.daynightmodel.backColor;
             return cell;
         }
     }

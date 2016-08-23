@@ -16,7 +16,7 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.backgroundColor = [UIColor whiteColor];
+        
         self.CommentManage = [[ButtonView alloc]initWithFrame:CGRectMake(0, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
         self.CommentManage.imageview.image = [UIImage imageNamed:@"comment"];
         self.CommentManage.label.text = @"评论管理";

@@ -203,7 +203,7 @@
 {
     self.BrowserArray=[[NSMutableArray alloc]init];
     
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary*paras = @{@"userid":US.userId};
     
     [manager POST:API_GetBrowseHistory parameters:paras completion:^(id data, NSError *error){
