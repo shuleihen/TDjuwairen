@@ -32,7 +32,6 @@
     CGSize titlesize;
     CGSize descsize;
     BOOL isFirstRequest;
-    NSString *trackViewUrl;
     
 }
 
@@ -378,8 +377,6 @@
             }
         }];
     }
-    
-    //    [self presentViewController:DetailView animated:YES completion:nil];
     [self.navigationController pushViewController:DetailView animated:YES];
 }
 
@@ -485,12 +482,12 @@
         NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
         NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
         
-        trackViewUrl = [[infoContent objectAtIndex:0] objectForKey:@"trackViewUrl"];
+        NSString *trackViewUrl = [[infoContent objectAtIndex:0] objectForKey:@"trackViewUrl"];
         if (![newversion isEqualToString:currentVersion]) {
             //判断当前设备版本
             float iOSVersion = [[UIDevice currentDevice].systemVersion floatValue];
             if (iOSVersion < 8.0f) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前有新版本了哟" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的系统版本过低，为了更好的用户体验请升级" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
                 [alert addButtonWithTitle:@"确定"];
                 [alert show];
             }
@@ -508,15 +505,6 @@
             }
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error){}];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *titleString = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([titleString isEqualToString:@"确定"]) {
-        //跳转到商店
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
-    }
 }
 
 @end

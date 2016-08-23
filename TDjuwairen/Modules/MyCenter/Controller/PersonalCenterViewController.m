@@ -14,8 +14,8 @@
 #import "LoginViewController.h"
 #import "UIImageView+WebCache.h"
 #import "MyInfoViewController.h"
-#import "SettingTableViewController.h"
-#import "FeedbackViewController.h"
+#import "SettingUpViewController.h"
+#import "AboutMineViewController.h"
 #import "ViewManagerViewController.h"
 #import "DaynightCellTableViewCell.h"
 
@@ -25,6 +25,7 @@
 #import "UIdaynightModel.h"
 #import "HexColors.h"
 #import "YXFont.h"
+#import "UIStoryboard+MainStoryboard.h"
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
@@ -42,15 +43,15 @@
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
-    self.setupImgArr = @[@"btn_yejian@3x.png",@"tab_viewPoint_normal",@"SetupImg.png",@"Beedback.png"];
-    self.setupTitleArr = @[@"夜间模式",@"观点管理",@"设置",@"反馈意见"];
+    self.setupImgArr = @[@"btn_yejian@3x.png",@"remindImg",@"issuedImg.png",@"shoucangImg.png",@"SetupImg.png",@"aboutImg.png"];
+    self.setupTitleArr = @[@"夜间模式",@"消息提醒",@"发布管理",@"我的收藏",@"设置",@"关于我们"];
     
     [self setupWithTableView];
     // Do any additional setup after loading the view.
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -1, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -1, kScreenWidth, kScreenHeight-44) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -216,10 +217,9 @@
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
-            else//登录后 跳转观点管理页面
+            else//消息提醒
             {
-                ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
-                [self.navigationController pushViewController:viewmanage animated:YES];
+                
             }
             
         }
@@ -230,10 +230,11 @@
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
-            else//登录后 跳转设置页面
+            else//登录后 跳转发布页面
             {
-                SettingTableViewController *Setting=[self.storyboard instantiateViewControllerWithIdentifier:@"SettingView"];
-                [self.navigationController pushViewController:Setting animated:YES];
+                ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
+                viewmanage.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:viewmanage animated:YES];
             }
         }
         else if(indexPath.row == 3)
@@ -244,10 +245,39 @@
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
-            else//登录后 跳转反馈意见页面
+            else//登录后 跳转收藏页面
             {
-                FeedbackViewController *feedback = [self.storyboard instantiateViewControllerWithIdentifier:@"FeedbackView"];
-                [self.navigationController pushViewController:feedback animated:YES];
+                
+            }
+        }
+        else if (indexPath.row == 4)
+        {
+            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+                //跳转到登录页面
+                LoginViewController *login = [[LoginViewController alloc] init];
+                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:login animated:YES];
+            }
+            else//登录后 跳转设置页面
+            {
+                SettingUpViewController *Setting = [[SettingUpViewController alloc]init];
+                Setting.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:Setting animated:YES];
+            }
+        }
+        else if (indexPath.row == 5)
+        {
+            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+                //跳转到登录页面
+                LoginViewController *login = [[LoginViewController alloc] init];
+                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:login animated:YES];
+            }
+            else//登录后 跳转关于我们页面
+            {
+                AboutMineViewController *aboutmine = [[AboutMineViewController alloc]init];
+                aboutmine.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:aboutmine animated:YES];
             }
         }
     }
@@ -353,6 +383,9 @@
         daynight = @"no";
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
+        
+        
+        
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
         self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
         self.tableview.backgroundColor = self.daynightmodel.backColor;

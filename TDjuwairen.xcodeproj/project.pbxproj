@@ -68,7 +68,6 @@
 		1955B4801D644D9800DC102E /* JWRImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F61D644D9800DC102E /* JWRImageView.m */; };
 		1955B4811D644D9800DC102E /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F81D644D9800DC102E /* LoginState.m */; };
 		1955B4821D644D9800DC102E /* AboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3FB1D644D9800DC102E /* AboutViewController.m */; };
-		1955B4831D644D9800DC102E /* SettingTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3FD1D644D9800DC102E /* SettingTableViewController.m */; };
 		1955B4841D644D9800DC102E /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4001D644D9800DC102E /* ButtonView.m */; };
 		1955B4851D644D9800DC102E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4041D644D9800DC102E /* NetworkManager.m */; };
 		1955B4861D644D9800DC102E /* HeadForSectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4081D644D9800DC102E /* HeadForSectionTableViewCell.m */; };
@@ -169,8 +168,8 @@
 		275E9CCD1CFED0DC0075910D /* Overlay.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB11CFED0DC0075910D /* Overlay.png */; };
 		275E9CCE1CFED0DC0075910D /* 上传图片.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB21CFED0DC0075910D /* 上传图片.png */; };
 		275E9CD31CFED0DC0075910D /* Beedback.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB71CFED0DC0075910D /* Beedback.png */; };
-		275E9CD41CFED0DC0075910D /* 发送－未输入文字时.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB81CFED0DC0075910D /* 发送－未输入文字时.png */; };
-		275E9CD51CFED0DC0075910D /* 发送－输入文字后.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB91CFED0DC0075910D /* 发送－输入文字后.png */; };
+		275E9CD41CFED0DC0075910D /* send-notext.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB81CFED0DC0075910D /* send-notext.png */; };
+		275E9CD51CFED0DC0075910D /* send-text.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CB91CFED0DC0075910D /* send-text.png */; };
 		275E9CD71CFED0DC0075910D /* HeadUnLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBB1CFED0DC0075910D /* HeadUnLogin.png */; };
 		275E9CD91CFED0DC0075910D /* 局外人二维码.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CBD1CFED0DC0075910D /* 局外人二维码.jpg */; };
 		275E9CDC1CFED0DC0075910D /* NotLogin.png in Resources */ = {isa = PBXBuildFile; fileRef = 275E9CC01CFED0DC0075910D /* NotLogin.png */; };
@@ -186,6 +185,8 @@
 		2764A26E1D015F6B00916844 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26D1D015F6B00916844 /* Security.framework */; };
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
+		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
+		84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B581D6C14010020A1F0 /* SettingUpViewController.m */; };
 		840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */; };
 		840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
@@ -444,8 +445,6 @@
 		1955B3F81D644D9800DC102E /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
 		1955B3FA1D644D9800DC102E /* AboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutViewController.h; sourceTree = "<group>"; };
 		1955B3FB1D644D9800DC102E /* AboutViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutViewController.m; sourceTree = "<group>"; };
-		1955B3FC1D644D9800DC102E /* SettingTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingTableViewController.h; sourceTree = "<group>"; };
-		1955B3FD1D644D9800DC102E /* SettingTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingTableViewController.m; sourceTree = "<group>"; };
 		1955B3FF1D644D9800DC102E /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
 		1955B4001D644D9800DC102E /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		1955B4021D644D9800DC102E /* NetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
@@ -644,8 +643,8 @@
 		275E9CB11CFED0DC0075910D /* Overlay.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Overlay.png; sourceTree = "<group>"; };
 		275E9CB21CFED0DC0075910D /* 上传图片.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "上传图片.png"; sourceTree = "<group>"; };
 		275E9CB71CFED0DC0075910D /* Beedback.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Beedback.png; sourceTree = "<group>"; };
-		275E9CB81CFED0DC0075910D /* 发送－未输入文字时.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送－未输入文字时.png"; sourceTree = "<group>"; };
-		275E9CB91CFED0DC0075910D /* 发送－输入文字后.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "发送－输入文字后.png"; sourceTree = "<group>"; };
+		275E9CB81CFED0DC0075910D /* send-notext.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-notext.png"; sourceTree = "<group>"; };
+		275E9CB91CFED0DC0075910D /* send-text.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "send-text.png"; sourceTree = "<group>"; };
 		275E9CBB1CFED0DC0075910D /* HeadUnLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = HeadUnLogin.png; sourceTree = "<group>"; };
 		275E9CBD1CFED0DC0075910D /* 局外人二维码.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "局外人二维码.jpg"; sourceTree = "<group>"; };
 		275E9CC01CFED0DC0075910D /* NotLogin.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = NotLogin.png; sourceTree = "<group>"; };
@@ -661,6 +660,10 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMineViewController.h; sourceTree = "<group>"; };
+		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
+		84053B571D6C14010020A1F0 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
+		84053B581D6C14010020A1F0 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
 		840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
 		840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@3x.png"; sourceTree = "<group>"; };
 		8416DA811D6800E90098A412 /* CommentManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentManagerModel.h; sourceTree = "<group>"; };
@@ -993,21 +996,22 @@
 		1955B3BA1D644D9800DC102E /* MyCenter */ = {
 			isa = PBXGroup;
 			children = (
-				1955B3BB1D644D9800DC102E /* BrowserHistory */,
+				1955B3FE1D644D9800DC102E /* Views */,
 				1955B3C41D644D9800DC102E /* Cells */,
+				1955B3E11D644D9800DC102E /* Controller */,
+				1955B3BB1D644D9800DC102E /* BrowserHistory */,
 				1955B3CF1D644D9800DC102E /* Collection */,
 				1955B3D81D644D9800DC102E /* Comments */,
-				1955B3E11D644D9800DC102E /* Controller */,
-				1955B3EA1D644D9800DC102E /* EditView.h */,
-				1955B3EB1D644D9800DC102E /* EditView.m */,
-				1955B3EC1D644D9800DC102E /* EditView.xib */,
+				1955B3F91D644D9800DC102E /* Setting */,
+				84053B531D6BE9AF0020A1F0 /* AboutMine */,
 				1955B3ED1D644D9800DC102E /* Feedback */,
 				1955B3F51D644D9800DC102E /* JWRImageView.h */,
 				1955B3F61D644D9800DC102E /* JWRImageView.m */,
+				1955B3EA1D644D9800DC102E /* EditView.h */,
+				1955B3EB1D644D9800DC102E /* EditView.m */,
+				1955B3EC1D644D9800DC102E /* EditView.xib */,
 				1955B3F71D644D9800DC102E /* LoginState.h */,
 				1955B3F81D644D9800DC102E /* LoginState.m */,
-				1955B3F91D644D9800DC102E /* Setting */,
-				1955B3FE1D644D9800DC102E /* Views */,
 			);
 			path = MyCenter;
 			sourceTree = "<group>";
@@ -1105,8 +1109,8 @@
 			children = (
 				1955B3FA1D644D9800DC102E /* AboutViewController.h */,
 				1955B3FB1D644D9800DC102E /* AboutViewController.m */,
-				1955B3FC1D644D9800DC102E /* SettingTableViewController.h */,
-				1955B3FD1D644D9800DC102E /* SettingTableViewController.m */,
+				84053B571D6C14010020A1F0 /* SettingUpViewController.h */,
+				84053B581D6C14010020A1F0 /* SettingUpViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1686,8 +1690,8 @@
 				275E9CB11CFED0DC0075910D /* Overlay.png */,
 				275E9CB21CFED0DC0075910D /* 上传图片.png */,
 				275E9CB71CFED0DC0075910D /* Beedback.png */,
-				275E9CB81CFED0DC0075910D /* 发送－未输入文字时.png */,
-				275E9CB91CFED0DC0075910D /* 发送－输入文字后.png */,
+				275E9CB81CFED0DC0075910D /* send-notext.png */,
+				275E9CB91CFED0DC0075910D /* send-text.png */,
 				275E9CBB1CFED0DC0075910D /* HeadUnLogin.png */,
 				275E9CBD1CFED0DC0075910D /* 局外人二维码.jpg */,
 				275E9CC01CFED0DC0075910D /* NotLogin.png */,
@@ -1698,6 +1702,15 @@
 				275E9CC71CFED0DC0075910D /* 跳转.png */,
 			);
 			path = MyCenter;
+			sourceTree = "<group>";
+		};
+		84053B531D6BE9AF0020A1F0 /* AboutMine */ = {
+			isa = PBXGroup;
+			children = (
+				84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */,
+				84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */,
+			);
+			path = AboutMine;
 			sourceTree = "<group>";
 		};
 		8497DFCC1CEEECB400D7D105 /* Detail */ = {
@@ -2181,7 +2194,7 @@
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				845CCBAC1D4F029D005ABD7B /* tab_h3_pre@3x.png in Resources */,
 				1955B4701D644D9800DC102E /* NoCollectionTableViewCell.xib in Resources */,
-				275E9CD51CFED0DC0075910D /* 发送－输入文字后.png in Resources */,
+				275E9CD51CFED0DC0075910D /* send-text.png in Resources */,
 				84CBCC5F1D4B2994000DAEA8 /* tab_huifu_blue@3x.png in Resources */,
 				845CCB9C1D4EF4D0005ABD7B /* tab_xiahuaxian_pre@3x.png in Resources */,
 				84D7AC271D6403E000023D57 /* nav_backwhite@2x.png in Resources */,
@@ -2206,7 +2219,7 @@
 				1955B4721D644D9800DC102E /* CommentsTableViewCell.xib in Resources */,
 				84B9B4601D4863B300DDF15B /* btn_night_rijian@3x.png in Resources */,
 				8427F7571D588B810073AB7F /* nav_zt@3x.png in Resources */,
-				275E9CD41CFED0DC0075910D /* 发送－未输入文字时.png in Resources */,
+				275E9CD41CFED0DC0075910D /* send-notext.png in Resources */,
 				84B9B4581D48634E00DDF15B /* btn_col_pre@3x.png in Resources */,
 				845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */,
 				84CBCC5B1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png in Resources */,
@@ -2368,7 +2381,6 @@
 				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
-				1955B4831D644D9800DC102E /* SettingTableViewController.m in Sources */,
 				1955B4BD1D644DB400DC102E /* SurveyViewController.m in Sources */,
 				1955B4BB1D644DB400DC102E /* SurveyTableViewCell.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
@@ -2418,9 +2430,11 @@
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				1955B4691D644D9800DC102E /* MyHeadTableViewCell.m in Sources */,
+				84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */,
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
+				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,

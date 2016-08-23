@@ -85,11 +85,11 @@
 {
     if ([self.contentTextField.text isEqualToString:@""]) {
         self.SendBtn.layer.cornerRadius=3;
-        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
+        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"send-notext"] forState:UIControlStateNormal];
     }
     else {
         self.SendBtn.layer.cornerRadius=3;
-        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－输入文字后"] forState:UIControlStateNormal];
+        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"send-text"] forState:UIControlStateNormal];
     }
 
 }
@@ -129,7 +129,7 @@
     self.title = @"意见反馈";
     
     self.SendBtn.layer.cornerRadius = 3;
-    [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
+    [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"send-notext"] forState:UIControlStateNormal];
 }
 
 
