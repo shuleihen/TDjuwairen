@@ -187,6 +187,10 @@
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
 		84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B581D6C14010020A1F0 /* SettingUpViewController.m */; };
+		84053B5C1D6C28B30020A1F0 /* PushMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */; };
+		84053B5F1D6C2BC20020A1F0 /* MessageChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */; };
+		84053B631D6C344E0020A1F0 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B621D6C344E0020A1F0 /* UserInfoViewController.m */; };
+		84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B651D6C46740020A1F0 /* UserInfoHeadView.m */; };
 		840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */; };
 		840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
@@ -664,6 +668,14 @@
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		84053B571D6C14010020A1F0 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
 		84053B581D6C14010020A1F0 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
+		84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageViewController.h; sourceTree = "<group>"; };
+		84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageViewController.m; sourceTree = "<group>"; };
+		84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageChildTableViewController.h; sourceTree = "<group>"; };
+		84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageChildTableViewController.m; sourceTree = "<group>"; };
+		84053B611D6C344E0020A1F0 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		84053B621D6C344E0020A1F0 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		84053B641D6C46740020A1F0 /* UserInfoHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoHeadView.h; sourceTree = "<group>"; };
+		84053B651D6C46740020A1F0 /* UserInfoHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoHeadView.m; sourceTree = "<group>"; };
 		840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
 		840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@3x.png"; sourceTree = "<group>"; };
 		8416DA811D6800E90098A412 /* CommentManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentManagerModel.h; sourceTree = "<group>"; };
@@ -1000,11 +1012,12 @@
 				1955B3C41D644D9800DC102E /* Cells */,
 				1955B3E11D644D9800DC102E /* Controller */,
 				1955B3BB1D644D9800DC102E /* BrowserHistory */,
-				1955B3CF1D644D9800DC102E /* Collection */,
 				1955B3D81D644D9800DC102E /* Comments */,
+				1955B3CF1D644D9800DC102E /* Collection */,
 				1955B3F91D644D9800DC102E /* Setting */,
 				84053B531D6BE9AF0020A1F0 /* AboutMine */,
 				1955B3ED1D644D9800DC102E /* Feedback */,
+				84053B601D6C343F0020A1F0 /* UserInfo */,
 				1955B3F51D644D9800DC102E /* JWRImageView.h */,
 				1955B3F61D644D9800DC102E /* JWRImageView.m */,
 				1955B3EA1D644D9800DC102E /* EditView.h */,
@@ -1081,14 +1094,14 @@
 		1955B3E11D644D9800DC102E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				1955B3E21D644D9800DC102E /* ChildTableViewController.h */,
-				1955B3E31D644D9800DC102E /* ChildTableViewController.m */,
 				1955B3E41D644D9800DC102E /* MyInfoViewController.h */,
 				1955B3E51D644D9800DC102E /* MyInfoViewController.m */,
 				1955B3E61D644D9800DC102E /* PersonalCenterViewController.h */,
 				1955B3E71D644D9800DC102E /* PersonalCenterViewController.m */,
 				1955B3E81D644D9800DC102E /* ViewManagerViewController.h */,
 				1955B3E91D644D9800DC102E /* ViewManagerViewController.m */,
+				1955B3E21D644D9800DC102E /* ChildTableViewController.h */,
+				1955B3E31D644D9800DC102E /* ChildTableViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1111,6 +1124,10 @@
 				1955B3FB1D644D9800DC102E /* AboutViewController.m */,
 				84053B571D6C14010020A1F0 /* SettingUpViewController.h */,
 				84053B581D6C14010020A1F0 /* SettingUpViewController.m */,
+				84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */,
+				84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */,
+				84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */,
+				84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -1713,6 +1730,17 @@
 			path = AboutMine;
 			sourceTree = "<group>";
 		};
+		84053B601D6C343F0020A1F0 /* UserInfo */ = {
+			isa = PBXGroup;
+			children = (
+				84053B611D6C344E0020A1F0 /* UserInfoViewController.h */,
+				84053B621D6C344E0020A1F0 /* UserInfoViewController.m */,
+				84053B641D6C46740020A1F0 /* UserInfoHeadView.h */,
+				84053B651D6C46740020A1F0 /* UserInfoHeadView.m */,
+			);
+			path = UserInfo;
+			sourceTree = "<group>";
+		};
 		8497DFCC1CEEECB400D7D105 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -2302,6 +2330,7 @@
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				1955B48E1D644D9800DC102E /* SharpDetailsViewController.m in Sources */,
+				84053B631D6C344E0020A1F0 /* UserInfoViewController.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
@@ -2324,6 +2353,7 @@
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
 				1955B4741D644D9800DC102E /* NoCommentsTableViewCell.m in Sources */,
 				8497E0651CEF0B2800D7D105 /* TAAnimatedDotView.m in Sources */,
+				84053B5F1D6C2BC20020A1F0 /* MessageChildTableViewController.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
@@ -2378,6 +2408,7 @@
 				1955B4781D644D9800DC102E /* PersonalCenterViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				1955B46F1D644D9800DC102E /* NoCollectionTableViewCell.m in Sources */,
+				84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */,
 				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
@@ -2427,6 +2458,7 @@
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
 				84E3346D1CE3123700E5DCEE /* UIImage+GIF.m in Sources */,
+				84053B5C1D6C28B30020A1F0 /* PushMessageViewController.m in Sources */,
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				1955B4691D644D9800DC102E /* MyHeadTableViewCell.m in Sources */,

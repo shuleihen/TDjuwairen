@@ -9,6 +9,8 @@
 #import "SettingUpViewController.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
+#import "PushMessageViewController.h"
+
 #import "SDImageCache.h"
 #import "MBProgressHUD.h"
 
@@ -129,6 +131,8 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             //
+            PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
+            [self.navigationController pushViewController:messagePush animated:YES];
         }
         else
         {

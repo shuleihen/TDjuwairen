@@ -18,8 +18,6 @@
 
 @interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
-    
-    
     BOOL edit;
     BOOL haveCollection;
     BOOL haveSelect;

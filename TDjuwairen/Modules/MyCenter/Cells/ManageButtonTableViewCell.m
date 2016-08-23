@@ -23,13 +23,13 @@
         self.CommentManage.backgroundColor = [UIColor clearColor];
         
         self.CollectManage = [[ButtonView alloc]initWithFrame:CGRectMake((kScreenWidth-2)/3+1, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
-        self.CollectManage.imageview.image = [UIImage imageNamed:@"collection"];
-        self.CollectManage.label.text = @"收藏管理";
+        self.CollectManage.imageview.image = [UIImage imageNamed:@"guanzhuImg"];
+        self.CollectManage.label.text = @"我的关注";
         self.CollectManage.backgroundColor = [UIColor clearColor];
         
         self.BrowseManage = [[ButtonView alloc]initWithFrame:CGRectMake(kScreenWidth-(kScreenWidth-2)/3, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
-        self.BrowseManage.imageview.image = [UIImage imageNamed:@"cookies"];
-        self.BrowseManage.label.text = @"浏览记录";
+        self.BrowseManage.imageview.image = [UIImage imageNamed:@"walletImg"];
+        self.BrowseManage.label.text = @"我的钱包";
         self.BrowseManage.backgroundColor = [UIColor clearColor];
         
         [self addSubview:self.CommentManage];

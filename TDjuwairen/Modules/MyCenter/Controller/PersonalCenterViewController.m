@@ -22,6 +22,8 @@
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
 #import "BrowserViewController.h"
+#import "UserInfoViewController.h"
+
 #import "UIdaynightModel.h"
 #import "HexColors.h"
 #import "YXFont.h"
@@ -239,15 +241,17 @@
         }
         else if(indexPath.row == 3)
         {
-            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
+            if (US.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
                 LoginViewController *login = [[LoginViewController alloc] init];
                 login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                 [self.navigationController pushViewController:login animated:YES];
             }
-            else//登录后 跳转收藏页面
+            else//登录后 跳转收藏管理页面
             {
-                
+                CollectionViewController *collection = [[CollectionViewController alloc] init];
+                collection.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:collection animated:YES];
             }
         }
         else if (indexPath.row == 4)
@@ -348,9 +352,12 @@
     }
     else//登录后 跳转收藏管理页面
     {
-        CollectionViewController *collection = [[CollectionViewController alloc] init];
-        collection.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:collection animated:YES];
+//        CollectionViewController *collection = [[CollectionViewController alloc] init];
+//        collection.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:collection animated:YES];
+        UserInfoViewController *uv = [[UserInfoViewController alloc]init];
+        uv.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:uv animated:YES];
     }
 }
 #pragma mark - 跳转到浏览记录
