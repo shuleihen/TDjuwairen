@@ -380,7 +380,7 @@
                 self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
             }
             // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
-//            self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
+            self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
             
             
             [wself.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];

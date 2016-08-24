@@ -304,14 +304,14 @@
         }
         ViewPointListModel *model = arr[indexPath.row];
         [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-        NSString *isoriginal;
-        if ([model.view_isoriginal isEqualToString:@"0"]) {
-            isoriginal = @"转载";
-        }else
-        {
-            isoriginal = @"原创";
-        }
-        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
+//        NSString *isoriginal;
+//        if ([model.view_isoriginal isEqualToString:@"0"]) {
+//            isoriginal = @"转载";
+//        }else
+//        {
+//            isoriginal = @"原创";
+//        }
+        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@ ",model.user_nickname,model.view_wtime];
         
 
         UIFont *font = [UIFont systemFontOfSize:16];
