@@ -38,7 +38,7 @@
     [self.louzhu addTarget:self action:@selector(justLouzhu:) forControlEvents:UIControlEventTouchUpInside];
     
     self.just = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 0, 80, 44)];
-    [self.just setTitle:@"只看楼主" forState:UIControlStateNormal];
+    [self.just setTitle:@"只看作者" forState:UIControlStateNormal];
     self.just.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.just addTarget:self action:@selector(justLouzhu:) forControlEvents:UIControlEventTouchUpInside];
     

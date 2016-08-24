@@ -15,8 +15,10 @@
     CommentsModel *model = [[CommentsModel alloc]init];
     model.user_id = dic[@"user_id"];
     model.user_headImg = dic[@"userinfo_facesmall"];
+    model.userinfo_facemedium = dic[@"userinfo_facemedium"];
     model.user_nickName = dic[@"user_nickname"];
     model.comment_goodnum = dic[@"comment_goodnum"];
+    model.commentStatus = dic[@"commentassessStatus"];
 
     NSString *str = dic[@"sharpcomment_ptime"];
     NSTimeInterval time = [str doubleValue];
@@ -36,7 +38,8 @@
     model.sharpcomment_userid = dic[@"sharpcomment_userid"];
     model.sharpcomment = dic[@"sharpcomment_text"];
     
-    model.viewcomment_id = dic[@"viewcomment_viewid"];
+    model.viewcomment_id = dic[@"viewcomment_id"];
+    model.viewcomment_pid = dic[@"viewcomment_pid"];
     model.viewcomment_userid = dic[@"viewcomment_userid"];
     model.viewcomment = dic[@"viewcomment_text"];
     
@@ -44,5 +47,7 @@
     
     return model;
 }
+
+
 
 @end

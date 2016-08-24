@@ -80,23 +80,34 @@
     NSString *daynight = [userdefault objectForKey:@"daynight"];
     if ([daynight isEqualToString:@"yes"]) {
         [daynightmodel day];
+        [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
+        
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
     }
     else
     {
         [daynightmodel night];
+        [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
     }
     
-    [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
-    [UINavigationBar appearance].translucent = NO;
-    [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
     
-    // 设置导航条标题字体和颜色
-    NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
-    [[UINavigationBar appearance] setTitleTextAttributes:dict];
-    
-    // 设置导航条左右按钮字体和颜色
-    NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
-    [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
  
     [UITabBar appearance].barTintColor = daynightmodel.navigationColor;
     [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];

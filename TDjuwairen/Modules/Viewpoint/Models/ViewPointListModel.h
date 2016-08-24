@@ -12,6 +12,7 @@
 
 @property (nonatomic,copy) NSString *view_id;             //文章id
 @property (nonatomic,copy) NSString *view_title;          //文章标题
+@property (nonatomic,copy) NSString *view_content;
 
 @property (nonatomic,copy) NSString *view_imgurl;         //文章图片url
 @property (nonatomic,copy) NSString *view_wtime;          //文章发表时间

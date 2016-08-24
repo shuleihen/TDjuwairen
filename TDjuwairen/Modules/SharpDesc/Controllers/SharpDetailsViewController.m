@@ -39,9 +39,12 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "HexColors.h"
+#import "YXFont.h"
 
 @interface SharpDetailsViewController ()<WKNavigationDelegate,WKUIDelegate,UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate,UINavigationControllerDelegate,UIWebViewDelegate,BackCommentViewDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,SharpTagsDelegate>
 {
+    CGSize titlesize;
     CGSize commentsize;
     CGSize originalsize;
     
@@ -82,6 +85,8 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic, assign) int page;
 @property (nonatomic,strong) MBProgressHUD *hubload;
+
+@property (nonatomic,assign) int comentheight;
 @end
 
 @implementation SharpDetailsViewController
@@ -128,6 +133,10 @@
     naviShow = NO;
     fontShow = NO;
     fontsize = @"100%";
+
+    self.comentheight = 0;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
 
@@ -147,6 +156,15 @@
     [self setupUICommon];
 
     [self refreshAction];
+    //收起键盘手势
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
+    tap.cancelsTouchesInView = NO;
+    [self.view addGestureRecognizer:tap];
+}
+
+- (void)viewTapped:(UIButton *)sender{
+    [self.view endEditing:YES];
+    self.nmview.alpha = 0.0;
 }
 
 - (void)setupWithNavigation{
@@ -230,6 +248,7 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.backgroundColor = self.daynightmodel.backColor;
     self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.view addSubview:self.tableview];
     
@@ -241,6 +260,9 @@
 {
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
     self.backcommentview.delegate = self;
+    self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+    self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+    self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
     self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.commentview.delegate = self;
     
@@ -268,6 +290,11 @@
         [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
         
         self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+        
+        self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+        self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+        self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
+        self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         
         [self.nmview.tableview reloadData];
         [self.tableview reloadData];
@@ -345,6 +372,19 @@
             self.sharpTagsArray = wself.sharpInfo.sharpTags;
             [wself relaodCommentNumber];
             [wself.tableview reloadData];
+            
+            //测试替换iframe标签宽高
+            NSString *s = @"iframe";
+            if ([self.sharpInfo.sharpContent rangeOfString:s].location != NSNotFound) {
+                //
+                NSString *oldiframe = @"height=\"500\" width=\"600\"";
+                NSString *newIframe = @"height=\"250\" width=\"100%\"";
+                self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
+            }
+            // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
+            self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
+            
+            
             [wself.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
             
         } else {
@@ -410,7 +450,7 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 130;
+            return 75+titlesize.height+10;
         }
         else if(indexPath.row == 1){
             return self.webview.frame.size.height;
@@ -437,8 +477,22 @@
         if (indexPath.row == 0) {
             return 44;
         }
-        /* 设置高度自适应 */
-        return 10+15+5+12+10+commentsize.height+10;
+        else
+        {
+            if (self.commentsDataArray.count == 0) {
+                return kScreenHeight-64-44;
+            }
+            else
+            {
+                if (indexPath.row == self.commentsDataArray.count) {
+                    if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count) > 10+15+5+12+10+commentsize.height+10) {
+                        return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count);
+                    }
+                }
+                /* 设置高度自适应 */
+                return 10+15+5+12+10+commentsize.height+10;
+            }
+        }
     }
     
 }
@@ -451,7 +505,15 @@
             if (titleCell == nil) {
                 titleCell = [[TitlesTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleCell"];
             }
-            titleCell.titleLabel.text = self.sharpInfo.sharpTitle;
+            NSString *text = self.sharpInfo.sharpTitle;
+            UIFont *font = [UIFont systemFontOfSize:20];
+            titleCell.titleLabel.font = font;
+            titleCell.titleLabel.numberOfLines = 0;
+            titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
+            titlesize = [text calculateSize:titlesize font:font];
+            titleCell.titleLabel.text = text;
+            [titleCell.titleLabel setFrame:CGRectMake(15, 75, kScreenWidth-30, titlesize.height)];
+            
             NSString *custime = [NSString prettyDateWithReference:self.sharpInfo.sharpWtime];
             titleCell.usernickname.text = self.sharpInfo.sharpUserName;
             titleCell.addtime.text = custime;
@@ -459,6 +521,7 @@
             
             titleCell.usernickname.textColor = self.daynightmodel.textColor;
             titleCell.addtime.textColor = self.daynightmodel.titleColor;
+            titleCell.titleLabel.textColor = self.daynightmodel.textColor;
             titleCell.backgroundColor = self.daynightmodel.navigationColor;
             
             return titleCell;
@@ -652,6 +715,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
+    self.nmview.alpha = 0.0;
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
@@ -1022,6 +1086,17 @@
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
             
+            [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+            [UINavigationBar appearance].translucent = NO;
+            [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+            // 设置导航条标题字体和颜色
+            NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+            [[UINavigationBar appearance] setTitleTextAttributes:dict];
+            
+            // 设置导航条左右按钮字体和颜色
+            NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+            [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+            
             NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
             
             NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
@@ -1046,6 +1121,18 @@
         daynight = @"yes";
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
+        
+        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+        
         NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
         
         NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
@@ -1062,8 +1149,18 @@
         //举报
         self.nmview.alpha = 0.0;
         naviShow = NO;
-        FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
-        [self.navigationController pushViewController:feedback animated:YES];
+        if (US.isLogIn == NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            [self.navigationController pushViewController:feedback animated:YES];
+            
+        }
     }
 }
 

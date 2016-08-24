@@ -8,6 +8,7 @@
 
 #import "ForgetViewController.h"
 #import "LoginState.h"
+#import "NetworkManager.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface ForgetViewController ()
@@ -89,7 +90,6 @@
     self.passwordText.textColor = [UIColor darkGrayColor];
     self.passwordText.font = [UIFont systemFontOfSize:14];
     self.passwordText.placeholder = @"密码";
-    self.passwordText.keyboardType = UIKeyboardTypeNumberPad;//数字键盘
     self.passwordText.clearButtonMode = UITextFieldViewModeAlways;//右边X号
     self.passwordText.secureTextEntry = YES;//显示为星号
     self.passwordText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
@@ -111,17 +111,76 @@
     submitBtn.layer.cornerRadius = 5;//圆角半径
     [submitBtn addTarget:self action:@selector(ClickSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+30, kScreenWidth-30, 14)];
+    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+30+50+10, kScreenWidth-30, 14)];
     [service setTitle:@"没有绑定手机号码/邮箱？点击联系客服" forState:UIControlStateNormal];
     service.titleLabel.font = [UIFont systemFontOfSize:14];
     [service setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
+    
+    [service addTarget:self action:@selector(contactCS:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.view addSubview:submitBtn];
     [self.view addSubview:service];
 }
 
 - (void)ClickSubmit:(UIButton *)sender{
-    
+    //判断
+    if ([self.accountText.text isEqualToString:@""]) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }else if ([self.validationText.text isEqualToString:@""]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }else if ([self.passwordText.text isEqualToString:@""]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }
+    else
+    {
+        [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
+            if (!error) {
+                //提交修改信息
+                [self SubmitUserinfo];
+            } else {
+                NSLog(@"错误信息：%@",error);
+                if ([self.validationText.text isEqualToString:@""]) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+                else{
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                    [self presentViewController:alert animated:YES completion:nil];
+                }
+            }
+        }];
+    }
+}
+
+- (void)SubmitUserinfo{
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary*paras = @{@"telephone":self.accountText.text};
+    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkTelephone/"];
+    [manager POST:url parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            NSLog(@"%@",data);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改成功" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                
+            }]];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            NSLog(@"%@",error);
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改失败" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 - (void)ClickSend:(UIButton *)sender{
@@ -132,6 +191,10 @@
             NSLog(@"错误信息：%@",error);
         }
     }];
+}
+
+- (void)contactCS:(UIButton *)sender{
+    
 }
 
 -(void)Verification

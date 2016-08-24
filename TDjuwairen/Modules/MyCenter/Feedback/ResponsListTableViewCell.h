@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "LoginState.h"
+#import "UIdaynightModel.h"
 
 @interface ResponsListTableViewCell : UITableViewCell
 
@@ -16,6 +17,7 @@
 @property (nonatomic,strong) UILabel *timeLab;
 @property (nonatomic,assign) int viewheight;
 @property (nonatomic,strong) LoginState *loginState;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andArr:(NSDictionary *)dic;
 

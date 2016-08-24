@@ -11,7 +11,7 @@
 
 #define API_HOST    @"http://appapi.juwairen.net/"
 
-#define kAPI_bendi @"http://192.168.1.103/tuanda_web/Appapi/index.php/"
+#define kAPI_bendi @"http://192.168.1.107/tuanda_web/Appapi/"
 
 #define API_AddBrowseHistory    @"index.php/Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"index.php/Public/getBrowseHistory"
@@ -42,10 +42,13 @@
 #define API_UploadUserface      @"User/userfaceImgUp"
 #define API_UploadContentPic    @"index.php/View/upViewContenPic1_2" //
 #define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"//
+#define API_AddGoodComment1_2   @"index.php/View/AddCommentAssessGood1_2"
 #define API_Search              @"index.php/Search/search"
+#define API_Search1_2           @"index.php/Search/search1_2"
 #define API_AddSharpComment     @"index.php/Sharp/addSharpComnment"
 #define API_GetSurveryList      @"index.php/Sharp/surveyList/page"
 #define API_GetVideoList        @"index.php/Sharp/VideoList/page"//
+#define API_GetViewComment      @"index.php/View/GetViewComment1_2"
 #define API_GetBanner           @"index.php/Index/indexBanner"
 
 #endif /* NetworkDefine_h */

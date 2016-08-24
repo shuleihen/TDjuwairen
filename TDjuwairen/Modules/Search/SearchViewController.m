@@ -9,14 +9,17 @@
 #import "SearchViewController.h"
 #import "HistoryView.h"
 #import "SurveyListModel.h"
+#import "ViewPointListModel.h"
 #import "SearchResultTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
 #import "NoResultTableViewCell.h"
 #import "AllNoResultTableViewCell.h"
 #import "SharpDetailsViewController.h"
+#import "DescContentViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
+#import "UIdaynightModel.h"
 
 @interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate,AllNoResultTableViewCellDelegate>
 {
@@ -42,6 +45,8 @@
 
 @property (nonatomic,strong) NSUserDefaults *defaults;
 @property (nonatomic,strong) NSArray *arr;
+
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation SearchViewController
@@ -53,6 +58,7 @@
     self.surveydata = [NSMutableArray array];
     self.researchdata = [NSMutableArray array];
     self.videodata = [NSMutableArray array];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
     
     [self setupWithSearchBar];
     [self setupWithTableview];
@@ -76,14 +82,14 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
     
-    [manager POST:API_Search parameters:dic completion:^(id data, NSError *error){
+    [manager POST:API_Search1_2 parameters:dic completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
             
-            NSArray *arr1 = dic[@"sharp_type1"];
+            NSArray *arr1 = dic[@"surveyList"];
             /* 清空数组 */
             [self.surveydata removeAllObjects];
             if ((NSNull *)arr1 != [NSNull null]) {
@@ -93,18 +99,18 @@
                 }
             }
             
-            NSArray *arr2 = dic[@"sharp_type2"];
+            NSArray *arr2 = dic[@"viewList"];
             /* 清空数组 */
             [self.researchdata removeAllObjects];
             
             if ((NSNull *)arr2 != [NSNull null]) {
                 for (NSDictionary *d in arr2) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                    ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:d];
                     [self.researchdata addObject:model];
                 }
             }
             
-            NSArray *arr3 = dic[@"sharp_type3"];
+            NSArray *arr3 = dic[@"videoList"];
             /* 清空数组 */
             [self.videodata removeAllObjects];
             if ((NSNull *)arr3 != [NSNull null]) {
@@ -116,7 +122,7 @@
             
             [self.tableview reloadData];
         } else {
-            
+            NSLog(@"%@",error);
         }
     }];
 }
@@ -124,20 +130,26 @@
 #pragma mark - 设置titleview
 - (void)setupWithSearchBar{
     UIView *titleview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    titleview.backgroundColor = [UIColor whiteColor];
+    titleview.backgroundColor = self.daynightmodel.navigationColor;
     
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 20, 50, 44)];
     back.titleLabel.font = [UIFont systemFontOfSize:16];
     [back setTitle:@"取消" forState:UIControlStateNormal];
-    [back setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
+    [back setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
     [back addTarget:self action:@selector(ClickBack:) forControlEvents:UIControlEventTouchUpInside];
     
     self.customSearchBar = [[UISearchBar alloc]initWithFrame:CGRectMake(15, 20+7, kScreenWidth-15-50, 30)];
     self.customSearchBar.delegate = self;
     self.customSearchBar.placeholder = @"请输入关键字、股票代码";
-    self.customSearchBar.layer.borderColor = [UIColor grayColor].CGColor;
-    self.customSearchBar.barTintColor = [UIColor whiteColor];
     self.customSearchBar.searchBarStyle = UISearchBarStyleMinimal;
+    
+    //获取searchBar里面的TextField
+    UITextField*searchField = [self.customSearchBar valueForKey:@"_searchField"];
+    //更改searchBar 中PlaceHolder 字体颜色
+    [searchField setValue:self.daynightmodel.inputColor forKeyPath:@"_placeholderLabel.textColor"];
+    //更改searchBar输入文字颜色
+    searchField.textColor= self.daynightmodel.textColor;
+    
     
     [self.view addSubview:titleview];
     [titleview addSubview:back];
@@ -158,6 +170,8 @@
     
     self.defaults = [NSUserDefaults standardUserDefaults];
     self.tagList = [[HistoryView alloc]initWithFrame:CGRectMake(0, 10, kScreenWidth, 1)];
+    
+    self.tableview.backgroundColor = self.daynightmodel.backColor;
     
 }
 
@@ -236,6 +250,7 @@
             }
             cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.text = @"搜索历史";
+            cell.textLabel.textColor = self.daynightmodel.textColor;
             cell.textLabel.font = [UIFont systemFontOfSize:15];
             cell.textLabel.textAlignment = NSTextAlignmentLeft;
             /* cell的选中样式为无色 */
@@ -277,6 +292,7 @@
             }
             cell.backgroundColor = [UIColor clearColor];
             cell.textLabel.text = @"清除搜索记录";
+            cell.textLabel.textColor = self.daynightmodel.titleColor;
             [cell.textLabel setTextAlignment:NSTextAlignmentCenter];
             [cell.textLabel setTextColor: [UIColor grayColor]];
             [cell.textLabel setFont:[UIFont systemFontOfSize:18.0]];
@@ -293,6 +309,9 @@
             cell.delegate = self;
             cell.promptLab.text = [NSString stringWithFormat:@"您搜索的股票 %@ 尚未调研，按提交，我们将尽快为您调研",self.customSearchBar.text];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            cell.promptLab.textColor = self.daynightmodel.textColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
         }
         else
@@ -307,9 +326,11 @@
                     }
                     cell.imgview.image = [UIImage imageNamed:@"tab_survey_normal"];
                     cell.headlabel.text = @"调研";
-                    
+                    cell.headlabel.textColor = self.daynightmodel.textColor;
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.backgroundColor = self.daynightmodel.navigationColor;
+                    
                     return cell;
                 }
                 else
@@ -334,6 +355,9 @@
                         cell.submit.center = CGPointMake(kScreenWidth/2, 10+40+10+textsize.height+20+20);
                         /* cell的选中样式为无色 */
                         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                        
+                        cell.backgroundColor = self.daynightmodel.navigationColor;
+                        cell.label.textColor = self.daynightmodel.textColor;
                         return cell;
                     }
                     else
@@ -353,6 +377,10 @@
                         
                         [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
                         
+                        cell.titleLabel.textColor = self.daynightmodel.textColor;
+                        cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+                        cell.backgroundColor = self.daynightmodel.navigationColor;
+                        
                         return cell;
                     }
                 }
@@ -366,8 +394,10 @@
                     }
                     cell.imgview.image = [UIImage imageNamed:@"tab_viewPoint_normal"];
                     cell.headlabel.text = @"观点";
+                    cell.headlabel.textColor = self.daynightmodel.textColor;
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.backgroundColor = self.daynightmodel.navigationColor;
                     return cell;
                 }
                 else
@@ -400,8 +430,8 @@
                         if (cell == nil) {
                             cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
                         }
-                        SurveyListModel *model = self.researchdata[indexPath.row-1];
-                        NSString *text = model.sharp_title;
+                        ViewPointListModel *model = self.researchdata[indexPath.row-1];
+                        NSString *text = model.view_title;
                         cell.titleLabel.text = text;
                         UIFont *font = [UIFont systemFontOfSize:16];
                         cell.titleLabel.font = font;
@@ -410,6 +440,10 @@
                         [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
                         
                         [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
+                        
+                        cell.titleLabel.textColor = self.daynightmodel.textColor;
+                        cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+                        cell.backgroundColor = self.daynightmodel.navigationColor;
                         
                         return cell;
                     }
@@ -426,8 +460,10 @@
                     }
                     cell.imgview.image = [UIImage imageNamed:@"tab_video_normal"];
                     cell.headlabel.text = @"视频";
+                    cell.headlabel.textColor = self.daynightmodel.textColor;
                     /* cell的选中样式为无色 */
                     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                    cell.backgroundColor = self.daynightmodel.navigationColor;
                     return cell;
                 }
                 else
@@ -470,6 +506,10 @@
                         [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
                         
                         [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
+                        
+                        cell.titleLabel.textColor = self.daynightmodel.textColor;
+                        cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+                        cell.backgroundColor = self.daynightmodel.navigationColor;
                         
                         return cell;
                     }
@@ -577,8 +617,7 @@
     }
     self.arr = [[NSArray alloc]initWithArray:searchHistory];
     self.arr = [[self.arr reverseObjectEnumerator]allObjects];
-    //替换掉set valuefor key ，因为会报错
-    [self.defaults arrayForKey:@"searchHistory"];
+    [self.defaults setObject:self.arr forKey:@"searchHistory"];
     [self.defaults synchronize];
     /* 判断当前是历史页面还是搜索列表页面 */
     if (self.customSearchBar.text.length == 0) {
@@ -586,7 +625,7 @@
             //点击清空的时候清空搜索历史
             [searchHistory removeAllObjects];
             self.arr = [[NSArray alloc]initWithArray:searchHistory];
-            [self.defaults arrayForKey:@"searchHistory"];
+            [self.defaults setObject:self.arr forKey:@"searchHistory"];
             [self.defaults synchronize];
             [self.tableview reloadData];
         }
@@ -611,10 +650,9 @@
             if (self.researchdata.count != 0) {
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
-                    SurveyListModel *model = self.researchdata[indexPath.row-1];
-                   SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
-                    DetailView.sharp_id = model.sharp_id;
-                    
+                    ViewPointListModel *model = self.researchdata[indexPath.row-1];
+                   DescContentViewController *DetailView = [[DescContentViewController alloc] init];
+                    DetailView.view_id = model.view_id;
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
                 }
@@ -706,7 +744,7 @@
     }
     self.arr = [[NSArray alloc]initWithArray:searchHistory];
     self.arr = [[self.arr reverseObjectEnumerator]allObjects];
-    [self.defaults arrayForKey:@"searchHistory"];
+    [self.defaults setObject:self.arr forKey:@"searchHistory"];
     [self.defaults synchronize];
 }
 

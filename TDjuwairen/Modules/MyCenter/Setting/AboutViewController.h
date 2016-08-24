@@ -10,4 +10,10 @@
 
 @interface AboutViewController : UIViewController
 
+@property (weak, nonatomic) IBOutlet UILabel *labe1;
+
+@property (weak, nonatomic) IBOutlet UILabel *labe2;
+
+@property (weak, nonatomic) IBOutlet UILabel *label3;
+
 @end

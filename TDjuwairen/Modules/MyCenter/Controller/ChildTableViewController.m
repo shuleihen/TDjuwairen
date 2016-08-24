@@ -17,6 +17,8 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
+#import "DescContentViewController.h"
+#import "PublishViewViewController.h"
 
 @interface ChildTableViewController ()
 {
@@ -46,6 +48,7 @@
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     self.hud.labelText = @"加载中...";
     
+    
     [self addRefreshView];     //设置刷新
 }
 
@@ -68,6 +71,7 @@
 
 - (void)requestShowList:(int)typeID
 {
+    ID = typeID;
     NSDictionary *para ;
     if (typeID == 0) {
         para = @{@"user_id":US.userId,
@@ -154,6 +158,7 @@
         
         cell.textLabel.textColor = self.daynightmodel.titleColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
+        
         return cell;
     }
     else
@@ -172,7 +177,7 @@
         {
             isoriginal = @"原创";
         }
-        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",self.loginState.userName,model.view_wtime,isoriginal];
+        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",self.loginState.nickName,model.view_wtime,isoriginal];
         
         
         UIFont *font = [UIFont systemFontOfSize:16];
@@ -188,8 +193,23 @@
         cell.titleLabel.textColor = self.daynightmodel.textColor;
         cell.backgroundColor = self.daynightmodel.navigationColor;
         cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
+    
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+        if (self.listArr.count > 0) {
+            DescContentViewController *dc = [[DescContentViewController alloc] init];
+            ViewPointListModel *model = self.listArr[indexPath.row];
+            dc.view_id = model.view_id;
+            dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:dc animated:YES];
+        }
     
 }
 

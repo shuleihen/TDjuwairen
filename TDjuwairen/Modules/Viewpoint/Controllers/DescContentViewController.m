@@ -26,12 +26,14 @@
 #import "NSString+Ext.h"
 #import "MBProgressHUD.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "HexColors.h"
+#import "YXFont.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @import WebKit;
-@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,FloorInFloorViewDelegate,SharpTagsDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
+@interface DescContentViewController ()<UITableViewDelegate,UITableViewDataSource,NaviMoreViewDelegate,SelectFontViewDelegate,TimeHotComViewDelegate,BackCommentViewDelegate,CommentsCellDelegate,FloorInFloorViewDelegate,SharpTagsDelegate,WKUIDelegate,WKNavigationDelegate,UITextFieldDelegate>
 {
     BOOL naviShow;
     BOOL fontShow;
@@ -40,6 +42,8 @@
     CGSize commentsize;
     CGSize floorviewsize;
     BOOL firstClickComment;
+    BOOL timehot;
+    BOOL firstLoadComment;
 }
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NaviMoreView *nmview;
@@ -51,6 +55,7 @@
 @property (nonatomic,strong) NSMutableArray *FirstcommentArr;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (nonatomic,strong) LoginState *loginState;
 
 @property (nonatomic,strong) NSArray *sizeArr;
 
@@ -59,17 +64,25 @@
 
 @property (nonatomic,strong) MBProgressHUD *hudload;
 
+@property (nonatomic,strong) MBProgressHUD *hudloadCom;
+
 @property (nonatomic,strong) NSString *encryptedStr;
 
 @property (nonatomic,strong) SharpTags *tagList;
 @property (nonatomic,strong) NSMutableArray *sharpTagsArray;
+
+@property (nonatomic,strong) NSString *pid;
 
 @end
 
 @implementation DescContentViewController
 - (NaviMoreView *)nmview{
     if (!_nmview) {
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        //        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        NSString *str = @"yes";
+
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:str];
+        
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
     }
@@ -94,13 +107,17 @@
     self.sizeArr = @[@"120%",@"110%",@"100%",@"90%"];
     naviShow = NO;
     fontShow = NO;
-    fontsize = @"100%";
-    firstClickComment = YES;
-    self.daynightmodel = [UIdaynightModel sharedInstance];
     
+    fontsize = @"100%";
+    firstLoadComment = YES;
+    firstClickComment = YES;
+    self.pid = @"0";
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.loginState = [LoginState sharedInstance];
     
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.thview.timeBtn.selected = YES;
+    timehot = YES;
     
     [self setupWithNavigation];
     
@@ -119,6 +136,7 @@
 
 - (void)viewTapped:(UIButton *)sender{
     [self.view endEditing:YES];
+    self.nmview.alpha = 0.0;
 }
 
 #pragma mark - 监听daynight
@@ -131,6 +149,11 @@
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
     
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    
+    self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+    self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+    self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
+    self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     
     [self.nmview.tableview reloadData];
     [self.tableview reloadData];
@@ -171,33 +194,74 @@
 }
 
 - (void)requestWithCommentDataWithTimeHot{
-    NSString *urlPath ;
-    if (self.thview.timeBtn.selected == YES) {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
+    
+    if (!firstLoadComment == YES) {
+        self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        self.hudloadCom.labelText = @"加载中...";
     }
-    else
-    {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/GetViewComment1_2",API_HOST];
-    }
-    NSDictionary *dic = @{@"type":@"view",
-                          @"id":self.view_id,
-                          @"loadedLength":@"0"};
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:urlPath parameters:dic completion:^(id data, NSError *error) {
-        if (!error) {
-            NSArray *arr = data;
-            for (int i = 0; i<arr.count; i++) {
-                NSDictionary *dic = arr[i];
-                CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
-                [self.FirstcommentArr addObject:fModel];
+    NSDictionary *dic;
+        if (timehot == YES) {
+            if (self.loginState.isLogIn == YES) {
+                dic = @{
+                        @"view_id":self.view_id,
+                        @"user_id":self.loginState.userId,
+                        @"loadedLength":@"0"
+                        };
             }
-            [self.tableview reloadData];
+            else
+            {
+                dic = @{
+                        @"view_id":self.view_id,
+                        @"loadedLength":@"0"
+                        };
+            }
+            
         }
         else
         {
-            NSLog(@"%@",error);
+            if (self.loginState.isLogIn == YES) {
+                dic = @{
+                        @"type":@"hot",
+                        @"view_id":self.view_id,
+                        @"user_id":self.loginState.userId,
+                        @"loadedLength":@"0"
+                        };
+            }
+            else
+            {
+                dic = @{
+                        @"type":@"hot",
+                        @"view_id":self.view_id,
+                        @"loadedLength":@"0"
+                        };
+            }
         }
-    }];
+        
+        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                [self.FirstcommentArr removeAllObjects];
+                NSArray *arr = data;
+                for (int i = 0; i<arr.count; i++) {
+                    NSDictionary *dic = arr[i];
+                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
+                    [self.FirstcommentArr addObject:fModel];
+                }
+                if (!firstLoadComment == YES) {
+                    self.hudloadCom.labelText = @"加载完成";
+                    [self.hudloadCom hide:YES afterDelay:0.1];
+                }
+                firstLoadComment = NO;
+                [self.tableview reloadData];
+            }
+            else
+            {
+                self.hudloadCom.labelText = @"加载完成";
+                [self.hudloadCom hide:YES afterDelay:0.1];
+                NSLog(@"%@",error);
+            }
+        }];
+    
 }
 
 - (void)setupWithNavigation{
@@ -225,6 +289,9 @@
 
 - (void)setupWithCommentView{
     self.backcommentview = [[BackCommentView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
+    self.backcommentview.backgroundColor = self.daynightmodel.backColor;
+    self.backcommentview.commentview.backgroundColor = self.daynightmodel.inputColor;
+    self.backcommentview.commentview.textColor = self.daynightmodel.textColor;
     self.backcommentview.commentview.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     self.backcommentview.delegate = self;
     self.backcommentview.commentview.delegate = self;
@@ -273,8 +340,9 @@
             
             titleCell.usernickname.text = self.dataDic[@"view_author"];
             titleCell.addtime.text = custime;
+            
             NSString *text = self.dataDic[@"view_title"];
-            UIFont *font = [UIFont systemFontOfSize:16];
+            UIFont *font = [UIFont systemFontOfSize:20];
             titleCell.titleLabel.font = font;
             titleCell.titleLabel.numberOfLines = 0;
             titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
@@ -349,12 +417,17 @@
     else
     {
         if (self.FirstcommentArr.count == 0) {
-            NSString *identifier = @"cell";
+            NSString *identifier = @"commentCell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            
+            if (self.thview.louzhu.selected == YES) {
+                cell.textLabel.text = @"该作者没有对自己的文章发表评论";
             }
-            cell.textLabel.text = @"当前文章还没有评论";
+            else
+            {
+                cell.textLabel.text = @"当前文章还没有评论";
+            }
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             /* cell的选中样式为无色 */
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -368,10 +441,16 @@
             NSString *identifier = @"commentCell";
             CommentsModel *model = self.FirstcommentArr[indexPath.row];
             CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
+//            if (model.secondArr.count > 0) {
+//                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+//            }
+//            else
+//            {
                 cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
-            }
+//            }
+            
             cell.delegate = self;
+            cell.floorView.delegate = self;
             floorviewsize = cell.floorView.frame.size;
             
             NSString *comment = model.viewcomment;
@@ -381,15 +460,29 @@
             commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
             commentsize = [comment calculateSize:commentsize font:font];
             [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
-            
-            NSString *s = [NSString stringWithFormat:@"http://static.juwairen.net/Pc/Uploads/Images/Face/%@",model.user_headImg];
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:s]];
+
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
-            cell.numfloor.text = [NSString stringWithFormat:@"%lu楼",self.FirstcommentArr.count-indexPath.row];
+            cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.FirstcommentArr.count-(int)indexPath.row];
             cell.commentLab.text = model.viewcomment;
+            
+            
             [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
             cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+            cell.goodnumBtn.tag = [model.viewcomment_id integerValue];
+            [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
+            [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+            //判断点过没有
+            int status = [model.commentStatus intValue];
+            if (status == 0) {
+                cell.goodnumBtn.selected = NO;
+            }
+            else
+            {
+                cell.goodnumBtn.selected = YES;
+            }
             
+    
             [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
             cell.nickNameLab.textColor = self.daynightmodel.titleColor;
             cell.numfloor.textColor = self.daynightmodel.titleColor;
@@ -432,7 +525,7 @@
 {
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            return 130;
+            return 10+50+10+titlesize.height+10;
         }
         else if(indexPath.row == 1)
         {
@@ -445,8 +538,19 @@
     }
     else
     {
-
-        return 10+15+10+floorviewsize.height+15+commentsize.height+15;
+        if (self.FirstcommentArr.count == 0) {
+            return kScreenHeight-64-44;
+        }
+        else
+        {
+            if (indexPath.row == self.FirstcommentArr.count-1) {
+                if (kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.FirstcommentArr.count-1) > 10+15+10+floorviewsize.height+15+commentsize.height+15) {
+                    return kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.FirstcommentArr.count-1);
+                }
+            }
+            return 10+15+10+floorviewsize.height+15+commentsize.height+15;
+        }
+        
     }
 }
 
@@ -475,7 +579,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.FirstcommentArr.count > 0) {
+        [self.backcommentview.commentview becomeFirstResponder];
+        CommentsModel *fModel = self.FirstcommentArr[indexPath.row];
+        self.backcommentview.commentview.placeholder = [NSString stringWithFormat:@"回复 %@:",fModel.user_nickName];
+        self.pid = fModel.viewcomment_id;
+    }
 }
+
+- (void)replyThis:(FloorView *)sender
+{
+    if (self.FirstcommentArr.count > 0) {
+        [self.backcommentview.commentview becomeFirstResponder];
+        self.backcommentview.commentview.placeholder = [NSString stringWithFormat:@"回复 %@:",sender.nicknameLab.text];
+        self.pid = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+    }
+}
+
 
 #pragma mark - 标签代理方法
 - (void)ClickTags:(UIButton *)sender
@@ -490,19 +610,38 @@
 #pragma mark - FloorInFloorViewDelegate
 - (void)good:(UIButton *)sender
 {
-    if (sender.selected == YES) {
-        sender.selected = NO;
-        [sender setImage:[UIImage imageNamed:@"btn_dianzan_normal"] forState:UIControlStateNormal];
-        NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] - 1];
-        [sender setTitle:str forState:UIControlStateNormal];
+    if (self.loginState.isLogIn == YES) {
+        if (sender.selected == NO) {
+            NSLog(@"%ld",(long)sender.tag);
+            NSString *comment_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+            self.loginState = [LoginState sharedInstance];
+            //点赞
+            NSDictionary *dic = @{@"userid":self.loginState.userId,
+                                  @"comment_id":comment_id};
+            NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+            [ma POST:API_AddGoodComment1_2 parameters:dic completion:^(id data, NSError *error) {
+                if (!error) {
+                    NSLog(@"成功");
+                    sender.selected = YES;
+                    [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
+                    NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
+                    [sender setTitle:str forState:UIControlStateNormal];
+                }
+                else
+                {
+                    NSLog(@"%@",error);
+                }
+            }];
+        }
     }
     else
     {
-        sender.selected = YES;
-        [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
-        NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
-        [sender setTitle:str forState:UIControlStateNormal];
+        //跳转到登录页面
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:login animated:YES];
     }
+    
     
 }
 
@@ -619,6 +758,17 @@
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
             
+            [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+            [UINavigationBar appearance].translucent = NO;
+            [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+            // 设置导航条标题字体和颜色
+            NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+            [[UINavigationBar appearance] setTitleTextAttributes:dict];
+            
+            // 设置导航条左右按钮字体和颜色
+            NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+            [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+            
             NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
             
             NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
@@ -647,6 +797,18 @@
         daynight = @"yes";
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
+        
+        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].translucent = NO;
+        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        // 设置导航条标题字体和颜色
+        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+        [[UINavigationBar appearance] setTitleTextAttributes:dict];
+        
+        // 设置导航条左右按钮字体和颜色
+        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+        
         NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
         
         NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
@@ -667,9 +829,18 @@
         //举报
         self.nmview.alpha = 0.0;
         naviShow = NO;
-        FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
-        [self.navigationController pushViewController:feedback animated:YES];
-        
+        if (US.isLogIn == NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            [self.navigationController pushViewController:feedback animated:YES];
+            
+        }
     }
 }
 
@@ -768,24 +939,60 @@
     
     if (self.thview.louzhu.selected == YES) {
         self.thview.louzhu.selected = NO;
+        [self requestWithCommentDataWithTimeHot];
     }
     else
     {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"加载中...";
         self.thview.louzhu.selected = YES;
+        NSDictionary *dic = @{
+                              @"type":@"my",
+                              @"view_id":self.view_id,
+                              @"user_id":self.loginState.userId,
+                              @"loadedLength":@"0"
+                              };
+        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                [self.FirstcommentArr removeAllObjects];
+                NSArray *arr = data;
+                for (int i = 0; i<arr.count; i++) {
+                    NSDictionary *dic = arr[i];
+                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
+                    [self.FirstcommentArr addObject:fModel];
+                }
+                
+                hud.labelText = @"加载完成";
+                [hud hide:YES afterDelay:0.1];
+                [self.tableview reloadData];
+            }
+            else
+            {
+                hud.labelText = @"加载完成";
+                [hud hide:YES afterDelay:0.1];
+                [self.FirstcommentArr removeAllObjects];
+                [self.tableview reloadData];
+                NSLog(@"%@",error);
+            }
+        }];
     }
 }
 
 - (void)selectTime:(UIButton *)sender
 {
     self.selTimeHotBtn.selected = NO;
+    self.thview.louzhu.selected = NO;
     if (sender.selected == YES) {
         sender.selected = NO;
+        timehot = YES;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         sender.selected = YES;
+        timehot = YES;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
@@ -794,14 +1001,17 @@
 - (void)selectHot:(UIButton *)sender
 {
     self.selTimeHotBtn.selected = NO;
+    self.thview.louzhu.selected = NO;
     if (sender.selected == YES) {
         sender.selected = NO;
+        timehot = NO;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
     else
     {
         sender.selected = YES;
+        timehot = NO;
         self.selTimeHotBtn = sender;
         [self requestWithCommentDataWithTimeHot];
     }
@@ -817,7 +1027,7 @@
 }
 
 #pragma mark - 发送评论
-- (void)sendCommentWithText:(NSString *)text{
+- (void)sendCommentWithText:(NSString *)text {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"发表评论";
     
@@ -825,15 +1035,18 @@
     NSDictionary *para = @{@"comment_content":text,
                           @"user_id":US.userId,
                           @"view_id":self.view_id,
-                          @"comment_pid":@"38"};
+                          @"comment_pid":self.pid};
     
     [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.1f];
             
+            self.pid = @"0";//成功后清零
+            
             [self requestWithCommentDataWithTimeHot];
             self.backcommentview.commentview.text = @"";
+            self.backcommentview.commentview.placeholder = @"自古评论出人才，快来发表评论吧";
             //滑动到评论
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -880,6 +1093,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self.backcommentview.commentview resignFirstResponder];
+    self.nmview.alpha = 0.0;
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
         [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
@@ -1004,6 +1218,7 @@
 - (void)keyboardWillBeHidden{
 
     self.backcommentview.transform = CGAffineTransformIdentity;
+    self.backcommentview.commentview.placeholder = @"自古评论出人才，快来发表评论吧";
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{

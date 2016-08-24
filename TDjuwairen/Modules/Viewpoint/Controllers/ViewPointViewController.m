@@ -184,7 +184,7 @@
 //        urlPath = [NSString stringWithFormat:@"index.php/View/recLists1_2/page/%d",self.page];
 //    }
 //    else if (n == 1){
-        urlPath = [NSString stringWithFormat:@"index.php/View/newLists1_2/page/%d",self.page];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/newLists1_2/page/%d",API_HOST,self.page];
 //    }
 //    else
 //    {
@@ -196,7 +196,7 @@
             NSArray *dataArray = data;
             if (dataArray.count > 0) {
                 NSMutableArray *list = nil;
-
+                
                 if (wself.page == 1) {
                     list = [NSMutableArray arrayWithCapacity:[dataArray count]];
                 } else {
@@ -304,14 +304,14 @@
         }
         ViewPointListModel *model = arr[indexPath.row];
         [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-        NSString *isoriginal;
-        if ([model.view_isoriginal isEqualToString:@"0"]) {
-            isoriginal = @"转载";
-        }else
-        {
-            isoriginal = @"原创";
-        }
-        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
+//        NSString *isoriginal;
+//        if ([model.view_isoriginal isEqualToString:@"0"]) {
+//            isoriginal = @"转载";
+//        }else
+//        {
+//            isoriginal = @"原创";
+//        }
+        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@ ",model.user_nickname,model.view_wtime];
         
 
         UIFont *font = [UIFont systemFontOfSize:16];
@@ -321,7 +321,7 @@
         titlesize = [model.view_title calculateSize:titlesize font:font];
         cell.titleLabel.text = model.view_title;
         [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15, kScreenWidth, 1)];
+        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+15-1, kScreenWidth, 1)];
         
         
         cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
@@ -381,7 +381,6 @@
     self.cateview.selectBtn = btn;
     
     self.cateview.selectLab.frame = CGRectMake(70*x, 38, 70, 2);
-//    [self requestDataWithNumber:num]; //不再请求
     
 }
 #pragma mark - 跳转发布
@@ -404,6 +403,7 @@
 
 - (void)GoSearch:(UIButton *)sender{
     SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     [self.navigationController pushViewController:searchView animated:YES];
 }
 

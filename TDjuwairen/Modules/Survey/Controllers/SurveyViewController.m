@@ -32,7 +32,6 @@
     CGSize titlesize;
     CGSize descsize;
     BOOL isFirstRequest;
-    NSString *trackViewUrl;
     
 }
 
@@ -96,7 +95,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
-    
+    [self.NavigationView.searchButton setBackgroundColor:self.daynightmodel.inputColor];
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
@@ -173,7 +172,7 @@
 -(void)requestDataWithSurveyList{
     __weak SurveyViewController *wself = self;
     
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *url = [NSString stringWithFormat:@"%@/%d",API_GetSurveryList,self.page];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
@@ -338,7 +337,9 @@
     
     if (US.isLogIn) {     //为登录状态
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":self.scrollIDArray[index]};
+        NSDictionary *dic = @{@"userid":US.userId,
+                              @"module_id":@2,
+                              @"item_id":self.scrollIDArray[index]};
         
         [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
             if (!error) {
@@ -376,8 +377,6 @@
             }
         }];
     }
-    
-    //    [self presentViewController:DetailView animated:YES completion:nil];
     [self.navigationController pushViewController:DetailView animated:YES];
 }
 
@@ -483,12 +482,12 @@
         NSDictionary *infoDic = [[NSBundle mainBundle] infoDictionary];
         NSString *currentVersion = [infoDic objectForKey:@"CFBundleShortVersionString"];
         
-        trackViewUrl = [[infoContent objectAtIndex:0] objectForKey:@"trackViewUrl"];
+        NSString *trackViewUrl = [[infoContent objectAtIndex:0] objectForKey:@"trackViewUrl"];
         if (![newversion isEqualToString:currentVersion]) {
             //判断当前设备版本
             float iOSVersion = [[UIDevice currentDevice].systemVersion floatValue];
             if (iOSVersion < 8.0f) {
-                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"当前有新版本了哟" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
+                UIAlertView *alert = [[UIAlertView alloc]initWithTitle:@"提示" message:@"您的系统版本过低，为了更好的用户体验请升级" delegate:self cancelButtonTitle:@"取消" otherButtonTitles:nil];
                 [alert addButtonWithTitle:@"确定"];
                 [alert show];
             }
@@ -506,15 +505,6 @@
             }
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error){}];
-}
-
-- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSString *titleString = [alertView buttonTitleAtIndex:buttonIndex];
-    if ([titleString isEqualToString:@"确定"]) {
-        //跳转到商店
-        [[UIApplication sharedApplication] openURL:[NSURL URLWithString:trackViewUrl]];
-    }
 }
 
 @end

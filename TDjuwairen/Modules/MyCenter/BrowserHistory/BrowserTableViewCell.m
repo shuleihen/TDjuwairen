@@ -11,14 +11,28 @@
 #import "UIImageView+WebCache.h"
 
 @interface BrowserTableViewCell ()
+
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation BrowserTableViewCell
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.line.layer.borderColor = self.daynightmodel.backColor.CGColor;
+    self.line.layer.borderWidth = 0.5;
+    // Initialization code
+}
 
 -(void)setCellWithDic:(NSDictionary *)dic
 {
     self.timeLabel.text = [NSString stringWithFormat:@"%@浏览",[self setLabelsTime:[dic[@"history_item_time"]integerValue]]];
     self.SharpTitle.text = dic[@"sharp_title"];
+    
+    self.backgroundColor = self.daynightmodel.navigationColor;
+    self.timeLabel.textColor = self.daynightmodel.titleColor;
+    self.SharpTitle.textColor = self.daynightmodel.textColor;
     
     NSString*url=dic[@"sharp_pic280"];
     [self.SharpImage sd_setImageWithURL:[NSURL URLWithString:url]];

@@ -15,6 +15,7 @@
     ViewPointListModel *model = [[ViewPointListModel alloc]init];
     model.view_id = dic[@"view_id"];
     model.view_title = dic[@"view_title"];
+    model.view_content = dic[@"view_content"];
     model.user_facemin = dic[@"userinfo_facesmall"];
     if (!dic[@"user_nickname"]) {
         model.user_nickname = dic[@"view_author"];

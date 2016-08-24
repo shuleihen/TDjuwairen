@@ -14,6 +14,7 @@
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"
+#import "UIdaynightModel.h"
 
 @interface BrowserViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -28,6 +29,7 @@
 @property (nonatomic,strong) UIBarButtonItem *editItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelItem;
 @property(nonatomic,strong) EditView *editView;
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @end
 
 @implementation BrowserViewController
@@ -35,11 +37,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    haveSelect = NO;
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    
     [self setNavigation];
     [self setupWithTableView];
     [self setupEditToolView];
-    
-    haveSelect=NO;
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -69,13 +72,15 @@
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
     self.tableview.allowsMultipleSelectionDuringEditing = YES;
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.separatorInset = UIEdgeInsetsZero;
     self.tableview.tableFooterView = [[UIView alloc] init];
     [self.view addSubview:self.tableview];
     
     [self.tableview registerNib:[UINib nibWithNibName:@"BrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"BrowserCell"];
     [self.tableview registerNib:[UINib nibWithNibName:@"NoBrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoBrowserCell"];
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
 }
 
 - (void)setupEditToolView
@@ -83,12 +88,12 @@
     self.editView = [[EditView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50)];
     [self.editView.selectBtn addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
     [self.editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_editView];
+    [self.view addSubview:self.editView];
 }
 
 -(void)editClick
 {
-    if (edit==NO) {
+    if (edit == NO) {
         [UIView animateWithDuration:0.3 animations:^{
             self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds)-50, CGRectGetWidth(self.view.bounds), 50);
         } completion:^(BOOL finished) {
@@ -197,7 +202,7 @@
 {
     self.BrowserArray=[[NSMutableArray alloc]init];
     
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary*paras = @{@"userid":US.userId};
     
     [manager POST:API_GetBrowseHistory parameters:paras completion:^(id data, NSError *error){
@@ -206,7 +211,7 @@
             NSArray*array = data;
             NSDictionary*dic = array[1];
             NSArray*arr = dic[@"List"];
-            
+           
             for (NSDictionary*dic in arr) {
                 
                 [self.BrowserArray insertObject:dic atIndex:0];
@@ -243,7 +248,9 @@
     }
     else
     {
-        BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
+        NoBrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
+        cell.backgroundColor = self.daynightmodel.backColor;
+        cell.label.textColor = self.daynightmodel.textColor;
         return cell;
     }
 }
@@ -256,7 +263,7 @@
     }
     else
     {
-        return 568;
+        return kScreenHeight-64;
     }
 }
 
@@ -301,10 +308,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {    
     if (edit == NO) {
-        NSDictionary *dic = self.BrowserArray[indexPath.row];
-        SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
-        sharp.sharp_id = dic[@"sharp_id"];
-        [self.navigationController pushViewController:sharp animated:YES];
+        if (self.BrowserArray.count > 0) {
+            NSDictionary *dic = self.BrowserArray[indexPath.row];
+            SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
+            sharp.sharp_id = dic[@"sharp_id"];
+            [self.navigationController pushViewController:sharp animated:YES];
+        }
+        else
+        {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
     }
 }
 

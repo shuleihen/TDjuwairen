@@ -78,6 +78,7 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
 //    
     self.NavigationView.backgroundColor = self.daynightmodel.navigationColor;
+    [self.NavigationView.searchButton setBackgroundColor:self.daynightmodel.inputColor];
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
     self.view.backgroundColor = self.daynightmodel.navigationColor;
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
@@ -222,6 +223,7 @@
 #pragma mark - 点击搜索
 - (void)ClickSearchButton:(UIButton *)sender{
     SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchView animated:YES];
 }
 
@@ -243,6 +245,7 @@
     
     SurveyListModel *model = self.VideoListArray[indexPath.row];
     cell.titlelabel.text = model.sharp_title;
+    cell.imgview.layer.masksToBounds = YES;
     [cell.imgview sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
     [cell.userhead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
     NSString *currenttiem = [NSString prettyDateWithReference:model.sharp_wtime];

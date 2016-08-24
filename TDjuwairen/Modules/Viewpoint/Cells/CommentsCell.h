@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "FloorInFloorView.h"
 
-@protocol FloorInFloorViewDelegate <NSObject>
+@protocol CommentsCellDelegate <NSObject>
 
 - (void)good:(UIButton *)sender;
 
@@ -30,7 +30,7 @@
 
 @property (nonatomic,strong) UILabel *line;
 
-@property (nonatomic,assign) id<FloorInFloorViewDelegate>delegate;
+@property (nonatomic,assign) id<CommentsCellDelegate>delegate;
 
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier andArr:(NSArray *)arr;
 @end

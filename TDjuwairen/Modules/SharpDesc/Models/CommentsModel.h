@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *user_id;
 
 @property (nonatomic,copy) NSString *user_headImg;
+@property (nonatomic,copy) NSString *userinfo_facemedium;
 
 @property (nonatomic,copy) NSString *user_nickName;
 
@@ -28,11 +29,15 @@
 
 @property (nonatomic,copy) NSString *viewcomment_id;//观点点评id
 
+@property (nonatomic,copy) NSString *viewcomment_pid;//观点父ID
+
 @property (nonatomic,copy) NSString *viewcomment;//观点点评内容
 
 @property (nonatomic,copy) NSString *viewcomment_userid;//观点点评作者
 
 @property (nonatomic,copy) NSString *viewcommentTime;//点评时间
+
+@property (nonatomic,copy) NSString *commentStatus; //是否点赞过
 
 @property (nonatomic,strong) NSArray *secondArr;
 

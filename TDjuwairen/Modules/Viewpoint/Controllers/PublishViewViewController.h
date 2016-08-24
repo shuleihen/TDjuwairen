@@ -10,4 +10,8 @@
 
 @interface PublishViewViewController : UIViewController
 
+@property (nonatomic,copy) NSString *titleStr;
+
+@property (nonatomic,copy) NSString *contentStr;
+
 @end

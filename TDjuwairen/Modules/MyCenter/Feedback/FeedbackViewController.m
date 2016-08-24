@@ -7,16 +7,17 @@
 //
 
 #import "FeedbackViewController.h"
-#import "FeedbackTableViewCell.h"
 #import "ResponsListTableViewCell.h"
 #import "LoginState.h"
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableview;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) NSMutableArray *dataArray;
 @property (nonatomic,assign) int cellheight;
 @end
@@ -30,7 +31,9 @@
     self.tableview.delegate=self;
     self.tableview.dataSource=self;
     self.contentTextField.delegate=self;
+    self.cellheight = 80;
     
+    self.loginState = [LoginState sharedInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     [self registerForKeyboardNotifications];
@@ -48,9 +51,6 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"意见反馈";
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 - (void)registerForKeyboardNotifications{
@@ -85,11 +85,11 @@
 {
     if ([self.contentTextField.text isEqualToString:@""]) {
         self.SendBtn.layer.cornerRadius=3;
-        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
+        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"send-notext"] forState:UIControlStateNormal];
     }
     else {
         self.SendBtn.layer.cornerRadius=3;
-        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－输入文字后"] forState:UIControlStateNormal];
+        [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"send-text"] forState:UIControlStateNormal];
     }
 
 }
@@ -110,21 +110,26 @@
     [super viewWillAppear:animated];
     [self setNavigation];
     [self requestInfo];
+    
+    self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    self.backView.backgroundColor = self.daynightmodel.backColor;
+    self.contentTextField.backgroundColor = self.daynightmodel.inputColor;
+    self.contentTextField.textColor = self.daynightmodel.textColor;
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
 }
 
 -(void)setNavigation
 {
-    UILabel*label=[[UILabel alloc]initWithFrame:CGRectMake(0, 0, 30, 15)];
-    label.text=@"意见反馈";
-    self.navigationItem.titleView=label;
+    self.title = @"意见反馈";
+    
     self.SendBtn.layer.cornerRadius = 3;
-    [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"发送－未输入文字时"] forState:UIControlStateNormal];
+    [self.SendBtn setBackgroundImage:[UIImage imageNamed:@"send-notext"] forState:UIControlStateNormal];
 }
 
 
@@ -180,6 +185,7 @@
     self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSLog(@"%@",US.userId);
     NSDictionary *paras = @{@"user_id":US.userId};
     
     [manager POST:API_GetUserFeedbackList parameters:paras completion:^(id data, NSError *error){
@@ -204,19 +210,22 @@
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSDictionary*dic = self.dataArray[indexPath.row];
-//    [tableView registerNib:[UINib nibWithNibName:@"FeedbackTableViewCell" bundle:nil] forCellReuseIdentifier:@"FeedbackCell"];
-//    FeedbackTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"FeedbackCell"];
-//    [cell cellforDic:dic];
-//    [cell setContentText:dic[@"feedback_content"]];
-    NSString *identifier = @"cell";
-    ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
+    if (self.dataArray.count > 0) {
+        NSDictionary*dic = self.dataArray[indexPath.row];
+        NSString *identifier = @"cell";
+        ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
+        }
+        self.cellheight = cell.viewheight;
+        
+        return cell;
     }
-    self.cellheight = cell.viewheight;
-    
-    return cell;
+    else
+    {
+        return nil;
+    }
+
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath

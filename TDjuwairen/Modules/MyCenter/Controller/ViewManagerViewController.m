@@ -39,6 +39,7 @@
     [super viewDidLoad];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.tableviewsArr = [NSMutableArray array];
+    self.view.backgroundColor = self.daynightmodel.navigationColor;
     
     [self setupWithNavigation];
     [self setupWithCategoryScroll];     //设置选择滚动条
@@ -52,9 +53,6 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"观点管理";
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 #pragma mark - 设置分类滑动条
@@ -62,13 +60,16 @@
     self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
     self.cateview.delegate = self;
     self.cateview.backgroundColor = self.daynightmodel.navigationColor;
+    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
+    self.cateview.line1.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+    self.cateview.line2.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
     [self.view addSubview:self.cateview];
     
 }
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-104-50)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-104-50)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -86,7 +87,7 @@
         ChildTableViewController *vc  = [[ChildTableViewController alloc] init];
         vc.delegate = self;
         vc.title  =  self.categoryArr[i];
-        vc.view.backgroundColor = [UIColor whiteColor];
+        vc.view.backgroundColor = self.daynightmodel.navigationColor;
         
         [self.tableviewsArr addObject:vc];
         [self addChildViewController:vc];
