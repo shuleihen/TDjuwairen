@@ -374,13 +374,13 @@
             [wself.tableview reloadData];
             
             //测试替换iframe标签宽高
-            NSString *s = @"iframe";
-            if ([self.sharpInfo.sharpContent rangeOfString:s].location != NSNotFound) {
-                //
-                NSString *oldiframe = @"height=\"500\" width=\"600\"";
-                NSString *newIframe = @"height=\"250\" width=\"100%\"";
-                self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
-            }
+//            NSString *s = @"iframe";
+//            if ([self.sharpInfo.sharpContent rangeOfString:s].location != NSNotFound) {
+//                //
+//                NSString *oldiframe = @"height=\"500\" width=\"600\"";
+//                NSString *newIframe = @"height=\"250\" width=\"100%\"";
+//                self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
+//            }
             // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
             self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
             
@@ -744,14 +744,19 @@
 #pragma mark UIWebViewDelegate
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSString *strRequest = [request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if([strRequest isEqualToString:@"about:blank"]) {
-        return YES;
-    } else if ([strRequest hasPrefix:@"http://player.youku.com"]) {
+    if (navigationType == UIWebViewNavigationTypeOther) {
         return YES;
     } else {
         return NO;
     }
+//    NSString *strRequest = [request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+//    if([strRequest isEqualToString:@"about:blank"]) {
+//        return YES;
+//    } else if ([strRequest hasPrefix:@"http://player.youku.com"]) {
+//        return YES;
+//    } else {
+//        return NO;
+//    }
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
@@ -783,6 +788,14 @@
         [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
         [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
     }
+    
+    // 调整视频iframe
+    NSString *iframejs = [NSString stringWithFormat:@"var videoNode=document.getElementsByTagName('iframe');\
+                          for(var i=0;i<videoNode.length;i++){\
+                              videoNode[i].width='%.0lf';\
+                              videoNode[i].height='250';\
+                          }",([UIScreen mainScreen].bounds.size.width-15)];
+    [self.webview stringByEvaluatingJavaScriptFromString:iframejs];
 }
 
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
