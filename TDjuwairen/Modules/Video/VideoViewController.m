@@ -150,7 +150,7 @@
 #pragma mark - 请求数据
 -(void)requestDataWithVideoList{
     NSString *string = [NSString stringWithFormat:@"%@/%d",API_GetVideoList,page];
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     
     [manager GET:string parameters:nil completion:^(id data, NSError *error){
         if (!error) {

@@ -172,7 +172,7 @@
 -(void)requestDataWithSurveyList{
     __weak SurveyViewController *wself = self;
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *url = [NSString stringWithFormat:@"%@/%d",API_GetSurveryList,self.page];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {

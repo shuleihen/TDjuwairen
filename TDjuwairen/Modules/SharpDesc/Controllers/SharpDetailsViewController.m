@@ -370,6 +370,19 @@
             self.sharpTagsArray = wself.sharpInfo.sharpTags;
             [wself relaodCommentNumber];
             [wself.tableview reloadData];
+            
+            //测试替换iframe标签宽高
+            NSString *s = @"iframe";
+            if ([self.sharpInfo.sharpContent rangeOfString:s].location != NSNotFound) {
+                //
+                NSString *oldiframe = @"height=\"500\" width=\"600\"";
+                NSString *newIframe = @"height=\"250\" width=\"100%\"";
+                self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
+            }
+            // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
+//            self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
+            
+            
             [wself.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
             
         } else {
