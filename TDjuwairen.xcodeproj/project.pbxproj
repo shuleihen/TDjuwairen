@@ -273,6 +273,7 @@
 		84D7AC3A1D64318D00023D57 /* btn_normal@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC381D64318D00023D57 /* btn_normal@3x.png */; };
 		84D8A8CF1CFFDA040072813D /* 收藏@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D8A8CD1CFFDA040072813D /* 收藏@3x.png */; };
 		84D8A8D01CFFDA040072813D /* 收藏成功@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D8A8CE1CFFDA040072813D /* 收藏成功@3x.png */; };
+		84D96F411D6D474F00BCA1E8 /* ChildBlogTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84D96F401D6D474F00BCA1E8 /* ChildBlogTableViewController.m */; };
 		84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E333EB1CE2BA3D00E5DCEE /* main.m */; };
 		84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */; };
 		84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 84E333F31CE2BA3D00E5DCEE /* Main.storyboard */; };
@@ -769,6 +770,8 @@
 		84D7AC381D64318D00023D57 /* btn_normal@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_normal@3x.png"; sourceTree = "<group>"; };
 		84D8A8CD1CFFDA040072813D /* 收藏@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收藏@3x.png"; sourceTree = "<group>"; };
 		84D8A8CE1CFFDA040072813D /* 收藏成功@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "收藏成功@3x.png"; sourceTree = "<group>"; };
+		84D96F3F1D6D474F00BCA1E8 /* ChildBlogTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildBlogTableViewController.h; sourceTree = "<group>"; };
+		84D96F401D6D474F00BCA1E8 /* ChildBlogTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildBlogTableViewController.m; sourceTree = "<group>"; };
 		84E333E71CE2BA3D00E5DCEE /* TDjuwairen.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TDjuwairen.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		84E333EB1CE2BA3D00E5DCEE /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -1737,6 +1740,8 @@
 				84053B621D6C344E0020A1F0 /* UserInfoViewController.m */,
 				84053B641D6C46740020A1F0 /* UserInfoHeadView.h */,
 				84053B651D6C46740020A1F0 /* UserInfoHeadView.m */,
+				84D96F3F1D6D474F00BCA1E8 /* ChildBlogTableViewController.h */,
+				84D96F401D6D474F00BCA1E8 /* ChildBlogTableViewController.m */,
 			);
 			path = UserInfo;
 			sourceTree = "<group>";
@@ -2476,6 +2481,7 @@
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
 				1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */,
+				84D96F411D6D474F00BCA1E8 /* ChildBlogTableViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

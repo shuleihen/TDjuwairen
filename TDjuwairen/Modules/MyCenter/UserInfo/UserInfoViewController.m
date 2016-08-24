@@ -9,24 +9,26 @@
 #import "UserInfoViewController.h"
 #import "CategoryView.h"
 #import "UserInfoHeadView.h"
+#import "ChildBlogTableViewController.h"
 
 #import "UIdaynightModel.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
-
+{
+    int num;
+}
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 @property (nonatomic,strong) UIView *naviBackView;   //用作navigation背景
 
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *categoryArr;
+@property (nonatomic,strong) NSMutableArray *tableviewsArr;
+@property (nonatomic,strong) UIScrollView *contentScrollview;
 
-@property (nonatomic,strong) UIView *headerContentView;
 @property (nonatomic,strong) UserInfoHeadView *headview;
 @property (nonatomic,strong) CategoryView *cateview;
 
-@property (nonatomic,assign) CGFloat headerHeight;
-@property (nonatomic,assign) CGFloat scale;//放大比例
 @end
 
 @implementation UserInfoViewController
@@ -42,9 +44,13 @@
     [super viewDidLoad];
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.tableviewsArr = [NSMutableArray array];
     
     [self setupWithNavigation];
     [self setupWithTableView];
+    [self addChildViewController];
+    
+    [self ClickBtn:self.cateview.selectBtn];
     // Do any additional setup after loading the view.
 }
 
@@ -57,11 +63,8 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
-    self.headerContentView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
     self.headview = [[UserInfoHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
-    [self.headerContentView addSubview:self.headview];
-    
-    self.tableview.tableHeaderView = self.headerContentView;
+    self.tableview.tableHeaderView = self.headview;
     
     //
     self.naviBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
@@ -76,6 +79,19 @@
     [self.view addSubview:backBtn];
 }
 
+- (void)addChildViewController{
+    
+    self.tableviewsArr = [NSMutableArray array];
+    for (int i = 0; i<self.categoryArr.count; i++) {
+        ChildBlogTableViewController *childblog  = [[ChildBlogTableViewController alloc] init];
+        childblog.title  =  self.categoryArr[i];
+        childblog.view.backgroundColor = self.daynightmodel.navigationColor;
+        
+        [self.tableviewsArr addObject:childblog];
+        [self addChildViewController:childblog];
+    }
+}
+
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
@@ -83,7 +99,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 100;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -93,19 +109,31 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    cell.textLabel.text = @"天马流星拳";
+    if (!self.contentScrollview) {
+        self.contentScrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-190-40)];
+        self.contentScrollview.delegate = self;
+        self.contentScrollview.showsHorizontalScrollIndicator = NO;
+        self.contentScrollview.showsVerticalScrollIndicator = NO;
+        self.contentScrollview.pagingEnabled = YES;
+        self.contentScrollview.backgroundColor = self.daynightmodel.navigationColor;
+        [cell.contentView addSubview:self.contentScrollview];
+        self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, 0);
+    }
     return cell;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
-    self.cateview.delegate = self;
-    self.cateview.backgroundColor = self.daynightmodel.navigationColor;
-    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
-    self.cateview.line1.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
-    self.cateview.line2.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+    if (!self.cateview) {
+        self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
+        self.cateview.delegate = self;
+        self.cateview.backgroundColor = self.daynightmodel.navigationColor;
+        self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
+        self.cateview.line1.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+        self.cateview.line2.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+    }
     return self.cateview;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
@@ -113,24 +141,15 @@
     return 40;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return self.contentScrollview.frame.size.height;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (self.tableview.contentOffset.y<0) {
         [self.naviBackView setHidden:YES];
-//        //放大比例
-//        CGFloat offset_Y = scrollView.contentOffset.y;
-//        self.headerHeight = 190;
-//        CGFloat add_topHeight = -(offset_Y+20);
-//        self.scale = (self.headerHeight+add_topHeight)/self.headerHeight;
-//        //改变 frame
-//        CGRect contentView_frame = CGRectMake(0, -add_topHeight, kScreenWidth, self.headerHeight+add_topHeight);
-//        self.headerContentView.frame = contentView_frame;
-//        CGRect imageView_frame = CGRectMake(
-//                                            -(kScreenWidth*self.scale-kScreenWidth)/2.0f,
-//                                            -add_topHeight,
-//                                            kScreenWidth*self.scale,
-//                                            self.headerHeight+add_topHeight);
-//        self.headview.frame = imageView_frame;
     }
     else
     {
@@ -141,7 +160,62 @@
 
 - (void)ClickBtn:(UIButton *)sender
 {
-    NSLog(@"%ld",(long)sender.tag);
+    self.cateview.selectBtn.selected = NO;
+    sender.selected = YES;
+    self.cateview.selectBtn = sender;
+    
+    self.cateview.selectLab.frame = CGRectMake(sender.frame.origin.x, 38, 70, 2);
+    
+    NSInteger i = sender.tag;
+    CGFloat x = i*kScreenWidth;
+    num = (int)i;
+    self.contentScrollview.contentOffset = CGPointMake(x, 0);
+    ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
+//    [childBlog requestShowList:num];
+    
+    [self setUpOneChildController:i];
+    
+    [childBlog.tableView setFrame:CGRectMake(i*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
+    [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    [childBlog.tableView reloadData];
+    [self.tableview reloadData];
+}
+
+- (void)setUpOneChildController:(NSInteger)index {
+    
+    CGFloat x  = index * kScreenWidth;
+    UITableViewController *vc  =  self.childViewControllers[index];
+    if (vc.view.superview) {
+        return;
+    }
+    vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-190-40);//50:TabBar高度
+    
+    [self.contentScrollview addSubview:vc.view];
+    
+}
+
+#pragma mark - scrollview delegate
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSInteger i = self.contentScrollview.contentOffset.x / kScreenWidth;
+    
+    self.cateview.selectBtn.selected = NO;
+    UIButton *btn = self.cateview.btnsArr[i];
+    btn.selected = YES;
+    self.cateview.selectBtn = btn;
+    self.cateview.selectLab.frame = CGRectMake(70*i, 38, 70, 2);
+    
+    num = (int)i;
+    ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
+//    [childblog requestShowList:num];
+    [self setUpOneChildController:i];
+    
+    [childBlog.tableView setFrame:CGRectMake(i*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
+    [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    [childBlog.tableView reloadData];
+    [self.tableview reloadData];
 }
 
 - (void)goBack:(UIButton *)sender{
