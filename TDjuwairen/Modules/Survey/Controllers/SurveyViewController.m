@@ -286,7 +286,7 @@
     
     NSString *text = model.sharp_title;
     
-    UIFont *font = [UIFont systemFontOfSize:16];
+    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
     cell.titleLabel.font = font;
     cell.titleLabel.numberOfLines = 0;
     titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);

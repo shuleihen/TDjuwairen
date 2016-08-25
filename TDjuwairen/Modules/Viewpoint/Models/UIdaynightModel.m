@@ -23,8 +23,8 @@
 
 - (void)day
 {
-    self.titleColor = [UIColor darkGrayColor];
-    self.textColor = [UIColor darkGrayColor];
+    self.titleColor = [UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:1.0];
+    self.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
     self.navigationColor = [UIColor whiteColor];
     self.backColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
     self.lineColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0];
@@ -33,7 +33,7 @@
 
 - (void)night
 {
-    self.titleColor = [UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:1.0];
+    self.titleColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
     self.textColor = [UIColor colorWithRed:153/255.0 green:153/255.0 blue:153/255.0 alpha:1.0];
     self.navigationColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
     self.backColor = [UIColor colorWithRed:47/255.0 green:48/255.0 blue:49/255.0 alpha:1.0];

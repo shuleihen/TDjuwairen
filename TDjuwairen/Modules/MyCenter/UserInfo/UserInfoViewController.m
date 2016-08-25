@@ -20,6 +20,7 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 @property (nonatomic,strong) UIView *naviBackView;   //用作navigation背景
+@property (nonatomic,strong) UIButton *isAttention;
 
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *categoryArr;
@@ -73,10 +74,14 @@
     [backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
     [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
+    self.isAttention = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 28, 80, 30)];
+    [self.isAttention setTitle:@"关注" forState:UIControlStateNormal];
+    
     
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.naviBackView];
     [self.view addSubview:backBtn];
+    [self.view addSubview:self.isAttention];
 }
 
 - (void)addChildViewController{

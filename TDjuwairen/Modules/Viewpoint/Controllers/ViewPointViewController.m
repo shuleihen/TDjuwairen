@@ -314,7 +314,7 @@
         cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
         
 
-        UIFont *font = [UIFont systemFontOfSize:18];
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
         cell.titleLabel.font = font;
         cell.titleLabel.numberOfLines = 0;
         titlesize = CGSizeMake(kScreenWidth-30, 500.0);
