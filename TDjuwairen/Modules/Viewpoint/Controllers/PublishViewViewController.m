@@ -192,12 +192,33 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"contentSize"]) {
+        //改变textview的高度
+        CGRect frame = self.contentText.frame;
+        if ([self.contentText.text isEqual:@""]) {
+            
+            if (![self.contentText.text isEqualToString:@""]) {
+                
+                self.contentHeight = [ self heightForTextView:self.contentText WithText:[self.contentText.text substringToIndex:[self.contentText.text length] - 1]];
+                
+            }else{
+                
+                self.contentHeight = [ self heightForTextView:self.contentText WithText:self.contentText.text];
+            }
+        }else{
+            
+            self.contentHeight = [self heightForTextView:self.contentText WithText:[NSString stringWithFormat:@"%@%@",self.contentText.text,self.contentText.text]];
+        }
+        frame.size.height = self.contentHeight;
+        [UIView animateWithDuration:0.5 animations:^{
+            
+            self.contentText.frame = frame;
+            
+        } completion:nil];
         self.scrollview.contentSize = CGSizeMake(kScreenWidth, self.titleText.frame.size.height+self.contentText.frame.size.height);
         
         if (self.contentText.contentSize.height > kScreenHeight-self.keyboardHeight-80-64-40) {
             if (self.frameHeight != self.contentText.frame.size.height) {
                 [self.scrollview setContentOffset:CGPointMake(0, self.contentText.contentSize.height-(kScreenHeight-self.keyboardHeight-80-64-40))];
-                self.scrollhei = self.scrollhei+50;
             }
         }
     }
