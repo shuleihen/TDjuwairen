@@ -14,8 +14,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *titlelabel;
 @property (weak, nonatomic) IBOutlet UIImageView *userhead;
 @property (weak, nonatomic) IBOutlet UILabel *usernickname;
-@property (weak, nonatomic) IBOutlet UIImageView *comment;
-@property (weak, nonatomic) IBOutlet UILabel *commentnumber;
 
 @property (nonatomic,strong) UIView *labelbackview;
 

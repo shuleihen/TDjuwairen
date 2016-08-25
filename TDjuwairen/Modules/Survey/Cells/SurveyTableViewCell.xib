@@ -30,18 +30,8 @@
                                     <constraint firstAttribute="height" constant="30" id="zcy-nB-T9s"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-7i-CBP">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cHN-7i-CBP">
                                 <rect key="frame" x="46" y="135" width="250" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="999+" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6tN-tm-uSL">
-                                <rect key="frame" x="363" y="141" width="35" height="16"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="35" id="FU1-SX-xuD"/>
-                                    <constraint firstAttribute="height" constant="16" id="g9l-wt-FSZ"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
@@ -52,36 +42,24 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="comment.png" translatesAutoresizingMaskIntoConstraints="NO" id="QMT-f9-9JV">
-                                <rect key="frame" x="355" y="144" width="10" height="10"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="10" id="Mql-bM-G6n"/>
-                                    <constraint firstAttribute="height" constant="10" id="epB-3s-QAO"/>
-                                </constraints>
-                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="centerX" secondItem="6JB-2v-Ahf" secondAttribute="centerX" constant="4" id="4dN-Zc-jUg"/>
                             <constraint firstItem="6JB-2v-Ahf" firstAttribute="top" secondItem="r8G-Ja-yxZ" secondAttribute="top" id="78X-ac-SRs"/>
                             <constraint firstAttribute="bottom" secondItem="MPI-T0-Jfv" secondAttribute="bottom" id="Dqm-Yi-CBC"/>
-                            <constraint firstItem="MPI-T0-Jfv" firstAttribute="top" secondItem="QMT-f9-9JV" secondAttribute="bottom" constant="19" id="IBn-IW-Coo"/>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="top" secondItem="6JB-2v-Ahf" secondAttribute="bottom" id="SDU-AB-Pxi"/>
                             <constraint firstItem="cHN-7i-CBP" firstAttribute="leading" secondItem="oGc-EW-Lbb" secondAttribute="trailing" constant="8" symbolic="YES" id="SlO-Bb-IK2"/>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="top" secondItem="oGc-EW-Lbb" secondAttribute="bottom" constant="8" symbolic="YES" id="VUM-Aa-iOm"/>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="top" secondItem="6JB-2v-Ahf" secondAttribute="bottom" id="cOU-V1-VQy"/>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="leading" secondItem="r8G-Ja-yxZ" secondAttribute="leading" constant="8" id="eky-k6-k5c"/>
-                            <constraint firstItem="QMT-f9-9JV" firstAttribute="leading" secondItem="cHN-7i-CBP" secondAttribute="trailing" constant="59" id="ffU-h9-d0F"/>
                             <constraint firstAttribute="trailing" secondItem="6JB-2v-Ahf" secondAttribute="trailing" id="fqK-S1-EVe"/>
                             <constraint firstAttribute="trailing" secondItem="MPI-T0-Jfv" secondAttribute="trailing" id="gZj-dZ-xRE"/>
                             <constraint firstItem="cHN-7i-CBP" firstAttribute="top" secondItem="oGc-EW-Lbb" secondAttribute="top" id="iH8-Jb-kVM"/>
-                            <constraint firstItem="MPI-T0-Jfv" firstAttribute="top" secondItem="6tN-tm-uSL" secondAttribute="bottom" constant="16" id="iTm-a8-aAM"/>
                             <constraint firstAttribute="bottom" secondItem="MPI-T0-Jfv" secondAttribute="bottom" id="k2l-44-gup"/>
                             <constraint firstItem="oGc-EW-Lbb" firstAttribute="leading" secondItem="r8G-Ja-yxZ" secondAttribute="leading" constant="8" id="m9C-Lz-Mx8"/>
-                            <constraint firstItem="6tN-tm-uSL" firstAttribute="leading" secondItem="QMT-f9-9JV" secondAttribute="trailing" constant="-2" id="nkI-Id-kfr"/>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="top" secondItem="cHN-7i-CBP" secondAttribute="bottom" constant="8" symbolic="YES" id="syp-Xp-Q3g"/>
                             <constraint firstItem="MPI-T0-Jfv" firstAttribute="leading" secondItem="oGc-EW-Lbb" secondAttribute="leading" id="wov-q6-oED"/>
-                            <constraint firstAttribute="trailing" secondItem="6tN-tm-uSL" secondAttribute="trailing" id="yye-Y2-3F2"/>
                             <constraint firstItem="6JB-2v-Ahf" firstAttribute="leading" secondItem="r8G-Ja-yxZ" secondAttribute="leading" id="zTR-C1-ZM4"/>
                         </constraints>
                     </view>
@@ -95,8 +73,6 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="backview" destination="r8G-Ja-yxZ" id="WhR-ON-E0U"/>
-                <outlet property="comment" destination="QMT-f9-9JV" id="hSh-xQ-jDM"/>
-                <outlet property="commentnumber" destination="6tN-tm-uSL" id="Fc1-kS-KNK"/>
                 <outlet property="imgview" destination="6JB-2v-Ahf" id="O2D-3W-JIu"/>
                 <outlet property="titlelabel" destination="MPI-T0-Jfv" id="dCx-KD-qTk"/>
                 <outlet property="userhead" destination="oGc-EW-Lbb" id="EsJ-g3-gbY"/>
@@ -105,7 +81,4 @@
             <point key="canvasLocation" x="437" y="412"/>
         </tableViewCell>
     </objects>
-    <resources>
-        <image name="comment.png" width="11" height="10"/>
-    </resources>
 </document>

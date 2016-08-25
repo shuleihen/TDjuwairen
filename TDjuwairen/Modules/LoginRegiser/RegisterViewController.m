@@ -90,7 +90,7 @@
     self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.validationBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     //验证码的监听事件
-    [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
+//    [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
     [self.validationBtn addTarget:self action:@selector(ClickSend:) forControlEvents:UIControlEventTouchUpInside];
     
     self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1, kScreenWidth, 47)];
@@ -169,13 +169,27 @@
 }
 
 - (void)ClickSend:(UIButton *)sender{
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkTelephone/"];
+    NSDictionary *para = @{@"telephone":self.accountText.text};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
         if (!error) {
-            //  NSLog(@"获取验证码成功");
-        } else {
-            NSLog(@"错误信息：%@",error);
+            [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+                if (!error) {
+                    [self Verification];
+                } else {
+                    NSLog(@"错误信息：%@",error);
+                }
+            }];
+        }
+        else
+        {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"手机号已注册！" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault  handler:nil]];
+            [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+    
 }
 
 -(void)Verification
@@ -363,6 +377,7 @@
                 [aler addAction:conformAction];
                 [self presentViewController:aler animated:YES completion:nil];
             } else {
+                NSLog(@"%@",message);
                 UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
                 [aler addAction:conformAction];

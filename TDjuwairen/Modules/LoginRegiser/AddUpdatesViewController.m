@@ -9,16 +9,20 @@
 #import "AddUpdatesViewController.h"
 #import "LoginState.h"
 #import "MBProgressHUD.h"
+#import "PhoneNumHold.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 
-@interface AddUpdatesViewController ()
+@interface AddUpdatesViewController ()<PhoneNumHoldDelegate>
 
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
 @property (nonatomic,strong) UITextField *passwordText;
 @property (nonatomic,strong) UITextField *nicknameText;
+
+@property (nonatomic,strong) UIView *backview;
+@property (nonatomic,strong) PhoneNumHold *phoneview;
 
 @end
 
@@ -85,7 +89,7 @@
     self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.validationBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     //验证码的监听事件
-    [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
+//    [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
     [self.validationBtn addTarget:self action:@selector(ClickSend:) forControlEvents:UIControlEventTouchUpInside];
     
     self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1, kScreenWidth, 47)];
@@ -139,13 +143,50 @@
 }
 
 - (void)ClickSend:(UIButton *)sender{
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSString*url=[NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkTelephone/"];
+    NSDictionary *para = @{@"telephone":self.accountText.text};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
         if (!error) {
-            //  NSLog(@"获取验证码成功");
-        } else {
-            NSLog(@"错误信息：%@",error);
+            [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
+                if (!error) {
+                    [self Verification];
+                } else {
+                    NSLog(@"错误信息：%@",error);
+                }
+            }];
+        }
+        else
+        {
+            
+            self.backview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+            self.backview.backgroundColor = [UIColor blackColor];
+            self.backview.alpha = 0.3;
+            
+            self.phoneview = [[PhoneNumHold alloc]initWithFrame:CGRectMake(20, 20, kScreenWidth-40, 200)];
+            self.phoneview.delegate = self;
+            self.phoneview.center = CGPointMake(kScreenWidth/2, kScreenHeight/3);
+            self.phoneview.backgroundColor = [UIColor whiteColor];
+            
+            [self.view addSubview:self.backview];
+            [self.view addSubview:self.phoneview];
         }
     }];
+}
+
+- (void)phoneSure:(UIButton *)sender
+{
+    NSLog(@"确定");
+    [self.backview removeFromSuperview];
+    [self.phoneview removeFromSuperview];
+}
+
+- (void)phoneClean:(UIButton *)sender
+{
+    NSLog(@"取消");
+    [self.backview removeFromSuperview];
+    [self.phoneview removeFromSuperview];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 -(void)Verification

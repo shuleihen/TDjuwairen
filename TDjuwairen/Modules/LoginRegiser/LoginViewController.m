@@ -251,7 +251,7 @@
                      [accountDefaults setValue:openid forKey:@"openid"];
                      [accountDefaults synchronize];
                      
-                     if ([dic[@"user_wxunionid"] isEqualToString:@""] ||
+                     if ([dic[@"user_qqopenid"] isEqualToString:@""] ||
                          [dic[@"user_nickname"] isEqualToString:@""] ||
                          [dic[@"user_pwd"] isEqualToString:@""] ||
                          ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {

@@ -250,13 +250,7 @@
     [cell.userhead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
     NSString *currenttiem = [NSString prettyDateWithReference:model.sharp_wtime];
     cell.usernickname.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,currenttiem];
-//    if (model.sharp_commentNumber >= 999) {
-//        cell.commentnumber.text = @"999+";
-//    }
-//    else{
-//        cell.commentnumber.text = [NSString stringWithFormat:@"%d",model.sharp_commentNumber];
-//        
-//    }
+
     cell.backgroundColor = self.daynightmodel.backColor;
     cell.titlelabel.textColor = self.daynightmodel.textColor;
     cell.backview.backgroundColor = self.daynightmodel.navigationColor;
