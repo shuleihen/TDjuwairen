@@ -587,6 +587,13 @@
     
 }
 
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.contentText removeObserver:self forKeyPath:@"contentSize"];
+}
+
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
