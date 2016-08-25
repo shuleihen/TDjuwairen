@@ -72,6 +72,8 @@
     self.editziti.zihao = 16;//默认16号字体
     isoriginal = @"1"; //默认为原创文章
     firstchange = YES;
+    self.editziti.type = [NSString stringWithFormat:@"nil%d",self.editziti.zihao];//默认
+    zititype = self.editziti.type;
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -619,7 +621,6 @@
                     {
                         if (firstchange == YES) {
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
@@ -661,7 +662,6 @@
                     {
                         if (firstchange == YES) {
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
@@ -701,7 +701,6 @@
                     {
                         if (firstchange == YES) {
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
@@ -744,7 +743,6 @@
                     {
                         if (firstchange == YES) {
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
@@ -783,7 +781,6 @@
                     {
                         if (firstchange == YES) {
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
@@ -826,7 +823,6 @@
                         if (firstchange == YES) {
                             //
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
@@ -865,7 +861,6 @@
                         if (firstchange == YES) {
                             //
                             NSString *s = [self.contentText.text substringWithRange:NSMakeRange(self.contentText.text.length-1, 1)];
-                            NSLog(@"%@",s);
                             const char *cString=[s UTF8String];
                             if (strlen(cString)==3){
                                 firstchange = NO;
