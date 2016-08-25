@@ -33,6 +33,7 @@
     NSRange currentRange;//当前光标所在位置
     NSString *zititype;
     BOOL firstchange;
+    
 }
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -55,6 +56,11 @@
 @property (nonatomic,strong) UIButton *selBtnEdit;
 @property (nonatomic,copy) NSString *selType;
 
+@property (nonatomic,assign) float contentHeight;
+@property (nonatomic,assign) float scrollhei ;
+@property (nonatomic,assign) float frameHeight;
+@property (nonatomic,assign) float keyboardHeight;
+
 
 @end
 
@@ -74,6 +80,7 @@
     firstchange = YES;
     self.editziti.type = [NSString stringWithFormat:@"nil%d",self.editziti.zihao];//默认
     zititype = self.editziti.type;
+    self.scrollhei = 50;
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -87,7 +94,7 @@
 #pragma mark - 监听editziti
 
 
-- (void)setupWithNavigation{    
+- (void)setupWithNavigation{
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
@@ -158,13 +165,19 @@
     [self.scrollview addSubview:originalLabel];
 }
 
+
+
 - (void)setupWithContentText{
-    self.contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64-40)];
+    self.contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64-40-80)];
     self.contentText.textContainerInset = UIEdgeInsetsMake(8, 4, 8, 4);
     self.contentText.backgroundColor = self.titleText.backgroundColor;
     self.contentText.font = [UIFont systemFontOfSize:14];
     self.contentText.textColor = self.daynightmodel.textColor;
     self.contentText.delegate = self;
+    [self.contentText addObserver:self
+                       forKeyPath:@"contentSize"
+                          options:NSKeyValueObservingOptionNew
+                          context:nil];
     
     self.placeholderLab = [[UILabel alloc]initWithFrame:CGRectMake(8, 8, kScreenWidth/2, 20)];
     self.placeholderLab.text = @"正文，8000个字以内";
@@ -174,6 +187,20 @@
     [self.contentText addSubview:self.placeholderLab];
     [self.scrollview addSubview:self.contentText];
     
+}
+#pragma mark - contentText的高度监听
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentSize"]) {
+        self.scrollview.contentSize = CGSizeMake(kScreenWidth, self.titleText.frame.size.height+self.contentText.frame.size.height);
+        
+        if (self.contentText.contentSize.height > kScreenHeight-self.keyboardHeight-80-64-40) {
+            if (self.frameHeight != self.contentText.frame.size.height) {
+                [self.scrollview setContentOffset:CGPointMake(0, self.contentText.contentSize.height-(kScreenHeight-self.keyboardHeight-80-64-40))];
+                self.scrollhei = self.scrollhei+50;
+            }
+        }
+    }
 }
 
 - (void)setupWithEdit{
@@ -195,14 +222,14 @@
         //保存
         
         [self.navigationController popViewControllerAnimated:YES];
-//        [self.tabBarController.tabBar setHidden:NO];
+        //        [self.tabBarController.tabBar setHidden:NO];
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *giveup = [UIAlertAction actionWithTitle:@"放弃编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //
         [self.navigationController popViewControllerAnimated:YES];
-//        [self.tabBarController.tabBar setHidden:NO];
+        //        [self.tabBarController.tabBar setHidden:NO];
         [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
@@ -237,6 +264,7 @@
 {
     int num = (int)sender.tag;
     if (num == 0) {
+        [self.SelSecView removeFromSuperview];
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
             sender.selected = YES;
             self.selBtnEdit = sender;
@@ -251,6 +279,7 @@
         }
     }
     else if(num == 1){
+        [self.SelSecView removeFromSuperview];
         if ([self.titleText isFirstResponder]) {
             currentTitle = self.titleText.text;
             self.titleText.text = @"";
@@ -262,6 +291,7 @@
         }
     }
     else if (num == 2){
+        [self.SelSecView removeFromSuperview];
         if ([self.titleText isFirstResponder]) {
             if ([currentTitle isEqualToString:@""] || currentTitle == nil) {
                 
@@ -450,8 +480,10 @@
     else if ([sender.textLabel.text isEqualToString:@"股票"]){
         //插入股票
         [self.SelSecView removeFromSuperview];
+        
         self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 80) andArr:self.tagsArr];
         self.tagsview.backgroundColor = self.daynightmodel.backColor;
+        [self.tagsview.tagsText becomeFirstResponder];
         self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
         self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         self.SelSecView = self.tagsview;
@@ -509,10 +541,12 @@
     NSDictionary *info = [aNotification userInfo];
     //kbSize为键盘尺寸
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
+    self.keyboardHeight = kbSize.height;
     [self beginMoveUpAnimation:kbSize.height];
 }
 
 - (void)keyboardWillBeHidden{
+    [self.SelSecView removeFromSuperview];
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformIdentity;
         self.scrollview.transform = CGAffineTransformIdentity;
@@ -536,7 +570,7 @@
 {
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
-    [self.titleText becomeFirstResponder];
+    //    [self.titleText becomeFirstResponder];
     
     if (self.titleStr != nil && self.contentStr != nil) {
         self.titleText.text = self.titleStr;
@@ -544,11 +578,11 @@
         self.placeholderLab.text = @"";
         self.placeholderLab.alpha = 0.0;
         
-//        NSString *htmlstring ;
-//        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
-//        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
-//        self.contentText.attributedText = [self htmlAttributeStringByHtmlString:self.content];
-//        NSLog(@"%@",self.contentText.attributedText);
+        //        NSString *htmlstring ;
+        //        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
+        //        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
+        //        self.contentText.attributedText = [self htmlAttributeStringByHtmlString:self.content];
+        //        NSLog(@"%@",self.contentText.attributedText);
     }
     
 }
@@ -556,6 +590,29 @@
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
+    //改变textview的高度
+    CGRect frame = textView.frame;
+    if ([textView.text isEqual:@""]) {
+        
+        if (![textView.text isEqualToString:@""]) {
+            
+            self.contentHeight = [ self heightForTextView:textView WithText:[textView.text substringToIndex:[textView.text length] - 1]];
+            
+        }else{
+            
+            self.contentHeight = [ self heightForTextView:textView WithText:textView.text];
+        }
+    }else{
+        
+        self.contentHeight = [self heightForTextView:textView WithText:[NSString stringWithFormat:@"%@%@",textView.text,textView.text]];
+    }
+    frame.size.height = self.contentHeight;
+    [UIView animateWithDuration:0.5 animations:^{
+        
+        textView.frame = frame;
+        
+    } completion:nil];
+    
     if ([self.contentText.text length] > 0) {
         self.placeholderLab.text = @"";
         self.placeholderLab.alpha = 0.0;
@@ -565,7 +622,7 @@
         self.placeholderLab.text = @"正文，8000个字以内";
         self.placeholderLab.alpha = 1.0;
     }
-
+    
     if (self.contentText.text.length > numm) {
         if (jiacu == YES) {
             if (xieti == YES) {
@@ -654,7 +711,7 @@
             {
                 if (xiahuaxian == YES) {
                     self.editziti.type = [NSString stringWithFormat:@"cuxian%d",self.editziti.zihao];
-
+                    
                     if ([self.editziti.type isEqualToString: zititype]) {
                         //
                     }
@@ -892,6 +949,8 @@
         }
     }
     
+    
+    
 }
 
 
@@ -921,19 +980,19 @@
             NSDictionary *dic = data;
             NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",dic[@"picurl"]];
             NSString *imgu = [imgUrl stringByReplacingOccurrencesOfString:@"http://localhost/tuanda_web/Public" withString:@"http://static.juwairen.net"];
-
+            
             [self.upimgArr addObject:imgu];
         }
     }];
     
     //方法2，得到数据库中的地址来存放图片
-//    NSString *imgurl = @"http://q.qlogo.cn/qqapp/101266993/DCA4CFB9A7D63D39BDC451E0822CE3BC/100";
-//    NSString *img = [NSString stringWithFormat:@"<img scr='%@'>",imgurl];
-//    [self.upimgArr addObject:img];
-//    NSLog(@"%@",img);
-//    
-//    NSURL *url = [NSURL URLWithString:imgurl];
-//    UIImage *Photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
+    //    NSString *imgurl = @"http://q.qlogo.cn/qqapp/101266993/DCA4CFB9A7D63D39BDC451E0822CE3BC/100";
+    //    NSString *img = [NSString stringWithFormat:@"<img scr='%@'>",imgurl];
+    //    [self.upimgArr addObject:img];
+    //    NSLog(@"%@",img);
+    //
+    //    NSURL *url = [NSURL URLWithString:imgurl];
+    //    UIImage *Photo = [UIImage imageWithData:[NSData dataWithContentsOfURL:url]];
     
     NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.contentText.attributedText];
     PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
@@ -949,14 +1008,16 @@
     [self.imglocArr addObject:@(currentRange.location)];
     textAttachment.image = Photo; //要添加的图片
     NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
-
+    
     [string insertAttributedString:textAttachmentString atIndex:currentRange.location];//index为用户指定要插入图片的位置
-//    NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:img];
-//    [string insertAttributedString:imgtext atIndex:currentRange.location];
+    //    NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:img];
+    //    [string insertAttributedString:imgtext atIndex:currentRange.location];
     
     self.contentText.attributedText = string;
+    [self.contentText becomeFirstResponder];
     self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
-  
+    
+    
 }
 
 #pragma mark - 点击发布
@@ -977,7 +1038,7 @@
         return ;
     }
     else if ([self.contentText.text isEqualToString:@""]){
-
+        
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         
@@ -994,9 +1055,6 @@
     {
         [self publishView];
     }
-    
-    
-    
 }
 
 #pragma mark - 保存草稿
@@ -1026,20 +1084,20 @@
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *para ;
     if (self.tagsArr.count == 0) {
-        para = @{@"userid":@"1324",
+        para = @{@"userid":US.userId,
                  @"isOrigin":isoriginal,
                  @"title":self.titleText.text,
-                 @"is_publish":@"1",
+                 @"is_publish":@"0",
                  @"viewcontent":htmlstring,
                  };
     }
     else
     {
         NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
-        para = @{@"userid":@"1324",
+        para = @{@"userid":US.userId,
                  @"isOrigin":isoriginal,
                  @"title":self.titleText.text,
-                 @"is_publish":@"1",
+                 @"is_publish":@"0",
                  @"viewcontent":htmlstring,
                  @"tags":tags
                  };
@@ -1093,22 +1151,22 @@
     
     NSDictionary *para ;
     if (self.tagsArr.count == 0) {
-        para = @{@"userid":@"1324",
-                   @"isOrigin":isoriginal,
-                   @"title":self.titleText.text,
-                   @"is_publish":@"1",
-                   @"viewcontent":htmlstring,
+        para = @{@"userid":US.userId,
+                 @"isOrigin":isoriginal,
+                 @"title":self.titleText.text,
+                 @"is_publish":@"1",
+                 @"viewcontent":htmlstring,
                  };
     }
     else
     {
         NSString *tags = [self.tagsArr componentsJoinedByString:@"#"];
-        para = @{@"userid":@"1324",
-                   @"isOrigin":isoriginal,
-                   @"title":self.titleText.text,
-                   @"is_publish":@"1",
-                   @"viewcontent":htmlstring,
-                   @"tags":tags
+        para = @{@"userid":US.userId,
+                 @"isOrigin":isoriginal,
+                 @"title":self.titleText.text,
+                 @"is_publish":@"1",
+                 @"viewcontent":htmlstring,
+                 @"tags":tags
                  };
     }
     
@@ -1123,7 +1181,7 @@
             [hud hide:YES afterDelay:1];
         }
     }];
- 
+    
 }
 
 /** 将富文本格式化为超文本*/
@@ -1155,15 +1213,21 @@
     // Dispose of any resources that can be recreated.
 }
 
+//计算textview内容高度
+- (float) heightForTextView: (UITextView *)textView WithText: (NSString *) strText{
+    float textHeight = textView.contentSize.height + kScreenHeight/2;
+    return textHeight;
+}
+
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
