@@ -9,6 +9,7 @@
 #import "ForgetViewController.h"
 #import "LoginState.h"
 #import "NetworkManager.h"
+#import "AFNetworking.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface ForgetViewController ()
@@ -17,6 +18,7 @@
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
 @property (nonatomic,strong) UITextField *passwordText;
+@property (nonatomic,strong) NSString *str;
 
 @end
 
@@ -34,8 +36,11 @@
     [self setupWithNavigation];
     [self setupWithTextField];
     [self setupWithSubmit];//提交
+    
     // Do any additional setup after loading the view.
 }
+
+
 
 -(void)viewTapped:(UITapGestureRecognizer*)tap
 {
@@ -43,14 +48,14 @@
 }
 
 - (void)setupWithNavigation{
-//    [self.navigationController.navigationBar setHidden:NO];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
+    //    [self.navigationController.navigationBar setHidden:NO];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.title = @"找回密码";
     // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
-
+    
 }
 
 - (void)setupWithTextField{
@@ -163,11 +168,31 @@
 
 - (void)SubmitUserinfo{
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras = @{@"telephone":self.accountText.text};
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Reg/checkTelephone/"];
+    NSDictionary *para = @{@"validatestring":self.accountText.text};
+    
+    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSDictionary *dic = data;
+            self.str = dic[@"str"];
+            [self Submit];
+        } else {
+            
+        }
+    }];
+    
+    
+}
+
+- (void)Submit{
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *paras = @{@"authenticationStr":self.accountText.text,
+                            @"encryptedStr":self.str,
+                            @"telephone":self.accountText.text,
+                            @"password":self.passwordText.text
+                            };
+    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Login/telFindpwd/"];
     [manager POST:url parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            NSLog(@"%@",data);
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 
@@ -176,11 +201,12 @@
             
         } else {
             NSLog(@"%@",error);
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改失败" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改失败" message:@"修改失败" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
             [self presentViewController:alert animated:YES completion:nil];
         }
     }];
+    
 }
 
 - (void)ClickSend:(UIButton *)sender{
@@ -228,7 +254,7 @@
     dispatch_resume(_timer);
     
 }
-    
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -236,13 +262,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
