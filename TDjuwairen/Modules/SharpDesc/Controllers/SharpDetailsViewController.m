@@ -351,12 +351,12 @@
     
     NSString *url;
     if (US.isLogIn) {
-        url = [NSString stringWithFormat:@"index.php/Sharp/show/id/%@/userid/%@",self.sharp_id,US.userId];
+        url = [NSString stringWithFormat:@"index.php/Sharp/sharp_show1_2/id/%@/userid/%@",self.sharp_id,US.userId];
         
     }
     else
     {
-        url = [NSString stringWithFormat:@"index.php/Sharp/show/id/%@",self.sharp_id];
+        url = [NSString stringWithFormat:@"index.php/Sharp/sharp_show1_2/id/%@",self.sharp_id];
         
     }
     
@@ -373,19 +373,8 @@
             [wself relaodCommentNumber];
             [wself.tableview reloadData];
             
-            //我也无奈。页面显示不好就把锅都甩我身上。。还是加上吧- -头都是大的
-            NSString *s = @"iframe";
-            if ([self.sharpInfo.sharpContent rangeOfString:s].location != NSNotFound) {
-                //
-                NSString *oldiframe = @"height=\"500\" width=\"600\"";
-                NSString *newIframe = @"height=\"250\" width=\"100%\"";
-                self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:oldiframe withString:newIframe];
-            }
-            
-            // iOS webkit preload 没有预加载视频导致视频背景为白色，使用autoplay替换
-            self.sharpInfo.sharpContent = [self.sharpInfo.sharpContent stringByReplacingOccurrencesOfString:@"preload" withString:@"autoplay"];
-            
-            [wself.webview loadHTMLString:self.sharpInfo.sharpContent baseURL:nil];
+            NSString *string = [NSString stringWithFormat:@"%@%@",API_HOST,self.sharpInfo.sharpContent];
+            [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]];
             
         } else {
             wself.hubload.labelText = @"加载失败";

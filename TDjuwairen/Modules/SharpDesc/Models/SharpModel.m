@@ -12,8 +12,8 @@
 + (id)sharpWithDictionary:(NSDictionary *)dict
 {
     SharpModel *sharp = [[SharpModel alloc] init];
-//    sharp.sharpId
-    sharp.sharpContent = dict[@"sharp_content"];
+    //    sharp.sharpId
+    sharp.sharpContent = dict[@"sharp_content_url"];
     sharp.sharpTypeId = [dict[@"sharp_typeid"] intValue];
     sharp.sharpTitle = dict[@"sharp_title"];
     sharp.sharpDesc = dict[@"sharp_desc"];

@@ -146,7 +146,7 @@
     //获取searchBar里面的TextField
     UITextField*searchField = [self.customSearchBar valueForKey:@"_searchField"];
     //更改searchBar 中PlaceHolder 字体颜色
-    [searchField setValue:self.daynightmodel.inputColor forKeyPath:@"_placeholderLabel.textColor"];
+    [searchField setValue:self.daynightmodel.titleColor forKeyPath:@"_placeholderLabel.textColor"];
     //更改searchBar输入文字颜色
     searchField.textColor= self.daynightmodel.textColor;
     
