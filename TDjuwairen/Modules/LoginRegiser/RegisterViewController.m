@@ -367,7 +367,7 @@
             [accountDefaults setValue:self.passwordText.text forKey:@"password"];
             [accountDefaults synchronize];
             
-            [self.navigationController popViewControllerAnimated:YES];
+            [self.navigationController popToRootViewControllerAnimated:YES];
         } else {
             NSString *message = error.localizedDescription;
             if (error.code == NSURLErrorTimedOut) {

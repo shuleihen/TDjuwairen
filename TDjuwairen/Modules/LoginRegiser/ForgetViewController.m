@@ -10,6 +10,8 @@
 #import "LoginState.h"
 #import "NetworkManager.h"
 #import "AFNetworking.h"
+#import "MBProgressHUD.h"
+#import "UIStoryboard+MainStoryboard.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface ForgetViewController ()
@@ -195,7 +197,8 @@
         if (!error) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
+                //登录
+                [self requestLoging];
             }]];
             [self presentViewController:alert animated:YES completion:nil];
             
@@ -207,6 +210,48 @@
         }
     }];
     
+}
+
+#pragma mark - 登录
+- (void)requestLoging{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"登录中";
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    NSDictionary *paras = @{@"account":self.accountText.text,
+                            @"password":self.passwordText.text};
+    [ma POST:@"Login/loginDo" parameters:paras completion:^(id data, NSError *error){
+        if (!error) {
+            hud.labelText = @"登录成功";
+            [hud hide:YES afterDelay:0.4];
+            
+            
+            NSDictionary *dic = data;
+            US.userId = dic[@"user_id"];
+            US.userName = dic[@"user_name"];
+            US.nickName = dic[@"user_nickname"];
+            US.userPhone = dic[@"userinfo_phone"];
+            US.headImage = dic[@"userinfo_facesmall"];
+            US.company = dic[@"userinfo_company"];
+            US.post = dic[@"userinfo_occupation"];
+            US.personal = dic[@"userinfo_info"];
+            
+            US.isLogIn=YES;
+            
+            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+            [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
+            [accountDefaults setValue:self.accountText.text forKey:@"account"];
+            [accountDefaults setValue:self.passwordText.text forKey:@"password"];
+            [accountDefaults synchronize];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
+            
+        } else {
+            NSString *message = error.localizedDescription?:@"登录失败";
+            hud.labelText = message;
+            [hud hide:YES afterDelay:0.4];
+        }
+    }];
 }
 
 - (void)ClickSend:(UIButton *)sender{
