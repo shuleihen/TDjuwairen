@@ -28,7 +28,6 @@
         self.titleLabel.font = [UIFont systemFontOfSize:16];
         
         self.lineLabel = [[UILabel alloc]init];
-        self.lineLabel.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
         self.lineLabel.layer.borderWidth = 1;
         [self addSubview:self.lineLabel];
         
