@@ -301,26 +301,27 @@
         ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
             cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            ViewPointListModel *model = arr[indexPath.row];
-            [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-            NSString *isoriginal;
-            if ([model.view_isoriginal isEqualToString:@"0"]) {
-                isoriginal = @"";
-            }else
-            {
-                isoriginal = @"原创";
-            }
-            cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
-            
-            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-            cell.titleLabel.font = font;
-            cell.titleLabel.numberOfLines = 0;
-            titlesize = CGSizeMake(kScreenWidth-30, 500.0);
-            titlesize = [model.view_title calculateSize:titlesize font:font];
-            cell.titleLabel.text = model.view_title;
-            [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-            [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+14, kScreenWidth, 0.5)];
         }
+        ViewPointListModel *model = arr[indexPath.row];
+        [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+        NSString *isoriginal;
+        if ([model.view_isoriginal isEqualToString:@"0"]) {
+            isoriginal = @"";
+        }else
+        {
+            isoriginal = @"原创";
+        }
+        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
+        
+
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+        cell.titleLabel.font = font;
+        cell.titleLabel.numberOfLines = 0;
+        titlesize = CGSizeMake(kScreenWidth-30, 500.0);
+        titlesize = [model.view_title calculateSize:titlesize font:font];
+        cell.titleLabel.text = model.view_title;
+        [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
+        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+14, kScreenWidth, 1)];
         
         
         cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
