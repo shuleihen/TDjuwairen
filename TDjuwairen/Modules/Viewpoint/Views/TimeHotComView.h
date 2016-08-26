@@ -24,5 +24,7 @@
 @property (nonatomic,strong) UIButton *louzhu;
 @property (nonatomic,strong) UIButton *just;
 
+@property (nonatomic,strong) UILabel *line;
+
 @property (nonatomic,assign) id<TimeHotComViewDelegate>delegate;
 @end

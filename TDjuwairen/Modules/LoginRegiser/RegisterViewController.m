@@ -350,7 +350,6 @@
     [manager POST:API_GetApiValidate parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
-            NSLog(@"%@",dic);
             US.userId = dic[@"user_id"];
             US.userName = dic[@"user_name"];
             US.nickName = dic[@"user_nickname"];
@@ -363,6 +362,7 @@
             US.isLogIn=YES;
             
             NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+            [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
             [accountDefaults setValue:self.accountText.text forKey:@"account"];
             [accountDefaults setValue:self.passwordText.text forKey:@"password"];
             [accountDefaults synchronize];

@@ -690,8 +690,7 @@
                 [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.user_headImg]];
                 cell.nicknameLabel.text = model.user_nickName;
                 
-                NSString *currenttime = [NSString prettyDateWithReference:model.commentTime];
-                cell.timeLabel.text = currenttime;
+                cell.timeLabel.text = model.commentTime;
                 NSString *text = model.sharpcomment;
                 cell.commentsLabel.text = text;
                 UIFont *font = [UIFont systemFontOfSize:15];

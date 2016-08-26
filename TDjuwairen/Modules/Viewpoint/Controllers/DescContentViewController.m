@@ -252,6 +252,7 @@
                     [self.hudloadCom hide:YES afterDelay:0.1];
                 }
                 firstLoadComment = NO;
+                [self relaodCommentNumber];
                 [self.tableview reloadData];
             }
             else
@@ -297,6 +298,31 @@
     self.backcommentview.commentview.delegate = self;
     
     [self.view addSubview:self.backcommentview];
+}
+
+- (void)relaodCommentNumber
+{
+    if (self.FirstcommentArr.count > 0) {
+        NSString *text;
+        if (self.FirstcommentArr.count >999) {
+            text = @"999+";
+        }else
+        {
+            text = [NSString stringWithFormat:@"%lu",(unsigned long)self.FirstcommentArr.count];
+        }
+        CGSize size = CGSizeMake(50, 200.0f);
+        UIFont *font = [UIFont systemFontOfSize:11];
+        CGSize btnsize = [text calculateSize:size font:font];
+        UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100+28, 8, btnsize.width+10, btnsize.height)];
+        btn.titleLabel.font = [UIFont systemFontOfSize: 11];
+        btn.layer.cornerRadius = btnsize.height/2;
+        [btn setBackgroundColor:[UIColor colorWithRed:27/255.0 green:105/255.0 blue:177/255.0 alpha:1.0]];
+        [btn setTitle:text forState:UIControlStateNormal];
+        //新增点击滑动
+        [btn addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
+        
+        [self.backcommentview addSubview:btn];
+    }
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -482,12 +508,13 @@
                 cell.goodnumBtn.selected = YES;
             }
             
+            [cell.line setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+14, kScreenWidth-30, 1)];
     
             [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
             cell.nickNameLab.textColor = self.daynightmodel.titleColor;
             cell.numfloor.textColor = self.daynightmodel.titleColor;
             cell.commentLab.textColor = self.daynightmodel.textColor;
-            cell.line.backgroundColor = self.daynightmodel.titleColor;
+            cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
             cell.backgroundColor = self.daynightmodel.navigationColor;
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -509,14 +536,17 @@
             self.thview.timeBtn.selected = YES;
             self.selTimeHotBtn = self.thview.timeBtn;
             
-            [self.thview.timeBtn setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+            
             [self.thview.timeBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateSelected];
             
-            [self.thview.hotBtn setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+            
             [self.thview.hotBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateSelected];
         }
+        [self.thview.timeBtn setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+        [self.thview.hotBtn setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
         self.thview.backgroundColor = self.daynightmodel.navigationColor;
         [self.thview.just setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+        self.thview.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         return self.thview;
     }
 }

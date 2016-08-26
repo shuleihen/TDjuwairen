@@ -25,10 +25,10 @@
         self.headImg.layer.cornerRadius = 15;
         self.headImg.layer.masksToBounds = YES;
         
-        self.nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10, kScreenWidth/3, 15)];
+        self.nicknameLabel = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10, kScreenWidth-70, 15)];
         self.nicknameLabel.font = [UIFont systemFontOfSize:14];
         
-        self.timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10+15+5, kScreenWidth/3, 12)];
+        self.timeLabel = [[UILabel alloc]initWithFrame:CGRectMake(15+30+10, 10+15+5, kScreenWidth-70, 12)];
         self.timeLabel.font = [UIFont systemFontOfSize:11];
         
         self.commentsLabel = [[UILabel alloc]init];

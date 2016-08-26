@@ -42,10 +42,14 @@
     self.just.titleLabel.font = [UIFont systemFontOfSize:16];
     [self.just addTarget:self action:@selector(justLouzhu:) forControlEvents:UIControlEventTouchUpInside];
     
+    self.line = [[UILabel alloc]initWithFrame:CGRectMake(0, 42, kScreenWidth, 1)];
+    self.line.layer.borderWidth = 1;
+    
     [self addSubview:self.timeBtn];
     [self addSubview:self.hotBtn];
     [self addSubview:self.louzhu];
     [self addSubview:self.just];
+    [self addSubview:self.line];
 }
 
 - (void)justLouzhu:(UIButton *)sender{

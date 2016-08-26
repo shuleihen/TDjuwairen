@@ -281,8 +281,7 @@
     
     [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
     
-    NSString *currenttime = [NSString prettyDateWithReference:model.sharp_wtime];
-    cell.nickname.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,currenttime];
+    cell.nickname.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,model.sharp_wtime];
     
     NSString *text = model.sharp_title;
     
