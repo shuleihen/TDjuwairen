@@ -493,7 +493,7 @@
             cell.commentLab.text = model.viewcomment;
             
             
-            [cell.goodnumBtn setTitle:model.comment_goodnum forState:UIControlStateNormal];
+            [cell.goodnumBtn setTitle:[NSString stringWithFormat:@"  %@",model.comment_goodnum] forState:UIControlStateNormal];
             cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             cell.goodnumBtn.tag = [model.viewcomment_id integerValue];
             [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
