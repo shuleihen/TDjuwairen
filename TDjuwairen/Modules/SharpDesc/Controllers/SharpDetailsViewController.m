@@ -66,7 +66,7 @@
 @property (nonatomic,strong) NaviMoreView *nmview;
 @property (nonatomic,strong) SelectFontView *sfview;
 @property (nonatomic,strong) NSArray *sizeArr;
-@property (nonatomic,strong) UIWebView *webview;
+@property (nonatomic,strong) WKWebView *webview;
 @property (nonatomic) BOOL scalesPageToFit;
 /* 评论条 */
 @property (nonatomic,strong) BackCommentView *backcommentview;
@@ -92,7 +92,7 @@
 @implementation SharpDetailsViewController
 - (NaviMoreView *)nmview{
     if (!_nmview) {
-//        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
+        //        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
         NSString *str ;
         if (!self.sharpInfo.sharpIsCollect) {
             str = @"yes";
@@ -124,7 +124,7 @@
     [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
-//    NSLog(@"dealloc");
+    //    NSLog(@"dealloc");
 }
 
 - (void)viewDidLoad {
@@ -133,13 +133,11 @@
     naviShow = NO;
     fontShow = NO;
     fontsize = @"100%";
-
     self.comentheight = 0;
     self.edgesForExtendedLayout = UIRectEdgeNone;
-
     self.commentsDataArray = [NSMutableArray array];
     self.sharpTagsArray = [NSMutableArray array];
-
+    
     self.page = 1;
     self.daynightmodel = [UIdaynightModel sharedInstance];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
@@ -154,7 +152,7 @@
     [userdefault addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
     
     [self setupUICommon];
-
+    
     [self refreshAction];
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
@@ -168,7 +166,7 @@
 }
 
 - (void)setupWithNavigation{
-
+    
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
@@ -227,14 +225,15 @@
 
 - (void)setupWebView
 {
-//    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
-//    self.webview.UIDelegate = self;
-//    self.webview.navigationDelegate = self;
-//    self.webview.scrollView.scrollEnabled = NO;
-//    self.webview.scrollView.bounces = NO;
+    //    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 20)];
+    //    self.webview.UIDelegate = self;
+    //    self.webview.navigationDelegate = self;
+    //    self.webview.scrollView.scrollEnabled = NO;
+    //    self.webview.scrollView.bounces = NO;
     
-    self.webview = [[UIWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-    self.webview.delegate = self;
+    self.webview = [[WKWebView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+    self.webview.navigationDelegate = self;
+    self.webview.UIDelegate = self;
     self.webview.scrollView.scrollEnabled = NO;
     
     [self.webview.scrollView addObserver:self
@@ -272,16 +271,16 @@
 #pragma mark Observe
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
-    if ([keyPath isEqualToString:@"contentSize"]) {
-        CGSize oldSize = [change[NSKeyValueChangeOldKey] CGSizeValue];
-        CGSize contentSize = [change[NSKeyValueChangeNewKey] CGSizeValue];
-        if (oldSize.height == contentSize.height) {
-            return;
-        }
-        
-        self.webview.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
-        [self.tableview reloadData];
-    }
+    //    if ([keyPath isEqualToString:@"contentSize"]) {
+    //        CGSize oldSize = [change[NSKeyValueChangeOldKey] CGSizeValue];
+    //        CGSize contentSize = [change[NSKeyValueChangeNewKey] CGSizeValue];
+    //        if (oldSize.height == contentSize.height) {
+    //            return;
+    //        }
+    //
+    //        self.webview.frame = CGRectMake(0, 0, contentSize.width, contentSize.height);
+    //        [self.tableview reloadData];
+    //    }
     
     if ([keyPath isEqualToString:@"daynight"]) {
         self.view.backgroundColor = self.daynightmodel.navigationColor;
@@ -339,7 +338,7 @@
             [self.tableview reloadSections:indexSet withRowAnimation:UITableViewRowAnimationAutomatic];
             [self.tableview.mj_footer endRefreshing];
         } else {
-           [self.tableview.mj_footer endRefreshing];
+            [self.tableview.mj_footer endRefreshing];
         }
     }];
 }
@@ -364,9 +363,6 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
-            wself.hubload.labelText = @"加载完成";
-            [wself.hubload hide:YES afterDelay:0.1];
-            [wself.tableview.mj_header endRefreshing];
             
             wself.sharpInfo = [SharpModel sharpWithDictionary:data];
             self.sharpTagsArray = wself.sharpInfo.sharpTags;
@@ -545,7 +541,6 @@
             {
                 [cell.addCollection setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
             }
-//            cell.contentView.backgroundColor = [UIColor redColor];
             [cell.addCollection addTarget:self action:@selector(clickAdd:) forControlEvents:UIControlEventTouchUpInside];
             //设置三秒内不可重复点击
             /* cell的选中样式为无色 */
@@ -608,7 +603,7 @@
                 text = @" 本文文章内容从互联网转载，最终版权归原作者所有。";
             }
             
-
+            
             UIFont *font = [UIFont systemFontOfSize:16];
             cell.textLabel.font = font;
             cell.textLabel.numberOfLines = 0;
@@ -737,17 +732,17 @@
     } else {
         return NO;
     }
-//    NSString *strRequest = [request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-//    if([strRequest isEqualToString:@"about:blank"]) {
-//        return YES;
-//    } else if ([strRequest hasPrefix:@"http://player.youku.com"]) {
-//        return YES;
-//    } else {
-//        return NO;
-//    }
+    //    NSString *strRequest = [request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    //    if([strRequest isEqualToString:@"about:blank"]) {
+    //        return YES;
+    //    } else if ([strRequest hasPrefix:@"http://player.youku.com"]) {
+    //        return YES;
+    //    } else {
+    //        return NO;
+    //    }
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
 {
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -760,8 +755,12 @@
         pNode[i].style.backgroundColor='white';\
         }";
         
-        [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
-        [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
     }
     else
     {
@@ -773,39 +772,30 @@
         pNode[i].style.backgroundColor='#222222';\
         }";
         
-        [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
-        [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
     }
     
-    // 调整视频iframe
-    NSString *iframejs = [NSString stringWithFormat:@"var videoNode=document.getElementsByTagName('iframe');\
-                          for(var i=0;i<videoNode.length;i++){\
-                              videoNode[i].width='%.0lf';\
-                              videoNode[i].height='250';\
-                          }",([UIScreen mainScreen].bounds.size.width-15)];
-    [self.webview stringByEvaluatingJavaScriptFromString:iframejs];
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
-{
-    
-}
-
-#pragma mark WKNavigationDelegate
-- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction*)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    
-    NSString *strRequest = [navigationAction.request.URL.absoluteString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    if([strRequest isEqualToString:@"about:blank"]) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    } else if ([strRequest hasPrefix:@"http://player.youku.com"]) {
-        decisionHandler(WKNavigationActionPolicyAllow);
-    } else {
-        decisionHandler(WKNavigationActionPolicyCancel);
-    }
-}
-
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //获取页面高度，并重置webview的frame
+            CGFloat documentHeight = [result doubleValue];
+            CGRect frame = webView.frame;
+            frame.size.height = documentHeight + 10/*显示不全*/;
+            webView.frame = frame;
+            //主线程刷新UI
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.hubload.labelText = @"加载完成";
+                [self.hubload hide:YES afterDelay:0.1];
+                [self.tableview.mj_header endRefreshing];
+                [self.tableview reloadData];
+            });
+        }];
+    });
 }
 
 /// 页面加载失败时调用
@@ -888,7 +878,7 @@
         if (!self.sharpInfo.sharpIsCollect) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.labelText = @"添加收藏";
-
+            
             NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":self.sharp_id};
             
@@ -1106,8 +1096,12 @@
             pNode[i].style.backgroundColor='#222222';\
             }";
             
-            [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
-            [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+            [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                //
+            }];
+            [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                //
+            }];
         }
         self.nmview.alpha = 0.0;
         naviShow = NO;
@@ -1142,8 +1136,12 @@
         pNode[i].style.backgroundColor='white';\
         }";
         
-        [self.webview stringByEvaluatingJavaScriptFromString:textcolor];
-        [self.webview stringByEvaluatingJavaScriptFromString:backcolor];
+        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
+        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //
+        }];
     }
     else
     {
@@ -1222,7 +1220,9 @@
     naviShow = NO;
     
     NSString *jsZiti = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fontsize];
-    [self.webview stringByEvaluatingJavaScriptFromString:jsZiti];
+    [self.webview evaluateJavaScript:jsZiti completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        //
+    }];
     
 }
 
