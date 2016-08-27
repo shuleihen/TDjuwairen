@@ -22,7 +22,7 @@
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
 #import "BrowserViewController.h"
-#import "UserInfoViewController.h"
+#import "MyAttentionViewController.h"
 
 #import "UIdaynightModel.h"
 #import "HexColors.h"
@@ -350,14 +350,11 @@
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }
-    else//登录后 跳转收藏管理页面
+    else//登录后 跳转我的关注页面
     {
-//        CollectionViewController *collection = [[CollectionViewController alloc] init];
-//        collection.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:collection animated:YES];
-        UserInfoViewController *uv = [[UserInfoViewController alloc]init];
-        uv.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:uv animated:YES];
+        MyAttentionViewController *MyAttention = [[MyAttentionViewController alloc]init];
+        MyAttention.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:MyAttention animated:YES];
     }
 }
 #pragma mark - 跳转到浏览记录

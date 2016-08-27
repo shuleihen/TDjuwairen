@@ -10,4 +10,25 @@
 
 @interface ViewInfoModel : NSObject
 
+@property (nonatomic,copy) NSString *is_attention_author;
+
+@property (nonatomic,copy) NSString *is_collection;
+
+@property (nonatomic,strong) NSMutableArray *tagsArr;
+
+@property (nonatomic,copy) NSString *view_content_url;
+
+@property (nonatomic,copy) NSString *userinfo_facesmall;
+
+@property (nonatomic,copy) NSString *view_addtime;
+
+@property (nonatomic,copy) NSString *view_author;
+
+@property (nonatomic,copy) NSString *view_title;
+
+@property (nonatomic,copy) NSString *view_id;
+
+
++ (id)viewWithDictionary:(NSDictionary *)dic;
+
 @end

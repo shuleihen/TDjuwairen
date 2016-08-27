@@ -37,14 +37,15 @@
             mod = @"日间模式";
             img = @"btn_night_rijian.png";
         }
-        if ([iscollect isEqualToString:@"yes"]) {
-            coll = @"收藏";
-            colImg = @"btn_col.png";
+        int co  = [iscollect intValue];
+        if (co == 1) {
+            coll = @"取消收藏";
+            colImg = @"btn_col_pre.png";
         }
         else
         {
-            coll = @"取消收藏";
-            colImg = @"btn_col_pre.png";
+            coll = @"收藏";
+            colImg = @"btn_col.png";
         }
         
         self.imgArr = @[@"btn_fuzhi.png",colImg,@"btn_ziti.png",img,@"btn_jubao.png"];

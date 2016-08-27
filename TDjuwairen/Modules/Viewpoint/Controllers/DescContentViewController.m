@@ -20,6 +20,7 @@
 #import "FeedbackViewController.h"
 #import "SharpTags.h"
 #import "SearchViewController.h"
+#import "ViewInfoModel.h"
 
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
@@ -51,7 +52,6 @@
 @property (nonatomic,strong) TimeHotComView *thview;
 /* 评论条 */
 @property (nonatomic,strong) BackCommentView *backcommentview;
-@property (nonatomic,strong) NSDictionary *dataDic;
 @property (nonatomic,strong) NSMutableArray *FirstcommentArr;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -69,9 +69,10 @@
 @property (nonatomic,strong) NSString *encryptedStr;
 
 @property (nonatomic,strong) SharpTags *tagList;
-@property (nonatomic,strong) NSMutableArray *sharpTagsArray;
 
 @property (nonatomic,strong) NSString *pid;
+
+@property (nonatomic,strong) ViewInfoModel *viewInfo;
 
 @end
 
@@ -79,9 +80,8 @@
 - (NaviMoreView *)nmview{
     if (!_nmview) {
         //        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
-        NSString *str = @"yes";
-
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:str];
+    
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:self.viewInfo.is_collection];
         
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
@@ -103,7 +103,6 @@
     [super viewDidLoad];
     
     self.FirstcommentArr = [NSMutableArray array];
-    self.sharpTagsArray = [NSMutableArray array];
     self.sizeArr = @[@"120%",@"110%",@"100%",@"90%"];
     naviShow = NO;
     fontShow = NO;
@@ -166,22 +165,22 @@
     
     NSString *urlPath ;
     if (US.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/userid/%@",API_HOST,self.view_id,US.userId];
+        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/user_id/%@",kAPI_bendi,self.view_id,US.userId];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",API_HOST,self.view_id];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
     }
+    __weak DescContentViewController *wself = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
-            self.dataDic = data;
-            
-            self.sharpTagsArray = self.dataDic[@"tags"];
-            NSString *urlpath = [NSString stringWithFormat:@"http://appapi.juwairen.net%@",self.dataDic[@"view_content_url"]];
+            NSDictionary *d = data;
+            wself.viewInfo = [ViewInfoModel viewWithDictionary:d];
 
-            [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
-            
+            NSString *url = [NSString stringWithFormat:@"http://192.168.1.106%@",wself.viewInfo.view_content_url];
+            [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
+
             [self.tableview reloadData];
         }
         else
@@ -355,19 +354,19 @@
             if (titleCell == nil) {
                 titleCell = [[TitlesTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleCell"];
             }
-            [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.dataDic[@"userinfo_facesmall"]]];
+            [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.viewInfo.userinfo_facesmall]];
             
-            NSString *str =self.dataDic[@"view_addtime"];
+            NSString *str = self.viewInfo.view_addtime;
             NSTimeInterval time = [str doubleValue];
             NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSString *custime = [dateFormatter stringFromDate:detaildate];
             
-            titleCell.usernickname.text = self.dataDic[@"view_author"];
+            titleCell.usernickname.text = self.viewInfo.view_author;
             titleCell.addtime.text = custime;
             
-            NSString *text = self.dataDic[@"view_title"];
+            NSString *text = self.viewInfo.view_title;
             UIFont *font = [UIFont systemFontOfSize:20];
             titleCell.titleLabel.font = font;
             titleCell.titleLabel.numberOfLines = 0;
@@ -421,14 +420,14 @@
             self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
             self.tagList.BGColor = [UIColor clearColor];
             
-            /* 判断sharpTagsArray是否为空 */
-            if ((NSNull *)self.sharpTagsArray != [NSNull null]) {
+            /* 判断TagsArray是否为空 */
+            if ((NSNull *)self.viewInfo.tagsArr != [NSNull null]) {
                 NSArray *arr = [NSArray array];
-                if (self.sharpTagsArray.count > 4) {
-                    arr = [self.sharpTagsArray subarrayWithRange:NSMakeRange(0, 4)];
+                if (self.viewInfo.tagsArr.count > 4) {
+                    arr = [self.viewInfo.tagsArr subarrayWithRange:NSMakeRange(0, 4)];
                 }else
                 {
-                    arr = self.sharpTagsArray;
+                    arr = self.viewInfo.tagsArr;
                 }
                 [self.tagList setTagWithTagArray:arr];
             }
@@ -881,7 +880,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"添加收藏";
         
-        NetworkManager *manager = [[NetworkManager alloc] init];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
         NSDictionary *dic = @{@"userid":US.userId,
                               @"module_id":@3,
                               @"item_id":self.view_id};
@@ -906,7 +905,7 @@
     NSMutableArray *IDArr = [NSMutableArray array];
     [IDArr addObject:self.view_id];
     
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *para = @{@"authenticationStr":US.userId,
                            @"encryptedStr":self.encryptedStr,
                            @"delete_ids":IDArr,
@@ -1142,9 +1141,9 @@
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupShareParamsByText:nil
-                                     images:@[self.dataDic[@"userinfo_facesmall"]]
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.dataDic[@"view_id"]]]
-                                      title:self.dataDic[@"view_title"]
+                                     images:@[self.viewInfo.userinfo_facesmall]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
+                                      title:self.viewInfo.view_title
                                        type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
     [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响

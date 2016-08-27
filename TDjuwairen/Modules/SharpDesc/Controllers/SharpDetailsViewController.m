@@ -880,7 +880,9 @@
             hud.labelText = @"添加收藏";
             
             NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dic = @{@"userid":US.userId,@"module_id":@2,@"item_id":self.sharp_id};
+            NSDictionary *dic = @{@"userid":US.userId,
+                                  @"module_id":@2,
+                                  @"item_id":self.sharp_id};
             
             [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
                 if (!error) {

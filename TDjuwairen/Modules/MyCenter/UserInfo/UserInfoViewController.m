@@ -12,6 +12,7 @@
 #import "ChildBlogTableViewController.h"
 
 #import "UIdaynightModel.h"
+#import "NetworkManager.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
 {
@@ -20,6 +21,7 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 @property (nonatomic,strong) UIView *naviBackView;   //用作navigation背景
+@property (nonatomic,strong) UIButton *backBtn;
 @property (nonatomic,strong) UIButton *isAttention;
 
 @property (nonatomic,strong) UITableView *tableview;
@@ -56,7 +58,7 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:YES animated:nil];
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
 }
 
 - (void)setupWithTableView{
@@ -70,17 +72,21 @@
     //
     self.naviBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     
-    UIButton *backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 28, 30, 30)];
-    [backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-    [backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
+    self.backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 28, 30, 30)];
+    [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
+    [self.backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
     self.isAttention = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 28, 80, 30)];
-    [self.isAttention setTitle:@"关注" forState:UIControlStateNormal];
+    self.isAttention.titleLabel.textAlignment = NSTextAlignmentRight;
+    [self.isAttention setTitle:@" + 关注" forState:UIControlStateNormal];
+    [self.isAttention setTitle:@"取消关注" forState:UIControlStateSelected];
+    [self.isAttention setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
+    [self.isAttention addTarget:self action:@selector(AttentionUser:) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.naviBackView];
-    [self.view addSubview:backBtn];
+    [self.view addSubview:self.backBtn];
     [self.view addSubview:self.isAttention];
 }
 
@@ -156,13 +162,20 @@
     if (self.tableview.contentOffset.y<0) {
         [self.naviBackView setHidden:YES];
     }
+    else if (self.tableview.contentOffset.y < 40) {
+        [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
+        [self.isAttention setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
+    }
     else
     {
         [self.naviBackView setHidden:NO];
+        [self.backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+        [self.isAttention setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal & UIControlStateSelected];
         self.naviBackView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:self.tableview.contentOffset.y / 190];
     }
 }
 
+#pragma mark - select
 - (void)ClickBtn:(UIButton *)sender
 {
     self.cateview.selectBtn.selected = NO;
@@ -226,6 +239,48 @@
 - (void)goBack:(UIButton *)sender{
     [self.navigationController popViewControllerAnimated:YES];
 }
+
+- (void)AttentionUser:(UIButton *)sender{
+    if (sender.selected == YES) {
+        sender.selected = NO;
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSString *urlString = [NSString stringWithFormat:@"%@index.php/Blog/blogSurveyList",kAPI_bendi];
+        NSDictionary *dic = @{
+                              @"user_id":@"85",
+                              @"page":@"1",
+                              };
+        [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                NSLog(@"%@",data);
+            }
+            else
+            {
+                NSLog(@"%@",error);
+            }
+        }];
+        
+    }
+    else
+    {
+        sender.selected = YES;
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSString *urlString = [NSString stringWithFormat:@"%@index.php/Blog/blogViewLists",kAPI_bendi];
+        NSDictionary *dic = @{
+                              @"user_id":@"478",
+                              @"page":@"1",
+                              };
+        [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                NSLog(@"%@",data);
+            }
+            else
+            {
+                NSLog(@"%@",error);
+            }
+        }];
+    }
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
