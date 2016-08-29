@@ -165,11 +165,11 @@
     
     NSString *urlPath ;
     if (US.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/user_id/%@",kAPI_bendi,self.view_id,US.userId];
+        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/user_id/%@",API_HOST,self.view_id,US.userId];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",API_HOST,self.view_id];
     }
     __weak DescContentViewController *wself = self;
     NetworkManager *ma = [[NetworkManager alloc] init];

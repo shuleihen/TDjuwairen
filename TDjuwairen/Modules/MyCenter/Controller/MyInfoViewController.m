@@ -351,6 +351,8 @@
     UIImage *reSizeImg = [UIImage imageWithData:data];
     reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
     self.headImage = reSizeImg;
+    
+    [self.tableview reloadData];
     //上传头像
     [self requestHead];
 }
@@ -368,21 +370,11 @@
     UIGraphicsEndImageContext();
     return newImage;
 }
+
 //上传头像
 -(void)requestHead
 {
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para=@{@"validatestring":US.userId};
-    
-    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
-        if (!error) {
-            NSDictionary *dic = data;
-            self.str = dic[@"str"];
-            [self requestUploadHeadImage];
-        } else {
-            
-        }
-    }];
+    [self requestUploadHeadImage];
 }
 
 -(void)requestUploadHeadImage
@@ -413,7 +405,7 @@
             [aler addAction:conformAction];
             [self presentViewController:aler animated:YES completion:nil];
         } else {
-            
+
         }
     }];
 }
