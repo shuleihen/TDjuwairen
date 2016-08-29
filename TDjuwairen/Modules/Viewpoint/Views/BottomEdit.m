@@ -55,9 +55,6 @@
 }
 
 - (void)clickEdit:(UIButton *)sender{
-    self.selectBtn.selected = NO;
-    sender.selected = YES;
-    self.selectBtn = sender;
     if ([self respondsToSelector:@selector(clickEdit:)]) {
         [self.delegate clickEdit:sender];
     }

@@ -285,6 +285,9 @@
 {
     int num = (int)sender.tag;
     if (num == 0) {
+        self.bottomView.selectBtn.selected = NO;
+        sender.selected = YES;
+        self.bottomView.selectBtn = sender;
         [self.SelSecView removeFromSuperview];
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
             sender.selected = YES;
@@ -300,6 +303,9 @@
         }
     }
     else if(num == 1){
+        self.bottomView.selectBtn.selected = NO;
+        sender.selected = YES;
+        self.bottomView.selectBtn = sender;
         [self.SelSecView removeFromSuperview];
         if ([self.titleText isFirstResponder]) {
             currentTitle = self.titleText.text;
@@ -312,6 +318,9 @@
         }
     }
     else if (num == 2){
+        self.bottomView.selectBtn.selected = NO;
+        sender.selected = YES;
+        self.bottomView.selectBtn = sender;
         [self.SelSecView removeFromSuperview];
         if ([self.titleText isFirstResponder]) {
             if ([currentTitle isEqualToString:@""] || currentTitle == nil) {
@@ -336,38 +345,78 @@
         }
     }
     else if (num ==3){
-        [self.SelSecView removeFromSuperview];
-        //字体设置
-        self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40)];
-        self.secondView.backgroundColor = self.daynightmodel.navigationColor;
-        self.secondView.delegate = self;
-        self.SelSecView = self.secondView;
+        if (sender.selected == NO) {
+            [self.SelSecView removeFromSuperview];
+            //字体设置
+            self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40)];
+            self.secondView.backgroundColor = self.daynightmodel.navigationColor;
+            self.secondView.delegate = self;
+            self.SelSecView = self.secondView;
+            
+            [self.view addSubview:self.secondView];
+            
+            self.bottomView.selectBtn.selected = NO;
+            sender.selected = YES;
+            self.bottomView.selectBtn = sender;
+        }
+        else
+        {
+            [self.SelSecView removeFromSuperview];
+            self.bottomView.selectBtn.selected = NO;
+            sender.selected = NO;
+            self.bottomView.selectBtn = sender;
+        }
         
-        [self.view addSubview:self.secondView];
     }
     else if (num == 4){
-        [self.SelSecView removeFromSuperview];//移除子视图
-        //插入
-        NSArray *imgArr = @[@"btn_img@3x.png",@"btn_biaoqian"];
-        NSArray *textArr = @[@"图片",@"股票"];
-        self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
-        self.secondView.backgroundColor = self.daynightmodel.navigationColor;
-        self.secondView.delegate = self;
-        self.SelSecView = self.secondView;
-        
-        [self.view addSubview:self.secondView];
+        if (sender.selected == NO) {
+            [self.SelSecView removeFromSuperview];//移除子视图
+            //插入
+            NSArray *imgArr = @[@"btn_img@3x.png",@"btn_biaoqian"];
+            NSArray *textArr = @[@"图片",@"股票"];
+            self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
+            self.secondView.backgroundColor = self.daynightmodel.navigationColor;
+            self.secondView.delegate = self;
+            self.SelSecView = self.secondView;
+            
+            [self.view addSubview:self.secondView];
+            
+            self.bottomView.selectBtn.selected = NO;
+            sender.selected = YES;
+            self.bottomView.selectBtn = sender;
+        }
+        else
+        {
+            [self.SelSecView removeFromSuperview];
+            self.bottomView.selectBtn.selected = NO;
+            sender.selected = NO;
+            self.bottomView.selectBtn = sender;
+        }
     }
     else {
-        [self.SelSecView removeFromSuperview];//移除子视图
-        //更多
-        NSArray *imgArr = @[@"tab_yulan@3x.png",@"tab_caogao@3x.png"];
-        NSArray *textArr = @[@"预览",@"存为草稿"];
-        self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
-        self.secondView.backgroundColor = self.daynightmodel.navigationColor;
-        self.secondView.delegate = self;
-        self.SelSecView = self.secondView;
-        
-        [self.view addSubview:self.secondView];
+        if (sender.selected == NO) {
+            [self.SelSecView removeFromSuperview];//移除子视图
+            //更多
+            NSArray *imgArr = @[@"tab_yulan@3x.png",@"tab_caogao@3x.png"];
+            NSArray *textArr = @[@"预览",@"存为草稿"];
+            self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
+            self.secondView.backgroundColor = self.daynightmodel.navigationColor;
+            self.secondView.delegate = self;
+            self.SelSecView = self.secondView;
+            
+            [self.view addSubview:self.secondView];
+            
+            self.bottomView.selectBtn.selected = NO;
+            sender.selected = YES;
+            self.bottomView.selectBtn = sender;
+        }
+        else
+        {
+            [self.SelSecView removeFromSuperview];
+            self.bottomView.selectBtn.selected = NO;
+            sender.selected = NO;
+            self.bottomView.selectBtn = sender;
+        }
     }
 }
 
@@ -1171,8 +1220,6 @@
     NSString *htmlstring = [self htmlStringByHtmlAttributeString:up];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
-    
-    
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     
