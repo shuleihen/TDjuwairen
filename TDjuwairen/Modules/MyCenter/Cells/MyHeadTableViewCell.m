@@ -47,24 +47,6 @@
     self.nickname.font = [UIFont systemFontOfSize:15];
     self.nickname.textAlignment = NSTextAlignmentCenter;
     
-    if (US.isLogIn==YES) {
-        //加载头像
-        NSString*imagePath=[NSString stringWithFormat:@"%@",US.headImage];
-        [self.headImg sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
-        
-        self.nickname.text = US.nickName;
-        
-        //加载模糊背景图片
-        NSString*Path = [NSString stringWithFormat:@"%@",US.headImage];
-        [self.backImg sd_setImageWithURL:[NSURL URLWithString:Path] placeholderImage:nil options:SDWebImageRefreshCached];
-    }
-    else
-    {
-        self.nickname.text=@"登陆注册";
-        self.headImg.image=[UIImage imageNamed:@"HeadUnLogin"];
-        self.backImg.image=[UIImage imageNamed:@"NotLogin.png"];
-    }
-    
     [self addSubview:self.backImg];
     [self addSubview:self.headImg];
     [self addSubview:self.nickname];

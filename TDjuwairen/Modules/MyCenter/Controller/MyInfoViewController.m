@@ -13,6 +13,8 @@
 #import "MyInfomationTableViewCell.h"
 #import "ELCImagePickerController.h"
 #import "NetworkManager.h"
+#import "MBProgressHUD.h"
+#import "UIImageView+WebCache.h"
 
 @interface MyInfoViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 
@@ -123,6 +125,8 @@
         if (cell == nil) {
             cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
+        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:self.loginState.headImage] placeholderImage:nil options:SDWebImageRefreshCached];
+        [cell.backImg sd_setImageWithURL:[NSURL URLWithString:self.loginState.headImage] placeholderImage:nil options:SDWebImageRefreshCached];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
@@ -347,7 +351,7 @@
     UIImage *img = [dic objectForKey:UIImagePickerControllerOriginalImage];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    NSData *data = UIImageJPEGRepresentation(img, 0.75);
+    NSData *data = UIImageJPEGRepresentation(img, 0.5);
     UIImage *reSizeImg = [UIImage imageWithData:data];
     reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
     self.headImage = reSizeImg;
@@ -379,6 +383,8 @@
 
 -(void)requestUploadHeadImage
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"请稍等";
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
@@ -387,7 +393,7 @@
     [manager POST:API_UploadUserface parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = self.headImage;
         
-        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        NSData *data = UIImageJPEGRepresentation(image, 1);
         
         NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";
@@ -398,14 +404,13 @@
         
     } completion:^(id data, NSError *error) {
         if (!error) {
-            UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:@"头像上传成功" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }];
-            [aler addAction:conformAction];
-            [self presentViewController:aler animated:YES completion:nil];
+            hud.labelText = @"上传成功";
+            [hud hide:YES afterDelay:1];
+            
+            [self.tableview reloadData];
         } else {
-
+            hud.labelText = @"网络错误";
+            [hud hide:YES afterDelay:1];
         }
     }];
 }

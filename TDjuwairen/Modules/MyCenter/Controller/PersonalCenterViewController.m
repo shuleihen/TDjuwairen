@@ -87,6 +87,23 @@
             if (cell == nil) {
                 cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
+            if (US.isLogIn==YES) {
+                //加载头像
+                NSString*imagePath=[NSString stringWithFormat:@"%@",US.headImage];
+                [cell.headImg sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
+                
+                cell.nickname.text = US.nickName;
+                
+                //加载模糊背景图片
+                NSString*Path = [NSString stringWithFormat:@"%@",US.headImage];
+                [cell.backImg sd_setImageWithURL:[NSURL URLWithString:Path] placeholderImage:nil options:SDWebImageRefreshCached];
+            }
+            else
+            {
+                cell.nickname.text=@"登陆注册";
+                cell.headImg.image=[UIImage imageNamed:@"HeadUnLogin"];
+                cell.backImg.image=[UIImage imageNamed:@"NotLogin.png"];
+            }
             cell.backgroundColor = self.daynightmodel.navigationColor;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
