@@ -761,9 +761,18 @@
         NSLog(@"%@",cell.textLabel.text);
     }
     else if ([cell.textLabel.text isEqualToString:@"收藏"]){
-        cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
-        cell.textLabel.text = @"取消收藏";
-        [self addCollection];
+        if (US.isLogIn == NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
+            cell.textLabel.text = @"取消收藏";
+            [self addCollection];
+        }
     }
     else if ([cell.textLabel.text isEqualToString:@"取消收藏"]){
         cell.imageView.image = [UIImage imageNamed:@"btn_col"];
