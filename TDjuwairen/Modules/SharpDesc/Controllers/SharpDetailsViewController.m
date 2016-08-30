@@ -414,17 +414,12 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 6;
-    }
-    else
-    {
-        /* 判断评论数组中是否有数据 */
+        return 5;
+    } else {
         if (self.commentsDataArray.count == 0) {
-            //没有
             return 2;
         }
-        else
-        {
+        else {
             return self.commentsDataArray.count + 1;
         }
     }
@@ -436,24 +431,13 @@
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
             return 75+titlesize.height+10;
-        }
-        else if(indexPath.row == 1){
+        } else if(indexPath.row == 1) {
             return self.webview.frame.size.height;
-        }
-        else if (indexPath.row == 2){
-            return 80;
-        }
-        else if (indexPath.row == 3)
-        {
-            /* 这里是标签栏的高度 */
-            //也要做自适应
+        } else if (indexPath.row == 2) {
             return 10+self.tagList.frame.size.height+10;
-        }
-        else if(indexPath.row == 4){
+        } else if(indexPath.row == 3) {
             return 15+originalsize.height+15;
-        }
-        else
-        {
+        } else {
             return 20;
         }
     }
@@ -461,14 +445,10 @@
     {
         if (indexPath.row == 0) {
             return 44;
-        }
-        else
-        {
+        } else {
             if (self.commentsDataArray.count == 0) {
                 return kScreenHeight-64-44;
-            }
-            else
-            {
+            } else {
                 if (indexPath.row == self.commentsDataArray.count) {
                     if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count) > 10+15+5+12+10+commentsize.height+10) {
                         return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.commentsDataArray.count);
@@ -528,29 +508,7 @@
             }
             
             return cell;
-        }
-        else if (indexPath.row == 2){
-            AddCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"addcollectioncell"];
-            if (cell == nil) {
-                cell = [[AddCollectionTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"addcollectioncell"];
-            }
-            if (!self.sharpInfo.sharpIsCollect) {
-                [cell.addCollection setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
-            }
-            else
-            {
-                [cell.addCollection setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
-            }
-            [cell.addCollection addTarget:self action:@selector(clickAdd:) forControlEvents:UIControlEventTouchUpInside];
-            //设置三秒内不可重复点击
-            /* cell的选中样式为无色 */
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            return cell;
-            
-        }
-        
-        else if(indexPath.row == 3){
+        } else if(indexPath.row == 2){
             /* 这里是文章标签 */
             NSString *identifier = @"tagscell";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -582,7 +540,7 @@
             cell.backgroundColor = self.daynightmodel.navigationColor;
             return cell;
         }
-        else if (indexPath.row == 4){
+        else if (indexPath.row == 3){
             NSString *identifier = @"isoriginal";
             UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
@@ -865,73 +823,6 @@
 }
 
 #pragma mark - Action
-- (void)clickAdd:(UIButton *)sender{
-    //点击之后三秒内不可再次点击
-    [sender setEnabled:NO];
-    int64_t delayInSeconds = 2.0 * 1.0;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, delayInSeconds * NSEC_PER_SEC);
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        [sender setEnabled:YES];
-    });
-    
-    if (US.isLogIn) {
-        if (!self.sharpInfo.sharpIsCollect) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"添加收藏";
-            
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dic = @{@"userid":US.userId,
-                                  @"module_id":@2,
-                                  @"item_id":self.sharp_id};
-            
-            [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
-                if (!error) {
-                    hud.labelText = @"收藏成功";
-                    [hud hide:YES afterDelay:0.2];
-                    
-                    self.sharpInfo.sharpIsCollect = true;
-                    [sender setBackgroundImage:[UIImage imageNamed:@"收藏成功.png"] forState:UIControlStateNormal];
-                } else {
-                    hud.labelText = @"收藏失败";
-                    [hud hide:YES afterDelay:0.2];
-                }
-            }];
-        }
-        else
-        {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"取消收藏";
-            
-            NSMutableArray *sharpID = [NSMutableArray array];
-            [sharpID addObject:self.sharp_id];
-            
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *para = @{@"authenticationStr":US.userId,
-                                   @"encryptedStr":encryptedStr,
-                                   @"delete_ids":sharpID,
-                                   @"module_id":@"2",
-                                   @"userid":US.userId};
-            
-            [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
-                if (!error) {
-                    self.sharpInfo.sharpIsCollect = false;
-                    [sender setBackgroundImage:[UIImage imageNamed:@"收藏.png"] forState:UIControlStateNormal];
-                    
-                    hud.labelText = @"取消成功";
-                    [hud hide:YES afterDelay:0.2];
-                } else {
-                    hud.labelText = @"取消失败";
-                    [hud hide:YES afterDelay:0.2];
-                }
-            }];
-        }
-    }
-    else
-    {
-        [self gotLoginViewController];
-    }
-}
-
 - (void)clickComments:(UIButton *)sender{
     
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
