@@ -729,12 +729,13 @@
             CGRect frame = webView.frame;
             frame.size.height = documentHeight + 10/*显示不全*/;
             webView.frame = frame;
+            //停止加载样式
+            self.hudload.labelText = @"加载完成";
+            [self.hudload hide:YES afterDelay:0.1];
             //主线程刷新UI
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableview reloadData];
-                //停止加载样式
-                self.hudload.labelText = @"加载完成";
-                [self.hudload hide:YES afterDelay:0.1];
+                
             });
         }];
     });
