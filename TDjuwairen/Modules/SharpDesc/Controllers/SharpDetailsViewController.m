@@ -121,7 +121,7 @@
 
 - (void)dealloc
 {
-    [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
+//    [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
     //    NSLog(@"dealloc");
@@ -236,10 +236,10 @@
     self.webview.UIDelegate = self;
     self.webview.scrollView.scrollEnabled = NO;
     
-    [self.webview.scrollView addObserver:self
-                              forKeyPath:@"contentSize"
-                                 options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
-                                 context:nil];
+//    [self.webview.scrollView addObserver:self
+//                              forKeyPath:@"contentSize"
+//                                 options:NSKeyValueObservingOptionNew|NSKeyValueObservingOptionOld
+//                                 context:nil];
 }
 
 - (void)setupTableView
@@ -944,9 +944,13 @@
         NSLog(@"%@",cell.textLabel.text);
     }
     else if ([cell.textLabel.text isEqualToString:@"收藏"]){
-        cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
-        cell.textLabel.text = @"取消收藏";
-        [self addCollection];
+        if (US.isLogIn) {
+            cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
+            cell.textLabel.text = @"取消收藏";
+            [self addCollection];
+        } else {
+            [self gotLoginViewController];
+        }
     }
     else if ([cell.textLabel.text isEqualToString:@"取消收藏"]){
         cell.imageView.image = [UIImage imageNamed:@"btn_col"];
