@@ -653,7 +653,7 @@
                     NSLog(@"成功");
                     sender.selected = YES;
                     [sender setImage:[UIImage imageNamed:@"btn_dianzan_pre"] forState:UIControlStateNormal];
-                    NSString *str = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
+                    NSString *str = [NSString stringWithFormat:@"  %d",[sender.titleLabel.text intValue] + 1];
                     [sender setTitle:str forState:UIControlStateNormal];
                 }
                 else
@@ -975,12 +975,23 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"加载中...";
         self.thview.louzhu.selected = YES;
-        NSDictionary *dic = @{
-                              @"type":@"my",
-                              @"view_id":self.view_id,
-                              @"user_id":self.loginState.userId,
-                              @"loadedLength":@"0"
-                              };
+        NSDictionary *dic ;
+        if (!US.isLogIn) {
+            dic = @{
+                    @"type":@"my",
+                    @"view_id":self.view_id,
+                    @"loadedLength":@"0"
+                    };
+        }
+        else
+        {
+            dic = @{
+                    @"type":@"my",
+                    @"view_id":self.view_id,
+                    @"user_id":self.loginState.userId,
+                    @"loadedLength":@"0"
+                    };
+        }
         NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
             if (!error) {

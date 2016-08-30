@@ -57,7 +57,6 @@
 @property (nonatomic,copy) NSString *selType;
 
 @property (nonatomic,assign) float contentHeight;
-@property (nonatomic,assign) float scrollhei ;
 @property (nonatomic,assign) float frameHeight;
 @property (nonatomic,assign) float keyboardHeight;
 
@@ -80,7 +79,7 @@
     firstchange = YES;
     self.editziti.type = [NSString stringWithFormat:@"nil%d",self.editziti.zihao];//默认
     zititype = self.editziti.type;
-    self.scrollhei = 50;
+    
     
     [self setupWithNavigation];
     [self setupWithScrollview];
@@ -144,20 +143,20 @@
     self.titleText.textColor = self.daynightmodel.textColor;
     
     self.titleText.layer.borderWidth = 1;
-    self.titleText.layer.borderColor = [UIColor colorWithRed:240/255.0 green:242/255.0 blue:245/255.0 alpha:1.0].CGColor;
+    self.titleText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
     
     self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 5, 40, 30)];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select.png"] forState:UIControlStateNormal];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select_pre.png"] forState:UIControlStateSelected];
     self.originalBtn.selected = YES;//默认为原创
-    [self.originalBtn setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.originalBtn setBackgroundColor:self.titleText.backgroundColor];
     [self.originalBtn addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *originalLabel = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-40, 5, 40, 30)];
     originalLabel.titleLabel.font = [UIFont systemFontOfSize:16];
     [originalLabel setTitle:@"原创" forState:UIControlStateNormal];
     [originalLabel setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
-    [originalLabel setBackgroundColor:self.daynightmodel.navigationColor];
+    [originalLabel setBackgroundColor:self.titleText.backgroundColor];
     [originalLabel addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.scrollview addSubview:self.titleText];
@@ -168,7 +167,7 @@
 
 
 - (void)setupWithContentText{
-    self.contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64-40-80)];
+    self.contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64-40)];
     self.contentText.textContainerInset = UIEdgeInsetsMake(8, 4, 8, 4);
     self.contentText.backgroundColor = self.titleText.backgroundColor;
     self.contentText.font = [UIFont systemFontOfSize:14];
@@ -283,6 +282,7 @@
 #pragma mark - 点击编辑栏
 - (void)clickEdit:(UIButton *)sender
 {
+    
     int num = (int)sender.tag;
     if (num == 0) {
         self.bottomView.selectBtn.selected = NO;
@@ -392,8 +392,10 @@
             sender.selected = NO;
             self.bottomView.selectBtn = sender;
         }
+        
     }
     else {
+        
         if (sender.selected == NO) {
             [self.SelSecView removeFromSuperview];//移除子视图
             //更多
@@ -417,6 +419,7 @@
             sender.selected = NO;
             self.bottomView.selectBtn = sender;
         }
+        
     }
 }
 
@@ -636,6 +639,7 @@
     [self.view endEditing:YES];
 }
 
+#pragma mark - 草稿再编辑处理
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
@@ -648,11 +652,26 @@
         self.placeholderLab.text = @"";
         self.placeholderLab.alpha = 0.0;
         
-        //        NSString *htmlstring ;
-        //        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"<" withString:@"&lt;"];
-        //        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@">" withString:@"&gt;"];
-        //        self.contentText.attributedText = [self htmlAttributeStringByHtmlString:self.content];
-        //        NSLog(@"%@",self.contentText.attributedText);
+        
+        NSString *htmlstring = self.contentStr;
+        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
+        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
+        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&quot;" withString:@"\""];
+        
+        //获取html中的图片标签
+        NSArray *imgarr = [self getImageurlFromHtml:htmlstring];
+        self.upimgArr = [NSMutableArray arrayWithArray:imgarr];
+        
+        NSArray *rangArr = [self getImageRangFromHtml:htmlstring andWithArr:imgarr];
+        
+        self.imglocArr = [NSMutableArray arrayWithArray:rangArr];
+        
+        NSAttributedString *contentAtt = [self attributedStringWithHtml:htmlstring];
+        self.contentText.attributedText = contentAtt;
+        
+        //最后做清空处理
+        self.titleStr = nil;
+        self.contentStr = nil;
     }
     
 }
@@ -663,9 +682,12 @@
     [self.contentText removeObserver:self forKeyPath:@"contentSize"];
 }
 
+
+
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
+    currentRange = self.contentText.selectedRange;
     //改变textview的高度
     CGRect frame = textView.frame;
     if ([textView.text isEqual:@""]) {
@@ -1093,7 +1115,6 @@
     [self.contentText becomeFirstResponder];
     self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
     
-    
 }
 
 #pragma mark - 点击发布
@@ -1157,7 +1178,7 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     NSDictionary *para ;
     if (self.tagsArr.count == 0) {
         para = @{@"userid":US.userId,
@@ -1221,7 +1242,7 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
     
     NSDictionary *para ;
     if (self.tagsArr.count == 0) {
@@ -1246,10 +1267,17 @@
     
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText = @"发布成功";
-            [hud hide:YES afterDelay:1];
             
-            [self.navigationController popViewControllerAnimated:YES];
+            hud.labelText = @"文章将在审核后发布";
+            hud.mode = MBProgressHUDModeText;
+            [hud showAnimated:YES whileExecutingBlock:^{
+                sleep(2);
+            } completionBlock:^{
+                [hud hide:YES afterDelay:1.0f];
+                [self.navigationController popViewControllerAnimated:YES];
+            }];
+            
+            
         } else {
             hud.labelText = @"发布失败";
             [hud hide:YES afterDelay:1];
@@ -1268,19 +1296,90 @@
     NSData *htmlData = [htmlAttributeString dataFromRange:NSMakeRange(0, htmlAttributeString.length) documentAttributes:exportParams error:nil];
     htmlString = [[NSString alloc] initWithData:htmlData encoding:NSUTF8StringEncoding];
     
+    htmlString = [htmlString stringByReplacingOccurrencesOfString:@"pt" withString:@"px"];
+    
     return htmlString;
 }
 
 /** 将超文本格式化为富文本*/
-- (NSAttributedString *)htmlAttributeStringByHtmlString:(NSString *)htmlString{
-    NSAttributedString *attributeString;
-    NSData *htmlData = [htmlString dataUsingEncoding:NSUTF8StringEncoding];
-    NSDictionary *importParams = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType,
-                                   NSCharacterEncodingDocumentAttribute:[NSNumber numberWithInt:NSUTF8StringEncoding]};
-    NSError *error = nil;
-    attributeString = [[NSAttributedString alloc] initWithData:htmlData options:importParams documentAttributes:NULL error:&error];
-    return attributeString;
+-(NSAttributedString *)attributedStringWithHtml:(NSString *)html
+{
+    html = [html stringByReplacingOccurrencesOfString:@"pt" withString:@"px"];
+    
+    
+    NSDictionary *options = @{NSDocumentTypeDocumentAttribute: NSHTMLTextDocumentType};
+    NSMutableAttributedString *attrString = [[NSMutableAttributedString alloc] initWithData:[html dataUsingEncoding:NSUnicodeStringEncoding allowLossyConversion:YES] options:options documentAttributes:nil error:nil];
+    return attrString;
 }
+
+//获取htmlString中的所有图片URL
+- (NSArray *) getImageurlFromHtml:(NSString *) webString
+{
+    NSMutableArray * imageurlArray = [NSMutableArray arrayWithCapacity:1];
+    
+    //标签匹配
+    NSString *parten = @"<img(.*?)>";
+    NSError* error = NULL;
+    NSRegularExpression *reg = [NSRegularExpression regularExpressionWithPattern:parten options:0 error:&error];
+    
+    NSArray* match = [reg matchesInString:webString options:0 range:NSMakeRange(0, [webString length] - 1)];
+    
+    for (NSTextCheckingResult * result in match) {
+        
+        //过去数组中的标签
+        NSRange range = [result range];
+        NSString * subString = [webString substringWithRange:range];
+        
+        
+        //从图片中的标签中提取ImageURL
+        //        NSRegularExpression *subReg = [NSRegularExpression regularExpressionWithPattern:@"http://(.*?)\"" options:0 error:NULL];
+        //        NSArray* match = [subReg matchesInString:subString options:0 range:NSMakeRange(0, [subString length] - 1)];
+        //        NSTextCheckingResult * subRes = match[0];
+        //        NSRange subRange = [subRes range];
+        //        subRange.length = subRange.length -1;
+        //        NSString * imagekUrl = [subString substringWithRange:subRange];
+        //        NSString *imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",imagekUrl];
+        
+        //将提取出的图片URL添加到图片数组中
+        [imageurlArray addObject:subString];
+    }
+    
+    return imageurlArray;
+}
+
+/** 定位html中图片的位置*/
+- (NSArray *)getImageRangFromHtml:(NSString *)htmlstring andWithArr:(NSArray *)imgarr{
+    //把url标签替换成图片
+    for (int i = 0; i<imgarr.count; i++) {
+        htmlstring = [htmlstring stringByReplacingOccurrencesOfString:imgarr[i] withString:@"[图片]"];
+    }
+    NSAttributedString *tupianAtt = [self attributedStringWithHtml:htmlstring];
+    NSString *tp = tupianAtt.string;
+    NSArray *rangArr = [self rangeOfSymbolString:@"[图片]" inString:tp];
+    
+    return rangArr;
+}
+
+/** 统计文本中所有图片资源标志的range*/
+- (NSArray *)rangeOfSymbolString:(NSString *)symbol inString:(NSString *)string {
+    NSMutableArray *rangeArray = [NSMutableArray array];
+    NSString *string1 = [string stringByAppendingString:symbol];
+    NSString *temp;
+    int n = 0;
+    for (int i = 0; i < string.length; i ++) {
+        temp = [string1 substringWithRange:NSMakeRange(i, symbol.length)];
+        if ([temp isEqualToString:symbol]) {
+            NSRange range = {i, symbol.length};
+            
+            float m = n * (symbol.length-1);
+            [rangeArray addObject:@(range.location-m)];
+            
+            n++;
+        }
+    }
+    return rangeArray;
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

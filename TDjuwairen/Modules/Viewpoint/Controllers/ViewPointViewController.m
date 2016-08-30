@@ -112,7 +112,7 @@
 #pragma mark - 进入时加载页面
 - (void)setupWithLoading{
     //加载页面
-    self.loadingImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64)];
+    self.loadingImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
     self.loadingImageView.image = [UIImage imageNamed:@"LaunchImage.png"];
     
     self.loading = [[UIActivityIndicatorView alloc]init];

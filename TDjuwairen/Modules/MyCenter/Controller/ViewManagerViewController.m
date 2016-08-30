@@ -30,7 +30,7 @@
 - (NSArray *)categoryArr
 {
     if (!_categoryArr) {
-        _categoryArr = @[@"已发布",@"草稿"];
+        _categoryArr = @[@"已发布",@"审核中",@"草稿"];
     }
     return _categoryArr;
 }

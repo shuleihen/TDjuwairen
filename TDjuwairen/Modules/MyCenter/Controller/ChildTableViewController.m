@@ -23,7 +23,7 @@
 @interface ChildTableViewController ()
 {
     CGSize titlesize;
-    int ID;
+
 }
 @property (nonatomic,assign) int page;
 
@@ -31,6 +31,7 @@
 @property (nonatomic,strong) NSMutableArray *listArr;
 @property (nonatomic,strong) MBProgressHUD *hud;
 @property (nonatomic,strong) LoginState *loginState;
+@property (nonatomic,assign) int typeID;
 
 @end
 
@@ -60,22 +61,28 @@
 - (void)refreshAction {
     //数据表页数为1
     self.page = 1;
-    [self requestShowList:ID];
+    [self requestShowList:self.typeID];
 }
 
 - (void)loadMoreAction {
     self.page++;
     //继续请求
-    [self requestShowList:ID];
+    [self requestShowList:self.typeID];
 }
 
 - (void)requestShowList:(int)typeID
 {
-    ID = typeID;
+    self.typeID = typeID;
     NSDictionary *para ;
     if (typeID == 0) {
         para = @{@"user_id":US.userId,
                  @"type":@"publish1",
+                 @"page":[NSString stringWithFormat:@"%d",self.page]
+                 };
+    }
+    else if (typeID == 1){
+        para = @{@"user_id":US.userId,
+                 @"type":@"verifystatus0",
                  @"page":[NSString stringWithFormat:@"%d",self.page]
                  };
     }
@@ -204,11 +211,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
         if (self.listArr.count > 0) {
-            DescContentViewController *dc = [[DescContentViewController alloc] init];
             ViewPointListModel *model = self.listArr[indexPath.row];
-            dc.view_id = model.view_id;
-            dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-            [self.navigationController pushViewController:dc animated:YES];
+            if (self.typeID == 0 || self.typeID == 1) {
+                DescContentViewController *dc = [[DescContentViewController alloc] init];
+                dc.view_id = model.view_id;
+                dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:dc animated:YES];
+            }
+            else
+            {
+                PublishViewViewController *publish = [[PublishViewViewController alloc]init];
+                publish.titleStr = model.view_title;
+                publish.contentStr = model.view_content;
+                [self.navigationController pushViewController:publish animated:YES];
+            }
         }
     
 }
