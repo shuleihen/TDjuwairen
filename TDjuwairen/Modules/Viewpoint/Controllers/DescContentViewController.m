@@ -20,7 +20,6 @@
 #import "FeedbackViewController.h"
 #import "SharpTags.h"
 #import "SearchViewController.h"
-#import "ViewInfoModel.h"
 
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
@@ -52,6 +51,7 @@
 @property (nonatomic,strong) TimeHotComView *thview;
 /* 评论条 */
 @property (nonatomic,strong) BackCommentView *backcommentview;
+@property (nonatomic,strong) NSDictionary *dataDic;
 @property (nonatomic,strong) NSMutableArray *FirstcommentArr;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -69,10 +69,9 @@
 @property (nonatomic,strong) NSString *encryptedStr;
 
 @property (nonatomic,strong) SharpTags *tagList;
+@property (nonatomic,strong) NSMutableArray *sharpTagsArray;
 
 @property (nonatomic,strong) NSString *pid;
-
-@property (nonatomic,strong) ViewInfoModel *viewInfo;
 
 @end
 
@@ -80,8 +79,9 @@
 - (NaviMoreView *)nmview{
     if (!_nmview) {
         //        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5)];
-    
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:self.viewInfo.is_collection];
+        NSString *str = @"yes";
+        
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:str];
         
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
@@ -103,6 +103,7 @@
     [super viewDidLoad];
     
     self.FirstcommentArr = [NSMutableArray array];
+    self.sharpTagsArray = [NSMutableArray array];
     self.sizeArr = @[@"120%",@"110%",@"100%",@"90%"];
     naviShow = NO;
     fontShow = NO;
@@ -121,7 +122,7 @@
     [self setupWithNavigation];
     
     [self setupWithTableView];
-
+    
     [self setupWithCommentView];
     [self requestWithData];
     [self requestWithCommentDataWithTimeHot];
@@ -171,16 +172,16 @@
     {
         urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",API_HOST,self.view_id];
     }
-    __weak DescContentViewController *wself = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
-            NSDictionary *d = data;
-            wself.viewInfo = [ViewInfoModel viewWithDictionary:d];
-
-            NSString *url = [NSString stringWithFormat:@"http://192.168.1.106%@",wself.viewInfo.view_content_url];
-            [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-
+            self.dataDic = data;
+            
+            self.sharpTagsArray = self.dataDic[@"tags"];
+            NSString *urlpath = [NSString stringWithFormat:@"http://appapi.juwairen.net%@",self.dataDic[@"view_content_url"]];
+            
+            [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlpath]]];
+            
             [self.tableview reloadData];
         }
         else
@@ -199,72 +200,73 @@
         self.hudloadCom.labelText = @"加载中...";
     }
     NSDictionary *dic;
-        if (timehot == YES) {
-            if (self.loginState.isLogIn == YES) {
-                dic = @{
-                        @"view_id":self.view_id,
-                        @"user_id":self.loginState.userId,
-                        @"loadedLength":@"0"
-                        };
-            }
-            else
-            {
-                dic = @{
-                        @"view_id":self.view_id,
-                        @"loadedLength":@"0"
-                        };
-            }
-            
+    if (timehot == YES) {
+        if (self.loginState.isLogIn == YES) {
+            dic = @{
+                    @"view_id":self.view_id,
+                    @"user_id":self.loginState.userId,
+                    @"loadedLength":@"0"
+                    };
         }
         else
         {
-            if (self.loginState.isLogIn == YES) {
-                dic = @{
-                        @"type":@"hot",
-                        @"view_id":self.view_id,
-                        @"user_id":self.loginState.userId,
-                        @"loadedLength":@"0"
-                        };
-            }
-            else
-            {
-                dic = @{
-                        @"type":@"hot",
-                        @"view_id":self.view_id,
-                        @"loadedLength":@"0"
-                        };
-            }
+            dic = @{
+                    @"view_id":self.view_id,
+                    @"loadedLength":@"0"
+                    };
         }
         
-        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-        [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
-            if (!error) {
-                [self.FirstcommentArr removeAllObjects];
-                NSArray *arr = data;
-                for (int i = 0; i<arr.count; i++) {
-                    NSDictionary *dic = arr[i];
-                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
-                    [self.FirstcommentArr addObject:fModel];
-                }
-                if (!firstLoadComment == YES) {
-                    self.hudloadCom.labelText = @"加载完成";
-                    [self.hudloadCom hide:YES afterDelay:0.1];
-                }
-                firstLoadComment = NO;
-                [self relaodCommentNumber];
-                [self.tableview reloadData];
+    }
+    else
+    {
+        if (self.loginState.isLogIn == YES) {
+            dic = @{
+                    @"type":@"hot",
+                    @"view_id":self.view_id,
+                    @"user_id":self.loginState.userId,
+                    @"loadedLength":@"0"
+                    };
+        }
+        else
+        {
+            dic = @{
+                    @"type":@"hot",
+                    @"view_id":self.view_id,
+                    @"loadedLength":@"0"
+                    };
+        }
+    }
+    
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            [self.FirstcommentArr removeAllObjects];
+            NSArray *arr = data;
+            for (int i = 0; i<arr.count; i++) {
+                NSDictionary *dic = arr[i];
+                CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
+                [self.FirstcommentArr addObject:fModel];
             }
-            else
-            {
+            if (!firstLoadComment == YES) {
                 self.hudloadCom.labelText = @"加载完成";
                 [self.hudloadCom hide:YES afterDelay:0.1];
-                NSLog(@"%@",error);
             }
-        }];
+            firstLoadComment = NO;
+            [self relaodCommentNumber];
+            [self.tableview reloadData];
+        }
+        else
+        {
+            self.hudloadCom.labelText = @"加载完成";
+            [self.hudloadCom hide:YES afterDelay:0.1];
+            NSLog(@"%@",error);
+        }
+    }];
     
 }
 
 - (void)setupWithNavigation{
+    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
@@ -354,19 +356,19 @@
             if (titleCell == nil) {
                 titleCell = [[TitlesTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"titleCell"];
             }
-            [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.viewInfo.userinfo_facesmall]];
+            [titleCell.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.dataDic[@"userinfo_facesmall"]]];
             
-            NSString *str = self.viewInfo.view_addtime;
+            NSString *str =self.dataDic[@"view_addtime"];
             NSTimeInterval time = [str doubleValue];
             NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
             [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
             NSString *custime = [dateFormatter stringFromDate:detaildate];
             
-            titleCell.usernickname.text = self.viewInfo.view_author;
+            titleCell.usernickname.text = self.dataDic[@"view_author"];
             titleCell.addtime.text = custime;
             
-            NSString *text = self.viewInfo.view_title;
+            NSString *text = self.dataDic[@"view_title"];
             UIFont *font = [UIFont systemFontOfSize:20];
             titleCell.titleLabel.font = font;
             titleCell.titleLabel.numberOfLines = 0;
@@ -420,14 +422,14 @@
             self.tagList.signalTagColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
             self.tagList.BGColor = [UIColor clearColor];
             
-            /* 判断TagsArray是否为空 */
-            if ((NSNull *)self.viewInfo.tagsArr != [NSNull null]) {
+            /* 判断sharpTagsArray是否为空 */
+            if ((NSNull *)self.sharpTagsArray != [NSNull null]) {
                 NSArray *arr = [NSArray array];
-                if (self.viewInfo.tagsArr.count > 4) {
-                    arr = [self.viewInfo.tagsArr subarrayWithRange:NSMakeRange(0, 4)];
+                if (self.sharpTagsArray.count > 4) {
+                    arr = [self.sharpTagsArray subarrayWithRange:NSMakeRange(0, 4)];
                 }else
                 {
-                    arr = self.viewInfo.tagsArr;
+                    arr = self.sharpTagsArray;
                 }
                 [self.tagList setTagWithTagArray:arr];
             }
@@ -466,13 +468,13 @@
             NSString *identifier = @"commentCell";
             CommentsModel *model = self.FirstcommentArr[indexPath.row];
             CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-//            if (model.secondArr.count > 0) {
-//                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
-//            }
-//            else
-//            {
-                cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
-//            }
+            //            if (model.secondArr.count > 0) {
+            //                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+            //            }
+            //            else
+            //            {
+            cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+            //            }
             
             cell.delegate = self;
             cell.floorView.delegate = self;
@@ -485,7 +487,7 @@
             commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
             commentsize = [comment calculateSize:commentsize font:font];
             [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
-
+            
             [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
             cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.FirstcommentArr.count-(int)indexPath.row];
@@ -493,6 +495,9 @@
             
             
             [cell.goodnumBtn setTitle:[NSString stringWithFormat:@"  %@",model.comment_goodnum] forState:UIControlStateNormal];
+            [cell.goodnumBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 0)];
+            [cell.goodnumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 1)];
+            
             cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
             cell.goodnumBtn.tag = [model.viewcomment_id integerValue];
             [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
@@ -508,7 +513,7 @@
             }
             
             [cell.line setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+14, kScreenWidth-30, 1)];
-    
+            
             [cell.goodnumBtn setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
             cell.nickNameLab.textColor = self.daynightmodel.titleColor;
             cell.numfloor.textColor = self.daynightmodel.titleColor;
@@ -597,7 +602,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 20;
+        return 10;
     }
     else
     {
@@ -729,12 +734,13 @@
             CGRect frame = webView.frame;
             frame.size.height = documentHeight + 10/*显示不全*/;
             webView.frame = frame;
+            //停止加载样式
+            self.hudload.labelText = @"加载完成";
+            [self.hudload hide:YES afterDelay:0.1];
             //主线程刷新UI
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableview reloadData];
-                //停止加载样式
-                self.hudload.labelText = @"加载完成";
-                [self.hudload hide:YES afterDelay:0.1];
+                
             });
         }];
     });
@@ -761,9 +767,18 @@
         NSLog(@"%@",cell.textLabel.text);
     }
     else if ([cell.textLabel.text isEqualToString:@"收藏"]){
-        cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
-        cell.textLabel.text = @"取消收藏";
-        [self addCollection];
+        if (US.isLogIn == NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+            [self.navigationController pushViewController:login animated:YES];
+        }
+        else
+        {
+            cell.imageView.image = [UIImage imageNamed:@"btn_col_pre"];
+            cell.textLabel.text = @"取消收藏";
+            [self addCollection];
+        }
     }
     else if ([cell.textLabel.text isEqualToString:@"取消收藏"]){
         cell.imageView.image = [UIImage imageNamed:@"btn_col"];
@@ -803,7 +818,7 @@
             NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
             var pNode=document.getElementsByTagName('p');\
             for(var i=0;i<pNode.length;i++){\
-                pNode[i].style.backgroundColor='#222222';\
+            pNode[i].style.backgroundColor='#222222';\
             }";
             
             [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
@@ -880,7 +895,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"添加收藏";
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dic = @{@"userid":US.userId,
                               @"module_id":@3,
                               @"item_id":self.view_id};
@@ -889,7 +904,7 @@
             if (!error) {
                 hud.labelText = @"收藏成功";
                 [hud hide:YES afterDelay:0.2];
-
+                
             } else {
                 hud.labelText = @"收藏失败";
                 [hud hide:YES afterDelay:0.2];
@@ -905,7 +920,7 @@
     NSMutableArray *IDArr = [NSMutableArray array];
     [IDArr addObject:self.view_id];
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"authenticationStr":US.userId,
                            @"encryptedStr":self.encryptedStr,
                            @"delete_ids":IDArr,
@@ -947,7 +962,7 @@
             //停止加载样式
         });
     }];
-
+    
 }
 
 - (void)clickCancel:(UIButton *)sender
@@ -992,6 +1007,7 @@
                     @"loadedLength":@"0"
                     };
         }
+        
         NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [ma POST:API_GetViewComment parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
@@ -1016,6 +1032,7 @@
                 NSLog(@"%@",error);
             }
         }];
+        
     }
 }
 
@@ -1073,9 +1090,9 @@
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"comment_content":text,
-                          @"user_id":US.userId,
-                          @"view_id":self.view_id,
-                          @"comment_pid":self.pid};
+                           @"user_id":US.userId,
+                           @"view_id":self.view_id,
+                           @"comment_pid":self.pid};
     
     [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -1127,7 +1144,7 @@
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
         }
     }
-
+    
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
@@ -1152,9 +1169,9 @@
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     [shareParams SSDKSetupShareParamsByText:nil
-                                     images:@[self.viewInfo.userinfo_facesmall]
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
-                                      title:self.viewInfo.view_title
+                                     images:@[self.dataDic[@"userinfo_facesmall"]]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.dataDic[@"view_id"]]]
+                                      title:self.dataDic[@"view_title"]
                                        type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
     [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
@@ -1256,7 +1273,7 @@
 
 //当键盘隐藏时
 - (void)keyboardWillBeHidden{
-
+    
     self.backcommentview.transform = CGAffineTransformIdentity;
     self.backcommentview.commentview.placeholder = @"自古评论出人才，快来发表评论吧";
 }
