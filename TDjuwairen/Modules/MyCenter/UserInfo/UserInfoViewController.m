@@ -129,6 +129,7 @@
         self.contentScrollview.backgroundColor = self.daynightmodel.navigationColor;
         [cell.contentView addSubview:self.contentScrollview];
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, 0);
+        [self setUpOneChildController:num];
     }
     return cell;
 }
@@ -189,7 +190,7 @@
     num = (int)i;
     self.contentScrollview.contentOffset = CGPointMake(x, 0);
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
-//    [childBlog requestShowList:num];
+    [childBlog requestShowList:num];
     
     [self setUpOneChildController:i];
     
@@ -226,7 +227,7 @@
     
     num = (int)i;
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
-//    [childblog requestShowList:num];
+    [childBlog requestShowList:num];
     [self setUpOneChildController:i];
     
     [childBlog.tableView setFrame:CGRectMake(i*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
@@ -243,41 +244,10 @@
 - (void)AttentionUser:(UIButton *)sender{
     if (sender.selected == YES) {
         sender.selected = NO;
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        NSString *urlString = [NSString stringWithFormat:@"%@index.php/Blog/blogSurveyList",kAPI_bendi];
-        NSDictionary *dic = @{
-                              @"user_id":@"85",
-                              @"page":@"1",
-                              };
-        [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
-            if (!error) {
-                NSLog(@"%@",data);
-            }
-            else
-            {
-                NSLog(@"%@",error);
-            }
-        }];
-        
     }
     else
     {
         sender.selected = YES;
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        NSString *urlString = [NSString stringWithFormat:@"%@index.php/Blog/blogViewLists",kAPI_bendi];
-        NSDictionary *dic = @{
-                              @"user_id":@"478",
-                              @"page":@"1",
-                              };
-        [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
-            if (!error) {
-                NSLog(@"%@",data);
-            }
-            else
-            {
-                NSLog(@"%@",error);
-            }
-        }];
     }
 }
 

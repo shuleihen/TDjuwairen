@@ -7,8 +7,11 @@
 //
 
 #import "ChildBlogTableViewController.h"
+#import "NetworkManager.h"
 
 @interface ChildBlogTableViewController ()
+
+@property (nonatomic,assign) int typeID;
 
 @end
 
@@ -22,6 +25,50 @@
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)requestShowList:(int)typeID
+{
+    if (typeID == 0) {
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSString *urlString = [NSString stringWithFormat:@"%@index.php/Blog/blogSurveyList",kAPI_bendi];
+        NSDictionary *dic = @{
+                              @"user_id":@"85",
+                              @"page":@"1",
+                              };
+        [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                NSLog(@"%@",data);
+            }
+            else
+            {
+                NSLog(@"%@",error);
+            }
+        }];
+    }
+    else if (typeID == 1)
+    {
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSString *urlString = [NSString stringWithFormat:@"%@index.php/Blog/blogViewLists",kAPI_bendi];
+        NSDictionary *dic = @{
+                              @"user_id":@"478",
+                              @"page":@"1",
+                              };
+        [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                NSLog(@"%@",data);
+            }
+            else
+            {
+                NSLog(@"%@",error);
+            }
+        }];
+    }
+    else
+    {
+        //
+        NSLog(@"这里要报错");
+    }
 }
 
 #pragma mark - Table view data source
