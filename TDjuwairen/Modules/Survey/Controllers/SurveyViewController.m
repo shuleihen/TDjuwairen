@@ -296,7 +296,6 @@
     cell.descLabel.font = [UIFont systemFontOfSize:14];
     cell.descLabel.numberOfLines = 3;
     cell.descLabel.text = model.sharp_desc;
-    cell.descLabel.textColor = [UIColor grayColor];
     
     cell.titleimg.frame = CGRectMake(kScreenWidth-8-90, 15+25+15, 90, 90);
     [cell.titleimg sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];

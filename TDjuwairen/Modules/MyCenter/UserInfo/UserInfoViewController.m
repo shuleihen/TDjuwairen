@@ -27,6 +27,7 @@
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *categoryArr;
 @property (nonatomic,strong) NSMutableArray *tableviewsArr;
+@property (nonatomic,strong) NSMutableArray *ListenArr;
 @property (nonatomic,strong) UIScrollView *contentScrollview;
 
 @property (nonatomic,strong) UserInfoHeadView *headview;
@@ -48,13 +49,24 @@
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.tableviewsArr = [NSMutableArray array];
+    self.ListenArr = [NSMutableArray array];
     
     [self setupWithNavigation];
     [self setupWithTableView];
     [self addChildViewController];
-    
-    [self ClickBtn:self.cateview.selectBtn];
+
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    for (NSString *string in self.ListenArr) {
+        UITableViewController *vc  =  self.childViewControllers[[string intValue]];
+        [vc.tableView removeObserver:self forKeyPath:@"contentSize"];
+    }
+    
+    
 }
 
 - (void)setupWithNavigation{
@@ -129,7 +141,7 @@
         self.contentScrollview.backgroundColor = self.daynightmodel.navigationColor;
         [cell.contentView addSubview:self.contentScrollview];
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, 0);
-        [self setUpOneChildController:num];
+        [self ClickBtn:self.cateview.selectBtn];
     }
     return cell;
 }
@@ -166,13 +178,23 @@
     else if (self.tableview.contentOffset.y < 40) {
         [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
         [self.isAttention setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
+        self.naviBackView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:self.tableview.contentOffset.y / 120];
     }
     else
     {
         [self.naviBackView setHidden:NO];
         [self.backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
         [self.isAttention setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal & UIControlStateSelected];
-        self.naviBackView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:self.tableview.contentOffset.y / 190];
+        self.naviBackView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:self.tableview.contentOffset.y / 120];
+    }
+    
+    CGFloat header = 190-64;//这个header其实是section1 的header到顶部的距离
+    if (scrollView.contentOffset.y<=header && scrollView.contentOffset.y>=0) {
+        //当视图滑动的距离小于header时
+        scrollView.contentInset = UIEdgeInsetsMake(-scrollView.contentOffset.y, 0, 0, 0);
+    }else if(scrollView.contentOffset.y>header)
+    {
+        scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     }
 }
 
@@ -197,7 +219,6 @@
     [childBlog.tableView setFrame:CGRectMake(i*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
     self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
     [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-    [childBlog.tableView reloadData];
     [self.tableview reloadData];
 }
 
@@ -208,13 +229,15 @@
     if (vc.view.superview) {
         return;
     }
-    vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-190-40);//50:TabBar高度
+    [self.ListenArr addObject:[NSString stringWithFormat:@"%ld",(long)index]];
+    [vc.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
     
+    vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-190-40);//50:TabBar高度
     [self.contentScrollview addSubview:vc.view];
     
 }
 
-#pragma mark - scrollview delegate
+#pragma mark - scrollview 结束滚动时
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSInteger i = self.contentScrollview.contentOffset.x / kScreenWidth;
@@ -227,13 +250,14 @@
     
     num = (int)i;
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
+    //判断是横向滚动还是竖向滚动
     [childBlog requestShowList:num];
+    
     [self setUpOneChildController:i];
     
-    [childBlog.tableView setFrame:CGRectMake(i*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
     self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
     [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-    [childBlog.tableView reloadData];
     [self.tableview reloadData];
 }
 
@@ -241,6 +265,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+#pragma mark - 关注按钮
 - (void)AttentionUser:(UIButton *)sender{
     if (sender.selected == YES) {
         sender.selected = NO;
@@ -251,6 +276,16 @@
     }
 }
 
+#pragma mark - tableview contentSize的监听
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
+{
+    ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
+    [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
+    [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    [self.tableview reloadData];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -258,13 +293,13 @@
 }
 
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end
