@@ -10,4 +10,8 @@
 
 @interface UserInfoViewController : UIViewController
 
+//@property (nonatomic,strong) NSString *facesmall;
+//@property (nonatomic,strong) NSString *nickname;
+//@property (nonatomic,strong) NSString *isAttention;
+
 @end

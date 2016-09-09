@@ -63,7 +63,6 @@
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
-                NSLog(@"%@",data);
                 NSArray *dataArray = data;
                 
                 if (dataArray.count > 0) {
@@ -99,7 +98,6 @@
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
-                NSLog(@"%@",data);
                 
                 NSArray *dataArray = data;
                 if (dataArray.count > 0) {

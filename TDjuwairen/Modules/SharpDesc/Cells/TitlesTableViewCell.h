@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ClickAttentionBlock)();
+
 @interface TitlesTableViewCell : UITableViewCell
 
 @property (nonatomic,strong) UIImageView *userheadImage;
@@ -15,4 +17,7 @@
 @property (nonatomic,strong) UILabel *addtime;
 @property (nonatomic,strong) UILabel *titleLabel;
 
+@property (nonatomic,strong) UIButton *isAttention;
+
+@property (nonatomic,copy) ClickAttentionBlock block;
 @end

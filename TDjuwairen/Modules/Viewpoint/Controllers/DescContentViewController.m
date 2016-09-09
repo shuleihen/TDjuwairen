@@ -368,6 +368,27 @@
             titleCell.usernickname.text = self.dataDic[@"view_author"];
             titleCell.addtime.text = custime;
             
+            NSString *is_attention_author = [NSString stringWithFormat:@"%@",self.dataDic[@"is_attention_author"]];
+            if ([is_attention_author isEqualToString:@"0"]) {
+                titleCell.isAttention.selected = NO;
+            }
+            else
+            {
+                titleCell.isAttention.selected = YES;
+            }
+            
+            titleCell.block = ^(UIButton *sender){
+                if (sender.selected == YES) {
+                    sender.selected = NO;
+                    sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
+                }
+                else
+                {
+                    sender.selected = YES;
+                    sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+                }
+            };
+            
             NSString *text = self.dataDic[@"view_title"];
             UIFont *font = [UIFont systemFontOfSize:20];
             titleCell.titleLabel.font = font;

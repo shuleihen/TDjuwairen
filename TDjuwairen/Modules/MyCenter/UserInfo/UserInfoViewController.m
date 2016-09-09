@@ -22,7 +22,7 @@
 
 @property (nonatomic,strong) UIView *naviBackView;   //用作navigation背景
 @property (nonatomic,strong) UIButton *backBtn;
-@property (nonatomic,strong) UIButton *isAttention;
+@property (nonatomic,strong) UIButton *isAttentionBtn;
 
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *categoryArr;
@@ -88,18 +88,18 @@
     [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
     [self.backBtn addTarget:self action:@selector(goBack:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.isAttention = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 28, 80, 30)];
-    self.isAttention.titleLabel.textAlignment = NSTextAlignmentRight;
-    [self.isAttention setTitle:@" + 关注" forState:UIControlStateNormal];
-    [self.isAttention setTitle:@"取消关注" forState:UIControlStateSelected];
-    [self.isAttention setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
-    [self.isAttention addTarget:self action:@selector(AttentionUser:) forControlEvents:UIControlEventTouchUpInside];
+    self.isAttentionBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-15-80, 28, 80, 30)];
+    self.isAttentionBtn.titleLabel.textAlignment = NSTextAlignmentRight;
+    [self.isAttentionBtn setTitle:@" + 关注" forState:UIControlStateNormal];
+    [self.isAttentionBtn setTitle:@"取消关注" forState:UIControlStateSelected];
+    [self.isAttentionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
+    [self.isAttentionBtn addTarget:self action:@selector(AttentionUser:) forControlEvents:UIControlEventTouchUpInside];
     
     
     [self.view addSubview:self.tableview];
     [self.view addSubview:self.naviBackView];
     [self.view addSubview:self.backBtn];
-    [self.view addSubview:self.isAttention];
+    [self.view addSubview:self.isAttentionBtn];
 }
 
 - (void)addChildViewController{
@@ -177,14 +177,14 @@
     }
     else if (self.tableview.contentOffset.y < 40) {
         [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
-        [self.isAttention setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
+        [self.isAttentionBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal & UIControlStateSelected];
         self.naviBackView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:self.tableview.contentOffset.y / 120];
     }
     else
     {
         [self.naviBackView setHidden:NO];
         [self.backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
-        [self.isAttention setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal & UIControlStateSelected];
+        [self.isAttentionBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal & UIControlStateSelected];
         self.naviBackView.backgroundColor = [UIColor colorWithRed:255/255.0 green:255/255.0 blue:255/255.0 alpha:self.tableview.contentOffset.y / 120];
     }
     
