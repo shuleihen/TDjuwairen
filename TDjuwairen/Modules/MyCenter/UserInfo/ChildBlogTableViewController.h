@@ -15,7 +15,8 @@
 
 @interface ChildBlogTableViewController : UITableViewController
 
+@property (nonatomic,copy) NSString *user_id;
 @property (nonatomic,weak) id<ChildBlogTableViewControllerDelegate>delegate;
 
-- (void)requestShowList:(int)typeID;
+- (void)requestShowList:(int)typeID WithID:(NSString *)user_id;
 @end

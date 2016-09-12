@@ -28,6 +28,7 @@
 #import "UIStoryboard+MainStoryboard.h"
 #import "HexColors.h"
 #import "YXFont.h"
+#import "MBProgressHUD.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -166,11 +167,11 @@
     
     NSString *urlPath ;
     if (US.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/user_id/%@",API_HOST,self.view_id,US.userId];
+        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/user_id/%@",kAPI_bendi,self.view_id,US.userId];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",API_HOST,self.view_id];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",kAPI_bendi,self.view_id];
     }
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
@@ -263,6 +264,50 @@
         }
     }];
     
+}
+
+#pragma mark - addAttention
+- (void)addAttention{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"关注中";
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
+    NSDictionary *dic = @{
+                          @"My_user_id":US.userId,
+                          @"user_id":self.dataDic[@"view_userid"],
+                          };
+    [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            hud.labelText = @"已关注";
+            [hud hide:YES afterDelay:0.1];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+}
+
+#pragma mark - cancelAttention
+- (void)cancelAttention{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"取消关注";
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
+    NSDictionary *dic = @{
+                          @"My_user_id":US.userId,
+                          @"user_id":self.dataDic[@"view_userid"],
+                          };
+    [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            hud.labelText = @"已取消";
+            [hud hide:YES afterDelay:0.1];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
 }
 
 - (void)setupWithNavigation{
@@ -375,17 +420,20 @@
             else
             {
                 titleCell.isAttention.selected = YES;
+                titleCell.isAttention.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
             }
             
             titleCell.block = ^(UIButton *sender){
                 if (sender.selected == YES) {
                     sender.selected = NO;
                     sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
+                    [self cancelAttention];
                 }
                 else
                 {
                     sender.selected = YES;
                     sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+                    [self addAttention];
                 }
             };
             

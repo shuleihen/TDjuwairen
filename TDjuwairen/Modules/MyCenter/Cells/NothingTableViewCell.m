@@ -1,14 +1,14 @@
 //
-//  NoBrowserTableViewCell.m
-//  juwairen
+//  NothingTableViewCell.m
+//  TDjuwairen
 //
-//  Created by tuanda on 16/5/27.
-//  Copyright © 2016年 tuanda. All rights reserved.
+//  Created by 团大 on 16/9/12.
+//  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "NoBrowserTableViewCell.h"
+#import "NothingTableViewCell.h"
 
-@implementation NoBrowserTableViewCell
+@implementation NothingTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];

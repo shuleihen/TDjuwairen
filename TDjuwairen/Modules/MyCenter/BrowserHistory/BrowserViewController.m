@@ -8,7 +8,8 @@
 
 #import "BrowserViewController.h"
 #import "BrowserTableViewCell.h"
-#import "NoBrowserTableViewCell.h"
+#import "NothingTableViewCell.h"
+
 #import "LoginState.h"
 #import "EditView.h"
 #import "SharpDetailsViewController.h"
@@ -78,7 +79,7 @@
     [self.view addSubview:self.tableview];
     
     [self.tableview registerNib:[UINib nibWithNibName:@"BrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"BrowserCell"];
-    [self.tableview registerNib:[UINib nibWithNibName:@"NoBrowserTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoBrowserCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
 }
@@ -243,14 +244,16 @@
         
         BrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BrowserCell"];
         [cell setCellWithDic:dic];
-    
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else
     {
-        NoBrowserTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoBrowserCell"];
+        NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
         cell.backgroundColor = self.daynightmodel.backColor;
+        cell.label.text = @"你还没有浏览过文章，快去看看吧~";
         cell.label.textColor = self.daynightmodel.textColor;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }

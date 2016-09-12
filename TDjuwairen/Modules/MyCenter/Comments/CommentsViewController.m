@@ -8,7 +8,7 @@
 
 #import "CommentsViewController.h"
 #import "CommentsTableViewCell.h"
-#import "NoCommentsTableViewCell.h"
+#import "NothingTableViewCell.h"
 #import "LoginState.h"
 #import "SharpDetailsViewController.h"
 #import "NSString+TimeInfo.h"
@@ -89,7 +89,7 @@
     self.tableview.dataSource=self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableview registerNib:[UINib nibWithNibName:@"CommentsTableViewCell" bundle:nil] forCellReuseIdentifier:@"CommentsCell"];
-    [self.tableview registerNib:[UINib nibWithNibName:@"NoCommentsTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoCommentsCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     self.tableview.backgroundColor = self.daynightmodel.backColor;
     [self.view addSubview:self.tableview];
 }
@@ -160,8 +160,9 @@
     else
     {
         
-        NoCommentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoCommentsCell"];
+        NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
         cell.backgroundColor = self.daynightmodel.backColor;
+        cell.label.text = @"暂无评论，快去发表吧~";
         cell.label.textColor = self.daynightmodel.textColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;

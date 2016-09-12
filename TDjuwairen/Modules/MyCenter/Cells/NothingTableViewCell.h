@@ -1,14 +1,15 @@
 //
-//  NoCollectionTableViewCell.h
+//  NothingTableViewCell.h
 //  TDjuwairen
 //
-//  Created by tuanda on 16/6/1.
+//  Created by 团大 on 16/9/12.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface NoCollectionTableViewCell : UITableViewCell
+@interface NothingTableViewCell : UITableViewCell
+
 @property (weak, nonatomic) IBOutlet UILabel *label;
 
 @end

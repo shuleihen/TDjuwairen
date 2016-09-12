@@ -12,7 +12,10 @@
 #import "ChildBlogTableViewController.h"
 
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 #import "NetworkManager.h"
+#import "UIImageView+WebCache.h"
+#import "MBProgressHUD.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
 {
@@ -33,6 +36,8 @@
 @property (nonatomic,strong) UserInfoHeadView *headview;
 @property (nonatomic,strong) CategoryView *cateview;
 
+@property (nonatomic,strong) NSDictionary *userState;
+
 @end
 
 @implementation UserInfoViewController
@@ -50,10 +55,13 @@
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.tableviewsArr = [NSMutableArray array];
     self.ListenArr = [NSMutableArray array];
+    self.userState = [NSDictionary dictionary];
     
     [self setupWithNavigation];
     [self setupWithTableView];
     [self addChildViewController];
+    
+    [self requestDataWithUser];
 
     // Do any additional setup after loading the view.
 }
@@ -79,6 +87,9 @@
     self.tableview.dataSource = self;
     
     self.headview = [[UserInfoHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
+    [self.headview.headImg sd_setImageWithURL:[NSURL URLWithString:self.facesmall]];
+    [self.headview.backImg sd_setImageWithURL:[NSURL URLWithString:self.facesmall]];
+    self.headview.nickname.text = self.nickname;
     self.tableview.tableHeaderView = self.headview;
     
     //
@@ -113,6 +124,33 @@
         [self.tableviewsArr addObject:childblog];
         [self addChildViewController:childblog];
     }
+}
+
+#pragma mark - 请求用户信息
+- (void)requestDataWithUser{
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/index"];
+    NSDictionary *dic = @{
+                          @"My_user_id":US.userId,
+                          @"user_id":self.user_id,
+                          };
+    [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            self.userState = data;
+            NSString *user_isatten = [NSString stringWithFormat:@"%@",self.userState[@"user_isatten"]];
+            if ([user_isatten isEqualToString:@"1"]) {
+                self.isAttentionBtn.selected = YES;
+            }
+            else
+            {
+                self.isAttentionBtn.selected = NO;
+            }
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+     }];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -212,7 +250,7 @@
     num = (int)i;
     self.contentScrollview.contentOffset = CGPointMake(x, 0);
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
-    [childBlog requestShowList:num];
+    [childBlog requestShowList:num WithID:self.user_id];
     
     [self setUpOneChildController:i];
     
@@ -251,7 +289,7 @@
     num = (int)i;
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
     //判断是横向滚动还是竖向滚动
-    [childBlog requestShowList:num];
+    [childBlog requestShowList:num WithID:self.user_id];
     
     [self setUpOneChildController:i];
     
@@ -269,11 +307,57 @@
 - (void)AttentionUser:(UIButton *)sender{
     if (sender.selected == YES) {
         sender.selected = NO;
+        [self cancelAttention];  //cancelAttention
     }
     else
     {
         sender.selected = YES;
+        [self addAttention]; //addAttention
     }
+}
+
+#pragma mark - addAttention
+- (void)addAttention{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"关注中";
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
+    NSDictionary *dic = @{
+                          @"My_user_id":US.userId,
+                          @"user_id":self.user_id,
+                          };
+    [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            hud.labelText = @"已关注";
+            [hud hide:YES afterDelay:0.1];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+}
+
+#pragma mark - cancelAttention
+- (void)cancelAttention{
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"取消关注";
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
+    NSDictionary *dic = @{
+                          @"My_user_id":US.userId,
+                          @"user_id":self.user_id,
+                          };
+    [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
+        if (!error) {
+            hud.labelText = @"已取消";
+            [hud hide:YES afterDelay:0.1];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
 }
 
 #pragma mark - tableview contentSize的监听

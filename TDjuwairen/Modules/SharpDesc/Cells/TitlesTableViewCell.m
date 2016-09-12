@@ -47,7 +47,7 @@
         [self addSubview:self.userheadImage];
         [self addSubview:self.usernickname];
         [self addSubview:self.addtime];
-//        [self addSubview:self.isAttention];
+        [self addSubview:self.isAttention];
         [self addSubview:self.titleLabel];
     }
     return self;

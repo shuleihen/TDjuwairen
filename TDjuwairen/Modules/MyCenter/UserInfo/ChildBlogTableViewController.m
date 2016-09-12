@@ -11,6 +11,7 @@
 #import "ViewPointListModel.h"
 #import "NewTableViewCell.h"
 #import "ViewPointTableViewCell.h"
+#import "NothingTableViewCell.h"
 
 #import "UIdaynightModel.h"
 
@@ -43,6 +44,7 @@
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -50,7 +52,7 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (void)requestShowList:(int)typeID
+- (void)requestShowList:(int)typeID WithID:(NSString *)user_id
 {
     self.typeID = typeID;
     __weak ChildBlogTableViewController *wself = self;
@@ -58,7 +60,7 @@
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogSurveyList"];
         NSDictionary *dic = @{
-                              @"user_id":@"85",
+                              @"user_id":user_id,
                               @"page":@"1",
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
@@ -93,7 +95,7 @@
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
-                              @"user_id":@"478",
+                              @"user_id":user_id,
                               @"page":@"1",
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
@@ -127,7 +129,7 @@
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
-                              @"user_id":@"478",
+                              @"user_id":user_id,
                               @"page":@"1",
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
@@ -150,10 +152,22 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (self.typeID == 0) {
-        return self.surveyListDataArray.count;
+        if (self.surveyListDataArray.count > 0) {
+            return self.surveyListDataArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
     else if (self.typeID == 1){
-        return self.viewListDataArray.count;
+        if (self.viewListDataArray.count > 0) {
+            return self.viewListDataArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
     else
     {
@@ -163,77 +177,100 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.typeID == 0) {
-        NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell"];
-        if (cell == nil) {
-            cell = [[NewTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"newcell"];
+        if (self.surveyListDataArray.count > 0) {
+            NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell"];
+            if (cell == nil) {
+                cell = [[NewTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"newcell"];
+            }
+            SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+            
+            [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+            
+            cell.nickname.text = [NSString stringWithFormat:@"%@",model.sharp_wtime];
+            
+            NSString *text = model.sharp_title;
+            
+            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            cell.titleLabel.font = font;
+            cell.titleLabel.numberOfLines = 0;
+            self.titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
+            self.titlesize = [text calculateSize:self.titlesize font:font];
+            cell.titleLabel.text = text;
+            [cell.titleLabel setFrame:CGRectMake(15, 55, kScreenWidth-16-90-15, self.titlesize.height)];
+            cell.descLabel.frame = CGRectMake(15, 55+self.titlesize.height+10, kScreenWidth-16-90-15, 55);
+            cell.descLabel.font = [UIFont systemFontOfSize:14];
+            cell.descLabel.numberOfLines = 3;
+            cell.descLabel.text = model.sharp_desc;
+            cell.descLabel.textColor = [UIColor grayColor];
+            
+            cell.titleimg.frame = CGRectMake(kScreenWidth-8-90, 15+25+15, 90, 90);
+            [cell.titleimg sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
+            
+            cell.lineLabel.frame = CGRectMake(0, 15+25+15+self.titlesize.height+10+55+17, kScreenWidth, 0.5);
+            
+            cell.nickname.textColor = self.daynightmodel.titleColor;
+            cell.titleLabel.textColor = self.daynightmodel.textColor;
+            cell.descLabel.textColor = self.daynightmodel.titleColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+            return cell;
         }
-        SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+        else
+        {
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightmodel.backColor;
+            cell.label.text = @"该用户还没有发布调研";
+            cell.label.textColor = self.daynightmodel.textColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
         
-        [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-        
-        cell.nickname.text = [NSString stringWithFormat:@"%@",model.sharp_wtime];
-        
-        NSString *text = model.sharp_title;
-        
-        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-        cell.titleLabel.font = font;
-        cell.titleLabel.numberOfLines = 0;
-        self.titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
-        self.titlesize = [text calculateSize:self.titlesize font:font];
-        cell.titleLabel.text = text;
-        [cell.titleLabel setFrame:CGRectMake(15, 55, kScreenWidth-16-90-15, self.titlesize.height)];
-        cell.descLabel.frame = CGRectMake(15, 55+self.titlesize.height+10, kScreenWidth-16-90-15, 55);
-        cell.descLabel.font = [UIFont systemFontOfSize:14];
-        cell.descLabel.numberOfLines = 3;
-        cell.descLabel.text = model.sharp_desc;
-        cell.descLabel.textColor = [UIColor grayColor];
-        
-        cell.titleimg.frame = CGRectMake(kScreenWidth-8-90, 15+25+15, 90, 90);
-        [cell.titleimg sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
-        
-        cell.lineLabel.frame = CGRectMake(0, 15+25+15+self.titlesize.height+10+55+17, kScreenWidth, 0.5);
-        
-        cell.nickname.textColor = self.daynightmodel.titleColor;
-        cell.titleLabel.textColor = self.daynightmodel.textColor;
-        cell.descLabel.textColor = self.daynightmodel.titleColor;
-        cell.backgroundColor = self.daynightmodel.navigationColor;
-        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
-        return cell;
     }
     else if (self.typeID == 1)
     {
-        NSString *identifier = @"cell";
-        ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        if (self.viewListDataArray.count > 0) {
+            NSString *identifier = @"cell";
+            ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            ViewPointListModel *model = self.viewListDataArray[indexPath.row];
+            [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+            NSString *isoriginal;
+            if ([model.view_isoriginal isEqualToString:@"0"]) {
+                isoriginal = @"";
+            }else
+            {
+                isoriginal = @"原创";
+            }
+            cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@",model.view_wtime,isoriginal];
+            
+            
+            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            cell.titleLabel.font = font;
+            cell.titleLabel.numberOfLines = 0;
+            self.titlesize = CGSizeMake(kScreenWidth-30, 500.0);
+            self.titlesize = [model.view_title calculateSize:self.titlesize font:font];
+            cell.titleLabel.text = model.view_title;
+            [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, self.titlesize.height)];
+            [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+self.titlesize.height+14, kScreenWidth, 1)];
+            
+            
+            cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
+            cell.titleLabel.textColor = self.daynightmodel.textColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+            return cell;
         }
-        ViewPointListModel *model = self.viewListDataArray[indexPath.row];
-        [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-        NSString *isoriginal;
-        if ([model.view_isoriginal isEqualToString:@"0"]) {
-            isoriginal = @"";
-        }else
+        else
         {
-            isoriginal = @"原创";
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightmodel.backColor;
+            cell.label.text = @"该用户还没有发布观点";
+            cell.label.textColor = self.daynightmodel.textColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
         }
-        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@",model.view_wtime,isoriginal];
-        
-        
-        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-        cell.titleLabel.font = font;
-        cell.titleLabel.numberOfLines = 0;
-        self.titlesize = CGSizeMake(kScreenWidth-30, 500.0);
-        self.titlesize = [model.view_title calculateSize:self.titlesize font:font];
-        cell.titleLabel.text = model.view_title;
-        [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, self.titlesize.height)];
-        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+self.titlesize.height+14, kScreenWidth, 1)];
-        
-        
-        cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
-        cell.titleLabel.textColor = self.daynightmodel.textColor;
-        cell.backgroundColor = self.daynightmodel.navigationColor;
-        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
-        return cell;
     }
     
     else
@@ -251,15 +288,33 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.typeID == 0) {
-        return 15+25+15+self.titlesize.height+10+55+18;
+        if (self.surveyListDataArray.count > 0) {
+            return 15+25+15+self.titlesize.height+10+55+18;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
+        
     }
     else if (self.typeID == 1){
-        return 15+25+10+self.titlesize.height+15;
+        if (self.viewListDataArray.count > 0) {
+            return 15+25+10+self.titlesize.height+15;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
     }
     else
     {
         return 44;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 

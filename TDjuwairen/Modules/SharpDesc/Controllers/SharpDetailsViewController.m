@@ -489,6 +489,19 @@
             titleCell.titleLabel.textColor = self.daynightmodel.textColor;
             titleCell.backgroundColor = self.daynightmodel.navigationColor;
             
+            //添加关注
+            titleCell.block = ^(UIButton *sender){
+                if (sender.selected == YES) {
+                    sender.selected = NO;
+                    sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
+                }
+                else
+                {
+                    sender.selected = YES;
+                    sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+                }
+            };
+            
             return titleCell;
         }
         else if(indexPath.row == 1){

@@ -8,7 +8,7 @@
 
 #import "CollectionViewController.h"
 #import "CollectionTableViewCell.h"
-#import "NoCollectionTableViewCell.h"
+#import "NothingTableViewCell.h"
 #import "LoginState.h"
 #import "EditView.h"
 #import "SharpDetailsViewController.h"
@@ -83,7 +83,7 @@
     [self.view addSubview:self.tableview];
     
     [self.tableview registerNib:[UINib nibWithNibName:@"CollectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"CollectionCell"];
-    [self.tableview registerNib:[UINib nibWithNibName:@"NoCollectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"NoCollectionCell"];
+    [self.tableview registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
 }
 
@@ -256,16 +256,17 @@
         
         CollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CollectionCell"];
         [cell setCellWithDic:dic];
-        
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else
     {
         
-        NoCollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NoCollectionCell"];
+        NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
         cell.backgroundColor = self.daynightmodel.backColor;
+        cell.label.text = @"暂无收藏";
         cell.label.textColor = self.daynightmodel.textColor;
-
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
 }
