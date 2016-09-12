@@ -9,7 +9,6 @@
 #import "SettingUpViewController.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
-#import "PushMessageViewController.h"
 
 #import "SDImageCache.h"
 #import "MBProgressHUD.h"
@@ -130,9 +129,7 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            //
-            PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
-            [self.navigationController pushViewController:messagePush animated:YES];
+            
         }
         else
         {

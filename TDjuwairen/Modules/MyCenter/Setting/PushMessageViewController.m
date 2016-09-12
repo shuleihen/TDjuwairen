@@ -66,7 +66,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-104-50)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-104)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -74,7 +74,7 @@
     self.contentScroll.backgroundColor = self.daynightmodel.navigationColor;
     
     [self.view addSubview:self.contentScroll];
-    self.contentScroll.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-104-50);
+    self.contentScroll.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-104);
 }
 
 - (void)addChildViewController{
@@ -116,7 +116,7 @@
     if (vc.view.superview) {
         return;
     }
-    vc.view.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-104-50);//50:TabBar高度
+    vc.view.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-104);//50:TabBar高度
     
     [self.contentScroll addSubview:vc.view];
     

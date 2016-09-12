@@ -18,6 +18,7 @@
 #import "AboutMineViewController.h"
 #import "ViewManagerViewController.h"
 #import "DaynightCellTableViewCell.h"
+#import "PushMessageViewController.h"
 
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
@@ -238,7 +239,10 @@
             }
             else//消息提醒
             {
-                
+                //
+                PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
+                messagePush.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:messagePush animated:YES];
             }
             
         }

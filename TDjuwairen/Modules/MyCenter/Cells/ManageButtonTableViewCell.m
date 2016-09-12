@@ -28,8 +28,8 @@
         self.CollectManage.backgroundColor = [UIColor clearColor];
         
         self.BrowseManage = [[ButtonView alloc]initWithFrame:CGRectMake(kScreenWidth-(kScreenWidth-2)/3, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
-        self.BrowseManage.imageview.image = [UIImage imageNamed:@"walletImg"];
-        self.BrowseManage.label.text = @"我的钱包";
+        self.BrowseManage.imageview.image = [UIImage imageNamed:@"BrowsingImg"];
+        self.BrowseManage.label.text = @"浏览记录";
         self.BrowseManage.backgroundColor = [UIColor clearColor];
         
         [self addSubview:self.CommentManage];

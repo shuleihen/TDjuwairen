@@ -14,4 +14,6 @@
 
 @property (nonatomic,strong) UILabel *nicknameLab;
 
+@property (nonatomic,strong) UILabel *line;
+
 @end

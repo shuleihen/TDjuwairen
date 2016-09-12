@@ -21,8 +21,12 @@
         self.nicknameLab = [[UILabel alloc]initWithFrame:CGRectMake(15+40+10, 10, kScreenWidth-60, 40)];
         self.nicknameLab.font = [UIFont systemFontOfSize:16];
         
+        self.line = [[UILabel alloc]initWithFrame:CGRectMake(15, 59, kScreenWidth-15, 1)];
+        self.line.layer.borderWidth = 1;
+        
         [self addSubview:self.headImg];
         [self addSubview:self.nicknameLab];
+        [self addSubview:self.line];
     }
     return self;
 }

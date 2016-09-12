@@ -15,6 +15,7 @@
 #import "UIdaynightModel.h"
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
+#import "MJRefresh.h"
 
 @interface MyAttentionViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -38,7 +39,27 @@
     [self setupWithTableView];
     
     [self requestWithAttentionList];
+    
+    [self addRefreshView];           //设置刷新
     // Do any additional setup after loading the view.
+}
+
+#pragma mark - 添加刷新
+- (void)addRefreshView{
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
+
+- (void)refreshAction {
+    //数据表页数为1
+    self.page = 1;
+    [self requestWithAttentionList];
+}
+
+- (void)loadMoreAction {
+    self.page++;
+    //继续请求
+    [self requestWithAttentionList];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -55,9 +76,11 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSelectionStyleNone;
     [self.tableview registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     [self.view addSubview:self.tableview];
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
+    
 }
 
 #pragma mark - 请求关注列表
@@ -85,11 +108,15 @@
                 }
                 wself.attArr = [NSMutableArray arrayWithArray:list];
             }
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
             [wself.tableview reloadData];
         }
         else
         {
             NSLog(@"%@",error);
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
         }
     }];
 }
@@ -125,7 +152,7 @@
         
         cell.backgroundColor = self.daynightmodel.navigationColor;
         cell.nicknameLab.textColor = self.daynightmodel.textColor;
-        
+        cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         return cell;
     }
     else
