@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString *post;
 @property (nonatomic, copy) NSString *personal;
 @property (nonatomic, assign) BOOL isLogIn;
+@property (nonatomic, assign) BOOL isPush;
 
 + (instancetype)sharedInstance;
 @end

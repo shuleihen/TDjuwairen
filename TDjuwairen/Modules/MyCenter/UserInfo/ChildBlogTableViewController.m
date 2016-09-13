@@ -12,6 +12,8 @@
 #import "NewTableViewCell.h"
 #import "ViewPointTableViewCell.h"
 #import "NothingTableViewCell.h"
+#import "SharpDetailsViewController.h"
+#import "DescContentViewController.h"
 
 #import "UIdaynightModel.h"
 
@@ -315,6 +317,25 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (self.typeID == 0) {
+        //跳转调研详情
+        SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+        SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc]init];
+        sharp.sharp_id = model.sharp_id;
+        [self.navigationController pushViewController:sharp animated:YES];
+        
+    }
+    else if (self.typeID == 1){
+        //跳转观点详情
+        ViewPointListModel *model = self.viewListDataArray[indexPath.row];
+        DescContentViewController *desc = [[DescContentViewController alloc]init];
+        desc.view_id = model.view_id;
+        [self.navigationController pushViewController:desc animated:YES];
+    }
+    else
+    {
+        //呵呵
+    }
 }
 
 

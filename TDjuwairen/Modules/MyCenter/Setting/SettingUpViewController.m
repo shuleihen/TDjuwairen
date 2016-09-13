@@ -7,6 +7,7 @@
 //
 
 #import "SettingUpViewController.h"
+#import "PushSwitchViewController.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 
@@ -129,7 +130,8 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
+            PushSwitchViewController *SwitchView = [[PushSwitchViewController alloc]init];
+            [self.navigationController pushViewController:SwitchView animated:YES];
         }
         else
         {

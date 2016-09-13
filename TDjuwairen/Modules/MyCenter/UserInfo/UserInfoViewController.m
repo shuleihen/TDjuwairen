@@ -57,7 +57,7 @@
     self.ListenArr = [NSMutableArray array];
     self.userState = [NSDictionary dictionary];
     
-    [self setupWithNavigation];
+    
     [self setupWithTableView];
     [self addChildViewController];
     
@@ -65,16 +65,17 @@
 
     // Do any additional setup after loading the view.
 }
-
-- (void)viewWillDisappear:(BOOL)animated
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
+    [self setupWithNavigation];
+}
+
+- (void)dealloc
+{
     for (NSString *string in self.ListenArr) {
         UITableViewController *vc  =  self.childViewControllers[[string intValue]];
         [vc.tableView removeObserver:self forKeyPath:@"contentSize"];
     }
-    
-    
 }
 
 - (void)setupWithNavigation{

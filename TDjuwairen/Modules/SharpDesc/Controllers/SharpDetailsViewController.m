@@ -167,6 +167,7 @@
 
 - (void)setupWithNavigation{
     
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];

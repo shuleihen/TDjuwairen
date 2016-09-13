@@ -309,10 +309,8 @@ static BOOL isBackGroundActivateApplication;
 // 在 iOS8 系统中，还需要添加这个方法。通过新的 API 注册推送服务
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    
-    [application registerForRemoteNotifications];
-    
-    
+        [application registerForRemoteNotifications];
+
 }
 
 
