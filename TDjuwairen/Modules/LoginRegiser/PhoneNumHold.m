@@ -15,7 +15,7 @@
 {
     if (self = [super initWithFrame:frame]) {
         UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 15, frame.size.width-30, 200)];
-        NSString *text = @"该手机号码已被注册,如果这是您本人的，可点击确定继续发送。完成信息补全后，我们将注销被占用的账号，并将数据转移至当前账号。如果有问题请联系客服。";
+        NSString *text = @"该手机号码已经绑定过账号，您可以直接通过获取验证码登录原有账号。或者选择未绑定手机号码进行绑定";
         
         UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
         label.font = font;

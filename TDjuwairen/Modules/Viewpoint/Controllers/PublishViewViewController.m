@@ -378,7 +378,7 @@
             self.secondView.backgroundColor = self.daynightmodel.navigationColor;
             self.secondView.delegate = self;
             self.SelSecView = self.secondView;
-            
+
             [self.view addSubview:self.secondView];
             
             self.bottomView.selectBtn.selected = NO;
@@ -615,7 +615,9 @@
     //kbSize为键盘尺寸
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
     self.keyboardHeight = kbSize.height;
+    
     [self beginMoveUpAnimation:kbSize.height];
+    
 }
 
 - (void)keyboardWillBeHidden{
@@ -631,6 +633,8 @@
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformMakeTranslation(0, -height);
         self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
+        [self.SelSecView setFrame:CGRectMake(0, self.bottomView.frame.origin.y-self.SelSecView.frame.size.height, kScreenWidth, self.SelSecView.frame.size.height)];
+        
     }];
 }
 
@@ -1268,7 +1272,7 @@
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             
-            hud.labelText = @"文章将在审核后发布";
+            hud.labelText = @"发布成功";
             hud.mode = MBProgressHUDModeText;
             [hud showAnimated:YES whileExecutingBlock:^{
                 sleep(2);

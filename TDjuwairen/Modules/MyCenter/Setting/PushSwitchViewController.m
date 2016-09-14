@@ -14,9 +14,19 @@
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) LoginState *loginstate;
 
+@property (nonatomic,strong) NSArray *titleArr;
+
 @end
 
 @implementation PushSwitchViewController
+
+- (NSArray *)titleArr
+{
+    if (!_titleArr) {
+        _titleArr = @[@"回复提醒",@"推送通知"];
+    }
+    return _titleArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -72,7 +82,7 @@
     }
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.textLabel.text = @"回复提醒";
+    cell.textLabel.text = self.titleArr[indexPath.row];
     return cell;
 }
 

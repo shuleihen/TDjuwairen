@@ -65,6 +65,7 @@
     NSDictionary *info = [aNotification userInfo];
     //kbSize为键盘尺寸
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
+    
     [self beginMoveUpAnimation:kbSize.height];
     
 }
