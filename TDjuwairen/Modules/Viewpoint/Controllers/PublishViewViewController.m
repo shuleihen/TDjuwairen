@@ -11,6 +11,7 @@
 #import "BottomEdit.h"
 #import "SecondEdit.h"
 #import "EditZiti.h"
+#import "CompanySelTableView.h"
 #import "LoginState.h"
 #import "PreviewViewController.h"
 #import "InsertTagsView.h"
@@ -47,6 +48,8 @@
 @property (nonatomic,strong) SecondEdit *secondView;
 @property (nonatomic,strong) EditZiti *editziti;
 @property (nonatomic,strong) InsertTagsView *tagsview;
+@property (nonatomic,strong) CompanySelTableView *companySelView;
+@property (nonatomic,copy) NSString *companyName;
 
 @property (nonatomic,strong) NSMutableArray *imglocArr;
 @property (nonatomic,strong) NSMutableArray *upimgArr;
@@ -378,7 +381,7 @@
             self.secondView.backgroundColor = self.daynightmodel.navigationColor;
             self.secondView.delegate = self;
             self.SelSecView = self.secondView;
-
+            
             [self.view addSubview:self.secondView];
             
             self.bottomView.selectBtn.selected = NO;
@@ -559,10 +562,20 @@
         [self.tagsview.tagsText becomeFirstResponder];
         self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
         self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+        [self.tagsview.tagsText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        
+        //弹出公司tab
+        self.companySelView = [[CompanySelTableView alloc]initWithFrame:CGRectMake(15, self.bottomView.frame.origin.y - 140, kScreenWidth-100-15-15, 100) style:UITableViewStylePlain];
+        __weak PublishViewViewController *publishView = self;
+        self.companySelView.block = ^(CompanySelTableView *tableview,NSIndexPath *indexpath){
+            UITableViewCell *cell = [tableview cellForRowAtIndexPath:indexpath];
+            publishView.companyName = cell.textLabel.text;
+            publishView.tagsview.tagsText.text = publishView.companyName;
+        };
         self.SelSecView = self.tagsview;
         self.tagsArr = self.tagsview.listArr;
         [self.view addSubview:self.tagsview];
-        
+        [self.view addSubview:self.companySelView];
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
@@ -622,6 +635,7 @@
 
 - (void)keyboardWillBeHidden{
     [self.SelSecView removeFromSuperview];
+    [self.companySelView removeFromSuperview];
     [UIView animateWithDuration:0.1 animations:^{
         self.bottomView.transform = CGAffineTransformIdentity;
         self.scrollview.transform = CGAffineTransformIdentity;
@@ -634,6 +648,7 @@
         self.bottomView.transform = CGAffineTransformMakeTranslation(0, -height);
         self.scrollview.transform = CGAffineTransformMakeTranslation(0, 0);
         [self.SelSecView setFrame:CGRectMake(0, self.bottomView.frame.origin.y-self.SelSecView.frame.size.height, kScreenWidth, self.SelSecView.frame.size.height)];
+        [self.companySelView setFrame:CGRectMake(0, self.bottomView.frame.origin.y - 40-self.companySelView.frame.size.height, kScreenWidth-100-15-15, self.companySelView.frame.size.height)];
         
     }];
 }
@@ -686,7 +701,10 @@
     [self.contentText removeObserver:self forKeyPath:@"contentSize"];
 }
 
-
+#pragma mark - 添加股票用
+- (void)textFieldDidChange:(UITextField *)textfield{
+    
+}
 
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView

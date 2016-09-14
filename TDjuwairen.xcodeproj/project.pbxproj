@@ -202,6 +202,8 @@
 		8427F7561D588B810073AB7F /* nav_zt@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8427F7541D588B810073AB7F /* nav_zt@2x.png */; };
 		8427F7571D588B810073AB7F /* nav_zt@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8427F7551D588B810073AB7F /* nav_zt@3x.png */; };
 		842B36301CE9B66B00C6E400 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 842B362F1CE9B66B00C6E400 /* search@2x.png */; };
+		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
+		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845CCB8D1D4EE738005ABD7B /* tab_yulan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */; };
 		845CCB8F1D4EE759005ABD7B /* tab_caogao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8E1D4EE759005ABD7B /* tab_caogao@3x.png */; };
@@ -693,6 +695,9 @@
 		8427F7541D588B810073AB7F /* nav_zt@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_zt@2x.png"; sourceTree = "<group>"; };
 		8427F7551D588B810073AB7F /* nav_zt@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "nav_zt@3x.png"; sourceTree = "<group>"; };
 		842B362F1CE9B66B00C6E400 /* search@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "search@2x.png"; sourceTree = "<group>"; };
+		842D58001D8938FD006385CB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
+		842D58021D893BB3006385CB /* CompanySelTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySelTableView.h; sourceTree = "<group>"; };
+		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
 		845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftRightBtn.m; sourceTree = "<group>"; };
 		845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_yulan@3x.png"; sourceTree = "<group>"; };
@@ -1352,6 +1357,8 @@
 				1955B4581D644D9800DC102E /* SelectFontView.m */,
 				1955B4591D644D9800DC102E /* TimeHotComView.h */,
 				1955B45A1D644D9800DC102E /* TimeHotComView.m */,
+				842D58021D893BB3006385CB /* CompanySelTableView.h */,
+				842D58031D893BB3006385CB /* CompanySelTableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -1871,6 +1878,7 @@
 				84E333F61CE2BA3D00E5DCEE /* Assets.xcassets */,
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
 				84E333FB1CE2BA3D00E5DCEE /* Info.plist */,
+				842D58001D8938FD006385CB /* availableTags.plist */,
 				84E334401CE3037200E5DCEE /* PrefixHeader.pch */,
 				194B0A331D3E21DE0023F1C3 /* Podfile */,
 				84E333EA1CE2BA3D00E5DCEE /* Supporting Files */,
@@ -2262,6 +2270,7 @@
 				84CBCC631D4B29A5000DAEA8 /* tab_ziti_pre@3x.png in Resources */,
 				8427F74F1D5878490073AB7F /* btn_dianzan_normal@3x.png in Resources */,
 				845CCBB21D4F02AC005ABD7B /* tab_h4@3x.png in Resources */,
+				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
 				848997301D4B4D55008EE2BC /* tab_tianjia@3x.png in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				19C347EA1D3F5C5D008ABD16 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -2470,6 +2479,7 @@
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */,
 				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
+				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				1955B4BD1D644DB400DC102E /* SurveyViewController.m in Sources */,
