@@ -21,8 +21,9 @@
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
+#import "SDImageCache.h"
 
-@interface PublishViewViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,BottomEditDelegate,SecondEditDelegate>
+@interface PublishViewViewController ()<UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextViewDelegate,BottomEditDelegate,SecondEditDelegate,InsertTagsDelegate>
 {
     NSString *currentTitle;
     NSString *currentDesc;
@@ -173,7 +174,7 @@
     self.contentText = [[UITextView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64-40)];
     self.contentText.textContainerInset = UIEdgeInsetsMake(8, 4, 8, 4);
     self.contentText.backgroundColor = self.titleText.backgroundColor;
-    self.contentText.font = [UIFont systemFontOfSize:14];
+    self.contentText.font = [UIFont systemFontOfSize:16];
     self.contentText.textColor = self.daynightmodel.textColor;
     self.contentText.delegate = self;
     [self.contentText addObserver:self
@@ -292,6 +293,7 @@
         sender.selected = YES;
         self.bottomView.selectBtn = sender;
         [self.SelSecView removeFromSuperview];
+        [self.companySelView removeFromSuperview];
         if ([self.titleText isFirstResponder] || [self.contentText isFirstResponder]) {
             sender.selected = YES;
             self.selBtnEdit = sender;
@@ -310,6 +312,7 @@
         sender.selected = YES;
         self.bottomView.selectBtn = sender;
         [self.SelSecView removeFromSuperview];
+        [self.companySelView removeFromSuperview];
         if ([self.titleText isFirstResponder]) {
             currentTitle = self.titleText.text;
             self.titleText.text = @"";
@@ -325,6 +328,7 @@
         sender.selected = YES;
         self.bottomView.selectBtn = sender;
         [self.SelSecView removeFromSuperview];
+        [self.companySelView removeFromSuperview];
         if ([self.titleText isFirstResponder]) {
             if ([currentTitle isEqualToString:@""] || currentTitle == nil) {
                 
@@ -350,6 +354,7 @@
     else if (num ==3){
         if (sender.selected == NO) {
             [self.SelSecView removeFromSuperview];
+            [self.companySelView removeFromSuperview];
             //字体设置
             self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40)];
             self.secondView.backgroundColor = self.daynightmodel.navigationColor;
@@ -365,6 +370,7 @@
         else
         {
             [self.SelSecView removeFromSuperview];
+            [self.companySelView removeFromSuperview];
             self.bottomView.selectBtn.selected = NO;
             sender.selected = NO;
             self.bottomView.selectBtn = sender;
@@ -374,6 +380,7 @@
     else if (num == 4){
         if (sender.selected == NO) {
             [self.SelSecView removeFromSuperview];//移除子视图
+            [self.companySelView removeFromSuperview];
             //插入
             NSArray *imgArr = @[@"btn_img@3x.png",@"btn_biaoqian"];
             NSArray *textArr = @[@"图片",@"股票"];
@@ -391,6 +398,7 @@
         else
         {
             [self.SelSecView removeFromSuperview];
+            [self.companySelView removeFromSuperview];
             self.bottomView.selectBtn.selected = NO;
             sender.selected = NO;
             self.bottomView.selectBtn = sender;
@@ -401,6 +409,7 @@
         
         if (sender.selected == NO) {
             [self.SelSecView removeFromSuperview];//移除子视图
+            [self.companySelView removeFromSuperview];
             //更多
             NSArray *imgArr = @[@"tab_yulan@3x.png",@"tab_caogao@3x.png"];
             NSArray *textArr = @[@"预览",@"存为草稿"];
@@ -418,6 +427,7 @@
         else
         {
             [self.SelSecView removeFromSuperview];
+            [self.companySelView removeFromSuperview];
             self.bottomView.selectBtn.selected = NO;
             sender.selected = NO;
             self.bottomView.selectBtn = sender;
@@ -477,38 +487,38 @@
     }
     else if (num == 4)
     {
+        NSLog(@"22");
+        numm = self.contentText.text.length;
+        firstchange = YES;
+        self.editziti.zihao = 22;
+    }
+    else if (num == 5)
+    {
         NSLog(@"20");
         numm = self.contentText.text.length;
         firstchange = YES;
         self.editziti.zihao = 20;
     }
-    else if (num == 5)
+    else if (num == 6)
     {
         NSLog(@"18");
         numm = self.contentText.text.length;
         firstchange = YES;
         self.editziti.zihao = 18;
     }
-    else if (num == 6)
+    else if (num == 7)
     {
         NSLog(@"16");
         numm = self.contentText.text.length;
         firstchange = YES;
         self.editziti.zihao = 16;
     }
-    else if (num == 7)
+    else
     {
         NSLog(@"14");
         numm = self.contentText.text.length;
         firstchange = YES;
         self.editziti.zihao = 14;
-    }
-    else
-    {
-        NSLog(@"12");
-        numm = self.contentText.text.length;
-        firstchange = YES;
-        self.editziti.zihao = 12;
     }
 }
 
@@ -557,7 +567,8 @@
         //插入股票
         [self.SelSecView removeFromSuperview];
         
-        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 80) andArr:self.tagsArr];
+        self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 40) andArr:self.tagsArr];
+        self.tagsview.delegate = self;
         self.tagsview.backgroundColor = self.daynightmodel.backColor;
         [self.tagsview.tagsText becomeFirstResponder];
         self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
@@ -702,36 +713,116 @@
 }
 
 #pragma mark - 添加股票用
+- (void)addTags:(UIButton *)sender
+{
+    //添加股票K线图
+    if (![self.tagsview.tagsText.text isEqualToString:@""]) {
+        NSString *stockCode = [self.tagsview.tagsText.text substringToIndex:6];
+        //判断是上市还是深市
+        NSString *code = [stockCode substringToIndex:1];
+        NSString *stockKImgURl;
+        NSString *imgUrl;
+        if ([code isEqualToString:@"0"]) {
+            stockKImgURl = [NSString stringWithFormat:@"http://image.sinajs.cn/newchart/daily/n/sz%@.gif",stockCode];
+            imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",stockKImgURl];
+        }
+        else
+        {
+            stockKImgURl = [NSString stringWithFormat:@"http://image.sinajs.cn/newchart/daily/n/sh%@.gif",stockCode];
+            imgUrl = [NSString stringWithFormat:@"<img src=\"%@\"/>",stockKImgURl];
+        }
+        
+        [self.contentText becomeFirstResponder];
+        currentRange = self.contentText.selectedRange;
+        [self.upimgArr addObject:imgUrl];
+        [self.imglocArr addObject:@(currentRange.location)];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSData * data = [[NSData alloc]initWithContentsOfURL:[NSURL URLWithString:stockKImgURl]];
+            UIImage *KImage = [[UIImage alloc]initWithData:data];
+            if (data != nil) {
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    //在这里做UI操作
+                    NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:self.contentText.attributedText];
+                    PhotoTextAttachment *textAttachment = [[PhotoTextAttachment alloc]init];
+                    if (KImage.size.width >kScreenWidth) {
+                        textAttachment.photoSize = CGSizeMake(kScreenWidth-16 , (kScreenWidth-16)/KImage.size.width*KImage.size.height);
+                    }
+                    else
+                    {
+                        textAttachment.photoSize = KImage.size;
+                    }
+                    
+                    currentRange = self.contentText.selectedRange;
+                    [self.imglocArr addObject:@(currentRange.location)];
+                    textAttachment.image = KImage; //要添加的图片
+                    NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
+                    
+                    [string insertAttributedString:textAttachmentString atIndex:currentRange.location];//index为用户指定要插入图片的位置
+                    //    NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:img];
+                    //    [string insertAttributedString:imgtext atIndex:currentRange.location];
+                    
+                    self.contentText.attributedText = string;
+                    [self.contentText becomeFirstResponder];
+                    self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
+                });
+            } 
+            
+        });
+    }
+}
+
+- (void)clearTags:(UIButton *)sender
+{
+    self.tagsview.tagsText.text = @"";
+}
+
 - (void)textFieldDidChange:(UITextField *)textfield{
-    
+    NSString *searchString = [textfield text];
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[c] %@",searchString];
+    if (self.companySelView.showArr) {
+        [self.companySelView.showArr removeAllObjects];
+    }
+    //得到搜索结果
+    self.companySelView.showArr = [NSMutableArray arrayWithArray:[self.companySelView.companyArr filteredArrayUsingPredicate:predicate]];
+    if (textfield.text.length == 0) {
+        self.companySelView.showArr = [NSMutableArray arrayWithArray:self.companySelView.companyArr];
+    }
+    //刷新tableview
+    [self.companySelView reloadData];
 }
 
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
-    currentRange = self.contentText.selectedRange;
-    //改变textview的高度
-    CGRect frame = textView.frame;
-    if ([textView.text isEqual:@""]) {
-        
-        if (![textView.text isEqualToString:@""]) {
+    //比较上次光标位置，判断是否为删除状态
+    if (currentRange.location < self.contentText.selectedRange.location) {
+        //改变textview的高度
+        CGRect frame = textView.frame;
+        if ([textView.text isEqualToString:@""]) {
             
-            self.contentHeight = [ self heightForTextView:textView WithText:[textView.text substringToIndex:[textView.text length] - 1]];
-            
+            if (![textView.text isEqualToString:@""]) {
+                
+                self.contentHeight = [ self heightForTextView:textView WithText:[textView.text substringToIndex:[textView.text length] - 1]];
+                
+            }else{
+                
+                self.contentHeight = [ self heightForTextView:textView WithText:textView.text];
+            }
         }else{
             
-            self.contentHeight = [ self heightForTextView:textView WithText:textView.text];
+            self.contentHeight = [self heightForTextView:textView WithText:[NSString stringWithFormat:@"%@%@",textView.text,textView.text]];
         }
-    }else{
-        
-        self.contentHeight = [self heightForTextView:textView WithText:[NSString stringWithFormat:@"%@%@",textView.text,textView.text]];
+        frame.size.height = self.contentHeight;
+        [UIView animateWithDuration:0.5 animations:^{
+            
+            textView.frame = frame;
+            
+        } completion:nil];
     }
-    frame.size.height = self.contentHeight;
-    [UIView animateWithDuration:0.5 animations:^{
-        
-        textView.frame = frame;
-        
-    } completion:nil];
+    
+    //记录当前位置
+    currentRange = self.contentText.selectedRange;
     
     if ([self.contentText.text length] > 0) {
         self.placeholderLab.text = @"";
@@ -1068,9 +1159,7 @@
             }
         }
     }
-    
-    
-    
+
 }
 
 

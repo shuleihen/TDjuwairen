@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "SharpTags.h"
 
+
+@protocol InsertTagsDelegate <NSObject>
+
+- (void)addTags:(UIButton *)sender;
+
+- (void)clearTags:(UIButton *)sender;
+
+@end
 @interface InsertTagsView : UIView
 
 @property (nonatomic,strong) UITextField *tagsText;
@@ -17,6 +25,8 @@
 @property (nonatomic,strong) SharpTags *tagList;
 
 @property (nonatomic,strong) NSMutableArray *listArr;
+
+@property (nonatomic,weak) id<InsertTagsDelegate>delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame andArr:(NSMutableArray *)arr;
 

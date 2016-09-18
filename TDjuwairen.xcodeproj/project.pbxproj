@@ -204,6 +204,7 @@
 		842B36301CE9B66B00C6E400 /* search@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 842B362F1CE9B66B00C6E400 /* search@2x.png */; };
 		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
+		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845CCB8D1D4EE738005ABD7B /* tab_yulan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */; };
 		845CCB8F1D4EE759005ABD7B /* tab_caogao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8E1D4EE759005ABD7B /* tab_caogao@3x.png */; };
@@ -698,6 +699,7 @@
 		842D58001D8938FD006385CB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		842D58021D893BB3006385CB /* CompanySelTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySelTableView.h; sourceTree = "<group>"; };
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
+		843FD3371D8E3D4F00116802 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
 		845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftRightBtn.m; sourceTree = "<group>"; };
 		845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_yulan@3x.png"; sourceTree = "<group>"; };
@@ -1809,6 +1811,7 @@
 		84CC347C1CEAE75700193D9C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
+				843FD3371D8E3D4F00116802 /* Foundation+Log.m */,
 				84F7DB3C1D0FDD770097E710 /* NSString+Ext.h */,
 				84F7DB3D1D0FDD770097E710 /* NSString+Ext.m */,
 				84CC34861CEAEC2A00193D9C /* NSString+TimeInfo.h */,
@@ -2478,6 +2481,7 @@
 				1955B4781D644D9800DC102E /* PersonalCenterViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */,
+				843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */,
 				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
