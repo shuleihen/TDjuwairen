@@ -315,6 +315,8 @@
 		84E48DFC1D45BBB1008579A2 /* nav_publish@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E48DFB1D45BBB1008579A2 /* nav_publish@3x.png */; };
 		84EF8CB91D712AC5002F3F69 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF8CB81D712AC5002F3F69 /* MyAttentionViewController.m */; };
 		84EF8CC21D712F2C002F3F69 /* MyAttentionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84EF8CC11D712F2C002F3F69 /* MyAttentionTableViewCell.m */; };
+		84F4DFC41D8F75ED00886FF5 /* UserCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F4DFC31D8F75ED00886FF5 /* UserCommentTableViewCell.m */; };
+		84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F4DFC61D8F83DC00886FF5 /* CommentsChildTableViewController.m */; };
 		84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F7DB3D1D0FDD770097E710 /* NSString+Ext.m */; };
 		84F9FDAF1CF80DCF00683791 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84F9FDAE1CF80DCF00683791 /* StoreKit.framework */; };
 		84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDB21CF80E0A00683791 /* ELCAlbumPickerController.m */; };
@@ -850,6 +852,10 @@
 		84EF8CB81D712AC5002F3F69 /* MyAttentionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MyAttentionViewController.m; path = ../MyAttentionViewController.m; sourceTree = "<group>"; };
 		84EF8CC01D712F2C002F3F69 /* MyAttentionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyAttentionTableViewCell.h; sourceTree = "<group>"; };
 		84EF8CC11D712F2C002F3F69 /* MyAttentionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyAttentionTableViewCell.m; sourceTree = "<group>"; };
+		84F4DFC21D8F75ED00886FF5 /* UserCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserCommentTableViewCell.h; sourceTree = "<group>"; };
+		84F4DFC31D8F75ED00886FF5 /* UserCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserCommentTableViewCell.m; sourceTree = "<group>"; };
+		84F4DFC51D8F83DC00886FF5 /* CommentsChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsChildTableViewController.h; sourceTree = "<group>"; };
+		84F4DFC61D8F83DC00886FF5 /* CommentsChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentsChildTableViewController.m; sourceTree = "<group>"; };
 		84F7DB3C1D0FDD770097E710 /* NSString+Ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Ext.h"; sourceTree = "<group>"; };
 		84F7DB3D1D0FDD770097E710 /* NSString+Ext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Ext.m"; sourceTree = "<group>"; };
 		84F9FDAE1CF80DCF00683791 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
@@ -1112,6 +1118,8 @@
 				1955B3DB1D644D9800DC102E /* CommentsTableViewCell.xib */,
 				1955B3DC1D644D9800DC102E /* CommentsViewController.h */,
 				1955B3DD1D644D9800DC102E /* CommentsViewController.m */,
+				84F4DFC51D8F83DC00886FF5 /* CommentsChildTableViewController.h */,
+				84F4DFC61D8F83DC00886FF5 /* CommentsChildTableViewController.m */,
 			);
 			path = Comments;
 			sourceTree = "<group>";
@@ -2061,6 +2069,8 @@
 			children = (
 				84EF8CC01D712F2C002F3F69 /* MyAttentionTableViewCell.h */,
 				84EF8CC11D712F2C002F3F69 /* MyAttentionTableViewCell.m */,
+				84F4DFC21D8F75ED00886FF5 /* UserCommentTableViewCell.h */,
+				84F4DFC31D8F75ED00886FF5 /* UserCommentTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2420,6 +2430,7 @@
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
+				84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
@@ -2552,6 +2563,7 @@
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
+				84F4DFC41D8F75ED00886FF5 /* UserCommentTableViewCell.m in Sources */,
 				1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */,
 				84D96F411D6D474F00BCA1E8 /* ChildBlogTableViewController.m in Sources */,
 			);

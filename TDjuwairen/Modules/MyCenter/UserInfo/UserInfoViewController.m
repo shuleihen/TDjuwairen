@@ -290,6 +290,7 @@
     num = (int)i;
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
     //判断是横向滚动还是竖向滚动
+    
     [childBlog requestShowList:num WithID:self.user_id];
     
     [self setUpOneChildController:i];

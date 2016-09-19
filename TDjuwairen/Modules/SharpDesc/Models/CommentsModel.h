@@ -37,6 +37,10 @@
 
 @property (nonatomic,copy) NSString *viewcommentTime;//点评时间
 
+@property (nonatomic,copy) NSString *view_id;//观点id
+
+@property (nonatomic,copy) NSString *view_title;//观点标题
+
 @property (nonatomic,copy) NSString *commentStatus; //是否点赞过
 
 @property (nonatomic,strong) NSArray *secondArr;

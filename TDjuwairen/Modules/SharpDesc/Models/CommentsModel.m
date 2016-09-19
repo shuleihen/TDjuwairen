@@ -43,6 +43,9 @@
     model.viewcomment_userid = dic[@"viewcomment_userid"];
     model.viewcomment = dic[@"viewcomment_text"];
     
+    model.view_id = dic[@"view_id"];
+    model.view_title = dic[@"view_title"];
+    
     model.secondArr = dic[@"pcomment"];
     
     return model;

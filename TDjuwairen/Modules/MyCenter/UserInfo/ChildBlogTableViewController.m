@@ -14,15 +14,22 @@
 #import "NothingTableViewCell.h"
 #import "SharpDetailsViewController.h"
 #import "DescContentViewController.h"
+#import "CommentsModel.h"
+#import "UserCommentTableViewCell.h"
 
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
+#import "MJRefresh.h"
 
 @interface ChildBlogTableViewController ()
-
+{
+    CGSize commentsize;
+    CGSize floorviewsize;
+}
 @property (nonatomic,assign) int typeID;
 @property (nonatomic,assign) int page;
 @property (nonatomic,assign) CGSize titlesize;
@@ -30,6 +37,7 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) NSMutableArray *surveyListDataArray;
 @property (nonatomic,strong) NSMutableArray *viewListDataArray;
+@property (nonatomic,strong) NSMutableArray *userCommentArray;
 
 @end
 
@@ -43,6 +51,7 @@
     self.tableView.scrollEnabled = NO;
     self.surveyListDataArray = [NSMutableArray array];
     self.viewListDataArray = [NSMutableArray array];
+    self.userCommentArray = [NSMutableArray array];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -129,14 +138,21 @@
     else
     {
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
-        NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
+        NSString *urlString = [NSString stringWithFormat:@"index.php/User/getUserComnment"];
         NSDictionary *dic = @{
-                              @"user_id":user_id,
+                              @"userid":user_id,
+                              @"module_id":@"3",
                               @"page":@"1",
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
-                NSLog(@"%@",data);
+                NSArray *arr = data;
+                for (NSDictionary *d in arr) {
+                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:d];
+                    [self.userCommentArray addObject:fModel];
+                }
+                NSLog(@"%@",self.userCommentArray);
+                [self.tableView reloadData];
             }
             else
             {
@@ -173,7 +189,13 @@
     }
     else
     {
-        return 20;
+        if (self.userCommentArray.count > 0) {
+            return self.userCommentArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }
 
@@ -277,13 +299,53 @@
     
     else
     {
-        NSString *identifier = @"cell";
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        if (self.userCommentArray.count > 0) {
+            NSString *identifier = @"cell";
+            UserCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            CommentsModel *model = self.userCommentArray[indexPath.row];
+            if (cell == nil) {
+                cell = [[UserCommentTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+            }
+            floorviewsize = cell.floorView.frame.size;
+            
+            NSString *comment = model.viewcomment;
+            UIFont *font = [UIFont systemFontOfSize:16];
+            cell.commentLab.font = font;
+            cell.commentLab.numberOfLines = 0;
+            commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
+            commentsize = [comment calculateSize:commentsize font:font];
+            [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
+            
+            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
+            cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
+            cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.userCommentArray.count-(int)indexPath.row];
+            cell.commentLab.text = model.viewcomment;
+            
+            [cell.originalLab setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+15, kScreenWidth-30, 40)];
+            cell.originalLab.text = [NSString stringWithFormat:@"  %@",model.view_title];
+            
+            [cell.line setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+15+40+14, kScreenWidth-30, 1)];
+
+            cell.nickNameLab.textColor = self.daynightmodel.titleColor;
+            cell.numfloor.textColor = self.daynightmodel.titleColor;
+            cell.commentLab.textColor = self.daynightmodel.textColor;
+            cell.originalLab.backgroundColor = self.daynightmodel.backColor;
+            cell.originalLab.textColor = self.daynightmodel.titleColor;
+            cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
         }
-        cell.textLabel.text = @"苍茫的天涯是我的爱";
-        return cell;
+        else
+        {
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightmodel.backColor;
+            cell.label.text = @"该用户还没有发表评论";
+            cell.label.textColor = self.daynightmodel.textColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     }
 }
 
@@ -310,7 +372,13 @@
     }
     else
     {
-        return 44;
+        if (self.userCommentArray.count > 0) {
+            return 10+15+10+floorviewsize.height+15+commentsize.height+15+40+15;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
     }
 }
 
@@ -334,53 +402,12 @@
     }
     else
     {
-        //呵呵
+        //跳转观点详情
+        CommentsModel *model = self.userCommentArray[indexPath.row];
+        DescContentViewController *view = [[DescContentViewController alloc]init];
+        view.view_id = model.view_id;
+        [self.navigationController pushViewController:view animated:YES];
     }
 }
-
-
-/*
- // Override to support conditional editing of the table view.
- - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the specified item to be editable.
- return YES;
- }
- */
-
-/*
- // Override to support editing the table view.
- - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
- if (editingStyle == UITableViewCellEditingStyleDelete) {
- // Delete the row from the data source
- [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
- } else if (editingStyle == UITableViewCellEditingStyleInsert) {
- // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
- }
- }
- */
-
-/*
- // Override to support rearranging the table view.
- - (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
- }
- */
-
-/*
- // Override to support conditional rearranging of the table view.
- - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
- // Return NO if you do not want the item to be re-orderable.
- return YES;
- }
- */
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

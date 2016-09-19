@@ -169,24 +169,24 @@
 #pragma mark - 点击登录
 - (void)ClickLogin:(UIButton *)sender{
     
-//    [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
-//        if (!error) {
+    [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
+        if (!error) {
             //请求登录信息
             [self requestLogin];
-//        } else {
-//            NSLog(@"错误信息：%@",error);
-//            if ([self.validationText.text isEqualToString:@""]) {
-//                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
-//                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-//                [self presentViewController:alert animated:YES completion:nil];
-//            }
-//            else{
-//                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
-//                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-//                [self presentViewController:alert animated:YES completion:nil];
-//            }
-//        }
-//    }];
+        } else {
+            NSLog(@"错误信息：%@",error);
+            if ([self.validationText.text isEqualToString:@""]) {
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+            else{
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
+                [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+                [self presentViewController:alert animated:YES completion:nil];
+            }
+        }
+    }];
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
