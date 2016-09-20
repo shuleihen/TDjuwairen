@@ -107,7 +107,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                                                            error:nil];
     }
     
-    DDLogInfo(@"\nRequest Mehtod = %@\nURL = %@%@\nHeader = %@\n",method,self.manager.baseURL,URLString,request.allHTTPHeaderFields);
+    DDLogInfo(@"\nRequest Method = %@\nURL = %@\nHeaders = %@\nParameters = %@\n",method,URLString,request.allHTTPHeaderFields,parameters);
     
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request
@@ -116,7 +116,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
                                    
                                    if (error) {
-                                       DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %ld,Error = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,error);
+                                       DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %d,Error = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,error);
                                        
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            completion(nil, error);
@@ -125,7 +125,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                        NSInteger code = [responseObject[@"code"] integerValue];
                                        if (code == 200) {
                                            id data = responseObject[@"data"];
-                                           DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %ld,\nData = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,data);
+                                           DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %d,\nData = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,data);
                                            
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                completion(data, nil);
@@ -133,7 +133,6 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                        } else {
                                            NSString *msg = responseObject[@"msg"];
                                            NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
-                                           DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %ld,Error = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,error);
                                            
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                completion(nil, error);
