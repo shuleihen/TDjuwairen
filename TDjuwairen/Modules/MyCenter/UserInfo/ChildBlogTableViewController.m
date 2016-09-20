@@ -97,7 +97,7 @@
             }
             else
             {
-                NSLog(@"%@",error);
+                nil;
             }
         }];
     }
@@ -131,7 +131,7 @@
             }
             else
             {
-                NSLog(@"%@",error);
+                nil;
             }
         }];
     }
@@ -151,12 +151,11 @@
                     CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:d];
                     [self.userCommentArray addObject:fModel];
                 }
-                NSLog(@"%@",self.userCommentArray);
                 [self.tableView reloadData];
             }
             else
             {
-                NSLog(@"%@",error);
+                nil;
             }
         }];
     }

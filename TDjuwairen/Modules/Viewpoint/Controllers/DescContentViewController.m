@@ -1351,6 +1351,7 @@
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
     self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
+    
 }
 
 - (void)viewDidDisappear:(BOOL)animated

@@ -149,7 +149,7 @@
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
-         NSLog(@"%lu",(unsigned long)state);
+//         NSLog(@"%lu",(unsigned long)state);
          if (state == SSDKResponseStateSuccess)
          {
              NSString *unionid = user.uid;
@@ -160,7 +160,6 @@
              [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
                  if (!error) {
                      NSDictionary *dic = data;
-                     NSLog(@"%@",dic);
                      //给loginstate 填充
                      US.userId = dic[@"user_id"];
                      US.userName = dic[@"user_name"];

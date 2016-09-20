@@ -124,7 +124,7 @@
 //    [self.webview.scrollView removeObserver:self forKeyPath:@"contentSize"];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
-    //    NSLog(@"dealloc");
+
 }
 
 - (void)viewDidLoad {
@@ -684,7 +684,6 @@
 #pragma mark - 标签代理方法
 - (void)ClickTags:(UIButton *)sender
 {
-    NSLog(@"%@",sender.titleLabel.text);
     SearchViewController *searchView = [[SearchViewController alloc] init];
     searchView.searchTags = sender.titleLabel.text;
     searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
@@ -774,7 +773,6 @@
 /// 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation;{
     [self.tableview reloadData];
-    NSLog(@"页面加载失败");
 }
 
 
@@ -956,7 +954,7 @@
 - (void)didSelectedWithIndexPath:(UITableViewCell *)cell
 {
     if ([cell.textLabel.text isEqualToString:@"复制链接"]) {
-        NSLog(@"%@",cell.textLabel.text);
+
     }
     else if ([cell.textLabel.text isEqualToString:@"收藏"]){
         if (US.isLogIn) {

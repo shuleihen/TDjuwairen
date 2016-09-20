@@ -173,7 +173,7 @@
         }
         else
         {
-            NSLog(@"%@",error);
+            nil;
         }
      }];
 }
@@ -364,7 +364,7 @@
         }
         else
         {
-            NSLog(@"%@",error);
+            nil;
         }
     }];
 }
@@ -386,7 +386,7 @@
         }
         else
         {
-            NSLog(@"%@",error);
+            nil;
         }
     }];
 }
