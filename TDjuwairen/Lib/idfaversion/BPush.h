@@ -1,6 +1,6 @@
 //
 //  BPush.h
-//  Version: 1.4.6
+//  Version: 1.4.7
 //  百度云推送iOS版本头文件 //
 //
 
@@ -91,6 +91,16 @@ typedef void (^BPushCallBack)(id result, NSError *error);
  *     none
  */
 + (void)disableLbs;
+
+/**
+ * 开启BPush 崩溃日志收集
+ * @param
+ *      - 开启BPush 崩溃日志收集 没有使用其他第三方崩溃收集工具的，建议调用此接口，BPush 会收集由于BPush SDK 本身引起的崩溃 便于SDK搜集已知问题，更快的修复问题。
+ * @return
+ *     none
+ */
++ (void)uploadBPushCrashLog;
+
 
 /**
  * @brief 绑定channel.将会在回调中看获得channnelid appid userid 等。

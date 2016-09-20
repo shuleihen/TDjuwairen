@@ -26,6 +26,9 @@
 #import "CocoaLumberjack.h"
 
 #import "BPush.h"
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+#import <UserNotifications/UserNotifications.h>
+#endif
 
 static BOOL isBackGroundActivateApplication;
 @interface AppDelegate ()
@@ -43,7 +46,49 @@ static BOOL isBackGroundActivateApplication;
     [self setupWebImageCache];
     [self checkSwitchToGuide];
     [self setupLog];
-    [self setupWithBaiDuPushWithDic:launchOptions];
+    
+    
+    // iOS10 下需要使用新的 API
+    
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+        
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
+                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                  // Enable or disable features based on authorization.
+                                  if (granted) {
+                                      [application registerForRemoteNotifications];
+                                  }
+                              }];
+#endif
+    }
+    else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+        UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }else {
+        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    }
+    
+    //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
+    
+    // 在 App 启动时注册百度云推送服务，需要提供 Apikey
+    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeDevelopment withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+    // App 是用户点击推送消息启动
+    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo) {
+        NSLog(@"从消息启动:%@",userInfo);
+        [BPush handleNotification:userInfo];
+    }
+    //角标清0
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    /*
+     // 测试本地通知
+     [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
+     */
     
     return YES;
 }
@@ -248,26 +293,6 @@ static BOOL isBackGroundActivateApplication;
     //    DDLogError(@"Error");
 }
 
-#pragma mark - 百度推送
-- (void)setupWithBaiDuPushWithDic:(NSDictionary *)launchOptions{
-    // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeDevelopment withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
-    // App 是用户点击推送消息启动
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (userInfo) {
-        NSLog(@"从消息启动:%@",userInfo);
-        [BPush handleNotification:userInfo];
-    }
-    //角标清0
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    
-    /*
-     // 测试本地通知
-     [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
-     */
-}
-
 - (void)testLocalNotifi
 {
     NSLog(@"测试本地通知啦！！！");
@@ -285,7 +310,7 @@ static BOOL isBackGroundActivateApplication;
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
         //        SkipViewController *skipCtr = [[SkipViewController alloc]init];
-        //        // 根视图是nav 用push 方式跳转
+        ////         根视图是nav 用push 方式跳转
         //        [_tabBarCtr.selectedViewController pushViewController:skipCtr animated:YES];
         NSLog(@"applacation is unactive ===== %@",userInfo);
         /*
@@ -300,6 +325,7 @@ static BOOL isBackGroundActivateApplication;
         UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:@"收到一条消息" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
+    //    [self.viewController addLogString:[NSString stringWithFormat:@"Received Remote Notification :\n%@",userInfo]];
     
     completionHandler(UIBackgroundFetchResultNewData);
     NSLog(@"backgroud : %@",userInfo);
@@ -309,8 +335,10 @@ static BOOL isBackGroundActivateApplication;
 // 在 iOS8 系统中，还需要添加这个方法。通过新的 API 注册推送服务
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-        [application registerForRemoteNotifications];
-
+    
+    [application registerForRemoteNotifications];
+    
+    
 }
 
 
@@ -319,6 +347,7 @@ static BOOL isBackGroundActivateApplication;
     NSLog(@"test:%@",deviceToken);
     [BPush registerDeviceToken:deviceToken];
     [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
+        //        [self.viewController addLogString:[NSString stringWithFormat:@"Method: %@\n%@",BPushRequestMethodBind,result]];
         // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
         // 网络错误
         if (error) {
@@ -336,6 +365,9 @@ static BOOL isBackGroundActivateApplication;
             }];
         }
     }];
+    
+    // 打印到日志 textView 中
+    //    [self.viewController addLogString:[NSString stringWithFormat:@"Register use deviceToken : %@",deviceToken]];
     
     
 }
@@ -359,8 +391,12 @@ static BOOL isBackGroundActivateApplication;
     }
     else//杀死状态下，直接跳转到跳转页面。
     {
-        
+        //        SkipViewController *skipCtr = [[SkipViewController alloc]init];
+        //        [_tabBarCtr.selectedViewController pushViewController:skipCtr animated:YES];
     }
+    
+    //    [self.viewController addLogString:[NSString stringWithFormat:@"Received Remote Notification :\n%@",userInfo]];
+    
     NSLog(@"%@",userInfo);
     
 }

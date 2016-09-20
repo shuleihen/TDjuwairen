@@ -229,6 +229,8 @@
 		845CCBB81D4F32FC005ABD7B /* btn_lianjie@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */; };
 		845CCBBA1D4F330D005ABD7B /* btn_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB91D4F330D005ABD7B /* btn_img@3x.png */; };
 		845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */; };
+		8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488E42A1D90E2EC00888D07 /* libBPush.a */; };
+		8488E42D1D90E2EC00888D07 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8488E42B1D90E2EC00888D07 /* test.caf */; };
 		8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */; };
 		8489972C1D4B4D14008EE2BC /* tab_huifu@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8489972B1D4B4D14008EE2BC /* tab_huifu@3x.png */; };
 		8489972E1D4B4D25008EE2BC /* tab_ziti@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8489972D1D4B4D25008EE2BC /* tab_ziti@3x.png */; };
@@ -269,8 +271,6 @@
 		84D57BC01D83933900274E9C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D57BBF1D83933900274E9C /* CoreGraphics.framework */; };
 		84D57BC21D83934300274E9C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D57BC11D83934300274E9C /* Foundation.framework */; };
 		84D57BC41D83934A00274E9C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D57BC31D83934A00274E9C /* UIKit.framework */; };
-		84D57BD31D83F8CC00274E9C /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84D57BD11D83F8CC00274E9C /* libBPush.a */; };
-		84D57BD41D83F8CC00274E9C /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 84D57BD21D83F8CC00274E9C /* test.caf */; };
 		84D7AC301D642DEE00023D57 /* bg_big@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC2C1D642DEE00023D57 /* bg_big@2x.png */; };
 		84D7AC311D642DEE00023D57 /* bg_big@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC2D1D642DEE00023D57 /* bg_big@3x.png */; };
 		84D7AC321D642DEE00023D57 /* bg@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84D7AC2E1D642DEE00023D57 /* bg@2x.png */; };
@@ -727,6 +727,10 @@
 		845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_lianjie@3x.png"; sourceTree = "<group>"; };
 		845CCBB91D4F330D005ABD7B /* btn_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_img@3x.png"; sourceTree = "<group>"; };
 		845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_biaoqian@3x.png"; sourceTree = "<group>"; };
+		8488E4291D90E2EC00888D07 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
+		8488E42A1D90E2EC00888D07 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
+		8488E42B1D90E2EC00888D07 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
+		8488E42E1D90E30800888D07 /* TDjuwairen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TDjuwairen.entitlements; sourceTree = "<group>"; };
 		848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_chexiao@3x.png"; sourceTree = "<group>"; };
 		8489972B1D4B4D14008EE2BC /* tab_huifu@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_huifu@3x.png"; sourceTree = "<group>"; };
 		8489972D1D4B4D25008EE2BC /* tab_ziti@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_ziti@3x.png"; sourceTree = "<group>"; };
@@ -777,9 +781,6 @@
 		84D57BBF1D83933900274E9C /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		84D57BC11D83934300274E9C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		84D57BC31D83934A00274E9C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		84D57BD01D83F8CC00274E9C /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
-		84D57BD11D83F8CC00274E9C /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
-		84D57BD21D83F8CC00274E9C /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		84D7AC2C1D642DEE00023D57 /* bg_big@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_big@2x.png"; sourceTree = "<group>"; };
 		84D7AC2D1D642DEE00023D57 /* bg_big@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg_big@3x.png"; sourceTree = "<group>"; };
 		84D7AC2E1D642DEE00023D57 /* bg@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bg@2x.png"; sourceTree = "<group>"; };
@@ -900,7 +901,7 @@
 				84E334D71CE329CB00E5DCEE /* MessageUI.framework in Frameworks */,
 				84E334D51CE329B200E5DCEE /* libsqlite3.tbd in Frameworks */,
 				84E334D31CE329A900E5DCEE /* ImageIO.framework in Frameworks */,
-				84D57BD31D83F8CC00274E9C /* libBPush.a in Frameworks */,
+				8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */,
 				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
 				19C347E51D3F5C5D008ABD16 /* ShareSDK.framework in Frameworks */,
 				84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */,
@@ -1474,7 +1475,7 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				84D57BCF1D83F8CC00274E9C /* idfaversion */,
+				8488E4281D90E2EC00888D07 /* idfaversion */,
 				19C347C01D3F5C5D008ABD16 /* MOBFoundation.framework */,
 				19C347C11D3F5C5D008ABD16 /* ShareSDK */,
 				19C347E31D3F5C5D008ABD16 /* SMS_SDK.framework */,
@@ -1778,6 +1779,16 @@
 			path = UserInfo;
 			sourceTree = "<group>";
 		};
+		8488E4281D90E2EC00888D07 /* idfaversion */ = {
+			isa = PBXGroup;
+			children = (
+				8488E4291D90E2EC00888D07 /* BPush.h */,
+				8488E42A1D90E2EC00888D07 /* libBPush.a */,
+				8488E42B1D90E2EC00888D07 /* test.caf */,
+			);
+			path = idfaversion;
+			sourceTree = "<group>";
+		};
 		8497DFCC1CEEECB400D7D105 /* Detail */ = {
 			isa = PBXGroup;
 			children = (
@@ -1830,16 +1841,6 @@
 			path = Utility;
 			sourceTree = "<group>";
 		};
-		84D57BCF1D83F8CC00274E9C /* idfaversion */ = {
-			isa = PBXGroup;
-			children = (
-				84D57BD01D83F8CC00274E9C /* BPush.h */,
-				84D57BD11D83F8CC00274E9C /* libBPush.a */,
-				84D57BD21D83F8CC00274E9C /* test.caf */,
-			);
-			path = idfaversion;
-			sourceTree = "<group>";
-		};
 		84D8DFA71CE451FB00A65CE0 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
@@ -1878,6 +1879,7 @@
 		84E333E91CE2BA3D00E5DCEE /* TDjuwairen */ = {
 			isa = PBXGroup;
 			children = (
+				8488E42E1D90E30800888D07 /* TDjuwairen.entitlements */,
 				19C526241D49EDDC0039F85D /* Modules */,
 				19C347BF1D3F5C5D008ABD16 /* Lib */,
 				193EF0761D392CB40043F3EB /* Res */,
@@ -2222,6 +2224,14 @@
 						DevelopmentTeam = V9B4FLHXSX;
 						DevelopmentTeamName = "HangZhou TuanDa NetworkTechnology Co., Ltd.";
 						ProvisioningStyle = Automatic;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
 					};
 					84E333FF1CE2BA3E00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -2264,7 +2274,6 @@
 				8427F74E1D5878490073AB7F /* btn_dianzan_normal@2x.png in Resources */,
 				845CCB981D4EF49D005ABD7B /* tab_xieti_pre@3x.png in Resources */,
 				840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */,
-				84D57BD41D83F8CC00274E9C /* test.caf in Resources */,
 				84E48DFC1D45BBB1008579A2 /* nav_publish@3x.png in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				848997361D4B5315008EE2BC /* btn_select_pre@3x.png in Resources */,
@@ -2347,6 +2356,7 @@
 				275E9CDC1CFED0DC0075910D /* NotLogin.png in Resources */,
 				84D7AC301D642DEE00023D57 /* bg_big@2x.png in Resources */,
 				848997381D4B5318008EE2BC /* btn_select@3x.png in Resources */,
+				8488E42D1D90E2EC00888D07 /* test.caf in Resources */,
 				845CCBB81D4F32FC005ABD7B /* btn_lianjie@3x.png in Resources */,
 				848997321D4B4D7C008EE2BC /* nav_more@3x.png in Resources */,
 				845CCBBA1D4F330D005ABD7B /* btn_img@3x.png in Resources */,
@@ -2664,7 +2674,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
-				CODE_SIGN_IDENTITY = "iPhone Developer: 450924349@qq.com (PBD87MW68Z)";
+				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
+				CODE_SIGN_IDENTITY = "Mac Developer: 450924349@qq.com (PBD87MW68Z)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou TuanDa NetworkTechnology Co., Ltd. (V9B4FLHXSX)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -2804,6 +2815,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -2838,6 +2850,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
