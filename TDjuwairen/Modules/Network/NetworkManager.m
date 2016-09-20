@@ -116,17 +116,16 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
                                    
                                    if (error) {
-                                       DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %d,Error = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,error);
+                                       DDLogInfo(@"\nResponse URL = %@\nError = %@\n",response.URL,error);
                                        
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            completion(nil, error);
                                        });
                                    } else {
+                                       DDLogInfo(@"\nResponse URL = %@\nData = %@\n",response.URL, responseObject);
                                        NSInteger code = [responseObject[@"code"] integerValue];
                                        if (code == 200) {
                                            id data = responseObject[@"data"];
-                                           DDLogInfo(@"\nResponse URL = %@\nHTTP Status Code = %d,\nData = %@\n",response.URL,((NSHTTPURLResponse *)response).statusCode,data);
-                                           
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                completion(data, nil);
                                            });
