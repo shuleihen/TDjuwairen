@@ -97,7 +97,6 @@
             float size = [[manager attributesOfItemAtPath:tmpC error:nil] fileSize];
             float size2 = [[manager attributesOfItemAtPath:LibraryC error:nil] fileSize];
             float size3 = [[manager attributesOfItemAtPath:DocumentC error:nil] fileSize];
-            NSLog(@"%.2f",size+size2+size3);
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",(size+size2+size3)/1024];
             if ([cell.detailTextLabel.text floatValue ]<0.25) {
                 cell.detailTextLabel.text = @"0.00M";

@@ -178,7 +178,7 @@
                 if (!error) {
                     [self Verification];
                 } else {
-                    NSLog(@"错误信息：%@",error);
+                    nil;
                 }
             }];
         }
@@ -298,7 +298,6 @@
                 //提交注册信息
                 [self SubmitUserinfo];
             } else {
-                NSLog(@"错误信息：%@",error);
                 if ([self.validationText.text isEqualToString:@""]) {
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
                     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
@@ -377,7 +376,6 @@
                 [aler addAction:conformAction];
                 [self presentViewController:aler animated:YES completion:nil];
             } else {
-                NSLog(@"%@",message);
                 UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
                 UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
                 [aler addAction:conformAction];
@@ -390,7 +388,7 @@
 - (BOOL)textFieldShouldReturn:(UITextField *)textField
 {
     [textField resignFirstResponder];
-    return textField;
+    return YES;
 }
 
 - (void)didReceiveMemoryWarning {

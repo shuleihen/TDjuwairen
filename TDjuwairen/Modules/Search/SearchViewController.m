@@ -122,7 +122,7 @@
             
             [self.tableview reloadData];
         } else {
-            NSLog(@"%@",error);
+            nil;
         }
     }];
 }

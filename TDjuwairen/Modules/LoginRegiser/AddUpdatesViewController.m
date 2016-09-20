@@ -152,7 +152,7 @@
                 if (!error) {
                     [self Verification];
                 } else {
-                    NSLog(@"错误信息：%@",error);
+                    nil;
                 }
             }];
         }
@@ -176,14 +176,12 @@
 
 - (void)phoneSure:(UIButton *)sender
 {
-    NSLog(@"确定");
     [self.backview removeFromSuperview];
     [self.phoneview removeFromSuperview];
 }
 
 - (void)phoneClean:(UIButton *)sender
 {
-    NSLog(@"取消");
     [self.backview removeFromSuperview];
     [self.phoneview removeFromSuperview];
     [self.navigationController popViewControllerAnimated:YES];
@@ -282,7 +280,7 @@
                 //提交更新
                 [self updateUserinfo];
             } else {
-                NSLog(@"错误信息：%@",error);
+
                 if ([self.validationText.text isEqualToString:@""]) {
                     UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
                     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];

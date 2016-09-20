@@ -225,7 +225,6 @@
             [wself stopLoading];
             [tableview reloadData];
         } else {
-            NSLog(@"请求失败");
             UITableView *tableview = wself.tableviewsArr[num];
             [tableview.mj_header endRefreshing];
             [tableview.mj_footer endRefreshing];

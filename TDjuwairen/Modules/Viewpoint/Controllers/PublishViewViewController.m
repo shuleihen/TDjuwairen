@@ -1174,7 +1174,6 @@
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:API_UploadContentPic parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
-        NSLog(@"完成");
         UIImage *image = Photo;
         NSData *data = UIImageJPEGRepresentation(image, 0.5);
         
