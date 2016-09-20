@@ -25,6 +25,7 @@
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     [self addTarget:self action:@selector(checkPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     if (self.selected) {

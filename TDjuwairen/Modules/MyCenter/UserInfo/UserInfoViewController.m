@@ -16,6 +16,7 @@
 #import "NetworkManager.h"
 #import "UIImageView+WebCache.h"
 #import "MBProgressHUD.h"
+#import "MJRefresh.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
 {
@@ -37,6 +38,8 @@
 @property (nonatomic,strong) CategoryView *cateview;
 
 @property (nonatomic,strong) NSDictionary *userState;
+
+@property (nonatomic,copy) NSString *rollway;
 
 @end
 
@@ -62,9 +65,30 @@
     [self addChildViewController];
     
     [self requestDataWithUser];
+    
+    [self addRefresh];//添加刷新
 
     // Do any additional setup after loading the view.
 }
+
+- (void)addRefresh{
+    self.tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
+
+- (void)refreshAction {
+    //数据表页数为1
+    ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
+    childBlog.page = 1;
+    [childBlog requestShowList:num WithID:self.user_id];
+}
+
+- (void)loadMoreAction {
+    ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
+    childBlog.page ++;
+    [childBlog requestShowList:num WithID:self.user_id];
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [self setupWithNavigation];
@@ -235,6 +259,8 @@
     {
         scrollView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
     }
+    
+    self.rollway = [NSString stringWithFormat:@"%@",[scrollView superclass]];
 }
 
 #pragma mark - select
@@ -291,14 +317,17 @@
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
     //判断是横向滚动还是竖向滚动
     
-    [childBlog requestShowList:num WithID:self.user_id];
+    if ([self.rollway isEqualToString:@"UIView"]) {
+        [childBlog requestShowList:num WithID:self.user_id];
+        
+        [self setUpOneChildController:i];
+        
+        [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+        self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
+        [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+        [self.tableview reloadData];
+    }
     
-    [self setUpOneChildController:i];
-    
-    [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-    self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
-    [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-    [self.tableview reloadData];
 }
 
 - (void)goBack:(UIButton *)sender{
@@ -369,6 +398,9 @@
     [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
     self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
     [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    
+    [self.tableview.mj_header endRefreshing];
+    [self.tableview.mj_footer endRefreshing];
     [self.tableview reloadData];
 }
 

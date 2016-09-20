@@ -2693,7 +2693,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/Lib",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -2834,7 +2833,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/Lib",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
 				);
 				OTHER_LDFLAGS = "-ObjC";
@@ -2869,7 +2867,6 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/Lib",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
 				);
 				OTHER_LDFLAGS = "-ObjC";

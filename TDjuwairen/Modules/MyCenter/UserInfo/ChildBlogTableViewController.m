@@ -31,7 +31,7 @@
     CGSize floorviewsize;
 }
 @property (nonatomic,assign) int typeID;
-@property (nonatomic,assign) int page;
+
 @property (nonatomic,assign) CGSize titlesize;
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -72,7 +72,7 @@
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogSurveyList"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
-                              @"page":@"1",
+                              @"page":[NSString stringWithFormat:@"%d",self.page],
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
@@ -107,7 +107,7 @@
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
-                              @"page":@"1",
+                              @"page":[NSString stringWithFormat:@"%d",self.page],
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
@@ -142,7 +142,7 @@
         NSDictionary *dic = @{
                               @"userid":user_id,
                               @"module_id":@"3",
-                              @"page":@"1",
+                              @"page":[NSString stringWithFormat:@"%d",self.page],
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {

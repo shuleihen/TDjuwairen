@@ -40,6 +40,7 @@ alpha:1.0]
 
 - (void)awakeFromNib
 {
+    [super awakeFromNib];
     self.backgroundColor = [UIColor whiteColor];
     if (self.leftEdge == nil) {
         self.leftEdge = @(0.0f);
