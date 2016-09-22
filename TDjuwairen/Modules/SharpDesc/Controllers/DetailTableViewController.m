@@ -53,7 +53,7 @@
 }
 
 - (void)requestCommentDataWithPage:(int)currentPage{
-    if (!firstLoadComment == YES) {
+    if (firstLoadComment == NO) {
         self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.hudloadCom.labelText = @"加载中...";
     }
@@ -74,7 +74,7 @@
             } else {
                 [self.sharpComDataArr addObjectsFromArray:array];
             }
-            if (!firstLoadComment == YES) {
+            if (firstLoadComment == NO) {
                 self.hudloadCom.labelText = @"加载完成";
                 [self.hudloadCom hide:YES afterDelay:0.1];
             }
@@ -89,7 +89,7 @@
 
 - (void)requestWithCommentDataWithTimeHot{
     
-    if (!firstLoadComment == YES) {
+    if (firstLoadComment == NO) {
         self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.hudloadCom.labelText = @"加载中...";
     }
@@ -141,7 +141,7 @@
                 CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
                 [self.viewComDataArr addObject:fModel];
             }
-            if (!firstLoadComment == YES) {
+            if (firstLoadComment == NO) {
                 self.hudloadCom.labelText = @"加载完成";
                 [self.hudloadCom hide:YES afterDelay:0.1];
             }
