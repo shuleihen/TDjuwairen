@@ -17,7 +17,7 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "DescContentViewController.h"
+#import "DetailPageViewController.h"
 #import "PublishViewViewController.h"
 
 @interface ChildTableViewController ()
@@ -219,10 +219,11 @@
         if (self.listArr.count > 0) {
             ViewPointListModel *model = self.listArr[indexPath.row];
             if (self.typeID == 0 || self.typeID == 1) {
-                DescContentViewController *dc = [[DescContentViewController alloc] init];
-                dc.view_id = model.view_id;
-                dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:dc animated:YES];
+                DetailPageViewController *DetailTab = [[DetailPageViewController alloc]init];
+                DetailTab.view_id = model.view_id;
+                DetailTab.pageMode = @"view";
+                DetailTab.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+                [self.navigationController pushViewController:DetailTab animated:YES];
             }
             else
             {

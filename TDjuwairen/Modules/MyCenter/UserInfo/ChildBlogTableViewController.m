@@ -12,8 +12,7 @@
 #import "NewTableViewCell.h"
 #import "ViewPointTableViewCell.h"
 #import "NothingTableViewCell.h"
-#import "SharpDetailsViewController.h"
-#import "DescContentViewController.h"
+#import "DetailPageViewController.h"
 #import "CommentsModel.h"
 #import "UserCommentTableViewCell.h"
 
@@ -387,25 +386,29 @@
     if (self.typeID == 0) {
         //跳转调研详情
         SurveyListModel *model = self.surveyListDataArray[indexPath.row];
-        SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc]init];
-        sharp.sharp_id = model.sharp_id;
-        [self.navigationController pushViewController:sharp animated:YES];
+        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+        DetailView.sharp_id = model.sharp_id;
+        DetailView.pageMode = @"sharp";
+        [self.navigationController pushViewController:DetailView animated:YES];
         
     }
     else if (self.typeID == 1){
         //跳转观点详情
+        
+        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
         ViewPointListModel *model = self.viewListDataArray[indexPath.row];
-        DescContentViewController *desc = [[DescContentViewController alloc]init];
-        desc.view_id = model.view_id;
-        [self.navigationController pushViewController:desc animated:YES];
+        DetailView.view_id = model.view_id;
+        DetailView.pageMode = @"view";
+        [self.navigationController pushViewController:DetailView animated:YES];
     }
     else
     {
         //跳转观点详情
         CommentsModel *model = self.userCommentArray[indexPath.row];
-        DescContentViewController *view = [[DescContentViewController alloc]init];
-        view.view_id = model.view_id;
-        [self.navigationController pushViewController:view animated:YES];
+        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+        DetailView.view_id = model.view_id;
+        DetailView.pageMode = @"view";
+        [self.navigationController pushViewController:DetailView animated:YES];
     }
 }
 

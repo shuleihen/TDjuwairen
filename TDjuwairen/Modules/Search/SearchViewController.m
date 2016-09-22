@@ -14,8 +14,7 @@
 #import "HeadForSectionTableViewCell.h"
 #import "NoResultTableViewCell.h"
 #import "AllNoResultTableViewCell.h"
-#import "SharpDetailsViewController.h"
-#import "DescContentViewController.h"
+#import "DetailPageViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
@@ -639,8 +638,9 @@
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
                     SurveyListModel *model = self.surveydata[indexPath.row-1];
-                    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
+                    DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
                     DetailView.sharp_id = model.sharp_id;
+                    DetailView.pageMode = @"sharp";
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
                 }
@@ -651,8 +651,9 @@
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
                     ViewPointListModel *model = self.researchdata[indexPath.row-1];
-                   DescContentViewController *DetailView = [[DescContentViewController alloc] init];
+                    DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
                     DetailView.view_id = model.view_id;
+                    DetailView.pageMode = @"view";
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
                 }
@@ -665,8 +666,9 @@
                     
                     /* 跳转至详情页 */
                     SurveyListModel *model = self.videodata[indexPath.row-1];
-                    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
+                    DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
                     DetailView.sharp_id = model.sharp_id;
+                    DetailView.pageMode = @"sharp";
                     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
                     [self.navigationController pushViewController:DetailView animated:YES];
                 }

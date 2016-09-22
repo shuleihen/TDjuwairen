@@ -13,7 +13,7 @@
 #import "SurveyNavigationView.h"
 #import "SurveyListModel.h"
 #import "SurveyTableViewCell.h"
-#import "SharpDetailsViewController.h"
+#import "DetailPageViewController.h"
 #import "SearchViewController.h"
 #import "UIdaynightModel.h"
 #import "NetworkManager.h"
@@ -270,8 +270,9 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     
     SurveyListModel *model = self.VideoListArray[indexPath.row];
-    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
+    DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
     DetailView.sharp_id = model.sharp_id;
+    DetailView.pageMode = @"sharp";
     DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     
     if (US.isLogIn) {     //为登录状态

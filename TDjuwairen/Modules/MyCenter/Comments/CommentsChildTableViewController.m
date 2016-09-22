@@ -10,8 +10,7 @@
 #import "CommentManagerModel.h"
 #import "CommentsModel.h"
 
-#import "SharpDetailsViewController.h"
-#import "DescContentViewController.h"
+#import "DetailPageViewController.h"
 #import "CommentsTableViewCell.h"
 #import "NothingTableViewCell.h"
 #import "UserCommentTableViewCell.h"
@@ -289,8 +288,9 @@
     if (self.typeID == 0) {
         if (self.surveyComArr.count > 0) {
             CommentManagerModel *model = self.surveyComArr[indexPath.row];
-            SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
+            DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
             sharp.sharp_id = model.sharpcomment_sharpid;
+            sharp.pageMode = @"sharp";
             [self.navigationController pushViewController:sharp animated:YES];
         }
         else
@@ -303,8 +303,9 @@
     {
         if (self.viewComArr.count > 0) {
             CommentsModel *model = self.viewComArr[indexPath.row];
-            DescContentViewController *view = [[DescContentViewController alloc]init];
+            DetailPageViewController *view = [[DetailPageViewController alloc]init];
             view.view_id = model.view_id;
+            view.pageMode = @"view";
             [self.navigationController pushViewController:view animated:YES];
         }
         else

@@ -12,7 +12,7 @@
 
 #import "LoginState.h"
 #import "EditView.h"
-#import "SharpDetailsViewController.h"
+#import "DetailPageViewController.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
@@ -313,8 +313,9 @@
     if (edit == NO) {
         if (self.BrowserArray.count > 0) {
             NSDictionary *dic = self.BrowserArray[indexPath.row];
-            SharpDetailsViewController *sharp = [[SharpDetailsViewController alloc] init];
+            DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
             sharp.sharp_id = dic[@"sharp_id"];
+            sharp.pageMode = @"sharp";
             [self.navigationController pushViewController:sharp animated:YES];
         }
         else
