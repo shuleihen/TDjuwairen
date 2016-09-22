@@ -16,7 +16,7 @@
 #import "SurveyTableViewCell.h"
 #import "NewTableViewCell.h"
 #import "SurveyListModel.h"
-#import "SharpDetailsViewController.h"
+#import "DetailPageViewController.h"
 #import "SearchViewController.h"
 #import "UIdaynightModel.h"
 
@@ -327,11 +327,12 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index
 {
     //跳转到详情页
-    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
+    DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
     NSString *s = self.scrollIDArray[index];
     NSArray *arr = [s componentsSeparatedByString:@"/"];
     DetailView.sharp_id = [arr lastObject];
-    DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    DetailView.pageMode = @"sharp";
+    DetailView.hidesBottomBarWhenPushed = YES;
     
     if (US.isLogIn) {     //为登录状态
         NetworkManager *manager = [[NetworkManager alloc] init];
@@ -357,10 +358,11 @@
     /* 取消选中状态 */
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     
+    DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
-    SharpDetailsViewController *DetailView = [[SharpDetailsViewController alloc] init];
     DetailView.sharp_id = model.sharp_id;
-    DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    DetailView.pageMode = @"sharp";
+    DetailView.hidesBottomBarWhenPushed = YES;
     
     
     if (US.isLogIn) {     //为登录状态

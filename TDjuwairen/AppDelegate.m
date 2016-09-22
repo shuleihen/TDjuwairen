@@ -309,13 +309,8 @@ static BOOL isBackGroundActivateApplication;
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
-        //        SkipViewController *skipCtr = [[SkipViewController alloc]init];
-        ////         根视图是nav 用push 方式跳转
-        //        [_tabBarCtr.selectedViewController pushViewController:skipCtr animated:YES];
+
         NSLog(@"applacation is unactive ===== %@",userInfo);
-        /*
-         // 根视图是普通的viewctr 用present跳转
-         [_tabBarCtr.selectedViewController presentViewController:skipCtr animated:YES completion:nil]; */
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
     if (application.applicationState == UIApplicationStateBackground) {
@@ -325,7 +320,6 @@ static BOOL isBackGroundActivateApplication;
         UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:@"收到一条消息" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
         [alertView show];
     }
-    //    [self.viewController addLogString:[NSString stringWithFormat:@"Received Remote Notification :\n%@",userInfo]];
     
     completionHandler(UIBackgroundFetchResultNewData);
     NSLog(@"backgroud : %@",userInfo);

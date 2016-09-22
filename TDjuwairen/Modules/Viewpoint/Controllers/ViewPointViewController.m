@@ -12,7 +12,7 @@
 #import "SpecialModel.h"
 #import "ViewPointTableViewCell.h"
 #import "ViewSpecialTableViewCell.h"
-#import "DescContentViewController.h"
+#import "DetailPageViewController.h"
 #import "UIdaynightModel.h"
 #import "PublishViewViewController.h"
 #import "LoginViewController.h"
@@ -362,11 +362,12 @@
     
     if (tableView == self.tableviewsArr[0] || tableView == self.tableviewsArr[1]) {
         //跳转到观点详情页
-        DescContentViewController *dc = [[DescContentViewController alloc] init];
+        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+        detail.pageMode = @"view";
         ViewPointListModel *model = self.viewNewArr[indexPath.row];
-        dc.view_id = model.view_id;
-        dc.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-        [self.navigationController pushViewController:dc animated:YES];
+        detail.view_id = model.view_id;
+        detail.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:detail animated:YES];
     }
 }
 #pragma mark - 结束滚动

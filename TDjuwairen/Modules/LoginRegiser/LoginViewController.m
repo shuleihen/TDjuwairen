@@ -233,6 +233,7 @@
              [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
                  if (!error) {
                      NSDictionary *dic = data;
+                     
                      //给loginstate 填充
                      US.userId = dic[@"user_id"];
                      US.userName = dic[@"user_name"];
