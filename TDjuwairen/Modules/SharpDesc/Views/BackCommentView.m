@@ -43,30 +43,24 @@
     /* 评论按钮 */
     self.backComment = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100, 0, 50, 50)];
     [self.backComment setBackgroundColor:[UIColor clearColor]];
-    
-    self.ClickComment = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100+20, 15, 20, 20)];
-    [self.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+    [self.backComment setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+    [self.backComment setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     /* 分享按钮 */
     self.backShare = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 0, 50, 50)];
     [self.backShare setBackgroundColor:[UIColor clearColor]];
-    
-    self.ClickShare = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50+10, 15, 20, 20)];
-    [self.ClickShare setBackgroundImage:[UIImage imageNamed:@"tab_share.png"] forState:UIControlStateNormal];
+    [self.backShare setImage:[UIImage imageNamed:@"tab_share.png"] forState:UIControlStateNormal];
+    [self.backShare setImageEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 10)];
     
     self.numBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100+30, 8, 20, 16)];
     
     [self.backComment addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
-    [self.ClickComment addTarget:self action:@selector(clickComments:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.backShare addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
-    [self.ClickShare addTarget:self action:@selector(clickShare:) forControlEvents:UIControlEventTouchUpInside];
 
     [self addSubview:self.commentview];
     [self addSubview:self.backComment];
-    [self addSubview:self.ClickComment];
     [self addSubview:self.backShare];
-    [self addSubview:self.ClickShare];
     [self addSubview:self.numBtn];
 }
 
