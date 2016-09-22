@@ -22,6 +22,11 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     return [self initWithBaseUrl:API_HOST];
 }
 
+- (void)dealloc
+{
+    [self.manager invalidateSessionCancelingTasks:NO];
+}
+
 - (id)initWithBaseUrl:(NSString *)baseUrl
 {
     self = [super init];
