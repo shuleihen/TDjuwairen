@@ -125,6 +125,8 @@
     
     [self setupWithScrollView];
     
+    [self setupWithTableView];
+    
     [self setupWithCommentView];
     
     [self requestAction];
@@ -275,6 +277,10 @@
     }
     
     [childTab.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)updateWithTableView{
+    DetailTableViewController *childTab = self.childViewControllers[0];
     childTab.tableView.frame = CGRectMake(0, 75+titlesize.height+10 + websize.height + 10+self.tagList.frame.size.height+10, kScreenWidth, childTab.tableView.contentSize.height);
     [self.scrollview addSubview:childTab.tableView];
 }
@@ -509,7 +515,7 @@
         
         [self.tagList setFrame:CGRectMake(0, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
         
-        [self setupWithTableView];
+        [self updateWithTableView];
         
         DetailTableViewController *childTab = self.childViewControllers[0];
         wself.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);

@@ -18,8 +18,6 @@
 
 @interface DetailTableViewController : UITableViewController
 
-- (void)reply:(FloorView *)sender;
-
 @property (nonatomic,assign) NSString *pagemode;
 
 @property (nonatomic,copy) NSString *sharp_id;
