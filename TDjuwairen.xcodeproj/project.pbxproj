@@ -192,6 +192,7 @@
 		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
 		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
+		845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845071271D954605000798F4 /* ReplyRemindTableViewCell.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845CCB8D1D4EE738005ABD7B /* tab_yulan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */; };
 		845CCB8F1D4EE759005ABD7B /* tab_caogao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8E1D4EE759005ABD7B /* tab_caogao@3x.png */; };
@@ -649,10 +650,10 @@
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		84053B571D6C14010020A1F0 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
 		84053B581D6C14010020A1F0 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
-		84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageViewController.h; sourceTree = "<group>"; };
-		84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageViewController.m; sourceTree = "<group>"; };
-		84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageChildTableViewController.h; sourceTree = "<group>"; };
-		84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageChildTableViewController.m; sourceTree = "<group>"; };
+		84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PushMessageViewController.h; path = TDjuwairen/Modules/MyCenter/Setting/PushMessageViewController.h; sourceTree = SOURCE_ROOT; };
+		84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushMessageViewController.m; path = TDjuwairen/Modules/MyCenter/Setting/PushMessageViewController.m; sourceTree = SOURCE_ROOT; };
+		84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageChildTableViewController.h; path = ../MessageChildTableViewController.h; sourceTree = "<group>"; };
+		84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageChildTableViewController.m; path = ../MessageChildTableViewController.m; sourceTree = "<group>"; };
 		84053B611D6C344E0020A1F0 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoViewController.h; path = ../UserInfoViewController.h; sourceTree = "<group>"; };
 		84053B621D6C344E0020A1F0 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoViewController.m; path = ../UserInfoViewController.m; sourceTree = "<group>"; };
 		84053B641D6C46740020A1F0 /* UserInfoHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoHeadView.h; path = ../UserInfoHeadView.h; sourceTree = "<group>"; };
@@ -681,6 +682,8 @@
 		842D58021D893BB3006385CB /* CompanySelTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySelTableView.h; sourceTree = "<group>"; };
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
 		843FD3371D8E3D4F00116802 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		845071261D954605000798F4 /* ReplyRemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyRemindTableViewCell.h; sourceTree = "<group>"; };
+		845071271D954605000798F4 /* ReplyRemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyRemindTableViewCell.m; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
 		845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftRightBtn.m; sourceTree = "<group>"; };
 		845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_yulan@3x.png"; sourceTree = "<group>"; };
@@ -1069,6 +1072,7 @@
 				1955B3BB1D644D9800DC102E /* BrowserHistory */,
 				1955B3D81D644D9800DC102E /* Comments */,
 				1955B3CF1D644D9800DC102E /* Collection */,
+				845071251D9545BD000798F4 /* PushMessage */,
 				1955B3F91D644D9800DC102E /* Setting */,
 				84053B531D6BE9AF0020A1F0 /* AboutMine */,
 				1955B3ED1D644D9800DC102E /* Feedback */,
@@ -1175,10 +1179,6 @@
 				1955B3FB1D644D9800DC102E /* AboutViewController.m */,
 				84053B571D6C14010020A1F0 /* SettingUpViewController.h */,
 				84053B581D6C14010020A1F0 /* SettingUpViewController.m */,
-				84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */,
-				84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */,
-				84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */,
-				84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */,
 				8408F66B1D878F74004A332A /* PushSwitchViewController.h */,
 				8408F66C1D878F74004A332A /* PushSwitchViewController.m */,
 			);
@@ -1713,6 +1713,20 @@
 				84EF8CBC1D712ED3002F3F69 /* Controllers */,
 			);
 			path = UserInfo;
+			sourceTree = "<group>";
+		};
+		845071251D9545BD000798F4 /* PushMessage */ = {
+			isa = PBXGroup;
+			children = (
+				84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */,
+				84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */,
+				84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */,
+				84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */,
+				845071261D954605000798F4 /* ReplyRemindTableViewCell.h */,
+				845071271D954605000798F4 /* ReplyRemindTableViewCell.m */,
+			);
+			name = PushMessage;
+			path = Setting/PushMessage;
 			sourceTree = "<group>";
 		};
 		8488E4281D90E2EC00888D07 /* idfaversion */ = {
@@ -2491,6 +2505,7 @@
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
+				845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */,
 				19B11CAB1D655B9E00BB4DF4 /* DDLog.m in Sources */,

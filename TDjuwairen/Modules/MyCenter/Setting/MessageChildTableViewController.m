@@ -7,10 +7,22 @@
 //
 
 #import "MessageChildTableViewController.h"
+#import "ReplyRemindTableViewCell.h"
+#import "NothingTableViewCell.h"
+
 #import "NetworkManager.h"
-#import "DDLog.h"
+#import "NSString+Ext.h"
+
+#import "LoginState.h"
+#import "UIdaynightModel.h"
 
 @interface MessageChildTableViewController ()
+{
+    CGSize titlesize;
+}
+@property (nonatomic,strong) UIdaynightModel *daynightModel;
+@property (nonatomic,strong) NSMutableArray *replyArray;
+@property (nonatomic,strong) NSDictionary *replyDic;
 
 @end
 
@@ -18,18 +30,23 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.daynightModel = [UIdaynightModel sharedInstance];
+    self.replyArray = [NSMutableArray array];
     
-    [self requestShowList:1];
+    self.tableView.backgroundColor = self.daynightModel.backColor;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
 }
 
 - (void)requestShowList:(int)typeId
 {
-//    NetworkManager *manager = [[NetworkManager alloc]init];
-//    NSDictionary *dic = @{};
-//    [manager POST:nil parameters:dic completion:^(id data, NSError *error) {
-//        NSLog(@"%@",data);
-//    }];
-
+    NetworkManager *manager = [[NetworkManager alloc]init];
+    NSDictionary *dic = @{@"user_id":@"1292"};
+    NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
+    [manager POST:url parameters:dic completion:^(id data, NSError *error) {
+        self.replyArray = data;
+        [self.tableView reloadData];
+    }];
 
 }
 
@@ -39,71 +56,120 @@
 }
 
 #pragma mark - Table view data source
-
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    if (self.replyArray.count > 0) {
+        return self.replyArray.count;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSString *identifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    if (self.replyArray.count > 0) {
+        NSString *identifier = @"cell";
+        self.replyDic = self.replyArray[indexPath.row];
+        ReplyRemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ReplyRemindTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        NSString *type = [NSString stringWithFormat:@"%@",self.replyDic[@"type"]];
+        if ([type isEqualToString:@"2"]) {
+            cell.titleLab.text = [NSString stringWithFormat:@"您的观点 %@ 有了%@条新的回复",self.replyDic[@"view_title"],self.replyDic[@"comment_count"]];
+            cell.titleLab.textColor = [UIColor lightGrayColor];
+            NSMutableAttributedString *attrString = [cell.titleLab.attributedText mutableCopy];
+            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"view_title"]]];
+            cell.titleLab.attributedText = attrString;
+        }
+        else if([type isEqualToString:@"1"])
+        {
+            cell.titleLab.text = [NSString stringWithFormat:@"%@在观点 %@ 中回复了您：\"%@\"",self.replyDic[@"user_name"],
+                                  self.replyDic[@"view_title"],
+                                  self.replyDic[@"comment"]];
+            cell.titleLab.textColor = [UIColor lightGrayColor];
+            NSMutableAttributedString *attrString = [cell.titleLab.attributedText mutableCopy];
+            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"user_name"]]];
+            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"view_title"]]];
+            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"comment"]]];
+            cell.titleLab.attributedText = attrString;
+        }
+        
+        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+        cell.titleLab.font = font;
+        cell.titleLab.numberOfLines = 0;
+        titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
+        titlesize = [cell.titleLab.text calculateSize:titlesize font:font];
+        [cell.titleLab setFrame:CGRectMake(15, 10, kScreenWidth-30, titlesize.height)];
+        
+        cell.timeLab.text = self.replyDic[@"comment_time"];
+        [cell.timeLab setFrame:CGRectMake(15, 10 + titlesize.height + 10, kScreenWidth-30, 15)];
+        
+        [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
+        cell.line.layer.borderWidth = 1;
+        
+        
+        
+        cell.timeLab.textColor = self.daynightModel.titleColor;
+        cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        cell.backgroundColor = self.daynightModel.navigationColor;
+        return cell;
     }
-    cell.textLabel.text = @"你咋不上天呢";
+    else
+    {
+        NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+        cell.backgroundColor = self.daynightModel.backColor;
+        cell.label.text = @"你当前没有关注用户哦~";
+        cell.label.textColor = self.daynightModel.textColor;
+        return cell;
+    }
     
-    return cell;
 }
 
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.replyArray.count > 0) {
+        return 10+titlesize.height+10+15+15;
+    }
+    else
+    {
+        return kScreenHeight-64;
+    }
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    self.replyDic = self.replyArray[indexPath.row];
+    NSString *str ;
+    NSString *type;
+    if (self.replyDic[@"viewcomment_id"]) {
+        NSLog(@"%@",self.replyDic[@"viewcomment_id"]);
+        str = self.replyDic[@"viewcomment_id"];
+        type = @"comment";
+    }
+    else
+    {
+        NSLog(@"%@",self.replyDic[@"view_id"]);
+        str = self.replyDic[@"view_id"];
+        type = @"view";
+    }
+    
+    NetworkManager *manager = [[NetworkManager alloc]init];
+    NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/updateCommentsState";
+    NSDictionary *para = @{@"id":str,
+                           @"type":type};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        
+    }];
+    
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
