@@ -7,6 +7,8 @@
 //
 
 #import "MessageChildTableViewController.h"
+#import "NetworkManager.h"
+#import "DDLog.h"
 
 @interface MessageChildTableViewController ()
 
@@ -17,9 +19,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [self requestShowList:1];
 }
 
+- (void)requestShowList:(int)typeId
+{
+//    NetworkManager *manager = [[NetworkManager alloc]init];
+//    NSDictionary *dic = @{};
+//    [manager POST:nil parameters:dic completion:^(id data, NSError *error) {
+//        NSLog(@"%@",data);
+//    }];
 
+
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
@@ -45,14 +57,10 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     cell.textLabel.text = @"你咋不上天呢";
+    
     return cell;
 }
 
-
-- (void)requestShowList:(int)typeId
-{
-    
-}
 
 /*
 // Override to support conditional editing of the table view.

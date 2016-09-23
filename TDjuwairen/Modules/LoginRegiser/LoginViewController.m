@@ -18,6 +18,9 @@
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
 
+#import "BPush.h"
+#import "AFNetworking.h"
+
 @interface LoginViewController ()
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
@@ -276,6 +279,8 @@
                              }
                          }];
                          
+                         [self sendChannel_id];//绑定channel_id
+                         
                          [self.navigationController popToRootViewControllerAnimated:YES];
                      }
                      
@@ -286,6 +291,33 @@
          }
          
      }];
+}
+
+- (void)sendChannel_id{
+    NSString *channel_id = [BPush getChannelId];
+    NSString *url = @"http://192.168.1.105/Appapi/index.php/Login/saveUserChannelID";
+    NetworkManager *manager = [[NetworkManager alloc]init];
+    NSDictionary *para = @{@"user_id":US.userId,
+                           @"type":@"1",
+                           @"channel_id":channel_id};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        NSLog(@"%@",data);
+    }];
+    
+//    AFHTTPSessionManager *manager = [[AFHTTPSessionManager alloc]init];
+//    manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+//    NSDictionary *para = @{@"user_id":US.userId,
+//                           @"type":@"1",
+//                           @"channel_id":channel_id};
+//    NSString *url = [NSString stringWithFormat:@"%@%@",kAPI_bendi,API_SendChannel_id];
+//    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+//        nil;
+//    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+//         NSDictionary *JSON = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:nil];
+//        NSLog(@"%@",JSON);
+//    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+//        NSLog(@"%@",error.description);
+//    }];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -25,7 +25,6 @@
 {
     CGSize commentsize;
     CGSize floorviewsize;
-    BOOL firstLoadComment;
     BOOL timehot;
 }
 @property (nonatomic,strong) TimeHotComView *thview;
@@ -53,10 +52,6 @@
 }
 
 - (void)requestCommentDataWithPage:(int)currentPage{
-    if (firstLoadComment == NO) {
-        self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        self.hudloadCom.labelText = @"加载中...";
-    }
     NSString *string = [NSString stringWithFormat:@"index.php/Sharp/getSharpComnment/id/%@/page/%d",self.sharp_id,currentPage];
     
     NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
@@ -74,25 +69,19 @@
             } else {
                 [self.sharpComDataArr addObjectsFromArray:array];
             }
-            if (firstLoadComment == NO) {
-                self.hudloadCom.labelText = @"加载完成";
-                [self.hudloadCom hide:YES afterDelay:0.1];
-            }
-            firstLoadComment = NO;
+
             [self.tableView reloadData];
+            
+            if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                [self.delegate didfinishReload];
+            }
         } else {
-            self.hudloadCom.labelText = @"加载完成";
-            [self.hudloadCom hide:YES afterDelay:0.1];
+            [self.tableView reloadData];
         }
     }];
 }
 
 - (void)requestWithCommentDataWithTimeHot{
-    
-    if (firstLoadComment == NO) {
-        self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        self.hudloadCom.labelText = @"加载中...";
-    }
     NSDictionary *dic;
     if (timehot == YES) {
         if (US.isLogIn == YES) {
@@ -141,17 +130,12 @@
                 CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
                 [self.viewComDataArr addObject:fModel];
             }
-            if (firstLoadComment == NO) {
-                self.hudloadCom.labelText = @"加载完成";
-                [self.hudloadCom hide:YES afterDelay:0.1];
-            }
-            firstLoadComment = NO;
+
             [self.tableView reloadData];
         }
         else
         {
-            self.hudloadCom.labelText = @"加载完成";
-            [self.hudloadCom hide:YES afterDelay:0.1];
+            [self.tableView reloadData];
         }
     }];
     
@@ -172,11 +156,11 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if ([self.pagemode isEqualToString:@"sharp"]) {
         if (self.sharpComDataArr.count == 0) {
-            return 1;
+            return 2;
         }
         else
         {
-            return self.sharpComDataArr.count;
+            return 1+self.sharpComDataArr.count;
         }
     }
     else
@@ -197,47 +181,74 @@
     if ([self.pagemode isEqualToString:@"sharp"]) {
         /* 当前没有评论时 */
         if (self.sharpComDataArr.count == 0) {
-            NSString *identifier = @"cell";
-            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            if (indexPath.row == 0) {
+                NSString *identifier = @"about";
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                }
+                cell.textLabel.text = @"相关评论";
+                return cell;
             }
-            cell.textLabel.text = @"当前文章还没有评论";
-            cell.textLabel.textAlignment = NSTextAlignmentCenter;
-            /* cell的选中样式为无色 */
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            
-            cell.textLabel.textColor = self.daynightmodel.textColor;
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            return cell;
+            else
+            {
+                NSString *identifier = @"cell";
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                }
+                cell.textLabel.text = @"当前文章还没有评论";
+                cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                /* cell的选中样式为无色 */
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                
+                cell.textLabel.textColor = self.daynightmodel.textColor;
+                cell.backgroundColor = self.daynightmodel.navigationColor;
+                return cell;
+            }
         }
         else
         {
-            ShowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"showcell"];
-            if (cell == nil) {
-                cell = [[ShowTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"showcell"];
+            if (indexPath.row == 0) {
+                NSString *identifier = @"about";
+                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                }
+                cell.textLabel.text = @"相关评论";
+                return cell;
             }
-            CommentsModel *model = self.sharpComDataArr[indexPath.row];
-            
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.user_headImg]];
-            cell.nicknameLabel.text = model.user_nickName;
-            
-            cell.timeLabel.text = model.commentTime;
-            NSString *text = model.sharpcomment;
-            cell.commentsLabel.text = text;
-            UIFont *font = [UIFont systemFontOfSize:15];
-            cell.commentsLabel.font = font;
-            commentsize = CGSizeMake(kScreenWidth-55-15, 20000.0f);
-            commentsize = [text calculateSize:commentsize font:font];
-            [cell.commentsLabel setFrame:CGRectMake(15+30+10, 10+15+5+12+10, kScreenWidth-55-15, commentsize.height)];
-            
-            cell.nicknameLabel.textColor = self.daynightmodel.textColor;
-            cell.timeLabel.textColor = self.daynightmodel.titleColor;
-            cell.commentsLabel.textColor = self.daynightmodel.textColor;
-            /* cell的选中样式为无色 */
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            return cell;
+            else
+            {
+                ShowTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"showcell"];
+                if (cell == nil) {
+                    cell = [[ShowTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"showcell"];
+                }
+                CommentsModel *model = self.sharpComDataArr[indexPath.row-1];
+                
+                [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.user_headImg]];
+                cell.nicknameLabel.text = model.user_nickName;
+                
+                cell.timeLabel.text = model.commentTime;
+                NSString *text = model.sharpcomment;
+                cell.commentsLabel.text = text;
+                UIFont *font = [UIFont systemFontOfSize:15];
+                cell.commentsLabel.font = font;
+                commentsize = CGSizeMake(kScreenWidth-55-15, 20000.0f);
+                commentsize = [text calculateSize:commentsize font:font];
+                [cell.commentsLabel setFrame:CGRectMake(15+30+10, 10+15+5+12+10, kScreenWidth-55-15, commentsize.height)];
+                
+                [cell.line setFrame:CGRectMake(15, 10+15+5+12+10+commentsize.height+10, kScreenWidth-30, 1)];
+                
+                cell.nicknameLabel.textColor = self.daynightmodel.textColor;
+                cell.timeLabel.textColor = self.daynightmodel.titleColor;
+                cell.commentsLabel.textColor = self.daynightmodel.textColor;
+                cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+                /* cell的选中样式为无色 */
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightmodel.navigationColor;
+                return cell;
+            }
         }
     }
     else
@@ -375,17 +386,29 @@
 {
     if ([self.pagemode isEqualToString:@"sharp"]) {
         if (self.sharpComDataArr.count == 0) {
-            return kScreenHeight-64-50;
+            if (indexPath.row == 0) {
+                return 44;
+            }
+            else
+            {
+                return kScreenHeight-64-50;
+            }
         }
         else
         {
-            if (indexPath.row == self.sharpComDataArr.count) {
-                if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.sharpComDataArr.count) > 10+15+5+12+10+commentsize.height+10) {
-                    return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.sharpComDataArr.count);
-                }
+            if (indexPath.row == 0) {
+                return 44;
             }
-            /* 设置高度自适应 */
-            return 10+15+5+12+10+commentsize.height+10;
+            else
+            {
+                if (indexPath.row == self.sharpComDataArr.count) {
+                    if (kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.sharpComDataArr.count) > 10+15+5+12+10+commentsize.height+10) {
+                        return kScreenHeight-(10+15+5+12+10+commentsize.height+10)*(self.sharpComDataArr.count);
+                    }
+                }
+                /* 设置高度自适应 */
+                return 10+15+5+12+10+commentsize.height+10;
+            }
         }
     }
     else
@@ -401,12 +424,18 @@
         }
         else
         {
-            if (indexPath.row == self.viewComDataArr.count) {
-                if (kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.viewComDataArr.count-1) > 10+15+10+floorviewsize.height+15+commentsize.height+15) {
-                    return kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.viewComDataArr.count-1);
-                }
+            if (indexPath.row == 0) {
+                return 44;
             }
-            return 10+15+10+floorviewsize.height+15+commentsize.height+15;
+            else
+            {
+                if (indexPath.row == self.viewComDataArr.count) {
+                    if (kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.viewComDataArr.count-1) > 10+15+10+floorviewsize.height+15+commentsize.height+15) {
+                        return kScreenHeight-(10+15+10+floorviewsize.height+15+commentsize.height+15)*(self.viewComDataArr.count-1);
+                    }
+                }
+                return 10+15+10+floorviewsize.height+15+commentsize.height+15;
+            }
         }
     }
 }

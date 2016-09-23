@@ -85,6 +85,7 @@ static BOOL isBackGroundActivateApplication;
     }
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+//    [[UIApplication sharedApplication] cancelAllLocalNotifications];
     /*
      // 测试本地通知
      [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
@@ -355,11 +356,11 @@ static BOOL isBackGroundActivateApplication;
             [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
                 if (result) {
                     NSLog(@"设置tag成功");
+                    
                 }
             }];
         }
     }];
-    
     // 打印到日志 textView 中
     //    [self.viewController addLogString:[NSString stringWithFormat:@"Register use deviceToken : %@",deviceToken]];
     

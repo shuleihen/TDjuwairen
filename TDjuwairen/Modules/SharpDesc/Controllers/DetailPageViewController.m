@@ -145,8 +145,7 @@
 
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
-    self.edgesForExtendedLayout = UIRectEdgeNone;    //iOS7及以后的版本支持，self.view.frame.origin.y会下移64像素至navigationBar下方
+
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
@@ -275,14 +274,14 @@
         childTab.view_id = self.view_id;
         [childTab requestWithCommentDataWithTimeHot];
     }
-    
-    [childTab.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+    [self.scrollview addSubview:childTab.tableView];
 }
 
 - (void)updateWithTableView{
     DetailTableViewController *childTab = self.childViewControllers[0];
     childTab.tableView.frame = CGRectMake(0, 75+titlesize.height+10 + websize.height + 10+self.tagList.frame.size.height+10, kScreenWidth, childTab.tableView.contentSize.height);
-    [self.scrollview addSubview:childTab.tableView];
+
+    self.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + self.webview.frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
 }
 
 - (void)setupWithTagsView{
@@ -515,10 +514,8 @@
         
         [self.tagList setFrame:CGRectMake(0, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
         
-        [self updateWithTableView];
+        [self didfinishReload];
         
-        DetailTableViewController *childTab = self.childViewControllers[0];
-        wself.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
         //停止加载样式
         wself.hudload.labelText = @"加载完成";
         [wself.hudload hide:YES afterDelay:0.1];
@@ -875,7 +872,15 @@
 {
     [textField resignFirstResponder];
     [self sendCommentWithText:textField.text];
+
     return YES;
+}
+
+- (void)didfinishReload
+{
+    DetailTableViewController *childTab = self.childViewControllers[0];
+    childTab.tableView.frame = CGRectMake(0, 75+titlesize.height+10 + websize.height + 10+self.tagList.frame.size.height+10, kScreenWidth, childTab.tableView.contentSize.height);
+    self.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + self.webview.frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
 }
 
 - (void)sendCommentWithText:(NSString *)text
@@ -894,11 +899,13 @@
         if (!error) {
             hud.labelText = @"评论成功";
             [hud hide:YES afterDelay:0.2];
-            
+            self.backcommentview.commentview.text = @"";
             //请求评论数据
-            
+            DetailTableViewController *childTab = self.childViewControllers[0];
+            [childTab requestCommentDataWithPage:1];  //请求
             //滑动到评论
-
+            [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+            [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
 
         } else {
             hud.labelText = @"评论失败";
@@ -946,7 +953,6 @@
                                           title:self.viewInfo.view_title
                                            type:SSDKContentTypeAuto];
     }
-    NSLog(@"%@",shareParams);
     //2、分享（可以弹出我们的分享菜单和编辑界面）
     [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
                              items:nil
@@ -1012,8 +1018,6 @@
     //移除观察者模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
-    DetailTableViewController *child = self.childViewControllers[0];
-    [child.tableView removeObserver:self forKeyPath:@"contentSize"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

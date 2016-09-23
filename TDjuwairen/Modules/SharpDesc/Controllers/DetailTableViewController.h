@@ -14,6 +14,8 @@
 - (void)reply:(FloorView *)sender;
 - (void)didSelectCellforPid:(NSString *)pid andNickName:(NSString *)nick;
 
+- (void)didfinishReload;
+
 @end
 
 @interface DetailTableViewController : UITableViewController

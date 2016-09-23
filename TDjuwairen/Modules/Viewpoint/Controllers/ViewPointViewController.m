@@ -245,7 +245,7 @@
     UIButton*search = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [search setImage:[UIImage imageNamed:@"nav_search.png"] forState:UIControlStateNormal];
     [search addTarget:self action:@selector(GoSearch:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem*rightItem2 = [[UIBarButtonItem alloc]initWithCustomView:search];
+    UIBarButtonItem *rightItem2 = [[UIBarButtonItem alloc]initWithCustomView:search];
     
     self.navigationItem.rightBarButtonItems = @[rightItem1,rightItem2];
 }

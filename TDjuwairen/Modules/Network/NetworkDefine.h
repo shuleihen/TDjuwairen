@@ -32,6 +32,9 @@
 #define API_CheckQQLogin        @"index.php/Login/checkQQAccount1_2"//
 #define API_LoginWithQQ         @"index.php/Login/qqLoginDo1_2"//
 #define API_LoginWithPhone      @"index.php/Login/phoneLogin1_2"//
+
+#define API_SendChannel_id      @"index.php/Login/saveUserChannelID"  //发送channel_id
+
 #define API_CheckPhone          @"Reg/checkTelephone/"
 #define API_RegWithPhone        @"Reg/doTelReg"
 #define API_CheckNickName       @"Reg/checkNickname"
