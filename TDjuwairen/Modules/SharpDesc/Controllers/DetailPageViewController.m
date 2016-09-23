@@ -125,6 +125,8 @@
     
     [self setupWithScrollView];
     
+    [self setupWithTableView];
+    
     [self setupWithCommentView];
     
     [self requestAction];
@@ -275,6 +277,10 @@
     }
     
     [childTab.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+}
+
+- (void)updateWithTableView{
+    DetailTableViewController *childTab = self.childViewControllers[0];
     childTab.tableView.frame = CGRectMake(0, 75+titlesize.height+10 + websize.height + 10+self.tagList.frame.size.height+10, kScreenWidth, childTab.tableView.contentSize.height);
     [self.scrollview addSubview:childTab.tableView];
 }
@@ -509,7 +515,7 @@
         
         [self.tagList setFrame:CGRectMake(0, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
         
-        [self setupWithTableView];
+        [self updateWithTableView];
         
         DetailTableViewController *childTab = self.childViewControllers[0];
         wself.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
@@ -716,13 +722,34 @@
         //
     }];
     
+//    [self.webview evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+//        //获取页面高度，并重置webview的frame
+//        CGFloat documentHeight = [result doubleValue];
+//        CGRect frame = self.webview.frame;
+//        frame.size.height = documentHeight + 10/*显示不全*/;
+//        self.webview.frame = frame;
+//        //主线程刷新UI
+//    }];
+    
+    __weak DetailPageViewController *wself = self;
     [self.webview evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         //获取页面高度，并重置webview的frame
         CGFloat documentHeight = [result doubleValue];
         CGRect frame = self.webview.frame;
-        frame.size.height = documentHeight + 10/*显示不全*/;
+        frame.size.height = documentHeight + 15/*显示不全*/;
         self.webview.frame = frame;
-        //主线程刷新UI
+        websize = frame.size;
+        
+        [self.tagList setFrame:CGRectMake(0, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
+        
+        [self updateWithTableView];
+        
+        DetailTableViewController *childTab = self.childViewControllers[0];
+        wself.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
+        //停止加载样式
+        wself.hudload.labelText = @"加载完成";
+        [wself.hudload hide:YES afterDelay:0.1];
+        
     }];
 }
 
