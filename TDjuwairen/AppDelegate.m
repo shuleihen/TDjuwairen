@@ -24,6 +24,7 @@
 #import "YXFont.h"
 #import "UIdaynightModel.h"
 #import "CocoaLumberjack.h"
+#import "NetworkManager.h"
 
 #import "BPush.h"
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -85,11 +86,22 @@ static BOOL isBackGroundActivateApplication;
     }
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-//    [[UIApplication sharedApplication] cancelAllLocalNotifications];
-    /*
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
+    [center removeAllDeliveredNotifications];       //清空已展示的通知
+    //    [center removeAllPendingNotificationRequests];
+    
+    NetworkManager *manager = [[NetworkManager alloc]init];
+    NSString *url = @"http://192.168.1.105/Appapi/index.php/Index/resetUnreadMsg";
+    NSString *channel_id = [BPush getChannelId];
+    NSDictionary *para = @{@"channel_id":channel_id,
+                           @"type":@"1"};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        //角标同步到后台
+        NSLog(@"%@",data);
+    }];
      // 测试本地通知
-     [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
-     */
+//    [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
+    
     
     return YES;
 }
@@ -119,8 +131,9 @@ static BOOL isBackGroundActivateApplication;
     // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
 }
 
+#pragma mark - 程序终止时
 - (void)applicationWillTerminate:(UIApplication *)application {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
+    
 }
 
 - (void)setupUICommon
@@ -401,4 +414,5 @@ static BOOL isBackGroundActivateApplication;
     NSLog(@"接收本地通知啦！！！");
     [BPush showLocalNotificationAtFront:notification identifierKey:nil];
 }
+
 @end

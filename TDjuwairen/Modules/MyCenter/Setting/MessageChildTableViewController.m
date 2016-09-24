@@ -16,13 +16,19 @@
 #import "LoginState.h"
 #import "UIdaynightModel.h"
 
+@import UserNotifications;
 @interface MessageChildTableViewController ()
 {
     CGSize titlesize;
 }
+
+@property (nonatomic,assign) int typeID;
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 @property (nonatomic,strong) NSMutableArray *replyArray;
 @property (nonatomic,strong) NSDictionary *replyDic;
+
+@property (nonatomic,strong) NSMutableArray *notArray;
+
 
 @end
 
@@ -32,6 +38,7 @@
     [super viewDidLoad];
     self.daynightModel = [UIdaynightModel sharedInstance];
     self.replyArray = [NSMutableArray array];
+    self.notArray = [NSMutableArray array];
     
     self.tableView.backgroundColor = self.daynightModel.backColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
@@ -40,14 +47,40 @@
 
 - (void)requestShowList:(int)typeId
 {
-    NetworkManager *manager = [[NetworkManager alloc]init];
-    NSDictionary *dic = @{@"user_id":@"1292"};
-    NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
-    [manager POST:url parameters:dic completion:^(id data, NSError *error) {
-        self.replyArray = data;
-        [self.tableView reloadData];
-    }];
-
+    self.typeID = typeId;
+    if (typeId == 0) {
+        NetworkManager *manager = [[NetworkManager alloc]init];
+        NSDictionary *dic = @{@"user_id":@"1292"};
+        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
+        [manager POST:url parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                self.replyArray = data;
+                [self.tableView reloadData];
+            }
+            else
+            {
+                [self.tableView reloadData];
+            }
+            
+        }];
+    }
+    else
+    {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
+        [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+            [self.notArray removeAllObjects];
+            for (UNNotification *notification in notifications) {
+                NSDictionary *alert = notification.request.content.userInfo[@"aps"];
+                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                [dic setValue:[NSString stringWithFormat:@"%@",notification.date] forKey:@"date"];
+                [dic setValue:alert[@"alert"] forKey:@"alert"];
+                [dic setValue:notification.request.content.userInfo[@"view_id"] forKey:@"view_id"];
+                [self.notArray addObject:dic];
+                
+            }
+            [self.tableView reloadData];
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -61,113 +94,192 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.replyArray.count > 0) {
-        return self.replyArray.count;
+    if (self.typeID == 0) {
+        if (self.replyArray.count > 0) {
+            return self.replyArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
     else
     {
-        return 1;
+        if (self.notArray.count > 0) {
+            return self.notArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }
 
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.replyArray.count > 0) {
-        NSString *identifier = @"cell";
-        self.replyDic = self.replyArray[indexPath.row];
-        ReplyRemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[ReplyRemindTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+    if (self.typeID == 0) {
+        if (self.replyArray.count > 0) {
+            NSString *identifier = @"cell";
+            self.replyDic = self.replyArray[indexPath.row];
+            ReplyRemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[ReplyRemindTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            NSString *type = [NSString stringWithFormat:@"%@",self.replyDic[@"type"]];
+            if ([type isEqualToString:@"2"]) {
+                cell.titleLab.text = [NSString stringWithFormat:@"您的观点 %@ 有了%@条新的回复",self.replyDic[@"view_title"],self.replyDic[@"comment_count"]];
+                cell.titleLab.textColor = [UIColor lightGrayColor];
+                NSMutableAttributedString *attrString = [cell.titleLab.attributedText mutableCopy];
+                [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"view_title"]]];
+                cell.titleLab.attributedText = attrString;
+            }
+            else if([type isEqualToString:@"1"])
+            {
+                cell.titleLab.text = [NSString stringWithFormat:@"%@在观点 %@ 中回复了您：\"%@\"",self.replyDic[@"user_name"],
+                                      self.replyDic[@"view_title"],
+                                      self.replyDic[@"comment"]];
+                cell.titleLab.textColor = [UIColor lightGrayColor];
+                NSMutableAttributedString *attrString = [cell.titleLab.attributedText mutableCopy];
+                [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"user_name"]]];
+                [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"view_title"]]];
+                [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"comment"]]];
+                cell.titleLab.attributedText = attrString;
+            }
+            
+            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            cell.titleLab.font = font;
+            cell.titleLab.numberOfLines = 0;
+            titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
+            titlesize = [cell.titleLab.text calculateSize:titlesize font:font];
+            [cell.titleLab setFrame:CGRectMake(15, 10, kScreenWidth-30, titlesize.height)];
+            
+            cell.timeLab.text = self.replyDic[@"comment_time"];
+            [cell.timeLab setFrame:CGRectMake(15, 10 + titlesize.height + 10, kScreenWidth-30, 15)];
+            
+            [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
+            cell.line.layer.borderWidth = 1;
+            
+            
+            
+            cell.timeLab.textColor = self.daynightModel.titleColor;
+            cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
+            cell.backgroundColor = self.daynightModel.navigationColor;
+            return cell;
         }
-        NSString *type = [NSString stringWithFormat:@"%@",self.replyDic[@"type"]];
-        if ([type isEqualToString:@"2"]) {
-            cell.titleLab.text = [NSString stringWithFormat:@"您的观点 %@ 有了%@条新的回复",self.replyDic[@"view_title"],self.replyDic[@"comment_count"]];
-            cell.titleLab.textColor = [UIColor lightGrayColor];
-            NSMutableAttributedString *attrString = [cell.titleLab.attributedText mutableCopy];
-            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"view_title"]]];
-            cell.titleLab.attributedText = attrString;
-        }
-        else if([type isEqualToString:@"1"])
+        else
         {
-            cell.titleLab.text = [NSString stringWithFormat:@"%@在观点 %@ 中回复了您：\"%@\"",self.replyDic[@"user_name"],
-                                  self.replyDic[@"view_title"],
-                                  self.replyDic[@"comment"]];
-            cell.titleLab.textColor = [UIColor lightGrayColor];
-            NSMutableAttributedString *attrString = [cell.titleLab.attributedText mutableCopy];
-            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"user_name"]]];
-            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"view_title"]]];
-            [attrString addAttribute:NSForegroundColorAttributeName value:self.daynightModel.textColor range:[cell.titleLab.text rangeOfString:self.replyDic[@"comment"]]];
-            cell.titleLab.attributedText = attrString;
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightModel.backColor;
+            cell.label.text = @"你当前没有收到回复哦~";
+            cell.label.textColor = self.daynightModel.textColor;
+            return cell;
         }
-        
-        UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-        cell.titleLab.font = font;
-        cell.titleLab.numberOfLines = 0;
-        titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
-        titlesize = [cell.titleLab.text calculateSize:titlesize font:font];
-        [cell.titleLab setFrame:CGRectMake(15, 10, kScreenWidth-30, titlesize.height)];
-        
-        cell.timeLab.text = self.replyDic[@"comment_time"];
-        [cell.timeLab setFrame:CGRectMake(15, 10 + titlesize.height + 10, kScreenWidth-30, 15)];
-        
-        [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
-        cell.line.layer.borderWidth = 1;
-        
-        
-        
-        cell.timeLab.textColor = self.daynightModel.titleColor;
-        cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
-        cell.backgroundColor = self.daynightModel.navigationColor;
-        return cell;
     }
     else
     {
-        NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
-        cell.backgroundColor = self.daynightModel.backColor;
-        cell.label.text = @"你当前没有关注用户哦~";
-        cell.label.textColor = self.daynightModel.textColor;
-        return cell;
+        if (self.notArray.count > 0) {
+            NSString *identifier = @"cell";
+            NSDictionary *dic = self.notArray[indexPath.row];
+            ReplyRemindTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[ReplyRemindTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            
+            cell.titleLab.text = dic[@"alert"];
+            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            cell.titleLab.font = font;
+            cell.titleLab.numberOfLines = 0;
+            titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
+            titlesize = [cell.titleLab.text calculateSize:titlesize font:font];
+            [cell.titleLab setFrame:CGRectMake(15, 10, kScreenWidth-30, titlesize.height)];
+            
+            cell.timeLab.text = dic[@"date"];
+            [cell.timeLab setFrame:CGRectMake(15, 10 + titlesize.height + 10, kScreenWidth-30, 15)];
+            
+            [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
+            cell.line.layer.borderWidth = 1;
+            
+            
+            
+            cell.timeLab.textColor = self.daynightModel.titleColor;
+            cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
+            cell.backgroundColor = self.daynightModel.navigationColor;
+            return cell;
+        }
+        else
+        {
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightModel.backColor;
+            cell.label.text = @"你当前没有收到回复哦~";
+            cell.label.textColor = self.daynightModel.textColor;
+            return cell;
+        }
     }
+    
     
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.replyArray.count > 0) {
-        return 10+titlesize.height+10+15+15;
+    if (self.typeID == 0) {
+        if (self.replyArray.count > 0) {
+            return 10+titlesize.height+10+15+15;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
     }
     else
     {
-        return kScreenHeight-64;
+        if (self.notArray.count > 0) {
+            return 10+titlesize.height+10+15+15;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
     }
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    self.replyDic = self.replyArray[indexPath.row];
-    NSString *str ;
-    NSString *type;
-    if (self.replyDic[@"viewcomment_id"]) {
-        NSLog(@"%@",self.replyDic[@"viewcomment_id"]);
-        str = self.replyDic[@"viewcomment_id"];
-        type = @"comment";
+    if (self.typeID == 0) {
+        self.replyDic = self.replyArray[indexPath.row];
+        NSString *str ;
+        NSString *type;
+        if (self.replyDic[@"viewcomment_id"]) {
+            str = self.replyDic[@"viewcomment_id"];
+            type = @"comment";
+        }
+        else
+        {
+            str = self.replyDic[@"view_id"];
+            type = @"view";
+        }
+        
+        NetworkManager *manager = [[NetworkManager alloc]init];
+        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/updateCommentsState";
+        NSDictionary *para = @{@"id":str,
+                               @"type":type};
+        [manager POST:url parameters:para completion:^(id data, NSError *error) {
+            if (!error) {
+                
+            }
+            else
+            {
+                
+            }
+        }];
     }
     else
     {
-        NSLog(@"%@",self.replyDic[@"view_id"]);
-        str = self.replyDic[@"view_id"];
-        type = @"view";
+        NSDictionary *dic = self.notArray[indexPath.row];
+        NSLog(@"%@",dic);
     }
-    
-    NetworkManager *manager = [[NetworkManager alloc]init];
-    NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/updateCommentsState";
-    NSDictionary *para = @{@"id":str,
-                           @"type":type};
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
-        
-    }];
     
 }
 
