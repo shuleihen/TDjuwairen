@@ -9,6 +9,7 @@
 #import "MessageChildTableViewController.h"
 #import "ReplyRemindTableViewCell.h"
 #import "NothingTableViewCell.h"
+#import "DetailPageViewController.h"
 
 #import "NetworkManager.h"
 #import "NSString+Ext.h"
@@ -260,21 +261,21 @@
     if (self.typeID == 0) {
         if (self.replyArray.count > 0) {
             self.replyDic = self.replyArray[indexPath.row];
-            NSString *str ;
+            NSString *detailID ;
             NSString *type;
             if (self.replyDic[@"viewcomment_id"]) {
-                str = self.replyDic[@"viewcomment_id"];
+                detailID = self.replyDic[@"viewcomment_id"];
                 type = @"comment";
             }
             else
             {
-                str = self.replyDic[@"view_id"];
+                detailID = self.replyDic[@"view_id"];
                 type = @"view";
             }
             
             NetworkManager *manager = [[NetworkManager alloc]init];
             NSString *url = @"http://192.168.1.107/Appapi/index.php/Blog/updateCommentsState";
-            NSDictionary *para = @{@"id":str,
+            NSDictionary *para = @{@"id":detailID,
                                    @"type":type};
             [manager POST:url parameters:para completion:^(id data, NSError *error) {
                 if (!error) {
@@ -285,6 +286,10 @@
                     
                 }
             }];
+            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+            detail.view_id = detailID;
+            detail.pageMode = type;
+            [self.navigationController pushViewController:detail animated:YES];
         }
         
     }

@@ -138,7 +138,7 @@
             cell = [[MyInfomationTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
         
-        if (indexPath.row-1 == 1 ||indexPath.row-1 == 2 ) {
+        if (indexPath.row == 1 ||indexPath.row == 2 ) {
             cell.textfield.enabled = NO;
         }
         cell.namelabel.text = self.TitleArr[indexPath.row];
@@ -174,7 +174,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
+    if (indexPath.section == 0) {
         
         //修改头像
         UIAlertController*alert=[[UIAlertController alloc]init];
