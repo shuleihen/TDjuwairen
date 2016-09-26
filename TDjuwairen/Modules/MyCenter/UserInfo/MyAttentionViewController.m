@@ -38,8 +38,6 @@
     [self setupWithNavigation];
     [self setupWithTableView];
     
-    [self requestWithAttentionList];
-    
     [self addRefreshView];           //设置刷新
     // Do any additional setup after loading the view.
 }
@@ -65,6 +63,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self refreshAction];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
@@ -86,7 +85,7 @@
 #pragma mark - 请求关注列表
 - (void)requestWithAttentionList{
     __weak MyAttentionViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/getMyAttendUserInfo"];
     NSDictionary *dic = @{
                           @"user_id":US.userId,

@@ -67,7 +67,7 @@
     self.typeID = typeID;
     __weak ChildBlogTableViewController *wself = self;
     if (typeID == 0) {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogSurveyList"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -92,6 +92,10 @@
                     
                     wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 }
+                
+                if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                    [self.delegate didfinishReload];
+                }
                 [self.tableView reloadData];
             }
             else
@@ -102,7 +106,7 @@
     }
     else if (typeID == 1)
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -126,6 +130,9 @@
                     }
                     wself.viewListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 }
+                if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                    [self.delegate didfinishReload];
+                }
                 [self.tableView reloadData];
             }
             else
@@ -136,7 +143,7 @@
     }
     else
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
         NSString *urlString = [NSString stringWithFormat:@"index.php/User/getUserComnment"];
         NSDictionary *dic = @{
                               @"userid":user_id,
@@ -149,6 +156,9 @@
                 for (NSDictionary *d in arr) {
                     CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:d];
                     [self.userCommentArray addObject:fModel];
+                }
+                if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                    [self.delegate didfinishReload];
                 }
                 [self.tableView reloadData];
             }
@@ -384,31 +394,36 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.typeID == 0) {
-        //跳转调研详情
-        SurveyListModel *model = self.surveyListDataArray[indexPath.row];
-        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
-        DetailView.sharp_id = model.sharp_id;
-        DetailView.pageMode = @"sharp";
-        [self.navigationController pushViewController:DetailView animated:YES];
-        
+        if (self.surveyListDataArray.count > 0) {
+            //跳转调研详情
+            SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+            DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+            DetailView.sharp_id = model.sharp_id;
+            DetailView.pageMode = @"sharp";
+            [self.navigationController pushViewController:DetailView animated:YES];
+        }
     }
     else if (self.typeID == 1){
-        //跳转观点详情
-        
-        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
-        ViewPointListModel *model = self.viewListDataArray[indexPath.row];
-        DetailView.view_id = model.view_id;
-        DetailView.pageMode = @"view";
-        [self.navigationController pushViewController:DetailView animated:YES];
+        if (self.viewListDataArray.count > 0) {
+            //跳转观点详情
+            
+            DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+            ViewPointListModel *model = self.viewListDataArray[indexPath.row];
+            DetailView.view_id = model.view_id;
+            DetailView.pageMode = @"view";
+            [self.navigationController pushViewController:DetailView animated:YES];
+        }
     }
     else
     {
-        //跳转观点详情
-        CommentsModel *model = self.userCommentArray[indexPath.row];
-        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
-        DetailView.view_id = model.view_id;
-        DetailView.pageMode = @"view";
-        [self.navigationController pushViewController:DetailView animated:YES];
+        if (self.userCommentArray.count > 0) {
+            //跳转观点详情
+            CommentsModel *model = self.userCommentArray[indexPath.row];
+            DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+            DetailView.view_id = model.view_id;
+            DetailView.pageMode = @"view";
+            [self.navigationController pushViewController:DetailView animated:YES];
+        }
     }
 }
 

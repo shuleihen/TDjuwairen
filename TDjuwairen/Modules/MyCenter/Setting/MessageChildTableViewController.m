@@ -43,6 +43,7 @@
     self.tableView.backgroundColor = self.daynightModel.backColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
+    
 }
 
 - (void)requestShowList:(int)typeId
@@ -50,8 +51,8 @@
     self.typeID = typeId;
     if (typeId == 0) {
         NetworkManager *manager = [[NetworkManager alloc]init];
-        NSDictionary *dic = @{@"user_id":@"1292"};
-        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
+        NSDictionary *dic = @{@"user_id":US.userId};
+        NSString *url = @"http://192.168.1.107/Appapi/index.php/Blog/getCommentMsg";
         [manager POST:url parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
                 self.replyArray = data;
@@ -66,20 +67,29 @@
     }
     else
     {
-        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
-        [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
-            [self.notArray removeAllObjects];
-            for (UNNotification *notification in notifications) {
-                NSDictionary *alert = notification.request.content.userInfo[@"aps"];
-                NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                [dic setValue:[NSString stringWithFormat:@"%@",notification.date] forKey:@"date"];
-                [dic setValue:alert[@"alert"] forKey:@"alert"];
-                [dic setValue:notification.request.content.userInfo[@"view_id"] forKey:@"view_id"];
-                [self.notArray addObject:dic];
-                
-            }
-            [self.tableView reloadData];
-        }];
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10) {
+            __weak MessageChildTableViewController *wself = self;
+            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
+            [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+                [wself.notArray removeAllObjects];
+                for (UNNotification *notification in notifications) {
+                    NSDictionary *alert = notification.request.content.userInfo[@"aps"];
+                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+                    [dic setValue:[NSString stringWithFormat:@"%@",notification.date] forKey:@"date"];
+                    [dic setValue:alert[@"alert"] forKey:@"alert"];
+                    [dic setValue:notification.request.content.userInfo[@"view_id"] forKey:@"view_id"];
+                    [wself.notArray addObject:dic];
+                    
+                }
+                [wself.tableView reloadData];
+            }];
+        }
+        else
+        {
+            NSArray *arr = [[UIApplication sharedApplication] scheduledLocalNotifications];
+            
+        }
+        
     }
 }
 
@@ -248,37 +258,43 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.typeID == 0) {
-        self.replyDic = self.replyArray[indexPath.row];
-        NSString *str ;
-        NSString *type;
-        if (self.replyDic[@"viewcomment_id"]) {
-            str = self.replyDic[@"viewcomment_id"];
-            type = @"comment";
-        }
-        else
-        {
-            str = self.replyDic[@"view_id"];
-            type = @"view";
-        }
-        
-        NetworkManager *manager = [[NetworkManager alloc]init];
-        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/updateCommentsState";
-        NSDictionary *para = @{@"id":str,
-                               @"type":type};
-        [manager POST:url parameters:para completion:^(id data, NSError *error) {
-            if (!error) {
-                
+        if (self.replyArray.count > 0) {
+            self.replyDic = self.replyArray[indexPath.row];
+            NSString *str ;
+            NSString *type;
+            if (self.replyDic[@"viewcomment_id"]) {
+                str = self.replyDic[@"viewcomment_id"];
+                type = @"comment";
             }
             else
             {
-                
+                str = self.replyDic[@"view_id"];
+                type = @"view";
             }
-        }];
+            
+            NetworkManager *manager = [[NetworkManager alloc]init];
+            NSString *url = @"http://192.168.1.107/Appapi/index.php/Blog/updateCommentsState";
+            NSDictionary *para = @{@"id":str,
+                                   @"type":type};
+            [manager POST:url parameters:para completion:^(id data, NSError *error) {
+                if (!error) {
+                    
+                }
+                else
+                {
+                    
+                }
+            }];
+        }
+        
     }
     else
     {
-        NSDictionary *dic = self.notArray[indexPath.row];
-        NSLog(@"%@",dic);
+        if (self.notArray.count > 0) {
+            NSDictionary *dic = self.notArray[indexPath.row];
+            NSLog(@"%@",dic);
+        }
+        
     }
     
 }

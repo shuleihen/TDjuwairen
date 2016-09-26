@@ -18,7 +18,7 @@
 #import "MBProgressHUD.h"
 #import "MJRefresh.h"
 
-@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
+@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate,ChildBlogTableViewControllerDelegate>
 {
     int num;
 }
@@ -110,6 +110,7 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.headview = [[UserInfoHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
     [self.headview.headImg sd_setImageWithURL:[NSURL URLWithString:self.facesmall]];
@@ -143,6 +144,7 @@
     self.tableviewsArr = [NSMutableArray array];
     for (int i = 0; i<self.categoryArr.count; i++) {
         ChildBlogTableViewController *childblog  = [[ChildBlogTableViewController alloc] init];
+        childblog.delegate = self;
         childblog.title  =  self.categoryArr[i];
         childblog.view.backgroundColor = self.daynightmodel.navigationColor;
         
@@ -153,7 +155,7 @@
 
 #pragma mark - 请求用户信息
 - (void)requestDataWithUser{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/index"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -322,10 +324,19 @@
         
         [self setUpOneChildController:i];
         
-        [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-        self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
-        [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-        [self.tableview reloadData];
+//        if (childBlog.tableView.contentSize.height < kScreenHeight-190-40) {
+//            [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, kScreenHeight-190-40)];
+//            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-190-40);
+//            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-190-40)];
+//        }
+//        else
+//        {
+//            [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+//            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
+//            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+//        }
+//        
+//        [self.tableview reloadData];
     }
     
 }
@@ -351,7 +362,7 @@
 - (void)addAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"关注中";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -373,7 +384,7 @@
 - (void)cancelAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消关注";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -395,9 +406,17 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *,id> *)change context:(void *)context
 {
     ChildBlogTableViewController *childBlog = self.tableviewsArr[num];
-    [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
-    self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
-    [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    if (childBlog.tableView.contentSize.height < kScreenHeight-190-40) {
+        [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, kScreenHeight-190-40)];
+        self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-190-40);
+        [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-190-40)];
+    }
+    else
+    {
+        [childBlog.tableView setFrame:CGRectMake(num*kScreenWidth, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+        self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, childBlog.tableView.contentSize.height);
+        [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, childBlog.tableView.contentSize.height)];
+    }
     
     [self.tableview.mj_header endRefreshing];
     [self.tableview.mj_footer endRefreshing];

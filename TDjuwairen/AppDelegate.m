@@ -9,6 +9,7 @@
 #import "AppDelegate.h"
 #import "SDWebImageDownloader.h"
 #import "SDWebImageManager.h"
+#import "DetailPageViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -86,19 +87,9 @@ static BOOL isBackGroundActivateApplication;
     }
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
-    [center removeAllDeliveredNotifications];       //清空已展示的通知
+    
     //    [center removeAllPendingNotificationRequests];
     
-    NetworkManager *manager = [[NetworkManager alloc]init];
-    NSString *url = @"http://192.168.1.105/Appapi/index.php/Index/resetUnreadMsg";
-    NSString *channel_id = [BPush getChannelId];
-    NSDictionary *para = @{@"channel_id":channel_id,
-                           @"type":@"1"};
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
-        //角标同步到后台
-        NSLog(@"%@",data);
-    }];
      // 测试本地通知
 //    [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
     
@@ -133,7 +124,8 @@ static BOOL isBackGroundActivateApplication;
 
 #pragma mark - 程序终止时
 - (void)applicationWillTerminate:(UIApplication *)application {
-    
+    UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
+    [center removeAllDeliveredNotifications];       //清空已展示的通知
 }
 
 - (void)setupUICommon
@@ -323,7 +315,9 @@ static BOOL isBackGroundActivateApplication;
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
-
+        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+        detail.view_id = userInfo[@"view_id"];
+        [self.window.rootViewController presentViewController:detail animated:YES completion:nil];
         NSLog(@"applacation is unactive ===== %@",userInfo);
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
@@ -369,7 +363,15 @@ static BOOL isBackGroundActivateApplication;
             [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
                 if (result) {
                     NSLog(@"设置tag成功");
-                    
+                    NetworkManager *manager = [[NetworkManager alloc]init];
+                    NSString *url = @"http://192.168.1.107/Appapi/index.php/Index/resetUnreadMsg";
+                    NSString *channel_id = [BPush getChannelId];
+                    NSDictionary *para = @{@"channel_id":channel_id,
+                                           @"type":@"1"};
+                    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+                        //角标同步到后台
+                        NSLog(@"%@",data);
+                    }];
                 }
             }];
         }

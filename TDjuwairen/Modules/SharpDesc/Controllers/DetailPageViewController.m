@@ -120,6 +120,7 @@
     self.sizeArr = @[@"140%",@"120%",@"100%",@"80%"];
     self.fontsize = @"100%";
     self.page = 1;
+    self.pid = @"0";
     
     [self setupWithNavigation];
     
@@ -398,14 +399,14 @@
     NSString *urlPath ;
     
     if (US.isLogIn) {
-        urlPath= [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@/user_id/%@",API_HOST,self.view_id,US.userId];
+        urlPath= [NSString stringWithFormat:@"index.php/View/view_show1_2/id/%@/user_id/%@",self.view_id,US.userId];
     }
     else
     {
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/view_show1_2/id/%@",API_HOST,self.view_id];
+        urlPath = [NSString stringWithFormat:@"index.php/View/view_show1_2/id/%@",self.view_id];
     }
     __weak DetailPageViewController *wself = self;
-    NetworkManager *ma = [[NetworkManager alloc] init];
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             wself.viewInfo = [ViewModel shareWithDictionary:data];
@@ -765,7 +766,7 @@
 - (void)addAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"关注中";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
     NSDictionary *dic;
     if ([self.pageMode isEqualToString:@"sharp"]) {
@@ -798,7 +799,7 @@
 - (void)cancelAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消关注";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
     NSDictionary *dic;
     if ([self.pageMode isEqualToString:@"sharp"]) {
@@ -888,30 +889,61 @@
     if (text.length == 0) {
         return;
     }
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"发表新评论";
-    
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *dic = @{@"id":self.sharp_id,@"userid":US.userId,@"sharpcomment":text,@"authenticationStr":US.userId,@"encryptedStr":self.encryptedStr};
-    
-    [manager POST:API_AddSharpComment parameters:dic completion:^(id data, NSError *error){
-        if (!error) {
-            hud.labelText = @"评论成功";
-            [hud hide:YES afterDelay:0.2];
-            self.backcommentview.commentview.text = @"";
-            //请求评论数据
-            DetailTableViewController *childTab = self.childViewControllers[0];
-            [childTab requestCommentDataWithPage:1];  //请求
-            //滑动到评论
-            [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
-            [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
+    if ([self.pageMode isEqualToString:@"sharp"]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"发表新评论";
+        
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+        NSDictionary *dic = @{@"id":self.sharp_id,@"userid":US.userId,@"sharpcomment":text,@"authenticationStr":US.userId,@"encryptedStr":self.encryptedStr};
+        
+        [manager POST:API_AddSharpComment parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                hud.labelText = @"评论成功";
+                [hud hide:YES afterDelay:0.2];
+                self.backcommentview.commentview.text = @"";
+                //请求评论数据
+                DetailTableViewController *childTab = self.childViewControllers[0];
+                [childTab requestCommentDataWithPage:1];  //请求
+                //滑动到评论
+                [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+                [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
+                
+            } else {
+                hud.labelText = @"评论失败";
+                [hud hide:YES afterDelay:0.2];
+            }
+        }];
+    }
+    else
+    {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"发表评论";
+        
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+        NSDictionary *para = @{@"comment_content":text,
+                               @"user_id":US.userId,
+                               @"view_id":self.view_id,
+                               @"comment_pid":self.pid};
+        
+        [manager POST:API_AddViewCommont parameters:para completion:^(id data, NSError *error){
+            if (!error) {
+                hud.labelText = @"评论成功";
+                [hud hide:YES afterDelay:0.2];
+                self.backcommentview.commentview.text = @"";
+                //请求评论数据
+                DetailTableViewController *childTab = self.childViewControllers[0];
+                [childTab requestWithCommentDataWithTimeHot];  //请求
+                //滑动到评论
+                [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+                [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
 
-        } else {
-            hud.labelText = @"评论失败";
-            [hud hide:YES afterDelay:0.2];
-        }
-    }];
+            } else {
+                hud.labelText = @"评论失败";
+                [hud hide:YES afterDelay:0.1f];
+            }
+        }];
+    }
+    
 }
 
 #pragma mark - Action

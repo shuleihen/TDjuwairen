@@ -35,10 +35,12 @@
     NSLog(@"%@",[app currentUserNotificationSettings]);
     if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIUserNotificationTypeNone) {
         self.loginstate.isPush = NO;
+        self.loginstate.isReply = NO;
     }
     else
     {
         self.loginstate.isPush = YES;
+        self.loginstate.isReply = YES;
     }
     
     [self setupWithNavigation];
@@ -76,6 +78,9 @@
         UISwitch *myswitch = [[UISwitch alloc]initWithFrame:CGRectZero];
         cell.accessoryView = myswitch;
         [myswitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+        if (indexPath.row == 0) {
+            myswitch.on = self.loginstate.isReply;
+        }
         if (indexPath.row == 1) {
             myswitch.on = self.loginstate.isPush;
         }
@@ -91,7 +96,20 @@
     NSIndexPath* index=[self.tableview indexPathForCell:cell];
     if (index.row == 0) {
         //
-        NSLog(@"开关回复提醒");
+        if (myswitch.on == NO) {
+            self.loginstate.isPush = NO;
+            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+            [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil];
+        }
+        else
+        {
+            self.loginstate.isPush = YES;
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|
+             UIUserNotificationTypeBadge|
+             UIUserNotificationTypeSound
+                                              categories:nil];
+        }
     }
     else
     {
