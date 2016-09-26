@@ -443,10 +443,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if ([self.delegate respondsToSelector:@selector(didSelectCellforPid:andNickName:)]) {
-        if ([self.pagemode isEqualToString:@"view"]) {
-            CommentsModel *fModel = self.viewComDataArr[indexPath.row-1];
-            [self.delegate didSelectCellforPid:fModel.viewcomment_id andNickName:fModel.user_nickName];
+    if (self.viewComDataArr.count > 0) {
+        if ([self.delegate respondsToSelector:@selector(didSelectCellforPid:andNickName:)]) {
+            if ([self.pagemode isEqualToString:@"view"]) {
+                CommentsModel *fModel = self.viewComDataArr[indexPath.row-1];
+                [self.delegate didSelectCellforPid:fModel.viewcomment_id andNickName:fModel.user_nickName];
+            }
         }
     }
     

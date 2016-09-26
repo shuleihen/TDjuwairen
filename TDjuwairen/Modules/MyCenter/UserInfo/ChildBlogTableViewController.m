@@ -93,9 +93,6 @@
                     wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 }
                 
-                if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
-                    [self.delegate didfinishReload];
-                }
                 [self.tableView reloadData];
             }
             else
@@ -130,9 +127,7 @@
                     }
                     wself.viewListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 }
-                if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
-                    [self.delegate didfinishReload];
-                }
+
                 [self.tableView reloadData];
             }
             else
@@ -157,9 +152,7 @@
                     CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:d];
                     [self.userCommentArray addObject:fModel];
                 }
-                if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
-                    [self.delegate didfinishReload];
-                }
+
                 [self.tableView reloadData];
             }
             else

@@ -26,6 +26,8 @@
 #import "UIdaynightModel.h"
 #import "CocoaLumberjack.h"
 #import "NetworkManager.h"
+#import "UIStoryboard+MainStoryboard.h"
+#import "TDNavigationController.h"
 
 #import "BPush.h"
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
@@ -34,6 +36,9 @@
 
 static BOOL isBackGroundActivateApplication;
 @interface AppDelegate ()
+{
+    UITabBarController *_tabBarCtr;
+}
 @end
 
 @implementation AppDelegate
@@ -48,8 +53,7 @@ static BOOL isBackGroundActivateApplication;
     [self setupWebImageCache];
     [self checkSwitchToGuide];
     [self setupLog];
-    
-    
+
     // iOS10 下需要使用新的 API
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
@@ -280,6 +284,12 @@ static BOOL isBackGroundActivateApplication;
         [userdefault setObject:@"yes" forKey:@"daynight"];
         [userdefault synchronize];
     }
+    else
+    {
+        _tabBarCtr = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
+        self.window.rootViewController = _tabBarCtr;
+        [self.window makeKeyAndVisible];
+    }
 }
 
 - (void)setupLog
@@ -310,14 +320,16 @@ static BOOL isBackGroundActivateApplication;
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
 {
     // 打印到日志 textView 中
-    
     NSLog(@"********** iOS7.0之后 background **********");
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
         DetailPageViewController *detail = [[DetailPageViewController alloc]init];
         detail.view_id = userInfo[@"view_id"];
-        [self.window.rootViewController presentViewController:detail animated:YES completion:nil];
+        detail.pageMode = @"view";
+        [detail setHidesBottomBarWhenPushed:YES];
+        [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+        
         NSLog(@"applacation is unactive ===== %@",userInfo);
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
@@ -401,11 +413,13 @@ static BOOL isBackGroundActivateApplication;
     }
     else//杀死状态下，直接跳转到跳转页面。
     {
-        //        SkipViewController *skipCtr = [[SkipViewController alloc]init];
-        //        [_tabBarCtr.selectedViewController pushViewController:skipCtr animated:YES];
+        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+        detail.view_id = userInfo[@"view_id"];
+        detail.pageMode = @"view";
+        [detail setHidesBottomBarWhenPushed:YES];
+        [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+
     }
-    
-    //    [self.viewController addLogString:[NSString stringWithFormat:@"Received Remote Notification :\n%@",userInfo]];
     
     NSLog(@"%@",userInfo);
     

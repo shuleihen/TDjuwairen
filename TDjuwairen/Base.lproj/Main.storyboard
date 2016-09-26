@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10117" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
         <!--Tab Bar Controller-->
         <scene sceneID="Aqb-MH-SQW">
             <objects>
                 <tabBarController storyboardIdentifier="tabbarView" id="7lK-lJ-eQn" sceneMemberID="viewController">
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Dgu-Fp-p9F">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="LI6-93-0zO" kind="relationship" relationship="viewControllers" id="XBD-0x-hMY"/>
@@ -33,8 +33,7 @@
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -49,12 +48,11 @@
         <!--观点-->
         <scene sceneID="ixo-pe-ecZ">
             <objects>
-                <navigationController id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="viewnavi" id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -69,18 +67,17 @@
         <!--View Point View Controller-->
         <scene sceneID="D8J-O9-1d0">
             <objects>
-                <viewController id="Ikx-gb-iVR" customClass="ViewPointViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="viewList" id="Ikx-gb-iVR" customClass="ViewPointViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="EDn-re-Ccp"/>
                         <viewControllerLayoutGuide type="bottom" id="oyR-pu-ooM"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="TMK-oY-iwy">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="dIz-Fk-dbc"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Tc-Hd-QPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -93,8 +90,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -115,12 +111,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Y7W-R1-xNj"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="4lV-i9-XHr">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="yTb-gc-Yvh"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHu-13-2iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -135,12 +130,11 @@
                         <viewControllerLayoutGuide type="bottom" id="Tsi-Cc-HiJ"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="O1V-CD-Nk7">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="7y9-3G-GZ9"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9k-yM-DvC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -153,8 +147,7 @@
                     <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -175,12 +168,11 @@
                         <viewControllerLayoutGuide type="bottom" id="CkH-kp-0ZI"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="w1e-Rx-JHk">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
                     <navigationItem key="navigationItem" id="7Zm-rV-xa8"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8t-xL-Fla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -195,64 +187,58 @@
                         <viewControllerLayoutGuide type="bottom" id="Idz-SL-mCt"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="edf-ct-INC">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="kLE-Q1-DnA">
-                                <rect key="frame" x="70" y="70" width="181" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="181" id="diq-m6-HsM"/>
                                     <constraint firstAttribute="height" constant="65" id="u96-sk-8Mb"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投资看公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJT-bd-MNL">
-                                <rect key="frame" x="118" y="165" width="85" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="SPc-Ad-YrT"/>
                                     <constraint firstAttribute="width" constant="85" id="tKD-FY-wgR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享有价值的信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSu-3Y-HdP">
-                                <rect key="frame" x="92" y="190" width="136" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="136" id="9RM-ta-D75"/>
                                     <constraint firstAttribute="height" constant="20" id="Stm-T1-1BR"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="局外人微信公众号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwF-So-CtM">
-                                <rect key="frame" x="103" y="270" width="114" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="d5w-In-AFH"/>
                                     <constraint firstAttribute="height" constant="12" id="nGk-On-TLP"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="11"/>
-                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
-                                <rect key="frame" x="130" y="529" width="60" height="19"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Duy-kI-WW6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="局外人二维码.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="AxJ-71-CRC">
-                                <rect key="frame" x="115" y="287" width="91" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="91" id="6z4-Rv-cHh"/>
                                     <constraint firstAttribute="height" constant="89" id="jlL-Rz-LgY"/>
                                 </constraints>
                             </imageView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="XwF-So-CtM" firstAttribute="centerX" secondItem="edf-ct-INC" secondAttribute="centerX" id="1Ma-ag-peV"/>
                             <constraint firstItem="AxJ-71-CRC" firstAttribute="top" secondItem="XwF-So-CtM" secondAttribute="bottom" constant="5" id="CUv-t2-o6i"/>
@@ -268,7 +254,6 @@
                             <constraint firstItem="Idz-SL-mCt" firstAttribute="top" secondItem="tll-4T-AHh" secondAttribute="bottom" constant="20" id="xRS-hD-S6f"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="labe1" destination="nJT-bd-MNL" id="AgS-OW-K6D"/>
                         <outlet property="labe2" destination="iSu-3Y-HdP" id="80K-0s-4RJ"/>
@@ -288,12 +273,11 @@
                         <viewControllerLayoutGuide type="bottom" id="etb-V1-WPC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="5YR-ac-utE">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9k4-Fl-NL4">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">                 用户注册及使用APP隐私协议
 在此特别提醒您（用户）在注册成为用户之前，请认真阅读本《用户协议》（以下简称“协议”），确保您充分理解本协议中各条款。请您审慎阅读并选 择接受或不接受本协议。除非您接受本协议所有条款，否则您无权注册、登录或使用本协议所涉服务。您的注册、登录、使用等行为将视为对本协议的接受，并同意 接受本协议各项条款的约束。本协议约定局外人与 用户之间关于“局外人”软件服务（以下简称“服务”）的权利义务。“用户”是指注册、登录、使用本服务的个人。本协议可由局外人 中心随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本APP中查阅最新版协议条款。在修改协议条款后，如果用户不接 受修改后的条款，请立即停止使用局外人提供的服务，用户继续使用局外人提供的服务将被视为接受修改后的协议。 
 一、账号注册
@@ -348,7 +332,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="9k4-Fl-NL4" secondAttribute="trailing" id="MQV-dZ-bD2"/>
                             <constraint firstItem="9k4-Fl-NL4" firstAttribute="top" secondItem="5YR-ac-utE" secondAttribute="top" id="PjQ-g6-CXn"/>
@@ -356,14 +340,13 @@
                             <constraint firstItem="etb-V1-WPC" firstAttribute="top" secondItem="9k4-Fl-NL4" secondAttribute="bottom" id="cCQ-rX-wZb"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="textView" destination="9k4-Fl-NL4" id="qKf-Wo-9Ci"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7fo-gl-8fy" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2761" y="-1056"/>
+            <point key="canvasLocation" x="-2762.4000000000001" y="-1056.5217391304348"/>
         </scene>
         <!--Feedback View Controller-->
         <scene sceneID="3ZW-m3-bbZ">
@@ -374,37 +357,33 @@
                         <viewControllerLayoutGuide type="bottom" id="o57-7T-Bcu"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="iYe-E2-VP4">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="opk-hF-2Bo">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="522"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ads-7P-gDi">
-                                <rect key="frame" x="0.0" y="522" width="320" height="46"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="enN-Qv-18K">
-                                        <rect key="frame" x="8" y="8" width="242" height="30"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" returnKeyType="send"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9p-1i-tJW">
-                                        <rect key="frame" x="255" y="8" width="62" height="30"/>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="62" id="F5m-FL-2MU"/>
                                             <constraint firstAttribute="height" constant="30" id="U1d-dD-hSR"/>
                                         </constraints>
                                         <state key="normal" backgroundImage="send-notext">
-                                            <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         </state>
                                         <connections>
                                             <action selector="SendBtn:" destination="agb-e8-u6D" eventType="touchUpInside" id="R36-Gi-pRB"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="enN-Qv-18K" firstAttribute="leading" secondItem="Ads-7P-gDi" secondAttribute="leading" constant="8" id="4yl-hK-auC"/>
                                     <constraint firstAttribute="height" constant="46" id="7DM-c1-d8B"/>
@@ -416,7 +395,7 @@
                                 </constraints>
                             </view>
                         </subviews>
-                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="Ads-7P-gDi" secondAttribute="trailing" id="LUI-7B-lw3"/>
                             <constraint firstItem="opk-hF-2Bo" firstAttribute="leading" secondItem="iYe-E2-VP4" secondAttribute="leading" id="RfO-4F-Cws"/>
@@ -427,7 +406,6 @@
                             <constraint firstItem="Ads-7P-gDi" firstAttribute="leading" secondItem="iYe-E2-VP4" secondAttribute="leading" id="uMj-9e-05r"/>
                         </constraints>
                     </view>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
                     <connections>
                         <outlet property="SendBtn" destination="h9p-1i-tJW" id="Ssr-il-0Sq"/>
                         <outlet property="backView" destination="Ads-7P-gDi" id="Xce-dI-dyQ"/>

@@ -18,7 +18,7 @@
 #import "MBProgressHUD.h"
 #import "MJRefresh.h"
 
-@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate,ChildBlogTableViewControllerDelegate>
+@interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
 {
     int num;
 }
@@ -144,7 +144,6 @@
     self.tableviewsArr = [NSMutableArray array];
     for (int i = 0; i<self.categoryArr.count; i++) {
         ChildBlogTableViewController *childblog  = [[ChildBlogTableViewController alloc] init];
-        childblog.delegate = self;
         childblog.title  =  self.categoryArr[i];
         childblog.view.backgroundColor = self.daynightmodel.navigationColor;
         

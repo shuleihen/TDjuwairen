@@ -8,17 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol ChildBlogTableViewControllerDelegate <NSObject>
-
-- (void)didfinishReload;
-
-@end
-
 @interface ChildBlogTableViewController : UITableViewController
 
 @property (nonatomic,assign) int page;
 @property (nonatomic,copy) NSString *user_id;
-@property (nonatomic,weak) id<ChildBlogTableViewControllerDelegate>delegate;
 
 - (void)requestShowList:(int)typeID WithID:(NSString *)user_id;
 
