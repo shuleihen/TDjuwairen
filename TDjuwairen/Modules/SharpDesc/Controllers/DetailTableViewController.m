@@ -54,7 +54,7 @@
 - (void)requestCommentDataWithPage:(int)currentPage{
     NSString *string = [NSString stringWithFormat:@"index.php/Sharp/getSharpComnment/id/%@/page/%d",self.sharp_id,currentPage];
     
-    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
     [ma GET:string parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             
@@ -77,6 +77,9 @@
             }
         } else {
             [self.tableView reloadData];
+            if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                [self.delegate didfinishReload];
+            }
         }
     }];
 }
@@ -132,10 +135,16 @@
             }
 
             [self.tableView reloadData];
+            if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                [self.delegate didfinishReload];
+            }
         }
         else
         {
             [self.tableView reloadData];
+            if ([self.delegate respondsToSelector:@selector(didfinishReload)]) {
+                [self.delegate didfinishReload];
+            }
         }
     }];
     

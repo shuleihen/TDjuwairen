@@ -31,6 +31,7 @@
 #import "HexColors.h"
 #import "YXFont.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "MJRefresh.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -132,11 +133,43 @@
     
     [self requestAction];
     
+    [self addRefresh];
+    
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
     // Do any additional setup after loading the view.
+}
+
+- (void)addRefresh{
+    self.scrollview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.scrollview.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
+
+- (void)refreshAction {
+    //数据表页数为1
+    self.page = 1;
+    DetailTableViewController *detailTab = self.childViewControllers[0];
+    if ([self.pageMode isEqualToString:@"sharp"]) {
+        [detailTab requestCommentDataWithPage:self.page];
+    }
+    else if([self.pageMode isEqualToString:@"view"])
+    {
+        [detailTab requestWithCommentDataWithTimeHot];
+    }
+}
+
+- (void)loadMoreAction {
+    self.page ++;
+    DetailTableViewController *detailTab = self.childViewControllers[0];
+    if ([self.pageMode isEqualToString:@"sharp"]) {
+        [detailTab requestCommentDataWithPage:self.page];
+    }
+    else if([self.pageMode isEqualToString:@"view"])
+    {
+        [detailTab requestWithCommentDataWithTimeHot];
+    }
 }
 
 - (void)viewTapped:(UIButton *)sender{
@@ -406,7 +439,7 @@
         urlPath = [NSString stringWithFormat:@"index.php/View/view_show1_2/id/%@",self.view_id];
     }
     __weak DetailPageViewController *wself = self;
-    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             wself.viewInfo = [ViewModel shareWithDictionary:data];
@@ -766,7 +799,7 @@
 - (void)addAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"关注中";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
     NSDictionary *dic;
     if ([self.pageMode isEqualToString:@"sharp"]) {
@@ -799,7 +832,7 @@
 - (void)cancelAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消关注";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
     NSDictionary *dic;
     if ([self.pageMode isEqualToString:@"sharp"]) {
@@ -882,6 +915,9 @@
     DetailTableViewController *childTab = self.childViewControllers[0];
     childTab.tableView.frame = CGRectMake(0, 75+titlesize.height+10 + websize.height + 10+self.tagList.frame.size.height+10, kScreenWidth, childTab.tableView.contentSize.height);
     self.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + self.webview.frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
+    
+    [self.scrollview.mj_header endRefreshing];
+    [self.scrollview.mj_footer endRefreshing];
 }
 
 - (void)sendCommentWithText:(NSString *)text
@@ -893,7 +929,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"发表新评论";
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
         NSDictionary *dic = @{@"id":self.sharp_id,@"userid":US.userId,@"sharpcomment":text,@"authenticationStr":US.userId,@"encryptedStr":self.encryptedStr};
         
         [manager POST:API_AddSharpComment parameters:dic completion:^(id data, NSError *error){
@@ -903,7 +939,7 @@
                 self.backcommentview.commentview.text = @"";
                 //请求评论数据
                 DetailTableViewController *childTab = self.childViewControllers[0];
-                [childTab requestCommentDataWithPage:1];  //请求
+                [childTab requestCommentDataWithPage:self.page];  //请求
                 //滑动到评论
                 [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
                 [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
@@ -919,7 +955,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"发表评论";
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
         NSDictionary *para = @{@"comment_content":text,
                                @"user_id":US.userId,
                                @"view_id":self.view_id,

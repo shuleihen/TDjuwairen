@@ -85,7 +85,7 @@
 #pragma mark - 请求关注列表
 - (void)requestWithAttentionList{
     __weak MyAttentionViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.107/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/getMyAttendUserInfo"];
     NSDictionary *dic = @{
                           @"user_id":US.userId,

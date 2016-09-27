@@ -296,7 +296,7 @@
 #pragma mark - 发送channel_id
 - (void)sendChannel_id{
     NSString *channel_id = [BPush getChannelId];
-    NSString *url = @"http://192.168.1.107/Appapi/index.php/Login/saveUserChannelID";
+    NSString *url = @"http://192.168.1.105/Appapi/index.php/Login/saveUserChannelID";
     NetworkManager *manager = [[NetworkManager alloc]init];
     NSDictionary *para = @{@"user_id":US.userId,
                            @"type":@"1",

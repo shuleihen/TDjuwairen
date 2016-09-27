@@ -53,7 +53,7 @@
     if (typeId == 0) {
         NetworkManager *manager = [[NetworkManager alloc]init];
         NSDictionary *dic = @{@"user_id":US.userId};
-        NSString *url = @"http://192.168.1.107/Appapi/index.php/Blog/getCommentMsg";
+        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
         [manager POST:url parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
                 self.replyArray = data;
@@ -68,28 +68,42 @@
     }
     else
     {
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10) {
-            __weak MessageChildTableViewController *wself = self;
-            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
-            [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
-                [wself.notArray removeAllObjects];
-                for (UNNotification *notification in notifications) {
-                    NSDictionary *alert = notification.request.content.userInfo[@"aps"];
-                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
-                    [dic setValue:[NSString stringWithFormat:@"%@",notification.date] forKey:@"date"];
-                    [dic setValue:alert[@"alert"] forKey:@"alert"];
-                    [dic setValue:notification.request.content.userInfo[@"view_id"] forKey:@"view_id"];
-                    [wself.notArray addObject:dic];
-                    
-                }
-                [wself.tableView reloadData];
-            }];
-        }
-        else
-        {
-            NSArray *arr = [[UIApplication sharedApplication] scheduledLocalNotifications];
-            
-        }
+//        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10) {
+//            __weak MessageChildTableViewController *wself = self;
+//            UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
+//            [center getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
+//                [wself.notArray removeAllObjects];
+//                for (UNNotification *notification in notifications) {
+//                    NSDictionary *alert = notification.request.content.userInfo[@"aps"];
+//                    NSMutableDictionary *dic = [NSMutableDictionary dictionary];
+//                    [dic setValue:[NSString stringWithFormat:@"%@",notification.date] forKey:@"date"];
+//                    [dic setValue:alert[@"alert"] forKey:@"alert"];
+//                    [dic setValue:notification.request.content.userInfo[@"view_id"] forKey:@"view_id"];
+//                    [wself.notArray addObject:dic];
+//                    
+//                }
+//                [wself.tableView reloadData];
+//            }];
+//        }
+//        else
+//        {
+//            NSArray *arr = [[UIApplication sharedApplication] scheduledLocalNotifications];
+//            //这里改为直接请求出十条数据
+//        }
+        
+        NetworkManager *manager = [[NetworkManager alloc]init];
+        NSDictionary *dic = @{@"user_id":US.userId};
+        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
+        [manager POST:url parameters:dic completion:^(id data, NSError *error) {
+            if (!error) {
+                self.notArray = data;
+                [self.tableView reloadData];
+            }
+            else
+            {
+                [self.tableView reloadData];
+            }
+        }];
         
     }
 }
@@ -274,7 +288,7 @@
             }
             
             NetworkManager *manager = [[NetworkManager alloc]init];
-            NSString *url = @"http://192.168.1.107/Appapi/index.php/Blog/updateCommentsState";
+            NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/updateCommentsState";
             NSDictionary *para = @{@"id":detailID,
                                    @"type":type};
             [manager POST:url parameters:para completion:^(id data, NSError *error) {
