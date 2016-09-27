@@ -18,10 +18,8 @@
 
 @property (nonatomic,strong) UITextField *commentview;
 
-@property (nonatomic,strong) UIButton *ClickComment;
 @property (nonatomic,strong) UIButton *backComment;
 
-@property (nonatomic,strong) UIButton *ClickShare;
 @property (nonatomic,strong) UIButton *backShare;
 
 @property (nonatomic,strong) UIButton *numBtn;

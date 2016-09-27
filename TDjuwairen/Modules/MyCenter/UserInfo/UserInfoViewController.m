@@ -154,7 +154,7 @@
 
 #pragma mark - 请求用户信息
 - (void)requestDataWithUser{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/index"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -361,7 +361,7 @@
 - (void)addAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"关注中";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -383,7 +383,7 @@
 - (void)cancelAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消关注";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,

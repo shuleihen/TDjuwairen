@@ -38,7 +38,7 @@
 -(void)setCellWithDic:(NSDictionary *)dic
 {
     self.backgroundColor = self.daynightmodel.navigationColor;
-    self.titleLabel.text=dic[@"sharp_title"];
+    self.titleLabel.text =dic[@"sharp_title"];
     self.nicknameLabel.text=dic[@"user_nickname"];
     
     self.titleLabel.textColor = self.daynightmodel.textColor;

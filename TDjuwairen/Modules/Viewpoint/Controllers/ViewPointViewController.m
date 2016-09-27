@@ -184,7 +184,7 @@
 //        urlPath = [NSString stringWithFormat:@"index.php/View/recLists1_2/page/%d",self.page];
 //    }
 //    else if (n == 1){
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/newLists1_2/page/%d",@"http://192.168.1.105/Appapi/",self.page];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/newLists1_2/page/%d",API_HOST,self.page];
 //    }
 //    else
 //    {
@@ -259,7 +259,6 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-//    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 41, kScreenWidth, kScreenHeight-64-40-44)];
     self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 1, kScreenWidth, kScreenHeight-44)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;

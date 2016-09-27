@@ -37,8 +37,7 @@
             mod = @"日间模式";
             img = @"btn_night_rijian.png";
         }
-        int co  = [iscollect intValue];
-        if (co == 1) {
+        if ([iscollect isEqualToString:@"yes"]) {
             coll = @"取消收藏";
             colImg = @"btn_col_pre.png";
         }

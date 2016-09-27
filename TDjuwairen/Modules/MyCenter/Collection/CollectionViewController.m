@@ -9,42 +9,69 @@
 #import "CollectionViewController.h"
 #import "CollectionTableViewCell.h"
 #import "NothingTableViewCell.h"
+#import "ViewPointTableViewCell.h"
+#import "ViewPointListModel.h"
 #import "LoginState.h"
 #import "EditView.h"
 #import "DetailPageViewController.h"
+#import "CategoryView.h"
+
+#import "NSString+Ext.h"
 #import "NSString+TimeInfo.h"
+#import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
 
-@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
 {
+    CGSize titlesize;
     BOOL edit;
-    BOOL haveCollection;
     BOOL haveSelect;
 }
 @property (nonatomic,strong) UITableView *tableview;
 @property(nonatomic,strong) EditView *editView;
+@property (nonatomic,strong) CategoryView *cateview;
+@property (nonatomic,strong) NSArray *categoryArr;
+
 @property (nonatomic,strong) UIBarButtonItem *editItem;
 @property (nonatomic, strong) UIBarButtonItem *cancelItem;
+
 @property (nonatomic,strong) NSMutableArray *CollectionArray;
+@property (nonatomic,strong) NSMutableArray *ViewCollectArray;
 @property (nonatomic,strong) NSMutableArray *delArray;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+
+@property (nonatomic,assign) int typeID;
 @end
 
 @implementation CollectionViewController
+- (NSArray *)categoryArr
+{
+    if (!_categoryArr) {
+        _categoryArr = @[@"调研",@"观点"];
+    }
+    return _categoryArr;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     haveSelect = NO;
+    self.typeID = 0;
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.CollectionArray = [[NSMutableArray alloc]init];
+    self.ViewCollectArray = [[NSMutableArray alloc]init];
+
+    [self requestCollection];
+    [self requestAuthentication];
     
     [self setNavigation];
+    
+    [self setupWithSelectBtn];
     
     [self setupWithTableView];
     
     [self setupEditToolView];
-    
     
 }
 
@@ -52,8 +79,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    [self requestCollection];
-    [self requestAuthentication];
 
 }
 
@@ -70,8 +95,19 @@
     edit=NO;
 }
 
+- (void)setupWithSelectBtn{
+    self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
+    self.cateview.delegate = self;
+    self.cateview.backgroundColor = self.daynightmodel.navigationColor;
+    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
+    self.cateview.line1.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+    self.cateview.line2.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+    
+    [self.view addSubview:self.cateview];
+}
+
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
     self.tableview.allowsMultipleSelectionDuringEditing = YES;
@@ -208,25 +244,32 @@
 #pragma mark - 获取收藏列表的请求
 -(void)requestCollection
 {
-    self.CollectionArray = [[NSMutableArray alloc]init];
-    
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *paras = @{@"userid":US.userId};
     
     [manager POST:API_GetCollectionList parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            haveCollection=YES;
-            NSArray*array = data;
-            NSDictionary*dic = array[1];
-            NSArray*arr = dic[@"List"];
-            
-            for (NSDictionary*dic in arr) {
-                [self.CollectionArray addObject:dic];
+            NSArray *array = data;
+            NSDictionary *sharpDic = array[1];
+            NSDictionary *viewDic = array[2];
+            NSArray *sharpArr = sharpDic[@"List"];
+            NSArray *viewArr = viewDic[@"List"];
+
+            if (sharpArr.count > 0) {
+                for (NSDictionary *dic in sharpArr) {
+                    [self.CollectionArray addObject:dic];
+                }
             }
+            if (viewArr.count > 0) {
+                for (NSDictionary *dic in viewArr) {
+                    ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:dic];
+                    [self.ViewCollectArray addObject:model];
+                }
+            }
+            
             [self.tableview reloadData];
         } else {
             if (error.code == 300) {
-                haveCollection=NO;
             }
             
             [self.tableview reloadData];
@@ -241,44 +284,116 @@
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (haveCollection) {
-        return self.CollectionArray.count;
+    if (self.typeID == 0) {
+        if (self.CollectionArray.count > 0) {
+            return self.CollectionArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
     else
     {
-        return 1;
+        if (self.ViewCollectArray.count > 0) {
+            return self.ViewCollectArray.count;
+        }
+        else
+        {
+            return 1;
+        }
     }
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (haveCollection) {
-        NSDictionary *dic = self.CollectionArray[indexPath.row];
-        
-        CollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CollectionCell"];
-        [cell setCellWithDic:dic];
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+    if (self.typeID == 0) {
+        if (self.CollectionArray.count > 0) {
+            NSDictionary *dic = self.CollectionArray[indexPath.row];
+            
+            CollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CollectionCell"];
+            [cell setCellWithDic:dic];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        else
+        {
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightmodel.backColor;
+            cell.label.text = @"暂无收藏";
+            cell.label.textColor = self.daynightmodel.textColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     }
     else
     {
         
-        NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
-        cell.backgroundColor = self.daynightmodel.backColor;
-        cell.label.text = @"暂无收藏";
-        cell.label.textColor = self.daynightmodel.textColor;
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        return cell;
+        if (self.ViewCollectArray.count > 0) {
+            NSString *identifier = @"cell";
+            ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+            if (cell == nil) {
+                cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            }
+            ViewPointListModel *model = self.ViewCollectArray[indexPath.row];
+            [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+            NSString *isoriginal;
+            if ([model.view_isoriginal isEqualToString:@"0"]) {
+                isoriginal = @"";
+            }else
+            {
+                isoriginal = @"原创";
+            }
+            cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
+            
+            
+            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+            cell.titleLabel.font = font;
+            cell.titleLabel.numberOfLines = 0;
+            titlesize = CGSizeMake(kScreenWidth-30, 500.0);
+            titlesize = [model.view_title calculateSize:titlesize font:font];
+            cell.titleLabel.text = model.view_title;
+            [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
+            [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+14, kScreenWidth, 1)];
+            
+            
+            cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
+            cell.titleLabel.textColor = self.daynightmodel.textColor;
+            cell.backgroundColor = self.daynightmodel.navigationColor;
+            cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+            return cell;
+        }
+        else
+        {
+            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
+            cell.backgroundColor = self.daynightmodel.backColor;
+            cell.label.text = @"暂无收藏";
+            cell.label.textColor = self.daynightmodel.textColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
     }
 }
 
 -(CGFloat)tableView:(UITableView *)ttableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (haveCollection) {
-        return 90;
+    if (self.typeID == 0) {
+        if (self.CollectionArray.count > 0) {
+            return 90;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
     }
     else
     {
-        return kScreenHeight-64;
+        if (self.ViewCollectArray.count > 0) {
+            return 15+25+10+titlesize.height+15;
+        }
+        else
+        {
+            return kScreenHeight-64;
+        }
     }
 }
 
@@ -290,24 +405,47 @@
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        NSDictionary *dic = [self.CollectionArray objectAtIndex:indexPath.row];
-        NSMutableArray *delarr = [NSMutableArray array];
-        [delarr addObject:dic[@"sharp_id"]];
-        
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary*para = @{@"authenticationStr":US.userId,
-                            @"encryptedStr":self.str,
-                            @"delete_ids":delarr,
-                            @"module_id":@"2",
-                            @"userid":US.userId};
-        
-        [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
-        
-        NSMutableArray *arr = [NSMutableArray arrayWithArray:self.CollectionArray];
-        [arr removeObjectAtIndex:indexPath.row];
-        self.CollectionArray = [NSMutableArray arrayWithArray:arr];
-        
-        [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+        if (self.typeID == 0) {
+            NSDictionary *dic = [self.CollectionArray objectAtIndex:indexPath.row];
+            NSMutableArray *delarr = [NSMutableArray array];
+            [delarr addObject:dic[@"sharp_id"]];
+            
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary*para = @{@"authenticationStr":US.userId,
+                                  @"encryptedStr":self.str,
+                                  @"delete_ids":delarr,
+                                  @"module_id":@"2",
+                                  @"userid":US.userId};
+            
+            [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
+            
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.CollectionArray];
+            [arr removeObjectAtIndex:indexPath.row];
+            self.CollectionArray = [NSMutableArray arrayWithArray:arr];
+            
+            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+        }
+        else
+        {
+            NSDictionary *dic = [self.ViewCollectArray objectAtIndex:indexPath.row];
+            NSMutableArray *delarr = [NSMutableArray array];
+            [delarr addObject:dic[@"view_id"]];
+            
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary*para = @{@"authenticationStr":US.userId,
+                                  @"encryptedStr":self.str,
+                                  @"delete_ids":delarr,
+                                  @"module_id":@"3",
+                                  @"userid":US.userId};
+            
+            [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
+            
+            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.ViewCollectArray];
+            [arr removeObjectAtIndex:indexPath.row];
+            self.ViewCollectArray = [NSMutableArray arrayWithArray:arr];
+            
+            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+        }
         
     }
 }
@@ -324,17 +462,51 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (edit == NO) {
-        if (self.CollectionArray.count > 0) {
-            NSDictionary *dic = self.CollectionArray[indexPath.row];
-            DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
-            sharp.sharp_id = dic[@"sharp_id"];
-            sharp.pageMode = @"sharp";
-            [self.navigationController pushViewController:sharp animated:YES];
+        if (self.typeID == 0) {
+            if (self.CollectionArray.count > 0) {
+                NSDictionary *dic = self.CollectionArray[indexPath.row];
+                DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
+                sharp.sharp_id = dic[@"sharp_id"];
+                sharp.pageMode = @"sharp";
+                [self.navigationController pushViewController:sharp animated:YES];
+            }
+            else
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
         else
         {
-            [self.navigationController popViewControllerAnimated:YES];
+            if (self.ViewCollectArray.count > 0) {
+                ViewPointListModel *model = self.ViewCollectArray[indexPath.row];
+                DetailPageViewController *view = [[DetailPageViewController alloc] init];
+                view.view_id = model.view_id;
+                view.pageMode = @"view";
+                [self.navigationController pushViewController:view animated:YES];
+            }
+            else
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
         }
+    }
+}
+
+- (void)ClickBtn:(UIButton *)sender
+{
+    self.cateview.selectBtn.selected = NO;
+    sender.selected = YES;
+    self.cateview.selectBtn = sender;
+    self.cateview.selectLab.frame = CGRectMake(sender.frame.origin.x, 38, 70, 2);
+    
+    if ([sender.titleLabel.text isEqualToString:@"调研"]) {
+        self.typeID = 0;
+        [self.tableview reloadData];
+    }
+    else
+    {
+        self.typeID = 1;
+        [self.tableview reloadData];
     }
 }
 

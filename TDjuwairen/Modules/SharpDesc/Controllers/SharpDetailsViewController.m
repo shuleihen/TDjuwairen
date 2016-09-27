@@ -673,11 +673,11 @@
     self.nmview.alpha = 0.0;
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
     }
 }
 
@@ -839,7 +839,7 @@
 - (void)clickComments:(UIButton *)sender{
     
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -848,7 +848,7 @@
     else
     {
         //滑动到评论
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
         if (firstClickComment) {
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];

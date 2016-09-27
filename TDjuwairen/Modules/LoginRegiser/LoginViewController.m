@@ -35,10 +35,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
-    
-    self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
 
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    
+    self.view.backgroundColor = self.daynightmodel.backColor;
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -296,8 +296,8 @@
 #pragma mark - 发送channel_id
 - (void)sendChannel_id{
     NSString *channel_id = [BPush getChannelId];
-    NSString *url = @"http://192.168.1.105/Appapi/index.php/Login/saveUserChannelID";
-    NetworkManager *manager = [[NetworkManager alloc]init];
+    NSString *url = @"index.php/Login/saveUserChannelID";
+    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"user_id":US.userId,
                            @"type":@"1",
                            @"channel_id":channel_id};

@@ -12,7 +12,7 @@
 
 @property (nonatomic,copy) NSString *is_attention_author;
 
-@property (nonatomic, assign) BOOL viewIsCollect; // 是否收藏
+@property (nonatomic,assign) BOOL viewIsCollect; // 是否收藏
 
 @property (nonatomic,strong) NSArray *tags;
 

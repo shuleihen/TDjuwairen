@@ -196,7 +196,7 @@
 
 - (void)requestWithCommentDataWithTimeHot{
     
-    if (!firstLoadComment == YES) {
+    if (firstLoadComment != YES) {
         self.hudloadCom = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         self.hudloadCom.labelText = @"加载中...";
     }
@@ -248,7 +248,7 @@
                 CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:dic];
                 [self.FirstcommentArr addObject:fModel];
             }
-            if (!firstLoadComment == YES) {
+            if (firstLoadComment != YES) {
                 self.hudloadCom.labelText = @"加载完成";
                 [self.hudloadCom hide:YES afterDelay:0.1];
             }
@@ -270,7 +270,7 @@
 - (void)addAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"关注中";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -292,7 +292,7 @@
 - (void)cancelAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消关注";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
     NSDictionary *dic = @{
                           @"My_user_id":US.userId,
@@ -1189,7 +1189,7 @@
 #pragma mark - backcomment.delegate
 - (void)clickComments:(UIButton *)sender{
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:0];
         [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -1198,7 +1198,7 @@
     else
     {
         //滑动到评论
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
         if (firstClickComment) {
             NSIndexPath *scrollIndexPath = [NSIndexPath indexPathForRow:0 inSection:1];
             [self.tableview scrollToRowAtIndexPath:scrollIndexPath atScrollPosition:UITableViewScrollPositionTop animated:YES];
@@ -1224,11 +1224,11 @@
     self.nmview.alpha = 0.0;
     if (self.tableview.contentOffset.y > self.webview.frame.size.height-400) {
         
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
     }
 }
 

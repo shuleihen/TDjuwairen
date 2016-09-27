@@ -83,9 +83,6 @@
 
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
-    
     self.title = @"个人信息";
     
     UIBarButtonItem *save = [[UIBarButtonItem alloc]initWithTitle:@"保存" style:UIBarButtonItemStylePlain target:self action:@selector(ClickSave:)];
@@ -97,7 +94,7 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.tableFooterView = [[UIView alloc]initWithFrame:CGRectZero];
-    self.tableview.backgroundColor = [UIColor colorWithRed:239/255.0 green:239/255.0 blue:246/255.0 alpha:1.0];
+    self.tableview.backgroundColor = self.daynightmodel.backColor;
     [self.view addSubview:self.tableview];
 }
 
@@ -144,6 +141,12 @@
         cell.namelabel.text = self.TitleArr[indexPath.row];
         cell.textfield.text = self.MyInfoArr[indexPath.row];
         cell.textfield.delegate = self;
+        
+        cell.namelabel.textColor = self.daynightmodel.textColor;
+        cell.textfield.textColor = self.daynightmodel.textColor;
+        cell.textfield.backgroundColor = self.daynightmodel.navigationColor;
+        cell.backgroundColor = self.daynightmodel.navigationColor;
+        
         
         return cell;
     }

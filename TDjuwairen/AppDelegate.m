@@ -375,8 +375,8 @@ static BOOL isBackGroundActivateApplication;
             [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
                 if (result) {
                     NSLog(@"设置tag成功");
-                    NetworkManager *manager = [[NetworkManager alloc]init];
-                    NSString *url = @"http://192.168.1.105/Appapi/index.php/Index/resetUnreadMsg";
+                    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
+                    NSString *url = @"index.php/Index/resetUnreadMsg";
                     NSString *channel_id = [BPush getChannelId];
                     NSDictionary *para = @{@"channel_id":channel_id,
                                            @"type":@"1"};

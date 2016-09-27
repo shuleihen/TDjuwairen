@@ -89,7 +89,7 @@
         para = @{@"userid":US.userId,
                  @"module_id":@"2",
                  @"page":[NSString stringWithFormat:@"%d",self.page]};
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [manager POST:API_GetUserComment parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 NSArray *dataArray = data;
@@ -126,7 +126,7 @@
                  @"module_id":@"3",
                  @"page":[NSString stringWithFormat:@"%d",self.page],
                  };
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_bendi];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [manager POST:API_GetUserComment parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 NSArray *dataArray = data;

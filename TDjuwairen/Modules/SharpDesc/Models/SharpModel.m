@@ -19,6 +19,7 @@
     sharp.sharpDesc = dict[@"sharp_desc"];
     sharp.sharpUserName = dict[@"user_nickname"];
     sharp.sharpUserIcon = dict[@"userinfo_facesmall"];
+    sharp.sharpUserId = dict[@"sharp_userid"];
     sharp.sharpWtime = dict[@"sharp_wtime"];
     sharp.sharpCommentNumbers = [dict[@"sharpcommentNumbers"] intValue];
     sharp.sharpIsCollect = [dict[@"sharp_iscollect"] boolValue];

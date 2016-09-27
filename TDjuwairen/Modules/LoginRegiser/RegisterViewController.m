@@ -14,9 +14,11 @@
 #import "UIStoryboard+MainStoryboard.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
+#import "UIdaynightModel.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
@@ -31,7 +33,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    
+    self.view.backgroundColor = self.daynightmodel.backColor;
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -50,13 +54,10 @@
 }
 
 - (void)setupWithNavigation{
-//    [self.navigationController.navigationBar setHidden:NO];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.title = @"注册";
-    // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}]; 
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 - (void)setupWithTextField{
@@ -126,6 +127,18 @@
     self.nicknameText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.nicknameText.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.accountText.backgroundColor = self.daynightmodel.navigationColor;
+    self.accountText.textColor = self.daynightmodel.textColor;
+    self.validationText.backgroundColor = self.daynightmodel.navigationColor;
+    self.validationText.textColor = self.daynightmodel.textColor;
+    self.passwordText.backgroundColor = self.daynightmodel.navigationColor;
+    self.passwordText.textColor = self.daynightmodel.textColor;
+    self.surePassword.backgroundColor = self.daynightmodel.navigationColor;
+    self.surePassword.textColor = self.daynightmodel.textColor;
+    self.nicknameText.backgroundColor = self.daynightmodel.navigationColor;
+    self.nicknameText.textColor = self.daynightmodel.textColor;
+    
     
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];

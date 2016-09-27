@@ -87,7 +87,7 @@
         }
         else
         {
-            if (!self.viewInfo.viewIsCollect) {
+            if (self.viewInfo.viewIsCollect == YES) {
                 str = @"yes";
             }
             else
@@ -223,15 +223,18 @@
         self.titleView.backgroundColor = self.daynightmodel.navigationColor;
         
         //添加关注
+        __weak DetailPageViewController *wself = self;
         self.titleView.block = ^(UIButton *sender){
             if (sender.selected == YES) {
                 sender.selected = NO;
                 sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
+                [wself cancelAttention];
             }
             else
             {
                 sender.selected = YES;
                 sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+                [wself addAttention];
             }
         };
     }
@@ -439,7 +442,7 @@
         urlPath = [NSString stringWithFormat:@"index.php/View/view_show1_2/id/%@",self.view_id];
     }
     __weak DetailPageViewController *wself = self;
-    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [ma GET:urlPath parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             wself.viewInfo = [ViewModel shareWithDictionary:data];
@@ -799,7 +802,7 @@
 - (void)addAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"关注中";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/addAttention"];
     NSDictionary *dic;
     if ([self.pageMode isEqualToString:@"sharp"]) {
@@ -823,7 +826,8 @@
         }
         else
         {
-            nil;
+//            hud.labelText = @"已关注";
+            [hud hide:YES afterDelay:1];
         }
     }];
 }
@@ -832,7 +836,7 @@
 - (void)cancelAttention{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消关注";
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/cancelAttention"];
     NSDictionary *dic;
     if ([self.pageMode isEqualToString:@"sharp"]) {
@@ -855,7 +859,8 @@
         }
         else
         {
-            NSLog(@"%@",error);
+//            hud.labelText = data[@"msg"];
+            [hud hide:YES afterDelay:1];
         }
     }];
 }
@@ -929,7 +934,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"发表新评论";
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSDictionary *dic = @{@"id":self.sharp_id,@"userid":US.userId,@"sharpcomment":text,@"authenticationStr":US.userId,@"encryptedStr":self.encryptedStr};
         
         [manager POST:API_AddSharpComment parameters:dic completion:^(id data, NSError *error){
@@ -941,7 +946,7 @@
                 DetailTableViewController *childTab = self.childViewControllers[0];
                 [childTab requestCommentDataWithPage:self.page];  //请求
                 //滑动到评论
-                [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+                [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
                 [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
                 
             } else {
@@ -955,7 +960,7 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"发表评论";
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSDictionary *para = @{@"comment_content":text,
                                @"user_id":US.userId,
                                @"view_id":self.view_id,
@@ -970,7 +975,7 @@
                 DetailTableViewController *childTab = self.childViewControllers[0];
                 [childTab requestWithCommentDataWithTimeHot];  //请求
                 //滑动到评论
-                [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+                [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
                 [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
 
             } else {
@@ -985,7 +990,7 @@
 #pragma mark - Action
 - (void)clickComments:(UIButton *)sender{
     if (self.scrollview.contentOffset.y > self.webview.frame.size.height-400) {
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
         //回到顶部
         [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
         
@@ -993,7 +998,7 @@
     else
     {
         //滑动到评论
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
         [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
 
     }
@@ -1056,11 +1061,11 @@
     self.nmview.alpha = 0.0;
     if (self.scrollview.contentOffset.y > self.webview.frame.size.height-400) {
         
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.backcommentview.ClickComment setBackgroundImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
     }
 }
 

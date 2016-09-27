@@ -54,7 +54,7 @@
 - (void)requestCommentDataWithPage:(int)currentPage{
     NSString *string = [NSString stringWithFormat:@"index.php/Sharp/getSharpComnment/id/%@/page/%d",self.sharp_id,currentPage];
     
-    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [ma GET:string parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             

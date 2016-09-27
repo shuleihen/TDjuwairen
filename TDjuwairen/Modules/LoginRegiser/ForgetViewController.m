@@ -12,14 +12,17 @@
 #import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "UIdaynightModel.h"
 #import <SMS_SDK/SMSSDK.h>
 
 @interface ForgetViewController ()
 
+@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) UIButton *validationBtn;
 @property (nonatomic,strong) UITextField *passwordText;
+@property (nonatomic,strong) UITextField *surePassword;
 @property (nonatomic,strong) NSString *str;
 
 @end
@@ -29,7 +32,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
+    self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.view.backgroundColor = self.daynightmodel.backColor;
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -103,22 +107,43 @@
     //设置显示模式为永远显示(默认不显示)
     self.passwordText.leftViewMode = UITextFieldViewModeAlways;
     
+    self.surePassword = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1+47+1, kScreenWidth, 47)];
+    self.surePassword.backgroundColor = [UIColor whiteColor];
+    self.surePassword.textColor = [UIColor darkGrayColor];
+    self.surePassword.font = [UIFont systemFontOfSize:14];
+    self.surePassword.placeholder = @"请再次输入密码";
+    self.surePassword.clearButtonMode = UITextFieldViewModeAlways;//右边X号
+    self.surePassword.secureTextEntry = YES;//显示为星号
+    self.surePassword.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
+    //设置显示模式为永远显示(默认不显示)
+    self.surePassword.leftViewMode = UITextFieldViewModeAlways;
+    
+    self.accountText.backgroundColor = self.daynightmodel.navigationColor;
+    self.accountText.textColor = self.daynightmodel.textColor;
+    self.validationText.backgroundColor = self.daynightmodel.navigationColor;
+    self.validationText.textColor = self.daynightmodel.textColor;
+    self.passwordText.backgroundColor = self.daynightmodel.navigationColor;
+    self.passwordText.textColor = self.daynightmodel.textColor;
+    self.surePassword.backgroundColor = self.daynightmodel.navigationColor;
+    self.surePassword.textColor = self.daynightmodel.textColor;
+    
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
     [self.view addSubview:self.validationBtn];
     [self.view addSubview:label];
     [self.view addSubview:self.passwordText];
+    [self.view addSubview:self.surePassword];
 }
 
 #pragma mark - 点击提交
 - (void)setupWithSubmit{
-    UIButton *submitBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+30, kScreenWidth-30, 50)];
+    UIButton *submitBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
     submitBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
     [submitBtn setTitle:@"提交" forState:UIControlStateNormal];
     submitBtn.layer.cornerRadius = 5;//圆角半径
     [submitBtn addTarget:self action:@selector(ClickSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
-    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+30+50+10, kScreenWidth-30, 14)];
+    UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 14)];
     [service setTitle:@"没有绑定手机号码/邮箱？点击联系客服" forState:UIControlStateNormal];
     service.titleLabel.font = [UIFont systemFontOfSize:14];
     [service setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
@@ -142,6 +167,11 @@
         return;
     }else if ([self.passwordText.text isEqualToString:@""]){
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
+        return;
+    }
+    else if ([self.passwordText.text isEqualToString:self.surePassword.text]){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"两次输入密码不一样" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
         return;
     }

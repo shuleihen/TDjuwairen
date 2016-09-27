@@ -51,9 +51,9 @@
 {
     self.typeID = typeId;
     if (typeId == 0) {
-        NetworkManager *manager = [[NetworkManager alloc]init];
+        NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
         NSDictionary *dic = @{@"user_id":US.userId};
-        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
+        NSString *url = @"index.php/Blog/getCommentMsg";
         [manager POST:url parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
                 self.replyArray = data;
@@ -91,9 +91,10 @@
 //            //这里改为直接请求出十条数据
 //        }
         
-        NetworkManager *manager = [[NetworkManager alloc]init];
-        NSDictionary *dic = @{@"user_id":US.userId};
-        NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/getCommentMsg";
+        NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
+        NSDictionary *dic = @{@"user_id":US.userId
+                              };
+        NSString *url = @"index.php/Index/getPushAllMsg";
         [manager POST:url parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
                 self.notArray = data;
@@ -211,7 +212,7 @@
                 cell = [[ReplyRemindTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             
-            cell.titleLab.text = dic[@"alert"];
+            cell.titleLab.text = dic[@"message_title"];
             UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
             cell.titleLab.font = font;
             cell.titleLab.numberOfLines = 0;
@@ -219,7 +220,7 @@
             titlesize = [cell.titleLab.text calculateSize:titlesize font:font];
             [cell.titleLab setFrame:CGRectMake(15, 10, kScreenWidth-30, titlesize.height)];
             
-            cell.timeLab.text = dic[@"date"];
+            cell.timeLab.text = dic[@"message_time"];
             [cell.timeLab setFrame:CGRectMake(15, 10 + titlesize.height + 10, kScreenWidth-30, 15)];
             
             [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
@@ -275,8 +276,8 @@
     if (self.typeID == 0) {
         if (self.replyArray.count > 0) {
             self.replyDic = self.replyArray[indexPath.row];
-            NSString *detailID ;
-            NSString *type;
+            NSString *detailID = self.replyDic[@"view_id"];
+            NSString *type = @"view";
             if (self.replyDic[@"viewcomment_id"]) {
                 detailID = self.replyDic[@"viewcomment_id"];
                 type = @"comment";
@@ -287,8 +288,9 @@
                 type = @"view";
             }
             
-            NetworkManager *manager = [[NetworkManager alloc]init];
-            NSString *url = @"http://192.168.1.105/Appapi/index.php/Blog/updateCommentsState";
+            //点击后不再提醒
+            NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
+            NSString *url = @"index.php/Blog/updateCommentsState";
             NSDictionary *para = @{@"id":detailID,
                                    @"type":type};
             [manager POST:url parameters:para completion:^(id data, NSError *error) {
@@ -301,8 +303,8 @@
                 }
             }];
             DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-            detail.view_id = detailID;
-            detail.pageMode = type;
+            detail.view_id = self.replyDic[@"view_id"];
+            detail.pageMode = @"view";
             [self.navigationController pushViewController:detail animated:YES];
         }
         
@@ -311,7 +313,10 @@
     {
         if (self.notArray.count > 0) {
             NSDictionary *dic = self.notArray[indexPath.row];
-            NSLog(@"%@",dic);
+            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+            detail.view_id = dic[@"message_itemid"];
+            detail.pageMode = @"view";
+            [self.navigationController pushViewController:detail animated:YES];
         }
         
     }

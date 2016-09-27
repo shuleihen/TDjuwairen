@@ -2284,6 +2284,8 @@
 					};
 					84E333FF1CE2BA3E00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = V9B4FLHXSX;
+						ProvisioningStyle = Automatic;
 						TestTargetID = 84E333E61CE2BA3D00E5DCEE;
 					};
 					84E3340A1CE2BA3E00E5DCEE = {
@@ -2734,6 +2736,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer: 450924349@qq.com (PBD87MW68Z)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou TuanDa NetworkTechnology Co., Ltd. (V9B4FLHXSX)";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TDjuwairen/Lib",
@@ -2764,10 +2767,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				INFOPLIST_FILE = TDjuwairenTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = www.juwairen.net.TDjuwairenTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TDjuwairen.app/TDjuwairen";
 			};
 			name = AdHoc;
@@ -2879,6 +2886,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TDjuwairen/Lib",
@@ -2914,6 +2922,7 @@
 				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/TDjuwairen/Lib",
@@ -2944,10 +2953,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: QIQI WU (S2YKZJZMJM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				INFOPLIST_FILE = TDjuwairenTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = www.juwairen.net.TDjuwairenTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TDjuwairen.app/TDjuwairen";
 			};
 			name = Debug;
@@ -2956,10 +2970,15 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: QIQI WU (S2YKZJZMJM)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				INFOPLIST_FILE = TDjuwairenTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = www.juwairen.net.TDjuwairenTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TDjuwairen.app/TDjuwairen";
 			};
 			name = Release;

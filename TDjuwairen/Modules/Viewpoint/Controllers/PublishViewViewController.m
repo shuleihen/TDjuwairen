@@ -1352,7 +1352,7 @@
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&lt;" withString:@"<"];
     htmlstring = [htmlstring stringByReplacingOccurrencesOfString:@"&gt;" withString:@">"];
     
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:@"http://192.168.1.105/Appapi/"];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     
     NSDictionary *para ;
     if (self.tagsArr.count == 0) {
