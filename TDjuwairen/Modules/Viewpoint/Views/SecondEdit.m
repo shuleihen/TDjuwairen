@@ -26,25 +26,15 @@
                         @"tab_xieti@3x.png",
                         @"tab_xiahuaxian@3x.png",
                         @"tab_yingyong@3x.png",
-                        @"tab_h1@3x.png",
-                        @"tab_h2@3x.png",
-                        @"tab_h3@3x.png",
-                        @"tab_h4@3x.png",
-                        @"tab_h5@3x.png"
                         ];
         self.selectImgArr = @[@"tab_jiacu_pre@3x.png",
                               @"tab_xieti_pre@3x.png",
                               @"tab_xiahuaxian_pre@3x.png",
                               @"tab_yinyong_pre@3x.png",
-                              @"tab_h1_pre@3x.png",
-                              @"tab_h2_pre@3x.png",
-                              @"tab_h3_pre@3x.png",
-                              @"tab_h4_pre@3x.png",
-                              @"tab_h5_pre@3x.png"
                               ];
         for (int i = 0; i<self.imgArr.count; i++) {
             
-            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth/self.imgArr.count*i, 5, kScreenWidth/self.imgArr.count, 30)];
+            UIButton *btn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth/9*i, 5, kScreenWidth/9, 30)];
             [btn setImage:[UIImage imageNamed:self.imgArr[i]] forState:UIControlStateNormal];
             [btn setImage:[UIImage imageNamed:self.selectImgArr[i]] forState:UIControlStateSelected];
             [btn addTarget:self action:@selector(selectFont:) forControlEvents:UIControlEventTouchUpInside];
@@ -52,6 +42,19 @@
             
             [self addSubview:btn];
         }
+        
+        UISlider *slider = [[UISlider alloc]initWithFrame:CGRectMake(kScreenWidth/9*4, 5, kScreenWidth/9*4, 30)];
+        slider.minimumValue = 14;
+        slider.maximumValue = 22;
+        slider.value = 16;
+        [slider addTarget:self action:@selector(sliderAction:) forControlEvents:UIControlEventValueChanged];
+        [self addSubview:slider];
+        
+        self.fontLab = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth/9*8, 5, kScreenWidth/9, 30)];
+        self.fontLab.font = [UIFont systemFontOfSize:16];
+        self.fontLab.textAlignment = NSTextAlignmentCenter;
+        self.fontLab.text = @"16";//默认16号字
+        [self addSubview:self.fontLab];
     }
     return self;
 }
@@ -88,6 +91,13 @@
         [self.delegate selectFont:sender];
     }
 }
+
+- (void)sliderAction:(UISlider *)slider{
+    if ([self.delegate respondsToSelector:@selector(sliderAction:)]) {
+        [self.delegate sliderAction:slider];
+    }
+}
+
 
 - (void)clickSecBtn:(LeftRightBtn *)sender{
     if ([self respondsToSelector:@selector(clickSecBtn:)]) {

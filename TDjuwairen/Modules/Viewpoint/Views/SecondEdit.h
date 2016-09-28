@@ -12,12 +12,14 @@
 @protocol SecondEditDelegate <NSObject>
 
 - (void)selectFont:(UIButton *)sender;
+- (void)sliderAction:(UISlider *)slider;
 - (void)clickSecBtn:(LeftRightBtn *)sender;
 @end
 
 @interface SecondEdit : UIView
 @property (nonatomic,assign) id<SecondEditDelegate>delegate;
 @property (nonatomic,strong) UIButton *selectBtn;
+@property (nonatomic,strong) UILabel *fontLab;
 - (instancetype)initWithFrame:(CGRect)frame andImgArr:(NSArray *)imgArr andTextArr:(NSArray *)textArr;
 
 @end

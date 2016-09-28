@@ -522,6 +522,15 @@
     }
 }
 
+- (void)sliderAction:(UISlider *)slider
+{
+    slider.value = (int)slider.value;
+    self.secondView.fontLab.text = [NSString stringWithFormat:@"%d",(int)slider.value];
+    numm = self.contentText.text.length;
+    firstchange = YES;
+    self.editziti.zihao = (int)slider.value;
+}
+
 - (void)clickSecBtn:(LeftRightBtn *)sender
 {
     if ([sender.textLabel.text isEqualToString:@"链接"]) {
