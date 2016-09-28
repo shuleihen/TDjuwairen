@@ -29,11 +29,11 @@
         <!--调研-->
         <scene sceneID="CGi-th-78t">
             <objects>
-                <navigationController id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="sharpnavi" id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -52,7 +52,7 @@
                     <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -86,11 +86,11 @@
         <!--视频-->
         <scene sceneID="pYs-3V-bMJ">
             <objects>
-                <navigationController id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="videonavi" id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bgV-I3-yrm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -143,11 +143,11 @@
         <!--我的-->
         <scene sceneID="2Pf-WV-e9N">
             <objects>
-                <navigationController id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="mynavi" id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

@@ -289,6 +289,13 @@ static BOOL isBackGroundActivateApplication;
         _tabBarCtr = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
         self.window.rootViewController = _tabBarCtr;
         [self.window makeKeyAndVisible];
+        
+//        TDNavigationController *sharpnavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"sharpnavi"];
+//        TDNavigationController *viewnavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"viewnavi"];
+//        TDNavigationController *videonavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"videonavi"];
+//        TDNavigationController *mynavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"mynavi"];
+//        _tabBarCtr.viewControllers = @[sharpnavi,viewnavi,videonavi,mynavi];
+//        [self.window makeKeyAndVisible];
     }
 }
 
@@ -325,11 +332,18 @@ static BOOL isBackGroundActivateApplication;
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
         DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-        detail.view_id = userInfo[@"view_id"];
-        detail.pageMode = @"view";
-        [detail setHidesBottomBarWhenPushed:YES];
-        [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
-        
+        NSString *nothing = userInfo[@"view_id"];
+        if (nothing == nil) {
+            NSLog(@"%@",nothing);
+        }
+        else
+        {
+            detail.view_id = userInfo[@"view_id"];
+            detail.pageMode = @"view";
+            [detail setHidesBottomBarWhenPushed:YES];
+            _tabBarCtr.selectedIndex = 1;
+            [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+        }
         NSLog(@"applacation is unactive ===== %@",userInfo);
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
@@ -414,11 +428,18 @@ static BOOL isBackGroundActivateApplication;
     else//杀死状态下，直接跳转到跳转页面。
     {
         DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-        detail.view_id = userInfo[@"view_id"];
-        detail.pageMode = @"view";
-        [detail setHidesBottomBarWhenPushed:YES];
-        [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
-
+        NSString *nothing = userInfo[@"view_id"];
+        if (nothing == nil) {
+            NSLog(@"%@",nothing);
+        }
+        else
+        {
+            detail.view_id = userInfo[@"view_id"];
+            detail.pageMode = @"view";
+            [detail setHidesBottomBarWhenPushed:YES];
+            _tabBarCtr.selectedIndex = 1;
+            [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+        }
     }
     
     NSLog(@"%@",userInfo);
