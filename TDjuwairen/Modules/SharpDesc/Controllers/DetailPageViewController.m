@@ -16,6 +16,7 @@
 #import "LoginViewController.h"
 #import "FeedbackViewController.h"
 #import "SearchViewController.h"
+#import "UserInfoViewController.h"
 
 #import "SharpModel.h"
 #import "ViewModel.h"
@@ -205,6 +206,11 @@
     self.titleView = [[TitleforDetailView alloc]init];
     if ([self.pageMode isEqualToString:@"sharp"]) {
         [self.titleView.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.sharpInfo.sharpUserIcon]];
+        
+        self.titleView.userheadImage.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoUserInfo:)];
+        [self.titleView.userheadImage addGestureRecognizer:tap];
+        
         self.titleView.usernickname.text = self.sharpInfo.sharpUserName;
         self.titleView.addtime.text = self.sharpInfo.sharpWtime;
         
@@ -249,6 +255,10 @@
         [self.titleView.userheadImage sd_setImageWithURL:[NSURL URLWithString:self.viewInfo.userinfo_facesmall]];
         self.titleView.usernickname.text = self.viewInfo.view_author;
         self.titleView.addtime.text = self.viewInfo.view_addtime;
+        
+        self.titleView.userheadImage.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(gotoUserInfo:)];
+        [self.titleView.userheadImage addGestureRecognizer:tap];
         
         NSString *text = self.viewInfo.view_title;
         UIFont *font = [UIFont systemFontOfSize:20];
@@ -570,6 +580,28 @@
         [wself.hudload hide:YES afterDelay:0.1];
         
     }];
+}
+
+- (void)gotoUserInfo:(UITapGestureRecognizer *)tap{
+    if (US.isLogIn) {
+        UserInfoViewController *userinfoView = [[UserInfoViewController alloc]init];
+        if ([self.pageMode isEqualToString:@"sharp"]) {
+            NSLog(@"%@",self.sharpInfo.sharpUserId);
+            userinfoView.user_id = self.sharpInfo.sharpUserId;
+            [self.navigationController pushViewController:userinfoView animated:YES];
+            
+        }
+        else
+        {
+            NSLog(@"%@",self.viewInfo.view_userid);
+            userinfoView.user_id = self.viewInfo.view_userid;
+            [self.navigationController pushViewController:userinfoView animated:YES];
+        }
+    }
+    else
+    {
+        [self gotLoginViewController];
+    }
 }
 
 #pragma mark - 点击菜单
@@ -1084,6 +1116,7 @@
 #pragma mark - viewWill
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];

@@ -123,6 +123,8 @@
             [accountDefaults setValue:self.passwordText.text forKey:@"password"];
             [accountDefaults synchronize];
             
+            [self sendChannel_id];//绑定channel_id
+            
             [self.navigationController popViewControllerAnimated:YES];
             
         } else {
@@ -203,6 +205,7 @@
                                  
                              }
                          }];
+                         [self sendChannel_id];//绑定channel_id
                          
                          [self.navigationController popToRootViewControllerAnimated:YES];
                      }

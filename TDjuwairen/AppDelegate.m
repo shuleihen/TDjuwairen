@@ -60,7 +60,7 @@ static BOOL isBackGroundActivateApplication;
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
         UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
         
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert + UNAuthorizationOptionSound + UNAuthorizationOptionBadge)
+        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
                               completionHandler:^(BOOL granted, NSError * _Nullable error) {
                                   // Enable or disable features based on authorization.
                                   if (granted) {

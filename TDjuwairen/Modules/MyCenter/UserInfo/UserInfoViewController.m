@@ -113,12 +113,8 @@
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.headview = [[UserInfoHeadView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
-    [self.headview.headImg sd_setImageWithURL:[NSURL URLWithString:self.facesmall]];
-    [self.headview.backImg sd_setImageWithURL:[NSURL URLWithString:self.facesmall]];
-    self.headview.nickname.text = self.nickname;
     self.tableview.tableHeaderView = self.headview;
     
-    //
     self.naviBackView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     
     self.backBtn = [[UIButton alloc]initWithFrame:CGRectMake(10, 28, 30, 30)];
@@ -164,6 +160,9 @@
         if (!error) {
             self.userState = data;
             NSString *user_isatten = [NSString stringWithFormat:@"%@",self.userState[@"user_isatten"]];
+            [self.headview.headImg sd_setImageWithURL:[NSURL URLWithString:self.userState[@"user_facesmall"]]];
+            [self.headview.backImg sd_setImageWithURL:self.userState[@"user_facesmall"]];
+            self.headview.nickname.text = self.userState[@"user_nickname"];
             if ([user_isatten isEqualToString:@"1"]) {
                 self.isAttentionBtn.selected = YES;
             }

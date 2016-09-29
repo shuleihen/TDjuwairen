@@ -181,8 +181,6 @@
     NSDictionary *userInfoDic = self.attArr[indexPath.row];
     UserInfoViewController *userinfoView = [[UserInfoViewController alloc]init];
     userinfoView.user_id = userInfoDic[@"user_id"];
-    userinfoView.facesmall = userInfoDic[@"user_facesmall"];
-    userinfoView.nickname = userInfoDic[@"user_nickname"];
     [self.navigationController pushViewController:userinfoView animated:YES];
     
 }
