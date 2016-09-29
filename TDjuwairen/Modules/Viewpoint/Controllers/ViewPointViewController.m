@@ -184,7 +184,7 @@
 //        urlPath = [NSString stringWithFormat:@"index.php/View/recLists1_2/page/%d",self.page];
 //    }
 //    else if (n == 1){
-        urlPath = [NSString stringWithFormat:@"%@index.php/View/newLists1_2/page/%d",API_HOST,self.page];
+        urlPath = [NSString stringWithFormat:@"%@index.php/View/recLists1_2/page/%d",API_HOST,self.page];
 //    }
 //    else
 //    {

@@ -225,16 +225,22 @@
         //添加关注
         __weak DetailPageViewController *wself = self;
         self.titleView.block = ^(UIButton *sender){
-            if (sender.selected == YES) {
-                sender.selected = NO;
-                sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
-                [wself cancelAttention];
+            if (US.isLogIn) {
+                if (sender.selected == YES) {
+                    sender.selected = NO;
+                    sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
+                    [wself cancelAttention];
+                }
+                else
+                {
+                    sender.selected = YES;
+                    sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+                    [wself addAttention];
+                }
             }
             else
             {
-                sender.selected = YES;
-                sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
-                [wself addAttention];
+                [wself gotLoginViewController];
             }
         };
     }
@@ -270,16 +276,22 @@
         
         __weak DetailPageViewController *wself = self;
         self.titleView.block = ^(UIButton *sender){
-            if (sender.selected == YES) {
-                sender.selected = NO;
-                sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
-                [wself cancelAttention];
+            if (US.isLogIn) {
+                if (sender.selected == YES) {
+                    sender.selected = NO;
+                    sender.layer.borderColor = [UIColor darkGrayColor].CGColor;
+                    [wself cancelAttention];
+                }
+                else
+                {
+                    sender.selected = YES;
+                    sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+                    [wself addAttention];
+                }
             }
             else
             {
-                sender.selected = YES;
-                sender.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
-                [wself addAttention];
+                [wself gotLoginViewController];
             }
         };
     }

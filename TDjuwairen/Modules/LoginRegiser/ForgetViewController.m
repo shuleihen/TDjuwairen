@@ -295,7 +295,8 @@
 }
 
 - (void)contactCS:(UIButton *)sender{
-    
+    NSURL *url = [NSURL URLWithString:@"telprompt://0571-86716203"];
+    [[UIApplication sharedApplication] openURL:url];
 }
 
 -(void)Verification
