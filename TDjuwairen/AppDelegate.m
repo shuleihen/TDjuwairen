@@ -53,42 +53,8 @@ static BOOL isBackGroundActivateApplication;
     [self setupWebImageCache];
     [self checkSwitchToGuide];
     [self setupLog];
-
-    // iOS10 下需要使用新的 API
     
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-        UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-        
-        [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                              completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                  // Enable or disable features based on authorization.
-                                  if (granted) {
-                                      [application registerForRemoteNotifications];
-                                  }
-                              }];
-#endif
-    }
-    else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-        UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-        
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }else {
-//        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
-//        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-    }
-    
-    //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
-    
-    // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeDevelopment withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
-    // App 是用户点击推送消息启动
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (userInfo) {
-        NSLog(@"从消息启动:%@",userInfo);
-        [BPush handleNotification:userInfo];
-    }
+    [self setupWithBPush:application andDic:launchOptions];
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
@@ -314,6 +280,84 @@ static BOOL isBackGroundActivateApplication;
     //    DDLogInfo(@"Info");
     //    DDLogWarn(@"Warn");
     //    DDLogError(@"Error");
+}
+
+- (void)setupWithBPush:(UIApplication *)application andDic:(NSDictionary *)launchOptions{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        [[NSUserDefaults standardUserDefaults] setObject:launchOptions forKey:@"launchOptions"];
+        
+        NSLog(@"first launch");
+        // iOS10 下需要使用新的 API
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+            
+            [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                      // Enable or disable features based on authorization.
+                                      if (granted) {
+                                          [application registerForRemoteNotifications];
+                                      }
+                                  }];
+#endif
+        }
+        else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+            
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        }else {
+            //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+            //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+        }
+        
+        //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
+        
+        // 在 App 启动时注册百度云推送服务，需要提供 Apikey
+        [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+        
+    }else {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+        NSLog(@"second launch");
+        UIApplication *app = [UIApplication sharedApplication];
+        if ([app isRegisteredForRemoteNotifications]  == YES) {
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+                
+                [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                                      completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                          // Enable or disable features based on authorization.
+                                          if (granted) {
+                                              [application registerForRemoteNotifications];
+                                          }
+                                      }];
+#endif
+            }
+            else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+                UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+                
+                UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+                [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            }else {
+                //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+                //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+            }
+            
+            //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
+            
+            // 在 App 启动时注册百度云推送服务，需要提供 Apikey
+            [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+        }
+    }
+    // App 是用户点击推送消息启动
+    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo) {
+        NSLog(@"从消息启动:%@",userInfo);
+        [BPush handleNotification:userInfo];
+    }
 }
 
 - (void)testLocalNotifi

@@ -9,6 +9,9 @@
 #import "PushSwitchViewController.h"
 #import "LoginState.h"
 
+#import "NetworkManager.h"
+#import "BPush.h"
+
 @interface PushSwitchViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView *tableview;
@@ -32,15 +35,20 @@
     [super viewDidLoad];
     self.loginstate = [LoginState sharedInstance];
     UIApplication *app = [UIApplication sharedApplication];
-    NSLog(@"%@",[app currentUserNotificationSettings]);
-    if ([[UIApplication sharedApplication] currentUserNotificationSettings].types  == UIUserNotificationTypeNone) {
-        self.loginstate.isPush = NO;
-        self.loginstate.isReply = NO;
+    if ([app isRegisteredForRemoteNotifications]  == YES) {
+        self.loginstate.isPush = YES;
     }
     else
     {
-        self.loginstate.isPush = YES;
+        self.loginstate.isPush = NO;
+    }
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    if ([[userdefault objectForKey:@"isReply"] isEqualToString:@"YES"]) {
         self.loginstate.isReply = YES;
+    }
+    else
+    {
+        self.loginstate.isReply = NO;
     }
     
     [self setupWithNavigation];
@@ -93,43 +101,68 @@
 
 - (void)switchAction:(UISwitch *)myswitch{
     UITableViewCell *cell = (UITableViewCell *)[myswitch superview];
-    NSIndexPath* index=[self.tableview indexPathForCell:cell];
+    NSIndexPath* index = [self.tableview indexPathForCell:cell];
+    
     if (index.row == 0) {
         //
         if (myswitch.on == NO) {
-            self.loginstate.isPush = NO;
-            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
-            [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil];
+            [self unRegisChannel_id];//绑定channel_id
+            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+            [userdefault setValue:@"NO" forKey:@"isReply"];
+            [userdefault synchronize];
         }
         else
         {
-            self.loginstate.isPush = YES;
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-            [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|
-             UIUserNotificationTypeBadge|
-             UIUserNotificationTypeSound
-                                              categories:nil];
+            [self regisChannel_id];//绑定channel_id
+            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+            [userdefault setValue:@"YES" forKey:@"isReply"];
+            [userdefault synchronize];
         }
     }
     else
     {
         if (myswitch.on == NO) {
             self.loginstate.isPush = NO;
-            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
             [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeNone categories:nil];
+            [[UIApplication sharedApplication] unregisterForRemoteNotifications];
         }
         else
         {
             self.loginstate.isPush = YES;
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
             [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|
-                                                         UIUserNotificationTypeBadge|
-                                                         UIUserNotificationTypeSound
+             UIUserNotificationTypeBadge|
+             UIUserNotificationTypeSound
                                               categories:nil];
+            [[UIApplication sharedApplication] registerForRemoteNotifications];
+            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"launchOptions"];
+            [BPush registerChannel:dic apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
         }
     }
 }
 
+#pragma mark - 发送channel_id
+- (void)regisChannel_id{
+    NSString *channel_id = [BPush getChannelId];
+    NSString *url = @"index.php/Login/saveUserChannelID";
+    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
+    NSDictionary *para = @{@"user_id":US.userId,
+                           @"type":@"1",
+                           @"channel_id":channel_id};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        NSLog(@"%@",data);
+    }];
+}
+
+- (void)unRegisChannel_id{
+    NSString *url = @"index.php/Login/saveUserChannelID";
+    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
+    NSDictionary *para = @{@"user_id":US.userId,
+                           @"type":@"1",
+                           @"channel_id":@""};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        NSLog(@"%@",data);
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

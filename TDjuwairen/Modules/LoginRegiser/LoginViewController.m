@@ -306,6 +306,10 @@
                            @"channel_id":channel_id};
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
         NSLog(@"%@",data);
+        //绑定指定推送的时候打开回复提醒
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        [userdefault setValue:@"YES" forKey:@"isReply"];
+        [userdefault synchronize];
     }];
 }
 
