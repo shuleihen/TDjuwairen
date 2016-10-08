@@ -255,13 +255,6 @@ static BOOL isBackGroundActivateApplication;
         _tabBarCtr = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
         self.window.rootViewController = _tabBarCtr;
         [self.window makeKeyAndVisible];
-        
-//        TDNavigationController *sharpnavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"sharpnavi"];
-//        TDNavigationController *viewnavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"viewnavi"];
-//        TDNavigationController *videonavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"videonavi"];
-//        TDNavigationController *mynavi = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"mynavi"];
-//        _tabBarCtr.viewControllers = @[sharpnavi,viewnavi,videonavi,mynavi];
-//        [self.window makeKeyAndVisible];
     }
 }
 

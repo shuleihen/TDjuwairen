@@ -601,6 +601,7 @@
     else
     {
         [self gotLoginViewController];
+        
     }
 }
 
@@ -799,15 +800,6 @@
     [self.webview evaluateJavaScript:jsZiti completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         //
     }];
-    
-//    [self.webview evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-//        //获取页面高度，并重置webview的frame
-//        CGFloat documentHeight = [result doubleValue];
-//        CGRect frame = self.webview.frame;
-//        frame.size.height = documentHeight + 10/*显示不全*/;
-//        self.webview.frame = frame;
-//        //主线程刷新UI
-//    }];
     
     __weak DetailPageViewController *wself = self;
     [self.webview evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {

@@ -72,7 +72,6 @@
 		1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4151D644D9800DC102E /* AddCollectionTableViewCell.m */; };
 		1955B48C1D644D9800DC102E /* ShowTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4171D644D9800DC102E /* ShowTableViewCell.m */; };
 		1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4191D644D9800DC102E /* TitlesTableViewCell.m */; };
-		1955B48E1D644D9800DC102E /* SharpDetailsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B41C1D644D9800DC102E /* SharpDetailsViewController.m */; };
 		1955B48F1D644D9800DC102E /* SharpTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B41E1D644D9800DC102E /* SharpTags.m */; };
 		1955B4901D644D9800DC102E /* CommentsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4211D644D9800DC102E /* CommentsModel.m */; };
 		1955B4911D644D9800DC102E /* SharpModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4231D644D9800DC102E /* SharpModel.m */; };
@@ -81,7 +80,6 @@
 		1955B4941D644D9800DC102E /* CommentsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B42D1D644D9800DC102E /* CommentsCell.m */; };
 		1955B4951D644D9800DC102E /* ViewPointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B42F1D644D9800DC102E /* ViewPointTableViewCell.m */; };
 		1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4311D644D9800DC102E /* ViewSpecialTableViewCell.m */; };
-		1955B4971D644D9800DC102E /* DescContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4341D644D9800DC102E /* DescContentViewController.m */; };
 		1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4361D644D9800DC102E /* PreviewViewController.m */; };
 		1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4381D644D9800DC102E /* PublishViewViewController.m */; };
 		1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B43A1D644D9800DC102E /* ViewPointViewController.m */; };
@@ -479,8 +477,6 @@
 		1955B4171D644D9800DC102E /* ShowTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShowTableViewCell.m; sourceTree = "<group>"; };
 		1955B4181D644D9800DC102E /* TitlesTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TitlesTableViewCell.h; sourceTree = "<group>"; };
 		1955B4191D644D9800DC102E /* TitlesTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TitlesTableViewCell.m; sourceTree = "<group>"; };
-		1955B41B1D644D9800DC102E /* SharpDetailsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharpDetailsViewController.h; sourceTree = "<group>"; };
-		1955B41C1D644D9800DC102E /* SharpDetailsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharpDetailsViewController.m; sourceTree = "<group>"; };
 		1955B41D1D644D9800DC102E /* SharpTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharpTags.h; sourceTree = "<group>"; };
 		1955B41E1D644D9800DC102E /* SharpTags.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharpTags.m; sourceTree = "<group>"; };
 		1955B4201D644D9800DC102E /* CommentsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentsModel.h; sourceTree = "<group>"; };
@@ -497,8 +493,6 @@
 		1955B42F1D644D9800DC102E /* ViewPointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewPointTableViewCell.m; sourceTree = "<group>"; };
 		1955B4301D644D9800DC102E /* ViewSpecialTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewSpecialTableViewCell.h; sourceTree = "<group>"; };
 		1955B4311D644D9800DC102E /* ViewSpecialTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewSpecialTableViewCell.m; sourceTree = "<group>"; };
-		1955B4331D644D9800DC102E /* DescContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DescContentViewController.h; sourceTree = "<group>"; };
-		1955B4341D644D9800DC102E /* DescContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DescContentViewController.m; sourceTree = "<group>"; };
 		1955B4351D644D9800DC102E /* PreviewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PreviewViewController.h; sourceTree = "<group>"; };
 		1955B4361D644D9800DC102E /* PreviewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PreviewViewController.m; sourceTree = "<group>"; };
 		1955B4371D644D9800DC102E /* PublishViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PublishViewViewController.h; sourceTree = "<group>"; };
@@ -1271,8 +1265,6 @@
 				84EE2AF41D929E48005D5C8C /* DetailPageViewController.m */,
 				84EE2AF51D929E48005D5C8C /* DetailTableViewController.h */,
 				84EE2AF61D929E48005D5C8C /* DetailTableViewController.m */,
-				1955B41B1D644D9800DC102E /* SharpDetailsViewController.h */,
-				1955B41C1D644D9800DC102E /* SharpDetailsViewController.m */,
 				1955B41D1D644D9800DC102E /* SharpTags.h */,
 				1955B41E1D644D9800DC102E /* SharpTags.m */,
 			);
@@ -1341,8 +1333,6 @@
 		1955B4321D644D9800DC102E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1955B4331D644D9800DC102E /* DescContentViewController.h */,
-				1955B4341D644D9800DC102E /* DescContentViewController.m */,
 				1955B4351D644D9800DC102E /* PreviewViewController.h */,
 				1955B4361D644D9800DC102E /* PreviewViewController.m */,
 				1955B4371D644D9800DC102E /* PublishViewViewController.h */,
@@ -2477,7 +2467,6 @@
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
-				1955B48E1D644D9800DC102E /* SharpDetailsViewController.m in Sources */,
 				84053B631D6C344E0020A1F0 /* UserInfoViewController.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
@@ -2530,7 +2519,6 @@
 				1955B49C1D644D9800DC102E /* PhotoTextAttachment.m in Sources */,
 				1955B4841D644D9800DC102E /* ButtonView.m in Sources */,
 				1955B4771D644D9800DC102E /* MyInfoViewController.m in Sources */,
-				1955B4971D644D9800DC102E /* DescContentViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,

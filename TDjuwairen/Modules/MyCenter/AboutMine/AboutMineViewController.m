@@ -32,7 +32,7 @@
     [super viewDidLoad];
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.titleArr = @[@"检查更新 ",@"给我们评分",@"反馈意见"];
+    self.titleArr = @[@"给我们评分",@"反馈意见"];
     haveUpdate = NO;
     
     [self setupWithNavigation];
@@ -70,7 +70,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    return 2;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -84,17 +84,17 @@
     
     cell.textLabel.text = self.titleArr[indexPath.row];
     
-    if (haveUpdate == YES) {
-        if (indexPath.row == 0) {
-            NSTextAttachment *textAttach = [[NSTextAttachment alloc] init];
-            UIImage *image = [UIImage imageNamed:@"reddot"];
-            textAttach.image = image;
-            NSAttributedString *strA = [NSAttributedString attributedStringWithAttachment:textAttach];
-            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:cell.textLabel.attributedText];
-            [string insertAttributedString:strA atIndex:cell.textLabel.text.length];
-            cell.textLabel.attributedText = string;
-        }
-    }
+//    if (haveUpdate == YES) {
+//        if (indexPath.row == 0) {
+//            NSTextAttachment *textAttach = [[NSTextAttachment alloc] init];
+//            UIImage *image = [UIImage imageNamed:@"reddot"];
+//            textAttach.image = image;
+//            NSAttributedString *strA = [NSAttributedString attributedStringWithAttachment:textAttach];
+//            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:cell.textLabel.attributedText];
+//            [string insertAttributedString:strA atIndex:cell.textLabel.text.length];
+//            cell.textLabel.attributedText = string;
+//        }
+//    }
     cell.textLabel.textColor = self.daynightmodel.textColor;
     cell.backgroundColor = self.daynightmodel.navigationColor;
     return cell;
@@ -103,20 +103,21 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.row == 0) {
-        if (haveUpdate == YES) {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到当前有新版本了，点击确认更新" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                //跳转到商店
-                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.trackViewUrl]];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                [alert dismissViewControllerAnimated:YES completion:nil];
-            }]];
-            [self presentViewController:alert animated:YES completion:nil];
-        }
-    }
-    else if (indexPath.row == 1){
+//    if (indexPath.row == 0) {
+//        if (haveUpdate == YES) {
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到当前有新版本了，点击确认更新" preferredStyle:UIAlertControllerStyleAlert];
+//            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                //跳转到商店
+//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.trackViewUrl]];
+//            }]];
+//            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//                [alert dismissViewControllerAnimated:YES completion:nil];
+//            }]];
+//            [self presentViewController:alert animated:YES completion:nil];
+//        }
+//    }
+//    else
+        if (indexPath.row == 0){
         NSString *str = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id1125295972"];
         
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
