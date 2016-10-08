@@ -40,7 +40,10 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     dispatch_queue_t queue = dispatch_queue_create("com.afnetwork.completion", DISPATCH_QUEUE_SERIAL);
     self.manager.completionQueue = queue;
     
-    self.manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
+    AFJSONResponseSerializer *jsonResponseSerializer = (AFJSONResponseSerializer *)self.manager.responseSerializer;
+    jsonResponseSerializer.removesKeysWithNullValues = YES;
+    jsonResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
+    
     return self;
 }
 
