@@ -54,6 +54,7 @@
     
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
+    [self.tableView registerClass:[NewTableViewCell class] forCellReuseIdentifier:@"newcell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -202,10 +203,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.typeID == 0) {
         if (self.surveyListDataArray.count > 0) {
-            NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell"];
-            if (cell == nil) {
-                cell = [[NewTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"newcell"];
-            }
+            NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell" forIndexPath:indexPath];
             SurveyListModel *model = self.surveyListDataArray[indexPath.row];
             
             [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];

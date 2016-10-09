@@ -78,7 +78,7 @@
     if (!_nmview) {
         NSString *str ;
         if ([self.pageMode isEqualToString:@"sharp"]) {
-            if (!self.sharpInfo.sharpIsCollect) {
+            if (self.sharpInfo.sharpIsCollect == YES) {
                 str = @"yes";
             }
             else
@@ -768,16 +768,30 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"取消收藏";
     
+    
     NSMutableArray *IDArr = [NSMutableArray array];
-    [IDArr addObject:self.view_id];
+    
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    NSDictionary *para = @{@"authenticationStr":US.userId,
-                           @"encryptedStr":self.encryptedStr,
-                           @"delete_ids":IDArr,
-                           @"module_id":@"3",
-                           @"userid":US.userId};
-    
+    NSDictionary *para ;
+    if ([self.pageMode isEqualToString:@"sharp"]) {
+        [IDArr addObject:self.sharp_id];
+        para = @{@"authenticationStr":US.userId,
+                   @"encryptedStr":self.encryptedStr,
+                   @"delete_ids":IDArr,
+                   @"module_id":@"2",
+                   @"userid":US.userId};
+    }
+    else
+    {
+       [IDArr addObject:self.view_id];
+       para = @{@"authenticationStr":US.userId,
+                @"encryptedStr":self.encryptedStr,
+                @"delete_ids":IDArr,
+                @"module_id":@"3",
+                @"userid":US.userId};
+        
+    }
     [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"取消成功";
