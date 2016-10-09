@@ -97,7 +97,7 @@
             }
         }
         
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*5) withString:str];
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*4) withString:str];
         
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
