@@ -107,6 +107,9 @@
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
 		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
+		19AA61EF1DAA24FB00FB7E83 /* PaperDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA61EE1DAA24FB00FB7E83 /* PaperDetailViewController.m */; };
+		19AA61F21DAA29E600FB7E83 /* PaperAuthorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA61F11DAA29E600FB7E83 /* PaperAuthorView.m */; };
+		19AA61F51DAA364600FB7E83 /* PaperTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA61F41DAA364600FB7E83 /* PaperTagsView.m */; };
 		19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */; };
 		19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C931D655B9E00BB4DF4 /* DDASLLogCapture.m */; };
 		19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C951D655B9E00BB4DF4 /* DDASLLogger.m */; };
@@ -139,6 +142,8 @@
 		19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348611D3F76DB008ABD16 /* UIScrollView+MJRefresh.m */; };
 		19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */; };
 		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
+		19CF2AF71DAB2E06000E017D /* SharpCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CF2AF61DAB2E06000E017D /* SharpCommentViewController.m */; };
+		19CF2AFA1DAB2E13000E017D /* ViewpointCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19CF2AF91DAB2E13000E017D /* ViewpointCommentViewController.m */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -544,6 +549,12 @@
 		19A7EE571D423ED200F833A9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		19A7EE581D423ED200F833A9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		19A9721B1D4226A600A9D521 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		19AA61ED1DAA24FB00FB7E83 /* PaperDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaperDetailViewController.h; sourceTree = "<group>"; };
+		19AA61EE1DAA24FB00FB7E83 /* PaperDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaperDetailViewController.m; sourceTree = "<group>"; };
+		19AA61F01DAA29E600FB7E83 /* PaperAuthorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaperAuthorView.h; sourceTree = "<group>"; };
+		19AA61F11DAA29E600FB7E83 /* PaperAuthorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaperAuthorView.m; sourceTree = "<group>"; };
+		19AA61F31DAA364600FB7E83 /* PaperTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaperTagsView.h; sourceTree = "<group>"; };
+		19AA61F41DAA364600FB7E83 /* PaperTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaperTagsView.m; sourceTree = "<group>"; };
 		19B11C8F1D655B9E00BB4DF4 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
 		19B11C901D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
@@ -611,6 +622,10 @@
 		19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		19C526261D49EE090039F85D /* TDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewController.h; sourceTree = "<group>"; };
 		19C526271D49EE090039F85D /* TDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewController.m; sourceTree = "<group>"; };
+		19CF2AF51DAB2E06000E017D /* SharpCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SharpCommentViewController.h; sourceTree = "<group>"; };
+		19CF2AF61DAB2E06000E017D /* SharpCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SharpCommentViewController.m; sourceTree = "<group>"; };
+		19CF2AF81DAB2E13000E017D /* ViewpointCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointCommentViewController.h; sourceTree = "<group>"; };
+		19CF2AF91DAB2E13000E017D /* ViewpointCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewpointCommentViewController.m; sourceTree = "<group>"; };
 		19E5193A1D509C7000CFF149 /* TDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNavigationController.h; sourceTree = "<group>"; };
 		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
 		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
@@ -1449,6 +1464,40 @@
 			path = MBProgressHUD;
 			sourceTree = "<group>";
 		};
+		19AA61EA1DAA24A300FB7E83 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				19AA61EB1DAA24A300FB7E83 /* Controller */,
+				19AA61EC1DAA24A300FB7E83 /* View */,
+			);
+			name = Detail;
+			path = TDjuwairen/Modules/Detail;
+			sourceTree = SOURCE_ROOT;
+		};
+		19AA61EB1DAA24A300FB7E83 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				19AA61ED1DAA24FB00FB7E83 /* PaperDetailViewController.h */,
+				19AA61EE1DAA24FB00FB7E83 /* PaperDetailViewController.m */,
+				19CF2AF51DAB2E06000E017D /* SharpCommentViewController.h */,
+				19CF2AF61DAB2E06000E017D /* SharpCommentViewController.m */,
+				19CF2AF81DAB2E13000E017D /* ViewpointCommentViewController.h */,
+				19CF2AF91DAB2E13000E017D /* ViewpointCommentViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		19AA61EC1DAA24A300FB7E83 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				19AA61F01DAA29E600FB7E83 /* PaperAuthorView.h */,
+				19AA61F11DAA29E600FB7E83 /* PaperAuthorView.m */,
+				19AA61F31DAA364600FB7E83 /* PaperTagsView.h */,
+				19AA61F41DAA364600FB7E83 /* PaperTagsView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		19B11C8E1D655B9E00BB4DF4 /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -1600,6 +1649,7 @@
 				1955B3BA1D644D9800DC102E /* MyCenter */,
 				1955B4011D644D9800DC102E /* Network */,
 				1955B4051D644D9800DC102E /* Search */,
+				19AA61EA1DAA24A300FB7E83 /* Detail */,
 				1955B4AA1D644DB400DC102E /* Survey */,
 				1955B4121D644D9800DC102E /* SharpDesc */,
 				1955B42A1D644D9800DC102E /* Viewpoint */,
@@ -2472,6 +2522,7 @@
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */,
+				19AA61F51DAA364600FB7E83 /* PaperTagsView.m in Sources */,
 				1955B4BF1D644DB400DC102E /* SurveyNavigationView.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				1955B4931D644D9800DC102E /* VideoViewController.m in Sources */,
@@ -2483,11 +2534,13 @@
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
+				19AA61F21DAA29E600FB7E83 /* PaperAuthorView.m in Sources */,
 				84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
+				19CF2AFA1DAB2E13000E017D /* ViewpointCommentViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
 				84EE2AF71D929E48005D5C8C /* DetailPageViewController.m in Sources */,
@@ -2526,6 +2579,7 @@
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
 				1955B4951D644D9800DC102E /* ViewPointTableViewCell.m in Sources */,
+				19AA61EF1DAA24FB00FB7E83 /* PaperDetailViewController.m in Sources */,
 				1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */,
 				1955B4BA1D644DB400DC102E /* NewTableViewCell.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
@@ -2571,6 +2625,7 @@
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
+				19CF2AF71DAB2E06000E017D /* SharpCommentViewController.m in Sources */,
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,

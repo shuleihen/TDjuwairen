@@ -11,7 +11,6 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+TimeInfo.h"
 #import "NSString+Ext.h"
-
 #import "SurveyNavigationView.h"
 #import "SurveyTableViewCell.h"
 #import "NewTableViewCell.h"
@@ -19,13 +18,11 @@
 #import "DetailPageViewController.h"
 #import "SearchViewController.h"
 #import "UIdaynightModel.h"
-
-/* 登录状态 */
 #import "LoginState.h"
-
 #import "MJRefresh.h"
 #import "NetworkManager.h"
 #import "Masonry.h"
+#import "PaperDetailViewController.h"
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
 {    
@@ -357,9 +354,15 @@
 {
     /* 取消选中状态 */
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    
-    DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+    
+//    PaperDetailViewController *detail = [[PaperDetailViewController alloc] init];
+//    detail.paperType = kPaperTypeSurvey;
+//    detail.paperId = model.sharp_id;
+//    detail.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:detail animated:YES];
+    DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+    
     DetailView.sharp_id = model.sharp_id;
     DetailView.pageMode = @"sharp";
     DetailView.hidesBottomBarWhenPushed = YES;
