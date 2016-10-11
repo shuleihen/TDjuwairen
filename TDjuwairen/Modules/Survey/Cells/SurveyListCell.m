@@ -15,6 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     self.userAvatar.layer.cornerRadius = 25.0/2;
+    self.userAvatar.clipsToBounds = YES;
     self.titleLabel.preferredMaxLayoutWidth = kScreenWidth - 15 - 8 - 90 -8;
     self.detailLabel.preferredMaxLayoutWidth = kScreenWidth - 15 - 8 - 90 -8;
 }
