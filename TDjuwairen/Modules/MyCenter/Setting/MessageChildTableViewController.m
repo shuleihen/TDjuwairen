@@ -186,8 +186,6 @@
             [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
             cell.line.layer.borderWidth = 1;
             
-            
-            
             cell.timeLab.textColor = self.daynightModel.titleColor;
             cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
             cell.backgroundColor = self.daynightModel.navigationColor;
@@ -225,8 +223,6 @@
             
             [cell.line setFrame:CGRectMake(0, 10+titlesize.height+10+15+14, kScreenWidth, 1)];
             cell.line.layer.borderWidth = 1;
-            
-            
             
             cell.timeLab.textColor = self.daynightModel.titleColor;
             cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;

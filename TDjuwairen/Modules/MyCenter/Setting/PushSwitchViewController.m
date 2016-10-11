@@ -106,14 +106,33 @@
     if (index.row == 0) {
         //
         if (myswitch.on == NO) {
-            [self unRegisChannel_id];//绑定channel_id
+            UIApplication *app = [UIApplication sharedApplication];
+            if ([app isRegisteredForRemoteNotifications]  == YES) {
+                [self unRegisChannel_id];//绑定channel_id
+            }
+            
             NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
             [userdefault setValue:@"NO" forKey:@"isReply"];
             [userdefault synchronize];
         }
         else
         {
-            [self regisChannel_id];//绑定channel_id
+            UIApplication *app = [UIApplication sharedApplication];
+            if ([app isRegisteredForRemoteNotifications]  == YES) {
+                [self regisChannel_id];//绑定channel_id
+            }
+            else
+            {
+                //注册推送再绑定
+                [self openPush];
+                __weak PushSwitchViewController *weakSelf = self;
+                dispatch_time_t delayTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.0 * NSEC_PER_SEC));
+                
+                dispatch_after(delayTime, dispatch_get_main_queue(), ^{
+                    [weakSelf regisChannel_id];//绑定channel_id
+                });
+            }
+            
             NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
             [userdefault setValue:@"YES" forKey:@"isReply"];
             [userdefault synchronize];
@@ -129,15 +148,20 @@
         else
         {
             self.loginstate.isPush = YES;
-            [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|
-             UIUserNotificationTypeBadge|
-             UIUserNotificationTypeSound
-                                              categories:nil];
-            [[UIApplication sharedApplication] registerForRemoteNotifications];
-            NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"launchOptions"];
-            [BPush registerChannel:dic apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+            [self openPush];
         }
     }
+}
+
+#pragma mark - 打开推送
+- (void)openPush{
+    [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|
+     UIUserNotificationTypeBadge|
+     UIUserNotificationTypeSound
+                                      categories:nil];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    NSDictionary *dic = [[NSUserDefaults standardUserDefaults] objectForKey:@"launchOptions"];
+    [BPush registerChannel:dic apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
 }
 
 #pragma mark - 发送channel_id

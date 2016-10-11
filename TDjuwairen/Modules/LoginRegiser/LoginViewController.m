@@ -123,8 +123,11 @@
             [accountDefaults setValue:self.passwordText.text forKey:@"password"];
             [accountDefaults synchronize];
             
-            [self sendChannel_id];//绑定channel_id
-            
+            //判断是否开启推送
+            UIApplication *app = [UIApplication sharedApplication];
+            if ([app isRegisteredForRemoteNotifications]  == YES) {
+                [self sendChannel_id];//绑定channel_id
+            }
             [self.navigationController popViewControllerAnimated:YES];
             
         } else {
@@ -205,7 +208,10 @@
                                  
                              }
                          }];
-                         [self sendChannel_id];//绑定channel_id
+                         UIApplication *app = [UIApplication sharedApplication];
+                         if ([app isRegisteredForRemoteNotifications]  == YES) {
+                             [self sendChannel_id];//绑定channel_id
+                         }
                          
                          [self.navigationController popToRootViewControllerAnimated:YES];
                      }
@@ -282,7 +288,10 @@
                              }
                          }];
                          
-                         [self sendChannel_id];//绑定channel_id
+                         UIApplication *app = [UIApplication sharedApplication];
+                         if ([app isRegisteredForRemoteNotifications]  == YES) {
+                             [self sendChannel_id];//绑定channel_id
+                         }
                          
                          [self.navigationController popToRootViewControllerAnimated:YES];
                      }
