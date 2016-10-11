@@ -15,12 +15,18 @@
     [super awakeFromNib];
     // Initialization code
     self.userAvatar.layer.cornerRadius = 25.0/2;
+    self.titleLabel.preferredMaxLayoutWidth = kScreenWidth - 15 - 8 - 90 -8;
+    self.detailLabel.preferredMaxLayoutWidth = kScreenWidth - 15 - 8 - 90 -8;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
+}
+
+- (void)updateConstraints {
+    [super updateConstraints];
 }
 
 - (void)setupSurveyListModel:(SurveyListModel *)model {

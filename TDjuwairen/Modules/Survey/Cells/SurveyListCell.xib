@@ -60,9 +60,14 @@
                     <constraint firstItem="sHf-NZ-PFm" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="j2Z-ZV-6cD"/>
                     <constraint firstItem="zHR-vc-AFF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="lNh-mI-dLK"/>
                     <constraint firstItem="VUA-yM-rZw" firstAttribute="top" secondItem="Crn-FF-rIy" secondAttribute="bottom" constant="15" id="pa6-HV-H3X"/>
-                    <constraint firstAttribute="bottom" secondItem="afB-TO-H2G" secondAttribute="bottom" priority="986" constant="15" id="qZl-tN-fkL"/>
+                    <constraint firstAttribute="bottom" secondItem="afB-TO-H2G" secondAttribute="bottom" priority="999" constant="15" id="qZl-tN-fkL"/>
                     <constraint firstItem="Crn-FF-rIy" firstAttribute="leading" secondItem="zHR-vc-AFF" secondAttribute="trailing" constant="8" id="rqK-LE-nFU"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="3uw-Ac-CVM"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
             <connections>
                 <outlet property="detailLabel" destination="afB-TO-H2G" id="PQ1-kn-Ttp"/>
@@ -71,7 +76,7 @@
                 <outlet property="titleLabel" destination="sHf-NZ-PFm" id="CAb-h0-JzC"/>
                 <outlet property="userAvatar" destination="zHR-vc-AFF" id="FOv-WK-I7D"/>
             </connections>
-            <point key="canvasLocation" x="-276" y="-222.5"/>
+            <point key="canvasLocation" x="-738" y="-243"/>
         </tableViewCell>
     </objects>
 </document>
