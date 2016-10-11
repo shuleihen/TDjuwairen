@@ -13,7 +13,6 @@
 #import "NSString+Ext.h"
 #import "SurveyNavigationView.h"
 #import "SurveyTableViewCell.h"
-#import "NewTableViewCell.h"
 #import "SurveyListModel.h"
 #import "DetailPageViewController.h"
 #import "SearchViewController.h"
@@ -23,13 +22,11 @@
 #import "NetworkManager.h"
 #import "Masonry.h"
 #import "PaperDetailViewController.h"
+#import "SurveyListCell.h"
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
-{    
-    CGSize titlesize;
-    CGSize descsize;
+{
     BOOL isFirstRequest;
-    
 }
 
 @property (nonatomic,strong) NSMutableArray *scrollImageArray;  //轮播图片数据
@@ -218,10 +215,10 @@
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
     
-    //取消分割线
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    [self.tableview registerClass:[NewTableViewCell class] forCellReuseIdentifier:@"newcell"];
-    
+    UINib *nib = [UINib nibWithNibName:@"SurveyListCell" bundle:nil];
+    [self.tableview registerNib:nib forCellReuseIdentifier:@"SurveyListCellID"];
+    self.tableview.estimatedRowHeight = 160;
+    self.tableview.rowHeight = UITableViewAutomaticDimension;
     [self.view addSubview:self.tableview];//先添加tableview
     
     //设置tableheadview无限轮播
@@ -273,44 +270,18 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell" forIndexPath:indexPath] ;
-
+    SurveyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveyListCellID"];
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
-    
-    [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-    
-    cell.nickname.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,model.sharp_wtime];
-    
-    NSString *text = model.sharp_title;
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-    cell.titleLabel.font = font;
-    cell.titleLabel.numberOfLines = 0;
-    titlesize = CGSizeMake(kScreenWidth-16-90-15, 20000.0f);
-    titlesize = [text calculateSize:titlesize font:font];
-    cell.titleLabel.text = text;
-    [cell.titleLabel setFrame:CGRectMake(15, 55, kScreenWidth-16-90-15, titlesize.height)];
-    cell.descLabel.frame = CGRectMake(15, 55+titlesize.height+10, kScreenWidth-16-90-15, 55);
-    cell.descLabel.font = [UIFont systemFontOfSize:14];
-    cell.descLabel.numberOfLines = 3;
-    cell.descLabel.text = model.sharp_desc;
-    
-    cell.titleimg.frame = CGRectMake(kScreenWidth-8-90, 15+25+15, 90, 90);
-    [cell.titleimg sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
-    
-    cell.lineLabel.frame = CGRectMake(0, 15+25+15+titlesize.height+10+55+17, kScreenWidth, 0.5);
-    
-    cell.nickname.textColor = self.daynightmodel.titleColor;
+    [cell setupSurveyListModel:model];
+
+    cell.nameLabel.textColor = self.daynightmodel.titleColor;
     cell.titleLabel.textColor = self.daynightmodel.textColor;
-    cell.descLabel.textColor = self.daynightmodel.titleColor;
+    cell.detailLabel.textColor = self.daynightmodel.titleColor;
     cell.backgroundColor = self.daynightmodel.navigationColor;
-    cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+
     return cell;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 15+25+15+titlesize.height+10+55+18;
-}
 
 #pragma mark - 点击搜索
 - (void)clickSearchButton:(UIButton *)sender{
