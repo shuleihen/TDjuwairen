@@ -47,8 +47,8 @@
             colImg = @"btn_col.png";
         }
         
-        self.imgArr = @[@"btn_fuzhi.png",colImg,@"btn_ziti.png",img,@"btn_jubao.png"];
-        self.titleArr = @[@"复制链接",coll,@"字体大小",mod,@"举报"];
+        self.imgArr = @[colImg,@"btn_ziti.png",img,@"btn_jubao.png"];
+        self.titleArr = @[coll,@"字体大小",mod,@"举报"];
         
         
         [self setupWithViewShadow];
@@ -83,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 5;
+    return 4;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,7 +106,7 @@
     /* 取消选中状态 */
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.row == 3) {
+    if (indexPath.row == 2) {
         
         if ([cell.textLabel.text isEqualToString:@"日间模式"]) {
             cell.imageView.image = [UIImage imageNamed:@"btn_yejian@3x.png"];
@@ -127,7 +127,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.frame.size.height/5;
+    return self.frame.size.height/4;
 }
 
 @end

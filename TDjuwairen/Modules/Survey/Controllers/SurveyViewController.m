@@ -76,6 +76,8 @@
     
     [self requestDataWithSurveyList];//请求调研列表数据
     
+    [self setupWithNavigation];
+    
     [self setupWithTableView];       //设置tableview
     
     [self addRefreshView];           //设置刷新
@@ -202,6 +204,12 @@
         }
     }];
 }
+#pragma mark - navigation
+- (void)setupWithNavigation{
+    self.NavigationView = [[SurveyNavigationView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    [self.NavigationView.searchButton addTarget:self action:@selector(clickSearchButton:) forControlEvents:UIControlEventTouchUpInside];
+    [self.view addSubview:self.NavigationView];  //自定义导航栏放在页面最上层
+}
 
 #pragma mark - 设置tableview
 - (void)setupWithTableView{
@@ -210,15 +218,11 @@
     self.tableview.dataSource = self;
     self.tableview.showsVerticalScrollIndicator = NO;
     
-    
-//    FIXME: @fql 自定义nav单独放到一个方法在添加，在UICommon方法中调用，没一个独立的试图创建和设置，都单独创建一个方法
-    self.NavigationView = [[SurveyNavigationView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    [self.NavigationView.searchButton addTarget:self action:@selector(ClickSearchButton:) forControlEvents:UIControlEventTouchUpInside];
     //取消分割线
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableview registerClass:[NewTableViewCell class] forCellReuseIdentifier:@"newcell"];
     
     [self.view addSubview:self.tableview];//先添加tableview
-    [self.view addSubview:self.NavigationView];  //自定义导航栏放在页面最上层
     
     //设置tableheadview无限轮播
     [self setupWithTableHeaderView];
@@ -269,11 +273,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-//    [tableView registerNib:[UINib nibWithNibName:@"NewTableViewCell" bundle:nil] forCellReuseIdentifier:@"newcell"];
-    NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell"];
-    if (cell == nil) {
-        cell = [[NewTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"newcell"];
-    }
+    NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell" forIndexPath:indexPath] ;
+
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
     
     [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
@@ -281,7 +282,6 @@
     cell.nickname.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,model.sharp_wtime];
     
     NSString *text = model.sharp_title;
-    
     UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
     cell.titleLabel.font = font;
     cell.titleLabel.numberOfLines = 0;
@@ -313,8 +313,7 @@
 }
 
 #pragma mark - 点击搜索
-// FIXME: 方法名和变量命名首字母小写
-- (void)ClickSearchButton:(UIButton *)sender{
+- (void)clickSearchButton:(UIButton *)sender{
     SearchViewController *searchView = [[SearchViewController alloc] init];
     searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
     [self.navigationController pushViewController:searchView animated:YES];
