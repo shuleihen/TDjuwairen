@@ -274,14 +274,17 @@
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
     [cell setupSurveyListModel:model];
 
-    cell.nameLabel.textColor = self.daynightmodel.titleColor;
-    cell.titleLabel.textColor = self.daynightmodel.textColor;
-    cell.detailLabel.textColor = self.daynightmodel.titleColor;
-    cell.backgroundColor = self.daynightmodel.navigationColor;
-
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+ 
+    SurveyListCell *tcell = (SurveyListCell *)cell;
+    tcell.nameLabel.textColor = self.daynightmodel.titleColor;
+    tcell.titleLabel.textColor = self.daynightmodel.textColor;
+    tcell.detailLabel.textColor = self.daynightmodel.titleColor;
+    tcell.backgroundColor = self.daynightmodel.navigationColor;
+}
 
 #pragma mark - 点击搜索
 - (void)clickSearchButton:(UIButton *)sender{

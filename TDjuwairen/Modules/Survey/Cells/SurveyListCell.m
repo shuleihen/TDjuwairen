@@ -8,6 +8,7 @@
 
 #import "SurveyListCell.h"
 #import "UIImageView+WebCache.h"
+#import "UIImage+Resize.h"
 
 @implementation SurveyListCell
 
@@ -32,10 +33,31 @@
 
 - (void)setupSurveyListModel:(SurveyListModel *)model {
     [self.userAvatar sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+    
     self.nameLabel.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,model.sharp_wtime];
     
     self.titleLabel.text = model.sharp_title;
     self.detailLabel.text = model.sharp_desc;
-    [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
+
+    [self.thumbImageView sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl] placeholderImage:nil options:SDWebImageCacheMemoryOnly completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+        NSString *key = [SDWebImageManager.sharedManager cacheKeyForURL:imageURL];
+        
+        if ([SDWebImageManager.sharedManager.imageCache diskImageExistsWithKey:key]) {
+//            NSLog(@"Img key = %@ already save in disk",key);
+            self.userAvatar.image = image;
+        } else {
+//            NSLog(@"Img key = %@ resize to 90*90 and save to disk",key);
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                UIImage *img = [image resize:CGSizeMake(90, 90)];
+                NSString *key = [SDWebImageManager.sharedManager cacheKeyForURL:imageURL];
+                [SDWebImageManager.sharedManager.imageCache storeImage:img forKey:key];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    self.userAvatar.image = img;
+                });
+            });
+        }
+    }];
+
 }
 @end
