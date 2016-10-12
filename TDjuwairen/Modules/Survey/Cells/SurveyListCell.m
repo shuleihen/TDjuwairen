@@ -17,8 +17,8 @@
     // Initialization code
     self.userAvatar.layer.cornerRadius = 25.0/2;
     self.userAvatar.clipsToBounds = YES;
-    self.titleLabel.preferredMaxLayoutWidth = kScreenWidth - 15 - 8 - 90 -8;
-    self.detailLabel.preferredMaxLayoutWidth = kScreenWidth - 15 - 8 - 90 -8;
+    self.titleLabel.font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
+    self.thumbImageView.frame = CGRectMake(kScreenWidth-8-90, 55, 90, 90);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,9 +31,15 @@
     [super updateConstraints];
 }
 
++ (CGFloat)heightWithModel:(SurveyListModel *)model {
+    CGSize titleSize = [model.sharp_title boundingRectWithSize:CGSizeMake(kScreenWidth - 15 - 8 - 90 -8, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:18]} context:nil].size;
+//    CGSize detailSize = [model.sharp_desc boundingRectWithSize:CGSizeMake(kScreenWidth - 15 - 8 - 90 -8, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    
+    return 55+titleSize.height + 10 + 55 +15;
+}
+
 - (void)setupSurveyListModel:(SurveyListModel *)model {
     [self.userAvatar sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-    
     self.nameLabel.text = [NSString stringWithFormat:@"%@ · %@",model.user_nickname,model.sharp_wtime];
     
     self.titleLabel.text = model.sharp_title;
@@ -59,5 +65,10 @@
         }
     }];
 
+    CGSize titleSize = [model.sharp_title boundingRectWithSize:CGSizeMake(kScreenWidth - 15 - 8 - 90 -8, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-Bold" size:18]} context:nil].size;
+//    CGSize detailSize = [model.sharp_desc boundingRectWithSize:CGSizeMake(kScreenWidth - 15 - 8 - 90 -8, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14]} context:nil].size;
+    
+    self.titleLabel.frame = CGRectMake(15, 55, kScreenWidth - 15 - 8 - 90 -8, titleSize.height);
+    self.detailLabel.frame = CGRectMake(15, 55 + titleSize.height +10, kScreenWidth - 15 - 8 - 90 -8, 55);
 }
 @end

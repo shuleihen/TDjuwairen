@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *detailLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *thumbImageView;
 
++ (CGFloat)heightWithModel:(SurveyListModel *)model;
 - (void)setupSurveyListModel:(SurveyListModel *)model;
 @end

@@ -15,7 +15,7 @@
     UIGraphicsBeginImageContextWithOptions(size, YES, [UIScreen mainScreen].scale);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
     image = UIGraphicsGetImageFromCurrentImageContext();
-    
+    UIGraphicsEndImageContext();
     return image;
 }
 @end

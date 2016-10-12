@@ -218,7 +218,7 @@
     UINib *nib = [UINib nibWithNibName:@"SurveyListCell" bundle:nil];
     [self.tableview registerNib:nib forCellReuseIdentifier:@"SurveyListCellID"];
     self.tableview.estimatedRowHeight = 160;
-    self.tableview.rowHeight = UITableViewAutomaticDimension;
+//    self.tableview.rowHeight = UITableViewAutomaticDimension;
     [self.view addSubview:self.tableview];//先添加tableview
     
     //设置tableheadview无限轮播
@@ -268,8 +268,12 @@
     return self.surveyListDataArray.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+    return [SurveyListCell heightWithModel:model];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveyListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveyListCellID"];
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
     [cell setupSurveyListModel:model];
