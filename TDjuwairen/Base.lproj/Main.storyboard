@@ -33,7 +33,7 @@
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -52,7 +52,7 @@
                     <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -90,7 +90,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -147,7 +147,7 @@
                     <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -359,68 +359,16 @@
                     <view key="view" contentMode="scaleToFill" id="iYe-E2-VP4">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="1" sectionFooterHeight="1" translatesAutoresizingMaskIntoConstraints="NO" id="opk-hF-2Bo">
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                            </tableView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ads-7P-gDi">
-                                <subviews>
-                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="enN-Qv-18K">
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <textInputTraits key="textInputTraits" returnKeyType="send"/>
-                                    </textField>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h9p-1i-tJW">
-                                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="62" id="F5m-FL-2MU"/>
-                                            <constraint firstAttribute="height" constant="30" id="U1d-dD-hSR"/>
-                                        </constraints>
-                                        <state key="normal" backgroundImage="send-notext">
-                                            <color key="titleColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="SendBtn:" destination="agb-e8-u6D" eventType="touchUpInside" id="R36-Gi-pRB"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                                <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstItem="enN-Qv-18K" firstAttribute="leading" secondItem="Ads-7P-gDi" secondAttribute="leading" constant="8" id="4yl-hK-auC"/>
-                                    <constraint firstAttribute="height" constant="46" id="7DM-c1-d8B"/>
-                                    <constraint firstItem="h9p-1i-tJW" firstAttribute="top" secondItem="Ads-7P-gDi" secondAttribute="top" constant="8" id="QlA-Uq-yaq"/>
-                                    <constraint firstAttribute="bottom" secondItem="enN-Qv-18K" secondAttribute="bottom" constant="8" id="fhE-rY-0Rl"/>
-                                    <constraint firstItem="enN-Qv-18K" firstAttribute="top" secondItem="Ads-7P-gDi" secondAttribute="top" constant="8" id="hKg-Uh-Iqq"/>
-                                    <constraint firstItem="h9p-1i-tJW" firstAttribute="leading" secondItem="enN-Qv-18K" secondAttribute="trailing" constant="5" id="jwY-KV-uQP"/>
-                                    <constraint firstAttribute="trailing" secondItem="h9p-1i-tJW" secondAttribute="trailing" constant="3" id="t6D-5M-eRa"/>
-                                </constraints>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstAttribute="trailing" secondItem="Ads-7P-gDi" secondAttribute="trailing" id="LUI-7B-lw3"/>
-                            <constraint firstItem="opk-hF-2Bo" firstAttribute="leading" secondItem="iYe-E2-VP4" secondAttribute="leading" id="RfO-4F-Cws"/>
-                            <constraint firstAttribute="trailing" secondItem="opk-hF-2Bo" secondAttribute="trailing" id="Yuh-Gn-F4I"/>
-                            <constraint firstItem="o57-7T-Bcu" firstAttribute="top" secondItem="Ads-7P-gDi" secondAttribute="bottom" id="j0Y-8n-DCF"/>
-                            <constraint firstItem="Ads-7P-gDi" firstAttribute="top" secondItem="opk-hF-2Bo" secondAttribute="bottom" id="jeC-Ph-qrv"/>
-                            <constraint firstItem="opk-hF-2Bo" firstAttribute="top" secondItem="iYe-E2-VP4" secondAttribute="top" id="njU-hD-ZNT"/>
-                            <constraint firstItem="Ads-7P-gDi" firstAttribute="leading" secondItem="iYe-E2-VP4" secondAttribute="leading" id="uMj-9e-05r"/>
-                        </constraints>
                     </view>
-                    <connections>
-                        <outlet property="SendBtn" destination="h9p-1i-tJW" id="Ssr-il-0Sq"/>
-                        <outlet property="backView" destination="Ads-7P-gDi" id="Xce-dI-dyQ"/>
-                        <outlet property="contentTextField" destination="enN-Qv-18K" id="3zH-99-G32"/>
-                        <outlet property="tableview" destination="opk-hF-2Bo" id="BMY-Ud-ByK"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QXN-sE-RVh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2387" y="-1056"/>
+            <point key="canvasLocation" x="-2098" y="-1057"/>
         </scene>
     </scenes>
     <resources>
         <image name="logo.png" width="200" height="70"/>
-        <image name="send-notext" width="20" height="20"/>
         <image name="tab_survey_normal" width="20" height="20"/>
         <image name="tab_survey_selected" width="20" height="20"/>
         <image name="tab_users_normal" width="20" height="20"/>

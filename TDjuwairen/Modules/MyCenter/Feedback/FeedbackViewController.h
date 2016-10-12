@@ -9,10 +9,9 @@
 #import <UIKit/UIKit.h>
 
 @interface FeedbackViewController : UIViewController
-@property (weak, nonatomic) IBOutlet UIView *backView;
-@property (weak, nonatomic) IBOutlet UITextField *contentTextField;
-- (IBAction)SendBtn:(UIButton *)sender;
-@property (weak, nonatomic) IBOutlet UIButton *SendBtn;
+@property (nonatomic,strong) UIView *backView;
+@property (nonatomic,strong) UITextField *contentTextField;
+@property (nonatomic,strong) UIButton *SendBtn;
 @property (nonatomic,copy)NSString *str;
 
 @end

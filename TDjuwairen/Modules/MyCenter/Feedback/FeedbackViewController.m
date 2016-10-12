@@ -15,7 +15,7 @@
 
 @interface FeedbackViewController ()<UITableViewDelegate,UITableViewDataSource,UITextFieldDelegate>
 
-@property (weak, nonatomic) IBOutlet UITableView *tableview;
+@property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) LoginState *loginState;
 @property (nonatomic,strong) NSMutableArray *dataArray;
@@ -28,21 +28,23 @@
     
     [super viewDidLoad];
     
-    self.tableview.delegate=self;
-    self.tableview.dataSource=self;
-    self.contentTextField.delegate=self;
     self.cellheight = 80;
     
     self.loginState = [LoginState sharedInstance];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
+    [self setupWithNavigation];
+    [self setupWithTableView];
+    [self setupWithFeedbackView];
+    
+    [self requestFeedbackAuthentication];
+    
     [self registerForKeyboardNotifications];
     
-    [self setupWithNavigation];
 //    收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
-    [self.view addGestureRecognizer:tap];
+    [self.tableview addGestureRecognizer:tap];
     
     //监听contentTextField内容的改变
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(content) name:UITextFieldTextDidChangeNotification object:nil];
@@ -51,6 +53,29 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"意见反馈";
+}
+
+- (void)setupWithTableView{
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-46) style:UITableViewStylePlain];
+    self.tableview.delegate=self;
+    self.tableview.dataSource=self;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.view addSubview:self.tableview];
+}
+
+- (void)setupWithFeedbackView{
+    self.backView = [[UIView alloc]initWithFrame:CGRectMake(0, kScreenHeight-64-46, kScreenWidth, 46)];
+    self.contentTextField = [[UITextField alloc]initWithFrame:CGRectMake(8, 8, kScreenWidth-24-60, 30)];
+    self.contentTextField.delegate = self;
+    self.contentTextField.borderStyle = UITextBorderStyleRoundedRect;
+    
+    self.SendBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-60, 8, 60, 30)];
+    [self.SendBtn addTarget:self action:@selector(clickSend:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [self.backView addSubview:self.contentTextField];
+    [self.backView addSubview:self.SendBtn];
+    [self.view addSubview:self.backView];
+    
 }
 
 - (void)registerForKeyboardNotifications{
@@ -141,7 +166,18 @@
     }
     else
     {
-        [self requestFeedbackAuthentication];
+        [self requestFeedback];
+    }
+}
+
+- (void)clickSend:(UIButton *)sender{
+    if ([self.contentTextField.text isEqualToString:@""]) {
+        
+    }
+    else
+    {
+        [self.contentTextField resignFirstResponder];
+        [self requestFeedback];
     }
 }
 
@@ -154,8 +190,7 @@
     [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary*dic = data;
-            self.str=dic[@"str"];
-            [self requestFeedback];
+            self.str = dic[@"str"];
         } else {
             
         }
@@ -165,7 +200,7 @@
 //发送反馈意见
 -(void)requestFeedback
 {
-    NetworkManager *manager = [[NetworkManager alloc] init];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary*para = @{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
                          @"userid":US.userId,
@@ -183,10 +218,9 @@
 
 -(void)requestInfo
 {
-    self.dataArray = [[NSMutableArray alloc]initWithCapacity:0];
+    self.dataArray = [[NSMutableArray alloc]init];
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    NSLog(@"%@",US.userId);
     NSDictionary *paras = @{@"user_id":US.userId};
     
     [manager POST:API_GetUserFeedbackList parameters:paras completion:^(id data, NSError *error){
@@ -212,14 +246,16 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.dataArray.count > 0) {
-        NSDictionary*dic = self.dataArray[indexPath.row];
+        NSDictionary *dic = self.dataArray[indexPath.row];
         NSString *identifier = @"cell";
         ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
             cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
         }
+        cell.contentLab.text = dic[@"feedback_content"];
         self.cellheight = cell.viewheight;
         
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else
