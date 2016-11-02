@@ -236,7 +236,7 @@
 
 - (void)setupWithNavigation{
     self.title = @"观点";
-
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
     UIButton *publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [publish setImage:[UIImage imageNamed:@"nav_publish.png"] forState:UIControlStateNormal];
     [publish addTarget:self action:@selector(GoPublish:) forControlEvents:UIControlEventTouchUpInside];

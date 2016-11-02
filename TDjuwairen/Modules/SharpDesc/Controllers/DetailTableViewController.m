@@ -353,7 +353,7 @@
                 
                 [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
                 cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
-                cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.viewComDataArr.count-(int)indexPath.row];
+                cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.viewComDataArr.count-(int)indexPath.row+1];
                 cell.commentLab.text = model.viewcomment;
                 
                 

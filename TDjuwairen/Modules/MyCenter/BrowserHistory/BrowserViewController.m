@@ -66,6 +66,10 @@
     
     self.navigationItem.rightBarButtonItem = self.editItem;
     edit = NO;
+    
+    //设置navigation背景色
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 - (void)setupWithTableView{

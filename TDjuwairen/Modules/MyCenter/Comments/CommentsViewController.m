@@ -60,6 +60,10 @@
 {
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"评论管理";
+    
+    //设置navigation背景色
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 #pragma mark - 设置分类滑动条

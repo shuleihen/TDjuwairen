@@ -22,7 +22,7 @@
 
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
-#import "BrowserViewController.h"
+#import "MyWalletViewController.h"
 #import "MyAttentionViewController.h"
 
 #import "UIdaynightModel.h"
@@ -54,7 +54,7 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -1, kScreenWidth, kScreenHeight-44) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, -1, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -87,6 +87,7 @@
             MyHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
                 cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                [cell.backBtn addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
             }
             if (US.isLogIn==YES) {
                 //加载头像
@@ -347,6 +348,17 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - 回跳
+- (void)clickBack:(UIButton *)sender{
+    CATransition* transition = [CATransition animation];
+    transition.duration = 0.5;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionPush; //方式
+    transition.subtype = kCATransitionFromRight; //方向
+    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
 #pragma mark - 跳转到评论管理
 - (void)GoComment:(UIButton *)sender{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
@@ -378,7 +390,7 @@
         [self.navigationController pushViewController:MyAttention animated:YES];
     }
 }
-#pragma mark - 跳转到浏览记录
+#pragma mark - 跳转到我的钱包
 - (void)GoBrowse:(UIButton *)serder{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
@@ -386,11 +398,11 @@
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }
-    else//登录后 跳转浏览记录页面
+    else//登录后 跳转我的钱包
     {
-        BrowserViewController *browser = [[BrowserViewController alloc] init];
-        browser.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:browser animated:YES];
+        MyWalletViewController *myWallet = [[MyWalletViewController alloc] init];
+        myWallet.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:myWallet animated:YES];
     }
 }
 

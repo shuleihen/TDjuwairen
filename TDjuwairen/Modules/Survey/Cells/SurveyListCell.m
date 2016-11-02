@@ -50,7 +50,7 @@
         
         if ([SDWebImageManager.sharedManager.imageCache diskImageExistsWithKey:key]) {
 //            NSLog(@"Img key = %@ already save in disk",key);
-            self.userAvatar.image = image;
+            self.thumbImageView.image = image;
         } else {
 //            NSLog(@"Img key = %@ resize to 90*90 and save to disk",key);
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
@@ -59,7 +59,7 @@
                 [SDWebImageManager.sharedManager.imageCache storeImage:img forKey:key];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    self.userAvatar.image = img;
+                    self.thumbImageView.image = img;
                 });
             });
         }

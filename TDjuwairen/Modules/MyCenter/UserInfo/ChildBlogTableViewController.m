@@ -316,7 +316,7 @@
             
             [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
             cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
-            cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.userCommentArray.count-(int)indexPath.row];
+            cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.userCommentArray.count-(int)indexPath.row+1];
             cell.commentLab.text = model.viewcomment;
             
             [cell.originalLab setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+15, kScreenWidth-30, 40)];

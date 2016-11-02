@@ -89,13 +89,15 @@ static BOOL isBackGroundActivateApplication;
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-}
-
-#pragma mark - 程序终止时
-- (void)applicationWillTerminate:(UIApplication *)application {
+    //角标清0
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
     [center removeAllDeliveredNotifications];       //清空已展示的通知
+    
+}
+
+- (void)applicationWillTerminate:(UIApplication *)application {
+    
 }
 
 - (void)setupUICommon

@@ -86,12 +86,6 @@
                  @"page":[NSString stringWithFormat:@"%d",self.page]
                  };
     }
-    else if (typeID == 1){
-        para = @{@"user_id":US.userId,
-                 @"type":@"verifystatus0",
-                 @"page":[NSString stringWithFormat:@"%d",self.page]
-                 };
-    }
     else
     {
         para = @{@"user_id":US.userId,

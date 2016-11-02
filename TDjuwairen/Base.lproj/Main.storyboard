@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -33,7 +33,7 @@
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -43,7 +43,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="SR0-1i-xKe" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5368" y="-1089"/>
+            <point key="canvasLocation" x="-5830" y="-1090"/>
         </scene>
         <!--观点-->
         <scene sceneID="ixo-pe-ecZ">
@@ -52,7 +52,7 @@
                     <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -62,7 +62,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Cz4-4P-2Fh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4949" y="-1089"/>
+            <point key="canvasLocation" x="-5129" y="-1090"/>
         </scene>
         <!--View Point View Controller-->
         <scene sceneID="D8J-O9-1d0">
@@ -81,7 +81,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Tc-Hd-QPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4949" y="-419"/>
+            <point key="canvasLocation" x="-5130" y="-420"/>
         </scene>
         <!--视频-->
         <scene sceneID="pYs-3V-bMJ">
@@ -90,7 +90,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bgV-I3-yrm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -100,7 +100,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFP-fM-fkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4544" y="-1089"/>
+            <point key="canvasLocation" x="-4471" y="-1091"/>
         </scene>
         <!--Video View Controller-->
         <scene sceneID="f4H-0B-gUx">
@@ -119,12 +119,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHu-13-2iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4544" y="-419"/>
+            <point key="canvasLocation" x="-4471" y="-421"/>
         </scene>
-        <!--Survey View Controller-->
+        <!--Survey List View Controller-->
         <scene sceneID="xI0-sp-s8P">
             <objects>
-                <viewController storyboardIdentifier="Survey" id="W7c-UX-fFd" customClass="SurveyViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Survey" id="W7c-UX-fFd" customClass="SurveyListViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="UJW-ih-acr"/>
                         <viewControllerLayoutGuide type="bottom" id="Tsi-Cc-HiJ"/>
@@ -138,7 +138,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="D9k-yM-DvC" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5368" y="-413"/>
+            <point key="canvasLocation" x="-5831" y="-420"/>
         </scene>
         <!--我的-->
         <scene sceneID="2Pf-WV-e9N">
@@ -147,7 +147,7 @@
                     <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -157,7 +157,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5d-0t-v43" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4158" y="-1089"/>
+            <point key="canvasLocation" x="-3788" y="-1092"/>
         </scene>
         <!--Personal Center View Controller-->
         <scene sceneID="qrJ-Kp-8qb">
@@ -176,7 +176,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8t-xL-Fla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4158" y="-419"/>
+            <point key="canvasLocation" x="-3788" y="-421"/>
         </scene>
         <!--About View Controller-->
         <scene sceneID="J47-ma-1Ru">
@@ -368,7 +368,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="logo.png" width="200" height="70"/>
+        <image name="logo.png" width="20" height="20"/>
         <image name="tab_survey_normal" width="20" height="20"/>
         <image name="tab_survey_selected" width="20" height="20"/>
         <image name="tab_users_normal" width="20" height="20"/>

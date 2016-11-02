@@ -437,7 +437,18 @@
             [self setupWithWebView];
             [self setupWithTagsView];
             
-            NSString *string = [NSString stringWithFormat:@"%@%@",API_HOST,self.sharpInfo.sharpContent];
+            NSString *string;
+            
+            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+            NSString *daynight = [userdefault objectForKey:@"daynight"];
+            if ([daynight isEqualToString:@"yes"]) {
+                string = [NSString stringWithFormat:@"%@%@/mode/0",API_HOST,self.sharpInfo.sharpContent];
+            }
+            else
+            {
+                string = [NSString stringWithFormat:@"%@%@/mode/1",API_HOST,self.sharpInfo.sharpContent];
+            }
+            
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]];
             
         } else {
@@ -476,7 +487,18 @@
             [self setupWithWebView];
             [self setupWithTagsView];
             
-            NSString *string = [NSString stringWithFormat:@"%@%@",API_HOST,self.viewInfo.view_content_url];
+            NSString *string;
+            
+            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+            NSString *daynight = [userdefault objectForKey:@"daynight"];
+            if ([daynight isEqualToString:@"yes"]) {
+                string = [NSString stringWithFormat:@"%@%@/mode/0",API_HOST,self.viewInfo.view_content_url];
+            }
+            else
+            {
+                string = [NSString stringWithFormat:@"%@%@/mode/1",API_HOST,self.viewInfo.view_content_url];
+            }
+            
             [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:string]]];
             
         }
@@ -525,42 +547,6 @@
     [webView evaluateJavaScript:jsZiti completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         //
     }];
-    
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
-        
-        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
-        var pNode=document.getElementsByTagName('p');\
-        for(var i=0;i<pNode.length;i++){\
-        pNode[i].style.backgroundColor='white';\
-        }";
-        
-        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-    }
-    else
-    {
-        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
-        
-        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
-        var pNode=document.getElementsByTagName('p');\
-        for(var i=0;i<pNode.length;i++){\
-        pNode[i].style.backgroundColor='#222222';\
-        }";
-        
-        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-    }
     
     __weak DetailPageViewController *wself = self;
     [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
@@ -943,7 +929,6 @@
 - (BOOL)textFieldShouldBeginEditing:(UITextField *)textField
 {
     if (!US.isLogIn) {
-        [self.backcommentview removeFromSuperview];
         [self gotLoginViewController];
         return NO;
     }

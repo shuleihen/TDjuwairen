@@ -285,8 +285,11 @@
  
     SurveyListCell *tcell = (SurveyListCell *)cell;
     tcell.nameLabel.textColor = self.daynightmodel.titleColor;
+    tcell.nameLabel.backgroundColor = self.daynightmodel.navigationColor;
     tcell.titleLabel.textColor = self.daynightmodel.textColor;
+    tcell.titleLabel.backgroundColor = self.daynightmodel.navigationColor;
     tcell.detailLabel.textColor = self.daynightmodel.titleColor;
+    tcell.detailLabel.backgroundColor = self.daynightmodel.navigationColor;
     tcell.backgroundColor = self.daynightmodel.navigationColor;
 }
 
