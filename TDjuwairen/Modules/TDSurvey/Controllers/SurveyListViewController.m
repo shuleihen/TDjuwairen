@@ -8,17 +8,25 @@
 
 #import "SurveyListViewController.h"
 #import "SurveyListNavView.h"
+#import "SurveyListTableViewCell.h"
 #import "PersonalCenterViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 
+#import "SDCycleScrollView.h"
 #import "UIButton+WebCache.h"
+#import "NetworkManager.h"
 
-@interface SurveyListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SurveyListViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
     CGFloat _scalef;  //实时横向位移
 }
+
+@property (nonatomic,strong) NSMutableArray *scrollImageArray;  //轮播图片数据
+@property (nonatomic,strong) NSMutableArray *scrollTitleArray;  //轮播标题数据
+@property (nonatomic,strong) NSMutableArray *scrollIDArray;   //轮播链接数据
+
 @property (nonatomic,assign) CGFloat speedf;
 
 @property (nonatomic,strong) SurveyListNavView *naviView;
@@ -38,6 +46,15 @@
     self.speedf = 0.5;
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightmodel day];
+    }
+    else
+    {
+        [self.daynightmodel night];
+    }
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -66,7 +83,46 @@
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-48) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
+    self.tableview.backgroundColor = self.daynightmodel.backColor;
+    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableview.estimatedRowHeight = 180;
+    self.tableview.rowHeight = UITableViewAutomaticDimension;
+    [self.tableview registerClass:[SurveyListTableViewCell class] forCellReuseIdentifier:@"listCell"];
     [self.view addSubview:self.tableview];
+    
+    //设置tableheadview无限轮播
+    [self setupWithTableHeaderView];
+}
+
+#pragma mark - 设置tableHeaderView无限轮播
+- (void)setupWithTableHeaderView{
+    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth/5*2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
+    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;//page样式
+    cycleScrollView.titlesGroup = self.scrollTitleArray;
+    cycleScrollView.imageURLStringsGroup = self.scrollImageArray;
+    self.tableview.tableHeaderView = cycleScrollView;
+    
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_GetBanner parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            self.scrollImageArray = [NSMutableArray array];
+            self.scrollTitleArray = [NSMutableArray array];
+            self.scrollIDArray = [NSMutableArray array];
+            NSArray *dataArr = data;
+            for (NSDictionary *d in dataArr) {
+                [self.scrollImageArray addObject:d[@"ad_imgurl"]];
+                [self.scrollTitleArray addObject:d[@"ad_title"]];
+                [self.scrollIDArray addObject:d[@"ad_link"]];
+            }
+            
+            [self.tableview reloadData];//页面刷新
+            cycleScrollView.titlesGroup = self.scrollTitleArray;//设置轮播图片的标题
+            cycleScrollView.imageURLStringsGroup = self.scrollImageArray;//设置轮播图片
+        } else {
+            
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -81,14 +137,12 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *identifier = @"cell";
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
-    cell.textLabel.text = @"哔哩哔哩";
+    SurveyListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listCell" forIndexPath:indexPath];
+    cell.backgroundColor = self.daynightmodel.backColor;
+    cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
     return cell;
 }
+
 #pragma mark - 点击头像
 - (void)clickHeadImg:(UIButton *)sender{
     CATransition* transition = [CATransition animation];
