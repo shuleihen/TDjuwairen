@@ -9,7 +9,6 @@
 #import "ForgetViewController.h"
 #import "LoginState.h"
 #import "NetworkManager.h"
-#import "AFNetworking.h"
 #import "MBProgressHUD.h"
 #import "UIStoryboard+MainStoryboard.h"
 #import "UIdaynightModel.h"

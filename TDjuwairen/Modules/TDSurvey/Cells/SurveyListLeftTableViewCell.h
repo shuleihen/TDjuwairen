@@ -1,14 +1,14 @@
 //
-//  SurveyListTableViewCell.h
+//  SurveyListLeftTableViewCell.h
 //  TDjuwairen
 //
-//  Created by 团大 on 16/10/17.
+//  Created by 团大 on 2016/11/3.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface SurveyListTableViewCell : UITableViewCell
+@interface SurveyListLeftTableViewCell : UITableViewCell
 
 @property (nonatomic,strong) UIView *bgView;
 

@@ -19,7 +19,6 @@
 #import "UIdaynightModel.h"
 
 #import "BPush.h"
-#import "AFNetworking.h"
 
 @interface LoginViewController ()
 

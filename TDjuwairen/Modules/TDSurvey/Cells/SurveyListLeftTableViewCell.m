@@ -1,8 +1,8 @@
 //
-//  SurveyListTableViewCell.m
+//  SurveyListLeftTableViewCell.m
 //  TDjuwairen
 //
-//  Created by 团大 on 16/10/17.
+//  Created by 团大 on 2016/11/3.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 // 只要添加了这个宏，就不用带mas_前缀
@@ -10,12 +10,12 @@
 // 只要添加了这个宏，equalTo就等价于mas_equalTo
 #define MAS_SHORTHAND_GLOBALS
 
-#import "SurveyListTableViewCell.h"
+#import "SurveyListLeftTableViewCell.h"
 
 #import "Masonry.h"
 #import "NSString+Ext.h"
 
-@implementation SurveyListTableViewCell
+@implementation SurveyListLeftTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -74,16 +74,23 @@
             make.bottom.equalTo(self).with.offset(-15);
         }];
         
-        [self.stockName makeConstraints:^(MASConstraintMaker *make) {
+        [self.stockImg makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.bgView).with.offset(15);
             make.left.equalTo(self.bgView).with.offset(15);
+            make.width.equalTo(100);
+            make.height.equalTo(70);
+        }];
+        
+        [self.stockName makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.bgView).with.offset(15);
+            make.left.equalTo(self.stockImg).with.offset(15+100);
             make.width.equalTo(kScreenWidth-30-100-15);
             make.height.equalTo(30);
         }];
         
         [self.stockDate1 makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.stockName).with.offset(8+30);
-            make.left.equalTo(self.bgView).with.offset(15);
+            make.left.equalTo(self.stockImg).with.offset(15+100);
             make.width.equalTo(60);
             make.height.equalTo(30);
         }];
@@ -100,13 +107,6 @@
             make.left.equalTo(self.stockDate2).with.offset(15+60);
             make.width.equalTo(60);
             make.height.equalTo(15);
-        }];
-        
-        [self.stockImg makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self.bgView).with.offset(15);
-            make.right.equalTo(self.bgView).with.offset(-15);
-            make.width.equalTo(100);
-            make.height.equalTo(70);
         }];
         
         [self.line makeConstraints:^(MASConstraintMaker *make) {
