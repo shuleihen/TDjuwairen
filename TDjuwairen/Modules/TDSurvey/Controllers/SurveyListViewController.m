@@ -12,6 +12,7 @@
 #import "SurveyListLeftTableViewCell.h"
 #import "PersonalCenterViewController.h"
 
+#import "StockListModel.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 
@@ -21,6 +22,7 @@
 #import "AFNetworking.h"
 #import "NSString+Ext.h"
 #import "Masonry.h"
+#import "UIImageView+WebCache.h"
 
 @interface SurveyListViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
 {
@@ -42,6 +44,12 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 @property (nonatomic,strong) NSArray *textArr;
+
+@property (nonatomic,strong) NSMutableArray *stockListArr;
+
+@property (nonatomic,assign) int page;
+
+@property (nonatomic,strong) NSTimer *refTimer;
 @end
 
 @implementation SurveyListViewController
@@ -49,9 +57,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.speedf = 0.5;
-    
+    self.page = 1;
     self.textArr = [NSArray arrayWithObjects:@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020",@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020",@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020", nil];
     
+    self.stockListArr = [NSMutableArray array];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -64,8 +73,12 @@
     }
     
     [self setupWithNavigation];
+    
     [self setupWithTableView];
 
+    [self requestWithList];
+    
+    [self setupWithTimer];
     // Do any additional setup after loading the view.
 }
 
@@ -100,6 +113,46 @@
     
     //设置tableheadview无限轮播
     [self setupWithTableHeaderView];
+}
+
+- (void)requestWithList{
+    //这里也可以用这个接口。但是得到的是JS类型的数据，解析半天没弄出来 - - ！
+//    NSString *listStr = [self.textArr componentsJoinedByString:@","];
+//    NSString *s = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",listStr];
+    NSString *str = @"http://192.168.1.105/Appapi/Survey/lists/1";
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    [manager GET:str parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
+        nil;
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSArray *dataArr = responseObject[@"data"];
+        if (self.page > 1) {
+            for (NSDictionary *d in dataArr) {
+                StockListModel *model = [StockListModel getInstanceWithDictionary:d];
+                [self.stockListArr addObject:model];
+            }
+        }
+        else
+        {
+            [self.stockListArr removeAllObjects];
+            for (NSDictionary *d in dataArr) {
+                StockListModel *model = [StockListModel getInstanceWithDictionary:d];
+                [self.stockListArr addObject:model];
+            }
+        }
+        [self.tableview reloadData];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+}
+
+- (void)setupWithTimer{
+    self.refTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
+}
+
+- (void)refresh{
+    NSLog(@"1");
+    [self.tableview reloadData];
 }
 
 #pragma mark - 设置tableHeaderView无限轮播
@@ -140,15 +193,16 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.textArr.count;
+    return self.stockListArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    StockListModel *model = self.stockListArr[indexPath.row];
     if (indexPath.row %2 != 1) {
         SurveyListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listRightCell" forIndexPath:indexPath];
-        NSString *git = self.textArr[indexPath.row];
-        NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",git];
+        NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",model.company_code];
+        NSLog(@"%@",http);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
         [manager GET:http parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -159,7 +213,17 @@
             if (result.count > 0) {
                 NSDictionary *diction = result[0];
                 NSDictionary *data = diction[@"data"];
-                cell.stockName.text = [NSString stringWithFormat:@"%@(%@)",data[@"name"],data[@"gid"]];
+                if ([data[@"increPer"] floatValue] > 0) {
+                    cell.stockDate1.textColor = [UIColor redColor];
+                    cell.stockDate2.textColor = [UIColor redColor];
+                    cell.stockDate3.textColor = [UIColor redColor];
+                }
+                else
+                {
+                    cell.stockDate1.textColor = [UIColor greenColor];
+                    cell.stockDate2.textColor = [UIColor greenColor];
+                    cell.stockDate3.textColor = [UIColor greenColor];
+                }
                 
                 NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"yestodEndPri"] floatValue]];
                 CGSize d1Size = [date1 calculateSize:CGSizeMake(100, 100) font:[UIFont boldSystemFontOfSize:24]];
@@ -172,6 +236,8 @@
                 NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
                 CGSize d3Size = [date3 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
                 cell.stockDate3.text = date3;
+                
+                [cell.stockImg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
                 
                 [cell.stockDate1 mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.width.mas_equalTo(d1Size.width);
@@ -186,10 +252,11 @@
                     make.left.equalTo(cell.stockDate2).with.offset(8+d2Size.width);
                     make.width.mas_equalTo(d3Size.width);
                 }];
+                [task cancel];
             }
             else
             {
-                cell.stockName.text = @"错误";
+                cell.stockName.text = model.company_name;
                 cell.stockDate1.text = @"0.00";
                 cell.stockDate2.text = @"0.00%";
                 cell.stockDate3.text = @"0.00";
@@ -197,8 +264,10 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
+        cell.stockName.text = [NSString stringWithFormat:@"%@",model.company_name];
         cell.backgroundColor = self.daynightmodel.backColor;
         cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
+        [manager.operationQueue cancelAllOperations];
         return cell;
     }
     else
@@ -216,7 +285,17 @@
             if (result.count > 0) {
                 NSDictionary *diction = result[0];
                 NSDictionary *data = diction[@"data"];
-                cell.stockName.text = [NSString stringWithFormat:@"%@(%@)",data[@"name"],data[@"gid"]];
+                if ([data[@"increPer"] floatValue] > 0) {
+                    cell.stockDate1.textColor = [UIColor redColor];
+                    cell.stockDate2.textColor = [UIColor redColor];
+                    cell.stockDate3.textColor = [UIColor redColor];
+                }
+                else
+                {
+                    cell.stockDate1.textColor = [UIColor greenColor];
+                    cell.stockDate2.textColor = [UIColor greenColor];
+                    cell.stockDate3.textColor = [UIColor greenColor];
+                }
                 
                 NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"yestodEndPri"] floatValue]];
                 CGSize d1Size = [date1 calculateSize:CGSizeMake(100, 100) font:[UIFont boldSystemFontOfSize:24]];
@@ -229,6 +308,8 @@
                 NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
                 CGSize d3Size = [date3 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
                 cell.stockDate3.text = date3;
+                
+                [cell.stockImg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
                 
                 [cell.stockDate1 mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.width.mas_equalTo(d1Size.width);
@@ -243,10 +324,11 @@
                     make.left.equalTo(cell.stockDate2).with.offset(8+d2Size.width);
                     make.width.mas_equalTo(d3Size.width);
                 }];
+                [task cancel];
             }
             else
             {
-                cell.stockName.text = @"错误";
+                cell.stockName.text = model.company_name;
                 cell.stockDate1.text = @"0.00";
                 cell.stockDate2.text = @"0.00%";
                 cell.stockDate3.text = @"0.00";
@@ -254,8 +336,10 @@
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
+        cell.stockName.text = [NSString stringWithFormat:@"%@",model.company_name];
         cell.backgroundColor = self.daynightmodel.backColor;
         cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
+        [manager.operationQueue cancelAllOperations];
         return cell;
     }
 }
@@ -274,6 +358,23 @@
     [self.navigationController pushViewController:personal animated:YES];
 }
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    NSLog(@"2");
+    [self.refTimer setFireDate:[NSDate distantFuture]];
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    NSLog(@"3");
+    [self.refTimer setFireDate:[NSDate distantPast]];
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    NSLog(@"3");
+    [self.refTimer setFireDate:[NSDate distantPast]];;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

@@ -231,6 +231,7 @@
 		845CCBB81D4F32FC005ABD7B /* btn_lianjie@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */; };
 		845CCBBA1D4F330D005ABD7B /* btn_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB91D4F330D005ABD7B /* btn_img@3x.png */; };
 		845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */; };
+		846C07521DCC3383006BA871 /* StockListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C07511DCC3383006BA871 /* StockListModel.m */; };
 		8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488E42A1D90E2EC00888D07 /* libBPush.a */; };
 		8488E42D1D90E2EC00888D07 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8488E42B1D90E2EC00888D07 /* test.caf */; };
 		8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */; };
@@ -746,6 +747,8 @@
 		845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_lianjie@3x.png"; sourceTree = "<group>"; };
 		845CCBB91D4F330D005ABD7B /* btn_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_img@3x.png"; sourceTree = "<group>"; };
 		845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_biaoqian@3x.png"; sourceTree = "<group>"; };
+		846C07501DCC3383006BA871 /* StockListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockListModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.h; sourceTree = SOURCE_ROOT; };
+		846C07511DCC3383006BA871 /* StockListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockListModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.m; sourceTree = SOURCE_ROOT; };
 		8488E4291D90E2EC00888D07 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
 		8488E42A1D90E2EC00888D07 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		8488E42B1D90E2EC00888D07 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
@@ -1818,6 +1821,8 @@
 		84069EBF1DB4968500CB21DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				846C07501DCC3383006BA871 /* StockListModel.h */,
+				846C07511DCC3383006BA871 /* StockListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2666,6 +2671,7 @@
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
+				846C07521DCC3383006BA871 /* StockListModel.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,

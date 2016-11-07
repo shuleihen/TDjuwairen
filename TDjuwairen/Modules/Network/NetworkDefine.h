@@ -11,7 +11,7 @@
 
 #define API_HOST    @"http://appapi.juwairen.net/"
 
-#define kAPI_bendi @"http://192.168.1.107/tuanda_web/Appapi/"
+#define kAPI_bendi @"http://192.168.1.111/tuanda_web/Appapi/"
 
 #define API_AddBrowseHistory    @"index.php/Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"index.php/Public/getBrowseHistory"
