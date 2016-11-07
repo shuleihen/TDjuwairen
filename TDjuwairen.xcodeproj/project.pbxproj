@@ -232,6 +232,10 @@
 		845CCBBA1D4F330D005ABD7B /* btn_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB91D4F330D005ABD7B /* btn_img@3x.png */; };
 		845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */; };
 		846C07521DCC3383006BA871 /* StockListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C07511DCC3383006BA871 /* StockListModel.m */; };
+		8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D11A1DD013510066E784 /* SurDetailViewController.m */; };
+		8478D1211DD01F1E0066E784 /* SurDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D1201DD01F1E0066E784 /* SurDataView.m */; };
+		8478D12A1DD056410066E784 /* NSString+GetDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D1291DD056410066E784 /* NSString+GetDevice.m */; };
+		8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */; };
 		8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488E42A1D90E2EC00888D07 /* libBPush.a */; };
 		8488E42D1D90E2EC00888D07 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8488E42B1D90E2EC00888D07 /* test.caf */; };
 		8489972A1D4B4CE7008EE2BC /* tab_chexiao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 848997291D4B4CE7008EE2BC /* tab_chexiao@3x.png */; };
@@ -749,6 +753,14 @@
 		845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_biaoqian@3x.png"; sourceTree = "<group>"; };
 		846C07501DCC3383006BA871 /* StockListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockListModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.h; sourceTree = SOURCE_ROOT; };
 		846C07511DCC3383006BA871 /* StockListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockListModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.m; sourceTree = SOURCE_ROOT; };
+		8478D1191DD013510066E784 /* SurDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurDetailViewController.h; sourceTree = "<group>"; };
+		8478D11A1DD013510066E784 /* SurDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurDetailViewController.m; sourceTree = "<group>"; };
+		8478D11F1DD01F1E0066E784 /* SurDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurDataView.h; sourceTree = "<group>"; };
+		8478D1201DD01F1E0066E784 /* SurDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurDataView.m; sourceTree = "<group>"; };
+		8478D1281DD056410066E784 /* NSString+GetDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GetDevice.h"; sourceTree = "<group>"; };
+		8478D1291DD056410066E784 /* NSString+GetDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GetDevice.m"; sourceTree = "<group>"; };
+		8478D12B1DD05D260066E784 /* SurDetailSelBtnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurDetailSelBtnView.h; sourceTree = "<group>"; };
+		8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurDetailSelBtnView.m; sourceTree = "<group>"; };
 		8488E4291D90E2EC00888D07 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
 		8488E42A1D90E2EC00888D07 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		8488E42B1D90E2EC00888D07 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
@@ -1690,6 +1702,7 @@
 				19E519381D509C3F00CFF149 /* CustomUI */,
 				19C526251D49EDEE0039F85D /* WebView */,
 				84069EBC1DB495A300CB21DA /* TDSurvey */,
+				8478D1141DD012E60066E784 /* TDSurDetail */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -1885,6 +1898,51 @@
 			path = Setting/PushMessage;
 			sourceTree = "<group>";
 		};
+		8478D1141DD012E60066E784 /* TDSurDetail */ = {
+			isa = PBXGroup;
+			children = (
+				8478D1171DD0130F0066E784 /* Models */,
+				8478D1181DD0130F0066E784 /* Views */,
+				8478D1151DD0130F0066E784 /* Cells */,
+				8478D1161DD0130F0066E784 /* Controllers */,
+			);
+			path = TDSurDetail;
+			sourceTree = "<group>";
+		};
+		8478D1151DD0130F0066E784 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		8478D1161DD0130F0066E784 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				8478D1191DD013510066E784 /* SurDetailViewController.h */,
+				8478D11A1DD013510066E784 /* SurDetailViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		8478D1171DD0130F0066E784 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		8478D1181DD0130F0066E784 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				8478D11F1DD01F1E0066E784 /* SurDataView.h */,
+				8478D1201DD01F1E0066E784 /* SurDataView.m */,
+				8478D12B1DD05D260066E784 /* SurDetailSelBtnView.h */,
+				8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		8488E4281D90E2EC00888D07 /* idfaversion */ = {
 			isa = PBXGroup;
 			children = (
@@ -2033,6 +2091,8 @@
 				84CC34871CEAEC2A00193D9C /* NSString+TimeInfo.m */,
 				845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */,
 				845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */,
+				8478D1281DD056410066E784 /* NSString+GetDevice.h */,
+				8478D1291DD056410066E784 /* NSString+GetDevice.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -2599,11 +2659,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
 				1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,
 				19E9582C1DAC886C00BA37C5 /* MyAttentionViewController.m in Sources */,
 				19C348741D3F76DB008ABD16 /* NSBundle+MJRefresh.m in Sources */,
+				8478D12A1DD056410066E784 /* NSString+GetDevice.m in Sources */,
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				19E958321DAC894600BA37C5 /* NewTableViewCell.m in Sources */,
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
@@ -2617,6 +2679,7 @@
 				1955B4861D644D9800DC102E /* HeadForSectionTableViewCell.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
+				8478D1211DD01F1E0066E784 /* SurDataView.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
 				1955B46A1D644D9800DC102E /* MyInfomationTableViewCell.m in Sources */,
@@ -2742,6 +2805,7 @@
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
+				8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */,
 				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,

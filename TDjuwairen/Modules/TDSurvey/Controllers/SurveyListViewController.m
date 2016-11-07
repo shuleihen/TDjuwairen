@@ -11,6 +11,7 @@
 #import "SurveyListTableViewCell.h"
 #import "SurveyListLeftTableViewCell.h"
 #import "PersonalCenterViewController.h"
+#import "SurDetailViewController.h"
 
 #import "StockListModel.h"
 #import "UIdaynightModel.h"
@@ -84,16 +85,18 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.naviView.backgroundColor = self.daynightmodel.navigationColor;
     [self.naviView.searchBtn setBackgroundColor:self.daynightmodel.inputColor];
     self.naviView.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;  //线色
     self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
     
     [self.naviView.headImgBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"HeadUnLogin"]];
+    
+    [self.tableview reloadData];
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
     self.naviView = [[SurveyListNavView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     [self.naviView.headImgBtn addTarget:self action:@selector(clickHeadImg:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:self.naviView];
@@ -119,7 +122,7 @@
     //这里也可以用这个接口。但是得到的是JS类型的数据，解析半天没弄出来 - - ！
 //    NSString *listStr = [self.textArr componentsJoinedByString:@","];
 //    NSString *s = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",listStr];
-    NSString *str = @"http://192.168.1.105/Appapi/Survey/lists/1";
+    NSString *str = @"http://192.168.1.106/Appapi/Survey/lists/1";
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
     [manager GET:str parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -202,7 +205,6 @@
     if (indexPath.row %2 != 1) {
         SurveyListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listRightCell" forIndexPath:indexPath];
         NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",model.company_code];
-        NSLog(@"%@",http);
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
         [manager GET:http parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -214,42 +216,42 @@
                 NSDictionary *diction = result[0];
                 NSDictionary *data = diction[@"data"];
                 if ([data[@"increPer"] floatValue] > 0) {
-                    cell.stockDate1.textColor = [UIColor redColor];
-                    cell.stockDate2.textColor = [UIColor redColor];
-                    cell.stockDate3.textColor = [UIColor redColor];
+                    cell.nowPri.textColor = [UIColor redColor];
+                    cell.increPer.textColor = [UIColor redColor];
+                    cell.increase.textColor = [UIColor redColor];
                 }
                 else
                 {
-                    cell.stockDate1.textColor = [UIColor greenColor];
-                    cell.stockDate2.textColor = [UIColor greenColor];
-                    cell.stockDate3.textColor = [UIColor greenColor];
+                    cell.nowPri.textColor = [UIColor greenColor];
+                    cell.increPer.textColor = [UIColor greenColor];
+                    cell.increase.textColor = [UIColor greenColor];
                 }
                 
-                NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"yestodEndPri"] floatValue]];
+                NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
                 CGSize d1Size = [date1 calculateSize:CGSizeMake(100, 100) font:[UIFont boldSystemFontOfSize:24]];
-                cell.stockDate1.text = date1;
+                cell.nowPri.text = date1;
                 
                 NSString *date2= [NSString stringWithFormat:@"%@%@",data[@"increPer"],@"%"];
                 CGSize d2Size = [date2 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.stockDate2.text = date2;
+                cell.increPer.text = date2;
                 
-                NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
+                NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"increase"] floatValue]];
                 CGSize d3Size = [date3 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.stockDate3.text = date3;
+                cell.increase.text = date3;
                 
                 [cell.stockImg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
                 
-                [cell.stockDate1 mas_updateConstraints:^(MASConstraintMaker *make) {
+                [cell.nowPri mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.width.mas_equalTo(d1Size.width);
                 }];
                 
-                [cell.stockDate2 mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.stockDate1).with.offset(8+d1Size.width);
+                [cell.increPer mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(cell.nowPri).with.offset(8+d1Size.width);
                     make.width.mas_equalTo(d2Size.width);
                 }];
                 
-                [cell.stockDate3 mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.stockDate2).with.offset(8+d2Size.width);
+                [cell.increase mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(cell.increPer).with.offset(8+d2Size.width);
                     make.width.mas_equalTo(d3Size.width);
                 }];
                 [task cancel];
@@ -257,16 +259,19 @@
             else
             {
                 cell.stockName.text = model.company_name;
-                cell.stockDate1.text = @"0.00";
-                cell.stockDate2.text = @"0.00%";
-                cell.stockDate3.text = @"0.00";
+                cell.nowPri.text = @"0.00";
+                cell.increPer.text = @"0.00%";
+                cell.increase.text = @"0.00";
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
         cell.stockName.text = [NSString stringWithFormat:@"%@",model.company_name];
+        
         cell.backgroundColor = self.daynightmodel.backColor;
         cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
+        cell.stockName.textColor = self.daynightmodel.textColor;
+        cell.stockSurvey.textColor = self.daynightmodel.textColor;
         [manager.operationQueue cancelAllOperations];
         return cell;
     }
@@ -286,42 +291,42 @@
                 NSDictionary *diction = result[0];
                 NSDictionary *data = diction[@"data"];
                 if ([data[@"increPer"] floatValue] > 0) {
-                    cell.stockDate1.textColor = [UIColor redColor];
-                    cell.stockDate2.textColor = [UIColor redColor];
-                    cell.stockDate3.textColor = [UIColor redColor];
+                    cell.nowPri.textColor = [UIColor redColor];
+                    cell.increPer.textColor = [UIColor redColor];
+                    cell.increase.textColor = [UIColor redColor];
                 }
                 else
                 {
-                    cell.stockDate1.textColor = [UIColor greenColor];
-                    cell.stockDate2.textColor = [UIColor greenColor];
-                    cell.stockDate3.textColor = [UIColor greenColor];
+                    cell.nowPri.textColor = [UIColor greenColor];
+                    cell.increPer.textColor = [UIColor greenColor];
+                    cell.increase.textColor = [UIColor greenColor];
                 }
                 
-                NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"yestodEndPri"] floatValue]];
+                NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
                 CGSize d1Size = [date1 calculateSize:CGSizeMake(100, 100) font:[UIFont boldSystemFontOfSize:24]];
-                cell.stockDate1.text = date1;
+                cell.nowPri.text = date1;
                 
                 NSString *date2= [NSString stringWithFormat:@"%@%@",data[@"increPer"],@"%"];
                 CGSize d2Size = [date2 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.stockDate2.text = date2;
+                cell.increPer.text = date2;
                 
-                NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
+                NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"increase"] floatValue]];
                 CGSize d3Size = [date3 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.stockDate3.text = date3;
+                cell.increase.text = date3;
                 
                 [cell.stockImg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
                 
-                [cell.stockDate1 mas_updateConstraints:^(MASConstraintMaker *make) {
+                [cell.nowPri mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.width.mas_equalTo(d1Size.width);
                 }];
                 
-                [cell.stockDate2 mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.stockDate1).with.offset(8+d1Size.width);
+                [cell.increPer mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(cell.nowPri).with.offset(8+d1Size.width);
                     make.width.mas_equalTo(d2Size.width);
                 }];
                 
-                [cell.stockDate3 mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.stockDate2).with.offset(8+d2Size.width);
+                [cell.increase mas_updateConstraints:^(MASConstraintMaker *make) {
+                    make.left.equalTo(cell.increPer).with.offset(8+d2Size.width);
                     make.width.mas_equalTo(d3Size.width);
                 }];
                 [task cancel];
@@ -329,19 +334,33 @@
             else
             {
                 cell.stockName.text = model.company_name;
-                cell.stockDate1.text = @"0.00";
-                cell.stockDate2.text = @"0.00%";
-                cell.stockDate3.text = @"0.00";
+                cell.nowPri.text = @"0.00";
+                cell.increPer.text = @"0.00%";
+                cell.increase.text = @"0.00";
             }
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
         cell.stockName.text = [NSString stringWithFormat:@"%@",model.company_name];
+        
         cell.backgroundColor = self.daynightmodel.backColor;
         cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
+        cell.stockName.textColor = self.daynightmodel.textColor;
+        cell.stockSurvey.textColor = self.daynightmodel.textColor;
+        
         [manager.operationQueue cancelAllOperations];
         return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+    StockListModel *model = self.stockListArr[indexPath.row];
+    SurDetailViewController *surDetail = [[SurDetailViewController alloc] init];
+    surDetail.company_name = model.company_name;
+    surDetail.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:surDetail animated:YES];
 }
 
 #pragma mark - 点击头像
@@ -358,21 +377,19 @@
     [self.navigationController pushViewController:personal animated:YES];
 }
 
+#pragma mark - 定时器操作
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    NSLog(@"2");
     [self.refTimer setFireDate:[NSDate distantFuture]];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    NSLog(@"3");
     [self.refTimer setFireDate:[NSDate distantPast]];
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    NSLog(@"3");
     [self.refTimer setFireDate:[NSDate distantPast]];;
 }
 - (void)didReceiveMemoryWarning {

@@ -14,11 +14,11 @@
 
 @property (nonatomic,strong) UILabel *stockName;
 
-@property (nonatomic,strong) UILabel *stockDate1;
+@property (nonatomic,strong) UILabel *nowPri;
 
-@property (nonatomic,strong) UILabel *stockDate2;
+@property (nonatomic,strong) UILabel *increPer;
 
-@property (nonatomic,strong) UILabel *stockDate3;
+@property (nonatomic,strong) UILabel *increase;
 
 @property (nonatomic,strong) UIImageView *stockImg;
 

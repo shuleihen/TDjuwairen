@@ -31,14 +31,14 @@
         self.stockName = [[UILabel alloc] init];
         self.stockName.font = [UIFont systemFontOfSize:20];
         
-        self.stockDate1 = [[UILabel alloc] init];
-        self.stockDate1.font = [UIFont boldSystemFontOfSize:24];
+        self.nowPri = [[UILabel alloc] init];
+        self.nowPri.font = [UIFont boldSystemFontOfSize:24];
         
-        self.stockDate2 = [[UILabel alloc] init];
-        self.stockDate2.font = [UIFont systemFontOfSize:13];
+        self.increPer = [[UILabel alloc] init];
+        self.increPer.font = [UIFont systemFontOfSize:13];
         
-        self.stockDate3 = [[UILabel alloc] init];
-        self.stockDate3.font = [UIFont systemFontOfSize:13];
+        self.increase = [[UILabel alloc] init];
+        self.increase.font = [UIFont systemFontOfSize:13];
         
         self.stockImg = [[UIImageView alloc] init];
         self.stockImg.image = [UIImage imageNamed:@"NotLogin.png"];
@@ -60,9 +60,9 @@
         
         [self addSubview:self.bgView];
         [self addSubview:self.stockName];
-        [self addSubview:self.stockDate1];
-        [self addSubview:self.stockDate2];
-        [self addSubview:self.stockDate3];
+        [self addSubview:self.nowPri];
+        [self addSubview:self.increPer];
+        [self addSubview:self.increase];
         [self addSubview:self.stockImg];
         [self addSubview:self.line];
         [self addSubview:self.stockSurvey];
@@ -81,23 +81,23 @@
             make.height.equalTo(30);
         }];
         
-        [self.stockDate1 makeConstraints:^(MASConstraintMaker *make) {
+        [self.nowPri makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.stockName).with.offset(8+30);
             make.left.equalTo(self.bgView).with.offset(15);
             make.width.equalTo(60);
             make.height.equalTo(30);
         }];
         
-        [self.stockDate2 makeConstraints:^(MASConstraintMaker *make) {
+        [self.increPer makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.stockName).with.offset(8+40);
-            make.left.equalTo(self.stockDate1).with.offset(15+60);
+            make.left.equalTo(self.nowPri).with.offset(15+60);
             make.width.equalTo(60);
             make.height.equalTo(15);
         }];
         
-        [self.stockDate3 makeConstraints:^(MASConstraintMaker *make) {
+        [self.increase makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.stockName).with.offset(8+40);
-            make.left.equalTo(self.stockDate2).with.offset(15+60);
+            make.left.equalTo(self.increPer).with.offset(15+60);
             make.width.equalTo(60);
             make.height.equalTo(15);
         }];
