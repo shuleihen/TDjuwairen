@@ -10,6 +10,8 @@
 
 @interface SurDetailViewController : UIViewController
 
+@property (nonatomic,copy) NSString *company_code;
+
 @property (nonatomic,copy) NSString *company_name;
 
 @end

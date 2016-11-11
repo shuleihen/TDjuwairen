@@ -18,5 +18,11 @@
 
 @property (nonatomic,strong) UIButton *selBtn;
 
+@property (nonatomic,strong) NSMutableArray *btnsArr;
+
+@property (nonatomic,assign) BOOL isLocked;
+
 @property (nonatomic,assign) id<SurDetailSelBtnViewDelegate>delegate;
+
+- (instancetype)initWithFrame:(CGRect)frame WithStockCode:(NSString *)code;
 @end
