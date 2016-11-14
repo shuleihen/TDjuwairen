@@ -129,7 +129,7 @@
     //这里也可以用这个接口。但是得到的是JS类型的数据，解析半天没弄出来 - - ！
 //    NSString *listStr = [self.textArr componentsJoinedByString:@","];
 //    NSString *s = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",listStr];
-    NSString *str = @"http://192.168.1.104/Survey/lists/1";
+    NSString *str = @"http://192.168.1.107/Survey/lists/1";
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
     [manager GET:str parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -404,15 +404,5 @@
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

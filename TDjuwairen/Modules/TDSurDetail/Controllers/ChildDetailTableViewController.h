@@ -11,13 +11,13 @@
 @import WebKit;
 @protocol ChildDetailDelegate <NSObject>
 
-- (void)didFinishLoad;
-
 - (void)childScrollViewDidScroll:(UIScrollView *)scrollView;
 
 @end
 
 @interface ChildDetailTableViewController : UITableViewController
+
+@property (nonatomic,assign) int niuxiong;
 
 @property (nonatomic,strong) WKWebView *webview;
 

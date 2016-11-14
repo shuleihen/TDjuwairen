@@ -30,7 +30,6 @@
 
 @property (nonatomic,strong) UIScrollView *contentScrollview;
 
-@property (nonatomic,assign) int niuxiong;
 @property (nonatomic,strong) NSMutableArray *bullsArr;
 
 @property (nonatomic,strong) NSMutableArray *bearsArr;
@@ -45,8 +44,7 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
-    
-//    self.tableView.scrollEnabled = NO;
+
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView registerClass:[BearBullTableViewCell class] forCellReuseIdentifier:@"BearBullCell"];
     self.tableView.estimatedRowHeight = 10000;
@@ -60,7 +58,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = @"http://192.168.1.104/Survey/survey_show_tag";
+    NSString *url = @"http://192.168.1.107/Survey/survey_show_tag";
     NSString *code = [surveyID substringFromIndex:2];
     NSDictionary *para;
     if (US.isLogIn) {
@@ -101,8 +99,6 @@
             }
             self.niuxiong = 1;
             [self.tableView reloadData];
-            
-            [self didFinishLoad];
         }
         else if (self.tag == 3)
         {
@@ -127,7 +123,6 @@
                 [self.askArr addObject:model];
             }
             [self.tableView reloadData];
-            [self didFinishLoad];
         }
         
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -206,7 +201,6 @@
             self.webview.navigationDelegate = self;
             self.webview.UIDelegate = self;
             self.webview.scrollView.delegate = self;
-//            self.webview.scrollView.scrollEnabled = NO;
             [cell.contentView addSubview:self.webview];
             
             [self.webview mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -425,28 +419,6 @@
 {
     if ([self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [self.delegate childScrollViewDidScroll:scrollView];
-    }
-}
-
-//- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-//{
-//    __weak ChildDetailTableViewController *wself = self;
-//    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-//        //获取页面高度，并重置webview的frame
-//        CGFloat documentHeight = [result doubleValue];
-//        
-//        CGRect frame = webView.frame;
-//        frame.size.height = documentHeight + 15/*显示不全*/;
-//        webView.frame = frame;
-//        
-//        [self didFinishLoad];
-//    }];
-//}
-
-#pragma mark - did finish load
-- (void)didFinishLoad{
-    if ([self.delegate respondsToSelector:@selector(didFinishLoad)]) {
-        [self.delegate didFinishLoad];
     }
 }
 

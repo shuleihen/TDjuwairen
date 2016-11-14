@@ -10,6 +10,7 @@
 #import "SurDataView.h"
 #import "SurDetailSelBtnView.h"
 #import "ChildDetailTableViewController.h"
+#import "CommentViewController.h"
 
 #import "UIdaynightModel.h"
 #import "Masonry.h"
@@ -33,6 +34,8 @@
 @property (nonatomic,strong) UIScrollView *contentScrollview;
 
 @property (nonatomic,strong) UIButton *comBtn;
+
+@property (nonatomic,strong) UIImageView *comImg;
 
 @end
 
@@ -119,7 +122,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     if (!self.contentScrollview) {
-        self.contentScrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+        self.contentScrollview = [[UIScrollView alloc]init];
         self.contentScrollview.delegate = self;
         self.contentScrollview.showsHorizontalScrollIndicator = NO;
         self.contentScrollview.showsVerticalScrollIndicator = NO;
@@ -127,17 +130,18 @@
         self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
         [cell.contentView addSubview:self.contentScrollview];
         
-//        [self.contentScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(cell.contentView).with.offset(0);
-//            make.left.equalTo(cell.contentView).with.offset(0);
-//            make.bottom.equalTo(cell.contentView).with.offset(0);
-//            make.width.mas_equalTo(kScreenWidth);
-//            make.height.mas_equalTo(kScreenHeight-64-60);
-//        }];
+        [self.contentScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(cell.contentView).with.offset(0);
+            make.left.equalTo(cell.contentView).with.offset(0);
+            make.bottom.equalTo(cell.contentView).with.offset(0);
+            make.width.mas_equalTo(kScreenWidth);
+            make.height.mas_equalTo(kScreenHeight-140-60);
+        }];
         
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
+        
         [self selectWithDetail:self.selBtnView.selBtn];
-        self.tag = 0;
+        
     }
     return cell;
 }
@@ -152,6 +156,7 @@
     for (int i = 0; i < 6; i ++) {
         ChildDetailTableViewController *childView = [[ChildDetailTableViewController alloc] init];
         childView.delegate = self;
+        childView.tableView.bounces = NO;
         [self.tableviewsArr addObject:childView];
         [self addChildViewController:childView];
     }
@@ -166,8 +171,15 @@
     
     NSInteger i = sender.tag;
     self.tag = (int)i;
-    if (i == 2) {
+    if (i == 2 ) {
         self.comBtn.alpha = 1.0;
+        self.comImg.image = [UIImage imageNamed:@"comment_blue"];
+        [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
+    }
+    else if (i == 5){
+        self.comBtn.alpha = 1.0;
+        self.comImg.image = [UIImage imageNamed:@"tiwen"];
+        [self.comBtn setTitle:@" 提问" forState:UIControlStateNormal];
     }
     else
     {
@@ -182,12 +194,31 @@
 
 - (void)setUpOneChildController:(NSInteger)index {
     CGFloat x  = index * kScreenWidth;
-    ChildDetailTableViewController *vc  =  self.childViewControllers[index];
+    ChildDetailTableViewController *vc = self.childViewControllers[index];
     if (vc.view.superview) {
         return;
     }
-    vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-64-60);
+    
     [self.contentScrollview addSubview:vc.view];
+    if (index == 2 || index == 5) {
+//        vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-64-60-50);
+        [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentScrollview).with.offset(0);
+            make.left.equalTo(self.contentScrollview).with.offset(x);
+            make.width.mas_equalTo(kScreenWidth);
+            make.height.mas_equalTo(kScreenHeight-64-60-50);
+        }];
+    }
+    else
+    {
+//        vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-64-60);
+        [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self.contentScrollview).with.offset(0);
+            make.left.equalTo(self.contentScrollview).with.offset(x);
+            make.width.mas_equalTo(kScreenWidth);
+            make.height.mas_equalTo(kScreenHeight-64-60);
+        }];
+    }
 }
 
 #pragma mark - 设置隐藏评论按钮
@@ -198,18 +229,19 @@
     [self.comBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.comBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -15)];
     
-    UIImageView *comImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.comBtn.titleLabel.frame.origin.x - 40, (50-15)/2, 20, 20)];
-    comImg.image = [UIImage imageNamed:@"comment_blue"];
-    [self.comBtn addSubview:comImg];
+    self.comImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.comBtn.titleLabel.frame.origin.x - 40, (50-15)/2, 20, 20)];
+    self.comImg.image = [UIImage imageNamed:@"comment_blue"];
+    [self.comBtn addSubview:self.comImg];
     self.comBtn.alpha = 0.0;
     [self.view addSubview:self.comBtn];
+    
+    [self.comBtn addTarget:self action:@selector(clickToAsk:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - 滑动操作
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
-    NSLog(@"%@",rollway);
+    //这里不写方法不生效- -
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -218,8 +250,15 @@
     if ([rollway isEqualToString:@"UIScrollView"]) {
         NSInteger i = self.contentScrollview.contentOffset.x / kScreenWidth;
         self.tag = (int)i;
-        if (i == 2) {
+        if (i == 2 ) {
             self.comBtn.alpha = 1.0;
+            self.comImg.image = [UIImage imageNamed:@"comment_blue"];
+            [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
+        }
+        else if (i == 5){
+            self.comBtn.alpha = 1.0;
+            self.comImg.image = [UIImage imageNamed:@"tiwen"];
+            [self.comBtn setTitle:@" 提问" forState:UIControlStateNormal];
         }
         else
         {
@@ -238,11 +277,15 @@
 
 - (void)childScrollViewDidScroll:(UIScrollView *)scrollView
 {
-    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
-    NSLog(@"%@",rollway);
-    NSLog(@"%f",scrollView.contentOffset.y);
+    ChildDetailTableViewController *childTableView = self.tableviewsArr[self.tag];
     if (scrollView.contentOffset.y < 140) {
         self.tableview.contentOffset = scrollView.contentOffset;
+        
+        if (self.tag == 2 || self.tag == 5) {
+            [childTableView.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(kScreenHeight-64-60-50-(140-scrollView.contentOffset.y));
+            }];
+        }
     }
     else
     {
@@ -250,24 +293,26 @@
     }
 }
 
-#pragma mari - did finish load
-//- (void)didFinishLoad
-//{
-//
-//    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
-////
-//    CGFloat webHeight = childView.webview.frame.size.height;
-//    
-//    childView.tableView.frame = CGRectMake(kScreenWidth*self.tag, 0, kScreenWidth, webHeight);
-////    [self.contentScrollview mas_updateConstraints:^(MASConstraintMaker *make) {
-////        make.height.mas_equalTo(webHeight);
-////    }];
-//    
-//    contentSize = CGSizeMake(kScreenWidth,webHeight);
-//
-//    [self.tableview reloadData];
-//}
-
+#pragma mark - 点击跳转提问界面
+- (void)clickToAsk:(UIButton *)sender{
+    
+    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+    
+    CommentViewController *comView = [[CommentViewController alloc] init];
+    comView.tag = self.tag;
+    if (childView.niuxiong == 1) {
+        comView.type = @"bull";
+    }
+    else if (childView.niuxiong == 0)
+    {
+        comView.type = @"bear";
+    }
+    if(self.tag == 5)
+    {
+        comView.type = @"ask";
+    }
+    [self.navigationController pushViewController:comView animated:YES];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
