@@ -11,8 +11,10 @@
 #import "SurDetailSelBtnView.h"
 #import "ChildDetailTableViewController.h"
 #import "CommentViewController.h"
+#import "LoginViewController.h"
 
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 #import "Masonry.h"
 
 @interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,SurDetailSelBtnViewDelegate,ChildDetailDelegate>
@@ -55,6 +57,12 @@
     
     [self setupWithCommentBtn];
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
 }
 
 - (void)setupWithNavigation{
@@ -139,9 +147,7 @@
         }];
         
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
-        
         [self selectWithDetail:self.selBtnView.selBtn];
-        
     }
     return cell;
 }
@@ -300,6 +306,7 @@
     
     CommentViewController *comView = [[CommentViewController alloc] init];
     comView.tag = self.tag;
+    comView.company_code = self.company_code;
     if (childView.niuxiong == 1) {
         comView.type = @"bull";
     }
@@ -311,7 +318,16 @@
     {
         comView.type = @"ask";
     }
-    [self.navigationController pushViewController:comView animated:YES];
+    
+    if (US.isLogIn) {
+        [self.navigationController pushViewController:comView animated:YES];
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+    
 }
 
 - (void)didReceiveMemoryWarning {

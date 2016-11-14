@@ -57,7 +57,7 @@
     [self.nickNameLab mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
         make.left.equalTo(self.faceMinImg).with.offset(10+30);
-        make.width.mas_equalTo(60);
+        make.right.equalTo(self).with.offset(-90);
         make.height.mas_equalTo(30);
     }];
     

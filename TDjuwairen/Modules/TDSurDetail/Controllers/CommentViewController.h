@@ -7,11 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AskModel.h"
 
 @interface CommentViewController : UIViewController
 
 @property (nonatomic,assign) int tag;
 
 @property (nonatomic,copy) NSString *type;
+
+@property (nonatomic,copy) NSString *company_code;
+
+@property (nonatomic,strong) AskModel *model;
 
 @end

@@ -237,6 +237,7 @@
 		845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */; };
 		846C07521DCC3383006BA871 /* StockListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C07511DCC3383006BA871 /* StockListModel.m */; };
 		846D92291DD952CB000B847E /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846D92281DD952CB000B847E /* CommentViewController.m */; };
+		846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */; };
 		8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D11A1DD013510066E784 /* SurDetailViewController.m */; };
 		8478D1211DD01F1E0066E784 /* SurDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D1201DD01F1E0066E784 /* SurDataView.m */; };
 		8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */; };
@@ -770,6 +771,8 @@
 		846C07511DCC3383006BA871 /* StockListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockListModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.m; sourceTree = SOURCE_ROOT; };
 		846D92271DD952CB000B847E /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		846D92281DD952CB000B847E /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
+		846DA6141DD98EF200B22D9B /* AskQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskQuestionTableViewCell.h; sourceTree = "<group>"; };
+		846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskQuestionTableViewCell.m; sourceTree = "<group>"; };
 		8478D1191DD013510066E784 /* SurDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurDetailViewController.h; sourceTree = "<group>"; };
 		8478D11A1DD013510066E784 /* SurDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurDetailViewController.m; sourceTree = "<group>"; };
 		8478D11F1DD01F1E0066E784 /* SurDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurDataView.h; sourceTree = "<group>"; };
@@ -1935,6 +1938,8 @@
 			children = (
 				842C91D21DD2FE310019617C /* BearBullTableViewCell.h */,
 				842C91D31DD2FE310019617C /* BearBullTableViewCell.m */,
+				846DA6141DD98EF200B22D9B /* AskQuestionTableViewCell.h */,
+				846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2816,6 +2821,7 @@
 				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
+				846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */,
 				842C91D11DD2FDEC0019617C /* BearBullSelBtnView.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				1955B4BD1D644DB400DC102E /* SurveyViewController.m in Sources */,

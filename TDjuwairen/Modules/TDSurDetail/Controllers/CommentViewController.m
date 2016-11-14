@@ -10,10 +10,17 @@
 #import "BearBullTableViewCell.h"
 
 #import "UIdaynightModel.h"
+#import "LoginState.h"
+
+#import "NetworkManager.h"
+#import "UIImageView+WebCache.h"
+#import "NSString+Ext.h"
 #import "Masonry.h"
 
 @interface CommentViewController ()<UITableViewDelegate,UITableViewDataSource,UITextViewDelegate>
-
+{
+    CGSize contentSize;
+}
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 
 @property (nonatomic,strong) UITableView *tableview;
@@ -101,9 +108,8 @@
         [self.comView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(cell.contentView).with.offset(0);
             make.left.equalTo(cell.contentView).with.offset(0);
-            make.bottom.equalTo(cell.contentView).with.offset(0);
+//            make.bottom.equalTo(cell.contentView).with.offset(0);
             make.right.equalTo(cell.contentView).with.offset(0);
-            make.width.mas_equalTo(kScreenWidth);
             make.height.mas_equalTo(kScreenHeight-64);
         }];
         return cell;
@@ -122,6 +128,16 @@
         }
         else if (indexPath.row == 1){
             BearBullTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"bearbullCell" forIndexPath:indexPath];
+            [cell.faceMinImg sd_setImageWithURL:[NSURL URLWithString:self.model.userinfo_facemin]];
+            cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",self.model.user_nickname,self.model.surveyask_addtime];
+            
+            NSString *content = self.model.surveyask_content;
+            contentSize = CGSizeMake(kScreenWidth-15-30-10, 1000.0);
+            contentSize = [content calculateSize:contentSize font:[UIFont systemFontOfSize:16]];
+            cell.commentLab.text = content;
+            [cell.commentLab mas_updateConstraints:^(MASConstraintMaker *make) {
+                make.height.mas_equalTo(contentSize.height);
+            }];
             return cell;
         }
         else if (indexPath.row == 2){
@@ -142,7 +158,13 @@
             }
             [self setupWithTextView];
             [cell.contentView addSubview:self.comView];
-            
+            [self.comView mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.equalTo(cell.contentView).with.offset(0);
+                make.left.equalTo(cell.contentView).with.offset(0);
+//                make.bottom.equalTo(cell.contentView).with.offset(0);
+                make.right.equalTo(cell.contentView).with.offset(0);
+                make.height.mas_equalTo(kScreenHeight-64-88-10-30-5-contentSize.height-15);
+            }];
             return cell;
         }
     }
@@ -173,10 +195,6 @@
     [self.comView addSubview:self.placeholder];
 }
 
-- (void)setupWithAnswer{
-    
-}
-
 - (void)textViewDidChange:(UITextView *)textView
 {
     if (self.comView.text.length > 0) {
@@ -190,7 +208,47 @@
 
 #pragma mark - 点击发布
 - (void)clickPush:(UIButton *)sender{
-    NSLog(@"baby time");
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *para ;
+    NSString *url ;
+    NSString *code = [self.company_code substringFromIndex:2];
+    if ([self.type isEqualToString:@"bull"]) {
+        url = @"http://192.168.1.107/Survey/addComment";
+        para = @{@"type":@"1",
+                 @"content":self.comView.text,
+                 @"code":code,
+                 @"user_id":US.userId};
+    }
+    else if ([self.type isEqualToString:@"bear"]){
+        url = @"http://192.168.1.107/Survey/addComment";
+        para = @{@"type":@"2",
+                 @"content":self.comView.text,
+                 @"code":code,
+                 @"user_id":US.userId};
+    }
+    else if ([self.type isEqualToString:@"ask"]){
+        url = @"http://192.168.1.107/Survey/addQuestion";
+        para = @{@"code":code,
+                 @"question":self.comView.text,
+                 @"user_id":US.userId};
+    }
+    else if ([self.type isEqualToString:@"ans"]){
+        url = @"http://192.168.1.107/Survey/answerQuestion";
+        para = @{@"ask_id":self.model.surveyask_id,
+                 @"content":self.comView.text,
+                 @"user_id":US.userId};
+    }
+    
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        if (!error) {
+            NSLog(@"%@",data);
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
 }
 
 - (void)didReceiveMemoryWarning {

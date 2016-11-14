@@ -8,9 +8,12 @@
 
 #import "ChildDetailTableViewController.h"
 #import "BearBullTableViewCell.h"
+#import "AskQuestionTableViewCell.h"
 #import "BearBullSelBtnView.h"
 #import "AskModel.h"
 #import "AnsModel.h"
+#import "CommentViewController.h"
+#import "LoginViewController.h"
 
 #import "LoginState.h"
 #import "UIdaynightModel.h"
@@ -47,6 +50,7 @@
 
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView registerClass:[BearBullTableViewCell class] forCellReuseIdentifier:@"BearBullCell"];
+    [self.tableView registerClass:[AskQuestionTableViewCell class] forCellReuseIdentifier:@"askCell"];
     self.tableView.estimatedRowHeight = 10000;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
     
@@ -208,7 +212,6 @@
                 make.left.equalTo(cell.contentView).with.offset(0);
                 make.bottom.equalTo(cell.contentView).with.offset(0);
                 make.right.equalTo(cell.contentView).with.offset(0);
-                make.width.mas_equalTo(kScreenWidth);
                 make.height.mas_equalTo(kScreenHeight-64-60);
             }];
             
@@ -262,6 +265,16 @@
                 [cell.commentLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(commentSize.height);
                 }];
+                
+                [cell.goodnumBtn setTitle:[NSString stringWithFormat:@"  %@",commentDic[@"surveycomment_goodnums"]] forState:UIControlStateNormal];
+                [cell.goodnumBtn setTitleColor:self.daynightModel.titleColor forState:UIControlStateNormal];
+                [cell.goodnumBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 0)];
+                [cell.goodnumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 1)];
+                
+                cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
+                [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+                [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 return cell;
             }
             else
@@ -281,21 +294,18 @@
     {
         if (self.askArr.count > 0) {
             if (indexPath.row == 0) {
-                NSString *identifier = @"askcell";
-                UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-                if (cell == nil) {
-                    cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                }
-                cell.textLabel.text = @"提问：";
-                cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                AskQuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"askCell" forIndexPath:indexPath];
+                cell.askBtn.tag = indexPath.section;
+                [cell.askBtn addTarget:self action:@selector(clickToComment:) forControlEvents:UIControlEventTouchUpInside];
                 return cell;
+                
             }
             else if(indexPath.row == 1)
             {
                 BearBullTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"BearBullCell" forIndexPath:indexPath];
                 AskModel *model = self.askArr[indexPath.section];
                 [cell.faceMinImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemin]];
-                cell.nickNameLab.text = [NSString stringWithFormat:@"%@%@",model.user_nickname,model.surveyask_addtime];
+                cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickname,model.surveyask_addtime];
                 
                 NSString *content = model.surveyask_content;
                 CGSize contentSize = CGSizeMake(kScreenWidth-15-30-10, 1000.0);
@@ -419,6 +429,28 @@
 {
     if ([self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
         [self.delegate childScrollViewDidScroll:scrollView];
+    }
+}
+
+#pragma mark - 点赞
+- (void)good:(UIButton *)sender{
+    
+}
+
+#pragma mark - 点击跳转
+- (void)clickToComment:(UIButton *)sender{
+    CommentViewController *comView = [[CommentViewController alloc] init];
+    comView.tag = 5;
+    comView.type = @"ans";
+    AskModel *model = self.askArr[sender.tag];
+    comView.model = model;
+    if (US.isLogIn) {
+        [self.navigationController pushViewController:comView animated:YES];
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
     }
 }
 
