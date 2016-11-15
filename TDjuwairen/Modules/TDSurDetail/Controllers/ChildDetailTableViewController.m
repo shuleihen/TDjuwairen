@@ -62,7 +62,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = @"http://192.168.1.107/Survey/survey_show_tag";
+    NSString *url = @"http://192.168.1.103/Survey/survey_show_tag";
     NSString *code = [surveyID substringFromIndex:2];
     NSDictionary *para;
     if (US.isLogIn) {
@@ -216,6 +216,7 @@
             }];
             
         }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else if(self.tag == 2)
@@ -235,6 +236,18 @@
                 [cell.commentLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(commentSize.height);
                 }];
+                
+                [cell.goodnumBtn setTitle:[NSString stringWithFormat:@"  %@",commentDic[@"surveycomment_goodnums"]] forState:UIControlStateNormal];
+                [cell.goodnumBtn setTitleColor:self.daynightModel.titleColor forState:UIControlStateNormal];
+                [cell.goodnumBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 0)];
+                [cell.goodnumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 1)];
+                
+                cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
+                [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+                [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
+                cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
             else
@@ -246,6 +259,7 @@
                 }
                 cell.textLabel.text = @"当前还没有熊评";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
         }
@@ -275,6 +289,8 @@
                 [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
                 [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
+                cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
             else
@@ -286,6 +302,7 @@
                 }
                 cell.textLabel.text = @"当前还没有牛评";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
         }
@@ -297,6 +314,7 @@
                 AskQuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"askCell" forIndexPath:indexPath];
                 cell.askBtn.tag = indexPath.section;
                 [cell.askBtn addTarget:self action:@selector(clickToComment:) forControlEvents:UIControlEventTouchUpInside];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
                 
             }
@@ -314,6 +332,7 @@
                 [cell.commentLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(contentSize.height);
                 }];
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
             else if (indexPath.row == 2){
@@ -324,6 +343,7 @@
                 }
                 cell.textLabel.text = @"作者回答：";
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
             else
@@ -341,6 +361,19 @@
                 [cell.commentLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(contentSize.height);
                 }];
+                
+                [cell.goodnumBtn setTitle:[NSString stringWithFormat:@"  %@",ansmodel.surveyanswer_goodnums] forState:UIControlStateNormal];
+                [cell.goodnumBtn setTitleColor:self.daynightModel.titleColor forState:UIControlStateNormal];
+                [cell.goodnumBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateSelected];
+                [cell.goodnumBtn setImageEdgeInsets:UIEdgeInsetsMake(0, 1, 0, 0)];
+                [cell.goodnumBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, 1)];
+                
+                cell.goodnumBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+                [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_normal.png"] forState:UIControlStateNormal];
+                [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
+                [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
+                
+                cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 return cell;
             }
         }
@@ -353,6 +386,7 @@
             }
             cell.textLabel.text = @"当前还没有人提问";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
     }
@@ -434,7 +468,25 @@
 
 #pragma mark - 点赞
 - (void)good:(UIButton *)sender{
-    
+    if (US.isLogIn) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        NSString *url = @"http://192.168.1.103/Survey/addCommentGoodAccess";
+        NSDictionary *dic = @{@"user_id":@"956",
+                              @"comment_id":[NSString stringWithFormat:@"%ld",(long)sender.tag]};
+        [manager POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            sender.selected = YES;
+            [sender setTitle:responseObject[@"good_num"] forState:UIControlStateSelected];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+        
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
 }
 
 #pragma mark - 点击跳转

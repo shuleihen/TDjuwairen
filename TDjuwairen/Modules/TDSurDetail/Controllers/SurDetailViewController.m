@@ -7,21 +7,31 @@
 //
 
 #import "SurDetailViewController.h"
+#import "NMView.h"
+#import "SelectFontView.h"
 #import "SurDataView.h"
 #import "SurDetailSelBtnView.h"
 #import "ChildDetailTableViewController.h"
 #import "CommentViewController.h"
 #import "LoginViewController.h"
+#import "UnlockView.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 #import "Masonry.h"
+#import <ShareSDK/ShareSDK.h>
 
-@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,SurDetailSelBtnViewDelegate,ChildDetailDelegate>
+@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate>
 {
     CGSize contentSize;
 }
 @property (nonatomic,assign) int tag;
+
+@property (nonatomic,strong) NMView *nmview;
+
+@property (nonatomic,strong) SelectFontView *sfview;
+@property (nonatomic,strong) NSArray *sizeArr;
+@property (nonatomic,copy) NSString *fontsize;
 
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 
@@ -39,9 +49,40 @@
 
 @property (nonatomic,strong) UIImageView *comImg;
 
+@property (nonatomic,strong) UnlockView *unlockView;
+
 @end
 
 @implementation SurDetailViewController
+
+- (NMView *)nmview{
+    if (!_nmview) {
+        _nmview = [[NMView alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-176, kScreenWidth, 176)];
+        _nmview.delegate = self;
+        [self.view addSubview:_nmview];
+    }
+    return _nmview;
+}
+
+- (SelectFontView *)sfview{
+    if (!_sfview) {
+        _sfview = [[SelectFontView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/3*2, 300)];
+        _sfview.center = self.view.center;
+        _sfview.delegate = self;
+        [self.view addSubview:_sfview];
+    }
+    return _sfview;
+}
+
+- (UnlockView *)unlockView{
+    if (!_unlockView) {
+        
+        _unlockView = [[UnlockView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+        _unlockView.delegate = self;
+        [self.view addSubview:_unlockView];
+    }
+    return _unlockView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -49,6 +90,8 @@
     self.daynightModel = [UIdaynightModel sharedInstance];
     contentSize.height = kScreenHeight-64-60;
     self.tag = 0;
+    self.sizeArr = @[@"140%",@"120%",@"100%",@"80%"];
+    self.fontsize = @"100%";
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -68,6 +111,12 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = self.company_name;
+    
+    UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"nav_more@3x.png"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(naviMore:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem= rightItem;
 }
 
 - (void)setupWithTableView{
@@ -147,6 +196,15 @@
         }];
         
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
+        if (self.selBtnView.isLocked) {
+            self.selBtnView.selBtn = self.selBtnView.btnsArr[0];
+            self.tag = 0;
+        }
+        else
+        {
+            self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
+            self.tag = 3;
+        }
         [self selectWithDetail:self.selBtnView.selBtn];
     }
     return cell;
@@ -175,14 +233,16 @@
     sender.selected = YES;
     self.selBtnView.selBtn = sender;
     
-    NSInteger i = sender.tag;
-    self.tag = (int)i;
-    if (i == 2 ) {
+    if (self.selBtnView) {
+        int i = (int)sender.tag;
+        self.tag = i;
+    }
+    if (self.tag == 2 ) {
         self.comBtn.alpha = 1.0;
         self.comImg.image = [UIImage imageNamed:@"comment_blue"];
         [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
     }
-    else if (i == 5){
+    else if (self.tag == 5){
         self.comBtn.alpha = 1.0;
         self.comImg.image = [UIImage imageNamed:@"tiwen"];
         [self.comBtn setTitle:@" 提问" forState:UIControlStateNormal];
@@ -191,11 +251,20 @@
     {
         self.comBtn.alpha = 0.0;
     }
-    CGFloat x = i * kScreenWidth;
+    CGFloat x = self.tag * kScreenWidth;
     self.contentScrollview.contentOffset = CGPointMake(x, 0);
-    ChildDetailTableViewController *childView = self.tableviewsArr[i];
-    [self setUpOneChildController:i];
-    [childView requestWithSelBtn:(int)i WithSurveyID:self.company_code];
+    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+    [self setUpOneChildController:self.tag];
+    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
+    
+    //显示解锁
+    if (self.tag < 3) {
+        self.unlockView.alpha = 1.0;
+    }
+    else
+    {
+        self.unlockView.alpha = 0.0;
+    }
 }
 
 - (void)setUpOneChildController:(NSInteger)index {
@@ -207,7 +276,6 @@
     
     [self.contentScrollview addSubview:vc.view];
     if (index == 2 || index == 5) {
-//        vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-64-60-50);
         [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentScrollview).with.offset(0);
             make.left.equalTo(self.contentScrollview).with.offset(x);
@@ -217,7 +285,6 @@
     }
     else
     {
-//        vc.tableView.frame = CGRectMake(x, 0, kScreenWidth, kScreenHeight-64-60);
         [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self.contentScrollview).with.offset(0);
             make.left.equalTo(self.contentScrollview).with.offset(x);
@@ -248,6 +315,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     //这里不写方法不生效- -
+    self.nmview.alpha = 0.0;
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -278,6 +346,15 @@
         ChildDetailTableViewController *childView = self.tableviewsArr[i];
         [self setUpOneChildController:i];
         [childView requestWithSelBtn:(int)i WithSurveyID:self.company_code];
+        
+        //显示解锁
+        if (self.tag < 3) {
+            self.unlockView.alpha = 1.0;
+        }
+        else
+        {
+            self.unlockView.alpha = 0.0;
+        }
     }
 }
 
@@ -297,6 +374,86 @@
     {
         self.tableview.contentOffset = CGPointMake(0, 140);
     }
+    
+    self.nmview.alpha = 0.0;
+}
+
+#pragma mark - 点击出现更多选项
+- (void)naviMore:(UIButton *)sender{
+    if (self.nmview.alpha == 1.0) {
+        self.nmview.alpha = 0.0;
+    }
+    else
+    {
+        self.nmview.alpha = 1.0;
+    }
+}
+
+- (void)selectWithNMViewTableView:(UITableView *)tableview andIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.row == 0) {
+        //读取用户设置
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        NSString *daynight = [userdefault objectForKey:@"daynight"];
+        UITableViewCell *cell = [tableview cellForRowAtIndexPath:indexPath];
+        if ([cell.textLabel.text isEqualToString:@"日间模式"]) {
+            if ([daynight isEqualToString:@"yes"]) {
+                [self.daynightModel night];
+                daynight = @"no";
+                [userdefault setValue:daynight forKey:@"daynight"];
+                [userdefault synchronize];
+            }
+        }
+        else //夜间
+        {
+            [self.daynightModel day];
+            daynight = @"yes";
+            [userdefault setValue:daynight forKey:@"daynight"];
+            [userdefault synchronize];
+        }
+    }
+    else if (indexPath.row == 1){
+        self.nmview.alpha = 0.0;
+        self.sfview.alpha = 1.0;
+        self.sfview.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
+    }
+    else if (indexPath.row == 2){
+        [self clickShare];
+    }
+    
+}
+
+#pragma mark - 更改字体的浮窗
+- (void)clickSure:(UIButton *)sender
+{
+    self.sfview.alpha = 0.0;
+    self.nmview.alpha = 0.0;
+    
+    NSString *jsZiti = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",self.fontsize];
+    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+    [childView.webview evaluateJavaScript:jsZiti completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        //
+    }];
+}
+
+- (void)clickCancel:(UIButton *)sender
+{
+    self.sfview.alpha = 0.0;
+    self.nmview.alpha = 0.0;
+}
+
+- (void)SelectFontWithIndexPath:(NSInteger)indexPath
+{
+    self.fontsize = self.sizeArr[indexPath];
+}
+
+#pragma mark - 点击隐藏解锁页面
+- (void)closeUnlockView:(UIButton *)sender
+{
+    self.unlockView.alpha = 0.0;
+    self.selBtnView.selBtn.selected = NO;
+    self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
+    [self selectWithDetail:self.selBtnView.selBtn];
 }
 
 #pragma mark - 点击跳转提问界面
@@ -320,7 +477,21 @@
     }
     
     if (US.isLogIn) {
-        [self.navigationController pushViewController:comView animated:YES];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+        
+        [alert addAction:[UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+            //牛评
+            [self.navigationController pushViewController:comView animated:YES];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            //熊评
+            [self.navigationController pushViewController:comView animated:YES];
+        }]];
+        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            //熊评
+        }]];
+        [self presentViewController:alert animated:true completion:nil];
+        
     }
     else
     {
@@ -328,6 +499,45 @@
         [self.navigationController pushViewController:login animated:YES];
     }
     
+}
+
+#pragma mark - 分享
+- (void)clickShare{
+//    //1、创建分享参数
+//    //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
+//    
+//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+//        [shareParams SSDKSetupShareParamsByText:nil
+//                                         images:@[self.survey_cover]
+//                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
+//                                          title:self.company_name
+//                                           type:SSDKContentTypeAuto];
+//    //2、分享（可以弹出我们的分享菜单和编辑界面）
+//    [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+//                             items:nil
+//                       shareParams:shareParams
+//               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+//                   
+//                   switch (state) {
+//                       case SSDKResponseStateSuccess:
+//                       {
+//                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享成功" preferredStyle:UIAlertControllerStyleAlert];
+//                           [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+//                           [self presentViewController:alert animated:YES completion:nil];
+//                           break;
+//                       }
+//                       case SSDKResponseStateFail:
+//                       {
+//                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享失败" preferredStyle:UIAlertControllerStyleAlert];
+//                           [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+//                           [self presentViewController:alert animated:YES completion:nil];
+//                           break;
+//                       }
+//                       default:
+//                           break;
+//                   }
+//               }
+//     ];
 }
 
 - (void)didReceiveMemoryWarning {

@@ -14,4 +14,6 @@
 
 @property (nonatomic,copy) NSString *company_name;
 
+@property (nonatomic,copy) NSString *survey_cover;
+
 @end

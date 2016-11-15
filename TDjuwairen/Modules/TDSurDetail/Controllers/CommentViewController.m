@@ -214,27 +214,27 @@
     NSString *url ;
     NSString *code = [self.company_code substringFromIndex:2];
     if ([self.type isEqualToString:@"bull"]) {
-        url = @"http://192.168.1.107/Survey/addComment";
+        url = @"http://192.168.1.103/Survey/addComment";
         para = @{@"type":@"1",
                  @"content":self.comView.text,
                  @"code":code,
                  @"user_id":US.userId};
     }
     else if ([self.type isEqualToString:@"bear"]){
-        url = @"http://192.168.1.107/Survey/addComment";
+        url = @"http://192.168.1.103/Survey/addComment";
         para = @{@"type":@"2",
                  @"content":self.comView.text,
                  @"code":code,
                  @"user_id":US.userId};
     }
     else if ([self.type isEqualToString:@"ask"]){
-        url = @"http://192.168.1.107/Survey/addQuestion";
+        url = @"http://192.168.1.103/Survey/addQuestion";
         para = @{@"code":code,
                  @"question":self.comView.text,
                  @"user_id":US.userId};
     }
     else if ([self.type isEqualToString:@"ans"]){
-        url = @"http://192.168.1.107/Survey/answerQuestion";
+        url = @"http://192.168.1.103/Survey/answerQuestion";
         para = @{@"ask_id":self.model.surveyask_id,
                  @"content":self.comView.text,
                  @"user_id":US.userId};

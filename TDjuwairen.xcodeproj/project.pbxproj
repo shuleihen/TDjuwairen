@@ -287,6 +287,8 @@
 		84B9B4641D4863C100DDF15B /* btn_jubao@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4631D4863C100DDF15B /* btn_jubao@3x.png */; };
 		84B9B4691D48A92D00DDF15B /* btn_select2_pre@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B4681D48A92D00DDF15B /* btn_select2_pre@3x.png */; };
 		84B9B46D1D48B05B00DDF15B /* btn_select2@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84B9B46C1D48B05B00DDF15B /* btn_select2@3x.png */; };
+		84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA15921DDAB1BE0023E162 /* UnlockView.m */; };
+		84CA159C1DDB082D0023E162 /* NMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA159B1DDB082D0023E162 /* NMView.m */; };
 		84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA3A291D6EB513003E9B53 /* PhoneNumHold.m */; };
 		84CBCC5B1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CBCC5A1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png */; };
 		84CBCC5D1D4B297A000DAEA8 /* tab_tanchujianpan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84CBCC5C1D4B297A000DAEA8 /* tab_tanchujianpan@3x.png */; };
@@ -852,6 +854,10 @@
 		84B9B4631D4863C100DDF15B /* btn_jubao@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_jubao@3x.png"; sourceTree = "<group>"; };
 		84B9B4681D48A92D00DDF15B /* btn_select2_pre@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_select2_pre@3x.png"; sourceTree = "<group>"; };
 		84B9B46C1D48B05B00DDF15B /* btn_select2@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_select2@3x.png"; sourceTree = "<group>"; };
+		84CA15911DDAB1BE0023E162 /* UnlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnlockView.h; sourceTree = "<group>"; };
+		84CA15921DDAB1BE0023E162 /* UnlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnlockView.m; sourceTree = "<group>"; };
+		84CA159A1DDB082D0023E162 /* NMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMView.h; sourceTree = "<group>"; };
+		84CA159B1DDB082D0023E162 /* NMView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NMView.m; sourceTree = "<group>"; };
 		84CA3A281D6EB512003E9B53 /* PhoneNumHold.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumHold.h; sourceTree = "<group>"; };
 		84CA3A291D6EB513003E9B53 /* PhoneNumHold.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumHold.m; sourceTree = "<group>"; };
 		84CBCC5A1D4B2976000DAEA8 /* tab_shouqijianpan@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "tab_shouqijianpan@3x.png"; sourceTree = "<group>"; };
@@ -1977,6 +1983,10 @@
 				8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */,
 				842C91CF1DD2FDEC0019617C /* BearBullSelBtnView.h */,
 				842C91D01DD2FDEC0019617C /* BearBullSelBtnView.m */,
+				84CA15911DDAB1BE0023E162 /* UnlockView.h */,
+				84CA15921DDAB1BE0023E162 /* UnlockView.m */,
+				84CA159A1DDB082D0023E162 /* NMView.h */,
+				84CA159B1DDB082D0023E162 /* NMView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2829,6 +2839,7 @@
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
+				84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */,
 				1955B4BE1D644DB400DC102E /* SurveyListModel.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
@@ -2867,6 +2878,7 @@
 				1955B4801D644D9800DC102E /* JWRImageView.m in Sources */,
 				1955B4A41D644D9800DC102E /* FloorView.m in Sources */,
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,
+				84CA159C1DDB082D0023E162 /* NMView.m in Sources */,
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
