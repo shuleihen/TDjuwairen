@@ -129,7 +129,7 @@
     //这里也可以用这个接口。但是得到的是JS类型的数据，解析半天没弄出来 - - ！
 //    NSString *listStr = [self.textArr componentsJoinedByString:@","];
 //    NSString *s = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",listStr];
-    NSString *str = @"http://192.168.1.103/Survey/lists/1";
+    NSString *str = @"http://192.168.1.107/Survey/lists/1";
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
     [manager GET:str parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -365,7 +365,7 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     StockListModel *model = self.stockListArr[indexPath.row];
     SurDetailViewController *surDetail = [[SurDetailViewController alloc] init];
-    surDetail.company_image = model.survey_cover;
+    surDetail.survey_cover = model.survey_cover;
     surDetail.company_code = model.company_code;
     surDetail.company_name = model.company_name;
     surDetail.hidesBottomBarWhenPushed = YES;

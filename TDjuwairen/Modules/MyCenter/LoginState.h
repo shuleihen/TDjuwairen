@@ -20,6 +20,10 @@
 @property (nonatomic, copy) NSString *company;
 @property (nonatomic, copy) NSString *post;
 @property (nonatomic, copy) NSString *personal;
+
+@property (nonatomic,assign) int user_balance;
+
+
 @property (nonatomic, assign) BOOL isLogIn;
 
 @property (nonatomic,assign) BOOL isReply;

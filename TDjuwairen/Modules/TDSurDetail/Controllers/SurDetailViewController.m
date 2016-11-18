@@ -15,13 +15,21 @@
 #import "CommentViewController.h"
 #import "LoginViewController.h"
 #import "UnlockView.h"
+#import "RechargeView.h"
+#import "SelWXOrAlipayView.h"
+#import "FeedbackViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 #import "Masonry.h"
-#import <ShareSDK/ShareSDK.h>
+#import "AFNetworking.h"
+#import "UIStoryboard+MainStoryboard.h"
 
-@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate>
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import <AlipaySDK/AlipaySDK.h>
+
+@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate>
 {
     CGSize contentSize;
 }
@@ -49,7 +57,11 @@
 
 @property (nonatomic,strong) UIImageView *comImg;
 
-@property (nonatomic,strong) UnlockView *unlockView;
+@property (nonatomic,strong) UnlockView *unlockView;          //解锁页面
+
+@property (nonatomic,strong) RechargeView *rechargeView;      //充值页面
+
+@property (nonatomic,strong) SelWXOrAlipayView *payView;      //选择支付页面
 
 @end
 
@@ -74,14 +86,35 @@
     return _sfview;
 }
 
-- (UnlockView *)unlockView{
-    if (!_unlockView) {
-        
-        _unlockView = [[UnlockView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
-        _unlockView.delegate = self;
-        [self.view addSubview:_unlockView];
+- (void)createUnLockView{
+    self.unlockView = [[UnlockView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) andCompany_name:self.company_name];
+    self.unlockView.delegate = self;
+    if (US.isLogIn) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        NSString *url = @"http://192.168.1.107/Survey/getUserKeyNum";
+        NSDictionary *para = @{@"user_id":US.userId};
+        [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *data = responseObject[@"data"];
+            NSString *keyNum = data[@"keyNum"];
+            self.unlockView.balanceLab.text = [NSString stringWithFormat:@"账户余额 %@",keyNum];
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
     }
-    return _unlockView;
+    else
+    {
+        self.unlockView.balanceLab.text = [NSString stringWithFormat:@"账户余额 0"];
+    }
+    
+    [self.view addSubview:self.unlockView];
+}
+
+- (void)createChargeView{
+    self.rechargeView = [[RechargeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+    self.rechargeView.delegate = self;
+    [self.view addSubview:self.rechargeView];
 }
 
 - (void)viewDidLoad {
@@ -258,12 +291,14 @@
     [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
     
     //显示解锁
-    if (self.tag < 3) {
-        self.unlockView.alpha = 1.0;
-    }
-    else
-    {
-        self.unlockView.alpha = 0.0;
+    if (!self.selBtnView.isLocked) {
+        if (self.tag < 3) {
+            [self createUnLockView];
+        }
+        else
+        {
+            [self.unlockView removeFromSuperview];
+        }
     }
 }
 
@@ -348,12 +383,14 @@
         [childView requestWithSelBtn:(int)i WithSurveyID:self.company_code];
         
         //显示解锁
-        if (self.tag < 3) {
-            self.unlockView.alpha = 1.0;
-        }
-        else
-        {
-            self.unlockView.alpha = 0.0;
+        if (!self.selBtnView.isLocked) {
+            if (self.tag < 3) {
+                [self createUnLockView];
+            }
+            else
+            {
+                [self.unlockView removeFromSuperview];
+            }
         }
     }
 }
@@ -418,7 +455,19 @@
         self.sfview.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
     }
     else if (indexPath.row == 2){
-        [self clickShare];
+//        [self clickShare];
+    }
+    else if (indexPath.row == 3){
+        //跳转反馈
+        if (US.isLogIn) {
+            FeedbackViewController *feedback = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            [self.navigationController pushViewController:feedback animated:YES];
+        }
+        else
+        {
+            LoginViewController *login = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:login animated:YES];
+        }
     }
     
 }
@@ -450,10 +499,97 @@
 #pragma mark - 点击隐藏解锁页面
 - (void)closeUnlockView:(UIButton *)sender
 {
-    self.unlockView.alpha = 0.0;
-    self.selBtnView.selBtn.selected = NO;
-    self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
-    [self selectWithDetail:self.selBtnView.selBtn];
+    [self.unlockView removeFromSuperview];
+    if (!self.selBtnView.isLocked) {
+        self.selBtnView.selBtn.selected = NO;
+        self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
+        [self selectWithDetail:self.selBtnView.selBtn];
+    }
+}
+
+- (void)closeRechargeView:(UIButton *)sender
+{
+    [self.rechargeView removeFromSuperview];
+    if (!self.selBtnView.isLocked) {
+        self.selBtnView.selBtn.selected = NO;
+        self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
+        [self selectWithDetail:self.selBtnView.selBtn];
+    }
+}
+
+- (void)closeSelWXOrAlipayView:(UIButton *)sender
+{
+    [self.payView removeFromSuperview];
+}
+
+#pragma mark - 充值或解锁
+- (void)clickUnlockOrRecharge:(UIButton *)sender
+{
+    if (US.isLogIn) {
+        if ([sender.titleLabel.text isEqualToString:@"充值"]) {     //进入选择充值页面
+            [self.unlockView removeFromSuperview];
+            [self createChargeView];
+        }
+        else
+        {
+            //解锁
+            AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+            manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+            NSString *urlString = @"http://192.168.1.107/Survey/unlockCompany";
+            NSString *code = [self.company_code substringFromIndex:2];
+            NSDictionary *para = @{@"user_id":US.userId,
+                                   @"code":code};
+            [manager POST:urlString parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+                NSLog(@"%@",responseObject);
+            } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+                NSLog(@"%@",error);
+            }];
+        }
+    }
+    else
+    {
+        LoginViewController *loginView = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:loginView animated:YES];
+    }
+}
+
+//充值
+- (void)clickRecharge:(UIButton *)sender
+{
+    NSLog(@"%ld",(long)sender.tag);    //进入选择付款页面
+    [self.rechargeView removeFromSuperview];
+    self.payView = [[SelWXOrAlipayView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+    self.payView.delegate = self;
+    [self.view addSubview:self.payView];
+}
+
+#pragma mark - 进入支付
+- (void)didSelectWXOrZhifubao:(NSIndexPath *)indePath
+{
+    if (indePath.row == 0) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        // 设置请求接口回来的时候支持什么类型的数据
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        NSDictionary *dic = @{@"type":@"1",
+                              @"number":@"3",
+                              @"version":@"1.0",
+                              @"user_id":US.userId};
+        NSString *url = @"http://192.168.1.107/Survey/alipayKey";
+        
+        [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            nil;
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dic = responseObject;
+            NSString *orderString = dic[@"data"];
+            NSString *appScheme = @"TDjuwairen";
+            [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                NSLog(@"reslut = %@",resultDic);
+            }];
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"失败");
+        }];
+    }
 }
 
 #pragma mark - 点击跳转提问界面
@@ -491,55 +627,53 @@
             //熊评
         }]];
         [self presentViewController:alert animated:true completion:nil];
-        
     }
     else
     {
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
     }
-    
 }
-
+/*
 #pragma mark - 分享
 - (void)clickShare{
-//    //1、创建分享参数
-//    //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
-//    
-//    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-//        [shareParams SSDKSetupShareParamsByText:nil
-//                                         images:@[self.survey_cover]
-//                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
-//                                          title:self.company_name
-//                                           type:SSDKContentTypeAuto];
-//    //2、分享（可以弹出我们的分享菜单和编辑界面）
-//    [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
-//                             items:nil
-//                       shareParams:shareParams
-//               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-//                   
-//                   switch (state) {
-//                       case SSDKResponseStateSuccess:
-//                       {
-//                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享成功" preferredStyle:UIAlertControllerStyleAlert];
-//                           [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
-//                           [self presentViewController:alert animated:YES completion:nil];
-//                           break;
-//                       }
-//                       case SSDKResponseStateFail:
-//                       {
-//                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享失败" preferredStyle:UIAlertControllerStyleAlert];
-//                           [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
-//                           [self presentViewController:alert animated:YES completion:nil];
-//                           break;
-//                       }
-//                       default:
-//                           break;
-//                   }
-//               }
-//     ];
+    //1、创建分享参数
+    //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
+    
+    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:nil
+                                         images:@[self.survey_cover]
+                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
+                                          title:self.company_name
+                                           type:SSDKContentTypeAuto];
+    //2、分享（可以弹出我们的分享菜单和编辑界面）
+    [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
+                             items:nil
+                       shareParams:shareParams
+               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                   
+                   switch (state) {
+                       case SSDKResponseStateSuccess:
+                       {
+                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享成功" preferredStyle:UIAlertControllerStyleAlert];
+                           [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+                           [self presentViewController:alert animated:YES completion:nil];
+                           break;
+                       }
+                       case SSDKResponseStateFail:
+                       {
+                           UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享失败" preferredStyle:UIAlertControllerStyleAlert];
+                           [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+                           [self presentViewController:alert animated:YES completion:nil];
+                           break;
+                       }
+                       default:
+                           break;
+                   }
+               }
+     ];
 }
-
+*/
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

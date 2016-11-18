@@ -33,7 +33,7 @@
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = @"http://192.168.1.103/Survey/survey_show_header";
+        NSString *url = @"http://192.168.1.107/Survey/survey_show_header";
         [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

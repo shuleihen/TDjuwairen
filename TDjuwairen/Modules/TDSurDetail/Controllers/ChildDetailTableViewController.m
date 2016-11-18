@@ -59,79 +59,32 @@
 - (void)requestWithSelBtn:(int)tag WithSurveyID:(NSString *)surveyID
 {
     self.tag = tag;
-    
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = @"http://192.168.1.103/Survey/survey_show_tag";
-    NSString *code = [surveyID substringFromIndex:2];
-    NSDictionary *para;
-    if (US.isLogIn) {
-        para = @{@"code":code,
-                 @"tag":[NSString stringWithFormat:@"%d",tag],
-                 @"userid":US.userId};
-    }
-    else
-    {
-        para = @{@"code":code,
-                 @"tag":[NSString stringWithFormat:@"%d",tag]};
-    }
-    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-        nil;
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject);
-        if (self.tag == 0 || self.tag == 1) {
-            NSArray *data = responseObject[@"data"];
-            NSDictionary *dic = data[1];
-            NSString *content = dic[@"content"];
-            
-            [self.webview loadHTMLString:content baseURL:nil];
-            [self.tableView reloadData];
-        }
-        else if(self.tag == 2)
-        {
-            self.bullsArr = [NSMutableArray array];
-            self.bearsArr = [NSMutableArray array];
-            NSArray *dataArr = responseObject[@"data"];
-            for (NSDictionary *dic in dataArr) {
-                if ([dic[@"surveycomment_type"] isEqualToString:@"1"]) {
-                    [self.bullsArr addObject:dic];
-                }
-                else
-                {
-                    [self.bearsArr addObject:dic];
-                }
-            }
-            self.niuxiong = 1;
-            [self.tableView reloadData];
-        }
-        else if (self.tag == 3)
-        {
-            NSArray *dataArr = responseObject[@"data"];
-            NSString *html1 = dataArr[1];
-            [self.webview loadHTMLString:html1 baseURL:nil];
-            [self.tableView reloadData];
-        }
-        else if (self.tag == 4)
-        {
-            NSString *html = responseObject[@"data"];
-            [self.webview loadHTMLString:html baseURL:nil];
-            [self.tableView reloadData];
+    if (self.tag != 2 || self.tag != 5) {
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        NSString *url = @"http://192.168.1.107/Survey/survey_show_tag";
+        NSString *code = [surveyID substringFromIndex:2];
+        NSDictionary *para;
+        if (US.isLogIn) {
+            para = @{@"code":code,
+                     @"tag":[NSString stringWithFormat:@"%d",tag],
+                     @"userid":US.userId};
         }
         else
         {
-            self.askArr = [NSMutableArray array];
-            NSArray *dataArr = responseObject[@"data"];
-            for (NSDictionary *dic in dataArr) {
-                AskModel *model = [AskModel getInstanceWithDictionary:dic];
-                
-                [self.askArr addObject:model];
-            }
-            [self.tableView reloadData];
+            para = @{@"code":code,
+                     @"tag":[NSString stringWithFormat:@"%d",tag]};
         }
-        
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+        [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+            nil;
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@",responseObject);
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 
 - (void)didReceiveMemoryWarning {
@@ -471,7 +424,7 @@
     if (US.isLogIn) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = @"http://192.168.1.103/Survey/addCommentGoodAccess";
+        NSString *url = @"http://192.168.1.107/Survey/addCommentGoodAccess";
         NSDictionary *dic = @{@"user_id":@"956",
                               @"comment_id":[NSString stringWithFormat:@"%ld",(long)sender.tag]};
         [manager POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

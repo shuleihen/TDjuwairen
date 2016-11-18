@@ -12,6 +12,8 @@
 
 - (void)closeUnlockView:(UIButton *)sender;
 
+- (void)clickUnlockOrRecharge:(UIButton *)sender;
+
 @end
 
 @interface UnlockView : UIView
@@ -20,6 +22,10 @@
 
 @property (nonatomic,strong) UIView *showView;
 
+@property (nonatomic,strong) UILabel *balanceLab;
+
 @property (nonatomic,assign) id<unlockViewDelegate>delegate;
+
+- (instancetype)initWithFrame:(CGRect)frame andCompany_name:(NSString *)companyName;
 
 @end
