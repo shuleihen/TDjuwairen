@@ -20,7 +20,7 @@
 
 #import "NSString+Ext.h"
 #import "AFNetworking.h"
-#import "NetworkManager.h"
+#import "NetworkDefine.h"
 #import "UIImageView+WebCache.h"
 #import "Masonry.h"
 #import "HexColors.h"

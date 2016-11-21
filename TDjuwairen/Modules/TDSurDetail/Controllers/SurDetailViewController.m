@@ -23,7 +23,7 @@
 #import "LoginState.h"
 #import "Masonry.h"
 #import "AFNetworking.h"
-#import "NetworkManager.h"
+#import "NetworkDefine.h"
 #import "UIStoryboard+MainStoryboard.h"
 
 #import <ShareSDK/ShareSDK.h>
@@ -73,6 +73,15 @@
 
 - (NMView *)nmview{
     if (!_nmview) {
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        NSString *daynight = [userdefault objectForKey:@"daynight"];
+        if ([daynight isEqualToString:@"yes"]) {
+            [self.daynightModel day];
+        }
+        else
+        {
+            [self.daynightModel night];
+        }
         _nmview = [[NMView alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-176, kScreenWidth, 176)];
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
@@ -487,6 +496,9 @@
             daynight = @"no";
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
+            ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+            [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
+            [self.nmview.tableview reloadData];
         }
         else //夜间
         {
@@ -494,6 +506,9 @@
             daynight = @"yes";
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
+            ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+            [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
+            [self.nmview.tableview reloadData];
         }
     }
     else if (indexPath.row == 1){
