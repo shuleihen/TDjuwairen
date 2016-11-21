@@ -87,7 +87,6 @@
             MyHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
                 cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                [cell.backBtn addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
             }
             if (US.isLogIn==YES) {
                 //加载头像

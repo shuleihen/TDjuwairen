@@ -24,9 +24,6 @@
 }
 
 - (void)create{
-    self.backBtn = [[UIButton alloc] initWithFrame:CGRectMake(15, 27, 30, 30)];
-    [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
-    
     self.backImg = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
     
     UIBlurEffect *blur = [UIBlurEffect effectWithStyle:UIBlurEffectStyleLight];
@@ -53,7 +50,6 @@
     [self addSubview:self.backImg];
     [self addSubview:self.headImg];
     [self addSubview:self.nickname];
-    [self addSubview:self.backBtn];
     
 }
 

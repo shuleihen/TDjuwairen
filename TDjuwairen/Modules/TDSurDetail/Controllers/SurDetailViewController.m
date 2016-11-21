@@ -65,6 +65,8 @@
 
 @property (nonatomic,strong) SelWXOrAlipayView *payView;      //选择支付页面
 
+@property (nonatomic,strong) NSString *keysNum;
+
 @end
 
 @implementation SurDetailViewController
@@ -108,7 +110,7 @@
     else
     {
         self.unlockView.balanceLab.text = [NSString stringWithFormat:@"账户余额 0"];
-        [self.unlockView.unlockBtn setTitle:@"解锁" forState:UIControlStateNormal];
+        [self.unlockView.unlockBtn setTitle:@"充值" forState:UIControlStateNormal];
     }
     
     [self.view addSubview:self.unlockView];
@@ -193,6 +195,9 @@
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = self.company_name;
+    
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightModel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightModel.navigationColor];
     
     UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [rightButton setImage:[UIImage imageNamed:@"nav_more@3x.png"] forState:UIControlStateNormal];
@@ -352,7 +357,7 @@
     if (vc.view.superview) {
         return;
     }
-    vc.view.backgroundColor = self.daynightModel.backColor;
+    vc.view.backgroundColor = self.daynightModel.navigationColor;
     [self.contentScrollview addSubview:vc.view];
     if (index == 2 || index == 5) {
         [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -497,7 +502,7 @@
         self.sfview.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
     }
     else if (indexPath.row == 2){
-        //        [self clickShare];
+        [self clickShare];
     }
     else if (indexPath.row == 3){
         //跳转反馈
@@ -603,6 +608,19 @@
 //充值
 - (void)clickRecharge:(UIButton *)sender
 {
+    if (sender.tag == 0) {
+        self.keysNum = @"1";
+    }
+    else if (sender.tag == 1){
+        self.keysNum = @"5";
+    }
+    else if (sender.tag == 2){
+        self.keysNum = @"10";
+    }
+    else
+    {
+        self.keysNum = @"VIP";
+    }
     //进入选择付款页面
     [self.rechargeView removeFromSuperview];
     self.payView = [[SelWXOrAlipayView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
@@ -617,10 +635,21 @@
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         // 设置请求接口回来的时候支持什么类型的数据
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSDictionary *dic = @{@"type":@"1",
-                              @"number":@"3",
-                              @"version":@"1.0",
-                              @"user_id":US.userId};
+        NSDictionary *dic;
+        if (![self.keysNum isEqualToString:@"VIP"]) {
+            dic = @{@"type":@"1",
+                    @"number":self.keysNum,
+                    @"version":@"1.0",
+                    @"user_id":US.userId};
+        }
+        else
+        {
+            dic = @{@"type":@"2",   //type = 2 表示充值VIP
+                    @"number":@"1",
+                    @"version":@"1.0",
+                    @"user_id":US.userId};
+        }
+        
         NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",kAPI_songsong];
         
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -640,19 +669,28 @@
     else    //微信支付
     {
         NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",kAPI_songsong];
-        NSDictionary *para = @{@"type":@"1",
-                               @"number":@"1",
-                               @"user_id":@"956",
-                               @"device":@"1"};
+        NSDictionary *dic;
+        if (![self.keysNum isEqualToString:@"VIP"]) {
+            dic = @{@"type":@"1",
+                                   @"number":self.keysNum,
+                                   @"user_id":US.userId,
+                                   @"device":@"1"};
+        }
+        else
+        {
+            dic = @{@"type":@"2",
+                                   @"number":@"1",
+                                   @"user_id":US.userId,
+                                   @"device":@"1"};
+        }
+        
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        [manager POST:urlString parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+        [manager POST:urlString parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"%@",responseObject);
             NSDictionary *dic = responseObject;
             NSString *str = dic[@"data"];
-            NSLog(@"%@",str);
             NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
             NSError *err;
             NSDictionary *order = [NSJSONSerialization JSONObjectWithData:jsonData
@@ -718,16 +756,17 @@
         [self.navigationController pushViewController:login animated:YES];
     }
 }
-/*
+
 #pragma mark - 分享
 - (void)clickShare{
     //1、创建分享参数
     //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+    NSString *code = [self.company_code substringFromIndex:2];
     [shareParams SSDKSetupShareParamsByText:nil
                                      images:@[self.survey_cover]
-                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",code]]
                                       title:self.company_name
                                        type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
@@ -757,7 +796,7 @@
                }
      ];
 }
-*/
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.

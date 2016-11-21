@@ -210,7 +210,7 @@
             self.webview.navigationDelegate = self;
             self.webview.UIDelegate = self;
             self.webview.scrollView.delegate = self;
-            self.webview.backgroundColor = self.daynightModel.backColor;
+            self.webview.backgroundColor = self.daynightModel.navigationColor;
             [cell.contentView addSubview:self.webview];
             
             [self.webview mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -223,7 +223,7 @@
             
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.backgroundColor = self.daynightModel.backColor;
+        cell.backgroundColor = self.daynightModel.navigationColor;
         return cell;
     }
     else if(self.tag == 2)
@@ -255,7 +255,7 @@
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
             else
@@ -268,7 +268,7 @@
                 cell.textLabel.text = @"当前还没有熊评";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
         }
@@ -300,7 +300,7 @@
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
             else
@@ -313,7 +313,7 @@
                 cell.textLabel.text = @"当前还没有牛评";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
         }
@@ -326,7 +326,7 @@
                 cell.askBtn.tag = indexPath.section;
                 [cell.askBtn addTarget:self action:@selector(clickToComment:) forControlEvents:UIControlEventTouchUpInside];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
                 
             }
@@ -345,7 +345,7 @@
                     make.height.mas_equalTo(contentSize.height);
                 }];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
             else if (indexPath.row == 2){
@@ -357,7 +357,7 @@
                 cell.textLabel.text = @"作者回答：";
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
             else
@@ -388,7 +388,7 @@
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
-                cell.backgroundColor = self.daynightModel.backColor;
+                cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
             }
         }
@@ -402,7 +402,7 @@
             cell.textLabel.text = @"当前还没有人提问";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.backgroundColor = self.daynightModel.backColor;
+            cell.backgroundColor = self.daynightModel.navigationColor;
             return cell;
         }
     }
@@ -461,13 +461,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    if (self.tag == 5) {
-        return 10;
-    }
-    else
-    {
+//    if (self.tag == 5) {
+//        return 10;
+//    }
+//    else
+//    {
         return 0;
-    }
+//    }
 }
 
 #pragma mark - BearBullSelBtnViewDelegate

@@ -651,18 +651,7 @@
             [userdefault setValue:daynight forKey:@"daynight"];
             [userdefault synchronize];
             
-            NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#CCCCCC'";
-            
-            NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='#222222';\
-            var pNode=document.getElementsByTagName('p');\
-            for(var i=0;i<pNode.length;i++){\
-            pNode[i].style.backgroundColor='#222222';\
-            }";
-            
-            [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-                //
-            }];
-            [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            [self.webview evaluateJavaScript:@"nightMode()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                 //
             }];
         }
@@ -680,18 +669,7 @@
         [userdefault setValue:daynight forKey:@"daynight"];
         [userdefault synchronize];
         
-        NSString *textcolor = @"document.getElementsByTagName('body')[0].style.webkitTextFillColor= '#5B5B5B'";
-        
-        NSString *backcolor = @"document.getElementsByTagName('body')[0].style.background='white';\
-        var pNode=document.getElementsByTagName('p');\
-        for(var i=0;i<pNode.length;i++){\
-        pNode[i].style.backgroundColor='white';\
-        }";
-        
-        [self.webview evaluateJavaScript:textcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //
-        }];
-        [self.webview evaluateJavaScript:backcolor completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        [self.webview evaluateJavaScript:@"nightMode()" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
             //
         }];
     }
