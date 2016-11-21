@@ -10,8 +10,6 @@
 
 @interface MyHeadTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) UIButton *backBtn;
-
 @property (nonatomic,strong) UIImageView *backImg;
 @property (nonatomic,strong) UIImageView *headImg;
 @property (nonatomic,strong) UILabel *nickname;

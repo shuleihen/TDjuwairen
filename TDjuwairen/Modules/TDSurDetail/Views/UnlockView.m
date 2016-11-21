@@ -9,7 +9,6 @@
 #import "UnlockView.h"
 
 #import "UIdaynightModel.h"
-#import "LoginState.h"
 #import "Masonry.h"
 #import "HexColors.h"
 
@@ -60,17 +59,10 @@
         line.layer.borderWidth = 1.0;
         line.layer.borderColor = daynightModel.lineColor.CGColor;
         
-        UIButton *unlockBtn = [[UIButton alloc] init];
-        if (US.user_balance > 0) {
-            [unlockBtn setTitle:@"解锁" forState:UIControlStateNormal];
-        }
-        else
-        {
-            [unlockBtn setTitle:@"充值" forState:UIControlStateNormal];
-        }
-        [unlockBtn setBackgroundColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0]];
-        unlockBtn.layer.cornerRadius = 5;
-        [unlockBtn addTarget:self action:@selector(clickUnlockOrRecharge:) forControlEvents:UIControlEventTouchUpInside];
+        self.unlockBtn = [[UIButton alloc] init];
+        [self.unlockBtn setBackgroundColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0]];
+        self.unlockBtn.layer.cornerRadius = 5;
+        [self.unlockBtn addTarget:self action:@selector(clickUnlockOrRecharge:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *close = [[UIButton alloc] init];
         [close setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
@@ -84,7 +76,7 @@
         [self.showView addSubview:lockNum];
         [self.showView addSubview:self.balanceLab];
         [self.showView addSubview:line];
-        [self.showView addSubview:unlockBtn];
+        [self.showView addSubview:self.unlockBtn];
         [self addSubview:close];
         
         [self.showView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -143,7 +135,7 @@
             make.height.mas_equalTo(1);
         }];
         
-        [unlockBtn mas_makeConstraints:^(MASConstraintMaker *make) {
+        [self.unlockBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self.showView);
             make.top.equalTo(line.mas_bottom).with.offset(25);
             make.bottom.equalTo(self.showView.mas_bottom).with.offset(-30);

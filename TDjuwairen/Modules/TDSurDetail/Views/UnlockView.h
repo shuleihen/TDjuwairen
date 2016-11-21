@@ -24,6 +24,8 @@
 
 @property (nonatomic,strong) UILabel *balanceLab;
 
+@property (nonatomic,strong) UIButton *unlockBtn;
+
 @property (nonatomic,assign) id<unlockViewDelegate>delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame andCompany_name:(NSString *)companyName;

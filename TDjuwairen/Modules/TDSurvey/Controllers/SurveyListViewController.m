@@ -129,7 +129,7 @@
     //这里也可以用这个接口。但是得到的是JS类型的数据，解析半天没弄出来 - - ！
 //    NSString *listStr = [self.textArr componentsJoinedByString:@","];
 //    NSString *s = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",listStr];
-    NSString *str = @"http://192.168.1.107/Survey/lists/1";
+    NSString *str = [NSString stringWithFormat:@"%@Survey/lists/1",kAPI_songsong];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
     [manager GET:str parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
@@ -374,16 +374,17 @@
 
 #pragma mark - 点击头像
 - (void)clickHeadImg:(UIButton *)sender{
-    CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush; //方式
-    transition.subtype = kCATransitionFromLeft; //方向
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    
-    PersonalCenterViewController *personal = [[PersonalCenterViewController alloc] init];
-    personal.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:personal animated:YES];
+//    CATransition* transition = [CATransition animation];
+//    transition.duration = 0.5;
+//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+//    transition.type = kCATransitionPush; //方式
+//    transition.subtype = kCATransitionFromLeft; //方向
+//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
+//    
+//    PersonalCenterViewController *personal = [[PersonalCenterViewController alloc] init];
+//    personal.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:personal animated:YES];
+    [self.tabBarController setSelectedIndex:3];
 }
 
 #pragma mark - 定时器操作

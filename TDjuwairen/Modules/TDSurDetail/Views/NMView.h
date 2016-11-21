@@ -16,6 +16,8 @@
 
 @interface NMView : UIView
 
+@property (nonatomic,strong) UITableView *tableview;
+
 @property (nonatomic,assign) id<NMViewDelegate>delegate;
 
 @end

@@ -8,6 +8,7 @@
 
 #import "SurDetailSelBtnView.h"
 #import "AFNetworking.h"
+#import "NetworkManager.h"
 #import "LoginState.h"
 #import "TopBotButton.h"
 
@@ -26,14 +27,14 @@
         }
         else
         {
-            para = @{@"code":@"000001"};
+            para = @{@"code":stockcode};
         }
         
         [self createBtn];
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = @"http://192.168.1.107/Survey/survey_show_header";
+        NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",kAPI_songsong];
         [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -69,8 +70,8 @@
     NSArray *norArr;
     NSArray *selArr;
     NSString *islock = [NSString stringWithFormat:@"%@",dic[@"isLock"]];
-    if ([islock isEqualToString:@"0"]) {
-        self.isLocked = NO;
+    if ([islock isEqualToString:@"1"]) {   //true 1 表示上锁  false 0 表示解锁
+        self.isLocked = YES;
         norArr = @[@"btn_shidi_locked",
                    @"btn_duihua_locked",
                    @"btn_niuxiong_locked",
@@ -88,7 +89,7 @@
     }
     else
     {
-        self.isLocked = YES;
+        self.isLocked = NO;
         norArr = @[@"btn_shidi_nor",
                    @"btn_duihua_nor",
                    @"btn_niuxiong_nor",
