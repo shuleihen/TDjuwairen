@@ -1,14 +1,13 @@
 //
-//  MyInfoViewController.h
+//  AccountViewController.h
 //  TDjuwairen
 //
-//  Created by 团大 on 16/7/21.
+//  Created by zdy on 2016/11/21.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface MyInfoViewController : UIViewController
-
+@interface AccountViewController : UITableViewController
 
 @end

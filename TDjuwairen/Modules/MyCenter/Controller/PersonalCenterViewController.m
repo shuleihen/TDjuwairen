@@ -13,13 +13,11 @@
 #import "LoginState.h"
 #import "LoginViewController.h"
 #import "UIImageView+WebCache.h"
-#import "MyInfoViewController.h"
 #import "SettingUpViewController.h"
 #import "AboutMineViewController.h"
 #import "ViewManagerViewController.h"
 #import "DaynightCellTableViewCell.h"
 #import "PushMessageViewController.h"
-
 #import "CommentsViewController.h"
 #import "CollectionViewController.h"
 #import "MyWalletViewController.h"
@@ -221,9 +219,9 @@
             else
             {
                 //跳转到个人信息页面
-                MyInfoViewController *MyInfo = [[MyInfoViewController alloc] init];
-                MyInfo.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:MyInfo animated:YES];
+                UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
             
         }
@@ -312,7 +310,6 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     //set ui
@@ -346,6 +343,7 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 #pragma mark - 回跳
