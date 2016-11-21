@@ -23,11 +23,13 @@
 #import "LoginState.h"
 #import "Masonry.h"
 #import "AFNetworking.h"
+#import "NetworkManager.h"
 #import "UIStoryboard+MainStoryboard.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import <AlipaySDK/AlipaySDK.h>
+#import "WXApi.h"
 
 @interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate>
 {
@@ -92,13 +94,13 @@
     if (US.isLogIn) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = @"http://192.168.1.107/Survey/getUserKeyNum";
+        NSString *url = [NSString stringWithFormat:@"%@Survey/getUserKeyNum",kAPI_songsong];
         NSDictionary *para = @{@"user_id":US.userId};
         [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *data = responseObject[@"data"];
             NSString *keyNum = data[@"keyNum"];
             self.unlockView.balanceLab.text = [NSString stringWithFormat:@"账户余额 %@",keyNum];
-            
+            [self.unlockView.unlockBtn setTitle:@"解锁" forState:UIControlStateNormal];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];
@@ -106,6 +108,7 @@
     else
     {
         self.unlockView.balanceLab.text = [NSString stringWithFormat:@"账户余额 0"];
+        [self.unlockView.unlockBtn setTitle:@"解锁" forState:UIControlStateNormal];
     }
     
     [self.view addSubview:self.unlockView];
@@ -137,8 +140,54 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
-    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
+//    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+//    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
+    //监听日夜间模式
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightModel day];
+    }
+    else
+    {
+        [self.daynightModel night];
+    }
+    [userdefault addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
+    
+    if (self.unlockView) {
+        [self.unlockView removeFromSuperview];
+        [self createUnLockView];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    //移除观察者模式
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    [userdefault removeObserver:self forKeyPath:@"daynight"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - 监听daynightModel
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"daynight"]) {
+        self.view.backgroundColor = self.daynightModel.navigationColor;
+        self.contentScrollview.backgroundColor = self.daynightModel.backColor;
+        [self.navigationController.navigationBar setBackgroundColor:self.daynightModel.navigationColor];
+        [self.navigationController.navigationBar setBarTintColor:self.daynightModel.navigationColor];
+        
+        //tableheadView
+        self.dataView.backgroundColor = self.daynightModel.navigationColor;
+        self.dataView.yestodEndPri.textColor = self.daynightModel.titleColor;
+        self.dataView.todayStartPri.textColor = self.daynightModel.titleColor;
+        self.dataView.todayMax.textColor = self.daynightModel.titleColor;
+        self.dataView.todayMin.textColor = self.daynightModel.titleColor;
+        self.dataView.traNumber.textColor = self.daynightModel.titleColor;
+        self.dataView.traAmount.textColor = self.daynightModel.titleColor;
+
+        [self.tableview reloadData];
+    }
 }
 
 - (void)setupWithNavigation{
@@ -164,14 +213,8 @@
 }
 
 - (void)setupWithDateView{
-    self.dataView = [[SurDataView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140) WithStockID:@"sz000001"];
-    self.dataView.backgroundColor = self.daynightModel.navigationColor;
-    self.dataView.yestodEndPri.textColor = self.daynightModel.titleColor;
-    self.dataView.todayStartPri.textColor = self.daynightModel.titleColor;
-    self.dataView.todayMax.textColor = self.daynightModel.titleColor;
-    self.dataView.todayMin.textColor = self.daynightModel.titleColor;
-    self.dataView.traNumber.textColor = self.daynightModel.titleColor;
-    self.dataView.traAmount.textColor = self.daynightModel.titleColor;
+    self.dataView = [[SurDataView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140) WithStockID:self.company_code];
+    
     self.tableview.tableHeaderView = self.dataView;
 }
 
@@ -240,6 +283,7 @@
         }
         [self selectWithDetail:self.selBtnView.selBtn];
     }
+    cell.backgroundColor = self.daynightModel.backColor;
     return cell;
 }
 
@@ -291,7 +335,7 @@
     [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
     
     //显示解锁
-    if (!self.selBtnView.isLocked) {
+    if (self.selBtnView.isLocked) {
         if (self.tag < 3) {
             [self createUnLockView];
         }
@@ -308,7 +352,7 @@
     if (vc.view.superview) {
         return;
     }
-    
+    vc.view.backgroundColor = self.daynightModel.backColor;
     [self.contentScrollview addSubview:vc.view];
     if (index == 2 || index == 5) {
         [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -383,7 +427,7 @@
         [childView requestWithSelBtn:(int)i WithSurveyID:self.company_code];
         
         //显示解锁
-        if (!self.selBtnView.isLocked) {
+        if (self.selBtnView.isLocked) {
             if (self.tag < 3) {
                 [self createUnLockView];
             }
@@ -434,12 +478,10 @@
         NSString *daynight = [userdefault objectForKey:@"daynight"];
         UITableViewCell *cell = [tableview cellForRowAtIndexPath:indexPath];
         if ([cell.textLabel.text isEqualToString:@"日间模式"]) {
-            if ([daynight isEqualToString:@"yes"]) {
-                [self.daynightModel night];
-                daynight = @"no";
-                [userdefault setValue:daynight forKey:@"daynight"];
-                [userdefault synchronize];
-            }
+            [self.daynightModel night];
+            daynight = @"no";
+            [userdefault setValue:daynight forKey:@"daynight"];
+            [userdefault synchronize];
         }
         else //夜间
         {
@@ -455,7 +497,7 @@
         self.sfview.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
     }
     else if (indexPath.row == 2){
-//        [self clickShare];
+        //        [self clickShare];
     }
     else if (indexPath.row == 3){
         //跳转反馈
@@ -469,7 +511,6 @@
             [self.navigationController pushViewController:login animated:YES];
         }
     }
-    
 }
 
 #pragma mark - 更改字体的浮窗
@@ -500,7 +541,7 @@
 - (void)closeUnlockView:(UIButton *)sender
 {
     [self.unlockView removeFromSuperview];
-    if (!self.selBtnView.isLocked) {
+    if (self.selBtnView.isLocked) {
         self.selBtnView.selBtn.selected = NO;
         self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
         [self selectWithDetail:self.selBtnView.selBtn];
@@ -510,7 +551,7 @@
 - (void)closeRechargeView:(UIButton *)sender
 {
     [self.rechargeView removeFromSuperview];
-    if (!self.selBtnView.isLocked) {
+    if (self.selBtnView.isLocked) {
         self.selBtnView.selBtn.selected = NO;
         self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
         [self selectWithDetail:self.selBtnView.selBtn];
@@ -520,6 +561,11 @@
 - (void)closeSelWXOrAlipayView:(UIButton *)sender
 {
     [self.payView removeFromSuperview];
+    if (self.selBtnView.isLocked) {
+        self.selBtnView.selBtn.selected = NO;
+        self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
+        [self selectWithDetail:self.selBtnView.selBtn];
+    }
 }
 
 #pragma mark - 充值或解锁
@@ -535,12 +581,13 @@
             //解锁
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-            NSString *urlString = @"http://192.168.1.107/Survey/unlockCompany";
+            NSString *urlString = [NSString stringWithFormat:@"%@Survey/unlockCompany",kAPI_songsong];
             NSString *code = [self.company_code substringFromIndex:2];
             NSDictionary *para = @{@"user_id":US.userId,
                                    @"code":code};
             [manager POST:urlString parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-                NSLog(@"%@",responseObject);
+                [self.unlockView removeFromSuperview];
+                [self.tableview reloadData];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 NSLog(@"%@",error);
             }];
@@ -556,7 +603,7 @@
 //充值
 - (void)clickRecharge:(UIButton *)sender
 {
-    NSLog(@"%ld",(long)sender.tag);    //进入选择付款页面
+    //进入选择付款页面
     [self.rechargeView removeFromSuperview];
     self.payView = [[SelWXOrAlipayView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
     self.payView.delegate = self;
@@ -566,7 +613,7 @@
 #pragma mark - 进入支付
 - (void)didSelectWXOrZhifubao:(NSIndexPath *)indePath
 {
-    if (indePath.row == 0) {
+    if (indePath.row == 0) { //支付宝支付
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         // 设置请求接口回来的时候支持什么类型的数据
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
@@ -574,7 +621,7 @@
                               @"number":@"3",
                               @"version":@"1.0",
                               @"user_id":US.userId};
-        NSString *url = @"http://192.168.1.107/Survey/alipayKey";
+        NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",kAPI_songsong];
         
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
@@ -587,7 +634,44 @@
             }];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"失败");
+            NSLog(@"%@",error);
+        }];
+    }
+    else    //微信支付
+    {
+        NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",kAPI_songsong];
+        NSDictionary *para = @{@"type":@"1",
+                               @"number":@"1",
+                               @"user_id":@"956",
+                               @"device":@"1"};
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        [manager POST:urlString parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+            nil;
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSLog(@"%@",responseObject);
+            NSDictionary *dic = responseObject;
+            NSString *str = dic[@"data"];
+            NSLog(@"%@",str);
+            NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *err;
+            NSDictionary *order = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                  options:NSJSONReadingMutableContainers
+                                                                    error:&err];
+            NSLog(@"%@",order);
+            
+            //调起微信支付
+            PayReq* req             = [[PayReq alloc] init];
+            req.openID = [order objectForKey:@"appid"];
+            req.partnerId           = [order objectForKey:@"mch_id"];
+            req.prepayId            = [order objectForKey:@"prepay_id"];
+            req.nonceStr            = [order objectForKey:@"nonce_str"];
+            req.timeStamp           = [[order objectForKey:@"timestamp"] intValue];
+            req.package             = @"Sign=WXPay";
+            req.sign                = [order objectForKey:@"sign"];
+            [WXApi sendReq:req];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
         }];
     }
 }
@@ -641,11 +725,11 @@
     //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
     
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:nil
-                                         images:@[self.survey_cover]
-                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
-                                          title:self.company_name
-                                           type:SSDKContentTypeAuto];
+    [shareParams SSDKSetupShareParamsByText:nil
+                                     images:@[self.survey_cover]
+                                        url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/View/%@",self.viewInfo.view_id]]
+                                      title:self.company_name
+                                       type:SSDKContentTypeAuto];
     //2、分享（可以弹出我们的分享菜单和编辑界面）
     [ShareSDK showShareActionSheet:nil //要显示菜单的视图, iPad版中此参数作为弹出菜单的参照视图，只有传这个才可以弹出我们的分享菜单，可以传分享的按钮对象或者自己创建小的view 对象，iPhone可以传nil不会影响
                              items:nil

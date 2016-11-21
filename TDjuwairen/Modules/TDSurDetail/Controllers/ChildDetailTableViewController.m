@@ -20,6 +20,7 @@
 
 #import "NSString+Ext.h"
 #import "AFNetworking.h"
+#import "NetworkManager.h"
 #import "UIImageView+WebCache.h"
 #import "Masonry.h"
 #import "HexColors.h"
@@ -53,38 +54,89 @@
     [self.tableView registerClass:[AskQuestionTableViewCell class] forCellReuseIdentifier:@"askCell"];
     self.tableView.estimatedRowHeight = 10000;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.backgroundColor = self.daynightModel.backColor;
     
 }
 
 - (void)requestWithSelBtn:(int)tag WithSurveyID:(NSString *)surveyID
 {
     self.tag = tag;
-    if (self.tag != 2 || self.tag != 5) {
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.requestSerializer = [AFJSONRequestSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = @"http://192.168.1.107/Survey/survey_show_tag";
-        NSString *code = [surveyID substringFromIndex:2];
-        NSDictionary *para;
-        if (US.isLogIn) {
-            para = @{@"code":code,
-                     @"tag":[NSString stringWithFormat:@"%d",tag],
-                     @"userid":US.userId};
-        }
-        else
-        {
-            para = @{@"code":code,
-                     @"tag":[NSString stringWithFormat:@"%d",tag]};
-        }
-        [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-            nil;
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSLog(@"%@",responseObject);
-            
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_tag",kAPI_songsong];
+    NSString *code = [surveyID substringFromIndex:2];
+    NSDictionary *para;
+    if (US.isLogIn) {
+        para = @{@"code":code,
+                 @"tag":[NSString stringWithFormat:@"%d",tag],
+                 @"userid":US.userId};
     }
+    else
+    {
+        para = @{@"code":code,
+                 @"tag":[NSString stringWithFormat:@"%d",tag]};
+    }
+    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+        nil;
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSLog(@"%@",responseObject);
+        if (self.tag == 2) {
+            self.bullsArr = [NSMutableArray array];
+            self.bearsArr = [NSMutableArray array];
+            NSArray *dataArr = responseObject[@"data"];
+            for (NSDictionary *dic in dataArr) {
+                if ([dic[@"surveycomment_type"] isEqualToString:@"1"]) {
+                    [self.bullsArr addObject:dic];
+                }
+                else
+                {
+                    [self.bearsArr addObject:dic];
+                }
+            }
+            self.niuxiong = 1;
+            [self.tableView reloadData];
+        }
+        else if (self.tag == 5){
+            self.askArr = [NSMutableArray array];
+            NSArray *dataArr = responseObject[@"data"];
+            for (NSDictionary *dic in dataArr) {
+                AskModel *model = [AskModel getInstanceWithDictionary:dic];
+                
+                [self.askArr addObject:model];
+            }
+            [self.tableView reloadData];
+        }
+        else {
+            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+            NSString *daynight = [userdefault objectForKey:@"daynight"];
+            NSString *mode ;
+            if ([daynight isEqualToString:@"yes"]) {
+                mode = @"0";
+            }
+            else
+            {
+                mode = @"1";
+            }
+            if (!US.isLogIn) {
+                NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/mode/%@",kAPI_songsong,code,self.tag,mode];
+                [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+            }
+            else
+            {
+                NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/userid/%@/mode/%@",kAPI_songsong,code,self.tag,US.userId,mode];
+                [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+            }
+            
+        }
+        
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+//    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+//        NSLog(@"%@",data);
+//    }];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -158,6 +210,7 @@
             self.webview.navigationDelegate = self;
             self.webview.UIDelegate = self;
             self.webview.scrollView.delegate = self;
+            self.webview.backgroundColor = self.daynightModel.backColor;
             [cell.contentView addSubview:self.webview];
             
             [self.webview mas_updateConstraints:^(MASConstraintMaker *make) {
@@ -170,6 +223,7 @@
             
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        cell.backgroundColor = self.daynightModel.backColor;
         return cell;
     }
     else if(self.tag == 2)
@@ -201,6 +255,7 @@
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
             else
@@ -213,6 +268,7 @@
                 cell.textLabel.text = @"当前还没有熊评";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
         }
@@ -244,6 +300,7 @@
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
             else
@@ -256,6 +313,7 @@
                 cell.textLabel.text = @"当前还没有牛评";
                 cell.textLabel.textAlignment = NSTextAlignmentCenter;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
         }
@@ -268,6 +326,7 @@
                 cell.askBtn.tag = indexPath.section;
                 [cell.askBtn addTarget:self action:@selector(clickToComment:) forControlEvents:UIControlEventTouchUpInside];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
                 
             }
@@ -286,6 +345,7 @@
                     make.height.mas_equalTo(contentSize.height);
                 }];
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
             else if (indexPath.row == 2){
@@ -297,6 +357,7 @@
                 cell.textLabel.text = @"作者回答：";
                 cell.textLabel.textAlignment = NSTextAlignmentLeft;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
             else
@@ -327,6 +388,7 @@
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
+                cell.backgroundColor = self.daynightModel.backColor;
                 return cell;
             }
         }
@@ -340,6 +402,7 @@
             cell.textLabel.text = @"当前还没有人提问";
             cell.textLabel.textAlignment = NSTextAlignmentCenter;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = self.daynightModel.backColor;
             return cell;
         }
     }
@@ -351,7 +414,9 @@
     if (self.tag == 2) {
         CGFloat bullRadio;
         if (self.bullsArr.count > 0 || self.bearsArr.count > 0) {
-            bullRadio = self.bullsArr.count / (self.bullsArr.count + self.bearsArr.count);
+            float bullscount = [[NSString stringWithFormat:@"%lu",(unsigned long)self.bullsArr.count] floatValue];
+            float bearscount = [[NSString stringWithFormat:@"%lu",(unsigned long)self.bearsArr.count] floatValue];
+            bullRadio = bullscount / (bullscount + bearscount);
         }
         else if(self.bullsArr.count == 0 && self.bearsArr.count == 0)
         {
@@ -424,7 +489,7 @@
     if (US.isLogIn) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = @"http://192.168.1.107/Survey/addCommentGoodAccess";
+        NSString *url = [NSString stringWithFormat:@"%@Survey/addCommentGoodAccess",kAPI_songsong];
         NSDictionary *dic = @{@"user_id":@"956",
                               @"comment_id":[NSString stringWithFormat:@"%ld",(long)sender.tag]};
         [manager POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

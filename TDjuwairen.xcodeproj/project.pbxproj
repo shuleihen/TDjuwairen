@@ -210,6 +210,7 @@
 		843BC1F01DC976DC00E170EF /* MyWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843BC1EF1DC976DC00E170EF /* MyWalletViewController.m */; };
 		843BC1F41DC97C9300E170EF /* KeysNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843BC1F31DC97C9300E170EF /* KeysNumberTableViewCell.m */; };
 		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
+		84505C131DE29F17002120A3 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 84505C101DE29F17002120A3 /* libWeChatSDK.a */; };
 		845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845071271D954605000798F4 /* ReplyRemindTableViewCell.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845CCB8D1D4EE738005ABD7B /* tab_yulan@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCB8C1D4EE738005ABD7B /* tab_yulan@3x.png */; };
@@ -750,6 +751,9 @@
 		843BC1F21DC97C9300E170EF /* KeysNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysNumberTableViewCell.h; sourceTree = "<group>"; };
 		843BC1F31DC97C9300E170EF /* KeysNumberTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysNumberTableViewCell.m; sourceTree = "<group>"; };
 		843FD3371D8E3D4F00116802 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
+		84505C101DE29F17002120A3 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		84505C111DE29F17002120A3 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		84505C121DE29F17002120A3 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		845071261D954605000798F4 /* ReplyRemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyRemindTableViewCell.h; sourceTree = "<group>"; };
 		845071271D954605000798F4 /* ReplyRemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyRemindTableViewCell.m; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
@@ -996,6 +1000,7 @@
 			files = (
 				8470E9691DDD84B6002F727D /* libc++.tbd in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
+				84505C131DE29F17002120A3 /* libWeChatSDK.a in Frameworks */,
 				2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */,
 				2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */,
 				2764A2681D015F0A00916844 /* QuartzCore.framework in Frameworks */,
@@ -1635,6 +1640,7 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				84505C0F1DE29F17002120A3 /* SDKExport */,
 				8470E9611DDD8405002F727D /* AliSDK */,
 				848AF4C81D93B6C1001A56D2 /* ShareSDK */,
 				848AF4EB1D93B6C1001A56D2 /* SMS_SDK */,
@@ -1936,6 +1942,16 @@
 				843BC1F31DC97C9300E170EF /* KeysNumberTableViewCell.m */,
 			);
 			path = Cells;
+			sourceTree = "<group>";
+		};
+		84505C0F1DE29F17002120A3 /* SDKExport */ = {
+			isa = PBXGroup;
+			children = (
+				84505C101DE29F17002120A3 /* libWeChatSDK.a */,
+				84505C111DE29F17002120A3 /* WXApi.h */,
+				84505C121DE29F17002120A3 /* WXApiObject.h */,
+			);
+			path = SDKExport;
 			sourceTree = "<group>";
 		};
 		845071251D9545BD000798F4 /* PushMessage */ = {
@@ -3085,6 +3101,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
@@ -3236,6 +3253,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
@@ -3273,6 +3291,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/SDKExport",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
