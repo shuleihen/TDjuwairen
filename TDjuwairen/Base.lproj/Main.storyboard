@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2555" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -33,7 +36,7 @@
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -52,7 +55,7 @@
                     <tabBarItem key="tabBarItem" title="观点" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -90,7 +93,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video_normal" selectedImage="tab_video_selected" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -147,7 +150,7 @@
                     <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -191,12 +194,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="kLE-Q1-DnA">
+                                <rect key="frame" x="97" y="70" width="181" height="65"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="181" id="diq-m6-HsM"/>
                                     <constraint firstAttribute="height" constant="65" id="u96-sk-8Mb"/>
                                 </constraints>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="投资看公司" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nJT-bd-MNL">
+                                <rect key="frame" x="145" y="165" width="85" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="SPc-Ad-YrT"/>
                                     <constraint firstAttribute="width" constant="85" id="tKD-FY-wgR"/>
@@ -206,6 +211,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="分享有价值的信息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iSu-3Y-HdP">
+                                <rect key="frame" x="119.5" y="190" width="136" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="136" id="9RM-ta-D75"/>
                                     <constraint firstAttribute="height" constant="20" id="Stm-T1-1BR"/>
@@ -215,6 +221,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="局外人微信公众号" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XwF-So-CtM">
+                                <rect key="frame" x="130.5" y="270" width="114" height="12"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="114" id="d5w-In-AFH"/>
                                     <constraint firstAttribute="height" constant="12" id="nGk-On-TLP"/>
@@ -224,6 +231,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="v1.3" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tll-4T-AHh">
+                                <rect key="frame" x="157.5" y="627.5" width="60" height="19.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="Duy-kI-WW6"/>
                                 </constraints>
@@ -232,6 +240,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="局外人二维码.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="AxJ-71-CRC">
+                                <rect key="frame" x="142" y="287" width="91" height="89"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="91" id="6z4-Rv-cHh"/>
                                     <constraint firstAttribute="height" constant="89" id="jlL-Rz-LgY"/>
@@ -277,6 +286,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9k4-Fl-NL4">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <string key="text">                 用户注册及使用APP隐私协议
 在此特别提醒您（用户）在注册成为用户之前，请认真阅读本《用户协议》（以下简称“协议”），确保您充分理解本协议中各条款。请您审慎阅读并选 择接受或不接受本协议。除非您接受本协议所有条款，否则您无权注册、登录或使用本协议所涉服务。您的注册、登录、使用等行为将视为对本协议的接受，并同意 接受本协议各项条款的约束。本协议约定局外人与 用户之间关于“局外人”软件服务（以下简称“服务”）的权利义务。“用户”是指注册、登录、使用本服务的个人。本协议可由局外人 中心随时更新，更新后的协议条款一旦公布即代替原来的协议条款，恕不再另行通知，用户可在本APP中查阅最新版协议条款。在修改协议条款后，如果用户不接 受修改后的条款，请立即停止使用局外人提供的服务，用户继续使用局外人提供的服务将被视为接受修改后的协议。 

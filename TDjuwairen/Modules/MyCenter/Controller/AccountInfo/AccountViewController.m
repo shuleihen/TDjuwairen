@@ -31,7 +31,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.avatarImageView.layer.cornerRadius = 20.0f;
+    self.avatarImageView.layer.cornerRadius = 22.5f;
     self.avatarImageView.clipsToBounds = YES;
     [self getValidation];
 }
@@ -68,7 +68,11 @@
         cell.detailTextLabel.text = US.post;
     } else if ((indexPath.section == 1) && (indexPath.row == 2)) {
         // 个人简介
-        self.introLabel.text = US.personal;
+        if (US.personal.length) {
+            self.introLabel.text = US.personal;
+        } else {
+            self.introLabel.text = @"暂无";
+        }
     }
 }
 
