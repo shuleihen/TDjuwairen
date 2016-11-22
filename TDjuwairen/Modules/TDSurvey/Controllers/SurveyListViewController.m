@@ -299,8 +299,7 @@
     else
     {
         SurveyListLeftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listLeftCell" forIndexPath:indexPath];
-        NSString *git = self.textArr[indexPath.row];
-        NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",git];
+        NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",model.company_code];
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
         [manager GET:http parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {

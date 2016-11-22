@@ -7,12 +7,15 @@
 //
 
 #import "NMView.h"
+#import "UIdaynightModel.h"
 
 @interface NMView ()<UITableViewDataSource,UITableViewDelegate>
 
 @property (nonatomic,strong) NSArray *imgArr;
 
 @property (nonatomic,strong) NSArray *titArr;
+
+@property (nonatomic,strong) UIdaynightModel *daynightModel;
 
 @end
 
@@ -21,6 +24,8 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
+        
+        self.daynightModel = [UIdaynightModel sharedInstance];
         
         NSUserDefaults *userdefalut = [NSUserDefaults standardUserDefaults];
         NSString *daynight = [userdefalut objectForKey:@"daynight"];
@@ -67,6 +72,9 @@
     cell.textLabel.text = self.titArr[indexPath.row];
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    
+    cell.backgroundColor = self.daynightModel.navigationColor;
+    cell.textLabel.textColor = self.daynightModel.textColor;
     return cell;
 }
 

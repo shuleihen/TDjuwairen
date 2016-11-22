@@ -57,7 +57,6 @@
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
         
-        
         [btn addTarget:self action:@selector(selectWithDetail:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.btnsArr addObject:btn];
