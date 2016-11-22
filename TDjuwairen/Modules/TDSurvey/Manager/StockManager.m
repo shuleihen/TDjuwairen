@@ -108,8 +108,10 @@
         }
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(reloadWithStocks:)]) {
-        [self.delegate reloadWithStocks:stocks];
-    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(reloadWithStocks:)]) {
+            [self.delegate reloadWithStocks:stocks];
+        }
+    });
 }
 @end
