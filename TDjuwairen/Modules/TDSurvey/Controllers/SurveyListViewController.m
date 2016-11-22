@@ -24,8 +24,9 @@
 #import "NSString+Ext.h"
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
+#import "StockManager.h"
 
-@interface SurveyListViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate>
+@interface SurveyListViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate, StockManagerDelegate>
 {
     CGFloat _scalef;  //实时横向位移
 }
@@ -51,6 +52,7 @@
 @property (nonatomic,assign) int page;
 
 @property (nonatomic,strong) NSTimer *refTimer;
+@property (nonatomic, strong) StockManager *stockManager;
 @end
 
 @implementation SurveyListViewController
@@ -59,7 +61,7 @@
     [super viewDidLoad];
     self.speedf = 0.5;
     self.page = 1;
-    self.textArr = [NSArray arrayWithObjects:@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020",@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020",@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020", nil];
+    self.textArr = [NSArray arrayWithObjects:@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020", nil];
     
     self.stockListArr = [NSMutableArray array];
     self.daynightmodel = [UIdaynightModel sharedInstance];
@@ -80,7 +82,12 @@
     [self requestWithList];
     
     [self setupWithTimer];
-    // Do any additional setup after loading the view.
+    
+    
+    self.stockManager = [[StockManager alloc] init];
+    self.stockManager.stockIds = [NSMutableArray arrayWithArray:self.textArr];
+    self.stockManager.delegate = self;
+    [self.stockManager start];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -163,6 +170,13 @@
 - (void)refresh{
     NSLog(@"1");
     [self.tableview reloadData];
+}
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSArray *)stocks {
+    for (StockInfo *stock in stocks) {
+        // 更加stock.gid 和 调用对象中保存的gid 对比去刷新cell
+    }
 }
 
 #pragma mark - 设置tableHeaderView无限轮播
