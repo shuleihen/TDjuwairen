@@ -7,417 +7,280 @@
 //
 
 #import "SurveyListViewController.h"
-#import "SurveyListNavView.h"
-#import "SurveyListTableViewCell.h"
-#import "SurveyListLeftTableViewCell.h"
-#import "PersonalCenterViewController.h"
+#import "SurveryStockListCell.h"
+#import "NetworkManager.h"
+#import "StockManager.h"
+#import "SurveyModel.h"
+#import "LoginState.h"
+#import "UIButton+WebCache.h"
+#import "SDCycleScrollView.h"
 #import "SurDetailViewController.h"
 
-#import "StockListModel.h"
-#import "UIdaynightModel.h"
-#import "LoginState.h"
+// 广告栏高度
+#define kBannerHeiht 160
 
-#import "SDCycleScrollView.h"
-#import "UIButton+WebCache.h"
-#import "NetworkManager.h"
-#import "AFNetworking.h"
-#import "NSString+Ext.h"
-#import "Masonry.h"
-#import "UIImageView+WebCache.h"
-#import "StockManager.h"
 
-@interface SurveyListViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate, StockManagerDelegate>
-{
-    CGFloat _scalef;  //实时横向位移
-}
-
-@property (nonatomic,strong) NSMutableArray *scrollImageArray;  //轮播图片数据
-@property (nonatomic,strong) NSMutableArray *scrollTitleArray;  //轮播标题数据
-@property (nonatomic,strong) NSMutableArray *scrollIDArray;   //轮播链接数据
-
-@property (nonatomic,assign) CGFloat speedf;
-
-@property (nonatomic,strong) SurveyListNavView *naviView;
-
-@property (nonatomic,strong) PersonalCenterViewController *personal;
-
-@property (nonatomic,strong) UITableView *tableview;
-
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
-
-@property (nonatomic,strong) NSArray *textArr;
-
-@property (nonatomic,strong) NSMutableArray *stockListArr;
-
-@property (nonatomic,assign) int page;
-
-@property (nonatomic,strong) NSTimer *refTimer;
+@interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, SDCycleScrollViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) NSMutableArray *surveyList;
+@property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
+@property (nonatomic, strong) NSArray *bannerLinks;
+@property (nonatomic, assign) NSInteger page;
 @end
 
 @implementation SurveyListViewController
 
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-114);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.rowHeight = 132;
+        [self.view addSubview:_tableView];
+    }
+    return _tableView;
+}
+
+- (StockManager *)stockManager {
+    if (!_stockManager) {
+        _stockManager = [[StockManager alloc] init];
+        _stockManager.delegate = self;
+    }
+    
+    return _stockManager;
+}
+
+- (SDCycleScrollView *)cycleScrollView {
+    if (!_cycleScrollView) {
+        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kBannerHeiht);
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:self placeholderImage:[UIImage imageNamed:@"bannerPlaceholder"]];
+        _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+    }
+    return _cycleScrollView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.speedf = 0.5;
+    
+    [self setupNavigationBar];
+    [self setupTableView];
+    
+    [self getBanners];
+    
     self.page = 1;
-    self.textArr = [NSArray arrayWithObjects:@"sz000001",@"sz000002",@"sz000003",@"sz000004",@"sz000005",@"sz000006",@"sz000007",@"sz000008",@"sz000009",@"sz000010",@"sz000011",@"sz000012",@"sz000013",@"sz000014",@"sz000015",@"sz000016",@"sz000017",@"sz000018",@"sz000019",@"sz000020", nil];
+//    [self getSurveyWithPage:self.page];
     
-    self.stockListArr = [NSMutableArray array];
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        [self.daynightmodel day];
-    }
-    else
-    {
-        [self.daynightmodel night];
-    }
     
-    [self setupWithNavigation];
-    
-    [self setupWithTableView];
+    [self defatul];
+}
 
-    [self requestWithList];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    [self setupWithTimer];
-    
-    
-    self.stockManager = [[StockManager alloc] init];
-    self.stockManager.stockIds = [NSMutableArray arrayWithArray:self.textArr];
-    self.stockManager.delegate = self;
     [self.stockManager start];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    self.naviView.backgroundColor = self.daynightmodel.navigationColor;
-    [self.naviView.searchBtn setBackgroundColor:self.daynightmodel.inputColor];
-    self.naviView.searchBtn.layer.borderColor = [UIColor lightGrayColor].CGColor;  //线色
-    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
     
-    [self.naviView.headImgBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"HeadUnLogin"]];
+    [self.stockManager stop];
+}
+
+- (void)setupNavigationBar {
+    UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+    [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
+    self.navigationItem.leftBarButtonItem = left;
     
-    [self.tableview reloadData];
+    // 通知
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notificationTip"] style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
+    self.navigationItem.rightBarButtonItem = right;
+}
+
+- (void)setupTableView {
+    self.tableView.tableHeaderView = self.cycleScrollView;
+    [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
+}
+
+#pragma mark - Action 
+- (void)avatarPressed:(id)sender {
     
-    [self.refTimer setFireDate:[NSDate distantPast]];
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [self.refTimer setFireDate:[NSDate distantFuture]];
-}
-
-- (void)setupWithNavigation{
-    self.naviView = [[SurveyListNavView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    [self.naviView.headImgBtn addTarget:self action:@selector(clickHeadImg:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.naviView];
-}
-
-- (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64-48) style:UITableViewStylePlain];
-    self.tableview.delegate = self;
-    self.tableview.dataSource = self;
-    self.tableview.backgroundColor = self.daynightmodel.backColor;
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableview.estimatedRowHeight = 180;
-    self.tableview.rowHeight = UITableViewAutomaticDimension;
-    [self.tableview registerClass:[SurveyListTableViewCell class] forCellReuseIdentifier:@"listRightCell"];
-    [self.tableview registerClass:[SurveyListLeftTableViewCell class] forCellReuseIdentifier:@"listLeftCell"];
-    [self.view addSubview:self.tableview];
+- (void)notificationPressed:(id)sender {
     
-    //设置tableheadview无限轮播
-    [self setupWithTableHeaderView];
 }
 
-- (void)requestWithList{
-    //这里也可以用这个接口。但是得到的是JS类型的数据，解析半天没弄出来 - - ！
-//    NSString *listStr = [self.textArr componentsJoinedByString:@","];
-//    NSString *s = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",listStr];
-    NSString *str = [NSString stringWithFormat:@"%@Survey/lists/1",kAPI_songsong];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    [manager GET:str parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-        nil;
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSArray *dataArr = responseObject[@"data"];
-        if (self.page > 1) {
-            for (NSDictionary *d in dataArr) {
-                StockListModel *model = [StockListModel getInstanceWithDictionary:d];
-                [self.stockListArr addObject:model];
-            }
-        }
-        else
-        {
-            [self.stockListArr removeAllObjects];
-            for (NSDictionary *d in dataArr) {
-                StockListModel *model = [StockListModel getInstanceWithDictionary:d];
-                [self.stockListArr addObject:model];
-            }
-        }
-        [self.tableview reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
-}
-
-- (void)setupWithTimer{
-    self.refTimer = [NSTimer scheduledTimerWithTimeInterval:15.0 target:self selector:@selector(refresh) userInfo:nil repeats:YES];
-}
-
-- (void)refresh{
-    NSLog(@"1");
-    [self.tableview reloadData];
-}
-
-#pragma mark - StockManagerDelegate
-- (void)reloadWithStocks:(NSArray *)stocks {
-    for (StockInfo *stock in stocks) {
-        // 更加stock.gid 和 调用对象中保存的gid 对比去刷新cell
-    }
-}
-
-#pragma mark - 设置tableHeaderView无限轮播
-- (void)setupWithTableHeaderView{
-    SDCycleScrollView *cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth/5*2) delegate:self placeholderImage:[UIImage imageNamed:@"placeholder"]];
-    cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;//page样式
-    cycleScrollView.titlesGroup = self.scrollTitleArray;
-    cycleScrollView.imageURLStringsGroup = self.scrollImageArray;
-    self.tableview.tableHeaderView = cycleScrollView;
-    
-    
+- (void)getBanners {
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:API_GetBanner parameters:nil completion:^(id data, NSError *error){
         if (!error) {
-            self.scrollImageArray = [NSMutableArray array];
-            self.scrollTitleArray = [NSMutableArray array];
-            self.scrollIDArray = [NSMutableArray array];
             NSArray *dataArr = data;
+            NSMutableArray *titles = [NSMutableArray arrayWithCapacity:[data count]];
+            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[data count]];
+            NSMutableArray *links = [NSMutableArray arrayWithCapacity:[data count]];
             for (NSDictionary *d in dataArr) {
-                [self.scrollImageArray addObject:d[@"ad_imgurl"]];
-                [self.scrollTitleArray addObject:d[@"ad_title"]];
-                [self.scrollIDArray addObject:d[@"ad_link"]];
+                [urls addObject:d[@"ad_imgurl"]];
+                [titles addObject:d[@"ad_title"]];
+                [links addObject:d[@"ad_link"]];
             }
             
-            [self.tableview reloadData];//页面刷新
-            cycleScrollView.titlesGroup = self.scrollTitleArray;//设置轮播图片的标题
-            cycleScrollView.imageURLStringsGroup = self.scrollImageArray;//设置轮播图片
+            self.bannerLinks = links;
+            self.cycleScrollView.titlesGroup = titles;
+            self.cycleScrollView.imageURLStringsGroup = urls;
         } else {
             
         }
     }];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (void)defatul {
+    /*
+     {
+     "survey_id": "569",
+     "company_code": "sh900904",
+     "survey_title": "other test",
+     "survey_cover": "http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_569_20161122090120.jpg",
+     "survey_url": "http://192.168.1.103/Survey/survey_show_header",
+     "company_name": "神奇B股(900904)"
+     },
+     {
+     "survey_id": "568",
+     "company_code": "sh600646",
+     "survey_title": "测试 调研",
+     "survey_cover": "http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_568_20161122085843.jpg",
+     "survey_url": "http://192.168.1.103/Survey/survey_show_header",
+     "company_name": "ST国嘉(600646)"
+     },
+     */
+    SurveyModel *one = [[SurveyModel alloc] init];
+    one.surveyId = @"569";
+    one.companyName = @"神奇B股(900904)";
+    one.companyCode = @"sh900904";
+    one.surveyTitle = @"other test";
+    one.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
+    one.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_569_20161122090120.jpg";
+    
+    SurveyModel *two = [[SurveyModel alloc] init];
+    two.surveyId = @"568";
+    two.companyName = @"ST国嘉(600646)";
+    two.companyCode = @"sh600646";
+    two.surveyTitle = @"测试 调研";
+    two.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
+    two.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_568_20161122085843.jpg";
+    
+    SurveyModel *three = [[SurveyModel alloc] init];
+    three.surveyId = @"567";
+    three.companyName = @"红宇新材(300345)";
+    three.companyCode = @"sz300345";
+    three.surveyTitle = @"shidi test";
+    three.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
+    three.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_567_20161121144553.jpg";
+    
+    SurveyModel *four = [[SurveyModel alloc] init];
+    four.surveyId = @"566";
+    four.companyName = @"宏源证券(000562)";
+    four.companyCode = @"sz000562";
+    four.surveyTitle = @"tttt";
+    four.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
+    four.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_566_20161114141316.jpg";
+    
+    self.surveyList = [NSMutableArray arrayWithObjects:one,two,three,four, nil];
+    [self.tableView reloadData];
+    
+    [self.stockManager addStocks:@[@"sh900904",@"sh600646",@"sz300345",@"sz000562"]];
+}
+
+- (void)getSurveyWithPage:(NSInteger)pageA {
+    __weak SurveyListViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSString *url = [NSString stringWithFormat:@"http://192.168.1.103/Survey/lists/%ld",pageA];
+    [manager GET:url parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            NSArray *dataArray = data;
+            
+            if (dataArray.count > 0) {
+                NSMutableArray *list = nil;
+                if (wself.page == 1) {
+                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+                } else {
+                    list = [NSMutableArray arrayWithArray:wself.surveyList];
+                }
+                
+                for (NSDictionary *d in dataArray) {
+                    SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
+                    [list addObject:model];
+                }
+                
+                wself.page ++;
+                wself.surveyList = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+            }
+            
+            [wself.tableView reloadData];
+        } else {
+            
+        }
+    }];
+}
+
+#pragma mark - SDCycleScrollViewDelegate
+- (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    
+}
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSDictionary *)stocks {
+    self.stockDict = stocks;
+    [self.tableView reloadData];
+}
+
+#pragma mark - UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.surveyList count];
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
-    return self.stockListArr.count;
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
+    cell.isLeft = indexPath.section%2;
+    
+    return cell;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    StockListModel *model = self.stockListArr[indexPath.row];
-    if (indexPath.row %2 != 1) {
-        SurveyListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listRightCell" forIndexPath:indexPath];
-        NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",model.company_code];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        [manager GET:http parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-            //
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSDictionary *dic = responseObject;
-            NSArray *result = dic[@"result"];
-            if (result.count > 0) {
-                NSDictionary *diction = result[0];
-                NSDictionary *data = diction[@"data"];
-                if ([data[@"increPer"] floatValue] > 0) {
-                    cell.nowPri.textColor = [UIColor redColor];
-                    cell.increPer.textColor = [UIColor redColor];
-                    cell.increase.textColor = [UIColor redColor];
-                }
-                else
-                {
-                    cell.nowPri.textColor = [UIColor greenColor];
-                    cell.increPer.textColor = [UIColor greenColor];
-                    cell.increase.textColor = [UIColor greenColor];
-                }
-                
-                NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
-                CGSize d1Size = [date1 calculateSize:CGSizeMake(100, 100) font:[UIFont boldSystemFontOfSize:24]];
-                cell.nowPri.text = date1;
-                
-                NSString *date2= [NSString stringWithFormat:@"%@%@",data[@"increPer"],@"%"];
-                CGSize d2Size = [date2 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.increPer.text = date2;
-                
-                NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"increase"] floatValue]];
-                CGSize d3Size = [date3 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.increase.text = date3;
-                
-                [cell.stockImg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
-                
-                [cell.nowPri mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(d1Size.width);
-                }];
-                
-                [cell.increPer mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.nowPri).with.offset(8+d1Size.width);
-                    make.width.mas_equalTo(d2Size.width);
-                }];
-                
-                [cell.increase mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.increPer).with.offset(8+d2Size.width);
-                    make.width.mas_equalTo(d3Size.width);
-                }];
-                [task cancel];
-            }
-            else
-            {
-                cell.stockName.text = model.company_name;
-                cell.nowPri.text = @"0.00";
-                cell.increPer.text = @"0.00%";
-                cell.increase.text = @"0.00";
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
-        cell.stockName.text = [NSString stringWithFormat:@"%@",model.company_name];
-        
-        cell.backgroundColor = self.daynightmodel.backColor;
-        cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
-        cell.stockName.textColor = self.daynightmodel.textColor;
-        cell.stockSurvey.textColor = self.daynightmodel.textColor;
-        [manager.operationQueue cancelAllOperations];
-        return cell;
-    }
-    else
-    {
-        SurveyListLeftTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"listLeftCell" forIndexPath:indexPath];
-        NSString *http = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",model.company_code];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        [manager GET:http parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
-            //
-        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-            NSDictionary *dic = responseObject;
-            NSArray *result = dic[@"result"];
-            if (result.count > 0) {
-                NSDictionary *diction = result[0];
-                NSDictionary *data = diction[@"data"];
-                if ([data[@"increPer"] floatValue] > 0) {
-                    cell.nowPri.textColor = [UIColor redColor];
-                    cell.increPer.textColor = [UIColor redColor];
-                    cell.increase.textColor = [UIColor redColor];
-                }
-                else
-                {
-                    cell.nowPri.textColor = [UIColor greenColor];
-                    cell.increPer.textColor = [UIColor greenColor];
-                    cell.increase.textColor = [UIColor greenColor];
-                }
-                
-                NSString *date1 = [NSString stringWithFormat:@"%.2f",[data[@"nowPri"] floatValue]];
-                CGSize d1Size = [date1 calculateSize:CGSizeMake(100, 100) font:[UIFont boldSystemFontOfSize:24]];
-                cell.nowPri.text = date1;
-                
-                NSString *date2= [NSString stringWithFormat:@"%@%@",data[@"increPer"],@"%"];
-                CGSize d2Size = [date2 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.increPer.text = date2;
-                
-                NSString *date3 = [NSString stringWithFormat:@"%.2f",[data[@"increase"] floatValue]];
-                CGSize d3Size = [date3 calculateSize:CGSizeMake(100, 100) font:[UIFont systemFontOfSize:13]];
-                cell.increase.text = date3;
-                
-                [cell.stockImg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
-                
-                [cell.nowPri mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.width.mas_equalTo(d1Size.width);
-                }];
-                
-                [cell.increPer mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.nowPri).with.offset(8+d1Size.width);
-                    make.width.mas_equalTo(d2Size.width);
-                }];
-                
-                [cell.increase mas_updateConstraints:^(MASConstraintMaker *make) {
-                    make.left.equalTo(cell.increPer).with.offset(8+d2Size.width);
-                    make.width.mas_equalTo(d3Size.width);
-                }];
-                [task cancel];
-            }
-            else
-            {
-                cell.stockName.text = model.company_name;
-                cell.nowPri.text = @"0.00";
-                cell.increPer.text = @"0.00%";
-                cell.increase.text = @"0.00";
-            }
-        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-            NSLog(@"%@",error);
-        }];
-        cell.stockName.text = [NSString stringWithFormat:@"%@",model.company_name];
-        
-        cell.backgroundColor = self.daynightmodel.backColor;
-        cell.bgView.backgroundColor = self.daynightmodel.navigationColor;
-        cell.stockName.textColor = self.daynightmodel.textColor;
-        cell.stockSurvey.textColor = self.daynightmodel.textColor;
-        
-        [manager.operationQueue cancelAllOperations];
-        return cell;
-    }
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    SurveryStockListCell *scell = (SurveryStockListCell *)cell;
+    SurveyModel *survey = self.surveyList[indexPath.section];
+    [scell setupSurvey:survey];
+    
+    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
+    [scell setupStock:stock];
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    StockListModel *model = self.stockListArr[indexPath.row];
-    SurDetailViewController *surDetail = [[SurDetailViewController alloc] init];
-    surDetail.survey_cover = model.survey_cover;
-    surDetail.company_code = model.company_code;
-    surDetail.company_name = model.company_name;
-    surDetail.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:surDetail animated:YES];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SurveyModel *survey = self.surveyList[indexPath.section];
+    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+    vc.company_name = survey.companyName;
+    vc.company_code = survey.companyCode;
+    vc.survey_cover = survey.surveyCover;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
-#pragma mark - 点击头像
-- (void)clickHeadImg:(UIButton *)sender{
-//    CATransition* transition = [CATransition animation];
-//    transition.duration = 0.5;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    transition.type = kCATransitionPush; //方式
-//    transition.subtype = kCATransitionFromLeft; //方向
-//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-//    
-//    PersonalCenterViewController *personal = [[PersonalCenterViewController alloc] init];
-//    personal.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:personal animated:YES];
-    [self.tabBarController setSelectedIndex:3];
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.001f;
 }
 
-#pragma mark - 定时器操作
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    [self.refTimer setFireDate:[NSDate distantFuture]];
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10.0f;
 }
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    [self.refTimer setFireDate:[NSDate distantPast]];
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    [self.refTimer setFireDate:[NSDate distantPast]];;
-}
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
 @end

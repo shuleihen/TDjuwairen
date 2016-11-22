@@ -17,6 +17,8 @@
 @interface StockManager ()
 @property (nonatomic, strong) NSOperationQueue *queue;
 @property (nonatomic, strong) NSTimer *timer;
+@property (nonatomic, assign) BOOL isExecuting;
+@property (nonatomic, strong) AFHTTPSessionManager *manager;
 @end
 
 @implementation StockManager
@@ -26,6 +28,7 @@
         _queue.name = @"com.td.stock";
         
         _interval = 15;
+        _stockIds = [NSMutableArray arrayWithCapacity:10];
     }
     return self;
 }
@@ -39,6 +42,16 @@
     return _timer;
 }
 
+- (AFHTTPSessionManager *)manager {
+    if (!_manager) {
+        _manager = [AFHTTPSessionManager manager];
+        _manager.responseSerializer = [AFHTTPResponseSerializer serializer];
+        _manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/x-javascript", nil];
+        _manager.completionQueue = dispatch_queue_create("com.td.stock.completion", NULL);
+    }
+    return _manager;
+}
+
 - (void)timerFire:(NSTimer *)timer {
     if (![self.stockIds count]) {
         return;
@@ -46,10 +59,8 @@
     
     [self.queue addOperationWithBlock:^{
         NSString *url = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",[self.stockIds componentsJoinedByString:@","]];
-        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-        manager.responseSerializer = [AFHTTPResponseSerializer serializer];
-        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/x-javascript", nil];
-        [manager GET:url parameters:nil
+        DDLogInfo(@"Search Stock URL = %@",url);
+        [self.manager GET:url parameters:nil
             progress:nil
              success:^(NSURLSessionDataTask * dataTask, id data){
                  NSStringEncoding enc =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
@@ -62,32 +73,55 @@
     }];
 }
 
+- (void)addStocks:(NSArray *)stockArray {
+    @synchronized (self.stockIds) {
+        [self.stockIds addObjectsFromArray:stockArray];
+        NSSet *set = [NSSet setWithArray:self.stockIds];
+        self.stockIds = [NSMutableArray arrayWithArray:[set allObjects]];
+    }
+    
+    [self.queue cancelAllOperations];
+    
+    if (!self.isExecuting) {
+        [self start];
+    } else {
+        [self.timer fire];
+    }
+}
+
 - (void)start {
+    if (self.isExecuting) {
+        return;
+    }
+    
     DDLogInfo(@"Search Stock Queue Start");
     // 将timer添加到runloop中启动
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
     // 第一次要主动调用
-    [self timerFire:_timer];
+    [self.timer fire];
+    self.isExecuting = YES;
 }
 
 - (void)stop {
-    if (self.timer.isValid) {
-        [self.timer invalidate];
+    if (!self.isExecuting) {
+        return;
     }
     
+    self.isExecuting = NO;
+    [self.timer invalidate];
     [self.queue cancelAllOperations];
 }
 
 - (void)handleWithStockString:(NSString *)stockString {
     NSArray *stockArray = [stockString componentsSeparatedByString:@";"];
-    NSMutableArray *stocks = [NSMutableArray arrayWithCapacity:[stockArray count]];
+    NSMutableDictionary *stocks = [NSMutableDictionary dictionaryWithCapacity:[stockArray count]];
     for (NSString *string in stockArray) {
         NSRange range = [string rangeOfString:@"="];
         if (range.location != NSNotFound) {
             StockInfo *stock = [[StockInfo alloc] init];
             
-            NSString *first = [string substringWithRange:NSMakeRange(11, 8)];
+            NSString *first = [string substringWithRange:NSMakeRange(range.location-8, 8)];
             NSString *second = [string substringWithRange:NSMakeRange(range.location + 2, string.length-range.location-3)];
             stock.gid = first;
             NSArray *infoArray = [second componentsSeparatedByString:@","];
@@ -95,14 +129,15 @@
                 stock.name = infoArray[0];
                 stock.todayStartPri = infoArray[1];
                 stock.yestodEndPri = infoArray[2];
-                stock.todayMax = infoArray[3];
-                stock.todayMin = infoArray[4];
+                stock.nowPri = infoArray[3];
+                stock.todayMax = infoArray[4];
+                stock.todayMin = infoArray[5];
                 stock.traNumber = infoArray[8];
                 stock.traAmount = infoArray[9];
                 stock.date = infoArray[30];
                 stock.time = infoArray[31];
                 
-                [stocks addObject:stock];
+                [stocks setObject:stock forKey:stock.gid];
             }
             DDLogInfo(@"Stock Gid = %@ Info = %@",first,second);
         }

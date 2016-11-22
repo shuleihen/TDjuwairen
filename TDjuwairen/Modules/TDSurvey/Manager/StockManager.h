@@ -24,7 +24,7 @@
 
 @protocol StockManagerDelegate <NSObject>
 
-- (void)reloadWithStocks:(NSArray *)stocks;
+- (void)reloadWithStocks:(NSDictionary *)stocks;
 
 @end
 
@@ -34,6 +34,8 @@
 
 // 查询时间间隔，默认15秒
 @property (nonatomic, assign) NSInteger interval;
+
+- (void)addStocks:(NSArray *)stockArray;
 
 // 开始查询 stockIds 里面的股票信息，默认每15秒查询一次
 - (void)start;

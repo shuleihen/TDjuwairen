@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
+		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -188,7 +190,6 @@
 		84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B651D6C46740020A1F0 /* UserInfoHeadView.m */; };
 		84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC21DB496D200CB21DA /* SurveyListViewController.m */; };
 		84069EC91DB4989500CB21DA /* SurveyListNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC81DB4989500CB21DA /* SurveyListNavView.m */; };
-		84069ECC1DB4C37100CB21DA /* SurveyListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069ECB1DB4C37100CB21DA /* SurveyListTableViewCell.m */; };
 		840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */; };
 		840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */; };
 		8408F66D1D878F74004A332A /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408F66C1D878F74004A332A /* PushSwitchViewController.m */; };
@@ -212,7 +213,6 @@
 		842C91D41DD2FE310019617C /* BearBullTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 842C91D31DD2FE310019617C /* BearBullTableViewCell.m */; };
 		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
-		84390BE71DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84390BE61DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.m */; };
 		843BC1F01DC976DC00E170EF /* MyWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843BC1EF1DC976DC00E170EF /* MyWalletViewController.m */; };
 		843BC1F41DC97C9300E170EF /* KeysNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843BC1F31DC97C9300E170EF /* KeysNumberTableViewCell.m */; };
 		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
@@ -242,7 +242,6 @@
 		845CCBB81D4F32FC005ABD7B /* btn_lianjie@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */; };
 		845CCBBA1D4F330D005ABD7B /* btn_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB91D4F330D005ABD7B /* btn_img@3x.png */; };
 		845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */; };
-		846C07521DCC3383006BA871 /* StockListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 846C07511DCC3383006BA871 /* StockListModel.m */; };
 		846D92291DD952CB000B847E /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846D92281DD952CB000B847E /* CommentViewController.m */; };
 		846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */; };
 		8470E94E1DDC3EB9002F727D /* RechargeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8470E94D1DDC3EB9002F727D /* RechargeView.m */; };
@@ -347,7 +346,6 @@
 		84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E3345E1CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m */; };
 		84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334601CE3123700E5DCEE /* UIImageView+WebCache.m */; };
 		84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 84E334621CE3123700E5DCEE /* UIView+WebCacheOperation.m */; };
-		84E3348B1CE3182C00E5DCEE /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 84E3348A1CE3182C00E5DCEE /* placeholder@2x.png */; };
 		84E334CB1CE3297A00E5DCEE /* libicucore.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E334CA1CE3297A00E5DCEE /* libicucore.tbd */; };
 		84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E334CC1CE3298B00E5DCEE /* libz.tbd */; };
 		84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 84E334CE1CE3299500E5DCEE /* libstdc++.tbd */; };
@@ -391,6 +389,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		191027A51DE410F2006A2275 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
+		191027A61DE410F2006A2275 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
+		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
+		191027AB1DE42492006A2275 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveyModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.m; sourceTree = SOURCE_ROOT; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		1924DFD51D62B49C00FEC383 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -728,8 +730,6 @@
 		84069EC21DB496D200CB21DA /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
 		84069EC71DB4989500CB21DA /* SurveyListNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListNavView.h; sourceTree = "<group>"; };
 		84069EC81DB4989500CB21DA /* SurveyListNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListNavView.m; sourceTree = "<group>"; };
-		84069ECA1DB4C37100CB21DA /* SurveyListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListTableViewCell.h; sourceTree = "<group>"; };
-		84069ECB1DB4C37100CB21DA /* SurveyListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListTableViewCell.m; sourceTree = "<group>"; };
 		840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
 		840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@3x.png"; sourceTree = "<group>"; };
 		8408F66B1D878F74004A332A /* PushSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSwitchViewController.h; sourceTree = "<group>"; };
@@ -761,8 +761,6 @@
 		842D58001D8938FD006385CB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		842D58021D893BB3006385CB /* CompanySelTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySelTableView.h; sourceTree = "<group>"; };
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
-		84390BE51DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListLeftTableViewCell.h; sourceTree = "<group>"; };
-		84390BE61DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListLeftTableViewCell.m; sourceTree = "<group>"; };
 		843BC1EE1DC976DC00E170EF /* MyWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWalletViewController.h; sourceTree = "<group>"; };
 		843BC1EF1DC976DC00E170EF /* MyWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWalletViewController.m; sourceTree = "<group>"; };
 		843BC1F21DC97C9300E170EF /* KeysNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysNumberTableViewCell.h; sourceTree = "<group>"; };
@@ -798,8 +796,6 @@
 		845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_lianjie@3x.png"; sourceTree = "<group>"; };
 		845CCBB91D4F330D005ABD7B /* btn_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_img@3x.png"; sourceTree = "<group>"; };
 		845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_biaoqian@3x.png"; sourceTree = "<group>"; };
-		846C07501DCC3383006BA871 /* StockListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockListModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.h; sourceTree = SOURCE_ROOT; };
-		846C07511DCC3383006BA871 /* StockListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockListModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/StockListModel.m; sourceTree = SOURCE_ROOT; };
 		846D92271DD952CB000B847E /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		846D92281DD952CB000B847E /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		846DA6141DD98EF200B22D9B /* AskQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -969,7 +965,6 @@
 		84E334601CE3123700E5DCEE /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		84E334611CE3123700E5DCEE /* UIView+WebCacheOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+WebCacheOperation.h"; sourceTree = "<group>"; };
 		84E334621CE3123700E5DCEE /* UIView+WebCacheOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+WebCacheOperation.m"; sourceTree = "<group>"; };
-		84E3348A1CE3182C00E5DCEE /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		84E334CA1CE3297A00E5DCEE /* libicucore.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libicucore.tbd; path = usr/lib/libicucore.tbd; sourceTree = SDKROOT; };
 		84E334CC1CE3298B00E5DCEE /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		84E334CE1CE3299500E5DCEE /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -1949,10 +1944,8 @@
 		84069EBD1DB4968500CB21DA /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				84069ECA1DB4C37100CB21DA /* SurveyListTableViewCell.h */,
-				84069ECB1DB4C37100CB21DA /* SurveyListTableViewCell.m */,
-				84390BE51DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.h */,
-				84390BE61DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.m */,
+				191027A51DE410F2006A2275 /* SurveryStockListCell.h */,
+				191027A61DE410F2006A2275 /* SurveryStockListCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1969,8 +1962,8 @@
 		84069EBF1DB4968500CB21DA /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				846C07501DCC3383006BA871 /* StockListModel.h */,
-				846C07511DCC3383006BA871 /* StockListModel.m */,
+				191027AA1DE42492006A2275 /* SurveyModel.h */,
+				191027AB1DE42492006A2275 /* SurveyModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2371,7 +2364,6 @@
 				275E9CAC1CFED0DC0075910D /* MyCenter */,
 				840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */,
 				840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */,
-				84E3348A1CE3182C00E5DCEE /* placeholder@2x.png */,
 				84D8DFA71CE451FB00A65CE0 /* Survey */,
 			);
 			path = Images;
@@ -2723,7 +2715,6 @@
 				8489972C1D4B4D14008EE2BC /* tab_huifu@3x.png in Resources */,
 				845CCB9E1D4EF4D5005ABD7B /* tab_xiahuaxian@3x.png in Resources */,
 				275E9CE11CFED0DC0075910D /* SetupImg.png in Resources */,
-				84E3348B1CE3182C00E5DCEE /* placeholder@2x.png in Resources */,
 				84B9B45C1D48635900DDF15B /* btn_ziti@3x.png in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
@@ -2932,7 +2923,6 @@
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
-				846C07521DCC3383006BA871 /* StockListModel.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
@@ -2953,6 +2943,7 @@
 				1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
+				191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */,
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				197C49D81DAC79FC000AC6F6 /* SurveyListCell.m in Sources */,
 				1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */,
@@ -2999,7 +2990,6 @@
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
-				84390BE71DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.m in Sources */,
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
@@ -3043,10 +3033,10 @@
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				1955B4691D644D9800DC102E /* MyHeadTableViewCell.m in Sources */,
 				84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */,
+				191027AC1DE42492006A2275 /* SurveyModel.m in Sources */,
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
-				84069ECC1DB4C37100CB21DA /* SurveyListTableViewCell.m in Sources */,
 				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
