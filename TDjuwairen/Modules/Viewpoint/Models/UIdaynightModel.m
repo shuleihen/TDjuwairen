@@ -8,6 +8,8 @@
 
 #import "UIdaynightModel.h"
 
+#import "HexColors.h"
+
 @implementation UIdaynightModel
 
 + (UIdaynightModel *)sharedInstance
@@ -23,8 +25,8 @@
 
 - (void)day
 {
-    self.titleColor = [UIColor colorWithRed:100/255.0 green:100/255.0 blue:100/255.0 alpha:1.0];
-    self.textColor = [UIColor colorWithRed:34/255.0 green:34/255.0 blue:34/255.0 alpha:1.0];
+    self.titleColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];
+    self.textColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];
     self.navigationColor = [UIColor whiteColor];
     self.backColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
     self.lineColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];

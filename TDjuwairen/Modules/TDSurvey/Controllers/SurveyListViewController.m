@@ -87,7 +87,7 @@
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.stockIds = [NSMutableArray arrayWithArray:self.textArr];
     self.stockManager.delegate = self;
-    [self.stockManager start];
+//    [self.stockManager start];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -387,16 +387,6 @@
 
 #pragma mark - 点击头像
 - (void)clickHeadImg:(UIButton *)sender{
-//    CATransition* transition = [CATransition animation];
-//    transition.duration = 0.5;
-//    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-//    transition.type = kCATransitionPush; //方式
-//    transition.subtype = kCATransitionFromLeft; //方向
-//    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-//    
-//    PersonalCenterViewController *personal = [[PersonalCenterViewController alloc] init];
-//    personal.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:personal animated:YES];
     [self.tabBarController setSelectedIndex:3];
 }
 

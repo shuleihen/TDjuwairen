@@ -10,6 +10,7 @@
 #import "KeysNumberTableViewCell.h"
 #import "RechargeView.h"
 #import "SelWXOrAlipayView.h"
+#import "MyOrderViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -42,7 +43,7 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
-    self.titleArr = [NSArray arrayWithObjects:@"支付记录",@"我的收入",@"解锁记录",@"使用记录",@"钥匙兑换", nil];
+    self.titleArr = [NSArray arrayWithObjects:@"我的订单",@"钥匙使用记录",@"钥匙兑换", nil];
     
     
     [self setupWithNavigation];
@@ -97,7 +98,7 @@
     }
     else
     {
-        return 5;
+        return self.titleArr.count;
     }
 }
 
@@ -141,6 +142,26 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 1;
+}
+
+#pragma mark - 点击cell
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 1) {
+        if (indexPath.row == 0) {
+            //进入订单页
+            MyOrderViewController *myorder = [[MyOrderViewController alloc] init];
+            [self.navigationController pushViewController:myorder animated:YES];
+        }
+        else if(indexPath.row == 1){
+            //进入使用记录页
+        }
+        else
+        {
+            //进入钥匙兑换页
+        }
+    }
 }
 
 #pragma mark - 点击弹出充值页面
@@ -216,6 +237,7 @@
             NSString *appScheme = @"TDjuwairen";
             [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                 NSLog(@"reslut = %@",resultDic);
+                //支付成功。进入成功页面
             }];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -271,6 +293,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+    
     // Dispose of any resources that can be recreated.
 }
 
