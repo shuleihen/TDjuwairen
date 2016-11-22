@@ -21,7 +21,7 @@
 
 
 @interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, SDCycleScrollViewDelegate>
-@property (nonatomic, strong) UITableView *tableView;
+//@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *surveyList;
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
@@ -32,17 +32,17 @@
 
 @implementation SurveyListViewController
 
-- (UITableView *)tableView {
-    if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-114);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.rowHeight = 132;
-        [self.view addSubview:_tableView];
-    }
-    return _tableView;
-}
+//- (UITableView *)tableView {
+//    if (!_tableView) {
+//        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-114);
+//        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+//        _tableView.delegate = self;
+//        _tableView.dataSource = self;
+//        _tableView.rowHeight = 132;
+//        [self.view addSubview:_tableView];
+//    }
+//    return _tableView;
+//}
 
 - (StockManager *)stockManager {
     if (!_stockManager) {
@@ -102,8 +102,13 @@
 }
 
 - (void)setupTableView {
+    self.tableView.rowHeight = 132;
     self.tableView.tableHeaderView = self.cycleScrollView;
     [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
+    
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
+    [self setRefreshControl:refreshControl];
 }
 
 #pragma mark - Action 
@@ -113,6 +118,11 @@
 
 - (void)notificationPressed:(id)sender {
     
+}
+
+- (void)refresh:(id)sender {
+    [self defatul];
+    [self.refreshControl endRefreshing];
 }
 
 - (void)getBanners {

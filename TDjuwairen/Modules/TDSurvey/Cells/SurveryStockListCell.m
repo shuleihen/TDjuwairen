@@ -39,6 +39,12 @@
         _surveyTitleLabel = [[UILabel alloc] init];
         _surveyTitleLabel.font = [UIFont systemFontOfSize:15.0f];
         [self.contentView addSubview:_surveyTitleLabel];
+        
+        // 分割线
+        UIImage *slipImage = [UIImage imageNamed:@"slipLine"];
+        UIImageView *slipImageView = [[UIImageView alloc] initWithImage:slipImage];
+        slipImageView.frame = CGRectMake(15.0f, 90, [UIScreen mainScreen].bounds.size.width-30, 1/[UIScreen mainScreen].scale);
+        [self.contentView addSubview:slipImageView];
     }
     return self;
 }

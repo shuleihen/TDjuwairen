@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SurveyListViewController : UIViewController
+@interface SurveyListViewController : UITableViewController
 
 @end
