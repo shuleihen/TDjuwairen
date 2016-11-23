@@ -19,6 +19,10 @@
 #import "YXTitleButton.h"
 #import "SearchViewController.h"
 #import "DetailPageViewController.h"
+#import "PushMessageViewController.h"
+#import "LoginViewController.h"
+#import "HexColors.h"
+
 // 广告栏高度
 #define kBannerHeiht 160
 
@@ -101,13 +105,14 @@
     avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     avatarBtn.imageView.layer.cornerRadius = 15.0f;
     avatarBtn.imageView.clipsToBounds = YES;
-    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"unLoginAvatar"]];
+    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_unLoginAvatar"]];
     [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
     self.navigationItem.leftBarButtonItem = left;
     
     // 通知
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notificationTip"] style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
+    UIImage *rightImage = [[UIImage imageNamed:@"news_unread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
     self.navigationItem.rightBarButtonItem = right;
     
     // 搜索
@@ -117,8 +122,10 @@
 }
 
 - (void)setupTableView {
-    self.tableView.rowHeight = 132;
+    self.tableView.rowHeight = 125;
+    self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.tableHeaderView = self.cycleScrollView;
+    self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f0f2f5"];
     [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
     
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
@@ -137,7 +144,15 @@
 }
 
 - (void)notificationPressed:(id)sender {
-    
+    if (US.isLogIn==NO) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
+        messagePush.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:messagePush animated:YES];
+    }
 }
 
 - (void)searchPressed:(id)sender {

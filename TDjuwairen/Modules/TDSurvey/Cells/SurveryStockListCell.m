@@ -43,7 +43,7 @@
         // 分割线
         UIImage *slipImage = [UIImage imageNamed:@"slipLine"];
         UIImageView *slipImageView = [[UIImageView alloc] initWithImage:slipImage];
-        slipImageView.frame = CGRectMake(15.0f, 90, [UIScreen mainScreen].bounds.size.width-30, 1/[UIScreen mainScreen].scale);
+        slipImageView.frame = CGRectMake(15.0f, 85, [UIScreen mainScreen].bounds.size.width-30, 1/[UIScreen mainScreen].scale);
         [self.contentView addSubview:slipImageView];
     }
     return self;
@@ -62,14 +62,14 @@
     if (_isLeft) {
         _surveyImageView.frame = CGRectMake(15.0f, 15.0f, 100, 60);
         _stockNameLabel.frame = CGRectMake(130.0f, 15.0f, w-145, 20);
-        _stockNowPriLabel.frame = CGRectMake(130.0f, 50, w-145, 30);
+        _stockNowPriLabel.frame = CGRectMake(130.0f, 43, w-145, 30);
     } else {
         _surveyImageView.frame = CGRectMake(w-115, 15.0f, 100, 60);
         _stockNameLabel.frame = CGRectMake(15.0f, 15.0f, w-145, 20);
-        _stockNowPriLabel.frame = CGRectMake(15.0f, 50.0f, w-145, 30);
+        _stockNowPriLabel.frame = CGRectMake(15.0f, 43.0f, w-145, 30);
     }
     
-    _surveyTitleLabel.frame = CGRectMake(15.0f, 100.0f, w-30, 20);
+    _surveyTitleLabel.frame = CGRectMake(15.0f, 95.0f, w-30, 20);
 }
 
 - (void)setupSurvey:(SurveyModel *)survey {
@@ -92,28 +92,28 @@
         // 没有值 退市，开盘前半小时
         NSString *string = [NSString stringWithFormat:@"0  0%% 0"];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#696969"],NSFontAttributeName:[UIFont systemFontOfSize:25.0f]}
+        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#696969"],NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
                       range:NSMakeRange(0, 1)];
-        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#696969"],NSFontAttributeName:[UIFont systemFontOfSize:15.0f]}
+        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#696969"],NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
                       range:NSMakeRange(1,string.length-1)];
         _stockNowPriLabel.attributedText = attr;
     } else {
         float value = nowPri - todayStartPri;
         float valueB = value/todayStartPri;
         NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",nowPri];
-        NSString *string = [NSString stringWithFormat:@"%@ %+.2lf %+.2lf%%",nowPriString,value,valueB*100];
+        NSString *string = [NSString stringWithFormat:@"%@   %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
         
         if (value >= 0.00) {
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:[UIFont systemFontOfSize:25.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
                           range:NSMakeRange(0, nowPriString.length)];
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:[UIFont systemFontOfSize:15.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
                           range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
             
         } else {
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:[UIFont systemFontOfSize:25.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
                           range:NSMakeRange(0, nowPriString.length)];
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:[UIFont systemFontOfSize:15.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
                           range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
         }
         _stockNowPriLabel.attributedText = attr;
