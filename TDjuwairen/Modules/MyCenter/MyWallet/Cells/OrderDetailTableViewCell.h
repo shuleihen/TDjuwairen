@@ -43,6 +43,6 @@
 
 @property (nonatomic,assign) id<OrderDetailCellDelegate>delegate;
 
-- (void)setupUIWithModel:(OrderModel *)model;
+- (void)setupUIWithModel:(OrderModel *)model andIndexPath:(NSIndexPath *)indexPath;
 
 @end

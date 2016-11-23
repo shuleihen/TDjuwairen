@@ -10,4 +10,8 @@
 
 @interface NoOrderTableViewCell : UITableViewCell
 
+@property (nonatomic,strong) UIImageView *imgView;
+
+@property (nonatomic,strong) UILabel *titLab;
+
 @end

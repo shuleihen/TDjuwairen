@@ -22,29 +22,31 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         //
         UIdaynightModel *daynightModel = [UIdaynightModel sharedInstance];
-        UIImageView *imgView = [[UIImageView alloc] init];
-        imgView.contentMode = UIViewContentModeScaleAspectFit;
+        self.backgroundColor = daynightModel.backColor;
+        self.imgView = [[UIImageView alloc] init];
+        self.imgView.contentMode = UIViewContentModeScaleAspectFit;
         
-        UILabel *lab = [[UILabel alloc] init];
-        lab.font = [UIFont systemFontOfSize:18];
-        lab.text = @"暂时没有订单~";
-        lab.textColor = daynightModel.titleColor;
+        self.titLab = [[UILabel alloc] init];
+        self.titLab.font = [UIFont systemFontOfSize:18];
+        self.titLab.textAlignment = NSTextAlignmentCenter;
+        self.titLab.textColor = daynightModel.titleColor;
         
-        [self addSubview:imgView];
-        [self addSubview:lab];
+        [self addSubview:self.imgView];
+        [self addSubview:self.titLab];
         
-        [imgView mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(self).with.offset(90);
-            make.centerY.equalTo(self);
-            make.width.mas_equalTo(50);
-            make.height.mas_equalTo(50);
+        CGFloat imgX = (kScreenHeight-108)/6;
+        [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.top.equalTo(self).with.offset(imgX);
+            make.width.mas_equalTo(90);
+            make.height.mas_equalTo(90);
         }];
         
-        [lab mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(imgView).with.offset(25);
-            make.centerY.equalTo(self);
-            make.bottom.equalTo(self).with.offset(108-90-50-25-40);
-            make.width.mas_equalTo(kScreenWidth);
+        [self.titLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerX.equalTo(self);
+            make.top.equalTo(self.imgView.mas_bottom).with.offset(25);
+            make.bottom.equalTo(self).with.offset(-(kScreenHeight-108-imgX-90-25-40));
+            make.width.mas_equalTo(kScreenWidth/2);
             make.height.mas_equalTo(40);
         }];
         
