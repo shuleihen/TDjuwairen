@@ -46,4 +46,3 @@
 
 - (void)setupUIWithString:(NSString *)num andIndexPath:(NSIndexPath *)indexPath;
 @end
-
