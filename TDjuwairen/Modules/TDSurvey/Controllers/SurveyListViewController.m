@@ -85,13 +85,9 @@
     [self getBanners];
     
     self.page = 1;
-<<<<<<< Updated upstream
-//    [self getSurveyWithPage:self.page];
-=======
 
     [self getSurveyWithPage:self.page];
 
->>>>>>> Stashed changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAvatar:) name:kLoginSuccessedNotification object:nil];
     
 //    [self defatul];

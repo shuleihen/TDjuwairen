@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
-		191027B21DE52FFE006A2275 /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -246,7 +245,7 @@
 		845E7D0F1DE568DF00E620DB /* KeysRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D0E1DE568DF00E620DB /* KeysRecordViewController.m */; };
 		845E7D121DE5729B00E620DB /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D111DE5729B00E620DB /* RecordModel.m */; };
 		845E7D151DE5892100E620DB /* KeysExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D141DE5892100E620DB /* KeysExchangeViewController.m */; };
-		845E7D171DE592E200E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
+		845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
 		846D92291DD952CB000B847E /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846D92281DD952CB000B847E /* CommentViewController.m */; };
 		846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */; };
 		846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E59D71DE3E6760031C993 /* MyOrderViewController.m */; };
@@ -2914,7 +2913,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845E7D171DE592E200E620DB /* YXTitleButton.m in Sources */,
+				845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */,
 				8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
 				1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */,
@@ -2924,11 +2923,7 @@
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				19E958321DAC894600BA37C5 /* NewTableViewCell.m in Sources */,
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
-
-				191027B21DE52FFE006A2275 /* YXTitleButton.m in Sources */,
-
 				845E7D121DE5729B00E620DB /* RecordModel.m in Sources */,
-
 				1955B4761D644D9800DC102E /* ChildTableViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
