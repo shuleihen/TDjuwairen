@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
+		191027B21DE52FFE006A2275 /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -399,6 +400,9 @@
 		191027A61DE410F2006A2275 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
 		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
 		191027AB1DE42492006A2275 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveyModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.m; sourceTree = SOURCE_ROOT; };
+		191027AE1DE52B1B006A2275 /* NotificationDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationDef.h; sourceTree = "<group>"; };
+		191027B01DE52FFE006A2275 /* YXTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTitleButton.h; sourceTree = "<group>"; };
+		191027B11DE52FFE006A2275 /* YXTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTitleButton.m; sourceTree = "<group>"; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		1924DFD51D62B49C00FEC383 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1084,6 +1088,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		191027AD1DE52B04006A2275 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				191027AE1DE52B1B006A2275 /* NotificationDef.h */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
+		191027AF1DE52FF0006A2275 /* YXTitleButton */ = {
+			isa = PBXGroup;
+			children = (
+				191027B01DE52FFE006A2275 /* YXTitleButton.h */,
+				191027B11DE52FFE006A2275 /* YXTitleButton.m */,
+			);
+			path = YXTitleButton;
+			sourceTree = "<group>";
+		};
 		191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1790,6 +1811,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				191027AD1DE52B04006A2275 /* Handler */,
 				1955B3AC1D644D9800DC102E /* LoginRegiser */,
 				1955B3BA1D644D9800DC102E /* MyCenter */,
 				1955B4011D644D9800DC102E /* Network */,
@@ -2410,6 +2432,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				191027AF1DE52FF0006A2275 /* YXTitleButton */,
 				19B11C8E1D655B9E00BB4DF4 /* CocoaLumberjack */,
 				19FB54461D5D7DDF0011BA33 /* YXFont */,
 				19FB54421D5C81EA0011BA33 /* YXCheckBox */,
@@ -2884,6 +2907,7 @@
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				19E958321DAC894600BA37C5 /* NewTableViewCell.m in Sources */,
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
+				191027B21DE52FFE006A2275 /* YXTitleButton.m in Sources */,
 				1955B4761D644D9800DC102E /* ChildTableViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
@@ -3030,7 +3054,6 @@
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
 				846E5A2E1DE452E20031C993 /* NoOrderTableViewCell.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
-				84390BE71DCB0D2C00A7FEB7 /* SurveyListLeftTableViewCell.m in Sources */,
 				846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */,
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,

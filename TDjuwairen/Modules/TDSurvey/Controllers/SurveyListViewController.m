@@ -15,7 +15,10 @@
 #import "UIButton+WebCache.h"
 #import "SDCycleScrollView.h"
 #import "SurDetailViewController.h"
-
+#import "NotificationDef.h"
+#import "YXTitleButton.h"
+#import "SearchViewController.h"
+#import "DetailPageViewController.h"
 // 广告栏高度
 #define kBannerHeiht 160
 
@@ -43,6 +46,10 @@
 //    }
 //    return _tableView;
 //}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (StockManager *)stockManager {
     if (!_stockManager) {
@@ -72,7 +79,7 @@
     
     self.page = 1;
 //    [self getSurveyWithPage:self.page];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAvatar:) name:kLoginSuccessedNotification object:nil];
     
     [self defatul];
 }
@@ -90,8 +97,11 @@
 }
 
 - (void)setupNavigationBar {
-    UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+    UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+    avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
+    avatarBtn.imageView.layer.cornerRadius = 15.0f;
+    avatarBtn.imageView.clipsToBounds = YES;
+    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"unLoginAvatar"]];
     [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
     self.navigationItem.leftBarButtonItem = left;
@@ -99,6 +109,11 @@
     // 通知
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"notificationTip"] style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
     self.navigationItem.rightBarButtonItem = right;
+    
+    // 搜索
+    YXTitleButton *search = [[YXTitleButton alloc] init];
+    [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = search;
 }
 
 - (void)setupTableView {
@@ -112,12 +127,23 @@
 }
 
 #pragma mark - Action 
+- (void)updateAvatar:(NSNotification *)notif {
+    UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
+    [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+}
+
 - (void)avatarPressed:(id)sender {
     
 }
 
 - (void)notificationPressed:(id)sender {
     
+}
+
+- (void)searchPressed:(id)sender {
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 - (void)refresh:(id)sender {
@@ -240,7 +266,30 @@
 
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
+    //跳转到详情页
+    DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+    NSString *s = self.bannerLinks[index];
+    NSArray *arr = [s componentsSeparatedByString:@"/"];
+    DetailView.sharp_id = [arr lastObject];
+    DetailView.pageMode = @"sharp";
+    DetailView.hidesBottomBarWhenPushed = YES;
     
+    if (US.isLogIn) {     //为登录状态
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dic = @{@"userid":US.userId,
+                              @"module_id":@2,
+                              @"item_id":self.bannerLinks[index]};
+        
+        [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
+            if (!error) {
+                
+            } else {
+                
+            }
+        }];
+    }
+    
+    [self.navigationController pushViewController:DetailView animated:YES];
 }
 
 #pragma mark - StockManagerDelegate

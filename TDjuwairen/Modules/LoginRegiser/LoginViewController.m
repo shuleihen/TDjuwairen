@@ -17,7 +17,7 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
-
+#import "NotificationDef.h"
 #import "BPush.h"
 
 @interface LoginViewController ()
@@ -129,6 +129,7 @@
             }
             [self.navigationController popViewControllerAnimated:YES];
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
             hud.labelText = message;
