@@ -12,6 +12,7 @@
 #import "SelWXOrAlipayView.h"
 #import "MyOrderViewController.h"
 #import "KeysRecordViewController.h"
+#import "KeysExchangeViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -163,6 +164,8 @@
         else
         {
             //进入钥匙兑换页
+            KeysExchangeViewController *keysExchange = [[KeysExchangeViewController alloc] init];
+            [self.navigationController pushViewController:keysExchange animated:YES];
         }
     }
 }

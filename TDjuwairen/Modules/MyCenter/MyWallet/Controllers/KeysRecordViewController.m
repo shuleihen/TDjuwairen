@@ -20,6 +20,7 @@
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
 #import "MJRefresh.h"
+#import "Masonry.h"
 #import "HexColors.h"
 #import "NSString+Ext.h"
 
@@ -92,7 +93,13 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return self.keyRecordArr.count;
+    if (self.keyRecordArr.count > 0) {
+        return self.keyRecordArr.count;
+    }
+    else
+    {
+        return 1;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -123,8 +130,13 @@
         if (cell == nil) {
             cell = [[NoOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noOrderCell"];
         }
-        cell.imgView.image = [UIImage imageNamed:@"icon_zanwu"];
-        cell.titLab.text = @"暂时没有订单~";
+        cell.imgView.image = [UIImage imageNamed:@"icon_key"];
+        cell.titLab.text = @"暂时使用记录~";
+        
+        CGFloat imgX = (kScreenHeight-108)/6;
+        [cell.titLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(cell).with.offset(-(kScreenHeight-64-imgX-90-25-40));
+        }];
         return cell;
     }
 }
