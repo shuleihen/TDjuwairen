@@ -11,6 +11,7 @@
 #import "RechargeView.h"
 #import "SelWXOrAlipayView.h"
 #import "MyOrderViewController.h"
+#import "KeysRecordViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -151,11 +152,13 @@
     if (indexPath.section == 1) {
         if (indexPath.row == 0) {
             //进入订单页
-            MyOrderViewController *myorder = [[MyOrderViewController alloc] init];
-            [self.navigationController pushViewController:myorder animated:YES];
+            MyOrderViewController *myOrder = [[MyOrderViewController alloc] init];
+            [self.navigationController pushViewController:myOrder animated:YES];
         }
         else if(indexPath.row == 1){
             //进入使用记录页
+            KeysRecordViewController *keysRecord = [[KeysRecordViewController alloc] init];
+            [self.navigationController pushViewController:keysRecord animated:YES];
         }
         else
         {

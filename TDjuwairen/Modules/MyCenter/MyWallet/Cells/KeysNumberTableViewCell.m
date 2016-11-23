@@ -43,7 +43,6 @@
     self.numLab = [[UILabel alloc] initWithFrame:CGRectMake(70, 75, 150, 50)];
     self.numLab.textColor = [UIColor whiteColor];
     self.numLab.font = [UIFont boldSystemFontOfSize:48];
-//    self.numLab.text = @"0";
     
     self.topupBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-15-60, 80, 60, 40)];
     self.topupBtn.layer.cornerRadius = 5;

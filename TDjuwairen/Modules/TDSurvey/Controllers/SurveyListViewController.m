@@ -35,6 +35,7 @@
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong) NSArray *bannerLinks;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSMutableArray *stockArr;
 @end
 
 @implementation SurveyListViewController
@@ -76,16 +77,24 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.stockArr = [NSMutableArray array];
+    
     [self setupNavigationBar];
     [self setupTableView];
     
     [self getBanners];
     
     self.page = 1;
+<<<<<<< Updated upstream
 //    [self getSurveyWithPage:self.page];
+=======
+
+    [self getSurveyWithPage:self.page];
+
+>>>>>>> Stashed changes
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAvatar:) name:kLoginSuccessedNotification object:nil];
     
-    [self defatul];
+//    [self defatul];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -250,7 +259,7 @@
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://192.168.1.103/Survey/lists/%ld",pageA];
+    NSString *url = [NSString stringWithFormat:@"http://192.168.1.107/Survey/lists/%ld",pageA];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
@@ -266,10 +275,12 @@
                 for (NSDictionary *d in dataArray) {
                     SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
                     [list addObject:model];
+                    
                 }
                 
                 wself.page ++;
-                wself.surveyList = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+//                wself.surveyList = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+                wself.surveyList = [NSMutableArray arrayWithArray:list];
             }
             
             [wself.tableView reloadData];

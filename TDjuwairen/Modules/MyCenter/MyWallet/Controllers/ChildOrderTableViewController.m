@@ -5,6 +5,9 @@
 //  Created by 团大 on 2016/11/22.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
+#define redTextColor [HXColor hx_colorWithHexRGBAString:@"#E83C3D"]
+
+#define yelloTextColor [HXColor hx_colorWithHexRGBAString:@"#F2BA2C"]
 
 #import "ChildOrderTableViewController.h"
 #import "OrderModel.h"
@@ -14,6 +17,7 @@
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
 #import "MJRefresh.h"
+#import "HexColors.h"
 
 #import "LoginState.h"
 #import "UIdaynightModel.h"
@@ -136,7 +140,24 @@
             cell = [[OrderDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"orderCell"];
         }
         cell.delegate = self;
-        [cell setupUIWithModel:model andIndexPath:indexPath];
+        [cell setupUIWithString:model.order_amount andIndexPath:indexPath];
+        cell.IDLab.text = @"订单ID: ";
+        cell.orderID.text = model.order_sn;
+        cell.orderTitle.text = model.order_sn;
+        cell.timeLab.text = @"下单时间：";
+        cell.orderTime.text = model.order_ptime;
+        cell.orderStatus.text = model.order_paystatus;
+        if ([model.order_paystatus isEqualToString:@"交易成功"]) {
+            cell.orderStatus.textColor = [HXColor hx_colorWithHexRGBAString:@"#1B69B1"];
+        }
+        else
+        {
+            cell.orderStatus.textColor = redTextColor;
+        }
+        cell.moneyImg.image = [UIImage imageNamed:@"icon_price"];
+        cell.orderMoney.textColor = redTextColor;
+        cell.cleanBtn.tag = indexPath.row;
+        [cell.cleanBtn setTitle:@"删除订单" forState:UIControlStateNormal];
         return cell;
     }
     else
@@ -152,7 +173,7 @@
 }
 
 #pragma mark - 点击删除订单
-- (void)clickDeleteOrder:(UIButton *)sender
+- (void)clickDeleteCell:(UIButton *)sender
 {
     OrderModel *model = self.orderArr[sender.tag];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];

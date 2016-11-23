@@ -19,4 +19,15 @@
     model.surveyTitle = dic[@"survey_title"];
     return model;
 }
+
+//- (NSComparisonResult)compare:(SurveyModel *)other
+//{
+//    if (self..integerValue > other.order_ptime.integerValue) {
+//        return NSOrderedDescending;
+//    } else if (self.order_ptime.integerValue < other.order_ptime.integerValue) {
+//        return NSOrderedAscending;
+//    } else {
+//        return NSOrderedSame;
+//    }
+//}
 @end

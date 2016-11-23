@@ -8,10 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "OrderModel.h"
+#import "RecordModel.h"
 
 @protocol OrderDetailCellDelegate <NSObject>
 
-- (void)clickDeleteOrder:(UIButton *)sender;
+- (void)clickDeleteCell:(UIButton *)sender;
 
 @end
 
@@ -43,6 +44,6 @@
 
 @property (nonatomic,assign) id<OrderDetailCellDelegate>delegate;
 
-- (void)setupUIWithModel:(OrderModel *)model andIndexPath:(NSIndexPath *)indexPath;
-
+- (void)setupUIWithString:(NSString *)num andIndexPath:(NSIndexPath *)indexPath;
 @end
+

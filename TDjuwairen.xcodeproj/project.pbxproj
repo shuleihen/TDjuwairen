@@ -243,6 +243,10 @@
 		845CCBB81D4F32FC005ABD7B /* btn_lianjie@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */; };
 		845CCBBA1D4F330D005ABD7B /* btn_img@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBB91D4F330D005ABD7B /* btn_img@3x.png */; };
 		845CCBBC1D4F3316005ABD7B /* btn_biaoqian@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */; };
+		845E7D0F1DE568DF00E620DB /* KeysRecordViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D0E1DE568DF00E620DB /* KeysRecordViewController.m */; };
+		845E7D121DE5729B00E620DB /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D111DE5729B00E620DB /* RecordModel.m */; };
+		845E7D151DE5892100E620DB /* KeysExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D141DE5892100E620DB /* KeysExchangeViewController.m */; };
+		845E7D171DE592E200E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
 		846D92291DD952CB000B847E /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846D92281DD952CB000B847E /* CommentViewController.m */; };
 		846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */; };
 		846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E59D71DE3E6760031C993 /* MyOrderViewController.m */; };
@@ -806,6 +810,12 @@
 		845CCBB71D4F32FC005ABD7B /* btn_lianjie@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_lianjie@3x.png"; sourceTree = "<group>"; };
 		845CCBB91D4F330D005ABD7B /* btn_img@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_img@3x.png"; sourceTree = "<group>"; };
 		845CCBBB1D4F3316005ABD7B /* btn_biaoqian@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "btn_biaoqian@3x.png"; sourceTree = "<group>"; };
+		845E7D0D1DE568DF00E620DB /* KeysRecordViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysRecordViewController.h; sourceTree = "<group>"; };
+		845E7D0E1DE568DF00E620DB /* KeysRecordViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysRecordViewController.m; sourceTree = "<group>"; };
+		845E7D101DE5729B00E620DB /* RecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RecordModel.h; sourceTree = "<group>"; };
+		845E7D111DE5729B00E620DB /* RecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordModel.m; sourceTree = "<group>"; };
+		845E7D131DE5892100E620DB /* KeysExchangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysExchangeViewController.h; sourceTree = "<group>"; };
+		845E7D141DE5892100E620DB /* KeysExchangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysExchangeViewController.m; sourceTree = "<group>"; };
 		846D92271DD952CB000B847E /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		846D92281DD952CB000B847E /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		846DA6141DD98EF200B22D9B /* AskQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -2037,6 +2047,10 @@
 				846E59D71DE3E6760031C993 /* MyOrderViewController.m */,
 				846E5A111DE415AF0031C993 /* ChildOrderTableViewController.h */,
 				846E5A121DE415AF0031C993 /* ChildOrderTableViewController.m */,
+				845E7D0D1DE568DF00E620DB /* KeysRecordViewController.h */,
+				845E7D0E1DE568DF00E620DB /* KeysRecordViewController.m */,
+				845E7D131DE5892100E620DB /* KeysExchangeViewController.h */,
+				845E7D141DE5892100E620DB /* KeysExchangeViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2092,6 +2106,8 @@
 			children = (
 				846E5A181DE41EC70031C993 /* OrderModel.h */,
 				846E5A191DE41EC70031C993 /* OrderModel.m */,
+				845E7D101DE5729B00E620DB /* RecordModel.h */,
+				845E7D111DE5729B00E620DB /* RecordModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2898,6 +2914,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				845E7D171DE592E200E620DB /* YXTitleButton.m in Sources */,
 				8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
 				1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */,
@@ -2907,7 +2924,11 @@
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				19E958321DAC894600BA37C5 /* NewTableViewCell.m in Sources */,
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
+
 				191027B21DE52FFE006A2275 /* YXTitleButton.m in Sources */,
+
+				845E7D121DE5729B00E620DB /* RecordModel.m in Sources */,
+
 				1955B4761D644D9800DC102E /* ChildTableViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
@@ -2938,6 +2959,7 @@
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				1955B4931D644D9800DC102E /* VideoViewController.m in Sources */,
 				1954E6E21DE3D6400058403A /* StockManager.m in Sources */,
+				845E7D0F1DE568DF00E620DB /* KeysRecordViewController.m in Sources */,
 				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				8470E9511DDC5327002F727D /* KeysBtn.m in Sources */,
@@ -2960,6 +2982,7 @@
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
 				19CF2AFA1DAB2E13000E017D /* ViewpointCommentViewController.m in Sources */,
 				846E59DE1DE3F77C0031C993 /* SelOrderBtnView.m in Sources */,
+				845E7D151DE5892100E620DB /* KeysExchangeViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
 				84EE2AF71D929E48005D5C8C /* DetailPageViewController.m in Sources */,

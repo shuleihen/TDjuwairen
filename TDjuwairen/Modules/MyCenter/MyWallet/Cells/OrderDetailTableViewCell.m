@@ -7,6 +7,8 @@
 //
 #define redTextColor [HXColor hx_colorWithHexRGBAString:@"#E83C3D"]
 
+#define yelloTextColor [HXColor hx_colorWithHexRGBAString:@"#F2BA2C"]
+
 #import "OrderDetailTableViewCell.h"
 
 #import "UIdaynightModel.h"
@@ -39,7 +41,6 @@
         
         self.IDLab = [[UILabel alloc] init];
         self.IDLab.font = [UIFont boldSystemFontOfSize:12];
-        self.IDLab.text = @"订单ID: ";
         self.IDLab.textColor = self.daynightModel.titleColor;
         
         self.orderID = [[UILabel alloc] init];
@@ -59,7 +60,6 @@
         self.orderTitle.textColor = self.daynightModel.textColor;
         
         self.timeLab = [[UILabel alloc] init];
-        self.timeLab.text = @"下单时间：";
         self.timeLab.font = [UIFont systemFontOfSize:14];
         self.timeLab.textColor = self.daynightModel.titleColor;
         
@@ -69,11 +69,10 @@
         
         self.moneyImg = [[UIImageView alloc] init];
         
-        self.moneyImg.image = [UIImage imageNamed:@"icon_price"];
-        
         self.moneyImg.contentMode = UIViewContentModeScaleAspectFit;
         
         self.orderMoney = [[UILabel alloc] init];
+        self.orderMoney.font = [UIFont systemFontOfSize:14];
         
         self.line2 = [[UILabel alloc] init];
         self.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
@@ -83,7 +82,6 @@
         self.cleanBtn.layer.borderWidth = 1;
         self.cleanBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
         self.cleanBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [self.cleanBtn setTitle:@"删除订单" forState:UIControlStateNormal];
         [self.cleanBtn setTitleColor:self.daynightModel.titleColor forState:UIControlStateNormal];
         [self.cleanBtn addTarget:self action:@selector(clickDeleteOrder:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -103,7 +101,19 @@
     return self;
 }
 
-- (void)setupUIWithModel:(OrderModel *)model andIndexPath:(NSIndexPath *)indexPath{
+- (void)setupUIWithString:(NSString *)num andIndexPath:(NSIndexPath *)indexPath{
+    NSString *amount = num;
+    CGSize moneySize = CGSizeMake(100, 20);
+    moneySize = [amount calculateSize:moneySize font:[UIFont systemFontOfSize:14]];
+    self.orderMoney.text = amount;
+    
+    [self.orderID mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.backView).with.offset(0);
+        make.left.equalTo(self.IDLab.mas_right).with.offset(5);
+        make.width.mas_equalTo(kScreenWidth/2);
+        make.height.mas_equalTo(35);
+    }];
+    
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(0);
         make.left.equalTo(self).with.offset(0);
@@ -118,22 +128,6 @@
         make.height.mas_equalTo(35);
     }];
     
-    self.orderID.text = model.order_sn;
-    [self.orderID mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(self.backView).with.offset(0);
-        make.left.equalTo(self.IDLab.mas_right).with.offset(5);
-        make.width.mas_equalTo(kScreenWidth/2);
-        make.height.mas_equalTo(35);
-    }];
-    
-    self.orderStatus.text = model.order_paystatus;
-    if ([model.order_paystatus isEqualToString:@"交易成功"]) {
-        self.orderStatus.textColor = [HXColor hx_colorWithHexRGBAString:@"#1B69B1"];
-    }
-    else
-    {
-        self.orderStatus.textColor = redTextColor;
-    }
     [self.orderStatus mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.backView).with.offset(0);
         make.right.equalTo(self.backView).with.offset(-15);
@@ -147,8 +141,7 @@
         make.right.equalTo(self.backView).with.offset(-15);
         make.height.mas_equalTo(1);
     }];
-
-    self.orderTitle.text = model.order_title;
+    
     [self.orderTitle mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.line1.mas_bottom).with.offset(15);
         make.left.equalTo(self.backView).with.offset(15);
@@ -163,7 +156,6 @@
         make.height.mas_equalTo(20);
     }];
     
-    self.orderTime.text = model.order_ptime;
     [self.orderTime mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.orderTitle.mas_bottom).with.offset(15);
         make.left.equalTo(self.timeLab.mas_right).with.offset(5);
@@ -171,12 +163,6 @@
         make.height.mas_equalTo(20);
     }];
     
-    NSString *amount = model.order_amount;
-    CGSize moneySize = CGSizeMake(100, 20);
-    moneySize = [amount calculateSize:moneySize font:[UIFont systemFontOfSize:14]];
-    self.orderMoney.font = [UIFont systemFontOfSize:14];
-    self.orderMoney.text = amount;
-    self.orderMoney.textColor = redTextColor;
     [self.orderMoney mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.orderTitle.mas_bottom).with.offset(15);
         make.right.equalTo(self.backView).with.offset(-15);
@@ -198,7 +184,6 @@
         make.height.mas_equalTo(1);
     }];
     
-    self.cleanBtn.tag = indexPath.row;
     [self.cleanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.line2.mas_bottom).with.offset(5);
         make.right.equalTo(self.backView).with.offset(-15);
@@ -209,14 +194,14 @@
 }
 
 - (void)clickDeleteOrder:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(clickDeleteOrder:)]) {
-        [self.delegate clickDeleteOrder:sender];
+    if ([self.delegate respondsToSelector:@selector(clickDeleteCell:)]) {
+        [self.delegate clickDeleteCell:sender];
     }
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
