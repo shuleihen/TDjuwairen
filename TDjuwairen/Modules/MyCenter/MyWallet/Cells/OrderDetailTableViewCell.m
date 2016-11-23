@@ -103,7 +103,7 @@
     return self;
 }
 
-- (void)setupUIWithModel:(OrderModel *)model{
+- (void)setupUIWithModel:(OrderModel *)model andIndexPath:(NSIndexPath *)indexPath{
     [self.backView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(0);
         make.left.equalTo(self).with.offset(0);
@@ -198,6 +198,7 @@
         make.height.mas_equalTo(1);
     }];
     
+    self.cleanBtn.tag = indexPath.row;
     [self.cleanBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.line2.mas_bottom).with.offset(5);
         make.right.equalTo(self.backView).with.offset(-15);

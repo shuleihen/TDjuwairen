@@ -68,7 +68,7 @@
 {
     self.tag = tag;
     NSDictionary *para = @{@"user_id":US.userId,
-                           @"type":[NSString stringWithFormat:@"%d",tag],
+                           @"type":[NSString stringWithFormat:@"%d",tag-1],
                            @"page":[NSString stringWithFormat:@"%d",self.page]};
     NSString *url = [NSString stringWithFormat:@"%@User/getUserOrder",kAPI_songsong];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -136,7 +136,7 @@
             cell = [[OrderDetailTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"orderCell"];
         }
         cell.delegate = self;
-        [cell setupUIWithModel:model];
+        [cell setupUIWithModel:model andIndexPath:indexPath];
         return cell;
     }
     else
@@ -145,6 +145,8 @@
         if (cell == nil) {
             cell = [[NoOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noOrderCell"];
         }
+        cell.imgView.image = [UIImage imageNamed:@"icon_zanwu"];
+        cell.titLab.text = @"暂时没有订单~";
         return cell;
     }
 }
@@ -152,6 +154,23 @@
 #pragma mark - 点击删除订单
 - (void)clickDeleteOrder:(UIButton *)sender
 {
-    NSLog(@"删除订单");
+    OrderModel *model = self.orderArr[sender.tag];
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    NSString *url = [NSString stringWithFormat:@"%@User/delUserOrder",kAPI_songsong];
+    NSDictionary *para = @{@"orderID":model.order_id};
+    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+        nil;
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *data = responseObject[@"data"];
+        if (data[@"status"]) {
+            [self.orderArr removeObject:model];
+            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        }
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
+    
 }
 @end
