@@ -269,6 +269,9 @@
 		847BD6E71DE69CAB006AEECE /* ExchangeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6E61DE69CAB006AEECE /* ExchangeModel.m */; };
 		847BD6EA1DE6BBFA006AEECE /* PopupExchangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6E91DE6BBFA006AEECE /* PopupExchangeView.m */; };
 		847BD6ED1DE6DD8D006AEECE /* AwardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6EC1DE6DD8D006AEECE /* AwardViewController.m */; };
+		847BD6F01DE6E2D9006AEECE /* AwardImfomationTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6EF1DE6E2D9006AEECE /* AwardImfomationTableViewCell.m */; };
+		847BD6F31DE6E5C8006AEECE /* AwardAdressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6F21DE6E5C8006AEECE /* AwardAdressTableViewCell.m */; };
+		847BD6F61DE6FD1C006AEECE /* PopUsExchangeSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6F51DE6FD1C006AEECE /* PopUsExchangeSuccessView.m */; };
 		84823CAF1DD165B6004440A9 /* ChildDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CAE1DD165B6004440A9 /* ChildDetailTableViewController.m */; };
 		84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB41DD1AC36004440A9 /* TopBotButton.m */; };
 		84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB71DD1ACB3004440A9 /* NSString+GetDevice.m */; };
@@ -861,6 +864,12 @@
 		847BD6E91DE6BBFA006AEECE /* PopupExchangeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupExchangeView.m; sourceTree = "<group>"; };
 		847BD6EB1DE6DD8D006AEECE /* AwardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardViewController.h; sourceTree = "<group>"; };
 		847BD6EC1DE6DD8D006AEECE /* AwardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardViewController.m; sourceTree = "<group>"; };
+		847BD6EE1DE6E2D9006AEECE /* AwardImfomationTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardImfomationTableViewCell.h; sourceTree = "<group>"; };
+		847BD6EF1DE6E2D9006AEECE /* AwardImfomationTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardImfomationTableViewCell.m; sourceTree = "<group>"; };
+		847BD6F11DE6E5C8006AEECE /* AwardAdressTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AwardAdressTableViewCell.h; sourceTree = "<group>"; };
+		847BD6F21DE6E5C8006AEECE /* AwardAdressTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AwardAdressTableViewCell.m; sourceTree = "<group>"; };
+		847BD6F41DE6FD1C006AEECE /* PopUsExchangeSuccessView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopUsExchangeSuccessView.h; sourceTree = "<group>"; };
+		847BD6F51DE6FD1C006AEECE /* PopUsExchangeSuccessView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopUsExchangeSuccessView.m; sourceTree = "<group>"; };
 		84823CAD1DD165B6004440A9 /* ChildDetailTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildDetailTableViewController.h; sourceTree = "<group>"; };
 		84823CAE1DD165B6004440A9 /* ChildDetailTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChildDetailTableViewController.m; sourceTree = "<group>"; };
 		84823CB31DD1AC36004440A9 /* TopBotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopBotButton.h; sourceTree = "<group>"; };
@@ -2075,6 +2084,8 @@
 				846E59DD1DE3F77C0031C993 /* SelOrderBtnView.m */,
 				847BD6E81DE6BBFA006AEECE /* PopupExchangeView.h */,
 				847BD6E91DE6BBFA006AEECE /* PopupExchangeView.m */,
+				847BD6F41DE6FD1C006AEECE /* PopUsExchangeSuccessView.h */,
+				847BD6F51DE6FD1C006AEECE /* PopUsExchangeSuccessView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2090,6 +2101,10 @@
 				846E5A2D1DE452E20031C993 /* NoOrderTableViewCell.m */,
 				847BD6DC1DE69346006AEECE /* ExchangeTableViewCell.h */,
 				847BD6DD1DE69346006AEECE /* ExchangeTableViewCell.m */,
+				847BD6EE1DE6E2D9006AEECE /* AwardImfomationTableViewCell.h */,
+				847BD6EF1DE6E2D9006AEECE /* AwardImfomationTableViewCell.m */,
+				847BD6F11DE6E5C8006AEECE /* AwardAdressTableViewCell.h */,
+				847BD6F21DE6E5C8006AEECE /* AwardAdressTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3042,6 +3057,7 @@
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
 				1955B4951D644D9800DC102E /* ViewPointTableViewCell.m in Sources */,
+				847BD6F61DE6FD1C006AEECE /* PopUsExchangeSuccessView.m in Sources */,
 				19AA61EF1DAA24FB00FB7E83 /* PaperDetailViewController.m in Sources */,
 				1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
@@ -3056,6 +3072,7 @@
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
 				19C7B0271DE2D7A20069D990 /* SettingNickNameViewController.m in Sources */,
+				847BD6F31DE6E5C8006AEECE /* AwardAdressTableViewCell.m in Sources */,
 				1955B4621D644D9800DC102E /* BrowserTableViewCell.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
@@ -3131,6 +3148,7 @@
 				1955B4791D644D9800DC102E /* ViewManagerViewController.m in Sources */,
 				1955B49D1D644D9800DC102E /* SpecialModel.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
+				847BD6F01DE6E2D9006AEECE /* AwardImfomationTableViewCell.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
 				846E5A201DE4295A0031C993 /* OrderDetailTableViewCell.m in Sources */,
 				19C7B01D1DE2D1A40069D990 /* AccountViewController.m in Sources */,

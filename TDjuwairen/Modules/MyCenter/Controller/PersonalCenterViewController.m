@@ -131,8 +131,6 @@
     }
     else
     {
-        
-        
         if (indexPath.row == 0) {
             NSString *identifier = @"dn";
             DaynightCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];

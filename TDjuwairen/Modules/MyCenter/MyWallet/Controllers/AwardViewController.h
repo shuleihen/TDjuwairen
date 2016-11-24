@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ExchangeModel.h"
+
+typedef void (^exchangeModelBlock)();
 
 @interface AwardViewController : UIViewController
+
+@property (nonatomic, strong) ExchangeModel *model;
+
+@property (nonatomic,copy )exchangeModelBlock block;
 
 @end

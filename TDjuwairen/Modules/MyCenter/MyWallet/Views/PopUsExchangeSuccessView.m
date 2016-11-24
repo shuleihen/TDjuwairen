@@ -1,19 +1,18 @@
 //
-//  PopupExchangeView.m
+//  PopUsExchangeSuccessView.m
 //  TDjuwairen
 //
 //  Created by 团大 on 2016/11/24.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "PopupExchangeView.h"
+#import "PopUsExchangeSuccessView.h"
 
 #import "Masonry.h"
-#import "UIImageView+WebCache.h"
 #import "HexColors.h"
-#import "UIdaynightModel.h"
+#import "UIImageView+WebCache.h"
 
-@implementation PopupExchangeView
+@implementation PopUsExchangeSuccessView
 
 - (instancetype)initWithFrame:(CGRect)frame andWithModel:(ExchangeModel *)model
 {
@@ -26,7 +25,7 @@
         self.duihuanImg = [[UIImageView alloc] init];
         self.duihuanImg.contentMode = UIViewContentModeScaleAspectFit;
         self.duihuanImg.userInteractionEnabled = YES;
-        self.duihuanImg.image = [UIImage imageNamed:@"bg_duihuan"];
+        self.duihuanImg.image = [UIImage imageNamed:@"bg_duihuanchenggong"];
         
         self.prizeImg = [[UIImageView alloc] init];
         self.prizeImg.contentMode = UIViewContentModeScaleAspectFit;
@@ -36,14 +35,14 @@
         self.prizeLab.font = [UIFont systemFontOfSize:16];
         self.prizeLab.textColor = [HXColor hx_colorWithHexRGBAString:@"FFFFFF"];
         self.prizeLab.textAlignment = NSTextAlignmentCenter;
-        self.prizeLab.text = model.prize_name;
+        self.prizeLab.text = [NSString stringWithFormat:@"成功领取%@",model.prize_name];
         
         self.goAwardBtn = [[UIButton alloc] init];
-        [self.goAwardBtn addTarget:self action:@selector(goInfomation:) forControlEvents:UIControlEventTouchUpInside];
+        [self.goAwardBtn addTarget:self action:@selector(clickClose:) forControlEvents:UIControlEventTouchUpInside];
         
         self.closeBtn = [[UIButton alloc] init];
         [self.closeBtn setBackgroundImage:[UIImage imageNamed:@"close"] forState:UIControlStateNormal];
-        [self.closeBtn addTarget:self action:@selector(closeExchangeView:) forControlEvents:UIControlEventTouchUpInside];
+        [self.closeBtn addTarget:self action:@selector(clickClose:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:self.backView];
         [self addSubview:self.duihuanImg];
@@ -54,9 +53,8 @@
         
         [self.duihuanImg mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
-            make.left.equalTo(self.backView).with.offset(25);
-            make.right.equalTo(self.backView).with.offset(0);
-            make.height.mas_equalTo((kScreenHeight-64)/2);
+            make.centerX.equalTo(self);
+            make.height.mas_equalTo((kScreenHeight-64)/3*2);
         }];
         
         [self.goAwardBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -91,17 +89,8 @@
     return self;
 }
 
-- (void)goInfomation:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(gotoImfomation:)]) {
-        [self.delegate gotoImfomation:sender];
-    }
+- (void)clickClose:(UIButton *)sender{
+    
 }
-
-- (void)closeExchangeView:(UIButton *)sender{
-    if ([self.delegate respondsToSelector:@selector(closePopupExchangeView:)]) {
-        [self.delegate closePopupExchangeView:sender];
-    }
-}
-
 
 @end

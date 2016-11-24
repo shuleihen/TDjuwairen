@@ -11,6 +11,7 @@
 #import "NoOrderTableViewCell.h"
 #import "ExchangeModel.h"
 #import "PopupExchangeView.h"
+#import "PopUsExchangeSuccessView.h"
 #import "AwardViewController.h"
 
 #import "UIdaynightModel.h"
@@ -18,7 +19,7 @@
 
 #import "NetworkManager.h"
 
-@interface KeysExchangeViewController ()<UITableViewDelegate,UITableViewDataSource,ExchangeTableViewCellDelegate,PopupExchangeViewDelegate>
+@interface KeysExchangeViewController ()<UITableViewDelegate,UITableViewDataSource,ExchangeTableViewCellDelegate,PopupExchangeViewDelegate,PopUsExchangeSuccessViewDelegate>
 
 @property (nonatomic, strong) UIdaynightModel *daynightModel;
 
@@ -27,6 +28,8 @@
 @property (nonatomic, strong) NSMutableArray *listArr;
 
 @property (nonatomic, strong) PopupExchangeView *exchangeView;
+
+@property (nonatomic, strong) PopUsExchangeSuccessView *successView;
 
 @end
 
@@ -129,19 +132,42 @@
 {
     ExchangeModel *model = self.listArr[sender.tag];
     self.exchangeView = [[PopupExchangeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) andWithModel:model];
+    self.exchangeView.goAwardBtn.tag = sender.tag;
     self.exchangeView.delegate = self;
     [self.view addSubview:self.exchangeView];
 }
 
+#pragma mark - 取消兑奖弹框
 - (void)closePopupExchangeView:(UIButton *)sender
 {
     [self.exchangeView removeFromSuperview];
 }
 
+#pragma mark - 跳转填写信息页面
 - (void)gotoImfomation:(UIButton *)sender
 {
+    //移除兑奖页面
+    [self.exchangeView removeFromSuperview];
+    
+    ExchangeModel *model = self.listArr[sender.tag];
     AwardViewController *awardView = [[AwardViewController alloc] init];
+    awardView.model = model;
+
+    awardView.block = ^(bool *status,ExchangeModel *model){
+        if (status) {
+            self.successView = [[PopUsExchangeSuccessView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) andWithModel:model];
+            self.successView.goAwardBtn.tag = sender.tag;
+            self.successView.delegate = self;
+            [self.view addSubview:self.successView];
+        }
+    };
     [self.navigationController pushViewController:awardView animated:YES];
+}
+
+#pragma mark - 取消成功弹框
+- (void)clickCloseSuccessView:(UIButton *)sender
+{
+    [self.successView removeFromSuperview];
 }
 
 - (void)didReceiveMemoryWarning {
