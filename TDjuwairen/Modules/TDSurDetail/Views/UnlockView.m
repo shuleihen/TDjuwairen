@@ -41,7 +41,7 @@
         nameLab.textColor = daynightModel.textColor;
         
         UIImageView *lockImgView = [[UIImageView alloc] init];
-        lockImgView.image = [UIImage imageNamed:@"key_yello"];
+        lockImgView.image = [UIImage imageNamed:@"key_yellow"];
         lockImgView.contentMode = UIViewContentModeScaleAspectFit;
         
         UILabel *lockNum = [[UILabel alloc] init];

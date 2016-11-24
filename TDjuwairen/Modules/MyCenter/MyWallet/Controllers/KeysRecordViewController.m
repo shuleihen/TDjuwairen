@@ -117,7 +117,7 @@
         cell.orderTitle.text = model.record_item;
         cell.timeLab.text = @"解锁时间：";
         cell.orderTime.text = model.record_time;
-        cell.moneyImg.image = [UIImage imageNamed:@"key_yello"];
+        cell.moneyImg.image = [UIImage imageNamed:@"key_yellow"];
         cell.orderMoney.textColor = yelloTextColor;
         cell.cleanBtn.tag = indexPath.row;
         [cell.cleanBtn setTitle:@"删除记录" forState:UIControlStateNormal];

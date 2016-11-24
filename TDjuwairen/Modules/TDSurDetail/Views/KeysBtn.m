@@ -17,7 +17,7 @@
     if (self = [super initWithFrame:frame]) {
         
         UIImageView *keyImg = [[UIImageView alloc] init];
-        keyImg.image = [UIImage imageNamed:@"key_yello"];
+        keyImg.image = [UIImage imageNamed:@"key_yellow"];
         keyImg.contentMode = UIViewContentModeScaleAspectFit;
         
         self.keyNum = [[UILabel alloc] init];

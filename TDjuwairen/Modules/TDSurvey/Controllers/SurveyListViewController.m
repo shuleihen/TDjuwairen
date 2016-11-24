@@ -154,7 +154,7 @@
 }
 
 - (void)avatarPressed:(id)sender {
-    
+    self.tabBarController.selectedIndex = 3;
 }
 
 - (void)notificationPressed:(id)sender {
