@@ -13,7 +13,7 @@
 
 #define kAPI_bendi @"http://192.168.1.100/tuanda_web/Appapi/"
 
-#define kAPI_songsong @"http://192.168.1.103/"
+#define kAPI_songsong @"http://192.168.1.100/"
 
 #define API_AddBrowseHistory    @"index.php/Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"index.php/Public/getBrowseHistory"

@@ -13,7 +13,7 @@
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *yestodEndPri;
 @property (nonatomic, copy) NSString *todayStartPri;
-@property (nonatomic, copy) NSString *nowPri;
+@property (nonatomic, copy) NSString *nowPri;            //当前价格
 @property (nonatomic, copy) NSString *todayMax;
 @property (nonatomic, copy) NSString *todayMin;
 @property (nonatomic, copy) NSString *traAmount;

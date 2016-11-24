@@ -10,10 +10,14 @@
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
 
+#import "UIdaynightModel.h"
+
 @implementation SurveryStockListCell
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        
+        self.daynightModel = [UIdaynightModel sharedInstance];
         // 调用公司缩略图
         _surveyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
         [self.contentView addSubview:_surveyImageView];
@@ -21,14 +25,12 @@
         // 上市公司名称和股票代码
         _stockNameLabel = [[UILabel alloc] init];
         _stockNameLabel.font = [UIFont systemFontOfSize:18.0f];
-        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
         [self.contentView addSubview:_stockNameLabel];
         
         // 当前交易价格
         _stockNowPriLabel = [[UILabel alloc] init];
         _stockNowPriLabel.font = [UIFont systemFontOfSize:25.0f];
         [self.contentView addSubview:_stockNowPriLabel];
-//        _stockNowPriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
         
         // 当前涨幅值和百分百
         _stockDetailLabel = [[UILabel alloc] init];
@@ -78,28 +80,28 @@
     NSString *title = [NSString stringWithFormat:@"调研：%@",survey.surveyTitle];
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:title];
     [attri setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1b69b1"]} range:NSMakeRange(0, 3)];
-    [attri setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#323232"]} range:NSMakeRange(3, title.length-3)];
+    [attri setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.titleColor} range:NSMakeRange(3, title.length-3)];
     _surveyTitleLabel.attributedText = attri;
     
     [_surveyImageView sd_setImageWithURL:[NSURL URLWithString:survey.surveyCover]];
 }
 
 - (void)setupStock:(StockInfo *)stock {
-    float todayStartPri = [[NSDecimalNumber decimalNumberWithString:stock.todayStartPri] floatValue];
+    float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
     float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
     
     if (!stock.nowPri.length) {
         // 没有值 退市，开盘前半小时
         NSString *string = [NSString stringWithFormat:@"0  0%% 0"];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#696969"],NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
+        [attr setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.textColor,NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
                       range:NSMakeRange(0, 1)];
-        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#696969"],NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
+        [attr setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.textColor,NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
                       range:NSMakeRange(1,string.length-1)];
         _stockNowPriLabel.attributedText = attr;
     } else {
-        float value = nowPri - todayStartPri;
-        float valueB = value/todayStartPri;
+        float value = nowPri - yestodEndPri;   //跌涨额
+        float valueB = value/yestodEndPri;     //跌涨百分比
         NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",nowPri];
         NSString *string = [NSString stringWithFormat:@"%@   %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];

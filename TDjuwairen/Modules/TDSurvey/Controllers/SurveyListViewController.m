@@ -22,13 +22,15 @@
 #import "PushMessageViewController.h"
 #import "LoginViewController.h"
 #import "HexColors.h"
+#import "MJRefresh.h"
+
+#import "UIdaynightModel.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
 
 
 @interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, SDCycleScrollViewDelegate>
-//@property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *surveyList;
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
@@ -36,21 +38,11 @@
 @property (nonatomic, strong) NSArray *bannerLinks;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSMutableArray *stockArr;
+
+@property (nonatomic, strong) UIdaynightModel *daynightModel;
 @end
 
 @implementation SurveyListViewController
-
-//- (UITableView *)tableView {
-//    if (!_tableView) {
-//        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-114);
-//        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
-//        _tableView.delegate = self;
-//        _tableView.dataSource = self;
-//        _tableView.rowHeight = 132;
-//        [self.view addSubview:_tableView];
-//    }
-//    return _tableView;
-//}
 
 - (void)dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
@@ -77,26 +69,46 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.daynightModel = [UIdaynightModel sharedInstance];
     self.stockArr = [NSMutableArray array];
+    self.page = 1;
     
     [self setupNavigationBar];
     [self setupTableView];
     
     [self getBanners];
     
-    self.page = 1;
-
     [self getSurveyWithPage:self.page];
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateAvatar:) name:kLoginSuccessedNotification object:nil];
     
-//    [self defatul];
+    [self addRefreshView];
+}
+
+- (void)addRefreshView{
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
+
+- (void)refreshAction {
+    //数据表页数为1
+    self.page = 1;
+    [self getSurveyWithPage:self.page];
+}
+
+- (void)loadMoreAction {
+    self.page++;
+    //继续请求
+    [self getSurveyWithPage:self.page];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self.stockManager start];
+    
+    self.tableView.backgroundColor = self.daynightModel.backColor;
+    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -130,12 +142,9 @@
     self.tableView.rowHeight = 125;
     self.tableView.separatorColor = [UIColor clearColor];
     self.tableView.tableHeaderView = self.cycleScrollView;
-    self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f0f2f5"];
+    self.tableView.backgroundColor = self.daynightModel.backColor;
     [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
-    
-    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refresh:) forControlEvents:UIControlEventValueChanged];
-    [self setRefreshControl:refreshControl];
+
 }
 
 #pragma mark - Action 
@@ -166,11 +175,6 @@
     [self.navigationController pushViewController:searchView animated:YES];
 }
 
-- (void)refresh:(id)sender {
-    [self defatul];
-    [self.refreshControl endRefreshing];
-}
-
 - (void)getBanners {
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:API_GetBanner parameters:nil completion:^(id data, NSError *error){
@@ -194,68 +198,11 @@
     }];
 }
 
-- (void)defatul {
-    /*
-     {
-     "survey_id": "569",
-     "company_code": "sh900904",
-     "survey_title": "other test",
-     "survey_cover": "http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_569_20161122090120.jpg",
-     "survey_url": "http://192.168.1.103/Survey/survey_show_header",
-     "company_name": "神奇B股(900904)"
-     },
-     {
-     "survey_id": "568",
-     "company_code": "sh600646",
-     "survey_title": "测试 调研",
-     "survey_cover": "http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_568_20161122085843.jpg",
-     "survey_url": "http://192.168.1.103/Survey/survey_show_header",
-     "company_name": "ST国嘉(600646)"
-     },
-     */
-    SurveyModel *one = [[SurveyModel alloc] init];
-    one.surveyId = @"569";
-    one.companyName = @"神奇B股(900904)";
-    one.companyCode = @"sh900904";
-    one.surveyTitle = @"other test";
-    one.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
-    one.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_569_20161122090120.jpg";
-    
-    SurveyModel *two = [[SurveyModel alloc] init];
-    two.surveyId = @"568";
-    two.companyName = @"ST国嘉(600646)";
-    two.companyCode = @"sh600646";
-    two.surveyTitle = @"测试 调研";
-    two.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
-    two.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_568_20161122085843.jpg";
-    
-    SurveyModel *three = [[SurveyModel alloc] init];
-    three.surveyId = @"567";
-    three.companyName = @"红宇新材(300345)";
-    three.companyCode = @"sz300345";
-    three.surveyTitle = @"shidi test";
-    three.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
-    three.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_567_20161121144553.jpg";
-    
-    SurveyModel *four = [[SurveyModel alloc] init];
-    four.surveyId = @"566";
-    four.companyName = @"宏源证券(000562)";
-    four.companyCode = @"sz000562";
-    four.surveyTitle = @"tttt";
-    four.surveyUrl = @"http://192.168.1.103/Survey/survey_show_header";
-    four.surveyCover = @"http://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_566_20161114141316.jpg";
-    
-    self.surveyList = [NSMutableArray arrayWithObjects:one,two,three,four, nil];
-    [self.tableView reloadData];
-    
-    [self.stockManager addStocks:@[@"sh900904",@"sh600646",@"sz300345",@"sz000562"]];
-}
-
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"http://192.168.1.107/Survey/lists/%ld",pageA];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/lists/%ld",kAPI_songsong,pageA];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
@@ -271,17 +218,20 @@
                 for (NSDictionary *d in dataArray) {
                     SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
                     [list addObject:model];
+                    [self.stockArr addObject:model.companyCode];
                     
                 }
-                
-                wself.page ++;
-//                wself.surveyList = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 wself.surveyList = [NSMutableArray arrayWithArray:list];
             }
+            [self.stockManager addStocks:self.stockArr];
             
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
             [wself.tableView reloadData];
-        } else {
             
+        } else {
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         }
     }];
 }
@@ -332,7 +282,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
     cell.isLeft = indexPath.section%2;
-    
+    cell.stockNameLabel.textColor = self.daynightModel.textColor;
+    cell.surveyTitleLabel.textColor = self.daynightModel.textColor;
+    cell.backgroundColor = self.daynightModel.navigationColor;
     return cell;
 }
 

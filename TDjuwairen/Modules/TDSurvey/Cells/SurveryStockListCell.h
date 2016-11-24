@@ -10,12 +10,16 @@
 #import "StockManager.h"
 #import "SurveyModel.h"
 
+#import "UIdaynightModel.h"
+
 @interface SurveryStockListCell : UITableViewCell
 @property (nonatomic, strong) UIImageView *surveyImageView;
 @property (nonatomic, strong) UILabel *stockNameLabel;
 @property (nonatomic, strong) UILabel *stockNowPriLabel;
 @property (nonatomic, strong) UILabel *stockDetailLabel;
 @property (nonatomic, strong) UILabel *surveyTitleLabel;
+
+@property (nonatomic,strong ) UIdaynightModel *daynightModel;
 
 @property (nonatomic, assign) BOOL isLeft;
 
