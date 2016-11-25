@@ -22,6 +22,10 @@
     model.user_nickname = dic[@"user_nickname"];
     model.sharp_goodNumber = dic[@"sharp_goodnumbers"];
     model.sharp_commentNumber = [dic[@"sharpcommentNumbers"] intValue];
+    
+    model.survey_title = dic[@"survey_title"];
+    model.company_name = dic[@"company_name"];
+    model.survey_conpanycode = dic[@"survey_companycode"];
     return model;
 }
 

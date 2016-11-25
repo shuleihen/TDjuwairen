@@ -228,6 +228,13 @@
 
 - (void)setupWithDateView{
     self.dataView = [[SurDataView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140) WithStockID:self.company_code];
+    __weak SurDetailViewController *wself = self;
+    self.dataView.block = ^(NSString *title){
+        wself.title = title;
+        if (!wself.company_name) {
+            wself.company_name = title;
+        }
+    };
     
     self.tableview.tableHeaderView = self.dataView;
 }

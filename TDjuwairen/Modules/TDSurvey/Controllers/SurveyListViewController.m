@@ -59,7 +59,7 @@
 
 - (SDCycleScrollView *)cycleScrollView {
     if (!_cycleScrollView) {
-        CGRect rect = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kBannerHeiht);
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kBannerHeiht);
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:self placeholderImage:[UIImage imageNamed:@"bannerPlaceholder"]];
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     }
@@ -176,8 +176,9 @@
 }
 
 - (void)getBanners {
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    [manager GET:API_GetBanner parameters:nil completion:^(id data, NSError *error){
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NSDictionary *dic = @{@"version":@"2.0"};
+    [manager POST:API_GetBanner parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
             NSArray *dataArr = data;
             NSMutableArray *titles = [NSMutableArray arrayWithCapacity:[data count]];
@@ -239,29 +240,26 @@
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     //跳转到详情页
-    DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
     NSString *s = self.bannerLinks[index];
+    NSString *img = self.cycleScrollView.imageURLStringsGroup[index];
     NSArray *arr = [s componentsSeparatedByString:@"/"];
-    DetailView.sharp_id = [arr lastObject];
-    DetailView.pageMode = @"sharp";
-    DetailView.hidesBottomBarWhenPushed = YES;
+
+    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
     
-    if (US.isLogIn) {     //为登录状态
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dic = @{@"userid":US.userId,
-                              @"module_id":@2,
-                              @"item_id":self.bannerLinks[index]};
-        
-        [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
-            if (!error) {
-                
-            } else {
-                
-            }
-        }];
+    NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
+    
+    NSString *companyCode ;
+    if ([code isEqualToString:@"6"]) {
+        companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
     }
-    
-    [self.navigationController pushViewController:DetailView animated:YES];
+    else
+    {
+        companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
+    }
+    vc.company_code = companyCode;
+    vc.survey_cover = img;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - StockManagerDelegate

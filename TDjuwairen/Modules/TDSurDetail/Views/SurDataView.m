@@ -31,7 +31,7 @@
 - (void)requestWithDataWithStockID:(NSString *)StockID{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",@"sz000001"];
+    NSString *url = [NSString stringWithFormat:@"http://web.juhe.cn:8080/finance/stock/hs?gid=%@&type=&key=84fbc17aeef934baa37526dd3f57b841",StockID];
     [manager GET:url parameters:nil progress:^(NSProgress * _Nonnull downloadProgress) {
         nil;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -40,6 +40,18 @@
         if (result.count > 0) {
             NSDictionary *diction = result[0];
             self.data = diction[@"data"];
+            
+            //传标题
+            if (self.block) {
+                NSDictionary *dapandata = diction[@"dapandata"];
+                NSString *title = [NSString stringWithFormat:@"%@",dapandata[@"name"]];
+                self.block(title);
+            }
+            
+            [self setupWithUI];
+        }
+        else
+        {
             [self setupWithUI];
         }
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -104,15 +116,20 @@
         self.increPer.textColor = [UIColor redColor];
         self.increase.textColor = [UIColor redColor];
     }
-    else
-    {
+    else if([self.data[@"increPer"] floatValue] < 0){
         self.nowPri.textColor = [UIColor greenColor];
         self.increPer.textColor = [UIColor greenColor];
         self.increase.textColor = [UIColor greenColor];
     }
+    else
+    {
+        self.nowPri.textColor = [UIColor grayColor];
+        self.increPer.textColor = [UIColor grayColor];
+        self.increase.textColor = [UIColor grayColor];
+    }
     
     NSString *nowPri = [NSString stringWithFormat:@"%.2f",[self.data[@"nowPri"] floatValue]];
-    CGSize nowPriSize = [nowPri calculateSize:CGSizeMake(100, 100) font:nowPriFont];
+    CGSize nowPriSize = [nowPri calculateSize:CGSizeMake(200, 100) font:nowPriFont];
     self.nowPri.text = nowPri;
     [self.nowPri mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(15);
@@ -121,7 +138,13 @@
         make.height.mas_equalTo(40);
     }];
     
-    self.increase.text = self.data[@"increase"];
+    if (self.data[@"increase"]) {
+        self.increase.text = self.data[@"increase"];
+    }
+    else
+    {
+        self.increase.text = @"0.00";
+    }
     [self.increase mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(15);
         make.left.equalTo(self.nowPri).with.offset(15+nowPriSize.width);
@@ -129,7 +152,14 @@
         make.height.mas_equalTo(20);
     }];
     
-    self.increPer.text = [NSString stringWithFormat:@"%@%@",self.data[@"increPer"],@"%"];
+    if (self.data[@"increPer"]) {
+        self.increPer.text = [NSString stringWithFormat:@"%@%@",self.data[@"increPer"],@"%"];
+    }
+    else
+    {
+        self.increPer.text = @"0.00";
+    }
+    
     [self.increPer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.increase).with.offset(20);
         make.left.equalTo(self.nowPri).with.offset(15+nowPriSize.width);

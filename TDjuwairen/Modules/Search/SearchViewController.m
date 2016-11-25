@@ -15,6 +15,7 @@
 #import "NoResultTableViewCell.h"
 #import "AllNoResultTableViewCell.h"
 #import "DetailPageViewController.h"
+#import "SurDetailViewController.h"
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
@@ -81,10 +82,11 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
     NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
     
-    [manager POST:API_Search1_2 parameters:dic completion:^(id data, NSError *error){
+    NSString *url = @"Search/Search2_1";
+    [manager POST:url parameters:dic completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
             
@@ -366,7 +368,7 @@
                             cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
                         }
                         SurveyListModel *model = self.surveydata[indexPath.row-1];
-                        NSString *text = model.sharp_title;
+                        NSString *text = model.survey_title;
                         cell.titleLabel.text = text;
                         UIFont *font = [UIFont systemFontOfSize:16];
                         cell.titleLabel.font = font;
@@ -638,11 +640,26 @@
                 if (indexPath.row != 0) {
                     /* 跳转至详情页 */
                     SurveyListModel *model = self.surveydata[indexPath.row-1];
-                    DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
-                    DetailView.sharp_id = model.sharp_id;
-                    DetailView.pageMode = @"sharp";
-                    DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                    [self.navigationController pushViewController:DetailView animated:YES];
+//                    DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
+//                    DetailView.sharp_id = model.sharp_id;
+//                    DetailView.pageMode = @"sharp";
+//                    DetailView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+//                    [self.navigationController pushViewController:DetailView animated:YES];
+                    SurDetailViewController *dv = [[SurDetailViewController alloc] init];
+                    
+                    NSString *code = [model.survey_conpanycode substringWithRange:NSMakeRange(0, 1)];
+                    
+                    NSString *companyCode ;
+                    if ([code isEqualToString:@"6"]) {
+                        companyCode = [NSString stringWithFormat:@"sh%@",model.survey_conpanycode];
+                    }
+                    else
+                    {
+                        companyCode = [NSString stringWithFormat:@"sz%@",model.survey_conpanycode];
+                    }
+                    dv.company_name = model.company_name;
+                    dv.company_code = model.survey_conpanycode;
+                    [self.navigationController pushViewController:dv animated:YES];
                 }
             }
         }
@@ -720,7 +737,7 @@
         [searchHistory removeAllObjects];
         /* 这里每改变一次都继续请求 */
         [self requestDataWithText];
-        [self.tableview reloadData];
+//        [self.tableview reloadData];
     }
 }
 

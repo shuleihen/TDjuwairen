@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^SurDataViewBlock)();
+
 @interface SurDataView : UIView
 
 @property (nonatomic,strong) UILabel *nowPri;
@@ -27,6 +29,8 @@
 @property (nonatomic,strong) UILabel *traNumber;
 
 @property (nonatomic,strong) UILabel *traAmount;
+
+@property (nonatomic, copy) SurDataViewBlock block;
 
 - (SurDataView *)initWithFrame:(CGRect)frame WithStockID:(NSString *)StockID;
 

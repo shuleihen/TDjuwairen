@@ -22,6 +22,15 @@
 @property (nonatomic,copy) NSString *sharp_goodNumber;     //文章点赞数
 @property (nonatomic,assign) int sharp_commentNumber;  //文章评论数
 
+/*
+ **新增搜索用 
+ */
+@property (nonatomic, strong) NSString *survey_title;   //调研标题
+
+@property (nonatomic, strong) NSString *company_name;   //公司名称
+
+@property (nonatomic, strong) NSString *survey_conpanycode;//股票代码
+
 +(SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 
 
