@@ -9,6 +9,7 @@
 #import "SurveryStockListCell.h"
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
+#import "NSString+GetDevice.h"
 
 #import "UIdaynightModel.h"
 
@@ -24,7 +25,7 @@
         
         // 上市公司名称和股票代码
         _stockNameLabel = [[UILabel alloc] init];
-        _stockNameLabel.font = [UIFont systemFontOfSize:18.0f];
+        _stockNameLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.contentView addSubview:_stockNameLabel];
         
         // 当前交易价格
@@ -34,12 +35,12 @@
         
         // 当前涨幅值和百分百
         _stockDetailLabel = [[UILabel alloc] init];
-        _stockDetailLabel.font = [UIFont systemFontOfSize:15.0f];
+        _stockDetailLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:_stockDetailLabel];
         
         // 调用文章标题
         _surveyTitleLabel = [[UILabel alloc] init];
-        _surveyTitleLabel.font = [UIFont systemFontOfSize:15.0f];
+        _surveyTitleLabel.font = [UIFont systemFontOfSize:14.0f];
         [self.contentView addSubview:_surveyTitleLabel];
         
         // 分割线
@@ -67,8 +68,8 @@
         _stockNowPriLabel.frame = CGRectMake(130.0f, 43, w-145, 30);
     } else {
         _surveyImageView.frame = CGRectMake(w-115, 15.0f, 100, 60);
-        _stockNameLabel.frame = CGRectMake(15.0f, 15.0f, w-145, 20);
-        _stockNowPriLabel.frame = CGRectMake(15.0f, 43.0f, w-145, 30);
+        _stockNameLabel.frame = CGRectMake(15.0f, 15.0f, w-135, 20);
+        _stockNowPriLabel.frame = CGRectMake(15.0f, 43.0f, w-135, 30);
     }
     
     _surveyTitleLabel.frame = CGRectMake(15.0f, 95.0f, w-30, 20);
@@ -92,30 +93,43 @@
     
     if (!stock.nowPri.length) {
         // 没有值 退市，开盘前半小时
-        NSString *string = [NSString stringWithFormat:@"0  0%% 0"];
+        NSString *string = [NSString stringWithFormat:@"0  0 0%%"];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-        [attr setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.textColor,NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
+        [attr setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.textColor,NSFontAttributeName:[UIFont systemFontOfSize:26.0f]}
                       range:NSMakeRange(0, 1)];
-        [attr setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.textColor,NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
+        [attr setAttributes:@{NSForegroundColorAttributeName:self.daynightModel.textColor,NSFontAttributeName:[UIFont systemFontOfSize:14.0f]}
                       range:NSMakeRange(1,string.length-1)];
         _stockNowPriLabel.attributedText = attr;
     } else {
         float value = nowPri - yestodEndPri;   //跌涨额
         float valueB = value/yestodEndPri;     //跌涨百分比
         NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",nowPri];
-        NSString *string = [NSString stringWithFormat:@"%@   %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
+        NSString *string = [NSString stringWithFormat:@"%@  %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
         
+        NSString *fo = [NSString getiPHoneDeviceType];
+        UIFont *font1 ;
+        UIFont *font2 ;
+        if ([fo isEqualToString:@"1"]) {
+            font1 = [UIFont systemFontOfSize:26];
+            font2 = [UIFont systemFontOfSize:14];
+        }
+        else
+        {
+            font1 = [UIFont systemFontOfSize:28];
+            font2 = [UIFont systemFontOfSize:16];
+        }
+        
         if (value >= 0.00) {
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:font1}
                           range:NSMakeRange(0, nowPriString.length)];
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#e64920"],NSFontAttributeName:font2}
                           range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
             
         } else {
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:[UIFont systemFontOfSize:28.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:font1}
                           range:NSMakeRange(0, nowPriString.length)];
-            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:[UIFont systemFontOfSize:16.0f]}
+            [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#1fcc67"],NSFontAttributeName:font2}
                           range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
         }
         _stockNowPriLabel.attributedText = attr;

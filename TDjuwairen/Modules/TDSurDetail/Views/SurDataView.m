@@ -159,7 +159,6 @@
     {
         self.increPer.text = @"0.00";
     }
-    
     [self.increPer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.increase).with.offset(20);
         make.left.equalTo(self.nowPri).with.offset(15+nowPriSize.width);
@@ -228,6 +227,21 @@
         make.height.mas_equalTo(20);
     }];
     
+}
+
+- (void)setupWithStock:(StockInfo *)stock
+{
+    float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
+    float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
+    
+    float value = nowPri - yestodEndPri;   //跌涨额
+    float valueB = value/yestodEndPri;     //跌涨百分比
+    
+    self.nowPri.text = [NSString stringWithFormat:@"%.2lf",nowPri];
+    
+        self.increase.text = [NSString stringWithFormat:@"%.2f",value];
+    
+        self.increPer.text = [NSString stringWithFormat:@"%.2f%%",valueB*100];
 }
 
 @end

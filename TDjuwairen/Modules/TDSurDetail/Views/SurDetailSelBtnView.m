@@ -121,6 +121,7 @@
         btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
         [btn setTitleEdgeInsets:UIEdgeInsetsMake(btn.imageView.bounds.size.height+8,-btn.imageView.bounds.size.width, 0.0,0.0)];
         [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, btn.titleLabel.bounds.size.height+8, -btn.titleLabel.bounds.size.width)];
+        btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     
 }

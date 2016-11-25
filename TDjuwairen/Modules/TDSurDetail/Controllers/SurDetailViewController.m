@@ -18,6 +18,7 @@
 #import "RechargeView.h"
 #import "SelWXOrAlipayView.h"
 #import "FeedbackViewController.h"
+#import "StockManager.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -31,7 +32,7 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 
-@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate>
+@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate,StockManagerDelegate>
 {
     CGSize contentSize;
 }
@@ -67,6 +68,9 @@
 
 @property (nonatomic,strong) NSString *keysNum;
 
+@property (nonatomic, strong) NSDictionary *stockDict;
+@property (nonatomic, strong) StockManager *stockManager ;
+
 @end
 
 @implementation SurDetailViewController
@@ -97,6 +101,15 @@
         [self.view addSubview:_sfview];
     }
     return _sfview;
+}
+
+- (StockManager *)stockManager {
+    if (!_stockManager) {
+        _stockManager = [[StockManager alloc] init];
+        _stockManager.delegate = self;
+    }
+    
+    return _stockManager;
 }
 
 - (void)createUnLockView{
@@ -169,6 +182,8 @@
         [self.unlockView removeFromSuperview];
         [self createUnLockView];
     }
+    
+    [self.stockManager start];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -177,6 +192,8 @@
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    [self.stockManager stop];
 }
 
 #pragma mark - 监听daynightModel
@@ -228,13 +245,8 @@
 
 - (void)setupWithDateView{
     self.dataView = [[SurDataView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140) WithStockID:self.company_code];
-    __weak SurDetailViewController *wself = self;
-    self.dataView.block = ^(NSString *title){
-        wself.title = title;
-        if (!wself.company_name) {
-            wself.company_name = title;
-        }
-    };
+    
+    [self.stockManager addStocks:@[self.company_code]];
     
     self.tableview.tableHeaderView = self.dataView;
 }
@@ -313,6 +325,12 @@
     return kScreenHeight-64-60;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayHeaderView:(UIView *)view forSection:(NSInteger)section
+{
+    StockInfo *stock = [self.stockDict objectForKey:self.company_code];
+    [self.dataView setupWithStock:stock];
+}
+
 - (void)addChildViewController{
     self.tableviewsArr = [NSMutableArray array];
     for (int i = 0; i < 6; i ++) {
@@ -322,6 +340,12 @@
         [self.tableviewsArr addObject:childView];
         [self addChildViewController:childView];
     }
+}
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSDictionary *)stocks {
+    self.stockDict = stocks;
+    [self.tableview reloadData];
 }
 
 #pragma mark - SurDetailSelBtnView Delegate   点击选择

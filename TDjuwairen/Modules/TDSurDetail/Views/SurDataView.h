@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockManager.h"
 
 typedef void (^SurDataViewBlock)();
 
@@ -33,5 +34,7 @@ typedef void (^SurDataViewBlock)();
 @property (nonatomic, copy) SurDataViewBlock block;
 
 - (SurDataView *)initWithFrame:(CGRect)frame WithStockID:(NSString *)StockID;
+
+- (void)setupWithStock:(StockInfo *)stock;
 
 @end
