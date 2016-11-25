@@ -20,6 +20,10 @@
 
 @property (nonatomic,strong) UILabel *selectLab;
 
+@property (nonatomic,strong) UILabel *line1;
+
+@property (nonatomic,strong) UILabel *line2;
+
 @property (nonatomic,strong) NSMutableArray *btnsArr;
 
 @property (nonatomic,assign) id<SelOrderBtnViewDelegate>delegate;

@@ -18,6 +18,7 @@
 #import "NetworkDefine.h"
 #import "MJRefresh.h"
 #import "HexColors.h"
+#import "Masonry.h"
 
 #import "LoginState.h"
 #import "UIdaynightModel.h"
@@ -168,6 +169,10 @@
         }
         cell.imgView.image = [UIImage imageNamed:@"icon_zanwu"];
         cell.titLab.text = @"暂时没有订单~";
+        CGFloat imgX = (kScreenHeight-108)/6;
+        [cell.titLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(cell).with.offset(-(kScreenHeight-64-imgX-90-25-40));
+        }];
         return cell;
     }
 }

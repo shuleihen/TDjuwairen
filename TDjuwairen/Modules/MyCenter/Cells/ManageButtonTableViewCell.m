@@ -19,16 +19,19 @@
         
         self.CommentManage = [[ButtonView alloc]initWithFrame:CGRectMake(0, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
         self.CommentManage.imageview.image = [UIImage imageNamed:@"comment"];
+        self.CommentManage.imageview.contentMode = UIViewContentModeScaleAspectFit;
         self.CommentManage.label.text = @"评论管理";
         self.CommentManage.backgroundColor = [UIColor clearColor];
         
         self.CollectManage = [[ButtonView alloc]initWithFrame:CGRectMake((kScreenWidth-2)/3+1, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
         self.CollectManage.imageview.image = [UIImage imageNamed:@"guanzhuImg"];
+        self.CollectManage.imageview.contentMode = UIViewContentModeScaleAspectFit;
         self.CollectManage.label.text = @"我的关注";
         self.CollectManage.backgroundColor = [UIColor clearColor];
         
         self.BrowseManage = [[ButtonView alloc]initWithFrame:CGRectMake(kScreenWidth-(kScreenWidth-2)/3, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
         self.BrowseManage.imageview.image = [UIImage imageNamed:@"walletImg"];
+        self.BrowseManage.imageview.contentMode = UIViewContentModeScaleAspectFit;
         self.BrowseManage.label.text = @"我的钱包";
         self.BrowseManage.backgroundColor = [UIColor clearColor];
         

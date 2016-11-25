@@ -28,6 +28,7 @@
         [btn setTitle:arr[i] forState:UIControlStateNormal];
         [btn setTitleColor:[HXColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateNormal];
         [btn setTitleColor:[HXColor hx_colorWithHexRGBAString:@"#1B69B1"] forState:UIControlStateSelected];
+        btn.titleLabel.font = [UIFont systemFontOfSize:16];
         btn.tag = i;
         [btn addTarget:self action:@selector(clickBtn:) forControlEvents:UIControlEventTouchUpInside];
         if (i == 0) {
@@ -37,6 +38,14 @@
         [self.btnsArr addObject:btn];
         [self addSubview:btn];
     }
+    
+    self.line1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    self.line1.layer.borderWidth = 1;
+    
+    self.line2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 43, kScreenWidth, 1)];
+    self.line2.layer.borderWidth = 1;
+    [self addSubview:self.line1];
+    [self addSubview:self.line2];
 }
 
 - (void)clickBtn:(UIButton *)sender{

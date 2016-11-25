@@ -48,8 +48,8 @@
     self.scrollview.contentSize = CGSizeMake(70*arr.count, 40);
     
     //下划线
-    self.selectLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 38, 70, 2)];
-    self.selectLab.layer.borderWidth = 2;
+    self.selectLab = [[UILabel alloc]initWithFrame:CGRectMake(0, 39, 70, 3)];
+    self.selectLab.layer.borderWidth = 3;
     self.selectLab.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
     [self addSubview:self.selectLab];
     
@@ -63,10 +63,6 @@
 }
 
 - (void)ClickBtn:(UIButton *)sender{
-//    if (self.block) {
-//        sender.selected = YES;
-//        self.block(sender);
-//    }
     if ([self respondsToSelector:@selector(ClickBtn:)]) {
         [self.delegate ClickBtn:sender];
     }

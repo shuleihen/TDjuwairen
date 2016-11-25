@@ -61,6 +61,8 @@
 - (void)setupWithSelBtnView{
     self.selOrderView = [[SelOrderBtnView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) withArr:self.categoryArr];
     self.selOrderView.delegate = self;
+    self.selOrderView.line1.layer.borderColor = self.daynightModel.lineColor.CGColor;
+    self.selOrderView.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
     self.selOrderView.backgroundColor = self.daynightModel.navigationColor;
     [self.view addSubview:self.selOrderView];
 }
