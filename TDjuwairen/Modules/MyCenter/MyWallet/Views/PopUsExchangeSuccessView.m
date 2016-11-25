@@ -33,7 +33,7 @@
         
         self.prizeLab = [[UILabel alloc] init];
         self.prizeLab.font = [UIFont systemFontOfSize:16];
-        self.prizeLab.textColor = [HXColor hx_colorWithHexRGBAString:@"FFFFFF"];
+        self.prizeLab.textColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];
         self.prizeLab.textAlignment = NSTextAlignmentCenter;
         self.prizeLab.text = [NSString stringWithFormat:@"成功领取%@",model.prize_name];
         
@@ -52,9 +52,9 @@
         [self addSubview:self.closeBtn];
         
         [self.duihuanImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
+            make.centerY.equalTo(self).with.offset(-50);
             make.centerX.equalTo(self);
-            make.height.mas_equalTo((kScreenHeight-64)/3*2);
+            make.height.mas_equalTo((kScreenHeight-64)/2);
         }];
         
         [self.goAwardBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -90,7 +90,9 @@
 }
 
 - (void)clickClose:(UIButton *)sender{
-    
+    if ([self.delegate respondsToSelector:@selector(clickCloseSuccessView:)]) {
+        [self.delegate clickCloseSuccessView:sender];
+    }
 }
 
 @end

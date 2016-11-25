@@ -53,7 +53,7 @@
         [self addSubview:self.closeBtn];
         
         [self.duihuanImg mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.centerY.equalTo(self);
+            make.centerY.equalTo(self).with.offset(-50);
             make.left.equalTo(self.backView).with.offset(25);
             make.right.equalTo(self.backView).with.offset(0);
             make.height.mas_equalTo((kScreenHeight-64)/2);
