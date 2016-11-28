@@ -201,6 +201,8 @@
 {
     if ([keyPath isEqualToString:@"daynight"]) {
         self.view.backgroundColor = self.daynightModel.navigationColor;
+        self.tableview.backgroundColor = self.daynightModel.navigationColor;
+        
         self.contentScrollview.backgroundColor = self.daynightModel.backColor;
         [self.navigationController.navigationBar setBackgroundColor:self.daynightModel.navigationColor];
         [self.navigationController.navigationBar setBarTintColor:self.daynightModel.navigationColor];
@@ -213,6 +215,8 @@
         self.dataView.todayMin.textColor = self.daynightModel.titleColor;
         self.dataView.traNumber.textColor = self.daynightModel.titleColor;
         self.dataView.traAmount.textColor = self.daynightModel.titleColor;
+        
+        self.comBtn.backgroundColor = self.daynightModel.navigationColor;
 
         [self.tableview reloadData];
     }
@@ -272,6 +276,8 @@
     
     self.selBtnView.delegate = self;
     self.selBtnView.backgroundColor = self.daynightModel.navigationColor;
+    self.selBtnView.line1.layer.borderColor = self.daynightModel.lineColor.CGColor;
+    self.selBtnView.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
     return self.selBtnView;
 }
 
@@ -425,6 +431,8 @@
     [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
     [self.comBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.comBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -15)];
+    self.comBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
+    self.comBtn.layer.borderWidth = 1;
     
     self.comImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.comBtn.titleLabel.frame.origin.x - 40, (50-15)/2, 20, 20)];
     self.comImg.image = [UIImage imageNamed:@"comment_blue"];

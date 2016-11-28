@@ -11,6 +11,7 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "TopBotButton.h"
+#import "UIdaynightModel.h"
 
 #import "HexColors.h"
 
@@ -44,6 +45,8 @@
             NSLog(@"%@",error);
         }];
         
+        
+        
     }
     return self;
 }
@@ -56,16 +59,23 @@
         btn.tag = i;
         btn.titleLabel.font = [UIFont systemFontOfSize:14];
         btn.titleLabel.textAlignment = NSTextAlignmentCenter;
-        
         [btn addTarget:self action:@selector(selectWithDetail:) forControlEvents:UIControlEventTouchUpInside];
         
         [self.btnsArr addObject:btn];
         [self addSubview:btn];
     }
+    
+    self.line1 = [[UILabel alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    self.line1.layer.borderWidth = 1.0;
+    
+    self.line2 = [[UILabel alloc]initWithFrame:CGRectMake(0, 59, kScreenWidth, 1)];
+    self.line2.layer.borderWidth = 1.0;
+    [self addSubview:self.line1];
+    [self addSubview:self.line2];
 }
 
 - (void)setupWithUIWithDic:(NSDictionary *)dic{
-    
+    UIdaynightModel *daynightModel = [UIdaynightModel sharedInstance];
     NSArray *norArr;
     NSArray *selArr;
     NSString *islock = [NSString stringWithFormat:@"%@",dic[@"isLock"]];
@@ -112,7 +122,7 @@
         UIButton *btn = self.btnsArr[i];
         [btn setTitle:titArr[i] forState:UIControlStateNormal];
         [btn setTitle:titArr[i] forState:UIControlStateSelected];
-        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        [btn setTitleColor:daynightModel.titleColor forState:UIControlStateNormal];
         [btn setTitleColor:[HXColor hx_colorWithHexRGBAString:titleColor[i]] forState:UIControlStateSelected];
         
         [btn setImage:[UIImage imageNamed:norArr[i]] forState:UIControlStateNormal];

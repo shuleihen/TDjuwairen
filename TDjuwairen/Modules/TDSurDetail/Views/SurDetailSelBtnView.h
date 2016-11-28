@@ -20,6 +20,9 @@
 
 @property (nonatomic,strong) NSMutableArray *btnsArr;
 
+@property (nonatomic,strong) UILabel *line1;
+@property (nonatomic,strong) UILabel *line2;
+
 @property (nonatomic,assign) BOOL isLocked;
 
 @property (nonatomic,assign) id<SurDetailSelBtnViewDelegate>delegate;

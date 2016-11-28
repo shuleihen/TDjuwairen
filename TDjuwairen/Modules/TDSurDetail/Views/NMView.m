@@ -73,8 +73,7 @@
     
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
-    cell.backgroundColor = self.daynightModel.navigationColor;
-    cell.textLabel.textColor = self.daynightModel.textColor;
+    
     return cell;
 }
 

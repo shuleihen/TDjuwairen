@@ -658,7 +658,7 @@
                         companyCode = [NSString stringWithFormat:@"sz%@",model.survey_conpanycode];
                     }
                     dv.company_name = model.company_name;
-                    dv.company_code = model.survey_conpanycode;
+                    dv.company_code = companyCode;
                     [self.navigationController pushViewController:dv animated:YES];
                 }
             }
