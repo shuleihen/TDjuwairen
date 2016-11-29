@@ -58,17 +58,19 @@
     }
     
     [self.queue addOperationWithBlock:^{
-        NSString *url = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",[self.stockIds componentsJoinedByString:@","]];
-        DDLogInfo(@"Search Stock URL = %@",url);
+        NSString *stockIdStrinig = [self.stockIds componentsJoinedByString:@","];
+        NSString *url = [NSString stringWithFormat:@"http://hq.sinajs.cn/list=%@",stockIdStrinig];
+        DDLogInfo(@"Stock URL = %@",url);
         [self.manager GET:url parameters:nil
             progress:nil
              success:^(NSURLSessionDataTask * dataTask, id data){
                  NSStringEncoding enc =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
                  NSString *stockString = [[NSString alloc] initWithData:data encoding:enc];
                  [self handleWithStockString:stockString];
+                 DDLogInfo(@"Stock successed with %@",stockIdStrinig);
              }
              failure:^(NSURLSessionDataTask * dataTask, NSError *error){
-                 NSLog(@"Stock Error = %@",error);
+                 DDLogInfo(@"Stock Error = %@",error);
              }];
     }];
 }
@@ -94,7 +96,7 @@
         return;
     }
     
-    DDLogInfo(@"Search Stock Queue Start");
+    DDLogInfo(@"Stock queue start in %@",[self.delegate class]);
     // 将timer添加到runloop中启动
     [[NSRunLoop currentRunLoop] addTimer:self.timer forMode:NSRunLoopCommonModes];
     
@@ -108,8 +110,10 @@
         return;
     }
     
+    DDLogInfo(@"Stock queue stop in %@",[self.delegate class]);
     self.isExecuting = NO;
     [self.timer invalidate];
+    self.timer = nil;
     [self.queue cancelAllOperations];
 }
 
@@ -139,7 +143,7 @@
                 
                 [stocks setObject:stock forKey:stock.gid];
             }
-            DDLogInfo(@"Stock Gid = %@ Info = %@",first,second);
+//            DDLogInfo(@"Stock Gid = %@ Info = %@",first,second);
         }
     }
     
