@@ -21,7 +21,6 @@
 #import "MJRefresh.h"
 #import "NetworkManager.h"
 #import "Masonry.h"
-#import "PaperDetailViewController.h"
 #import "SurveyListCell.h"
 
 @interface SurveyViewController ()<UITableViewDelegate,UITableViewDataSource,SDCycleScrollViewDelegate,UIAlertViewDelegate>
@@ -336,11 +335,6 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     SurveyListModel *model = self.surveyListDataArray[indexPath.row];
     
-//    PaperDetailViewController *detail = [[PaperDetailViewController alloc] init];
-//    detail.paperType = kPaperTypeSurvey;
-//    detail.paperId = model.sharp_id;
-//    detail.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:detail animated:YES];
     DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
     
     DetailView.sharp_id = model.sharp_id;

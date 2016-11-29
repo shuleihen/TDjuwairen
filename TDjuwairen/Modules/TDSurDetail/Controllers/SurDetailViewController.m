@@ -268,13 +268,12 @@
     self.tableview.estimatedRowHeight = kScreenHeight-64-60;
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     self.tableview.backgroundColor = self.daynightModel.navigationColor;
-    self.tableview.contentSize = CGSizeMake(kScreenWidth, kScreenHeight*5);
+//    self.tableview.contentSize = CGSizeMake(kScreenWidth, kScreenHeight*5);
     [self.view addSubview:self.tableview];
 }
 
 - (void)setupWithDateView{
     self.dataView = [[SurDataView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140) WithStockID:self.company_code];
-    
     [self.stockManager addStocks:@[self.company_code]];
     
     self.tableview.tableHeaderView = self.dataView;
