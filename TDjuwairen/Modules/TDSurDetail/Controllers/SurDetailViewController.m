@@ -71,6 +71,8 @@
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager ;
 
+@property (nonatomic,strong) NSMutableArray *ListenArr;  //监听数组
+
 @end
 
 @implementation SurDetailViewController
@@ -152,6 +154,7 @@
     self.tag = 0;
     self.sizeArr = @[@"140%",@"120%",@"100%",@"80%"];
     self.fontsize = @"100%";
+    self.ListenArr = [NSMutableArray array];
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -196,6 +199,14 @@
     [self.stockManager stop];
 }
 
+- (void)dealloc
+{
+    for (NSString *string in self.ListenArr) {
+        UITableViewController *vc  =  self.childViewControllers[[string intValue]];
+        [vc.tableView removeObserver:self forKeyPath:@"contentSize"];
+    }
+}
+
 #pragma mark - 监听daynightModel
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
@@ -219,6 +230,20 @@
         self.comBtn.backgroundColor = self.daynightModel.navigationColor;
 
         [self.tableview reloadData];
+    }
+    else if ([keyPath isEqualToString:@"contentSize"]){
+        ChildDetailTableViewController *child = self.tableviewsArr[self.tag];
+        if (child.tableView.contentSize.height < kScreenHeight-140-60) {
+            [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, kScreenHeight-64-60)];
+            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, kScreenHeight-64-60);
+            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+        }
+        else
+        {
+            NSLog(@"----------- %f",child.tableView.contentSize.height);
+            [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, child.tableView.contentSize.height)];
+            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, child.tableView.contentSize.height);
+        }
     }
 }
 
@@ -294,7 +319,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
     if (!self.contentScrollview) {
-        self.contentScrollview = [[UIScrollView alloc]init];
+        self.contentScrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
         self.contentScrollview.delegate = self;
         self.contentScrollview.showsHorizontalScrollIndicator = NO;
         self.contentScrollview.showsVerticalScrollIndicator = NO;
@@ -302,13 +327,13 @@
         self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
         [cell.contentView addSubview:self.contentScrollview];
         
-        [self.contentScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.top.equalTo(cell.contentView).with.offset(0);
-            make.left.equalTo(cell.contentView).with.offset(0);
-            make.bottom.equalTo(cell.contentView).with.offset(0);
-            make.width.mas_equalTo(kScreenWidth);
-            make.height.mas_equalTo(kScreenHeight-140-60);
-        }];
+//        [self.contentScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.top.equalTo(cell.contentView).with.offset(0);
+//            make.left.equalTo(cell.contentView).with.offset(0);
+//            make.bottom.equalTo(cell.contentView).with.offset(0);
+//            make.width.mas_equalTo(kScreenWidth);
+//            make.height.mas_equalTo(kScreenHeight-140-60);
+//        }];
         
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
         if (self.selBtnView.isLocked) {
@@ -342,7 +367,6 @@
     for (int i = 0; i < 6; i ++) {
         ChildDetailTableViewController *childView = [[ChildDetailTableViewController alloc] init];
         childView.delegate = self;
-        childView.tableView.bounces = NO;
         [self.tableviewsArr addObject:childView];
         [self addChildViewController:childView];
     }
@@ -404,6 +428,10 @@
         return;
     }
     vc.view.backgroundColor = self.daynightModel.navigationColor;
+    //添加监听高度
+    [self.ListenArr addObject:[NSString stringWithFormat:@"%ld",(long)index]];
+    [vc.tableView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+    
     [self.contentScrollview addSubview:vc.view];
     if (index == 2 || index == 5) {
         [vc.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -492,25 +520,25 @@
     }
 }
 
-- (void)childScrollViewDidScroll:(UIScrollView *)scrollView
-{
-    ChildDetailTableViewController *childTableView = self.tableviewsArr[self.tag];
-    if (scrollView.contentOffset.y < 140) {
-        self.tableview.contentOffset = scrollView.contentOffset;
-        
-        if (self.tag == 2 || self.tag == 5) {
-            [childTableView.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-                make.height.mas_equalTo(kScreenHeight-64-60-50-(140-scrollView.contentOffset.y));
-            }];
-        }
-    }
-    else
-    {
-        self.tableview.contentOffset = CGPointMake(0, 140);
-    }
-    
-    self.nmview.alpha = 0.0;
-}
+//- (void)childScrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    ChildDetailTableViewController *childTableView = self.tableviewsArr[self.tag];
+//    if (scrollView.contentOffset.y < 140) {
+//        self.tableview.contentOffset = scrollView.contentOffset;
+//        
+//        if (self.tag == 2 || self.tag == 5) {
+//            [childTableView.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.height.mas_equalTo(kScreenHeight-64-60-50-(140-scrollView.contentOffset.y));
+//            }];
+//        }
+//    }
+//    else
+//    {
+//        self.tableview.contentOffset = CGPointMake(0, 140);
+//    }
+//    
+//    self.nmview.alpha = 0.0;
+//}
 
 #pragma mark - 点击出现更多选项
 - (void)naviMore:(UIButton *)sender{
@@ -776,33 +804,41 @@
     CommentViewController *comView = [[CommentViewController alloc] init];
     comView.tag = self.tag;
     comView.company_code = self.company_code;
-    if (childView.niuxiong == 1) {
-        comView.type = @"bull";
+    if (self.tag == 2) {
+        if (childView.niuxiong == 1) {
+            comView.type = @"bull";
+        }
+        else if (childView.niuxiong == 0)
+        {
+            comView.type = @"bear";
+        }
     }
-    else if (childView.niuxiong == 0)
-    {
-        comView.type = @"bear";
-    }
-    if(self.tag == 5)
+    else if(self.tag == 5)
     {
         comView.type = @"ask";
     }
     
     if (US.isLogIn) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        
-        [alert addAction:[UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-            //牛评
+        if (self.tag == 2) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+            
+            [alert addAction:[UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+                //牛评
+                [self.navigationController pushViewController:comView animated:YES];
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                //熊评
+                [self.navigationController pushViewController:comView animated:YES];
+            }]];
+            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+                //熊评
+            }]];
+            [self presentViewController:alert animated:true completion:nil];
+        }
+        else
+        {
             [self.navigationController pushViewController:comView animated:YES];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            //熊评
-            [self.navigationController pushViewController:comView animated:YES];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            //熊评
-        }]];
-        [self presentViewController:alert animated:true completion:nil];
+        }
     }
     else
     {

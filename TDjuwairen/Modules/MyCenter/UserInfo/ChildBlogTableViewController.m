@@ -46,12 +46,12 @@
     
     self.page = 1;
     
-    self.tableView.scrollEnabled = NO;
     self.surveyListDataArray = [NSMutableArray array];
     self.viewListDataArray = [NSMutableArray array];
     self.userCommentArray = [NSMutableArray array];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
+    self.tableView.scrollEnabled = NO;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     [self.tableView registerClass:[NewTableViewCell class] forCellReuseIdentifier:@"newcell"];

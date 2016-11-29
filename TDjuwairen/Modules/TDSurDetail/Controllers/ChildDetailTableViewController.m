@@ -49,11 +49,13 @@
     
     self.daynightModel = [UIdaynightModel sharedInstance];
 
+    self.tableView.scrollEnabled = NO;  //禁止滑动
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView registerClass:[BearBullTableViewCell class] forCellReuseIdentifier:@"BearBullCell"];
     [self.tableView registerClass:[AskQuestionTableViewCell class] forCellReuseIdentifier:@"askCell"];
-    self.tableView.estimatedRowHeight = 10000;
+    self.tableView.estimatedRowHeight = 250;
     self.tableView.rowHeight = UITableViewAutomaticDimension;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = self.daynightModel.backColor;
     
 }
@@ -210,17 +212,17 @@
             self.webview.navigationDelegate = self;
             self.webview.UIDelegate = self;
             self.webview.scrollView.delegate = self;
+            self.webview.scrollView.scrollEnabled = NO ;//关闭滑动
             self.webview.backgroundColor = self.daynightModel.navigationColor;
             [cell.contentView addSubview:self.webview];
             
-            [self.webview mas_updateConstraints:^(MASConstraintMaker *make) {
+            [self.webview mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(cell.contentView).with.offset(0);
                 make.left.equalTo(cell.contentView).with.offset(0);
                 make.bottom.equalTo(cell.contentView).with.offset(0);
                 make.right.equalTo(cell.contentView).with.offset(0);
                 make.height.mas_equalTo(kScreenHeight-64-60);
             }];
-            
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         cell.backgroundColor = self.daynightModel.navigationColor;
@@ -470,6 +472,29 @@
 //    }
 }
 
+#pragma mark - webview Delegate
+- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
+{
+    if (webView.isLoading) {
+        return ;
+    }
+    else
+    {
+        __weak ChildDetailTableViewController *wself = self;
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //获取页面高度，并重置webview的frame
+            CGFloat documentHeight = [result doubleValue];
+//            CGRect frame = webView.frame;
+//            frame.size.height = documentHeight + 15/*显示不全*/;
+            
+//            [wself.webview mas_updateConstraints:^(MASConstraintMaker *make) {
+//                make.height.mas_equalTo(documentHeight + 15);
+//            }];
+//            [self.tableView layoutIfNeeded];
+        }];
+    }
+}
+
 #pragma mark - BearBullSelBtnViewDelegate
 - (void)selBearBull:(UIButton *)sender
 {
@@ -477,12 +502,12 @@
     [self.tableView reloadData];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
-        [self.delegate childScrollViewDidScroll:scrollView];
-    }
-}
+//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+//{
+//    if ([self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+//        [self.delegate childScrollViewDidScroll:scrollView];
+//    }
+//}
 
 #pragma mark - 点赞
 - (void)good:(UIButton *)sender{

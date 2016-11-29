@@ -11,6 +11,7 @@
 #import "Masonry.h"
 #import "NSString+Ext.h"
 #import "NSString+GetDevice.h"
+#import "UIdaynightModel.h"
 
 @interface SurDataView ()
 
@@ -134,7 +135,7 @@
     [self.nowPri mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(15);
         make.left.equalTo(self).with.offset(15);
-        make.width.mas_equalTo(nowPriSize.width);
+        make.width.mas_equalTo(nowPriSize.width+10);
         make.height.mas_equalTo(40);
     }];
     
@@ -147,7 +148,7 @@
     }
     [self.increase mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(15);
-        make.left.equalTo(self.nowPri).with.offset(15+nowPriSize.width);
+        make.left.equalTo(self.nowPri.mas_right).with.offset(10);
         make.width.mas_equalTo(60);
         make.height.mas_equalTo(20);
     }];
@@ -161,7 +162,7 @@
     }
     [self.increPer mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.increase).with.offset(20);
-        make.left.equalTo(self.nowPri).with.offset(15+nowPriSize.width);
+        make.left.equalTo(self.nowPri.mas_right).with.offset(10);
         make.width.mas_equalTo(60);
         make.height.mas_equalTo(20);
     }];
@@ -236,12 +237,20 @@
     
     float value = nowPri - yestodEndPri;   //跌涨额
     float valueB = value/yestodEndPri;     //跌涨百分比
-    
+
     self.nowPri.text = [NSString stringWithFormat:@"%.2lf",nowPri];
     
-        self.increase.text = [NSString stringWithFormat:@"%.2f",value];
+    self.increase.text = [NSString stringWithFormat:@"%.2f",value];
     
-        self.increPer.text = [NSString stringWithFormat:@"%.2f%%",valueB*100];
+    self.increPer.text = [NSString stringWithFormat:@"%.2f%%",valueB*100];
+    
+//    NSString *now = [NSString stringWithFormat:@"%.2f",nowPri];
+//    CGSize nowPriSize = [now calculateSize:CGSizeMake(200, 100) font:[UIFont systemFontOfSize:38]];
+//    [self.nowPri mas_updateConstraints:^(MASConstraintMaker *make) {
+//        make.width.mas_equalTo(nowPriSize.width);
+//    }];
+//    [self layoutIfNeeded];
 }
+
 
 @end

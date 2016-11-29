@@ -108,8 +108,8 @@
         [self.comView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(cell.contentView).with.offset(0);
             make.left.equalTo(cell.contentView).with.offset(0);
-//            make.bottom.equalTo(cell.contentView).with.offset(0);
-            make.right.equalTo(cell.contentView).with.offset(0);
+            make.bottom.equalTo(cell.contentView).with.offset(-0);
+            make.right.equalTo(cell.contentView).with.offset(-0);
             make.height.mas_equalTo(kScreenHeight-64);
         }];
         return cell;
