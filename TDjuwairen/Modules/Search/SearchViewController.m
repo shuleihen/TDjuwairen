@@ -82,7 +82,7 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
     
     NSString *url = @"Search/Search2_1";

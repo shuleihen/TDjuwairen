@@ -65,7 +65,7 @@
     self.tag = tag;
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_tag",kAPI_songsong];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_tag",API_HOST];
     NSString *code = [surveyID substringFromIndex:2];
     NSDictionary *para;
     if (US.isLogIn) {
@@ -120,12 +120,12 @@
                 mode = @"1";
             }
             if (!US.isLogIn) {
-                NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/mode/%@",kAPI_songsong,code,self.tag,mode];
+                NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/mode/%@",API_HOST,code,self.tag,mode];
                 [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
             }
             else
             {
-                NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/userid/%@/mode/%@",kAPI_songsong,code,self.tag,US.userId,mode];
+                NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/userid/%@/mode/%@",API_HOST,code,self.tag,US.userId,mode];
                 [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
             }
             
@@ -134,7 +134,7 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
 //    [manager POST:url parameters:para completion:^(id data, NSError *error) {
 //        NSLog(@"%@",data);
 //    }];
@@ -514,7 +514,7 @@
     if (US.isLogIn) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = [NSString stringWithFormat:@"%@Survey/addCommentGoodAccess",kAPI_songsong];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/addCommentGoodAccess",API_HOST];
         NSDictionary *dic = @{@"user_id":@"956",
                               @"comment_id":[NSString stringWithFormat:@"%ld",(long)sender.tag]};
         [manager POST:url parameters:dic progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

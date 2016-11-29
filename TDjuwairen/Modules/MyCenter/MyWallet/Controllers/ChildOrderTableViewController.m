@@ -75,7 +75,7 @@
     NSDictionary *para = @{@"user_id":US.userId,
                            @"type":[NSString stringWithFormat:@"%d",tag-1],
                            @"page":[NSString stringWithFormat:@"%d",self.page]};
-    NSString *url = [NSString stringWithFormat:@"%@User/getUserOrder",kAPI_songsong];
+    NSString *url = [NSString stringWithFormat:@"%@User/getUserOrder",API_HOST];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
     [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -184,7 +184,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@User/delUserOrder",kAPI_songsong];
+    NSString *url = [NSString stringWithFormat:@"%@User/delUserOrder",API_HOST];
     NSDictionary *para = @{@"orderID":model.order_id};
     [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
         nil;

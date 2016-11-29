@@ -35,7 +35,7 @@
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",kAPI_songsong];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",API_HOST];
         [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {

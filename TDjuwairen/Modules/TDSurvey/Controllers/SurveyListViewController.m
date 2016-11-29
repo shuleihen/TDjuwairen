@@ -177,7 +177,7 @@
 }
 
 - (void)getBanners {
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"version":@"2.0"};
     [manager POST:API_GetBanner parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
@@ -204,7 +204,7 @@
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",kAPI_songsong,pageA];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,pageA];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;

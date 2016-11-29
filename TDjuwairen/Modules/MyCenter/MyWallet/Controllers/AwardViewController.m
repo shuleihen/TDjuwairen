@@ -186,7 +186,7 @@
                           @"phone":phone,
                           @"zipcode":zip,
                           @"level":self.model.prize_level};
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
         if (!error) {
             NSLog(@"%@",data);
@@ -209,7 +209,7 @@
     NSDictionary *para = @{@"user_id":US.userId,
                            @"phone":phonecell.field.text,
                            @"level":self.model.prize_level};
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
         if (!error) {
             NSLog(@"%@",data);

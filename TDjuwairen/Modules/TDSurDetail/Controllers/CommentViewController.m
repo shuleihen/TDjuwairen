@@ -214,27 +214,27 @@
     NSString *url ;
     NSString *code = [self.company_code substringFromIndex:2];
     if ([self.type isEqualToString:@"bull"]) {
-        url = [NSString stringWithFormat:@"%@Survey/addComment",kAPI_songsong];
+        url = [NSString stringWithFormat:@"%@Survey/addComment",API_HOST];
         para = @{@"type":@"1",
                  @"content":self.comView.text,
                  @"code":code,
                  @"user_id":US.userId};
     }
     else if ([self.type isEqualToString:@"bear"]){
-        url = [NSString stringWithFormat:@"%@Survey/addComment",kAPI_songsong];
+        url = [NSString stringWithFormat:@"%@Survey/addComment",API_HOST];
         para = @{@"type":@"2",
                  @"content":self.comView.text,
                  @"code":code,
                  @"user_id":US.userId};
     }
     else if ([self.type isEqualToString:@"ask"]){
-        url = [NSString stringWithFormat:@"%@Survey/addQuestion",kAPI_songsong];
+        url = [NSString stringWithFormat:@"%@Survey/addQuestion",API_HOST];
         para = @{@"code":code,
                  @"question":self.comView.text,
                  @"user_id":US.userId};
     }
     else if ([self.type isEqualToString:@"ans"]){
-        url = [NSString stringWithFormat:@"%@Survey/answerQuestion",kAPI_songsong];
+        url = [NSString stringWithFormat:@"%@Survey/answerQuestion",API_HOST];
         para = @{@"ask_id":self.model.surveyask_id,
                  @"content":self.comView.text,
                  @"user_id":US.userId};

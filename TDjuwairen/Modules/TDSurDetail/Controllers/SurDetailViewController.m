@@ -120,7 +120,7 @@
     if (US.isLogIn) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = [NSString stringWithFormat:@"%@Survey/getUserKeyNum",kAPI_songsong];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/getUserKeyNum",API_HOST];
         NSDictionary *para = @{@"user_id":US.userId};
         [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *data = responseObject[@"data"];
@@ -668,7 +668,7 @@
             //解锁
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-            NSString *urlString = [NSString stringWithFormat:@"%@Survey/unlockCompany",kAPI_songsong];
+            NSString *urlString = [NSString stringWithFormat:@"%@Survey/unlockCompany",API_HOST];
             NSString *code = [self.company_code substringFromIndex:2];
             NSDictionary *para = @{@"user_id":US.userId,
                                    @"code":code};
@@ -732,7 +732,7 @@
                     @"user_id":US.userId};
         }
         
-        NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",kAPI_songsong];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",API_HOST];
         
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
@@ -750,7 +750,7 @@
     }
     else    //微信支付
     {
-        NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",kAPI_songsong];
+        NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",API_HOST];
         NSDictionary *dic;
         if (![self.keysNum isEqualToString:@"VIP"]) {
             dic = @{@"type":@"1",

@@ -67,7 +67,7 @@
     self.listArr = [NSMutableArray array];
     
     __weak KeysExchangeViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *url = @"User/exchangeList";
     NSDictionary *para = @{@"user_id":US.userId};
     [manager POST:url parameters:para completion:^(id data, NSError *error) {

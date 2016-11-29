@@ -144,7 +144,7 @@
 - (void)requestWithKeyRecord{
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@User/getUserKeyRecord",kAPI_songsong];
+    NSString *url = [NSString stringWithFormat:@"%@User/getUserKeyRecord",API_HOST];
     NSDictionary *para = @{@"user_id":US.userId,
                            @"page":[NSString stringWithFormat:@"%d",self.page]};
     [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
@@ -186,7 +186,7 @@
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@User/delKeyRecord",kAPI_songsong];
+    NSString *url = [NSString stringWithFormat:@"%@User/delKeyRecord",API_HOST];
     NSDictionary *para = @{@"recordID":model.record_id};
     [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
         nil;
