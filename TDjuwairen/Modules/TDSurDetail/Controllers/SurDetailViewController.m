@@ -169,7 +169,7 @@
     [self setupWithTableView];
     [self setupWithDateView];
     [self addChildViewController];
-    
+    [self setupWithScrollview];
     [self setupWithCommentBtn];
     // Do any additional setup after loading the view.
 }
@@ -205,6 +205,8 @@
     [userdefault removeObserver:self forKeyPath:@"daynight"];
     
     [self.stockManager stop];
+    
+    
 }
 
 - (void)dealloc
@@ -338,27 +340,14 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-    }
-    if (!self.contentScrollview) {
-        self.contentScrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
-        self.contentScrollview.delegate = self;
-        self.contentScrollview.showsHorizontalScrollIndicator = NO;
-        self.contentScrollview.showsVerticalScrollIndicator = NO;
-        self.contentScrollview.pagingEnabled = YES;
-        self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
         [cell.contentView addSubview:self.contentScrollview];
-        self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
-        if (self.selBtnView.isLocked) {
-            self.selBtnView.selBtn = self.selBtnView.btnsArr[0];
-            self.tag = 0;
-        }
-        else
-        {
-            self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
-            self.tag = 3;
-        }
+        
         [self selectWithDetail:self.selBtnView.selBtn];
     }
+//    if (!self.contentScrollview) {
+//        
+//        
+//    }
     cell.backgroundColor = self.daynightModel.backColor;
     return cell;
 }
@@ -381,6 +370,25 @@
         childView.delegate = self;
         [self.tableviewsArr addObject:childView];
         [self addChildViewController:childView];
+    }
+}
+
+- (void)setupWithScrollview{
+    self.contentScrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+    self.contentScrollview.delegate = self;
+    self.contentScrollview.showsHorizontalScrollIndicator = NO;
+    self.contentScrollview.showsVerticalScrollIndicator = NO;
+    self.contentScrollview.pagingEnabled = YES;
+    self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
+    self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
+    if (self.selBtnView.isLocked) {
+        self.selBtnView.selBtn = self.selBtnView.btnsArr[0];
+        self.tag = 0;
+    }
+    else
+    {
+        self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
+        self.tag = 3;
     }
 }
 
@@ -487,14 +495,12 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
-    CGFloat scrollviewY = scrollView.contentOffset.y;
     if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
 //        NSLog(@"%f",tabY);
         if (self.tableview.contentOffset.y < 140 ) {
-            elasticY = tabY/2;
-            tabY = scrollView.contentOffset.y+tabY;
-            self.tableview.contentOffset = CGPointMake(0,tabY - elasticY);
-            scrollView.contentOffset = CGPointMake(0, 0);
+                tabY = scrollView.contentOffset.y+tabY;
+                self.tableview.contentOffset = CGPointMake(0,tabY - elasticY);
+                scrollView.contentOffset = CGPointMake(0, 0);
         }
         else if(self.tableview.contentOffset.y > 140){
             //拉到顶端
