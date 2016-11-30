@@ -36,6 +36,7 @@
 {
     CGSize contentSize;
     CGFloat tabY;
+    CGFloat elasticY;
 }
 @property (nonatomic,assign) int tag;
 
@@ -77,6 +78,13 @@
 @end
 
 @implementation SurDetailViewController
+
+- (SurDetailSelBtnView *)selBtnView{
+    if (!_selBtnView) {
+        _selBtnView = [[SurDetailSelBtnView alloc] initWithFrame:CGRectMake(0, 140, kScreenWidth, 60) WithStockCode:self.company_code];
+    }
+    return _selBtnView;
+}
 
 - (NMView *)nmview{
     if (!_nmview) {
@@ -307,17 +315,15 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
-    self.selBtnView = [[SurDetailSelBtnView alloc] initWithFrame:CGRectMake(0, 140, kScreenWidth, 60) WithStockCode:self.company_code];
-    
     UIButton *btn = self.selBtnView.btnsArr[self.tag];
-    self.selBtnView.selBtn.selected = NO;
+    _selBtnView.selBtn.selected = NO;
     btn.selected = YES;
-    self.selBtnView.selBtn = btn;
+    _selBtnView.selBtn = btn;
     
-    self.selBtnView.delegate = self;
-    self.selBtnView.backgroundColor = self.daynightModel.navigationColor;
-    self.selBtnView.line1.layer.borderColor = self.daynightModel.lineColor.CGColor;
-    self.selBtnView.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
+    _selBtnView.delegate = self;
+    _selBtnView.backgroundColor = self.daynightModel.navigationColor;
+    _selBtnView.line1.layer.borderColor = self.daynightModel.lineColor.CGColor;
+    _selBtnView.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
     return self.selBtnView;
 }
 
@@ -481,14 +487,17 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
+    CGFloat scrollviewY = scrollView.contentOffset.y;
     if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
-        NSLog(@"%f",tabY);
+//        NSLog(@"%f",tabY);
         if (self.tableview.contentOffset.y < 140 ) {
+            elasticY = tabY/2;
             tabY = scrollView.contentOffset.y+tabY;
-            self.tableview.contentOffset = CGPointMake(0, tabY);
+            self.tableview.contentOffset = CGPointMake(0,tabY - elasticY);
             scrollView.contentOffset = CGPointMake(0, 0);
         }
         else if(self.tableview.contentOffset.y > 140){
+            //拉到顶端
             self.tableview.contentOffset = CGPointMake(0, 140);
         }
         else if (scrollView.contentOffset.y < 0){
@@ -507,10 +516,10 @@
 {
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
     if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
-        if (self.tableview.contentOffset.y  < -60) {
+        if (self.tableview.contentOffset.y  < 0) {
             tabY = 0;
             [UIView animateWithDuration:0.5 animations:^{
-                self.tableview.contentOffset = CGPointMake(0, 0);
+                [self.tableview setContentOffset:CGPointMake(0, 0)];
             } completion:^(BOOL finished) {
                 self.tableview.contentOffset = CGPointMake(0, 0);
             }];
@@ -521,6 +530,17 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
+    if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
+        if (self.tableview.contentOffset.y  < 0) {
+            tabY = 0;
+            [UIView animateWithDuration:0.5 animations:^{
+                [self.tableview setContentOffset:CGPointMake(0, 0)];
+            } completion:^(BOOL finished) {
+                self.tableview.contentOffset = CGPointMake(0, 0);
+            }];
+        }
+    }
+    
     if ([rollway isEqualToString:@"UIScrollView"]) {
         NSInteger i = self.contentScrollview.contentOffset.x / kScreenWidth;
         self.tag = (int)i;

@@ -47,7 +47,7 @@
 
 #pragma mark 
 - (void)getDetailWebBaseUrlWithTag:(NSInteger)tag {
-    NetworkManager *ma = [[NetworkManager alloc] init];
+    NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *code = [self.stockId substringFromIndex:2];
     NSDictionary *para;
     if (US.isLogIn) {
@@ -64,22 +64,22 @@
     [ma POST:@"Survey/survey_show_tag" parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
             NSString *baseUrl = data[@"url"];
-            [self loadContentWithBaseUrl:baseUrl];
+            [self loadContentWithBaseUrl:baseUrl andTag:tag];
         } else {
             
         }
     }];
 }
 
-- (void)loadContentWithBaseUrl:(NSString *)baseUrl {
+- (void)loadContentWithBaseUrl:(NSString *)baseUrl andTag:(NSInteger)tag{
     NSString *code = [self.stockId substringFromIndex:2];
     NSString *urlString = nil;
     if (!US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%d/mode/%@",baseUrl,code,1,@"0"];
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,(long)tag,@"0"];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%d/userid/%@/mode/%@",baseUrl,code,1,US.userId,@"0"];
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/userid/%@/mode/%@",baseUrl,code,(long)tag,US.userId,@"0"];
     }
     
     NSLog(@"Content web url= %@",urlString);
@@ -138,6 +138,7 @@
 //        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-64-140-60)];
 //        _scrollView.showsHorizontalScrollIndicator = NO;
 //        self.tableView.tableFooterView = _scrollView;
+//        _scrollView.contentSize = CGSizeMake(kScreenWidth*6, kScreenHeight-64-60);
 //    }
 //    return _scrollView;
 //}
