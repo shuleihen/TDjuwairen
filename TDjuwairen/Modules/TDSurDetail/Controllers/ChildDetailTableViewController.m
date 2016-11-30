@@ -255,6 +255,14 @@
                 [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
+                
+                if ([commentDic[@"isliked"] boolValue]) {
+                    cell.goodnumBtn.selected = YES;
+                }
+                else
+                {
+                    cell.goodnumBtn.selected = NO;
+                }
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
@@ -300,6 +308,15 @@
                 [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 cell.goodnumBtn.tag = [commentDic[@"surveycomment_id"] integerValue];
+                
+                if ([commentDic[@"isliked"] boolValue]) {
+                    cell.goodnumBtn.selected = YES;
+                }
+                else
+                {
+                    cell.goodnumBtn.selected = NO;
+                }
+                
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
@@ -495,6 +512,10 @@
 #pragma mark - 点赞
 - (void)good:(UIButton *)sender{
     if (US.isLogIn) {
+        if (!sender.selected) {
+            NSString *s = [NSString stringWithFormat:@"%d",[sender.titleLabel.text intValue] + 1];
+            [sender setTitle:s forState:UIControlStateNormal];
+        }
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
         NSString *url = [NSString stringWithFormat:@"%@Survey/addCommentGoodAccess",API_HOST];
