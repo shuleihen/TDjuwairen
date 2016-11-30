@@ -32,9 +32,10 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 
-@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate,StockManagerDelegate>
+@interface SurDetailViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate,NMViewDelegate,SelectFontViewDelegate,SurDetailSelBtnViewDelegate,ChildDetailDelegate,unlockViewDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate,StockManagerDelegate>
 {
     CGSize contentSize;
+    CGFloat tabY;
 }
 @property (nonatomic,assign) int tag;
 
@@ -167,8 +168,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-//    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
-//    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
+    //    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+    //    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
     //监听日夜间模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -194,7 +195,6 @@
     //移除观察者模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.stockManager stop];
 }
@@ -202,7 +202,8 @@
 - (void)dealloc
 {
     for (NSString *string in self.ListenArr) {
-        UITableViewController *vc  =  self.childViewControllers[[string intValue]];
+        int tag = [string floatValue];
+        ChildDetailTableViewController *vc  =  self.childViewControllers[tag];
         [vc.tableView removeObserver:self forKeyPath:@"contentSize"];
     }
 }
@@ -228,22 +229,37 @@
         self.dataView.traAmount.textColor = self.daynightModel.titleColor;
         
         self.comBtn.backgroundColor = self.daynightModel.navigationColor;
-
+        
         [self.tableview reloadData];
     }
     else if ([keyPath isEqualToString:@"contentSize"]){
         ChildDetailTableViewController *child = self.tableviewsArr[self.tag];
-        if (child.tableView.contentSize.height < kScreenHeight-140-60) {
-            [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, kScreenHeight-64-60)];
-            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, kScreenHeight-64-60);
-            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+        //        if (child.tableView.contentSize.height < kScreenHeight-140-60) {
+        //            [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, kScreenHeight-64-60)];
+        //            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, kScreenHeight-64-60);
+        //            if (self.tag == 2 || self.tag == 5) {
+        //                [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60-50)];
+        //            }
+        //            else
+        //            {
+        //                [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+        //            }
+        //
+        //        }
+        //        else
+        //        {
+        if (self.tag == 2 || self.tag == 5) {
+            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60-50)];
         }
         else
         {
-            NSLog(@"----------- %f",child.tableView.contentSize.height);
+            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+        }
+        if (child.tableView.contentSize.height > kScreenHeight - 64- 60) {
             [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, child.tableView.contentSize.height)];
             self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, child.tableView.contentSize.height);
         }
+        //        }
     }
 }
 
@@ -268,7 +284,7 @@
     self.tableview.estimatedRowHeight = kScreenHeight-64-60;
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     self.tableview.backgroundColor = self.daynightModel.navigationColor;
-//    self.tableview.contentSize = CGSizeMake(kScreenWidth, kScreenHeight*5);
+    //    self.tableview.contentSize = CGSizeMake(kScreenWidth, kScreenHeight*5);
     [self.view addSubview:self.tableview];
 }
 
@@ -325,15 +341,6 @@
         self.contentScrollview.pagingEnabled = YES;
         self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
         [cell.contentView addSubview:self.contentScrollview];
-        
-//        [self.contentScrollview mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.top.equalTo(cell.contentView).with.offset(0);
-//            make.left.equalTo(cell.contentView).with.offset(0);
-//            make.bottom.equalTo(cell.contentView).with.offset(0);
-//            make.width.mas_equalTo(kScreenWidth);
-//            make.height.mas_equalTo(kScreenHeight-140-60);
-//        }];
-        
         self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
         if (self.selBtnView.isLocked) {
             self.selBtnView.selBtn = self.selBtnView.btnsArr[0];
@@ -473,8 +480,42 @@
 #pragma mark - 滑动操作
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
+    if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
+        NSLog(@"%f",tabY);
+        if (self.tableview.contentOffset.y < 140 ) {
+            tabY = scrollView.contentOffset.y+tabY;
+            self.tableview.contentOffset = CGPointMake(0, tabY);
+            scrollView.contentOffset = CGPointMake(0, 0);
+        }
+        else if(self.tableview.contentOffset.y > 140){
+            self.tableview.contentOffset = CGPointMake(0, 140);
+        }
+        else if (scrollView.contentOffset.y < 0){
+            if (self.tableview.contentOffset.y > 0) {
+                tabY = scrollView.contentOffset.y+tabY;
+                self.tableview.contentOffset = CGPointMake(0, tabY);
+                scrollView.contentOffset = CGPointMake(0, 0);
+            }
+        }
+    }
     //这里不写方法不生效- -
     self.nmview.alpha = 0.0;
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
+    if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
+        if (self.tableview.contentOffset.y  < -60) {
+            tabY = 0;
+            [UIView animateWithDuration:0.5 animations:^{
+                self.tableview.contentOffset = CGPointMake(0, 0);
+            } completion:^(BOOL finished) {
+                self.tableview.contentOffset = CGPointMake(0, 0);
+            }];
+        }
+    }
 }
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
@@ -521,10 +562,11 @@
 
 //- (void)childScrollViewDidScroll:(UIScrollView *)scrollView
 //{
+//    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
 //    ChildDetailTableViewController *childTableView = self.tableviewsArr[self.tag];
 //    if (scrollView.contentOffset.y < 140) {
 //        self.tableview.contentOffset = scrollView.contentOffset;
-//        
+//
 //        if (self.tag == 2 || self.tag == 5) {
 //            [childTableView.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
 //                make.height.mas_equalTo(kScreenHeight-64-60-50-(140-scrollView.contentOffset.y));
@@ -535,7 +577,7 @@
 //    {
 //        self.tableview.contentOffset = CGPointMake(0, 140);
 //    }
-//    
+//
 //    self.nmview.alpha = 0.0;
 //}
 
@@ -607,9 +649,10 @@
     
     NSString *jsZiti = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",self.fontsize];
     ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
-    [childView.webview evaluateJavaScript:jsZiti completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        //
-    }];
+    //    [childView.webview evaluateJavaScript:jsZiti completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+    //        //
+    //    }];
+    [childView.webview stringByEvaluatingJavaScriptFromString:jsZiti];
 }
 
 - (void)clickCancel:(UIButton *)sender
@@ -753,16 +796,16 @@
         NSDictionary *dic;
         if (![self.keysNum isEqualToString:@"VIP"]) {
             dic = @{@"type":@"1",
-                                   @"number":self.keysNum,
-                                   @"user_id":US.userId,
-                                   @"device":@"1"};
+                    @"number":self.keysNum,
+                    @"user_id":US.userId,
+                    @"device":@"1"};
         }
         else
         {
             dic = @{@"type":@"2",
-                                   @"number":@"1",
-                                   @"user_id":US.userId,
-                                   @"device":@"1"};
+                    @"number":@"1",
+                    @"user_id":US.userId,
+                    @"device":@"1"};
         }
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
@@ -803,16 +846,7 @@
     CommentViewController *comView = [[CommentViewController alloc] init];
     comView.tag = self.tag;
     comView.company_code = self.company_code;
-    if (self.tag == 2) {
-        if (childView.niuxiong == 1) {
-            comView.type = @"bull";
-        }
-        else if (childView.niuxiong == 0)
-        {
-            comView.type = @"bear";
-        }
-    }
-    else if(self.tag == 5)
+    if(self.tag == 5)
     {
         comView.type = @"ask";
     }
@@ -823,10 +857,12 @@
             
             [alert addAction:[UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
                 //牛评
+                comView.type = @"bull";
                 [self.navigationController pushViewController:comView animated:YES];
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 //熊评
+                comView.type = @"bear";
                 [self.navigationController pushViewController:comView animated:YES];
             }]];
             [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

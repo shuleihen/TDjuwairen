@@ -26,7 +26,7 @@
 #import "HexColors.h"
 
 @import WebKit;
-@interface ChildDetailTableViewController ()<WKNavigationDelegate,WKUIDelegate,BearBullSelBtnViewDelegate>
+@interface ChildDetailTableViewController ()<UIWebViewDelegate,BearBullSelBtnViewDelegate>
 
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 
@@ -48,7 +48,7 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
-
+    
     self.tableView.scrollEnabled = NO;  //禁止滑动
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView registerClass:[BearBullTableViewCell class] forCellReuseIdentifier:@"BearBullCell"];
@@ -134,10 +134,10 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-//    [manager POST:url parameters:para completion:^(id data, NSError *error) {
-//        NSLog(@"%@",data);
-//    }];
+    //    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    //    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+    //        NSLog(@"%@",data);
+    //    }];
     
 }
 
@@ -208,11 +208,10 @@
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            self.webview = [[WKWebView alloc] init];
-            self.webview.navigationDelegate = self;
-            self.webview.UIDelegate = self;
+            self.webview = [[UIWebView alloc] init];
+            self.webview.delegate = self;
             self.webview.scrollView.delegate = self;
-            self.webview.scrollView.scrollEnabled = NO ;//关闭滑动
+            //            self.webview.scrollView.scrollEnabled = NO ;//关闭滑动
             self.webview.backgroundColor = self.daynightModel.navigationColor;
             [cell.contentView addSubview:self.webview];
             
@@ -463,36 +462,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-//    if (self.tag == 5) {
-//        return 10;
-//    }
-//    else
-//    {
-        return 0;
-//    }
-}
-
-#pragma mark - webview Delegate
-- (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
-    if (webView.isLoading) {
-        return ;
-    }
-    else
-    {
-        __weak ChildDetailTableViewController *wself = self;
-        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            //获取页面高度，并重置webview的frame
-            CGFloat documentHeight = [result doubleValue];
-//            CGRect frame = webView.frame;
-//            frame.size.height = documentHeight + 15/*显示不全*/;
-            
-//            [wself.webview mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.mas_equalTo(documentHeight + 15);
-//            }];
-//            [self.tableView layoutIfNeeded];
-        }];
-    }
+    //    if (self.tag == 5) {
+    //        return 10;
+    //    }
+    //    else
+    //    {
+    return 0;
+    //    }
 }
 
 #pragma mark - BearBullSelBtnViewDelegate
@@ -502,12 +478,19 @@
     [self.tableView reloadData];
 }
 
-//- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    if ([self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
-//        [self.delegate childScrollViewDidScroll:scrollView];
-//    }
-//}
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([self.delegate respondsToSelector:@selector(scrollViewDidScroll:)]) {
+        [self.delegate scrollViewDidScroll:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+{
+    if ([self.delegate respondsToSelector:@selector(scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.delegate scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+}
 
 #pragma mark - 点赞
 - (void)good:(UIButton *)sender{

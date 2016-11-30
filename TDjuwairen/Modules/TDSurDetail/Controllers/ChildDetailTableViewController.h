@@ -11,7 +11,9 @@
 @import WebKit;
 @protocol ChildDetailDelegate <NSObject>
 
-- (void)childScrollViewDidScroll:(UIScrollView *)scrollView;
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView;
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 
 @end
 
@@ -19,7 +21,7 @@
 
 @property (nonatomic,assign) int niuxiong;
 
-@property (nonatomic,strong) WKWebView *webview;
+@property (nonatomic,strong) UIWebView *webview;
 
 @property (nonatomic,assign) id<ChildDetailDelegate>delegate;
 
