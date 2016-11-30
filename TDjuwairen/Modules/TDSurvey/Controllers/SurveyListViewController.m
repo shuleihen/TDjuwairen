@@ -23,8 +23,8 @@
 #import "LoginViewController.h"
 #import "HexColors.h"
 #import "MJRefresh.h"
-
 #import "UIdaynightModel.h"
+#import "SurveyDetailViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -306,6 +306,12 @@
     vc.survey_cover = survey.surveyCover;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    
+//    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+//    vc.stockId = survey.companyCode;
+//    vc.surveyId = survey.surveyId;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

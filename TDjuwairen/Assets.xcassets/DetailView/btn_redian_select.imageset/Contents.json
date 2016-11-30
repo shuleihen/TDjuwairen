@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "btn_redian_select@2x.png",
+      "filename" : "redian_sel@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "btn_redian_select@3x.png",
+      "filename" : "redian_sel@3x.png",
       "scale" : "3x"
     }
   ],

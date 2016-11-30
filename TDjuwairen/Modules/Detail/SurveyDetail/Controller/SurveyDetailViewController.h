@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockManager.h"
 
-@interface SurveyDetailViewController : UIViewController
-
+@interface SurveyDetailViewController : UITableViewController
+@property (nonatomic, strong) NSString *surveyId;
+@property (nonatomic, strong) NSString *stockId;
 @end

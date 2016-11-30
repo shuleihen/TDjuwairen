@@ -1,4 +1,4 @@
-//
+
 //  SurveyDetailViewController.m
 //  TDjuwairen
 //
@@ -7,9 +7,18 @@
 //
 
 #import "SurveyDetailViewController.h"
+#import "StockHeaderView.h"
+#import "SurveyDetailSegmentView.h"
+#import "SurveyDetailWebViewController.h"
+#import "NetworkManager.h"
+#import "LoginState.h"
 
-@interface SurveyDetailViewController ()
+@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate>
 
+@property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
+@property (nonatomic, strong) SurveyDetailSegmentView *segment;
+@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, assign) CGFloat contentHeight;
 @end
 
 @implementation SurveyDetailViewController
@@ -17,21 +26,119 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
+    [self getDetailWebBaseUrlWithTag:3];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+#pragma mark - UITableViewDelegate
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 60;
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    return self.segment;
 }
-*/
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSLog(@"heightForRowAtIndexPath = %lf", self.contentHeight)
+    return MAX(self.contentHeight, 100);
+}
+
+
+#pragma mark 
+- (void)getDetailWebBaseUrlWithTag:(NSInteger)tag {
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    NSString *code = [self.stockId substringFromIndex:2];
+    NSDictionary *para;
+    if (US.isLogIn) {
+        para = @{@"code": code,
+                 @"tag": @(tag),
+                 @"userid": US.userId};
+    }
+    else
+    {
+        para = @{@"code": code,
+                 @"tag": @(tag)};
+    }
+    
+    [ma POST:@"Survey/survey_show_tag" parameters:para completion:^(id data, NSError *error){
+        if (!error && data) {
+            NSString *baseUrl = data[@"url"];
+            [self loadContentWithBaseUrl:baseUrl];
+        } else {
+            
+        }
+    }];
+}
+
+- (void)loadContentWithBaseUrl:(NSString *)baseUrl {
+    NSString *code = [self.stockId substringFromIndex:2];
+    NSString *urlString = nil;
+    if (!US.isLogIn) {
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%d/mode/%@",baseUrl,code,1,@"0"];
+    }
+    else
+    {
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%d/userid/%@/mode/%@",baseUrl,code,1,US.userId,@"0"];
+    }
+    
+    NSLog(@"Content web url= %@",urlString);
+    SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
+    content.url = urlString;
+    content.delegate = self;
+    [self addChildViewController:content];
+    [content loadWebWithUrl:urlString];
+}
+
+#pragma mark - SurveyDetailContenDelegate
+- (void)contentWebView:(WKWebView *)webView withHeight:(CGFloat)height {
+    self.contentHeight = height;
+    [self.scrollView addSubview:webView];
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark - SurveyDetailSegmentDelegate
+- (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
+    [self getDetailWebBaseUrlWithTag:index];
+}
+
+- (SurveyDetailSegmentView *)segment {
+    if (!_segment) {
+        _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
+        _segment.delegate = self;
+        
+        SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地篇"
+                                                                                  image:[UIImage imageNamed:@"btn_shidi_nor"]
+                                                                       highlightedImage:[UIImage imageNamed:@"btn_shidi_select"]];
+        SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"对话录"
+                                                                                  image:[UIImage imageNamed:@"btn_duihua_nor"]
+                                                                       highlightedImage:[UIImage imageNamed:@"btn_duihua_select"]];
+        SurveyDetailSegmentItem *niuxiong = [[SurveyDetailSegmentItem alloc] initWithTitle:@"牛熊说"
+                                                                                   image:[UIImage imageNamed:@"btn_niuxiong_nor"]
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_niuxiong_select"]];
+        SurveyDetailSegmentItem *redian = [[SurveyDetailSegmentItem alloc] initWithTitle:@"热点篇"
+                                                                                   image:[UIImage imageNamed:@"btn_redian_nor"]
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_redian_select"]];
+        SurveyDetailSegmentItem *chanpin = [[SurveyDetailSegmentItem alloc] initWithTitle:@"产品篇"
+                                                                                   image:[UIImage imageNamed:@"btn_chanpin_nor"]
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_chanpin_select"]];
+        SurveyDetailSegmentItem *wenda = [[SurveyDetailSegmentItem alloc] initWithTitle:@"问答篇"
+                                                                                   image:[UIImage imageNamed:@"btn_wenda_nor"]
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_wenda_select"]];
+        _segment.segments = @[shidi,duihua,niuxiong,redian,chanpin,wenda];
+        
+    }
+    
+    return _segment;
+}
+
+//- (UIScrollView *)scrollView {
+//    if (!_scrollView) {
+//        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-64-140-60)];
+//        _scrollView.showsHorizontalScrollIndicator = NO;
+//        self.tableView.tableFooterView = _scrollView;
+//    }
+//    return _scrollView;
+//}
 @end

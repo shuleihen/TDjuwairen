@@ -67,7 +67,7 @@
                  NSStringEncoding enc =CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);
                  NSString *stockString = [[NSString alloc] initWithData:data encoding:enc];
                  [self handleWithStockString:stockString];
-                 DDLogInfo(@"Stock successed with %@",stockIdStrinig);
+                 DDLogInfo(@"Stock successed");
              }
              failure:^(NSURLSessionDataTask * dataTask, NSError *error){
                  DDLogInfo(@"Stock Error = %@",error);
@@ -143,7 +143,7 @@
                 
                 [stocks setObject:stock forKey:stock.gid];
             }
-//            DDLogInfo(@"Stock Gid = %@ Info = %@",first,second);
+            DDLogInfo(@"Stock Gid = %@ Info = %@",first,second);
         }
     }
     

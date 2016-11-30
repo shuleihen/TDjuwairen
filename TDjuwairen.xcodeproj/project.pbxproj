@@ -106,8 +106,10 @@
 		1955B4BE1D644DB400DC102E /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4B61D644DB400DC102E /* SurveyListModel.m */; };
 		1955B4BF1D644DB400DC102E /* SurveyNavigationView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4B91D644DB400DC102E /* SurveyNavigationView.m */; };
 		1975952B1DED2A1A006441BE /* SurveyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595291DED2A1A006441BE /* SurveyDetailViewController.m */; };
-		1975952C1DED2A1A006441BE /* SurveyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1975952A1DED2A1A006441BE /* SurveyDetailViewController.xib */; };
-		1975952F1DED2A91006441BE /* StackHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975952E1DED2A91006441BE /* StackHeaderView.m */; };
+		1975952F1DED2A91006441BE /* StockHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975952E1DED2A91006441BE /* StockHeaderView.m */; };
+		197595321DED5477006441BE /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595311DED5477006441BE /* SurveyDetailSegmentView.m */; };
+		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
+		197595371DED6B08006441BE /* SurveyDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595361DED6B08006441BE /* SurveyDetailWebViewController.m */; };
 		197C49D81DAC79FC000AC6F6 /* SurveyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 197C49D61DAC79FC000AC6F6 /* SurveyListCell.m */; };
 		197C49D91DAC79FC000AC6F6 /* SurveyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 197C49D71DAC79FC000AC6F6 /* SurveyListCell.xib */; };
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
@@ -602,9 +604,13 @@
 		1955B4B91D644DB400DC102E /* SurveyNavigationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyNavigationView.m; sourceTree = "<group>"; };
 		197595281DED2A1A006441BE /* SurveyDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailViewController.h; sourceTree = "<group>"; };
 		197595291DED2A1A006441BE /* SurveyDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailViewController.m; sourceTree = "<group>"; };
-		1975952A1DED2A1A006441BE /* SurveyDetailViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SurveyDetailViewController.xib; sourceTree = "<group>"; };
-		1975952D1DED2A91006441BE /* StackHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StackHeaderView.h; sourceTree = "<group>"; };
-		1975952E1DED2A91006441BE /* StackHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StackHeaderView.m; sourceTree = "<group>"; };
+		1975952D1DED2A91006441BE /* StockHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHeaderView.h; sourceTree = "<group>"; };
+		1975952E1DED2A91006441BE /* StockHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHeaderView.m; sourceTree = "<group>"; };
+		197595301DED5477006441BE /* SurveyDetailSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailSegmentView.h; sourceTree = "<group>"; };
+		197595311DED5477006441BE /* SurveyDetailSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailSegmentView.m; sourceTree = "<group>"; };
+		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
+		197595351DED6B08006441BE /* SurveyDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailWebViewController.h; sourceTree = "<group>"; };
+		197595361DED6B08006441BE /* SurveyDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailWebViewController.m; sourceTree = "<group>"; };
 		197C49D51DAC79FC000AC6F6 /* SurveyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListCell.h; sourceTree = "<group>"; };
 		197C49D61DAC79FC000AC6F6 /* SurveyListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListCell.m; sourceTree = "<group>"; };
 		197C49D71DAC79FC000AC6F6 /* SurveyListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SurveyListCell.xib; sourceTree = "<group>"; };
@@ -1656,7 +1662,8 @@
 			children = (
 				197595281DED2A1A006441BE /* SurveyDetailViewController.h */,
 				197595291DED2A1A006441BE /* SurveyDetailViewController.m */,
-				1975952A1DED2A1A006441BE /* SurveyDetailViewController.xib */,
+				197595351DED6B08006441BE /* SurveyDetailWebViewController.h */,
+				197595361DED6B08006441BE /* SurveyDetailWebViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1671,8 +1678,10 @@
 		1975951F1DED29FE006441BE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				1975952D1DED2A91006441BE /* StackHeaderView.h */,
-				1975952E1DED2A91006441BE /* StackHeaderView.m */,
+				1975952D1DED2A91006441BE /* StockHeaderView.h */,
+				1975952E1DED2A91006441BE /* StockHeaderView.m */,
+				197595301DED5477006441BE /* SurveyDetailSegmentView.h */,
+				197595311DED5477006441BE /* SurveyDetailSegmentView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2496,6 +2505,7 @@
 				84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */,
 				84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */,
 				84E333F31CE2BA3D00E5DCEE /* Main.storyboard */,
+				197595331DED5E39006441BE /* SurveyDetail.storyboard */,
 				19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */,
 				84E333F61CE2BA3D00E5DCEE /* Assets.xcassets */,
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
@@ -2944,7 +2954,6 @@
 				275E9CD71CFED0DC0075910D /* HeadUnLogin.png in Resources */,
 				848AF4F51D93B6C1001A56D2 /* WeiboSDK.bundle in Resources */,
 				8427F74A1D5878440073AB7F /* btn_dianzan_pre@2x.png in Resources */,
-				1975952C1DED2A1A006441BE /* SurveyDetailViewController.xib in Resources */,
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				84CBCC611D4B299C000DAEA8 /* tab_chexiao_blue@3x.png in Resources */,
 				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
@@ -2953,6 +2962,7 @@
 				84CBCC671D4B29B3000DAEA8 /* tab_more_pre@3x.png in Resources */,
 				1955B4721D644D9800DC102E /* CommentsTableViewCell.xib in Resources */,
 				84B9B4601D4863B300DDF15B /* btn_night_rijian@3x.png in Resources */,
+				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
 				8427F7571D588B810073AB7F /* nav_zt@3x.png in Resources */,
 				275E9CD41CFED0DC0075910D /* send-notext.png in Resources */,
 				848AF4F31D93B6C1001A56D2 /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -3164,8 +3174,10 @@
 				84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */,
 				1955B4BE1D644DB400DC102E /* SurveyListModel.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
+				197595321DED5477006441BE /* SurveyDetailSegmentView.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
 				19B11CAE1D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m in Sources */,
+				197595371DED6B08006441BE /* SurveyDetailWebViewController.m in Sources */,
 				84165D1E1DD40B410046186D /* AskModel.m in Sources */,
 				192AEB931D5DA42700FF6ABF /* GuideViewController.m in Sources */,
 				1955B48C1D644D9800DC102E /* ShowTableViewCell.m in Sources */,
@@ -3181,7 +3193,7 @@
 				846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */,
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,
-				1975952F1DED2A91006441BE /* StackHeaderView.m in Sources */,
+				1975952F1DED2A91006441BE /* StockHeaderView.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
 				846E5A131DE415AF0031C993 /* ChildOrderTableViewController.m in Sources */,
