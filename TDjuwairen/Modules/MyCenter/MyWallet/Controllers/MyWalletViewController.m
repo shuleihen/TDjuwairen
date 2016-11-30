@@ -47,12 +47,18 @@
     self.daynightModel = [UIdaynightModel sharedInstance];
     self.titleArr = [NSArray arrayWithObjects:@"我的订单",@"钥匙使用记录",@"钥匙兑换", nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestWithKeysNum) name:@"refreshKeys" object:nil];
     
     [self setupWithNavigation];
     [self setupWithTableView];
     
-    [self requestWithKeysNum];
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self requestWithKeysNum];
 }
 
 - (void)requestWithKeysNum{
@@ -244,6 +250,7 @@
             [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                 NSLog(@"reslut = %@",resultDic);
                 //支付成功。进入成功页面
+                [self requestWithKeysNum];
             }];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -291,6 +298,7 @@
             req.package             = @"Sign=WXPay";
             req.sign                = [order objectForKey:@"sign"];
             [WXApi sendReq:req];
+            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];

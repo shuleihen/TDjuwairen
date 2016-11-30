@@ -196,6 +196,7 @@
     }
     
     [self.stockManager start];
+    [self selectWithDetail:self.selBtnView.selBtn];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -344,10 +345,6 @@
         
         [self selectWithDetail:self.selBtnView.selBtn];
     }
-//    if (!self.contentScrollview) {
-//        
-//        
-//    }
     cell.backgroundColor = self.daynightModel.backColor;
     return cell;
 }
