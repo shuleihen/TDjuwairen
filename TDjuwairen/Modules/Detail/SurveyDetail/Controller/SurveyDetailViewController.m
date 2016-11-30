@@ -12,6 +12,7 @@
 #import "SurveyDetailWebViewController.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
+#import "HexColors.h"
 
 @interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate>
 
@@ -26,8 +27,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
-    [self getDetailWebBaseUrlWithTag:3];
+    [self addContentChildController];
+    self.segment.selectedIndex = 3;
+    [self.segment setLocked:YES withIndex:1];
 }
 
 #pragma mark - UITableViewDelegate
@@ -63,15 +65,21 @@
     
     [ma POST:@"Survey/survey_show_tag" parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
-            NSString *baseUrl = data[@"url"];
-            [self loadContentWithBaseUrl:baseUrl];
+            if ([data isKindOfClass:[NSDictionary class]]) {
+                NSString *baseUrl = data[@"url"];
+                [self loadContentWithBaseUrl:baseUrl witTag:tag];
+            } else {
+                
+            }
+            NSLog(@"survey_show_tag with data=%@",data)
+            
         } else {
             
         }
     }];
 }
 
-- (void)loadContentWithBaseUrl:(NSString *)baseUrl {
+- (void)loadContentWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag{
     NSString *code = [self.stockId substringFromIndex:2];
     NSString *urlString = nil;
     if (!US.isLogIn) {
@@ -83,10 +91,7 @@
     }
     
     NSLog(@"Content web url= %@",urlString);
-    SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
-    content.url = urlString;
-    content.delegate = self;
-    [self addChildViewController:content];
+    SurveyDetailWebViewController *content = self.childViewControllers[tag];
     [content loadWebWithUrl:urlString];
 }
 
@@ -100,7 +105,21 @@
 
 #pragma mark - SurveyDetailSegmentDelegate
 - (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
-    [self getDetailWebBaseUrlWithTag:index];
+    SurveyDetailSegmentItem *item = segmentView.segments[index];
+    if (item.locked) {
+        
+    } else {
+        [self getDetailWebBaseUrlWithTag:index];
+    }
+}
+
+#pragma mark - Private 
+- (void)addContentChildController {
+    for (int i=0; i<7; i++) {
+        SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
+        content.delegate = self;
+        [self addChildViewController:content];
+    }
 }
 
 - (SurveyDetailSegmentView *)segment {
@@ -110,22 +129,28 @@
         
         SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地篇"
                                                                                   image:[UIImage imageNamed:@"btn_shidi_nor"]
-                                                                       highlightedImage:[UIImage imageNamed:@"btn_shidi_select"]];
+                                                                       highlightedImage:[UIImage imageNamed:@"btn_shidi_select"]
+                                                                   highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#FF9E05"]];
         SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"对话录"
                                                                                   image:[UIImage imageNamed:@"btn_duihua_nor"]
-                                                                       highlightedImage:[UIImage imageNamed:@"btn_duihua_select"]];
+                                                                       highlightedImage:[UIImage imageNamed:@"btn_duihua_select"]
+                                                                    highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#EA4344"]];
         SurveyDetailSegmentItem *niuxiong = [[SurveyDetailSegmentItem alloc] initWithTitle:@"牛熊说"
                                                                                    image:[UIImage imageNamed:@"btn_niuxiong_nor"]
-                                                                        highlightedImage:[UIImage imageNamed:@"btn_niuxiong_select"]];
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_niuxiong_select"]
+                                                                      highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#00C9EE"]];
         SurveyDetailSegmentItem *redian = [[SurveyDetailSegmentItem alloc] initWithTitle:@"热点篇"
                                                                                    image:[UIImage imageNamed:@"btn_redian_nor"]
-                                                                        highlightedImage:[UIImage imageNamed:@"btn_redian_select"]];
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_redian_select"]
+                                                                    highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#FF875B"]];
         SurveyDetailSegmentItem *chanpin = [[SurveyDetailSegmentItem alloc] initWithTitle:@"产品篇"
                                                                                    image:[UIImage imageNamed:@"btn_chanpin_nor"]
-                                                                        highlightedImage:[UIImage imageNamed:@"btn_chanpin_select"]];
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_chanpin_select"]
+                                                                     highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#43A6F3"]];
         SurveyDetailSegmentItem *wenda = [[SurveyDetailSegmentItem alloc] initWithTitle:@"问答篇"
                                                                                    image:[UIImage imageNamed:@"btn_wenda_nor"]
-                                                                        highlightedImage:[UIImage imageNamed:@"btn_wenda_select"]];
+                                                                        highlightedImage:[UIImage imageNamed:@"btn_wenda_select"]
+                                                                   highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#26D79F"]];
         _segment.segments = @[shidi,duihua,niuxiong,redian,chanpin,wenda];
         
     }

@@ -15,14 +15,18 @@
 @end
 
 @interface SurveyDetailSegmentItem : UIView
-- (id)initWithTitle:(NSString *)title image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage;
+- (id)initWithTitle:(NSString *)title image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage highlightedTextColor:(UIColor *)highlightedTextColor;
+
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL locked;
+@property (nonatomic, assign) BOOL selected;
 @property (nonatomic, copy) void (^clickBlock)(NSInteger index);
 
 @end
 
 @interface SurveyDetailSegmentView : UIView
+@property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, weak) id delegate;
 @property (nonatomic, strong) NSArray *segments;
+- (void)setLocked:(BOOL)locked withIndex:(NSInteger)index;
 @end
