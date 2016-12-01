@@ -520,6 +520,115 @@
         firstchange = YES;
         self.editziti.zihao = 14;
     }
+    
+    //更改选中状态文字
+    NSUInteger location = self.contentText.selectedRange.location;
+    NSUInteger length = self.contentText.selectedRange.length;
+    if (jiacu == YES) {
+        if (xieti == YES) {
+            if (xiahuaxian == YES) {
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+                
+            }
+            else
+            {
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                
+                NSDictionary *attr = @{NSFontAttributeName:[UIFont fontWithName:@"Helvetica-BoldOblique" size:self.editziti.zihao],
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+        }
+        else
+        {
+            if (xiahuaxian == YES) {
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+            else
+            {
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+        }
+    }
+    else
+    {
+        if (xieti == YES) {
+            if (xiahuaxian == YES) {
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:self.editziti.zihao],
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+            else
+            {
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:[UIFont italicSystemFontOfSize:self.editziti.zihao],
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+        }
+        else
+        {
+            if (xiahuaxian == YES) {
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleSingle)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+            else
+            {
+                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
+                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                
+                NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
+                NSDictionary *attr = @{NSFontAttributeName:font,
+                                       NSUnderlineStyleAttributeName:@(NSUnderlineStyleNone)};
+                [labelText addAttributes:attr range:NSMakeRange(location, length)];
+                self.contentText.attributedText = labelText;
+                zititype = self.editziti.type;
+            }
+        }
+    }
 }
 
 - (void)sliderAction:(UISlider *)slider
