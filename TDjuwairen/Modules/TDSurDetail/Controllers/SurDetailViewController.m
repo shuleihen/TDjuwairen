@@ -580,7 +580,7 @@
         [childView requestWithSelBtn:(int)i WithSurveyID:self.company_code];
         
         //显示解锁
-        if (self.selBtnView.isLocked) {
+        if (self.selBtnView.isLocked) {   //1表示上锁
             if (self.tag < 3) {
                 [self createUnLockView];
             }
@@ -588,6 +588,10 @@
             {
                 [self.unlockView removeFromSuperview];
             }
+        }
+        else
+        {
+            
         }
     }
 }
@@ -748,7 +752,7 @@
                                    @"code":code};
             [manager POST:urlString parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [self.unlockView removeFromSuperview];
-                [self.tableview reloadData];
+                [self.selBtnView successfulUnlockSelBtn];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 NSLog(@"%@",error);
             }];

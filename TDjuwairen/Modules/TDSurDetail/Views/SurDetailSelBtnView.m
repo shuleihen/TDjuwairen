@@ -15,12 +15,19 @@
 
 #import "HexColors.h"
 
+@interface SurDetailSelBtnView ()
+
+@property (nonatomic,copy) NSString *stockcode;
+
+@end
+
 @implementation SurDetailSelBtnView
 
 - (instancetype)initWithFrame:(CGRect)frame WithStockCode:(NSString *)code
 {
     if (self = [super initWithFrame:frame]) {
         NSString *stockcode = [code substringFromIndex:2];
+        self.stockcode = stockcode;
         NSDictionary *para ;
         if (US.isLogIn) {
             para = @{@"code":stockcode,
@@ -79,8 +86,14 @@
     NSArray *norArr;
     NSArray *selArr;
     NSString *islock = [NSString stringWithFormat:@"%@",dic[@"isLock"]];
-    if ([islock isEqualToString:@"1"]) {   //true 1 表示上锁  false 0 表示解锁
+    if ([islock isEqualToString:@"1"]) {   //true 1 表示上锁  false 0 表示没锁
         self.isLocked = YES;
+    }
+    else
+    {
+        self.isLocked = NO;
+    }
+    if (self.isLocked) {
         norArr = @[@"btn_shidi_locked",
                    @"btn_duihua_locked",
                    @"btn_niuxiong_locked",
@@ -94,11 +107,9 @@
                    @"btn_redian_select",
                    @"btn_chanpin_select",
                    @"btn_wenda_select"];
-        
     }
     else
     {
-        self.isLocked = NO;
         norArr = @[@"btn_shidi_nor",
                    @"btn_duihua_nor",
                    @"btn_niuxiong_nor",
@@ -134,6 +145,30 @@
         btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     
+}
+
+- (void)successfulUnlockSelBtn{
+    NSDictionary *para ;
+    if (US.isLogIn) {
+        para = @{@"code":self.stockcode,
+                 @"user_id":US.userId};
+    }
+    else
+    {
+        para = @{@"code":self.stockcode};
+    }
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",API_HOST];
+    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
+        nil;
+    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+        NSDictionary *data = responseObject[@"data"];
+        [self setupWithUIWithDic:data];
+    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+        NSLog(@"%@",error);
+    }];
 }
 
 - (void)selectWithDetail:(UIButton *)sender{
