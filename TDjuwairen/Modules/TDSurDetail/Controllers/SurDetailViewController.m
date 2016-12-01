@@ -176,8 +176,6 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    //    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
-    //    [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
     //监听日夜间模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -247,20 +245,6 @@
     }
     else if ([keyPath isEqualToString:@"contentSize"]){
         ChildDetailTableViewController *child = self.tableviewsArr[self.tag];
-        //        if (child.tableView.contentSize.height < kScreenHeight-140-60) {
-        //            [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, kScreenHeight-64-60)];
-        //            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, kScreenHeight-64-60);
-        //            if (self.tag == 2 || self.tag == 5) {
-        //                [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60-50)];
-        //            }
-        //            else
-        //            {
-        //                [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
-        //            }
-        //
-        //        }
-        //        else
-        //        {
         if (self.tag == 2 || self.tag == 5) {
             [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60-50)];
         }
@@ -272,7 +256,6 @@
             [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, child.tableView.contentSize.height)];
             self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, child.tableView.contentSize.height);
         }
-        //        }
     }
 }
 
@@ -634,7 +617,7 @@
             [userdefault synchronize];
             ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
             [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
-            [self.nmview.tableview reloadData];
+            self.nmview.tableview.backgroundColor = self.daynightModel.navigationColor;
         }
         else //夜间
         {
@@ -644,7 +627,7 @@
             [userdefault synchronize];
             ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
             [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
-            [self.nmview.tableview reloadData];
+            self.nmview.tableview.backgroundColor = self.daynightModel.navigationColor;
         }
     }
     else if (indexPath.row == 1){

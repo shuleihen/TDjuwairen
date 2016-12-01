@@ -46,6 +46,7 @@
         self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 176) style:UITableViewStylePlain];
         self.tableview.delegate = self;
         self.tableview.dataSource = self;
+        self.tableview.backgroundColor = self.daynightModel.navigationColor;
         [self addSubview:self.tableview];
     }
     return self;
@@ -71,6 +72,8 @@
     cell.imageView.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
     cell.textLabel.text = self.titArr[indexPath.row];
     
+    cell.backgroundColor = [UIColor clearColor];
+    cell.textLabel.textColor = [UIColor lightGrayColor];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     
