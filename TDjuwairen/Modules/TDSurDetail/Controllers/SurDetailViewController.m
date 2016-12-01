@@ -223,6 +223,8 @@
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context
 {
     if ([keyPath isEqualToString:@"daynight"]) {
+        ChildDetailTableViewController *child = self.tableviewsArr[self.tag];
+        child.tableView.backgroundColor = self.daynightModel.navigationColor;
         self.view.backgroundColor = self.daynightModel.navigationColor;
         self.tableview.backgroundColor = self.daynightModel.navigationColor;
         
@@ -240,7 +242,7 @@
         self.dataView.traAmount.textColor = self.daynightModel.titleColor;
         
         self.comBtn.backgroundColor = self.daynightModel.navigationColor;
-        
+        self.comBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
         [self.tableview reloadData];
     }
     else if ([keyPath isEqualToString:@"contentSize"]){
@@ -442,6 +444,9 @@
     CGFloat x  = index * kScreenWidth;
     ChildDetailTableViewController *vc = self.childViewControllers[index];
     if (vc.view.superview) {
+        if (index != 2 || index != 5) {
+            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
+        }
         return;
     }
     vc.view.backgroundColor = self.daynightModel.navigationColor;
