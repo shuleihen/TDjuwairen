@@ -36,7 +36,6 @@
 {
     CGSize contentSize;
     CGFloat tabY;
-    CGFloat elasticY;
 }
 @property (nonatomic,assign) int tag;
 
@@ -246,15 +245,17 @@
     else if ([keyPath isEqualToString:@"contentSize"]){
         ChildDetailTableViewController *child = self.tableviewsArr[self.tag];
         if (self.tag == 2 || self.tag == 5) {
-            [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60-50)];
+            if (child.tableView.contentSize.height < kScreenHeight-140-64-60) {
+                [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-140-64-60)];
+            }
+            else
+            {
+                [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, child.tableView.contentSize.height)];
+            }
         }
         else
         {
             [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
-        }
-        if (child.tableView.contentSize.height > kScreenHeight - 64- 60) {
-            [child.tableView setFrame:CGRectMake(self.tag*kScreenWidth, 0, kScreenWidth, child.tableView.contentSize.height)];
-            self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, child.tableView.contentSize.height);
         }
     }
 }
@@ -280,7 +281,7 @@
     self.tableview.estimatedRowHeight = kScreenHeight-64-60;
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     self.tableview.backgroundColor = self.daynightModel.navigationColor;
-    //    self.tableview.contentSize = CGSizeMake(kScreenWidth, kScreenHeight*5);
+    self.tableview.bounces = NO;
     [self.view addSubview:self.tableview];
 }
 
@@ -330,7 +331,7 @@
         
         [self selectWithDetail:self.selBtnView.selBtn];
     }
-    cell.backgroundColor = self.daynightModel.backColor;
+    cell.backgroundColor = self.daynightModel.navigationColor;
     return cell;
 }
 
@@ -362,6 +363,7 @@
     self.contentScrollview.showsVerticalScrollIndicator = NO;
     self.contentScrollview.pagingEnabled = YES;
     self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
+    self.contentScrollview.decelerationRate = 0;
     self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
     if (self.selBtnView.isLocked) {
         self.selBtnView.selBtn = self.selBtnView.btnsArr[0];
@@ -481,11 +483,15 @@
 {
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
     if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
-//        NSLog(@"%f",tabY);
         if (self.tableview.contentOffset.y < 140 ) {
                 tabY = scrollView.contentOffset.y+tabY;
-                self.tableview.contentOffset = CGPointMake(0,tabY - elasticY);
+                self.tableview.contentOffset = CGPointMake(0,tabY);
                 scrollView.contentOffset = CGPointMake(0, 0);
+            if (self.tableview.contentOffset.y < 0) {
+                tabY = 0;
+                self.tableview.contentOffset = CGPointMake(0,tabY);
+                scrollView.contentOffset = CGPointMake(0, 0);
+            }
         }
         else if(self.tableview.contentOffset.y > 140){
             //拉到顶端
@@ -505,15 +511,30 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
-    if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
-        if (self.tableview.contentOffset.y  < 0) {
-            tabY = 0;
+    if (!decelerate) {
+        if (self.tableview.contentOffset.y < 0) {
             [UIView animateWithDuration:0.5 animations:^{
                 [self.tableview setContentOffset:CGPointMake(0, 0)];
             } completion:^(BOOL finished) {
                 self.tableview.contentOffset = CGPointMake(0, 0);
+                tabY = 0;
             }];
+        }
+        return;
+    }
+    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
+    if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
+        
+        if (self.tableview.contentOffset.y  < 0) {
+            self.tableview.contentOffset = self.tableview.contentOffset;
+            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                [UIView animateWithDuration:0.5 animations:^{
+                    [self.tableview setContentOffset:CGPointMake(0, 0)];
+                } completion:^(BOOL finished) {
+                    self.tableview.contentOffset = CGPointMake(0, 0);
+                    tabY = 0;
+                }];
+            });
         }
     }
 }
@@ -523,11 +544,11 @@
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
     if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
         if (self.tableview.contentOffset.y  < 0) {
-            tabY = 0;
             [UIView animateWithDuration:0.5 animations:^{
                 [self.tableview setContentOffset:CGPointMake(0, 0)];
             } completion:^(BOOL finished) {
                 self.tableview.contentOffset = CGPointMake(0, 0);
+                tabY = 0;
             }];
         }
     }

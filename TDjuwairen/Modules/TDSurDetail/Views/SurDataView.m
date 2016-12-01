@@ -208,23 +208,21 @@
         make.height.mas_equalTo(20);
     }];
     
-    NSString *traNumber = [NSString stringWithFormat:@"成交量%@%.4lf万股",speed,[self.data[@"traNumber"] doubleValue] / 1000];
-    CGSize numSize = [traNumber calculateSize:CGSizeMake(300, 100) font:font];
+    NSString *traNumber = [NSString stringWithFormat:@"成交量%@%.4lf万股",speed,[self.data[@"traNumber"] doubleValue] / 10000];
     self.traNumber.text = traNumber;
     [self.traNumber mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.nowPri).with.offset(15+40);
         make.left.equalTo(self.todayMax).with.offset(15+MaxSize.width);
-        make.width.mas_equalTo(numSize.width);
+        make.right.equalTo(self).with.offset(-5);
         make.height.mas_equalTo(20);
     }];
     
-    NSString *traAmount = [NSString stringWithFormat:@"成交额%@%.2lf万",speed,[self.data[@"traAmount"] doubleValue] / 1000];
-    CGSize amoSize = [traAmount calculateSize:CGSizeMake(300, 100) font:font];
+    NSString *traAmount = [NSString stringWithFormat:@"成交额%@%.2lf万",speed,[self.data[@"traAmount"] doubleValue] / 10000];
     self.traAmount.text = traAmount;
     [self.traAmount mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.traNumber).with.offset(15+20);
         make.left.equalTo(self.traNumber).with.offset(0);
-        make.width.mas_equalTo(amoSize.width);
+        make.right.equalTo(self).with.offset(-5);
         make.height.mas_equalTo(20);
     }];
     
@@ -244,12 +242,51 @@
     
     self.increPer.text = [NSString stringWithFormat:@"%.2f%%",valueB*100];
     
-//    NSString *now = [NSString stringWithFormat:@"%.2f",nowPri];
-//    CGSize nowPriSize = [now calculateSize:CGSizeMake(200, 100) font:[UIFont systemFontOfSize:38]];
-//    [self.nowPri mas_updateConstraints:^(MASConstraintMaker *make) {
-//        make.width.mas_equalTo(nowPriSize.width);
-//    }];
-//    [self layoutIfNeeded];
+    if (value > 0) {
+        self.nowPri.textColor = [UIColor redColor];
+        self.increPer.textColor = [UIColor redColor];
+        self.increase.textColor = [UIColor redColor];
+    }
+    else if(value < 0){
+        self.nowPri.textColor = [UIColor greenColor];
+        self.increPer.textColor = [UIColor greenColor];
+        self.increase.textColor = [UIColor greenColor];
+    }
+    else
+    {
+        self.nowPri.textColor = [UIColor grayColor];
+        self.increPer.textColor = [UIColor grayColor];
+        self.increase.textColor = [UIColor grayColor];
+    }
+    UIFont *font;
+    NSString *speed;
+    NSString *deviceType = [NSString getiPHoneDeviceType];
+    if ([deviceType isEqualToString:@"1"]) {
+        font = [UIFont systemFontOfSize:14];
+        speed = @" ";
+    }
+    else
+    {
+        font = [UIFont systemFontOfSize:16];
+        speed = @"  ";
+    }
+    NSString *yestod = [NSString stringWithFormat:@"昨收%@%.2f",speed,[stock.yestodEndPri floatValue]];
+    self.yestodEndPri.text = yestod;
+    
+    NSString *todayStartPri = [NSString stringWithFormat:@"今开%@%.2f",speed,[stock.todayStartPri floatValue]];
+    self.todayStartPri.text = todayStartPri;
+    
+    NSString *todayMax = [NSString stringWithFormat:@"最高%@%.2f",speed,[stock.todayMax floatValue]];
+    self.todayMax.text = todayMax;
+    
+    NSString *todayMin = [NSString stringWithFormat:@"最低%@%.2f",speed,[stock.todayMin floatValue]];
+    self.todayMin.text = todayMin;
+    
+    NSString *traNumber = [NSString stringWithFormat:@"成交量%@%.4lf万股",speed,[stock.traNumber doubleValue] / 10000];
+    self.traNumber.text = traNumber;
+    
+    NSString *traAmount = [NSString stringWithFormat:@"成交额%@%.2lf万元",speed,[stock.traAmount doubleValue] / 10000];
+    self.traAmount.text = traAmount;
 }
 
 
