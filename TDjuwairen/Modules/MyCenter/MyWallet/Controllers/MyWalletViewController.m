@@ -22,6 +22,7 @@
 
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
+#import "WXApiManager.h"
 
 @interface MyWalletViewController ()<UITableViewDelegate,UITableViewDataSource,KeysNumberTableViewCellDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate>
 
@@ -249,8 +250,6 @@
             NSString *appScheme = @"TDjuwairen";
             [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                 NSLog(@"reslut = %@",resultDic);
-                //支付成功。进入成功页面
-                [self requestWithKeysNum];
             }];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -298,7 +297,6 @@
             req.package             = @"Sign=WXPay";
             req.sign                = [order objectForKey:@"sign"];
             [WXApi sendReq:req];
-            
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
         }];

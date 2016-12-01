@@ -246,6 +246,7 @@
 		845E7D121DE5729B00E620DB /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D111DE5729B00E620DB /* RecordModel.m */; };
 		845E7D151DE5892100E620DB /* KeysExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D141DE5892100E620DB /* KeysExchangeViewController.m */; };
 		845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
+		8461747B1DEFB36F00CD48CF /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8461747A1DEFB36F00CD48CF /* WXApiManager.m */; };
 		846D92291DD952CB000B847E /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846D92281DD952CB000B847E /* CommentViewController.m */; };
 		846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */; };
 		846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E59D71DE3E6760031C993 /* MyOrderViewController.m */; };
@@ -821,6 +822,8 @@
 		845E7D111DE5729B00E620DB /* RecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordModel.m; sourceTree = "<group>"; };
 		845E7D131DE5892100E620DB /* KeysExchangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysExchangeViewController.h; sourceTree = "<group>"; };
 		845E7D141DE5892100E620DB /* KeysExchangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysExchangeViewController.m; sourceTree = "<group>"; };
+		846174791DEFB36F00CD48CF /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		8461747A1DEFB36F00CD48CF /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
 		846D92271DD952CB000B847E /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		846D92281DD952CB000B847E /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		846DA6141DD98EF200B22D9B /* AskQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -2189,6 +2192,8 @@
 		84505C0F1DE29F17002120A3 /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
+				846174791DEFB36F00CD48CF /* WXApiManager.h */,
+				8461747A1DEFB36F00CD48CF /* WXApiManager.m */,
 				84505C101DE29F17002120A3 /* libWeChatSDK.a */,
 				84505C111DE29F17002120A3 /* WXApi.h */,
 				84505C121DE29F17002120A3 /* WXApiObject.h */,
@@ -3060,6 +3065,7 @@
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
+				8461747B1DEFB36F00CD48CF /* WXApiManager.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				8470E9571DDD4E31002F727D /* SelWXOrAlipayView.m in Sources */,
