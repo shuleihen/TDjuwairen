@@ -249,22 +249,47 @@
     NSString *img = self.cycleScrollView.imageURLStringsGroup[index];
     NSArray *arr = [s componentsSeparatedByString:@"/"];
 
-    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-    
-    NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
-    
-    NSString *companyCode ;
-    if ([code isEqualToString:@"6"]) {
-        companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
+    if ([arr[0] isEqualToString:@"Survey"]) {
+        SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+        
+        NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
+        
+        NSString *companyCode ;
+        if ([code isEqualToString:@"6"]) {
+            companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
+        }
+        else
+        {
+            companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
+        }
+        vc.company_code = companyCode;
+        vc.survey_cover = img;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    else
-    {
-        companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
+    else if ([arr[0] isEqualToString:@"Sharp"]){
+        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+        DetailView.sharp_id = [arr lastObject];
+        DetailView.pageMode = @"sharp";
+        DetailView.hidesBottomBarWhenPushed = YES;
+        
+        if (US.isLogIn) {     //为登录状态
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dic = @{@"userid":US.userId,
+                                  @"module_id":@2,
+                                  @"item_id":[arr lastObject]};
+            
+            [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
+                if (!error) {
+                    
+                } else {
+                    
+                }
+            }];
+        }
+        
+        [self.navigationController pushViewController:DetailView animated:YES];
     }
-    vc.company_code = companyCode;
-    vc.survey_cover = img;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - StockManagerDelegate
