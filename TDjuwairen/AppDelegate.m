@@ -505,6 +505,11 @@ static BOOL isBackGroundActivateApplication;
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            if ([resultStatus isEqualToString:@"9000"]) {
+                //通知支付成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccess" object:nil];
+            }
         }];
         
         // 授权跳转支付宝钱包进行支付，处理支付结果
@@ -546,6 +551,11 @@ static BOOL isBackGroundActivateApplication;
         // 支付跳转支付宝钱包进行支付，处理支付结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
             NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            if ([resultStatus isEqualToString:@"9000"]) {
+                //通知支付成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccess" object:nil];
+            }
         }];
         
         // 授权跳转支付宝钱包进行支付，处理支付结果
@@ -570,6 +580,8 @@ static BOOL isBackGroundActivateApplication;
             NSLog(@"%@",resultDic);
             //通知刷新钥匙
             [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshKeys" object:nil];
+            
+            
         }];
         return YES;
     }
@@ -586,16 +598,5 @@ static BOOL isBackGroundActivateApplication;
 {
     return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
-
-//- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-//{
-//    return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
-//}
-//
-//// NOTE: 9.0以后使用新API接口
-//- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
-//{
-//    
-//}
 
 @end

@@ -45,8 +45,10 @@
             //传标题
             if (self.block) {
                 NSDictionary *dapandata = diction[@"dapandata"];
-                NSString *title = [NSString stringWithFormat:@"%@",dapandata[@"name"]];
-                self.block(title);
+                NSDictionary *dataDic= diction[@"data"];
+                NSString *code = [dataDic[@"gid"] substringFromIndex:2];
+                NSString *title = [NSString stringWithFormat:@"%@(%@)",dapandata[@"name"],code];
+                self.block(title,dataDic[@"gid"]);
             }
             
             [self setupWithUI];

@@ -222,6 +222,7 @@
     if ([keyPath isEqualToString:@"daynight"]) {
         ChildDetailTableViewController *child = self.tableviewsArr[self.tag];
         child.tableView.backgroundColor = self.daynightModel.navigationColor;
+        
         self.view.backgroundColor = self.daynightModel.navigationColor;
         self.tableview.backgroundColor = self.daynightModel.navigationColor;
         
@@ -288,7 +289,12 @@
 - (void)setupWithDateView{
     self.dataView = [[SurDataView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 140) WithStockID:self.company_code];
     [self.stockManager addStocks:@[self.company_code]];
-    
+    __weak SurDetailViewController *wself = self;
+    self.dataView.block = ^(NSString *title,NSString *code){
+        wself.title = title;
+        wself.company_name = title;
+        wself.company_code = code;
+    };
     self.tableview.tableHeaderView = self.dataView;
 }
 
@@ -432,6 +438,7 @@
         if (index != 2 || index != 5) {
             [self.contentScrollview setFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-60)];
         }
+        vc.tableView.backgroundColor = self.daynightModel.navigationColor;
         return;
     }
     vc.view.backgroundColor = self.daynightModel.navigationColor;
@@ -596,27 +603,6 @@
     }
 }
 
-//- (void)childScrollViewDidScroll:(UIScrollView *)scrollView
-//{
-//    NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
-//    ChildDetailTableViewController *childTableView = self.tableviewsArr[self.tag];
-//    if (scrollView.contentOffset.y < 140) {
-//        self.tableview.contentOffset = scrollView.contentOffset;
-//
-//        if (self.tag == 2 || self.tag == 5) {
-//            [childTableView.tableView mas_updateConstraints:^(MASConstraintMaker *make) {
-//                make.height.mas_equalTo(kScreenHeight-64-60-50-(140-scrollView.contentOffset.y));
-//            }];
-//        }
-//    }
-//    else
-//    {
-//        self.tableview.contentOffset = CGPointMake(0, 140);
-//    }
-//
-//    self.nmview.alpha = 0.0;
-//}
-
 #pragma mark - 点击出现更多选项
 - (void)naviMore:(UIButton *)sender{
     if (self.nmview.alpha == 1.0) {
@@ -753,6 +739,11 @@
             [manager POST:urlString parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
                 [self.unlockView removeFromSuperview];
                 [self.selBtnView successfulUnlockSelBtn];
+                
+                //重新请求当前页面的内容
+                ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
+                [self setUpOneChildController:self.tag];
+                [childView requestWithSelBtn:self.tag WithSurveyID:self.company_code];
             } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
                 NSLog(@"%@",error);
             }];
@@ -818,8 +809,12 @@
             NSDictionary *dic = responseObject;
             NSString *orderString = dic[@"data"];
             NSString *appScheme = @"TDjuwairen";
+            
+            [self.payView removeFromSuperview];
+            
             [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                 NSLog(@"reslut = %@",resultDic);
+                
             }];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -867,6 +862,9 @@
             req.timeStamp           = [[order objectForKey:@"timestamp"] intValue];
             req.package             = @"Sign=WXPay";
             req.sign                = [order objectForKey:@"sign"];
+            
+            [self.payView removeFromSuperview];
+            
             [WXApi sendReq:req];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);
@@ -876,8 +874,6 @@
 
 #pragma mark - 点击跳转提问界面
 - (void)clickToAsk:(UIButton *)sender{
-    
-    ChildDetailTableViewController *childView = self.tableviewsArr[self.tag];
     
     CommentViewController *comView = [[CommentViewController alloc] init];
     comView.tag = self.tag;

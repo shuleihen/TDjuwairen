@@ -65,7 +65,6 @@
     
     [ma POST:@"Survey/survey_show_tag" parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
-            NSString *baseUrl = data[@"url"];
             if ([data isKindOfClass:[NSDictionary class]]) {
                 NSString *baseUrl = data[@"url"];
                 [self loadContentWithBaseUrl:baseUrl witTag:tag];

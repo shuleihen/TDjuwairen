@@ -13,6 +13,7 @@
 #import "SurveyModel.h"
 #import "LoginState.h"
 #import "UIButton+WebCache.h"
+#import "UIImageView+WebCache.h"
 #import "SDCycleScrollView.h"
 #import "SurDetailViewController.h"
 #import "NotificationDef.h"
@@ -25,6 +26,7 @@
 #import "MJRefresh.h"
 #import "UIdaynightModel.h"
 #import "SurveyDetailViewController.h"
+#import "WelcomeView.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -40,6 +42,8 @@
 @property (nonatomic, strong) NSMutableArray *stockArr;
 
 @property (nonatomic, strong) UIdaynightModel *daynightModel;
+
+@property (nonatomic, strong) WelcomeView *welcomeView;
 @end
 
 @implementation SurveyListViewController
@@ -66,6 +70,16 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightModel day];
+    }
+    else
+    {
+        [self.daynightModel night];
+    }
+    
     self.stockArr = [NSMutableArray array];
     self.page = 1;
     
@@ -355,7 +369,18 @@
 - (void)requestToLogin{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *loginStyle = [user objectForKey:@"loginStyle"];
-    NSLog(@"loginStyle is :---%@",loginStyle);
+    NSLog(@"loginStyle is :---%lu",(unsigned long)loginStyle.length);
+
+    if (loginStyle.length > 0) {          //如果有登陆状态
+        self.welcomeView = [[WelcomeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        [[UIApplication sharedApplication].keyWindow addSubview:self.welcomeView];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //删除
+            [self.welcomeView removeFromSuperview];
+        });
+    }
+    
     if ([loginStyle isEqualToString:@"QQlogin"]) {
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
@@ -377,6 +402,8 @@
                 
                 UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                 [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 
@@ -404,6 +431,9 @@
                 
                 UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                 [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
+                
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 
@@ -435,6 +465,9 @@
                     
                     UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                     [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+                    NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                    [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
                     

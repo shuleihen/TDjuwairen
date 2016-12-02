@@ -47,12 +47,14 @@
         }
     }else if([resp isKindOfClass:[PayResp class]]){
         //支付返回结果，实际支付结果需要去微信服务器端查询
-        NSString *strMsg,*strTitle = [NSString stringWithFormat:@"支付结果"];
+        NSString *strMsg = [NSString stringWithFormat:@"支付结果"];
         
         switch (resp.errCode) {
             case WXSuccess:
                 strMsg = @"支付结果：成功！";
                 NSLog(@"支付成功－PaySuccess，retcode = %d", resp.errCode);
+                //通知支付成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccess" object:nil];
                 break;
                 
             default:
@@ -64,6 +66,7 @@
 //        [alert show];
         //通知刷新钥匙
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshKeys" object:nil];
+        
 //        [alert release];
     }
 
