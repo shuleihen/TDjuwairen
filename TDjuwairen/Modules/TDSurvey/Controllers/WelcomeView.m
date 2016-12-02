@@ -8,6 +8,7 @@
 
 #import "WelcomeView.h"
 #import "LoginState.h"
+#import "HexColors.h"
 
 @implementation WelcomeView
 
@@ -22,10 +23,10 @@
         self.welHead.alpha = 0.0;
         [self addSubview:self.welHead];
         
-        self.welLab = [[UILabel alloc] initWithFrame:CGRectMake(0,250, kScreenWidth, 30)];
+        self.welLab = [[UILabel alloc] initWithFrame:CGRectMake(0,220, kScreenWidth, 30)];
         self.welLab.text = @"欢迎回来";
         self.welLab.alpha = 0.0;
-        self.welLab.textColor = [UIColor blackColor];
+        self.welLab.textColor = [HXColor hx_colorWithHexRGBAString:@"#888888"];
         self.welLab.font = [UIFont systemFontOfSize:20];
         self.welLab.textAlignment = NSTextAlignmentCenter;
         [self addSubview:self.welLab];

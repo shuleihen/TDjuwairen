@@ -81,6 +81,12 @@
 - (SurDetailSelBtnView *)selBtnView{
     if (!_selBtnView) {
         _selBtnView = [[SurDetailSelBtnView alloc] initWithFrame:CGRectMake(0, 140, kScreenWidth, 60) WithStockCode:self.company_code];
+        
+        __weak SurDetailViewController *wself = self;
+        self.selBtnView.block = ^(UIButton *selbtn){
+            NSLog(@"%ld",(long)selbtn.tag);
+            [wself selectWithDetail:selbtn];
+        };
     }
     return _selBtnView;
 }
@@ -128,7 +134,7 @@
     if (US.isLogIn) {
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = [NSString stringWithFormat:@"%@Survey/getUserKeyNum",API_HOST];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/getUserKeyNum",kAPI_songsong];
         NSDictionary *para = @{@"user_id":US.userId};
         [manager POST:url parameters:para progress:nil success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
             NSDictionary *data = responseObject[@"data"];
@@ -193,7 +199,6 @@
     }
     
     [self.stockManager start];
-    [self selectWithDetail:self.selBtnView.selBtn];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
@@ -334,8 +339,6 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         [cell.contentView addSubview:self.contentScrollview];
-        
-        [self selectWithDetail:self.selBtnView.selBtn];
     }
     cell.backgroundColor = self.daynightModel.navigationColor;
     return cell;
@@ -371,15 +374,6 @@
     self.contentScrollview.backgroundColor = self.daynightModel.navigationColor;
     self.contentScrollview.decelerationRate = 0;
     self.contentScrollview.contentSize = CGSizeMake(kScreenWidth*6, 0);
-    if (self.selBtnView.isLocked) {
-        self.selBtnView.selBtn = self.selBtnView.btnsArr[0];
-        self.tag = 0;
-    }
-    else
-    {
-        self.selBtnView.selBtn = self.selBtnView.btnsArr[3];
-        self.tag = 3;
-    }
 }
 
 #pragma mark - StockManagerDelegate
@@ -732,7 +726,7 @@
             //解锁
             AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
             manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-            NSString *urlString = [NSString stringWithFormat:@"%@Survey/unlockCompany",API_HOST];
+            NSString *urlString = [NSString stringWithFormat:@"%@Survey/unlockCompany",kAPI_songsong];
             NSString *code = [self.company_code substringFromIndex:2];
             NSDictionary *para = @{@"user_id":US.userId,
                                    @"code":code};
@@ -801,7 +795,7 @@
                     @"user_id":US.userId};
         }
         
-        NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",API_HOST];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",kAPI_songsong];
         
         [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
@@ -823,7 +817,7 @@
     }
     else    //微信支付
     {
-        NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",API_HOST];
+        NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",kAPI_songsong];
         NSDictionary *dic;
         if (![self.keysNum isEqualToString:@"VIP"]) {
             dic = @{@"type":@"1",

@@ -113,7 +113,7 @@
 - (void)setupWithLoading{
     //加载页面
     self.loadingImageView = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
-    self.loadingImageView.image = [UIImage imageNamed:@"LaunchImage.png"];
+    self.loadingImageView.image = [UIImage imageNamed:@"LoadingImage"];
     
     self.loading = [[UIActivityIndicatorView alloc]init];
     self.loading.frame = CGRectMake(kScreenWidth/3+5, kScreenHeight/2, 20, 20);

@@ -195,7 +195,7 @@
 }
 
 - (void)getBanners {
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
     NSDictionary *dic = @{@"version":@"2.0"};
     [manager POST:API_GetBanner parameters:dic completion:^(id data, NSError *error) {
         if (!error) {
@@ -222,7 +222,7 @@
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,pageA];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",kAPI_songsong,pageA];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
@@ -385,7 +385,7 @@
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
         [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;
@@ -414,7 +414,7 @@
         NSString *unionid = [user objectForKey:@"unionid"];
         NSDictionary *dic = @{@"unionid":unionid};
         
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
         [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
             if (!error) {
                 NSDictionary *dic = data;

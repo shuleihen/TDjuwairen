@@ -42,7 +42,7 @@
         
         AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
         manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-        NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",API_HOST];
+        NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",kAPI_songsong];
         [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
             nil;
         } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
@@ -131,6 +131,7 @@
     
     for (int i = 0; i < 6; i++) {
         UIButton *btn = self.btnsArr[i];
+        btn.selected = NO;
         [btn setTitle:titArr[i] forState:UIControlStateNormal];
         [btn setTitle:titArr[i] forState:UIControlStateSelected];
         [btn setTitleColor:daynightModel.titleColor forState:UIControlStateNormal];
@@ -144,7 +145,16 @@
         [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, btn.titleLabel.bounds.size.height+8, -btn.titleLabel.bounds.size.width)];
         btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
-    
+    if (self.isLocked) {
+        self.selBtn = self.btnsArr[3];
+    }
+    else
+    {
+        self.selBtn = self.btnsArr[0];
+    }
+    if (self.block) {
+        self.block(self.selBtn);
+    }
 }
 
 - (void)successfulUnlockSelBtn{
@@ -160,7 +170,7 @@
     
     AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",API_HOST];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/survey_show_header",kAPI_songsong];
     [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
         nil;
     } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
