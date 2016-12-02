@@ -42,7 +42,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"heightForRowAtIndexPath = %lf", self.contentHeight)
+    NSLog(@"heightForRowAtIndexPath = %lf", self.contentHeight);
     return MAX(self.contentHeight, 100);
 }
 
@@ -71,7 +71,7 @@
             } else {
                 
             }
-            NSLog(@"survey_show_tag with data=%@",data)
+            NSLog(@"survey_show_tag with data=%@",data);
             
         } else {
             

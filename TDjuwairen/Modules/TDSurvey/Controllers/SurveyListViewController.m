@@ -222,7 +222,7 @@
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,pageA];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
