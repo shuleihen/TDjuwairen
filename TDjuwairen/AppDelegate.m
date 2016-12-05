@@ -52,6 +52,8 @@ static BOOL isBackGroundActivateApplication;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    [NSThread sleepForTimeInterval:2.0];//设置启动页面时间
+    
     [self setupUICommon];
     [self setupURLCacheSize];
     [self setupSMSSDK];
