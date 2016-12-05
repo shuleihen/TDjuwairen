@@ -243,6 +243,7 @@
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
         if (!error) {
             NSLog(@"%@",data);
+            [self.navigationController popViewControllerAnimated:YES];
         }
         else
         {

@@ -13,6 +13,7 @@
 #import "MyOrderViewController.h"
 #import "KeysRecordViewController.h"
 #import "KeysExchangeViewController.h"
+#import "PaySuccessViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -22,6 +23,7 @@
 
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
+#import "WXApiManager.h"
 
 @interface MyWalletViewController ()<UITableViewDelegate,UITableViewDataSource,KeysNumberTableViewCellDelegate,RechargeViewDelegate,SelWXOrAlipayViewDelegate>
 
@@ -47,12 +49,19 @@
     self.daynightModel = [UIdaynightModel sharedInstance];
     self.titleArr = [NSArray arrayWithObjects:@"我的订单",@"钥匙使用记录",@"钥匙兑换", nil];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestWithKeysNum) name:@"refreshKeys" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(goPaySuccessView) name:@"paySuccess" object:nil];
     
     [self setupWithNavigation];
     [self setupWithTableView];
     
-    [self requestWithKeysNum];
+    
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self requestWithKeysNum];
 }
 
 - (void)requestWithKeysNum{
@@ -67,6 +76,11 @@
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
+}
+
+- (void)goPaySuccessView{
+    PaySuccessViewController *paysuc = [[PaySuccessViewController alloc] init];
+    [self.navigationController pushViewController:paysuc animated:YES];
 }
 
 - (void)setupWithNavigation{
@@ -241,9 +255,12 @@
             NSDictionary *dic = responseObject;
             NSString *orderString = dic[@"data"];
             NSString *appScheme = @"TDjuwairen";
+            
+            [self.payView removeFromSuperview];
+            
             [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
                 NSLog(@"reslut = %@",resultDic);
-                //支付成功。进入成功页面
+                
             }];
             
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
@@ -290,6 +307,9 @@
             req.timeStamp           = [[order objectForKey:@"timestamp"] intValue];
             req.package             = @"Sign=WXPay";
             req.sign                = [order objectForKey:@"sign"];
+            
+            [self.payView removeFromSuperview];
+            
             [WXApi sendReq:req];
         } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
             NSLog(@"%@",error);

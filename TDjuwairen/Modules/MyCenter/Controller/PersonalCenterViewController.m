@@ -88,8 +88,8 @@
             }
             if (US.isLogIn==YES) {
                 //加载头像
-                NSString*imagePath=[NSString stringWithFormat:@"%@",US.headImage];
-                [cell.headImg sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
+                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                [cell.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
                 
                 cell.nickname.text = US.nickName;
                 
@@ -319,9 +319,9 @@
     MyHeadTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
     if (US.isLogIn == YES) {
         //加载头像
-        NSString*imagePath=[NSString stringWithFormat:@"%@",US.headImage];
-        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:imagePath] placeholderImage:nil options:SDWebImageRefreshCached];
-        
+        NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
+
         cell.nickname.text = US.nickName;
         
         //加载模糊背景图片

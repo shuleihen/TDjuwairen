@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void (^SelBtnViewBlock)();
+
 @protocol SurDetailSelBtnViewDelegate <NSObject>
 
 - (void)selectWithDetail:(UIButton *)sender;
@@ -25,7 +27,11 @@
 
 @property (nonatomic,assign) BOOL isLocked;
 
+@property (nonatomic,copy) SelBtnViewBlock block;
+
 @property (nonatomic,assign) id<SurDetailSelBtnViewDelegate>delegate;
 
 - (instancetype)initWithFrame:(CGRect)frame WithStockCode:(NSString *)code;
+
+- (void)successfulUnlockSelBtn;
 @end

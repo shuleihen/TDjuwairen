@@ -29,6 +29,10 @@
 #import "UIStoryboard+MainStoryboard.h"
 #import "TDNavigationController.h"
 
+#import <AlipaySDK/AlipaySDK.h>
+#import "WXApi.h"
+#import "WXApiManager.h"
+
 #import "BPush.h"
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
@@ -489,6 +493,110 @@ static BOOL isBackGroundActivateApplication;
 {
     NSLog(@"接收本地通知啦！！！");
     [BPush showLocalNotificationAtFront:notification identifierKey:nil];
+}
+
+#pragma mark - 支付返回结果
+- (BOOL)application:(UIApplication *)application
+            openURL:(NSURL *)url
+  sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            if ([resultStatus isEqualToString:@"9000"]) {
+                //通知支付成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccess" object:nil];
+            }
+        }];
+        
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+        
+        [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"%@",resultDic);
+            //通知刷新钥匙
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshKeys" object:nil];
+        }];
+        return YES;
+    }
+    else
+    {
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    
+}
+
+// NOTE: 9.0以后使用新API接口
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<NSString*, id> *)options
+{
+    if ([url.host isEqualToString:@"safepay"]) {
+        // 支付跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processOrderWithPaymentResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            NSString *resultStatus = resultDic[@"resultStatus"];
+            if ([resultStatus isEqualToString:@"9000"]) {
+                //通知支付成功
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"paySuccess" object:nil];
+            }
+        }];
+        
+        // 授权跳转支付宝钱包进行支付，处理支付结果
+        [[AlipaySDK defaultService] processAuth_V2Result:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"result = %@",resultDic);
+            // 解析 auth code
+            NSString *result = resultDic[@"result"];
+            NSString *authCode = nil;
+            if (result.length>0) {
+                NSArray *resultArr = [result componentsSeparatedByString:@"&"];
+                for (NSString *subResult in resultArr) {
+                    if (subResult.length > 10 && [subResult hasPrefix:@"auth_code="]) {
+                        authCode = [subResult substringFromIndex:10];
+                        break;
+                    }
+                }
+            }
+            NSLog(@"授权结果 authCode = %@", authCode?:@"");
+        }];
+        
+        [[AlipaySDK defaultService] processAuthResult:url standbyCallback:^(NSDictionary *resultDic) {
+            NSLog(@"%@",resultDic);
+            //通知刷新钥匙
+            [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshKeys" object:nil];
+            
+            
+        }];
+        return YES;
+    }
+    else
+    {
+        return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+    }
+    
+}
+
+#pragma mark - 微信支付回调
+
+- (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
+{
+    return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
 
 @end

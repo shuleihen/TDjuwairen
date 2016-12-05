@@ -194,8 +194,6 @@
 		84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B651D6C46740020A1F0 /* UserInfoHeadView.m */; };
 		84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC21DB496D200CB21DA /* SurveyListViewController.m */; };
 		84069EC91DB4989500CB21DA /* SurveyListNavView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC81DB4989500CB21DA /* SurveyListNavView.m */; };
-		840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */; };
-		840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */; };
 		8408F66D1D878F74004A332A /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408F66C1D878F74004A332A /* PushSwitchViewController.m */; };
 		84165D1E1DD40B410046186D /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84165D1D1DD40B410046186D /* AskModel.m */; };
 		84165D211DD40E790046186D /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84165D201DD40E790046186D /* AnsModel.m */; };
@@ -250,6 +248,9 @@
 		845E7D121DE5729B00E620DB /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D111DE5729B00E620DB /* RecordModel.m */; };
 		845E7D151DE5892100E620DB /* KeysExchangeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 845E7D141DE5892100E620DB /* KeysExchangeViewController.m */; };
 		845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
+		8461747B1DEFB36F00CD48CF /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8461747A1DEFB36F00CD48CF /* WXApiManager.m */; };
+		8461747E1DF027B900CD48CF /* PaySuccessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8461747D1DF027B900CD48CF /* PaySuccessViewController.m */; };
+		846174841DF109A900CD48CF /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 846174831DF109A900CD48CF /* WelcomeView.m */; };
 		846D92291DD952CB000B847E /* CommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846D92281DD952CB000B847E /* CommentViewController.m */; };
 		846DA6161DD98EF200B22D9B /* AskQuestionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 846DA6151DD98EF200B22D9B /* AskQuestionTableViewCell.m */; };
 		846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 846E59D71DE3E6760031C993 /* MyOrderViewController.m */; };
@@ -761,8 +762,6 @@
 		84069EC21DB496D200CB21DA /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
 		84069EC71DB4989500CB21DA /* SurveyListNavView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListNavView.h; sourceTree = "<group>"; };
 		84069EC81DB4989500CB21DA /* SurveyListNavView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListNavView.m; sourceTree = "<group>"; };
-		840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@2x.png"; sourceTree = "<group>"; };
-		840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "LaunchImage@3x.png"; sourceTree = "<group>"; };
 		8408F66B1D878F74004A332A /* PushSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSwitchViewController.h; sourceTree = "<group>"; };
 		8408F66C1D878F74004A332A /* PushSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSwitchViewController.m; sourceTree = "<group>"; };
 		84165D1C1DD40B410046186D /* AskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskModel.h; sourceTree = "<group>"; };
@@ -833,6 +832,12 @@
 		845E7D111DE5729B00E620DB /* RecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RecordModel.m; sourceTree = "<group>"; };
 		845E7D131DE5892100E620DB /* KeysExchangeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysExchangeViewController.h; sourceTree = "<group>"; };
 		845E7D141DE5892100E620DB /* KeysExchangeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = KeysExchangeViewController.m; sourceTree = "<group>"; };
+		846174791DEFB36F00CD48CF /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		8461747A1DEFB36F00CD48CF /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		8461747C1DF027B900CD48CF /* PaySuccessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySuccessViewController.h; sourceTree = "<group>"; };
+		8461747D1DF027B900CD48CF /* PaySuccessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySuccessViewController.m; sourceTree = "<group>"; };
+		846174821DF109A900CD48CF /* WelcomeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WelcomeView.h; sourceTree = "<group>"; };
+		846174831DF109A900CD48CF /* WelcomeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WelcomeView.m; sourceTree = "<group>"; };
 		846D92271DD952CB000B847E /* CommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentViewController.h; sourceTree = "<group>"; };
 		846D92281DD952CB000B847E /* CommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentViewController.m; sourceTree = "<group>"; };
 		846DA6141DD98EF200B22D9B /* AskQuestionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskQuestionTableViewCell.h; sourceTree = "<group>"; };
@@ -2128,6 +2133,8 @@
 		84069EBE1DB4968500CB21DA /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				846174821DF109A900CD48CF /* WelcomeView.h */,
+				846174831DF109A900CD48CF /* WelcomeView.m */,
 				84069EC11DB496D200CB21DA /* SurveyListViewController.h */,
 				84069EC21DB496D200CB21DA /* SurveyListViewController.m */,
 			);
@@ -2217,6 +2224,8 @@
 		84505C0F1DE29F17002120A3 /* SDKExport */ = {
 			isa = PBXGroup;
 			children = (
+				846174791DEFB36F00CD48CF /* WXApiManager.h */,
+				8461747A1DEFB36F00CD48CF /* WXApiManager.m */,
 				84505C101DE29F17002120A3 /* libWeChatSDK.a */,
 				84505C111DE29F17002120A3 /* WXApi.h */,
 				84505C121DE29F17002120A3 /* WXApiObject.h */,
@@ -2291,6 +2300,8 @@
 				84823CAE1DD165B6004440A9 /* ChildDetailTableViewController.m */,
 				846D92271DD952CB000B847E /* CommentViewController.h */,
 				846D92281DD952CB000B847E /* CommentViewController.m */,
+				8461747C1DF027B900CD48CF /* PaySuccessViewController.h */,
+				8461747D1DF027B900CD48CF /* PaySuccessViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2578,8 +2589,6 @@
 			children = (
 				84E48DF81D45BB8D008579A2 /* ViewPointImgs */,
 				275E9CAC1CFED0DC0075910D /* MyCenter */,
-				840745EA1D62DA2700DF6DFD /* LaunchImage@2x.png */,
-				840745EB1D62DA2700DF6DFD /* LaunchImage@3x.png */,
 				84D8DFA71CE451FB00A65CE0 /* Survey */,
 			);
 			path = Images;
@@ -2924,7 +2933,6 @@
 				275E9CD91CFED0DC0075910D /* 局外人二维码.jpg in Resources */,
 				8427F74E1D5878490073AB7F /* btn_dianzan_normal@2x.png in Resources */,
 				845CCB981D4EF49D005ABD7B /* tab_xieti_pre@3x.png in Resources */,
-				840745EC1D62DA2700DF6DFD /* LaunchImage@2x.png in Resources */,
 				84E48DFC1D45BBB1008579A2 /* nav_publish@3x.png in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				848997361D4B5315008EE2BC /* btn_select_pre@3x.png in Resources */,
@@ -2975,7 +2983,6 @@
 				84B9B46D1D48B05B00DDF15B /* btn_select2@3x.png in Resources */,
 				84E48DFA1D45BBAE008579A2 /* nav_search@3x.png in Resources */,
 				1955B4BC1D644DB400DC102E /* SurveyTableViewCell.xib in Resources */,
-				840745ED1D62DA2700DF6DFD /* LaunchImage@3x.png in Resources */,
 				84CBCC651D4B29AC000DAEA8 /* tab_tianjia_pre@3x.png in Resources */,
 				845CCBA21D4EF506005ABD7B /* tab_yingyong@3x.png in Resources */,
 				197C49D91DAC79FC000AC6F6 /* SurveyListCell.xib in Resources */,
@@ -3086,8 +3093,10 @@
 				1955B46A1D644D9800DC102E /* MyInfomationTableViewCell.m in Sources */,
 				84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
+				846174841DF109A900CD48CF /* WelcomeView.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
+				8461747B1DEFB36F00CD48CF /* WXApiManager.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				8470E9571DDD4E31002F727D /* SelWXOrAlipayView.m in Sources */,
@@ -3268,6 +3277,7 @@
 				1975953D1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m in Sources */,
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
+				8461747E1DF027B900CD48CF /* PaySuccessViewController.m in Sources */,
 				1955B4691D644D9800DC102E /* MyHeadTableViewCell.m in Sources */,
 				84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */,
 				191027AC1DE42492006A2275 /* SurveyModel.m in Sources */,

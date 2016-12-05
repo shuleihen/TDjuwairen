@@ -11,7 +11,7 @@
 #import "NetworkManager.h"
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,UIWebViewDelegate>
-@property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) UIWebView *webView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
 
@@ -103,11 +103,11 @@
 
 - (WKWebView *)webView {
     if (!_webView) {
-        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         _webView.scrollView.scrollEnabled = NO;
         _webView.scrollView.showsVerticalScrollIndicator = NO;
-        //        _webView.delegate = self;
-        _webView.navigationDelegate = self;
+        _webView.delegate = self;
+//        _webView.navigationDelegate = self;
         [self.view addSubview:_webView];
     }
     return _webView;

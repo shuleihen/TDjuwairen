@@ -13,6 +13,7 @@
 #import "SurveyModel.h"
 #import "LoginState.h"
 #import "UIButton+WebCache.h"
+#import "UIImageView+WebCache.h"
 #import "SDCycleScrollView.h"
 #import "SurDetailViewController.h"
 #import "NotificationDef.h"
@@ -25,6 +26,7 @@
 #import "MJRefresh.h"
 #import "UIdaynightModel.h"
 #import "SurveyDetailViewController.h"
+#import "WelcomeView.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -40,6 +42,8 @@
 @property (nonatomic, strong) NSMutableArray *stockArr;
 
 @property (nonatomic, strong) UIdaynightModel *daynightModel;
+
+@property (nonatomic, strong) WelcomeView *welcomeView;
 @end
 
 @implementation SurveyListViewController
@@ -66,6 +70,16 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    if ([daynight isEqualToString:@"yes"]) {
+        [self.daynightModel day];
+    }
+    else
+    {
+        [self.daynightModel night];
+    }
+    
     self.stockArr = [NSMutableArray array];
     self.page = 1;
     
@@ -107,6 +121,10 @@
         UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
         [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
     }
+
+    [self.navigationController.navigationBar setBackgroundColor:self.daynightModel.navigationColor];
+    [self.navigationController.navigationBar setBarTintColor:self.daynightModel.navigationColor];
+    self.tabBarController.tabBar.barTintColor = self.daynightModel.navigationColor;
     
     self.tableView.backgroundColor = self.daynightModel.backColor;
     [self.tableView reloadData];
@@ -204,7 +222,7 @@
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,pageA];
+    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
     [manager GET:url parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
@@ -245,22 +263,47 @@
     NSString *img = self.cycleScrollView.imageURLStringsGroup[index];
     NSArray *arr = [s componentsSeparatedByString:@"/"];
 
-    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-    
-    NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
-    
-    NSString *companyCode ;
-    if ([code isEqualToString:@"6"]) {
-        companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
+    if ([arr[0] isEqualToString:@"Survey"]) {
+        SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+        
+        NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
+        
+        NSString *companyCode ;
+        if ([code isEqualToString:@"6"]) {
+            companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
+        }
+        else
+        {
+            companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
+        }
+        vc.company_code = companyCode;
+        vc.survey_cover = img;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    else
-    {
-        companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
+    else if ([arr[0] isEqualToString:@"Sharp"]){
+        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
+        DetailView.sharp_id = [arr lastObject];
+        DetailView.pageMode = @"sharp";
+        DetailView.hidesBottomBarWhenPushed = YES;
+        
+        if (US.isLogIn) {     //为登录状态
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dic = @{@"userid":US.userId,
+                                  @"module_id":@2,
+                                  @"item_id":[arr lastObject]};
+            
+            [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
+                if (!error) {
+                    
+                } else {
+                    
+                }
+            }];
+        }
+        
+        [self.navigationController pushViewController:DetailView animated:YES];
     }
-    vc.company_code = companyCode;
-    vc.survey_cover = img;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - StockManagerDelegate
@@ -300,18 +343,18 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     SurveyModel *survey = self.surveyList[indexPath.section];
-//    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-//    vc.company_name = survey.companyName;
-//    vc.company_code = survey.companyCode;
-//    vc.survey_cover = survey.surveyCover;
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
-    
-    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockId = survey.companyCode;
-    vc.surveyId = survey.surveyId;
+    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+    vc.company_name = survey.companyName;
+    vc.company_code = survey.companyCode;
+    vc.survey_cover = survey.surveyCover;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+    
+//    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+//    vc.stockId = survey.companyCode;
+//    vc.surveyId = survey.surveyId;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -326,7 +369,18 @@
 - (void)requestToLogin{
     NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
     NSString *loginStyle = [user objectForKey:@"loginStyle"];
-    NSLog(@"loginStyle is :---%@",loginStyle);
+    NSLog(@"loginStyle is :---%lu",(unsigned long)loginStyle.length);
+
+    if (loginStyle.length > 0) {          //如果有登陆状态
+        self.welcomeView = [[WelcomeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        [[UIApplication sharedApplication].keyWindow addSubview:self.welcomeView];
+        
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            //删除
+            [self.welcomeView removeFromSuperview];
+        });
+    }
+    
     if ([loginStyle isEqualToString:@"QQlogin"]) {
         NSString *openid = [user objectForKey:@"openid"];
         NSDictionary *dic = @{@"openid":openid};
@@ -348,6 +402,8 @@
                 
                 UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                 [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 
@@ -375,6 +431,9 @@
                 
                 UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                 [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
+                
                 [self.navigationController popViewControllerAnimated:YES];
             } else {
                 
@@ -406,6 +465,9 @@
                     
                     UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                     [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+                    NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+                    [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
+                    
                     [self.navigationController popViewControllerAnimated:YES];
                 } else {
                     
