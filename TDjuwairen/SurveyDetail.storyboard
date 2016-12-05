@@ -13,7 +13,7 @@
         <scene sceneID="6Se-3j-bSl">
             <objects>
                 <tableViewController id="Fi1-p1-pbE" customClass="SurveyDetailViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AiN-5b-gYQ">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="AiN-5b-gYQ">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -80,42 +80,17 @@
                             </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="zY3-MT-Y3i">
-                            <rect key="frame" x="0.0" y="184" width="375" height="44"/>
+                            <rect key="frame" x="0.0" y="140" width="375" height="44"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </view>
-                        <sections>
-                            <tableViewSection id="LHT-Ak-bmu">
-                                <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="a1M-TP-GKe">
-                                        <rect key="frame" x="0.0" y="140" width="375" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="a1M-TP-GKe" id="oQf-x7-EVK">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="u59-JA-r0o">
-                                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                                </scrollView>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstItem="u59-JA-r0o" firstAttribute="top" secondItem="oQf-x7-EVK" secondAttribute="top" id="5hh-dz-YIJ"/>
-                                                <constraint firstAttribute="bottom" secondItem="u59-JA-r0o" secondAttribute="bottom" id="7xf-uP-SZN"/>
-                                                <constraint firstAttribute="trailing" secondItem="u59-JA-r0o" secondAttribute="trailing" id="Ji1-cn-ESw"/>
-                                                <constraint firstItem="u59-JA-r0o" firstAttribute="leading" secondItem="oQf-x7-EVK" secondAttribute="leading" id="haV-bJ-r6E"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                </cells>
-                            </tableViewSection>
-                        </sections>
+                        <sections/>
                         <connections>
                             <outlet property="dataSource" destination="Fi1-p1-pbE" id="YQ4-6v-t8V"/>
                             <outlet property="delegate" destination="Fi1-p1-pbE" id="ZvJ-yZ-Dkz"/>
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="scrollView" destination="u59-JA-r0o" id="ezU-iN-4c2"/>
                         <outlet property="stockHeaderView" destination="PTZ-R5-RT8" id="PEl-KK-n8d"/>
                     </connections>
                 </tableViewController>

@@ -115,7 +115,8 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                                                            error:nil];
     }
     
-    DDLogInfo(@"\nRequest Method = %@\nURL = %@\nHeaders = %@\nParameters = %@\n",method,URLString,request.allHTTPHeaderFields,parameters);
+    DDLogInfo(@"\nRequest * * * * * * * * * * *\nMethod = %@\nURL = %@\nHeaders = %@\nParameters = %@\n* * * * * * * * * * *\n",
+              method,request.URL,request.allHTTPHeaderFields,parameters);
     
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request
@@ -124,13 +125,13 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                completionHandler:^(NSURLResponse * __unused response, id responseObject, NSError *error) {
                                    
                                    if (error) {
-                                       DDLogInfo(@"\nResponse URL = %@\nError = %@\n",response.URL,error);
+                                       DDLogInfo(@"\nResponse * * * * * * * * * * *\nURL = %@\nError = %@\n* * * * * * * * * * *\n",response.URL,error);
                                        
                                        dispatch_async(dispatch_get_main_queue(), ^{
                                            completion(nil, error);
                                        });
                                    } else {
-                                       DDLogInfo(@"\nResponse URL = %@\nData = %@\n",response.URL, responseObject);
+                                       DDLogInfo(@"\nResponse * * * * * * * * * * *\nURL = %@\nData = %@\n* * * * * * * * * * *\n",response.URL, responseObject);
                                        NSInteger code = [responseObject[@"code"] integerValue];
                                        if (code == 200) {
                                            id data = responseObject[@"data"];

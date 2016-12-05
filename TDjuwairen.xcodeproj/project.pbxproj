@@ -110,6 +110,10 @@
 		197595321DED5477006441BE /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595311DED5477006441BE /* SurveyDetailSegmentView.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
 		197595371DED6B08006441BE /* SurveyDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595361DED6B08006441BE /* SurveyDetailWebViewController.m */; };
+		1975953A1DEEBC5E006441BE /* SurveyDetailCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595391DEEBC5E006441BE /* SurveyDetailCommentViewController.m */; };
+		1975953D1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975953C1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m */; };
+		197595401DEEBDB2006441BE /* SurveyDetailContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975953F1DEEBDB2006441BE /* SurveyDetailContentViewController.m */; };
+		197595441DEEBFEA006441BE /* StockCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595431DEEBFEA006441BE /* StockCommentModel.m */; };
 		197C49D81DAC79FC000AC6F6 /* SurveyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 197C49D61DAC79FC000AC6F6 /* SurveyListCell.m */; };
 		197C49D91DAC79FC000AC6F6 /* SurveyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 197C49D71DAC79FC000AC6F6 /* SurveyListCell.xib */; };
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
@@ -611,6 +615,14 @@
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
 		197595351DED6B08006441BE /* SurveyDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailWebViewController.h; sourceTree = "<group>"; };
 		197595361DED6B08006441BE /* SurveyDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailWebViewController.m; sourceTree = "<group>"; };
+		197595381DEEBC5E006441BE /* SurveyDetailCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailCommentViewController.h; sourceTree = "<group>"; };
+		197595391DEEBC5E006441BE /* SurveyDetailCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailCommentViewController.m; sourceTree = "<group>"; };
+		1975953B1DEEBD34006441BE /* SurveyDetailStockCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailStockCommentViewController.h; sourceTree = "<group>"; };
+		1975953C1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailStockCommentViewController.m; sourceTree = "<group>"; };
+		1975953E1DEEBDB2006441BE /* SurveyDetailContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailContentViewController.h; sourceTree = "<group>"; };
+		1975953F1DEEBDB2006441BE /* SurveyDetailContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailContentViewController.m; sourceTree = "<group>"; };
+		197595421DEEBFEA006441BE /* StockCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCommentModel.h; sourceTree = "<group>"; };
+		197595431DEEBFEA006441BE /* StockCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCommentModel.m; sourceTree = "<group>"; };
 		197C49D51DAC79FC000AC6F6 /* SurveyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListCell.h; sourceTree = "<group>"; };
 		197C49D61DAC79FC000AC6F6 /* SurveyListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListCell.m; sourceTree = "<group>"; };
 		197C49D71DAC79FC000AC6F6 /* SurveyListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SurveyListCell.xib; sourceTree = "<group>"; };
@@ -1650,6 +1662,7 @@
 		1975951C1DED29FE006441BE /* SurveyDetail */ = {
 			isa = PBXGroup;
 			children = (
+				197595411DEEBFBB006441BE /* Model */,
 				1975951D1DED29FE006441BE /* Controller */,
 				1975951E1DED29FE006441BE /* Manager */,
 				1975951F1DED29FE006441BE /* View */,
@@ -1664,6 +1677,12 @@
 				197595291DED2A1A006441BE /* SurveyDetailViewController.m */,
 				197595351DED6B08006441BE /* SurveyDetailWebViewController.h */,
 				197595361DED6B08006441BE /* SurveyDetailWebViewController.m */,
+				197595381DEEBC5E006441BE /* SurveyDetailCommentViewController.h */,
+				197595391DEEBC5E006441BE /* SurveyDetailCommentViewController.m */,
+				1975953B1DEEBD34006441BE /* SurveyDetailStockCommentViewController.h */,
+				1975953C1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m */,
+				1975953E1DEEBDB2006441BE /* SurveyDetailContentViewController.h */,
+				1975953F1DEEBDB2006441BE /* SurveyDetailContentViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -1746,6 +1765,15 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		197595411DEEBFBB006441BE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				197595421DEEBFEA006441BE /* StockCommentModel.h */,
+				197595431DEEBFEA006441BE /* StockCommentModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		19A7EE551D423ED200F833A9 /* MBProgressHUD */ = {
@@ -3065,6 +3093,7 @@
 				8470E9571DDD4E31002F727D /* SelWXOrAlipayView.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */,
+				197595441DEEBFEA006441BE /* StockCommentModel.m in Sources */,
 				1955B4BF1D644DB400DC102E /* SurveyNavigationView.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				1955B4931D644D9800DC102E /* VideoViewController.m in Sources */,
@@ -3140,10 +3169,12 @@
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */,
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
+				197595401DEEBDB2006441BE /* SurveyDetailContentViewController.m in Sources */,
 				197C49D81DAC79FC000AC6F6 /* SurveyListCell.m in Sources */,
 				1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
+				1975953A1DEEBC5E006441BE /* SurveyDetailCommentViewController.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
@@ -3234,6 +3265,7 @@
 				84E3346D1CE3123700E5DCEE /* UIImage+GIF.m in Sources */,
 				84053B5C1D6C28B30020A1F0 /* PushMessageViewController.m in Sources */,
 				8408F66D1D878F74004A332A /* PushSwitchViewController.m in Sources */,
+				1975953D1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m in Sources */,
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				1955B4691D644D9800DC102E /* MyHeadTableViewCell.m in Sources */,

@@ -13,13 +13,21 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "HexColors.h"
+#import "CocoaLumberjack.h"
+#import "SurveyDetailCommentViewController.h"
+#import "SurveyDetailStockCommentViewController.h"
+#import "StockCommentModel.h"
 
-@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate>
+@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
 @property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+
+@property (nonatomic, strong) NSMutableArray *contentControllers;
+@property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, assign) CGFloat contentHeight;
+@property (nonatomic, weak) UIViewController *pageWillToController;
 @end
 
 @implementation SurveyDetailViewController
@@ -27,12 +35,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    [self addContentChildController];
-    self.segment.selectedIndex = 3;
-    [self.segment setLocked:YES withIndex:1];
+    
+    self.segment.selectedIndex = 1;
 }
 
 #pragma mark - UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 60;
 }
@@ -42,84 +57,102 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    NSLog(@"heightForRowAtIndexPath = %lf", self.contentHeight)
-    return MAX(self.contentHeight, 100);
+    return MAX(self.contentHeight, kScreenHeight-64-140-60);
 }
 
-
-#pragma mark 
-- (void)getDetailWebBaseUrlWithTag:(NSInteger)tag {
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    NSString *code = [self.stockId substringFromIndex:2];
-    NSDictionary *para;
-    if (US.isLogIn) {
-        para = @{@"code": code,
-                 @"tag": @(tag),
-                 @"userid": US.userId};
-    }
-    else
-    {
-        para = @{@"code": code,
-                 @"tag": @(tag)};
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContentCellID"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ContentCellID"];
+        [cell.contentView addSubview:self.pageViewController.view];
     }
     
-    [ma POST:@"Survey/survey_show_tag" parameters:para completion:^(id data, NSError *error){
-        if (!error && data) {
-            if ([data isKindOfClass:[NSDictionary class]]) {
-                NSString *baseUrl = data[@"url"];
-                [self loadContentWithBaseUrl:baseUrl witTag:tag];
-            } else {
-                
-            }
-            NSLog(@"survey_show_tag with data=%@",data)
-            
-        } else {
-            
-        }
-    }];
+    return cell;
 }
 
-- (void)loadContentWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag{
-    NSString *code = [self.stockId substringFromIndex:2];
-    NSString *urlString = nil;
-    if (!US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%d/mode/%@",baseUrl,code,1,@"0"];
-    }
-    else
-    {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%d/userid/%@/mode/%@",baseUrl,code,1,US.userId,@"0"];
-    }
-    
-    NSLog(@"Content web url= %@",urlString);
-    SurveyDetailWebViewController *content = self.childViewControllers[tag];
-    [content loadWebWithUrl:urlString];
-}
-
-#pragma mark - SurveyDetailContenDelegate
-- (void)contentWebView:(WKWebView *)webView withHeight:(CGFloat)height {
-    self.contentHeight = height;
-    [self.scrollView addSubview:webView];
-    
-    [self.tableView reloadData];
-}
 
 #pragma mark - SurveyDetailSegmentDelegate
 - (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
+    DDLogInfo(@"Survey detail content selected tag = %ld",index);
+    
     SurveyDetailSegmentItem *item = segmentView.segments[index];
     if (item.locked) {
         
     } else {
-        [self getDetailWebBaseUrlWithTag:index];
+        [self changePageControllerWithIndex:index];
     }
 }
 
-#pragma mark - Private 
-- (void)addContentChildController {
-    for (int i=0; i<7; i++) {
-        SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
-        content.delegate = self;
-        [self addChildViewController:content];
+#pragma mark - ChangePageController
+- (void)changePageControllerWithIndex:(NSInteger)tag {
+    SurveyDetailContentViewController *vc = self.contentControllers[tag];
+    [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
+}
+
+#pragma mark - SurveyDetailContenDelegate
+- (void)contentDetailController:(UIViewController *)controller withHeight:(CGFloat)height {
+    self.contentHeight = height;//MAX(height, self.contentHeight);
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - UIPageViewControllerDataSource
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
+    
+    NSInteger index = [self.contentControllers indexOfObject:viewController];
+    NSInteger before = (index - 1)%[self.contentControllers count];
+//    NSLog(@"current index=%ld,will to Before=%ld",index,before);
+    SurveyDetailSegmentItem *item = self.segment.segments[index];
+    if (item.locked) {
+        return nil;
+    } else {
+        return self.contentControllers[before];
     }
+}
+
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
+    
+    NSInteger index = [self.contentControllers indexOfObject:viewController];
+    NSInteger after = (index + 1)%[self.contentControllers count];
+//    NSLog(@"current index=%ld,will to After=%ld",index,after);
+    SurveyDetailSegmentItem *item = self.segment.segments[index];
+    if (item.locked) {
+        return nil;
+    } else {
+        return self.contentControllers[after];
+    }
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
+    UIViewController *vc = [pendingViewControllers firstObject];
+    self.pageWillToController = vc;
+//    NSInteger index = [self.contentControllers indexOfObject:vc];
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if (!completed) {
+        return;
+    }
+    if (!finished) {
+        return;
+    }
+    
+    if (self.pageWillToController) {
+        NSInteger index = [self.contentControllers indexOfObject:self.pageWillToController];
+        [self.segment changedSelectedIndex:index executeDelegate:NO];
+    }
+    
+}
+
+#pragma mark - Private
+- (NSArray *)stockCommentsFromArray:(NSArray *)array {
+    NSMutableArray *comments = [NSMutableArray arrayWithCapacity:[array count]];
+    for (NSDictionary *dict in array) {
+        StockCommentModel *content = [StockCommentModel getInstanceWithDictionary:dict];
+        [comments addObject:content];
+    }
+    return comments;
 }
 
 - (SurveyDetailSegmentView *)segment {
@@ -158,12 +191,45 @@
     return _segment;
 }
 
-//- (UIScrollView *)scrollView {
-//    if (!_scrollView) {
-//        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-64-140-60)];
-//        _scrollView.showsHorizontalScrollIndicator = NO;
-//        self.tableView.tableFooterView = _scrollView;
-//    }
-//    return _scrollView;
-//}
+- (NSMutableArray *)contentControllers {
+    if (!_contentControllers) {
+        _contentControllers = [NSMutableArray arrayWithCapacity:7];
+        for (int i=0; i<6; i++) {
+            if (i == 2) {
+                SurveyDetailStockCommentViewController *niuxiongvc = [[SurveyDetailStockCommentViewController alloc] init];
+                niuxiongvc.stockId = self.stockId;
+                niuxiongvc.tag = i;
+                niuxiongvc.delegate = self;
+                [_contentControllers addObject:niuxiongvc];
+            } else if (i == 5) {
+                SurveyDetailCommentViewController *askvc = [[SurveyDetailCommentViewController alloc] init];
+                askvc.stockId = self.stockId;
+                askvc.tag = i;
+                askvc.delegate = self;
+                [_contentControllers addObject:askvc];
+            } else {
+                SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
+                content.stockId = self.stockId;
+                content.tag = i;
+                content.delegate = self;
+                [_contentControllers addObject:content];
+            }
+        }
+    }
+    
+    return _contentControllers;
+}
+
+- (UIPageViewController *)pageViewController {
+    if (!_pageViewController) {
+        
+        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
+                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+        _pageViewController.dataSource = self;
+        _pageViewController.delegate = self;
+
+    }
+    return _pageViewController;
+}
 @end

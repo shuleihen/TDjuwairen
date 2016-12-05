@@ -7,14 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SurveyDetailContentViewController.h"
 #import <WebKit/WebKit.h>
 
-@protocol SurveyDetailContenDelegate <NSObject>
-- (void)contentWebView:(WKWebView *)webView withHeight:(CGFloat)height;
-@end
-
-@interface SurveyDetailWebViewController : UIViewController
+@interface SurveyDetailWebViewController : SurveyDetailContentViewController
 @property (nonatomic, strong) NSString *url;
-- (void)loadWebWithUrl:(NSString *)url;
-@property (nonatomic, weak) id<SurveyDetailContenDelegate> delegate;
 @end

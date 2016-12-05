@@ -61,6 +61,8 @@
 }
 
 - (void)setSelected:(BOOL)selected {
+    _selected = selected;
+    
     UIImageView *imageView = [self viewWithTag:1];
     imageView.highlighted = selected;
     
@@ -69,6 +71,10 @@
 }
 
 - (void)buttonPressed:(id)sender {
+    if (self.selected) {
+        return;
+    }
+    
     if (self.clickBlock) {
         self.clickBlock(self.index);
     }
@@ -77,9 +83,6 @@
 
 @end
 
-//@interface SurveyDetailSegmentView ()
-//@property (nonatomic, assign) NSInteger lastIndex;
-//@end
 
 @implementation SurveyDetailSegmentView
 - (id)initWithFrame:(CGRect)frame {
@@ -118,7 +121,6 @@
 
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
-    
     SurveyDetailSegmentItem *selectedItem = self.segments[selectedIndex];
     if (selectedItem.locked) {
         // 锁住
@@ -136,6 +138,30 @@
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedSegment:withIndex:)]) {
             [self.delegate didSelectedSegment:self withIndex:_selectedIndex];
+        }
+    }
+}
+
+- (void)changedSelectedIndex:(NSInteger)selectedIndex executeDelegate:(BOOL)execute {
+    SurveyDetailSegmentItem *selectedItem = self.segments[selectedIndex];
+    if (selectedItem.locked) {
+        // 锁住
+        if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedSegment:withIndex:)]) {
+            [self.delegate didSelectedSegment:self withIndex:selectedItem.index];
+        }
+    } else {
+        if (_selectedIndex >= 0) {
+            SurveyDetailSegmentItem *item = self.segments[_selectedIndex];
+            item.selected = NO;
+        }
+        
+        selectedItem.selected = YES;
+        _selectedIndex = selectedIndex;
+        
+        if (execute) {
+            if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedSegment:withIndex:)]) {
+                [self.delegate didSelectedSegment:self withIndex:_selectedIndex];
+            }
         }
     }
 }
