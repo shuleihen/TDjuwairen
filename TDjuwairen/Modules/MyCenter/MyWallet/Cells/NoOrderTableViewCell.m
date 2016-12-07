@@ -37,7 +37,7 @@
         CGFloat imgX = (kScreenHeight-108)/6;
         [self.imgView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerX.equalTo(self);
-            make.top.equalTo(self).with.offset(imgX);
+            make.top.equalTo(self).with.offset(130);
             make.width.mas_equalTo(90);
             make.height.mas_equalTo(90);
         }];
@@ -46,7 +46,7 @@
             make.centerX.equalTo(self);
             make.top.equalTo(self.imgView.mas_bottom).with.offset(25);
             make.bottom.equalTo(self).with.offset(-(kScreenHeight-108-imgX-90-25-40));
-            make.width.mas_equalTo(kScreenWidth/2);
+            make.width.mas_equalTo(kScreenWidth);
             make.height.mas_equalTo(40);
         }];
         

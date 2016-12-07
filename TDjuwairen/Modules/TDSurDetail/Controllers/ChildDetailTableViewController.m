@@ -128,16 +128,10 @@
                 NSString *urlString = [NSString stringWithFormat:@"%@Survey/url_get_content/code/%@/tag/%d/userid/%@/mode/%@",API_HOST,code,self.tag,US.userId,mode];
                 [self.webview loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
             }
-            
         }
-        
     } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
         NSLog(@"%@",error);
     }];
-    //    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    //    [manager POST:url parameters:para completion:^(id data, NSError *error) {
-    //        NSLog(@"%@",data);
-    //    }];
     
 }
 
