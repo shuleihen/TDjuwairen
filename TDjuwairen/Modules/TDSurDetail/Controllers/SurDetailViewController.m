@@ -647,7 +647,7 @@
     else if (indexPath.row == 3){
         //跳转反馈
         if (US.isLogIn) {
-            FeedbackViewController *feedback = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
             [self.navigationController pushViewController:feedback animated:YES];
         }
         else

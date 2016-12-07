@@ -96,7 +96,32 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RZ2-sb-tKi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-734" y="-33"/>
+            <point key="canvasLocation" x="-1178" y="-49"/>
+        </scene>
+        <!--Survey More View Controller-->
+        <scene sceneID="2cX-gq-SCb">
+            <objects>
+                <viewController storyboardIdentifier="SurveyMoreViewController" id="kFG-SY-Gkd" customClass="SurveyMoreViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="c1C-h2-A9K"/>
+                        <viewControllerLayoutGuide type="bottom" id="wPz-VC-adF"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="M2E-YS-5NL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8us-wx-HZf">
+                                <rect key="frame" x="0.0" y="469" width="375" height="198"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" red="0.76862745099999996" green="0.58823529409999997" blue="0.2156862745" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vg0-91-vB0" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-295.19999999999999" y="-49.025487256371818"/>
         </scene>
     </scenes>
 </document>

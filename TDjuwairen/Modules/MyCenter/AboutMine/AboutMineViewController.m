@@ -31,100 +31,63 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.title = @"关于我们";
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.titleArr = @[@"给我们评分",@"反馈意见"];
     haveUpdate = NO;
     
-    [self setupWithNavigation];
     [self setupWithTableView];
     [self judgeAPPVersion];
     // Do any additional setup after loading the view.
 }
 
-- (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    self.title = @"关于我们";
-}
-
-- (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
+- (void)setupWithTableView {
+    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
     self.tableview.backgroundColor = self.daynightmodel.backColor;
     [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
     
-    UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenWidth/4*3)];
-    UIImageView *imgview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth/2, kScreenWidth/4*3/4)];
-    imgview.center = view.center;
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
+    UIImageView *imgview = [[UIImageView alloc] initWithFrame:view.bounds];
     imgview.image = [UIImage imageNamed:@"logo.png"];
+    imgview.contentMode = UIViewContentModeCenter;
     [view addSubview:imgview];
     self.tableview.tableHeaderView = view;
     [self.view addSubview:self.tableview];
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    NSString *identifier = @"cell";
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    NSString *identifier = @"AboutCell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
-    cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     cell.textLabel.text = self.titleArr[indexPath.row];
-    
-//    if (haveUpdate == YES) {
-//        if (indexPath.row == 0) {
-//            NSTextAttachment *textAttach = [[NSTextAttachment alloc] init];
-//            UIImage *image = [UIImage imageNamed:@"reddot"];
-//            textAttach.image = image;
-//            NSAttributedString *strA = [NSAttributedString attributedStringWithAttachment:textAttach];
-//            NSMutableAttributedString *string = [[NSMutableAttributedString alloc] initWithAttributedString:cell.textLabel.attributedText];
-//            [string insertAttributedString:strA atIndex:cell.textLabel.text.length];
-//            cell.textLabel.attributedText = string;
-//        }
-//    }
     cell.textLabel.textColor = self.daynightmodel.textColor;
     cell.backgroundColor = self.daynightmodel.navigationColor;
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-//    if (indexPath.row == 0) {
-//        if (haveUpdate == YES) {
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"检测到当前有新版本了，点击确认更新" preferredStyle:UIAlertControllerStyleAlert];
-//            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                //跳转到商店
-//                [[UIApplication sharedApplication] openURL:[NSURL URLWithString:self.trackViewUrl]];
-//            }]];
-//            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//                [alert dismissViewControllerAnimated:YES completion:nil];
-//            }]];
-//            [self presentViewController:alert animated:YES completion:nil];
-//        }
-//    }
-//    else
-        if (indexPath.row == 0){
+    if (indexPath.row == 0) {
         NSString *str = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id1125295972"];
-        
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
     }
-    else
-    {
-        FeedbackViewController *feedback = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+    else {
+        FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
         [self.navigationController pushViewController:feedback animated:YES];
     }
 }
@@ -164,20 +127,5 @@
         }
     } failure:^(NSURLSessionDataTask *task, NSError *error){}];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
