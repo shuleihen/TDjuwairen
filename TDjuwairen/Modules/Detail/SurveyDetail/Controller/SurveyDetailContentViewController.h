@@ -20,6 +20,7 @@
 @property (nonatomic, weak) id<SurveyDetailContenDelegate> delegate;
 
 - (void)loadWebWithUrl:(NSString *)url;
+- (CGFloat)contentHeight;
 - (NSDictionary *)contentParmWithTag:(NSInteger)tag;
 - (NSString *)contenWebUrlWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag;
 @end

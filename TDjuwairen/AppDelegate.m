@@ -49,6 +49,9 @@ static BOOL isBackGroundActivateApplication;
 
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+#ifdef DEBUG
+    NSLog(@"HomeDirectory = %@",NSHomeDirectory());
+#endif
     
     [self setupUICommon];
     [self setupURLCacheSize];

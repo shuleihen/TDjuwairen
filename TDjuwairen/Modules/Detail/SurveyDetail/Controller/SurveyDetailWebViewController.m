@@ -40,6 +40,9 @@
     }];
 }
 
+- (CGFloat)contentHeight {
+    return CGRectGetHeight(self.webView.bounds);
+}
 
 - (void)loadWebWithUrl:(NSString *)url {
     DDLogInfo(@"Survey detail web load url = %@", url);
@@ -101,7 +104,7 @@
 }
 
 
-- (WKWebView *)webView {
+- (UIWebView *)webView {
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
         _webView.scrollView.scrollEnabled = NO;

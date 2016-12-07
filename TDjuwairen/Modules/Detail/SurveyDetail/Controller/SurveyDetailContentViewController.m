@@ -24,6 +24,10 @@
     
 }
 
+- (CGFloat)contentHeight {
+    return 200;
+}
+
 - (NSDictionary *)contentParmWithTag:(NSInteger)tag {
     NSString *code = [self.stockId substringFromIndex:2];
     NSDictionary *para;

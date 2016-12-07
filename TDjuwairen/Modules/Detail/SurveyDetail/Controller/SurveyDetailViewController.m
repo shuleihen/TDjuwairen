@@ -26,7 +26,6 @@
 
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
-@property (nonatomic, assign) CGFloat contentHeight;
 @property (nonatomic, weak) UIViewController *pageWillToController;
 @end
 
@@ -57,7 +56,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return MAX(self.contentHeight, kScreenHeight-64-140-60);
+    return [[self currentContentViewController] contentHeight];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,24 +73,21 @@
 #pragma mark - SurveyDetailSegmentDelegate
 - (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
     DDLogInfo(@"Survey detail content selected tag = %ld",index);
+    if (index > [self.contentControllers count]) {
+        return;
+    }
     
     SurveyDetailSegmentItem *item = segmentView.segments[index];
     if (item.locked) {
         
     } else {
-        [self changePageControllerWithIndex:index];
+        SurveyDetailContentViewController *vc = self.contentControllers[index];
+        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
     }
-}
-
-#pragma mark - ChangePageController
-- (void)changePageControllerWithIndex:(NSInteger)tag {
-    SurveyDetailContentViewController *vc = self.contentControllers[tag];
-    [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
 }
 
 #pragma mark - SurveyDetailContenDelegate
 - (void)contentDetailController:(UIViewController *)controller withHeight:(CGFloat)height {
-    self.contentHeight = height;//MAX(height, self.contentHeight);
     [self.tableView reloadData];
 }
 
@@ -101,7 +97,7 @@
     
     NSInteger index = [self.contentControllers indexOfObject:viewController];
     NSInteger before = (index - 1)%[self.contentControllers count];
-//    NSLog(@"current index=%ld,will to Before=%ld",index,before);
+
     SurveyDetailSegmentItem *item = self.segment.segments[index];
     if (item.locked) {
         return nil;
@@ -115,7 +111,7 @@
     
     NSInteger index = [self.contentControllers indexOfObject:viewController];
     NSInteger after = (index + 1)%[self.contentControllers count];
-//    NSLog(@"current index=%ld,will to After=%ld",index,after);
+
     SurveyDetailSegmentItem *item = self.segment.segments[index];
     if (item.locked) {
         return nil;
@@ -127,7 +123,6 @@
 - (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
     UIViewController *vc = [pendingViewControllers firstObject];
     self.pageWillToController = vc;
-//    NSInteger index = [self.contentControllers indexOfObject:vc];
 }
 
 - (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
@@ -141,20 +136,22 @@
     if (self.pageWillToController) {
         NSInteger index = [self.contentControllers indexOfObject:self.pageWillToController];
         [self.segment changedSelectedIndex:index executeDelegate:NO];
+        [self.tableView reloadData];
     }
     
 }
 
 #pragma mark - Private
-- (NSArray *)stockCommentsFromArray:(NSArray *)array {
-    NSMutableArray *comments = [NSMutableArray arrayWithCapacity:[array count]];
-    for (NSDictionary *dict in array) {
-        StockCommentModel *content = [StockCommentModel getInstanceWithDictionary:dict];
-        [comments addObject:content];
+- (SurveyDetailContentViewController *)currentContentViewController {
+    NSInteger index = self.segment.selectedIndex;
+    if (index >= 0 && index < [self.contentControllers count]) {
+        return self.contentControllers[index];
+    } else {
+        return nil;
     }
-    return comments;
 }
 
+#pragma mark - Getter
 - (SurveyDetailSegmentView *)segment {
     if (!_segment) {
         _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
