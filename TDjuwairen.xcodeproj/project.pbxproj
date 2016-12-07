@@ -198,6 +198,8 @@
 		84165D1E1DD40B410046186D /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84165D1D1DD40B410046186D /* AskModel.m */; };
 		84165D211DD40E790046186D /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84165D201DD40E790046186D /* AnsModel.m */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
+		841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CA1DF537140047DA7E /* UMMobClick.framework */; };
+		841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CC1DF537570047DA7E /* libsqlite3.0.tbd */; };
 		8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426ED691D864CBC00B82ACF /* NothingTableViewCell.m */; };
 		8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8426ED6A1D864CBC00B82ACF /* NothingTableViewCell.xib */; };
 		8427F7451D58682F0073AB7F /* btn_select_pre@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 8427F7441D58682F0073AB7F /* btn_select_pre@2x.png */; };
@@ -770,6 +772,8 @@
 		84165D201DD40E790046186D /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
 		8416DA811D6800E90098A412 /* CommentManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentManagerModel.h; sourceTree = "<group>"; };
 		8416DA821D6800E90098A412 /* CommentManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentManagerModel.m; sourceTree = "<group>"; };
+		841848CA1DF537140047DA7E /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
+		841848CC1DF537570047DA7E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
 		8426ED681D864CBC00B82ACF /* NothingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NothingTableViewCell.h; sourceTree = "<group>"; };
 		8426ED691D864CBC00B82ACF /* NothingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NothingTableViewCell.m; sourceTree = "<group>"; };
 		8426ED6A1D864CBC00B82ACF /* NothingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingTableViewCell.xib; sourceTree = "<group>"; };
@@ -1078,11 +1082,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8470E9691DDD84B6002F727D /* libc++.tbd in Frameworks */,
+				841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
+				2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */,
+				841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */,
+				8470E9691DDD84B6002F727D /* libc++.tbd in Frameworks */,
 				84505C131DE29F17002120A3 /* libWeChatSDK.a in Frameworks */,
 				2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */,
-				2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */,
 				2764A2681D015F0A00916844 /* QuartzCore.framework in Frameworks */,
 				2764A2701D015F9600916844 /* CoreText.framework in Frameworks */,
 				84D57BC01D83933900274E9C /* CoreGraphics.framework in Frameworks */,
@@ -1843,6 +1849,7 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				841848CA1DF537140047DA7E /* UMMobClick.framework */,
 				84505C0F1DE29F17002120A3 /* SDKExport */,
 				8470E9611DDD8405002F727D /* AliSDK */,
 				848AF4C81D93B6C1001A56D2 /* ShareSDK */,
@@ -2785,6 +2792,7 @@
 		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				841848CC1DF537570047DA7E /* libsqlite3.0.tbd */,
 				8470E9681DDD84B6002F727D /* libc++.tbd */,
 				8470E9661DDD8426002F727D /* CoreMotion.framework */,
 				84D57BC31D83934A00274E9C /* UIKit.framework */,

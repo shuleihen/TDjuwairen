@@ -81,12 +81,12 @@
 - (SurDetailSelBtnView *)selBtnView{
     if (!_selBtnView) {
         _selBtnView = [[SurDetailSelBtnView alloc] initWithFrame:CGRectMake(0, 140, kScreenWidth, 60) WithStockCode:self.company_code];
-        
         __weak SurDetailViewController *wself = self;
         self.selBtnView.block = ^(UIButton *selbtn){
             NSLog(@"%ld",(long)selbtn.tag);
             [wself selectWithDetail:selbtn];
         };
+        
     }
     return _selBtnView;
 }
@@ -197,6 +197,7 @@
         [self.unlockView removeFromSuperview];
         [self createUnLockView];
     }
+    [self selectWithDetail:self.selBtnView.selBtn];
     
     [self.stockManager start];
 }

@@ -29,6 +29,8 @@
 #import "UIStoryboard+MainStoryboard.h"
 #import "TDNavigationController.h"
 
+#import "UMMobClick/MobClick.h"
+
 #import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 #import "WXApiManager.h"
@@ -53,6 +55,8 @@ static BOOL isBackGroundActivateApplication;
     NSLog(@"HomeDirectory = %@",NSHomeDirectory());
 #endif
     
+    [NSThread sleepForTimeInterval:2.0];//设置启动页面时间
+    
     [self setupUICommon];
     [self setupURLCacheSize];
     [self setupSMSSDK];
@@ -60,6 +64,8 @@ static BOOL isBackGroundActivateApplication;
     [self setupWebImageCache];
     [self checkSwitchToGuide];
     [self setupLog];
+    
+    [self setupWithUMMobClick];
     
     [self setupWithBPush:application andDic:launchOptions];
     //角标清0
@@ -282,6 +288,14 @@ static BOOL isBackGroundActivateApplication;
     //    DDLogInfo(@"Info");
     //    DDLogWarn(@"Warn");
     //    DDLogError(@"Error");
+}
+
+#pragma mark - 友盟统计
+- (void)setupWithUMMobClick{
+    UMConfigInstance.appKey = @"5844d3cf5312dd6419000c75";
+    UMConfigInstance.channelId = @"App Store";
+    //    UMConfigInstance.eSType = E_UM_GAME; //仅适用于游戏场景，应用统计不用设置
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
 }
 
 - (void)setupWithBPush:(UIApplication *)application andDic:(NSDictionary *)launchOptions{
