@@ -274,21 +274,28 @@
     }
     NSString *yestod = [NSString stringWithFormat:@"昨收%@%.2f",speed,[stock.yestodEndPri floatValue]];
     self.yestodEndPri.text = yestod;
+    self.yestodEndPri.font = font;
     
     NSString *todayStartPri = [NSString stringWithFormat:@"今开%@%.2f",speed,[stock.todayStartPri floatValue]];
     self.todayStartPri.text = todayStartPri;
+    self.todayStartPri.font = font;
     
     NSString *todayMax = [NSString stringWithFormat:@"最高%@%.2f",speed,[stock.todayMax floatValue]];
     self.todayMax.text = todayMax;
+    self.todayMax.font = font;
     
     NSString *todayMin = [NSString stringWithFormat:@"最低%@%.2f",speed,[stock.todayMin floatValue]];
     self.todayMin.text = todayMin;
+    self.todayMin.font = font;
     
     NSString *traNumber = [NSString stringWithFormat:@"成交量%@%.4lf万股",speed,[stock.traNumber doubleValue] / 10000];
     self.traNumber.text = traNumber;
+    self.traNumber.font = font;
     
     NSString *traAmount = [NSString stringWithFormat:@"成交额%@%.2lf万元",speed,[stock.traAmount doubleValue] / 10000];
     self.traAmount.text = traAmount;
+    self.traAmount.font = font;
+    
 }
 
 

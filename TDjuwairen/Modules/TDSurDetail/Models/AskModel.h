@@ -12,6 +12,8 @@
 
 @property (nonatomic,strong) NSMutableArray *ans_list;
 
+@property (nonatomic,assign) BOOL is_author;
+
 @property (nonatomic,copy) NSString *surveyask_content;
 
 @property (nonatomic,copy) NSString *surveyask_isdel;

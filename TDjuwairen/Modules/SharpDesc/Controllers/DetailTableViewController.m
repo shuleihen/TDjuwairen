@@ -287,9 +287,11 @@
             }
             else
             {
-                NSString *identifier = @"commentCell";
+                NSString *identifier = @"noComment";
                 UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-                cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                if (cell == nil) {
+                    cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+                }
                 
                 if (self.thview.louzhu.selected == YES) {
                     cell.textLabel.text = @"该作者没有对自己的文章发表评论";
@@ -337,7 +339,9 @@
                 NSString *identifier = @"commentCell";
                 CommentsModel *model = self.viewComDataArr[indexPath.row-1];
                 CommentsCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-                cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+                if (cell == nil) {
+                    cell = [[CommentsCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
+                }
                 
                 cell.delegate = self;
                 cell.floorView.delegate = self;

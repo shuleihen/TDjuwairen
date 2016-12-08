@@ -40,6 +40,8 @@
 
 @property (nonatomic,strong) NSMutableArray *askArr;
 
+@property (nonatomic,assign) BOOL is_author;
+
 @end
 
 @implementation ChildDetailTableViewController
@@ -103,7 +105,13 @@
             NSArray *dataArr = responseObject[@"data"];
             for (NSDictionary *dic in dataArr) {
                 AskModel *model = [AskModel getInstanceWithDictionary:dic];
-                
+                if (model.is_author) {
+                    self.is_author = YES;
+                }
+                else
+                {
+                    self.is_author = NO;
+                }
                 [self.askArr addObject:model];
             }
             [self.tableView reloadData];
@@ -187,7 +195,13 @@
     {
         if (self.askArr.count > 0) {
             AskModel *model = self.askArr[section];
-            return model.ans_list.count + 3;
+            if (model.ans_list.count > 0) {
+                return model.ans_list.count + 3;
+            }
+            else
+            {
+                return 2;
+            }
         }
         else
         {
@@ -335,8 +349,14 @@
         if (self.askArr.count > 0) {
             if (indexPath.row == 0) {
                 AskQuestionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"askCell" forIndexPath:indexPath];
-                cell.askBtn.tag = indexPath.section;
-                [cell.askBtn addTarget:self action:@selector(clickToComment:) forControlEvents:UIControlEventTouchUpInside];
+                if (self.is_author) {
+                    cell.askBtn.tag = indexPath.section;
+                    [cell.askBtn addTarget:self action:@selector(clickToComment:) forControlEvents:UIControlEventTouchUpInside];
+                }
+                else
+                {
+                    cell.askBtn.alpha = 0.0;
+                }
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
