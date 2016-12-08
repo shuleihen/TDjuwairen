@@ -271,6 +271,12 @@
 		8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D11A1DD013510066E784 /* SurDetailViewController.m */; };
 		8478D1211DD01F1E0066E784 /* SurDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D1201DD01F1E0066E784 /* SurDataView.m */; };
 		8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */; };
+		847ADA6C1DF79CFC002600AA /* OptionalStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA6B1DF79CFC002600AA /* OptionalStockViewController.m */; };
+		847ADA6F1DF7A15D002600AA /* OptionalHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA6E1DF7A15D002600AA /* OptionalHeadView.m */; };
+		847ADA7A1DF7B20B002600AA /* OptionalStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA791DF7B20B002600AA /* OptionalStockTableViewCell.m */; };
+		847ADA851DF7D1FA002600AA /* OptionalManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA841DF7D1FA002600AA /* OptionalManageViewController.m */; };
+		847ADA881DF7D485002600AA /* OptionalManageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA871DF7D485002600AA /* OptionalManageHeadView.m */; };
+		847ADA931DF7E08B002600AA /* OptionalManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA921DF7E08B002600AA /* OptionalManageTableViewCell.m */; };
 		847BD6DE1DE69346006AEECE /* ExchangeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6DD1DE69346006AEECE /* ExchangeTableViewCell.m */; };
 		847BD6E71DE69CAB006AEECE /* ExchangeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6E61DE69CAB006AEECE /* ExchangeModel.m */; };
 		847BD6EA1DE6BBFA006AEECE /* PopupExchangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 847BD6E91DE6BBFA006AEECE /* PopupExchangeView.m */; };
@@ -874,6 +880,18 @@
 		8478D1201DD01F1E0066E784 /* SurDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurDataView.m; sourceTree = "<group>"; };
 		8478D12B1DD05D260066E784 /* SurDetailSelBtnView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurDetailSelBtnView.h; sourceTree = "<group>"; };
 		8478D12C1DD05D260066E784 /* SurDetailSelBtnView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurDetailSelBtnView.m; sourceTree = "<group>"; };
+		847ADA6A1DF79CFC002600AA /* OptionalStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalStockViewController.h; sourceTree = "<group>"; };
+		847ADA6B1DF79CFC002600AA /* OptionalStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalStockViewController.m; sourceTree = "<group>"; };
+		847ADA6D1DF7A15D002600AA /* OptionalHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalHeadView.h; sourceTree = "<group>"; };
+		847ADA6E1DF7A15D002600AA /* OptionalHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalHeadView.m; sourceTree = "<group>"; };
+		847ADA781DF7B20B002600AA /* OptionalStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalStockTableViewCell.h; sourceTree = "<group>"; };
+		847ADA791DF7B20B002600AA /* OptionalStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalStockTableViewCell.m; sourceTree = "<group>"; };
+		847ADA831DF7D1FA002600AA /* OptionalManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageViewController.h; sourceTree = "<group>"; };
+		847ADA841DF7D1FA002600AA /* OptionalManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageViewController.m; sourceTree = "<group>"; };
+		847ADA861DF7D485002600AA /* OptionalManageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageHeadView.h; sourceTree = "<group>"; };
+		847ADA871DF7D485002600AA /* OptionalManageHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageHeadView.m; sourceTree = "<group>"; };
+		847ADA911DF7E08B002600AA /* OptionalManageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageTableViewCell.h; sourceTree = "<group>"; };
+		847ADA921DF7E08B002600AA /* OptionalManageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageTableViewCell.m; sourceTree = "<group>"; };
 		847BD6DC1DE69346006AEECE /* ExchangeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeTableViewCell.h; sourceTree = "<group>"; };
 		847BD6DD1DE69346006AEECE /* ExchangeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ExchangeTableViewCell.m; sourceTree = "<group>"; };
 		847BD6E51DE69CAB006AEECE /* ExchangeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ExchangeModel.h; sourceTree = "<group>"; };
@@ -2041,6 +2059,7 @@
 				19C526251D49EDEE0039F85D /* WebView */,
 				84069EBC1DB495A300CB21DA /* TDSurvey */,
 				8478D1141DD012E60066E784 /* TDSurDetail */,
+				847ADA651DF79C9C002600AA /* TDoptional */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -2366,6 +2385,57 @@
 				8470E9501DDC5327002F727D /* KeysBtn.m */,
 				8470E9521DDC6689002F727D /* UnlockVipBtn.h */,
 				8470E9531DDC6689002F727D /* UnlockVipBtn.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		847ADA651DF79C9C002600AA /* TDoptional */ = {
+			isa = PBXGroup;
+			children = (
+				847ADA681DF79CCA002600AA /* Models */,
+				847ADA691DF79CCA002600AA /* Views */,
+				847ADA661DF79CCA002600AA /* Cells */,
+				847ADA671DF79CCA002600AA /* Controllers */,
+			);
+			path = TDoptional;
+			sourceTree = "<group>";
+		};
+		847ADA661DF79CCA002600AA /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				847ADA781DF7B20B002600AA /* OptionalStockTableViewCell.h */,
+				847ADA791DF7B20B002600AA /* OptionalStockTableViewCell.m */,
+				847ADA911DF7E08B002600AA /* OptionalManageTableViewCell.h */,
+				847ADA921DF7E08B002600AA /* OptionalManageTableViewCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		847ADA671DF79CCA002600AA /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				847ADA6A1DF79CFC002600AA /* OptionalStockViewController.h */,
+				847ADA6B1DF79CFC002600AA /* OptionalStockViewController.m */,
+				847ADA831DF7D1FA002600AA /* OptionalManageViewController.h */,
+				847ADA841DF7D1FA002600AA /* OptionalManageViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		847ADA681DF79CCA002600AA /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		847ADA691DF79CCA002600AA /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				847ADA6D1DF7A15D002600AA /* OptionalHeadView.h */,
+				847ADA6E1DF7A15D002600AA /* OptionalHeadView.m */,
+				847ADA861DF7D485002600AA /* OptionalManageHeadView.h */,
+				847ADA871DF7D485002600AA /* OptionalManageHeadView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3126,6 +3196,7 @@
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				8461747B1DEFB36F00CD48CF /* WXApiManager.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
+				847ADA881DF7D485002600AA /* OptionalManageHeadView.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				8470E9571DDD4E31002F727D /* SelWXOrAlipayView.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
@@ -3140,6 +3211,7 @@
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				8470E9511DDC5327002F727D /* KeysBtn.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
+				847ADA6C1DF79CFC002600AA /* OptionalStockViewController.m in Sources */,
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
@@ -3175,6 +3247,7 @@
 				1955B4671D644D9800DC102E /* DaynightCellTableViewCell.m in Sources */,
 				8470E9541DDC6689002F727D /* UnlockVipBtn.m in Sources */,
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,
+				847ADA851DF7D1FA002600AA /* OptionalManageViewController.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
@@ -3222,6 +3295,7 @@
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
 				1955B45B1D644D9800DC102E /* AddUpdatesViewController.m in Sources */,
+				847ADA7A1DF7B20B002600AA /* OptionalStockTableViewCell.m in Sources */,
 				843BC1F41DC97C9300E170EF /* KeysNumberTableViewCell.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
@@ -3292,6 +3366,8 @@
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
 				1955B49F1D644D9800DC102E /* ViewInfoModel.m in Sources */,
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
+				847ADA6F1DF7A15D002600AA /* OptionalHeadView.m in Sources */,
+				1955B4791D644D9800DC102E /* ViewManagerViewController.m in Sources */,
 				1955B49D1D644D9800DC102E /* SpecialModel.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
@@ -3319,6 +3395,7 @@
 				846D92291DD952CB000B847E /* CommentViewController.m in Sources */,
 				84EF8CC21D712F2C002F3F69 /* MyAttentionTableViewCell.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,
+				847ADA931DF7E08B002600AA /* OptionalManageTableViewCell.m in Sources */,
 				1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,

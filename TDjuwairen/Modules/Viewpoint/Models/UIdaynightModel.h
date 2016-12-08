@@ -17,6 +17,8 @@
 
 @property (nonatomic, strong) UIColor *textColor; // 正文颜色
 
+@property (nonatomic, strong) UIColor *secTextColor;
+
 @property (nonatomic,strong) UIColor *backColor;//背景色
 
 @property (nonatomic,strong) UIColor *lineColor;//分割线颜色
