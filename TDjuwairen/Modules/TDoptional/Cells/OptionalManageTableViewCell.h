@@ -14,6 +14,8 @@
 
 - (void)longPress:(UIGestureRecognizer*)recognizer;
 
+- (void)topPan:(UIGestureRecognizer*)recognizer;
+
 @end
 
 @interface OptionalManageTableViewCell : UITableViewCell

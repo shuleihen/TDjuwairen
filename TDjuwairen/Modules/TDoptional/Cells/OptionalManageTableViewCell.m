@@ -35,6 +35,10 @@
         UIImageView *topImg = [[UIImageView alloc] init];
         topImg.image = [UIImage imageNamed:@"btn_zhiding_nor"];
         topImg.contentMode = UIViewContentModeScaleAspectFit;
+        topImg.userInteractionEnabled = YES;
+        
+        UITapGestureRecognizer *pan = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(topPan:)];
+        [topImg addGestureRecognizer:pan];
         
         UIImageView *drapImg = [[UIImageView alloc] init];
         drapImg.image = [UIImage imageNamed:@"btn_move_nor"];
@@ -99,6 +103,12 @@
 - (void)longPress:(UIGestureRecognizer*)recognizer{
     if ([self.delegate respondsToSelector:@selector(longPress:)]) {
         [self.delegate longPress:recognizer];
+    }
+}
+
+- (void)topPan:(UIGestureRecognizer*)recognizer{
+    if ([self.delegate respondsToSelector:@selector(topPan:)]) {
+        [self.delegate topPan:recognizer];
     }
 }
 

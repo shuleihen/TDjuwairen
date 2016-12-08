@@ -127,8 +127,20 @@
 {
     OptionalManageTableViewCell *cell = (OptionalManageTableViewCell *)sender.superview;
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cell.tag inSection:1];
+    [self.stockArr removeObjectAtIndex:cell.tag];
     [self.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     
+}
+
+#pragma mark - 置顶
+- (void)topPan:(UIGestureRecognizer *)recognizer
+{
+    UITapGestureRecognizer *longPress = (UITapGestureRecognizer *)recognizer;
+    
+    CGPoint location = [longPress locationInView:self.tableview];
+    NSIndexPath *indexPath = [self.tableview indexPathForRowAtPoint:location];
+    [self.stockArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:0];
+    [self.tableview moveRowAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row inSection:indexPath.section] toIndexPath:[NSIndexPath indexPathForItem:0 inSection:indexPath.section]];
 }
 
 #pragma mark - 拖动
@@ -147,7 +159,6 @@
         case UIGestureRecognizerStateBegan: {
             if (indexPath) {
                 sourceIndexPath = indexPath;
-                NSLog(@"1");
                 UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
                 
                 // Take a snapshot of the selected row using helper method.
@@ -174,7 +185,6 @@
         }
             
         case UIGestureRecognizerStateChanged: {
-            NSLog(@"2");
             CGPoint center = snapshot.center;
             center.y = location.y;
             snapshot.center = center;
@@ -195,7 +205,6 @@
         }
             
         default: {
-            NSLog(@"3");
             // Clean up.
             UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:sourceIndexPath];
             cell.alpha = 0.0;
@@ -222,7 +231,6 @@
 }
 
 - (UIView *)customSnapshoFromView:(UIView *)inputView {
-    
     // Make an image from the input view.
     UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
     [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];

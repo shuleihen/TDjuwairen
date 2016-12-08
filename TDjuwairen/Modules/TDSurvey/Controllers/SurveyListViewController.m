@@ -83,8 +83,6 @@
     self.stockArr = [NSMutableArray array];
     self.page = 1;
     
-    [self requestToLogin];
-    
     [self setupNavigationBar];
     [self setupTableView];
     
@@ -93,6 +91,8 @@
     [self getSurveyWithPage:self.page];
     
     [self addRefreshView];
+    
+    [self requestToLogin];
 }
 
 - (void)addRefreshView{
