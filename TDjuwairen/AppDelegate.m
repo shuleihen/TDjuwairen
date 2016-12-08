@@ -55,7 +55,7 @@ static BOOL isBackGroundActivateApplication;
     NSLog(@"HomeDirectory = %@",NSHomeDirectory());
 #endif
     
-    [NSThread sleepForTimeInterval:2.0];//设置启动页面时间
+    [NSThread sleepForTimeInterval:3.0];//设置启动页面时间
     
     [self setupUICommon];
     [self setupURLCacheSize];

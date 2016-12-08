@@ -132,7 +132,7 @@
 
 - (void)setupWithAgreements{
     UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 40)];
-    label.text = @"点击“注册”即表示您已统一并愿意遵守局外人用户协议和隐私政策";
+    label.text = @"点击“注册”即表示您已同意并愿意遵守局外人用户协议和隐私政策";
     label.numberOfLines = 0;
     label.font = [UIFont systemFontOfSize:12];
     NSMutableAttributedString *att = [[NSMutableAttributedString alloc]initWithString:label.text];
