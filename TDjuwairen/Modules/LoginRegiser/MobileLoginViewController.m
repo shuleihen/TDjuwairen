@@ -64,7 +64,7 @@
 - (void)setupWithLogoImage{
     UIImageView *imageview = [[UIImageView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 120)];
     imageview.contentMode = UIViewContentModeCenter;
-    imageview.image = [UIImage imageNamed:@"logo.png"];
+    imageview.image = [UIImage imageNamed:@"icon_logo.png"];
     [self.view addSubview:imageview];
 }
 

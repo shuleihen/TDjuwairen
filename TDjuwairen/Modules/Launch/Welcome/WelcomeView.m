@@ -33,7 +33,7 @@
         
         CGFloat logoX = (kScreenWidth - kScreenWidth/3)/2;
         self.welcomeLogo = [[UIImageView alloc] initWithFrame:CGRectMake(logoX, kScreenHeight-100, kScreenWidth/3, 60)];
-        self.welcomeLogo.image = [UIImage imageNamed:@"welcomeLogo"];
+        self.welcomeLogo.image = [UIImage imageNamed:@"icon_welcome_logo.png"];
         self.welcomeLogo.contentMode = UIViewContentModeScaleAspectFit;
         [self addSubview:self.welcomeLogo];
         

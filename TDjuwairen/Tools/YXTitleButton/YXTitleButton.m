@@ -15,8 +15,8 @@
     
     self.frame = CGRectMake(60, 7, [UIScreen mainScreen].bounds.size.width-120, 30);
     
-    [self setBackgroundImage:[UIImage imageNamed:@"survey_search"] forState:UIControlStateNormal];
-    [self setBackgroundImage:[UIImage imageNamed:@"survey_search"] forState:UIControlStateHighlighted];
+    [self setBackgroundImage:[UIImage imageNamed:@"survey_search.png"] forState:UIControlStateNormal];
+    [self setBackgroundImage:[UIImage imageNamed:@"survey_search.png"] forState:UIControlStateHighlighted];
     
 }
 @end

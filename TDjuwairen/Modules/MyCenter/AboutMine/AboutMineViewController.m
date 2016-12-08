@@ -51,7 +51,7 @@
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
     UIImageView *imgview = [[UIImageView alloc] initWithFrame:view.bounds];
-    imgview.image = [UIImage imageNamed:@"logo.png"];
+    imgview.image = [UIImage imageNamed:@"icon_logo.png"];
     imgview.contentMode = UIViewContentModeCenter;
     [view addSubview:imgview];
     self.tableview.tableHeaderView = view;

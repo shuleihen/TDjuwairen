@@ -44,7 +44,7 @@
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
     
-    self.setupImgArr = @[@"btn_yejian@3x.png",@"remindImg",@"issuedImg.png",@"shoucangImg.png",@"SetupImg.png",@"aboutImg.png"];
+    self.setupImgArr = @[@"icon_night.png",@"icon_remind.png",@"icon_issued.png",@"icon_collection.png",@"icon_setting.png",@"icon_us.png"];
     self.setupTitleArr = @[@"夜间模式",@"消息提醒",@"发布管理",@"我的收藏",@"设置",@"关于我们"];
     
     [self setupWithTableView];

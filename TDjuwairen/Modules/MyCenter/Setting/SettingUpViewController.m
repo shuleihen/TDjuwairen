@@ -30,7 +30,7 @@
     [super viewDidLoad];
     
     self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.imgArr = @[@"pushMessageImg",@"clearImg"];
+    self.imgArr = @[@"icon_push.png",@"icon_clear.png"];
     self.titleArr = @[@"消息推送",@"清除缓存"];
     self.cachePathArr = [NSMutableArray array];
     
