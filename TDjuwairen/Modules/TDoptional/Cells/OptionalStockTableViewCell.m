@@ -33,7 +33,7 @@
         [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).with.offset(10);
             make.left.equalTo(self).with.offset(15);
-            make.width.mas_equalTo(kScreenWidth/3-15);
+            make.width.mas_equalTo(kScreenWidth/2);
             make.height.mas_equalTo(20);
         }];
         

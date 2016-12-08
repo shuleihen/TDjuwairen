@@ -9,8 +9,15 @@
 #import "OptionalManageViewController.h"
 #import "OptionalManageHeadView.h"
 #import "OptionalManageTableViewCell.h"
+#import "NoOrderTableViewCell.h"
+#import "AlertHintView.h"
+#import "SurveyModel.h"
 
 #import "UIdaynightModel.h"
+#import "LoginState.h"
+
+#import "NetworkManager.h"
+#import "Masonry.h"
 
 @interface OptionalManageViewController ()<UITableViewDelegate,UITableViewDataSource,ManageCellDelegate>
 {
@@ -23,6 +30,8 @@
 @property (nonatomic,strong) UITableView *tableview;
 
 @property (nonatomic,strong) OptionalManageHeadView *headView;
+
+@property (nonatomic,strong) NSArray *dataArr;
 
 @end
 
@@ -38,11 +47,27 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.daynightModel = [UIdaynightModel sharedInstance];
-    NSArray *arr = @[@"平安银行",@"平安中国",@"平安保险",@"保险平安",@"一路平安"];
-    self.stockArr = [NSMutableArray arrayWithArray:arr];
+    self.dataArr = [NSArray array];
+    self.stockArr = [NSMutableArray array];
+    
     [self setupWithNavigation];
     [self setupWithTableView];
+    [self requestWithList];
     // Do any additional setup after loading the view.
+}
+
+- (void)dealloc
+{
+    NSDictionary *dictionary = nil;
+    [dictionary setValue:self.dataArr forKey:@"data"];
+    NSData *data=[NSJSONSerialization dataWithJSONObject:self.dataArr options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"jsonStr==%@",jsonStr);
+    
+//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+//    NSString *url = @"Collection/changeMyStockOrder";
+//    
+//    manager POST:<#(NSString *)#> parameters:<#(id)#> completion:<#^(id data, NSError *error)completion#>
 }
 
 - (void)setupWithNavigation{
@@ -61,6 +86,37 @@
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     [self.tableview registerClass:[OptionalManageTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.view addSubview:self.tableview];
+}
+
+- (void)requestWithList{
+    
+    __weak OptionalManageViewController *wself = self;
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NSString *url = @"Collection/myStockList";
+    NSDictionary *para = nil;
+    if (US.isLogIn) {
+        para = @{@"user_id":US.userId};
+    }
+    else
+    {
+        para = nil;
+    }
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        if (!error) {
+            //
+            self.dataArr = data[@"data"];
+            
+            for (NSDictionary *dic in self.dataArr) {
+                SurveyModel *model = [SurveyModel getInstanceWithDictionary:dic];
+                [wself.stockArr addObject:model];
+            }
+            [wself.tableview reloadData];
+        }
+        else
+        {
+            //
+        }
+    }];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -87,12 +143,36 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    OptionalManageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
-    cell.delegate = self;
-    cell.nameLab.text = self.stockArr[indexPath.row];
-    cell.tag = indexPath.row;
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    return cell;
+    if (self.stockArr.count > 0) {
+        OptionalManageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.delegate = self;
+        SurveyModel *model = self.stockArr[indexPath.row];
+        cell.nameLab.text = model.companyName;
+        cell.codeLab.text = model.companyCode;
+        cell.tag = indexPath.row;
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
+    else
+    {
+        NoOrderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"noOrderCell"];
+        if (cell == nil) {
+            cell = [[NoOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noOrderCell"];
+            UITapGestureRecognizer *tapGesturRecognizer=[[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(clickAddStock)];
+            cell.imgView.userInteractionEnabled = YES;
+            
+            [cell.imgView addGestureRecognizer:tapGesturRecognizer];
+        }
+        cell.imgView.image = [UIImage imageNamed:@"btn_tianjia_nor"];
+        cell.titLab.text = @"暂无股票，点击添加";
+        
+        CGFloat imgX = (kScreenHeight-64-55-50)/6;
+        [cell.titLab mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(cell).with.offset(-(kScreenHeight-64-imgX-90-25-40));
+        }];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
@@ -126,10 +206,20 @@
 - (void)delectThisCell:(UIButton *)sender
 {
     OptionalManageTableViewCell *cell = (OptionalManageTableViewCell *)sender.superview;
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cell.tag inSection:1];
-    [self.stockArr removeObjectAtIndex:cell.tag];
-    [self.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
     
+    __weak OptionalManageViewController *wself = self;
+    AlertHintView *alertView = [AlertHintView alterViewWithTitle:[NSString stringWithFormat:@"%@ (%@)",cell.nameLab.text,cell.codeLab.text] content:@"是否删除该支自选股" cancel:@"取消" sure:@"删除" cancelBtClcik:^(AlertHintView *view) {
+        [view removeFromSuperview];
+    } sureBtClcik:^(AlertHintView *view) {
+        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cell.tag inSection:1];
+        [wself.stockArr removeObjectAtIndex:cell.tag];
+        [wself.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    }];
+    [[UIApplication sharedApplication].keyWindow addSubview:alertView];
+}
+
+- (void)clickAddStock{
+    NSLog(@"嘿嘿嘿");
 }
 
 #pragma mark - 置顶
@@ -160,18 +250,15 @@
             if (indexPath) {
                 sourceIndexPath = indexPath;
                 UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-                
-                // Take a snapshot of the selected row using helper method.
+
                 snapshot = [self customSnapshoFromView:cell];
-                
-                // Add the snapshot as subview, centered at cell's center...
+
                 __block CGPoint center = cell.center;
                 snapshot.center = center;
                 snapshot.alpha = 0.0;
                 [self.tableview addSubview:snapshot];
                 [UIView animateWithDuration:0.25 animations:^{
-                    
-                    // Offset for gesture location.
+
                     center.y = location.y;
                     snapshot.center = center;
                     snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
@@ -188,17 +275,13 @@
             CGPoint center = snapshot.center;
             center.y = location.y;
             snapshot.center = center;
-            
-            // Is destination valid and is it different from source?
+
             if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-                
-                // ... update data source.
+
                 [self.stockArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
-                
-                // ... move the rows.
+
                 [self.tableview moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];
                 
-                // ... and update source so it is in sync with UI changes.
                 sourceIndexPath = indexPath;
             }
             break;
@@ -224,20 +307,18 @@
                 snapshot = nil;
                 
             }];
-            
             break;
         }
     }
 }
 
 - (UIView *)customSnapshoFromView:(UIView *)inputView {
-    // Make an image from the input view.
+
     UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, NO, 0);
     [inputView.layer renderInContext:UIGraphicsGetCurrentContext()];
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     
-    // Create an image view.
     UIView *snapshot = [[UIImageView alloc] initWithImage:image];
     snapshot.layer.masksToBounds = NO;
     snapshot.layer.cornerRadius = 0.0;

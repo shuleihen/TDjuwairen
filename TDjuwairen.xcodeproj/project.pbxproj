@@ -259,6 +259,7 @@
 		8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0631CEF0B2800D7D105 /* UIView+SDExtension.m */; };
 		84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */; };
 		84AAEFDE1D65A3E300755277 /* AllNoResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */; };
+		84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B8F0771DF9308600703A21 /* AlertHintView.m */; };
 		84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA15921DDAB1BE0023E162 /* UnlockView.m */; };
 		84CA159C1DDB082D0023E162 /* NMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA159B1DDB082D0023E162 /* NMView.m */; };
 		84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA3A291D6EB513003E9B53 /* PhoneNumHold.m */; };
@@ -816,6 +817,8 @@
 		84AAEFDA1D65A3E300755277 /* AllNoResultTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AllNoResultTableViewCell.h; sourceTree = "<group>"; };
 		84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AllNoResultTableViewCell.m; sourceTree = "<group>"; };
 		84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllNoResultTableViewCell.xib; sourceTree = "<group>"; };
+		84B8F0761DF9308600703A21 /* AlertHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHintView.h; sourceTree = "<group>"; };
+		84B8F0771DF9308600703A21 /* AlertHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHintView.m; sourceTree = "<group>"; };
 		84CA15911DDAB1BE0023E162 /* UnlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnlockView.h; sourceTree = "<group>"; };
 		84CA15921DDAB1BE0023E162 /* UnlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnlockView.m; sourceTree = "<group>"; };
 		84CA159A1DDB082D0023E162 /* NMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMView.h; sourceTree = "<group>"; };
@@ -2404,6 +2407,8 @@
 				845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */,
 				84823CB31DD1AC36004440A9 /* TopBotButton.h */,
 				84823CB41DD1AC36004440A9 /* TopBotButton.m */,
+				84B8F0761DF9308600703A21 /* AlertHintView.h */,
+				84B8F0771DF9308600703A21 /* AlertHintView.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -2891,6 +2896,7 @@
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				847BD6DE1DE69346006AEECE /* ExchangeTableViewCell.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
+				84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
