@@ -8,7 +8,6 @@
 
 #import "RegisterViewController.h"
 #import "LoginState.h"
-#import "SurveyViewController.h"
 #import "MBProgressHUD.h"
 #import "AgreeViewController.h"
 #import "UIStoryboard+MainStoryboard.h"
@@ -337,15 +336,9 @@
         if (!error) {
             UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                
                 [self requestLogin];
-                
             }]];
             [self presentViewController:alert animated:YES completion:nil];
-            
-            //跳转至主页面
-            SurveyViewController *survey = [self.storyboard instantiateViewControllerWithIdentifier:@"Survey"];
-            [self.navigationController popToViewController:survey animated:YES];
         } else {
             UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"提示" message:@"注册失败" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
@@ -390,7 +383,9 @@
                 [self presentViewController:aler animated:YES completion:nil];
             } else {
                 UIAlertController *aler = [UIAlertController alertControllerWithTitle:@"提示" message:message preferredStyle:UIAlertControllerStyleAlert];
-                UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil];
+                UIAlertAction *conformAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){
+                    [self.navigationController popToRootViewControllerAnimated:YES];
+                }];
                 [aler addAction:conformAction];
                 [self presentViewController:aler animated:YES completion:nil];
             }
