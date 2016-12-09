@@ -7,7 +7,6 @@
 //
 
 #import "PersonalCenterViewController.h"
-#import "MyHeadTableViewCell.h"
 #import "ManageButtonTableViewCell.h"
 #import "SetUpTableViewCell.h"
 #import "LoginState.h"
@@ -27,6 +26,7 @@
 #import "HexColors.h"
 #import "YXFont.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "PersonalHeaderView.h"
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
@@ -34,7 +34,7 @@
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *setupImgArr;
 @property (nonatomic,strong) NSArray *setupTitleArr;
-
+@property (nonatomic, strong) PersonalHeaderView *headerView;
 @end
 
 @implementation PersonalCenterViewController
@@ -51,6 +51,38 @@
     // Do any additional setup after loading the view.
 }
 
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
+    //set ui
+    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
+    self.tableview.backgroundColor = self.daynightmodel.backColor;
+    [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
+    [self.tableview reloadData];
+    
+    if (US.isLogIn == YES) {
+        NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
+        [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
+        [self.headerView.backImg sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:nil options:SDWebImageRefreshCached];
+        self.headerView.nickname.text = US.nickName;
+        self.headerView.backImg.hidden = NO;
+    } else {
+        self.headerView.nickname.text = @"登陆注册";
+        self.headerView.headImg.image = [UIImage imageNamed:@"HeadUnLogin"];
+        self.headerView.backImg.hidden = YES;
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+
 - (void)setupWithTableView {
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-50) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
@@ -58,79 +90,62 @@
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
     [self.view addSubview:self.tableview];
+    
+    self.headerView = [[PersonalHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
+    self.tableview.tableHeaderView = self.headerView;
+    [self.headerView addTarget:self action:@selector(myInfoPressed:)];
 }
 
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+#pragma mark - UITableView
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     if (section == 0) {
-        return 2;
-    }
-    else
-    {
+        return 1;
+    }else {
         return [self.setupTitleArr count];
     }
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            NSString *identifier = @"head";
-            MyHeadTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[MyHeadTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            if (US.isLogIn==YES) {
-                //加载头像
-                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
-                [cell.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
-                
-                cell.nickname.text = US.nickName;
-                
-                //加载模糊背景图片
-                NSString*Path = [NSString stringWithFormat:@"%@",US.headImage];
-                [cell.backImg sd_setImageWithURL:[NSURL URLWithString:Path] placeholderImage:nil options:SDWebImageRefreshCached];
-            }
-            else
-            {
-                cell.nickname.text=@"登陆注册";
-                cell.headImg.image=[UIImage imageNamed:@"HeadUnLogin"];
-                cell.backImg.image=[UIImage imageNamed:@"NotLogin.png"];
-            }
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        }
-        else
-        {
-            NSString *identifier = @"button";
-            ManageButtonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[ManageButtonTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-                [cell.CommentManage addTarget:self action:@selector(GoComment:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [cell.CollectManage addTarget:self action:@selector(GoCollect:) forControlEvents:UIControlEventTouchUpInside];
-                
-                [cell.BrowseManage addTarget:self action:@selector(GoBrowse:) forControlEvents:UIControlEventTouchUpInside];
-            }
-            [cell.CommentManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-            [cell.CollectManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-            [cell.BrowseManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-            cell.CommentManage.backgroundColor = self.daynightmodel.navigationColor;
-            cell.CollectManage.backgroundColor = self.daynightmodel.navigationColor;
-            cell.BrowseManage.backgroundColor = self.daynightmodel.navigationColor;
-            cell.backgroundColor = self.daynightmodel.backColor;
-            return cell;
-        }
+        return 60;
+    }else {
+        return 45;
     }
-    else
-    {
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 0.00000001f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10.0f;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.section == 0) {
+        NSString *identifier = @"buttonCelL";
+        ManageButtonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ManageButtonTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            [cell.CommentManage addTarget:self action:@selector(GoComment:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.CollectManage addTarget:self action:@selector(GoCollect:) forControlEvents:UIControlEventTouchUpInside];
+            
+            [cell.BrowseManage addTarget:self action:@selector(GoBrowse:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [cell.CommentManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+        [cell.CollectManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+        [cell.BrowseManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
+        cell.CommentManage.backgroundColor = self.daynightmodel.navigationColor;
+        cell.CollectManage.backgroundColor = self.daynightmodel.navigationColor;
+        cell.BrowseManage.backgroundColor = self.daynightmodel.navigationColor;
+        cell.backgroundColor = self.daynightmodel.backColor;
+        return cell;
+    } else {
         if (indexPath.row == 0) {
             NSString *identifier = @"dn";
             DaynightCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
@@ -154,9 +169,7 @@
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
-        }
-        else
-        {
+        } else {
             NSString *identifier = @"setup";
             SetUpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
             if (cell == nil) {
@@ -174,58 +187,14 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            return 190;
-        }
-        else
-        {
-            return 60;
-        }
-    }
-    else
-    {
-        return 45;
-    }
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
-{
-    if (section == 0) {
-        return 0.00000001f;
-    }
-    else
-    {
-        return 20;
-    }
-}
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 0) {
-        if (indexPath.row == 0) {
-            if (US.isLogIn == NO) {
-                //跳转到登录页面
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:login animated:YES];
-            }
-            else
-            {
-                //跳转到个人信息页面
-                UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-            
-        }
-    }
-    else if (indexPath.section == 1)
+    if (indexPath.section == 1)
     {
-        if (indexPath.row == 1) {
+        if (indexPath.row == 0) {
             //跳转到观点管理
             if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
                 //跳转到登录页面
@@ -304,46 +273,23 @@
     }
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
-    //set ui
-    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    self.tableview.backgroundColor = self.daynightmodel.backColor;
-    [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
-    [self.tableview reloadData];
-    
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    MyHeadTableViewCell *cell = [self.tableview cellForRowAtIndexPath:indexPath];
-    if (US.isLogIn == YES) {
-        //加载头像
-        NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
-        [cell.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
-
-        cell.nickname.text = US.nickName;
-        
-        //加载模糊背景图片
-        NSString*Path=[NSString stringWithFormat:@"%@",US.headImage];
-        [cell.backImg sd_setImageWithURL:[NSURL URLWithString:Path] placeholderImage:nil options:SDWebImageRefreshCached];
+#pragma mark - Action
+- (void)myInfoPressed:(id)sender {
+    if (US.isLogIn == NO) {
+        //跳转到登录页面
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:login animated:YES];
     }
     else
     {
-        cell.nickname.text = @"登陆注册";
-        cell.headImg.image = [UIImage imageNamed:@"HeadUnLogin"];
-        cell.backImg.image = [UIImage imageNamed:@"NotLogin.png"];
+        //跳转到个人信息页面
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    
 }
 
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
-}
-
-#pragma mark - 回跳
 - (void)clickBack:(UIButton *)sender{
     CATransition* transition = [CATransition animation];
     transition.duration = 0.5;
@@ -354,7 +300,6 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - 跳转到评论管理
 - (void)GoComment:(UIButton *)sender{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
@@ -370,7 +315,6 @@
     }
 }
 
-#pragma mark - 跳转到收藏管理
 - (void)GoCollect:(UIButton *)sender{
     if (US.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
@@ -385,7 +329,7 @@
         [self.navigationController pushViewController:MyAttention animated:YES];
     }
 }
-#pragma mark - 跳转到我的钱包
+
 - (void)GoBrowse:(UIButton *)serder{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面

@@ -6,14 +6,17 @@
     },
     {
       "resizing" : {
-        "mode" : "3-part-horizontal",
+        "mode" : "9-part",
         "center" : {
           "mode" : "tile",
-          "width" : 1
+          "width" : 1,
+          "height" : 3
         },
         "cap-insets" : {
-          "right" : 141,
-          "left" : 125
+          "bottom" : 49,
+          "top" : 46,
+          "right" : 57,
+          "left" : 76
         }
       },
       "idiom" : "universal",
@@ -21,6 +24,20 @@
       "scale" : "2x"
     },
     {
+      "resizing" : {
+        "mode" : "9-part",
+        "center" : {
+          "mode" : "tile",
+          "width" : 1,
+          "height" : 10
+        },
+        "cap-insets" : {
+          "bottom" : 70,
+          "top" : 64,
+          "right" : 138,
+          "left" : 273
+        }
+      },
       "idiom" : "universal",
       "filename" : "login_btn_selected@3x.png",
       "scale" : "3x"

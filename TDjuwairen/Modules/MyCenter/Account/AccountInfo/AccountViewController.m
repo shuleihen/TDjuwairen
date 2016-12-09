@@ -80,9 +80,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if ((indexPath.section == 0) && (indexPath.row == 0)) {
-        // 头像
         //修改头像
-        UIAlertController*alert=[[UIAlertController alloc]init];
+        UIAlertController*alert = [[UIAlertController alloc] init];
         //相机
         [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             [self takePhoto];
