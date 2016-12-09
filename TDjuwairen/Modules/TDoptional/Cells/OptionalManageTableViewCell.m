@@ -26,11 +26,9 @@
         
         self.nameLab = [[UILabel alloc] init];
         self.nameLab.font = [UIFont systemFontOfSize:17];
-        self.nameLab.text = @"中国平安";
         
         self.codeLab = [[UILabel alloc] init];
         self.codeLab.font = [UIFont systemFontOfSize:15];
-        self.codeLab.text = @"000001";
         
         UIImageView *topImg = [[UIImageView alloc] init];
         topImg.image = [UIImage imageNamed:@"btn_zhiding_nor"];
@@ -64,7 +62,7 @@
         [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).with.offset(10);
             make.left.equalTo(delBtn.mas_right).with.offset(15);
-            make.width.mas_equalTo(kScreenWidth/3-15);
+            make.width.mas_equalTo(kScreenWidth/2);
             make.height.mas_equalTo(20);
         }];
         

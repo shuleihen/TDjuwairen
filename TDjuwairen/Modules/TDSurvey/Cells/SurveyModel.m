@@ -17,6 +17,8 @@
     model.companyName = dic[@"company_name"];
     model.surveyId = dic[@"survey_id"];
     model.surveyTitle = dic[@"survey_title"];
+    
+    model.collection_id = dic[@"collection_id"];
     return model;
 }
 

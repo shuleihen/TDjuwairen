@@ -16,5 +16,7 @@
 @property (nonatomic, copy) NSString *surveyCover;
 @property (nonatomic, copy) NSString *surveyUrl;
 
+@property (nonatomic, copy) NSString *collection_id; //收藏自选股id
+
 + (SurveyModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 @end
