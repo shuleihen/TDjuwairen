@@ -12,6 +12,7 @@
 #import "NoOrderTableViewCell.h"
 #import "AlertHintView.h"
 #import "SurveyModel.h"
+#import "SearchViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -20,18 +21,13 @@
 #import "Masonry.h"
 
 @interface OptionalManageViewController ()<UITableViewDelegate,UITableViewDataSource,ManageCellDelegate>
-{
-    // 用于赋值CGPoint
-    CGPoint valuePoint;
-}
-
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 
 @property (nonatomic,strong) UITableView *tableview;
 
 @property (nonatomic,strong) OptionalManageHeadView *headView;
 
-@property (nonatomic,strong) NSArray *dataArr;
+@property (nonatomic,strong) NSMutableArray *dataArr;
 
 @end
 
@@ -47,7 +43,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.daynightModel = [UIdaynightModel sharedInstance];
-    self.dataArr = [NSArray array];
+    self.dataArr = [NSMutableArray array];
     self.stockArr = [NSMutableArray array];
     
     [self setupWithNavigation];
@@ -56,25 +52,14 @@
     // Do any additional setup after loading the view.
 }
 
-- (void)dealloc
-{
-    NSDictionary *dictionary = nil;
-    [dictionary setValue:self.dataArr forKey:@"data"];
-    NSData *data=[NSJSONSerialization dataWithJSONObject:self.dataArr options:NSJSONWritingPrettyPrinted error:nil];
-    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
-    NSLog(@"jsonStr==%@",jsonStr);
-    
-//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
-//    NSString *url = @"Collection/changeMyStockOrder";
-//    
-//    manager POST:<#(NSString *)#> parameters:<#(id)#> completion:<#^(id data, NSError *error)completion#>
-}
-
 - (void)setupWithNavigation{
     self.title = @"管理";
     
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStyleDone target:self action:@selector(addBtn:)];
     self.navigationItem.rightBarButtonItem = addItem;
+    
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back"] style:UIBarButtonItemStyleDone target:self action:@selector(clickGoBack:)];
+    self.navigationItem.leftBarButtonItem = leftItem;
 }
 
 - (void)setupWithTableView{
@@ -92,19 +77,19 @@
     
     __weak OptionalManageViewController *wself = self;
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
-    NSString *url = @"Collection/myStockList";
-    NSDictionary *para = nil;
+    NSString *url ;
     if (US.isLogIn) {
-        para = @{@"user_id":US.userId};
+        url = [NSString stringWithFormat:@"Collection/myStockList?user_id=%@",US.userId];
     }
     else
     {
-        para = nil;
+        url = [NSString stringWithFormat:@"Collection/myStockList?user_id="];
     }
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+    [manager GET:url parameters:nil completion:^(id data, NSError *error) {
         if (!error) {
             //
-            self.dataArr = data[@"data"];
+            NSArray *arr = data;
+            self.dataArr = [NSMutableArray arrayWithArray:arr];
             
             for (NSDictionary *dic in self.dataArr) {
                 SurveyModel *model = [SurveyModel getInstanceWithDictionary:dic];
@@ -114,7 +99,7 @@
         }
         else
         {
-            //
+            NSLog(@"%@",error);
         }
     }];
 }
@@ -147,7 +132,7 @@
         OptionalManageTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.delegate = self;
         SurveyModel *model = self.stockArr[indexPath.row];
-        cell.nameLab.text = model.companyName;
+        cell.nameLab.text = [model.companyName substringWithRange:NSMakeRange(0, model.companyName.length-8)];
         cell.codeLab.text = model.companyCode;
         cell.tag = indexPath.row;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -197,9 +182,36 @@
     }
 }
 
+#pragma mark - goback
+- (void)clickGoBack:(UIButton *)sender{
+    NSDictionary *dictionary = nil;
+    [dictionary setValue:self.dataArr forKey:@"data"];
+    NSData *data=[NSJSONSerialization dataWithJSONObject:self.dataArr options:NSJSONWritingPrettyPrinted error:nil];
+    NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+
+    __weak OptionalManageViewController *wself = self;
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NSString *url = @"Collection/changeMyStockOrder";
+    NSDictionary *para = @{@"order_list":jsonStr};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        if (!error) {
+            NSLog(@"%@",data);
+            [wself.navigationController popViewControllerAnimated:YES];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+            [wself.navigationController popViewControllerAnimated:YES];
+        }
+    }];
+    
+}
+
 #pragma mark - 添加自选股
 - (void)addBtn:(UIButton *)sender{
-    
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 #pragma mark - manageCell delegate
@@ -211,9 +223,23 @@
     AlertHintView *alertView = [AlertHintView alterViewWithTitle:[NSString stringWithFormat:@"%@ (%@)",cell.nameLab.text,cell.codeLab.text] content:@"是否删除该支自选股" cancel:@"取消" sure:@"删除" cancelBtClcik:^(AlertHintView *view) {
         [view removeFromSuperview];
     } sureBtClcik:^(AlertHintView *view) {
-        NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cell.tag inSection:1];
-        [wself.stockArr removeObjectAtIndex:cell.tag];
-        [wself.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        SurveyModel *model = self.stockArr[cell.tag];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NSString *url = @"Collection/cancelMyStock";
+        NSDictionary *para = @{@"collect_id":model.collection_id};
+        [manager POST:url parameters:para completion:^(id data, NSError *error) {
+            if (!error) {
+                [view removeFromSuperview];
+                NSIndexPath *indexPath = [NSIndexPath indexPathForRow:cell.tag inSection:1];
+                [wself.stockArr removeObjectAtIndex:cell.tag];
+                [wself.tableview deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            }
+            else
+            {
+                //
+            }
+        }];
+        
     }];
     [[UIApplication sharedApplication].keyWindow addSubview:alertView];
 }
@@ -229,6 +255,7 @@
     
     CGPoint location = [longPress locationInView:self.tableview];
     NSIndexPath *indexPath = [self.tableview indexPathForRowAtPoint:location];
+    [self.dataArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:0];
     [self.stockArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:0];
     [self.tableview moveRowAtIndexPath:[NSIndexPath indexPathForItem:indexPath.row inSection:indexPath.section] toIndexPath:[NSIndexPath indexPathForItem:0 inSection:indexPath.section]];
 }
@@ -258,7 +285,6 @@
                 snapshot.alpha = 0.0;
                 [self.tableview addSubview:snapshot];
                 [UIView animateWithDuration:0.25 animations:^{
-
                     center.y = location.y;
                     snapshot.center = center;
                     snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05);
@@ -277,7 +303,7 @@
             snapshot.center = center;
 
             if (indexPath && ![indexPath isEqual:sourceIndexPath]) {
-
+                [self.dataArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
                 [self.stockArr exchangeObjectAtIndex:indexPath.row withObjectAtIndex:sourceIndexPath.row];
 
                 [self.tableview moveRowAtIndexPath:sourceIndexPath toIndexPath:indexPath];

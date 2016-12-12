@@ -114,14 +114,14 @@
 }
 
 - (void)clickClear:(UIButton *)sender{
-    [self removeFromSuperview];
+//    [self removeFromSuperview];
     if (self.clear_Block) {
         self.clear_Block(self);
     }
 }
 
 - (void)clickDelect:(UIButton *)sender{
-    [self removeFromSuperview];
+//    [self removeFromSuperview];
     if (self.delect_Block) {
         self.delect_Block(self);
     }

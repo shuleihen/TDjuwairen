@@ -12,12 +12,17 @@
 #import "OptionalStockTableViewCell.h"
 #import "NoOrderTableViewCell.h"
 #import "OptionalManageViewController.h"
+#import "SurveyModel.h"
+#import "SurDetailViewController.h"
+#import "StockManager.h"
 
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 
 #import "Masonry.h"
+#import "NetworkManager.h"
 
-@interface OptionalStockViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface OptionalStockViewController ()<UITableViewDelegate,UITableViewDataSource,StockManagerDelegate>
 
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 
@@ -27,9 +32,20 @@
 
 @property (nonatomic,strong) NSMutableArray *stockArr;
 
+@property (nonatomic,strong) StockManager *stockManager;
+
 @end
 
 @implementation OptionalStockViewController
+
+- (StockManager *)stockManager {
+    if (!_stockManager) {
+        _stockManager = [[StockManager alloc] init];
+        _stockManager.delegate = self;
+    }
+    
+    return _stockManager;
+}
 
 - (OptionalHeadView *)headView
 {
@@ -43,10 +59,16 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
+    self.stockArr = [NSMutableArray array];
     
     [self setupWithNavigation];
     [self setupWithTableView];
-    // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    [self requestWithList];
 }
 
 - (void)setupWithNavigation{
@@ -74,6 +96,35 @@
     [self.view addSubview:self.tableview];
 }
 
+- (void)requestWithList{
+    __weak OptionalStockViewController *wself = self;
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NSString *url ;
+    if (US.isLogIn) {
+        url = [NSString stringWithFormat:@"Collection/myStockList?user_id=%@",US.userId];
+    }
+    else
+    {
+        url = [NSString stringWithFormat:@"Collection/myStockList?user_id="];
+    }
+    [manager GET:url parameters:nil completion:^(id data, NSError *error) {
+        if (!error) {
+            //
+            NSArray *arr = data;
+            self.stockArr = [NSMutableArray array];
+            for (NSDictionary *dic in arr) {
+                SurveyModel *model = [SurveyModel getInstanceWithDictionary:dic];
+                [wself.stockArr addObject:model];
+            }
+            [wself.tableview reloadData];
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -87,7 +138,7 @@
     else
     {
         if (self.stockArr.count > 0) {
-            return 10;
+            return self.stockArr.count;
         }
         else
         {
@@ -99,11 +150,14 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.stockArr.count > 0 ) {
+        SurveyModel *model = self.stockArr[indexPath.row];
         OptionalStockTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
+        cell.nameLab.text = [model.companyName substringWithRange:NSMakeRange(0, model.companyName.length-8)];
+        cell.codeLab.text = model.companyCode;
+        
         cell.nameLab.textColor = self.daynightModel.textColor;
         cell.codeLab.textColor = self.daynightModel.secTextColor;
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }
     else
@@ -148,6 +202,27 @@
     {
         return 45;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SurveyModel *model = self.stockArr[indexPath.row];
+    NSString *code = [model.companyCode substringWithRange:NSMakeRange(0, 1)];
+    NSString *companyCode ;
+    if ([code isEqualToString:@"6"]) {
+        companyCode = [NSString stringWithFormat:@"sh%@",model.companyCode];
+    }
+    else
+    {
+        companyCode = [NSString stringWithFormat:@"sz%@",model.companyCode];
+    }
+    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+    vc.company_name = model.companyName;
+    vc.company_code = companyCode;
+    vc.survey_cover = model.surveyCover;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - navigation

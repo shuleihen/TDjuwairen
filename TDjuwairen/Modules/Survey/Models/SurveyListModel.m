@@ -26,6 +26,7 @@
     model.survey_title = dic[@"survey_title"];
     model.company_name = dic[@"company_name"];
     model.survey_conpanycode = dic[@"survey_companycode"];
+    model.is_mystock = [dic[@"is_mystock"] boolValue];
     return model;
 }
 

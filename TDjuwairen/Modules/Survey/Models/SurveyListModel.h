@@ -31,6 +31,8 @@
 
 @property (nonatomic, strong) NSString *survey_conpanycode;//股票代码
 
+@property (nonatomic, assign) BOOL is_mystock;          //是否自选
+
 +(SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 
 

@@ -238,6 +238,7 @@
 		84823CAF1DD165B6004440A9 /* ChildDetailTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CAE1DD165B6004440A9 /* ChildDetailTableViewController.m */; };
 		84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB41DD1AC36004440A9 /* TopBotButton.m */; };
 		84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB71DD1ACB3004440A9 /* NSString+GetDevice.m */; };
+		8487084B1DFE3A67003FE44F /* SearchAddStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 848708491DFE3A67003FE44F /* SearchAddStockTableViewCell.m */; };
 		8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488E42A1D90E2EC00888D07 /* libBPush.a */; };
 		8488E42D1D90E2EC00888D07 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8488E42B1D90E2EC00888D07 /* test.caf */; };
 		848AF4EE1D93B6C1001A56D2 /* ShareSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848AF4C91D93B6C1001A56D2 /* ShareSDK.framework */; };
@@ -782,6 +783,8 @@
 		84823CB41DD1AC36004440A9 /* TopBotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopBotButton.m; sourceTree = "<group>"; };
 		84823CB61DD1ACB3004440A9 /* NSString+GetDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GetDevice.h"; sourceTree = "<group>"; };
 		84823CB71DD1ACB3004440A9 /* NSString+GetDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GetDevice.m"; sourceTree = "<group>"; };
+		848708481DFE3A67003FE44F /* SearchAddStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchAddStockTableViewCell.h; sourceTree = "<group>"; };
+		848708491DFE3A67003FE44F /* SearchAddStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchAddStockTableViewCell.m; sourceTree = "<group>"; };
 		8488E4291D90E2EC00888D07 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
 		8488E42A1D90E2EC00888D07 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		8488E42B1D90E2EC00888D07 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
@@ -1405,6 +1408,8 @@
 				84AAEFDA1D65A3E300755277 /* AllNoResultTableViewCell.h */,
 				84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */,
 				84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */,
+				848708481DFE3A67003FE44F /* SearchAddStockTableViewCell.h */,
+				848708491DFE3A67003FE44F /* SearchAddStockTableViewCell.m */,
 			);
 			path = cells;
 			sourceTree = "<group>";
@@ -3077,6 +3082,7 @@
 				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
+				8487084B1DFE3A67003FE44F /* SearchAddStockTableViewCell.m in Sources */,
 				846D92291DD952CB000B847E /* CommentViewController.m in Sources */,
 				84EF8CC21D712F2C002F3F69 /* MyAttentionTableViewCell.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,

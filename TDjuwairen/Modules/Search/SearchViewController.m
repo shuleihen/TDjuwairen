@@ -11,6 +11,7 @@
 #import "SurveyListModel.h"
 #import "ViewPointListModel.h"
 #import "SearchResultTableViewCell.h"
+#import "SearchAddStockTableViewCell.h"
 #import "HeadForSectionTableViewCell.h"
 #import "NoResultTableViewCell.h"
 #import "AllNoResultTableViewCell.h"
@@ -20,8 +21,9 @@
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "UIdaynightModel.h"
+#import "LoginState.h"
 
-@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate,AllNoResultTableViewCellDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UISearchControllerDelegate,UISearchResultsUpdating,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate,NoResultTableViewCellDelegate,AllNoResultTableViewCellDelegate,addStockDelegate>
 {
     NSMutableArray *resultArr;
     NSMutableArray *searchHistory;
@@ -82,10 +84,18 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    NSDictionary *dic = @{@"keywords":self.customSearchBar.text};
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NSDictionary *dic = nil;
+    if (US.isLogIn) {
+        dic = @{@"keywords":self.customSearchBar.text,
+                @"user_id":US.userId};
+    }
+    else
+    {
+        dic = @{@"keywords":self.customSearchBar.text};
+    }
     
-    NSString *url = @"Search/Search2_1";
+    NSString *url = @"Search/search2_1";
     [manager POST:url parameters:dic completion:^(id data, NSError *error){
         if (!error) {
             NSDictionary *dic = data;
@@ -363,25 +373,19 @@
                     }
                     else
                     {
-                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+                        SearchAddStockTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
                         if (cell == nil) {
-                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                            cell = [[SearchAddStockTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                            cell.delegate = self;
                         }
                         SurveyListModel *model = self.surveydata[indexPath.row-1];
-                        NSString *text = model.survey_title;
-                        cell.titleLabel.text = text;
-                        UIFont *font = [UIFont systemFontOfSize:16];
-                        cell.titleLabel.font = font;
-                        titlesize = CGSizeMake(kScreenWidth-30, 20000.0f);
-                        titlesize = [text calculateSize:titlesize font:font];
-                        [cell.titleLabel setFrame:CGRectMake(15, 15, kScreenWidth-30, titlesize.height)];
+                        [cell setupWithModel:model];
+                        cell.addBtn.tag = indexPath.row;
                         
-                        [cell.line setFrame:CGRectMake(15, 15+titlesize.height+14, kScreenWidth-30, 1)];
-                        
-                        cell.titleLabel.textColor = self.daynightmodel.textColor;
+                        cell.code.textColor = self.daynightmodel.secTextColor;
+                        cell.name.textColor = self.daynightmodel.textColor;
                         cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
                         cell.backgroundColor = self.daynightmodel.navigationColor;
-                        
                         return cell;
                     }
                 }
@@ -427,9 +431,9 @@
                     }
                     else
                     {
-                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"pointcell"];
                         if (cell == nil) {
-                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"pointcell"];
                         }
                         ViewPointListModel *model = self.researchdata[indexPath.row-1];
                         NSString *text = model.view_title;
@@ -493,9 +497,9 @@
                     }
                     else
                     {
-                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"searchCell"];
+                        SearchResultTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"viewcell"];
                         if (cell == nil) {
-                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"searchCell"];
+                            cell = [[SearchResultTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"viewcell"];
                         }
                         SurveyListModel *model = self.videodata[indexPath.row-1];
                         NSString *text = model.sharp_title;
@@ -551,7 +555,7 @@
                     }
                     else
                     {
-                        return 15 + titlesize.height + 15;
+                        return 50;
                     }
                 }
                 else if (indexPath.section == 1)
@@ -786,6 +790,51 @@
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self.customSearchBar resignFirstResponder];
+}
+
+#pragma mark - 点击添加
+- (void)clickAddOptionalStock:(UIButton *)sender
+{
+    SurveyListModel *model = self.surveydata[sender.tag-1];
+    if (US.isLogIn) {
+        NSDictionary *para = @{@"code":model.survey_conpanycode,
+                               @"user_id":US.userId};
+        if (model.is_mystock) {
+            //取消
+            NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+            NSString *url = @"Collection/delMyStockCode";
+            [manager POST:url parameters:para completion:^(id data, NSError *error) {
+                if (!error) {
+                    NSLog(@"%@",data);
+                    [self requestDataWithText];
+                }
+                else
+                {
+//                    NSLog(@"%@",error);
+                }
+            }];
+        }
+        else
+        {
+            //添加
+            NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+            NSString *url = @"Survey/addMyStock";
+            [manager POST:url parameters:para completion:^(id data, NSError *error) {
+                if (!error) {
+                    NSLog(@"%@",data);
+                    [self requestDataWithText];
+                }
+                else
+                {
+                    //                    NSLog(@"%@",error);
+                }
+            }];
+        }
+    }
+    else
+    {
+        
+    }
 }
 
 #pragma mark - 点击提交

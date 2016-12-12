@@ -548,24 +548,48 @@
         //
     }];
     
-    __weak DetailPageViewController *wself = self;
-    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        //获取页面高度，并重置webview的frame
-        CGFloat documentHeight = [result doubleValue];
-        CGRect frame = webView.frame;
-        frame.size.height = documentHeight + 15/*显示不全*/;
-        webView.frame = frame;
-        websize = frame.size;
-        
-        [self.tagList setFrame:CGRectMake(0, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
-        
-        [self didfinishReload];
-        
-        //停止加载样式
-        wself.hudload.labelText = @"加载完成";
-        [wself.hudload hide:YES afterDelay:0.1];
-        
-    }];
+    if ([self.pageMode isEqualToString:@"sharp"]) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            __weak DetailPageViewController *wself = self;
+            [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+                //获取页面高度，并重置webview的frame
+                CGFloat documentHeight = [result doubleValue];
+                CGRect frame = webView.frame;
+                frame.size.height = documentHeight + 15/*显示不全*/;
+                webView.frame = frame;
+                websize = frame.size;
+                
+                [self.tagList setFrame:CGRectMake(15, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
+                
+                [self didfinishReload];
+                
+                //停止加载样式
+                wself.hudload.labelText = @"加载完成";
+                [wself.hudload hide:YES afterDelay:0.1];
+            }];
+        });
+    }
+    else
+    {
+        __weak DetailPageViewController *wself = self;
+        [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+            //获取页面高度，并重置webview的frame
+            CGFloat documentHeight = [result doubleValue];
+            CGRect frame = webView.frame;
+            frame.size.height = documentHeight + 15/*显示不全*/;
+            webView.frame = frame;
+            websize = frame.size;
+            
+            [self.tagList setFrame:CGRectMake(0, 75+titlesize.height+10 + frame.size.height, kScreenWidth, 10+self.tagList.frame.size.height+10)];
+            
+            [self didfinishReload];
+            
+            //停止加载样式
+            wself.hudload.labelText = @"加载完成";
+            [wself.hudload hide:YES afterDelay:0.1];
+            
+        }];
+    }
 }
 
 - (void)gotoUserInfo:(UITapGestureRecognizer *)tap{
