@@ -795,6 +795,9 @@
 #pragma mark - 点击添加
 - (void)clickAddOptionalStock:(UIButton *)sender
 {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"关注中";
+    
     SurveyListModel *model = self.surveydata[sender.tag-1];
     if (US.isLogIn) {
         NSDictionary *para = @{@"code":model.survey_conpanycode,
@@ -807,10 +810,15 @@
                 if (!error) {
                     NSLog(@"%@",data);
                     [self requestDataWithText];
+                    hud.labelText = @"添加成功";
+                    [hud hide:YES afterDelay:0.5];
                 }
                 else
                 {
 //                    NSLog(@"%@",error);
+                    hud.labelText = @"添加失败";
+                    [hud hide:YES afterDelay:0.5];
+                    
                 }
             }];
         }
@@ -823,10 +831,14 @@
                 if (!error) {
                     NSLog(@"%@",data);
                     [self requestDataWithText];
+                    hud.labelText = @"取消成功";
+                    [hud hide:YES afterDelay:0.5];
                 }
                 else
                 {
                     //                    NSLog(@"%@",error);
+                    hud.labelText = @"取消失败";
+                    [hud hide:YES afterDelay:0.5];
                 }
             }];
         }

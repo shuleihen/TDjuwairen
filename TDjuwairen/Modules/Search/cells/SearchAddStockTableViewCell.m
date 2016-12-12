@@ -48,11 +48,11 @@
     self.code.text = model.survey_conpanycode;
     self.name.text = model.company_name;
     if (model.is_mystock) {
-        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_add"] forState:UIControlStateNormal];
+        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_quxiao"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_quxiao"] forState:UIControlStateNormal];
+        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_add"] forState:UIControlStateNormal];
     }
 }
 
