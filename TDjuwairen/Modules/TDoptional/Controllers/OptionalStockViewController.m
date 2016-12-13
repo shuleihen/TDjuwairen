@@ -30,6 +30,10 @@
 
 @property (nonatomic,strong) OptionalHeadView *headView;
 
+@property (nonatomic,strong) NSMutableArray *optionArr;
+
+@property (nonatomic, strong) NSDictionary *stockDict;
+
 @property (nonatomic,strong) NSMutableArray *stockArr;
 
 @property (nonatomic,strong) StockManager *stockManager;
@@ -59,7 +63,6 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
-    self.stockArr = [NSMutableArray array];
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -68,7 +71,14 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    [self.stockManager start];
     [self requestWithList];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.stockManager stop];
 }
 
 - (void)setupWithNavigation{
@@ -112,10 +122,22 @@
             //
             NSArray *arr = data;
             self.stockArr = [NSMutableArray array];
+            self.optionArr = [NSMutableArray array];
             for (NSDictionary *dic in arr) {
                 SurveyModel *model = [SurveyModel getInstanceWithDictionary:dic];
-                [wself.stockArr addObject:model];
+                [wself.optionArr addObject:model];
+                NSString *code = [model.companyCode substringWithRange:NSMakeRange(0, 1)];
+                NSString *companyCode = nil;
+                if ([code isEqualToString:@"6"]) {
+                    companyCode = [NSString stringWithFormat:@"sh%@",model.companyCode];
+                }
+                else
+                {
+                    companyCode = [NSString stringWithFormat:@"sz%@",model.companyCode];
+                }
+                [wself.stockArr addObject:companyCode];
             }
+            [wself.stockManager addStocks:wself.stockArr];
             [wself.tableview reloadData];
         }
         else
@@ -123,6 +145,13 @@
             NSLog(@"%@",error);
         }
     }];
+}
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSDictionary *)stocks
+{
+    self.stockDict = stocks;
+    [self.tableview reloadData];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -137,8 +166,8 @@
     }
     else
     {
-        if (self.stockArr.count > 0) {
-            return self.stockArr.count;
+        if (self.optionArr.count > 0) {
+            return self.optionArr.count;
         }
         else
         {
@@ -149,8 +178,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.stockArr.count > 0 ) {
-        SurveyModel *model = self.stockArr[indexPath.row];
+    if (self.optionArr.count > 0 ) {
+        SurveyModel *model = self.optionArr[indexPath.row];
         OptionalStockTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         cell.nameLab.text = [model.companyName substringWithRange:NSMakeRange(0, model.companyName.length-8)];
         cell.codeLab.text = model.companyCode;
@@ -182,6 +211,25 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (self.optionArr.count > 0) {
+        OptionalStockTableViewCell *scell = (OptionalStockTableViewCell *)cell;
+        SurveyModel *model = self.optionArr[indexPath.row];
+        NSString *code = [model.companyCode substringWithRange:NSMakeRange(0, 1)];
+        NSString *companyCode = nil;
+        if ([code isEqualToString:@"6"]) {
+            companyCode = [NSString stringWithFormat:@"sh%@",model.companyCode];
+        }
+        else
+        {
+            companyCode = [NSString stringWithFormat:@"sz%@",model.companyCode];
+        }
+        StockInfo *stock = [self.stockDict objectForKey:companyCode];
+        [scell setupWithStock:stock];
+    }
+}
+
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
@@ -207,7 +255,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    SurveyModel *model = self.stockArr[indexPath.row];
+    SurveyModel *model = self.optionArr[indexPath.row];
     NSString *code = [model.companyCode substringWithRange:NSMakeRange(0, 1)];
     NSString *companyCode ;
     if ([code isEqualToString:@"6"]) {

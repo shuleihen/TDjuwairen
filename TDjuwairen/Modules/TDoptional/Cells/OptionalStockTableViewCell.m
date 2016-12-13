@@ -5,6 +5,8 @@
 //  Created by 团大 on 2016/12/7.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
+#define font17 [UIFont systemFontOfSize:17]
+#define btnWidth kScreenWidth/3*2/3
 
 #import "OptionalStockTableViewCell.h"
 
@@ -22,18 +24,33 @@
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
         self.nameLab = [[UILabel alloc] init];
-        self.nameLab.font = [UIFont systemFontOfSize:17];
+        self.nameLab.font = font17;
         
         self.codeLab = [[UILabel alloc] init];
         self.codeLab.font = [UIFont systemFontOfSize:15];
         
+        self.nLab = [[UILabel alloc] init];
+        self.nLab.font = font17;
+        self.nLab.textAlignment = NSTextAlignmentCenter;
+        
+        self.increaseLab = [[UILabel alloc] init];
+        self.increaseLab.font = font17;
+        self.increaseLab.textAlignment = NSTextAlignmentCenter;
+        
+        self.increPerLab = [[UILabel alloc] init];
+        self.increPerLab.font = font17;
+        self.increPerLab.textAlignment = NSTextAlignmentCenter;
+        
         [self addSubview:self.nameLab];
         [self addSubview:self.codeLab];
+        [self addSubview:self.nLab];
+        [self addSubview:self.increaseLab];
+        [self addSubview:self.increPerLab];
         
         [self.nameLab mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.equalTo(self).with.offset(10);
             make.left.equalTo(self).with.offset(15);
-            make.width.mas_equalTo(kScreenWidth/2);
+            make.width.mas_equalTo(kScreenWidth/3-15);
             make.height.mas_equalTo(20);
         }];
         
@@ -45,11 +62,33 @@
             make.height.mas_equalTo(15);
         }];
         
+        [self.nLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).with.offset(0);
+            make.left.equalTo(self).with.offset(kScreenWidth/3);
+            make.width.mas_equalTo(btnWidth);
+            make.height.mas_equalTo(60);
+        }];
+        
+        [self.increaseLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).with.offset(0);
+            make.left.equalTo(self).with.offset(kScreenWidth/3 + kScreenWidth/9*2);
+            make.width.mas_equalTo(btnWidth);
+            make.height.mas_equalTo(60);
+        }];
+        
+        [self.increPerLab mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.equalTo(self).with.offset(0);
+            make.left.equalTo(self).with.offset(kScreenWidth/3 + 2*kScreenWidth/9*2);
+            make.width.mas_equalTo(btnWidth);
+            make.height.mas_equalTo(60);
+        }];
+        
     }
     return self;
 }
 
 - (void)setupWithStock:(StockInfo *)stock{
+    
     float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
     float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
     

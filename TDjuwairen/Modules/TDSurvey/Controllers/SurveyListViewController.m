@@ -238,7 +238,7 @@
                 for (NSDictionary *d in dataArray) {
                     SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
                     [list addObject:model];
-                    [self.stockArr addObject:model.companyCode];
+                    [wself.stockArr addObject:model.companyCode];
                     
                 }
                 wself.surveyList = [NSMutableArray arrayWithArray:list];

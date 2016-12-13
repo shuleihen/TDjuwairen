@@ -810,15 +810,14 @@
                 if (!error) {
                     NSLog(@"%@",data);
                     [self requestDataWithText];
-                    hud.labelText = @"添加成功";
+                    hud.labelText = @"取消成功";
                     [hud hide:YES afterDelay:0.5];
                 }
                 else
                 {
-//                    NSLog(@"%@",error);
-                    hud.labelText = @"添加失败";
+                    //                    NSLog(@"%@",error);
+                    hud.labelText = @"取消失败";
                     [hud hide:YES afterDelay:0.5];
-                    
                 }
             }];
         }
@@ -831,14 +830,15 @@
                 if (!error) {
                     NSLog(@"%@",data);
                     [self requestDataWithText];
-                    hud.labelText = @"取消成功";
+                    hud.labelText = @"添加成功";
                     [hud hide:YES afterDelay:0.5];
                 }
                 else
                 {
                     //                    NSLog(@"%@",error);
-                    hud.labelText = @"取消失败";
+                    hud.labelText = @"添加失败";
                     [hud hide:YES afterDelay:0.5];
+                    
                 }
             }];
         }
