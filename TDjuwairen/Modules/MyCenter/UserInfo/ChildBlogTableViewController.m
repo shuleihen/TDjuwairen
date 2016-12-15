@@ -7,12 +7,13 @@
 //
 
 #import "ChildBlogTableViewController.h"
-#import "SurveyListModel.h"
+#import "UserSurveyModel.h"
 #import "ViewPointListModel.h"
 #import "NewTableViewCell.h"
 #import "ViewPointTableViewCell.h"
 #import "NothingTableViewCell.h"
 #import "DetailPageViewController.h"
+#import "SurDetailViewController.h"
 #import "CommentsModel.h"
 #import "UserCommentTableViewCell.h"
 
@@ -67,8 +68,8 @@
     self.typeID = typeID;
     __weak ChildBlogTableViewController *wself = self;
     if (typeID == 0) {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-        NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogSurveyList"];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NSString *urlString = [NSString stringWithFormat:@"Blog/blogNewSurveyList"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
                               @"page":[NSString stringWithFormat:@"%d",self.page],
@@ -86,11 +87,11 @@
                     }
                     
                     for (NSDictionary *d in dataArray) {
-                        SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
+                        UserSurveyModel *model = [UserSurveyModel getInstanceWithDic:d];
                         [list addObject:model];
                     }
                     
-                    wself.surveyListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+                    wself.surveyListDataArray = [NSMutableArray arrayWithArray:list];
                 }
                 
                 [self.tableView reloadData];
@@ -103,7 +104,7 @@
     }
     else if (typeID == 1)
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -127,7 +128,7 @@
                     }
                     wself.viewListDataArray = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
                 }
-
+                
                 [self.tableView reloadData];
             }
             else
@@ -138,7 +139,7 @@
     }
     else
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
         NSString *urlString = [NSString stringWithFormat:@"index.php/User/getUserComnment"];
         NSDictionary *dic = @{
                               @"userid":user_id,
@@ -152,7 +153,7 @@
                     CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:d];
                     [self.userCommentArray addObject:fModel];
                 }
-
+                
                 [self.tableView reloadData];
             }
             else
@@ -204,13 +205,13 @@
     if (self.typeID == 0) {
         if (self.surveyListDataArray.count > 0) {
             NewTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"newcell" forIndexPath:indexPath];
-            SurveyListModel *model = self.surveyListDataArray[indexPath.row];
+            UserSurveyModel *model = self.surveyListDataArray[indexPath.row];
             
-            [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
+            [cell.userHead sd_setImageWithURL:[NSURL URLWithString:model.survey_authorid]];
             
-            cell.nickname.text = [NSString stringWithFormat:@"%@",model.sharp_wtime];
+            cell.nickname.text = [NSString stringWithFormat:@"%@",model.survey_addtime];
             
-            NSString *text = model.sharp_title;
+            NSString *text = model.survey_title;
             
             UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
             cell.titleLabel.font = font;
@@ -222,11 +223,11 @@
             cell.descLabel.frame = CGRectMake(15, 55+self.titlesize.height+10, kScreenWidth-16-90-15, 55);
             cell.descLabel.font = [UIFont systemFontOfSize:14];
             cell.descLabel.numberOfLines = 3;
-            cell.descLabel.text = model.sharp_desc;
+            cell.descLabel.text = model.survey_desc;
             cell.descLabel.textColor = [UIColor grayColor];
             
             cell.titleimg.frame = CGRectMake(kScreenWidth-8-90, 15+25+15, 90, 90);
-            [cell.titleimg sd_setImageWithURL:[NSURL URLWithString:model.sharp_imgurl]];
+            [cell.titleimg sd_setImageWithURL:[NSURL URLWithString:model.survey_cover]];
             
             cell.lineLabel.frame = CGRectMake(0, 15+25+15+self.titlesize.height+10+55+17, kScreenWidth, 0.5);
             
@@ -323,7 +324,7 @@
             cell.originalLab.text = [NSString stringWithFormat:@"  %@",model.view_title];
             
             [cell.line setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+15+40+14, kScreenWidth-30, 1)];
-
+            
             cell.nickNameLab.textColor = self.daynightmodel.titleColor;
             cell.numfloor.textColor = self.daynightmodel.titleColor;
             cell.commentLab.textColor = self.daynightmodel.textColor;
@@ -386,11 +387,22 @@
     if (self.typeID == 0) {
         if (self.surveyListDataArray.count > 0) {
             //跳转调研详情
-            SurveyListModel *model = self.surveyListDataArray[indexPath.row];
-            DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
-            DetailView.sharp_id = model.sharp_id;
-            DetailView.pageMode = @"sharp";
-            [self.navigationController pushViewController:DetailView animated:YES];
+            UserSurveyModel *model = self.surveyListDataArray[indexPath.row];
+            SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+            NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
+            NSString *companyCode ;
+            if ([code isEqualToString:@"6"]) {
+                companyCode = [NSString stringWithFormat:@"sh%@",model.company_code];
+            }
+            else
+            {
+                companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
+            }
+            vc.company_name = model.company_name;
+            vc.company_code = companyCode;
+            vc.survey_cover = model.survey_cover;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
     else if (self.typeID == 1){

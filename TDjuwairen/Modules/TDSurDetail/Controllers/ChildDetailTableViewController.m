@@ -587,6 +587,12 @@
     
 }
 
+- (void)tapWebGesture:(UIGestureRecognizer *)gestureRecognizer{
+    if ([self.delegate respondsToSelector:@selector(tapWebGesture:)]) {
+        [self.delegate tapWebGesture:gestureRecognizer];
+    }
+}
+
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
     
     
