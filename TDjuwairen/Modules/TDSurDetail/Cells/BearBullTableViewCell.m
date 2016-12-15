@@ -42,10 +42,14 @@
     self.commentLab.font = [UIFont systemFontOfSize:16];
     self.commentLab.numberOfLines = 0;
     
+    self.line = [[UILabel alloc] init];
+    self.line.layer.borderWidth = 1;
+    
     [self addSubview:self.faceMinImg];
     [self addSubview:self.nickNameLab];
     [self addSubview:self.goodnumBtn];
     [self addSubview:self.commentLab];
+    [self addSubview:self.line];
     
     [self.faceMinImg mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self).with.offset(10);
@@ -74,6 +78,13 @@
         make.right.equalTo(self).with.offset(-15);
         make.bottom.equalTo(self).with.offset(-15);
         make.height.mas_equalTo(100);
+    }];
+    
+    [self.line mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(self.commentLab.mas_bottom).with.offset(14);
+        make.left.equalTo(self).with.offset(15);
+        make.right.equalTo(self).with.offset(-15);
+        make.height.mas_equalTo(1);
     }];
 }
 

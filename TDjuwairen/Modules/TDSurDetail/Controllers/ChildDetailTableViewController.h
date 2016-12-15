@@ -15,6 +15,8 @@
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
 
+- (void)tapWebGesture:(UIGestureRecognizer *)pan;
+
 @end
 
 @interface ChildDetailTableViewController : UITableViewController

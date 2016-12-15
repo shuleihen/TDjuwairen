@@ -26,7 +26,7 @@
 #import "HexColors.h"
 
 @import WebKit;
-@interface ChildDetailTableViewController ()<UIWebViewDelegate,BearBullSelBtnViewDelegate>
+@interface ChildDetailTableViewController ()<UIGestureRecognizerDelegate,UIWebViewDelegate,BearBullSelBtnViewDelegate>
 
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
 
@@ -223,6 +223,13 @@
             self.webview.backgroundColor = self.daynightModel.navigationColor;
             [cell.contentView addSubview:self.webview];
             
+            UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapWebGesture:)];
+            tapGesture.numberOfTapsRequired = 1; //点击次数
+            tapGesture.numberOfTouchesRequired = 1; //点击手指数
+            tapGesture.delegate = self;
+            tapGesture.cancelsTouchesInView = NO;
+            [self.webview addGestureRecognizer:tapGesture];
+            
             [self.webview mas_makeConstraints:^(MASConstraintMaker *make) {
                 make.top.equalTo(cell.contentView).with.offset(0);
                 make.left.equalTo(cell.contentView).with.offset(0);
@@ -271,6 +278,7 @@
                 {
                     cell.goodnumBtn.selected = NO;
                 }
+                cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
@@ -324,7 +332,7 @@
                 {
                     cell.goodnumBtn.selected = NO;
                 }
-                
+                cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
@@ -370,12 +378,14 @@
                 cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickname,model.surveyask_addtime];
                 
                 NSString *content = model.surveyask_content;
-                CGSize contentSize = CGSizeMake(kScreenWidth-15-30-10, 1000.0);
+                CGSize contentSize = CGSizeMake(kScreenWidth-55, 5000.0);
                 contentSize = [content calculateSize:contentSize font:[UIFont systemFontOfSize:16]];
                 cell.commentLab.text = content;
                 [cell.commentLab mas_updateConstraints:^(MASConstraintMaker *make) {
                     make.height.mas_equalTo(contentSize.height);
                 }];
+                
+                cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
@@ -419,6 +429,7 @@
                 [cell.goodnumBtn setImage:[UIImage imageNamed:@"btn_dianzan_pre.png"] forState:UIControlStateSelected];
                 [cell.goodnumBtn addTarget:self action:@selector(good:) forControlEvents:UIControlEventTouchUpInside];
                 
+                cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
                 cell.selectionStyle = UITableViewCellSelectionStyleNone;
                 cell.backgroundColor = self.daynightModel.navigationColor;
                 return cell;
@@ -565,5 +576,25 @@
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
     }
+}
+
+#pragma mark - 响应点击事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+
+{
+    
+    return YES;
+    
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    
+    
+    if ([self.delegate respondsToSelector:@selector(tapWebGesture:)]) {
+        [self.delegate tapWebGesture:gestureRecognizer];
+    }
+    
+    return NO;
+    
 }
 @end

@@ -35,6 +35,7 @@
     NSRange currentRange;//当前光标所在位置
     NSString *zititype;
     BOOL firstchange;
+    UIFont *curFont;
     
 }
 
@@ -79,6 +80,7 @@
     self.editziti = [EditZiti sharedInstance];
     numm = 0;
     self.editziti.zihao = 16;//默认16号字体
+    curFont = [UIFont systemFontOfSize:16];      //默认字体
     isoriginal = @"1"; //默认为原创文章
     firstchange = YES;
     self.editziti.type = [NSString stringWithFormat:@"nil%d",self.editziti.zihao];//默认
@@ -530,6 +532,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -543,6 +546,8 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
+                
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -557,6 +562,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -569,6 +575,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -585,6 +592,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -597,6 +605,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -611,6 +620,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -623,6 +633,7 @@
                 CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                 UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                 UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                curFont = font;
                 
                 NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                 NSDictionary *attr = @{NSFontAttributeName:font,
@@ -693,6 +704,7 @@
         self.tagsview.delegate = self;
         self.tagsview.backgroundColor = self.daynightmodel.backColor;
         [self.tagsview.tagsText becomeFirstResponder];
+        self.tagsview.tagsText.placeholder = @"请输入股票代码或公司名称";
         self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
         self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         [self.tagsview.tagsText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -709,6 +721,7 @@
         self.tagsArr = self.tagsview.listArr;
         [self.view addSubview:self.tagsview];
         [self.view addSubview:self.companySelView];
+        self.companySelView.alpha = 0.0;
     }
     else if ([sender.textLabel.text isEqualToString:@"预览"]){
         //预览
@@ -774,6 +787,8 @@
         self.scrollview.transform = CGAffineTransformIdentity;
         
     }];
+    //去掉选中状态
+    self.bottomView.selectBtn.selected = NO;
 }
 
 - (void)beginMoveUpAnimation:(CGFloat )height{
@@ -881,14 +896,23 @@
                     NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
                     
                     [string insertAttributedString:textAttachmentString atIndex:currentRange.location];//index为用户指定要插入图片的位置
-                    //    NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:img];
-                    //    [string insertAttributedString:imgtext atIndex:currentRange.location];
+                    
+                    //插入图片后换行并保持字体不变
+                    NSAttributedString *atrStr = [[NSAttributedString alloc]initWithString:@"\n" attributes:@{NSFontAttributeName : curFont}];
+                    [string appendAttributedString:atrStr];
                     
                     self.contentText.attributedText = string;
-                    [self.contentText becomeFirstResponder];
-                    self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
+                    
+                    self.contentText.selectedRange = NSMakeRange(currentRange.location+2, currentRange.length);
+                    
+                    //插入后消失键盘
+                    [self.tagsview removeFromSuperview];
+                    [self.companySelView removeFromSuperview];
+                    [self.contentText resignFirstResponder];
+                    //去掉选中状态
+                    self.bottomView.selectBtn.selected = NO;
                 });
-            } 
+            }
             
         });
     }
@@ -900,16 +924,38 @@
 }
 
 - (void)textFieldDidChange:(UITextField *)textfield{
-    NSString *searchString = [textfield text];
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[c] %@",searchString];
-    if (self.companySelView.showArr) {
-        [self.companySelView.showArr removeAllObjects];
-    }
-    //得到搜索结果
-    self.companySelView.showArr = [NSMutableArray arrayWithArray:[self.companySelView.companyArr filteredArrayUsingPredicate:predicate]];
+    //    NSString *searchString = [textfield text];
+    //    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"self contains[c] %@",searchString];
+    //    if (self.companySelView.showArr) {
+    //        [self.companySelView.showArr removeAllObjects];
+    //    }
+    //    //得到搜索结果
+    //    self.companySelView.showArr = [NSMutableArray arrayWithArray:[self.companySelView.companyArr filteredArrayUsingPredicate:predicate]];
     if (textfield.text.length == 0) {
-        self.companySelView.showArr = [NSMutableArray arrayWithArray:self.companySelView.companyArr];
+        self.companySelView.alpha = 0.0;
     }
+    else
+    {
+        self.companySelView.alpha = 1.0;
+    }
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSString *url = @"View/getCompanyCode";
+    NSDictionary *para = @{@"keyword":textfield.text};
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        if (!error) {
+            [self.companySelView.showArr removeAllObjects];
+            NSArray *arr = data;
+            for (NSDictionary *dic in arr) {
+                NSString *title = [NSString stringWithFormat:@"%@ %@ %@",dic[@"company_code"],dic[@"company_name"],dic[@"company_short"]];
+                NSLog(@"%@",title);
+                [self.companySelView.showArr addObject:title];
+            }
+        }
+        else
+        {
+            NSLog(@"%@",error);
+        }
+    }];
     //刷新tableview
     [self.companySelView reloadData];
 }
@@ -986,6 +1032,7 @@
                             CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
                             UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                             UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1020,9 +1067,11 @@
                         }
                         else
                         {
-                                                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                                                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
-                                                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                            UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                            UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
+                            
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1064,6 +1113,7 @@
                             CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                             UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                             UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1103,6 +1153,7 @@
                             CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                             UIFontDescriptor *desc = [UIFontDescriptor fontDescriptorWithName :[ UIFont boldSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                             UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1142,9 +1193,10 @@
                         }
                         else
                         {
-                                                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                                                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
-                                                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                            UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                            UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1180,9 +1232,10 @@
                         }
                         else
                         {
-                                                CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
-                                                UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
-                                                UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(15 * (CGFloat)M_PI / 180), 1, 0, 0);
+                            UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont italicSystemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
+                            UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1225,6 +1278,7 @@
                             CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                             UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                             UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1263,6 +1317,7 @@
                             CGAffineTransform matrix =  CGAffineTransformMake(1, 0, tanf(0 * (CGFloat)M_PI / 180), 1, 0, 0);
                             UIFontDescriptor *desc = [ UIFontDescriptor fontDescriptorWithName :[ UIFont systemFontOfSize :self.editziti.zihao ]. fontName matrix :matrix];
                             UIFont *font = [ UIFont fontWithDescriptor :desc size :self.editziti.zihao];
+                            curFont = font;
                             
                             NSMutableAttributedString *labelText = [self.contentText.attributedText mutableCopy];
                             NSDictionary *attr = @{NSFontAttributeName:font,
@@ -1279,7 +1334,7 @@
             }
         }
     }
-
+    
 }
 
 
@@ -1338,13 +1393,18 @@
     NSAttributedString *textAttachmentString = [NSAttributedString attributedStringWithAttachment:textAttachment];
     
     [string insertAttributedString:textAttachmentString atIndex:currentRange.location];//index为用户指定要插入图片的位置
-    //    NSAttributedString *imgtext = [[NSAttributedString alloc]initWithString:img];
-    //    [string insertAttributedString:imgtext atIndex:currentRange.location];
+    
+    //插入图片后换行并保持字体不变
+    NSAttributedString *atrStr = [[NSAttributedString alloc]initWithString:@"\n" attributes:@{NSFontAttributeName : curFont}];
+    [string appendAttributedString:atrStr];
     
     self.contentText.attributedText = string;
-    [self.contentText becomeFirstResponder];
-    self.contentText.selectedRange = NSMakeRange(currentRange.location+1, currentRange.length);
     
+    self.contentText.selectedRange = NSMakeRange(currentRange.location+2, currentRange.length);
+    
+    [self.contentText becomeFirstResponder];
+    //去掉选中状态
+    self.bottomView.selectBtn.selected = NO;
 }
 
 #pragma mark - 点击发布

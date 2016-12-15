@@ -18,4 +18,6 @@
 
 @property (nonatomic,strong) UILabel *commentLab;
 
+@property (nonatomic,strong) UILabel *line;
+
 @end

@@ -23,19 +23,19 @@
     if (self = [super initWithFrame:frame]) {
         //
         self.backgroundColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
-        self.imgArr = @[@"tab_shouqijianpan@3x.png",
-                        @"tab_chexiao@3x.png",
-                        @"tab_huifu@3x.png",
-                        @"tab_ziti@3x.png",
-                        @"tab_tianjia@3x.png",
-                        @"tab_more@3x.png"
+        self.imgArr = @[@"tab_shouqijianpan.png",
+                        @"tab_chexiao.png",
+                        @"tab_huifu.png",
+                        @"tab_ziti.png",
+                        @"tab_tianjia.png",
+                        @"tab_more.png"
                             ];
-        self.selectImgArr = @[@"tab_tanchujianpan@3x.png",
-                              @"tab_chexiao_blue@3x.png",
-                              @"tab_huifu_blue@3x.png",
-                              @"tab_ziti_pre@3x.png",
-                              @"tab_tianjia_pre@3x.png",
-                              @"tab_more_pre@3x.png"];
+        self.selectImgArr = @[@"tab_tanchujianpan.png",
+                              @"tab_chexiao_blue.png",
+                              @"tab_huifu_blue.png",
+                              @"tab_ziti_pre.png",
+                              @"tab_tianjia_pre.png",
+                              @"tab_more_pre.png"];
         
         [self createBtn];
     }

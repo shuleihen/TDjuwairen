@@ -176,12 +176,16 @@
     [self addChildViewController];
     [self setupWithScrollview];
     [self setupWithCommentBtn];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    tapGesture.numberOfTapsRequired = 1; //点击次数
+    tapGesture.numberOfTouchesRequired = 1; //点击手指数
+    [self.view addGestureRecognizer:tapGesture];
     // Do any additional setup after loading the view.
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [super viewWillAppear:animated];
     //监听日夜间模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -205,7 +209,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
     //移除观察者模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
@@ -438,6 +441,11 @@
         vc.tableView.backgroundColor = self.daynightModel.navigationColor;
         return;
     }
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    tapGesture.numberOfTapsRequired = 1; //点击次数
+    tapGesture.numberOfTouchesRequired = 1; //点击手指数
+    [vc.view addGestureRecognizer:tapGesture];
+    
     vc.view.backgroundColor = self.daynightModel.navigationColor;
     //添加监听高度
     [self.ListenArr addObject:[NSString stringWithFormat:@"%ld",(long)index]];
@@ -488,9 +496,9 @@
     NSString *rollway = [NSString stringWithFormat:@"%@",[scrollView class]];
     if ([rollway isEqualToString:@"_UIWebViewScrollView"]) {
         if (self.tableview.contentOffset.y < 140 ) {
-                tabY = scrollView.contentOffset.y+tabY;
-                self.tableview.contentOffset = CGPointMake(0,tabY);
-                scrollView.contentOffset = CGPointMake(0, 0);
+            tabY = scrollView.contentOffset.y+tabY;
+            self.tableview.contentOffset = CGPointMake(0,tabY);
+            scrollView.contentOffset = CGPointMake(0, 0);
             if (self.tableview.contentOffset.y < 0) {
                 tabY = 0;
                 self.tableview.contentOffset = CGPointMake(0,tabY);
@@ -649,7 +657,7 @@
     else if (indexPath.row == 3){
         //跳转反馈
         if (US.isLogIn) {
-            FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
+            FeedbackViewController *feedback = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
             [self.navigationController pushViewController:feedback animated:YES];
         }
         else
@@ -949,6 +957,15 @@
                    }
                }
      ];
+}
+
+- (void)tapGesture:(UITapGestureRecognizer *)pan{
+    self.nmview.alpha = 0.0;
+}
+
+- (void)tapWebGesture:(UIGestureRecognizer *)pan
+{
+    self.nmview.alpha = 0.0;
 }
 
 - (void)didReceiveMemoryWarning {
