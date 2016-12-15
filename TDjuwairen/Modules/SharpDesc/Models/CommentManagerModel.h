@@ -10,13 +10,13 @@
 
 @interface CommentManagerModel : NSObject
 
-@property (nonatomic,copy) NSString *sharpcomment_sharpid;
-@property (nonatomic,copy) NSString *userinfo_facesmall;
+@property (nonatomic,copy) NSString *surveycomment_comment;
+@property (nonatomic,copy) NSString *survey_title;
+@property (nonatomic,copy) NSString *company_code;
 @property (nonatomic,copy) NSString *user_nickname;
-@property (nonatomic,copy) NSString *sharpcomment_ptime;
-@property (nonatomic,copy) NSString *sharpcomment_text;
-@property (nonatomic,copy) NSString *sharp_pic280;
-@property (nonatomic,copy) NSString *sharp_title;
+@property (nonatomic,copy) NSString *userinfo_facemin;
+@property (nonatomic,copy) NSString *survey_cover;
+@property (nonatomic,copy) NSString *surveycomment_addtime;
 
 +(CommentManagerModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 

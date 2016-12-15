@@ -13,32 +13,15 @@
 +(CommentManagerModel *)getInstanceWithDictionary:(NSDictionary *)dic
 {
     CommentManagerModel *model = [[CommentManagerModel alloc]init];
-    model.userinfo_facesmall = dic[@"userinfo_facesmall"];
+    model.surveycomment_comment = dic[@"surveycomment_comment"];
+    model.survey_title = dic[@"survey_title"];
+    model.company_code = dic[@"company_code"];
     model.user_nickname = dic[@"user_nickname"];
-    
-    NSString *str = dic[@"sharpcomment_ptime"];
-    NSTimeInterval time = [str doubleValue];
-    NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
-    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc]init];
-    [dateFormatter setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-    model.sharpcomment_ptime = [dateFormatter stringFromDate:detaildate];
-    model.sharpcomment_text = dic[@"sharpcomment_text"];
-    model.sharp_pic280 = dic[@"sharp_pic280"];
-    model.sharp_title = dic[@"sharp_title"];
-    model.sharpcomment_sharpid = dic[@"sharpcomment_sharpid"];
+    model.userinfo_facemin = dic[@"userinfo_facemin"];
+    model.survey_cover = dic[@"survey_cover"];
+    model.surveycomment_addtime = dic[@"surveycomment_addtime"];
     
     return model;
-}
-
-- (NSComparisonResult)compare:(CommentManagerModel *)other
-{
-    if (self.sharpcomment_ptime.integerValue > other.sharpcomment_ptime.integerValue) {
-        return NSOrderedDescending;
-    } else if (self.sharpcomment_ptime.integerValue < other.sharpcomment_ptime.integerValue) {
-        return NSOrderedAscending;
-    } else {
-        return NSOrderedSame;
-    }
 }
 
 @end

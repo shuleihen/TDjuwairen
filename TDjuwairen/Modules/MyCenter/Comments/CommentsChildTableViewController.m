@@ -10,6 +10,7 @@
 #import "CommentManagerModel.h"
 #import "CommentsModel.h"
 
+#import "SurDetailViewController.h"
 #import "DetailPageViewController.h"
 #import "CommentsTableViewCell.h"
 #import "NothingTableViewCell.h"
@@ -89,8 +90,9 @@
         para = @{@"userid":US.userId,
                  @"module_id":@"2",
                  @"page":[NSString stringWithFormat:@"%d",self.page]};
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-        [manager POST:API_GetUserComment parameters:para completion:^(id data, NSError *error){
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NSString *url = @"User/getUserComment2_1";
+        [manager POST:url parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 NSArray *dataArray = data;
                 
@@ -106,7 +108,7 @@
                         CommentManagerModel *model = [CommentManagerModel getInstanceWithDictionary:d];
                         [list addObject:model];
                     }
-                    wself.surveyComArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+                    wself.surveyComArr = [NSMutableArray arrayWithArray:list];
                 }
                 [wself.tableView.mj_header endRefreshing];
                 [wself.tableView.mj_footer endRefreshing];
@@ -126,7 +128,7 @@
                  @"module_id":@"3",
                  @"page":[NSString stringWithFormat:@"%d",self.page],
                  };
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
         [manager POST:API_GetUserComment parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 NSArray *dataArray = data;
@@ -284,14 +286,24 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (self.typeID == 0) {
         if (self.surveyComArr.count > 0) {
             CommentManagerModel *model = self.surveyComArr[indexPath.row];
-            DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
-            sharp.sharp_id = model.sharpcomment_sharpid;
-            sharp.pageMode = @"sharp";
-            [self.navigationController pushViewController:sharp animated:YES];
+            SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+            NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
+            NSString *companyCode ;
+            if ([code isEqualToString:@"6"]) {
+                companyCode = [NSString stringWithFormat:@"sh%@",model.company_code];
+            }
+            else
+            {
+                companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
+            }
+            vc.company_code = companyCode;
+            vc.survey_cover = model.survey_cover;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
         else
         {

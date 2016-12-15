@@ -26,23 +26,23 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
     // Configure the view for the selected state
 }
 
 -(void)setCellWithDic:(CommentManagerModel *)model
 {
-    NSString *head = model.userinfo_facesmall;
+    NSString *head = model.userinfo_facemin;
     [self.headImageView sd_setImageWithURL:[NSURL URLWithString:head] placeholderImage:nil];
     
     self.nicknameLabel.text = model.user_nickname;
-    self.timeLabel.text = model.sharpcomment_ptime ;
-    self.commentsLabel.text = model.sharpcomment_text;
+    self.timeLabel.text = model.surveycomment_addtime ;
+    self.commentsLabel.text = model.surveycomment_comment;
     
-    NSString *sharp = model.sharp_pic280;
+    NSString *sharp = model.survey_cover;
     [self.sharpImageView sd_setImageWithURL:[NSURL URLWithString:sharp] placeholderImage:nil];
     
-    self.titleLabel.text=model.sharp_title;
+    self.titleLabel.text=model.survey_title;
     
     self.nicknameLabel.textColor = self.daynightmodel.textColor;
     self.timeLabel.textColor = self.daynightmodel.textColor;
