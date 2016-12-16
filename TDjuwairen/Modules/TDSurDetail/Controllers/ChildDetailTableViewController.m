@@ -50,7 +50,6 @@
     [super viewDidLoad];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
-    
     self.tableView.scrollEnabled = NO;  //禁止滑动
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectZero];
     [self.tableView registerClass:[BearBullTableViewCell class] forCellReuseIdentifier:@"BearBullCell"];
@@ -98,6 +97,7 @@
                 }
             }
             self.niuxiong = 1;
+            
             [self.tableView reloadData];
         }
         else if (self.tag == 5){
@@ -504,13 +504,13 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
 {
-    //    if (self.tag == 5) {
-    //        return 10;
-    //    }
-    //    else
-    //    {
-    return 0;
-    //    }
+    if (self.tag == 5) {
+        return 10;
+    }
+    else
+    {
+        return 0;
+    }
 }
 
 #pragma mark - BearBullSelBtnViewDelegate
@@ -563,13 +563,12 @@
 
 #pragma mark - 点击跳转
 - (void)clickToComment:(UIButton *)sender{
-    CommentViewController *comView = [[CommentViewController alloc] init];
-    comView.tag = 5;
-    comView.type = @"ans";
-    AskModel *model = self.askArr[sender.tag];
-    comView.model = model;
     if (US.isLogIn) {
-        [self.navigationController pushViewController:comView animated:YES];
+        AskModel *model = self.askArr[sender.tag];
+        sender.tag = [model.surveyask_id integerValue];
+        if ([self.delegate respondsToSelector:@selector(clickToAns:)]) {
+            [self.delegate clickToAns:sender];
+        }
     }
     else
     {
@@ -585,12 +584,6 @@
     
     return YES;
     
-}
-
-- (void)tapWebGesture:(UIGestureRecognizer *)gestureRecognizer{
-    if ([self.delegate respondsToSelector:@selector(tapWebGesture:)]) {
-        [self.delegate tapWebGesture:gestureRecognizer];
-    }
 }
 
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{

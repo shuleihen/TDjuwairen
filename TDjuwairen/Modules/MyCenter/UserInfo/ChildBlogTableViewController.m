@@ -68,7 +68,7 @@
     self.typeID = typeID;
     __weak ChildBlogTableViewController *wself = self;
     if (typeID == 0) {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *urlString = [NSString stringWithFormat:@"Blog/blogNewSurveyList"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -104,7 +104,7 @@
     }
     else if (typeID == 1)
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -139,7 +139,7 @@
     }
     else
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *urlString = [NSString stringWithFormat:@"index.php/User/getUserComnment"];
         NSDictionary *dic = @{
                               @"userid":user_id,

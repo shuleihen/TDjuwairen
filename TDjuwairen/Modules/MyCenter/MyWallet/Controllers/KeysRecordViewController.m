@@ -131,7 +131,7 @@
             cell = [[NoOrderTableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noOrderCell"];
         }
         cell.imgView.image = [UIImage imageNamed:@"icon_key"];
-        cell.titLab.text = @"暂时使用记录~";
+        cell.titLab.text = @"暂无使用记录~";
         
         CGFloat imgX = (kScreenHeight-108)/6;
         [cell.titLab mas_updateConstraints:^(MASConstraintMaker *make) {

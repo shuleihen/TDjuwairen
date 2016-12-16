@@ -90,7 +90,7 @@
         para = @{@"userid":US.userId,
                  @"module_id":@"2",
                  @"page":[NSString stringWithFormat:@"%d",self.page]};
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *url = @"User/getUserComment2_1";
         [manager POST:url parameters:para completion:^(id data, NSError *error){
             if (!error) {
@@ -128,7 +128,7 @@
                  @"module_id":@"3",
                  @"page":[NSString stringWithFormat:@"%d",self.page],
                  };
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         [manager POST:API_GetUserComment parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 NSArray *dataArray = data;
@@ -291,6 +291,7 @@
         if (self.surveyComArr.count > 0) {
             CommentManagerModel *model = self.surveyComArr[indexPath.row];
             SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+            vc.module = 2;
             NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
             NSString *companyCode ;
             if ([code isEqualToString:@"6"]) {
@@ -300,6 +301,7 @@
             {
                 companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
             }
+            vc.company_name = model.company_name;
             vc.company_code = companyCode;
             vc.survey_cover = model.survey_cover;
             vc.hidesBottomBarWhenPushed = YES;

@@ -16,4 +16,6 @@
 
 @property (nonatomic,copy) NSString *survey_cover;
 
+@property (nonatomic,assign) int module;
+
 @end

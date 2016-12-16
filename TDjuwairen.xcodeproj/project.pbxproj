@@ -192,6 +192,7 @@
 		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
 		842D94EC1E024AC800D9AFDB /* UserSurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D94EB1E024AC800D9AFDB /* UserSurveyModel.m */; };
+		842D94F21E039B2A00D9AFDB /* SendCommentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D94F11E039B2A00D9AFDB /* SendCommentView.m */; };
 		843BC1F01DC976DC00E170EF /* MyWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 843BC1EF1DC976DC00E170EF /* MyWalletViewController.m */; };
 		843BC1F41DC97C9300E170EF /* KeysNumberTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 843BC1F31DC97C9300E170EF /* KeysNumberTableViewCell.m */; };
 		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
@@ -698,6 +699,8 @@
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
 		842D94EA1E024AC800D9AFDB /* UserSurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSurveyModel.h; sourceTree = "<group>"; };
 		842D94EB1E024AC800D9AFDB /* UserSurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSurveyModel.m; sourceTree = "<group>"; };
+		842D94F01E039B2A00D9AFDB /* SendCommentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendCommentView.h; sourceTree = "<group>"; };
+		842D94F11E039B2A00D9AFDB /* SendCommentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendCommentView.m; sourceTree = "<group>"; };
 		843BC1EE1DC976DC00E170EF /* MyWalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyWalletViewController.h; sourceTree = "<group>"; };
 		843BC1EF1DC976DC00E170EF /* MyWalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyWalletViewController.m; sourceTree = "<group>"; };
 		843BC1F21DC97C9300E170EF /* KeysNumberTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KeysNumberTableViewCell.h; sourceTree = "<group>"; };
@@ -2258,6 +2261,8 @@
 				8470E9501DDC5327002F727D /* KeysBtn.m */,
 				8470E9521DDC6689002F727D /* UnlockVipBtn.h */,
 				8470E9531DDC6689002F727D /* UnlockVipBtn.m */,
+				842D94F01E039B2A00D9AFDB /* SendCommentView.h */,
+				842D94F11E039B2A00D9AFDB /* SendCommentView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2947,6 +2952,7 @@
 				194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */,
 				843BC1F01DC976DC00E170EF /* MyWalletViewController.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
+				842D94F21E039B2A00D9AFDB /* SendCommentView.m in Sources */,
 				1955B4671D644D9800DC102E /* DaynightCellTableViewCell.m in Sources */,
 				8470E9541DDC6689002F727D /* UnlockVipBtn.m in Sources */,
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,

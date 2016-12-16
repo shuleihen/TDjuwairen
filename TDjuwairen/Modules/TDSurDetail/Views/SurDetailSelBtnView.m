@@ -145,12 +145,24 @@
         [btn setImageEdgeInsets:UIEdgeInsetsMake(0.0, 0.0, btn.titleLabel.bounds.size.height+8, -btn.titleLabel.bounds.size.width)];
         btn.imageView.contentMode = UIViewContentModeScaleAspectFit;
     }
-    if (self.isLocked) {
-        self.selBtn = self.btnsArr[3];
+    if (self.module == 2) {
+        if (self.isLocked) {
+            self.selBtn = self.btnsArr[3];
+        }
+        else
+        {
+            self.selBtn = self.btnsArr[2];
+        }
     }
     else
     {
-        self.selBtn = self.btnsArr[0];
+        if (self.isLocked) {
+            self.selBtn = self.btnsArr[3];
+        }
+        else
+        {
+            self.selBtn = self.btnsArr[0];
+        }
     }
     if (self.block) {
         self.block(self.selBtn);

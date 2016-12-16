@@ -19,13 +19,16 @@
 #import "SelWXOrAlipayView.h"
 #import "FeedbackViewController.h"
 #import "StockManager.h"
+#import "SendCommentView.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 #import "Masonry.h"
 #import "AFNetworking.h"
+#import "NetworkManager.h"
 #import "NetworkDefine.h"
 #import "UIStoryboard+MainStoryboard.h"
+#import "MBProgressHUD.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
@@ -59,6 +62,8 @@
 
 @property (nonatomic,strong) UIButton *comBtn;
 
+@property (nonatomic,strong) SendCommentView *sendComment;
+
 @property (nonatomic,strong) UIImageView *comImg;
 
 @property (nonatomic,strong) UnlockView *unlockView;          //解锁页面
@@ -78,9 +83,44 @@
 
 @implementation SurDetailViewController
 
+- (SendCommentView *)sendComment{
+    if (!_sendComment) {
+        _sendComment = [[SendCommentView alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
+        [_sendComment.field addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+        [_sendComment.sendBtn addTarget:self action:@selector(clickSend:) forControlEvents:UIControlEventTouchUpInside];
+        _sendComment.sendBtn.userInteractionEnabled = NO;
+        _sendComment.field.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        _sendComment.backgroundColor = self.daynightModel.navigationColor;
+        [self.view addSubview:_sendComment];
+    }
+    return _sendComment;
+}
+
+- (UIButton *)comBtn{
+    if (!_comBtn) {
+        _comBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
+        [_comBtn setBackgroundColor:self.daynightModel.navigationColor];
+        [_comBtn setTitle:@" 评论" forState:UIControlStateNormal];
+        [_comBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
+        [_comBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -15)];
+        _comBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        _comBtn.layer.borderWidth = 1;
+        
+        self.comImg = [[UIImageView alloc] initWithFrame:CGRectMake(_comBtn.titleLabel.frame.origin.x - 40, (50-15)/2, 20, 20)];
+        self.comImg.image = [UIImage imageNamed:@"comment_blue"];
+        [_comBtn addSubview:self.comImg];
+        _comBtn.alpha = 0.0;
+        [self.view addSubview:_comBtn];
+        
+        [_comBtn addTarget:self action:@selector(clickToAsk:) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _comBtn;
+}
+
 - (SurDetailSelBtnView *)selBtnView{
     if (!_selBtnView) {
         _selBtnView = [[SurDetailSelBtnView alloc] initWithFrame:CGRectMake(0, 140, kScreenWidth, 60) WithStockCode:self.company_code];
+        _selBtnView.module = self.module;
         __weak SurDetailViewController *wself = self;
         self.selBtnView.block = ^(UIButton *selbtn){
             NSLog(@"%ld",(long)selbtn.tag);
@@ -175,17 +215,20 @@
     [self setupWithDateView];
     [self addChildViewController];
     [self setupWithScrollview];
-    [self setupWithCommentBtn];
     
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
-    tapGesture.numberOfTapsRequired = 1; //点击次数
-    tapGesture.numberOfTouchesRequired = 1; //点击手指数
-    [self.view addGestureRecognizer:tapGesture];
     // Do any additional setup after loading the view.
+}
+
+-(void)viewTapped:(UITapGestureRecognizer*)tap
+{
+    [self.view endEditing:YES];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
+    [super viewWillAppear:animated];
+    
+    [self registerForKeyboardNotifications];
     //监听日夜间模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *daynight = [userdefault objectForKey:@"daynight"];
@@ -209,12 +252,39 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
+    [super viewWillDisappear:animated];
     //移除观察者模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     
     [self.stockManager stop];
+}
+
+- (void)registerForKeyboardNotifications{
+    //使用NSNotificationCenter键盘出现时
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
+    //使用NSNotificationCenter 鍵盤隐藏時
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden) name:UIKeyboardWillHideNotification object:nil];
+}
+
+//当键盘出现时计算键盘的高度大小，用于输入框显示
+- (void)keyboardWasShown:(NSNotification *)aNotification{
+    NSDictionary *info = [aNotification userInfo];
+    //kbSize为键盘尺寸
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
+    [self beginMoveUpAnimation:kbSize.height];
+}
+
+//当键盘隐藏时
+- (void)keyboardWillBeHidden{
     
+    self.sendComment.transform = CGAffineTransformIdentity;
+    self.sendComment.field.placeholder = @"发表你的评论";
+}
+
+- (void)beginMoveUpAnimation:(CGFloat )height{
+    self.sendComment.transform = CGAffineTransformMakeTranslation(0, -height);
     
 }
 
@@ -249,6 +319,11 @@
         self.dataView.todayMin.textColor = self.daynightModel.titleColor;
         self.dataView.traNumber.textColor = self.daynightModel.titleColor;
         self.dataView.traAmount.textColor = self.daynightModel.titleColor;
+        
+        //sendCommentView
+        self.sendComment.field.backgroundColor = self.daynightModel.backColor;
+        self.sendComment.field.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        self.sendComment.backgroundColor = self.daynightModel.navigationColor;
         
         self.comBtn.backgroundColor = self.daynightModel.navigationColor;
         self.comBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
@@ -295,6 +370,11 @@
     self.tableview.backgroundColor = self.daynightModel.navigationColor;
     self.tableview.bounces = NO;
     [self.view addSubview:self.tableview];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    tapGesture.numberOfTapsRequired = 1; //点击次数
+    tapGesture.numberOfTouchesRequired = 1; //点击手指数
+    [self.tableview addGestureRecognizer:tapGesture];
 }
 
 - (void)setupWithDateView{
@@ -405,6 +485,7 @@
         [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
     }
     else if (self.tag == 5){
+        //        self.sendComment.alpha = 1.0;
         self.comBtn.alpha = 1.0;
         self.comImg.image = [UIImage imageNamed:@"tiwen"];
         [self.comBtn setTitle:@" 提问" forState:UIControlStateNormal];
@@ -412,6 +493,7 @@
     else
     {
         self.comBtn.alpha = 0.0;
+        self.sendComment.alpha = 0.0;
     }
     CGFloat x = self.tag * kScreenWidth;
     self.contentScrollview.contentOffset = CGPointMake(x, 0);
@@ -469,25 +551,6 @@
             make.height.mas_equalTo(kScreenHeight-64-60);
         }];
     }
-}
-
-#pragma mark - 设置隐藏评论按钮
-- (void)setupWithCommentBtn{
-    self.comBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50)];
-    [self.comBtn setBackgroundColor:self.daynightModel.navigationColor];
-    [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
-    [self.comBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
-    [self.comBtn setTitleEdgeInsets:UIEdgeInsetsMake(0, 0, 0, -15)];
-    self.comBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
-    self.comBtn.layer.borderWidth = 1;
-    
-    self.comImg = [[UIImageView alloc] initWithFrame:CGRectMake(self.comBtn.titleLabel.frame.origin.x - 40, (50-15)/2, 20, 20)];
-    self.comImg.image = [UIImage imageNamed:@"comment_blue"];
-    [self.comBtn addSubview:self.comImg];
-    self.comBtn.alpha = 0.0;
-    [self.view addSubview:self.comBtn];
-    
-    [self.comBtn addTarget:self action:@selector(clickToAsk:) forControlEvents:UIControlEventTouchUpInside];
 }
 
 #pragma mark - 滑动操作
@@ -574,6 +637,7 @@
             [self.comBtn setTitle:@" 评论" forState:UIControlStateNormal];
         }
         else if (i == 5){
+            //            self.sendComment.alpha = 1.0;
             self.comBtn.alpha = 1.0;
             self.comImg.image = [UIImage imageNamed:@"tiwen"];
             [self.comBtn setTitle:@" 提问" forState:UIControlStateNormal];
@@ -581,6 +645,7 @@
         else
         {
             self.comBtn.alpha = 0.0;
+            self.sendComment.alpha = 0.0;
         }
         UIButton *btn = self.selBtnView.btnsArr[i];
         self.selBtnView.selBtn.selected = NO;
@@ -879,7 +944,6 @@
 
 #pragma mark - 点击跳转提问界面
 - (void)clickToAsk:(UIButton *)sender{
-    
     CommentViewController *comView = [[CommentViewController alloc] init];
     comView.tag = self.tag;
     comView.company_code = self.company_code;
@@ -909,7 +973,10 @@
         }
         else
         {
-            [self.navigationController pushViewController:comView animated:YES];
+            self.comBtn.alpha = 0.0;
+            self.sendComment.alpha = 1.0;
+            [self.sendComment.field becomeFirstResponder];
+            [self.sendComment.sendBtn setTitle:@"提问" forState:UIControlStateNormal];
         }
     }
     else
@@ -917,6 +984,14 @@
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
     }
+}
+
+- (void)clickToAns:(UIButton *)sender
+{
+    self.comBtn.alpha = 0.0;
+    self.sendComment.alpha = 1.0;
+    [self.sendComment.field becomeFirstResponder];
+    [self.sendComment.sendBtn setTitle:@"回答" forState:UIControlStateNormal];
 }
 
 #pragma mark - 分享
@@ -959,13 +1034,72 @@
      ];
 }
 
+#pragma mark - field delegate
+- (void)textFieldDidChange:(UITextField *)field{
+    if (field.text.length > 0) {
+        self.sendComment.sendBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
+        self.sendComment.sendBtn.userInteractionEnabled = YES;
+    }
+    else
+    {
+        self.sendComment.sendBtn.backgroundColor = [UIColor grayColor];
+        self.sendComment.sendBtn.userInteractionEnabled = NO;
+    }
+}
+
+- (void)clickSend:(UIButton *)sender{
+    //    发送问答
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *para ;
+    NSString *url ;
+    NSString *code = [self.company_code substringFromIndex:2];
+    NSString *surveyask_id = [NSString stringWithFormat:@"%ld",(long)sender.tag];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"加载中...";
+    
+    if ([sender.titleLabel.text isEqualToString:@"提问"]) {
+        url = [NSString stringWithFormat:@"%@Survey/addQuestion",API_HOST];
+        para = @{@"code":code,
+                 @"question":self.sendComment.field.text,
+                 @"user_id":US.userId};
+    }
+    else
+    {
+        url = [NSString stringWithFormat:@"%@Survey/answerQuestion",API_HOST];
+        para = @{@"ask_id":surveyask_id,
+                 @"content":self.sendComment.field.text,
+                 @"user_id":US.userId};
+    }
+    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        if (!error) {
+            hud.labelText = @"发送成功";
+            [hud hide:YES afterDelay:0.5];
+            [self.sendComment.field resignFirstResponder];
+            [self selectWithDetail:self.selBtnView.selBtn];
+        }
+        else
+        {
+            hud.labelText = @"发送失败";
+            [hud hide:YES afterDelay:0.5];
+            [self.sendComment.field resignFirstResponder];
+            [self selectWithDetail:self.selBtnView.selBtn];
+        }
+    }];
+}
+
 - (void)tapGesture:(UITapGestureRecognizer *)pan{
     self.nmview.alpha = 0.0;
+    [self.sendComment.field resignFirstResponder];
+    self.sendComment.alpha = 0.0;
+    self.comBtn.alpha = 1.0;
 }
 
 - (void)tapWebGesture:(UIGestureRecognizer *)pan
 {
     self.nmview.alpha = 0.0;
+    [self.sendComment.field resignFirstResponder];
+    self.sendComment.alpha = 0.0;
+    self.comBtn.alpha = 1.0;
 }
 
 - (void)didReceiveMemoryWarning {
