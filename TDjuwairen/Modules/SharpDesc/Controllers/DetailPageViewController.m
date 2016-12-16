@@ -38,7 +38,7 @@
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
 @import WebKit;
-@interface DetailPageViewController ()<WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,BackCommentViewDelegate,SharpTagsDelegate,ChildTabDelegate>
+@interface DetailPageViewController ()<UIGestureRecognizerDelegate,WKUIDelegate,WKNavigationDelegate,UIScrollViewDelegate,UITextFieldDelegate,NaviMoreViewDelegate,SelectFontViewDelegate,BackCommentViewDelegate,SharpTagsDelegate,ChildTabDelegate>
 {
     CGSize titlesize;
     CGSize websize;
@@ -180,7 +180,7 @@
 
 - (void)setupWithNavigation{
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-
+    
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
@@ -199,6 +199,12 @@
     self.scrollview.showsVerticalScrollIndicator = NO;
     self.scrollview.delegate = self;
     self.scrollview.backgroundColor = self.daynightmodel.backColor;
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
+    tapGesture.numberOfTapsRequired = 1; //点击次数
+    tapGesture.numberOfTouchesRequired = 1; //点击手指数
+    [self.view addGestureRecognizer:tapGesture];
+    
     [self.view addSubview:self.scrollview];
 }
 
@@ -315,6 +321,13 @@
     self.webview.navigationDelegate = self;
     self.webview.scrollView.scrollEnabled = NO;
     [self.scrollview addSubview:self.webview];
+    
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapWebGesture:)];
+    tapGesture.numberOfTapsRequired = 1; //点击次数
+    tapGesture.numberOfTouchesRequired = 1; //点击手指数
+    tapGesture.delegate = self;
+    tapGesture.cancelsTouchesInView = NO;
+    [self.webview addGestureRecognizer:tapGesture];
 }
 
 - (void)setupWithTableView{
@@ -339,7 +352,7 @@
 - (void)updateWithTableView{
     DetailTableViewController *childTab = self.childViewControllers[0];
     childTab.tableView.frame = CGRectMake(0, 75+titlesize.height+10 + websize.height + 10+self.tagList.frame.size.height+10, kScreenWidth, childTab.tableView.contentSize.height);
-
+    
     self.scrollview.contentSize = CGSizeMake(kScreenWidth, 75+titlesize.height+10 + self.webview.frame.size.height + 10+self.tagList.frame.size.height+10 + childTab.tableView.contentSize.height);
 }
 
@@ -710,7 +723,7 @@
         }
         else
         {
-            FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
+            FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
             [self.navigationController pushViewController:feedback animated:YES];
             
         }
@@ -765,19 +778,19 @@
     if ([self.pageMode isEqualToString:@"sharp"]) {
         [IDArr addObject:self.sharp_id];
         para = @{@"authenticationStr":US.userId,
-                   @"encryptedStr":self.encryptedStr,
-                   @"delete_ids":IDArr,
-                   @"module_id":@"2",
-                   @"userid":US.userId};
+                 @"encryptedStr":self.encryptedStr,
+                 @"delete_ids":IDArr,
+                 @"module_id":@"2",
+                 @"userid":US.userId};
     }
     else
     {
-       [IDArr addObject:self.view_id];
-       para = @{@"authenticationStr":US.userId,
-                @"encryptedStr":self.encryptedStr,
-                @"delete_ids":IDArr,
-                @"module_id":@"3",
-                @"userid":US.userId};
+        [IDArr addObject:self.view_id];
+        para = @{@"authenticationStr":US.userId,
+                 @"encryptedStr":self.encryptedStr,
+                 @"delete_ids":IDArr,
+                 @"module_id":@"3",
+                 @"userid":US.userId};
         
     }
     [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
@@ -864,7 +877,6 @@
         }
         else
         {
-//            hud.labelText = @"已关注";
             [hud hide:YES afterDelay:1];
         }
     }];
@@ -897,7 +909,7 @@
         }
         else
         {
-//            hud.labelText = data[@"msg"];
+            //            hud.labelText = data[@"msg"];
             [hud hide:YES afterDelay:1];
         }
     }];
@@ -934,6 +946,7 @@
         [self gotLoginViewController];
         return NO;
     }
+    self.nmview.alpha = 0.0;
     return YES;
 }
 
@@ -948,7 +961,7 @@
 {
     [textField resignFirstResponder];
     [self sendCommentWithText:textField.text];
-
+    
     return YES;
 }
 
@@ -1014,7 +1027,7 @@
                 //滑动到评论
                 [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
                 [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
-
+                
             } else {
                 hud.labelText = @"评论失败";
                 [hud hide:YES afterDelay:0.1f];
@@ -1037,7 +1050,7 @@
         //滑动到评论
         [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
         [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
-
+        
     }
 }
 
@@ -1046,7 +1059,7 @@
     [self.backcommentview.commentview resignFirstResponder];
     //1、创建分享参数
     //  （注意：图片必须要在Xcode左边目录里面，名称必须要传正确，如果要分享网络图片，可以这样传iamge参数 images:@[@"http://mob.com/Assets/images/logo.png?v=20150320"]）
-
+    
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     if ([self.pageMode isEqualToString:@"sharp"]) {
         [shareParams SSDKSetupShareParamsByText:self.sharpInfo.sharpDesc
@@ -1126,7 +1139,6 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [super viewWillDisappear:animated];
     //移除观察者模式
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     [userdefault removeObserver:self forKeyPath:@"daynight"];
@@ -1203,6 +1215,27 @@
 - (void)beginMoveUpAnimation:(CGFloat )height{
     self.backcommentview.transform = CGAffineTransformMakeTranslation(0, -height);
     
+}
+
+#pragma mark - 响应点击事件
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+
+{
+    return YES;
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer{
+    self.nmview.alpha = 0.0;
+    return NO;
+    
+}
+
+- (void)tapWebGesture:(UITapGestureRecognizer *)pan{
+    self.nmview.alpha = 0.0;
+}
+
+- (void)tapGesture:(UITapGestureRecognizer *)pan{
+    self.nmview.alpha = 0.0;
 }
 
 - (void)didReceiveMemoryWarning {
