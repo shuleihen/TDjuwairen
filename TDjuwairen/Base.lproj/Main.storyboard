@@ -32,7 +32,7 @@
         <!--调研-->
         <scene sceneID="CGi-th-78t">
             <objects>
-                <navigationController storyboardIdentifier="sharpnavi" id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
@@ -51,7 +51,7 @@
         <!--玩票-->
         <scene sceneID="ixo-pe-ecZ">
             <objects>
-                <navigationController storyboardIdentifier="viewnavi" id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="玩票" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="-5129" y="-1090"/>
         </scene>
-        <!--Survey List View Controller-->
+        <!--调研-->
         <scene sceneID="nVI-yT-D8J">
             <objects>
                 <tableViewController id="jbD-LP-NKl" customClass="SurveyListViewController" sceneMemberID="viewController">
@@ -80,13 +80,13 @@
                             <outlet property="delegate" destination="jbD-LP-NKl" id="Whr-NP-Ila"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="a32-Jg-ZsL"/>
+                    <navigationItem key="navigationItem" title="调研" id="a32-Jg-ZsL"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQ5-Ue-AmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-5831" y="-421"/>
         </scene>
-        <!--Play Stock View Controller-->
+        <!--玩票-->
         <scene sceneID="D8J-O9-1d0">
             <objects>
                 <viewController storyboardIdentifier="viewList" id="Ikx-gb-iVR" customClass="PlayStockViewController" sceneMemberID="viewController">
@@ -99,7 +99,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="dIz-Fk-dbc"/>
+                    <navigationItem key="navigationItem" title="玩票" id="dIz-Fk-dbc"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Tc-Hd-QPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -108,7 +108,7 @@
         <!--自选股-->
         <scene sceneID="pYs-3V-bMJ">
             <objects>
-                <navigationController storyboardIdentifier="videonavi" id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="自选股" image="tab_zixuan_nor" selectedImage="tab_zixuan" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
@@ -124,7 +124,7 @@
             </objects>
             <point key="canvasLocation" x="-4471" y="-1091"/>
         </scene>
-        <!--Optional Stock View Controller-->
+        <!--自选股-->
         <scene sceneID="f4H-0B-gUx">
             <objects>
                 <viewController id="iCv-vS-xsX" customClass="OptionalStockViewController" sceneMemberID="viewController">
@@ -137,7 +137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="yTb-gc-Yvh"/>
+                    <navigationItem key="navigationItem" title="自选股" id="yTb-gc-Yvh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHu-13-2iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -146,7 +146,7 @@
         <!--我的-->
         <scene sceneID="2Pf-WV-e9N">
             <objects>
-                <navigationController storyboardIdentifier="mynavi" id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
+                <navigationController id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
@@ -162,7 +162,7 @@
             </objects>
             <point key="canvasLocation" x="-3788" y="-1092"/>
         </scene>
-        <!--Personal Center View Controller-->
+        <!--我的-->
         <scene sceneID="qrJ-Kp-8qb">
             <objects>
                 <viewController id="fon-Ns-hbc" customClass="PersonalCenterViewController" sceneMemberID="viewController">
@@ -175,7 +175,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" id="7Zm-rV-xa8"/>
+                    <navigationItem key="navigationItem" title="我的" id="7Zm-rV-xa8"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8t-xL-Fla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

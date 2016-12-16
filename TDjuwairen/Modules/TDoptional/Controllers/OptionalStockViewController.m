@@ -82,7 +82,6 @@
 }
 
 - (void)setupWithNavigation{
-    self.title = @"自选股";
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"管理" style:UIBarButtonItemStyleDone target:self action:@selector(clickManager:)];
     self.navigationItem.leftBarButtonItem = leftItem;
     
