@@ -566,6 +566,7 @@
     if (US.isLogIn) {
         AskModel *model = self.askArr[sender.tag];
         sender.tag = [model.surveyask_id integerValue];
+        NSLog(@"%ld",(long)sender.tag);
         if ([self.delegate respondsToSelector:@selector(clickToAns:)]) {
             [self.delegate clickToAns:sender];
         }
@@ -597,3 +598,4 @@
     
 }
 @end
+

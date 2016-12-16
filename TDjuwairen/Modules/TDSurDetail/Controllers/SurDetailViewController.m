@@ -988,6 +988,7 @@
 
 - (void)clickToAns:(UIButton *)sender
 {
+    self.sendComment.sendBtn.tag = sender.tag;
     self.comBtn.alpha = 0.0;
     self.sendComment.alpha = 1.0;
     [self.sendComment.field becomeFirstResponder];

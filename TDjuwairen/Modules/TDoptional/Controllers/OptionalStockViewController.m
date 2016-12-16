@@ -287,7 +287,9 @@
 }
 
 - (void)clickAddStock{
-    NSLog(@"嘿嘿嘿");
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+    [self.navigationController pushViewController:searchView animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
