@@ -406,17 +406,17 @@ static BOOL isBackGroundActivateApplication;
                 
                 NSString *companyCode ;
                 if ([code isEqualToString:@"6"]) {
-                    companyCode = [NSString stringWithFormat:@"sh%@",code];
+                    companyCode = [NSString stringWithFormat:@"sh%@",c];
                 }
                 else
                 {
-                    companyCode = [NSString stringWithFormat:@"sz%@",code];
+                    companyCode = [NSString stringWithFormat:@"sz%@",c];
                 }
-                dv.company_code = code;
+                dv.company_code = companyCode;
+                dv.module = 5;
                 [dv setHidesBottomBarWhenPushed:YES];
                 _tabBarCtr.selectedIndex = 0;
-                [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
-            }
+                [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];            }
         }
         else
         {
@@ -524,13 +524,14 @@ static BOOL isBackGroundActivateApplication;
                 
                 NSString *companyCode ;
                 if ([code isEqualToString:@"6"]) {
-                    companyCode = [NSString stringWithFormat:@"sh%@",code];
+                    companyCode = [NSString stringWithFormat:@"sh%@",c];
                 }
                 else
                 {
-                    companyCode = [NSString stringWithFormat:@"sz%@",code];
+                    companyCode = [NSString stringWithFormat:@"sz%@",c];
                 }
-                dv.company_code = code;
+                dv.company_code = companyCode;
+                dv.module = 5;
                 [dv setHidesBottomBarWhenPushed:YES];
                 _tabBarCtr.selectedIndex = 0;
                 [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
