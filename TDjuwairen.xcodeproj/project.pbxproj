@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
+		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
+		19193B211E03B3E9000A6AD2 /* StockIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B1C1E03B3E9000A6AD2 /* StockIndexViewController.m */; };
+		19193B221E03B3E9000A6AD2 /* StockMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B1F1E03B3E9000A6AD2 /* StockMarketViewController.m */; };
+		19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B241E03B402000A6AD2 /* PlayStockViewController.m */; };
+		19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B291E03C748000A6AD2 /* HMSegmentedControl.m */; };
+		19193B311E03CE6D000A6AD2 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B301E03CE6D000A6AD2 /* UIImage+Color.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -347,6 +353,17 @@
 		191027AE1DE52B1B006A2275 /* NotificationDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationDef.h; sourceTree = "<group>"; };
 		191027B01DE52FFE006A2275 /* YXTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTitleButton.h; sourceTree = "<group>"; };
 		191027B11DE52FFE006A2275 /* YXTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTitleButton.m; sourceTree = "<group>"; };
+		19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayStock.storyboard; sourceTree = "<group>"; };
+		19193B1B1E03B3E9000A6AD2 /* StockIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockIndexViewController.h; sourceTree = "<group>"; };
+		19193B1C1E03B3E9000A6AD2 /* StockIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockIndexViewController.m; sourceTree = "<group>"; };
+		19193B1E1E03B3E9000A6AD2 /* StockMarketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockMarketViewController.h; sourceTree = "<group>"; };
+		19193B1F1E03B3E9000A6AD2 /* StockMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockMarketViewController.m; sourceTree = "<group>"; };
+		19193B231E03B402000A6AD2 /* PlayStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockViewController.h; sourceTree = "<group>"; };
+		19193B241E03B402000A6AD2 /* PlayStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockViewController.m; sourceTree = "<group>"; };
+		19193B281E03C748000A6AD2 /* HMSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HMSegmentedControl.h; sourceTree = "<group>"; };
+		19193B291E03C748000A6AD2 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
+		19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
+		19193B301E03CE6D000A6AD2 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		1924DFD51D62B49C00FEC383 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1019,6 +1036,52 @@
 			path = YXTitleButton;
 			sourceTree = "<group>";
 		};
+		19193B171E03B3E9000A6AD2 /* PlayStock */ = {
+			isa = PBXGroup;
+			children = (
+				19193B1A1E03B3E9000A6AD2 /* PlayStockIndex */,
+				19193B1D1E03B3E9000A6AD2 /* PlayStockMarket */,
+				19193B231E03B402000A6AD2 /* PlayStockViewController.h */,
+				19193B241E03B402000A6AD2 /* PlayStockViewController.m */,
+			);
+			path = PlayStock;
+			sourceTree = "<group>";
+		};
+		19193B1A1E03B3E9000A6AD2 /* PlayStockIndex */ = {
+			isa = PBXGroup;
+			children = (
+				19193B1B1E03B3E9000A6AD2 /* StockIndexViewController.h */,
+				19193B1C1E03B3E9000A6AD2 /* StockIndexViewController.m */,
+			);
+			path = PlayStockIndex;
+			sourceTree = "<group>";
+		};
+		19193B1D1E03B3E9000A6AD2 /* PlayStockMarket */ = {
+			isa = PBXGroup;
+			children = (
+				19193B1E1E03B3E9000A6AD2 /* StockMarketViewController.h */,
+				19193B1F1E03B3E9000A6AD2 /* StockMarketViewController.m */,
+			);
+			path = PlayStockMarket;
+			sourceTree = "<group>";
+		};
+		19193B261E03C748000A6AD2 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				19193B271E03C748000A6AD2 /* HMSegmentedControl */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		19193B271E03C748000A6AD2 /* HMSegmentedControl */ = {
+			isa = PBXGroup;
+			children = (
+				19193B281E03C748000A6AD2 /* HMSegmentedControl.h */,
+				19193B291E03C748000A6AD2 /* HMSegmentedControl.m */,
+			);
+			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
 		191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */ = {
 			isa = PBXGroup;
 			children = (
@@ -1051,6 +1114,8 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */,
+				19193B301E03CE6D000A6AD2 /* UIImage+Color.m */,
 				1961DF451DF9573200A08A4B /* NSString+Util.h */,
 				1961DF461DF9573200A08A4B /* NSString+Util.m */,
 				1924DFEE1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.h */,
@@ -1928,6 +1993,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				19193B171E03B3E9000A6AD2 /* PlayStock */,
 				194186E71DF90CA4000C5197 /* Launch */,
 				1924DFED1D62C3CE00FEC383 /* Category */,
 				191027AD1DE52B04006A2275 /* Handler */,
@@ -2502,6 +2568,7 @@
 				84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */,
 				84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */,
 				84E333F31CE2BA3D00E5DCEE /* Main.storyboard */,
+				19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */,
 				197595331DED5E39006441BE /* SurveyDetail.storyboard */,
 				194186E51DF90672000C5197 /* Register.storyboard */,
 				19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */,
@@ -2546,6 +2613,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19193B261E03C748000A6AD2 /* HMSegmentedControl */,
 				196B8BFD1DFA40DD00084894 /* YXSecurityCodeButton */,
 				191027AF1DE52FF0006A2275 /* YXTitleButton */,
 				19B11C8E1D655B9E00BB4DF4 /* CocoaLumberjack */,
@@ -2840,6 +2908,7 @@
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				84AAEFDE1D65A3E300755277 /* AllNoResultTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
+				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
 				1955B45F1D644D9800DC102E /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2899,6 +2968,7 @@
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
+				19193B221E03B3E9000A6AD2 /* StockMarketViewController.m in Sources */,
 				8461747B1DEFB36F00CD48CF /* WXApiManager.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
 				847ADA881DF7D485002600AA /* OptionalManageHeadView.m in Sources */,
@@ -2921,6 +2991,7 @@
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */,
+				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */,
 				196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */,
@@ -2962,6 +3033,7 @@
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				194186DE1DF8128B000C5197 /* PersonalCenterViewController.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
+				19193B311E03CE6D000A6AD2 /* UIImage+Color.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
 				194186D81DF81284000C5197 /* SettingCompanyViewController.m in Sources */,
 				19E9582F1DAC893000BA37C5 /* ChildBlogTableViewController.m in Sources */,
@@ -3040,6 +3112,7 @@
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,
 				1975952F1DED2A91006441BE /* StockHeaderView.m in Sources */,
+				19193B211E03B3E9000A6AD2 /* StockIndexViewController.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
 				846E5A131DE415AF0031C993 /* ChildOrderTableViewController.m in Sources */,
@@ -3047,6 +3120,7 @@
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */,
+				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
