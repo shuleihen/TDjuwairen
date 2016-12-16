@@ -408,7 +408,7 @@
                 AskModel *askmodel = self.askArr[indexPath.section];
                 AnsModel *ansmodel = askmodel.ans_list[indexPath.row -3];
                 [cell.faceMinImg sd_setImageWithURL:[NSURL URLWithString:ansmodel.userinfo_facemin]];
-                cell.nickNameLab.text = [NSString stringWithFormat:@"%@%@",ansmodel.user_nickname,ansmodel.surveyanswer_addtime];
+                cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",ansmodel.user_nickname,ansmodel.surveyanswer_addtime];
                 
                 NSString *content = ansmodel.surveyanswer_content;
                 CGSize contentSize = CGSizeMake(kScreenWidth-15-30-10, 1000.0);
