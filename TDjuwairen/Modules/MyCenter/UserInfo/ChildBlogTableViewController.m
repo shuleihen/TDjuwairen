@@ -14,8 +14,8 @@
 #import "NothingTableViewCell.h"
 #import "DetailPageViewController.h"
 #import "SurDetailViewController.h"
-#import "CommentsModel.h"
-#import "UserCommentTableViewCell.h"
+#import "CommentManagerModel.h"
+#import "CommentsTableViewCell.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -56,6 +56,7 @@
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.tableView registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     [self.tableView registerClass:[NewTableViewCell class] forCellReuseIdentifier:@"newcell"];
+    [self.tableView registerNib:[UINib nibWithNibName:@"CommentsTableViewCell" bundle:nil] forCellReuseIdentifier:@"CommentsCell"];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -68,7 +69,7 @@
     self.typeID = typeID;
     __weak ChildBlogTableViewController *wself = self;
     if (typeID == 0) {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *urlString = [NSString stringWithFormat:@"Blog/blogNewSurveyList"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -104,7 +105,7 @@
     }
     else if (typeID == 1)
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *urlString = [NSString stringWithFormat:@"index.php/Blog/blogViewLists"];
         NSDictionary *dic = @{
                               @"user_id":user_id,
@@ -139,26 +140,35 @@
     }
     else
     {
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
-        NSString *urlString = [NSString stringWithFormat:@"index.php/User/getUserComnment"];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+        NSString *urlString = [NSString stringWithFormat:@"index.php/User/getUserComment2_1"];
         NSDictionary *dic = @{
                               @"userid":user_id,
-                              @"module_id":@"3",
+                              @"module_id":@"2",
                               @"page":[NSString stringWithFormat:@"%d",self.page],
                               };
         [manager POST:urlString parameters:dic completion:^(id data, NSError *error) {
             if (!error) {
-                NSArray *arr = data;
-                for (NSDictionary *d in arr) {
-                    CommentsModel *fModel = [CommentsModel getInstanceWithDictionary:d];
-                    [self.userCommentArray addObject:fModel];
-                }
+                NSArray *dataArray = data;
                 
+                if (dataArray.count > 0) {
+                    NSMutableArray *list = nil;
+                    if (wself.page == 1) {
+                        list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+                    } else {
+                        list = [NSMutableArray arrayWithArray:wself.userCommentArray];
+                    }
+                    
+                    for (NSDictionary *d in dataArray) {
+                        CommentManagerModel *model = [CommentManagerModel getInstanceWithDictionary:d];
+                        [list addObject:model];
+                    }
+                    wself.userCommentArray = [NSMutableArray arrayWithArray:list];
+                }
+                [wself.tableView reloadData];
+                
+            } else {
                 [self.tableView reloadData];
-            }
-            else
-            {
-                nil;
             }
         }];
     }
@@ -299,40 +309,9 @@
     else
     {
         if (self.userCommentArray.count > 0) {
-            NSString *identifier = @"cell";
-            UserCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            CommentsModel *model = self.userCommentArray[indexPath.row];
-            if (cell == nil) {
-                cell = [[UserCommentTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:model.secondArr];
-            }
-            floorviewsize = cell.floorView.frame.size;
-            
-            NSString *comment = model.viewcomment;
-            UIFont *font = [UIFont systemFontOfSize:16];
-            cell.commentLab.font = font;
-            cell.commentLab.numberOfLines = 0;
-            commentsize = CGSizeMake(kScreenWidth-70, 20000.0f);
-            commentsize = [comment calculateSize:commentsize font:font];
-            [cell.commentLab setFrame:CGRectMake(55, 10+15+10+cell.floorView.frame.size.height+15, kScreenWidth-70, commentsize.height)];
-            
-            [cell.headImg sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemedium]];
-            cell.nickNameLab.text = [NSString stringWithFormat:@"%@  %@",model.user_nickName,model.viewcommentTime];
-            cell.numfloor.text = [NSString stringWithFormat:@"%d楼",(int)self.userCommentArray.count-(int)indexPath.row+1];
-            cell.commentLab.text = model.viewcomment;
-            
-            [cell.originalLab setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+15, kScreenWidth-30, 40)];
-            cell.originalLab.text = [NSString stringWithFormat:@"  %@",model.view_title];
-            
-            [cell.line setFrame:CGRectMake(15, 10+15+10+floorviewsize.height+15+commentsize.height+15+40+14, kScreenWidth-30, 1)];
-            
-            cell.nickNameLab.textColor = self.daynightmodel.titleColor;
-            cell.numfloor.textColor = self.daynightmodel.titleColor;
-            cell.commentLab.textColor = self.daynightmodel.textColor;
-            cell.originalLab.backgroundColor = self.daynightmodel.backColor;
-            cell.originalLab.textColor = self.daynightmodel.titleColor;
-            cell.line.layer.borderColor = self.daynightmodel.lineColor.CGColor;
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            
+            CommentManagerModel *model = self.userCommentArray[indexPath.row];
+            CommentsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CommentsCell"];
+            [cell setCellWithDic:model];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
@@ -372,7 +351,7 @@
     else
     {
         if (self.userCommentArray.count > 0) {
-            return 10+15+10+floorviewsize.height+15+commentsize.height+15+40+15;
+            return 136;
         }
         else
         {
@@ -419,12 +398,23 @@
     else
     {
         if (self.userCommentArray.count > 0) {
-            //跳转观点详情
-            CommentsModel *model = self.userCommentArray[indexPath.row];
-            DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
-            DetailView.view_id = model.view_id;
-            DetailView.pageMode = @"view";
-            [self.navigationController pushViewController:DetailView animated:YES];
+            CommentManagerModel *model = self.userCommentArray[indexPath.row];
+            SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+            vc.module = 2;
+            NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
+            NSString *companyCode ;
+            if ([code isEqualToString:@"6"]) {
+                companyCode = [NSString stringWithFormat:@"sh%@",model.company_code];
+            }
+            else
+            {
+                companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
+            }
+            vc.company_name = model.company_name;
+            vc.company_code = companyCode;
+            vc.survey_cover = model.survey_cover;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }
 }

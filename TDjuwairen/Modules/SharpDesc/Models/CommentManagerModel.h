@@ -13,6 +13,7 @@
 @property (nonatomic,copy) NSString *surveycomment_comment;
 @property (nonatomic,copy) NSString *survey_title;
 @property (nonatomic,copy) NSString *company_code;
+@property (nonatomic,copy) NSString *company_name;
 @property (nonatomic,copy) NSString *user_nickname;
 @property (nonatomic,copy) NSString *userinfo_facemin;
 @property (nonatomic,copy) NSString *survey_cover;

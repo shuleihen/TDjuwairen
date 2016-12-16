@@ -10,6 +10,7 @@
 #import "SDWebImageDownloader.h"
 #import "SDWebImageManager.h"
 #import "DetailPageViewController.h"
+#import "SurDetailViewController.h"
 
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
@@ -391,13 +392,35 @@ static BOOL isBackGroundActivateApplication;
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
-        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
         NSString *nothing = userInfo[@"view_id"];
         if (nothing == nil) {
-            NSLog(@"%@",nothing);
+            NSString *c = userInfo[@"code"];
+            if (c == nil) {
+                //
+            }
+            else
+            {
+                SurDetailViewController *dv = [[SurDetailViewController alloc] init];
+                
+                NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
+                
+                NSString *companyCode ;
+                if ([code isEqualToString:@"6"]) {
+                    companyCode = [NSString stringWithFormat:@"sh%@",c];
+                }
+                else
+                {
+                    companyCode = [NSString stringWithFormat:@"sz%@",c];
+                }
+                dv.company_code = companyCode;
+                dv.module = 5;
+                [dv setHidesBottomBarWhenPushed:YES];
+                _tabBarCtr.selectedIndex = 0;
+                [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];            }
         }
         else
         {
+            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
             detail.view_id = userInfo[@"view_id"];
             detail.pageMode = @"view";
             [detail setHidesBottomBarWhenPushed:YES];
@@ -487,13 +510,36 @@ static BOOL isBackGroundActivateApplication;
     }
     else//杀死状态下，直接跳转到跳转页面。
     {
-        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
         NSString *nothing = userInfo[@"view_id"];
         if (nothing == nil) {
-            NSLog(@"%@",nothing);
+            NSString *c = userInfo[@"code"];
+            if (c == nil) {
+                //
+            }
+            else
+            {
+                SurDetailViewController *dv = [[SurDetailViewController alloc] init];
+                
+                NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
+                
+                NSString *companyCode ;
+                if ([code isEqualToString:@"6"]) {
+                    companyCode = [NSString stringWithFormat:@"sh%@",c];
+                }
+                else
+                {
+                    companyCode = [NSString stringWithFormat:@"sz%@",c];
+                }
+                dv.company_code = companyCode;
+                dv.module = 5;
+                [dv setHidesBottomBarWhenPushed:YES];
+                _tabBarCtr.selectedIndex = 0;
+                [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
+            }
         }
         else
         {
+            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
             detail.view_id = userInfo[@"view_id"];
             detail.pageMode = @"view";
             [detail setHidesBottomBarWhenPushed:YES];

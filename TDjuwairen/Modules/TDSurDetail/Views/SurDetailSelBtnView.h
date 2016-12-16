@@ -18,6 +18,8 @@ typedef void (^SelBtnViewBlock)();
 
 @interface SurDetailSelBtnView : UIView
 
+@property (nonatomic,assign) int module;     //记录当前是哪个模块
+
 @property (nonatomic,strong) UIButton *selBtn;
 
 @property (nonatomic,strong) NSMutableArray *btnsArr;

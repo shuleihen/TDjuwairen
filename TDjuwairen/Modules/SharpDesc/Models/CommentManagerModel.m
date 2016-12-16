@@ -16,6 +16,7 @@
     model.surveycomment_comment = dic[@"surveycomment_comment"];
     model.survey_title = dic[@"survey_title"];
     model.company_code = dic[@"company_code"];
+    model.company_name = dic[@"company_name"];
     model.user_nickname = dic[@"user_nickname"];
     model.userinfo_facemin = dic[@"userinfo_facemin"];
     model.survey_cover = dic[@"survey_cover"];

@@ -84,7 +84,7 @@
 
 #pragma mark -  根据字段请求数据
 - (void)requestDataWithText{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = nil;
     if (US.isLogIn) {
         dic = @{@"keywords":self.customSearchBar.text,
@@ -804,7 +804,7 @@
                                @"user_id":US.userId};
         if (model.is_mystock) {
             //取消
-            NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+            NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
             NSString *url = @"Collection/delMyStockCode";
             [manager POST:url parameters:para completion:^(id data, NSError *error) {
                 if (!error) {
@@ -824,7 +824,7 @@
         else
         {
             //添加
-            NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+            NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
             NSString *url = @"Survey/addMyStock";
             [manager POST:url parameters:para completion:^(id data, NSError *error) {
                 if (!error) {

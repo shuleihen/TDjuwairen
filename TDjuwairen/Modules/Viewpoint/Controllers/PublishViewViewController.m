@@ -900,6 +900,8 @@
                     //插入图片后换行并保持字体不变
                     NSAttributedString *atrStr = [[NSAttributedString alloc]initWithString:@"\n" attributes:@{NSFontAttributeName : curFont}];
                     [string appendAttributedString:atrStr];
+                    self.placeholderLab.text = @"";
+                    self.placeholderLab.alpha = 0.0;
                     
                     self.contentText.attributedText = string;
                     
@@ -963,6 +965,7 @@
 #pragma mark - textView delegate
 -(void)textViewDidChange:(UITextView *)textView
 {
+    self.contentText.font = curFont;        //防止删除图片后字体变小
     //比较上次光标位置，判断是否为删除状态
     if (currentRange.location < self.contentText.selectedRange.location) {
         //改变textview的高度
@@ -1397,6 +1400,8 @@
     //插入图片后换行并保持字体不变
     NSAttributedString *atrStr = [[NSAttributedString alloc]initWithString:@"\n" attributes:@{NSFontAttributeName : curFont}];
     [string appendAttributedString:atrStr];
+    self.placeholderLab.text = @"";
+    self.placeholderLab.alpha = 0.0;
     
     self.contentText.attributedText = string;
     

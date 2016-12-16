@@ -17,6 +17,8 @@
 
 - (void)tapWebGesture:(UIGestureRecognizer *)pan;
 
+- (void)clickToAns:(UIButton *)sender;
+
 @end
 
 @interface ChildDetailTableViewController : UITableViewController
