@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StockMarketViewController : UIViewController
+typedef enum : NSUInteger {
+    kStockTypeSZ,
+    kStockTypeCY
+} StockType;
 
+@interface StockMarketViewController : UIViewController
+@property (nonatomic, assign) StockType stockType;
 @end

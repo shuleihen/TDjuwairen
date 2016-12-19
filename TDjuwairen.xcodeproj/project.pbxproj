@@ -15,6 +15,10 @@
 		19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B241E03B402000A6AD2 /* PlayStockViewController.m */; };
 		19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B291E03C748000A6AD2 /* HMSegmentedControl.m */; };
 		19193B311E03CE6D000A6AD2 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B301E03CE6D000A6AD2 /* UIImage+Color.m */; };
+		19193B351E0776B4000A6AD2 /* StockMarketComparisonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B341E0776B4000A6AD2 /* StockMarketComparisonView.m */; };
+		19193B391E0784FD000A6AD2 /* StockMarketModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B381E0784FD000A6AD2 /* StockMarketModel.m */; };
+		19193B3C1E078E0E000A6AD2 /* StockMarketRuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B3B1E078E0E000A6AD2 /* StockMarketRuleViewController.m */; };
+		19193B3F1E07C03B000A6AD2 /* PlayMarketMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B3E1E07C03B000A6AD2 /* PlayMarketMainViewController.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -365,6 +369,14 @@
 		19193B291E03C748000A6AD2 /* HMSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HMSegmentedControl.m; sourceTree = "<group>"; };
 		19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Color.h"; sourceTree = "<group>"; };
 		19193B301E03CE6D000A6AD2 /* UIImage+Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Color.m"; sourceTree = "<group>"; };
+		19193B331E0776B4000A6AD2 /* StockMarketComparisonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockMarketComparisonView.h; sourceTree = "<group>"; };
+		19193B341E0776B4000A6AD2 /* StockMarketComparisonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockMarketComparisonView.m; sourceTree = "<group>"; };
+		19193B371E0784FD000A6AD2 /* StockMarketModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockMarketModel.h; sourceTree = "<group>"; };
+		19193B381E0784FD000A6AD2 /* StockMarketModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockMarketModel.m; sourceTree = "<group>"; };
+		19193B3A1E078E0E000A6AD2 /* StockMarketRuleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockMarketRuleViewController.h; sourceTree = "<group>"; };
+		19193B3B1E078E0E000A6AD2 /* StockMarketRuleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockMarketRuleViewController.m; sourceTree = "<group>"; };
+		19193B3D1E07C03B000A6AD2 /* PlayMarketMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayMarketMainViewController.h; sourceTree = "<group>"; };
+		19193B3E1E07C03B000A6AD2 /* PlayMarketMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayMarketMainViewController.m; sourceTree = "<group>"; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		1924DFD51D62B49C00FEC383 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1062,8 +1074,14 @@
 		19193B1D1E03B3E9000A6AD2 /* PlayStockMarket */ = {
 			isa = PBXGroup;
 			children = (
+				19193B361E0784E7000A6AD2 /* Model */,
+				19193B321E077662000A6AD2 /* View */,
 				19193B1E1E03B3E9000A6AD2 /* StockMarketViewController.h */,
 				19193B1F1E03B3E9000A6AD2 /* StockMarketViewController.m */,
+				19193B3A1E078E0E000A6AD2 /* StockMarketRuleViewController.h */,
+				19193B3B1E078E0E000A6AD2 /* StockMarketRuleViewController.m */,
+				19193B3D1E07C03B000A6AD2 /* PlayMarketMainViewController.h */,
+				19193B3E1E07C03B000A6AD2 /* PlayMarketMainViewController.m */,
 			);
 			path = PlayStockMarket;
 			sourceTree = "<group>";
@@ -1083,6 +1101,24 @@
 				19193B291E03C748000A6AD2 /* HMSegmentedControl.m */,
 			);
 			path = HMSegmentedControl;
+			sourceTree = "<group>";
+		};
+		19193B321E077662000A6AD2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				19193B331E0776B4000A6AD2 /* StockMarketComparisonView.h */,
+				19193B341E0776B4000A6AD2 /* StockMarketComparisonView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		19193B361E0784E7000A6AD2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				19193B371E0784FD000A6AD2 /* StockMarketModel.h */,
+				19193B381E0784FD000A6AD2 /* StockMarketModel.m */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 		191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */ = {
@@ -2950,6 +2986,7 @@
 				19E958321DAC894600BA37C5 /* NewTableViewCell.m in Sources */,
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
 				845E7D121DE5729B00E620DB /* RecordModel.m in Sources */,
+				19193B3C1E078E0E000A6AD2 /* StockMarketRuleViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
@@ -2963,6 +3000,7 @@
 				1955B4861D644D9800DC102E /* HeadForSectionTableViewCell.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
+				19193B351E0776B4000A6AD2 /* StockMarketComparisonView.m in Sources */,
 				8478D1211DD01F1E0066E784 /* SurDataView.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
@@ -3112,6 +3150,7 @@
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				194186BF1DF803A0000C5197 /* SurveyMoreViewController.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
+				19193B3F1E07C03B000A6AD2 /* PlayMarketMainViewController.m in Sources */,
 				846E5A2E1DE452E20031C993 /* NoOrderTableViewCell.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */,
@@ -3128,6 +3167,7 @@
 				8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
+				19193B391E0784FD000A6AD2 /* StockMarketModel.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,

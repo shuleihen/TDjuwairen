@@ -6,40 +6,34 @@
     },
     {
       "resizing" : {
-        "mode" : "9-part",
+        "mode" : "3-part-horizontal",
         "center" : {
           "mode" : "tile",
-          "width" : 1,
-          "height" : 17
+          "width" : 1
         },
         "cap-insets" : {
-          "bottom" : 31,
-          "top" : 32,
-          "right" : 20,
-          "left" : 20
+          "right" : 12,
+          "left" : 12
         }
       },
       "idiom" : "universal",
-      "filename" : "bg_hangqing@2x.png",
+      "filename" : "bg_progress@2x.png",
       "scale" : "2x"
     },
     {
       "resizing" : {
-        "mode" : "9-part",
+        "mode" : "3-part-horizontal",
         "center" : {
           "mode" : "tile",
-          "width" : 1,
-          "height" : 34
+          "width" : 1
         },
         "cap-insets" : {
-          "bottom" : 43,
-          "top" : 43,
-          "right" : 30,
-          "left" : 30
+          "right" : 22,
+          "left" : 22
         }
       },
       "idiom" : "universal",
-      "filename" : "bg_hangqing@3x.png",
+      "filename" : "bg_progress@3x.png",
       "scale" : "3x"
     }
   ],

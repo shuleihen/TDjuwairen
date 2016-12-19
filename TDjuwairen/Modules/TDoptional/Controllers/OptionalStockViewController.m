@@ -82,7 +82,7 @@
 }
 
 - (void)setupWithNavigation{
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"管理" style:UIBarButtonItemStyleDone target:self action:@selector(clickManager:)];
+     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithTitle:@"管理" style:UIBarButtonItemStyleDone target:self action:@selector(clickManager:)];
     self.navigationItem.leftBarButtonItem = leftItem;
     
     UIButton*search = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];

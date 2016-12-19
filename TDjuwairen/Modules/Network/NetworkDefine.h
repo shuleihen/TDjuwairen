@@ -55,5 +55,8 @@
 #define API_GetVideoList        @"index.php/Sharp/VideoList/page"//
 #define API_GetViewComment      @"index.php/View/GetViewComment1_2"
 #define API_GetBanner           @"index.php/Index/indexBanner"
+#define API_QueryKeyNumber      @"Survey/getUserKeyNum"
+
+#define API_GetGuessIndex       @"Game/guessIndex"
 
 #endif /* NetworkDefine_h */
