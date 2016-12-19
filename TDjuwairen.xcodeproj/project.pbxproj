@@ -274,8 +274,6 @@
 		84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84AAEFDB1D65A3E300755277 /* AllNoResultTableViewCell.m */; };
 		84AAEFDE1D65A3E300755277 /* AllNoResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */; };
 		84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84B8F0771DF9308600703A21 /* AlertHintView.m */; };
-		84C170151E077154008A50BB /* GameSelectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C170141E077154008A50BB /* GameSelectViewController.m */; };
-		84C170181E077615008A50BB /* GuessRedGreenViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84C170171E077615008A50BB /* GuessRedGreenViewController.m */; };
 		84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA15921DDAB1BE0023E162 /* UnlockView.m */; };
 		84CA159C1DDB082D0023E162 /* NMView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA159B1DDB082D0023E162 /* NMView.m */; };
 		84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */ = {isa = PBXBuildFile; fileRef = 84CA3A291D6EB513003E9B53 /* PhoneNumHold.m */; };
@@ -862,10 +860,6 @@
 		84AAEFDC1D65A3E300755277 /* AllNoResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AllNoResultTableViewCell.xib; sourceTree = "<group>"; };
 		84B8F0761DF9308600703A21 /* AlertHintView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertHintView.h; sourceTree = "<group>"; };
 		84B8F0771DF9308600703A21 /* AlertHintView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertHintView.m; sourceTree = "<group>"; };
-		84C170131E077154008A50BB /* GameSelectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameSelectViewController.h; sourceTree = "<group>"; };
-		84C170141E077154008A50BB /* GameSelectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameSelectViewController.m; sourceTree = "<group>"; };
-		84C170161E077615008A50BB /* GuessRedGreenViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessRedGreenViewController.h; sourceTree = "<group>"; };
-		84C170171E077615008A50BB /* GuessRedGreenViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessRedGreenViewController.m; sourceTree = "<group>"; };
 		84CA15911DDAB1BE0023E162 /* UnlockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UnlockView.h; sourceTree = "<group>"; };
 		84CA15921DDAB1BE0023E162 /* UnlockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UnlockView.m; sourceTree = "<group>"; };
 		84CA159A1DDB082D0023E162 /* NMView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NMView.h; sourceTree = "<group>"; };
@@ -2022,7 +2016,6 @@
 				84069EBC1DB495A300CB21DA /* TDSurvey */,
 				8478D1141DD012E60066E784 /* TDSurDetail */,
 				847ADA651DF79C9C002600AA /* TDoptional */,
-				84C1700E1E07706E008A50BB /* TDGame */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -2529,49 +2522,6 @@
 			path = PageControl;
 			sourceTree = "<group>";
 		};
-		84C1700E1E07706E008A50BB /* TDGame */ = {
-			isa = PBXGroup;
-			children = (
-				84C170111E07706E008A50BB /* Models */,
-				84C170121E07709D008A50BB /* Views */,
-				84C1700F1E07706E008A50BB /* Cells */,
-				84C170101E07706E008A50BB /* Controllers */,
-			);
-			path = TDGame;
-			sourceTree = "<group>";
-		};
-		84C1700F1E07706E008A50BB /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		84C170101E07706E008A50BB /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				84C170131E077154008A50BB /* GameSelectViewController.h */,
-				84C170141E077154008A50BB /* GameSelectViewController.m */,
-				84C170161E077615008A50BB /* GuessRedGreenViewController.h */,
-				84C170171E077615008A50BB /* GuessRedGreenViewController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		84C170111E07706E008A50BB /* Models */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Models;
-			sourceTree = "<group>";
-		};
-		84C170121E07709D008A50BB /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
 		84CC347C1CEAE75700193D9C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
@@ -2989,7 +2939,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84C170181E077615008A50BB /* GuessRedGreenViewController.m in Sources */,
 				845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */,
 				8478D11B1DD013510066E784 /* SurDetailViewController.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
@@ -3074,7 +3023,6 @@
 				194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */,
 				843BC1F01DC976DC00E170EF /* MyWalletViewController.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
-				84C170151E077154008A50BB /* GameSelectViewController.m in Sources */,
 				842D94F21E039B2A00D9AFDB /* SendCommentView.m in Sources */,
 				1955B4671D644D9800DC102E /* DaynightCellTableViewCell.m in Sources */,
 				8470E9541DDC6689002F727D /* UnlockVipBtn.m in Sources */,
