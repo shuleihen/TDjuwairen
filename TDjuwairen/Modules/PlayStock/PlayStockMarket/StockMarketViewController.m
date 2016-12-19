@@ -73,8 +73,8 @@
         NetworkManager *ma = [[NetworkManager alloc] init];
         [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
             if (!error) {
-                NSString *keyNumber = data[@"keyNum"];
-                self.keyNumberLabel.text = keyNumber;
+                long keyNumber = [data[@"keyNum"] longValue];
+                self.keyNumberLabel.text = [NSString stringWithFormat:@"%ld",keyNumber];
             }
         }];
     }
@@ -104,10 +104,12 @@
         dict = @{@"block": type,@"user_id": US.userId};
     }
     
-    [ma GET:@"" parameters:dict completion:^(id data, NSError *error){
-        StockMarketModel *model = [[StockMarketModel alloc] initWithDictionary:data];
-        self.stockMarket = model;
-        [self reloadView];
+    [ma GET:API_GetGuessIndex parameters:dict completion:^(id data, NSError *error){
+        if (!error) {
+            StockMarketModel *model = [[StockMarketModel alloc] initWithDictionary:data];
+            self.stockMarket = model;
+            [self reloadView];
+        }
     }];
 }
 

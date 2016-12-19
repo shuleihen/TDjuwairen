@@ -289,10 +289,10 @@
             </objects>
             <point key="canvasLocation" x="-985" y="-1001"/>
         </scene>
-        <!--玩票-->
+        <!--猜红绿-->
         <scene sceneID="x5Z-SD-4ld">
             <objects>
-                <tabBarController title="玩票" id="kgg-fx-T9i" customClass="PlayMarketMainViewController" sceneMemberID="viewController">
+                <tabBarController title="猜红绿" id="kgg-fx-T9i" customClass="PlayMarketMainViewController" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" id="hT9-IZ-PTC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
