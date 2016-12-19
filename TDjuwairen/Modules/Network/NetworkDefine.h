@@ -9,7 +9,7 @@
 #ifndef NetworkDefine_h
 #define NetworkDefine_h
 
-#define API_HOST    @"http://appapi.juwairen.net/"
+#define API_HOST    @"https://appapi.juwairen.net/"
 
 #define kAPI_bendi @"http://192.168.1.100/tuanda_web/Appapi/"
 

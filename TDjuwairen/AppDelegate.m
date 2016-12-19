@@ -392,42 +392,45 @@ static BOOL isBackGroundActivateApplication;
     //杀死状态下，直接跳转到跳转页面。
     if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
     {
-        NSString *nothing = userInfo[@"view_id"];
-        if (nothing == nil) {
-            NSString *c = userInfo[@"code"];
-            if (c == nil) {
-                //
-            }
-            else
-            {
-                SurDetailViewController *dv = [[SurDetailViewController alloc] init];
-                
-                NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
-                
-                NSString *companyCode ;
-                if ([code isEqualToString:@"6"]) {
-                    companyCode = [NSString stringWithFormat:@"sh%@",c];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *nothing = userInfo[@"view_id"];
+            if (nothing == nil) {
+                NSString *c = userInfo[@"code"];
+                if (c == nil) {
+                    //
                 }
                 else
                 {
-                    companyCode = [NSString stringWithFormat:@"sz%@",c];
+                    SurDetailViewController *dv = [[SurDetailViewController alloc] init];
+                    
+                    NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
+                    
+                    NSString *companyCode ;
+                    if ([code isEqualToString:@"6"]) {
+                        companyCode = [NSString stringWithFormat:@"sh%@",c];
+                    }
+                    else
+                    {
+                        companyCode = [NSString stringWithFormat:@"sz%@",c];
+                    }
+                    dv.company_code = companyCode;
+                    dv.module = 5;
+                    [dv setHidesBottomBarWhenPushed:YES];
+                    _tabBarCtr.selectedIndex = 0;
+                    [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
                 }
-                dv.company_code = companyCode;
-                dv.module = 5;
-                [dv setHidesBottomBarWhenPushed:YES];
-                _tabBarCtr.selectedIndex = 0;
-                [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];            }
-        }
-        else
-        {
-            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-            detail.view_id = userInfo[@"view_id"];
-            detail.pageMode = @"view";
-            [detail setHidesBottomBarWhenPushed:YES];
-            _tabBarCtr.selectedIndex = 1;
-            [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
-        }
-        NSLog(@"applacation is unactive ===== %@",userInfo);
+            }
+            else
+            {
+                DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+                detail.view_id = userInfo[@"view_id"];
+                detail.pageMode = @"view";
+                [detail setHidesBottomBarWhenPushed:YES];
+                _tabBarCtr.selectedIndex = 1;
+                [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+            }
+            NSLog(@"applacation is unactive ===== %@",userInfo);
+        });
     }
     // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
     if (application.applicationState == UIApplicationStateBackground) {
@@ -510,42 +513,45 @@ static BOOL isBackGroundActivateApplication;
     }
     else//杀死状态下，直接跳转到跳转页面。
     {
-        NSString *nothing = userInfo[@"view_id"];
-        if (nothing == nil) {
-            NSString *c = userInfo[@"code"];
-            if (c == nil) {
-                //
-            }
-            else
-            {
-                SurDetailViewController *dv = [[SurDetailViewController alloc] init];
-                
-                NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
-                
-                NSString *companyCode ;
-                if ([code isEqualToString:@"6"]) {
-                    companyCode = [NSString stringWithFormat:@"sh%@",c];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            NSString *nothing = userInfo[@"view_id"];
+            if (nothing == nil) {
+                NSString *c = userInfo[@"code"];
+                if (c == nil) {
+                    //
                 }
                 else
                 {
-                    companyCode = [NSString stringWithFormat:@"sz%@",c];
+                    SurDetailViewController *dv = [[SurDetailViewController alloc] init];
+                    
+                    NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
+                    
+                    NSString *companyCode ;
+                    if ([code isEqualToString:@"6"]) {
+                        companyCode = [NSString stringWithFormat:@"sh%@",c];
+                    }
+                    else
+                    {
+                        companyCode = [NSString stringWithFormat:@"sz%@",c];
+                    }
+                    dv.company_code = companyCode;
+                    dv.module = 5;
+                    [dv setHidesBottomBarWhenPushed:YES];
+                    _tabBarCtr.selectedIndex = 0;
+                    [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
                 }
-                dv.company_code = companyCode;
-                dv.module = 5;
-                [dv setHidesBottomBarWhenPushed:YES];
-                _tabBarCtr.selectedIndex = 0;
-                [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
             }
-        }
-        else
-        {
-            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-            detail.view_id = userInfo[@"view_id"];
-            detail.pageMode = @"view";
-            [detail setHidesBottomBarWhenPushed:YES];
-            _tabBarCtr.selectedIndex = 1;
-            [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
-        }
+            else
+            {
+                DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+                detail.view_id = userInfo[@"view_id"];
+                detail.pageMode = @"view";
+                [detail setHidesBottomBarWhenPushed:YES];
+                _tabBarCtr.selectedIndex = 1;
+                [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+            }
+            NSLog(@"applacation is unactive ===== %@",userInfo);
+        });
     }
     
     NSLog(@"%@",userInfo);

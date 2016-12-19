@@ -62,7 +62,7 @@
     }
         
     [self requestUserKeysNum];
-    [self queryStockMarket];
+//    [self queryStockMarket];
 }
 
 
@@ -70,11 +70,15 @@
 
     if (US.isLogIn) {
         NSDictionary *para = @{@"user_id":US.userId};
-        NetworkManager *ma = [[NetworkManager alloc] init];
+        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
         [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 long keyNumber = [data[@"keyNum"] longValue];
                 self.keyNumberLabel.text = [NSString stringWithFormat:@"%ld",keyNumber];
+            }
+            else
+            {
+                //
             }
         }];
     }
