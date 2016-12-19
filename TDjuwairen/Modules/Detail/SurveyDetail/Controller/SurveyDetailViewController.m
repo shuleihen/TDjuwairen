@@ -35,7 +35,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.segment.selectedIndex = 1;
+    self.segment.selectedIndex = 0;
 }
 
 #pragma mark - UITableViewDelegate

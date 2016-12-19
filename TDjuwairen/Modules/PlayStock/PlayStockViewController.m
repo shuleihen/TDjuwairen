@@ -7,6 +7,10 @@
 //
 
 #import "PlayStockViewController.h"
+#import "KeysExchangeViewController.h"
+#import "LoginViewController.h"
+
+#import "LoginState.h"
 
 @interface PlayStockViewController ()
 
@@ -48,6 +52,16 @@
 }
 
 - (void)exchangePressed:(id)sender {
-    
+    if (US.isLogIn) {
+        //进入钥匙兑换页
+        KeysExchangeViewController *keysExchange = [[KeysExchangeViewController alloc] init];
+        keysExchange.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:keysExchange animated:YES];
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
 }
 @end
