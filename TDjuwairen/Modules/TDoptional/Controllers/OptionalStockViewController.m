@@ -15,6 +15,7 @@
 #import "SurveyModel.h"
 #import "SurDetailViewController.h"
 #import "StockManager.h"
+#import "LoginViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -107,7 +108,7 @@
 
 - (void)requestWithList{
     __weak OptionalStockViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *url ;
     if (US.isLogIn) {
         url = [NSString stringWithFormat:@"Collection/myStockList?user_id=%@",US.userId];
@@ -286,9 +287,16 @@
 }
 
 - (void)clickAddStock{
-    SearchViewController *searchView = [[SearchViewController alloc] init];
-    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-    [self.navigationController pushViewController:searchView animated:YES];
+    if (US.isLogIn) {
+        SearchViewController *searchView = [[SearchViewController alloc] init];
+        searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:searchView animated:YES];
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
 }
 
 - (void)didReceiveMemoryWarning {

@@ -26,7 +26,7 @@
         self.name = [[UILabel alloc] initWithFrame:CGRectMake(85, 0, 80, 50)];
         self.name.font = font15;
         
-        self.addBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-20-20, 15, 20, 20)];
+        self.addBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-50, 0, 50, 50)];
         self.addBtn.contentMode = UIViewContentModeScaleAspectFit;
         [self.addBtn addTarget:self action:@selector(clickAddOptionalStock:) forControlEvents:UIControlEventTouchUpInside];
         
@@ -48,11 +48,13 @@
     self.code.text = model.survey_conpanycode;
     self.name.text = model.company_name;
     if (model.is_mystock) {
-        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_quxiao"] forState:UIControlStateNormal];
+//        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_quxiao"] forState:UIControlStateNormal];
+        [self.addBtn setImage:[UIImage imageNamed:@"btn_quxiao"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_add"] forState:UIControlStateNormal];
+//        [self.addBtn setBackgroundImage:[UIImage imageNamed:@"btn_add"] forState:UIControlStateNormal];
+        [self.addBtn setImage:[UIImage imageNamed:@"btn_add"] forState:UIControlStateNormal];
     }
 }
 

@@ -17,6 +17,8 @@
 #import "AllNoResultTableViewCell.h"
 #import "DetailPageViewController.h"
 #import "SurDetailViewController.h"
+#import "LoginViewController.h"
+
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
@@ -845,7 +847,9 @@
     }
     else
     {
-        
+        [hud hide:YES afterDelay:0.0];
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
     }
 }
 
