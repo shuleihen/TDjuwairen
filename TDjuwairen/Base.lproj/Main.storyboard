@@ -162,11 +162,7 @@
             </objects>
             <point key="canvasLocation" x="-3788" y="-1092"/>
         </scene>
-<<<<<<< Updated upstream
-        <!--我的-->
-=======
         <!--Game Select View Controller-->
->>>>>>> Stashed changes
         <scene sceneID="qrJ-Kp-8qb">
             <objects>
                 <viewController id="fon-Ns-hbc" customClass="GameSelectViewController" sceneMemberID="viewController">
@@ -185,8 +181,7 @@
             </objects>
             <point key="canvasLocation" x="-3788" y="-421"/>
         </scene>
-<<<<<<< Updated upstream
-=======
+
         <!--Table View Controller-->
         <scene sceneID="08z-a0-v7l">
             <objects>
@@ -235,7 +230,6 @@
             </objects>
             <point key="canvasLocation" x="-2815" y="-307"/>
         </scene>
->>>>>>> Stashed changes
     </scenes>
     <resources>
         <image name="tab_survey_normal" width="20" height="20"/>
