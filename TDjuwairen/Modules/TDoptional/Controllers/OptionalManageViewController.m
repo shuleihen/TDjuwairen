@@ -13,6 +13,7 @@
 #import "AlertHintView.h"
 #import "SurveyModel.h"
 #import "SearchViewController.h"
+#import "LoginViewController.h"
 
 #import "UIdaynightModel.h"
 #import "LoginState.h"
@@ -76,7 +77,7 @@
 - (void)requestWithList{
     
     __weak OptionalManageViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *url ;
     if (US.isLogIn) {
         url = [NSString stringWithFormat:@"Collection/myStockList?user_id=%@",US.userId];
@@ -190,7 +191,7 @@
     NSString *jsonStr=[[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
 
     __weak OptionalManageViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSString *url = @"Collection/changeMyStockOrder";
     NSDictionary *para = @{@"order_list":jsonStr};
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
@@ -224,7 +225,7 @@
         [view removeFromSuperview];
     } sureBtClcik:^(AlertHintView *view) {
         SurveyModel *model = self.stockArr[cell.tag];
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSString *url = @"Collection/cancelMyStock";
         NSDictionary *para = @{@"collect_id":model.collection_id};
         [manager POST:url parameters:para completion:^(id data, NSError *error) {
@@ -245,9 +246,16 @@
 }
 
 - (void)clickAddStock{
-    SearchViewController *searchView = [[SearchViewController alloc] init];
-    searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-    [self.navigationController pushViewController:searchView animated:YES];
+    if (US.isLogIn) {
+        SearchViewController *searchView = [[SearchViewController alloc] init];
+        searchView.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
+        [self.navigationController pushViewController:searchView animated:YES];
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
 }
 
 #pragma mark - 置顶
