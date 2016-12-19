@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" title="玩票" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -162,10 +162,14 @@
             </objects>
             <point key="canvasLocation" x="-3788" y="-1092"/>
         </scene>
+<<<<<<< Updated upstream
         <!--我的-->
+=======
+        <!--Game Select View Controller-->
+>>>>>>> Stashed changes
         <scene sceneID="qrJ-Kp-8qb">
             <objects>
-                <viewController id="fon-Ns-hbc" customClass="PersonalCenterViewController" sceneMemberID="viewController">
+                <viewController id="fon-Ns-hbc" customClass="GameSelectViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="X9P-t1-cB2"/>
                         <viewControllerLayoutGuide type="bottom" id="CkH-kp-0ZI"/>
@@ -181,6 +185,57 @@
             </objects>
             <point key="canvasLocation" x="-3788" y="-421"/>
         </scene>
+<<<<<<< Updated upstream
+=======
+        <!--Table View Controller-->
+        <scene sceneID="08z-a0-v7l">
+            <objects>
+                <tableViewController id="mlG-i6-2Km" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="xSa-UD-OpZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <sections>
+                            <tableViewSection id="vw3-do-kHQ">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="jKv-cu-9XN">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="jKv-cu-9XN" id="bIK-Pd-fLh">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="dJj-Nm-zU8">
+                                        <rect key="frame" x="0.0" y="44" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="dJj-Nm-zU8" id="aY9-lF-Nkt">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="LFS-Rz-zCM">
+                                        <rect key="frame" x="0.0" y="88" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="LFS-Rz-zCM" id="8ft-xj-wYB">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="mlG-i6-2Km" id="7Ys-Gg-W99"/>
+                            <outlet property="delegate" destination="mlG-i6-2Km" id="fM0-c1-7iC"/>
+                        </connections>
+                    </tableView>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="E77-iL-E3l" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2815" y="-307"/>
+        </scene>
+>>>>>>> Stashed changes
     </scenes>
     <resources>
         <image name="tab_survey_normal" width="20" height="20"/>
