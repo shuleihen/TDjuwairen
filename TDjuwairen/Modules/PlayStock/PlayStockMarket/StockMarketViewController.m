@@ -13,10 +13,19 @@
 #import "StockMarketModel.h"
 #import "StockMarketComparisonView.h"
 #import "UIButton+WebCache.h"
+#import "RechargeView.h"
+#import "SelWXOrAlipayView.h"
+#import "LoginViewController.h"
+#import "KeysExchangeViewController.h"
+
 #import "LoginState.h"
 
+#import <AlipaySDK/AlipaySDK.h>
+#import "WXApi.h"
+#import "WXApiManager.h"
 
-@interface StockMarketViewController ()
+@interface StockMarketViewController ()<RechargeViewDelegate,SelWXOrAlipayViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
 @property (weak, nonatomic) IBOutlet UIView *topView;
 @property (weak, nonatomic) IBOutlet UILabel *stockLabel;
@@ -26,6 +35,12 @@
 @property (weak, nonatomic) IBOutlet UILabel *kandieLabel;
 @property (weak, nonatomic) IBOutlet UIButton *expressBtn;
 @property (weak, nonatomic) IBOutlet UILabel *keyNumberLabel;
+
+@property (nonatomic,strong) RechargeView *rechargeView;      //充值页面
+
+@property (nonatomic,strong) SelWXOrAlipayView *payView;      //选择支付页面
+
+@property (nonatomic,strong) NSString *keysNum;
 
 @property (nonatomic, strong) StockMarketModel *stockMarket;
 @end
@@ -118,10 +133,155 @@
 }
 
 - (void)reloadView {
-//    self.stockLabel.text =
     
     self.kanzhangLabel.text = [NSString stringWithFormat:@"%.0lf%%",self.stockMarket.upPre];
     self.kandieLabel.text = [NSString stringWithFormat:@"%.0lf%%",(1-self.stockMarket.upPre)];
     self.comparison.kandie = 1-self.stockMarket.upPre/100;
+}
+
+#pragma mark - 弹出充值页面
+- (IBAction)clickTopUp:(UIButton *)sender {
+    self.rechargeView = [[RechargeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+    self.rechargeView.delegate = self;
+    [self.view addSubview:self.rechargeView];
+}
+
+#pragma mark - 关闭页面
+- (void)closeRechargeView:(UIButton *)sender
+{
+    [self.rechargeView removeFromSuperview];
+}
+
+- (void)closeSelWXOrAlipayView:(UIButton *)sender
+{
+    [self.payView removeFromSuperview];
+}
+
+#pragma mark - 选择数量
+- (void)clickRecharge:(UIButton *)sender
+{
+    if (sender.tag == 0) {
+        self.keysNum = @"1";
+    }
+    else if (sender.tag == 1){
+        self.keysNum = @"5";
+    }
+    else if (sender.tag == 2){
+        self.keysNum = @"10";
+    }
+    else
+    {
+        self.keysNum = @"VIP";
+    }
+    //进入选择付款页面
+    [self.rechargeView removeFromSuperview];
+    self.payView = [[SelWXOrAlipayView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+    self.payView.delegate = self;
+    [self.view addSubview:self.payView];
+}
+
+- (IBAction)clickExchange:(UIButton *)sender {
+    if (US.isLogIn) {
+        //进入钥匙兑换页
+        KeysExchangeViewController *keysExchange = [[KeysExchangeViewController alloc] init];
+        [self.navigationController pushViewController:keysExchange animated:YES];
+    }
+    else
+    {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+}
+
+#pragma mark - 支付宝或者微信
+- (void)didSelectWXOrZhifubao:(NSIndexPath *)indePath
+{
+    if (indePath.row == 0) { //支付宝支付
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        // 设置请求接口回来的时候支持什么类型的数据
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        NSDictionary *dic;
+        if (![self.keysNum isEqualToString:@"VIP"]) {
+            dic = @{@"type":@"1",
+                    @"number":self.keysNum,
+                    @"version":@"1.0",
+                    @"user_id":US.userId};
+        }
+        else
+        {
+            dic = @{@"type":@"2",   //type = 2 表示充值VIP
+                    @"number":@"1",
+                    @"version":@"1.0",
+                    @"user_id":US.userId};
+        }
+        
+        NSString *url = [NSString stringWithFormat:@"%@Survey/alipayKey",API_HOST];
+        
+        [manager POST:url parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            nil;
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dic = responseObject;
+            NSString *orderString = dic[@"data"];
+            NSString *appScheme = @"TDjuwairen";
+            
+            [self.payView removeFromSuperview];
+            
+            [[AlipaySDK defaultService] payOrder:orderString fromScheme:appScheme callback:^(NSDictionary *resultDic) {
+                NSLog(@"reslut = %@",resultDic);
+                
+            }];
+            
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
+    else    //微信支付
+    {
+        NSString *urlString   = [NSString stringWithFormat:@"%@Survey/wxpayKey",API_HOST];
+        NSDictionary *dic;
+        if (![self.keysNum isEqualToString:@"VIP"]) {
+            dic = @{@"type":@"1",
+                    @"number":self.keysNum,
+                    @"user_id":US.userId,
+                    @"device":@"1"};
+        }
+        else
+        {
+            dic = @{@"type":@"2",
+                    @"number":@"1",
+                    @"user_id":US.userId,
+                    @"device":@"1"};
+        }
+        
+        AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+        manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
+        [manager POST:urlString parameters:dic progress:^(NSProgress * _Nonnull uploadProgress) {
+            nil;
+        } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
+            NSDictionary *dic = responseObject;
+            NSString *str = dic[@"data"];
+            NSData *jsonData = [str dataUsingEncoding:NSUTF8StringEncoding];
+            NSError *err;
+            NSDictionary *order = [NSJSONSerialization JSONObjectWithData:jsonData
+                                                                  options:NSJSONReadingMutableContainers
+                                                                    error:&err];
+            
+            //调起微信支付
+            PayReq* req             = [[PayReq alloc] init];
+            req.openID = [order objectForKey:@"appid"];
+            req.partnerId           = [order objectForKey:@"mch_id"];
+            req.prepayId            = [order objectForKey:@"prepay_id"];
+            req.nonceStr            = [order objectForKey:@"nonce_str"];
+            req.timeStamp           = [[order objectForKey:@"timestamp"] intValue];
+            req.package             = @"Sign=WXPay";
+            req.sign                = [order objectForKey:@"sign"];
+            
+            [self.payView removeFromSuperview];
+            
+            [WXApi sendReq:req];
+        } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
+            NSLog(@"%@",error);
+        }];
+    }
 }
 @end
