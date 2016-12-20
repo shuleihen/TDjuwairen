@@ -88,8 +88,6 @@
 }
 
 - (void)setupStock:(StockInfo *)stock {
-    float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
-    float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
     
     if (!stock.nowPri.length) {
         // 没有值 退市，开盘前半小时
@@ -101,9 +99,10 @@
                       range:NSMakeRange(1,string.length-1)];
         _stockNowPriLabel.attributedText = attr;
     } else {
-        float value = nowPri - yestodEndPri;   //跌涨额
-        float valueB = value/yestodEndPri;     //跌涨百分比
-        NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",nowPri];
+        float value = [stock priValue];            //跌涨额
+        float valueB = [stock priPercentValue];     //跌涨百分比
+        NSString *nowPriString = [NSString stringWithFormat:@"%+.2lf",stock.nowPriValue];
+        
         NSString *string = [NSString stringWithFormat:@"%@  %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
         

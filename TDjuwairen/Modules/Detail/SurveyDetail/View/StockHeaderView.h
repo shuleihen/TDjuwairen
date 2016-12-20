@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockManager.h"
 
 @interface StockHeaderView : UIView
 @property (nonatomic, weak) IBOutlet UILabel *nowPriLabel;
@@ -14,4 +15,6 @@
 @property (nonatomic, weak) IBOutlet UILabel *valueBLabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailALabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailBLabel;
+
+- (void)setupStockInfo:(StockInfo *)stockInfo;
 @end

@@ -89,16 +89,11 @@
 
 - (void)setupWithStock:(StockInfo *)stock{
     
-    float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
-    float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
+    float value = [stock priValue];             //跌涨额
+    float valueB = [stock priPercentValue];     //跌涨百分比
     
-    float value = nowPri - yestodEndPri;   //跌涨额
-    float valueB = value/yestodEndPri;     //跌涨百分比
-    
-    self.nLab.text = [NSString stringWithFormat:@"%.2lf",nowPri];
-    
+    self.nLab.text = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
     self.increaseLab.text = [NSString stringWithFormat:@"%.2f",value];
-    
     self.increPerLab.text = [NSString stringWithFormat:@"%.2f%%",valueB*100];
     
     if (value > 0) {

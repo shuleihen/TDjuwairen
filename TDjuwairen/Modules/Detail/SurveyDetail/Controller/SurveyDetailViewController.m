@@ -17,8 +17,10 @@
 #import "SurveyDetailCommentViewController.h"
 #import "SurveyDetailStockCommentViewController.h"
 #import "StockCommentModel.h"
+#import "StockManager.h"
+#import "UIImage+Color.h"
 
-@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
@@ -27,6 +29,7 @@
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, weak) UIViewController *pageWillToController;
+@property (nonatomic, strong) StockManager *stockManager;
 @end
 
 @implementation SurveyDetailViewController
@@ -35,7 +38,59 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.segment.selectedIndex = 0;
+    self.segment.selectedIndex = 3;
+    [self.stockManager addStocks:@[self.stockId]];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    if (self.stockInfo) {
+        [self setupStockInfo:self.stockInfo];
+    }
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+}
+
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSDictionary *)stocks {
+    StockInfo *stock = [stocks objectForKey:self.stockId];
+    self.stockInfo = stock;
+    
+    [self setupStockInfo:stock];
+}
+
+- (void)setupStockInfo:(StockInfo *)stock {
+    [self.stockHeaderView setupStockInfo:stock];
+    
+    // 修改导航条背景色
+    float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
+    float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
+    float value = nowPri - yestodEndPri;
+    
+    UIColor *color = nil;
+    if (value >= 0.0) {
+        color = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+    } else {
+        color = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+    }
+    
+    [self setupNavigationBarWithColor:color];
+    
+    self.title = [NSString stringWithFormat:@"%@(%@)",stock.name,stock.gid];
+}
+
+- (void)setupNavigationBarWithColor:(UIColor *)color {
+    UIImage *bgImage = [UIImage imageWithSize:CGSizeMake(kScreenWidth, 64) withColor:color];
+    [self.navigationController.navigationBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
+    UIImage *shadowImage = [UIImage imageWithSize:CGSizeMake(kScreenWidth, 1) withColor:color];
+    [self.navigationController.navigationBar setShadowImage:shadowImage];
 }
 
 #pragma mark - UITableViewDelegate
@@ -152,6 +207,15 @@
 }
 
 #pragma mark - Getter
+- (StockManager *)stockManager {
+    if (!_stockManager) {
+        _stockManager = [[StockManager alloc] init];
+        _stockManager.delegate = self;
+    }
+    
+    return _stockManager;
+}
+
 - (SurveyDetailSegmentView *)segment {
     if (!_segment) {
         _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];

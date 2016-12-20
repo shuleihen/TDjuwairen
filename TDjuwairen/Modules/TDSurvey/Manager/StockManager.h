@@ -20,6 +20,10 @@
 @property (nonatomic, copy) NSString *traNumber;
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *time;
+
+- (float)nowPriValue;
+- (float)priValue;
+- (float)priPercentValue;
 @end
 
 @protocol StockManagerDelegate <NSObject>
