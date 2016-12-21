@@ -119,6 +119,13 @@
     }
 }
 
+- (void)setIsLock:(BOOL)isLock {
+    _isLock = isLock;
+    
+    for (int i=0; i<3; i++) {
+        [self setLocked:isLock withIndex:i];
+    }
+}
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
     SurveyDetailSegmentItem *selectedItem = self.segments[selectedIndex];

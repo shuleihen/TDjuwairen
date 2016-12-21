@@ -345,19 +345,19 @@
     SurveyModel *survey = self.surveyList[indexPath.section];
     StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
     
-//    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-//    vc.company_name = survey.companyName;
-//    vc.company_code = survey.companyCode;
-//    vc.survey_cover = survey.surveyCover;
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
-//
-    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockInfo = stock;
-    vc.stockId = survey.companyCode;
-    vc.surveyId = survey.surveyId;
+    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+    vc.company_name = survey.companyName;
+    vc.company_code = survey.companyCode;
+    vc.survey_cover = survey.surveyCover;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+//
+//    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+//    vc.stockInfo = stock;
+//    vc.stockId = survey.companyCode;
+//    vc.surveyId = survey.surveyId;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

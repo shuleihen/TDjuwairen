@@ -9,6 +9,6 @@
 #import <UIKit/UIKit.h>
 #import "SurveyDetailContentViewController.h"
 
-@interface SurveyDetailCommentViewController : SurveyDetailContentViewController
+@interface SurveyDetailAskViewController : SurveyDetailContentViewController
 
 @end

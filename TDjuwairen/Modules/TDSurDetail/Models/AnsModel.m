@@ -15,7 +15,7 @@
     AnsModel *model = [[AnsModel alloc] init];
     
     model.surveyanswer_isdel = dic[@"surveyanswer_isdel"];
-    model.isliked = dic[@"isliked"];
+    model.isliked = [dic[@"isliked"] boolValue];
     model.surveyanswer_id = dic[@"surveyanswer_id"];
     model.user_nickname = dic[@"user_nickname"];
     model.surveyanswer_goodnums = dic[@"surveyanswer_goodnums"];

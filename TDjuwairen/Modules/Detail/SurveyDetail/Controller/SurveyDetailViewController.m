@@ -19,6 +19,7 @@
 #import "StockCommentModel.h"
 #import "StockManager.h"
 #import "UIImage+Color.h"
+#import "StockUnlockViewController.h"
 
 @interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate>
 
@@ -30,16 +31,26 @@
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, weak) UIViewController *pageWillToController;
 @property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, copy) NSString *stockName;
 @end
 
 @implementation SurveyDetailViewController
 
+- (void)dealloc {
+    [self.stockManager stopThread];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    
+    // 默认显示热点篇
     self.segment.selectedIndex = 3;
+    
+    // 添加查询股票
     [self.stockManager addStocks:@[self.stockId]];
+    
+    // 查询解锁
+    [self queryUnlock];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -48,6 +59,8 @@
     if (self.stockInfo) {
         [self setupStockInfo:self.stockInfo];
     }
+    
+    [self.stockManager start];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -55,8 +68,50 @@
 
     [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:nil];
+    
+    [self.stockManager stop];
 }
 
+- (void)queryUnlock {
+    // 查询解锁
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    NSString *code = [self.stockId substringFromIndex:2];
+    NSDictionary *para ;
+    if (US.isLogIn) {
+        para = @{@"code": code,
+                 @"user_id": US.userId};
+    }
+    else
+    {
+        para = @{@"code": code};
+    }
+    
+    [ma POST:API_QueryDetailUnlock parameters:para completion:^(id data, NSError *error){
+        if (!error && data) {
+            BOOL isLock = [data[@"isLock"] boolValue];
+            self.segment.isLock = isLock;
+        } else {
+            // 查询失败
+        }
+    }];
+}
+
+- (void)unlockStock {
+    StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
+    vc.stockCode = [self.stockId substringFromIndex:2];
+    vc.stockName = self.stockName;
+    
+    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
+    nav.hidesBottomBarWhenPushed = YES;
+    [nav setNavigationBarHidden:YES animated:NO];
+    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+        nav.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+    }else{
+        nav.modalPresentationStyle = UIModalPresentationCurrentContext;
+    }
+    
+    [self presentViewController:nav animated:YES completion:nil];
+}
 
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
@@ -84,6 +139,7 @@
     [self setupNavigationBarWithColor:color];
     
     self.title = [NSString stringWithFormat:@"%@(%@)",stock.name,stock.gid];
+    self.stockName = stock.name;
 }
 
 - (void)setupNavigationBarWithColor:(UIColor *)color {
@@ -127,14 +183,14 @@
 
 #pragma mark - SurveyDetailSegmentDelegate
 - (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
-    DDLogInfo(@"Survey detail content selected tag = %ld",index);
+    DDLogInfo(@"Survey detail content selected tag = %ld",(long)index);
     if (index > [self.contentControllers count]) {
         return;
     }
     
     SurveyDetailSegmentItem *item = segmentView.segments[index];
     if (item.locked) {
-        
+        [self unlockStock];
     } else {
         SurveyDetailContentViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];

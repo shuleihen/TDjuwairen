@@ -28,6 +28,8 @@
 @property (nonatomic, assign) NSInteger selectedIndex;
 @property (nonatomic, weak) id delegate;
 @property (nonatomic, strong) NSArray *segments;
+@property (nonatomic, assign) BOOL isLock;
+
 - (void)setLocked:(BOOL)locked withIndex:(NSInteger)index;
 
 - (void)changedSelectedIndex:(NSInteger)selectedIndex executeDelegate:(BOOL)execute;

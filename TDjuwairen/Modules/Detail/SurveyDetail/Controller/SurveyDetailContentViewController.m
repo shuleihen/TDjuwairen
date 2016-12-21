@@ -48,11 +48,11 @@
     NSString *code = [self.stockId substringFromIndex:2];
     NSString *urlString = nil;
     if (!US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,tag,@"0"];
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,(long)tag,@"0"];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/userid/%@/mode/%@",baseUrl,code,tag,US.userId,@"0"];
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/userid/%@/mode/%@",baseUrl,code,(long)tag,US.userId,@"0"];
     }
     return urlString;
 }

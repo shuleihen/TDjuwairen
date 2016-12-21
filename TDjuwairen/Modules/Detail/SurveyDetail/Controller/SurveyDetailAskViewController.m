@@ -6,13 +6,13 @@
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "SurveyDetailCommentViewController.h"
+#import "SurveyDetailAskViewController.h"
 
-@interface SurveyDetailCommentViewController ()
+@interface SurveyDetailAskViewController ()
 
 @end
 
-@implementation SurveyDetailCommentViewController
+@implementation SurveyDetailAskViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

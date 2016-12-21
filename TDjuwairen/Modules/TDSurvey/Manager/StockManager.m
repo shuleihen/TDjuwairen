@@ -45,6 +45,8 @@
 
 @implementation StockManager
 - (void)dealloc {
+//    NSLog(@"StockManager dealloc for delegate = %@",[self.delegate class]);
+    
     if (sourceRef) {
         CFRelease(sourceRef);
     }
@@ -135,8 +137,14 @@ void executeSource(void *info) {
     [self removeTimer];
 }
 
-- (void)addTimer {
+- (void)stopThread {
     if (currentRunlopRef) {
+        CFRunLoopStop(currentRunlopRef);
+    }
+}
+
+- (void)addTimer {
+    if (currentRunlopRef && (timer == NULL)) {
         CFRunLoopTimerContext timer_context;
         
         bzero(&timer_context, sizeof(timer_context));

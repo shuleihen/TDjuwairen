@@ -41,7 +41,8 @@
 
 - (void)addStocks:(NSArray *)stockArray;
 
-// 开始查询 stockIds 里面的股票信息，默认每15秒查询一次
+// 默认每15秒查询一次
 - (void)start;
 - (void)stop;
+- (void)stopThread;
 @end

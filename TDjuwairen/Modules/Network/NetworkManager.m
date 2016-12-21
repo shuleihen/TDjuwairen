@@ -42,7 +42,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     
     AFJSONResponseSerializer *jsonResponseSerializer = (AFJSONResponseSerializer *)self.manager.responseSerializer;
     jsonResponseSerializer.removesKeysWithNullValues = YES;
-    jsonResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"text/html", nil];
+    jsonResponseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript", @"application/x-json", @"text/html", nil];
     
     return self;
 }

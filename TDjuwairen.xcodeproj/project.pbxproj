@@ -127,10 +127,14 @@
 		197595321DED5477006441BE /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595311DED5477006441BE /* SurveyDetailSegmentView.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
 		197595371DED6B08006441BE /* SurveyDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595361DED6B08006441BE /* SurveyDetailWebViewController.m */; };
-		1975953A1DEEBC5E006441BE /* SurveyDetailCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595391DEEBC5E006441BE /* SurveyDetailCommentViewController.m */; };
+		1975953A1DEEBC5E006441BE /* SurveyDetailAskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595391DEEBC5E006441BE /* SurveyDetailAskViewController.m */; };
 		1975953D1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975953C1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m */; };
 		197595401DEEBDB2006441BE /* SurveyDetailContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975953F1DEEBDB2006441BE /* SurveyDetailContentViewController.m */; };
 		197595441DEEBFEA006441BE /* StockCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595431DEEBFEA006441BE /* StockCommentModel.m */; };
+		19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A5AC401E0A49AC00FE953A /* Recharge.storyboard */; };
+		19A5AC441E0A4E4900FE953A /* StockUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC431E0A4E4900FE953A /* StockUnlockViewController.m */; };
+		19A5AC471E0A4E5C00FE953A /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC461E0A4E5C00FE953A /* RechargeViewController.m */; };
+		19A5AC4A1E0A65B300FE953A /* RechargeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC491E0A65B300FE953A /* RechargeChooseViewController.m */; };
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
 		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
@@ -589,14 +593,21 @@
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
 		197595351DED6B08006441BE /* SurveyDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailWebViewController.h; sourceTree = "<group>"; };
 		197595361DED6B08006441BE /* SurveyDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailWebViewController.m; sourceTree = "<group>"; };
-		197595381DEEBC5E006441BE /* SurveyDetailCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailCommentViewController.h; sourceTree = "<group>"; };
-		197595391DEEBC5E006441BE /* SurveyDetailCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailCommentViewController.m; sourceTree = "<group>"; };
+		197595381DEEBC5E006441BE /* SurveyDetailAskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailAskViewController.h; sourceTree = "<group>"; };
+		197595391DEEBC5E006441BE /* SurveyDetailAskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailAskViewController.m; sourceTree = "<group>"; };
 		1975953B1DEEBD34006441BE /* SurveyDetailStockCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailStockCommentViewController.h; sourceTree = "<group>"; };
 		1975953C1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailStockCommentViewController.m; sourceTree = "<group>"; };
 		1975953E1DEEBDB2006441BE /* SurveyDetailContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailContentViewController.h; sourceTree = "<group>"; };
 		1975953F1DEEBDB2006441BE /* SurveyDetailContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailContentViewController.m; sourceTree = "<group>"; };
 		197595421DEEBFEA006441BE /* StockCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCommentModel.h; sourceTree = "<group>"; };
 		197595431DEEBFEA006441BE /* StockCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCommentModel.m; sourceTree = "<group>"; };
+		19A5AC401E0A49AC00FE953A /* Recharge.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recharge.storyboard; sourceTree = "<group>"; };
+		19A5AC421E0A4E4900FE953A /* StockUnlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockUnlockViewController.h; path = TDjuwairen/StockUnlockViewController.h; sourceTree = SOURCE_ROOT; };
+		19A5AC431E0A4E4900FE953A /* StockUnlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockUnlockViewController.m; path = TDjuwairen/StockUnlockViewController.m; sourceTree = SOURCE_ROOT; };
+		19A5AC451E0A4E5C00FE953A /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RechargeViewController.h; path = TDjuwairen/RechargeViewController.h; sourceTree = SOURCE_ROOT; };
+		19A5AC461E0A4E5C00FE953A /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RechargeViewController.m; path = TDjuwairen/RechargeViewController.m; sourceTree = SOURCE_ROOT; };
+		19A5AC481E0A65B300FE953A /* RechargeChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RechargeChooseViewController.h; path = TDjuwairen/RechargeChooseViewController.h; sourceTree = SOURCE_ROOT; };
+		19A5AC491E0A65B300FE953A /* RechargeChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RechargeChooseViewController.m; path = TDjuwairen/RechargeChooseViewController.m; sourceTree = SOURCE_ROOT; };
 		19A7EE561D423ED200F833A9 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		19A7EE571D423ED200F833A9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		19A7EE581D423ED200F833A9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
@@ -1760,8 +1771,8 @@
 				197595291DED2A1A006441BE /* SurveyDetailViewController.m */,
 				197595351DED6B08006441BE /* SurveyDetailWebViewController.h */,
 				197595361DED6B08006441BE /* SurveyDetailWebViewController.m */,
-				197595381DEEBC5E006441BE /* SurveyDetailCommentViewController.h */,
-				197595391DEEBC5E006441BE /* SurveyDetailCommentViewController.m */,
+				197595381DEEBC5E006441BE /* SurveyDetailAskViewController.h */,
+				197595391DEEBC5E006441BE /* SurveyDetailAskViewController.m */,
 				1975953B1DEEBD34006441BE /* SurveyDetailStockCommentViewController.h */,
 				1975953C1DEEBD34006441BE /* SurveyDetailStockCommentViewController.m */,
 				1975953E1DEEBDB2006441BE /* SurveyDetailContentViewController.h */,
@@ -1857,6 +1868,27 @@
 				197595431DEEBFEA006441BE /* StockCommentModel.m */,
 			);
 			path = Model;
+			sourceTree = "<group>";
+		};
+		19A5AC3E1E0A499800FE953A /* Recharge */ = {
+			isa = PBXGroup;
+			children = (
+				19A5AC3F1E0A499800FE953A /* Controllers */,
+			);
+			path = Recharge;
+			sourceTree = "<group>";
+		};
+		19A5AC3F1E0A499800FE953A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19A5AC421E0A4E4900FE953A /* StockUnlockViewController.h */,
+				19A5AC431E0A4E4900FE953A /* StockUnlockViewController.m */,
+				19A5AC451E0A4E5C00FE953A /* RechargeViewController.h */,
+				19A5AC461E0A4E5C00FE953A /* RechargeViewController.m */,
+				19A5AC481E0A65B300FE953A /* RechargeChooseViewController.h */,
+				19A5AC491E0A65B300FE953A /* RechargeChooseViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		19A7EE551D423ED200F833A9 /* MBProgressHUD */ = {
@@ -2032,6 +2064,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				19A5AC3E1E0A499800FE953A /* Recharge */,
 				19193B171E03B3E9000A6AD2 /* PlayStock */,
 				194186E71DF90CA4000C5197 /* Launch */,
 				1924DFED1D62C3CE00FEC383 /* Category */,
@@ -2609,6 +2642,7 @@
 				84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */,
 				84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */,
 				84E333F31CE2BA3D00E5DCEE /* Main.storyboard */,
+				19A5AC401E0A49AC00FE953A /* Recharge.storyboard */,
 				19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */,
 				197595331DED5E39006441BE /* SurveyDetail.storyboard */,
 				194186E51DF90672000C5197 /* Register.storyboard */,
@@ -2926,6 +2960,7 @@
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
 				848AF4F71D93B6C1001A56D2 /* read_me.txt in Resources */,
 				84E333F71CE2BA3D00E5DCEE /* Assets.xcassets in Resources */,
+				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				848AF4F81D93B6C1001A56D2 /* README.txt in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
@@ -3106,7 +3141,7 @@
 				1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
-				1975953A1DEEBC5E006441BE /* SurveyDetailCommentViewController.m in Sources */,
+				1975953A1DEEBC5E006441BE /* SurveyDetailAskViewController.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
@@ -3122,6 +3157,7 @@
 				1961DF411DF9523600A08A4B /* RegisterCodeTableViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */,
+				19A5AC471E0A4E5C00FE953A /* RechargeViewController.m in Sources */,
 				843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */,
 				84AAEFDD1D65A3E300755277 /* AllNoResultTableViewCell.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
@@ -3193,6 +3229,7 @@
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				847ADA6F1DF7A15D002600AA /* OptionalHeadView.m in Sources */,
 				1955B49D1D644D9800DC102E /* SpecialModel.m in Sources */,
+				19A5AC441E0A4E4900FE953A /* StockUnlockViewController.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
 				847BD6F01DE6E2D9006AEECE /* AwardImfomationTableViewCell.m in Sources */,
@@ -3227,6 +3264,7 @@
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				1961DF441DF9524600A08A4B /* RegisterSetInfoTableViewController.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
+				19A5AC4A1E0A65B300FE953A /* RechargeChooseViewController.m in Sources */,
 				84F4DFC41D8F75ED00886FF5 /* UserCommentTableViewCell.m in Sources */,
 				1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */,
 			);
