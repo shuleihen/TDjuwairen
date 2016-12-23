@@ -19,5 +19,6 @@
 @property (nonatomic, assign) NSInteger goodNums;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, copy) NSString *createTime;
+
 + (StockCommentModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 @end

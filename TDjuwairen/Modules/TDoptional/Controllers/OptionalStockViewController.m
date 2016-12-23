@@ -22,6 +22,7 @@
 
 #import "Masonry.h"
 #import "NetworkManager.h"
+#import "SurveyDetailViewController.h"
 
 @interface OptionalStockViewController ()<UITableViewDelegate,UITableViewDataSource,StockManagerDelegate>
 
@@ -265,10 +266,16 @@
     {
         companyCode = [NSString stringWithFormat:@"sz%@",model.companyCode];
     }
-    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-    vc.company_name = model.companyName;
-    vc.company_code = companyCode;
-    vc.survey_cover = model.surveyCover;
+//    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+//    vc.company_name = model.companyName;
+//    vc.company_code = companyCode;
+//    vc.survey_cover = model.surveyCover;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+//    vc.stockInfo = stock;
+    vc.stockId = companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

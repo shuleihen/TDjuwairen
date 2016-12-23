@@ -56,12 +56,19 @@
 #define API_GetViewComment      @"index.php/View/GetViewComment1_2"
 #define API_GetBanner           @"index.php/Index/indexBanner"
 
+#define API_SurveyDetail        @"Survey/survey_show_tag"
+#define API_SurveyAddComment    @"Survey/addComment"
+#define API_SurveyAddFavour     @"Survey/addCommentGoodAccess"
+#define API_SurveyAddQuestion         @"Survey/addQuestion"
+#define API_SurveyAnswerQuestion      @"Survey/answerQuestion"
+#define API_SurveyUnlock        @"Survey/unlockCompany"
+
 #define API_QueryKeyNumber      @"Survey/getUserKeyNum"
 #define API_AliPay              @"Survey/alipayKey"
 #define API_WXPay               @"Survey/wxpayKey"
 
 
-#define API_QueryDetailUnlock   @"Survey/survey_show_header"
+#define API_SurveyDetailHeader  @"Survey/survey_show_header"
 #define API_GetGuessIndex       @"Game/guessIndex"
 
 #endif /* NetworkDefine_h */

@@ -10,8 +10,10 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "RechargeViewController.h"
+#import "NotificationDef.h"
+#import "STPopup.h"
 
-@interface StockUnlockViewController ()<UIGestureRecognizerDelegate>
+@interface StockUnlockViewController ()
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *keyNumberBtn;
@@ -25,10 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    self.contentView.layer.cornerRadius = 5.0f;
-    
-    self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.stockCode,self.stockName];
+    self.contentSizeInPopup = CGSizeMake(260, 200);
     
     if (US.isLogIn) {
         NSDictionary *para = @{@"user_id":US.userId};
@@ -58,19 +57,15 @@
 }
 
 - (void)unlockPressed:(id)sender {
-    
+    [self dismissViewControllerAnimated:NO completion:^{
+        [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailUnlock object:nil];
+    }];
 }
 
 - (void)rechargePressed:(id)sender {
     RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
-    [self.navigationController pushViewController:vc animated:NO];
+    
+    [self.popupController pushViewController:vc animated:YES];
 }
 
-- (IBAction)hidePressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return touch.view != self.contentView;
-}
 @end

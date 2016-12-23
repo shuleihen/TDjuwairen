@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface RechargeChooseViewController : UIViewController
-
+@property (nonatomic, assign) NSInteger keyNumber;
+@property (nonatomic, assign) NSInteger type;
 @end

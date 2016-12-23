@@ -14,53 +14,86 @@
 #import "LoginState.h"
 #import "HexColors.h"
 #import "CocoaLumberjack.h"
-#import "SurveyDetailCommentViewController.h"
+#import "SurveyDetailAskViewController.h"
 #import "SurveyDetailStockCommentViewController.h"
 #import "StockCommentModel.h"
 #import "StockManager.h"
 #import "UIImage+Color.h"
 #import "StockUnlockViewController.h"
+#import "SurveyMoreViewController.h"
+#import "FeedbackViewController.h"
+#import "LoginViewController.h"
+#import <ShareSDK/ShareSDK.h>
+#import <ShareSDKUI/ShareSDK+SSUI.h>
+#import "SurveyBottomToolView.h"
+#import "AskPublishViewController.h"
+#import "AnsPublishViewController.h"
+#import "NotificationDef.h"
+#import "MBProgressHUD.h"
+#import "STPopup.h"
 
-@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate>
+@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
-@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+//@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
+@property (nonatomic, strong) SurveyBottomToolView *bottomToolView;
 
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, weak) UIViewController *pageWillToController;
 @property (nonatomic, strong) StockManager *stockManager;
+
 @property (nonatomic, copy) NSString *stockName;
+@property (nonatomic, copy) NSString *cover;
+@property (nonatomic, assign) NSInteger keyNumber;
 @end
 
 @implementation SurveyDetailViewController
 
 - (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.stockManager stopThread];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
+    
     // 默认显示热点篇
     self.segment.selectedIndex = 3;
     
     // 添加查询股票
     [self.stockManager addStocks:@[self.stockId]];
     
-    // 查询解锁
-    [self queryUnlock];
+    // 查询
+    [self querySurveySimpleDetail];
+    
+    UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
+    [rightButton setImage:[UIImage imageNamed:@"nav_more.png"] forState:UIControlStateNormal];
+    [rightButton addTarget:self action:@selector(morePressed:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
+    self.navigationItem.rightBarButtonItem= rightItem;
+    
+    
+    // 监听 发布牛熊说、回答或提问通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadContentData:) name:kSurveyDetailContentChanged object:nil];
+    
+    // 解锁通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unlockStock:) name:kSurveyDetailUnlock object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
+
+    // 导航条背景根据涨跌修改
     if (self.stockInfo) {
         [self setupStockInfo:self.stockInfo];
     }
     
     [self.stockManager start];
+    
+    [self showBottomTool];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -70,9 +103,12 @@
     [self.navigationController.navigationBar setShadowImage:nil];
     
     [self.stockManager stop];
+    
+    [self hideBottomTool];
 }
 
-- (void)queryUnlock {
+#pragma mark - Action
+- (void)querySurveySimpleDetail {
     // 查询解锁
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSString *code = [self.stockId substringFromIndex:2];
@@ -86,39 +122,88 @@
         para = @{@"code": code};
     }
     
-    [ma POST:API_QueryDetailUnlock parameters:para completion:^(id data, NSError *error){
+    __weak SurveyDetailViewController *wself = self;
+    [ma POST:API_SurveyDetailHeader parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
             BOOL isLock = [data[@"isLock"] boolValue];
-            self.segment.isLock = isLock;
+            
+            wself.segment.isLock = isLock;
+            wself.title = data[@"company"];
+            wself.keyNumber = [data[@"keyNum"] integerValue];
+            wself.cover = data[@"cover"];
         } else {
             // 查询失败
         }
     }];
 }
 
-- (void)unlockStock {
+- (void)unlockStockPressed {
+    
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
     vc.stockCode = [self.stockId substringFromIndex:2];
     vc.stockName = self.stockName;
     
-    UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:vc];
-    nav.hidesBottomBarWhenPushed = YES;
-    [nav setNavigationBarHidden:YES animated:NO];
-    if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-        nav.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-    }else{
-        nav.modalPresentationStyle = UIModalPresentationCurrentContext;
-    }
-    
-    [self presentViewController:nav animated:YES completion:nil];
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.containerView.layer.cornerRadius = 4;
+    [popupController presentInViewController:self];
 }
 
-#pragma mark - StockManagerDelegate
-- (void)reloadWithStocks:(NSDictionary *)stocks {
-    StockInfo *stock = [stocks objectForKey:self.stockId];
-    self.stockInfo = stock;
+- (void)niuxiongPublish {
+    __weak SurveyDetailViewController *wself = self;
+    UIAlertAction *niu = [UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
+        vc.comanyCode = [wself.stockId substringFromIndex:2];
+        vc.type = kPublishNiu;
+        [wself.navigationController pushViewController:vc animated:YES];
+    }];
+    UIAlertAction *xiong = [UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
+        vc.comanyCode = [wself.stockId substringFromIndex:2];
+        vc.type = kPublishXiong;
+        [wself.navigationController pushViewController:vc animated:YES];
+    }];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
     
-    [self setupStockInfo:stock];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:niu];
+    [alert addAction:xiong];
+    [alert addAction:cancel];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)askPublish {
+    AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
+    vc.comanyCode = [self.stockId substringFromIndex:2];
+    vc.type = kPublishAsk;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)showBottomTool {
+    if (self.segment.selectedIndex == 2 ||
+        self.segment.selectedIndex == 5) {
+        self.bottomToolView.center = CGPointMake(kScreenWidth/2, kScreenHeight+25);
+        self.bottomToolView.tag = self.segment.selectedIndex;
+        [self.navigationController.view addSubview:self.bottomToolView];
+        
+        [UIView animateWithDuration:0.3 animations:^{
+            self.bottomToolView.center = CGPointMake(kScreenWidth/2, kScreenHeight - 25);
+            
+        } completion:^(BOOL finish){
+
+        }];
+    }
+}
+
+- (void)hideBottomTool {
+    if (self.bottomToolView.superview) {
+        [UIView animateWithDuration:0.3 animations:^{
+            self.bottomToolView.center = CGPointMake(kScreenWidth/2, kScreenHeight+25);
+            
+        } completion:^(BOOL finish){
+
+            [self.bottomToolView removeFromSuperview];
+        }];
+    }
 }
 
 - (void)setupStockInfo:(StockInfo *)stock {
@@ -137,8 +222,7 @@
     }
     
     [self setupNavigationBarWithColor:color];
-    
-    self.title = [NSString stringWithFormat:@"%@(%@)",stock.name,stock.gid];
+//    self.title = stock.name;
     self.stockName = stock.name;
 }
 
@@ -148,6 +232,143 @@
     UIImage *shadowImage = [UIImage imageWithSize:CGSizeMake(kScreenWidth, 1) withColor:color];
     [self.navigationController.navigationBar setShadowImage:shadowImage];
 }
+
+- (void)morePressed:(id)sender {
+    SurveyMoreViewController  *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"SurveyMoreViewController"];
+    vc.delegate = self;
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.style = STPopupStyleBottomSheet; 
+    [popupController presentInViewController:self];
+}
+
+- (void)reloadContentData:(NSNotification *)notifi {
+    NSInteger tag = [notifi.userInfo[@"Tag"] integerValue];
+    SurveyDetailContentViewController *vc = self.contentControllers[tag];
+    [vc reloadData];
+}
+
+- (void)unlockStock:(NSNotification *)notifi {
+    NSString *code = [self.stockId substringFromIndex:2];
+    NSDictionary *para = @{@"user_id":  US.userId,
+                           @"code":     code};
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    indicator.hidesWhenStopped = YES;
+    [indicator stopAnimating];
+    [self.navigationController.view addSubview:indicator];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
+        [indicator stopAnimating];
+        
+        if (!error) {
+            self.segment.isLock = NO;
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = error.localizedDescription;
+            [hud hide:YES afterDelay:0.4];
+        }
+            
+    }];
+}
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSDictionary *)stocks {
+    StockInfo *stock = [stocks objectForKey:self.stockId];
+    self.stockInfo = stock;
+    
+    [self setupStockInfo:stock];
+}
+
+#pragma mark - SurveyMoreDelegate
+- (void)didSelectedWithRow:(NSInteger)row {
+    if (row == 1) {
+        
+    } else if (row == 2) {
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        NSString *code = [self.stockId substringFromIndex:2];
+        [shareParams SSDKSetupShareParamsByText:nil
+                                         images:@[self.cover]
+                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",code]]
+                                          title:self.stockName
+                                           type:SSDKContentTypeAuto];
+        //2、分享（可以弹出我们的分享菜单和编辑界面）
+        [ShareSDK showShareActionSheet:nil
+                                 items:nil
+                           shareParams:shareParams
+                   onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
+                       
+                       switch (state) {
+                           case SSDKResponseStateSuccess:
+                           {
+                               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享成功" preferredStyle:UIAlertControllerStyleAlert];
+                               [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+                               [self presentViewController:alert animated:YES completion:nil];
+                               break;
+                           }
+                           case SSDKResponseStateFail:
+                           {
+                               UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"分享失败" preferredStyle:UIAlertControllerStyleAlert];
+                               [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+                               [self presentViewController:alert animated:YES completion:nil];
+                               break;
+                           }
+                           default:
+                               break;
+                       }
+                   }
+         ];
+    } else if (row == 3) {
+        //跳转反馈
+        if (US.isLogIn) {
+            FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
+            [self.navigationController pushViewController:feedback animated:YES];
+        }
+        else
+        {
+            LoginViewController *login = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:login animated:YES];
+        }
+    }
+    
+}
+
+#pragma mark - SurveyDetailSegmentDelegate
+- (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
+    DDLogInfo(@"Survey detail content selected tag = %ld",(long)index);
+    if (index > [self.contentControllers count]) {
+        return;
+    }
+    
+    SurveyDetailSegmentItem *item = segmentView.segments[index];
+    if (item.locked) {
+        [self unlockStockPressed];
+    } else {
+        
+        __weak SurveyDetailViewController *wself = self;
+        SurveyDetailContentViewController *vc = self.contentControllers[index];
+        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
+            [wself.tableView reloadData];
+            
+            if (wself.tableView.contentOffset.y > CGRectGetHeight(wself.stockHeaderView.bounds)) {
+                wself.tableView.contentOffset = CGPointMake(0, wself.stockHeaderView.bounds.size.height);
+            }
+        }];
+        
+        if (index == 5 || index == 2) {
+            [self showBottomTool];
+        } else {
+            [self hideBottomTool];
+        }
+    }
+}
+
+#pragma mark - SurveyDetailContenDelegate
+- (void)contentDetailController:(UIViewController *)controller withHeight:(CGFloat)height {
+    [self.tableView reloadData];
+}
+
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -166,8 +387,14 @@
     return self.segment;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0001f;
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return [[self currentContentViewController] contentHeight];
+    CGFloat height = [[self currentContentViewController] contentHeight];
+    CGFloat minHeight = kScreenHeight - 200;
+    return MAX(height, minHeight);
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -180,27 +407,6 @@
     return cell;
 }
 
-
-#pragma mark - SurveyDetailSegmentDelegate
-- (void)didSelectedSegment:(SurveyDetailSegmentView *)segmentView withIndex:(NSInteger)index {
-    DDLogInfo(@"Survey detail content selected tag = %ld",(long)index);
-    if (index > [self.contentControllers count]) {
-        return;
-    }
-    
-    SurveyDetailSegmentItem *item = segmentView.segments[index];
-    if (item.locked) {
-        [self unlockStock];
-    } else {
-        SurveyDetailContentViewController *vc = self.contentControllers[index];
-        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:nil];
-    }
-}
-
-#pragma mark - SurveyDetailContenDelegate
-- (void)contentDetailController:(UIViewController *)controller withHeight:(CGFloat)height {
-    [self.tableView reloadData];
-}
 
 
 #pragma mark - UIPageViewControllerDataSource
@@ -248,6 +454,16 @@
         NSInteger index = [self.contentControllers indexOfObject:self.pageWillToController];
         [self.segment changedSelectedIndex:index executeDelegate:NO];
         [self.tableView reloadData];
+        
+        if (self.tableView.contentOffset.y > CGRectGetHeight(self.stockHeaderView.bounds)) {
+            self.tableView.contentOffset = CGPointMake(0, self.stockHeaderView.bounds.size.height);
+        }
+        
+        if (index == 5 || index == 2) {
+            [self showBottomTool];
+        } else {
+            [self hideBottomTool];
+        }
     }
     
 }
@@ -263,6 +479,27 @@
 }
 
 #pragma mark - Getter
+- (SurveyBottomToolView *)bottomToolView {
+    if (!_bottomToolView) {
+        __weak SurveyDetailViewController *wself = self;
+        _bottomToolView = [[SurveyBottomToolView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+        _bottomToolView.backgroundColor = [UIColor whiteColor];
+        _bottomToolView.buttonBlock = ^(NSInteger tag) {
+            if (US.isLogIn) {
+                if (tag == 2) {
+                    [wself niuxiongPublish];
+                } else if (tag == 5) {
+                    [wself askPublish];
+                }
+            } else {
+                LoginViewController *login = [[LoginViewController alloc] init];
+                [wself.navigationController pushViewController:login animated:YES];
+            }
+        };
+    }
+    return _bottomToolView;
+}
+
 - (StockManager *)stockManager {
     if (!_stockManager) {
         _stockManager = [[StockManager alloc] init];
@@ -314,18 +551,21 @@
         for (int i=0; i<6; i++) {
             if (i == 2) {
                 SurveyDetailStockCommentViewController *niuxiongvc = [[SurveyDetailStockCommentViewController alloc] init];
+                niuxiongvc.rootController = self;
                 niuxiongvc.stockId = self.stockId;
                 niuxiongvc.tag = i;
                 niuxiongvc.delegate = self;
                 [_contentControllers addObject:niuxiongvc];
             } else if (i == 5) {
-                SurveyDetailCommentViewController *askvc = [[SurveyDetailCommentViewController alloc] init];
+                SurveyDetailAskViewController *askvc = [[SurveyDetailAskViewController alloc] init];
+                askvc.rootController = self;
                 askvc.stockId = self.stockId;
                 askvc.tag = i;
                 askvc.delegate = self;
                 [_contentControllers addObject:askvc];
             } else {
                 SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
+                content.rootController = self;
                 content.stockId = self.stockId;
                 content.tag = i;
                 content.delegate = self;

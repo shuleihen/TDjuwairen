@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" restorationIdentifier="NiuxiongCellID" selectionStyle="none" indentationWidth="10" reuseIdentifier="NiuxiongCellID" rowHeight="103" id="Hdl-U7-1uq" userLabel="NiuxiongTableViewCell" customClass="NiuxiongTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="103"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Hdl-U7-1uq" id="TWa-2e-xei">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="102"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="张三" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Oe8-R4-jar">
+                        <rect key="frame" x="47" y="13" width="29" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="lfR-nW-WT1">
+                        <rect key="frame" x="15" y="10" width="22" height="22"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="22" id="YXE-Ej-2De"/>
+                            <constraint firstAttribute="height" constant="22" id="f7m-cU-C6d"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VKn-gJ-QYC">
+                        <rect key="frame" x="47" y="35" width="258" height="52"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3天前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xli-v4-Rcg">
+                        <rect key="frame" x="80" y="13" width="38" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sst-iu-ODh">
+                        <rect key="frame" x="245" y="13" width="60" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="60" id="NaA-w8-dCX"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                        <state key="normal" title="0" image="btn_dianzan_normal">
+                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected" image="btn_dianzan_pre"/>
+                        <state key="highlighted" image="btn_dianzan_pre"/>
+                        <connections>
+                            <action selector="favourPressed:" destination="Hdl-U7-1uq" eventType="touchUpInside" id="JcD-Ts-BwN"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="VKn-gJ-QYC" secondAttribute="trailing" constant="15" id="8TK-DT-qBQ"/>
+                    <constraint firstItem="Oe8-R4-jar" firstAttribute="centerY" secondItem="lfR-nW-WT1" secondAttribute="centerY" id="DCt-1Y-JWP"/>
+                    <constraint firstItem="lfR-nW-WT1" firstAttribute="leading" secondItem="TWa-2e-xei" secondAttribute="leading" constant="15" id="DIp-Zf-yRX"/>
+                    <constraint firstItem="VKn-gJ-QYC" firstAttribute="top" secondItem="Xli-v4-Rcg" secondAttribute="bottom" constant="5" id="Eh4-FK-AsC"/>
+                    <constraint firstItem="Oe8-R4-jar" firstAttribute="leading" secondItem="lfR-nW-WT1" secondAttribute="trailing" constant="10" id="K5d-Jq-yyc"/>
+                    <constraint firstAttribute="bottom" secondItem="VKn-gJ-QYC" secondAttribute="bottom" constant="15" id="Mbl-JR-4jJ"/>
+                    <constraint firstItem="Xli-v4-Rcg" firstAttribute="centerY" secondItem="lfR-nW-WT1" secondAttribute="centerY" id="Qrq-oV-LoA"/>
+                    <constraint firstItem="Xli-v4-Rcg" firstAttribute="leading" secondItem="Oe8-R4-jar" secondAttribute="trailing" constant="4" id="TUg-Sh-CXY"/>
+                    <constraint firstItem="VKn-gJ-QYC" firstAttribute="leading" secondItem="TWa-2e-xei" secondAttribute="leading" constant="47" id="VgX-hM-2I4"/>
+                    <constraint firstAttribute="trailing" secondItem="sst-iu-ODh" secondAttribute="trailing" constant="15" id="iE1-1j-Ylv"/>
+                    <constraint firstItem="lfR-nW-WT1" firstAttribute="top" secondItem="TWa-2e-xei" secondAttribute="top" constant="10" id="pqC-oQ-88t"/>
+                    <constraint firstItem="sst-iu-ODh" firstAttribute="centerY" secondItem="lfR-nW-WT1" secondAttribute="centerY" id="wFc-fl-WSN"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="avatar" destination="lfR-nW-WT1" id="1bT-YX-SOp"/>
+                <outlet property="contentLabel" destination="VKn-gJ-QYC" id="gDz-SD-VVP"/>
+                <outlet property="dateTimeLabel" destination="Xli-v4-Rcg" id="gKS-87-V6R"/>
+                <outlet property="favourBtn" destination="sst-iu-ODh" id="G0e-s7-Scd"/>
+                <outlet property="userNameLabel" destination="Oe8-R4-jar" id="Vke-eC-iJV"/>
+            </connections>
+            <point key="canvasLocation" x="26" y="30.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="btn_dianzan_normal" width="15" height="15"/>
+        <image name="btn_dianzan_pre" width="15" height="15"/>
+    </resources>
+</document>

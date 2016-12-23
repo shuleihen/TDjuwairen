@@ -9,6 +9,7 @@
 #import "StockCommentModel.h"
 
 @implementation StockCommentModel
+
 + (StockCommentModel *)getInstanceWithDictionary:(NSDictionary *)dic {
     StockCommentModel *model = [[StockCommentModel alloc] init];
     model.commentId = dic[@"surveycomment_id"];

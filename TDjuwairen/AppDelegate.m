@@ -277,7 +277,7 @@ static BOOL isBackGroundActivateApplication;
 - (void)setupLog
 {
     [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
-    [DDLog addLogger:[DDASLLogger sharedInstance]]; // ASL = Apple System Logs
+//    [DDLog addLogger:[DDASLLogger sharedInstance]]; // ASL = Apple System Logs
     
     DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
     fileLogger.rollingFrequency = 60*60*24;         // 24 hours

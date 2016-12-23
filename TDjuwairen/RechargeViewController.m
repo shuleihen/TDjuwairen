@@ -8,8 +8,9 @@
 
 #import "RechargeViewController.h"
 #import "RechargeChooseViewController.h"
+#import "STPopup.h"
 
-@interface RechargeViewController ()<UIGestureRecognizerDelegate>
+@interface RechargeViewController ()
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 @end
 
@@ -18,35 +19,31 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.contentView.layer.cornerRadius = 5.0f;
+//    self.contentView.layer.cornerRadius = 5.0f;
+    self.contentSizeInPopup = CGSizeMake(260, 150);
 }
 
 - (IBAction)onePressed:(id)sender {
-    [self rechargeWithMoney:5.0f];
+    [self rechargeWithKeyNumber:1 type:1];
 }
 
 - (IBAction)fivePressed:(id)sender {
-    [self rechargeWithMoney:25.0f];
+    [self rechargeWithKeyNumber:5 type:1];
 }
 
 - (IBAction)tenPressed:(id)sender {
-    [self rechargeWithMoney:50.0f];
+    [self rechargeWithKeyNumber:10 type:1];
 }
 
 - (IBAction)allPressed:(id)sender {
-    [self rechargeWithMoney:2999.0f];
+    [self rechargeWithKeyNumber:0 type:2];
 }
 
-- (void)rechargeWithMoney:(CGFloat)money {
+- (void)rechargeWithKeyNumber:(NSInteger)keyNumber type:(NSInteger)type{
     RechargeChooseViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeChooseViewController"];
-    [self.navigationController pushViewController:vc animated:NO];
+    vc.keyNumber = keyNumber;
+    vc.type = type;
+    [self.popupController pushViewController:vc animated:YES];
 }
 
-- (IBAction)hidePressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
-
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
-    return touch.view != self.contentView;
-}
 @end

@@ -11,4 +11,8 @@
 
 #define kLoginSuccessedNotification     @"LoginSuccessedNotification"
 
+#define kSurveyDetailContentChanged     @"SurveyDetailContentChanged"
+#define kSurveyContentFontSizeChanged   @"SurveyContentFontSizeChanged"
+#define kSurveyDetailUnlock             @"SurveyDetailUnlock"
+
 #endif /* NotificationDef_h */

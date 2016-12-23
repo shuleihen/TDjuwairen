@@ -8,9 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "StockManager.h"
+#import "SurveyModel.h"
 
 @interface SurveyDetailViewController : UITableViewController
-@property (nonatomic, strong) NSString *surveyId;
+
 @property (nonatomic, strong) NSString *stockId;
 
 @property (nonatomic, strong) StockInfo *stockInfo;

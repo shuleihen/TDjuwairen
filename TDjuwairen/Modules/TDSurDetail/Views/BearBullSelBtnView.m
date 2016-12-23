@@ -32,13 +32,13 @@
     NSString *bear = [NSString stringWithFormat:@" 熊说(%.0f%@)",bearRadio * 100,@"%"];
     
     self.bullBtn = [[UIButton alloc] init];
-    [self.bullBtn setImage:[UIImage imageNamed:@"bull"] forState:UIControlStateNormal];
+    [self.bullBtn setImage:[UIImage imageNamed:@"icon_bull.png"] forState:UIControlStateNormal];
     [self.bullBtn setTitle:bull forState:UIControlStateNormal];
     [self.bullBtn setTitleColor:bullColor forState:UIControlStateNormal];
     self.bullBtn.tag = 1;
     
     self.bearBtn = [[UIButton alloc] init];
-    [self.bearBtn setImage:[UIImage imageNamed:@"bear"] forState:UIControlStateNormal];
+    [self.bearBtn setImage:[UIImage imageNamed:@"icon_bear.png"] forState:UIControlStateNormal];
     [self.bearBtn setTitle:bear forState:UIControlStateNormal];
     [self.bearBtn setTitleColor:bearColor forState:UIControlStateNormal];
     self.bearBtn.tag = 0;
