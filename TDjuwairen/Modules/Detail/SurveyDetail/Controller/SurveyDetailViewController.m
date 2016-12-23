@@ -413,13 +413,19 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     
     NSInteger index = [self.contentControllers indexOfObject:viewController];
-    NSInteger before = (index - 1)%[self.contentControllers count];
-
-    SurveyDetailSegmentItem *item = self.segment.segments[index];
-    if (item.locked) {
+    NSInteger before = index - 1;
+    
+    //    DDLogInfo(@"after index = %d before=%d",index,before);
+    
+    if (before < 0) {
         return nil;
     } else {
-        return self.contentControllers[before];
+        SurveyDetailSegmentItem *item = self.segment.segments[before];
+        if (item.locked) {
+            return nil;
+        } else {
+            return self.contentControllers[before];
+        }
     }
 }
 
@@ -427,13 +433,19 @@
 - (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
     
     NSInteger index = [self.contentControllers indexOfObject:viewController];
-    NSInteger after = (index + 1)%[self.contentControllers count];
-
-    SurveyDetailSegmentItem *item = self.segment.segments[index];
-    if (item.locked) {
+    NSInteger after = index + 1;
+    
+    //    DDLogError(@"after index = %d after=%d",index,after);
+    
+    if (after >= [self.contentControllers count]) {
         return nil;
     } else {
-        return self.contentControllers[after];
+        SurveyDetailSegmentItem *item = self.segment.segments[after];
+        if (item.locked) {
+            return nil;
+        } else {
+            return self.contentControllers[after];
+        }
     }
 }
 
@@ -450,8 +462,10 @@
         return;
     }
     
-    if (self.pageWillToController) {
-        NSInteger index = [self.contentControllers indexOfObject:self.pageWillToController];
+    UIViewController *currentVc = [pageViewController.viewControllers firstObject];
+    NSInteger index = [self.contentControllers indexOfObject:currentVc];
+    
+    if (index != self.segment.selectedIndex) {
         [self.segment changedSelectedIndex:index executeDelegate:NO];
         [self.tableView reloadData];
         
@@ -465,7 +479,6 @@
             [self hideBottomTool];
         }
     }
-    
 }
 
 #pragma mark - Private
