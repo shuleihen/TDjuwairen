@@ -10,16 +10,16 @@
 #import <WebKit/WebKit.h>
 
 @interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate>
-@property (nonatomic, strong) NSString *urlString;
+@property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) WKWebView *webView;
 @end
 
 @implementation TDWebViewController
 
-- (id)initWithURLString:(NSString *)urlString
+- (id)initWithURL:(NSURL *)url
 {
     if (self = [super init]) {
-        _urlString = urlString;
+        _url = url;
     }
     
     return self;
@@ -51,12 +51,11 @@
 
 - (void)loadWebViewData
 {
-    if (!self.urlString.length) {
+    if (!self.url.absoluteString.length) {
         return;
     }
     
-    NSURL *url = [NSURL URLWithString:self.urlString];
-    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
     [self.webView reload];
 }
 
@@ -75,11 +74,14 @@
     decisionHandler(WKNavigationActionPolicyAllow);
 }
 
--(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation
-{
+-(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    __weak TDWebViewController *wself = self;
+    [webView evaluateJavaScript:@"document.title" completionHandler:^(NSString *string, NSError *error){
+        wself.title = string;
+    }];
 }
 
-/// 页面加载失败时调用
+// 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation;{
 }
 

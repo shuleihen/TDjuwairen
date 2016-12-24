@@ -48,7 +48,9 @@
 }
 
 - (void)playStockIndexPressed:(id)sender{
-    
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"StockIndexViewController"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)exchangePressed:(id)sender {

@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface TDWebViewController : UIViewController
-- (id)initWithURLString:(NSString *)urlString;
+- (id)initWithURL:(NSURL *)url;
 @end
