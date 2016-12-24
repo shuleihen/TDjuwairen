@@ -572,6 +572,9 @@ static NSMutableSet *_retainedPopupControllers;
     UIView *backgroundView = [UIView new];
     backgroundView.backgroundColor = [UIColor colorWithWhite:0 alpha:0.5];
     self.backgroundView = backgroundView;
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismiss)];
+    [self.backgroundView addGestureRecognizer:tap];
 }
 
 - (void)setupContainerView

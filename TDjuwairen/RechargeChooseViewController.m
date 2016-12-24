@@ -88,6 +88,8 @@
                 
             }
         }
+        
+        [self.popupController dismiss];
     }];
 }
 

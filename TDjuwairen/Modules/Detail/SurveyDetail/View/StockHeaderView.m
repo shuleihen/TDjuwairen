@@ -19,11 +19,15 @@
     self.valueLabel.text = [NSString stringWithFormat:@"%+.2lf",value];
     self.valueBLabel.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
     
-    float traNumber = [stockInfo.traNumber floatValue]/100;
+    float yestodEndPri = [stockInfo.yestodEndPri floatValue];
+    float todayMax = [stockInfo.todayMax floatValue];
+    float todayStartPri = [stockInfo.todayStartPri floatValue];
+    float todayMin = [stockInfo.todayMin floatValue];
+    float traNumber = [stockInfo.traNumber floatValue]/10000;
     float traAmount = [stockInfo.traAmount floatValue]/10000;
     
-    NSString *detailA = [NSString stringWithFormat:@"昨收 %@   最高 %@    成交量 %.2lf手",stockInfo.yestodEndPri,stockInfo.todayMax,traNumber];
-    NSString *detailB = [NSString stringWithFormat:@"今开 %@   最低 %@    成交额 %.2lf万",stockInfo.todayStartPri,stockInfo.todayMin,traAmount];
+    NSString *detailA = [NSString stringWithFormat:@"昨收 %.2lf   最高 %.2lf    成交量 %.4lf万股",yestodEndPri,todayMax,traNumber];
+    NSString *detailB = [NSString stringWithFormat:@"今开 %.2lf   最低 %.2lf    成交额 %.2lf万",todayStartPri,todayMin,traAmount];
     self.detailALabel.text = detailA;
     self.detailBLabel.text = detailB;
     
