@@ -132,11 +132,10 @@
         if (cell == nil) {
             cell = [[ManageButtonTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             [cell.CommentManage addTarget:self action:@selector(GoComment:) forControlEvents:UIControlEventTouchUpInside];
-            
             [cell.CollectManage addTarget:self action:@selector(GoCollect:) forControlEvents:UIControlEventTouchUpInside];
-            
             [cell.BrowseManage addTarget:self action:@selector(GoBrowse:) forControlEvents:UIControlEventTouchUpInside];
         }
+        
         [cell.CommentManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
         [cell.CollectManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
         [cell.BrowseManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
@@ -194,81 +193,44 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1)
     {
-        if (indexPath.row == 0) {
-            //跳转到观点管理
-            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
-                //跳转到登录页面
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:login animated:YES];
-            }
-            else//消息提醒
-            {
-                //
-                PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
-                messagePush.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:messagePush animated:YES];
-            }
+        if (US.isLogIn==NO) {
+            //跳转到登录页面
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:login animated:YES];
+            return;
+        }
+        
+        if (indexPath.row == 1) {
+            // 消息管理
+            PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
+            messagePush.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:messagePush animated:YES];
             
         }
         else if (indexPath.row == 2) {
-            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
-                //跳转到登录页面
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:login animated:YES];
-            }
-            else//登录后 跳转发布页面
-            {
-                ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
-                viewmanage.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:viewmanage animated:YES];
-            }
+            // 发布管理
+            ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
+            viewmanage.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:viewmanage animated:YES];
         }
-        else if(indexPath.row == 3)
-        {
-            if (US.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
-                //跳转到登录页面
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:login animated:YES];
-            }
-            else//登录后 跳转收藏管理页面
-            {
-                CollectionViewController *collection = [[CollectionViewController alloc] init];
-                collection.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:collection animated:YES];
-            }
+        else if(indexPath.row == 3) {
+            // 收藏
+            CollectionViewController *collection = [[CollectionViewController alloc] init];
+            collection.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:collection animated:YES];
         }
-        else if (indexPath.row == 4)
-        {
-            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
-                //跳转到登录页面
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:login animated:YES];
-            }
-            else//登录后 跳转设置页面
-            {
-                SettingUpViewController *Setting = [[SettingUpViewController alloc]init];
-                Setting.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:Setting animated:YES];
-            }
+        else if (indexPath.row == 4) {
+            // 设置
+            SettingUpViewController *Setting = [[SettingUpViewController alloc]init];
+            Setting.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:Setting animated:YES];
         }
-        else if (indexPath.row == 5)
-        {
-            if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
-                //跳转到登录页面
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:login animated:YES];
-            }
-            else//登录后 跳转关于我们页面
-            {
-                AboutMineViewController *aboutmine = [[AboutMineViewController alloc]init];
-                aboutmine.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-                [self.navigationController pushViewController:aboutmine animated:YES];
-            }
+        else if (indexPath.row == 5) {
+            // 关于
+            AboutMineViewController *aboutmine = [[AboutMineViewController alloc]init];
+            aboutmine.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:aboutmine animated:YES];
         }
     }
 }
@@ -288,16 +250,6 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-}
-
-- (void)clickBack:(UIButton *)sender{
-    CATransition* transition = [CATransition animation];
-    transition.duration = 0.5;
-    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
-    transition.type = kCATransitionPush; //方式
-    transition.subtype = kCATransitionFromRight; //方向
-    [self.navigationController.view.layer addAnimation:transition forKey:nil];
-    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)GoComment:(UIButton *)sender{
@@ -405,21 +357,5 @@
         [self.tableview reloadData];
     }
 }
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
