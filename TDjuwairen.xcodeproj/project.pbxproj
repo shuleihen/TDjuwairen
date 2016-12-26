@@ -215,6 +215,7 @@
 		19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */; };
 		19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */; };
 		19DFE2361E10FD7700CC3C3F /* StockWheelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE2351E10FD7700CC3C3F /* StockWheelView.m */; };
+		19DFE2401E11174000CC3C3F /* DKColorTable.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19DFE23F1E11174000CC3C3F /* DKColorTable.txt */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19E9582C1DAC886C00BA37C5 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E9582B1DAC886C00BA37C5 /* MyAttentionViewController.m */; };
@@ -366,6 +367,20 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		19DFE23B1E11170900CC3C3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19DFE2371E11170900CC3C3F /* DKNightVersion.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 729323341CB9F98C009E544E;
+			remoteInfo = DKNightVersion;
+		};
+		19DFE23D1E11171300CC3C3F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 19DFE2371E11170900CC3C3F /* DKNightVersion.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 729323331CB9F98C009E544E;
+			remoteInfo = DKNightVersion;
+		};
 		84E334011CE2BA3E00E5DCEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84E333DF1CE2BA3D00E5DCEE /* Project object */;
@@ -794,6 +809,8 @@
 		19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BVUnderlineButton.m; sourceTree = "<group>"; };
 		19DFE2341E10FD7700CC3C3F /* StockWheelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockWheelView.h; sourceTree = "<group>"; };
 		19DFE2351E10FD7700CC3C3F /* StockWheelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockWheelView.m; sourceTree = "<group>"; };
+		19DFE2371E11170900CC3C3F /* DKNightVersion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DKNightVersion.xcodeproj; path = DKNightVersion/DKNightVersion.xcodeproj; sourceTree = "<group>"; };
+		19DFE23F1E11174000CC3C3F /* DKColorTable.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DKColorTable.txt; sourceTree = "<group>"; };
 		19E5193A1D509C7000CFF149 /* TDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNavigationController.h; sourceTree = "<group>"; };
 		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
 		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
@@ -1336,6 +1353,7 @@
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				19DFE23F1E11174000CC3C3F /* DKColorTable.txt */,
 				19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */,
 				193EF0791D392CE00043F3EB /* availableTags.plist */,
 				193EF0771D392CB40043F3EB /* simkai.ttf */,
@@ -2448,6 +2466,14 @@
 			path = TDjuwairen/Modules/PlayStock/View;
 			sourceTree = SOURCE_ROOT;
 		};
+		19DFE2381E11170900CC3C3F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				19DFE23C1E11170900CC3C3F /* DKNightVersion.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		19E519381D509C3F00CFF149 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2937,6 +2963,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19DFE2371E11170900CC3C3F /* DKNightVersion.xcodeproj */,
 				19DFE22C1E10EBAE00CC3C3F /* BVUnderlineButton */,
 				19DFE2281E10E3C300CC3C3F /* TTTAttributedLabel */,
 				19D6A2F01E0D0126008368F4 /* STPopup */,
@@ -3116,6 +3143,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				19DFE23E1E11171300CC3C3F /* PBXTargetDependency */,
 			);
 			name = TDjuwairen;
 			productName = TDjuwairen;
@@ -3204,6 +3232,12 @@
 			mainGroup = 84E333DE1CE2BA3D00E5DCEE;
 			productRefGroup = 84E333E81CE2BA3D00E5DCEE /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 19DFE2381E11170900CC3C3F /* Products */;
+					ProjectRef = 19DFE2371E11170900CC3C3F /* DKNightVersion.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				84E333E61CE2BA3D00E5DCEE /* TDjuwairen */,
@@ -3213,6 +3247,16 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		19DFE23C1E11170900CC3C3F /* DKNightVersion.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = DKNightVersion.framework;
+			remoteRef = 19DFE23B1E11170900CC3C3F /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		84E333E51CE2BA3D00E5DCEE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
@@ -3221,6 +3265,7 @@
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
 				19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */,
+				19DFE2401E11174000CC3C3F /* DKColorTable.txt in Resources */,
 				1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */,
 				19A5AC821E0B6DEB00FE953A /* NiuxiongTableViewCell.xib in Resources */,
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
@@ -3582,6 +3627,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		19DFE23E1E11171300CC3C3F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DKNightVersion;
+			targetProxy = 19DFE23D1E11171300CC3C3F /* PBXContainerItemProxy */;
+		};
 		84E334021CE2BA3E00E5DCEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84E333E61CE2BA3D00E5DCEE /* TDjuwairen */;
