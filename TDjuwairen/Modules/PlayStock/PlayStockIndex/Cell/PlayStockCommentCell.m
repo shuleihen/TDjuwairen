@@ -1,14 +1,14 @@
 //
-//  StockIndexCell.m
+//  PlayStockCommentCell.m
 //  TDjuwairen
 //
-//  Created by zdy on 2016/12/24.
+//  Created by zdy on 2016/12/26.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "StockIndexCell.h"
+#import "PlayStockCommentCell.h"
 
-@implementation StockIndexCell
+@implementation PlayStockCommentCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -21,4 +21,6 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)answerPressed:(id)sender {
+}
 @end

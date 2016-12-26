@@ -209,6 +209,12 @@
 		19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2FC1E0D0126008368F4 /* STPopupNavigationBar.m */; };
 		19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2FE1E0D0126008368F4 /* UIResponder+STPopup.m */; };
 		19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */; };
+		19DFE2221E10DB3A00CC3C3F /* PlayStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE2211E10DB3A00CC3C3F /* PlayStockCommentViewController.m */; };
+		19DFE2261E10DCEF00CC3C3F /* PlayStockCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE2241E10DCEF00CC3C3F /* PlayStockCommentCell.m */; };
+		19DFE2271E10DCEF00CC3C3F /* PlayStockCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DFE2251E10DCEF00CC3C3F /* PlayStockCommentCell.xib */; };
+		19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */; };
+		19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */; };
+		19DFE2361E10FD7700CC3C3F /* StockWheelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE2351E10FD7700CC3C3F /* StockWheelView.m */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19E9582C1DAC886C00BA37C5 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E9582B1DAC886C00BA37C5 /* MyAttentionViewController.m */; };
@@ -777,6 +783,17 @@
 		19D6A2FE1E0D0126008368F4 /* UIResponder+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+STPopup.m"; sourceTree = "<group>"; };
 		19D6A2FF1E0D0126008368F4 /* UIViewController+STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+STPopup.h"; sourceTree = "<group>"; };
 		19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+STPopup.m"; sourceTree = "<group>"; };
+		19DFE2201E10DB3A00CC3C3F /* PlayStockCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockCommentViewController.h; sourceTree = "<group>"; };
+		19DFE2211E10DB3A00CC3C3F /* PlayStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockCommentViewController.m; sourceTree = "<group>"; };
+		19DFE2231E10DCEF00CC3C3F /* PlayStockCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockCommentCell.h; sourceTree = "<group>"; };
+		19DFE2241E10DCEF00CC3C3F /* PlayStockCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockCommentCell.m; sourceTree = "<group>"; };
+		19DFE2251E10DCEF00CC3C3F /* PlayStockCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayStockCommentCell.xib; sourceTree = "<group>"; };
+		19DFE2291E10E3C300CC3C3F /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
+		19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
+		19DFE22D1E10EBAE00CC3C3F /* BVUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVUnderlineButton.h; sourceTree = "<group>"; };
+		19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BVUnderlineButton.m; sourceTree = "<group>"; };
+		19DFE2341E10FD7700CC3C3F /* StockWheelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockWheelView.h; sourceTree = "<group>"; };
+		19DFE2351E10FD7700CC3C3F /* StockWheelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockWheelView.m; sourceTree = "<group>"; };
 		19E5193A1D509C7000CFF149 /* TDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNavigationController.h; sourceTree = "<group>"; };
 		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
 		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
@@ -1142,6 +1159,8 @@
 		19193B1A1E03B3E9000A6AD2 /* PlayStockIndex */ = {
 			isa = PBXGroup;
 			children = (
+				19DFE2301E10FB0D00CC3C3F /* View */,
+				19DFE21F1E10DB0E00CC3C3F /* Comment */,
 				19347E561E0E45A100E651B5 /* MyGuess */,
 				19347E531E0E408000E651B5 /* Res */,
 				19347E4D1E0E3E2F00E651B5 /* Cell */,
@@ -1288,6 +1307,9 @@
 				19347E5A1E0E45D200E651B5 /* MyGuessCell.h */,
 				19347E5B1E0E45D200E651B5 /* MyGuessCell.m */,
 				19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */,
+				19DFE2231E10DCEF00CC3C3F /* PlayStockCommentCell.h */,
+				19DFE2241E10DCEF00CC3C3F /* PlayStockCommentCell.m */,
+				19DFE2251E10DCEF00CC3C3F /* PlayStockCommentCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2388,6 +2410,44 @@
 			path = STPopup/STPopup;
 			sourceTree = "<group>";
 		};
+		19DFE21F1E10DB0E00CC3C3F /* Comment */ = {
+			isa = PBXGroup;
+			children = (
+				19DFE2201E10DB3A00CC3C3F /* PlayStockCommentViewController.h */,
+				19DFE2211E10DB3A00CC3C3F /* PlayStockCommentViewController.m */,
+			);
+			name = Comment;
+			path = TDjuwairen/Modules/PlayStock/Comment;
+			sourceTree = SOURCE_ROOT;
+		};
+		19DFE2281E10E3C300CC3C3F /* TTTAttributedLabel */ = {
+			isa = PBXGroup;
+			children = (
+				19DFE2291E10E3C300CC3C3F /* TTTAttributedLabel.h */,
+				19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */,
+			);
+			path = TTTAttributedLabel;
+			sourceTree = "<group>";
+		};
+		19DFE22C1E10EBAE00CC3C3F /* BVUnderlineButton */ = {
+			isa = PBXGroup;
+			children = (
+				19DFE22D1E10EBAE00CC3C3F /* BVUnderlineButton.h */,
+				19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */,
+			);
+			path = BVUnderlineButton;
+			sourceTree = "<group>";
+		};
+		19DFE2301E10FB0D00CC3C3F /* View */ = {
+			isa = PBXGroup;
+			children = (
+				19DFE2341E10FD7700CC3C3F /* StockWheelView.h */,
+				19DFE2351E10FD7700CC3C3F /* StockWheelView.m */,
+			);
+			name = View;
+			path = TDjuwairen/Modules/PlayStock/View;
+			sourceTree = SOURCE_ROOT;
+		};
 		19E519381D509C3F00CFF149 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -2877,6 +2937,8 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19DFE22C1E10EBAE00CC3C3F /* BVUnderlineButton */,
+				19DFE2281E10E3C300CC3C3F /* TTTAttributedLabel */,
 				19D6A2F01E0D0126008368F4 /* STPopup */,
 				19193B261E03C748000A6AD2 /* HMSegmentedControl */,
 				196B8BFD1DFA40DD00084894 /* YXSecurityCodeButton */,
@@ -3178,6 +3240,7 @@
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockIndexCell.xib in Resources */,
+				19DFE2271E10DCEF00CC3C3F /* PlayStockCommentCell.xib in Resources */,
 				19A5AC5B1E0A914600FE953A /* AnsTableViewCell.xib in Resources */,
 				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
 				1955B4721D644D9800DC102E /* CommentsTableViewCell.xib in Resources */,
@@ -3241,6 +3304,7 @@
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
+				19DFE2221E10DB3A00CC3C3F /* PlayStockCommentViewController.m in Sources */,
 				19193B351E0776B4000A6AD2 /* StockMarketComparisonView.m in Sources */,
 				8478D1211DD01F1E0066E784 /* SurDataView.m in Sources */,
 				19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
@@ -3273,6 +3337,7 @@
 				8470E9511DDC5327002F727D /* KeysBtn.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
 				847ADA6C1DF79CFC002600AA /* OptionalStockViewController.m in Sources */,
+				19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */,
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
@@ -3298,6 +3363,7 @@
 				19A5AC751E0AB6A600FE953A /* SurveyDetailContentViewController.m in Sources */,
 				84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
+				19DFE2361E10FD7700CC3C3F /* StockWheelView.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
 				842C91D41DD2FE310019617C /* BearBullTableViewCell.m in Sources */,
@@ -3455,6 +3521,7 @@
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
 				847BD6F01DE6E2D9006AEECE /* AwardImfomationTableViewCell.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
+				19DFE2261E10DCEF00CC3C3F /* PlayStockCommentCell.m in Sources */,
 				846E5A201DE4295A0031C993 /* OrderDetailTableViewCell.m in Sources */,
 				19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */,
 				19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */,
@@ -3471,6 +3538,7 @@
 				847BD6EA1DE6BBFA006AEECE /* PopupExchangeView.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
+				19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */,
 				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
