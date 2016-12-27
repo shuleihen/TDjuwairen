@@ -7,7 +7,23 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockWheelView.h"
+#import "StockGuessInfo.h"
+#import "StockManager.h"
 
 @interface StockIndexCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet StockWheelView *stockWheel;
+@property (weak, nonatomic) IBOutlet UILabel *nowPriLabel;
+@property (weak, nonatomic) IBOutlet UILabel *valuePriLabel;
+@property (weak, nonatomic) IBOutlet UILabel *valueBLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sessionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
+@property (weak, nonatomic) IBOutlet UIButton *guessBtn;
+@property (copy, nonatomic) void (^guessBtnBlock)(void);
+
+- (void)setupGuessInfo:(StockGuessInfo *)stockGuess;
+- (void)setupStock:(StockInfo *)stock;
+
 
 @end

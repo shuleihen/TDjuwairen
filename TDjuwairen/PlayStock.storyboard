@@ -328,14 +328,14 @@
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="54"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Zs8-Ow-Orz">
-                                            <rect key="frame" x="0.0" y="13" width="143" height="28"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_money" translatesAutoresizingMaskIntoConstraints="NO" id="Zs8-Ow-Orz">
+                                            <rect key="frame" x="0.0" y="13.5" width="143" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="143" id="Q6h-42-Q5a"/>
-                                                <constraint firstAttribute="height" constant="28" id="gWh-ko-Hcx"/>
+                                                <constraint firstAttribute="height" constant="27" id="gWh-ko-Hcx"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvf-Jo-YTw" customClass="BVUnderlineButton">
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gvf-Jo-YTw" customClass="BVUnderlineButton">
                                             <rect key="frame" x="320" y="12.5" width="40" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="40" id="jTP-EQ-T2c"/>
@@ -349,16 +349,16 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XJC-OP-WpD">
-                                            <rect key="frame" x="290" y="20" width="30" height="12"/>
+                                            <rect key="frame" x="309" y="18" width="10" height="17"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="30" id="0rd-iO-Z5Z"/>
+                                                <constraint firstAttribute="width" constant="10" id="0rd-iO-Z5Z"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHT-HD-1rP" customClass="BVUnderlineButton">
-                                            <rect key="frame" x="230" y="12.5" width="60" height="29"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yHT-HD-1rP" customClass="BVUnderlineButton">
+                                            <rect key="frame" x="240" y="12.5" width="60" height="29"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="60" id="oj6-y3-Qie"/>
                                             </constraints>
@@ -371,20 +371,20 @@
                                                 <segue destination="1Fk-bw-Vib" kind="show" id="fTa-yS-28J"/>
                                             </connections>
                                         </button>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-4M-wJm">
-                                            <rect key="frame" x="20" y="0.0" width="32" height="54"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_big" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-4M-wJm">
+                                            <rect key="frame" x="15" y="0.0" width="33" height="54"/>
                                             <constraints>
-                                                <constraint firstAttribute="width" constant="32" id="LLZ-Mg-mlW"/>
+                                                <constraint firstAttribute="width" constant="33" id="LLZ-Mg-mlW"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩余：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x4f-b5-hOB">
-                                            <rect key="frame" x="56" y="18" width="46" height="18"/>
+                                            <rect key="frame" x="52" y="18" width="46" height="18"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                             <color key="textColor" red="0.96078431372549022" green="0.66274509803921566" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gkg-Ou-bv7" customClass="BVUnderlineButton">
-                                            <rect key="frame" x="102" y="12" width="30" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Gkg-Ou-bv7" customClass="BVUnderlineButton">
+                                            <rect key="frame" x="98" y="12" width="30" height="30"/>
                                             <state key="normal" title="8">
                                                 <color key="titleColor" red="0.96078431372549022" green="0.66274509803921566" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
@@ -400,14 +400,14 @@
                                         <constraint firstItem="Gkg-Ou-bv7" firstAttribute="centerY" secondItem="x4f-b5-hOB" secondAttribute="centerY" id="3Ur-dH-1UU"/>
                                         <constraint firstItem="x4f-b5-hOB" firstAttribute="leading" secondItem="Tba-4M-wJm" secondAttribute="trailing" constant="4" id="6NS-lu-H9S"/>
                                         <constraint firstItem="Zs8-Ow-Orz" firstAttribute="leading" secondItem="lYa-iQ-Ngd" secondAttribute="leading" id="6cT-5e-iNp"/>
-                                        <constraint firstItem="XJC-OP-WpD" firstAttribute="top" secondItem="lYa-iQ-Ngd" secondAttribute="top" constant="20" id="9wL-ok-fiZ"/>
+                                        <constraint firstItem="XJC-OP-WpD" firstAttribute="top" secondItem="lYa-iQ-Ngd" secondAttribute="top" constant="18" id="9wL-ok-fiZ"/>
                                         <constraint firstAttribute="bottom" secondItem="Tba-4M-wJm" secondAttribute="bottom" id="EEU-bZ-YkN"/>
                                         <constraint firstAttribute="height" constant="54" id="Gjv-gK-Eda"/>
-                                        <constraint firstItem="XJC-OP-WpD" firstAttribute="leading" secondItem="yHT-HD-1rP" secondAttribute="trailing" id="IfM-Z0-Wo9"/>
+                                        <constraint firstItem="XJC-OP-WpD" firstAttribute="leading" secondItem="yHT-HD-1rP" secondAttribute="trailing" constant="9" id="IfM-Z0-Wo9"/>
                                         <constraint firstItem="Gvf-Jo-YTw" firstAttribute="centerY" secondItem="lYa-iQ-Ngd" secondAttribute="centerY" id="SS9-pP-7p4"/>
                                         <constraint firstItem="Gkg-Ou-bv7" firstAttribute="leading" secondItem="x4f-b5-hOB" secondAttribute="trailing" id="VOT-FU-3zm"/>
-                                        <constraint firstItem="Gvf-Jo-YTw" firstAttribute="leading" secondItem="XJC-OP-WpD" secondAttribute="trailing" id="Ybh-4Z-ypX"/>
-                                        <constraint firstItem="Tba-4M-wJm" firstAttribute="leading" secondItem="lYa-iQ-Ngd" secondAttribute="leading" constant="20" id="app-U2-OMK"/>
+                                        <constraint firstItem="Gvf-Jo-YTw" firstAttribute="leading" secondItem="XJC-OP-WpD" secondAttribute="trailing" constant="1" id="Ybh-4Z-ypX"/>
+                                        <constraint firstItem="Tba-4M-wJm" firstAttribute="leading" secondItem="lYa-iQ-Ngd" secondAttribute="leading" constant="15" id="app-U2-OMK"/>
                                         <constraint firstItem="Tba-4M-wJm" firstAttribute="top" secondItem="lYa-iQ-Ngd" secondAttribute="top" id="cRN-gg-1Ks"/>
                                         <constraint firstAttribute="trailing" secondItem="Gvf-Jo-YTw" secondAttribute="trailing" constant="15" id="qK9-GX-Czl"/>
                                         <constraint firstItem="x4f-b5-hOB" firstAttribute="centerY" secondItem="lYa-iQ-Ngd" secondAttribute="centerY" id="wrB-xu-Jm4"/>
@@ -429,6 +429,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="指数竞猜" id="1AL-GY-uQq"/>
                     <connections>
+                        <outlet property="keyNumBtn" destination="Gkg-Ou-bv7" id="3gN-p6-yns"/>
                         <outlet property="tableView" destination="cSO-zf-Npj" id="RVW-bi-RNH"/>
                     </connections>
                 </viewController>
@@ -518,11 +519,238 @@
             </objects>
             <point key="canvasLocation" x="-204" y="-306"/>
         </scene>
+        <!--Guess Add Pour View Controller-->
+        <scene sceneID="1Ni-ZL-Caa">
+            <objects>
+                <viewController storyboardIdentifier="GuessAddPourViewController" id="pyp-Et-0AF" customClass="GuessAddPourViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="rYR-YD-sCY"/>
+                        <viewControllerLayoutGuide type="bottom" id="nBO-up-1od"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="bva-cT-1KX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="152"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UrG-PJ-KGb">
+                                <rect key="frame" x="48.5" y="22" width="277" height="110"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeW-xd-G4h">
+                                        <rect key="frame" x="-0.5" y="6" width="57.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-3m-lvr">
+                                        <rect key="frame" x="77" y="0.0" width="200" height="30"/>
+                                        <subviews>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3001.23" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qj2-Wg-VdK">
+                                                <rect key="frame" x="0.0" y="-1" width="200" height="32"/>
+                                                <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="200" id="ApI-Ub-a5P"/>
+                                                    <constraint firstAttribute="height" constant="32" id="bUF-Sr-IOh"/>
+                                                </constraints>
+                                                <color key="textColor" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGe-Oe-Jhk" customClass="BorderButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="30" id="Ihe-SK-V6l"/>
+                                                    <constraint firstAttribute="width" constant="30" id="vcS-wj-452"/>
+                                                </constraints>
+                                                <state key="normal" title="-">
+                                                    <color key="titleColor" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUk-Ke-Y9p" customClass="BorderButton">
+                                                <rect key="frame" x="170" y="0.0" width="30" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="30" id="UTr-RL-Dvz"/>
+                                                    <constraint firstAttribute="height" constant="30" id="dul-ts-XPJ"/>
+                                                </constraints>
+                                                <state key="normal" title="+">
+                                                    <color key="titleColor" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <userDefinedRuntimeAttributes>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                        <real key="value" value="4"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                        <real key="value" value="1"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                        <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                                    </userDefinedRuntimeAttribute>
+                                                </userDefinedRuntimeAttributes>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="1sx-PJ-bv6"/>
+                                            <constraint firstItem="lGe-Oe-Jhk" firstAttribute="leading" secondItem="sc1-3m-lvr" secondAttribute="leading" id="FUy-z1-4ym"/>
+                                            <constraint firstAttribute="trailing" secondItem="Qj2-Wg-VdK" secondAttribute="trailing" id="RDz-2f-uKa"/>
+                                            <constraint firstItem="EUk-Ke-Y9p" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="top" id="Uzn-GR-4ew"/>
+                                            <constraint firstAttribute="width" constant="200" id="W4d-us-cSl"/>
+                                            <constraint firstItem="Qj2-Wg-VdK" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="top" constant="-1" id="bgK-dz-ISW"/>
+                                            <constraint firstItem="lGe-Oe-Jhk" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="top" id="qh7-mS-iYc"/>
+                                            <constraint firstAttribute="trailing" secondItem="EUk-Ke-Y9p" secondAttribute="trailing" id="uzs-Ve-szF"/>
+                                        </constraints>
+                                    </view>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaP-uS-kKi" customClass="BorderButton">
+                                        <rect key="frame" x="227" y="42" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="Wm0-V8-Bqe"/>
+                                            <constraint firstAttribute="width" constant="50" id="dxp-FV-dJN"/>
+                                        </constraints>
+                                        <state key="normal" title="10">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDN-42-UQW" customClass="BorderButton">
+                                        <rect key="frame" x="167" y="42" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="BLy-lo-s0X"/>
+                                            <constraint firstAttribute="width" constant="50" id="oCn-CX-lrb"/>
+                                        </constraints>
+                                        <state key="normal" title="5">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHs-Mg-9Y3" customClass="BorderButton">
+                                        <rect key="frame" x="107" y="42" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="JOb-cq-0Xn"/>
+                                            <constraint firstAttribute="height" constant="30" id="yrm-qu-duE"/>
+                                        </constraints>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_small" translatesAutoresizingMaskIntoConstraints="NO" id="5GV-Vw-2Bd">
+                                        <rect key="frame" x="77" y="37.5" width="19" height="39"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="39" id="5o8-Bc-B9A"/>
+                                            <constraint firstAttribute="width" constant="19" id="qwl-gS-9wY"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下注选择" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o8f-9c-XO8">
+                                        <rect key="frame" x="0.0" y="48.5" width="57.5" height="17"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJB-W5-vh4">
+                                        <rect key="frame" x="165" y="84" width="112" height="36"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="36" id="Zsm-v8-a1j"/>
+                                            <constraint firstAttribute="width" constant="112" id="dnI-i2-XsN"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <state key="normal" title="确定竞猜" backgroundImage="button_enjoy">
+                                            <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="disabled" backgroundImage="button_notenjoy"/>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="110" id="19v-20-Xur"/>
+                                    <constraint firstItem="VaP-uS-kKi" firstAttribute="leading" secondItem="fDN-42-UQW" secondAttribute="trailing" constant="10" id="6ga-ad-TnU"/>
+                                    <constraint firstAttribute="trailing" secondItem="CJB-W5-vh4" secondAttribute="trailing" id="9L5-Jm-SRV"/>
+                                    <constraint firstItem="VaP-uS-kKi" firstAttribute="centerY" secondItem="fDN-42-UQW" secondAttribute="centerY" id="9S6-0B-X6j"/>
+                                    <constraint firstItem="FHs-Mg-9Y3" firstAttribute="centerY" secondItem="5GV-Vw-2Bd" secondAttribute="centerY" id="9pB-8y-CH9"/>
+                                    <constraint firstItem="VaP-uS-kKi" firstAttribute="trailing" secondItem="sc1-3m-lvr" secondAttribute="trailing" id="D5b-xO-CGg"/>
+                                    <constraint firstItem="qeW-xd-G4h" firstAttribute="leading" secondItem="UrG-PJ-KGb" secondAttribute="leading" id="FKX-DB-1Eu"/>
+                                    <constraint firstItem="sc1-3m-lvr" firstAttribute="top" secondItem="UrG-PJ-KGb" secondAttribute="top" id="IzK-SS-cna"/>
+                                    <constraint firstItem="sc1-3m-lvr" firstAttribute="centerY" secondItem="qeW-xd-G4h" secondAttribute="centerY" id="RYu-yr-pXg"/>
+                                    <constraint firstItem="5GV-Vw-2Bd" firstAttribute="centerY" secondItem="o8f-9c-XO8" secondAttribute="centerY" id="S8O-LD-oak"/>
+                                    <constraint firstItem="5GV-Vw-2Bd" firstAttribute="leading" secondItem="sc1-3m-lvr" secondAttribute="leading" id="TKz-qw-hlJ"/>
+                                    <constraint firstItem="fDN-42-UQW" firstAttribute="leading" secondItem="FHs-Mg-9Y3" secondAttribute="trailing" constant="10" id="TNH-nn-9NG"/>
+                                    <constraint firstItem="fDN-42-UQW" firstAttribute="centerY" secondItem="FHs-Mg-9Y3" secondAttribute="centerY" id="VX4-6B-vft"/>
+                                    <constraint firstItem="VaP-uS-kKi" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="bottom" constant="12" id="p5t-1R-ur6"/>
+                                    <constraint firstAttribute="width" constant="277" id="ppN-Ct-xdN"/>
+                                    <constraint firstAttribute="trailing" secondItem="sc1-3m-lvr" secondAttribute="trailing" id="rZ3-Sf-pV3"/>
+                                    <constraint firstItem="o8f-9c-XO8" firstAttribute="leading" secondItem="UrG-PJ-KGb" secondAttribute="leading" id="t1D-xT-h21"/>
+                                    <constraint firstItem="CJB-W5-vh4" firstAttribute="top" secondItem="fDN-42-UQW" secondAttribute="bottom" constant="12" id="wsc-NQ-hx6"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="UrG-PJ-KGb" firstAttribute="top" secondItem="rYR-YD-sCY" secondAttribute="bottom" constant="22" id="Pzm-yO-TgI"/>
+                            <constraint firstItem="UrG-PJ-KGb" firstAttribute="centerX" secondItem="bva-cT-1KX" secondAttribute="centerX" id="xXc-uJ-Z4P"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="152"/>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="size" keyPath="contentSizeInPopup">
+                            <size key="value" width="0.0" height="152"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                    <connections>
+                        <outlet property="textField" destination="Qj2-Wg-VdK" id="atj-mT-lWG"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Xpc-Rc-ff1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="648.79999999999995" y="-306.74662668665667"/>
+        </scene>
     </scenes>
     <resources>
         <image name="bg_caihonglv" width="189" height="87"/>
         <image name="bg_die" width="79" height="55"/>
         <image name="bg_hangqing" width="20" height="40"/>
+        <image name="bg_money" width="144" height="27"/>
         <image name="bg_zhang" width="94" height="44"/>
         <image name="btn_icon_kandie" width="24" height="24"/>
         <image name="btn_icon_kanzhang" width="24" height="24"/>
@@ -531,7 +759,11 @@
         <image name="btn_kanzhang_nor" width="53" height="54"/>
         <image name="btn_kanzhang_pressed" width="53" height="54"/>
         <image name="btn_shixiao" width="53" height="54"/>
+        <image name="button_enjoy" width="112" height="36"/>
+        <image name="button_notenjoy" width="111" height="23"/>
         <image name="icon_alarm" width="13" height="13"/>
+        <image name="icon_key_big" width="33" height="39"/>
+        <image name="icon_key_small" width="19" height="22"/>
         <image name="palyMarketKey" width="9" height="17"/>
         <image name="stock_vs" width="43" height="49"/>
         <image name="yellow_button_normal" width="40" height="23"/>

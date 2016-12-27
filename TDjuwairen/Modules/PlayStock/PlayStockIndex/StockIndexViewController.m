@@ -11,23 +11,82 @@
 #import "StockIndexCell.h"
 #import "HexColors.h"
 #import "BVUnderlineButton.h"
+#import "StockManager.h"
+#import "NetworkManager.h"
+#import "LoginState.h"
+#import "StockGuessInfo.h"
+#import "STPopup.h"
 
-@interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
 
+@property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, strong) NSDictionary *stockDict;
+
+@property (nonatomic, strong) NSMutableArray *guessList;
 @end
 
 @implementation StockIndexViewController
+
+- (void)dealloc {
+    [self.stockManager stopThread];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"消息" style:UIBarButtonItemStylePlain target:self action:@selector(messagePressed:)];
+    // 通知
+    UIImage *rightImage = [[UIImage imageNamed:@"news_unread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(messagePressed:)];
+    self.navigationItem.rightBarButtonItem = right;
     
     UINib *nib = [UINib nibWithNibName:@"StockIndexCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StockIndexCellID"];
-    self.tableView.rowHeight = 230.0f;
+    self.tableView.rowHeight = 235.0f;
+    
+    self.stockManager = [[StockManager alloc] init];
+    self.stockManager.delegate = self;
+    
+    [self queryGuessStock];
+}
+
+- (void)queryGuessStock {
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    NSDictionary *dict = @{@"m":@"Game",@"a":@"indexGuessing"};
+    if (US.isLogIn) {
+        NSAssert(US.userId, @"用户Id不能为空");
+        dict = @{@"m":@"Game",@"a":@"indexGuessing",@"user_id": US.userId};
+    }
+    
+    __weak StockIndexViewController *wself = self;
+    [ma GET:API_GuessIndexList parameters:dict completion:^(id data, NSError *error){
+        if (!error) {
+            NSString *keyNum = [NSString stringWithFormat:@"%@",data[@"user_keynum"]];
+            [wself.keyNumBtn setTitle:keyNum forState:UIControlStateNormal];
+            [wself.keyNumBtn setTitle:keyNum forState:UIControlStateHighlighted];
+            
+            NSArray *array = data[@"guessing_list"];
+            if ([array count]) {
+                NSMutableArray *guessList = [NSMutableArray arrayWithCapacity:[array count]];
+                NSMutableArray *stockIds = [NSMutableArray arrayWithCapacity:[array count]];
+                
+                for (NSDictionary *dict in array) {
+                    StockGuessInfo *model = [[StockGuessInfo alloc] initWithDict:dict];
+                    [guessList addObject:model];
+                    [stockIds addObject:model.stockId];
+                }
+                wself.guessList = guessList;
+                
+                [wself.stockManager addStocks:stockIds];
+            }
+            
+            [wself.tableView reloadData];
+        }
+    }];
+    
 }
 
 #pragma mark - Action
@@ -53,7 +112,21 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)addGuessWithStockId:(NSString *)stockId {
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
+}
 
+- (void)reloadWithStocks:(NSDictionary *)stocks {
+    self.stockDict = stocks;
+    
+    
+    [self.tableView reloadData];
+}
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -61,7 +134,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return [self.guessList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -74,6 +147,7 @@
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = view.bounds;
+    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [btn setTitle:@"评论" forState:UIControlStateNormal];
     [btn setTitle:@"评论" forState:UIControlStateHighlighted];
     [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
@@ -87,8 +161,29 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     StockIndexCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockIndexCellID"];
     
+    StockGuessInfo *guessInfo = self.guessList[indexPath.row];
+    StockInfo *stockInfo = [self.stockDict objectForKey:guessInfo.stockId];
+    
+    [cell setupGuessInfo:guessInfo];
+    [cell setupStock:stockInfo];
+    
+    __weak StockIndexViewController *wself = self;
+    cell.guessBtnBlock = ^{
+        [wself addGuessWithStockId:guessInfo.stockId];
+    };
     return cell;
 }
 
-
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+//    StockIndexCell *scell = (StockIndexCell *)cell;
+//    
+//    if (indexPath.row == 0) {
+//        StockInfo *stockInfo = [self.stockDict objectForKey:@"sh000001"];
+//        scell.stockWheel.index = [stockInfo.nowPri floatValue];
+//    } else if (indexPath.row == 1) {
+//        StockInfo *stockInfo = [self.stockDict objectForKey:@"sz399006"];
+//        scell.stockWheel.index = [stockInfo.nowPri floatValue];
+//    }
+}
 @end

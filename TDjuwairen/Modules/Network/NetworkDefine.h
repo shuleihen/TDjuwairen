@@ -71,4 +71,6 @@
 #define API_SurveyDetailHeader  @"Survey/survey_show_header"
 #define API_GetGuessIndex       @"Game/guessIndex"
 
+#define API_GuessIndexList      @""
+
 #endif /* NetworkDefine_h */

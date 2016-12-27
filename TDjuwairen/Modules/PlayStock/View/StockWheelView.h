@@ -8,6 +8,21 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StockWheelView : UIView
+typedef enum : NSUInteger {
+    kStockSZ = 1,
+    kStockCY = 2,
+    kStockInd,
+} StockType;
 
+@interface WheelScale : NSObject
+@property (nonatomic, assign) CGFloat du;
+@property (nonatomic, assign) CGFloat scale;
+@property (nonatomic, assign) CGFloat offx;
+@property (nonatomic, assign) CGFloat offy;
+@end
+
+@interface StockWheelView : UIView
+@property (assign, nonatomic) StockType type;
+
+@property (assign, nonatomic) CGFloat index;
 @end
