@@ -1,5 +1,5 @@
 //
-//  GuessCommentInfo.h
+//  GuessCommentModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/27.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface GuessCommentInfo : NSObject
+@interface GuessCommentModel : NSObject
 @property (nonatomic, copy) NSString *commentId;
 @property (nonatomic, copy) NSString *content;
 @property (nonatomic, copy) NSString *userId;

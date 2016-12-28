@@ -22,7 +22,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setupGuessInfo:(MyGuessInfo *)guess {
+- (void)setupGuessInfo:(MyGuessModel *)guess {
     self.guessNameLabel.text = guess.stockName;
     self.dateLabel.text = guess.addTime;
     self.sessionLabel.text = guess.seasonString;

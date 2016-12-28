@@ -1,5 +1,5 @@
 //
-//  MyGuessInfo.h
+//  MyGuessModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/27.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface MyGuessInfo : NSObject
+@interface MyGuessModel : NSObject
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) double endTime;
 @property (nonatomic, assign) float endPri;

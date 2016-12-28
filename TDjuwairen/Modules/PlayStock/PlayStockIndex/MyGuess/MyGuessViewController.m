@@ -10,7 +10,7 @@
 #import "HexColors.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "MyGuessInfo.h"
+#import "MyGuessModel.h"
 #import "MyGuessCell.h"
 
 @interface MyGuessViewController ()
@@ -55,7 +55,7 @@
                 NSMutableArray *guessList = [NSMutableArray arrayWithCapacity:[array count]];
                 
                 for (NSDictionary *dict in array) {
-                    MyGuessInfo *model = [[MyGuessInfo alloc] initWithDict:dict];
+                    MyGuessModel *model = [[MyGuessModel alloc] initWithDict:dict];
                     [guessList addObject:model];
                 }
                 wself.items = guessList;
@@ -66,7 +66,7 @@
     }];
     */
 
-    MyGuessInfo *one = [[MyGuessInfo alloc] init];
+    MyGuessModel *one = [[MyGuessModel alloc] init];
     one.stockName = @"上证指数";
     one.season = 1;
     one.seasonString = @"上午场";
@@ -76,7 +76,7 @@
     one.statusString = @"待开奖";
     one.addTime = @"2016.12.14 14:56";
     
-    MyGuessInfo *two = [[MyGuessInfo alloc] init];
+    MyGuessModel *two = [[MyGuessModel alloc] init];
     two.stockName = @"上证指数";
     two.season = 1;
     two.seasonString = @"上午场";
@@ -114,7 +114,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyGuessCellID"];
     
-    MyGuessInfo *guess = self.items[indexPath.section];
+    MyGuessModel *guess = self.items[indexPath.section];
     [cell setupGuessInfo:guess];
     
     return cell;

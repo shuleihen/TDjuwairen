@@ -1,5 +1,5 @@
 //
-//  StockIndexCell.h
+//  StockGuessListCell.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/24.
@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "StockWheelView.h"
-#import "StockGuessInfo.h"
+#import "StockGuessModel.h"
 #import "StockManager.h"
 
-@interface StockIndexCell : UITableViewCell
+@interface StockGuessListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet StockWheelView *stockWheel;
 @property (weak, nonatomic) IBOutlet UILabel *nowPriLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valuePriLabel;
@@ -22,7 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *guessBtn;
 @property (copy, nonatomic) void (^guessBtnBlock)(void);
 
-- (void)setupGuessInfo:(StockGuessInfo *)stockGuess;
+- (void)setupGuessInfo:(StockGuessModel *)stockGuess;
 - (void)setupStock:(StockInfo *)stock;
 
 

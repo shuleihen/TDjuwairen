@@ -1,5 +1,5 @@
 //
-//  StockGuessInfo.h
+//  StockGuessModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/27.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface StockGuessInfo : NSObject
+@interface StockGuessModel : NSObject
 @property (nonatomic, copy) NSString *guessId;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger season;

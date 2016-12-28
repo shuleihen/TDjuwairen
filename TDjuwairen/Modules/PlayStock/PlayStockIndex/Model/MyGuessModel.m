@@ -1,14 +1,14 @@
 //
-//  MyGuessInfo.m
+//  MyGuessModel.m
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/27.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "MyGuessInfo.h"
+#import "MyGuessModel.h"
 
-@implementation MyGuessInfo
+@implementation MyGuessModel
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
         self.type = [dict[@"guess_type"] integerValue];

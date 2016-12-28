@@ -1,14 +1,14 @@
 //
-//  StockIndexCell.m
+//  StockGuessListCell.m
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/24.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "StockIndexCell.h"
+#import "StockGuessListCell.h"
 
-@implementation StockIndexCell
+@implementation StockGuessListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -27,7 +27,7 @@
     }
 }
 
-- (void)setupGuessInfo:(StockGuessInfo *)stockGuess {
+- (void)setupGuessInfo:(StockGuessModel *)stockGuess {
     self.stockWheel.type = stockGuess.type;
     self.stockNameLabel.text = stockGuess.stockName;
     

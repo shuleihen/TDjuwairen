@@ -8,13 +8,13 @@
 
 #import "StockIndexViewController.h"
 #import "TDWebViewController.h"
-#import "StockIndexCell.h"
+#import "StockGuessListCell.h"
 #import "HexColors.h"
 #import "BVUnderlineButton.h"
 #import "StockManager.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "StockGuessInfo.h"
+#import "StockGuessModel.h"
 #import "STPopup.h"
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate>
@@ -42,8 +42,8 @@
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(messagePressed:)];
     self.navigationItem.rightBarButtonItem = right;
     
-    UINib *nib = [UINib nibWithNibName:@"StockIndexCell" bundle:nil];
-    [self.tableView registerNib:nib forCellReuseIdentifier:@"StockIndexCellID"];
+    UINib *nib = [UINib nibWithNibName:@"StockGuessListCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"StockGuessListCellID"];
     self.tableView.rowHeight = 235.0f;
     
     self.stockManager = [[StockManager alloc] init];
@@ -74,7 +74,7 @@
                 NSMutableArray *stockIds = [NSMutableArray arrayWithCapacity:[array count]];
                 
                 for (NSDictionary *dict in array) {
-                    StockGuessInfo *model = [[StockGuessInfo alloc] initWithDict:dict];
+                    StockGuessModel *model = [[StockGuessModel alloc] initWithDict:dict];
                     [guessList addObject:model];
                     [stockIds addObject:model.stockId];
                 }
@@ -159,9 +159,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockIndexCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockIndexCellID"];
+    StockGuessListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockGuessListCellID"];
     
-    StockGuessInfo *guessInfo = self.guessList[indexPath.row];
+    StockGuessModel *guessInfo = self.guessList[indexPath.row];
     StockInfo *stockInfo = [self.stockDict objectForKey:guessInfo.stockId];
     
     [cell setupGuessInfo:guessInfo];
@@ -176,7 +176,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    StockIndexCell *scell = (StockIndexCell *)cell;
+//    StockGuessListCell *scell = (StockGuessListCell *)cell;
 //    
 //    if (indexPath.row == 0) {
 //        StockInfo *stockInfo = [self.stockDict objectForKey:@"sh000001"];

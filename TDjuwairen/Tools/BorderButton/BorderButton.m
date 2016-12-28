@@ -49,6 +49,7 @@
     _circleLayer.fillColor = nil;
     [[self layer] insertSublayer:_circleLayer below:self.titleLabel.layer];
 }
+
 - (void)setHighlighted:(BOOL)highlighted{
     if (highlighted) {
         _circleLayer.fillColor = _borderColor.CGColor;
@@ -58,6 +59,7 @@
         _circleLayer.fillColor = nil;
     }
 }
+
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state{
     [super setTitleColor:color forState:state];
     _borderColor = color;
