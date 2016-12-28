@@ -16,7 +16,7 @@
         self.endPri = [dict[@"guess_end_price"] floatValue];
         self.isClosed = [dict[@"guess_isclose"] boolValue];
         self.season = [dict[@"guess_season"] integerValue];
-        self.buyIndex = [dict[@"item_points"] floatValue];
+        self.buyPri = [dict[@"item_points"] floatValue];
         self.buyKeyNum = [dict[@"item_keynum"] integerValue];
         self.addTime = dict[@"item_addtime"];
         self.isWin = [dict[@"item_iswin"] boolValue];
@@ -24,6 +24,12 @@
         self.stockName = dict[@"guess_name"];
         self.status = [dict[@"guess_status"] integerValue];
         self.statusString = dict[@"guess_reword"];
+        
+        if (self.season == 1) {
+            self.seasonString = @"上午场";
+        } else if (self.season == 2) {
+            self.seasonString = @"下午场";
+        }
     }
     return self;
 }

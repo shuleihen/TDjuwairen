@@ -14,7 +14,7 @@
 @property (nonatomic, assign) float endPri;
 @property (nonatomic, assign) BOOL isClosed;
 @property (nonatomic, assign) NSInteger season;
-@property (nonatomic, assign) float buyIndex;
+@property (nonatomic, assign) float buyPri;
 @property (nonatomic, assign) NSInteger buyKeyNum;
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, assign) BOOL isWin;
@@ -22,6 +22,6 @@
 @property (nonatomic, copy) NSString *stockName;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, copy) NSString *statusString;
-
+@property (nonatomic, copy) NSString *seasonString;
 - (id)initWithDict:(NSDictionary *)dict;
 @end

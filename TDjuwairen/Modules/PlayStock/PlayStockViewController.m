@@ -24,6 +24,7 @@
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"奖品兑换" style:UIBarButtonItemStylePlain target:self action:@selector(exchangePressed:)];
     
     CGFloat itemH = 190;
+//    UIImage *image = [UIImage imageNamed:@"ad_zhishu.png"];
     
     UIButton *up = [UIButton buttonWithType:UIButtonTypeCustom];
     up.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, itemH);

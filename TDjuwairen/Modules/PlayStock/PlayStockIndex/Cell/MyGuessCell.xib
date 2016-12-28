@@ -12,10 +12,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="MyGuessCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="134"/>
+            <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="133"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016.12.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwA-tF-Ph8">
@@ -31,54 +31,62 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上证指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4gl-mx-rqY">
-                        <rect key="frame" x="12" y="50" width="65.5" height="19.5"/>
+                        <rect key="frame" x="12" y="50" width="66" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下午场" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iB7-v6-Ivv">
-                        <rect key="frame" x="92.5" y="55" width="37" height="14.5"/>
+                        <rect key="frame" x="93" y="54" width="37" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.89411764705882346" green="0.52549019607843139" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2Gd-bi-fLT">
-                        <rect key="frame" x="12" y="79.5" width="57.5" height="17"/>
+                        <rect key="frame" x="12" y="80" width="58" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下注" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by2-lj-q9c">
-                        <rect key="frame" x="247" y="58" width="29" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <rect key="frame" x="234" y="53" width="25" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3853.23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Kcn-VC-zZQ">
-                        <rect key="frame" x="84.5" y="82" width="48" height="14.5"/>
+                        <rect key="frame" x="85" y="82" width="48" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.89411764709999997" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收盘指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vKo-SV-MSS">
-                        <rect key="frame" x="12" y="102.5" width="57.5" height="17"/>
+                        <rect key="frame" x="12" y="103" width="58" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3853.23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Aul-y1-9pc">
-                        <rect key="frame" x="84" y="105" width="48" height="14.5"/>
+                        <rect key="frame" x="85" y="105" width="48" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.89411764709999997" green="0.52549019610000003" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ay-7T-Nx4">
-                        <rect key="frame" x="278" y="51" width="30" height="30"/>
-                        <state key="normal" title="x 5"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ay-7T-Nx4">
+                        <rect key="frame" x="263" y="50.5" width="45" height="22"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="x 5" image="icon_key_small">
+                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
                     </button>
-                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvt-1d-GPc">
-                        <rect key="frame" x="246" y="89.5" width="62" height="30"/>
-                        <state key="normal" title="等待开奖"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="bottom" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bvt-1d-GPc">
+                        <rect key="frame" x="250" y="97" width="58" height="29"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <state key="normal" title="等待开奖">
+                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
                     </button>
                 </subviews>
                 <constraints>
@@ -89,12 +97,11 @@
                     <constraint firstItem="4gl-mx-rqY" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="EQT-WB-H3e"/>
                     <constraint firstItem="nwA-tF-Ph8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="I8X-dv-kPz"/>
                     <constraint firstItem="vKo-SV-MSS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="PUj-8j-WsW"/>
-                    <constraint firstItem="4ay-7T-Nx4" firstAttribute="leading" secondItem="by2-lj-q9c" secondAttribute="trailing" constant="2" id="PxJ-5Q-hyd"/>
+                    <constraint firstItem="4ay-7T-Nx4" firstAttribute="leading" secondItem="by2-lj-q9c" secondAttribute="trailing" constant="4" id="PxJ-5Q-hyd"/>
                     <constraint firstItem="4ay-7T-Nx4" firstAttribute="baseline" secondItem="by2-lj-q9c" secondAttribute="baseline" id="Sea-kD-jIL"/>
-                    <constraint firstAttribute="bottom" secondItem="bvt-1d-GPc" secondAttribute="bottom" constant="14" id="Tpo-Zo-ZpL"/>
+                    <constraint firstItem="bvt-1d-GPc" firstAttribute="baseline" secondItem="vKo-SV-MSS" secondAttribute="baseline" id="T0P-dT-WP3"/>
                     <constraint firstItem="4gl-mx-rqY" firstAttribute="top" secondItem="BfV-Is-ZzE" secondAttribute="bottom" constant="14" id="Unt-4c-4js"/>
                     <constraint firstItem="BfV-Is-ZzE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Xmy-Ll-7Bg"/>
-                    <constraint firstItem="4ay-7T-Nx4" firstAttribute="top" secondItem="BfV-Is-ZzE" secondAttribute="bottom" constant="15" id="ZSL-bu-KTN"/>
                     <constraint firstItem="iB7-v6-Ivv" firstAttribute="leading" secondItem="4gl-mx-rqY" secondAttribute="trailing" constant="15" id="bWA-gP-nKw"/>
                     <constraint firstAttribute="trailing" secondItem="BfV-Is-ZzE" secondAttribute="trailing" id="c8h-ha-RSy"/>
                     <constraint firstItem="BfV-Is-ZzE" firstAttribute="top" secondItem="nwA-tF-Ph8" secondAttribute="bottom" constant="8" id="cqP-VZ-q5v"/>
@@ -103,8 +110,9 @@
                     <constraint firstAttribute="trailing" secondItem="bvt-1d-GPc" secondAttribute="trailing" constant="12" id="fjg-uA-xYa"/>
                     <constraint firstItem="nwA-tF-Ph8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="iDJ-Ov-R3N"/>
                     <constraint firstItem="vKo-SV-MSS" firstAttribute="top" secondItem="2Gd-bi-fLT" secondAttribute="bottom" constant="6" id="iYF-hG-RhK"/>
+                    <constraint firstItem="4ay-7T-Nx4" firstAttribute="baseline" secondItem="4gl-mx-rqY" secondAttribute="baseline" id="jlk-M0-T9h"/>
                     <constraint firstAttribute="trailing" secondItem="4ay-7T-Nx4" secondAttribute="trailing" constant="12" id="sS3-Ah-vhQ"/>
-                    <constraint firstItem="iB7-v6-Ivv" firstAttribute="bottom" secondItem="4gl-mx-rqY" secondAttribute="bottom" id="t2I-X6-Nve"/>
+                    <constraint firstItem="iB7-v6-Ivv" firstAttribute="baseline" secondItem="4gl-mx-rqY" secondAttribute="baseline" id="udD-Cv-HGM"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -119,6 +127,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="icon_key_small" width="19" height="22"/>
         <image name="slipLine" width="10" height="1"/>
     </resources>
 </document>

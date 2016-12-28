@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MyGuessInfo.h"
 
 @interface MyGuessCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *guessNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UILabel *sessionLabel;
 @property (weak, nonatomic) IBOutlet UILabel *guessIndexLabel;
@@ -16,4 +18,5 @@
 @property (weak, nonatomic) IBOutlet UIButton *betBtn;
 @property (weak, nonatomic) IBOutlet UIButton *statusBtn;
 
+- (void)setupGuessInfo:(MyGuessInfo *)guess;
 @end

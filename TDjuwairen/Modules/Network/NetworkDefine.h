@@ -72,5 +72,6 @@
 #define API_GetGuessIndex       @"Game/guessIndex"
 
 #define API_GuessIndexList      @""
+#define API_GameMyGuess         @"game/myGuessList"
 
 #endif /* NetworkDefine_h */
