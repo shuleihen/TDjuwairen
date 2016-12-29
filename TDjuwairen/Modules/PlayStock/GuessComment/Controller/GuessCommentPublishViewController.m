@@ -21,6 +21,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+//    self.popupController.
+    
     self.sendBtn.enabled = NO;
     
     self.textView.layer.borderWidth = 0.5f;

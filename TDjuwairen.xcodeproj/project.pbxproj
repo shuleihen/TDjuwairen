@@ -176,6 +176,8 @@
 		19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11CA21D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m */; };
 		19B11CAE1D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11CA41D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m */; };
 		19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11CA61D655B9E00BB4DF4 /* DDMultiFormatter.m */; };
+		19BA91301E14DECA00C27124 /* PAStepper.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BA912F1E14DECA00C27124 /* PAStepper.m */; };
+		19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BA91321E14DF1700C27124 /* UIImage+Create.m */; };
 		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
 		19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348381D3F76DB008ABD16 /* MJRefreshAutoFooter.m */; };
 		19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C3483A1D3F76DB008ABD16 /* MJRefreshBackFooter.m */; };
@@ -745,6 +747,10 @@
 		19B11CA41D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
 		19B11CA51D655B9E00BB4DF4 /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
 		19B11CA61D655B9E00BB4DF4 /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
+		19BA912E1E14DECA00C27124 /* PAStepper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PAStepper.h; sourceTree = "<group>"; };
+		19BA912F1E14DECA00C27124 /* PAStepper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PAStepper.m; sourceTree = "<group>"; };
+		19BA91311E14DF1700C27124 /* UIImage+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Create.h"; sourceTree = "<group>"; };
+		19BA91321E14DF1700C27124 /* UIImage+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Create.m"; sourceTree = "<group>"; };
 		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		19C348371D3F76DB008ABD16 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		19C348381D3F76DB008ABD16 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
@@ -1317,6 +1323,8 @@
 				1924DFEF1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m */,
 				19AD853D1DADCA80007BC000 /* UIImage+Resize.h */,
 				19AD853E1DADCA80007BC000 /* UIImage+Resize.m */,
+				19BA91311E14DF1700C27124 /* UIImage+Create.h */,
+				19BA91321E14DF1700C27124 /* UIImage+Create.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -2280,6 +2288,15 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		19BA912D1E14DECA00C27124 /* PAStepper */ = {
+			isa = PBXGroup;
+			children = (
+				19BA912E1E14DECA00C27124 /* PAStepper.h */,
+				19BA912F1E14DECA00C27124 /* PAStepper.m */,
+			);
+			path = PAStepper;
+			sourceTree = "<group>";
+		};
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
@@ -3066,6 +3083,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19BA912D1E14DECA00C27124 /* PAStepper */,
 				19E5F26B1E12614200984DBC /* BorderButton */,
 				19DFE2371E11170900CC3C3F /* DKNightVersion.xcodeproj */,
 				19DFE22C1E10EBAE00CC3C3F /* BVUnderlineButton */,
@@ -3446,6 +3464,7 @@
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
 				1955B4681D644D9800DC102E /* ManageButtonTableViewCell.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
+				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
 				19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */,
 				19B11CAC1D655B9E00BB4DF4 /* DDTTYLogger.m in Sources */,
@@ -3613,6 +3632,7 @@
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
 				84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */,
+				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4BE1D644DB400DC102E /* SurveyListModel.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				197595321DED5477006441BE /* SurveyDetailSegmentView.m in Sources */,

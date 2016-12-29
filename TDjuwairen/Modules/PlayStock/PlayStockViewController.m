@@ -23,18 +23,18 @@
     // Do any additional setup after loading the view.
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"奖品兑换" style:UIBarButtonItemStylePlain target:self action:@selector(exchangePressed:)];
     
-    CGFloat itemH = 190;
-//    UIImage *image = [UIImage imageNamed:@"ad_zhishu.png"];
+    UIImage *image = [UIImage imageNamed:@"ad_zhishu.png"];
+    CGFloat itemH = (image.size.height/image.size.width)*kScreenWidth;
     
     UIButton *up = [UIButton buttonWithType:UIButtonTypeCustom];
-    up.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, itemH);
+    up.frame = CGRectMake(0, 0, kScreenWidth, itemH);
     [up setBackgroundImage:[UIImage imageNamed:@"ad_zhishu.png"] forState:UIControlStateNormal];
     [up setBackgroundImage:[UIImage imageNamed:@"ad_zhishu.png"] forState:UIControlStateHighlighted];
     [up addTarget:self action:@selector(playStockIndexPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:up];
     
     UIButton *down = [UIButton buttonWithType:UIButtonTypeCustom];
-    down.frame = CGRectMake(0, itemH, [UIScreen mainScreen].bounds.size.width, itemH);
+    down.frame = CGRectMake(0, CGRectGetHeight(up.frame), kScreenWidth, itemH);
     [down setBackgroundImage:[UIImage imageNamed:@"ad_mine.png"] forState:UIControlStateNormal];
     [down setBackgroundImage:[UIImage imageNamed:@"ad_mine.png"] forState:UIControlStateHighlighted];
 //    [down addTarget:self action:@selector(playStockIndexPressed:) forControlEvents:UIControlEventTouchUpInside];

@@ -7,6 +7,7 @@
 //
 
 #import "StockGuessListCell.h"
+#import "HexColors.h"
 
 @implementation StockGuessListCell
 
@@ -30,6 +31,7 @@
 - (void)setupGuessInfo:(StockGuessModel *)stockGuess {
     self.stockWheel.type = stockGuess.type;
     self.stockNameLabel.text = stockGuess.stockName;
+    self.stockWheel.buyIndexs = stockGuess.buyIndexs;
     
     if (stockGuess.season == 1) {
         self.sessionLabel.text = @"上午场";
@@ -46,7 +48,19 @@
 - (void)setupStock:(StockInfo *)stock {
     float value = [stock priValue];            //跌涨额
     float valueB = [stock priPercentValue];     //跌涨百分比
-    NSString *nowPriString = [NSString stringWithFormat:@"%+.2lf",stock.nowPriValue];
+    
+    if (value >= 0.00) {
+        self.nowPriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        self.valuePriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        self.valueBLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        
+    } else {
+        self.nowPriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+        self.valuePriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+        self.valueBLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+    }
+    
+    NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
     
     self.nowPriLabel.text = nowPriString;
     self.valuePriLabel.text = [NSString stringWithFormat:@"%+.2lf",value];
@@ -54,14 +68,26 @@
     self.stockWheel.index = stock.nowPriValue;
 }
 
+- (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess {
+    NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
+    self.timeLabel.text = [NSString stringWithFormat:@"剩余时间 %@",time];
+}
+
 - (NSString *)intervalNowDateWithDateInterval:(NSTimeInterval)endTime {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
     NSTimeInterval cha = endTime-now;
 
-    NSString *sen = [NSString stringWithFormat:@"%d", (int)cha%60];
-    NSString *min = [NSString stringWithFormat:@"%d", (int)cha/60%60];
-    NSString *house = [NSString stringWithFormat:@"%d", (int)cha/3600];
+    NSString *sen = [NSString stringWithFormat:@"%02d", (int)cha%60];
+    NSString *min = [NSString stringWithFormat:@"%02d", (int)cha/60%60];
+    NSString *house = [NSString stringWithFormat:@"%02d", (int)cha/3600];
     
     return [NSString stringWithFormat:@"%@:%@:%@",house,min,sen];
+}
+
+- (CGPoint)pointWithPri:(CGFloat)pri {
+    CGPoint point = [self.stockWheel pointWithPri:pri];
+    
+//    return [self convertPoint:point toView:[UIApplication sharedApplication].keyWindow];
+    return CGPointMake(point.x, point.y+45);
 }
 @end

@@ -33,10 +33,13 @@
     }
     return self;
 }
+
 - (void)setupButton{
-    _borderColor = self.titleLabel.textColor;
+//    _borderColor = self.titleLabel.textColor;
+    
     if (!_circleLayer) {
         _circleLayer = [CAShapeLayer layer];
+        [[self layer] insertSublayer:_circleLayer below:self.titleLabel.layer];
     }
     
     _circleLayer.bounds = CGRectMake(0, 0, self.bounds.size.width, self.bounds.size.height);
@@ -44,30 +47,49 @@
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:self.cornerRadius];
     _circleLayer.path = path.CGPath;
     
+    if (self.selected) {
+        _circleLayer.fillColor = self.selectedColor.CGColor;
+    } else if (self.highlighted) {
+        _circleLayer.fillColor = self.heightlightColor.CGColor;
+    } else {
+        _circleLayer.fillColor = nil;
+    }
+    
     _circleLayer.strokeColor = self.borderColor.CGColor;
     _circleLayer.lineWidth = self.borderWidth;
-    _circleLayer.fillColor = nil;
-    [[self layer] insertSublayer:_circleLayer below:self.titleLabel.layer];
 }
 
 - (void)setHighlighted:(BOOL)highlighted{
-    if (highlighted) {
-        _circleLayer.fillColor = _borderColor.CGColor;
-        self.titleLabel.textColor = [UIColor whiteColor];
-    } else {
-        self.titleLabel.textColor = _borderColor;
-        _circleLayer.fillColor = nil;
-    }
+    [super setHighlighted:highlighted];
+    
+//    if (highlighted) {
+//        _circleLayer.fillColor = _heightlightColor.CGColor;
+//        self.titleLabel.textColor = [UIColor whiteColor];
+//    } else {
+//        self.titleLabel.textColor = _borderColor;
+//        _circleLayer.fillColor = nil;
+//    }
+}
+
+- (void)setSelected:(BOOL)selected {
+    [super setSelected:selected];
+    
+//    if (selected) {
+//        _circleLayer.fillColor = _selectedColor.CGColor;
+//        self.titleLabel.textColor = [UIColor whiteColor];
+//    } else {
+//        self.titleLabel.textColor = _borderColor;
+//        _circleLayer.fillColor = nil;
+//    }
 }
 
 - (void)setTitleColor:(UIColor *)color forState:(UIControlState)state{
     [super setTitleColor:color forState:state];
-    _borderColor = color;
-    _circleLayer.strokeColor = _borderColor.CGColor;
+//    _borderColor = color;
+//    _circleLayer.strokeColor = _borderColor.CGColor;
 }
 
-- (void)layoutSubviews
-{
+- (void)layoutSubviews {
     [super layoutSubviews];
     [self setupButton];
 }

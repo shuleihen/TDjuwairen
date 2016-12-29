@@ -20,10 +20,13 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *guessBtn;
+
 @property (copy, nonatomic) void (^guessBtnBlock)(void);
 
 - (void)setupGuessInfo:(StockGuessModel *)stockGuess;
 - (void)setupStock:(StockInfo *)stock;
 
+- (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess;
 
+- (CGPoint)pointWithPri:(CGFloat)pri;
 @end

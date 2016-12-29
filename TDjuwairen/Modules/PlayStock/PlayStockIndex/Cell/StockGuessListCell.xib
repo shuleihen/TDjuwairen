@@ -109,7 +109,7 @@
                                     <constraint firstAttribute="width" constant="39" id="IjP-aF-Mrg"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Et-uz-A5e">
+                            <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Et-uz-A5e">
                                 <rect key="frame" x="0.0" y="145" width="112" height="36"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="112" id="6h9-wI-Z43"/>

@@ -321,7 +321,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-zf-Npj">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="cSO-zf-Npj">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="lYa-iQ-Ngd">
@@ -419,7 +419,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="cXF-to-n7a" firstAttribute="top" secondItem="cSO-zf-Npj" secondAttribute="bottom" id="9hd-X8-j0Z"/>
                             <constraint firstItem="cSO-zf-Npj" firstAttribute="leading" secondItem="ISR-fb-kUZ" secondAttribute="leading" id="hya-k7-BKu"/>
@@ -504,6 +504,12 @@
                                             </userDefinedRuntimeAttribute>
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="0.87450980392156863" green="0.87450980392156863" blue="0.87450980392156863" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="heightlightColor">
+                                                <color key="value" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -654,81 +660,20 @@
                                 <rect key="frame" x="49" y="22" width="277" height="110"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qeW-xd-G4h">
-                                        <rect key="frame" x="-1" y="6" width="58" height="17"/>
+                                        <rect key="frame" x="0.0" y="6" width="58" height="17"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-3m-lvr">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sc1-3m-lvr" customClass="PAStepper">
                                         <rect key="frame" x="77" y="0.0" width="200" height="30"/>
-                                        <subviews>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="3001.23" borderStyle="line" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Qj2-Wg-VdK">
-                                                <rect key="frame" x="0.0" y="-1" width="200" height="32"/>
-                                                <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="200" id="ApI-Ub-a5P"/>
-                                                    <constraint firstAttribute="height" constant="32" id="bUF-Sr-IOh"/>
-                                                </constraints>
-                                                <color key="textColor" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lGe-Oe-Jhk" customClass="BorderButton">
-                                                <rect key="frame" x="0.0" y="0.0" width="30" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="height" constant="30" id="Ihe-SK-V6l"/>
-                                                    <constraint firstAttribute="width" constant="30" id="vcS-wj-452"/>
-                                                </constraints>
-                                                <state key="normal" title="-">
-                                                    <color key="titleColor" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EUk-Ke-Y9p" customClass="BorderButton">
-                                                <rect key="frame" x="170" y="0.0" width="30" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="30" id="UTr-RL-Dvz"/>
-                                                    <constraint firstAttribute="height" constant="30" id="dul-ts-XPJ"/>
-                                                </constraints>
-                                                <state key="normal" title="+">
-                                                    <color key="titleColor" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                                </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="4"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                        <real key="value" value="1"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                        <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                            </button>
-                                        </subviews>
                                         <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="1sx-PJ-bv6"/>
-                                            <constraint firstItem="lGe-Oe-Jhk" firstAttribute="leading" secondItem="sc1-3m-lvr" secondAttribute="leading" id="FUy-z1-4ym"/>
-                                            <constraint firstAttribute="trailing" secondItem="Qj2-Wg-VdK" secondAttribute="trailing" id="RDz-2f-uKa"/>
-                                            <constraint firstItem="EUk-Ke-Y9p" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="top" id="Uzn-GR-4ew"/>
                                             <constraint firstAttribute="width" constant="200" id="W4d-us-cSl"/>
-                                            <constraint firstItem="Qj2-Wg-VdK" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="top" constant="-1" id="bgK-dz-ISW"/>
-                                            <constraint firstItem="lGe-Oe-Jhk" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="top" id="qh7-mS-iYc"/>
-                                            <constraint firstAttribute="trailing" secondItem="EUk-Ke-Y9p" secondAttribute="trailing" id="uzs-Ve-szF"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaP-uS-kKi" customClass="BorderButton">
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaP-uS-kKi" customClass="BorderButton">
                                         <rect key="frame" x="227" y="42" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Wm0-V8-Bqe"/>
@@ -737,6 +682,12 @@
                                         <state key="normal" title="10">
                                             <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                                 <real key="value" value="4"/>
@@ -747,9 +698,18 @@
                                             <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
                                                 <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="heightlightColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="keyBtnPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="ees-QF-Zm3"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDN-42-UQW" customClass="BorderButton">
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDN-42-UQW" customClass="BorderButton">
                                         <rect key="frame" x="167" y="42" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="BLy-lo-s0X"/>
@@ -758,26 +718,11 @@
                                         <state key="normal" title="5">
                                             <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                <real key="value" value="4"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
-                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
-                                            </userDefinedRuntimeAttribute>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
-                                                <real key="value" value="1"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHs-Mg-9Y3" customClass="BorderButton">
-                                        <rect key="frame" x="107" y="42" width="50" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="50" id="JOb-cq-0Xn"/>
-                                            <constraint firstAttribute="height" constant="30" id="yrm-qu-duE"/>
-                                        </constraints>
-                                        <state key="normal" title="1">
-                                            <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        <state key="selected">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
@@ -789,7 +734,52 @@
                                             <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
                                                 <real key="value" value="1"/>
                                             </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="heightlightColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="keyBtnPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="4zd-Xg-EiI"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHs-Mg-9Y3" customClass="BorderButton">
+                                        <rect key="frame" x="107" y="42" width="50" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="JOb-cq-0Xn"/>
+                                            <constraint firstAttribute="height" constant="30" id="yrm-qu-duE"/>
+                                        </constraints>
+                                        <state key="normal" title="1">
+                                            <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="selected">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <real key="value" value="4"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                                <real key="value" value="1"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="heightlightColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedColor">
+                                                <color key="value" red="0.92549019607843142" green="0.61176470588235299" blue="0.11372549019607843" alpha="1" colorSpace="calibratedRGB"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="keyBtnPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="7fT-qo-Egg"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_small" translatesAutoresizingMaskIntoConstraints="NO" id="5GV-Vw-2Bd">
                                         <rect key="frame" x="77" y="38" width="19" height="39"/>
@@ -815,6 +805,9 @@
                                             <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="disabled" backgroundImage="button_notenjoy"/>
+                                        <connections>
+                                            <action selector="guessPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="Mwb-5X-ceA"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="calibratedRGB"/>
@@ -857,7 +850,11 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                     <connections>
-                        <outlet property="textField" destination="Qj2-Wg-VdK" id="atj-mT-lWG"/>
+                        <outlet property="fiveButton" destination="fDN-42-UQW" id="gdr-6v-Oqt"/>
+                        <outlet property="guessButton" destination="CJB-W5-vh4" id="YVw-3h-05Q"/>
+                        <outlet property="oneButton" destination="FHs-Mg-9Y3" id="RAO-SH-NLe"/>
+                        <outlet property="stepper" destination="sc1-3m-lvr" id="Fbb-gw-d8u"/>
+                        <outlet property="tenButton" destination="VaP-uS-kKi" id="Fea-9v-hDU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xpc-Rc-ff1" userLabel="First Responder" sceneMemberID="firstResponder"/>

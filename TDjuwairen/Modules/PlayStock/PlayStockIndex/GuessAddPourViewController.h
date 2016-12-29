@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GuessAddPourViewController : UIViewController
+@protocol GuessAddPourDelegate <NSObject>
 
+- (void)guessAddWithStockId:(NSString *)stockId pri:(float)pri keyNum:(NSInteger)keyNum;
+@end
+
+@interface GuessAddPourViewController : UIViewController
+@property (nonatomic, assign) id<GuessAddPourDelegate> delegate;
+@property (nonatomic, copy) NSString *stockId;
+@property (nonatomic, assign) float nowPri;
 @end

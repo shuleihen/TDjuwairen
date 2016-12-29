@@ -17,6 +17,8 @@ typedef enum : NSUInteger {
 @interface WheelScale : NSObject
 @property (nonatomic, assign) CGFloat du;
 @property (nonatomic, assign) CGFloat scale;
+@property (nonatomic, assign) CGFloat start;
+@property (nonatomic, assign) CGFloat end;
 @property (nonatomic, assign) CGFloat offx;
 @property (nonatomic, assign) CGFloat offy;
 @end
@@ -25,4 +27,8 @@ typedef enum : NSUInteger {
 @property (assign, nonatomic) StockType type;
 
 @property (assign, nonatomic) CGFloat index;
+
+@property (nonatomic, strong) NSArray *buyIndexs;
+
+- (CGPoint)pointWithPri:(CGFloat)pri;
 @end

@@ -72,6 +72,7 @@
 #define API_GetGuessIndex       @"Game/guessIndex"
 
 #define API_GuessIndexList      @"Game/indexGuessing"
+#define API_GuessAddJoin        @"Game/addUserGuessing"
 #define API_GameMyGuess         @"Game/myGuessList"
 #define API_GameCommentList     @"Game/getGuessComment"
 #define API_GameAddComment      @"Game/addGuessComment"
