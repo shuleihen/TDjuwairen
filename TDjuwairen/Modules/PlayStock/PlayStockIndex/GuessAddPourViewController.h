@@ -15,6 +15,7 @@
 
 @interface GuessAddPourViewController : UIViewController
 @property (nonatomic, assign) id<GuessAddPourDelegate> delegate;
+@property (nonatomic, assign) NSInteger userKeyNum;
 @property (nonatomic, copy) NSString *stockId;
 @property (nonatomic, assign) float nowPri;
 @end

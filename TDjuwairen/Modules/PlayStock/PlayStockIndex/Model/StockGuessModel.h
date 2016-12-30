@@ -17,7 +17,7 @@
 @property (nonatomic, copy) NSString *stockName;
 @property (nonatomic, copy) NSString *stockId;
 @property (nonatomic, assign) long long endTime;
-@property (nonatomic, strong) NSArray *buyIndexs;
+@property (nonatomic, strong) NSArray *guessPoints;
 
 - (id)initWithDict:(NSDictionary *)dict;
 @end

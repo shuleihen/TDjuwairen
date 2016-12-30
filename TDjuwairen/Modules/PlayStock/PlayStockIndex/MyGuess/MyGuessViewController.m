@@ -32,12 +32,13 @@
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MyGuessCellID"];
     self.tableView.rowHeight = 132.0f;
     self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
+    self.title = @"我的竞猜";
     [self queryMyGuess];
 }
 
 - (void)queryMyGuess {
-    /*
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     NSDictionary *dict = @{};
@@ -64,8 +65,8 @@
             [wself.tableView reloadData];
         }
     }];
-    */
 
+    /*
     MyGuessModel *one = [[MyGuessModel alloc] init];
     one.stockName = @"上证指数";
     one.season = 1;
@@ -88,6 +89,7 @@
     two.statusString = @"获10把钥匙";
     two.addTime = @"2016.12.14 14:56";
     self.items = @[one,two];
+    */
     
     [self.tableView reloadData];
 }
@@ -96,7 +98,6 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self.items count];
-//    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {

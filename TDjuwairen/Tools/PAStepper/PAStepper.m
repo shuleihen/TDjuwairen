@@ -35,7 +35,6 @@
     dispatch_source_t _timerSource;
 }
 
-//@property (nonatomic, assign) dispatch_source_t timerSource;
 @end
 
 @implementation PAStepper
@@ -181,7 +180,7 @@
 
 #pragma mark - Set Values
 
-- (void)setMinimumValue:(double)minValue
+- (void)setMinimumValue:(CGFloat)minValue
 {
 	if (minValue > _maximumValue) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
@@ -197,18 +196,11 @@
     }
 }
 
-- (void)setStepValue:(double)stepValue
-{
-	if (stepValue <= 0) {
-		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
-												  reason:@"Invalid stepValue"
-												userInfo:nil];
-		@throw ex;
-	}
+- (void)setStepValue:(CGFloat)stepValue {
     _stepValue = stepValue;
 }
 
-- (void)setMaximumValue:(double)maxValue
+- (void)setMaximumValue:(CGFloat)maxValue
 {
 	if (maxValue < _minimumValue) {
 		NSException *ex = [NSException exceptionWithName:NSInvalidArgumentException
@@ -223,7 +215,7 @@
     }
 }
 
-- (void)setValue:(double)val
+- (void)setValue:(CGFloat)val
 {
 	if (val < _minimumValue) {
 		val = _minimumValue;
@@ -349,9 +341,7 @@
 	
 	[NSObject cancelPreviousPerformRequestsWithTarget:self];
 	UIButton *button = (UIButton *)sender;
-	
-    NSLog(@"begin stepValue=%lf",_stepValue);
-    
+	    
     double changeValue;
 	if (button == _decrementButton) {
 		changeValue = -1;

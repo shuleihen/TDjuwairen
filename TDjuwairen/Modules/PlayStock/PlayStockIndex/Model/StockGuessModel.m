@@ -19,6 +19,7 @@
         self.stockName = dict[@"guess_name"];
         self.stockId = dict[@"stock_code"];
         self.endTime = [dict[@"guess_endtime"] longLongValue];
+        self.guessPoints = dict[@"user_guess_points"];
     }
     return self;
 }

@@ -36,6 +36,9 @@
 @property (nonatomic, strong) NSMutableArray *stockIds;
 @property (nonatomic, weak) id<StockManagerDelegate>delegate;
 
+// 是否判断有效时间，默认为YES
+@property (nonatomic, assign) BOOL isVerifyTime;
+
 // 查询时间间隔，默认15秒
 @property (nonatomic, assign) NSInteger interval;
 

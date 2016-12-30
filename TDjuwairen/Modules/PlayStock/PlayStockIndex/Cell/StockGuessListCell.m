@@ -13,7 +13,23 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code    
+    // Initialization code
+    
+    if ([UIScreen mainScreen].bounds.size.width <= 320) {
+        // iPhone 5 以下此次
+        self.wheelImageView.frame = CGRectMake(100-60, 80-60, 60*2, 127);
+        self.leftContentHeight.constant = 108.0f;
+    } else {
+        self.wheelImageView.frame = CGRectMake(125-75.5, 80-75.5, 75.5*2, 160);
+        self.leftContentHeight.constant = 112.0f;
+    }
+    
+    UIImage *image1 = [UIImage imageNamed:@"icon_turntable.png"];
+    UIImage *image2 = [UIImage imageNamed:@"icon_turntable2.png"];
+    UIImage *image3 = [UIImage imageNamed:@"icon_turntable.png"];
+    self.wheelImageView.animationImages = @[image1,image2,image3];
+    self.wheelImageView.animationDuration = 0.5f;
+    self.wheelImageView.animationRepeatCount = 1;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -31,7 +47,7 @@
 - (void)setupGuessInfo:(StockGuessModel *)stockGuess {
     self.stockWheel.type = stockGuess.type;
     self.stockNameLabel.text = stockGuess.stockName;
-    self.stockWheel.buyIndexs = stockGuess.buyIndexs;
+    self.stockWheel.buyIndexs = stockGuess.guessPoints;
     
     if (stockGuess.season == 1) {
         self.sessionLabel.text = @"上午场";
@@ -66,6 +82,8 @@
     self.valuePriLabel.text = [NSString stringWithFormat:@"%+.2lf",value];
     self.valueBLabel.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
     self.stockWheel.index = stock.nowPriValue;
+    
+    [self.wheelImageView startAnimating];
 }
 
 - (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess {

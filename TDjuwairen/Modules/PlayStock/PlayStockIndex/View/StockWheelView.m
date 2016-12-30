@@ -24,8 +24,16 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    wheelRadius = 75.0f;
-    wheelCenter = CGPointMake(CGRectGetWidth(self.bounds)/2, 80);
+    if ([UIScreen mainScreen].bounds.size.width <= 320) {
+        // iPhone 5 以下此次
+        wheelRadius = 60.0f;
+        wheelCenter = CGPointMake(100, 80);
+    } else {
+        wheelRadius = 75.5;
+        wheelCenter = CGPointMake(125, 80);
+    }
+    
+//    wheelCenter = CGPointMake(CGRectGetWidth(self.bounds)/2, 80);
     
     self.type = kStockSZ;
 }
@@ -38,17 +46,18 @@
 - (void)drawRect:(CGRect)rect {
     [super drawRect:rect];
     
-    wheelCenter = CGPointMake(CGRectGetWidth(self.bounds)/2, 80);
     
-    UIImage *image = [UIImage imageNamed:@"icon_turntable"];
-    [image drawAtPoint:CGPointMake((rect.size.width-image.size.width)/2, 0)];
+    
+//    UIImage *image = [UIImage imageNamed:@"icon_turntable"];
+//    [image drawInRect:CGRectMake(rect.size.width/2 - wheelRadius, 80-wheelRadius, wheelRadius*2, (image.size.height/image.size.width) * wheelRadius*2)];
+//    [image drawAtPoint:CGPointMake((rect.size.width-image.size.width)/2, 0)];
     
     
     /*  绘制轮盘刻度
         1、上证猜中10倍奖励，差值在±0.5之内奖励5倍，±2.5之内2倍奖励，+-5（不输不赢），大于±5（输，筹码不归还）
         2、创业板猜中10倍，差值为0.3，1.5，3.5
      */
-    for (WheelScale *scale in [self scalesWithType:kStockSZ]) {
+    for (WheelScale *scale in [self scalesWithType:self.type]) {
         double radin = [self radinFromDu:scale.du];
         CGPoint point = [self pointWithRadin:radin withRadius:wheelRadius];
         point.x += scale.offx;
@@ -60,7 +69,7 @@
     }
     
     // 绘制下注
-    for (NSNumber *pri in self.buyIndexs) {
+    for (NSString *pri in self.buyIndexs) {
 
         CGPoint point = [self pointWithPri:[pri floatValue]];
         UIImage *key = [UIImage imageNamed:@"icon_key_small.png"];
@@ -101,7 +110,7 @@
 - (CGPoint)pointWithRadin:(double)radian withRadius:(CGFloat)radius {
     CGPoint point;
     point.x = sin(radian)*radius + wheelCenter.x;
-    point.y = wheelRadius - cos(radian)*radius;
+    point.y = wheelCenter.y - cos(radian)*radius;
     return point;
 }
 
@@ -113,17 +122,17 @@
     WheelScale *six = [[WheelScale alloc] init];
     six.du = -120;
     six.offx = -40;
-    six.offy = 0;
+    six.offy = -2;
     switch (type) {
         case kStockSZ:
-            six.scale = -5;
-            six.start = -5;
-            six.end = -2.5;
+            six.scale = -2.5;
+            six.start = -2.5;
+            six.end = -1.5;
             break;
         case kStockCY:
-            six.scale = -3.5;
-            six.start = -3.5;
-            six.end = -1.5;
+            six.scale = -1.5;
+            six.start = -1.5;
+            six.end = -0.6;
             break;
         default:
             break;
@@ -131,17 +140,17 @@
     
     WheelScale *five = [[WheelScale alloc] init];
     five.du = -80;
-    five.offx = -40;
-    five.offy = 0;
+    five.offx = -38;
+    five.offy = -4;
     switch (type) {
         case kStockSZ:
-            five.scale = -2.5;
-            five.start = -2.5;
-            five.end = -0.5;
-            break;
-        case kStockCY:
             five.scale = -1.5;
             five.start = -1.5;
+            five.end = -1;
+            break;
+        case kStockCY:
+            five.scale = -0.6;
+            five.start = -0.6;
             five.end = -0.3;
             break;
         default:
@@ -151,11 +160,11 @@
     WheelScale *four = [[WheelScale alloc] init];
     four.du = -40;
     four.offx = -40;
-    four.offy = -4;
+    four.offy = -8;
     switch (type) {
         case kStockSZ:
-            four.scale = -0.5;
-            four.start = -0.5;
+            four.scale = -1;
+            four.start = -1;
             four.end = 0;
             break;
         case kStockCY:
@@ -170,15 +179,15 @@
     WheelScale *one = [[WheelScale alloc] init];
     one.du = 40;
     one.offx = 2;
-    one.offy = -4;
+    one.offy = -8;
     switch (type) {
         case kStockSZ:
-            one.scale = +0.5;
+            one.scale = +1;
             one.start = 0;
-            one.end = 0.5;
+            one.end = 1;
             break;
         case kStockCY:
-            one.scale = +0.3;
+            one.scale = 0.3;
             one.start = 0;
             one.end = 0.3;
             break;
@@ -189,17 +198,17 @@
     WheelScale *two = [[WheelScale alloc] init];
     two.du = 80;
     two.offx = 1;
-    two.offy = 0;
+    two.offy = -4;
     switch (type) {
         case kStockSZ:
-            two.scale = +2.5;
-            two.start = 0.5;
-            two.end = 2.5;
+            two.scale = +1.5;
+            two.start = 1;
+            two.end = 1.5;
             break;
         case kStockCY:
-            two.scale = +1.5;
+            two.scale = 0.6;
             two.start = 0.3;
-            two.end = 1.5;
+            two.end = 0.6;
             break;
         default:
             break;
@@ -208,17 +217,17 @@
     WheelScale *third = [[WheelScale alloc] init];
     third.du = 120;
     third.offx = 0;
-    third.offy = 0;
+    third.offy = -2;
     switch (type) {
         case kStockSZ:
-            third.scale = +5;
-            third.start = 2.5;
-            third.end = 5;
+            third.scale = 2.5;
+            third.start = 1.5;
+            third.end = 2.5;
             break;
         case kStockCY:
-            third.scale = +3.5;
-            third.start = 1.5;
-            third.end = 3.5;
+            third.scale = 1.5;
+            third.start = 0.6;
+            third.end = 1.5;
             break;
         default:
             break;

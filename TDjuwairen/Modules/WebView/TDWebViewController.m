@@ -32,6 +32,12 @@
     [self loadWebViewData];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.webView.frame = self.view.bounds;
+}
+
 - (void)setupNavigation
 {
     UIButton*leftButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];

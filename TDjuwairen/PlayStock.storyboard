@@ -368,7 +368,6 @@
                                             </state>
                                             <connections>
                                                 <action selector="myGuessPressed:" destination="H0s-ax-L4d" eventType="touchUpInside" id="aTM-bz-isq"/>
-                                                <segue destination="1Fk-bw-Vib" kind="show" id="fTa-yS-28J"/>
                                             </connections>
                                         </button>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_big" translatesAutoresizingMaskIntoConstraints="NO" id="Tba-4M-wJm">
@@ -876,7 +875,7 @@
         <image name="btn_kanzhang_pressed" width="53" height="54"/>
         <image name="btn_shixiao" width="53" height="54"/>
         <image name="button_enjoy" width="112" height="36"/>
-        <image name="button_notenjoy" width="111" height="23"/>
+        <image name="button_notenjoy" width="112" height="36"/>
         <image name="icon_alarm" width="13" height="13"/>
         <image name="icon_key_big" width="33" height="39"/>
         <image name="icon_key_small" width="19" height="22"/>

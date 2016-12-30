@@ -30,7 +30,18 @@
     // Do any additional setup after loading the view.
 
     self.keyNum = 0;
-    self.guessButton.enabled = NO;
+    self.oneButton.enabled = NO;
+    self.fiveButton.enabled = NO;
+    self.tenButton.enabled = NO;
+    
+    if (self.userKeyNum >= 1) {
+        self.oneButton.enabled = YES;
+        self.oneButton.selected = YES;
+    }else if (self.userKeyNum >= 5) {
+        self.fiveButton.enabled = YES;
+    } else if (self.userKeyNum >= 10) {
+        self.tenButton.enabled = YES;
+    }
     
     self.stepper.maximumValue = self.nowPri + 100;
     self.stepper.minimumValue = self.nowPri - 100;

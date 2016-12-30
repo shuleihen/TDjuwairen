@@ -12,6 +12,9 @@
 #import "StockManager.h"
 
 @interface StockGuessListCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UIImageView *wheelImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftContentHeight;
+
 @property (weak, nonatomic) IBOutlet StockWheelView *stockWheel;
 @property (weak, nonatomic) IBOutlet UILabel *nowPriLabel;
 @property (weak, nonatomic) IBOutlet UILabel *valuePriLabel;

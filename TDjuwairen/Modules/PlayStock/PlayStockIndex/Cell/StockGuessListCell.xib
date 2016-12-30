@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="235"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="234"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="234.66666666666666"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上证指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9C-oJ-TPu">
@@ -52,6 +52,10 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Q2G-Qf-UEb">
                         <rect key="frame" x="0.0" y="45" width="193" height="189"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="icon_turntable" translatesAutoresizingMaskIntoConstraints="NO" id="Dgg-H6-eUO">
+                                <rect key="frame" x="0.0" y="0.0" width="151" height="160"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E9z-v4-mse" customClass="StockWheelView">
                                 <rect key="frame" x="0.0" y="0.0" width="193" height="160"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -177,6 +181,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="guessBtn" destination="3Et-uz-A5e" id="jxr-FA-SIn"/>
+                <outlet property="leftContentHeight" destination="kNW-RZ-Q0Y" id="e19-it-8aE"/>
                 <outlet property="nowPriLabel" destination="vMK-wc-wnd" id="yb3-Fz-sBR"/>
                 <outlet property="sessionLabel" destination="HTP-ha-eLV" id="xQK-W1-Brx"/>
                 <outlet property="stockNameLabel" destination="S9C-oJ-TPu" id="GAV-pc-Oya"/>
@@ -184,14 +189,16 @@
                 <outlet property="timeLabel" destination="b9k-3f-ql7" id="aGO-nh-3sT"/>
                 <outlet property="valueBLabel" destination="nh3-Zi-lMN" id="Nu5-ii-ah2"/>
                 <outlet property="valuePriLabel" destination="DAr-mW-nf5" id="K91-o9-BF1"/>
+                <outlet property="wheelImageView" destination="Dgg-H6-eUO" id="fpf-Sr-EBF"/>
             </connections>
             <point key="canvasLocation" x="-305" y="50.5"/>
         </tableViewCell>
     </objects>
     <resources>
-        <image name="button_enjoy" width="112" height="36"/>
-        <image name="button_notenjoy" width="111" height="23"/>
-        <image name="icon_iPhone7p" width="39" height="45"/>
-        <image name="icon_key_big" width="33" height="39"/>
+        <image name="button_enjoy" width="112" height="35"/>
+        <image name="button_notenjoy" width="110" height="35"/>
+        <image name="icon_iPhone7p" width="38" height="45"/>
+        <image name="icon_key_big" width="33" height="38"/>
+        <image name="icon_turntable" width="150" height="160"/>
     </resources>
 </document>

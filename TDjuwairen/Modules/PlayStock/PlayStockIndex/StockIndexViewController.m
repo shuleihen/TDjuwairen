@@ -18,12 +18,16 @@
 #import "STPopup.h"
 #import "GuessAddPourViewController.h"
 #import "MBProgressHUD.h"
+#import "MyWalletViewController.h"
+#import "LoginViewController.h"
+#import "PushMessageViewController.h"
+#import "MyGuessViewController.h"
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
 @property (nonatomic, assign) NSInteger commentNum;
-
+@property (nonatomic, assign) NSInteger keyNum;
 @property (nonatomic, strong) NSTimer *timer;
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) NSDictionary *stockDict;
@@ -71,6 +75,7 @@
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.interval = 10;
+    self.stockManager.isVerifyTime = NO;
     self.stockManager.delegate = self;
     
     // 开始定时刷新页面，计算倒计时
@@ -91,7 +96,9 @@
     __weak StockIndexViewController *wself = self;
     [ma GET:API_GuessIndexList parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            NSString *keyNum = [NSString stringWithFormat:@"%@",data[@"user_keynum"]];
+            wself.keyNum = [data[@"user_keynum"] integerValue];
+            NSString *keyNum = [NSString stringWithFormat:@"%ld",wself.keyNum];
+            
             [wself.keyNumBtn setTitle:keyNum forState:UIControlStateNormal];
             [wself.keyNumBtn setTitle:keyNum forState:UIControlStateHighlighted];
             
@@ -130,20 +137,40 @@
 
 #pragma mark - Action
 - (IBAction)walletPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        MyWalletViewController *myWallet = [[MyWalletViewController alloc] init];
+        [self.navigationController pushViewController:myWallet animated:YES];
+    }
 }
 
 - (IBAction)myGuessPressed:(id)sender {
-    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (IBAction)rulePressed:(id)sender {
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"PlayStockIndexRule" withExtension:@"html"];
+    NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/index.php/Game/guessRule"];
     TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)messagePressed:(id)sender {
-    
+    if (US.isLogIn==NO) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
+        messagePush.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:messagePush animated:YES];
+    }
 }
 
 - (void)commentPressed:(id)sender {
@@ -151,33 +178,35 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)addGuessPri:(CGFloat)pri withStockId:(NSString *)stockId {
-    for (int i=0;i < [self.guessList count];i++) {
-        StockGuessModel *guess = self.guessList[i];
-        
-        if ([guess.stockId isEqualToString:stockId]) {
-            NSMutableArray *array = [NSMutableArray array];
-            [array addObjectsFromArray:guess.buyIndexs];
-            [array addObject:@(pri)];
-            guess.buyIndexs = array;
-            
-//            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-//            
-//            [self.tableView beginUpdates];
-//            [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//            [self.tableView endUpdates];
-        }
-        
-    }
-}
-
-- (void)showGuessViewControllerWithStockId:(NSString *)stockId {
+- (void)showGuessViewControllerWithGuess:(StockGuessModel *)guess {
     
-    StockInfo *stock = [self.stockDict objectForKey:stockId];
+    if (self.keyNum <= 0) {
+        __weak StockIndexViewController *wself = self;
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [wself walletPressed:nil];
+        }];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"筹码不足哦，是否充值？" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    if ([guess.guessPoints count] >= 3) {
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"本场下注次数已满，您可在其他场次继续下注！" preferredStyle:UIAlertControllerStyleAlert];
+        alert.preferredAction =  done;
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    StockInfo *stock = [self.stockDict objectForKey:guess.stockId];
     if (stock) {
         GuessAddPourViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
+        vc.userKeyNum = self.keyNum;
         vc.nowPri = stock.nowPriValue;
-        vc.stockId = stockId;
+        vc.stockId = guess.stockId;
         vc.delegate = self;
         
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
@@ -188,7 +217,23 @@
     
 }
 
-- (void)addGuessAnimationToCell:(StockGuessListCell *)cell withPri:(CGFloat)pri{
+- (void)addGuessPri:(CGFloat)pri withStockId:(NSString *)stockId {
+    
+    for (int i=0;i < [self.guessList count];i++) {
+        StockGuessModel *guess = self.guessList[i];
+        
+        if ([guess.stockId isEqualToString:stockId]) {
+            NSString *point = [NSString stringWithFormat:@"%.02f",pri];
+            
+            NSMutableArray *array = [NSMutableArray array];
+            [array addObjectsFromArray:guess.guessPoints];
+            [array addObject:point];
+            guess.guessPoints = array;
+        }
+    }
+}
+
+- (void)addAnimationToCell:(StockGuessListCell *)cell withPri:(CGFloat)pri{
 
     CGPoint point = [cell pointWithPri:pri];
     
@@ -213,6 +258,20 @@
     [[UIApplication sharedApplication].keyWindow addSubview:self.animationKey];
 }
 
+- (void)addAnimationWithStockId:(NSString *)stockId withPri:(CGFloat)pri{
+    for (int i=0;i < [self.guessList count];i++) {
+        StockGuessModel *guess = self.guessList[i];
+        if ([guess.stockId isEqualToString:stockId]) {
+            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
+            StockGuessListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            
+            [self addGuessPri:pri withStockId:stockId];
+            [self addAnimationToCell:cell withPri:pri];
+        }
+        
+    }
+}
+
 #pragma mark - CAnimationDelegate
 - (void)animationDidStop:(CAAnimation *)anim finished:(BOOL)flag {
     [self.animationKey removeFromSuperview];
@@ -222,6 +281,7 @@
 
 #pragma mark - GuessAddPourDelegate
 - (void)guessAddWithStockId:(NSString *)stockId pri:(float)pri keyNum:(NSInteger)keyNum {
+    /*
     for (int i=0;i < [self.guessList count];i++) {
         StockGuessModel *guess = self.guessList[i];
         if ([guess.stockId isEqualToString:stockId]) {
@@ -234,8 +294,8 @@
         
     }
     
-    
     return;
+     */
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     
@@ -253,22 +313,26 @@
         
         [view stopAnimating];
         
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
+        void (^errorBlock)(NSString *) = ^(NSString *title){
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"竞猜失败";
+            [hud hide:YES afterDelay:0.5];
+        };
         
         if (!error && data) {
             BOOL status = data[@"status"];
             if (status) {
-                hud.labelText = @"竞猜成功";
-                
+                [wself addAnimationWithStockId:stockId withPri:pri];
+                [wself queryGuessStock];
             } else {
-                hud.labelText = @"竞猜失败";
+                errorBlock(@"竞猜失败");
             }
         } else {
-            hud.labelText = @"竞猜失败";
+            errorBlock(@"竞猜失败");
         }
         
-        [hud hide:YES afterDelay:0.5];
+        
     }];
 }
 
@@ -334,7 +398,7 @@
     
     __weak StockIndexViewController *wself = self;
     cell.guessBtnBlock = ^{
-        [wself showGuessViewControllerWithStockId:guessInfo.stockId];
+        [wself showGuessViewControllerWithGuess:guessInfo];
     };
     return cell;
 }
