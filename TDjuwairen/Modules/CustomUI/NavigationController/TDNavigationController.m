@@ -33,7 +33,7 @@
             UIButton *left = [UIButton buttonWithType:UIButtonTypeCustom];
             left.frame = CGRectMake(0, 0, 30, 24);
             
-            UIImage *image = [[UIImage imageNamed:@"nav_back"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+            UIImage *image = [[UIImage imageNamed:@"nav_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
             UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
             viewController.navigationItem.leftBarButtonItem = leftBar;
         }

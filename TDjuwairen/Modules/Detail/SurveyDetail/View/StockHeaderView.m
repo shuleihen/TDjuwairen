@@ -12,7 +12,7 @@
 @implementation StockHeaderView
 
 - (void)setupStockInfo:(StockInfo *)stockInfo {
-    self.nowPriLabel.text = [NSString stringWithFormat:@"%+.2lf",stockInfo.nowPriValue];
+    self.nowPriLabel.text = [NSString stringWithFormat:@"%.2lf",stockInfo.nowPriValue];
     
     float value = [stockInfo priValue];             //跌涨额
     float valueB = [stockInfo priPercentValue];     //跌涨百分比

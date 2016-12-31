@@ -23,6 +23,7 @@
 #import "MBProgressHUD.h"
 #import "LoginViewController.h"
 #import "MJRefresh.h"
+#import "NotificationDef.h"
 
 @interface PlayStockCommentViewController ()<UITableViewDelegate, UITableViewDataSource, SQTopicTableViewCellDelegate, GuessCommentPublishDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -150,6 +151,7 @@
             hud.labelText = @"发布成功";
             hud.labelFont = [UIFont systemFontOfSize:14.0f];
             [hud hide:YES afterDelay:0.4];
+            
             if (type == kGuessPublishAdd) {
                 [wself addNewTopicWithContent:content];
             } else if (type == kGuessPublishReply) {
@@ -184,6 +186,8 @@
     
     [self.tableView reloadData];
     [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
 }
 
 - (void)addNewReplayWithReplyCommentId:(NSString *)replyCommentId withContent:(NSString *)content {

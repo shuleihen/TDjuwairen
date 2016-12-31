@@ -109,7 +109,7 @@
     self.navigationItem.rightBarButtonItem = regist;
     
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(0,0,60,30)];
-    [back setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateNormal];
+    [back setImage:[UIImage imageNamed:@"nav_back.png"] forState:UIControlStateNormal];
     [back addTarget:self action:@selector(clickBack:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *leftItem = [[UIBarButtonItem alloc]initWithCustomView:back];
     self.navigationItem.backBarButtonItem = leftItem;

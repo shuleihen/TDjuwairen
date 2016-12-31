@@ -10,12 +10,12 @@
 
 @protocol GuessAddPourDelegate <NSObject>
 
-- (void)guessAddWithStockId:(NSString *)stockId pri:(float)pri keyNum:(NSInteger)keyNum;
+- (void)addWithGuessId:(NSString *)stockId pri:(float)pri keyNum:(NSInteger)keyNum;
 @end
 
 @interface GuessAddPourViewController : UIViewController
 @property (nonatomic, assign) id<GuessAddPourDelegate> delegate;
 @property (nonatomic, assign) NSInteger userKeyNum;
-@property (nonatomic, copy) NSString *stockId;
+@property (nonatomic, copy) NSString *guessId;
 @property (nonatomic, assign) float nowPri;
 @end

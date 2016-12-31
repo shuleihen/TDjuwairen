@@ -101,7 +101,7 @@
     } else {
         float value = [stock priValue];            //跌涨额
         float valueB = [stock priPercentValue];     //跌涨百分比
-        NSString *nowPriString = [NSString stringWithFormat:@"%+.2lf",stock.nowPriValue];
+        NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
         
         NSString *string = [NSString stringWithFormat:@"%@  %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];

@@ -30,6 +30,7 @@
     self.wheelImageView.animationImages = @[image1,image2,image3];
     self.wheelImageView.animationDuration = 0.5f;
     self.wheelImageView.animationRepeatCount = 1;
+    self.isShowImageAnimation = NO;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -83,7 +84,10 @@
     self.valueBLabel.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
     self.stockWheel.index = stock.nowPriValue;
     
-    [self.wheelImageView startAnimating];
+    if (self.isShowImageAnimation) {
+        [self.wheelImageView startAnimating];
+        self.isShowImageAnimation = NO;
+    }
 }
 
 - (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess {

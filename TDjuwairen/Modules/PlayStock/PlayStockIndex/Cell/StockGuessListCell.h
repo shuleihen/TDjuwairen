@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
 @property (weak, nonatomic) IBOutlet UIButton *guessBtn;
+@property (assign, nonatomic) BOOL isShowImageAnimation;
 
 @property (copy, nonatomic) void (^guessBtnBlock)(void);
 

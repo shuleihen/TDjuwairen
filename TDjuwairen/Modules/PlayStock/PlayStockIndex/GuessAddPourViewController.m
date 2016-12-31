@@ -29,18 +29,24 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 
-    self.keyNum = 0;
+    
     self.oneButton.enabled = NO;
     self.fiveButton.enabled = NO;
     self.tenButton.enabled = NO;
     
+    if (self.userKeyNum >= 10) {
+        self.tenButton.enabled = YES;
+    }
+    
+    if (self.userKeyNum >= 5) {
+        self.fiveButton.enabled = YES;
+    }
+    
     if (self.userKeyNum >= 1) {
         self.oneButton.enabled = YES;
+        // 默认选择一把钥匙
         self.oneButton.selected = YES;
-    }else if (self.userKeyNum >= 5) {
-        self.fiveButton.enabled = YES;
-    } else if (self.userKeyNum >= 10) {
-        self.tenButton.enabled = YES;
+        self.keyNum = 1;
     }
     
     self.stepper.maximumValue = self.nowPri + 100;
@@ -88,8 +94,8 @@
         return;
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(guessAddWithStockId:pri:keyNum:)]) {
-        [self.delegate guessAddWithStockId:self.stockId pri:self.stepper.value keyNum:self.keyNum];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:keyNum:)]) {
+        [self.delegate addWithGuessId:self.guessId pri:self.stepper.value keyNum:self.keyNum];
     }
     
     [self.popupController dismiss];

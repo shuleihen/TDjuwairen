@@ -475,6 +475,7 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="选择字号" id="kzu-Rb-5SO"/>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="180"/>
                     <userDefinedRuntimeAttributes>

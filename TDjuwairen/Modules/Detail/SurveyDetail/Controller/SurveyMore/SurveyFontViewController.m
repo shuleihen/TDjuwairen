@@ -33,6 +33,28 @@
     }
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(donePressed:)];
+    
+    UIImage *image = [[UIImage imageNamed:@"nav_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *leftBar = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStylePlain target:self action:@selector(back:)];
+    self.navigationItem.leftBarButtonItem = leftBar;
+    
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [self.popupController setNavigationBarHidden:NO animated:animated];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.popupController setNavigationBarHidden:YES animated:animated];
+}
+
+
+- (void)back:(id)sender {
+    [self.popupController popViewControllerAnimated:YES];
 }
 
 - (void)donePressed:(id)sender {

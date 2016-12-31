@@ -22,10 +22,12 @@
 #import "LoginViewController.h"
 #import "PushMessageViewController.h"
 #import "MyGuessViewController.h"
+#import "NotificationDef.h"
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
+
 @property (nonatomic, assign) NSInteger commentNum;
 @property (nonatomic, assign) NSInteger keyNum;
 @property (nonatomic, strong) NSTimer *timer;
@@ -85,6 +87,19 @@
     [self queryGuessStock];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGuessCommentChanged object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
+}
+
+
 - (void)queryGuessStock {
     NetworkManager *ma = [[NetworkManager alloc] init];
     
@@ -133,6 +148,10 @@
         
         [cell reloadTimeWithGuess:guessInfo];
     }
+}
+
+- (void)commentChanged:(id)sender {
+    [self queryGuessStock];
 }
 
 #pragma mark - Action
@@ -206,7 +225,7 @@
         GuessAddPourViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
         vc.userKeyNum = self.keyNum;
         vc.nowPri = stock.nowPriValue;
-        vc.stockId = guess.stockId;
+        vc.guessId = guess.guessId;
         vc.delegate = self;
         
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
@@ -258,14 +277,22 @@
     [[UIApplication sharedApplication].keyWindow addSubview:self.animationKey];
 }
 
-- (void)addAnimationWithStockId:(NSString *)stockId withPri:(CGFloat)pri{
+- (void)addAnimationWithGuessId:(NSString *)guessId withPri:(CGFloat)pri{
     for (int i=0;i < [self.guessList count];i++) {
         StockGuessModel *guess = self.guessList[i];
-        if ([guess.stockId isEqualToString:stockId]) {
+        if ([guess.guessId isEqualToString:guessId]) {
+            // 添加点数到GuessModel中
+            NSString *point = [NSString stringWithFormat:@"%.02f",pri];
+            
+            NSMutableArray *array = [NSMutableArray array];
+            [array addObjectsFromArray:guess.guessPoints];
+            [array addObject:point];
+            guess.guessPoints = array;
+            
+            // 添加动画
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             StockGuessListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             
-            [self addGuessPri:pri withStockId:stockId];
             [self addAnimationToCell:cell withPri:pri];
         }
         
@@ -280,7 +307,7 @@
 }
 
 #pragma mark - GuessAddPourDelegate
-- (void)guessAddWithStockId:(NSString *)stockId pri:(float)pri keyNum:(NSInteger)keyNum {
+- (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
     /*
     for (int i=0;i < [self.guessList count];i++) {
         StockGuessModel *guess = self.guessList[i];
@@ -298,10 +325,11 @@
      */
     
     NetworkManager *ma = [[NetworkManager alloc] init];
+    NSString *point = [NSString stringWithFormat:@"%.2f",pri];
     
-    NSDictionary *dict = @{@"guess_id": stockId, @"keynum": @(keyNum), @"points": @(pri)};
+    NSDictionary *dict = @{@"guess_id": guessId, @"keynum": @(keyNum), @"points": point};
     if (US.isLogIn) {
-        dict = @{@"user_id": US.userId, @"guess_id": stockId, @"keynum": @(keyNum), @"points": @(pri)};
+        dict = @{@"user_id": US.userId, @"guess_id": guessId, @"keynum": @(keyNum), @"points": point};
     }
     
     UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -309,7 +337,7 @@
     [view startAnimating];
     
     __weak StockIndexViewController *wself = self;
-    [ma GET:API_GuessAddJoin parameters:dict completion:^(id data, NSError *error){
+    [ma POST:API_GuessAddJoin parameters:dict completion:^(id data, NSError *error){
         
         [view stopAnimating];
         
@@ -323,7 +351,7 @@
         if (!error && data) {
             BOOL status = data[@"status"];
             if (status) {
-                [wself addAnimationWithStockId:stockId withPri:pri];
+                [wself addAnimationWithGuessId:guessId withPri:pri];
                 [wself queryGuessStock];
             } else {
                 errorBlock(@"竞猜失败");
@@ -339,6 +367,10 @@
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
     self.stockDict = stocks;
+    
+    for (StockGuessListCell *cell in [self.tableView visibleCells]) {
+        cell.isShowImageAnimation = YES;
+    }
     
     [self.tableView reloadData];
 }
