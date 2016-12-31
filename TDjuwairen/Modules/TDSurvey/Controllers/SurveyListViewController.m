@@ -256,18 +256,38 @@
     }];
 }
 
+- (void)pushToSurveyDetailControllerWithRow:(NSInteger)row {
+    if (row <0 || row>[self.surveyList count]) {
+        return;
+    }
+    
+    SurveyModel *survey = self.surveyList[row];
+    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
+    
+    //    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+    //    vc.company_name = survey.companyName;
+    //    vc.company_code = survey.companyCode;
+    //    vc.survey_cover = survey.surveyCover;
+    //    vc.hidesBottomBarWhenPushed = YES;
+    //    [self.navigationController pushViewController:vc animated:YES];
+    //
+    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+    vc.stockInfo = stock;
+    vc.stockId = survey.companyCode;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     //跳转到详情页
     NSString *s = self.bannerLinks[index];
-    NSString *img = self.cycleScrollView.imageURLStringsGroup[index];
     NSArray *arr = [s componentsSeparatedByString:@"/"];
 
     if ([arr[0] isEqualToString:@"Survey"]) {
-        SurDetailViewController *vc = [[SurDetailViewController alloc] init];
         
         NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
-        
+
         NSString *companyCode ;
         if ([code isEqualToString:@"6"]) {
             companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
@@ -276,8 +296,9 @@
         {
             companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
         }
-        vc.company_code = companyCode;
-        vc.survey_cover = img;
+        
+        SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+        vc.stockId = companyCode;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
