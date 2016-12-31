@@ -11,7 +11,6 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "GuessCommentModel.h"
-#import "GuessCommentCell.h"
 #import "SQTopicTableViewCell.h"
 #import "SQTopicModel.h"
 #import "SQCommentModel.h"

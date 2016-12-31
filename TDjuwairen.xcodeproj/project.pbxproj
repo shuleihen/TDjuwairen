@@ -209,8 +209,6 @@
 		19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2FC1E0D0126008368F4 /* STPopupNavigationBar.m */; };
 		19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2FE1E0D0126008368F4 /* UIResponder+STPopup.m */; };
 		19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */; };
-		19DFE2261E10DCEF00CC3C3F /* GuessCommentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE2241E10DCEF00CC3C3F /* GuessCommentCell.m */; };
-		19DFE2271E10DCEF00CC3C3F /* GuessCommentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19DFE2251E10DCEF00CC3C3F /* GuessCommentCell.xib */; };
 		19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */; };
 		19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */; };
 		19DFE2401E11174000CC3C3F /* DKColorTable.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19DFE23F1E11174000CC3C3F /* DKColorTable.txt */; };
@@ -813,9 +811,6 @@
 		19D6A2FE1E0D0126008368F4 /* UIResponder+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+STPopup.m"; sourceTree = "<group>"; };
 		19D6A2FF1E0D0126008368F4 /* UIViewController+STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+STPopup.h"; sourceTree = "<group>"; };
 		19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+STPopup.m"; sourceTree = "<group>"; };
-		19DFE2231E10DCEF00CC3C3F /* GuessCommentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentCell.h; sourceTree = "<group>"; };
-		19DFE2241E10DCEF00CC3C3F /* GuessCommentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentCell.m; sourceTree = "<group>"; };
-		19DFE2251E10DCEF00CC3C3F /* GuessCommentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GuessCommentCell.xib; sourceTree = "<group>"; };
 		19DFE2291E10E3C300CC3C3F /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		19DFE22D1E10EBAE00CC3C3F /* BVUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVUnderlineButton.h; sourceTree = "<group>"; };
@@ -1371,9 +1366,6 @@
 				19347E5A1E0E45D200E651B5 /* MyGuessCell.h */,
 				19347E5B1E0E45D200E651B5 /* MyGuessCell.m */,
 				19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */,
-				19DFE2231E10DCEF00CC3C3F /* GuessCommentCell.h */,
-				19DFE2241E10DCEF00CC3C3F /* GuessCommentCell.m */,
-				19DFE2251E10DCEF00CC3C3F /* GuessCommentCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3407,7 +3399,6 @@
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
-				19DFE2271E10DCEF00CC3C3F /* GuessCommentCell.xib in Resources */,
 				19A5AC5B1E0A914600FE953A /* AnsTableViewCell.xib in Resources */,
 				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
 				1955B4721D644D9800DC102E /* CommentsTableViewCell.xib in Resources */,
@@ -3701,7 +3692,6 @@
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
 				847BD6F01DE6E2D9006AEECE /* AwardImfomationTableViewCell.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
-				19DFE2261E10DCEF00CC3C3F /* GuessCommentCell.m in Sources */,
 				846E5A201DE4295A0031C993 /* OrderDetailTableViewCell.m in Sources */,
 				19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */,
 				19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */,
@@ -3843,7 +3833,6 @@
 		};
 		8408F66F1D87D429004A332A /* AdHoc */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 46F9621C395FAE984FFE6A23 /* Pods-TDjuwairen.adhoc.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -3860,11 +3849,6 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/Optional",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformConnector",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/QQSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/Required",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -3875,10 +3859,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/SDKExport",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/WexinSDK1.7.5",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/SinaWeiboSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
@@ -4004,7 +3985,6 @@
 		};
 		84E334151CE2BA3E00E5DCEE /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 8881396F3302AAA6AD95B23C /* Pods-TDjuwairen.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4021,11 +4001,6 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/Optional",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformConnector",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/QQSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/Required",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -4036,10 +4011,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/SDKExport",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/WexinSDK1.7.5",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/SinaWeiboSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
@@ -4051,7 +4023,6 @@
 		};
 		84E334161CE2BA3E00E5DCEE /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = B78FE33C7839B334928FF6DC /* Pods-TDjuwairen.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -4068,11 +4039,6 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/Optional",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformConnector",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/QQSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/Required",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -4083,10 +4049,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/SinaWeiboSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/PlatformSDK/WeChatSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/idfaversion",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/SDKExport",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/WexinSDK1.7.5",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/SinaWeiboSDK",
-					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK3.5.1/Support/PlatformSDK/WeChatSDK",
 				);
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;

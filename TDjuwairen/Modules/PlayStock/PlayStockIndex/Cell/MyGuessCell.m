@@ -35,7 +35,7 @@
         self.realIndexLabel.text = @"--";
     }
     
-    NSString *key = [NSString stringWithFormat:@"x %ld",guess.buyKeyNum];
+    NSString *key = [NSString stringWithFormat:@"x %ld",(long)guess.buyKeyNum];
     [self.betBtn setTitle:key forState:UIControlStateNormal];
     [self.betBtn setTitle:key forState:UIControlStateHighlighted];
     

@@ -112,7 +112,7 @@
     [ma GET:API_GuessIndexList parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             wself.keyNum = [data[@"user_keynum"] integerValue];
-            NSString *keyNum = [NSString stringWithFormat:@"%ld",wself.keyNum];
+            NSString *keyNum = [NSString stringWithFormat:@"%ld",(long)wself.keyNum];
             
             [wself.keyNumBtn setTitle:keyNum forState:UIControlStateNormal];
             [wself.keyNumBtn setTitle:keyNum forState:UIControlStateHighlighted];
@@ -349,7 +349,7 @@
         };
         
         if (!error && data) {
-            BOOL status = data[@"status"];
+            BOOL status = [data[@"status"] boolValue];
             if (status) {
                 [wself addAnimationWithGuessId:guessId withPri:pri];
                 [wself queryGuessStock];
@@ -407,7 +407,7 @@
     [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     if (self.commentNum > 0) {
-        NSString *title = [NSString stringWithFormat:@"评论(%ld)",self.commentNum];
+        NSString *title = [NSString stringWithFormat:@"评论(%ld)",(long)self.commentNum];
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitle:title forState:UIControlStateHighlighted];
     } else {
