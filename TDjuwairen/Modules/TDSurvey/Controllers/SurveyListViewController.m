@@ -147,7 +147,7 @@
     self.navigationItem.leftBarButtonItem = left;
     
     // 通知
-    UIImage *rightImage = [[UIImage imageNamed:@"news_unread"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIImage *rightImage = [[UIImage imageNamed:@"news_read.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
     self.navigationItem.rightBarButtonItem = right;
     
