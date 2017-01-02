@@ -139,6 +139,7 @@
 - (UIWebView *)webView {
     if (!_webView) {
         _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
+        _webView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
         _webView.scrollView.scrollEnabled = NO;
         _webView.scrollView.showsVerticalScrollIndicator = NO;
         _webView.delegate = self;

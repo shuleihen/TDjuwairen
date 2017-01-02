@@ -20,7 +20,7 @@
         self.label = [[UILabel alloc]initWithFrame:CGRectMake(0, 33, self.frame.size.width, 20)];
         self.label.font = [UIFont systemFontOfSize:13];
         self.label.textAlignment = NSTextAlignmentCenter;
-        self.label.textColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];
+        self.label.dk_textColorPicker = DKColorPickerWithKey(TITLE);
         [self addSubview:self.imageview];
         [self addSubview:self.label];
         

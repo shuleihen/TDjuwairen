@@ -35,9 +35,9 @@
         self.BrowseManage.label.text = @"我的钱包";
         self.BrowseManage.backgroundColor = [UIColor clearColor];
         
-        [self addSubview:self.CommentManage];
-        [self addSubview:self.CollectManage];
-        [self addSubview:self.BrowseManage];
+        [self.contentView addSubview:self.CommentManage];
+        [self.contentView addSubview:self.CollectManage];
+        [self.contentView addSubview:self.BrowseManage];
     }
     return self;
 }

@@ -21,16 +21,14 @@
 #import "CollectionViewController.h"
 #import "MyWalletViewController.h"
 #import "MyAttentionViewController.h"
-
-#import "UIdaynightModel.h"
 #import "HexColors.h"
 #import "YXFont.h"
 #import "UIStoryboard+MainStoryboard.h"
 #import "PersonalHeaderView.h"
+#import "UIdaynightModel.h"
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *setupImgArr;
 @property (nonatomic,strong) NSArray *setupTitleArr;
@@ -42,7 +40,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightmodel = [UIdaynightModel sharedInstance];
+    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
     self.setupImgArr = @[@"icon_night.png",@"icon_remind.png",@"icon_issued.png",@"icon_collection.png",@"icon_setting.png",@"icon_us.png"];
     self.setupTitleArr = @[@"夜间模式",@"消息提醒",@"发布管理",@"我的收藏",@"设置",@"关于我们"];
@@ -56,12 +54,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
-    //set ui
-    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    self.tableview.backgroundColor = self.daynightmodel.backColor;
-    [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
-    [self.tableview reloadData];
     
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
@@ -88,7 +80,8 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
+    self.tableview.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     [self.view addSubview:self.tableview];
     
     self.headerView = [[PersonalHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
@@ -136,13 +129,8 @@
             [cell.BrowseManage addTarget:self action:@selector(GoBrowse:) forControlEvents:UIControlEventTouchUpInside];
         }
         
-        [cell.CommentManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-        [cell.CollectManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-        [cell.BrowseManage setTitleColor:self.daynightmodel.textColor forState:UIControlStateNormal];
-        cell.CommentManage.backgroundColor = self.daynightmodel.navigationColor;
-        cell.CollectManage.backgroundColor = self.daynightmodel.navigationColor;
-        cell.BrowseManage.backgroundColor = self.daynightmodel.navigationColor;
-        cell.backgroundColor = self.daynightmodel.backColor;
+        cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        
         return cell;
     } else {
         if (indexPath.row == 0) {
@@ -151,20 +139,17 @@
             if (cell == nil) {
                 cell = [[DaynightCellTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
-            NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-            NSString *daynight = [userdefault objectForKey:@"daynight"];
-            if ([daynight isEqualToString:@"yes"]) {
+            
+            if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+                [cell.mySwitch setOn:YES];
+            } else {
                 [cell.mySwitch setOn:NO];
             }
-            else
-            {
-                [cell.mySwitch setOn:YES];
-            }
+            
+
             cell.delegate = self;
             cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
             cell.title.text = self.setupTitleArr[indexPath.row];
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            cell.title.textColor = self.daynightmodel.textColor;
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
@@ -178,14 +163,10 @@
             cell.title.text = self.setupTitleArr[indexPath.row];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            cell.title.textColor = self.daynightmodel.textColor;
             return cell;
         }
-        
     }
 }
-
 
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -299,62 +280,18 @@
 
 - (void)updateSwitchAtIndexPath:(id)sender
 {
-    UISwitch *switchView = (UISwitch *)sender;
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
+    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
     
-    if ([switchView isOn])
-    {
-        //do something..
-        NSLog(@"开");
-        [self.daynightmodel night];
-        daynight = @"no";
-        [userdefault setValue:daynight forKey:@"daynight"];
-        [userdefault synchronize];
-        
-        
-        
-        self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-        self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
-        self.tableview.backgroundColor = self.daynightmodel.backColor;
-        
-        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
-        [UINavigationBar appearance].translucent = NO;
-        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
-        // 设置导航条标题字体和颜色
-        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
-        [[UINavigationBar appearance] setTitleTextAttributes:dict];
-        
-        // 设置导航条左右按钮字体和颜色
-        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
-        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
-        
-        [self.tableview reloadData];
-    }
-    else
-    {
-        //do something
-        NSLog(@"关");
-        [self.daynightmodel day];
-        daynight = @"yes";
-        [userdefault setValue:daynight forKey:@"daynight"];
-        [userdefault synchronize];
-        self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-        self.tableview.separatorColor = self.daynightmodel.lineColor;//分隔符颜色
-        self.tableview.backgroundColor = self.daynightmodel.backColor;
-        
-        [UINavigationBar appearance].barTintColor = self.daynightmodel.navigationColor;   // 设置导航条背景颜色
-        [UINavigationBar appearance].translucent = NO;
-        [UINavigationBar appearance].tintColor = self.daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
-        // 设置导航条标题字体和颜色
-        NSDictionary *dict = @{NSForegroundColorAttributeName:self.daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
-        [[UINavigationBar appearance] setTitleTextAttributes:dict];
-        
-        // 设置导航条左右按钮字体和颜色
-        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
-        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
-        
-        [self.tableview reloadData];
+    // 夜间模式切换
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+        [self.dk_manager dawnComing];
+        [daynightmodel day];
+        [userdefault setObject:@"yes" forKey:@"daynight"];
+    } else {
+        [self.dk_manager nightFalling];
+        [daynightmodel night];
+        [userdefault setObject:@"no" forKey:@"daynight"];
     }
 }
 

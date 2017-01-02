@@ -31,6 +31,7 @@
 #import "NotificationDef.h"
 #import "MBProgressHUD.h"
 #import "STPopup.h"
+#import "UIdaynightModel.h"
 
 @interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate>
 
@@ -283,8 +284,21 @@
 
 #pragma mark - SurveyMoreDelegate
 - (void)didSelectedWithRow:(NSInteger)row {
-    if (row == 1) {
+    if (row == 0) {
+        // 夜间模式切换
+        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+        UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
         
+        // 夜间模式切换
+        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+            [self.dk_manager dawnComing];
+            [daynightmodel day];
+            [userdefault setObject:@"yes" forKey:@"daynight"];
+        } else {
+            [self.dk_manager nightFalling];
+            [daynightmodel night];
+            [userdefault setObject:@"no" forKey:@"daynight"];
+        }
     } else if (row == 2) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         NSString *code = [self.stockId substringFromIndex:2];
@@ -496,7 +510,7 @@
     if (!_bottomToolView) {
         __weak SurveyDetailViewController *wself = self;
         _bottomToolView = [[SurveyBottomToolView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
-        _bottomToolView.backgroundColor = [UIColor whiteColor];
+        _bottomToolView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
         _bottomToolView.buttonBlock = ^(NSInteger tag) {
             if (US.isLogIn) {
                 if (tag == 2) {
@@ -526,6 +540,7 @@
     if (!_segment) {
         _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
         _segment.delegate = self;
+        _segment.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
         
         SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地篇"
                                                                                   image:[UIImage imageNamed:@"btn_shidi_nor"]

@@ -58,6 +58,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationBar.translucent = NO;
+    self.navigationBar.dk_barTintColorPicker = DKColorPickerWithKey(BAR);
     
     self.navDelegate = [[NavgiationDelegate alloc] initWithNavigationController:self];
     self.delegate = self.navDelegate;

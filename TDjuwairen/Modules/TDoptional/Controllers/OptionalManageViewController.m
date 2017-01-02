@@ -43,6 +43,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    
     self.daynightModel = [UIdaynightModel sharedInstance];
     self.dataArr = [NSMutableArray array];
     self.stockArr = [NSMutableArray array];
@@ -59,12 +61,14 @@
     UIBarButtonItem *addItem = [[UIBarButtonItem alloc] initWithTitle:@"添加" style:UIBarButtonItemStyleDone target:self action:@selector(addBtn:)];
     self.navigationItem.rightBarButtonItem = addItem;
     
-    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_back.png"] style:UIBarButtonItemStyleDone target:self action:@selector(clickGoBack:)];
+    UIImage *image = [[UIImage imageNamed:@"nav_back.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+    UIBarButtonItem *leftItem = [[UIBarButtonItem alloc] initWithImage:image style:UIBarButtonItemStyleDone target:self action:@selector(clickGoBack:)];
     self.navigationItem.leftBarButtonItem = leftItem;
 }
 
 - (void)setupWithTableView{
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
+    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;

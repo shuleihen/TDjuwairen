@@ -20,9 +20,13 @@
         self.title.font = [UIFont systemFontOfSize:16.0f];
         self.mySwitch = [[UISwitch alloc]initWithFrame:CGRectMake(kScreenWidth-60, 8, 20, 20)];
         [self.mySwitch addTarget:self action:@selector(updateSwitchAtIndexPath:) forControlEvents:UIControlEventValueChanged];
-        [self addSubview:self.imgView];
-        [self addSubview:self.title];
+        [self.contentView addSubview:self.imgView];
+        [self.contentView addSubview:self.title];
         self.accessoryView = self.mySwitch;
+        
+        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        self.title.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        self.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     return self;
 }

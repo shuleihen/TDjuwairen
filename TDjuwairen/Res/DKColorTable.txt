@@ -1,10 +1,17 @@
 NORMAL   NIGHT    RED
-#ffffff  #343434  #fafafa BG
-#aaaaaa  #313131  #aaaaaa SEP
-#0000ff  #ffffff  #fa0000 TINT
-#000000  #ffffff  #000000 TEXT
-#ffffff  #444444  #ffffff BAR
+#f3f4f6  #2F3031  #fafafa BG
+#ffffff  #2F3031  #fafafa CONTENTBG
+#E6E6E6  #2F3031  #aaaaaa SEP
+
+#222222  #999999  #000000 TEXT
+#999999  #999999  #000000 DETAIL
 #f0f0f0  #222222  #dedede HIGHLIGHTED
+
+#ffffff  #222222  #ffffff BAR
+#1b69b1  #ffffff  #fa0000 TINT
+#646464  #999999  #ffffff TITLE
+
+
 
 
   

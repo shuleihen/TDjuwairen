@@ -141,6 +141,7 @@
 		197595321DED5477006441BE /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595311DED5477006441BE /* SurveyDetailSegmentView.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
 		197595441DEEBFEA006441BE /* StockCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 197595431DEEBFEA006441BE /* StockCommentModel.m */; };
+		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A5AC401E0A49AC00FE953A /* Recharge.storyboard */; };
 		19A5AC441E0A4E4900FE953A /* StockUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC431E0A4E4900FE953A /* StockUnlockViewController.m */; };
 		19A5AC471E0A4E5C00FE953A /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC461E0A4E5C00FE953A /* RechargeViewController.m */; };
@@ -676,6 +677,8 @@
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
 		197595421DEEBFEA006441BE /* StockCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCommentModel.h; sourceTree = "<group>"; };
 		197595431DEEBFEA006441BE /* StockCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCommentModel.m; sourceTree = "<group>"; };
+		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
+		19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarController.m; sourceTree = "<group>"; };
 		19A5AC401E0A49AC00FE953A /* Recharge.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recharge.storyboard; sourceTree = "<group>"; };
 		19A5AC421E0A4E4900FE953A /* StockUnlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StockUnlockViewController.h; path = TDjuwairen/StockUnlockViewController.h; sourceTree = SOURCE_ROOT; };
 		19A5AC431E0A4E4900FE953A /* StockUnlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StockUnlockViewController.m; path = TDjuwairen/StockUnlockViewController.m; sourceTree = SOURCE_ROOT; };
@@ -871,7 +874,6 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
-		46F9621C395FAE984FFE6A23 /* Pods-TDjuwairen.adhoc.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TDjuwairen.adhoc.xcconfig"; path = "Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen.adhoc.xcconfig"; sourceTree = "<group>"; };
 		84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMineViewController.h; sourceTree = "<group>"; };
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		84053B571D6C14010020A1F0 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
@@ -1115,8 +1117,6 @@
 		84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
 		84F9FDBB1CF80E0A00683791 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
 		84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
-		8881396F3302AAA6AD95B23C /* Pods-TDjuwairen.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TDjuwairen.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen.debug.xcconfig"; sourceTree = "<group>"; };
-		B78FE33C7839B334928FF6DC /* Pods-TDjuwairen.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TDjuwairen.release.xcconfig"; path = "Pods/Target Support Files/Pods-TDjuwairen/Pods-TDjuwairen.release.xcconfig"; sourceTree = "<group>"; };
 		FE108943B4653426E130FAD3 /* libPods-TDjuwairen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -2115,6 +2115,15 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		19A0CA3C1E1A1048003C4079 /* TabbarController */ = {
+			isa = PBXGroup;
+			children = (
+				19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */,
+				19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */,
+			);
+			path = TabbarController;
+			sourceTree = "<group>";
+		};
 		19A5AC3E1E0A499800FE953A /* Recharge */ = {
 			isa = PBXGroup;
 			children = (
@@ -2486,6 +2495,7 @@
 		19E519381D509C3F00CFF149 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
+				19A0CA3C1E1A1048003C4079 /* TabbarController */,
 				19E519391D509C5300CFF149 /* NavigationController */,
 			);
 			path = CustomUI;
@@ -3005,7 +3015,6 @@
 				84E3340E1CE2BA3E00E5DCEE /* TDjuwairenUITests */,
 				84E333E81CE2BA3D00E5DCEE /* Products */,
 				F70B9F0ADFA276EBCA9300AD /* Frameworks */,
-				85C394FF0F94A816DA4DC0F4 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3199,16 +3208,6 @@
 			children = (
 			);
 			path = Resources;
-			sourceTree = "<group>";
-		};
-		85C394FF0F94A816DA4DC0F4 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				8881396F3302AAA6AD95B23C /* Pods-TDjuwairen.debug.xcconfig */,
-				B78FE33C7839B334928FF6DC /* Pods-TDjuwairen.release.xcconfig */,
-				46F9621C395FAE984FFE6A23 /* Pods-TDjuwairen.adhoc.xcconfig */,
-			);
-			name = Pods;
 			sourceTree = "<group>";
 		};
 		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
@@ -3723,6 +3722,7 @@
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				19A5AC761E0AB6A600FE953A /* SurveyDetailWebViewController.m in Sources */,
 				1961DF441DF9524600A08A4B /* RegisterSetInfoTableViewController.m in Sources */,
+				19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */,
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
 				19A5AC851E0B747800FE953A /* NiuxiongSectionHeaderView.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,

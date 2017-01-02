@@ -121,13 +121,6 @@
         UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
         [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
     }
-
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightModel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightModel.navigationColor];
-    self.tabBarController.tabBar.barTintColor = self.daynightModel.navigationColor;
-    
-    self.tableView.backgroundColor = self.daynightModel.backColor;
-    [self.tableView reloadData];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -159,11 +152,11 @@
 
 - (void)setupTableView {
     self.tableView.rowHeight = 125;
-    self.tableView.separatorColor = [UIColor clearColor];
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView = self.cycleScrollView;
-    self.tableView.backgroundColor = self.daynightModel.backColor;
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    
     [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
-
 }
 
 #pragma mark - Action 

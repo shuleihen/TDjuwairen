@@ -167,7 +167,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = [UIColor whiteColor];
+        _tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;

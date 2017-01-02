@@ -23,9 +23,13 @@
         self.numberLabel = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-90, (self.frame.size.height-17)/2, 50, 17)];
         self.numberLabel.textAlignment = NSTextAlignmentRight;
         
-        [self addSubview:self.imgView];
-        [self addSubview:self.title];
-        [self addSubview:self.numberLabel];
+        [self.contentView addSubview:self.imgView];
+        [self.contentView addSubview:self.title];
+        [self.contentView addSubview:self.numberLabel];
+        
+        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        self.title.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        self.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     return self;
 }

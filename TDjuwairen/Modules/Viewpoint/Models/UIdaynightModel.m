@@ -27,7 +27,7 @@
 {
     self.titleColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];
     self.textColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];
-    self.secTextColor = [HXColor hx_colorWithHexRGBAString:@"999999"];
+    self.secTextColor = [HXColor hx_colorWithHexRGBAString:@"#999999"];
     self.navigationColor = [UIColor whiteColor];
     self.backColor = [UIColor colorWithRed:243/255.0 green:244/255.0 blue:246/255.0 alpha:1.0];
     self.lineColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0];

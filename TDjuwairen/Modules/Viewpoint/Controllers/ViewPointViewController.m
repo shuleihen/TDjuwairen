@@ -426,21 +426,6 @@
 {
     [super viewWillAppear:animated];
     [self.navigationController setNavigationBarHidden:NO animated:YES];
-    self.view.backgroundColor = self.daynightmodel.navigationColor;
-    
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
-    // 设置标题颜色，和大小,如果标题是使用titleView方式定义不行
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName:self.daynightmodel.textColor, NSFontAttributeName:[UIFont boldSystemFontOfSize:18]}];
-    
-    self.tabBarController.tabBar.barTintColor = self.daynightmodel.navigationColor;
-    
-    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
-    
-    self.contentScroll.backgroundColor = self.daynightmodel.navigationColor;
-    UITableView *tableview = self.tableviewsArr[num];
-    tableview.backgroundColor = self.daynightmodel.navigationColor;
-    [tableview reloadData];
 }
 
 - (void)didReceiveMemoryWarning {

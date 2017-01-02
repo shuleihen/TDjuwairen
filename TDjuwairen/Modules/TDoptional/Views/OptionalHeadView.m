@@ -10,7 +10,6 @@
 #define font15 [UIFont systemFontOfSize:15]
 
 #import "OptionalHeadView.h"
-#import "UIdaynightModel.h"
 
 @interface OptionalHeadView ()
 
@@ -24,12 +23,10 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        UIdaynightModel *daynightModel = [UIdaynightModel sharedInstance];
-        self.backgroundColor = daynightModel.navigationColor;
         self.nameLab = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, kScreenWidth/3-15, LabelHeight)];
         self.nameLab.font = font15;
         self.nameLab.text = @"股票名称";
-        self.nameLab.textColor = daynightModel.titleColor;
+        self.nameLab.dk_textColorPicker = DKColorPickerWithKey(TITLE);
         self.nameLab.textAlignment = NSTextAlignmentLeft;
         [self addSubview:self.nameLab];
         
@@ -38,8 +35,9 @@
         for (int i = 0; i < 3; i++) {
             UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth/3 + i*kScreenWidth/9*2, 0, btnWidth, LabelHeight)];
             btn.titleLabel.font = font15;
-            [btn setTitleColor:daynightModel.titleColor forState:UIControlStateNormal];
+            [btn dk_setTitleColorPicker:DKColorPickerWithKey(TITLE) forState:UIControlStateNormal];
             [btn setTitle:arr[i] forState:UIControlStateNormal];
+            /*
             if (i == 0) {
                 [btn setImage:[UIImage imageNamed:@"btn_down"] forState:UIControlStateNormal];
             }
@@ -51,7 +49,7 @@
 
             CGSize titleSize = btn.titleLabel.frame.size;
             btn.imageEdgeInsets = UIEdgeInsetsMake(0.0, 0.0, 0.0, - titleSize.width * 2 - spacing);
-            
+            */
             [self addSubview:btn];
         }
     }

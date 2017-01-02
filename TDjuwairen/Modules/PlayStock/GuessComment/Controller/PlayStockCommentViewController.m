@@ -41,7 +41,7 @@
     // Do any additional setup after loading the view.
 
     [self.tableView registerClass:[SQTopicTableViewCell class] forCellReuseIdentifier:@"GuessCommentCellID"];
-//    self.tableView.separatorColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];

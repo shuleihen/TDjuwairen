@@ -16,17 +16,12 @@
 #import "SurDetailViewController.h"
 #import "StockManager.h"
 #import "LoginViewController.h"
-
-#import "UIdaynightModel.h"
 #import "LoginState.h"
-
 #import "Masonry.h"
 #import "NetworkManager.h"
 #import "SurveyDetailViewController.h"
 
 @interface OptionalStockViewController ()<UITableViewDelegate,UITableViewDataSource,StockManagerDelegate>
-
-@property (nonatomic,strong) UIdaynightModel *daynightModel;
 
 @property (nonatomic,strong) UITableView *tableview;
 
@@ -57,6 +52,7 @@
 {
     if (!_headView) {
         _headView = [[OptionalHeadView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
+        _headView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     return _headView;
 }
@@ -64,7 +60,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightModel = [UIdaynightModel sharedInstance];
+    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -99,9 +95,11 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
+    self.tableview.backgroundView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     self.tableview.estimatedRowHeight = 250;
     self.tableview.rowHeight = UITableViewAutomaticDimension;
+    
     [self.tableview registerClass:[OptionalStockTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.tableview registerClass:[NoOrderTableViewCell class] forCellReuseIdentifier:@"nocell"];
     [self.view addSubview:self.tableview];
@@ -155,6 +153,7 @@
     [self.tableview reloadData];
 }
 
+#pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 2;
@@ -185,9 +184,6 @@
         cell.nameLab.text = [model.companyName substringWithRange:NSMakeRange(0, model.companyName.length-8)];
         cell.codeLab.text = model.companyCode;
         
-        cell.nameLab.textColor = self.daynightModel.textColor;
-        cell.codeLab.textColor = self.daynightModel.secTextColor;
-        
         return cell;
     }
     else
@@ -214,6 +210,8 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    
     if (self.optionArr.count > 0) {
         OptionalStockTableViewCell *scell = (OptionalStockTableViewCell *)cell;
         SurveyModel *model = self.optionArr[indexPath.row];
@@ -245,7 +243,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     if (section == 0) {
-        return 10;
+        return 0;
     }
     else
     {

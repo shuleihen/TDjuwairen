@@ -28,7 +28,8 @@
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 28, SegmentItemWidth, 20)];
         titleLabel.tag = 2;
         titleLabel.font = [UIFont systemFontOfSize:13.0f];
-        titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
+//        titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
+        titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         titleLabel.highlightedTextColor = highlightedTextColor;
         titleLabel.text = title;
         [self addSubview:titleLabel];

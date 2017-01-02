@@ -23,6 +23,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -35,6 +38,19 @@
     [super viewWillDisappear:animated];
     
     [self.popupController setNavigationBarHidden:NO animated:NO];
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    cell.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    
+    if (indexPath.row == 0) {
+        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+            cell.imageView.image = [UIImage imageNamed:@"icon_night.png"];
+        } else {
+            cell.imageView.image = [UIImage imageNamed:@"icon_daytime.png"];
+        }
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

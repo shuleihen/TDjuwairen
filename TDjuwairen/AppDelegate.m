@@ -41,6 +41,8 @@
 #import <UserNotifications/UserNotifications.h>
 #endif
 
+#import "NotificationDef.h"
+
 static BOOL isBackGroundActivateApplication;
 @interface AppDelegate ()
 {
@@ -114,6 +116,20 @@ static BOOL isBackGroundActivateApplication;
     
 }
 
+#pragma mark -
+- (void)setupUICommon {
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
+    
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+        [daynightmodel night];
+        [userdefault setObject:@"no" forKey:@"daynight"];
+    } else {
+        [daynightmodel day];
+        [userdefault setObject:@"yes" forKey:@"daynight"];
+    }
+}
+/*
 - (void)setupUICommon
 {
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
@@ -136,9 +152,10 @@ static BOOL isBackGroundActivateApplication;
     else
     {
         [daynightmodel night];
-        [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
+        [UINavigationBar appearance].barTintColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];   // 设置导航条背景颜色
         [UINavigationBar appearance].translucent = NO;
-        [UINavigationBar appearance].tintColor = daynightmodel.navigationColor;    // 设置左右按钮，文字和图片颜色
+        [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
+        
         // 设置导航条标题字体和颜色
         NSDictionary *dict = @{NSForegroundColorAttributeName:daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
         [[UINavigationBar appearance] setTitleTextAttributes:dict];
@@ -154,7 +171,7 @@ static BOOL isBackGroundActivateApplication;
     [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
     [UITabBar appearance].translucent = NO;
 }
-
+*/
 - (void)setupURLCacheSize
 {
     int cacheSizeMemory = 4*1024*1024; // 4MB
