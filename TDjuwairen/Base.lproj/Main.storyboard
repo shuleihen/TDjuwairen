@@ -33,7 +33,7 @@
         <scene sceneID="CGi-th-78t">
             <objects>
                 <navigationController id="LI6-93-0zO" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="调研" image="tab_survey_normal" selectedImage="tab_survey_selected" id="TSD-S2-w6U">
+                    <tabBarItem key="tabBarItem" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
@@ -52,7 +52,7 @@
         <scene sceneID="ixo-pe-ecZ">
             <objects>
                 <navigationController id="ycf-W0-lfw" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="玩票" image="tab_viewPoint_normal" selectedImage="tab_viewPoint_selected" id="xZQ-Ft-qlN">
+                    <tabBarItem key="tabBarItem" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
@@ -105,11 +105,11 @@
             </objects>
             <point key="canvasLocation" x="-5130" y="-420"/>
         </scene>
-        <!--自选股-->
+        <!--观点-->
         <scene sceneID="pYs-3V-bMJ">
             <objects>
                 <navigationController id="ga3-vP-UFe" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="自选股" image="tab_zixuan_nor" selectedImage="tab_zixuan" id="kza-97-zxR">
+                    <tabBarItem key="tabBarItem" title="观点" image="tab_viewpoint" selectedImage="tab_viewpoint_in" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
@@ -124,10 +124,10 @@
             </objects>
             <point key="canvasLocation" x="-4471" y="-1091"/>
         </scene>
-        <!--自选股-->
+        <!--观点-->
         <scene sceneID="f4H-0B-gUx">
             <objects>
-                <viewController id="iCv-vS-xsX" customClass="OptionalStockViewController" sceneMemberID="viewController">
+                <viewController id="iCv-vS-xsX" customClass="ViewPointViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="t9b-XM-eGO"/>
                         <viewControllerLayoutGuide type="bottom" id="Y7W-R1-xNj"/>
@@ -137,7 +137,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="自选股" id="yTb-gc-Yvh"/>
+                    <navigationItem key="navigationItem" title="观点" id="yTb-gc-Yvh"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHu-13-2iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -147,7 +147,7 @@
         <scene sceneID="2Pf-WV-e9N">
             <objects>
                 <navigationController id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="我的" image="tab_users_normal" selectedImage="tab_users_selected" id="BoF-hT-Tyq">
+                    <tabBarItem key="tabBarItem" title="我的" image="tab_mine" selectedImage="tab_mine_in" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
@@ -183,13 +183,13 @@
         </scene>
     </scenes>
     <resources>
-        <image name="tab_survey_normal" width="20" height="20"/>
-        <image name="tab_survey_selected" width="20" height="20"/>
-        <image name="tab_users_normal" width="20" height="20"/>
-        <image name="tab_users_selected" width="20" height="20"/>
-        <image name="tab_viewPoint_normal" width="20" height="20"/>
-        <image name="tab_viewPoint_selected" width="20" height="20"/>
-        <image name="tab_zixuan" width="20" height="16"/>
-        <image name="tab_zixuan_nor" width="20" height="16"/>
+        <image name="tab_mine" width="17" height="21"/>
+        <image name="tab_mine_in" width="17" height="21"/>
+        <image name="tab_play" width="20" height="21"/>
+        <image name="tab_play_in" width="20" height="21"/>
+        <image name="tab_research" width="18" height="20"/>
+        <image name="tab_research_in" width="18" height="20"/>
+        <image name="tab_viewpoint" width="22" height="18"/>
+        <image name="tab_viewpoint_in" width="22" height="18"/>
     </resources>
 </document>

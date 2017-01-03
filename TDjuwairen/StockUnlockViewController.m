@@ -29,6 +29,8 @@
     // Do any additional setup after loading the view.
     self.contentSizeInPopup = CGSizeMake(260, 200);
     
+    self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.stockName,self.stockCode];
+    
     if (US.isLogIn) {
         NSDictionary *para = @{@"user_id":US.userId};
         NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
@@ -38,6 +40,7 @@
                 [self setupDataWithKeyNumber:keyNumber];
             } else {
                 //
+                [self setupDataWithKeyNumber:0];
             }
         }];
     }

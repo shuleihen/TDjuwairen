@@ -13,7 +13,6 @@
 #import "ViewPointTableViewCell.h"
 #import "ViewSpecialTableViewCell.h"
 #import "DetailPageViewController.h"
-#import "UIdaynightModel.h"
 #import "PublishViewViewController.h"
 #import "LoginViewController.h"
 #import "LoginState.h"
@@ -45,7 +44,6 @@
 @property (nonatomic,strong) NSMutableArray *viewRecArr;
 @property (nonatomic,strong) NSMutableArray *viewNewArr;
 @property (nonatomic,strong) NSMutableArray *viewSpeArr;
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 //进入页面时的加载
 @property (nonatomic,strong) UIImageView *loadingImageView;
@@ -87,17 +85,6 @@
     self.viewSpeArr = [NSMutableArray array];
 
     
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        [self.daynightmodel day];
-    }
-    else
-    {
-        [self.daynightmodel night];
-    }
-    
     [self setupWithNavigation];
 //    [self setupWithCategoryScroll];     //设置选择滚动条
     [self setupWithContentScroll];      //设置内容滚动
@@ -105,8 +92,13 @@
     
     [self addRefreshView];           //设置刷新
     
-    
     // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    //    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 进入时加载页面
@@ -259,7 +251,7 @@
 
 #pragma mark - 设置内容滑动条
 - (void)setupWithContentScroll{
-    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 1, kScreenWidth, kScreenHeight-44)];
+    self.contentScroll = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-44)];
     self.contentScroll.delegate = self;
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
@@ -269,9 +261,13 @@
 
     for (int i = 0; i<self.categoryArr.count; i++) {
         UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-64-44) style:UITableViewStylePlain];
+        tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+        tableview.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+        tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+        tableview.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         tableview.delegate = self;
         tableview.dataSource = self;
-        tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
+        
         [self.tableviewsArr addObject:tableview];
         [self.contentScroll addSubview:tableview];
     }
@@ -319,13 +315,13 @@
         titlesize = [model.view_title calculateSize:titlesize font:font];
         cell.titleLabel.text = model.view_title;
         [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+14, kScreenWidth, 1)];
+//        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+14, kScreenWidth, 1)];
         
         
-        cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
-        cell.titleLabel.textColor = self.daynightmodel.textColor;
-        cell.backgroundColor = self.daynightmodel.navigationColor;
-        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+//        cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
+//        cell.titleLabel.textColor = self.daynightmodel.textColor;
+//        cell.backgroundColor = self.daynightmodel.navigationColor;
+//        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         return cell;
     }
     else
@@ -422,25 +418,6 @@
     [self requestDataWithNumber:num];
 }
 
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-}
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

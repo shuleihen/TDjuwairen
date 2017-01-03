@@ -27,15 +27,18 @@
         self.titleLabel = [[UILabel alloc]init];
         self.titleLabel.font = [UIFont systemFontOfSize:16];
         
-        self.lineLabel = [[UILabel alloc]init];
-        self.lineLabel.layer.borderWidth = 1;
-        [self addSubview:self.lineLabel];
+//        self.lineLabel = [[UILabel alloc]init];
+//        self.lineLabel.layer.borderWidth = 1;
+//        [self.contentView addSubview:self.lineLabel];
         
-        [self addSubview:self.headImgView];
-        [self addSubview:self.nicknameLabel];
-        [self addSubview:self.nature];
-        [self addSubview:self.titleLabel];
+        [self.contentView addSubview:self.headImgView];
+        [self.contentView addSubview:self.nicknameLabel];
+        [self.contentView addSubview:self.nature];
+        [self.contentView addSubview:self.titleLabel];
         
+        self.nicknameLabel.dk_textColorPicker = DKColorPickerWithKey(TITLE);
+        self.titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     return self;
 }
