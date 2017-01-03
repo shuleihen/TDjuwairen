@@ -113,13 +113,8 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    CGFloat niu = 0;
-    if (([self.niuArray count] + [self.xiongArray count]) != 0) {
-       niu = (float)[self.niuArray count]/(float)([self.niuArray count] + [self.xiongArray count]);
-    }
-    
-    self.sectionHeader.niu = niu;
     self.sectionHeader.isNiu = self.isNiu;
+    [self.sectionHeader setupXiong:[self.xiongArray count] niu:[self.niuArray count]];
     
     return self.sectionHeader;
 }

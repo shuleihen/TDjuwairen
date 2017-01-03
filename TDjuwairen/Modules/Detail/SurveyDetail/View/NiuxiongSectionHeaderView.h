@@ -10,6 +10,7 @@
 
 @interface NiuxiongSectionHeaderView : UIView
 @property (nonatomic, assign) BOOL isNiu;
-@property (nonatomic, assign) CGFloat niu;
 @property (nonatomic, copy) void (^buttonBlock)(NSInteger);
+
+- (void)setupXiong:(NSInteger)xiongCount niu:(NSInteger)niuCount;
 @end

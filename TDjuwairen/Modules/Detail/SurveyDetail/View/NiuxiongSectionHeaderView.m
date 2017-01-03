@@ -73,11 +73,22 @@
     }
 }
 
-- (void)setNiu:(CGFloat)niu {
-    _niu = niu;
+- (void)setupXiong:(NSInteger)xiongCount niu:(NSInteger)niuCount {
     
-    NSString *niuTitle = [NSString stringWithFormat:@"牛说(%.0lf%%)",niu*100];
-    NSString *xiongTitle = [NSString stringWithFormat:@"熊说(%.0lf%%)",(1-niu)*100];
+    NSString *niuTitle;
+    NSString *xiongTitle;
+    
+    if (xiongCount <= 0) {
+        xiongTitle = @"0%";
+    } else {
+        xiongTitle = [NSString stringWithFormat:@"熊说(%.0lf%%)",(float)xiongCount/(xiongCount+niuCount)*100];
+    }
+    
+    if (niuCount <= 0) {
+        niuTitle = @"0%";
+    } else {
+        niuTitle = [NSString stringWithFormat:@"牛说(%.0lf%%)",(float)niuCount/(xiongCount+niuCount)*100];
+    }
     
     [self.niuBtn setTitle:niuTitle forState:UIControlStateNormal];
     [self.niuBtn setTitle:niuTitle forState:UIControlStateHighlighted];
