@@ -210,6 +210,8 @@
         }
         i++;
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
 }
 
 #pragma mark - GuessCommentPublishDelegate

@@ -62,8 +62,14 @@
     [self setNeedsDisplay];
 }
 
+- (void)setTitle:(NSString *)title forState:(UIControlState)state {
+    [super setTitle:title forState:state];
+    
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
+//    [super drawRect:rect];
     
     CGContextRef context = UIGraphicsGetCurrentContext();
     
@@ -73,7 +79,7 @@
     CGContextSetLineWidth(context, 1.0);
     
     // Work out line width
-    NSString *text = self.titleLabel.text;
+    NSString *text = self.currentTitle;
     CGSize titleLabelSize = [text boundingRectWithSize:CGSizeMake(self.titleLabel.frame.size.width, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: self.titleLabel.font} context:nil].size;
     CGFloat width = titleLabelSize.width;
     

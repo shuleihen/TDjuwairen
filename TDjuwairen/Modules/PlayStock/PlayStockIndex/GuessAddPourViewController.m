@@ -14,9 +14,9 @@
 #import "STPopup.h"
 
 @interface GuessAddPourViewController ()
-@property (weak, nonatomic) IBOutlet BorderButton *oneButton;
-@property (weak, nonatomic) IBOutlet BorderButton *fiveButton;
-@property (weak, nonatomic) IBOutlet BorderButton *tenButton;
+@property (weak, nonatomic) IBOutlet UIButton *oneButton;
+@property (weak, nonatomic) IBOutlet UIButton *fiveButton;
+@property (weak, nonatomic) IBOutlet UIButton *tenButton;
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
 @property (weak, nonatomic) IBOutlet UIButton *guessButton;
 
@@ -33,6 +33,7 @@
     self.oneButton.enabled = NO;
     self.fiveButton.enabled = NO;
     self.tenButton.enabled = NO;
+    self.guessButton.enabled = NO;
     
     if (self.userKeyNum >= 10) {
         self.tenButton.enabled = YES;
@@ -46,6 +47,7 @@
         self.oneButton.enabled = YES;
         // 默认选择一把钥匙
         self.oneButton.selected = YES;
+        self.guessButton.enabled = YES;
         self.keyNum = 1;
     }
     
@@ -87,6 +89,29 @@
     [self.stepper.decrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [self.stepper.incrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    
+    UIImage *normal = [UIImage imageWithSize:CGSizeMake(50, 30)
+                              backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
+                                 borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
+                                cornerRadius:4.0f];
+    
+    UIImage *selected = [UIImage imageWithSize:CGSizeMake(50, 30)
+                              backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
+                                 borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
+                                cornerRadius:4.0f];
+    
+    UIImage *disable = [UIImage imageWithSize:CGSizeMake(50, 30)
+                                backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#333333"]
+                                   borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
+                                  cornerRadius:4.0f];
+    
+    NSArray *array = @[self.oneButton,self.fiveButton,self.tenButton];
+    for (UIButton *btn in array) {
+        [btn setBackgroundImage:normal forState:UIControlStateNormal];
+        [btn setBackgroundImage:selected forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:selected forState:UIControlStateSelected];
+        [btn setBackgroundImage:disable forState:UIControlStateDisabled];
+    }
 }
 
 - (IBAction)guessPressed:(id)sender {

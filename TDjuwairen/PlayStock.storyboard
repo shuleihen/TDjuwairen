@@ -676,7 +676,7 @@
                                             <constraint firstAttribute="width" constant="200" id="W4d-us-cSl"/>
                                         </constraints>
                                     </view>
-                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaP-uS-kKi" customClass="BorderButton">
+                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VaP-uS-kKi">
                                         <rect key="frame" x="227" y="42" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Wm0-V8-Bqe"/>
@@ -684,6 +684,9 @@
                                         </constraints>
                                         <state key="normal" title="10">
                                             <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="selected">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -712,7 +715,7 @@
                                             <action selector="keyBtnPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="ees-QF-Zm3"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDN-42-UQW" customClass="BorderButton">
+                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fDN-42-UQW">
                                         <rect key="frame" x="167" y="42" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="BLy-lo-s0X"/>
@@ -720,6 +723,9 @@
                                         </constraints>
                                         <state key="normal" title="5">
                                             <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="selected">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
@@ -748,7 +754,7 @@
                                             <action selector="keyBtnPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="4zd-Xg-EiI"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHs-Mg-9Y3" customClass="BorderButton">
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FHs-Mg-9Y3">
                                         <rect key="frame" x="107" y="42" width="50" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="50" id="JOb-cq-0Xn"/>
@@ -756,6 +762,9 @@
                                         </constraints>
                                         <state key="normal" title="1">
                                             <color key="titleColor" red="0.92549019610000005" green="0.61176470589999998" blue="0.1137254902" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <state key="disabled">
+                                            <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
                                         <state key="selected">
                                             <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
