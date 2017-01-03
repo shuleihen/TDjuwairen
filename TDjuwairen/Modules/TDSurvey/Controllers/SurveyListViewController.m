@@ -120,6 +120,9 @@
     if (US.isLogIn) {
         UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
         [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+    } else {
+        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
+        [btn setImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"] forState:UIControlStateNormal];
     }
 }
 
