@@ -97,7 +97,7 @@
 
 - (NSString *)intervalNowDateWithDateInterval:(NSTimeInterval)endTime {
     NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
-    NSTimeInterval cha = endTime-now;
+    NSTimeInterval cha = (endTime-now)?(endTime-now):0;
 
     NSString *sen = [NSString stringWithFormat:@"%02d", (int)cha%60];
     NSString *min = [NSString stringWithFormat:@"%02d", (int)cha/60%60];

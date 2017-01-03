@@ -215,7 +215,7 @@
     if ([guess.guessPoints count] >= 3) {
         UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"本场下注次数已满，您可在其他场次继续下注！" preferredStyle:UIAlertControllerStyleAlert];
-        alert.preferredAction =  done;
+        [alert addAction:done];
         [self presentViewController:alert animated:YES completion:nil];
         return;
     }

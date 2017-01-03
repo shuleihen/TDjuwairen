@@ -49,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下注" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by2-lj-q9c">
-                        <rect key="frame" x="234" y="53" width="25" height="15"/>
+                        <rect key="frame" x="234" y="54" width="25" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -73,7 +73,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ay-7T-Nx4">
-                        <rect key="frame" x="263" y="50.5" width="45" height="22"/>
+                        <rect key="frame" x="263" y="51" width="45" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="x 5" image="icon_key_small">
@@ -119,6 +119,7 @@
                 <outlet property="betBtn" destination="4ay-7T-Nx4" id="QrA-zk-l8Y"/>
                 <outlet property="dateLabel" destination="nwA-tF-Ph8" id="ac6-NH-pqo"/>
                 <outlet property="guessIndexLabel" destination="Kcn-VC-zZQ" id="7FC-dc-Ezc"/>
+                <outlet property="guessNameLabel" destination="4gl-mx-rqY" id="bre-kp-Wwo"/>
                 <outlet property="realIndexLabel" destination="Aul-y1-9pc" id="cK9-hq-bOR"/>
                 <outlet property="sessionLabel" destination="iB7-v6-Ivv" id="LRX-SZ-nSl"/>
                 <outlet property="statusBtn" destination="bvt-1d-GPc" id="0M8-pA-3VP"/>
