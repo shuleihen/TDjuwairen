@@ -20,6 +20,9 @@
 @implementation SurveyDetailWebViewController
 
 - (void)dealloc {
+    self.webView.delegate = nil;
+    [self.webView stopLoading];
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 

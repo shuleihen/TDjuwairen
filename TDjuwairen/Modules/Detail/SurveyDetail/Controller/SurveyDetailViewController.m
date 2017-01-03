@@ -582,27 +582,30 @@
 - (NSMutableArray *)contentControllers {
     if (!_contentControllers) {
         _contentControllers = [NSMutableArray arrayWithCapacity:7];
+        
+        __weak SurveyDetailViewController *wself = self;
+        
         for (int i=0; i<6; i++) {
             if (i == 2) {
                 SurveyDetailStockCommentViewController *niuxiongvc = [[SurveyDetailStockCommentViewController alloc] init];
-                niuxiongvc.rootController = self;
+                niuxiongvc.rootController = wself;
                 niuxiongvc.stockId = self.stockId;
                 niuxiongvc.tag = i;
-                niuxiongvc.delegate = self;
+                niuxiongvc.delegate = wself;
                 [_contentControllers addObject:niuxiongvc];
             } else if (i == 5) {
                 SurveyDetailAskViewController *askvc = [[SurveyDetailAskViewController alloc] init];
-                askvc.rootController = self;
+                askvc.rootController = wself;
                 askvc.stockId = self.stockId;
                 askvc.tag = i;
-                askvc.delegate = self;
+                askvc.delegate = wself;
                 [_contentControllers addObject:askvc];
             } else {
                 SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
-                content.rootController = self;
+                content.rootController = wself;
                 content.stockId = self.stockId;
                 content.tag = i;
-                content.delegate = self;
+                content.delegate = wself;
                 [_contentControllers addObject:content];
             }
         }
