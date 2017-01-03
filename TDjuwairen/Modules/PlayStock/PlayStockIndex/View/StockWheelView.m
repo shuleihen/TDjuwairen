@@ -44,20 +44,13 @@
 }
 
 - (void)drawRect:(CGRect)rect {
-    [super drawRect:rect];
-    
-    
-    
-//    UIImage *image = [UIImage imageNamed:@"icon_turntable"];
-//    [image drawInRect:CGRectMake(rect.size.width/2 - wheelRadius, 80-wheelRadius, wheelRadius*2, (image.size.height/image.size.width) * wheelRadius*2)];
-//    [image drawAtPoint:CGPointMake((rect.size.width-image.size.width)/2, 0)];
-    
-    
+
     /*  绘制轮盘刻度
         1、上证猜中10倍奖励，差值在±0.5之内奖励5倍，±2.5之内2倍奖励，+-5（不输不赢），大于±5（输，筹码不归还）
         2、创业板猜中10倍，差值为0.3，1.5，3.5
      */
     for (WheelScale *scale in [self scalesWithType:self.type]) {
+
         double radin = [self radinFromDu:scale.du];
         CGPoint point = [self pointWithRadin:radin withRadius:wheelRadius];
         point.x += scale.offx;
@@ -71,15 +64,23 @@
     // 绘制下注
     for (NSString *pri in self.buyIndexs) {
 
+        double radin = [self radinWithPri:[pri floatValue]];
         CGPoint point = [self pointWithPri:[pri floatValue]];
         UIImage *key = [UIImage imageNamed:@"icon_key_small.png"];
         CGRect rect = CGRectMake(point.x - key.size.width/2, point.y-key.size.height/2, key.size.width, key.size.height);
-        
+
         [key drawInRect:rect];
+        
+//        CAShapeLayer *layer = [CAShapeLayer layer];
+//        layer.frame = rect;
+//        
+//        layer.contents = (__bridge id _Nullable)([UIImage imageNamed:@"icon_key_ver.png"].CGImage);
+//        layer.transform = CATransform3DMakeRotation(radin, 1, 0, 0);
+//        [self.layer addSublayer:layer];
     }
 }
 
-- (CGPoint)pointWithPri:(CGFloat)pri {
+- (double)radinWithPri:(CGFloat)pri {
     CGFloat off = pri - self.index;
     
     BOOL isLose = YES;
@@ -87,13 +88,57 @@
     
     for (WheelScale *scale in [self scalesWithType:kStockSZ]) {
         
-        if (off >= scale.start && off < scale.end) {
+        if (off > scale.start && off <= scale.end) {
             CGFloat offdu = (scale.du>0)?-20:20;
             du = scale.du + offdu;
             
             isLose = NO;
             break;
         }
+    }
+    
+    if (isLose) {
+        // lost 区
+        du = 180.0f;
+    }
+    
+    double radin = [self radinFromDu:du];
+    return radin;
+}
+
+- (CGPoint)pointWithPri:(CGFloat)pri {
+    float off = pri - self.index;
+    
+    BOOL isLose = YES;
+    CGFloat du = 0.0;
+    
+    for (WheelScale *scale in [self scalesWithType:kStockSZ]) {
+        if (off > 0.00099) {
+            // 正区间，左开右闭
+            if (off > scale.start && off <= scale.end) {
+                CGFloat offdu = (scale.du>0)?-20:20;
+                du = scale.du + offdu;
+                
+                isLose = NO;
+                break;
+            }
+        } else if (off < -0.00099) {
+            // 负区间，左闭右开
+            if (off >= scale.start && off < scale.end) {
+                CGFloat offdu = (scale.du>0)?-20:20;
+                du = scale.du + offdu;
+                
+                isLose = NO;
+                break;
+            }
+        } else {
+            // 猜中
+            du = 0;
+            isLose = NO;
+            break;
+        }
+        
+        
     }
     
     if (isLose) {
