@@ -16,6 +16,9 @@
     // Initialization code
     self.avatar.clipsToBounds = YES;
     self.avatar.layer.cornerRadius = 11.0f;
+    
+    self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.contentLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

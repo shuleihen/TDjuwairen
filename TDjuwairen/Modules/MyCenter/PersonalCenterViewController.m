@@ -26,6 +26,7 @@
 #import "UIStoryboard+MainStoryboard.h"
 #import "PersonalHeaderView.h"
 #import "UIdaynightModel.h"
+#import "NotificationDef.h"
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
@@ -293,6 +294,8 @@
         [daynightmodel night];
         [userdefault setObject:@"no" forKey:@"daynight"];
     }
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kNightVersionChanged object:nil];
 }
 
 @end

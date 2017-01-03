@@ -11,6 +11,7 @@
 #import "NetworkManager.h"
 #import "NotificationDef.h"
 #import "PlistFileDef.h"
+#import "LoginState.h"
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
@@ -30,9 +31,14 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFontSize:) name:kSurveyContentFontSizeChanged object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackground:) name:kNightVersionChanged object:nil];
     
     // 加载内容
-    [self loadContent];
+    [self reloadData];
+}
+
+- (void)updateBackground:(NSNotification *)notifi {
+    [self reloadData];
 }
 
 - (void)updateFontSize:(NSNotification *)notifi {
@@ -66,7 +72,7 @@
     }
 }
 
-- (void)loadContent {
+- (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *para = [self contentParmWithTag:self.tag];
     

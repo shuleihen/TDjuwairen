@@ -267,6 +267,7 @@
         tableview.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         tableview.delegate = self;
         tableview.dataSource = self;
+        tableview.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.1)];
         
         [self.tableviewsArr addObject:tableview];
         [self.contentScroll addSubview:tableview];

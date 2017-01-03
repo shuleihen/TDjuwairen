@@ -79,6 +79,9 @@
     
     // 解锁通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unlockStock:) name:kSurveyDetailUnlock object:nil];
+    
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.tableView.backgroundView.backgroundColor = [UIColor redColor];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -305,6 +308,8 @@
             [daynightmodel night];
             [userdefault setObject:@"no" forKey:@"daynight"];
         }
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kNightVersionChanged object:nil];
     } else if (row == 2) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         NSString *code = [self.stockId substringFromIndex:2];
@@ -546,7 +551,7 @@
     if (!_segment) {
         _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
         _segment.delegate = self;
-        _segment.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+        _segment.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
         
         SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地篇"
                                                                                   image:[UIImage imageNamed:@"btn_shidi_nor"]

@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
 }
 
 - (CGFloat)contentHeight {
@@ -48,13 +48,21 @@
 
 - (NSString *)contenWebUrlWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag{
     NSString *code = [self.stockId substringFromIndex:2];
+    
+    NSString *model = @"0";
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+        model = @"1";
+    } else {
+        model = @"0";
+    }
+    
     NSString *urlString = nil;
     if (!US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,(long)tag,@"0"];
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,(long)tag,model];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/userid/%@/mode/%@",baseUrl,code,(long)tag,US.userId,@"0"];
+        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/userid/%@/mode/%@",baseUrl,code,(long)tag,US.userId,model];
     }
     return urlString;
 }

@@ -16,4 +16,6 @@
 #define kSurveyDetailUnlock             @"SurveyDetailUnlock"
 
 #define kGuessCommentChanged            @"GuessCommentChanged"
+#define kNightVersionChanged            @"NightVersionChanged"
+
 #endif /* NotificationDef_h */
