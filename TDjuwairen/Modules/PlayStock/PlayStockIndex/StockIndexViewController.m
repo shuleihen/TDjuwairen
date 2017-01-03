@@ -48,6 +48,8 @@
     }
     
     [self.stockManager stopThread];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (UIImageView *)animationKey {
@@ -85,18 +87,17 @@
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:wself selector:@selector(timerFire:) userInfo:nil repeats:YES];
     
     [self queryGuessStock];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryGuessStock) name:kLoginSuccessedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kGuessCommentChanged object:nil];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
 }
 
 
