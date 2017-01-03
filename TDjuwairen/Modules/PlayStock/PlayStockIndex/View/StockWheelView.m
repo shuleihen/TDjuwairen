@@ -125,14 +125,14 @@
     six.offy = -2;
     switch (type) {
         case kStockSZ:
-            six.scale = -2.5;
-            six.start = -2.5;
-            six.end = -1.5;
+            six.scale = -5;
+            six.start = -5;
+            six.end = -2.5;
             break;
         case kStockCY:
-            six.scale = -1.5;
-            six.start = -1.5;
-            six.end = -0.6;
+            six.scale = -3.5;
+            six.start = -3.5;
+            six.end = -1.5;
             break;
         default:
             break;
@@ -144,13 +144,13 @@
     five.offy = -4;
     switch (type) {
         case kStockSZ:
-            five.scale = -1.5;
-            five.start = -1.5;
-            five.end = -1;
+            five.scale = -2.5;
+            five.start = -2.5;
+            five.end = -0.5;
             break;
         case kStockCY:
-            five.scale = -0.6;
-            five.start = -0.6;
+            five.scale = -1.5;
+            five.start = -1.5;
             five.end = -0.3;
             break;
         default:
@@ -163,8 +163,8 @@
     four.offy = -8;
     switch (type) {
         case kStockSZ:
-            four.scale = -1;
-            four.start = -1;
+            four.scale = -0.5;
+            four.start = -0.5;
             four.end = 0;
             break;
         case kStockCY:
@@ -182,9 +182,9 @@
     one.offy = -8;
     switch (type) {
         case kStockSZ:
-            one.scale = +1;
+            one.scale = 0.5;
             one.start = 0;
-            one.end = 1;
+            one.end = 0.5;
             break;
         case kStockCY:
             one.scale = 0.3;
@@ -201,14 +201,14 @@
     two.offy = -4;
     switch (type) {
         case kStockSZ:
-            two.scale = +1.5;
-            two.start = 1;
-            two.end = 1.5;
+            two.scale = +2.5;
+            two.start = 0.5;
+            two.end = 2.5;
             break;
         case kStockCY:
-            two.scale = 0.6;
+            two.scale = 1.5;
             two.start = 0.3;
-            two.end = 0.6;
+            two.end = 1.5;
             break;
         default:
             break;
@@ -220,14 +220,14 @@
     third.offy = -2;
     switch (type) {
         case kStockSZ:
-            third.scale = 2.5;
-            third.start = 1.5;
-            third.end = 2.5;
+            third.scale = 5;
+            third.start = 2.5;
+            third.end = 5;
             break;
         case kStockCY:
-            third.scale = 1.5;
-            third.start = 0.6;
-            third.end = 1.5;
+            third.scale = 3.5;
+            third.start = 1.5;
+            third.end = 3.5;
             break;
         default:
             break;

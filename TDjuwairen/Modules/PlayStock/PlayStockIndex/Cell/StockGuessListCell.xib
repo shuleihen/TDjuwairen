@@ -15,18 +15,21 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="235"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="234.66666666666666"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="235"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="上证指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S9C-oJ-TPu">
-                        <rect key="frame" x="15" y="10" width="62" height="20"/>
+                        <rect key="frame" x="15" y="10" width="80" height="20"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="80" id="cip-Nl-SDE"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="3100.00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vMK-wc-wnd">
-                        <rect key="frame" x="92" y="11" width="60" height="20"/>
+                        <rect key="frame" x="95" y="11" width="60" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -38,13 +41,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1.34" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DAr-mW-nf5">
-                        <rect key="frame" x="162" y="11" width="19" height="11"/>
+                        <rect key="frame" x="165" y="11" width="19" height="11"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.3%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nh3-Zi-lMN">
-                        <rect key="frame" x="162" y="21" width="22" height="11"/>
+                        <rect key="frame" x="165" y="21" width="22" height="11"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -175,7 +178,7 @@
                     <constraint firstItem="nh3-Zi-lMN" firstAttribute="top" secondItem="DAr-mW-nf5" secondAttribute="bottom" constant="-1" id="mvm-HV-mC9"/>
                     <constraint firstAttribute="bottom" secondItem="mf8-7l-OEv" secondAttribute="bottom" id="qhU-hh-tIF"/>
                     <constraint firstItem="mf8-7l-OEv" firstAttribute="top" secondItem="Q2G-Qf-UEb" secondAttribute="top" id="sce-Yi-RTy"/>
-                    <constraint firstItem="vMK-wc-wnd" firstAttribute="leading" secondItem="S9C-oJ-TPu" secondAttribute="trailing" constant="15" id="tYr-sD-IgD"/>
+                    <constraint firstItem="vMK-wc-wnd" firstAttribute="leading" secondItem="S9C-oJ-TPu" secondAttribute="trailing" id="tYr-sD-IgD"/>
                     <constraint firstItem="Q2G-Qf-UEb" firstAttribute="top" secondItem="S9C-oJ-TPu" secondAttribute="bottom" constant="15" id="v4R-Jh-vMP"/>
                 </constraints>
             </tableViewCellContentView>

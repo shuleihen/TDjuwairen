@@ -184,12 +184,16 @@
     self.dataArray = array;
     
     [self.tableView reloadData];
-    [self.tableView setContentOffset:CGPointMake(0,0) animated:NO];
+    
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    });
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
 }
 
 - (void)addNewReplayWithReplyCommentId:(NSString *)replyCommentId withContent:(NSString *)content {
+    // 回复之后移到最新
     SQCommentModel *reply = [[SQCommentModel alloc] init];
     reply.userId = US.userId;
     reply.icon = US.headImage;
@@ -197,6 +201,7 @@
     reply.content = content;
     
     int i = 0;
+    SQTopicCellViewModel *topTopic = nil;
     for (SQTopicCellViewModel *topicCell in self.dataArray) {
         if ([topicCell.topicModel.commentId isEqualToString:replyCommentId]) {
             
@@ -204,11 +209,20 @@
             [topic.commentModels insertObject:reply atIndex:0];
             topicCell.topicModel = topic;
             
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:i inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
+            topTopic = topicCell;
         }
         i++;
+    }
+    
+    if (topTopic) {
+        [self.dataArray removeObject:topTopic];
+        [self.dataArray insertObject:topTopic atIndex:0];
+        
+        [self.tableView reloadData];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+        });
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
