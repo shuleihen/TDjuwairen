@@ -61,9 +61,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    // 默认显示热点篇
-    self.segment.selectedIndex = 3;
-    
     // 添加查询股票
     [self.stockManager addStocks:@[self.stockId]];
     
@@ -132,6 +129,15 @@
             wself.title = data[@"company"];
             wself.keyNumber = [data[@"keyNum"] integerValue];
             wself.cover = data[@"cover"];
+            
+            if (isLock) {
+                // (加锁)默认显示热点篇
+                wself.segment.selectedIndex = 3;
+            } else {
+                // （解锁）默认显示热点篇
+                wself.segment.selectedIndex = 0;
+            }
+            
         } else {
             // 查询失败
         }
