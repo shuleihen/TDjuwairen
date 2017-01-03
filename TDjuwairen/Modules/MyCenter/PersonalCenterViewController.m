@@ -81,7 +81,7 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableview.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     [self.view addSubview:self.tableview];
     
     self.headerView = [[PersonalHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];

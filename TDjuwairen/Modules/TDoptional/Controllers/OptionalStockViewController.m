@@ -96,7 +96,7 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.backgroundView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     self.tableview.estimatedRowHeight = 250;
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     
