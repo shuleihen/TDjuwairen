@@ -8,6 +8,7 @@
 
 #import "SQTopicModel.h"
 #import "SQCommentModel.h"
+#import "NSString+Emoji.h"
 
 @implementation SQTopicModel
 - (id)init {
@@ -20,7 +21,7 @@
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
         _commentId = dict[@"comment_id"];
-        _content = dict[@"comment_text"];
+        _content = [dict[@"comment_text"] stringByReplacingEmojiCheatCodesWithUnicode];
         _userId = dict[@"comment_userid"];
         _userName = dict[@"user_nickname"];
         _icon = dict[@"userinfo_facemin"];

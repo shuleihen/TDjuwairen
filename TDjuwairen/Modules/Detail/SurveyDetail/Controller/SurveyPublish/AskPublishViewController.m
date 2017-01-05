@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "LoginState.h"
 #import "NotificationDef.h"
+#import "NSString+Emoji.h"
 
 @interface AskPublishViewController ()<UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -65,25 +66,26 @@
     NSDictionary *para ;
     NSString *url ;
     NSString *code = self.comanyCode;
+    NSString *emojiCovert = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
     if (self.type == kPublishNiu) {
         url = API_SurveyAddComment;
         para = @{@"type":       @"1",
-                 @"content":    content,
+                 @"content":    emojiCovert,
                  @"code":       code,
                  @"user_id":    US.userId};
     }
     else if (self.type == kPublishXiong){
         url = API_SurveyAddComment;
         para = @{@"type":       @"2",
-                 @"content":    content,
+                 @"content":    emojiCovert,
                  @"code":       code,
                  @"user_id":    US.userId};
     }
     else if (self.type == kPublishAsk){
         url = API_SurveyAddQuestion;
         para = @{@"code":       code,
-                 @"question":   content,
+                 @"question":   emojiCovert,
                  @"user_id":    US.userId};
     }
     

@@ -7,6 +7,7 @@
 //
 
 #import "StockCommentModel.h"
+#import "NSString+Emoji.h"
 
 @implementation StockCommentModel
 
@@ -17,7 +18,7 @@
     model.userName = dic[@"user_nickname"];
     model.userAvatar = dic[@"userinfo_facemin"];
     model.isLiked = [dic[@"isliked"] boolValue];
-    model.content = dic[@"surveycomment_comment"];
+    model.content = [dic[@"surveycomment_comment"] stringByReplacingEmojiCheatCodesWithUnicode];
     model.stockId = dic[@"surveycomment_code"];
     model.goodNums = [dic[@"surveycomment_goodnums"] integerValue];
     model.type = [dic[@"surveycomment_type"] integerValue];

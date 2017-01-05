@@ -12,6 +12,7 @@
 #import "MBProgressHUD.h"
 #import "NotificationDef.h"
 #import "LoginState.h"
+#import "NSString+Emoji.h"
 
 @interface AnsPublishViewController ()
 @property (weak, nonatomic) IBOutlet UITextView *textView;
@@ -41,9 +42,10 @@
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
+    NSString *emojiCovert = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
     NSDictionary *para = @{@"ask_id":   self.ask.surveyask_id,
-                           @"content":  content,
+                           @"content":  emojiCovert,
                            @"user_id":  US.userId};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];

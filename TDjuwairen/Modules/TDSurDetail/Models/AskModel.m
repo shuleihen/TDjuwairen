@@ -8,6 +8,7 @@
 
 #import "AskModel.h"
 #import "AnsModel.h"
+#import "NSString+Emoji.h"
 
 @implementation AskModel
 
@@ -22,7 +23,7 @@
         [model.ans_list addObject:ansmodel];
     }
     model.is_author = [dic[@"is_author"] boolValue];
-    model.surveyask_content = dic[@"surveyask_content"];
+    model.surveyask_content = [dic[@"surveyask_content"] stringByReplacingEmojiCheatCodesWithUnicode];
     model.surveyask_isdel = dic[@"surveyask_isdel"];
     model.surveyask_id = dic[@"surveyask_id"];
     model.surveyask_userid = dic[@"surveyask_userid"];

@@ -215,6 +215,7 @@
 		19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */; };
 		19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */; };
 		19DFE2401E11174000CC3C3F /* DKColorTable.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19DFE23F1E11174000CC3C3F /* DKColorTable.txt */; };
+		19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19E5F26E1E12614200984DBC /* BorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F26D1E12614200984DBC /* BorderButton.m */; };
@@ -843,6 +844,8 @@
 		19DFE22D1E10EBAE00CC3C3F /* BVUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVUnderlineButton.h; sourceTree = "<group>"; };
 		19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BVUnderlineButton.m; sourceTree = "<group>"; };
 		19DFE23F1E11174000CC3C3F /* DKColorTable.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DKColorTable.txt; sourceTree = "<group>"; };
+		19E48FF81E1DDC230012CE6E /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
+		19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
 		19E5193A1D509C7000CFF149 /* TDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNavigationController.h; sourceTree = "<group>"; };
 		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
 		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
@@ -1333,6 +1336,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				19E48FF41E1D01030012CE6E /* Emoji */,
 				19A5AC891E0BA2B800FE953A /* UITextView+Placeholder */,
 				19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */,
 				19193B301E03CE6D000A6AD2 /* UIImage+Color.m */,
@@ -2516,6 +2520,15 @@
 			path = BVUnderlineButton;
 			sourceTree = "<group>";
 		};
+		19E48FF41E1D01030012CE6E /* Emoji */ = {
+			isa = PBXGroup;
+			children = (
+				19E48FF81E1DDC230012CE6E /* NSString+Emoji.h */,
+				19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */,
+			);
+			path = Emoji;
+			sourceTree = "<group>";
+		};
 		19E519381D509C3F00CFF149 /* CustomUI */ = {
 			isa = PBXGroup;
 			children = (
@@ -3497,6 +3510,7 @@
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
 				847BD6E71DE69CAB006AEECE /* ExchangeModel.m in Sources */,
 				19E5F2851E1364CF00984DBC /* MyGuessModel.m in Sources */,
+				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
 				19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */,
 				84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,

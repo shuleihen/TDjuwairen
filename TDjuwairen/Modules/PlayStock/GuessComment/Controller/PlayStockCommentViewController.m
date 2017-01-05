@@ -23,6 +23,7 @@
 #import "LoginViewController.h"
 #import "MJRefresh.h"
 #import "NotificationDef.h"
+#import "NSString+Emoji.h"
 
 @interface PlayStockCommentViewController ()<UITableViewDelegate, UITableViewDataSource, SQTopicTableViewCellDelegate, GuessCommentPublishDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -140,7 +141,7 @@
         dict[@"comment_id"] = commentId;
     }
     
-    dict[@"content"] = content;
+    dict[@"content"] = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
     __weak PlayStockCommentViewController *wself = self;
     [ma POST:API_GameAddComment parameters:dict completion:^(id data, NSError *error){
