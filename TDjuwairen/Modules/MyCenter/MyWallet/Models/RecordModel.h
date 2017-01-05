@@ -20,8 +20,9 @@
 
 @property (nonatomic,strong) NSString *record_time;
 
-@property (nonatomic,strong) NSString *record_type;
+@property (nonatomic, assign) NSInteger record_type;
 
 + (RecordModel *)getInstanceWithDic:(NSDictionary *)dic;
 
+- (NSString *)typeString;
 @end

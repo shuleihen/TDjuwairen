@@ -113,9 +113,9 @@
         cell.delegate = self;
         
         [cell setupUIWithString:model.record_keynum andIndexPath:indexPath];
-        cell.IDLab.text = @"解锁股票";
+        cell.IDLab.text = model.typeString;
         cell.orderTitle.text = model.record_item;
-        cell.timeLab.text = @"解锁时间：";
+        cell.timeLab.text = @"生成时间：";
         cell.orderTime.text = model.record_time;
         cell.moneyImg.image = [UIImage imageNamed:@"key_yellow"];
         cell.orderMoney.textColor = yelloTextColor;

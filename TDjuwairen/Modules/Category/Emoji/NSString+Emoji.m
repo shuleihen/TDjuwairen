@@ -58,11 +58,6 @@
     unsigned uc;
     [aScanner scanHexInt:&uc];
     
-    NSString *scanString = @"[0x1F600]";
-    NSScanner *bScanner = [NSScanner scannerWithString:scanString];
-    unsigned r;
-    [bScanner scanHexInt:&r];
-    
     NSString *emoji = @"";
     
     if (0x1d000 <= uc && uc <= 0x1f9cf) {

@@ -64,7 +64,6 @@
     // 绘制下注
     for (NSString *pri in self.buyIndexs) {
 
-        double radin = [self radinWithPri:[pri floatValue]];
         CGPoint point = [self pointWithPri:[pri floatValue]];
         UIImage *key = [UIImage imageNamed:@"icon_key_small.png"];
         CGRect rect = CGRectMake(point.x - key.size.width/2, point.y-key.size.height/2, key.size.width, key.size.height);
