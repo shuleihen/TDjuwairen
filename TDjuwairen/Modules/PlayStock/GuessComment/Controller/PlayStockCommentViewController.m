@@ -46,8 +46,12 @@
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
     
+    MJRefreshFooter *mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    mj_footer.automaticallyHidden = YES;
+    self.tableView.mj_footer = mj_footer;
+    
+    self.page = 1;
     [self queryGuessComment];
 }
 
@@ -95,8 +99,13 @@
                 [self.tableView.mj_footer endRefreshingWithNoMoreData];
             }
             
+            if (wself.page == 1) {
+                wself.dataArray = array;
+            } else {
+                [wself.dataArray addObjectsFromArray:array];
+            }
+            
             wself.page += 1;
-            wself.dataArray = array;
         }
     
         [wself.tableView reloadData];
