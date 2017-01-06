@@ -65,7 +65,7 @@
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
-    self.accountText.placeholder = @"手机号码/邮箱";
+    self.accountText.placeholder = @"手机号码";
     self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
