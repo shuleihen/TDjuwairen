@@ -18,7 +18,7 @@
 @property (nonatomic, assign) NSInteger buyKeyNum;
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, assign) BOOL isWin;
-@property (nonatomic, assign) float odds;
+@property (nonatomic, assign) int odds;
 @property (nonatomic, copy) NSString *stockName;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, copy) NSString *statusString;

@@ -20,7 +20,7 @@
         self.buyKeyNum = [dict[@"item_keynum"] integerValue];
         self.addTime = dict[@"item_addtime"];
         self.isWin = [dict[@"item_iswin"] boolValue];
-        self.odds = [dict[@"item_odds"] floatValue];
+        self.odds = [dict[@"item_odds"] intValue];
         self.stockName = dict[@"guess_name"];
         self.status = [dict[@"guess_status"] integerValue];
         self.statusString = dict[@"guess_reword"];
