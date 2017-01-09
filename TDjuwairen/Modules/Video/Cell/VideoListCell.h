@@ -1,5 +1,5 @@
 //
-//  SurveyTableViewCell.h
+//  VideoListCell.h
 //  TDjuwairen
 //
 //  Created by 团大 on 16/5/16.
@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SurveyListModel.h"
 
-@interface SurveyTableViewCell : UITableViewCell
+@interface VideoListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIView *backview;
 @property (weak, nonatomic) IBOutlet UIImageView *imgview;
 @property (weak, nonatomic) IBOutlet UILabel *titlelabel;
@@ -17,4 +18,5 @@
 
 @property (nonatomic,strong) UIView *labelbackview;
 
+- (void)setupModel:(SurveyListModel *)model;
 @end
