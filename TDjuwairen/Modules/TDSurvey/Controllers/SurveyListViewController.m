@@ -27,6 +27,8 @@
 #import "UIdaynightModel.h"
 #import "SurveyDetailViewController.h"
 #import "WelcomeView.h"
+#import "PersonalCenterViewController.h"
+#import "TDNavigationController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -169,7 +171,9 @@
 }
 
 - (void)avatarPressed:(id)sender {
-    self.tabBarController.selectedIndex = 3;
+    PersonalCenterViewController *vc = [[PersonalCenterViewController alloc] init];
+    TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:nav animated:YES completion:nil];
 }
 
 - (void)notificationPressed:(id)sender {

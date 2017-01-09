@@ -46,15 +46,14 @@
     self.setupImgArr = @[@"icon_night.png",@"icon_remind.png",@"icon_issued.png",@"icon_collection.png",@"icon_setting.png",@"icon_us.png"];
     self.setupTitleArr = @[@"夜间模式",@"消息提醒",@"发布管理",@"我的收藏",@"设置",@"关于我们"];
     
+    [self setupNavigationBar];
     [self setupWithTableView];
-    // Do any additional setup after loading the view.
 }
 
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
@@ -72,9 +71,14 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
+- (void)setupNavigationBar {
+    self.navigationItem.title = @"我的";
+    
+    UIBarButtonItem *cancel = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(cancelPressed:)];
+    self.navigationItem.leftBarButtonItem = cancel;
+}
 
 - (void)setupWithTableView {
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-50) style:UITableViewStyleGrouped];
@@ -218,6 +222,10 @@
 }
 
 #pragma mark - Action
+- (void)cancelPressed:(id)sender {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 - (void)myInfoPressed:(id)sender {
     if (US.isLogIn == NO) {
         //跳转到登录页面
