@@ -50,10 +50,12 @@
     self.stockNameLabel.text = stockGuess.stockName;
     self.stockWheel.buyIndexs = stockGuess.guessPoints;
     
+    BOOL isToday = [self isTodayWithEndTime:stockGuess.endTime];
+    
     if (stockGuess.season == 1) {
-        self.sessionLabel.text = @"上午场";
+        self.sessionLabel.text = isToday?@"上午场":@"明天上午场";
     } else if (stockGuess.season == 2) {
-        self.sessionLabel.text = @"下午场";
+        self.sessionLabel.text = isToday?@"下午场":@"明天下午场";
     }
     
     NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
@@ -93,6 +95,20 @@
 - (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess {
     NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
     self.timeLabel.text = [NSString stringWithFormat:@"剩余时间 %@",time];
+}
+
+- (BOOL)isTodayWithEndTime:(NSTimeInterval)endTime {
+    BOOL isToday = YES;
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:endTime];
+    NSDate *now = [NSDate date];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *dateCom = [calendar components:NSCalendarUnitDay fromDate:date];
+    NSDateComponents *nowCom = [calendar components:NSCalendarUnitDay fromDate:now];
+    
+    isToday = dateCom.day == nowCom.day;
+    
+    return isToday;
 }
 
 - (NSString *)intervalNowDateWithDateInterval:(NSTimeInterval)endTime {
