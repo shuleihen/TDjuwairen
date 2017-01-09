@@ -241,6 +241,7 @@
 		19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C291E232FB2001B72CD /* VideoListCell.xib */; };
 		19F43C2E1E23335B001B72CD /* NewTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C2D1E23335B001B72CD /* NewTableViewCell.m */; };
 		19F43C311E23339B001B72CD /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C301E23339B001B72CD /* SurveyListModel.m */; };
+		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54481D5D7DF40011BA33 /* YXFont.m */; };
 		2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2651D015EEE00916844 /* SystemConfiguration.framework */; };
@@ -897,6 +898,7 @@
 		19F43C2D1E23335B001B72CD /* NewTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NewTableViewCell.m; sourceTree = "<group>"; };
 		19F43C2F1E23339B001B72CD /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyListModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyListModel.h; sourceTree = SOURCE_ROOT; };
 		19F43C301E23339B001B72CD /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveyListModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyListModel.m; sourceTree = SOURCE_ROOT; };
+		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19FB54431D5C81EA0011BA33 /* YXCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXCheckBox.h; sourceTree = "<group>"; };
 		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		19FB54471D5D7DF40011BA33 /* YXFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXFont.h; sourceTree = "<group>"; };
@@ -1409,6 +1411,7 @@
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				19F43C321E233A1C001B72CD /* playStock.wav */,
 				19DFE23F1E11174000CC3C3F /* DKColorTable.txt */,
 				19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */,
 				193EF0791D392CE00043F3EB /* availableTags.plist */,
@@ -3414,6 +3417,7 @@
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				19A5AC561E0A911D00FE953A /* AskTableViewCell.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
+				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,

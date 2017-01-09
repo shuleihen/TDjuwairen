@@ -23,6 +23,7 @@
 #import "PushMessageViewController.h"
 #import "MyGuessViewController.h"
 #import "NotificationDef.h"
+#import <AudioToolbox/AudioToolbox.h>
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -198,6 +199,15 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)playAudio {
+    NSString *audioFile = [[NSBundle mainBundle] pathForResource:@"playStock" ofType:@"wav"];
+    NSURL *fileUrl=[NSURL fileURLWithPath:audioFile];
+    
+    SystemSoundID soundID=0;
+    AudioServicesCreateSystemSoundID((__bridge CFURLRef)(fileUrl), &soundID);
+    AudioServicesPlaySystemSound(soundID);
+}
+
 - (void)showGuessViewControllerWithGuess:(StockGuessModel *)guess {
     
     if (self.keyNum <= 0) {
@@ -310,21 +320,21 @@
 #pragma mark - GuessAddPourDelegate
 - (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
     /*
+    __weak StockIndexViewController *wself = self;
     for (int i=0;i < [self.guessList count];i++) {
         StockGuessModel *guess = self.guessList[i];
-        if ([guess.stockId isEqualToString:stockId]) {
-            NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            StockGuessListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+        if ([guess.guessId isEqualToString:guessId]) {
             
-            [self addGuessPri:pri withStockId:stockId];
-            [self addGuessAnimationToCell:cell withPri:pri];
+            [wself addAnimationWithGuessId:guessId withPri:pri];
+            [wself queryGuessStock];
+            [wself playAudio];
         }
         
     }
     
     return;
-     */
-    
+     
+    */
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSString *point = [NSString stringWithFormat:@"%.2f",pri];
     
@@ -354,6 +364,7 @@
             if (status) {
                 [wself addAnimationWithGuessId:guessId withPri:pri];
                 [wself queryGuessStock];
+                [wself playAudio];
             } else {
                 errorBlock(@"竞猜失败");
             }
