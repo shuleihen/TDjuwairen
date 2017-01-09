@@ -24,7 +24,7 @@
         self.CommentManage.backgroundColor = [UIColor clearColor];
         
         self.CollectManage = [[ButtonView alloc]initWithFrame:CGRectMake((kScreenWidth-2)/3+1, 0, (kScreenWidth-2)/3, kButtonPanelHeight)];
-        self.CollectManage.imageview.image = [UIImage imageNamed:@"icon_ attention.png"];
+        self.CollectManage.imageview.image = [UIImage imageNamed:@"icon_attention.png"];
         self.CollectManage.imageview.contentMode = UIViewContentModeScaleAspectFit;
         self.CollectManage.label.text = @"我的关注";
         self.CollectManage.backgroundColor = [UIColor clearColor];

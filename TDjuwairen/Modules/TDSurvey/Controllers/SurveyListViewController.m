@@ -29,6 +29,7 @@
 #import "WelcomeView.h"
 #import "PersonalCenterViewController.h"
 #import "TDNavigationController.h"
+#import "UIButton+Align.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -62,10 +63,51 @@
 - (SDCycleScrollView *)cycleScrollView {
     if (!_cycleScrollView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kBannerHeiht);
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:self placeholderImage:[UIImage imageNamed:@"bannerPlaceholder"]];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:self placeholderImage:[UIImage imageNamed:@"bannerPlaceholder.png"]];
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     }
     return _cycleScrollView;
+}
+
+- (UIView *)tableViewHeaderView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kBannerHeiht+76)];
+    [view addSubview:self.cycleScrollView];
+    
+    NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"敬请期待"];
+    NSArray *images = @[@"icon_attention.png",@"icon_attention.png",@"icon_attention.png",@"icon_attention.png"];
+    NSArray *selectors = @[@"subscribePressed:",@"surveyPressed:",@"gradePressed:",@"morePressed:"];
+    
+    int i=0;
+    CGFloat w = kScreenWidth/4;
+    for (NSString *title in titles) {
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, kBannerHeiht, w, 76)];
+        btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        
+        [btn setTitle:title forState:UIControlStateNormal];
+        [btn setTitle:title forState:UIControlStateNormal];
+        
+        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateHighlighted];
+        
+        UIImage *image = [UIImage imageNamed:images[i]];
+        [btn setImage:image forState:UIControlStateNormal];
+        [btn setImage:image forState:UIControlStateHighlighted];
+        
+        SEL action = NSSelectorFromString(selectors[i]);
+        [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+        
+        [btn align:BAVerticalImage withSpacing:8.0f];
+        [view addSubview:btn];
+        i++;
+    }
+
+    UIImageView *sep = [[UIImageView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
+    sep.image = [UIImage imageNamed:@"slipLine.png"];
+    [view addSubview:sep];
+    
+    view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    
+    return view;
 }
 
 - (void)viewDidLoad {
@@ -87,12 +129,11 @@
     
     [self setupNavigationBar];
     [self setupTableView];
+    [self addRefreshView];
     
     [self getBanners];
-    
     [self getSurveyWithPage:self.page];
-    
-    [self addRefreshView];
+
     
     [self requestToLogin];
 }
@@ -158,7 +199,7 @@
 - (void)setupTableView {
     self.tableView.rowHeight = 125;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.tableHeaderView = self.cycleScrollView;
+    self.tableView.tableHeaderView = [self tableViewHeaderView];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
     [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
@@ -192,6 +233,22 @@
     SearchViewController *searchView = [[SearchViewController alloc] init];
     searchView.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:searchView animated:YES];
+}
+
+- (void)subscribePressed:(id)sender {
+    
+}
+
+- (void)surveyPressed:(id)sender {
+    
+}
+
+- (void)gradePressed:(id)sender {
+    
+}
+
+- (void)morePressed:(id)sender {
+    
 }
 
 - (void)getBanners {
