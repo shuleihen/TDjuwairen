@@ -71,6 +71,7 @@
 #define API_SurveyDetailHeader  @"Survey/survey_show_header"
 #define API_GetGuessIndex       @"Game/guessIndex"
 
+#define API_GameImage           @"Game/guessImage"
 #define API_GuessIndexList      @"Game/indexGuessing"
 #define API_GuessAddJoin        @"Game/addUserGuessing"
 #define API_GameMyGuess         @"Game/myGuessList"

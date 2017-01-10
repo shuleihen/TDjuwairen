@@ -9,8 +9,9 @@
 #import "PlayStockViewController.h"
 #import "KeysExchangeViewController.h"
 #import "LoginViewController.h"
-
+#import "NetworkManager.h"
 #import "LoginState.h"
+#import "UIButton+WebCache.h"
 
 @interface PlayStockViewController ()
 
@@ -25,6 +26,47 @@
     
     self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
+    [self queryPlayStockList];
+}
+
+- (void)queryPlayStockList {
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    __weak PlayStockViewController *wself = self;
+    [ma POST:API_GameImage parameters:nil completion:^(id data, NSError *error){
+        
+        if (!error && data) {
+            [wself addImageList:data];
+        } else {
+            [wself addDefault];
+        }
+    }];
+}
+
+- (void)addImageList:(NSArray *)list {
+    int i=0;
+    for (NSDictionary *dict in list) {
+        int type = [dict[@"game_type"] intValue];
+        NSString *url = dict[@"game_imgurl"];
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        [btn sd_setImageWithURL:[NSURL URLWithString:url] forState:UIControlStateNormal completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            CGFloat itemH = (image.size.height/image.size.width)*kScreenWidth;
+            btn.frame = CGRectMake(0, i*itemH, kScreenWidth, itemH);
+        }];
+        i++;
+        
+        if (type == 1) {
+            [btn addTarget:self action:@selector(playStockIndexPressed:) forControlEvents:UIControlEventTouchUpInside];
+        } else if (type == 2) {
+            [btn addTarget:self action:@selector(playStockMarketPressed:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        [self.view addSubview:btn];
+    }
+    
+}
+
+- (void)addDefault {
     UIImage *image = [UIImage imageNamed:@"ad_zhishu.png"];
     CGFloat itemH = (image.size.height/image.size.width)*kScreenWidth;
     
@@ -39,15 +81,14 @@
     down.frame = CGRectMake(0, CGRectGetHeight(up.frame), kScreenWidth, itemH);
     [down setBackgroundImage:[UIImage imageNamed:@"ad_mine.png"] forState:UIControlStateNormal];
     [down setBackgroundImage:[UIImage imageNamed:@"ad_mine.png"] forState:UIControlStateHighlighted];
-//    [down addTarget:self action:@selector(playStockIndexPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [down addTarget:self action:@selector(playStockMarketPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:down];
 }
 
-
 - (void)playStockMarketPressed:(id)sender{
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateInitialViewController];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+//    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateInitialViewController];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)playStockIndexPressed:(id)sender{
