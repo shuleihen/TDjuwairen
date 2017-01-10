@@ -174,6 +174,7 @@
 		19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98201E24AB270097A585 /* MyGuessViewController.m */; };
 		19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98221E24AB270097A585 /* StockIndexViewController.m */; };
 		19AF98281E24AB4D0097A585 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98271E24AB4D0097A585 /* AddAddressViewController.m */; };
+		19AF982B1E24CE3E0097A585 /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF982A1E24CE3E0097A585 /* SurveyContentListController.m */; };
 		19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */; };
 		19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C931D655B9E00BB4DF4 /* DDASLLogCapture.m */; };
 		19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C951D655B9E00BB4DF4 /* DDASLLogger.m */; };
@@ -765,6 +766,8 @@
 		19AF98221E24AB270097A585 /* StockIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockIndexViewController.m; sourceTree = "<group>"; };
 		19AF98261E24AB4D0097A585 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
 		19AF98271E24AB4D0097A585 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
+		19AF98291E24CE3E0097A585 /* SurveyContentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyContentListController.h; sourceTree = "<group>"; };
+		19AF982A1E24CE3E0097A585 /* SurveyContentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyContentListController.m; sourceTree = "<group>"; };
 		19B11C8F1D655B9E00BB4DF4 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
 		19B11C901D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
@@ -1794,10 +1797,10 @@
 		1955B4051D644D9800DC102E /* Search */ = {
 			isa = PBXGroup;
 			children = (
+				1955B40F1D644D9800DC102E /* Views */,
 				1955B4061D644D9800DC102E /* cells */,
 				1955B40D1D644D9800DC102E /* SearchViewController.h */,
 				1955B40E1D644D9800DC102E /* SearchViewController.m */,
-				1955B40F1D644D9800DC102E /* Views */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -2744,6 +2747,8 @@
 			children = (
 				84069EC11DB496D200CB21DA /* SurveyListViewController.h */,
 				84069EC21DB496D200CB21DA /* SurveyListViewController.m */,
+				19AF98291E24CE3E0097A585 /* SurveyContentListController.h */,
+				19AF982A1E24CE3E0097A585 /* SurveyContentListController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3745,6 +3750,7 @@
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,
 				1955B4801D644D9800DC102E /* JWRImageView.m in Sources */,
 				19A5AC7D1E0AB74B00FE953A /* AnsPublishViewController.m in Sources */,
+				19AF982B1E24CE3E0097A585 /* SurveyContentListController.m in Sources */,
 				1955B4A41D644D9800DC102E /* FloorView.m in Sources */,
 				194186EF1DF90CA4000C5197 /* WelcomeView.m in Sources */,
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,

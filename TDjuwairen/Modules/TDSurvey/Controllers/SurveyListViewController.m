@@ -24,41 +24,32 @@
 #import "LoginViewController.h"
 #import "HexColors.h"
 #import "MJRefresh.h"
-#import "UIdaynightModel.h"
 #import "SurveyDetailViewController.h"
 #import "WelcomeView.h"
 #import "PersonalCenterViewController.h"
 #import "TDNavigationController.h"
 #import "UIButton+Align.h"
+#import "HMSegmentedControl.h"
+#import "SurveyContentListController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
+#define kButtonViewHeight 76
+#define kSegmentHeight 34
 
+@interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate, SurveyContentListDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
-@interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, SDCycleScrollViewDelegate>
-@property (nonatomic, strong) NSMutableArray *surveyList;
-@property (nonatomic, strong) NSDictionary *stockDict;
-@property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong) NSArray *bannerLinks;
-@property (nonatomic, assign) NSInteger page;
-@property (nonatomic, strong) NSMutableArray *stockArr;
-
-@property (nonatomic, strong) UIdaynightModel *daynightModel;
 
 @property (nonatomic, strong) WelcomeView *welcomeView;
+@property (nonatomic, strong) HMSegmentedControl *segmentControl;
+@property (nonatomic, strong) NSMutableArray *contentControllers;
+@property (nonatomic, strong) UIPageViewController *pageViewController;
+
 @end
 
 @implementation SurveyListViewController
-
-- (StockManager *)stockManager {
-    if (!_stockManager) {
-        _stockManager = [[StockManager alloc] init];
-        _stockManager.delegate = self;
-    }
-    
-    return _stockManager;
-}
 
 - (SDCycleScrollView *)cycleScrollView {
     if (!_cycleScrollView) {
@@ -70,17 +61,23 @@
 }
 
 - (UIView *)tableViewHeaderView {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kBannerHeiht+76)];
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kBannerHeiht+kButtonViewHeight+10)];
+    view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    
     [view addSubview:self.cycleScrollView];
     
+    UIView *buttonContain = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht, kScreenHeight, kButtonViewHeight)];
+    buttonContain.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    [view addSubview:buttonContain];
+    
     NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"敬请期待"];
-    NSArray *images = @[@"icon_attention.png",@"icon_attention.png",@"icon_attention.png",@"icon_attention.png"];
+    NSArray *images = @[@"fun_weekly.png",@"fun_investigation.png",@"fun_ranking.png",@"fun_more.png"];
     NSArray *selectors = @[@"subscribePressed:",@"surveyPressed:",@"gradePressed:",@"morePressed:"];
     
     int i=0;
     CGFloat w = kScreenWidth/4;
     for (NSString *title in titles) {
-        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, kBannerHeiht, w, 76)];
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, 0, w, kButtonViewHeight)];
         btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         
         [btn setTitle:title forState:UIControlStateNormal];
@@ -97,7 +94,7 @@
         [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
         
         [btn align:BAVerticalImage withSpacing:8.0f];
-        [view addSubview:btn];
+        [buttonContain addSubview:btn];
         i++;
     }
 
@@ -105,60 +102,72 @@
     sep.image = [UIImage imageNamed:@"slipLine.png"];
     [view addSubview:sep];
     
-    view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    
     return view;
+}
+
+- (HMSegmentedControl *)segmentControl {
+    if (!_segmentControl) {
+        _segmentControl = [[HMSegmentedControl alloc] init];
+        _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+        _segmentControl.titleTextAttributes =@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                               NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#666666"]};
+        _segmentControl.selectedTitleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                                        NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
+        _segmentControl.selectionIndicatorHeight = 3.0f;
+        _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+//        _segmentControl.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0, -5, 0, -5);
+        [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
+    }
+    
+    return _segmentControl;
+}
+
+
+- (NSMutableArray *)contentControllers {
+    if (!_contentControllers) {
+        _contentControllers = [NSMutableArray arrayWithCapacity:7];
+        
+        __weak SurveyListViewController *wself = self;
+        
+        for (int i=0; i<3; i++) {
+            SurveyContentListController *vc = [[SurveyContentListController alloc] init];
+            vc.rootController = wself;
+            vc.tag = i;
+            vc.delegate = wself;
+            [_contentControllers addObject:vc];
+        }
+    }
+    
+    return _contentControllers;
+}
+
+- (UIPageViewController *)pageViewController {
+    if (!_pageViewController) {
+        
+        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
+                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+        _pageViewController.dataSource = self;
+        _pageViewController.delegate = self;
+        
+    }
+    return _pageViewController;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightModel = [UIdaynightModel sharedInstance];
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        [self.daynightModel day];
-    }
-    else
-    {
-        [self.daynightModel night];
-    }
-    
-    self.stockArr = [NSMutableArray array];
-    self.page = 1;
-    
     [self setupNavigationBar];
     [self setupTableView];
-    [self addRefreshView];
     
     [self getBanners];
-    [self getSurveyWithPage:self.page];
-
-    
     [self requestToLogin];
-}
-
-- (void)addRefreshView{
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
-}
-
-- (void)refreshAction {
-    //数据表页数为1
-    self.page = 1;
-    [self getSurveyWithPage:self.page];
-}
-
-- (void)loadMoreAction {
-    self.page++;
-    //继续请求
-    [self getSurveyWithPage:self.page];
+    
+    [self setupSegmentWithTitles:@[@"自选",@"最新",@"推荐"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.stockManager start];
     
     if (US.isLogIn) {
         UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
@@ -171,10 +180,9 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [self.stockManager stop];
 }
 
+#pragma mark - Setup
 - (void)setupNavigationBar {
     UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -197,12 +205,22 @@
 }
 
 - (void)setupTableView {
-    self.tableView.rowHeight = 125;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.tableHeaderView = [self tableViewHeaderView];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
-    [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
+
+- (void)setupSegmentWithTitles:(NSArray *)titles {
+    CGFloat w = [titles count]*70;
+    self.segmentControl.sectionTitles = titles;
+    self.segmentControl.frame = CGRectMake(0, 0, w, kSegmentHeight);
+    if ([titles count]) {
+        self.segmentControl.selectedSegmentIndex = 0;
+        [self segmentPressed:self.segmentControl];
+    }
 }
 
 #pragma mark - Action 
@@ -251,6 +269,24 @@
     
 }
 
+- (void)segmentPressed:(HMSegmentedControl *)sender {
+    NSInteger index = sender.selectedSegmentIndex;
+    __weak SurveyListViewController *wself = self;
+    SurveyContentListController *vc = self.contentControllers[index];
+    
+    [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
+        [wself.tableView reloadData];
+    }];
+}
+
+- (void)refreshAction {
+    [[self currentContentViewController] refreshData];
+}
+
+- (void)loadMoreAction {
+    [[self currentContentViewController] loadMoreData];
+}
+
 - (void)getBanners {
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"version":@"2.0"};
@@ -275,64 +311,26 @@
     }];
 }
 
-- (void)getSurveyWithPage:(NSInteger)pageA {
-    __weak SurveyListViewController *wself = self;
-    
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
-    [manager GET:url parameters:nil completion:^(id data, NSError *error){
-        if (!error) {
-            NSArray *dataArray = data;
-            
-            if (dataArray.count > 0) {
-                NSMutableArray *list = nil;
-                if (wself.page == 1) {
-                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-                } else {
-                    list = [NSMutableArray arrayWithArray:wself.surveyList];
-                }
-                
-                for (NSDictionary *d in dataArray) {
-                    SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
-                    [list addObject:model];
-                    [wself.stockArr addObject:model.companyCode];
-                    
-                }
-                wself.surveyList = [NSMutableArray arrayWithArray:list];
-            }
-            [self.stockManager addStocks:self.stockArr];
-            
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-            [wself.tableView reloadData];
-            
-        } else {
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-        }
-    }];
+- (SurveyContentListController *)currentContentViewController {
+    NSInteger index = self.segmentControl.selectedSegmentIndex;
+    if (index >= 0 && index < [self.contentControllers count]) {
+        return self.contentControllers[index];
+    } else {
+        return nil;
+    }
 }
 
-- (void)pushToSurveyDetailControllerWithRow:(NSInteger)row {
-    if (row <0 || row>[self.surveyList count]) {
-        return;
+#pragma mark - SurveyContentListDelegate
+- (void)contentListLoadComplete {
+    if ([self.tableView.mj_footer isRefreshing]) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+
+    if ([self.tableView.mj_header isRefreshing]) {
+        [self.tableView.mj_header endRefreshing];
     }
     
-    SurveyModel *survey = self.surveyList[row];
-    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
-    
-    //    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-    //    vc.company_name = survey.companyName;
-    //    vc.company_code = survey.companyCode;
-    //    vc.survey_cover = survey.surveyCover;
-    //    vc.hidesBottomBarWhenPushed = YES;
-    //    [self.navigationController pushViewController:vc animated:YES];
-    //
-    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockInfo = stock;
-    vc.stockId = survey.companyCode;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.tableView reloadData];
 }
 
 #pragma mark - SDCycleScrollViewDelegate
@@ -384,65 +382,98 @@
     }
 }
 
-#pragma mark - StockManagerDelegate
-- (void)reloadWithStocks:(NSDictionary *)stocks {
-    self.stockDict = stocks;
-    [self.tableView reloadData];
-}
-
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.surveyList count];
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 1;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return kSegmentHeight;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
+    view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    
+    [view addSubview:self.segmentControl];
+    
+    UIImageView *sep = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
+    sep.image = [UIImage imageNamed:@"slipLine.png"];
+    [view addSubview:sep];
+    
+    UIImageView *sep2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 0.5)];
+    sep2.image = [UIImage imageNamed:@"slipLine.png"];
+    [view addSubview:sep2];
+    
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    CGFloat height = [[self currentContentViewController] contentHeight];
+    CGFloat minHeight = kScreenHeight - 64-kBannerHeiht-kButtonViewHeight-10-50;
+    return MAX(height, minHeight);
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
-    cell.isLeft = indexPath.section%2;
-    cell.stockNameLabel.textColor = self.daynightModel.textColor;
-    cell.surveyTitleLabel.textColor = self.daynightModel.textColor;
-    cell.backgroundColor = self.daynightModel.navigationColor;
+
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveyListContentCellID"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SurveyListContentCellID"];
+        [cell.contentView addSubview:self.pageViewController.view];
+    }
+    
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    SurveryStockListCell *scell = (SurveryStockListCell *)cell;
-    SurveyModel *survey = self.surveyList[indexPath.section];
-    [scell setupSurvey:survey];
+
+#pragma mark - UIPageViewControllerDataSource
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
     
-    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
-    [scell setupStock:stock];
+    NSInteger index = [self.contentControllers indexOfObject:viewController];
+    NSInteger before = index - 1;
+    
+    if (before < 0) {
+        return nil;
+    } else {
+        return self.contentControllers[before];
+    }
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
     
-    SurveyModel *survey = self.surveyList[indexPath.section];
-    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
+    NSInteger index = [self.contentControllers indexOfObject:viewController];
+    NSInteger after = index + 1;
     
-//    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-//    vc.company_name = survey.companyName;
-//    vc.company_code = survey.companyCode;
-//    vc.survey_cover = survey.surveyCover;
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
-//
-    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockInfo = stock;
-    vc.stockId = survey.companyCode;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (after >= [self.contentControllers count]) {
+        return nil;
+    } else {
+        return self.contentControllers[after];
+    }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.001f;
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10.0f;
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if (!completed) {
+        return;
+    }
+    if (!finished) {
+        return;
+    }
+    
+    UIViewController *currentVc = [pageViewController.viewControllers firstObject];
+    NSInteger index = [self.contentControllers indexOfObject:currentVc];
+    
+    if (index != self.segmentControl.selectedSegmentIndex) {
+        self.segmentControl.selectedSegmentIndex = index;
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - 保持登录

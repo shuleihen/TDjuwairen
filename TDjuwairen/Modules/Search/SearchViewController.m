@@ -169,7 +169,6 @@
     [titleview addSubview:self.customSearchBar];
 }
 
-#pragma mark - 设置tableview初始化UserDefaults
 - (void)setupWithTableview{
     self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 64, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
     self.tableview.delegate = self;
@@ -188,6 +187,7 @@
     
 }
 
+#pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     if (self.customSearchBar.text.length == 0) {
@@ -527,7 +527,6 @@
     
 }
 
-#pragma mark - cell的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (self.customSearchBar.text.length == 0) {
@@ -588,7 +587,6 @@
     
 }
 
-#pragma mark - section头的高度
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
 {
     return 5;
@@ -599,7 +597,6 @@
     return 5;
 }
 
-#pragma mark - 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     /* 取消选中状态 */

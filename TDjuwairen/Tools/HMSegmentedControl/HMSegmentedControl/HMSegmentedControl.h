@@ -13,23 +13,23 @@
 typedef void (^IndexChangeBlock)(NSInteger index);
 typedef NSAttributedString *(^HMTitleFormatterBlock)(HMSegmentedControl *segmentedControl, NSString *title, NSUInteger index, BOOL selected);
 
-typedef enum {
+typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionStyle) {
     HMSegmentedControlSelectionStyleTextWidthStripe, // Indicator width will only be as big as the text width
     HMSegmentedControlSelectionStyleFullWidthStripe, // Indicator width will fill the whole segment
     HMSegmentedControlSelectionStyleBox, // A rectangle that covers the whole segment
     HMSegmentedControlSelectionStyleArrow // An arrow in the middle of the segment pointing up or down depending on `HMSegmentedControlSelectionIndicatorLocation`
-} HMSegmentedControlSelectionStyle;
+};
 
-typedef enum {
+typedef NS_ENUM(NSInteger, HMSegmentedControlSelectionIndicatorLocation) {
     HMSegmentedControlSelectionIndicatorLocationUp,
     HMSegmentedControlSelectionIndicatorLocationDown,
 	HMSegmentedControlSelectionIndicatorLocationNone // No selection indicator
-} HMSegmentedControlSelectionIndicatorLocation;
+};
 
-typedef enum {
+typedef NS_ENUM(NSInteger, HMSegmentedControlSegmentWidthStyle) {
     HMSegmentedControlSegmentWidthStyleFixed, // Segment width is fixed
     HMSegmentedControlSegmentWidthStyleDynamic, // Segment width will only be as big as the text width (including inset)
-} HMSegmentedControlSegmentWidthStyle;
+};
 
 typedef NS_OPTIONS(NSInteger, HMSegmentedControlBorderType) {
     HMSegmentedControlBorderTypeNone = 0,
@@ -43,11 +43,11 @@ enum {
     HMSegmentedControlNoSegment = -1   // Segment index for no selected segment
 };
 
-typedef enum {
+typedef NS_ENUM(NSInteger, HMSegmentedControlType) {
     HMSegmentedControlTypeText,
     HMSegmentedControlTypeImages,
 	HMSegmentedControlTypeTextImages
-} HMSegmentedControlType;
+};
 
 @interface HMSegmentedControl : UIControl
 
@@ -89,11 +89,18 @@ typedef enum {
 @property (nonatomic, strong) UIColor *backgroundColor UI_APPEARANCE_SELECTOR;
 
 /**
- Color for the selection indicator stripe/box
+ Color for the selection indicator stripe
  
  Default is `R:52, G:181, B:229`
  */
 @property (nonatomic, strong) UIColor *selectionIndicatorColor UI_APPEARANCE_SELECTOR;
+
+/**
+ Color for the selection indicator box
+ 
+ Default is selectionIndicatorColor
+ */
+@property (nonatomic, strong) UIColor *selectionIndicatorBoxColor UI_APPEARANCE_SELECTOR;
 
 /**
  Color for the vertical divider between segments.
@@ -214,6 +221,8 @@ typedef enum {
  */
 @property (nonatomic, readwrite) UIEdgeInsets segmentEdgeInset;
 
+@property (nonatomic, readwrite) UIEdgeInsets enlargeEdgeInset;
+
 /**
  Default is YES. Set to NO to disable animation during user selection.
  */
@@ -223,6 +232,7 @@ typedef enum {
 - (id)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages;
 - (instancetype)initWithSectionImages:(NSArray *)sectionImages sectionSelectedImages:(NSArray *)sectionSelectedImages titlesForSections:(NSArray *)sectiontitles;
 - (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated;
+- (void)setSelectedSegmentIndex:(NSUInteger)index animated:(BOOL)animated notify:(BOOL)notify;
 - (void)setIndexChangeBlock:(IndexChangeBlock)indexChangeBlock;
 - (void)setTitleFormatter:(HMTitleFormatterBlock)titleFormatter;
 
