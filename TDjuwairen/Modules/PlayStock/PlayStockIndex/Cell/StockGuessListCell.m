@@ -53,9 +53,9 @@
     BOOL isToday = [self isTodayWithEndTime:stockGuess.endTime];
     
     if (stockGuess.season == 1) {
-        self.sessionLabel.text = isToday?@"上午场":@"明天上午场";
+        self.sessionLabel.text = isToday?@"今日上午场":@"明天上午场";
     } else if (stockGuess.season == 2) {
-        self.sessionLabel.text = isToday?@"下午场":@"明天下午场";
+        self.sessionLabel.text = isToday?@"今日下午场":@"明天下午场";
     }
     
     NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
