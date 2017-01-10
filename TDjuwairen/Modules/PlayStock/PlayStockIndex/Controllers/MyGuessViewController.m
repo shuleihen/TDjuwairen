@@ -12,6 +12,7 @@
 #import "LoginState.h"
 #import "MyGuessModel.h"
 #import "MyGuessCell.h"
+#import "AddAddressViewController.h"
 
 @interface MyGuessViewController ()
 @property (copy, nonatomic) NSArray *items;
@@ -65,31 +66,6 @@
             [wself.tableView reloadData];
         }
     }];
-
-    /*
-    MyGuessModel *one = [[MyGuessModel alloc] init];
-    one.stockName = @"上证指数";
-    one.season = 1;
-    one.seasonString = @"上午场";
-    one.buyPri = 3853.23;
-    one.buyKeyNum = 6;
-    one.status = 0;
-    one.statusString = @"待开奖";
-    one.addTime = @"2016.12.14 14:56";
-    
-    MyGuessModel *two = [[MyGuessModel alloc] init];
-    two.stockName = @"上证指数";
-    two.season = 1;
-    two.seasonString = @"上午场";
-    two.buyPri = 3853.23;
-    two.endPri = 3855.21;
-    two.isClosed = 1;
-    two.buyKeyNum = 3;
-    two.status = 2;
-    two.statusString = @"获10把钥匙";
-    two.addTime = @"2016.12.14 14:56";
-    self.items = @[one,two];
-    */
     
     [self.tableView reloadData];
 }
@@ -121,4 +97,9 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    AddAddressViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"AddAddressViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

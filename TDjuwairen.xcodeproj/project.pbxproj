@@ -10,7 +10,6 @@
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
-		19193B211E03B3E9000A6AD2 /* StockIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B1C1E03B3E9000A6AD2 /* StockIndexViewController.m */; };
 		19193B221E03B3E9000A6AD2 /* StockMarketViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B1F1E03B3E9000A6AD2 /* StockMarketViewController.m */; };
 		19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B241E03B402000A6AD2 /* PlayStockViewController.m */; };
 		19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B291E03C748000A6AD2 /* HMSegmentedControl.m */; };
@@ -169,6 +168,12 @@
 		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
 		19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD853E1DADCA80007BC000 /* UIImage+Resize.m */; };
+		19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */; };
+		19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98191E24A7880097A585 /* YXLocationPicker.m */; };
+		19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF981E1E24AB270097A585 /* GuessAddPourViewController.m */; };
+		19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98201E24AB270097A585 /* MyGuessViewController.m */; };
+		19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98221E24AB270097A585 /* StockIndexViewController.m */; };
+		19AF98281E24AB4D0097A585 /* AddAddressViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98271E24AB4D0097A585 /* AddAddressViewController.m */; };
 		19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */; };
 		19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C931D655B9E00BB4DF4 /* DDASLLogCapture.m */; };
 		19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C951D655B9E00BB4DF4 /* DDASLLogger.m */; };
@@ -218,11 +223,9 @@
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19E5F26E1E12614200984DBC /* BorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F26D1E12614200984DBC /* BorderButton.m */; };
-		19E5F2741E12685C00984DBC /* GuessAddPourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2731E12685C00984DBC /* GuessAddPourViewController.m */; };
 		19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2791E1364CF00984DBC /* GuessCommentModel.m */; };
 		19E5F2851E1364CF00984DBC /* MyGuessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27B1E1364CF00984DBC /* MyGuessModel.m */; };
 		19E5F2861E1364CF00984DBC /* StockGuessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27D1E1364CF00984DBC /* StockGuessModel.m */; };
-		19E5F2871E1364CF00984DBC /* MyGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2801E1364CF00984DBC /* MyGuessViewController.m */; };
 		19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2831E1364CF00984DBC /* StockWheelView.m */; };
 		19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */ = {isa = PBXBuildFile; fileRef = 19E5F28A1E1364E000984DBC /* PlayStockIndexRule.html */; };
 		19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2951E13653200984DBC /* SQCommentModel.m */; };
@@ -448,8 +451,6 @@
 		191027B01DE52FFE006A2275 /* YXTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTitleButton.h; sourceTree = "<group>"; };
 		191027B11DE52FFE006A2275 /* YXTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTitleButton.m; sourceTree = "<group>"; };
 		19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayStock.storyboard; sourceTree = "<group>"; };
-		19193B1B1E03B3E9000A6AD2 /* StockIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockIndexViewController.h; sourceTree = "<group>"; };
-		19193B1C1E03B3E9000A6AD2 /* StockIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockIndexViewController.m; sourceTree = "<group>"; };
 		19193B1E1E03B3E9000A6AD2 /* StockMarketViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockMarketViewController.h; sourceTree = "<group>"; };
 		19193B1F1E03B3E9000A6AD2 /* StockMarketViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockMarketViewController.m; sourceTree = "<group>"; };
 		19193B231E03B402000A6AD2 /* PlayStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockViewController.h; sourceTree = "<group>"; };
@@ -753,6 +754,17 @@
 		19A9721B1D4226A600A9D521 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		19AD853D1DADCA80007BC000 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		19AD853E1DADCA80007BC000 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ChineseSubdivisions.plist; sourceTree = "<group>"; };
+		19AF98181E24A7880097A585 /* YXLocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXLocationPicker.h; sourceTree = "<group>"; };
+		19AF98191E24A7880097A585 /* YXLocationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXLocationPicker.m; sourceTree = "<group>"; };
+		19AF981D1E24AB270097A585 /* GuessAddPourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessAddPourViewController.h; sourceTree = "<group>"; };
+		19AF981E1E24AB270097A585 /* GuessAddPourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessAddPourViewController.m; sourceTree = "<group>"; };
+		19AF981F1E24AB270097A585 /* MyGuessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuessViewController.h; sourceTree = "<group>"; };
+		19AF98201E24AB270097A585 /* MyGuessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuessViewController.m; sourceTree = "<group>"; };
+		19AF98211E24AB270097A585 /* StockIndexViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockIndexViewController.h; sourceTree = "<group>"; };
+		19AF98221E24AB270097A585 /* StockIndexViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockIndexViewController.m; sourceTree = "<group>"; };
+		19AF98261E24AB4D0097A585 /* AddAddressViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddAddressViewController.h; sourceTree = "<group>"; };
+		19AF98271E24AB4D0097A585 /* AddAddressViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddAddressViewController.m; sourceTree = "<group>"; };
 		19B11C8F1D655B9E00BB4DF4 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
 		19B11C901D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
@@ -855,16 +867,12 @@
 		19E519401D50A18B00CFF149 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
 		19E5F26C1E12614200984DBC /* BorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorderButton.h; sourceTree = "<group>"; };
 		19E5F26D1E12614200984DBC /* BorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderButton.m; sourceTree = "<group>"; };
-		19E5F2721E12685C00984DBC /* GuessAddPourViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessAddPourViewController.h; sourceTree = "<group>"; };
-		19E5F2731E12685C00984DBC /* GuessAddPourViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessAddPourViewController.m; sourceTree = "<group>"; };
 		19E5F2781E1364CF00984DBC /* GuessCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentModel.h; sourceTree = "<group>"; };
 		19E5F2791E1364CF00984DBC /* GuessCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentModel.m; sourceTree = "<group>"; };
 		19E5F27A1E1364CF00984DBC /* MyGuessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuessModel.h; sourceTree = "<group>"; };
 		19E5F27B1E1364CF00984DBC /* MyGuessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuessModel.m; sourceTree = "<group>"; };
 		19E5F27C1E1364CF00984DBC /* StockGuessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessModel.h; sourceTree = "<group>"; };
 		19E5F27D1E1364CF00984DBC /* StockGuessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessModel.m; sourceTree = "<group>"; };
-		19E5F27F1E1364CF00984DBC /* MyGuessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuessViewController.h; sourceTree = "<group>"; };
-		19E5F2801E1364CF00984DBC /* MyGuessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuessViewController.m; sourceTree = "<group>"; };
 		19E5F2821E1364CF00984DBC /* StockWheelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockWheelView.h; sourceTree = "<group>"; };
 		19E5F2831E1364CF00984DBC /* StockWheelView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockWheelView.m; sourceTree = "<group>"; };
 		19E5F28A1E1364E000984DBC /* PlayStockIndexRule.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = PlayStockIndexRule.html; sourceTree = "<group>"; };
@@ -1255,14 +1263,10 @@
 		19193B1A1E03B3E9000A6AD2 /* PlayStockIndex */ = {
 			isa = PBXGroup;
 			children = (
+				19AF981C1E24AB270097A585 /* Controllers */,
 				19E5F2771E1364CF00984DBC /* Model */,
-				19E5F27E1E1364CF00984DBC /* MyGuess */,
 				19E5F2811E1364CF00984DBC /* View */,
 				19347E4D1E0E3E2F00E651B5 /* Cell */,
-				19193B1B1E03B3E9000A6AD2 /* StockIndexViewController.h */,
-				19193B1C1E03B3E9000A6AD2 /* StockIndexViewController.m */,
-				19E5F2721E12685C00984DBC /* GuessAddPourViewController.h */,
-				19E5F2731E12685C00984DBC /* GuessAddPourViewController.m */,
 			);
 			path = PlayStockIndex;
 			sourceTree = "<group>";
@@ -2259,6 +2263,31 @@
 			path = TDjuwairen/Modules/Detail;
 			sourceTree = SOURCE_ROOT;
 		};
+		19AF98161E24A7880097A585 /* LocationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */,
+				19AF98181E24A7880097A585 /* YXLocationPicker.h */,
+				19AF98191E24A7880097A585 /* YXLocationPicker.m */,
+			);
+			path = LocationPicker;
+			sourceTree = "<group>";
+		};
+		19AF981C1E24AB270097A585 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19AF98261E24AB4D0097A585 /* AddAddressViewController.h */,
+				19AF98271E24AB4D0097A585 /* AddAddressViewController.m */,
+				19AF981D1E24AB270097A585 /* GuessAddPourViewController.h */,
+				19AF981E1E24AB270097A585 /* GuessAddPourViewController.m */,
+				19AF981F1E24AB270097A585 /* MyGuessViewController.h */,
+				19AF98201E24AB270097A585 /* MyGuessViewController.m */,
+				19AF98211E24AB270097A585 /* StockIndexViewController.h */,
+				19AF98221E24AB270097A585 /* StockIndexViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		19B11C8E1D655B9E00BB4DF4 /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -2548,15 +2577,6 @@
 				19E5F27D1E1364CF00984DBC /* StockGuessModel.m */,
 			);
 			path = Model;
-			sourceTree = "<group>";
-		};
-		19E5F27E1E1364CF00984DBC /* MyGuess */ = {
-			isa = PBXGroup;
-			children = (
-				19E5F27F1E1364CF00984DBC /* MyGuessViewController.h */,
-				19E5F2801E1364CF00984DBC /* MyGuessViewController.m */,
-			);
-			path = MyGuess;
 			sourceTree = "<group>";
 		};
 		19E5F2811E1364CF00984DBC /* View */ = {
@@ -3124,6 +3144,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19AF98161E24A7880097A585 /* LocationPicker */,
 				19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */,
 				19BA912D1E14DECA00C27124 /* PAStepper */,
 				19E5F26B1E12614200984DBC /* BorderButton */,
@@ -3439,6 +3460,7 @@
 				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
+				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
@@ -3560,7 +3582,6 @@
 				8470E94E1DDC3EB9002F727D /* RechargeView.m in Sources */,
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
 				846E59DE1DE3F77C0031C993 /* SelOrderBtnView.m in Sources */,
-				19E5F2871E1364CF00984DBC /* MyGuessViewController.m in Sources */,
 				845E7D151DE5892100E620DB /* KeysExchangeViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
@@ -3596,6 +3617,7 @@
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
 				19F43C2E1E23335B001B72CD /* NewTableViewCell.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
+				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				847BD6DE1DE69346006AEECE /* ExchangeTableViewCell.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
@@ -3630,6 +3652,7 @@
 				1955B4951D644D9800DC102E /* ViewPointTableViewCell.m in Sources */,
 				194186E21DF8132A000C5197 /* LoginState.m in Sources */,
 				847BD6F61DE6FD1C006AEECE /* PopUsExchangeSuccessView.m in Sources */,
+				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,
 				19A5AC811E0B6DEB00FE953A /* NiuxiongTableViewCell.m in Sources */,
 				1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
@@ -3670,6 +3693,7 @@
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				19A5ACBD1E0CCF9C00FE953A /* SurveyFontViewController.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
+				19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
 				84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
@@ -3696,8 +3720,6 @@
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,
 				1975952F1DED2A91006441BE /* StockHeaderView.m in Sources */,
-				19E5F2741E12685C00984DBC /* GuessAddPourViewController.m in Sources */,
-				19193B211E03B3E9000A6AD2 /* StockIndexViewController.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
 				19F43C311E23339B001B72CD /* SurveyListModel.m in Sources */,
@@ -3768,9 +3790,11 @@
 				847ADA931DF7E08B002600AA /* OptionalManageTableViewCell.m in Sources */,
 				1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
+				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				19A5AC761E0AB6A600FE953A /* SurveyDetailWebViewController.m in Sources */,
+				19AF98281E24AB4D0097A585 /* AddAddressViewController.m in Sources */,
 				1961DF441DF9524600A08A4B /* RegisterSetInfoTableViewController.m in Sources */,
 				19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */,
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,

@@ -52,7 +52,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下注" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by2-lj-q9c">
-                        <rect key="frame" x="234" y="54" width="25" height="15"/>
+                        <rect key="frame" x="234" y="53" width="25" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -79,7 +79,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ay-7T-Nx4">
-                        <rect key="frame" x="263" y="51" width="45" height="22"/>
+                        <rect key="frame" x="263" y="50.5" width="45" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="x 5" image="icon_key_small">
@@ -87,7 +87,7 @@
                         </state>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AT4-j4-udE">
-                        <rect key="frame" x="143" y="103" width="165" height="17"/>
+                        <rect key="frame" x="143" y="102" width="165" height="17"/>
                         <constraints>
                             <constraint firstAttribute="width" relation="lessThanOrEqual" constant="200" id="yBQ-4v-0G7"/>
                         </constraints>
@@ -95,8 +95,22 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hRP-w2-ZTD">
+                        <rect key="frame" x="245" y="6" width="65" height="24"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="77W-RN-aP8"/>
+                            <constraint firstAttribute="width" constant="65" id="ru5-hy-ghs"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="领取奖品">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="BfV-Is-ZzE" firstAttribute="top" secondItem="hRP-w2-ZTD" secondAttribute="bottom" constant="5" id="1Os-i1-mBE"/>
+                    <constraint firstAttribute="trailing" secondItem="hRP-w2-ZTD" secondAttribute="trailing" constant="10" id="4PM-7f-MVe"/>
                     <constraint firstItem="Aul-y1-9pc" firstAttribute="bottom" secondItem="vKo-SV-MSS" secondAttribute="bottom" id="4pn-sQ-saH"/>
                     <constraint firstItem="Aul-y1-9pc" firstAttribute="leading" secondItem="vKo-SV-MSS" secondAttribute="trailing" constant="15" id="6cM-U8-z9L"/>
                     <constraint firstItem="2Gd-bi-fLT" firstAttribute="top" secondItem="4gl-mx-rqY" secondAttribute="bottom" constant="10" id="8SG-rb-D3w"/>
@@ -128,6 +142,7 @@
                 <outlet property="dateLabel" destination="nwA-tF-Ph8" id="ac6-NH-pqo"/>
                 <outlet property="guessIndexLabel" destination="Kcn-VC-zZQ" id="7FC-dc-Ezc"/>
                 <outlet property="guessNameLabel" destination="4gl-mx-rqY" id="bre-kp-Wwo"/>
+                <outlet property="prizeBtn" destination="hRP-w2-ZTD" id="N5t-Vc-gwW"/>
                 <outlet property="realIndexLabel" destination="Aul-y1-9pc" id="cK9-hq-bOR"/>
                 <outlet property="sessionLabel" destination="iB7-v6-Ivv" id="LRX-SZ-nSl"/>
                 <outlet property="statusLabel" destination="AT4-j4-udE" id="o8m-oe-aLs"/>

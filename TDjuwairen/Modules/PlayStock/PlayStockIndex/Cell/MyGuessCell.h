@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *realIndexLabel;
 @property (weak, nonatomic) IBOutlet UIButton *betBtn;
 @property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UIButton *prizeBtn;
 
 - (void)setupGuessInfo:(MyGuessModel *)guess;
 @end

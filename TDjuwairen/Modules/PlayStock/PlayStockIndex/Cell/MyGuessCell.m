@@ -14,6 +14,8 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
     // Initialization code
 }
 
@@ -40,6 +42,7 @@
     [self.betBtn setTitle:key forState:UIControlStateNormal];
     [self.betBtn setTitle:key forState:UIControlStateHighlighted];
     
+    self.prizeBtn.hidden = !(guess.status == 1);
     
     if (guess.status == 0) {
         // 待结算
@@ -92,6 +95,15 @@
                                                                                    attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
                                                                                                 NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}];
         self.statusLabel.attributedText = strAtt;
+    }
+}
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    CGPoint point = [[event.allTouches anyObject] locationInView:self.contentView];
+    BOOL contain = CGRectContainsPoint(self.prizeBtn.frame, point);
+    
+    if (contain) {
+        [super touchesBegan:touches withEvent:event];
     }
 }
 @end
