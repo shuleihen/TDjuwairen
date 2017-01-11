@@ -8,18 +8,15 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^ClickTagsBlock)();
+typedef void(^ClickTagsBlock)(UIButton *);
+
 @interface HistoryView : UIView
 {
     CGRect previousFrame;
-    int totalHeight;
 }
-/* view的背景色 */
-@property (nonatomic,retain) UIColor *BGColor;
-/* 设置标签颜色 */
-@property (nonatomic,retain) UIColor *signalTagColor;
-/* 标签文本赋值 */
+
 - (void)setTagWithTagArray:(NSArray *)arr;
 
 @property (nonatomic,copy) ClickTagsBlock clickblock;
+@property (nonatomic, copy) void (^clearBlock)(UIButton *);
 @end

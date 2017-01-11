@@ -7,89 +7,93 @@
 //
 
 #import "HistoryView.h"
+#import "HexColors.h"
+
 #define HORIZONTAL_PADDING 10.0f
-#define VERTICAL_PADDING   3.0f
-#define LABEL_MARGIN       15.0f
+#define VERTICAL_PADDING   8.0f
+#define LABEL_MARGIN       12.0f
 #define BOTTOM_MARGIN      10.0f
 
-@interface HistoryView ()
-{
-    NSString *TagsTitle;
-}
-@end
+
 
 @implementation HistoryView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        totalHeight = 0;
-        self.frame = frame;
+        self.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     return self;
 }
 
 - (void)setTagWithTagArray:(NSArray *)arr{
     previousFrame = CGRectZero;
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, 13, 100, 20)];
+    label.text = @"历史搜索";
+    label.font = [UIFont systemFontOfSize:14.0f];
+    label.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+    [self addSubview:label];
+    
+    UIButton *clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [clearBtn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [clearBtn setTitle:@"清除记录" forState:UIControlStateNormal];
+    clearBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+    clearBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    clearBtn.frame = CGRectMake(kScreenWidth-112, 13, 100, 20);
+    [clearBtn addTarget:self action:@selector(clearPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:clearBtn];
+    
+    previousFrame = CGRectMake(0, 40, 0, 0);
+    
+    __weak HistoryView *wself = self;
     [arr enumerateObjectsUsingBlock:^(NSString*str, NSUInteger idx, BOOL *stop) {
         UIButton *tag = [[UIButton alloc]initWithFrame:CGRectZero];
+        tag.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f5f5f5"];
+        [tag dk_setTitleColorPicker:DKColorPickerWithKey(CELLTITLE) forState:UIControlStateNormal];
         
-        if(_signalTagColor){
-            //可以单一设置tag的颜色
-            tag.backgroundColor=_signalTagColor;
-        }else{
-            //tag颜色多样
-            tag.backgroundColor=[UIColor colorWithRed:random()%255/255.0 green:random()%255/255.0 blue:random()%255/255.0 alpha:1];
-        }
-        tag.titleLabel.textAlignment=NSTextAlignmentCenter;
-        tag.titleLabel.font=[UIFont boldSystemFontOfSize:15];
+        tag.layer.cornerRadius = 4;
+        tag.clipsToBounds = YES;
+        tag.titleLabel.textAlignment = NSTextAlignmentCenter;
+        tag.titleLabel.font = [UIFont systemFontOfSize:13];
+        
         [tag setTitle:str forState:UIControlStateNormal];
-        [tag setTitleColor:[UIColor grayColor] forState:UIControlStateNormal];
-        tag.layer.cornerRadius=5;
-        tag.layer.borderWidth = 0.8;
-        tag.layer.borderColor = [UIColor grayColor].CGColor;
-        tag.clipsToBounds=YES;
-        /* 添加点击事件 */
-        TagsTitle = str;
         [tag addTarget:self action:@selector(ClickTags:) forControlEvents:UIControlEventTouchUpInside];
-        NSDictionary *attrs = @{NSFontAttributeName : [UIFont boldSystemFontOfSize:15]};
-        CGSize Size_str=[str sizeWithAttributes:attrs];
+        
+        NSDictionary *attrs = @{NSFontAttributeName : [UIFont systemFontOfSize:13]};
+        CGSize Size_str =[str sizeWithAttributes:attrs];
         Size_str.width += HORIZONTAL_PADDING*2;
         Size_str.height += VERTICAL_PADDING*2;
+        
         CGRect newRect = CGRectZero;
-        if (previousFrame.origin.x + previousFrame.size.width + Size_str.width + LABEL_MARGIN > self.bounds.size.width) {
-            newRect.origin = CGPointMake(10, previousFrame.origin.y + Size_str.height + BOTTOM_MARGIN);
-            totalHeight +=Size_str.height + BOTTOM_MARGIN;
+        if (previousFrame.origin.x + previousFrame.size.width + Size_str.width + LABEL_MARGIN > (kScreenWidth-24)) {
+            newRect.origin = CGPointMake(12, previousFrame.origin.y + Size_str.height + BOTTOM_MARGIN);
         }
         else {
             newRect.origin = CGPointMake(previousFrame.origin.x + previousFrame.size.width + LABEL_MARGIN, previousFrame.origin.y);
         }
         newRect.size = Size_str;
-        [tag setFrame:newRect];
-        previousFrame=tag.frame;
-        [self setHight:self andHight:totalHeight+Size_str.height + BOTTOM_MARGIN];
-        [self addSubview:tag];
-    }
-     ];
-    if(_BGColor){
-        self.backgroundColor=_BGColor;
-    }else{
-        self.backgroundColor=[UIColor whiteColor];
-    }
-}
-#pragma mark-改变控件高度
-- (void)setHight:(UIView *)view andHight:(CGFloat)hight
-{
-    CGRect tempFrame = view.frame;
-    tempFrame.size.height = hight;
-    view.frame = tempFrame;
+        
+        tag.frame = newRect;
+        previousFrame = newRect;
+        [wself addSubview:tag];
+    }];
+    
+    CGFloat height = MAX(CGRectGetMaxY(previousFrame) + BOTTOM_MARGIN, kScreenHeight-64);
+    self.frame = CGRectMake(0, 0, kScreenHeight, height);
 }
 
-#pragma mark - 点击事件
+
 - (void)ClickTags:(UIButton *)sender{
     if (self.clickblock) {
         self.clickblock(sender);
     }
 }
 
+- (void)clearPressed:(id)sender {
+    if (self.clearBlock) {
+        self.clearBlock(sender);
+    }
+}
 @end

@@ -11,8 +11,4 @@
 @interface SearchResultTableViewCell : UITableViewCell
 
 @property (nonatomic,strong) UILabel *titleLabel;
-
-@property (nonatomic,strong) UILabel *timeLabel;
-
-@property (nonatomic,strong) UILabel *line;
 @end

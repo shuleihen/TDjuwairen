@@ -20,18 +20,12 @@
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.titleLabel = [[UILabel alloc]init];
-        [self.titleLabel setNumberOfLines:0];
-        [self addSubview:self.titleLabel];
+        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(12.0, 14, kScreenWidth-24, 18)];
+        _titleLabel.font = [UIFont systemFontOfSize:15.0f];
+        _titleLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+        [self.contentView addSubview:_titleLabel];
         
-        self.timeLabel = [[UILabel alloc]init];
-        [self.timeLabel setNumberOfLines:0];
-        [self addSubview:self.timeLabel];
-        
-        self.line = [[UILabel alloc]init];
-        self.line.layer.borderColor = [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0].CGColor;
-        self.line.layer.borderWidth = 0.5;
-        [self addSubview:self.line];
+        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     return self;
 }
