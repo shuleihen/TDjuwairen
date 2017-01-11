@@ -108,6 +108,7 @@
 - (HMSegmentedControl *)segmentControl {
     if (!_segmentControl) {
         _segmentControl = [[HMSegmentedControl alloc] init];
+        _segmentControl.backgroundColor = [UIColor clearColor];
         _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
         _segmentControl.titleTextAttributes =@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
                                                NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#666666"]};

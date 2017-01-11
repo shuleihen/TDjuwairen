@@ -37,12 +37,13 @@
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
         _tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+        _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.bounces = NO;
         _tableView.scrollEnabled = NO;
-        _tableView.rowHeight = 125;
+        _tableView.rowHeight = 114;
         
         [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
     }
@@ -63,7 +64,7 @@
 - (CGFloat)contentHeight {
     CGFloat height = 0.0f;
     
-    height = 125*[self.surveyList count];
+    height = 114*[self.surveyList count];
     return height;
 }
 
@@ -138,6 +139,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
+    cell.isLeft = YES;
     
     return cell;
 }
@@ -149,8 +151,6 @@
     
     StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
     [scell setupStock:stock];
-    
-    scell.isLeft = indexPath.section%2;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
