@@ -32,6 +32,7 @@
 #import "HMSegmentedControl.h"
 #import "SurveyContentListController.h"
 #import "AssessedViewController.h"
+#import "ApplySurveyViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -79,6 +80,9 @@
     CGFloat w = kScreenWidth/4;
     for (NSString *title in titles) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, 0, w, kButtonViewHeight)];
+//        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+//        btn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+        
         btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         
         [btn setTitle:title forState:UIControlStateNormal];
@@ -93,9 +97,9 @@
         
         SEL action = NSSelectorFromString(selectors[i]);
         [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+        [buttonContain addSubview:btn];
         
         [btn align:BAVerticalImage withSpacing:8.0f];
-        [buttonContain addSubview:btn];
         i++;
     }
 
@@ -260,11 +264,14 @@
 }
 
 - (void)surveyPressed:(id)sender {
-    
+    ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)gradePressed:(id)sender {
     AssessedViewController *vc = [[AssessedViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
