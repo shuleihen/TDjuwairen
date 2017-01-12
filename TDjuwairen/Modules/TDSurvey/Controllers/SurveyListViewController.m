@@ -31,6 +31,7 @@
 #import "UIButton+Align.h"
 #import "HMSegmentedControl.h"
 #import "SurveyContentListController.h"
+#import "AssessedViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -263,7 +264,8 @@
 }
 
 - (void)gradePressed:(id)sender {
-    
+    AssessedViewController *vc = [[AssessedViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)morePressed:(id)sender {

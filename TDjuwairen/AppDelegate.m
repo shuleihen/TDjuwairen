@@ -308,7 +308,6 @@ static BOOL isBackGroundActivateApplication;
     //    DDLogError(@"Error");
 }
 
-#pragma mark - 友盟统计
 - (void)setupWithUMMobClick{
     UMConfigInstance.appKey = @"5844d3cf5312dd6419000c75";
     UMConfigInstance.channelId = @"App Store";

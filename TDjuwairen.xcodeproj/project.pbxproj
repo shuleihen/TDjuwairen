@@ -175,6 +175,10 @@
 		19AF982B1E24CE3E0097A585 /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF982A1E24CE3E0097A585 /* SurveyContentListController.m */; };
 		19AF98301E2609950097A585 /* SearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF982F1E2609950097A585 /* SearchResultModel.m */; };
 		19AF98331E26234D0097A585 /* NoResultView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98321E26234D0097A585 /* NoResultView.m */; };
+		19AF983A1E27125D0097A585 /* AssessedViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98391E27125D0097A585 /* AssessedViewController.m */; };
+		19AF983E1E2713200097A585 /* StockAssessedModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF983D1E2713200097A585 /* StockAssessedModel.m */; };
+		19AF98421E27133B0097A585 /* StockAssessedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98401E27133B0097A585 /* StockAssessedTableViewCell.m */; };
+		19AF98431E27133B0097A585 /* StockAssessedTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AF98411E27133B0097A585 /* StockAssessedTableViewCell.xib */; };
 		19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */; };
 		19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C931D655B9E00BB4DF4 /* DDASLLogCapture.m */; };
 		19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 19B11C951D655B9E00BB4DF4 /* DDASLLogger.m */; };
@@ -765,6 +769,13 @@
 		19AF982F1E2609950097A585 /* SearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchResultModel.m; sourceTree = "<group>"; };
 		19AF98311E26234D0097A585 /* NoResultView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NoResultView.h; sourceTree = "<group>"; };
 		19AF98321E26234D0097A585 /* NoResultView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NoResultView.m; sourceTree = "<group>"; };
+		19AF98381E27125D0097A585 /* AssessedViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AssessedViewController.h; sourceTree = "<group>"; };
+		19AF98391E27125D0097A585 /* AssessedViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AssessedViewController.m; sourceTree = "<group>"; };
+		19AF983C1E2713200097A585 /* StockAssessedModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAssessedModel.h; sourceTree = "<group>"; };
+		19AF983D1E2713200097A585 /* StockAssessedModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAssessedModel.m; sourceTree = "<group>"; };
+		19AF983F1E27133B0097A585 /* StockAssessedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAssessedTableViewCell.h; sourceTree = "<group>"; };
+		19AF98401E27133B0097A585 /* StockAssessedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAssessedTableViewCell.m; sourceTree = "<group>"; };
+		19AF98411E27133B0097A585 /* StockAssessedTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockAssessedTableViewCell.xib; sourceTree = "<group>"; };
 		19B11C8F1D655B9E00BB4DF4 /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
 		19B11C901D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
 		19B11C911D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
@@ -2286,6 +2297,44 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
+		19AF98351E27123D0097A585 /* Assessed */ = {
+			isa = PBXGroup;
+			children = (
+				19AF983B1E2712B90097A585 /* Models */,
+				19AF98361E27123D0097A585 /* Cells */,
+				19AF98371E27123D0097A585 /* Controllers */,
+			);
+			path = Assessed;
+			sourceTree = "<group>";
+		};
+		19AF98361E27123D0097A585 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				19AF983F1E27133B0097A585 /* StockAssessedTableViewCell.h */,
+				19AF98401E27133B0097A585 /* StockAssessedTableViewCell.m */,
+				19AF98411E27133B0097A585 /* StockAssessedTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19AF98371E27123D0097A585 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19AF98381E27125D0097A585 /* AssessedViewController.h */,
+				19AF98391E27125D0097A585 /* AssessedViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19AF983B1E2712B90097A585 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19AF983C1E2713200097A585 /* StockAssessedModel.h */,
+				19AF983D1E2713200097A585 /* StockAssessedModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		19B11C8E1D655B9E00BB4DF4 /* CocoaLumberjack */ = {
 			isa = PBXGroup;
 			children = (
@@ -2462,6 +2511,7 @@
 				1955B42A1D644D9800DC102E /* Viewpoint */,
 				19E519381D509C3F00CFF149 /* CustomUI */,
 				19C526251D49EDEE0039F85D /* WebView */,
+				19AF98351E27123D0097A585 /* Assessed */,
 				84069EBC1DB495A300CB21DA /* TDSurvey */,
 				8478D1141DD012E60066E784 /* TDSurDetail */,
 				847ADA651DF79C9C002600AA /* TDoptional */,
@@ -3454,6 +3504,7 @@
 				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
+				19AF98431E27133B0097A585 /* StockAssessedTableViewCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
@@ -3671,6 +3722,7 @@
 				1955B4621D644D9800DC102E /* BrowserTableViewCell.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
+				19AF98421E27133B0097A585 /* StockAssessedTableViewCell.m in Sources */,
 				19A5AC551E0A911D00FE953A /* AskTableViewCell.m in Sources */,
 				1955B45B1D644D9800DC102E /* AddUpdatesViewController.m in Sources */,
 				842D94EC1E024AC800D9AFDB /* UserSurveyModel.m in Sources */,
@@ -3733,6 +3785,7 @@
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
+				19AF983A1E27125D0097A585 /* AssessedViewController.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				846E5A1A1DE41EC70031C993 /* OrderModel.m in Sources */,
@@ -3751,6 +3804,7 @@
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
+				19AF983E1E2713200097A585 /* StockAssessedModel.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
 				1955B49F1D644D9800DC102E /* ViewInfoModel.m in Sources */,
