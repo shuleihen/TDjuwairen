@@ -33,6 +33,7 @@
 #import "SurveyContentListController.h"
 #import "AssessedViewController.h"
 #import "ApplySurveyViewController.h"
+#import "SubscriptionViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -260,7 +261,9 @@
 }
 
 - (void)subscribePressed:(id)sender {
-    
+    SubscriptionViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)surveyPressed:(id)sender {

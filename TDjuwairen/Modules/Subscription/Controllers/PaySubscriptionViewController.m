@@ -1,36 +1,30 @@
 //
-//  ApplySurveyViewController.m
+//  PaySubscriptionViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/12.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "ApplySurveyViewController.h"
+#import "PaySubscriptionViewController.h"
 #import "HexColors.h"
 
-@interface ApplySurveyViewController ()
-@property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
-@property (weak, nonatomic) IBOutlet UITextField *companyTextField;
-@property (weak, nonatomic) IBOutlet UITextField *HoldingNumberTextField;
-@property (weak, nonatomic) IBOutlet UITextField *attentionTextField;
-@property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
-@property (weak, nonatomic) IBOutlet UITextField *emailTextField;
+@interface PaySubscriptionViewController ()
 @property (nonatomic, strong) UIView *toolView;
+
 @end
 
-@implementation ApplySurveyViewController
-
+@implementation PaySubscriptionViewController
 - (UIView *)toolView {
     if (!_toolView) {
         _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 55)];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:@"申请调研" forState:UIControlStateNormal];
+        [btn setTitle:@"确认订阅" forState:UIControlStateNormal];
         
         btn.frame = CGRectMake(12, 12, kScreenWidth-24, 35);
         btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        [btn addTarget:self action:@selector(applySurveyPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [btn addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_toolView addSubview:btn];
         
         UIImage *slipImage = [UIImage imageNamed:@"slipLine"];
@@ -51,7 +45,6 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
     
@@ -75,7 +68,7 @@
     [self.toolView removeFromSuperview];
 }
 
-- (void)applySurveyPressed:(id)sender {
+- (void)confirmPressed:(id)sender {
     
 }
 
@@ -84,13 +77,35 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return (section==0)?0.001:10;
+    return 35;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 35)];
+    view.backgroundColor = [UIColor clearColor];
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 35)];
+    label.backgroundColor = [UIColor clearColor];
+    label.font = [UIFont systemFontOfSize:14.0f];
+    label.dk_textColorPicker = DKColorPickerWithKey(DETAIL);
+    [view addSubview:label];
+    
+    if (section == 0) {
+        label.text = @"产品信息";
+    } else {
+        label.text = @"订阅信息";
+    }
+        
+    return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.001f;
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    
 }
-
 
 @end

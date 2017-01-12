@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
+		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
+		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
+		190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */; };
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
@@ -68,6 +72,8 @@
 		1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1946EE971E0EA90200D8FB3A /* ShareSDK.bundle */; };
 		1946EEA51E0EA90200D8FB3A /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
+		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
+		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
 		1954E6E21DE3D6400058403A /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1954E6E11DE3D6400058403A /* StockManager.m */; };
 		1955B45B1D644D9800DC102E /* AddUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */; };
 		1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B01D644D9800DC102E /* AgreeViewController.m */; };
@@ -447,6 +453,13 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
+		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
+		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
+		190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryListCell.m; sourceTree = "<group>"; };
+		190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionHistoryListCell.xib; sourceTree = "<group>"; };
+		190B37E91E274E6300A5C1B1 /* SubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionModel.h; sourceTree = "<group>"; };
+		190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionModel.m; sourceTree = "<group>"; };
 		191027A51DE410F2006A2275 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
 		191027A61DE410F2006A2275 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
 		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
@@ -572,6 +585,10 @@
 		1946EE971E0EA90200D8FB3A /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
 		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		194F05921E2746D600C8CB8A /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
+		194F05931E2746D600C8CB8A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
+		194F05951E27496600C8CB8A /* PaySubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySubscriptionViewController.h; sourceTree = "<group>"; };
+		194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySubscriptionViewController.m; sourceTree = "<group>"; };
 		1954E6E01DE3D6400058403A /* StockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockManager.h; sourceTree = "<group>"; };
 		1954E6E11DE3D6400058403A /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
 		1955B3AD1D644D9800DC102E /* AddUpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddUpdatesViewController.h; sourceTree = "<group>"; };
@@ -1647,6 +1664,49 @@
 			path = Required;
 			sourceTree = "<group>";
 		};
+		194F058E1E27425400C8CB8A /* Subscription */ = {
+			isa = PBXGroup;
+			children = (
+				194F058F1E27425400C8CB8A /* Cells */,
+				194F05901E27425400C8CB8A /* Controllers */,
+				194F05911E27425400C8CB8A /* Models */,
+			);
+			name = Subscription;
+			path = TDjuwairen/Modules/Subscription;
+			sourceTree = SOURCE_ROOT;
+		};
+		194F058F1E27425400C8CB8A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */,
+				190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */,
+				190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		194F05901E27425400C8CB8A /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				194F05921E2746D600C8CB8A /* SubscriptionViewController.h */,
+				194F05931E2746D600C8CB8A /* SubscriptionViewController.m */,
+				194F05951E27496600C8CB8A /* PaySubscriptionViewController.h */,
+				194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */,
+				190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */,
+				190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		194F05911E27425400C8CB8A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				190B37E91E274E6300A5C1B1 /* SubscriptionModel.h */,
+				190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1954E6DF1DE3D5F00058403A /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2527,6 +2587,7 @@
 				19C526251D49EDEE0039F85D /* WebView */,
 				19AF98351E27123D0097A585 /* Assessed */,
 				19AF98441E271FFB0097A585 /* ApplySurvey */,
+				194F058E1E27425400C8CB8A /* Subscription */,
 				84069EBC1DB495A300CB21DA /* TDSurvey */,
 				8478D1141DD012E60066E784 /* TDSurDetail */,
 				847ADA651DF79C9C002600AA /* TDoptional */,
@@ -3545,6 +3606,7 @@
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
+				190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */,
 				1955B45F1D644D9800DC102E /* LoginViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3583,6 +3645,7 @@
 				19193B3C1E078E0E000A6AD2 /* StockMarketRuleViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
+				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
@@ -3702,6 +3765,7 @@
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
 				194186D81DF81284000C5197 /* SettingCompanyViewController.m in Sources */,
 				19E9582F1DAC893000BA37C5 /* ChildBlogTableViewController.m in Sources */,
+				190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */,
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
 				1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */,
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
@@ -3783,6 +3847,7 @@
 				19A5AC711E0AB6A600FE953A /* SurveyDetailAskViewController.m in Sources */,
 				19193B3F1E07C03B000A6AD2 /* PlayMarketMainViewController.m in Sources */,
 				846E5A2E1DE452E20031C993 /* NoOrderTableViewCell.m in Sources */,
+				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */,
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,
@@ -3848,10 +3913,12 @@
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				847BD6EA1DE6BBFA006AEECE /* PopupExchangeView.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
+				190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
 				19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */,
 				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,
+				194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
 				846D92291DD952CB000B847E /* CommentViewController.m in Sources */,
 				84EF8CC21D712F2C002F3F69 /* MyAttentionTableViewCell.m in Sources */,
