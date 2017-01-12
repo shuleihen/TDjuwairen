@@ -20,9 +20,10 @@
         _toolView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 55)];
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [btn setTitle:@"确认订阅" forState:UIControlStateNormal];
         
-        btn.frame = CGRectMake(12, 12, kScreenWidth-24, 35);
+        btn.frame = CGRectMake(12, 10, kScreenWidth-24, 35);
         btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         [btn addTarget:self action:@selector(confirmPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_toolView addSubview:btn];

@@ -81,8 +81,6 @@
     CGFloat w = kScreenWidth/4;
     for (NSString *title in titles) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, 0, w, kButtonViewHeight)];
-//        btn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
-//        btn.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
         
         btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
         
