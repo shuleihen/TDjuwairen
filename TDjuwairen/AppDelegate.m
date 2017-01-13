@@ -58,7 +58,7 @@ static BOOL isBackGroundActivateApplication;
     NSLog(@"HomeDirectory = %@",NSHomeDirectory());
 #endif
     
-    [NSThread sleepForTimeInterval:3.0];//设置启动页面时间
+//    [NSThread sleepForTimeInterval:3.0];//设置启动页面时间
     
     [self setupUICommon];
     [self setupURLCacheSize];
@@ -71,10 +71,10 @@ static BOOL isBackGroundActivateApplication;
     [self setupWithUMMobClick];
     
     [self setupWithBPush:application andDic:launchOptions];
+    
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     
-    //    [center removeAllPendingNotificationRequests];
     
      // 测试本地通知
 //    [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
@@ -86,8 +86,6 @@ static BOOL isBackGroundActivateApplication;
 - (void)applicationDidReceiveMemoryWarning:(UIApplication *)application
 {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    [[NSURLCache sharedURLCache] setDiskCapacity:0];
-    [[NSURLCache sharedURLCache] setMemoryCapacity:0];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -107,297 +105,14 @@ static BOOL isBackGroundActivateApplication;
 - (void)applicationDidBecomeActive:(UIApplication *)application {
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
     UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter] ;
-    [center removeAllDeliveredNotifications];       //清空已展示的通知
+    [center removeAllDeliveredNotifications];
     
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {
     
-}
-
-#pragma mark -
-- (void)setupUICommon {
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
-    
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
-        [daynightmodel night];
-        [userdefault setObject:@"no" forKey:@"daynight"];
-    } else {
-        [daynightmodel day];
-        [userdefault setObject:@"yes" forKey:@"daynight"];
-    }
-}
-/*
-- (void)setupUICommon
-{
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        [daynightmodel day];
-        [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
-        [UINavigationBar appearance].translucent = NO;
-        [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
-        
-        // 设置导航条标题字体和颜色
-        NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
-        [[UINavigationBar appearance] setTitleTextAttributes:dict];
-        
-        // 设置导航条左右按钮字体和颜色
-        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
-        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
-    }
-    else
-    {
-        [daynightmodel night];
-        [UINavigationBar appearance].barTintColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];   // 设置导航条背景颜色
-        [UINavigationBar appearance].translucent = NO;
-        [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
-        
-        // 设置导航条标题字体和颜色
-        NSDictionary *dict = @{NSForegroundColorAttributeName:daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
-        [[UINavigationBar appearance] setTitleTextAttributes:dict];
-        
-        // 设置导航条左右按钮字体和颜色
-        NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
-        [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
-    }
-    
-    
-    
-    [UITabBar appearance].barTintColor = daynightmodel.navigationColor;
-    [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
-    [UITabBar appearance].translucent = NO;
-}
-*/
-- (void)setupURLCacheSize
-{
-    int cacheSizeMemory = 4*1024*1024; // 4MB
-    int cacheSizeDisk = 32*1024*1024; // 32MB
-    NSURLCache *shardCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
-    [NSURLCache setSharedURLCache:shardCache];
-}
-
-- (void)setupSMSSDK
-{
-    [SMSSDK registerApp:@"133251c67bb26" withSecret:@"f5535332a67b4228d0b792ef82c2ce34"];
-}
-
-- (void)setupShareSDK
-{
-    [ShareSDK registerApp:@"133251c67bb26"
-     
-          activePlatforms:@[@(SSDKPlatformSubTypeWechatSession),
-                            @(SSDKPlatformSubTypeWechatTimeline),
-                            @(SSDKPlatformTypeQQ)]
-                 onImport:^(SSDKPlatformType platformType)
-     {
-         switch (platformType)
-         {
-             case SSDKPlatformTypeWechat:
-                 [ShareSDKConnector connectWeChat:[WXApi class]];
-                 break;
-             case SSDKPlatformTypeQQ:
-                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
-                 break;
-             case SSDKPlatformTypeSinaWeibo:
-                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
-                 break;
-             default:
-                 break;
-         }
-     }
-          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
-     {
-         
-         switch (platformType)
-         {
-             case SSDKPlatformTypeSinaWeibo:
-                 //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
-                 [appInfo SSDKSetupSinaWeiboByAppKey:@"1536339071"
-                                           appSecret:@"6e3dc36dd6dfcf49a595096e3bafb3d3"
-                                         redirectUri:@"https://api.weibo.com/oauth2/default.html"
-                                            authType:SSDKAuthTypeBoth];
-                 break;
-             case SSDKPlatformTypeWechat:
-                 [appInfo SSDKSetupWeChatByAppId:@"wx7296a52656167640"
-                                       appSecret:@"d4ca652e5ed4107b4757fc2647802c37"];
-                 break;
-             case SSDKPlatformTypeQQ:
-                 [appInfo SSDKSetupQQByAppId:@"101266993"
-                                      appKey:@"3f65c3a58ad969e52387e085031349c4"
-                                    authType:SSDKAuthTypeBoth];
-                 break;
-             default:
-                 break;
-         }
-     }];
-}
-
-- (void)setupWebImageCache
-{
-    SDWebImageDownloader *imgDownloader = SDWebImageManager.sharedManager.imageDownloader;
-    imgDownloader.headersFilter  = ^NSDictionary *(NSURL *url, NSDictionary *headers) {
-        
-        NSFileManager *fm = [[NSFileManager alloc] init];
-        NSString *imgKey = [SDWebImageManager.sharedManager cacheKeyForURL:url];
-        NSString *imgPath = [SDWebImageManager.sharedManager.imageCache defaultCachePathForKey:imgKey];
-        NSDictionary *fileAttr = [fm attributesOfItemAtPath:imgPath error:nil];
-        
-        NSMutableDictionary *mutableHeaders = [headers mutableCopy];
-        
-        if (fileAttr.count > 0) {
-            NSDate *lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
-            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-            formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss z";
-            
-            NSString *lastModifiedStr = [formatter stringFromDate:lastModifiedDate];
-            lastModifiedStr = lastModifiedStr.length > 0 ? lastModifiedStr : @"";
-            [mutableHeaders setValue:lastModifiedStr forKey:@"If-Modified-Since"];
-            //            if (fileAttr.count > 0) {
-            //                lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
-            //            }
-            
-        }
-        
-        return mutableHeaders;
-    };
-}
-
-- (void)checkSwitchToGuide
-{
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *oldVersion = [userdefault stringForKey:@"version"];
-    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentVersion = dict[@"CFBundleShortVersionString"];
-    if (![oldVersion isEqualToString:currentVersion]) {
-        GuideViewController *launchView=[[GuideViewController alloc] init];
-        self.window.rootViewController=launchView;
-        [self.window makeKeyAndVisible];
-        
-        [userdefault setObject:currentVersion forKey:@"version"];
-        [userdefault setObject:@"yes" forKey:@"daynight"];
-        [userdefault synchronize];
-    }
-    else
-    {
-        _tabBarCtr = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
-        self.window.rootViewController = _tabBarCtr;
-        [self.window makeKeyAndVisible];
-    }
-}
-
-- (void)setupLog
-{
-    [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
-//    [DDLog addLogger:[DDASLLogger sharedInstance]]; // ASL = Apple System Logs
-    
-    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
-    fileLogger.rollingFrequency = 60*60*24;         // 24 hours
-    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
-    [DDLog addLogger:fileLogger];
-    
-    //    DDLogVerbose(@"Verbose");
-    //    DDLogDebug(@"Debug");
-    //    DDLogInfo(@"Info");
-    //    DDLogWarn(@"Warn");
-    //    DDLogError(@"Error");
-}
-
-- (void)setupWithUMMobClick{
-    UMConfigInstance.appKey = @"5844d3cf5312dd6419000c75";
-    UMConfigInstance.channelId = @"App Store";
-    //    UMConfigInstance.eSType = E_UM_GAME; //仅适用于游戏场景，应用统计不用设置
-    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
-}
-
-- (void)setupWithBPush:(UIApplication *)application andDic:(NSDictionary *)launchOptions{
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        [[NSUserDefaults standardUserDefaults] setObject:launchOptions forKey:@"launchOptions"];
-        
-        NSLog(@"first launch");
-        // iOS10 下需要使用新的 API
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-            
-            [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                      // Enable or disable features based on authorization.
-                                      if (granted) {
-                                          [application registerForRemoteNotifications];
-                                      }
-                                  }];
-#endif
-        }
-        else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-            
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        }else {
-            //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
-            //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-        }
-        
-        //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
-        
-        // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-        [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
-        
-    }else {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
-        NSLog(@"second launch");
-        UIApplication *app = [UIApplication sharedApplication];
-        if ([app isRegisteredForRemoteNotifications]  == YES) {
-            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-                
-                [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                                      completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                          // Enable or disable features based on authorization.
-                                          if (granted) {
-                                              [application registerForRemoteNotifications];
-                                          }
-                                      }];
-#endif
-            }
-            else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-                UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-                
-                UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-                [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-            }else {
-                //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
-                //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-            }
-            
-            //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
-            
-            // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-            [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
-        }
-    }
-    // App 是用户点击推送消息启动
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (userInfo) {
-        NSLog(@"从消息启动:%@",userInfo);
-        [BPush handleNotification:userInfo];
-    }
-}
-
-- (void)testLocalNotifi
-{
-    NSLog(@"测试本地通知啦！！！");
-    NSDate *fireDate = [[NSDate new] dateByAddingTimeInterval:5];
-    [BPush localNotification:fireDate alertBody:@"这是本地通知" badge:3 withFirstAction:@"打开" withSecondAction:@"关闭" userInfo:nil soundName:nil region:nil regionTriggersOnce:YES category:nil useBehaviorTextInput:YES];
 }
 
 // 此方法是 用户点击了通知，应用在前台 或者开启后台并且应用在后台 时调起
@@ -465,10 +180,7 @@ static BOOL isBackGroundActivateApplication;
 // 在 iOS8 系统中，还需要添加这个方法。通过新的 API 注册推送服务
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
-    
     [application registerForRemoteNotifications];
-    
-    
 }
 
 
@@ -682,6 +394,290 @@ static BOOL isBackGroundActivateApplication;
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
+}
+
+#pragma mark -
+- (void)setupUICommon {
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
+    
+    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
+        [daynightmodel night];
+        [userdefault setObject:@"no" forKey:@"daynight"];
+    } else {
+        [daynightmodel day];
+        [userdefault setObject:@"yes" forKey:@"daynight"];
+    }
+}
+/*
+ - (void)setupUICommon
+ {
+ NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+ UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
+ NSString *daynight = [userdefault objectForKey:@"daynight"];
+ if ([daynight isEqualToString:@"yes"]) {
+ [daynightmodel day];
+ [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
+ [UINavigationBar appearance].translucent = NO;
+ [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
+ 
+ // 设置导航条标题字体和颜色
+ NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+ [[UINavigationBar appearance] setTitleTextAttributes:dict];
+ 
+ // 设置导航条左右按钮字体和颜色
+ NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+ [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+ }
+ else
+ {
+ [daynightmodel night];
+ [UINavigationBar appearance].barTintColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];   // 设置导航条背景颜色
+ [UINavigationBar appearance].translucent = NO;
+ [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
+ 
+ // 设置导航条标题字体和颜色
+ NSDictionary *dict = @{NSForegroundColorAttributeName:daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
+ [[UINavigationBar appearance] setTitleTextAttributes:dict];
+ 
+ // 设置导航条左右按钮字体和颜色
+ NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
+ [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
+ }
+ 
+ 
+ 
+ [UITabBar appearance].barTintColor = daynightmodel.navigationColor;
+ [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
+ [UITabBar appearance].translucent = NO;
+ }
+ */
+- (void)setupURLCacheSize
+{
+    int cacheSizeMemory = 4*1024*1024; // 4MB
+    int cacheSizeDisk = 32*1024*1024; // 32MB
+    NSURLCache *shardCache = [[NSURLCache alloc]initWithMemoryCapacity:cacheSizeMemory diskCapacity:cacheSizeDisk diskPath:@"nsurlcache"];
+    [NSURLCache setSharedURLCache:shardCache];
+}
+
+- (void)setupSMSSDK
+{
+    [SMSSDK registerApp:@"133251c67bb26" withSecret:@"f5535332a67b4228d0b792ef82c2ce34"];
+}
+
+- (void)setupShareSDK
+{
+    [ShareSDK registerApp:@"133251c67bb26"
+     
+          activePlatforms:@[@(SSDKPlatformSubTypeWechatSession),
+                            @(SSDKPlatformSubTypeWechatTimeline),
+                            @(SSDKPlatformTypeQQ)]
+                 onImport:^(SSDKPlatformType platformType)
+     {
+         switch (platformType)
+         {
+             case SSDKPlatformTypeWechat:
+                 [ShareSDKConnector connectWeChat:[WXApi class]];
+                 break;
+             case SSDKPlatformTypeQQ:
+                 [ShareSDKConnector connectQQ:[QQApiInterface class] tencentOAuthClass:[TencentOAuth class]];
+                 break;
+             case SSDKPlatformTypeSinaWeibo:
+                 [ShareSDKConnector connectWeibo:[WeiboSDK class]];
+                 break;
+             default:
+                 break;
+         }
+     }
+          onConfiguration:^(SSDKPlatformType platformType, NSMutableDictionary *appInfo)
+     {
+         
+         switch (platformType)
+         {
+             case SSDKPlatformTypeSinaWeibo:
+                 //设置新浪微博应用信息,其中authType设置为使用SSO＋Web形式授权
+                 [appInfo SSDKSetupSinaWeiboByAppKey:@"1536339071"
+                                           appSecret:@"6e3dc36dd6dfcf49a595096e3bafb3d3"
+                                         redirectUri:@"https://api.weibo.com/oauth2/default.html"
+                                            authType:SSDKAuthTypeBoth];
+                 break;
+             case SSDKPlatformTypeWechat:
+                 [appInfo SSDKSetupWeChatByAppId:@"wx7296a52656167640"
+                                       appSecret:@"d4ca652e5ed4107b4757fc2647802c37"];
+                 break;
+             case SSDKPlatformTypeQQ:
+                 [appInfo SSDKSetupQQByAppId:@"101266993"
+                                      appKey:@"3f65c3a58ad969e52387e085031349c4"
+                                    authType:SSDKAuthTypeBoth];
+                 break;
+             default:
+                 break;
+         }
+     }];
+}
+
+- (void)setupWebImageCache
+{
+    SDWebImageDownloader *imgDownloader = SDWebImageManager.sharedManager.imageDownloader;
+    imgDownloader.headersFilter  = ^NSDictionary *(NSURL *url, NSDictionary *headers) {
+        
+        NSFileManager *fm = [[NSFileManager alloc] init];
+        NSString *imgKey = [SDWebImageManager.sharedManager cacheKeyForURL:url];
+        NSString *imgPath = [SDWebImageManager.sharedManager.imageCache defaultCachePathForKey:imgKey];
+        NSDictionary *fileAttr = [fm attributesOfItemAtPath:imgPath error:nil];
+        
+        NSMutableDictionary *mutableHeaders = [headers mutableCopy];
+        
+        if (fileAttr.count > 0) {
+            NSDate *lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.timeZone = [NSTimeZone timeZoneWithAbbreviation:@"GMT"];
+            formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
+            formatter.dateFormat = @"EEE, dd MMM yyyy HH:mm:ss z";
+            
+            NSString *lastModifiedStr = [formatter stringFromDate:lastModifiedDate];
+            lastModifiedStr = lastModifiedStr.length > 0 ? lastModifiedStr : @"";
+            [mutableHeaders setValue:lastModifiedStr forKey:@"If-Modified-Since"];
+            //            if (fileAttr.count > 0) {
+            //                lastModifiedDate = (NSDate *)fileAttr[NSFileModificationDate];
+            //            }
+            
+        }
+        
+        return mutableHeaders;
+    };
+}
+
+- (void)checkSwitchToGuide
+{
+    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+    NSString *oldVersion = [userdefault stringForKey:@"version"];
+    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
+    NSString *currentVersion = dict[@"CFBundleShortVersionString"];
+    if (![oldVersion isEqualToString:currentVersion]) {
+        GuideViewController *launchView=[[GuideViewController alloc] init];
+        self.window.rootViewController=launchView;
+        [self.window makeKeyAndVisible];
+        
+        [userdefault setObject:currentVersion forKey:@"version"];
+        [userdefault setObject:@"yes" forKey:@"daynight"];
+        [userdefault synchronize];
+    }
+    else
+    {
+        _tabBarCtr = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
+        self.window.rootViewController = _tabBarCtr;
+        [self.window makeKeyAndVisible];
+    }
+}
+
+- (void)setupLog
+{
+    [DDLog addLogger:[DDTTYLogger sharedInstance]]; // TTY = Xcode console
+    //    [DDLog addLogger:[DDASLLogger sharedInstance]]; // ASL = Apple System Logs
+    
+    DDFileLogger *fileLogger = [[DDFileLogger alloc] init];
+    fileLogger.rollingFrequency = 60*60*24;         // 24 hours
+    fileLogger.logFileManager.maximumNumberOfLogFiles = 7;
+    [DDLog addLogger:fileLogger];
+    
+    //    DDLogVerbose(@"Verbose");
+    //    DDLogDebug(@"Debug");
+    //    DDLogInfo(@"Info");
+    //    DDLogWarn(@"Warn");
+    //    DDLogError(@"Error");
+}
+
+- (void)setupWithUMMobClick{
+    UMConfigInstance.appKey = @"5844d3cf5312dd6419000c75";
+    UMConfigInstance.channelId = @"App Store";
+    //    UMConfigInstance.eSType = E_UM_GAME; //仅适用于游戏场景，应用统计不用设置
+    [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
+}
+
+- (void)setupWithBPush:(UIApplication *)application andDic:(NSDictionary *)launchOptions{
+    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
+        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
+        [[NSUserDefaults standardUserDefaults] setObject:launchOptions forKey:@"launchOptions"];
+        
+        NSLog(@"first launch");
+        // iOS10 下需要使用新的 API
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+            
+            [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                      // Enable or disable features based on authorization.
+                                      if (granted) {
+                                          [application registerForRemoteNotifications];
+                                      }
+                                  }];
+#endif
+        }
+        else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+            
+            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+        }else {
+            //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+            //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+        }
+        
+        //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
+        
+        // 在 App 启动时注册百度云推送服务，需要提供 Apikey
+        [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+        
+    }else {
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
+        NSLog(@"second launch");
+        UIApplication *app = [UIApplication sharedApplication];
+        if ([app isRegisteredForRemoteNotifications]  == YES) {
+            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
+#ifdef NSFoundationVersionNumber_iOS_9_x_Max
+                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
+                
+                [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
+                                      completionHandler:^(BOOL granted, NSError * _Nullable error) {
+                                          // Enable or disable features based on authorization.
+                                          if (granted) {
+                                              [application registerForRemoteNotifications];
+                                          }
+                                      }];
+#endif
+            }
+            else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+                UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+                
+                UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
+                [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+            }else {
+                //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
+                //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+            }
+            
+            //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
+            
+            // 在 App 启动时注册百度云推送服务，需要提供 Apikey
+            [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
+        }
+    }
+    // App 是用户点击推送消息启动
+    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    if (userInfo) {
+        NSLog(@"从消息启动:%@",userInfo);
+        [BPush handleNotification:userInfo];
+    }
+}
+
+- (void)testLocalNotifi
+{
+    NSLog(@"测试本地通知啦！！！");
+    NSDate *fireDate = [[NSDate new] dateByAddingTimeInterval:5];
+    [BPush localNotification:fireDate alertBody:@"这是本地通知" badge:3 withFirstAction:@"打开" withSecondAction:@"关闭" userInfo:nil soundName:nil region:nil regionTriggersOnce:YES category:nil useBehaviorTextInput:YES];
 }
 
 @end
