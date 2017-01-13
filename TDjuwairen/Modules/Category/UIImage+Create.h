@@ -12,4 +12,5 @@
 
 @interface UIImage (Create)
 + (UIImage *)imageWithSize:(CGSize)size backgroudColor:(UIColor *)bgColor borderColor:(UIColor *)borderColor cornerRadius:(CGFloat)radius;
++ (UIImage *)imageWithSize:(CGSize)size backgroudColor:(UIColor *)bgColor borderColor:(UIColor *)borderColor borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)radius;
 @end

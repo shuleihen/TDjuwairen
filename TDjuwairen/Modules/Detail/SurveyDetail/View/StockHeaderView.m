@@ -8,8 +8,16 @@
 
 #import "StockHeaderView.h"
 #import "HexColors.h"
+#import "Masonry.h"
 
 @implementation StockHeaderView
+
+- (void)awakeFromNib {
+    [super awakeFromNib];
+    
+    self.valueLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+    self.valueBLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+}
 
 - (void)setupStockInfo:(StockInfo *)stockInfo {
     self.nowPriLabel.text = [NSString stringWithFormat:@"%.2lf",stockInfo.nowPriValue];
@@ -31,11 +39,33 @@
     self.detailALabel.text = detailA;
     self.detailBLabel.text = detailB;
     
+    UIColor *color = nil;
     if (value >= 0.0) {
-        self.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        color = [UIColor hx_colorWithHexRGBAString:@"#e74922"];
     } else {
-        self.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+        color = [UIColor hx_colorWithHexRGBAString:@"#13C869"];
+    }
+    
+    self.nowPriLabel.textColor = color;
+    self.valueLabel.textColor = color;
+    self.valueBLabel.textColor = color;
+}
+
+- (IBAction)gradePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(gradePressed:)]) {
+        [self.delegate gradePressed:sender];
     }
 }
 
+- (IBAction)addPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addStockPressed:)]) {
+        [self.delegate addStockPressed:sender];
+    }
+}
+
+- (IBAction)invitePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(invitePressed:)]) {
+        [self.delegate invitePressed:sender];
+    }
+}
 @end

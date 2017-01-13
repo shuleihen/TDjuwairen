@@ -18,9 +18,10 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        UIImageView *sep = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
-        sep.image = [UIImage imageNamed:@"slipLine.png"];
+        UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
         [self addSubview:sep];
+        
         
         _button = [UIButton buttonWithType:UIButtonTypeCustom];
         _button.titleLabel.font  = [UIFont systemFontOfSize:17.0f];

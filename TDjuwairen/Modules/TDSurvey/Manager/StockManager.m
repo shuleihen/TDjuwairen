@@ -235,7 +235,7 @@ void executeSource(void *info) {
     NSInteger weekday = [dateComponents weekday];
     NSInteger hour = [dateComponents hour];
     
-    if ((weekday>=1 && weekday<=5) &&
+    if ((weekday>=2 && weekday<=6) &&
         ((hour>= 9 && hour<=12) || (hour>= 13 && hour<=15))) {
         isInQueryTime = YES;
     }

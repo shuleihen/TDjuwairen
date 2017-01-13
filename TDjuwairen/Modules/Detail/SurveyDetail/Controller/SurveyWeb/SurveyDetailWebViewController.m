@@ -12,9 +12,11 @@
 #import "NotificationDef.h"
 #import "PlistFileDef.h"
 #import "LoginState.h"
+#import <WebKit/WebKit.h>
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,UIWebViewDelegate>
 @property (nonatomic, strong) UIWebView *webView;
+//@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
 
@@ -23,6 +25,7 @@
 - (void)dealloc {
     self.webView.delegate = nil;
     [self.webView stopLoading];
+    
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -46,6 +49,7 @@
 }
 
 - (void)adjustFont {
+    
     NSArray *fonts = @[@"140%",@"120%",@"100%",@"80%"];
     NSInteger currentFont = [[NSUserDefaults standardUserDefaults] integerForKey:kSurveyContentFontSize];
     if (currentFont == 0) {
@@ -60,8 +64,7 @@
         DDLogInfo(@"Survey detail changed font size = %@",fonts[i]);
     }
     
-    
-    NSString *documentHeight = [self.webView stringByEvaluatingJavaScriptFromString:@"document.getElementsByTagName('body')[0].offsetHeight;"];
+    NSString *documentHeight = [self.webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
     CGFloat height = [documentHeight floatValue];
     self.webView.frame = CGRectMake(0, 0, kScreenWidth, height);
     
@@ -128,10 +131,14 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     DDLogInfo(@"Survey detail web load successed");
     
+    __weak SurveyDetailWebViewController *wself = self;
     [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+        
         CGFloat documentHeight = [result doubleValue];
-        self.webView.frame = CGRectMake(0, 0, kScreenWidth, documentHeight);
-        [self.indicatorView stopAnimating];
+        wself.webView.frame = CGRectMake(0, 0, kScreenWidth, documentHeight);
+        wself.view.bounds = CGRectMake(0, 0, kScreenWidth, documentHeight);
+        
+        [wself.indicatorView stopAnimating];
         
         if (self.delegate && [self.delegate respondsToSelector:@selector(contentDetailController:withHeight:)]) {
             [self.delegate contentDetailController:self withHeight:documentHeight];
@@ -152,11 +159,22 @@
         _webView.scrollView.scrollEnabled = NO;
         _webView.scrollView.showsVerticalScrollIndicator = NO;
         _webView.delegate = self;
-//        _webView.navigationDelegate = self;
         [self.view addSubview:_webView];
     }
     return _webView;
 }
+
+//- (WKWebView *)webView {
+//    if (!_webView) {
+//        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+//        _webView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+//        _webView.scrollView.scrollEnabled = NO;
+//        _webView.scrollView.showsVerticalScrollIndicator = NO;
+//        _webView.navigationDelegate = self;
+//        [self.view addSubview:_webView];
+//    }
+//    return _webView;
+//}
 
 - (UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {

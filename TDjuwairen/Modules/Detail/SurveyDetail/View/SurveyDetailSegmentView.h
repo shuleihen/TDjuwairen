@@ -15,8 +15,9 @@
 @end
 
 @interface SurveyDetailSegmentItem : UIView
-- (id)initWithTitle:(NSString *)title image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage highlightedTextColor:(UIColor *)highlightedTextColor;
+- (id)initWithTitle:(NSString *)title image:(UIImage *)image selectedBackgroundColor:(UIColor *)selectedBackgroundColor;
 
+@property (nonatomic, strong) UIColor *selectedBackgroundColor;
 @property (nonatomic, assign) NSInteger index;
 @property (nonatomic, assign) BOOL locked;
 @property (nonatomic, assign) BOOL selected;
@@ -34,3 +35,4 @@
 
 - (void)changedSelectedIndex:(NSInteger)selectedIndex executeDelegate:(BOOL)execute;
 @end
+

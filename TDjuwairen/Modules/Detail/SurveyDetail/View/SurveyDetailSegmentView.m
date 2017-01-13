@@ -8,16 +8,18 @@
 
 #import "SurveyDetailSegmentView.h"
 #import "HexColors.h"
+#import "UIImage+Create.h"
 
-#define SegmentItemWidth 45
-#define SegmentItemHeight 50
-
+//#define SegmentItemWidth (k)/4
+#define SegmentItemHeight 36
+#define SegmentItemSpace 5
+#define SegmentEdge 9
 
 @implementation SurveyDetailSegmentItem
-- (id)initWithTitle:(NSString *)title image:(UIImage *)image highlightedImage:(UIImage *)highlightedImage highlightedTextColor:(UIColor *)highlightedTextColor {
+- (id)initWithTitle:(NSString *)title image:(UIImage *)image selectedBackgroundColor:(UIColor *)selectedBackgroundColor {
     if (self = [super init]) {
-        self.bounds = CGRectMake(0, 0, SegmentItemWidth, SegmentItemHeight);
-        
+//        self.bounds = CGRectMake(0, 0, w, SegmentItemHeight);
+        /*
         UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake((SegmentItemWidth-25)/2,0 , 25, 25)];
         imageView.tag = 1;
         imageView.contentMode = UIViewContentModeCenter;
@@ -28,30 +30,71 @@
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 28, SegmentItemWidth, 20)];
         titleLabel.tag = 2;
         titleLabel.font = [UIFont systemFontOfSize:13.0f];
-//        titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
         titleLabel.highlightedTextColor = highlightedTextColor;
         titleLabel.text = title;
         [self addSubview:titleLabel];
+        */
+        
+        _selectedBackgroundColor = selectedBackgroundColor;
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        
+        [btn setImage:[image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] forState:UIControlStateNormal];
+        [btn setTitle:title forState:UIControlStateNormal];
+        
+        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
+        
+        btn.titleEdgeInsets = UIEdgeInsetsMake(-2, 3, 0, 0);
+        btn.imageEdgeInsets = UIEdgeInsetsMake(-2, 0, 0, 0);
+        
+        btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        
         btn.tag = 3;
         btn.frame = self.bounds;
+        
         [btn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:btn];
-        [self sendSubviewToBack:btn];
-        
+
+        self.selected = NO;
     }
     return self;
+}
+
+- (void)setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    
+     UIButton *btn = [self viewWithTag:3];
+    
+    if (frame.size.width > 0) {
+        UIImage *bkNormal = [UIImage imageWithSize:CGSizeMake(frame.size.width, SegmentItemHeight)
+                                    backgroudColor:[UIColor whiteColor]
+                                       borderColor:[UIColor hx_colorWithHexRGBAString:@"#cccccc"]
+                                        borderWidth:1.f
+                                      cornerRadius:5.0f];
+        UIImage *bkSelected = [UIImage imageWithSize:CGSizeMake(frame.size.width, SegmentItemHeight)
+                                      backgroudColor:self.selectedBackgroundColor
+                                         borderColor:self.selectedBackgroundColor
+                                         borderWidth:1.f
+                                        cornerRadius:5.0f];
+        [btn setBackgroundImage:bkNormal forState:UIControlStateNormal];
+        [btn setBackgroundImage:bkSelected forState:UIControlStateHighlighted];
+        [btn setBackgroundImage:bkSelected forState:UIControlStateSelected];
+    }
+    
+    btn.frame = CGRectMake(0, 0, frame.size.width, frame.size.height);
 }
 
 - (void)setLocked:(BOOL)locked {
     _locked = locked;
     
     if (locked) {
-        UIImageView *lockView = [[UIImageView alloc] initWithFrame:CGRectMake((SegmentItemWidth-25)/2, 0, 25, 25 )];
+        UIImageView *lockView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
         lockView.tag = 4;
-        lockView.image = [UIImage imageNamed:@"btn_locked"];
+        lockView.image = [UIImage imageNamed:@"ico_chains"];
+        lockView.center = CGPointMake(CGRectGetMaxX(self.bounds), 6);
         [self addSubview:lockView];
     } else {
         UIImageView *imageView = [self viewWithTag:4];
@@ -64,11 +107,20 @@
 - (void)setSelected:(BOOL)selected {
     _selected = selected;
     
-    UIImageView *imageView = [self viewWithTag:1];
-    imageView.highlighted = selected;
+//    UIImageView *imageView = [self viewWithTag:1];
+//    imageView.highlighted = selected;
+//    
+//    UILabel *label = [self viewWithTag:2];
+//    label.highlighted = selected;
     
-    UILabel *label = [self viewWithTag:2];
-    label.highlighted = selected;
+    UIButton *btn = [self viewWithTag:3];
+    btn.selected = selected;
+    
+    if (selected) {
+        btn.imageView.tintColor = [UIColor whiteColor];
+    } else {
+        btn.imageView.tintColor = [UIColor hx_colorWithHexRGBAString:@"#AAAAAA"];
+    }
 }
 
 - (void)buttonPressed:(id)sender {
@@ -88,16 +140,16 @@
 @implementation SurveyDetailSegmentView
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        UIImageView *top = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), 0.5)];
-        top.image = [UIImage imageNamed:@"slipLine"];
+        UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), 1)];
+        top.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
         [self addSubview:top];
         
-        UIImageView *bottom = [[UIImageView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(frame)-0.5, CGRectGetWidth(frame), 0.5)];
-        bottom.image = [UIImage imageNamed:@"slipLine"];
+        UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(frame)-1, CGRectGetWidth(frame), 1)];
+        bottom.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
         [self addSubview:bottom];
         
-        self.backgroundColor = [UIColor whiteColor];
         self.selectedIndex = -1;
+        self.clipsToBounds = YES;
     }
     return self;
 }
@@ -106,12 +158,13 @@
     _segments = segments;
     
     NSInteger i = 0;
-    CGFloat itemW = CGRectGetWidth(self.bounds)/[segments count];
-    CGFloat itemH = CGRectGetHeight(self.bounds);
+    CGFloat w = (kScreenWidth-SegmentEdge*2-SegmentItemSpace*([segments count]-1))/[segments count];
+    
     for (SurveyDetailSegmentItem *item in segments) {
-        item.center = CGPointMake((i+0.5)*itemW, itemH/2);
+        item.frame = CGRectMake(SegmentEdge+(SegmentItemSpace+w)*i, self.bounds.size.height - SegmentItemHeight + 5, w, SegmentItemHeight);
         item.index = i;
         [self addSubview:item];
+        [self sendSubviewToBack:item];
         
         item.clickBlock = ^(NSInteger index) {
             self.selectedIndex = index;
@@ -123,7 +176,7 @@
 - (void)setIsLock:(BOOL)isLock {
     _isLock = isLock;
     
-    for (int i=0; i<3; i++) {
+    for (int i=0; i<0; i++) {
         [self setLocked:isLock withIndex:i];
     }
 }

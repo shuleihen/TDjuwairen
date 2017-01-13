@@ -33,10 +33,9 @@
         [btn addTarget:self action:@selector(applySurveyPressed:) forControlEvents:UIControlEventTouchUpInside];
         [_toolView addSubview:btn];
         
-        UIImage *slipImage = [UIImage imageNamed:@"slipLine"];
-        UIImageView *slipImageView = [[UIImageView alloc] initWithImage:slipImage];
-        slipImageView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 1/[UIScreen mainScreen].scale);
-        [_toolView addSubview:slipImageView];
+        UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        [_toolView addSubview:sep];
         
         _toolView.backgroundColor = [UIColor whiteColor];
     }

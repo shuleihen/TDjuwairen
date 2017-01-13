@@ -358,7 +358,22 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voU-2R-nBp">
                                 <rect key="frame" x="0.0" y="20" width="375" height="537"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">认真投资           改变命运点滴之间有乾坤，细微之处有魔鬼局外人周刊汇聚一周实地调研公司全篇一周热点咨询，方便您收藏并查阅直达您的眼前，让您如身临其境认真看公司，认真对待每一次投资决策改变自己改变市场，靠你我之专业专心。订阅成功后，我们将在每周六更新一期周刊，您可选择纸质版或电子版，纸质版我们会邮寄至您的住所，电子版我们会发送至您的邮箱。</string>
+                                <string key="text">认真投资           改变命运
+
+点滴之间有乾坤，细微之处有魔鬼
+
+局外人周刊汇聚一周实地调研公司全篇
+
+一周热点咨询，方便您收藏并查阅
+
+直达您的眼前，让您如身临其境
+
+认真看公司，认真对待每一次投资决策
+
+改变自己改变市场，靠你我之专业专心。
+
+
+订阅成功后，我们将在每周六更新一期周刊，您可选择纸质版或电子版，纸质版我们会邮寄至您的住所，电子版我们会发送至您的邮箱。</string>
                                 <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>

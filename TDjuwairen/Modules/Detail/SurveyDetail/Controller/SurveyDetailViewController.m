@@ -32,8 +32,16 @@
 #import "MBProgressHUD.h"
 #import "STPopup.h"
 #import "UIdaynightModel.h"
+#import "SpotViewController.h"
+#import "DialogueViewController.h"
+#import "AssessedViewController.h"
+#import "ApplySurveyViewController.h"
+#import "Masonry.h"
 
-@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate>
+#define kHeaderViewHeight 135
+#define kSegmentHeight 45
+
+@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
@@ -53,6 +61,9 @@
 @implementation SurveyDetailViewController
 
 - (void)dealloc {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self.stockManager stopThread];
 }
@@ -67,12 +78,13 @@
     // 查询
     [self querySurveySimpleDetail];
     
+    /*
     UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
     [rightButton setImage:[UIImage imageNamed:@"nav_more.png"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(morePressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
-    
+    */
     
     // 监听 发布牛熊说、回答或提问通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadContentData:) name:kSurveyDetailContentChanged object:nil];
@@ -80,8 +92,22 @@
     // 解锁通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unlockStock:) name:kSurveyDetailUnlock object:nil];
     
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    self.tableView.backgroundView.backgroundColor = [UIColor redColor];
+    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    
+    // 表头
+    self.stockHeaderView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.stockHeaderView.delegate = self;
+    
+    // 自定义悬浮segment
+    self.segment.frame = CGRectMake(0, kHeaderViewHeight, kScreenWidth, kSegmentHeight);
+    [self.tableView addSubview:self.segment];
+    
+    // 表尾
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
+    //添加监听，动态观察tableview的contentOffset的改变
+    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -99,13 +125,27 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-
-    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
-    [self.navigationController.navigationBar setShadowImage:nil];
     
     [self.stockManager stop];
     
     [self hideBottomTool];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if ([keyPath isEqualToString:@"contentOffset"])
+    {
+        CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
+        if (offset.y > kHeaderViewHeight) {
+            
+            CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kSegmentHeight);
+            self.segment.frame = newFrame;
+
+        } else {
+            CGRect newFrame = CGRectMake(0, kHeaderViewHeight, self.view.frame.size.width, kSegmentHeight);
+            self.segment.frame = newFrame;
+        }
+    }
 }
 
 #pragma mark - Action
@@ -219,29 +259,9 @@
 - (void)setupStockInfo:(StockInfo *)stock {
     [self.stockHeaderView setupStockInfo:stock];
     
-    // 修改导航条背景色
-    float yestodEndPri = [[NSDecimalNumber decimalNumberWithString:stock.yestodEndPri] floatValue];
-    float nowPri = [[NSDecimalNumber decimalNumberWithString:stock.nowPri] floatValue];
-    float value = nowPri - yestodEndPri;
-    
-    UIColor *color = nil;
-    if (value >= 0.0) {
-        color = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
-    } else {
-        color = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
-    }
-    
-    [self setupNavigationBarWithColor:color];
-//    self.title = stock.name;
     self.stockName = stock.name;
 }
 
-- (void)setupNavigationBarWithColor:(UIColor *)color {
-    UIImage *bgImage = [UIImage imageWithSize:CGSizeMake(kScreenWidth, 64) withColor:color];
-    [self.navigationController.navigationBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
-    UIImage *shadowImage = [UIImage imageWithSize:CGSizeMake(kScreenWidth, 1) withColor:color];
-    [self.navigationController.navigationBar setShadowImage:shadowImage];
-}
 
 - (void)morePressed:(id)sender {
     SurveyMoreViewController  *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"SurveyMoreViewController"];
@@ -281,6 +301,32 @@
         }
             
     }];
+}
+
+- (void)reloadTableView {
+    CGFloat contentHeight = [[self currentContentViewController] contentHeight];
+    CGFloat minHeight = kScreenHeight - 200;
+    CGFloat height = MAX(contentHeight, minHeight);
+    
+    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
+    [self.tableView reloadData];
+}
+
+#pragma mark - StockHeaderDelegate
+- (void)gradePressed:(id)sender {
+    AssessedViewController *vc = [[AssessedViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)addStockPressed:(id)sender {
+    
+}
+
+- (void)invitePressed:(id)sender {
+    ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - StockManagerDelegate
@@ -374,7 +420,8 @@
         __weak SurveyDetailViewController *wself = self;
         SurveyDetailContentViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
-            [wself.tableView reloadData];
+
+            [wself reloadTableView];
             
             if (wself.tableView.contentOffset.y > CGRectGetHeight(wself.stockHeaderView.bounds)) {
                 wself.tableView.contentOffset = CGPointMake(0, wself.stockHeaderView.bounds.size.height);
@@ -391,7 +438,7 @@
 
 #pragma mark - SurveyDetailContenDelegate
 - (void)contentDetailController:(UIViewController *)controller withHeight:(CGFloat)height {
-    [self.tableView reloadData];
+    [self reloadTableView];
 }
 
 
@@ -404,34 +451,19 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 60;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    return self.segment;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0.0001f;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = [[self currentContentViewController] contentHeight];
-    CGFloat minHeight = kScreenHeight - 200;
-    return MAX(height, minHeight);
+
+    return kSegmentHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContentCellID"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"ContentCellID"];
-        [cell.contentView addSubview:self.pageViewController.view];
     }
     
     return cell;
 }
-
 
 
 #pragma mark - UIPageViewControllerDataSource
@@ -492,7 +524,8 @@
     
     if (index != self.segment.selectedIndex) {
         [self.segment changedSelectedIndex:index executeDelegate:NO];
-        [self.tableView reloadData];
+        
+        [self reloadTableView];
         
         if (self.tableView.contentOffset.y > CGRectGetHeight(self.stockHeaderView.bounds)) {
             self.tableView.contentOffset = CGPointMake(0, self.stockHeaderView.bounds.size.height);
@@ -549,26 +582,23 @@
 
 - (SurveyDetailSegmentView *)segment {
     if (!_segment) {
-        _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 60)];
+        _segment = [[SurveyDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, kSegmentHeight)];
         _segment.delegate = self;
-        _segment.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        _segment.dk_backgroundColorPicker = DKColorPickerWithKey(STOCKSEGMENT);
         
-        SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地篇"
-                                                                                  image:[UIImage imageNamed:@"btn_shidi_nor"]
-                                                                       highlightedImage:[UIImage imageNamed:@"btn_shidi_select"]
-                                                                   highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#FF9E05"]];
-        SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"对话录"
-                                                                                  image:[UIImage imageNamed:@"btn_duihua_nor"]
-                                                                       highlightedImage:[UIImage imageNamed:@"btn_duihua_select"]
-                                                                    highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#EA4344"]];
-        SurveyDetailSegmentItem *niuxiong = [[SurveyDetailSegmentItem alloc] initWithTitle:@"牛熊说"
-                                                                                   image:[UIImage imageNamed:@"btn_niuxiong_nor"]
-                                                                        highlightedImage:[UIImage imageNamed:@"btn_niuxiong_select"]
-                                                                      highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#00C9EE"]];
-        SurveyDetailSegmentItem *redian = [[SurveyDetailSegmentItem alloc] initWithTitle:@"热点篇"
-                                                                                   image:[UIImage imageNamed:@"btn_redian_nor"]
-                                                                        highlightedImage:[UIImage imageNamed:@"btn_redian_select"]
-                                                                    highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#FF875B"]];
+        SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地"
+                                                                                  image:[UIImage imageNamed:@"ico_spot.png"]
+                                                                selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#69ae1d"]];
+        SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"对话"
+                                                                                  image:[UIImage imageNamed:@"ico_dialogue.png"]
+                                                                 selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#5e7ef0"]];
+        SurveyDetailSegmentItem *niuxiong = [[SurveyDetailSegmentItem alloc] initWithTitle:@"牛熊"
+                                                                                   image:[UIImage imageNamed:@"ico_vs.png"]
+                                                                   selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#ff9600"]];
+        SurveyDetailSegmentItem *redian = [[SurveyDetailSegmentItem alloc] initWithTitle:@"热点"
+                                                                                   image:[UIImage imageNamed:@"ico_hot.png"]
+                                                                 selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#f65050"]];
+        /*
         SurveyDetailSegmentItem *chanpin = [[SurveyDetailSegmentItem alloc] initWithTitle:@"产品篇"
                                                                                    image:[UIImage imageNamed:@"btn_chanpin_nor"]
                                                                         highlightedImage:[UIImage imageNamed:@"btn_chanpin_select"]
@@ -577,7 +607,8 @@
                                                                                    image:[UIImage imageNamed:@"btn_wenda_nor"]
                                                                         highlightedImage:[UIImage imageNamed:@"btn_wenda_select"]
                                                                    highlightedTextColor:[UIColor hx_colorWithHexRGBAString:@"#26D79F"]];
-        _segment.segments = @[shidi,duihua,niuxiong,redian,chanpin,wenda];
+         */
+        _segment.segments = @[shidi,duihua,niuxiong,redian];
         
     }
     
@@ -586,12 +617,26 @@
 
 - (NSMutableArray *)contentControllers {
     if (!_contentControllers) {
-        _contentControllers = [NSMutableArray arrayWithCapacity:7];
+        _contentControllers = [NSMutableArray arrayWithCapacity:4];
         
         __weak SurveyDetailViewController *wself = self;
         
-        for (int i=0; i<6; i++) {
-            if (i == 2) {
+        for (int i=0; i<4; i++) {
+            if (i == 0) {
+                SpotViewController *content = [[SpotViewController alloc] init];
+                content.rootController = wself;
+                content.stockId = self.stockId;
+                content.tag = i;
+                content.delegate = wself;
+                [_contentControllers addObject:content];
+            } else if (i == 1) {
+                DialogueViewController *content = [[DialogueViewController alloc] init];
+                content.rootController = wself;
+                content.stockId = self.stockId;
+                content.tag = i;
+                content.delegate = wself;
+                [_contentControllers addObject:content];
+            } else if (i == 2) {
                 SurveyDetailStockCommentViewController *niuxiongvc = [[SurveyDetailStockCommentViewController alloc] init];
                 niuxiongvc.rootController = wself;
                 niuxiongvc.stockId = self.stockId;

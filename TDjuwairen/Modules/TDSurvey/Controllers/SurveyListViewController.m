@@ -102,8 +102,8 @@
         i++;
     }
 
-    UIImageView *sep = [[UIImageView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
-    sep.image = [UIImage imageNamed:@"slipLine.png"];
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
+    sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
     [view addSubview:sep];
     
     return view;
@@ -412,13 +412,13 @@
     
     [view addSubview:self.segmentControl];
     
-    UIImageView *sep = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.5)];
-    sep.image = [UIImage imageNamed:@"slipLine.png"];
-    [view addSubview:sep];
+    UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    top.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+    [view addSubview:top];
     
-    UIImageView *sep2 = [[UIImageView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 0.5)];
-    sep2.image = [UIImage imageNamed:@"slipLine.png"];
-    [view addSubview:sep2];
+    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
+    bottom.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+    [view addSubview:bottom];
     
     return view;
 }

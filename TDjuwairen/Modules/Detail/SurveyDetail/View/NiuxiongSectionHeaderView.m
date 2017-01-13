@@ -42,9 +42,9 @@
         [_xiongBtn setImage:[UIImage imageNamed:@"icon_bear.png"] forState:UIControlStateHighlighted];
         [_xiongBtn addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_xiongBtn];
-        
-        UIImageView *sep = [[UIImageView alloc] initWithFrame:CGRectMake(0, 49, kScreenWidth, 0.5)];
-        sep.image = [UIImage imageNamed:@"slipLine.png"];
+
+        UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 49, kScreenWidth, 1)];
+        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
         [self addSubview:sep];
         
         _indicator = [[UIView alloc] initWithFrame:CGRectMake(0, 49, kScreenWidth/2, 1)];

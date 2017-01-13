@@ -11,6 +11,11 @@
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
 		190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */; };
+		190B38011E28A22100A5C1B1 /* DialogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B38001E28A22100A5C1B1 /* DialogueViewController.m */; };
+		190B38041E28A23200A5C1B1 /* SpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B38031E28A23200A5C1B1 /* SpotViewController.m */; };
+		190B38081E28A32A00A5C1B1 /* SpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B38061E28A32A00A5C1B1 /* SpotTableViewCell.m */; };
+		190B38091E28A32A00A5C1B1 /* SpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B38071E28A32A00A5C1B1 /* SpotTableViewCell.xib */; };
+		190B380C1E28A51600A5C1B1 /* SpotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B380B1E28A51600A5C1B1 /* SpotModel.m */; };
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
@@ -221,7 +226,6 @@
 		19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */; };
 		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
 		19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */; };
-		19D6A2CE1E0CE7E4008368F4 /* SurveyDateHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2CD1E0CE7E4008368F4 /* SurveyDateHandler.m */; };
 		19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2F41E0D0126008368F4 /* STPopupController.m */; };
 		19D6A3031E0D0126008368F4 /* STPopupControllerTransitioningFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2F61E0D0126008368F4 /* STPopupControllerTransitioningFade.m */; };
 		19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2F81E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m */; };
@@ -460,6 +464,15 @@
 		190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionHistoryListCell.xib; sourceTree = "<group>"; };
 		190B37E91E274E6300A5C1B1 /* SubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionModel.h; sourceTree = "<group>"; };
 		190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionModel.m; sourceTree = "<group>"; };
+		190B37FF1E28A22100A5C1B1 /* DialogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogueViewController.h; sourceTree = "<group>"; };
+		190B38001E28A22100A5C1B1 /* DialogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogueViewController.m; sourceTree = "<group>"; };
+		190B38021E28A23200A5C1B1 /* SpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotViewController.h; sourceTree = "<group>"; };
+		190B38031E28A23200A5C1B1 /* SpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotViewController.m; sourceTree = "<group>"; };
+		190B38051E28A32A00A5C1B1 /* SpotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotTableViewCell.h; sourceTree = "<group>"; };
+		190B38061E28A32A00A5C1B1 /* SpotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotTableViewCell.m; sourceTree = "<group>"; };
+		190B38071E28A32A00A5C1B1 /* SpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpotTableViewCell.xib; sourceTree = "<group>"; };
+		190B380A1E28A51600A5C1B1 /* SpotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotModel.h; sourceTree = "<group>"; };
+		190B380B1E28A51600A5C1B1 /* SpotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotModel.m; sourceTree = "<group>"; };
 		191027A51DE410F2006A2275 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
 		191027A61DE410F2006A2275 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
 		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
@@ -869,8 +882,6 @@
 		19C526261D49EE090039F85D /* TDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewController.h; sourceTree = "<group>"; };
 		19C526271D49EE090039F85D /* TDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewController.m; sourceTree = "<group>"; };
 		19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyInfoSetting.storyboard; sourceTree = "<group>"; };
-		19D6A2CC1E0CE7E4008368F4 /* SurveyDateHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDateHandler.h; sourceTree = "<group>"; };
-		19D6A2CD1E0CE7E4008368F4 /* SurveyDateHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDateHandler.m; sourceTree = "<group>"; };
 		19D6A2CF1E0CED53008368F4 /* PlistFileDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlistFileDef.h; sourceTree = "<group>"; };
 		19D6A2F21E0D0126008368F4 /* STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopup.h; sourceTree = "<group>"; };
 		19D6A2F31E0D0126008368F4 /* STPopupController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopupController.h; sourceTree = "<group>"; };
@@ -1257,6 +1268,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		190B37FD1E28A1D500A5C1B1 /* Spot */ = {
+			isa = PBXGroup;
+			children = (
+				190B38021E28A23200A5C1B1 /* SpotViewController.h */,
+				190B38031E28A23200A5C1B1 /* SpotViewController.m */,
+			);
+			path = Spot;
+			sourceTree = "<group>";
+		};
+		190B37FE1E28A20400A5C1B1 /* Dialogue */ = {
+			isa = PBXGroup;
+			children = (
+				190B37FF1E28A22100A5C1B1 /* DialogueViewController.h */,
+				190B38001E28A22100A5C1B1 /* DialogueViewController.m */,
+			);
+			path = Dialogue;
+			sourceTree = "<group>";
+		};
 		191027AD1DE52B04006A2275 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
@@ -2077,6 +2106,8 @@
 		1975951D1DED29FE006441BE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				190B37FE1E28A20400A5C1B1 /* Dialogue */,
+				190B37FD1E28A1D500A5C1B1 /* Spot */,
 				19A5ACB71E0CCF6B00FE953A /* SurveyMore */,
 				19A5AC771E0AB6D800FE953A /* SurveyPublish */,
 				19A5AC681E0AB6A600FE953A /* SurveyNiuXiong */,
@@ -2092,8 +2123,6 @@
 		1975951E1DED29FE006441BE /* Manager */ = {
 			isa = PBXGroup;
 			children = (
-				19D6A2CC1E0CE7E4008368F4 /* SurveyDateHandler.h */,
-				19D6A2CD1E0CE7E4008368F4 /* SurveyDateHandler.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -2180,6 +2209,8 @@
 			children = (
 				197595421DEEBFEA006441BE /* StockCommentModel.h */,
 				197595431DEEBFEA006441BE /* StockCommentModel.m */,
+				190B380A1E28A51600A5C1B1 /* SpotModel.h */,
+				190B380B1E28A51600A5C1B1 /* SpotModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2234,6 +2265,9 @@
 				19A5AC7E1E0B6DEB00FE953A /* NiuxiongTableViewCell.h */,
 				19A5AC7F1E0B6DEB00FE953A /* NiuxiongTableViewCell.m */,
 				19A5AC801E0B6DEB00FE953A /* NiuxiongTableViewCell.xib */,
+				190B38051E28A32A00A5C1B1 /* SpotTableViewCell.h */,
+				190B38061E28A32A00A5C1B1 /* SpotTableViewCell.m */,
+				190B38071E28A32A00A5C1B1 /* SpotTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3586,6 +3620,7 @@
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
+				190B38091E28A32A00A5C1B1 /* SpotTableViewCell.xib in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
@@ -3726,6 +3761,7 @@
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
+				190B38081E28A32A00A5C1B1 /* SpotTableViewCell.m in Sources */,
 				842C91D41DD2FE310019617C /* BearBullTableViewCell.m in Sources */,
 				845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
@@ -3793,7 +3829,6 @@
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
 				1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */,
-				19D6A2CE1E0CE7E4008368F4 /* SurveyDateHandler.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
@@ -3811,6 +3846,7 @@
 				843BC1F41DC97C9300E170EF /* KeysNumberTableViewCell.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
 				19A5ACBA1E0CCF7E00FE953A /* SurveyMoreViewController.m in Sources */,
+				190B38011E28A22100A5C1B1 /* DialogueViewController.m in Sources */,
 				1961DF411DF9523600A08A4B /* RegisterCodeTableViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */,
@@ -3867,6 +3903,7 @@
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
+				190B38041E28A23200A5C1B1 /* SpotViewController.m in Sources */,
 				19AF983A1E27125D0097A585 /* AssessedViewController.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
@@ -3936,6 +3973,7 @@
 				19AF98471E2720110097A585 /* ApplySurveyViewController.m in Sources */,
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
 				19A5AC851E0B747800FE953A /* NiuxiongSectionHeaderView.m in Sources */,
+				190B380C1E28A51600A5C1B1 /* SpotModel.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
 				19A5AC4A1E0A65B300FE953A /* RechargeChooseViewController.m in Sources */,
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
