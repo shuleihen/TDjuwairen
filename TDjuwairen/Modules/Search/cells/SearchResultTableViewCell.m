@@ -16,24 +16,28 @@
     // Initialization code
 }
 
-- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
-{
-    if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
-        _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(12.0, 14, kScreenWidth-24, 18)];
-        _titleLabel.font = [UIFont systemFontOfSize:15.0f];
-        _titleLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
-        [self.contentView addSubview:_titleLabel];
-        
-        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    }
-    return self;
-}
-
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
     // Configure the view for the selected state
 }
 
+- (void)setIsStock:(BOOL)isStock {
+    _isStock = isStock;
+    
+    self.addBtn.hidden = !isStock;
+    self.inviteBtn.hidden = !isStock;
+}
+
+- (IBAction)addPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addStockPressedWithResult:)]) {
+        [self.delegate addStockPressedWithResult:self.searchResult];
+    }
+}
+
+- (IBAction)invitePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(invitePressedWithResult:)]) {
+        [self.delegate invitePressedWithResult:self.searchResult];
+    }
+}
 @end

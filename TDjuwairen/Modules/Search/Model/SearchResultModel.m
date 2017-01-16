@@ -11,7 +11,10 @@
 @implementation SearchResultModel
 - (id)initWithStockDict:(NSDictionary *)dict {
     if (self = [super init]) {
-//        _resultId = 
+        NSString *name = dict[@"company_name"];
+        _resultId = dict[@"company_code"];
+        _title = [NSString stringWithFormat:@"%@(%@)",name,_resultId];
+        _isMyStock = [dict[@"is_mystock"] boolValue];
     }
     return self;
 }
@@ -20,6 +23,7 @@
     if (self = [super init]) {
         _resultId = dict[@"survey_companycode"];
         _title = dict[@"survey_title"];
+        _isMyStock = [dict[@"is_mystock"] boolValue];
     }
     return self;
 }

@@ -11,6 +11,7 @@
 @interface SearchResultModel : NSObject
 @property (nonatomic, strong) NSString *resultId;
 @property (nonatomic, strong) NSString *title;
+@property (nonatomic, assign) BOOL isMyStock;
 
 - (id)initWithStockDict:(NSDictionary *)dict;
 - (id)initWithSurveyDict:(NSDictionary *)dict;

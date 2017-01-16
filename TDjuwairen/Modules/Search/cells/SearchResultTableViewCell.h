@@ -7,8 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SearchResultModel.h"
+
+@protocol SearchResultCellDelegate <NSObject>
+
+- (void)gradePressedWithResult:(SearchResultModel *)model;
+- (void)addStockPressedWithResult:(SearchResultModel *)model;
+- (void)invitePressedWithResult:(SearchResultModel *)model;
+@end
 
 @interface SearchResultTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *buttonsWidth;
+@property (nonatomic, strong) SearchResultModel *searchResult;
+@property (nonatomic,strong) IBOutlet UILabel *titleLabel;
+@property (nonatomic, weak) IBOutlet UIButton *inviteBtn;
+@property (nonatomic, weak) IBOutlet UIButton *addBtn;
+@property (nonatomic, assign) BOOL isStock;
 
-@property (nonatomic,strong) UILabel *titleLabel;
+@property (nonatomic, weak) id<SearchResultCellDelegate> delegate;
 @end

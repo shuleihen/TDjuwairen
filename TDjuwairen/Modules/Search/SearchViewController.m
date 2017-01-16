@@ -23,6 +23,7 @@
 #import "SurveyDetailViewController.h"
 #import "SearchResultModel.h"
 #import "NoResultView.h"
+#import "ApplySurveyViewController.h"
 
 @interface SearchSectionData : NSObject
 @property (nonatomic, strong) NSString *sectionTitle;
@@ -34,7 +35,7 @@
 @end
 
 
-@interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate>
+@interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate, SearchResultCellDelegate>
 {
     NSMutableArray *resultArr;
     NSMutableArray *searchHistory;
@@ -91,6 +92,20 @@
     }
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    [self.navigationController setNavigationBarHidden:YES animated:YES];
+    [self.customSearchBar becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO animated:YES];
+}
+
 - (void)setupWithSearchBar{
     UIView *titleview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     titleview.backgroundColor = self.daynightmodel.navigationColor;
@@ -129,7 +144,8 @@
     self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     [self.view addSubview:self.tableview];
     
-    [self.tableview registerClass:[SearchResultTableViewCell class] forCellReuseIdentifier:@"SearchResultCellID"];
+    UINib *nib = [UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil];
+    [self.tableview registerNib:nib forCellReuseIdentifier:@"SearchResultCellID"];
 }
 
 - (void)setupHistory {
@@ -166,7 +182,7 @@
 }
 
 - (void)requestDataWithText{
-    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dic = nil;
     if (US.isLogIn) {
         dic = @{@"keywords":self.customSearchBar.text,
@@ -183,6 +199,20 @@
             NSDictionary *dic = data;
             
             NSMutableArray *sections = [NSMutableArray array];
+            
+            NSArray *stockList = dic[@"stockList"];
+            if (stockList) {
+                SearchSectionData *sectionData = [[SearchSectionData alloc] init];
+                sectionData.sectionTitle = @"股票";
+                NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[stockList count]];
+                
+                for (NSDictionary *dict in stockList) {
+                    SearchResultModel *result = [[SearchResultModel alloc] initWithStockDict:dict];
+                    [marray addObject:result];
+                }
+                sectionData.items = marray;
+                [sections addObject:sectionData];
+            }
             
             NSArray *surveyList = dic[@"surveyList"];
             if (surveyList) {
@@ -235,6 +265,47 @@
     }];
 }
 
+#pragma mark - SearchResultCellDelegate
+- (void)addStockPressedWithResult:(SearchResultModel *)model {
+    if (US.isLogIn) {
+        NSDictionary *para = @{@"code":model.resultId,
+                               @"user_id":US.userId};
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSString *url = @"Survey/addMyStock";
+        [manager POST:url parameters:para completion:^(id data, NSError *error) {
+            if (!error) {
+                hud.labelText = @"添加成功";
+                [hud hide:YES afterDelay:0.5];
+                
+                model.isMyStock = YES;
+                [self.tableview reloadData];
+            }
+            else
+            {
+                hud.labelText = @"添加失败";
+                [hud hide:YES afterDelay:0.5];
+                
+            }
+        }];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+}
+
+- (void)invitePressedWithResult:(SearchResultModel *)model {
+    if (US.isLogIn) {
+        ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.stockId = model.resultId;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+}
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -363,6 +434,14 @@
             SearchSectionData *sectionData = self.resultSections[indexPath.section];
             SearchResultModel *result = sectionData.items[indexPath.row];
             cell.titleLabel.text = result.title;
+            cell.searchResult = result;
+            cell.delegate = self;
+            
+            if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
+                cell.isStock = YES;
+            } else {
+                cell.isStock = NO;
+            }
             return cell;
         }
     }
@@ -380,8 +459,22 @@
     {
         SearchSectionData *sectionData = self.resultSections[indexPath.section];
         SearchResultModel *result = sectionData.items[indexPath.row];
-        
-        if ([sectionData.sectionTitle isEqualToString:@"调研"]) {
+        if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
+            NSString *code = [result.resultId substringWithRange:NSMakeRange(0, 1)];
+            NSString *companyCode ;
+            if ([code isEqualToString:@"6"]) {
+                companyCode = [NSString stringWithFormat:@"sh%@",result.resultId];
+            }
+            else
+            {
+                companyCode = [NSString stringWithFormat:@"sz%@",result.resultId];
+            }
+            
+            SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockId = companyCode;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        } else if ([sectionData.sectionTitle isEqualToString:@"调研"]) {
 
             NSString *code = [result.resultId substringWithRange:NSMakeRange(0, 1)];
             NSString *companyCode ;
@@ -436,21 +529,6 @@
     
 //    NSString *str = [NSString stringWithFormat:@"%@",searchBar.text];
 //    [self addHistoryWithString:str];
-}
-
-#pragma mark - 页面出现时
-- (void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-
-    [self.navigationController setNavigationBarHidden:YES animated:YES];
-    [self.customSearchBar becomeFirstResponder];
-}
-
-- (void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 #pragma mark - 拖动的时候释放第一响应

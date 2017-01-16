@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ApplySurveyViewController : UITableViewController
-
+@property (nonatomic, strong) NSString *stockId;
 @end
