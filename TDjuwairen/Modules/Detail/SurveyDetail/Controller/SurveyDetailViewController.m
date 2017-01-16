@@ -237,7 +237,7 @@
         
         [UIView animateWithDuration:0.3 animations:^{
             self.bottomToolView.center = CGPointMake(kScreenWidth/2, kScreenHeight - 25);
-            
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         } completion:^(BOOL finish){
 
         }];
@@ -246,9 +246,10 @@
 
 - (void)hideBottomTool {
     if (self.bottomToolView.superview) {
+        
         [UIView animateWithDuration:0.3 animations:^{
             self.bottomToolView.center = CGPointMake(kScreenWidth/2, kScreenHeight+25);
-            
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
         } completion:^(BOOL finish){
 
             [self.bottomToolView removeFromSuperview];
