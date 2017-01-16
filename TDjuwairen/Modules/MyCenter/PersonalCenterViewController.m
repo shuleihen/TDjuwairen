@@ -7,7 +7,6 @@
 //
 
 #import "PersonalCenterViewController.h"
-#import "ManageButtonTableViewCell.h"
 #import "SetUpTableViewCell.h"
 #import "LoginState.h"
 #import "LoginViewController.h"
@@ -27,6 +26,10 @@
 #import "PersonalHeaderView.h"
 #import "UIdaynightModel.h"
 #import "NotificationDef.h"
+#import "UIButton+Align.h"
+
+#define kPersonalHeaderViewHeight 210
+#define kButtonsPanelHeight 75
 
 @interface PersonalCenterViewController ()<UITableViewDelegate,UITableViewDataSource,DaynightCellTableViewCellDelegate>
 
@@ -34,6 +37,7 @@
 @property (nonatomic,strong) NSArray *setupImgArr;
 @property (nonatomic,strong) NSArray *setupTitleArr;
 @property (nonatomic, strong) PersonalHeaderView *headerView;
+@property (nonatomic, strong) UIView *buttonsPanel;
 @end
 
 @implementation PersonalCenterViewController
@@ -43,11 +47,12 @@
     
     self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
-    self.setupImgArr = @[@"icon_night.png",@"icon_remind.png",@"icon_issued.png",@"icon_collection.png",@"icon_setting.png",@"icon_us.png"];
-    self.setupTitleArr = @[@"夜间模式",@"消息提醒",@"发布管理",@"我的收藏",@"设置",@"关于我们"];
+    self.setupImgArr = @[@[@"1"],@[@"icon_remind.png",@"icon_issued.png",@"icon_collection.png"],@[@"icon_setting.png"],@[@"icon_us.png"]];
+    self.setupTitleArr = @[@[@"1"],@[@"消息提醒",@"发布管理",@"我的收藏"],@[@"设置"],@[@"关于我们"]];
     
     [self setupNavigationBar];
     [self setupWithTableView];
+    [self setupButtons];
 }
 
 
@@ -55,22 +60,27 @@
 {
     [super viewWillAppear:animated];
     
+    [self.navigationController setNavigationBarHidden:YES animated:animated];
+    
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
         [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
-        [self.headerView.backImg sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:nil options:SDWebImageRefreshCached];
         self.headerView.nickname.text = US.nickName;
-        self.headerView.backImg.hidden = NO;
     } else {
         self.headerView.nickname.text = @"登陆注册";
         self.headerView.headImg.image = [UIImage imageNamed:@"HeadUnLogin"];
-        self.headerView.backImg.hidden = YES;
     }
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
+    
+    [self.navigationController setNavigationBarHidden:NO animated:animated];
+}
+
+- (UIStatusBarStyle)preferredStatusBarStyle {
+    return UIStatusBarStyleLightContent;
 }
 
 - (void)setupNavigationBar {
@@ -81,37 +91,81 @@
 }
 
 - (void)setupWithTableView {
-    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-50) style:UITableViewStyleGrouped];
+    self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+    self.tableview.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
+    self.tableview.separatorColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
-    self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
-    self.tableview.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableview.separatorInset = UIEdgeInsetsZero;
     [self.view addSubview:self.tableview];
     
-    self.headerView = [[PersonalHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 190)];
+    self.headerView = [[PersonalHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kPersonalHeaderViewHeight)];
     self.tableview.tableHeaderView = self.headerView;
     [self.headerView addTarget:self action:@selector(myInfoPressed:)];
+    
+    UIButton *cancel = [UIButton buttonWithType:UIButtonTypeCustom];
+    cancel.frame = CGRectMake(12, 30, 30, 30);
+    [cancel setImage:[UIImage imageNamed:@"ico_close.png"] forState:UIControlStateNormal];
+    [cancel addTarget:self action:@selector(cancelPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self.headerView addSubview:cancel];
+}
+
+- (void)setupButtons {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 75)];
+    view.backgroundColor = [UIColor whiteColor];
+    
+    NSArray *titles = @[@"评论管理",@"我的关注",@"我的钱包"];
+    NSArray *images = @[@"icon_comment.png",@"icon_attention.png",@"icon_wallet.png"];
+    NSArray *selectors = @[@"commentPressed:",@"collectPressed:",@"walletPressed:"];
+    
+    int i=0;
+    CGFloat w = kScreenWidth/3;
+    for (NSString *title in titles) {
+        UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, 0, w, 75)];
+        
+        btn.titleLabel.font = [UIFont systemFontOfSize:11.0f];
+        
+        [btn setTitle:title forState:UIControlStateNormal];
+        [btn setTitle:title forState:UIControlStateNormal];
+  
+        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateNormal];
+//        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+//        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateHighlighted];
+        
+        UIImage *image = [UIImage imageNamed:images[i]];
+        [btn setImage:image forState:UIControlStateNormal];
+        [btn setImage:image forState:UIControlStateHighlighted];
+        
+        SEL action = NSSelectorFromString(selectors[i]);
+        [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+        [view addSubview:btn];
+        
+        [btn align:BAVerticalImage withSpacing:12.0f];
+        i++;
+    }
+    
+//    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
+//    sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+//    [view addSubview:sep];
+    
+    self.buttonsPanel = view;
 }
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return [self.setupTitleArr count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (section == 0) {
-        return 1;
-    }else {
-        return [self.setupTitleArr count];
-    }
+    NSArray *array = self.setupTitleArr[section];
+    return [array count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return 60;
+        return 75;
     }else {
-        return 45;
+        return 44;
     }
 }
 
@@ -125,51 +179,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        NSString *identifier = @"buttonCelL";
-        ManageButtonTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        NSString *identifier = @"buttonCellID";
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
-            cell = [[ManageButtonTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            [cell.CommentManage addTarget:self action:@selector(GoComment:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.CollectManage addTarget:self action:@selector(GoCollect:) forControlEvents:UIControlEventTouchUpInside];
-            [cell.BrowseManage addTarget:self action:@selector(GoBrowse:) forControlEvents:UIControlEventTouchUpInside];
+            cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            [cell.contentView addSubview:self.buttonsPanel];
         }
-        
-        cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
         
         return cell;
     } else {
-        if (indexPath.row == 0) {
-            NSString *identifier = @"dn";
-            DaynightCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[DaynightCellTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            
-            if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
-                [cell.mySwitch setOn:YES];
-            } else {
-                [cell.mySwitch setOn:NO];
-            }
-            
-
-            cell.delegate = self;
-            cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
-            cell.title.text = self.setupTitleArr[indexPath.row];
-            
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        } else {
-            NSString *identifier = @"setup";
-            SetUpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[SetUpTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            cell.imgView.image = [UIImage imageNamed:self.setupImgArr[indexPath.row]];
-            cell.title.text = self.setupTitleArr[indexPath.row];
+        NSString *identifier = @"UserCenterCellID";
+        SetUpTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[SetUpTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-            
-            return cell;
         }
+        
+        NSArray *images = self.setupImgArr[indexPath.section];
+        NSString *imageName = images[indexPath.row];
+        
+        NSArray *titles = self.setupTitleArr[indexPath.section];
+        NSString *title = titles[indexPath.row];
+        
+        cell.imgView.image = [UIImage imageNamed:imageName];
+        cell.title.text = title;
+        
+        return cell;
     }
 }
 
@@ -177,7 +212,7 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-    if (indexPath.section == 1)
+    if (indexPath.section >= 1)
     {
         if (US.isLogIn==NO) {
             //跳转到登录页面
@@ -187,36 +222,37 @@
             return;
         }
         
-        if (indexPath.row == 1) {
+        
+        if (indexPath.section == 1 && indexPath.row == 0) {
             // 消息管理
             PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
             messagePush.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:messagePush animated:YES];
             
         }
-        else if (indexPath.row == 2) {
+        else if (indexPath.section == 1 && indexPath.row == 1) {
             // 发布管理
             ViewManagerViewController *viewmanage = [[ViewManagerViewController alloc] init];
             viewmanage.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:viewmanage animated:YES];
         }
-        else if(indexPath.row == 3) {
+        else if(indexPath.section == 1 && indexPath.row == 2) {
             // 收藏
             CollectionViewController *collection = [[CollectionViewController alloc] init];
             collection.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:collection animated:YES];
         }
-        else if (indexPath.row == 4) {
-            // 设置
-            SettingUpViewController *Setting = [[SettingUpViewController alloc]init];
-            Setting.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:Setting animated:YES];
-        }
-        else if (indexPath.row == 5) {
+        else if (indexPath.section == 2) {
             // 关于
             AboutMineViewController *aboutmine = [[AboutMineViewController alloc]init];
             aboutmine.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:aboutmine animated:YES];
+        }
+        else if (indexPath.section == 3) {
+            // 设置
+            SettingUpViewController *Setting = [[SettingUpViewController alloc]init];
+            Setting.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:Setting animated:YES];
         }
     }
 }
@@ -242,7 +278,7 @@
     }
 }
 
-- (void)GoComment:(UIButton *)sender{
+- (void)commentPressed:(UIButton *)sender{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -257,7 +293,7 @@
     }
 }
 
-- (void)GoCollect:(UIButton *)sender{
+- (void)collectPressed:(UIButton *)sender{
     if (US.isLogIn == NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -272,7 +308,7 @@
     }
 }
 
-- (void)GoBrowse:(UIButton *)serder{
+- (void)walletPressed:(UIButton *)serder{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];

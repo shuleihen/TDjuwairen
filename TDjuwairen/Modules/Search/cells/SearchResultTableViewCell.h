@@ -11,7 +11,6 @@
 
 @protocol SearchResultCellDelegate <NSObject>
 
-- (void)gradePressedWithResult:(SearchResultModel *)model;
 - (void)addStockPressedWithResult:(SearchResultModel *)model;
 - (void)invitePressedWithResult:(SearchResultModel *)model;
 @end

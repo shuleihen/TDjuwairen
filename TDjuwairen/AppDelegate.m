@@ -400,7 +400,11 @@ static BOOL isBackGroundActivateApplication;
 - (void)setupUICommon {
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
+    [daynightmodel day];
+    [userdefault setObject:@"yes" forKey:@"daynight"];
     
+    self.dk_manager.themeVersion = DKThemeVersionNormal;
+    /*
     if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
         [daynightmodel night];
         [userdefault setObject:@"no" forKey:@"daynight"];
@@ -408,6 +412,7 @@ static BOOL isBackGroundActivateApplication;
         [daynightmodel day];
         [userdefault setObject:@"yes" forKey:@"daynight"];
     }
+     */
 }
 /*
  - (void)setupUICommon

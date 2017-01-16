@@ -91,7 +91,6 @@
 		1955B4631D644D9800DC102E /* BrowserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3BE1D644D9800DC102E /* BrowserTableViewCell.xib */; };
 		1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3C01D644D9800DC102E /* BrowserViewController.m */; };
 		1955B4671D644D9800DC102E /* DaynightCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3C61D644D9800DC102E /* DaynightCellTableViewCell.m */; };
-		1955B4681D644D9800DC102E /* ManageButtonTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3C81D644D9800DC102E /* ManageButtonTableViewCell.m */; };
 		1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */; };
 		1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */; };
 		1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */; };
@@ -104,7 +103,6 @@
 		1955B47E1D644D9800DC102E /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F21D644D9800DC102E /* FeedbackViewController.m */; };
 		1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */; };
 		1955B4801D644D9800DC102E /* JWRImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F61D644D9800DC102E /* JWRImageView.m */; };
-		1955B4841D644D9800DC102E /* ButtonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4001D644D9800DC102E /* ButtonView.m */; };
 		1955B4851D644D9800DC102E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4041D644D9800DC102E /* NetworkManager.m */; };
 		1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40C1D644D9800DC102E /* SearchResultTableViewCell.m */; };
 		1955B4891D644D9800DC102E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40E1D644D9800DC102E /* SearchViewController.m */; };
@@ -634,8 +632,6 @@
 		1955B3C01D644D9800DC102E /* BrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserViewController.m; sourceTree = "<group>"; };
 		1955B3C51D644D9800DC102E /* DaynightCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaynightCellTableViewCell.h; sourceTree = "<group>"; };
 		1955B3C61D644D9800DC102E /* DaynightCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaynightCellTableViewCell.m; sourceTree = "<group>"; };
-		1955B3C71D644D9800DC102E /* ManageButtonTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ManageButtonTableViewCell.h; sourceTree = "<group>"; };
-		1955B3C81D644D9800DC102E /* ManageButtonTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ManageButtonTableViewCell.m; sourceTree = "<group>"; };
 		1955B3CD1D644D9800DC102E /* SetUpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetUpTableViewCell.h; sourceTree = "<group>"; };
 		1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpTableViewCell.m; sourceTree = "<group>"; };
 		1955B3D01D644D9800DC102E /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionTableViewCell.h; sourceTree = "<group>"; };
@@ -657,8 +653,6 @@
 		1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsListTableViewCell.m; sourceTree = "<group>"; };
 		1955B3F51D644D9800DC102E /* JWRImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWRImageView.h; sourceTree = "<group>"; };
 		1955B3F61D644D9800DC102E /* JWRImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWRImageView.m; sourceTree = "<group>"; };
-		1955B3FF1D644D9800DC102E /* ButtonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ButtonView.h; sourceTree = "<group>"; };
-		1955B4001D644D9800DC102E /* ButtonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ButtonView.m; sourceTree = "<group>"; };
 		1955B4021D644D9800DC102E /* NetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
 		1955B4031D644D9800DC102E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		1955B4041D644D9800DC102E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
@@ -1839,8 +1833,6 @@
 			children = (
 				1955B3C51D644D9800DC102E /* DaynightCellTableViewCell.h */,
 				1955B3C61D644D9800DC102E /* DaynightCellTableViewCell.m */,
-				1955B3C71D644D9800DC102E /* ManageButtonTableViewCell.h */,
-				1955B3C81D644D9800DC102E /* ManageButtonTableViewCell.m */,
 				1955B3CD1D644D9800DC102E /* SetUpTableViewCell.h */,
 				1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */,
 				8426ED681D864CBC00B82ACF /* NothingTableViewCell.h */,
@@ -1901,8 +1893,6 @@
 		1955B3FE1D644D9800DC102E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				1955B3FF1D644D9800DC102E /* ButtonView.h */,
-				1955B4001D644D9800DC102E /* ButtonView.m */,
 				196B8C041DFA602D00084894 /* PersonalHeaderView.h */,
 				196B8C051DFA602D00084894 /* PersonalHeaderView.m */,
 			);
@@ -3748,7 +3738,6 @@
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
-				1955B4681D644D9800DC102E /* ManageButtonTableViewCell.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
@@ -3877,7 +3866,6 @@
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
 				1955B49C1D644D9800DC102E /* PhotoTextAttachment.m in Sources */,
 				19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */,
-				1955B4841D644D9800DC102E /* ButtonView.m in Sources */,
 				19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
