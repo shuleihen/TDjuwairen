@@ -34,6 +34,7 @@
 #import "GradeListViewController.h"
 #import "ApplySurveyViewController.h"
 #import "SubscriptionViewController.h"
+#import "SurveySubjectModel.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -49,7 +50,7 @@
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
-
+@property (nonatomic, strong) NSArray *subjectItems;
 @end
 
 @implementation SurveyListViewController
@@ -127,25 +128,6 @@
     return _segmentControl;
 }
 
-
-- (NSMutableArray *)contentControllers {
-    if (!_contentControllers) {
-        _contentControllers = [NSMutableArray arrayWithCapacity:7];
-        
-        __weak SurveyListViewController *wself = self;
-        
-        for (int i=0; i<3; i++) {
-            SurveyContentListController *vc = [[SurveyContentListController alloc] init];
-            vc.rootController = wself;
-            vc.tag = i;
-            vc.delegate = wself;
-            [_contentControllers addObject:vc];
-        }
-    }
-    
-    return _contentControllers;
-}
-
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
         
@@ -166,9 +148,8 @@
     [self setupTableView];
     
     [self getBanners];
+    [self querySurveySubject];
     [self requestToLogin];
-    
-    [self setupSegmentWithTitles:@[@"自选",@"最新",@"推荐"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -218,10 +199,31 @@
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
+- (void)setupWithSubjectArray:(NSArray *)subjectArray {
+    
+    NSMutableArray *segmentTitles = [NSMutableArray arrayWithCapacity:[subjectArray count]];
+    NSMutableArray *controllers = [NSMutableArray arrayWithCapacity:[subjectArray count]];
+    
+    for (SurveySubjectModel *model in subjectArray) {
+        [segmentTitles addObject:model.subjectTitle];
+        
+        SurveyContentListController *vc = [[SurveyContentListController alloc] init];
+        vc.tag = model.subjectId;
+        vc.subjectTitle = model.subjectTitle;
+        vc.rootController = self;
+        vc.delegate = self;
+        [controllers addObject:vc];
+    }
+    
+    self.contentControllers = controllers;
+    [self setupSegmentWithTitles:segmentTitles];
+}
+
 - (void)setupSegmentWithTitles:(NSArray *)titles {
     CGFloat w = [titles count]*70;
     self.segmentControl.sectionTitles = titles;
     self.segmentControl.frame = CGRectMake(0, 0, w, kSegmentHeight);
+    
     if ([titles count]) {
         self.segmentControl.selectedSegmentIndex = 0;
         [self segmentPressed:self.segmentControl];
@@ -291,7 +293,9 @@
 }
 
 - (void)refreshAction {
-    [[self currentContentViewController] refreshData];
+    [self getBanners];
+    [self querySurveySubject];
+//    [[self currentContentViewController] refreshData];
 }
 
 - (void)loadMoreAction {
@@ -319,6 +323,27 @@
         } else {
             
         }
+    }];
+}
+
+- (void)querySurveySubject {
+    __weak SurveyListViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_SurveySubject parameters:nil completion:^(id data, NSError *error) {
+        if (!error && data) {
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:[data count]];
+            for (NSDictionary *dict in data) {
+                SurveySubjectModel *model = [[SurveySubjectModel alloc] initWithDict:dict];
+                [array addObject:model];
+            }
+            
+            wself.subjectItems = array;
+        } else {
+            
+        }
+        
+        [wself setupWithSubjectArray:wself.subjectItems];
     }];
 }
 

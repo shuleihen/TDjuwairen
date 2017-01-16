@@ -62,6 +62,8 @@
 #define API_SurveyAddQuestion         @"Survey/addQuestion"
 #define API_SurveyAnswerQuestion      @"Survey/answerQuestion"
 #define API_SurveyUnlock        @"Survey/unlockCompany"
+#define API_SurveySubject       @"Survey/surveySubject"
+#define API_SurveySubjectList   @"Survey/lists2_2"
 
 #define API_QueryKeyNumber      @"Survey/getUserKeyNum"
 #define API_AliPay              @"Survey/alipayKey"

@@ -160,6 +160,7 @@
 		19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B901E2C93A800AB26DF /* GradeCommentModel.m */; };
 		19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B931E2C9B7C00AB26DF /* GradeAddViewController.m */; };
 		19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B971E2CA11900AB26DF /* HCSStarRatingView.m */; };
+		19959B9E1E2CB70B00AB26DF /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B9D1E2CB70B00AB26DF /* SurveySubjectModel.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A0CAB41E1A23BB003C4079 /* DKNightVersion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; };
 		19A0CAB51E1A23BB003C4079 /* DKNightVersion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -765,6 +766,8 @@
 		19959B931E2C9B7C00AB26DF /* GradeAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeAddViewController.m; sourceTree = "<group>"; };
 		19959B961E2CA11900AB26DF /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
 		19959B971E2CA11900AB26DF /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
+		19959B9C1E2CB70B00AB26DF /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveySubjectModel.h; path = TDjuwairen/Modules/Grade/Controllers/SurveySubjectModel.h; sourceTree = SOURCE_ROOT; };
+		19959B9D1E2CB70B00AB26DF /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveySubjectModel.m; path = TDjuwairen/Modules/Grade/Controllers/SurveySubjectModel.m; sourceTree = SOURCE_ROOT; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
 		19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarController.m; sourceTree = "<group>"; };
 		19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DKNightVersion.xcodeproj; path = DKNightVersion/DKNightVersion.xcodeproj; sourceTree = "<group>"; };
@@ -2968,6 +2971,8 @@
 				19F43C301E23339B001B72CD /* SurveyListModel.m */,
 				191027AA1DE42492006A2275 /* SurveyModel.h */,
 				191027AB1DE42492006A2275 /* SurveyModel.m */,
+				19959B9C1E2CB70B00AB26DF /* SurveySubjectModel.h */,
+				19959B9D1E2CB70B00AB26DF /* SurveySubjectModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3995,6 +4000,7 @@
 				19A5AC441E0A4E4900FE953A /* StockUnlockViewController.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
+				19959B9E1E2CB70B00AB26DF /* SurveySubjectModel.m in Sources */,
 				847BD6F01DE6E2D9006AEECE /* AwardImfomationTableViewCell.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
 				846E5A201DE4295A0031C993 /* OrderDetailTableViewCell.m in Sources */,

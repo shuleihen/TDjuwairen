@@ -10,6 +10,9 @@
 #import "SurveyDetailViewController.h"
 #import "SurveryStockListCell.h"
 #import "NetworkManager.h"
+#import "LoginState.h"
+#import "HexColors.h"
+#import "SearchViewController.h"
 
 @interface SurveyContentListController ()<StockManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -18,7 +21,7 @@
 @property (nonatomic, strong) NSMutableArray *stockArr;
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
-
+@property (nonatomic, strong) UIView *noDataView;
 @end
 
 @implementation SurveyContentListController
@@ -51,14 +54,64 @@
     return _tableView;
 }
 
+- (UIView *)noDataView {
+    if (!_noDataView) {
+        CGFloat minHeight = kScreenHeight - 64-160-34-10-50;
+        
+        _noDataView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, minHeight)];
+        _noDataView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
+        
+        CGPoint center = CGPointMake(kScreenWidth/2, minHeight/2);
+        
+        UIImage *image;
+        if ([self.subjectTitle isEqualToString:@"自选"]) {
+            image = [UIImage imageNamed:@"no_result.png"];
+        } else {
+            image = [UIImage imageNamed:@"no_result.png"];
+        }
+        
+        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+        btn.frame = CGRectMake(0, 0, image.size.width, image.size.height);
+        [btn setImage:image forState:UIControlStateNormal];
+        btn.center = CGPointMake(center.x, center.y-image.size.height/2-5);
+        [_noDataView addSubview:btn];
+        
+        if ([self.subjectTitle isEqualToString:@"自选"]) {
+            [btn addTarget:self action:@selector(addStockPressed:) forControlEvents:UIControlEventTouchUpInside];
+        }
+        
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 200, 20)];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.center = CGPointMake(center.x, center.y+10);
+        label.font = [UIFont systemFontOfSize:14.0f];
+        label.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+        
+        if ([self.subjectTitle isEqualToString:@"自选"]) {
+            label.text = @"还没有增加自选股票~";
+        } else {
+            label.text = [NSString stringWithFormat:@"还没有%@股票~",self.subjectTitle];
+        }
+        [_noDataView addSubview:label];
+    }
+    return _noDataView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
     [self.view addSubview:self.tableView];
+    self.view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
     
     self.stockArr = [NSMutableArray array];
     self.page = 1;
     [self getSurveyWithPage:self.page];
+}
+
+- (void)addStockPressed:(id)sender {
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;
+    [self.rootController.navigationController pushViewController:searchView animated:YES];
 }
 
 - (CGFloat)contentHeight {
@@ -82,8 +135,15 @@
     __weak SurveyContentListController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
-    [manager GET:url parameters:nil completion:^(id data, NSError *error){
+    
+    NSDictionary *dict = @{};
+    if (US.isLogIn) {
+        dict = @{@"sub_id" : self.tag,@"page" : @(pageA),@"user_id" : US.userId};
+    } else {
+        dict = @{@"sub_id" : self.tag,@"page" : @(pageA)};
+    }
+    
+    [manager GET:API_SurveySubjectList parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
             
@@ -105,7 +165,6 @@
             }
             
             [wself.stockManager addStocks:self.stockArr];
-            [wself.tableView reloadData];
             
             if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
                 [wself.delegate contentListLoadComplete];
@@ -116,9 +175,21 @@
             }
         }
         
+        [wself reloadTableView];
+        
         CGFloat height = [wself contentHeight];
         wself.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
     }];
+}
+
+- (void)reloadTableView {
+    [self.tableView reloadData];
+    
+    if ([self.surveyList count] == 0) {
+        [self.view addSubview:self.noDataView];
+    } else {
+        [self.noDataView removeFromSuperview];
+    }
 }
 
 #pragma mark - StockManagerDelegate
@@ -159,13 +230,6 @@
     SurveyModel *survey = self.surveyList[indexPath.section];
     StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
     
-    //    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-    //    vc.company_name = survey.companyName;
-    //    vc.company_code = survey.companyCode;
-    //    vc.survey_cover = survey.surveyCover;
-    //    vc.hidesBottomBarWhenPushed = YES;
-    //    [self.navigationController pushViewController:vc animated:YES];
-    //
     SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
     vc.stockInfo = stock;
     vc.stockId = survey.companyCode;

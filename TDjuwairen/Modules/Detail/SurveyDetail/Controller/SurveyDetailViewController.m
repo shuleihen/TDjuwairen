@@ -37,6 +37,7 @@
 #import "GradeListViewController.h"
 #import "ApplySurveyViewController.h"
 #import "Masonry.h"
+#import "GradeDetailViewController.h"
 
 #define kHeaderViewHeight 135
 #define kSegmentHeight 45
@@ -315,7 +316,9 @@
 
 #pragma mark - StockHeaderDelegate
 - (void)gradePressed:(id)sender {
-    GradeListViewController *vc = [[GradeListViewController alloc] init];
+    GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
+    vc.stockName = self.stockName;
+    vc.stockId = self.stockId;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
