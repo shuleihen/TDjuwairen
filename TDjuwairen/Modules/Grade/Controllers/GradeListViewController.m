@@ -1,23 +1,23 @@
 //
-//  AssessedViewController.m
+//  GradeListViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/12.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "AssessedViewController.h"
-#import "StockAssessedModel.h"
-#import "StockAssessedTableViewCell.h"
+#import "GradeListViewController.h"
+#import "GradeListModel.h"
+#import "GradeListCell.h"
 #import "NetworkManager.h"
 #import "MJRefresh.h"
 
-@interface AssessedViewController ()
+@interface GradeListViewController ()
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSArray *items;
 @end
 
-@implementation AssessedViewController
+@implementation GradeListViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +29,7 @@
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.title = @"评级排行";
     
-    UINib *nib = [UINib nibWithNibName:@"StockAssessedTableViewCell" bundle:nil];
+    UINib *nib = [UINib nibWithNibName:@"GradeListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StockAssessedCellID"];
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
@@ -47,7 +47,7 @@
     
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
     for (int i=1; i<10; i++) {
-        StockAssessedModel *one = [[StockAssessedModel alloc] init];
+        GradeListModel *one = [[GradeListModel alloc] init];
         one.sortNumber = i;
         one.stockName = @"万润股份（002643）";
         one.grade = 75.0f;
@@ -72,7 +72,7 @@
 
 
 - (void)getSurveyWithPage:(NSInteger)pageA {
-    __weak AssessedViewController *wself = self;
+    __weak GradeListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
@@ -93,10 +93,10 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockAssessedTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockAssessedCellID"];
+    GradeListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockAssessedCellID"];
     
-    StockAssessedModel *model = self.items[indexPath.row];
-    [cell setupStockAssessedModel:model];
+    GradeListModel *model = self.items[indexPath.row];
+    [cell setupGradeListModel:model];
     
     return cell;
 }

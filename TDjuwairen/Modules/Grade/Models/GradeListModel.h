@@ -1,5 +1,5 @@
 //
-//  StockAssessedModel.h
+//  GradeListModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/12.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface StockAssessedModel : NSObject
+@interface GradeListModel : NSObject
 @property (nonatomic, assign) NSInteger sortNumber;
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, assign) CGFloat grade;

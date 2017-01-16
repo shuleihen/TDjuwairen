@@ -1,14 +1,14 @@
 //
-//  StockAssessedTableViewCell.m
+//  GradeListCell.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/12.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "StockAssessedTableViewCell.h"
+#import "GradeListCell.h"
 
-@implementation StockAssessedTableViewCell
+@implementation GradeListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -22,7 +22,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setupStockAssessedModel:(StockAssessedModel *)assessed {
+- (void)setupGradeListModel:(GradeListModel *)assessed {
     if (assessed.sortNumber == 1) {
         self.sortNumberImageView.image = [UIImage imageNamed:@"gold_medal.png"];
     } else if (assessed.sortNumber == 2) {

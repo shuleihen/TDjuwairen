@@ -34,7 +34,7 @@
 #import "UIdaynightModel.h"
 #import "SpotViewController.h"
 #import "DialogueViewController.h"
-#import "AssessedViewController.h"
+#import "GradeListViewController.h"
 #import "ApplySurveyViewController.h"
 #import "Masonry.h"
 
@@ -314,7 +314,7 @@
 
 #pragma mark - StockHeaderDelegate
 - (void)gradePressed:(id)sender {
-    AssessedViewController *vc = [[AssessedViewController alloc] init];
+    GradeListViewController *vc = [[GradeListViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

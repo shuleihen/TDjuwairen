@@ -1,5 +1,5 @@
 //
-//  StockAssessedTableViewCell.h
+//  GradeListCell.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/12.
@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "StockAssessedModel.h"
+#import "GradeListModel.h"
 
-@interface StockAssessedTableViewCell : UITableViewCell
+@interface GradeListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *sortNumberLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sortNumberImageView;
 @property (weak, nonatomic) IBOutlet UILabel *nameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *typeImageView;
 
-- (void)setupStockAssessedModel:(StockAssessedModel *)assessed;
+- (void)setupGradeListModel:(GradeListModel *)assessed;
 @end

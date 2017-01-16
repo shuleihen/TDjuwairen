@@ -31,7 +31,7 @@
 #import "UIButton+Align.h"
 #import "HMSegmentedControl.h"
 #import "SurveyContentListController.h"
-#import "AssessedViewController.h"
+#import "GradeListViewController.h"
 #import "ApplySurveyViewController.h"
 #import "SubscriptionViewController.h"
 
@@ -271,7 +271,7 @@
 }
 
 - (void)gradePressed:(id)sender {
-    AssessedViewController *vc = [[AssessedViewController alloc] init];
+    GradeListViewController *vc = [[GradeListViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
