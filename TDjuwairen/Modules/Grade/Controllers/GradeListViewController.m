@@ -11,6 +11,7 @@
 #import "GradeListCell.h"
 #import "NetworkManager.h"
 #import "MJRefresh.h"
+#import "GradeDetailViewController.h"
 
 @interface GradeListViewController ()
 @property (nonatomic, assign) NSInteger page;
@@ -50,6 +51,7 @@
         GradeListModel *one = [[GradeListModel alloc] init];
         one.sortNumber = i;
         one.stockName = @"万润股份（002643）";
+        one.stockId = @"002643";
         one.grade = 75.0f;
         one.type = (i/2)?1:2;
         [array addObject:one];
@@ -101,4 +103,14 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    GradeListModel *model = self.items[indexPath.row];
+    
+    GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
+    vc.stockName = model.stockName;
+    vc.stockId = model.stockId;
+    [self.navigationController pushViewController:vc animated:YES];
+}
 @end

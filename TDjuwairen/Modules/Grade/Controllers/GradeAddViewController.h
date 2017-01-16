@@ -1,5 +1,5 @@
 //
-//  GradeDetailViewController.h
+//  GradeAddViewController.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/16.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GradeDetailViewController : UIViewController
+@interface GradeAddViewController : UIViewController
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, strong) NSString *stockId;
 @end

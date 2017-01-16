@@ -153,6 +153,13 @@
 		19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B781E2C5D4300AB26DF /* GradeListViewController.m */; };
 		19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B7A1E2C5D4300AB26DF /* GradeDetailViewController.m */; };
 		19959B831E2C5D4300AB26DF /* GradeListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B7D1E2C5D4300AB26DF /* GradeListModel.m */; };
+		19959B861E2C5F4200AB26DF /* GradeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B851E2C5F4200AB26DF /* GradeView.m */; };
+		19959B891E2C694A00AB26DF /* GradeHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B881E2C694A00AB26DF /* GradeHeaderView.m */; };
+		19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B8B1E2C909000AB26DF /* GradeDetailCell.m */; };
+		19959B8E1E2C909000AB26DF /* GradeDetailCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B8C1E2C909000AB26DF /* GradeDetailCell.xib */; };
+		19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B901E2C93A800AB26DF /* GradeCommentModel.m */; };
+		19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B931E2C9B7C00AB26DF /* GradeAddViewController.m */; };
+		19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B971E2CA11900AB26DF /* HCSStarRatingView.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A0CAB41E1A23BB003C4079 /* DKNightVersion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; };
 		19A0CAB51E1A23BB003C4079 /* DKNightVersion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -745,6 +752,19 @@
 		19959B7A1E2C5D4300AB26DF /* GradeDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeDetailViewController.m; sourceTree = "<group>"; };
 		19959B7C1E2C5D4300AB26DF /* GradeListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListModel.h; sourceTree = "<group>"; };
 		19959B7D1E2C5D4300AB26DF /* GradeListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeListModel.m; sourceTree = "<group>"; };
+		19959B841E2C5F4200AB26DF /* GradeView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeView.h; sourceTree = "<group>"; };
+		19959B851E2C5F4200AB26DF /* GradeView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeView.m; sourceTree = "<group>"; };
+		19959B871E2C694A00AB26DF /* GradeHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeHeaderView.h; sourceTree = "<group>"; };
+		19959B881E2C694A00AB26DF /* GradeHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeHeaderView.m; sourceTree = "<group>"; };
+		19959B8A1E2C909000AB26DF /* GradeDetailCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeDetailCell.h; sourceTree = "<group>"; };
+		19959B8B1E2C909000AB26DF /* GradeDetailCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeDetailCell.m; sourceTree = "<group>"; };
+		19959B8C1E2C909000AB26DF /* GradeDetailCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradeDetailCell.xib; sourceTree = "<group>"; };
+		19959B8F1E2C93A800AB26DF /* GradeCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommentModel.h; sourceTree = "<group>"; };
+		19959B901E2C93A800AB26DF /* GradeCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommentModel.m; sourceTree = "<group>"; };
+		19959B921E2C9B7C00AB26DF /* GradeAddViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeAddViewController.h; sourceTree = "<group>"; };
+		19959B931E2C9B7C00AB26DF /* GradeAddViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeAddViewController.m; sourceTree = "<group>"; };
+		19959B961E2CA11900AB26DF /* HCSStarRatingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HCSStarRatingView.h; sourceTree = "<group>"; };
+		19959B971E2CA11900AB26DF /* HCSStarRatingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HCSStarRatingView.m; sourceTree = "<group>"; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
 		19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarController.m; sourceTree = "<group>"; };
 		19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DKNightVersion.xcodeproj; path = DKNightVersion/DKNightVersion.xcodeproj; sourceTree = "<group>"; };
@@ -2235,6 +2255,9 @@
 				19959B731E2C5D4300AB26DF /* GradeListCell.h */,
 				19959B741E2C5D4300AB26DF /* GradeListCell.m */,
 				19959B751E2C5D4300AB26DF /* GradeListCell.xib */,
+				19959B8A1E2C909000AB26DF /* GradeDetailCell.h */,
+				19959B8B1E2C909000AB26DF /* GradeDetailCell.m */,
+				19959B8C1E2C909000AB26DF /* GradeDetailCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2246,6 +2269,8 @@
 				19959B781E2C5D4300AB26DF /* GradeListViewController.m */,
 				19959B791E2C5D4300AB26DF /* GradeDetailViewController.h */,
 				19959B7A1E2C5D4300AB26DF /* GradeDetailViewController.m */,
+				19959B921E2C9B7C00AB26DF /* GradeAddViewController.h */,
+				19959B931E2C9B7C00AB26DF /* GradeAddViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2255,6 +2280,8 @@
 			children = (
 				19959B7C1E2C5D4300AB26DF /* GradeListModel.h */,
 				19959B7D1E2C5D4300AB26DF /* GradeListModel.m */,
+				19959B8F1E2C93A800AB26DF /* GradeCommentModel.h */,
+				19959B901E2C93A800AB26DF /* GradeCommentModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2262,8 +2289,21 @@
 		19959B7E1E2C5D4300AB26DF /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				19959B841E2C5F4200AB26DF /* GradeView.h */,
+				19959B851E2C5F4200AB26DF /* GradeView.m */,
+				19959B871E2C694A00AB26DF /* GradeHeaderView.h */,
+				19959B881E2C694A00AB26DF /* GradeHeaderView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		19959B951E2CA11900AB26DF /* HCSStarRatingView */ = {
+			isa = PBXGroup;
+			children = (
+				19959B961E2CA11900AB26DF /* HCSStarRatingView.h */,
+				19959B971E2CA11900AB26DF /* HCSStarRatingView.m */,
+			);
+			path = HCSStarRatingView;
 			sourceTree = "<group>";
 		};
 		19A0CA3C1E1A1048003C4079 /* TabbarController */ = {
@@ -3318,6 +3358,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19959B951E2CA11900AB26DF /* HCSStarRatingView */,
 				19AF98161E24A7880097A585 /* LocationPicker */,
 				19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */,
 				19BA912D1E14DECA00C27124 /* PAStepper */,
@@ -3621,6 +3662,7 @@
 				1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */,
 				19A5AC821E0B6DEB00FE953A /* NiuxiongTableViewCell.xib in Resources */,
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
+				19959B8E1E2C909000AB26DF /* GradeDetailCell.xib in Resources */,
 				84E333F71CE2BA3D00E5DCEE /* Assets.xcassets in Resources */,
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				19A5AC561E0A911D00FE953A /* AskTableViewCell.xib in Resources */,
@@ -3713,6 +3755,7 @@
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
+				19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */,
 				19AF98331E26234D0097A585 /* NoResultView.m in Sources */,
 				847BD6E71DE69CAB006AEECE /* ExchangeModel.m in Sources */,
 				19E5F2851E1364CF00984DBC /* MyGuessModel.m in Sources */,
@@ -3805,6 +3848,7 @@
 				84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
+				19959B861E2C5F4200AB26DF /* GradeView.m in Sources */,
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
@@ -3844,6 +3888,7 @@
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */,
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
+				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
 				1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
@@ -3861,6 +3906,7 @@
 				847ADA7A1DF7B20B002600AA /* OptionalStockTableViewCell.m in Sources */,
 				843BC1F41DC97C9300E170EF /* KeysNumberTableViewCell.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
+				19959B891E2C694A00AB26DF /* GradeHeaderView.m in Sources */,
 				19A5ACBA1E0CCF7E00FE953A /* SurveyMoreViewController.m in Sources */,
 				190B38011E28A22100A5C1B1 /* DialogueViewController.m in Sources */,
 				1961DF411DF9523600A08A4B /* RegisterCodeTableViewController.m in Sources */,
@@ -3868,6 +3914,7 @@
 				84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */,
 				19A5AC5A1E0A914600FE953A /* AnsTableViewCell.m in Sources */,
 				19A5AC471E0A4E5C00FE953A /* RechargeViewController.m in Sources */,
+				19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */,
 				843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
@@ -3900,6 +3947,7 @@
 				19193B3F1E07C03B000A6AD2 /* PlayMarketMainViewController.m in Sources */,
 				846E5A2E1DE452E20031C993 /* NoOrderTableViewCell.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
+				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				846E59D81DE3E6760031C993 /* MyOrderViewController.m in Sources */,
 				84165D211DD40E790046186D /* AnsModel.m in Sources */,

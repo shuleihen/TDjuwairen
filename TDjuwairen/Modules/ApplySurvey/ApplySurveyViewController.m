@@ -27,7 +27,7 @@
         
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:@"申请调研" forState:UIControlStateNormal];
-        
+        btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         btn.frame = CGRectMake(12, 12, kScreenWidth-24, 35);
         btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         [btn addTarget:self action:@selector(applySurveyPressed:) forControlEvents:UIControlEventTouchUpInside];

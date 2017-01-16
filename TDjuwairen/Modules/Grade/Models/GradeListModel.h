@@ -11,6 +11,7 @@
 @interface GradeListModel : NSObject
 @property (nonatomic, assign) NSInteger sortNumber;
 @property (nonatomic, strong) NSString *stockName;
+@property (nonatomic, strong) NSString *stockId;
 @property (nonatomic, assign) CGFloat grade;
 @property (nonatomic, assign) NSInteger type;
 @end
