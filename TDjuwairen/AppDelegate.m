@@ -592,6 +592,9 @@ static BOOL isBackGroundActivateApplication;
     UMConfigInstance.appKey = @"5844d3cf5312dd6419000c75";
     UMConfigInstance.channelId = @"App Store";
     //    UMConfigInstance.eSType = E_UM_GAME; //仅适用于游戏场景，应用统计不用设置
+    NSString *version = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
+    [MobClick setAppVersion:version];
+    
     [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
 }
 
