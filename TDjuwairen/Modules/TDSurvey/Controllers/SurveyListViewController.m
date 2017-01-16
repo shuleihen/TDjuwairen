@@ -47,6 +47,7 @@
 @property (nonatomic, strong) NSArray *bannerLinks;
 
 @property (nonatomic, strong) WelcomeView *welcomeView;
+@property (nonatomic, strong) UIView *segment;
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -54,6 +55,12 @@
 @end
 
 @implementation SurveyListViewController
+- (void)dealloc {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (SDCycleScrollView *)cycleScrollView {
     if (!_cycleScrollView) {
@@ -108,6 +115,26 @@
     [view addSubview:sep];
     
     return view;
+}
+
+- (UIView *)segment {
+    if (!_segment) {
+        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
+        view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        
+        [view addSubview:self.segmentControl];
+        
+        UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+        top.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        [view addSubview:top];
+        
+        UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
+        bottom.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        [view addSubview:bottom];
+        
+        _segment = view;
+    }
+    return _segment;
 }
 
 - (HMSegmentedControl *)segmentControl {
@@ -168,6 +195,24 @@
     [super viewWillDisappear:animated];
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    CGFloat headerHeight = kBannerHeiht+kButtonViewHeight+10;
+    if ([keyPath isEqualToString:@"contentOffset"])
+    {
+        CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
+        if (offset.y > headerHeight) {
+            
+            CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kSegmentHeight);
+            self.segment.frame = newFrame;
+            
+        } else {
+            CGRect newFrame = CGRectMake(0, headerHeight, self.view.frame.size.width, kSegmentHeight);
+            self.segment.frame = newFrame;
+        }
+    }
+}
+
 #pragma mark - Setup
 - (void)setupNavigationBar {
     UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -192,7 +237,18 @@
 
 - (void)setupTableView {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    // 表头
     self.tableView.tableHeaderView = [self tableViewHeaderView];
+    // 表尾
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
+    // 自定义悬浮segment
+    self.segment.frame = CGRectMake(0, kBannerHeiht+kButtonViewHeight+10, kScreenWidth, kSegmentHeight);
+    [self.tableView addSubview:self.segment];
+    
+    //添加监听，动态观察tableview的contentOffset的改变
+    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
@@ -288,14 +344,13 @@
     SurveyContentListController *vc = self.contentControllers[index];
     
     [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
-        [wself.tableView reloadData];
+        [wself reloadTableView];
     }];
 }
 
 - (void)refreshAction {
     [self getBanners];
     [self querySurveySubject];
-//    [[self currentContentViewController] refreshData];
 }
 
 - (void)loadMoreAction {
@@ -356,6 +411,15 @@
     }
 }
 
+- (void)reloadTableView {
+    CGFloat contentHeight = [[self currentContentViewController] contentHeight];
+    CGFloat minHeight = kScreenHeight - 64-kBannerHeiht-kButtonViewHeight-10-50;
+    CGFloat height = MAX(contentHeight, minHeight);
+    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - SurveyContentListDelegate
 - (void)contentListLoadComplete {
     if ([self.tableView.mj_footer isRefreshing]) {
@@ -366,7 +430,7 @@
         [self.tableView.mj_header endRefreshing];
     }
     
-    [self.tableView reloadData];
+    [self reloadTableView];
 }
 
 #pragma mark - SDCycleScrollViewDelegate
@@ -427,31 +491,8 @@
     return 1;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return kSegmentHeight;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
-    view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    
-    [view addSubview:self.segmentControl];
-    
-    UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-    top.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
-    [view addSubview:top];
-    
-    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
-    bottom.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
-    [view addSubview:bottom];
-    
-    return view;
-}
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    CGFloat height = [[self currentContentViewController] contentHeight];
-    CGFloat minHeight = kScreenHeight - 64-kBannerHeiht-kButtonViewHeight-10-50;
-    return MAX(height, minHeight);
+    return kSegmentHeight;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -459,7 +500,6 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveyListContentCellID"];
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SurveyListContentCellID"];
-        [cell.contentView addSubview:self.pageViewController.view];
     }
     
     return cell;
@@ -508,7 +548,8 @@
     
     if (index != self.segmentControl.selectedSegmentIndex) {
         self.segmentControl.selectedSegmentIndex = index;
-        [self.tableView reloadData];
+        
+        [self reloadTableView];
     }
 }
 
