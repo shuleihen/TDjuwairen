@@ -22,13 +22,13 @@
         _gradeView.center = CGPointMake(frame.size.width/2, frame.size.height/2);
         [self addSubview:_gradeView];
         
-        _stockNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 20, 200, 20)];
+        _stockNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 20, 60, 20)];
         _stockNameLabel.textAlignment = NSTextAlignmentCenter;
         _stockNameLabel.font = [UIFont systemFontOfSize:14.0f];
         _stockNameLabel.textColor = [UIColor whiteColor];
         [self addSubview:_stockNameLabel];
         
-        _stockIdLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 40, 200, 20)];
+        _stockIdLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 40, 60, 20)];
         _stockIdLabel.textAlignment = NSTextAlignmentCenter;
         _stockIdLabel.font = [UIFont systemFontOfSize:12.0f];
         _stockIdLabel.textColor = [UIColor whiteColor];
@@ -38,8 +38,14 @@
 }
 
 - (void)setupGradeModel:(GradeDetailModel *)model {
+    CGSize size = [model.stockName boundingRectWithSize:CGSizeMake(kScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.stockNameLabel.font} context:nil].size;
+    self.stockNameLabel.frame = CGRectMake(25, 20, size.width+4, 20);
+    self.stockIdLabel.frame = CGRectMake(25, 40, size.width+4, 20);
+    
     self.stockNameLabel.text = model.stockName;
     self.stockIdLabel.text = [NSString stringWithFormat:@"(%@)",model.stockId];
+    
+    
     
     NSMutableArray *grades = [NSMutableArray arrayWithCapacity:[model.itemGrades count]];
     for (GradeItem *item in model.itemGrades) {
