@@ -176,7 +176,7 @@
 }
 
 - (void)labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
-    AgreeViewController *agreeview = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"AgreeView"];
+    AgreeViewController *agreeview = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"AgreeViewController"];
     [self.navigationController pushViewController:agreeview animated:YES];
 }
 
