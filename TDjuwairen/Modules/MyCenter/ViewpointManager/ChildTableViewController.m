@@ -65,14 +65,11 @@
 }
 
 - (void)refreshAction {
-    //数据表页数为1
     self.page = 1;
     [self requestShowList:self.typeID];
 }
 
 - (void)loadMoreAction {
-    self.page++;
-    //继续请求
     [self requestShowList:self.typeID];
 }
 
@@ -94,6 +91,7 @@
                  };
     }
     
+    __weak ChildTableViewController *wself = self;
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:API_GetUserViewList1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
@@ -113,17 +111,18 @@
                 }
                 self.listArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
-        
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-            [self.hud hide:YES afterDelay:0.1];
-            [self.tableView reloadData];
+            
+            wself.page++;
+            [wself.tableView.mj_header endRefreshing];
+            [wself.tableView.mj_footer endRefreshing];
+            [wself.hud hide:YES afterDelay:0.1];
+            [wself.tableView reloadData];
         } else {
-            [self.tableView.mj_header endRefreshing];
-            [self.tableView.mj_footer endRefreshing];
-            self.hud.labelText = @"加载失败";
-            [self.hud hide:YES afterDelay:0.1];
-            [self.tableView reloadData];
+            [wself.tableView.mj_header endRefreshing];
+            [wself.tableView.mj_footer endRefreshing];
+            wself.hud.labelText = @"加载失败";
+            [wself.hud hide:YES afterDelay:0.1];
+            [wself.tableView reloadData];
         }
     }];
 }

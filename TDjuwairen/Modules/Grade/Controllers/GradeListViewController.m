@@ -41,7 +41,7 @@
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
     
-    [self testData];
+    [self refreshData];
 }
 
 - (void)testData {
@@ -68,18 +68,41 @@
 }
 
 - (void)loadMoreData {
-    self.page++;
     [self getSurveyWithPage:self.page];
 }
 
 
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak GradeListViewController *wself = self;
+    NSDictionary *dict = @{@"page" : @(pageA)};
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
-    [manager GET:url parameters:nil completion:^(id data, NSError *error){
+    [manager GET:API_SurveyGradeList parameters:dict completion:^(id data, NSError *error){
+        if ([wself.tableView.mj_header isRefreshing]) {
+            [wself.tableView.mj_header endRefreshing];
+        }
         
+        if ([wself.tableView.mj_footer isRefreshing]) {
+            [wself.tableView.mj_footer endRefreshing];
+        }
+        
+        if (!error && data) {
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:[data count]];
+            for (NSDictionary *dict in data) {
+                GradeListModel *model = [[GradeListModel alloc] initWithDict:dict];
+                [array addObject:model];
+            }
+            
+            if (pageA == 1) {
+                wself.items = array;
+            } else {
+                NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.items];
+                [tempArray addObjectsFromArray:array];
+                wself.items = tempArray;
+            }
+            [wself.tableView reloadData];
+            wself.page ++;
+        }
     }];
 }
 

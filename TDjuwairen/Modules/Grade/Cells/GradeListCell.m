@@ -37,12 +37,12 @@
     self.sortNumberImageView.hidden = showSortImage;
     self.sortNumberLabel.hidden = !showSortImage;
     
-    self.nameLabel.text = assessed.stockName;
-    self.gradeLabel.text =  [NSString stringWithFormat:@"%.0lf分",assessed.grade];
+    self.nameLabel.text = [NSString stringWithFormat:@"%@(%@)",assessed.stockName,assessed.stockId];
+    self.gradeLabel.text =  [NSString stringWithFormat:@"%ld分",(long)assessed.grade];
     
-    if (assessed.type == 1) {
+    if (assessed.type == -1) {
         self.typeImageView.image = [UIImage imageNamed:@"ranking_drop.png"];
-    } else if (assessed.type == 2) {
+    } else if (assessed.type == 1) {
         self.typeImageView.image = [UIImage imageNamed:@"ranking_rise.png"];
     } else {
         self.typeImageView.image = nil;

@@ -12,6 +12,10 @@
 #import "GradeDetailCell.h"
 #import "GradeCommentModel.h"
 #import "GradeAddViewController.h"
+#import "GradeDetailModel.h"
+#import "NetworkManager.h"
+#import "LoginState.h"
+#import "LoginViewController.h"
 
 @interface GradeDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *toolView;
@@ -19,6 +23,8 @@
 @property (nonatomic, strong) GradeHeaderView *headerView;
 
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) GradeDetailModel *gradeDetail;
+
 @end
 
 @implementation GradeDetailViewController
@@ -31,8 +37,8 @@
     
     self.title = @"评级列表";
     
-    [self.headerView setupGradeModel];
-    [self testData];
+    [self queryGradeTetail];
+    [self queryCompanyReview];
 }
 
 - (void)testData {
@@ -42,7 +48,7 @@
         GradeCommentModel *model = [[GradeCommentModel alloc] init];
         model.userName = @"大团结";
         model.content = @"挺好挺好挺好挺好挺好挺好挺好挺好挺好挺好挺好挺好";
-        model.grade = 78;
+        model.grade = @"78";
         model.createTime = @"2015-10-3 14:14";
         model.avatar = @"https://static.juwairen.net/Pc/Uploads/Images/Face/faceimg_330_70.jpg";
         [array addObject:model];
@@ -51,10 +57,55 @@
     self.items = array;
 }
 
+- (void)queryGradeTetail {
+    __weak GradeDetailViewController *wself = self;
+    NSDictionary *dict = @{@"code" : self.stockId};
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_SurveyCompanyGrade parameters:dict completion:^(id data, NSError *error){
+        
+        if (!error && data) {
+            wself.gradeDetail = [[GradeDetailModel alloc] initWithDict:data];
+        }
+        
+        [wself.headerView setupGradeModel:wself.gradeDetail];
+        wself.toolView.hidden = wself.gradeDetail.canGrade;
+    }];
+}
+
+- (void)queryCompanyReview {
+    __weak GradeDetailViewController *wself = self;
+    NSDictionary *dict = @{@"code" : self.stockId};
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_SurveyCompanyReview parameters:dict completion:^(id data, NSError *error){
+        
+        if (!error && data) {
+            NSArray *list = data[@"review_list"];
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:[list count]];
+            
+            for (NSDictionary *dict in list) {
+                GradeCommentModel *item = [[GradeCommentModel alloc] initWithDict:dict];
+                [array addObject:item];
+            }
+            
+            wself.items = array;
+            [wself.tableView reloadData];
+        }
+    }];
+}
+
 - (void)gradePressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     GradeAddViewController *vc = [[GradeAddViewController alloc] init];
     vc.stockName = self.stockName;
     vc.stockId = self.stockId;
+    vc.gradeDetail = self.gradeDetail;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -102,11 +153,11 @@
     label.text = @"评价";
     [view addSubview:label];
     
-    UILabel *labelB = [[UILabel alloc] initWithFrame:CGRectMake(62, 7, 40, 160)];
+    UILabel *labelB = [[UILabel alloc] initWithFrame:CGRectMake(62, 7, 160, 20)];
     labelB.font = [UIFont systemFontOfSize:14.0f];
     labelB.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
-    labelB.text = @"评价";
-    [view addSubview:label];
+    labelB.text = [NSString stringWithFormat:@"已有%lu人评价",(unsigned long)[self.items count]];
+    [view addSubview:labelB];
     
     return view;
 }
@@ -130,6 +181,12 @@
     }
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+#pragma mark - Getter
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-55) style:UITableViewStyleGrouped];

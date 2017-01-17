@@ -29,7 +29,7 @@
     self.userNameLabel.text = model.userName;
     self.contentLabel.text = model.content;
     self.dateTimeLabel.text = model.createTime;
-    self.gradeLabel.text = [NSString stringWithFormat:@"%.0lf分",model.grade];
+    self.gradeLabel.text = [NSString stringWithFormat:@"%@分",model.grade];
 }
 
 @end

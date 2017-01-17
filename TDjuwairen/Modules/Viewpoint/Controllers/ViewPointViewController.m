@@ -144,14 +144,11 @@
 }
 
 - (void)refreshActions{
-    //数据表页数为1
     self.page = 1;
     [self requestDataWithNumber:num];
 }
 
 - (void)loadMoreActions{
-    self.page++;
-    //继续请求
     [self requestDataWithNumber:num];
 }
 
@@ -215,6 +212,7 @@
             [tableview.mj_header endRefreshing];
             [tableview.mj_footer endRefreshing];
             [wself stopLoading];
+            wself.page++;
             [tableview reloadData];
         } else {
             UITableView *tableview = wself.tableviewsArr[num];

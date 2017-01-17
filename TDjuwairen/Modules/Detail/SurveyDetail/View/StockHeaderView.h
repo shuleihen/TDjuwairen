@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StockManager.h"
+#import "StockInfoModel.h"
 
 @protocol StockHeaderDelegate <NSObject>
 
@@ -24,8 +25,11 @@
 @property (nonatomic, weak) IBOutlet UILabel *detailBLabel;
 @property (nonatomic, weak) IBOutlet UIButton *gradeBtn;
 @property (nonatomic, weak) IBOutlet UIButton *addBtn;
+@property (nonatomic, weak) IBOutlet UILabel *gradeNumLabel;
+@property (nonatomic, weak) IBOutlet UILabel *orderNumLabel;
 
 @property (nonatomic, weak) id<StockHeaderDelegate> delegate;
 
 - (void)setupStockInfo:(StockInfo *)stockInfo;
+- (void)setupStockModel:(StockInfoModel *)model;
 @end

@@ -75,14 +75,11 @@
 }
 
 - (void)refreshAction {
-    //数据表页数为1
     self.page = 1;
     [self requestDataWithVideoList];
 }
 
 - (void)loadMoreAction {
-    self.page++;
-    //继续请求
     [self requestDataWithVideoList];
 }
 
@@ -121,7 +118,8 @@
                 [wself.videos addObjectsFromArray:array];
             }
             
-            [self.tableview reloadData];
+            wself.page++;
+            [wself.tableview reloadData];
         } else {
             
         }

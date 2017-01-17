@@ -23,11 +23,13 @@
         [self addSubview:_gradeView];
         
         _stockNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 20, 200, 20)];
+        _stockNameLabel.textAlignment = NSTextAlignmentCenter;
         _stockNameLabel.font = [UIFont systemFontOfSize:14.0f];
         _stockNameLabel.textColor = [UIColor whiteColor];
         [self addSubview:_stockNameLabel];
         
         _stockIdLabel = [[UILabel alloc] initWithFrame:CGRectMake(26, 40, 200, 20)];
+        _stockIdLabel.textAlignment = NSTextAlignmentCenter;
         _stockIdLabel.font = [UIFont systemFontOfSize:12.0f];
         _stockIdLabel.textColor = [UIColor whiteColor];
         [self addSubview:_stockIdLabel];
@@ -35,9 +37,14 @@
     return self;
 }
 
-- (void)setupGradeModel {
-    self.stockNameLabel.text = @"万润股份";
-    self.stockIdLabel.text = @"(002643)";
-    self.gradeView.grades = @[@"60",@"70",@"80",@"70",@"70",@"100",@"70",@"30"];
+- (void)setupGradeModel:(GradeDetailModel *)model {
+    self.stockNameLabel.text = model.stockName;
+    self.stockIdLabel.text = [NSString stringWithFormat:@"(%@)",model.stockId];
+    
+    NSMutableArray *grades = [NSMutableArray arrayWithCapacity:[model.itemGrades count]];
+    for (GradeItem *item in model.itemGrades) {
+        [grades addObject:item.score];
+    }
+    self.gradeView.grades = grades;
 }
 @end

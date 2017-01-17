@@ -13,5 +13,7 @@
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *createTime;
-@property (nonatomic, assign) CGFloat grade;
+@property (nonatomic, strong) NSString *grade;
+
+- (id)initWithDict:(NSDictionary *)dict;
 @end

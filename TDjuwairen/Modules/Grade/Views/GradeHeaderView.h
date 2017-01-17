@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "GradeView.h"
+#import "GradeDetailModel.h"
 
 @interface GradeHeaderView : UIView
 
@@ -15,5 +16,5 @@
 @property (nonatomic, strong) UILabel *stockIdLabel;
 @property (nonatomic, strong) GradeView *gradeView;
 
-- (void)setupGradeModel;
+- (void)setupGradeModel:(GradeDetailModel *)model;
 @end

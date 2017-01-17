@@ -9,5 +9,14 @@
 #import "GradeCommentModel.h"
 
 @implementation GradeCommentModel
-
+- (id)initWithDict:(NSDictionary *)dict {
+    if (self = [super init]) {
+        _avatar = dict[@"userinfo_facemin"];
+        _userName = dict[@"user_nickname"];
+        _content = dict[@"review_content"];
+        _createTime = dict[@"review_time"];
+        _grade = dict[@"user_score"];
+    }
+    return self;
+}
 @end

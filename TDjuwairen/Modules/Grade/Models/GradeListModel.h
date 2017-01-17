@@ -12,6 +12,8 @@
 @property (nonatomic, assign) NSInteger sortNumber;
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, strong) NSString *stockId;
-@property (nonatomic, assign) CGFloat grade;
+@property (nonatomic, assign) NSInteger grade;
 @property (nonatomic, assign) NSInteger type;
+
+- (id)initWithDict:(NSDictionary *)dict;
 @end

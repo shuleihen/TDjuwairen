@@ -9,5 +9,14 @@
 #import "GradeListModel.h"
 
 @implementation GradeListModel
-
+- (id)initWithDict:(NSDictionary *)dict {
+    if (self = [super init]) {
+        _sortNumber = [dict[@"rank_num"] integerValue];
+        _type = [dict[@"is_up"] integerValue];
+        _grade = [dict[@"weight_score"] integerValue];
+        _stockName = dict[@"company_name"];
+        _stockId = dict[@"company_code"];
+    }
+    return self;
+}
 @end

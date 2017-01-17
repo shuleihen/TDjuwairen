@@ -45,7 +45,6 @@
 }
 
 - (void)loadMoreAction {
-    self.page++;
     [self getSurveyWithPage:self.page];
 }
 
@@ -53,7 +52,7 @@
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SubscriptionHistoryViewController *wself = self;
     
-    NSDictionary *dict = dict = @{@"page" : @(pageA),@"user_id" : US.userId};;
+    NSDictionary *dict = dict = @{@"page" : @(pageA),@"user_id" : US.userId};
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:API_SubscriptionHistory parameters:dict completion:^(id data, NSError *error){
@@ -81,6 +80,7 @@
                 wself.items = tempArray;
             }
             [wself.tableView reloadData];
+            wself.page ++;
         }
     }];
 }

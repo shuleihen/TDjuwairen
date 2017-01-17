@@ -21,18 +21,18 @@
     return self;
 }
 
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
+- (void)setGrades:(NSArray *)grades {
+    _grades = grades;
+    [self setNeedsDisplay];
+}
+
 - (void)drawRect:(CGRect)rect {
     // Drawing code
     
-    CGFloat w = CGRectGetWidth(rect);
     CGFloat h = CGRectGetHeight(rect);
-    
     CGFloat radius = (h - 20*2)/2;
     
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
     
     // 画周边边线和连线
     CGPoint points[8];

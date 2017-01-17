@@ -127,7 +127,6 @@
 }
 
 - (void)loadMoreData {
-    self.page++;
     [self getSurveyWithPage:self.page];
 }
 
@@ -165,7 +164,8 @@
             }
             
             [wself.stockManager addStocks:self.stockArr];
-            
+            wself.page++;
+
             if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
                 [wself.delegate contentListLoadComplete];
             }

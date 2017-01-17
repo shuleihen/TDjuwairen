@@ -38,6 +38,7 @@
 #import "ApplySurveyViewController.h"
 #import "Masonry.h"
 #import "GradeDetailViewController.h"
+#import "StockInfoModel.h"
 
 #define kHeaderViewHeight 135
 #define kSegmentHeight 45
@@ -46,7 +47,6 @@
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
-//@property (strong, nonatomic) IBOutlet UIScrollView *scrollView;
 @property (nonatomic, strong) SurveyBottomToolView *bottomToolView;
 
 @property (nonatomic, strong) NSMutableArray *contentControllers;
@@ -54,9 +54,7 @@
 @property (nonatomic, weak) UIViewController *pageWillToController;
 @property (nonatomic, strong) StockManager *stockManager;
 
-@property (nonatomic, copy) NSString *stockName;
-@property (nonatomic, copy) NSString *cover;
-@property (nonatomic, assign) NSInteger keyNumber;
+@property (nonatomic, strong) StockInfoModel *stockModel;
 @end
 
 @implementation SurveyDetailViewController
@@ -113,11 +111,6 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-
-    // 导航条背景根据涨跌修改
-    if (self.stockInfo) {
-        [self setupStockInfo:self.stockInfo];
-    }
     
     [self.stockManager start];
     
@@ -149,6 +142,21 @@
     }
 }
 
+- (void)setupStockModel {
+    if (!self.stockModel) {
+        return;
+    }
+    
+    self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockId];
+    [self.stockHeaderView setupStockModel:self.stockModel];
+    
+    if (self.stockModel.isLocked) {
+        self.segment.selectedIndex = 2;
+    } else {
+        self.segment.selectedIndex = 0;
+    }
+}
+
 #pragma mark - Action
 - (void)querySurveySimpleDetail {
     // 查询解锁
@@ -165,22 +173,10 @@
     }
     
     __weak SurveyDetailViewController *wself = self;
-    [ma POST:API_SurveyDetailHeader parameters:para completion:^(id data, NSError *error){
+    [ma GET:API_SurveyDetailHeader parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
-            BOOL isLock = [data[@"isLock"] boolValue];
-            
-            wself.segment.isLock = isLock;
-            wself.title = data[@"company"];
-            wself.keyNumber = [data[@"keyNum"] integerValue];
-            wself.cover = data[@"cover"];
-            
-            if (isLock) {
-                // (加锁)默认显示热点篇
-                wself.segment.selectedIndex = 3;
-            } else {
-                // （解锁）默认显示热点篇
-                wself.segment.selectedIndex = 0;
-            }
+            wself.stockModel = [[StockInfoModel alloc] initWithDict:data];
+            [wself setupStockModel];
             
         } else {
             // 查询失败
@@ -192,7 +188,7 @@
     
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
     vc.stockCode = [self.stockId substringFromIndex:2];
-    vc.stockName = self.stockName;
+    vc.stockName = self.stockModel.stockName;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.containerView.layer.cornerRadius = 4;
@@ -258,12 +254,6 @@
     }
 }
 
-- (void)setupStockInfo:(StockInfo *)stock {
-    [self.stockHeaderView setupStockInfo:stock];
-    
-    self.stockName = stock.name;
-}
-
 
 - (void)morePressed:(id)sender {
     SurveyMoreViewController  *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"SurveyMoreViewController"];
@@ -317,7 +307,7 @@
 #pragma mark - StockHeaderDelegate
 - (void)gradePressed:(id)sender {
     GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
-    vc.stockName = self.stockName;
+    vc.stockName = self.stockModel.stockName;
     vc.stockId = self.stockId;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -336,9 +326,7 @@
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
     StockInfo *stock = [stocks objectForKey:self.stockId];
-    self.stockInfo = stock;
-    
-    [self setupStockInfo:stock];
+    [self.stockHeaderView setupStockInfo:stock];
 }
 
 #pragma mark - SurveyMoreDelegate
@@ -364,9 +352,9 @@
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         NSString *code = [self.stockId substringFromIndex:2];
         [shareParams SSDKSetupShareParamsByText:nil
-                                         images:@[self.cover]
+                                         images:@[self.stockModel.cover]
                                             url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",code]]
-                                          title:self.stockName
+                                          title:self.stockModel.stockName
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
         [ShareSDK showShareActionSheet:nil

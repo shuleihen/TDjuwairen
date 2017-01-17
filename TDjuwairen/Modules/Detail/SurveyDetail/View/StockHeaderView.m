@@ -51,6 +51,21 @@
     self.valueBLabel.textColor = color;
 }
 
+- (void)setupStockModel:(StockInfoModel *)model {
+    NSString *score = [NSString stringWithFormat:@"%@分",model.score];
+    [self.gradeBtn setTitle:score forState:UIControlStateNormal];
+    self.gradeNumLabel.text = [NSString stringWithFormat:@"已有%@人评价",model.joinGradeNum];
+    self.orderNumLabel.text = [NSString stringWithFormat:@"排名%@/%@",model.orderNum,model.allCompanyNum];
+    
+    if (model.isAdd) {
+        [self.addBtn setTitle:@"已添加" forState:UIControlStateNormal];
+        [self.addBtn setImage:nil forState:UIControlStateNormal];
+    } else {
+        [self.addBtn setTitle:nil forState:UIControlStateNormal];
+        [self.addBtn setImage:[UIImage imageNamed:@"add_shares2.png"] forState:UIControlStateNormal];
+    }
+}
+
 - (IBAction)gradePressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(gradePressed:)]) {
         [self.delegate gradePressed:sender];
