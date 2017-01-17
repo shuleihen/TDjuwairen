@@ -160,6 +160,7 @@
 		19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B971E2CA11900AB26DF /* HCSStarRatingView.m */; };
 		19959B9E1E2CB70B00AB26DF /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B9D1E2CB70B00AB26DF /* SurveySubjectModel.m */; };
 		19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959BA11E2CE7C000AB26DF /* SearchResultTableViewCell.xib */; };
+		19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A0CAB41E1A23BB003C4079 /* DKNightVersion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; };
 		19A0CAB51E1A23BB003C4079 /* DKNightVersion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -764,6 +765,8 @@
 		19959B9C1E2CB70B00AB26DF /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveySubjectModel.h; path = TDjuwairen/Modules/Grade/Controllers/SurveySubjectModel.h; sourceTree = SOURCE_ROOT; };
 		19959B9D1E2CB70B00AB26DF /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveySubjectModel.m; path = TDjuwairen/Modules/Grade/Controllers/SurveySubjectModel.m; sourceTree = SOURCE_ROOT; };
 		19959BA11E2CE7C000AB26DF /* SearchResultTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchResultTableViewCell.xib; sourceTree = "<group>"; };
+		19959BA51E2DAF0C00AB26DF /* SubscriptionTypeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionTypeModel.h; sourceTree = "<group>"; };
+		19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionTypeModel.m; sourceTree = "<group>"; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
 		19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarController.m; sourceTree = "<group>"; };
 		19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DKNightVersion.xcodeproj; path = DKNightVersion/DKNightVersion.xcodeproj; sourceTree = "<group>"; };
@@ -1754,6 +1757,8 @@
 			children = (
 				190B37E91E274E6300A5C1B1 /* SubscriptionModel.h */,
 				190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */,
+				19959BA51E2DAF0C00AB26DF /* SubscriptionTypeModel.h */,
+				19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3923,6 +3928,7 @@
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
+				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
 				84CA15931DDAB1BE0023E162 /* UnlockView.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,

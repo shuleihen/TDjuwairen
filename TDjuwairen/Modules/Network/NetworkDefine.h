@@ -80,4 +80,8 @@
 #define API_GameCommentList     @"Game/getGuessComment"
 #define API_GameAddComment      @"Game/addGuessComment"
 
+#define API_SubscriptionInfo    @"Subscribe/subscribeInfo"
+#define API_SubscriptionAdd     @"Subscribe/addCompanySubscribe"
+#define API_SubscriptionHistory @"Subscribe/subscribeRecord"
+
 #endif /* NetworkDefine_h */

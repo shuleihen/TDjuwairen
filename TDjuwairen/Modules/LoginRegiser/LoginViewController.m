@@ -46,8 +46,8 @@
     [self setupWithNavigation];
     
     __weak LoginViewController *wself = self;
-    self.passwordCheckBox.checkedBoxBlock = ^(BOOL checked){
-        wself.passwordText.secureTextEntry = !checked;
+    self.passwordCheckBox.checkedBoxBlock = ^(YXCheckBox *checkBox){
+        wself.passwordText.secureTextEntry = !checkBox.checked;
         [wself.passwordText becomeFirstResponder];
     };
 }

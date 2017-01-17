@@ -10,8 +10,10 @@
 
 @interface SubscriptionModel : NSObject
 @property (nonatomic, strong) NSString *dateTime;
-@property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *userName;
+@property (nonatomic, strong) NSString *way;
 @property (nonatomic, strong) NSString *userEmail;
-@property (nonatomic, assign) NSInteger type;
+@property (nonatomic, strong) NSString *subTitle;
+
+- (id)initWithDict:(NSDictionary *)dict;
 @end

@@ -9,5 +9,14 @@
 #import "SubscriptionModel.h"
 
 @implementation SubscriptionModel
-
+- (id)initWithDict:(NSDictionary *)dict {
+    if (self = [super init]) {
+        _subTitle = dict[@"subscribe_item"];
+        _way = dict[@"subscribe_way"];
+        _userName = dict[@"subscribe_real_name"];
+        _dateTime = dict[@"subscribe_time"];
+        _userEmail = dict[@"subscribe_email"];
+    }
+    return self;
+}
 @end

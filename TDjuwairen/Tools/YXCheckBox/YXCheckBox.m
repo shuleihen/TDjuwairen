@@ -10,13 +10,11 @@
 
 @implementation YXCheckBox
 
-- (id)initWithCheckImage:(UIImage *)image checkedImage:(UIImage *)checkedImage withCheckedBlock:(void (^)(BOOL checked))checkedBlock
+- (id)initWithCheckImage:(UIImage *)image checkedImage:(UIImage *)checkedImage
 {
     if (self = [super init]) {
         [self setImage:image forState:UIControlStateNormal];
         [self setImage:checkedImage forState:UIControlStateSelected];
-        
-        _checkedBoxBlock = checkedBlock;
         
         [self addTarget:self action:@selector(checkPressed:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -78,7 +76,7 @@
     self.checked = btn.selected;
     
     if (_checkedBoxBlock) {
-        _checkedBoxBlock(btn.selected);
+        _checkedBoxBlock(self);
     }
 }
 @end

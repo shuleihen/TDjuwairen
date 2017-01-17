@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SubscriptionTypeModel.h"
 
 @interface PaySubscriptionViewController : UITableViewController
-
+@property (nonatomic, strong) SubscriptionTypeModel *typeModel;
 @end

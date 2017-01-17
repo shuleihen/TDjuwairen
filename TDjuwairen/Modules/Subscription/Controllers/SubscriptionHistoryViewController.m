@@ -11,6 +11,7 @@
 #import "SubscriptionHistoryListCell.h"
 #import "NetworkManager.h"
 #import "MJRefresh.h"
+#import "LoginState.h"
 
 @interface SubscriptionHistoryViewController ()
 @property (nonatomic, assign) NSInteger page;
@@ -32,34 +33,55 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.rowHeight = 132.0f;
     
-    [self testData];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    
+    [self refreshAction];
 }
 
-- (void)testData {
-    
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
-    for (int i=1; i<10; i++) {
-        SubscriptionModel *one = [[SubscriptionModel alloc] init];
-        one.dateTime = @"2016.12.14 14:56";
-        one.userName = @"甘女士";
-        one.title = @"周刊订阅（12个月）";
-        one.userEmail = @"714550975@qq.com";
-        one.type = 1;
-        [array addObject:one];
-    }
-    
-    
-    self.items = array;
-    [self.tableView reloadData];
+- (void)refreshAction {
+    self.page = 1;
+    [self getSurveyWithPage:self.page];
 }
+
+- (void)loadMoreAction {
+    self.page++;
+    [self getSurveyWithPage:self.page];
+}
+
 
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SubscriptionHistoryViewController *wself = self;
     
+    NSDictionary *dict = dict = @{@"page" : @(pageA),@"user_id" : US.userId};;
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSString *url = [NSString stringWithFormat:@"%@Survey/lists?page=%ld",API_HOST,(long)pageA];
-    [manager GET:url parameters:nil completion:^(id data, NSError *error){
+    [manager GET:API_SubscriptionHistory parameters:dict completion:^(id data, NSError *error){
         
+        if ([wself.tableView.mj_header isRefreshing]) {
+            [wself.tableView.mj_header endRefreshing];
+        }
+        
+        if ([wself.tableView.mj_footer isRefreshing]) {
+            [wself.tableView.mj_footer endRefreshing];
+        }
+        
+        if (!error && data) {
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:[data count]];
+            for (NSDictionary *dict in data) {
+                SubscriptionModel *model = [[SubscriptionModel alloc] initWithDict:dict];
+                [array addObject:model];
+            }
+            
+            if (pageA == 1) {
+                wself.items = array;
+            } else {
+                NSMutableArray *tempArray = [NSMutableArray arrayWithArray:self.items];
+                [tempArray addObjectsFromArray:array];
+                wself.items = tempArray;
+            }
+            [wself.tableView reloadData];
+        }
     }];
 }
 

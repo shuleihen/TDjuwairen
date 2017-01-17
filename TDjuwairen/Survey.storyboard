@@ -343,149 +343,6 @@
             </objects>
             <point key="canvasLocation" x="-1586" y="69"/>
         </scene>
-        <!--周刊订阅-->
-        <scene sceneID="N2B-kK-UoO">
-            <objects>
-                <viewController storyboardIdentifier="SubscriptionViewController" id="eSN-2e-Auj" customClass="SubscriptionViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="ozo-rD-ipN"/>
-                        <viewControllerLayoutGuide type="bottom" id="akU-CJ-348"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="4Nr-oD-BKH">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="voU-2R-nBp">
-                                <rect key="frame" x="0.0" y="20" width="375" height="537"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <string key="text">认真投资           改变命运
-
-点滴之间有乾坤，细微之处有魔鬼
-
-局外人周刊汇聚一周实地调研公司全篇
-
-一周热点咨询，方便您收藏并查阅
-
-直达您的眼前，让您如身临其境
-
-认真看公司，认真对待每一次投资决策
-
-改变自己改变市场，靠你我之专业专心。
-
-
-订阅成功后，我们将在每周六更新一期周刊，您可选择纸质版或电子版，纸质版我们会邮寄至您的住所，电子版我们会发送至您的邮箱。</string>
-                                <fontDescription key="fontDescription" name=".PingFangSC-Regular" family=".PingFang SC" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yRn-Vw-G07">
-                                <rect key="frame" x="0.0" y="557" width="375" height="110"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slipLine" translatesAutoresizingMaskIntoConstraints="NO" id="Wkd-3O-zyk">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="1" id="mPV-bj-czl"/>
-                                        </constraints>
-                                    </imageView>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vci-v1-69Z">
-                                        <rect key="frame" x="12" y="65" width="351" height="35"/>
-                                        <color key="backgroundColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="35" id="DgL-xc-01s"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="立即订阅">
-                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        </state>
-                                        <connections>
-                                            <action selector="subscriptionPressed:" destination="eSN-2e-Auj" eventType="touchUpInside" id="NWt-m8-QO0"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pAQ-sV-4wW" customClass="YXCheckBox">
-                                        <rect key="frame" x="12" y="13" width="80" height="38"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="NNx-wa-Pev"/>
-                                            <constraint firstAttribute="height" constant="38" id="wfF-30-0Dd"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="3个月" image="subscription_unchecked">
-                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected" image="subscription_selected"/>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j3g-0m-zCM" customClass="YXCheckBox">
-                                        <rect key="frame" x="102" y="13" width="100" height="38"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="38" id="qB2-fy-K1A"/>
-                                            <constraint firstAttribute="width" constant="100" id="wwJ-1v-cNb"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                        <inset key="titleEdgeInsets" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                        <state key="normal" title="12个月" image="subscription_unchecked">
-                                            <color key="titleColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                        </state>
-                                        <state key="selected" image="subscription_selected"/>
-                                    </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inZ-Wt-J3A">
-                                        <rect key="frame" x="245" y="24" width="118" height="17"/>
-                                        <attributedString key="attributedText">
-                                            <fragment content="需使用">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="50">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.99607843137254903" green="0.42352941176470588" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" metaFont="system" size="14"/>
-                                                </attributes>
-                                            </fragment>
-                                            <fragment content="把金钥匙">
-                                                <attributes>
-                                                    <color key="NSColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <font key="NSFont" size="14" name=".PingFangSC-Regular"/>
-                                                </attributes>
-                                            </fragment>
-                                        </attributedString>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                </subviews>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <constraints>
-                                    <constraint firstItem="j3g-0m-zCM" firstAttribute="leading" secondItem="pAQ-sV-4wW" secondAttribute="trailing" constant="10" id="7ax-lE-Zdw"/>
-                                    <constraint firstItem="Vci-v1-69Z" firstAttribute="leading" secondItem="yRn-Vw-G07" secondAttribute="leading" constant="12" id="KZs-uu-c0F"/>
-                                    <constraint firstItem="j3g-0m-zCM" firstAttribute="baseline" secondItem="pAQ-sV-4wW" secondAttribute="baseline" id="L2S-mT-Kku"/>
-                                    <constraint firstAttribute="trailing" secondItem="Vci-v1-69Z" secondAttribute="trailing" constant="12" id="UcL-h4-GZU"/>
-                                    <constraint firstAttribute="trailing" secondItem="inZ-Wt-J3A" secondAttribute="trailing" constant="12" id="dXI-RL-h59"/>
-                                    <constraint firstAttribute="bottom" secondItem="Vci-v1-69Z" secondAttribute="bottom" constant="10" id="lJw-nh-W9J"/>
-                                    <constraint firstItem="Wkd-3O-zyk" firstAttribute="top" secondItem="yRn-Vw-G07" secondAttribute="top" id="ovd-zk-1ht"/>
-                                    <constraint firstAttribute="trailing" secondItem="Wkd-3O-zyk" secondAttribute="trailing" id="pMT-7g-pU7"/>
-                                    <constraint firstItem="inZ-Wt-J3A" firstAttribute="centerY" secondItem="j3g-0m-zCM" secondAttribute="centerY" id="rXC-AO-8hh"/>
-                                    <constraint firstItem="Wkd-3O-zyk" firstAttribute="leading" secondItem="yRn-Vw-G07" secondAttribute="leading" id="sAy-pK-uub"/>
-                                    <constraint firstItem="pAQ-sV-4wW" firstAttribute="top" secondItem="Wkd-3O-zyk" secondAttribute="bottom" constant="12" id="sNi-UD-jxG"/>
-                                    <constraint firstItem="pAQ-sV-4wW" firstAttribute="leading" secondItem="yRn-Vw-G07" secondAttribute="leading" constant="12" id="sbi-ug-Oi9"/>
-                                    <constraint firstAttribute="height" constant="110" id="wxE-LK-pWK"/>
-                                </constraints>
-                            </view>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="yRn-Vw-G07" firstAttribute="leading" secondItem="4Nr-oD-BKH" secondAttribute="leading" id="4Yd-UF-4Lm"/>
-                            <constraint firstItem="yRn-Vw-G07" firstAttribute="top" secondItem="voU-2R-nBp" secondAttribute="bottom" id="AM7-Dc-UpR"/>
-                            <constraint firstItem="akU-CJ-348" firstAttribute="top" secondItem="yRn-Vw-G07" secondAttribute="bottom" id="Hx2-Iu-0BA"/>
-                            <constraint firstItem="voU-2R-nBp" firstAttribute="top" secondItem="ozo-rD-ipN" secondAttribute="bottom" id="XWS-nl-20q"/>
-                            <constraint firstAttribute="trailing" secondItem="voU-2R-nBp" secondAttribute="trailing" id="Z1O-Ur-KZp"/>
-                            <constraint firstItem="voU-2R-nBp" firstAttribute="leading" secondItem="4Nr-oD-BKH" secondAttribute="leading" id="fN2-4Z-kds"/>
-                            <constraint firstAttribute="trailing" secondItem="yRn-Vw-G07" secondAttribute="trailing" id="yqi-Jt-R5T"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="周刊订阅" id="uXj-aE-ASQ"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="mSR-D5-Ra3" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-877.60000000000002" y="68.815592203898049"/>
-        </scene>
         <!--周刊订阅支付-->
         <scene sceneID="dwO-Hu-fIE">
             <objects>
@@ -654,16 +511,19 @@
                         </connections>
                     </tableView>
                     <navigationItem key="navigationItem" title="周刊订阅支付" id="v5s-TO-gaX"/>
+                    <connections>
+                        <outlet property="emailTextField" destination="nhS-Mt-aAT" id="hty-ic-Sue"/>
+                        <outlet property="keyBtn" destination="TqO-Ah-Caf" id="UBz-61-TQP"/>
+                        <outlet property="nameTextField" destination="qjW-dg-rtS" id="nGV-Ko-NUr"/>
+                        <outlet property="subTitleLabel" destination="s2V-Af-ezT" id="EDX-FA-6Ee"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="H17-jH-cYh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-180" y="69"/>
+            <point key="canvasLocation" x="-825" y="69"/>
         </scene>
     </scenes>
     <resources>
         <image name="icon_key_small" width="19" height="22"/>
-        <image name="slipLine" width="10" height="1"/>
-        <image name="subscription_selected" width="17" height="17"/>
-        <image name="subscription_unchecked" width="17" height="17"/>
     </resources>
 </document>

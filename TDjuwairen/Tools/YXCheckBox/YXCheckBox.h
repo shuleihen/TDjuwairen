@@ -12,7 +12,7 @@
 @property (nonatomic, assign) BOOL checked;
 
 
-- (id)initWithCheckImage:(UIImage *)image checkedImage:(UIImage *)checkedImage withCheckedBlock:(void (^)(BOOL checked))checkedBlock;
+- (id)initWithCheckImage:(UIImage *)image checkedImage:(UIImage *)checkedImage;
 
-@property (nonatomic, copy) void (^checkedBoxBlock)(BOOL checked);
+@property (nonatomic, copy) void (^checkedBoxBlock)(YXCheckBox *checkBox);
 @end

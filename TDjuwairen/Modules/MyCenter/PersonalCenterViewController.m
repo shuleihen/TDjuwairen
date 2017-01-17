@@ -47,8 +47,8 @@
     
     self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     
-    self.setupImgArr = @[@[@"1"],@[@"icon_remind.png",@"icon_issued.png",@"icon_collection.png"],@[@"icon_setting.png"],@[@"icon_us.png"]];
-    self.setupTitleArr = @[@[@"1"],@[@"消息提醒",@"发布管理",@"我的收藏"],@[@"设置"],@[@"关于我们"]];
+    self.setupImgArr = @[@[@"1"],@[@"icon_remind.png",@"icon_issued.png",@"icon_collection.png"],@[@"icon_us.png"],@[@"icon_setting.png"]];
+    self.setupTitleArr = @[@[@"1"],@[@"消息提醒",@"发布管理",@"我的收藏"],@[@"关于我们"],@[@"设置"]];
     
     [self setupNavigationBar];
     [self setupWithTableView];

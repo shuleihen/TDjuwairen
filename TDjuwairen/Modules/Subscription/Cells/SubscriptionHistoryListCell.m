@@ -24,14 +24,10 @@
 
 - (void)setupSubscriptionModel:(SubscriptionModel *)model {
     self.dateTimeLabel.text = model.dateTime;
-    self.titleLabel.text = model.title;
+    self.titleLabel.text = model.subTitle;
     self.userNameLabel.text = model.userName;
     self.userEmailLabel.text = model.userEmail;
-    
-    if (model.type == 1) {
-        self.typeLabel.text = @"邮箱";
-    }
-    
+    self.typeLabel.text = model.way;
 }
 
 

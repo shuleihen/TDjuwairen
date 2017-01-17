@@ -317,12 +317,17 @@
 }
 
 - (void)subscribePressed:(id)sender {
-    SubscriptionViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"SubscriptionViewController"];
+    
+    SubscriptionViewController *vc = [[SubscriptionViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)surveyPressed:(id)sender {
+    if (![self checkIsLogin]) {
+        return;
+    }
+    
     ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -420,6 +425,16 @@
     [self.tableView reloadData];
 }
 
+- (BOOL)checkIsLogin {
+    if (US.isLogIn) {
+        return YES;
+    }
+    
+    LoginViewController *login = [[LoginViewController alloc] init];
+    login.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:login animated:YES];
+    return NO;
+}
 #pragma mark - SurveyContentListDelegate
 - (void)contentListLoadComplete {
     if ([self.tableView.mj_footer isRefreshing]) {
