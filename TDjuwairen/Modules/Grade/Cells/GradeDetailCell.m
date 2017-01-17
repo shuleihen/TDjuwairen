@@ -25,7 +25,7 @@
 }
 
 - (void)setupCommentModel:(GradeCommentModel *)model {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:nil];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"photo_m.png"]];
     self.userNameLabel.text = model.userName;
     self.contentLabel.text = model.content;
     self.dateTimeLabel.text = model.createTime;
