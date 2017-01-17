@@ -29,6 +29,17 @@
     self.inviteBtn.hidden = !isStock;
 }
 
+- (void)setIsAdd:(BOOL)isAdd {
+    _isAdd = isAdd;
+    
+    if (isAdd) {
+        [self.addBtn setTitle:@"已添加" forState:UIControlStateNormal];
+        [self.addBtn setImage:nil forState:UIControlStateNormal];
+    } else {
+        [self.addBtn setTitle:nil forState:UIControlStateNormal];
+        [self.addBtn setImage:[UIImage imageNamed:@"add_shares2.png"] forState:UIControlStateNormal];
+    }
+}
 - (IBAction)addPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(addStockPressedWithResult:)]) {
         [self.delegate addStockPressedWithResult:self.searchResult];

@@ -435,6 +435,7 @@
             SearchResultModel *result = sectionData.items[indexPath.row];
             cell.titleLabel.text = result.title;
             cell.searchResult = result;
+            cell.isAdd = result.isMyStock;
             cell.delegate = self;
             
             if ([sectionData.sectionTitle isEqualToString:@"股票"]) {

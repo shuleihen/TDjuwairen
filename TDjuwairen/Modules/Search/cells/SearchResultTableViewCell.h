@@ -22,6 +22,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *inviteBtn;
 @property (nonatomic, weak) IBOutlet UIButton *addBtn;
 @property (nonatomic, assign) BOOL isStock;
+@property (nonatomic, assign) BOOL isAdd;
 
 @property (nonatomic, weak) id<SearchResultCellDelegate> delegate;
 @end
