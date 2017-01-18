@@ -25,7 +25,7 @@
     // Configure the view for the selected state
 }
 
-- (void)setupSpotModel:(SpotModel *)model {
+- (void)setupSpotModel:(StockSurveyModel *)model {
     [self.spotImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:nil];
     self.titleLabel.text = model.title;
     self.dateTimeLabel.text = model.dateTime;

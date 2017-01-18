@@ -10,6 +10,8 @@
 #import "SurveyDetailContentViewController.h"
 #import <WebKit/WebKit.h>
 
-@interface SurveyDetailWebViewController : SurveyDetailContentViewController
+@interface SurveyDetailWebViewController : UIViewController
+@property (nonatomic, strong) NSString *contentId;
+@property (nonatomic, assign) NSInteger tag;
 @property (nonatomic, strong) NSString *url;
 @end

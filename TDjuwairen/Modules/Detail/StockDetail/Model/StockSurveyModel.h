@@ -1,5 +1,5 @@
 //
-//  SpotModel.h
+//  StockSurveyModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/13.
@@ -8,10 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SpotModel : NSObject
+@interface StockSurveyModel : NSObject
 @property (nonatomic, strong) NSString *imageUrl;
 @property (nonatomic, strong) NSString *title;
 @property (nonatomic, strong) NSString *dateTime;
+@property (nonatomic, strong) NSString *surveyId;
 
-+ (SpotModel *)getInstanceWithDictionary:(NSDictionary *)dic;
+- (id)initWithDict:(NSDictionary *)dict;
 @end

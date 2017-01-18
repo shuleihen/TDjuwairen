@@ -260,13 +260,17 @@
 		19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CF01E2EFFD9009270D5 /* AskPublishViewController.m */; };
 		19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CF31E2EFFD9009270D5 /* SurveyDetailContentViewController.m */; };
 		19F00D1A1E2EFFD9009270D5 /* SurveyDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CF61E2EFFD9009270D5 /* SurveyDetailWebViewController.m */; };
-		19F00D1B1E2EFFD9009270D5 /* SpotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFA1E2EFFD9009270D5 /* SpotModel.m */; };
+		19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFA1E2EFFD9009270D5 /* StockSurveyModel.m */; };
 		19F00D1C1E2EFFD9009270D5 /* StockCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFC1E2EFFD9009270D5 /* StockCommentModel.m */; };
 		19F00D1D1E2EFFD9009270D5 /* StockInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFE1E2EFFD9009270D5 /* StockInfoModel.m */; };
 		19F00D1E1E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D011E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m */; };
 		19F00D1F1E2EFFD9009270D5 /* StockHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D031E2EFFD9009270D5 /* StockHeaderView.m */; };
 		19F00D201E2EFFD9009270D5 /* SurveyBottomToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D051E2EFFD9009270D5 /* SurveyBottomToolView.m */; };
 		19F00D211E2EFFD9009270D5 /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */; };
+		19F00D241E2F0704009270D5 /* StockHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D231E2F0704009270D5 /* StockHotModel.m */; };
+		19F00D281E2F0935009270D5 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D271E2F0935009270D5 /* HotViewController.m */; };
+		19F00D2C1E2F0B0C009270D5 /* HotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */; };
+		19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */; };
 		19F43C251E232C98001B72CD /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C241E232C98001B72CD /* VideoViewController.m */; };
 		19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C281E232FB2001B72CD /* VideoListCell.m */; };
 		19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C291E232FB2001B72CD /* VideoListCell.xib */; };
@@ -959,8 +963,8 @@
 		19F00CF31E2EFFD9009270D5 /* SurveyDetailContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailContentViewController.m; sourceTree = "<group>"; };
 		19F00CF51E2EFFD9009270D5 /* SurveyDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailWebViewController.h; sourceTree = "<group>"; };
 		19F00CF61E2EFFD9009270D5 /* SurveyDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailWebViewController.m; sourceTree = "<group>"; };
-		19F00CF91E2EFFD9009270D5 /* SpotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotModel.h; sourceTree = "<group>"; };
-		19F00CFA1E2EFFD9009270D5 /* SpotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotModel.m; sourceTree = "<group>"; };
+		19F00CF91E2EFFD9009270D5 /* StockSurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockSurveyModel.h; sourceTree = "<group>"; };
+		19F00CFA1E2EFFD9009270D5 /* StockSurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockSurveyModel.m; sourceTree = "<group>"; };
 		19F00CFB1E2EFFD9009270D5 /* StockCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCommentModel.h; sourceTree = "<group>"; };
 		19F00CFC1E2EFFD9009270D5 /* StockCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCommentModel.m; sourceTree = "<group>"; };
 		19F00CFD1E2EFFD9009270D5 /* StockInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockInfoModel.h; sourceTree = "<group>"; };
@@ -973,6 +977,13 @@
 		19F00D051E2EFFD9009270D5 /* SurveyBottomToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyBottomToolView.m; sourceTree = "<group>"; };
 		19F00D061E2EFFD9009270D5 /* SurveyDetailSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailSegmentView.h; sourceTree = "<group>"; };
 		19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailSegmentView.m; sourceTree = "<group>"; };
+		19F00D221E2F0704009270D5 /* StockHotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHotModel.h; sourceTree = "<group>"; };
+		19F00D231E2F0704009270D5 /* StockHotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHotModel.m; sourceTree = "<group>"; };
+		19F00D261E2F0935009270D5 /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
+		19F00D271E2F0935009270D5 /* HotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotViewController.m; sourceTree = "<group>"; };
+		19F00D291E2F0B0C009270D5 /* HotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotTableViewCell.h; sourceTree = "<group>"; };
+		19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotTableViewCell.m; sourceTree = "<group>"; };
+		19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotTableViewCell.xib; sourceTree = "<group>"; };
 		19F43C231E232C98001B72CD /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		19F43C241E232C98001B72CD /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		19F43C271E232FB2001B72CD /* VideoListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListCell.h; sourceTree = "<group>"; };
@@ -2741,6 +2752,9 @@
 				19F00CD51E2EFFD9009270D5 /* SpotTableViewCell.h */,
 				19F00CD61E2EFFD9009270D5 /* SpotTableViewCell.m */,
 				19F00CD71E2EFFD9009270D5 /* SpotTableViewCell.xib */,
+				19F00D291E2F0B0C009270D5 /* HotTableViewCell.h */,
+				19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */,
+				19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -2748,10 +2762,11 @@
 		19F00CD81E2EFFD9009270D5 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				19F00CD91E2EFFD9009270D5 /* Dialogue */,
-				19F00CDC1E2EFFD9009270D5 /* Spot */,
 				19F00CDF1E2EFFD9009270D5 /* StockDetailViewController.h */,
 				19F00CE01E2EFFD9009270D5 /* StockDetailViewController.m */,
+				19F00CD91E2EFFD9009270D5 /* Dialogue */,
+				19F00CDC1E2EFFD9009270D5 /* Spot */,
+				19F00D251E2F08FD009270D5 /* Hot */,
 				19F00CE11E2EFFD9009270D5 /* SurveyAsk */,
 				19F00CE41E2EFFD9009270D5 /* SurveyMore */,
 				19F00CE91E2EFFD9009270D5 /* SurveyNiuXiong */,
@@ -2848,12 +2863,14 @@
 		19F00CF81E2EFFD9009270D5 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				19F00CF91E2EFFD9009270D5 /* SpotModel.h */,
-				19F00CFA1E2EFFD9009270D5 /* SpotModel.m */,
+				19F00CF91E2EFFD9009270D5 /* StockSurveyModel.h */,
+				19F00CFA1E2EFFD9009270D5 /* StockSurveyModel.m */,
 				19F00CFB1E2EFFD9009270D5 /* StockCommentModel.h */,
 				19F00CFC1E2EFFD9009270D5 /* StockCommentModel.m */,
 				19F00CFD1E2EFFD9009270D5 /* StockInfoModel.h */,
 				19F00CFE1E2EFFD9009270D5 /* StockInfoModel.m */,
+				19F00D221E2F0704009270D5 /* StockHotModel.h */,
+				19F00D231E2F0704009270D5 /* StockHotModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -2871,6 +2888,15 @@
 				19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */,
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		19F00D251E2F08FD009270D5 /* Hot */ = {
+			isa = PBXGroup;
+			children = (
+				19F00D261E2F0935009270D5 /* HotViewController.h */,
+				19F00D271E2F0935009270D5 /* HotViewController.m */,
+			);
+			path = Hot;
 			sourceTree = "<group>";
 		};
 		19F43C221E232C98001B72CD /* Video */ = {
@@ -3690,6 +3716,7 @@
 				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
+				19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */,
 				19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */,
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
@@ -3846,6 +3873,7 @@
 				19E5F2A41E13653200984DBC /* SQTopicModel.m in Sources */,
 				194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */,
 				19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */,
+				19F00D2C1E2F0B0C009270D5 /* HotTableViewCell.m in Sources */,
 				19E5F2A61E13653200984DBC /* SQTopicTableViewCell.m in Sources */,
 				843BC1F01DC976DC00E170EF /* MyWalletViewController.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
@@ -3880,6 +3908,7 @@
 				194186D81DF81284000C5197 /* SettingCompanyViewController.m in Sources */,
 				19E9582F1DAC893000BA37C5 /* ChildBlogTableViewController.m in Sources */,
 				190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */,
+				19F00D281E2F0935009270D5 /* HotViewController.m in Sources */,
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
 				19959B831E2C5D4300AB26DF /* GradeListModel.m in Sources */,
 				1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */,
@@ -3974,7 +4003,7 @@
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				8478D12D1DD05D260066E784 /* SurDetailSelBtnView.m in Sources */,
-				19F00D1B1E2EFFD9009270D5 /* SpotModel.m in Sources */,
+				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
 				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
@@ -3987,6 +4016,7 @@
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				19F00D171E2EFFD9009270D5 /* AnsPublishViewController.m in Sources */,
 				846E5A1A1DE41EC70031C993 /* OrderModel.m in Sources */,
+				19F00D241E2F0704009270D5 /* StockHotModel.m in Sources */,
 				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,

@@ -11,7 +11,7 @@
 @implementation StockInfoModel
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
-        _stockId = dict[@"compnay_code"];
+        _stockId = dict[@"company_code"];
         _stockName = dict[@"company_name"];
         _score = dict[@"company_score"];
         _cover = dict[@"cover"];

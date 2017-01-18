@@ -19,7 +19,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.view.backgroundColor = [UIColor whiteColor];
 }
 
 - (CGFloat)contentHeight {
@@ -27,18 +27,8 @@
 }
 
 - (NSDictionary *)contentParmWithTag:(NSInteger)tag {
-    NSString *code = [self.stockId substringFromIndex:2];
-    NSDictionary *para;
-    if (US.isLogIn) {
-        para = @{@"code": code,
-                 @"tag": @(tag),
-                 @"userid": US.userId};
-    }
-    else
-    {
-        para = @{@"code": code,
-                 @"tag": @(tag)};
-    }
+    NSDictionary *para = @{@"code": self.stockId,
+                           @"tag": @(tag)};
     return para;
 }
 

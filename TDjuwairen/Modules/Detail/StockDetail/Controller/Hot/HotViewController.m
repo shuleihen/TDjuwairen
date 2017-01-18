@@ -1,22 +1,22 @@
 //
-//  DialogueViewController.m
+//  SpotViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/1/13.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "DialogueViewController.h"
-#import "SpotTableViewCell.h"
-#import "StockSurveyModel.h"
+#import "HotViewController.h"
+#import "StockHotModel.h"
 #import "NetworkManager.h"
+#import "HotTableViewCell.h"
 
-@interface DialogueViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface HotViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *items;
 @end
 
-@implementation DialogueViewController
+@implementation HotViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -30,7 +30,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *para = [self contentParmWithTag:self.tag];
     
-    [ma POST:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
+    [ma POST:API_SurveyDetailHot parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
             [self reloadTableViewWithData:data];
         } else {
@@ -44,7 +44,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[askList count]];
     
     for (NSDictionary *dic in askList) {
-        StockSurveyModel *model = [[StockSurveyModel alloc] initWithDict:dic];
+        StockHotModel *model = [[StockHotModel alloc] initWithDict:dic];
         [array addObject:model];
     }
     
@@ -67,6 +67,7 @@
     return CGRectGetHeight(self.tableView.bounds);
 }
 
+
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -77,9 +78,9 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SpotTableViewCellID"];
+    HotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotTableViewCellID"];
     
-    StockSurveyModel *model = self.items[indexPath.row];
+    StockHotModel *model = self.items[indexPath.row];
     [cell setupSpotModel:model];
     
     return cell;
@@ -88,10 +89,10 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    StockSurveyModel *model = self.items[indexPath.row];
+    StockHotModel *model = self.items[indexPath.row];
     
     SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-    vc.contentId = model.surveyId;
+    vc.contentId = model.hotId;
     vc.tag = self.tag;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }
@@ -108,11 +109,10 @@
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
         
-        UINib *nib = [UINib nibWithNibName:@"SpotTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"SpotTableViewCellID"];
+        UINib *nib = [UINib nibWithNibName:@"HotTableViewCell" bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:@"HotTableViewCellID"];
     }
     
     return _tableView;
 }
-
 @end

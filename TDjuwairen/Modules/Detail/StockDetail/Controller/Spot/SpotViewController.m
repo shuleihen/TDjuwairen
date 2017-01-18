@@ -8,7 +8,7 @@
 
 #import "SpotViewController.h"
 #import "SpotTableViewCell.h"
-#import "SpotModel.h"
+#import "StockSurveyModel.h"
 #import "NetworkManager.h"
 
 @interface SpotViewController ()<UITableViewDelegate, UITableViewDataSource>
@@ -23,23 +23,7 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tableView];
     
-    [self testData];
-}
-
-- (void)testData {
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
-    for (int i=0; i<5; i++) {
-        SpotModel *model = [[SpotModel alloc] init];
-        model.imageUrl = @"https://static.juwairen.net/Pc/Uploads/Images/Survey/200_sc_857_20170106163340.jpg";
-        model.title = @"谣言戳破之后，PLED坠落神坛";
-        model.dateTime = @"1天前";
-        [array addObject:model];
-    }
-    
-    self.items = array;
-    [self.tableView reloadData];
-    
-    [self calculateTabelViewHeight];
+    [self reloadData];
 }
 
 - (void)reloadData {
@@ -51,6 +35,7 @@
             [self reloadTableViewWithData:data];
         } else {
             // 查询失败
+            [self reloadTableViewWithData:nil];
         }
     }];
 }
@@ -59,7 +44,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[askList count]];
     
     for (NSDictionary *dic in askList) {
-        SpotModel *model = [SpotModel getInstanceWithDictionary:dic];
+        StockSurveyModel *model = [[StockSurveyModel alloc] initWithDict:dic];
         [array addObject:model];
     }
     
@@ -95,10 +80,21 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SpotTableViewCellID"];
     
-    SpotModel *model = self.items[indexPath.row];
+    StockSurveyModel *model = self.items[indexPath.row];
     [cell setupSpotModel:model];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    StockSurveyModel *model = self.items[indexPath.row];
+    
+    SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+    vc.contentId = model.surveyId;
+    vc.tag = self.tag;
+    [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 
 - (UITableView *)tableView {

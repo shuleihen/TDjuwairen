@@ -39,6 +39,7 @@
 #import "Masonry.h"
 #import "GradeDetailViewController.h"
 #import "StockInfoModel.h"
+#import "HotViewController.h"
 
 #define kHeaderViewHeight 135
 #define kSegmentHeight 45
@@ -308,7 +309,7 @@
 - (void)gradePressed:(id)sender {
     GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
     vc.stockName = self.stockModel.stockName;
-    vc.stockId = self.stockId;
+    vc.stockId = self.stockModel.stockId;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -610,46 +611,18 @@
 - (NSMutableArray *)contentControllers {
     if (!_contentControllers) {
         _contentControllers = [NSMutableArray arrayWithCapacity:4];
+                
+        NSArray *classeArray = @[@"SpotViewController",@"DialogueViewController",@"SurveyDetailStockCommentViewController",@"HotViewController"];
         
-        __weak StockDetailViewController *wself = self;
-        
-        for (int i=0; i<4; i++) {
-            if (i == 0) {
-                SpotViewController *content = [[SpotViewController alloc] init];
-                content.rootController = wself;
-                content.stockId = self.stockId;
-                content.tag = i;
-                content.delegate = wself;
-                [_contentControllers addObject:content];
-            } else if (i == 1) {
-                DialogueViewController *content = [[DialogueViewController alloc] init];
-                content.rootController = wself;
-                content.stockId = self.stockId;
-                content.tag = i;
-                content.delegate = wself;
-                [_contentControllers addObject:content];
-            } else if (i == 2) {
-                SurveyDetailStockCommentViewController *niuxiongvc = [[SurveyDetailStockCommentViewController alloc] init];
-                niuxiongvc.rootController = wself;
-                niuxiongvc.stockId = self.stockId;
-                niuxiongvc.tag = i;
-                niuxiongvc.delegate = wself;
-                [_contentControllers addObject:niuxiongvc];
-            } else if (i == 5) {
-                SurveyDetailAskViewController *askvc = [[SurveyDetailAskViewController alloc] init];
-                askvc.rootController = wself;
-                askvc.stockId = self.stockId;
-                askvc.tag = i;
-                askvc.delegate = wself;
-                [_contentControllers addObject:askvc];
-            } else {
-                SurveyDetailWebViewController *content = [[SurveyDetailWebViewController alloc] init];
-                content.rootController = wself;
-                content.stockId = self.stockId;
-                content.tag = i;
-                content.delegate = wself;
-                [_contentControllers addObject:content];
-            }
+        int i =0;
+        for (NSString *string in classeArray) {
+            Class class = NSClassFromString(string);
+            SurveyDetailContentViewController *obj = [[class alloc] init];
+            obj.rootController = self;
+            obj.stockId = self.stockModel.stockId;
+            obj.tag = i++;
+            obj.delegate = self;
+            [_contentControllers addObject:obj];
         }
     }
     

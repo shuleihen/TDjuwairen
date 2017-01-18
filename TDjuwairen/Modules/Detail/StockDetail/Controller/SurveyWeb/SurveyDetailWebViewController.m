@@ -14,113 +14,36 @@
 #import "LoginState.h"
 #import <WebKit/WebKit.h>
 
-@interface SurveyDetailWebViewController ()<WKNavigationDelegate,UIWebViewDelegate>
-@property (nonatomic, strong) UIWebView *webView;
-//@property (nonatomic, strong) WKWebView *webView;
+@interface SurveyDetailWebViewController ()<WKNavigationDelegate>
+@property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
 
 @implementation SurveyDetailWebViewController
 
 - (void)dealloc {
-    self.webView.delegate = nil;
+    self.webView.navigationDelegate = nil;
     [self.webView stopLoading];
-    
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateFontSize:) name:kSurveyContentFontSizeChanged object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateBackground:) name:kNightVersionChanged object:nil];
+    self.view.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:self.webView];
     
     // 加载内容
     [self reloadData];
 }
 
-- (void)updateBackground:(NSNotification *)notifi {
-    [self reloadData];
-}
-
-- (void)updateFontSize:(NSNotification *)notifi {
-    [self adjustFont];
-}
-
-- (void)adjustFont {
-    
-    NSArray *fonts = @[@"140%",@"120%",@"100%",@"80%"];
-    NSInteger currentFont = [[NSUserDefaults standardUserDefaults] integerForKey:kSurveyContentFontSize];
-    if (currentFont == 0) {
-        currentFont = 3;
-    }
-    NSInteger i = currentFont - 1;
-    
-    if (i >= 0 && i < [fonts count]) {
-        NSString *jsZiti = [NSString stringWithFormat:@"document.getElementsByTagName('body')[0].style.webkitTextSizeAdjust= '%@'",fonts[i]];
-        [self.webView stringByEvaluatingJavaScriptFromString:jsZiti];
-        
-        DDLogInfo(@"Survey detail changed font size = %@",fonts[i]);
-    }
-    
-    NSString *documentHeight = [self.webView stringByEvaluatingJavaScriptFromString:@"document.body.scrollHeight;"];
-    CGFloat height = [documentHeight floatValue];
-    self.webView.frame = CGRectMake(0, 0, kScreenWidth, height);
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(contentDetailController:withHeight:)]) {
-        DDLogInfo(@"Survey detail changed height of sub controller, and notification super tableview reload");
-        
-        [self.delegate contentDetailController:self withHeight:height];
-    }
-}
-
 - (void)reloadData {
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParmWithTag:self.tag];
     
-    [ma POST:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
-        if (!error && data) {
-            NSString *baseUrl = data[@"url"];
-            NSString *urlString = [self contenWebUrlWithBaseUrl:baseUrl witTag:self.tag];
-            [self loadWebWithUrl:urlString];
-        } else {
-            // 查询失败
-        }
-    }];
+    NSString *urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%ld",API_HOST,API_SurveyDetailContent,self.contentId,(long)self.tag];
+
+    DDLogInfo(@"Survey detail web load url = %@", urlString);
+    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
 }
 
-- (CGFloat)contentHeight {
-    return CGRectGetHeight(self.webView.bounds);
-}
-
-- (void)loadWebWithUrl:(NSString *)url {
-    DDLogInfo(@"Survey detail web load url = %@", url);
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url]]];
-}
-
-#pragma mark UIWebViewDelegate
-- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType {
-    return YES;
-}
-
-- (void)webViewDidStartLoad:(UIWebView *)webView {
-    DDLogInfo(@"Survey detail web start load");
-    [self.indicatorView startAnimating];
-}
-
-- (void)webViewDidFinishLoad:(UIWebView *)webView {
-    DDLogInfo(@"Survey detail web load successed");
-    
-    [self.indicatorView stopAnimating];
-    
-    [self adjustFont];
-}
-
-- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error {
-    DDLogError(@"Survey detail web load error = %@",error);
-    [self.indicatorView stopAnimating];
-}
 
 #pragma mark WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
@@ -134,15 +57,7 @@
     __weak SurveyDetailWebViewController *wself = self;
     [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         
-        CGFloat documentHeight = [result doubleValue];
-        wself.webView.frame = CGRectMake(0, 0, kScreenWidth, documentHeight);
-        wself.view.bounds = CGRectMake(0, 0, kScreenWidth, documentHeight);
-        
         [wself.indicatorView stopAnimating];
-        
-        if (self.delegate && [self.delegate respondsToSelector:@selector(contentDetailController:withHeight:)]) {
-            [self.delegate contentDetailController:self withHeight:documentHeight];
-        }
     }];
 }
 
@@ -152,29 +67,15 @@
 }
 
 
-- (UIWebView *)webView {
+- (WKWebView *)webView {
     if (!_webView) {
-        _webView = [[UIWebView alloc] initWithFrame:self.view.bounds];
-        _webView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-        _webView.scrollView.scrollEnabled = NO;
-        _webView.scrollView.showsVerticalScrollIndicator = NO;
-        _webView.delegate = self;
-        [self.view addSubview:_webView];
+        _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
+        _webView.backgroundColor = [UIColor whiteColor];
+        _webView.scrollView.backgroundColor = [UIColor whiteColor];
+        _webView.navigationDelegate = self;
     }
     return _webView;
 }
-
-//- (WKWebView *)webView {
-//    if (!_webView) {
-//        _webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
-//        _webView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-//        _webView.scrollView.scrollEnabled = NO;
-//        _webView.scrollView.showsVerticalScrollIndicator = NO;
-//        _webView.navigationDelegate = self;
-//        [self.view addSubview:_webView];
-//    }
-//    return _webView;
-//}
 
 - (UIActivityIndicatorView *)indicatorView {
     if (!_indicatorView) {

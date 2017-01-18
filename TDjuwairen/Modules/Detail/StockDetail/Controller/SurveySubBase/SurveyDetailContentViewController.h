@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SurveyDetailWebViewController.h"
 
 @class SurveyDetailContentViewController;
 @protocol SurveyDetailContenDelegate <NSObject>
@@ -14,7 +15,7 @@
 @end
 
 @interface SurveyDetailContentViewController : UIViewController
-@property (nonatomic, copy) NSString *stockId;  // 股票代码
+@property (nonatomic, copy) NSString *stockId;
 @property (nonatomic, assign) NSInteger tag;
 @property (nonatomic, weak) UIViewController *rootController;
 

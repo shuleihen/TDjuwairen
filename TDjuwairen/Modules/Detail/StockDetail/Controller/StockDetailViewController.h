@@ -12,6 +12,7 @@
 
 @interface StockDetailViewController : UITableViewController
 
+// stockId 为新浪股票id 包含前缀 sh
 @property (nonatomic, strong) NSString *stockId;
 
 @property (nonatomic, strong) StockInfo *stockInfo;

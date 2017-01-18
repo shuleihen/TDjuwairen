@@ -7,12 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SpotModel.h"
+#import "StockSurveyModel.h"
 
 @interface SpotTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *spotImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
 
-- (void)setupSpotModel:(SpotModel *)model;
+- (void)setupSpotModel:(StockSurveyModel *)model;
 @end
