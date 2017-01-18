@@ -24,7 +24,7 @@
 #import "LoginViewController.h"
 #import "HexColors.h"
 #import "MJRefresh.h"
-#import "SurveyDetailViewController.h"
+#import "StockDetailViewController.h"
 #import "WelcomeView.h"
 #import "PersonalCenterViewController.h"
 #import "TDNavigationController.h"
@@ -467,7 +467,7 @@
             companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
         }
         
-        SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+        StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
         vc.stockId = companyCode;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];

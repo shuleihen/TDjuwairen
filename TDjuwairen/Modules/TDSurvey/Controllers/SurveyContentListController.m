@@ -7,7 +7,7 @@
 //
 
 #import "SurveyContentListController.h"
-#import "SurveyDetailViewController.h"
+#import "StockDetailViewController.h"
 #import "SurveryStockListCell.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
@@ -230,7 +230,7 @@
     SurveyModel *survey = self.surveyList[indexPath.section];
     StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
     
-    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
     vc.stockInfo = stock;
     vc.stockId = survey.companyCode;
     vc.hidesBottomBarWhenPushed = YES;

@@ -16,6 +16,7 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "LoginViewController.h"
+#import "NotificationDef.h"
 
 @interface GradeDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIView *toolView;
@@ -29,6 +30,10 @@
 
 @implementation GradeDetailViewController
 
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -37,24 +42,14 @@
     
     self.title = @"评级列表";
     
-    [self queryGradeTetail];
-    [self queryCompanyReview];
+    [self reloadView];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView) name:kAddStockGradeSuccessed object:nil];
 }
 
-- (void)testData {
-    
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:10];
-    for (int i=0; i<10; i++) {
-        GradeCommentModel *model = [[GradeCommentModel alloc] init];
-        model.userName = @"大团结";
-        model.content = @"挺好挺好挺好挺好挺好挺好挺好挺好挺好挺好挺好挺好";
-        model.grade = @"78";
-        model.createTime = @"2015-10-3 14:14";
-        model.avatar = @"https://static.juwairen.net/Pc/Uploads/Images/Face/faceimg_330_70.jpg";
-        [array addObject:model];
-    }
-    
-    self.items = array;
+- (void)reloadView {
+    [self queryGradeTetail];
+    [self queryCompanyReview];
 }
 
 - (void)queryGradeTetail {

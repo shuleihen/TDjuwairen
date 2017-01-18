@@ -18,4 +18,5 @@
 #define kGuessCommentChanged            @"GuessCommentChanged"
 #define kNightVersionChanged            @"NightVersionChanged"
 
+#define kAddStockGradeSuccessed         @"AddStockGradeSuccessed"
 #endif /* NotificationDef_h */

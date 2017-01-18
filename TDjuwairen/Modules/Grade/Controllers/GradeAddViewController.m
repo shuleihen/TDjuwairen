@@ -16,6 +16,7 @@
 #import "MBProgressHUD.h"
 #import "NSString+Emoji.h"
 #import "NetworkManager.h"
+#import "NotificationDef.h"
 
 @interface GradeAddViewController ()<MBProgressHUDDelegate>
 @property (nonatomic, strong) NSArray *gradeItems;
@@ -201,6 +202,7 @@
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAddStockGradeSuccessed object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 @end

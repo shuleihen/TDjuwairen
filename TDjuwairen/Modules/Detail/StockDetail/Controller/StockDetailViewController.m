@@ -1,12 +1,12 @@
 
-//  SurveyDetailViewController.m
+//  StockDetailViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2016/11/29.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "SurveyDetailViewController.h"
+#import "StockDetailViewController.h"
 #import "StockHeaderView.h"
 #import "SurveyDetailSegmentView.h"
 #import "SurveyDetailWebViewController.h"
@@ -43,7 +43,7 @@
 #define kHeaderViewHeight 135
 #define kSegmentHeight 45
 
-@interface SurveyDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate>
+@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
@@ -57,7 +57,7 @@
 @property (nonatomic, strong) StockInfoModel *stockModel;
 @end
 
-@implementation SurveyDetailViewController
+@implementation StockDetailViewController
 
 - (void)dealloc {
     self.tableView.delegate = nil;
@@ -172,7 +172,7 @@
         para = @{@"code": code};
     }
     
-    __weak SurveyDetailViewController *wself = self;
+    __weak StockDetailViewController *wself = self;
     [ma GET:API_SurveyDetailHeader parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
             wself.stockModel = [[StockInfoModel alloc] initWithDict:data];
@@ -196,7 +196,7 @@
 }
 
 - (void)niuxiongPublish {
-    __weak SurveyDetailViewController *wself = self;
+    __weak StockDetailViewController *wself = self;
     UIAlertAction *niu = [UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
         vc.comanyCode = [wself.stockId substringFromIndex:2];
@@ -409,7 +409,7 @@
         [self unlockStockPressed];
     } else {
         
-        __weak SurveyDetailViewController *wself = self;
+        __weak StockDetailViewController *wself = self;
         SurveyDetailContentViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
 
@@ -544,7 +544,7 @@
 #pragma mark - Getter
 - (SurveyBottomToolView *)bottomToolView {
     if (!_bottomToolView) {
-        __weak SurveyDetailViewController *wself = self;
+        __weak StockDetailViewController *wself = self;
         _bottomToolView = [[SurveyBottomToolView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
         _bottomToolView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
         _bottomToolView.buttonBlock = ^(NSInteger tag) {
@@ -611,7 +611,7 @@
     if (!_contentControllers) {
         _contentControllers = [NSMutableArray arrayWithCapacity:4];
         
-        __weak SurveyDetailViewController *wself = self;
+        __weak StockDetailViewController *wself = self;
         
         for (int i=0; i<4; i++) {
             if (i == 0) {

@@ -19,7 +19,7 @@
 #import "LoginState.h"
 #import "Masonry.h"
 #import "NetworkManager.h"
-#import "SurveyDetailViewController.h"
+#import "StockDetailViewController.h"
 
 @interface OptionalStockViewController ()<UITableViewDelegate,UITableViewDataSource,StockManagerDelegate>
 
@@ -271,7 +271,7 @@
 //    vc.hidesBottomBarWhenPushed = YES;
 //    [self.navigationController pushViewController:vc animated:YES];
     
-    SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
 //    vc.stockInfo = stock;
     vc.stockId = companyCode;
     vc.hidesBottomBarWhenPushed = YES;

@@ -1,5 +1,5 @@
 //
-//  SurveyDetailViewController.h
+//  StockDetailViewController.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/11/29.
@@ -10,7 +10,7 @@
 #import "StockManager.h"
 #import "SurveyModel.h"
 
-@interface SurveyDetailViewController : UITableViewController
+@interface StockDetailViewController : UITableViewController
 
 @property (nonatomic, strong) NSString *stockId;
 

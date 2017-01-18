@@ -33,6 +33,7 @@
     // Do any additional setup after loading the view.
     
     self.title = @"周刊订阅";
+    self.view.backgroundColor = [UIColor whiteColor];
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"往期购买" style:UIBarButtonItemStylePlain target:self action:@selector(historyPressed:)];
     [right setTitleTextAttributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
@@ -64,19 +65,6 @@
             
         }
     }];
-    
-//    self.contentUrl = @"www.baidu.com";
-//    SubscriptionTypeModel *one = [[SubscriptionTypeModel alloc] init];
-//    one.subType = 0;
-//    one.keyNum = 30;
-//    one.subDesc = @"3个月";
-//    
-//    SubscriptionTypeModel *two = [[SubscriptionTypeModel alloc] init];
-//    two.subType = 1;
-//    two.keyNum = 200;
-//    two.subDesc = @"12个月";
-//    self.subItems = @[one,two];
-//    [self reloadView];
 }
 
 - (void)reloadView {

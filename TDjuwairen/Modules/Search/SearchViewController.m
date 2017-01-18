@@ -20,7 +20,7 @@
 #import "MBProgressHUD.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
-#import "SurveyDetailViewController.h"
+#import "StockDetailViewController.h"
 #import "SearchResultModel.h"
 #import "NoResultView.h"
 #import "ApplySurveyViewController.h"
@@ -471,7 +471,7 @@
                 companyCode = [NSString stringWithFormat:@"sz%@",result.resultId];
             }
             
-            SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
             vc.stockId = companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
@@ -487,7 +487,7 @@
                 companyCode = [NSString stringWithFormat:@"sz%@",result.resultId];
             }
             
-            SurveyDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
             vc.stockId = companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
