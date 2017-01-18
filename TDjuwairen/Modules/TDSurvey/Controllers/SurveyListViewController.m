@@ -174,8 +174,7 @@
     [self setupNavigationBar];
     [self setupTableView];
     
-    [self getBanners];
-    [self querySurveySubject];
+    [self refreshAction];
     [self requestToLogin];
 }
 
@@ -356,6 +355,10 @@
 - (void)refreshAction {
     [self getBanners];
     [self querySurveySubject];
+}
+
+- (void)refreshSubListAction {
+    [[self currentContentViewController] refreshData];
 }
 
 - (void)loadMoreAction {
@@ -602,6 +605,7 @@
                 US.personal=dic[@"userinfo_info"];
                 
                 US.isLogIn=YES;
+                [self refreshSubListAction];
                 
                 UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                 [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
@@ -631,6 +635,7 @@
                 US.personal=dic[@"userinfo_info"];
                 
                 US.isLogIn=YES;
+                [self refreshSubListAction];
                 
                 UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                 [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
@@ -665,6 +670,7 @@
                     US.personal=dic[@"userinfo_info"];
                     
                     US.isLogIn=YES;
+                    [self refreshSubListAction];
                     
                     UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
                     [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];

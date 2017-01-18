@@ -104,8 +104,7 @@
     self.view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
     
     self.stockArr = [NSMutableArray array];
-    self.page = 1;
-    [self getSurveyWithPage:self.page];
+    [self refreshData];
 }
 
 - (void)addStockPressed:(id)sender {
