@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface MyGuessModel : NSObject
+@property (nonatomic, copy) NSString *guessId;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) double endTime;
 @property (nonatomic, assign) float endPri;

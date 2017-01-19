@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AddAddressViewController : UITableViewController
-
+@property (nonatomic, strong) NSString *guessId;
 @end

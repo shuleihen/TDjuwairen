@@ -98,8 +98,10 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    MyGuessModel *guess = self.items[indexPath.section];
     
     AddAddressViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"AddAddressViewController"];
+    vc.guessId = guess.guessId;
     [self.navigationController pushViewController:vc animated:YES];
 }
 @end

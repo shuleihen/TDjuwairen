@@ -86,6 +86,8 @@
 #define API_GameMyGuess         @"Game/myGuessList"
 #define API_GameCommentList     @"Game/getGuessComment"
 #define API_GameAddComment      @"Game/addGuessComment"
+#define API_GameAddAddress      @"Game/saveReciveAwardInfo"
+#define API_GameQueryAddress    @"Game/getAwardInfo"
 
 #define API_SubscriptionInfo    @"Subscribe/subscribeInfo"
 #define API_SubscriptionAdd     @"Subscribe/addCompanySubscribe"

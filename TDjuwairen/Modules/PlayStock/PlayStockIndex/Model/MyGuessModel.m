@@ -11,6 +11,7 @@
 @implementation MyGuessModel
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
+        _guessId = dict[@"item_id"];
         self.type = [dict[@"guess_type"] integerValue];
         self.endTime = [dict[@"guess_endtime"] doubleValue];
         self.endPri = [dict[@"guess_end_price"] floatValue];
