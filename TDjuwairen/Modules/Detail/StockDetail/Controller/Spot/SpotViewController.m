@@ -93,6 +93,9 @@
     
     SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
     vc.contentId = model.surveyId;
+    vc.stockId = self.stockId;
+    vc.stockName = self.stockName;
+    vc.cover = self.stockCover;
     vc.tag = self.tag;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }

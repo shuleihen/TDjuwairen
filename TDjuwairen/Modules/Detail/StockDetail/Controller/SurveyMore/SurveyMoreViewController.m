@@ -8,6 +8,8 @@
 
 #import "SurveyMoreViewController.h"
 #import "STPopup.h"
+#import "HexColors.h"
+#import "UIButton+Align.h"
 
 @interface SurveyMoreViewController ()
 
@@ -24,44 +26,60 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.contentSizeInPopup = CGSizeMake(kScreenHeight, 81);
+    
+    self.view.backgroundColor = [UIColor whiteColor];
+    
+    
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
+- (void)showAnimationView {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, -81, kScreenWidth, 81)];
     
-    [self.popupController setNavigationBarHidden:YES animated:NO];
+    UIButton *share = [UIButton buttonWithType:UIButtonTypeCustom];
+    share.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [share setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
+    [share setImage:[UIImage imageNamed:@"icon_share.png"] forState:UIControlStateNormal];
+    [share setTitle:@"分享" forState:UIControlStateNormal];
+    share.frame = CGRectMake((kScreenHeight-(52*2+70))/2, 15, 46, 52);
+    [share addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [share align:BAVerticalImage withSpacing:3];
+    [view addSubview:share];
+    
+    UIButton *feedback = [UIButton buttonWithType:UIButtonTypeCustom];
+    feedback.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [feedback setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
+    [feedback setImage:[UIImage imageNamed:@"icon_feedback.png"] forState:UIControlStateNormal];
+    [feedback setTitle:@"反馈" forState:UIControlStateNormal];
+    feedback.frame = CGRectMake(CGRectGetMaxX(share.frame)+70, 15, 46, 52);
+    [feedback addTarget:self action:@selector(feedbackPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [feedback align:BAVerticalImage withSpacing:3];
+    [view addSubview:feedback];
+    
+    view.tag = 10;
+    [self.view addSubview:view];
+    
+    [UIView animateWithDuration:0.2 animations:^{
+        view.frame = CGRectMake(0, 0, kScreenWidth, 81);
+    }];
 }
 
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-    
-    [self.popupController setNavigationBarHidden:NO animated:NO];
+- (void)hideAnimation {
+    UIView *view = [self.view viewWithTag:10];
+    [UIView animateWithDuration:0.2 animations:^{
+        view.frame = CGRectMake(0, -81, kScreenWidth, 81);
+    }];
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    cell.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    
-    if (indexPath.row == 0) {
-        if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
-            cell.imageView.image = [UIImage imageNamed:@"icon_night.png"];
-        } else {
-            cell.imageView.image = [UIImage imageNamed:@"icon_daytime.png"];
-        }
-    }
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.row != 1) {
-        [self.popupController dismiss];
-    }
-    
+- (void)sharePressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedWithRow:)]) {
-        [self.delegate didSelectedWithRow:indexPath.row];
+        [self.delegate didSelectedWithRow:0];
     }
+}
 
+- (void)feedbackPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedWithRow:)]) {
+        [self.delegate didSelectedWithRow:1];
+    }
 }
 @end

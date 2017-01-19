@@ -621,6 +621,8 @@
             SurveyDetailContentViewController *obj = [[class alloc] init];
             obj.rootController = self;
             obj.stockId = self.stockModel.stockId;
+            obj.stockName = self.stockModel.stockName;
+            obj.stockCover = self.stockModel.cover;
             obj.tag = i++;
             obj.delegate = self;
             [_contentControllers addObject:obj];

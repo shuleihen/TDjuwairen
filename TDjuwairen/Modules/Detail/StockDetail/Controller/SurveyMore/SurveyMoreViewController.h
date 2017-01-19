@@ -14,6 +14,6 @@
 
 @end
 
-@interface SurveyMoreViewController : UITableViewController
+@interface SurveyMoreViewController : UIViewController
 @property (nonatomic, assign) id<SurveyMoreDelegate> delegate;
 @end

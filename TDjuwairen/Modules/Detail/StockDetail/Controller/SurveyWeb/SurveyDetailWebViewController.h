@@ -12,6 +12,9 @@
 
 @interface SurveyDetailWebViewController : UIViewController
 @property (nonatomic, strong) NSString *contentId;
+@property (nonatomic, strong) NSString *stockId;
+@property (nonatomic, strong) NSString *stockName;
+@property (nonatomic, strong) NSString *cover;
 @property (nonatomic, assign) NSInteger tag;
 @property (nonatomic, strong) NSString *url;
 @end

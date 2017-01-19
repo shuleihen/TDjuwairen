@@ -16,6 +16,8 @@
 
 @interface SurveyDetailContentViewController : UIViewController
 @property (nonatomic, copy) NSString *stockId;
+@property (nonatomic, copy) NSString *stockName;
+@property (nonatomic, copy) NSString *stockCover;
 @property (nonatomic, assign) NSInteger tag;
 @property (nonatomic, weak) UIViewController *rootController;
 

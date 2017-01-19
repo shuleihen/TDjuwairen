@@ -271,6 +271,11 @@
 		19F00D281E2F0935009270D5 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D271E2F0935009270D5 /* HotViewController.m */; };
 		19F00D2C1E2F0B0C009270D5 /* HotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */; };
 		19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */; };
+		19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D321E307FFC009270D5 /* ShareHandler.m */; };
+		19F00D361E3089B4009270D5 /* StockShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D351E3089B4009270D5 /* StockShareView.m */; };
+		19F00D3C1E3091F9009270D5 /* HPGrowingTextView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D391E3091F9009270D5 /* HPGrowingTextView.m */; };
+		19F00D3D1E3091F9009270D5 /* HPTextViewInternal.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D3B1E3091F9009270D5 /* HPTextViewInternal.m */; };
+		19F00D401E309366009270D5 /* StockAskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D3F1E309366009270D5 /* StockAskView.m */; };
 		19F43C251E232C98001B72CD /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C241E232C98001B72CD /* VideoViewController.m */; };
 		19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C281E232FB2001B72CD /* VideoListCell.m */; };
 		19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C291E232FB2001B72CD /* VideoListCell.xib */; };
@@ -984,6 +989,16 @@
 		19F00D291E2F0B0C009270D5 /* HotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotTableViewCell.h; sourceTree = "<group>"; };
 		19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotTableViewCell.m; sourceTree = "<group>"; };
 		19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotTableViewCell.xib; sourceTree = "<group>"; };
+		19F00D311E307FFC009270D5 /* ShareHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareHandler.h; sourceTree = "<group>"; };
+		19F00D321E307FFC009270D5 /* ShareHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareHandler.m; sourceTree = "<group>"; };
+		19F00D341E3089B4009270D5 /* StockShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockShareView.h; sourceTree = "<group>"; };
+		19F00D351E3089B4009270D5 /* StockShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockShareView.m; sourceTree = "<group>"; };
+		19F00D381E3091F9009270D5 /* HPGrowingTextView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPGrowingTextView.h; sourceTree = "<group>"; };
+		19F00D391E3091F9009270D5 /* HPGrowingTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPGrowingTextView.m; sourceTree = "<group>"; };
+		19F00D3A1E3091F9009270D5 /* HPTextViewInternal.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HPTextViewInternal.h; sourceTree = "<group>"; };
+		19F00D3B1E3091F9009270D5 /* HPTextViewInternal.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HPTextViewInternal.m; sourceTree = "<group>"; };
+		19F00D3E1E309366009270D5 /* StockAskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAskView.h; sourceTree = "<group>"; };
+		19F00D3F1E309366009270D5 /* StockAskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAskView.m; sourceTree = "<group>"; };
 		19F43C231E232C98001B72CD /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
 		19F43C241E232C98001B72CD /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
 		19F43C271E232FB2001B72CD /* VideoListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListCell.h; sourceTree = "<group>"; };
@@ -1313,6 +1328,7 @@
 		191027AD1DE52B04006A2275 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				19F00D301E307FEF009270D5 /* Share */,
 				191027AE1DE52B1B006A2275 /* NotificationDef.h */,
 				19D6A2CF1E0CED53008368F4 /* PlistFileDef.h */,
 			);
@@ -2886,6 +2902,10 @@
 				19F00D051E2EFFD9009270D5 /* SurveyBottomToolView.m */,
 				19F00D061E2EFFD9009270D5 /* SurveyDetailSegmentView.h */,
 				19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */,
+				19F00D341E3089B4009270D5 /* StockShareView.h */,
+				19F00D351E3089B4009270D5 /* StockShareView.m */,
+				19F00D3E1E309366009270D5 /* StockAskView.h */,
+				19F00D3F1E309366009270D5 /* StockAskView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -2897,6 +2917,26 @@
 				19F00D271E2F0935009270D5 /* HotViewController.m */,
 			);
 			path = Hot;
+			sourceTree = "<group>";
+		};
+		19F00D301E307FEF009270D5 /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				19F00D311E307FFC009270D5 /* ShareHandler.h */,
+				19F00D321E307FFC009270D5 /* ShareHandler.m */,
+			);
+			path = Share;
+			sourceTree = "<group>";
+		};
+		19F00D371E3091F9009270D5 /* HPGrowingTextView */ = {
+			isa = PBXGroup;
+			children = (
+				19F00D381E3091F9009270D5 /* HPGrowingTextView.h */,
+				19F00D391E3091F9009270D5 /* HPGrowingTextView.m */,
+				19F00D3A1E3091F9009270D5 /* HPTextViewInternal.h */,
+				19F00D3B1E3091F9009270D5 /* HPTextViewInternal.m */,
+			);
+			path = HPGrowingTextView;
 			sourceTree = "<group>";
 		};
 		19F43C221E232C98001B72CD /* Video */ = {
@@ -3397,6 +3437,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19F00D371E3091F9009270D5 /* HPGrowingTextView */,
 				19959B951E2CA11900AB26DF /* HCSStarRatingView */,
 				19AF98161E24A7880097A585 /* LocationPicker */,
 				19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */,
@@ -3810,6 +3851,7 @@
 				84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
 				1961DF3E1DF94C5B00A08A4B /* RegisterTableViewController.m in Sources */,
+				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
@@ -3824,6 +3866,7 @@
 				19D6A3051E0D0126008368F4 /* STPopupLeftBarItem.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				1954E6E21DE3D6400058403A /* StockManager.m in Sources */,
+				19F00D361E3089B4009270D5 /* StockShareView.m in Sources */,
 				845E7D0F1DE568DF00E620DB /* KeysRecordViewController.m in Sources */,
 				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
@@ -3865,6 +3908,7 @@
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
 				842C91D41DD2FE310019617C /* BearBullTableViewCell.m in Sources */,
 				19F00D1D1E2EFFD9009270D5 /* StockInfoModel.m in Sources */,
+				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
 				845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */,
@@ -3884,6 +3928,7 @@
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,
 				847ADA851DF7D1FA002600AA /* OptionalManageViewController.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
+				19F00D3C1E3091F9009270D5 /* HPGrowingTextView.m in Sources */,
 				19F43C2E1E23335B001B72CD /* NewTableViewCell.m in Sources */,
 				19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
@@ -3927,6 +3972,7 @@
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
 				1955B4951D644D9800DC102E /* ViewPointTableViewCell.m in Sources */,
 				194186E21DF8132A000C5197 /* LoginState.m in Sources */,
+				19F00D3D1E3091F9009270D5 /* HPTextViewInternal.m in Sources */,
 				847BD6F61DE6FD1C006AEECE /* PopUsExchangeSuccessView.m in Sources */,
 				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,
 				1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */,
