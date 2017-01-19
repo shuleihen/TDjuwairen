@@ -176,7 +176,7 @@
 - (void)setIsLock:(BOOL)isLock {
     _isLock = isLock;
     
-    for (int i=0; i<0; i++) {
+    for (int i=0; i<2; i++) {
         [self setLocked:isLock withIndex:i];
     }
 }

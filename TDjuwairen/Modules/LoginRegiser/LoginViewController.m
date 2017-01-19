@@ -16,16 +16,17 @@
 #import "YXCheckBox.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
-#import "UIdaynightModel.h"
 #import "NotificationDef.h"
 #import "BPush.h"
+#import "YXTextFieldPanel.h"
+#import "HexColors.h"
 
 @interface LoginViewController ()
-
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (weak, nonatomic) IBOutlet YXTextFieldPanel *panelView;
 @property (nonatomic,strong) IBOutlet UITextField *accountText;
 @property (nonatomic,strong) IBOutlet UITextField *passwordText;
 @property (strong, nonatomic) IBOutlet YXCheckBox *passwordCheckBox;
+@property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
 @end
 
@@ -34,16 +35,19 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"登录";
-
-    self.daynightmodel = [UIdaynightModel sharedInstance];
     
-    self.view.backgroundColor = self.daynightmodel.backColor;
+    self.panelView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"].CGColor;
+    self.panelView.layer.cornerRadius = 3.0f;
+    self.panelView.layer.borderWidth = 1.0f;
+    self.panelView.clipsToBounds = YES;
+    
+    self.loginBtn.layer.cornerRadius = 3.0f;
+    self.loginBtn.clipsToBounds = YES;
+    
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
     [self.view addGestureRecognizer:tap];
-    
-    [self setupWithNavigation];
     
     __weak LoginViewController *wself = self;
     self.passwordCheckBox.checkedBoxBlock = ^(YXCheckBox *checkBox){
@@ -55,17 +59,6 @@
 -(void)viewTapped:(UITapGestureRecognizer*)tap
 {
     [self.view endEditing:YES];
-}
-
-- (void)setupWithNavigation
-{
-    [self.navigationController setNavigationBarHidden:NO animated:YES]; 
-    //设置右边注册按钮
-    UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"注册" style:UIBarButtonItemStyleDone target:self action:@selector(registerPressed:)];
-    self.navigationItem.rightBarButtonItem = regist;
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
-    
 }
 
 - (void)registerPressed:(UIButton *)sender
@@ -321,20 +314,5 @@
         [userdefault synchronize];
     }];
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end
