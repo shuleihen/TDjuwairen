@@ -42,7 +42,7 @@
     [self.betBtn setTitle:key forState:UIControlStateNormal];
     [self.betBtn setTitle:key forState:UIControlStateHighlighted];
     
-//    self.prizeBtn.hidden = !(guess.status == 1);
+    self.prizeBtn.hidden = !(guess.status == 1);
     
     if (guess.status == 0) {
         // 待结算
