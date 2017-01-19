@@ -10,4 +10,5 @@
 
 @interface ApplySurveyViewController : UITableViewController
 @property (nonatomic, strong) NSString *stockId;
+@property (nonatomic, strong) NSString *stockName;
 @end

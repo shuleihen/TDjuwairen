@@ -8,8 +8,15 @@
 
 #import "ApplySurveyViewController.h"
 #import "HexColors.h"
+#import "LoginState.h"
+#import "LoginViewController.h"
+#import "NetworkDefine.h"
+#import "MBProgressHUD.h"
+#import "NSString+Emoji.h"
+#import "NetworkManager.h"
+#import "NSString+Util.h"
 
-@interface ApplySurveyViewController ()
+@interface ApplySurveyViewController ()<MBProgressHUDDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
 @property (weak, nonatomic) IBOutlet UITextField *companyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *HoldingNumberTextField;
@@ -51,10 +58,11 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    self.stockNumberTextField.text = self.stockId;
+    self.companyTextField.text = self.stockName;
+    
     self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
-    
-    
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
@@ -75,7 +83,87 @@
 }
 
 - (void)applySurveyPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+
     
+    NSString *stockCode = self.stockNumberTextField.text;
+    NSString *companyName = self.companyTextField.text;
+    NSString *count = self.HoldingNumberTextField.text;
+    NSString *attent = self.attentionTextField.text;
+    NSString *phone = self.phoneTextField.text;
+    NSString *email = self.emailTextField.text;
+    
+    if (!stockCode.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"股票不能为空";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if(!companyName.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"公司名称不能为空";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if(!count.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"持股数量不能为空";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if(!attent.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"关注内容不能为空";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if(![phone isValidateMobile]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if(![email isValidateEmail]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = (email.length==0)?@"邮箱不能为空":@"邮箱格式错误";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    }
+    NSDictionary *dict = @{@"user_id" : US.userId,
+                           @"code" : stockCode,
+                           @"com_name" : companyName,
+                           @"stock_number" : count,
+                           @"focus" : attent,
+                           @"get_way" : @(2),
+                           @"phone" : phone,
+                           @"email" : email};
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = @"提交中...";
+    
+    __weak ApplySurveyViewController *wself = self;
+    [ma POST:API_SurveyAddSurvey parameters:dict completion:^(id data,NSError *error){
+        if (!error && data && [data[@"status"] boolValue]) {
+            hud.labelText = @"提交成功";
+            hud.delegate = wself;
+            [hud hide:YES afterDelay:0.4];
+        } else {
+            hud.labelText = error.localizedDescription?:@"提交失败";
+            [hud hide:YES afterDelay:0.4];
+        }
+    }];
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 - (void)hideKeyboardPressed:(id)sender {

@@ -71,6 +71,7 @@
 #define API_SurveyCompanyGrade  @"Survey/companyGrade"
 #define API_SurveyCompanyReview @"Survey/companyReview"
 #define API_SurveyCompanyGradeAdd    @"Survey/addCompanyGrade"
+#define API_SurveyAddSurvey     @"Survey/addSurveyOrder"
 
 #define API_QueryKeyNumber      @"Survey/getUserKeyNum"
 #define API_AliPay              @"Survey/alipayKey"

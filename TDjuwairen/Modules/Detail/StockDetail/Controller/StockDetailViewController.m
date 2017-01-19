@@ -148,7 +148,7 @@
         return;
     }
     
-    self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockId];
+    self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockModel.stockId];
     [self.stockHeaderView setupStockModel:self.stockModel];
     
     if (self.stockModel.isLocked) {
@@ -320,7 +320,8 @@
 
 - (void)invitePressed:(id)sender {
     ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
-    vc.hidesBottomBarWhenPushed = YES;
+    vc.stockId = self.stockModel.stockId;
+    vc.stockName = self.stockModel.stockName;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
