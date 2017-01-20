@@ -80,7 +80,14 @@
 
 - (void)reloadData {
     
-    NSString *urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%ld",API_HOST,API_SurveyDetailContent,self.contentId,(long)self.tag];
+    NSString *urlString;
+    if (US.isLogIn) {
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%ld&user_id=%@",API_HOST,API_SurveyDetailContent,self.contentId,(long)self.tag,US.userId];
+    }
+    else
+    {
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%ld",API_HOST,API_SurveyDetailContent,self.contentId,(long)self.tag];
+    }
 
     DDLogInfo(@"Survey detail web load url = %@", urlString);
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
