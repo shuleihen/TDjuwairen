@@ -39,10 +39,11 @@
     NSDictionary *para = [self contentParmWithTag:self.tag];
     
     [ma POST:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
-        if (!error && data) {
+        if (!error && data && [data isKindOfClass:[NSArray class]]) {
             [self reloadTableViewWithData:data];
         } else {
             // 查询失败
+            [self reloadTableViewWithData:nil];
         }
     }];
 }

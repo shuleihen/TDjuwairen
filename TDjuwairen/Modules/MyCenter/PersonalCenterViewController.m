@@ -266,7 +266,6 @@
     if (US.isLogIn == NO) {
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
-        login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
         [self.navigationController pushViewController:login animated:YES];
     }
     else
