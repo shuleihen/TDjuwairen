@@ -35,6 +35,7 @@
 #import "ApplySurveyViewController.h"
 #import "SubscriptionViewController.h"
 #import "SurveySubjectModel.h"
+#import "NotificationDef.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -176,6 +177,8 @@
     
     [self refreshAction];
     [self requestToLogin];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSubListAction) name:kLoginStateChangedNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -323,9 +326,6 @@
 }
 
 - (void)surveyPressed:(id)sender {
-    if (![self checkIsLogin]) {
-        return;
-    }
     
     ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
     vc.hidesBottomBarWhenPushed = YES;
@@ -358,6 +358,7 @@
 }
 
 - (void)refreshSubListAction {
+    // 登录成功刷新当前tab 下面的内容
     [[self currentContentViewController] refreshData];
 }
 

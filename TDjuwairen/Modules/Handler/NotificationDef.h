@@ -9,7 +9,7 @@
 #ifndef NotificationDef_h
 #define NotificationDef_h
 
-#define kLoginSuccessedNotification     @"LoginSuccessedNotification"
+#define kLoginStateChangedNotification  @"LoginStateChangedNotification"
 
 #define kSurveyDetailContentChanged     @"SurveyDetailContentChanged"
 #define kSurveyContentFontSizeChanged   @"SurveyContentFontSizeChanged"

@@ -10,7 +10,7 @@
 #import "PushSwitchViewController.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
-
+#import "NotificationDef.h"
 #import "SDImageCache.h"
 #import "MBProgressHUD.h"
 
@@ -181,6 +181,8 @@
             [Defaults setValue:@"" forKey:@"unionid"];
             [Defaults synchronize];
             [self.navigationController popViewControllerAnimated:YES];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         }]];
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];

@@ -160,24 +160,21 @@
                     
                 }
                 wself.surveyList = [NSArray arrayWithArray:list];
-            }
-            
-            [wself.stockManager addStocks:self.stockArr];
-            wself.page++;
-
-            if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
-                [wself.delegate contentListLoadComplete];
-            }
-        } else {
-            if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
-                [wself.delegate contentListLoadComplete];
+                
+                [wself.stockManager addStocks:self.stockArr];
+                wself.page++;
+            } else {
+                if (wself.page == 1) {
+                    wself.surveyList = nil;
+                }
             }
         }
         
-        [wself reloadTableView];
+        if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
+            [wself.delegate contentListLoadComplete];
+        }
         
-        CGFloat height = [wself contentHeight];
-        wself.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
+        [wself reloadTableView];
     }];
 }
 
@@ -189,6 +186,9 @@
     } else {
         [self.noDataView removeFromSuperview];
     }
+    
+    CGFloat height = [self contentHeight];
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
 }
 
 #pragma mark - StockManagerDelegate

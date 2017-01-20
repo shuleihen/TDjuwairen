@@ -122,7 +122,7 @@
             }
             [self.navigationController popViewControllerAnimated:YES];
             
-            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginSuccessedNotification object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
             hud.labelText = message;

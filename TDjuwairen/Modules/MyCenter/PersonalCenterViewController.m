@@ -265,7 +265,7 @@
 - (void)myInfoPressed:(id)sender {
     if (US.isLogIn == NO) {
         //跳转到登录页面
-        LoginViewController *login = [[LoginViewController alloc] init];
+        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         [self.navigationController pushViewController:login animated:YES];
     }
     else
