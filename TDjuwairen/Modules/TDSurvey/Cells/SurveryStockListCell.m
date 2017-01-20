@@ -10,7 +10,7 @@
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
 #import "NSString+GetDevice.h"
-
+#import "NSString+Util.h"
 #import "UIdaynightModel.h"
 
 @implementation SurveryStockListCell
@@ -82,12 +82,11 @@
 }
 
 - (void)setupSurvey:(SurveyModel *)survey {
-    _stockNameLabel.text = survey.companyName;
+    _stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",survey.companyName,[survey.companyCode stockCode]];
     
     NSString *title = [NSString stringWithFormat:@"调研 %@",survey.surveyTitle];
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:title];
     [attri setAttributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#cccccc"]} range:NSMakeRange(0, 3)];
-//    [attri setAttributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} range:NSMakeRange(3, title.length-3)];
     _surveyTitleLabel.attributedText = attri;
     
     [_surveyImageView sd_setImageWithURL:[NSURL URLWithString:survey.surveyCover]];

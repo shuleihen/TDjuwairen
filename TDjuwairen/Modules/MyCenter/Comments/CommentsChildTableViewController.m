@@ -289,18 +289,8 @@
         if (self.surveyComArr.count > 0) {
             CommentManagerModel *model = self.surveyComArr[indexPath.row];
 
-            NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
-            NSString *companyCode ;
-            if ([code isEqualToString:@"6"]) {
-                companyCode = [NSString stringWithFormat:@"sh%@",model.company_code];
-            }
-            else
-            {
-                companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
-            }
-            
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = companyCode;
+            vc.stockId = model.company_code;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

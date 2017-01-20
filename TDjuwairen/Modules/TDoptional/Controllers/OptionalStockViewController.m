@@ -254,18 +254,9 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SurveyModel *model = self.optionArr[indexPath.row];
-    NSString *code = [model.companyCode substringWithRange:NSMakeRange(0, 1)];
-    NSString *companyCode ;
-    if ([code isEqualToString:@"6"]) {
-        companyCode = [NSString stringWithFormat:@"sh%@",model.companyCode];
-    }
-    else
-    {
-        companyCode = [NSString stringWithFormat:@"sz%@",model.companyCode];
-    }
-    
+
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockId = companyCode;
+    vc.stockId = model.companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

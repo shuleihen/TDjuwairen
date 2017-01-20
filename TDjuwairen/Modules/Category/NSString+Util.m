@@ -10,6 +10,30 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Util)
+- (NSString *)stockCode {
+    // 去掉 上证sh，创业 sz
+    NSString *code = [self stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];
+    return code;
+}
+
+- (NSString *)queryStockCode {
+    if (self.length < 1) {
+        return self;
+    }
+    
+    NSString *code = [self substringWithRange:NSMakeRange(0, 1)];
+    
+    NSString *companyCode ;
+    if ([code isEqualToString:@"6"]) {
+        companyCode = [NSString stringWithFormat:@"sh%@",self];
+    }
+    else
+    {
+        companyCode = [NSString stringWithFormat:@"sz%@",self];
+    }
+    return companyCode;
+}
+
 - (NSString *)md5
 {
     if(self == nil || [self length] == 0)

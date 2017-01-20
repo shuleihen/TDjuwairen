@@ -460,34 +460,13 @@
         SearchSectionData *sectionData = self.resultSections[indexPath.section];
         SearchResultModel *result = sectionData.items[indexPath.row];
         if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
-            NSString *code = [result.resultId substringWithRange:NSMakeRange(0, 1)];
-            NSString *companyCode ;
-            if ([code isEqualToString:@"6"]) {
-                companyCode = [NSString stringWithFormat:@"sh%@",result.resultId];
-            }
-            else
-            {
-                companyCode = [NSString stringWithFormat:@"sz%@",result.resultId];
-            }
-            
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = companyCode;
+            vc.stockId = result.resultId;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         } else if ([sectionData.sectionTitle isEqualToString:@"调研"]) {
-
-            NSString *code = [result.resultId substringWithRange:NSMakeRange(0, 1)];
-            NSString *companyCode ;
-            if ([code isEqualToString:@"6"]) {
-                companyCode = [NSString stringWithFormat:@"sh%@",result.resultId];
-            }
-            else
-            {
-                companyCode = [NSString stringWithFormat:@"sz%@",result.resultId];
-            }
-            
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = companyCode;
+            vc.stockId = result.resultId;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         } else if ([sectionData.sectionTitle isEqualToString:@"观点"]) {

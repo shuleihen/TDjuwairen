@@ -18,6 +18,8 @@
 
 - (NSString *)md5;
 - (NSString *)trim;
+- (NSString *)stockCode;
+- (NSString *)queryStockCode;
 
 - (BOOL)isValidateMobile;
 - (BOOL)isValidateNumber;
@@ -27,4 +29,6 @@
 
 + (NSString *)stringWithTimeInterval:(int64_t)timeInterval;
 + (NSString *)stringWithTimeInterval:(int64_t)timeInterval withFormat:(NSString *)format;
+
+
 @end

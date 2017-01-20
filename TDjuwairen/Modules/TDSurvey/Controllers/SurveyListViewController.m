@@ -459,19 +459,10 @@
 
     if ([arr[0] isEqualToString:@"Survey"]) {
         
-        NSString *code = [[arr lastObject] substringWithRange:NSMakeRange(0, 1)];
+        NSString *code = [arr lastObject];
 
-        NSString *companyCode ;
-        if ([code isEqualToString:@"6"]) {
-            companyCode = [NSString stringWithFormat:@"sh%@",[arr lastObject]];
-        }
-        else
-        {
-            companyCode = [NSString stringWithFormat:@"sz%@",[arr lastObject]];
-        }
-        
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-        vc.stockId = companyCode;
+        vc.stockId = code;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

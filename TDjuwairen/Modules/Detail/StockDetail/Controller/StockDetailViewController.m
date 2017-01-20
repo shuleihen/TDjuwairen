@@ -40,6 +40,7 @@
 #import "GradeDetailViewController.h"
 #import "StockInfoModel.h"
 #import "HotViewController.h"
+#import "NSString+Util.h"
 
 #define kHeaderViewHeight 135
 #define kSegmentHeight 45
@@ -54,7 +55,6 @@
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, weak) UIViewController *pageWillToController;
 @property (nonatomic, strong) StockManager *stockManager;
-
 @property (nonatomic, strong) StockInfoModel *stockModel;
 @end
 
@@ -73,7 +73,8 @@
     // Do any additional setup after loading the view from its nib.
     
     // 添加查询股票
-    [self.stockManager addStocks:@[self.stockId]];
+    NSString *queryStockId = [self.stockId queryStockCode];
+    [self.stockManager addStocks:@[queryStockId]];
     
     // 查询
     [self querySurveySimpleDetail];
@@ -164,15 +165,14 @@
 - (void)querySurveySimpleDetail {
     // 查询解锁
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSString *code = [self.stockId substringFromIndex:2];
     NSDictionary *para ;
     if (US.isLogIn) {
-        para = @{@"code": code,
+        para = @{@"code": self.stockId,
                  @"user_id": US.userId};
     }
     else
     {
-        para = @{@"code": code};
+        para = @{@"code": self.stockId};
     }
     
     __weak StockDetailViewController *wself = self;
@@ -190,7 +190,7 @@
 - (void)unlockStockPressed {
     
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-    vc.stockCode = [self.stockId substringFromIndex:2];
+    vc.stockCode = self.stockModel.stockId;
     vc.stockName = self.stockModel.stockName;
     vc.needKey = self.stockModel.keyNum;
     
@@ -203,13 +203,13 @@
     __weak StockDetailViewController *wself = self;
     UIAlertAction *niu = [UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
-        vc.comanyCode = [wself.stockId substringFromIndex:2];
+        vc.comanyCode = wself.stockId;
         vc.type = kPublishNiu;
         [wself.navigationController pushViewController:vc animated:YES];
     }];
     UIAlertAction *xiong = [UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
-        vc.comanyCode = [wself.stockId substringFromIndex:2];
+        vc.comanyCode = wself.stockId;
         vc.type = kPublishXiong;
         [wself.navigationController pushViewController:vc animated:YES];
     }];
@@ -224,7 +224,7 @@
 
 - (void)askPublish {
     AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
-    vc.comanyCode = [self.stockId substringFromIndex:2];
+    vc.comanyCode = self.stockId;
     vc.type = kPublishAsk;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -274,9 +274,8 @@
 }
 
 - (void)unlockStock:(NSNotification *)notifi {
-    NSString *code = [self.stockId substringFromIndex:2];
     NSDictionary *para = @{@"user_id":  US.userId,
-                           @"code":     code};
+                           @"code":     self.stockId};
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
     indicator.hidesWhenStopped = YES;
@@ -357,7 +356,9 @@
 
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
-    StockInfo *stock = [stocks objectForKey:self.stockId];
+    NSString *queryStockId = [self.stockId queryStockCode];
+    StockInfo *stock = [stocks objectForKey:queryStockId];
+    
     [self.stockHeaderView setupStockInfo:stock];
 }
 
@@ -382,10 +383,9 @@
         [[NSNotificationCenter defaultCenter] postNotificationName:kNightVersionChanged object:nil];
     } else if (row == 2) {
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        NSString *code = [self.stockId substringFromIndex:2];
         [shareParams SSDKSetupShareParamsByText:nil
                                          images:@[self.stockModel.cover]
-                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",code]]
+                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",self.stockId]]
                                           title:self.stockModel.stockName
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）

@@ -13,6 +13,7 @@
 #import "LoginState.h"
 #import "HexColors.h"
 #import "SearchViewController.h"
+#import "NSString+Util.h"
 
 @interface SurveyContentListController ()<StockManagerDelegate, UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -227,11 +228,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     SurveyModel *survey = self.surveyList[indexPath.section];
-    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-//    vc.stockInfo = stock;
-    vc.stockId = survey.companyCode;
+    vc.stockId = [survey.companyCode stockCode];
     vc.hidesBottomBarWhenPushed = YES;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }

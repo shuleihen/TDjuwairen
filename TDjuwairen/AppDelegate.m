@@ -131,19 +131,8 @@ static BOOL isBackGroundActivateApplication;
                 }
                 else
                 {
-                    NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
-                    
-                    NSString *companyCode ;
-                    if ([code isEqualToString:@"6"]) {
-                        companyCode = [NSString stringWithFormat:@"sh%@",c];
-                    }
-                    else
-                    {
-                        companyCode = [NSString stringWithFormat:@"sz%@",c];
-                    }
-                    
                     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-                    vc.stockId = companyCode;
+                    vc.stockId = c;
                     vc.hidesBottomBarWhenPushed = YES;
                     _tabBarCtr.selectedIndex = 0;
                     [_tabBarCtr.selectedViewController pushViewController:vc animated:YES];
@@ -247,20 +236,9 @@ static BOOL isBackGroundActivateApplication;
                     //
                 }
                 else
-                {                    
-                    NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
-                    
-                    NSString *companyCode ;
-                    if ([code isEqualToString:@"6"]) {
-                        companyCode = [NSString stringWithFormat:@"sh%@",c];
-                    }
-                    else
-                    {
-                        companyCode = [NSString stringWithFormat:@"sz%@",c];
-                    }
-
+                {
                     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-                    vc.stockId = companyCode;
+                    vc.stockId = c;
                     vc.hidesBottomBarWhenPushed = YES;
                     
                     _tabBarCtr.selectedIndex = 0;
