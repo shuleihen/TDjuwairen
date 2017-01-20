@@ -15,7 +15,6 @@
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"
 #import "SDCycleScrollView.h"
-#import "SurDetailViewController.h"
 #import "NotificationDef.h"
 #import "YXTitleButton.h"
 #import "SearchViewController.h"

@@ -9,13 +9,11 @@
 #import "CommentsChildTableViewController.h"
 #import "CommentManagerModel.h"
 #import "CommentsModel.h"
-
-#import "SurDetailViewController.h"
 #import "DetailPageViewController.h"
 #import "CommentsTableViewCell.h"
 #import "NothingTableViewCell.h"
 #import "UserCommentTableViewCell.h"
-
+#import "StockDetailViewController.h"
 #import "NetworkManager.h"
 #import "MJRefresh.h"
 #import "NSString+Ext.h"
@@ -290,8 +288,7 @@
     if (self.typeID == 0) {
         if (self.surveyComArr.count > 0) {
             CommentManagerModel *model = self.surveyComArr[indexPath.row];
-            SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-            vc.module = 2;
+
             NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
             NSString *companyCode ;
             if ([code isEqualToString:@"6"]) {
@@ -301,9 +298,9 @@
             {
                 companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
             }
-            vc.company_name = model.company_name;
-            vc.company_code = companyCode;
-            vc.survey_cover = model.survey_cover;
+            
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockId = companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

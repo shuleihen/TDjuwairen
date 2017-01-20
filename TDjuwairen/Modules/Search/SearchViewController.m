@@ -12,7 +12,6 @@
 #import "ViewPointListModel.h"
 #import "SearchResultTableViewCell.h"
 #import "DetailPageViewController.h"
-#import "SurDetailViewController.h"
 #import "LoginViewController.h"
 #import "HexColors.h"
 #import "NSString+Ext.h"

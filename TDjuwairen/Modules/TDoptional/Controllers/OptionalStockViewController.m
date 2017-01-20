@@ -13,7 +13,6 @@
 #import "NoOrderTableViewCell.h"
 #import "OptionalManageViewController.h"
 #import "SurveyModel.h"
-#import "SurDetailViewController.h"
 #import "StockManager.h"
 #import "LoginViewController.h"
 #import "LoginState.h"
@@ -264,15 +263,8 @@
     {
         companyCode = [NSString stringWithFormat:@"sz%@",model.companyCode];
     }
-//    SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-//    vc.company_name = model.companyName;
-//    vc.company_code = companyCode;
-//    vc.survey_cover = model.surveyCover;
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-//    vc.stockInfo = stock;
     vc.stockId = companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];

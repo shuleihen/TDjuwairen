@@ -13,10 +13,9 @@
 #import "ViewPointTableViewCell.h"
 #import "NothingTableViewCell.h"
 #import "DetailPageViewController.h"
-#import "SurDetailViewController.h"
 #import "CommentManagerModel.h"
 #import "CommentsTableViewCell.h"
-
+#import "StockDetailViewController.h"
 #import "UIdaynightModel.h"
 #import "LoginState.h"
 
@@ -367,7 +366,7 @@
         if (self.surveyListDataArray.count > 0) {
             //跳转调研详情
             UserSurveyModel *model = self.surveyListDataArray[indexPath.row];
-            SurDetailViewController *vc = [[SurDetailViewController alloc] init];
+            
             NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
             NSString *companyCode ;
             if ([code isEqualToString:@"6"]) {
@@ -377,9 +376,9 @@
             {
                 companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
             }
-            vc.company_name = model.company_name;
-            vc.company_code = companyCode;
-            vc.survey_cover = model.survey_cover;
+            
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockId = companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -399,8 +398,7 @@
     {
         if (self.userCommentArray.count > 0) {
             CommentManagerModel *model = self.userCommentArray[indexPath.row];
-            SurDetailViewController *vc = [[SurDetailViewController alloc] init];
-            vc.module = 2;
+
             NSString *code = [model.company_code substringWithRange:NSMakeRange(0, 1)];
             NSString *companyCode ;
             if ([code isEqualToString:@"6"]) {
@@ -410,9 +408,8 @@
             {
                 companyCode = [NSString stringWithFormat:@"sz%@",model.company_code];
             }
-            vc.company_name = model.company_name;
-            vc.company_code = companyCode;
-            vc.survey_cover = model.survey_cover;
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockId = companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

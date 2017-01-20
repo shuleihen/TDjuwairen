@@ -230,7 +230,7 @@
     StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockInfo = stock;
+//    vc.stockInfo = stock;
     vc.stockId = survey.companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.rootController.navigationController pushViewController:vc animated:YES];

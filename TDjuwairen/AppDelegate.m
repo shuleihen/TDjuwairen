@@ -10,8 +10,6 @@
 #import "SDWebImageDownloader.h"
 #import "SDWebImageManager.h"
 #import "DetailPageViewController.h"
-#import "SurDetailViewController.h"
-
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 
@@ -42,6 +40,7 @@
 #endif
 
 #import "NotificationDef.h"
+#import "StockDetailViewController.h"
 
 static BOOL isBackGroundActivateApplication;
 @interface AppDelegate ()
@@ -132,8 +131,6 @@ static BOOL isBackGroundActivateApplication;
                 }
                 else
                 {
-                    SurDetailViewController *dv = [[SurDetailViewController alloc] init];
-                    
                     NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
                     
                     NSString *companyCode ;
@@ -144,11 +141,12 @@ static BOOL isBackGroundActivateApplication;
                     {
                         companyCode = [NSString stringWithFormat:@"sz%@",c];
                     }
-                    dv.company_code = companyCode;
-                    dv.module = 5;
-                    [dv setHidesBottomBarWhenPushed:YES];
+                    
+                    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                    vc.stockId = companyCode;
+                    vc.hidesBottomBarWhenPushed = YES;
                     _tabBarCtr.selectedIndex = 0;
-                    [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
+                    [_tabBarCtr.selectedViewController pushViewController:vc animated:YES];
                 }
             }
             else
@@ -249,9 +247,7 @@ static BOOL isBackGroundActivateApplication;
                     //
                 }
                 else
-                {
-                    SurDetailViewController *dv = [[SurDetailViewController alloc] init];
-                    
+                {                    
                     NSString *code = [c substringWithRange:NSMakeRange(0, 1)];
                     
                     NSString *companyCode ;
@@ -262,11 +258,13 @@ static BOOL isBackGroundActivateApplication;
                     {
                         companyCode = [NSString stringWithFormat:@"sz%@",c];
                     }
-                    dv.company_code = companyCode;
-                    dv.module = 5;
-                    [dv setHidesBottomBarWhenPushed:YES];
+
+                    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                    vc.stockId = companyCode;
+                    vc.hidesBottomBarWhenPushed = YES;
+                    
                     _tabBarCtr.selectedIndex = 0;
-                    [_tabBarCtr.selectedViewController pushViewController:dv animated:YES];
+                    [_tabBarCtr.selectedViewController pushViewController:vc animated:YES];
                 }
             }
             else
