@@ -36,9 +36,13 @@
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParmWithTag:self.tag];
+    NSDictionary *para = @{@"code": self.stockId};
+    if (US.isLogIn) {
+        para = @{@"code": self.stockId,
+                 @"user_id" : US.userId};
+    }
     
-    [ma POST:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
+    [ma GET:API_SurveyDetailComment parameters:para completion:^(id data, NSError *error){
         if (!error && data && [data isKindOfClass:[NSArray class]]) {
             [self reloadTableViewWithData:data];
         } else {

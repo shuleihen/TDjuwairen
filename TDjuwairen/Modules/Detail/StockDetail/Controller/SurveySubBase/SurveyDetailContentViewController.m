@@ -29,6 +29,11 @@
 - (NSDictionary *)contentParmWithTag:(NSInteger)tag {
     NSDictionary *para = @{@"code": self.stockId,
                            @"tag": @(tag)};
+    if (US.isLogIn) {
+        para = @{@"code": self.stockId,
+                 @"tag": @(tag),
+                 @"user_id" : US.userId};
+    }
     return para;
 }
 

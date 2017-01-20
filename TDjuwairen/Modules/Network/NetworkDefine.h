@@ -59,6 +59,7 @@
 #define API_SurveyDetailHeader  @"Survey/survey_show_header2_2"
 #define API_SurveyDetail        @"Survey/survey_show_tag2_2"
 #define API_SurveyDetailHot     @"Survey/survey_show_topline"
+#define API_SurveyDetailComment @"Survey/survey_show_comment2_2"
 #define API_SurveyDetailContent @"Survey/url_get_content2_2"
 #define API_SurveyAddComment    @"Survey/addComment"
 #define API_SurveyAddFavour     @"Survey/addCommentGoodAccess"

@@ -30,7 +30,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *para = [self contentParmWithTag:self.tag];
     
-    [ma POST:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
+    [ma GET:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
         if (!error && data && [data isKindOfClass:[NSArray class]]) {
             [self reloadTableViewWithData:data];
         } else {
