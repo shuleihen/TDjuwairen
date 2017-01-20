@@ -28,6 +28,7 @@
         _lastTime = [dict[@"next_rate_time"] integerValue];
         _stockName = dict[@"company_name"];
         _stockId = dict[@"company_code"];
+        _totalGrade = [dict[@"point"] integerValue];
         
         NSArray *array = dict[@"grades"];
         NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[array count]];

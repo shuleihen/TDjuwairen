@@ -55,6 +55,9 @@
 - (void)queryGradeTetail {
     __weak GradeDetailViewController *wself = self;
     NSDictionary *dict = @{@"code" : self.stockId};
+    if (US.isLogIn) {
+        dict = @{@"code" : self.stockId, @"user_id": US.userId};
+    }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:API_SurveyCompanyGrade parameters:dict completion:^(id data, NSError *error){
@@ -64,13 +67,15 @@
         }
         
         [wself.headerView setupGradeModel:wself.gradeDetail];
-        wself.toolView.hidden = wself.gradeDetail.canGrade;
     }];
 }
 
 - (void)queryCompanyReview {
     __weak GradeDetailViewController *wself = self;
     NSDictionary *dict = @{@"code" : self.stockId};
+    if (US.isLogIn) {
+        dict = @{@"code" : self.stockId, @"user_id": US.userId};
+    }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:API_SurveyCompanyReview parameters:dict completion:^(id data, NSError *error){
@@ -95,6 +100,21 @@
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
         return;
+    }
+    
+    if (!self.gradeDetail.canGrade) {
+        // 下次评分时间
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.gradeDetail.lastTime];
+        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+        formatter.dateFormat = @"MM月dd日";
+        NSString *dateTime = [formatter stringFromDate:date];
+        
+        NSString *string = [NSString stringWithFormat:@"您已评分，%@以后可以再次评分",dateTime];
+        
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:string preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
     }
     
     GradeAddViewController *vc = [[GradeAddViewController alloc] init];

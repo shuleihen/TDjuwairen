@@ -14,6 +14,7 @@
 
 @property (nonatomic, strong) UILabel *stockNameLabel;
 @property (nonatomic, strong) UILabel *stockIdLabel;
+@property (nonatomic, strong) UILabel *gradeLabel;
 @property (nonatomic, strong) GradeView *gradeView;
 
 - (void)setupGradeModel:(GradeDetailModel *)model;
