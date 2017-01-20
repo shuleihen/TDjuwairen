@@ -19,6 +19,7 @@
 #import "NotificationDef.h"
 
 @interface GradeAddViewController ()<MBProgressHUDDelegate>
+@property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSArray *gradeItems;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UILabel *textLimitLabel;
@@ -35,6 +36,73 @@
     [self setupUI];
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)keyboardWillShow:(NSNotification *)note{
+    // get keyboard size and loctaion
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    // get a rect for the textView frame
+    CGRect containerFrame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-keyboardBounds.size.height);
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    // set views with new info
+    self.scrollView.frame = containerFrame;
+    self.scrollView.contentOffset = CGPointMake(0, 505-containerFrame.size.height);
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+-(void)keyboardWillHide:(NSNotification *)note{
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // get a rect for the textView frame
+    CGRect containerFrame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-55);
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    // set views with new info
+    self.scrollView.frame = containerFrame;
+    self.scrollView.contentOffset = CGPointMake(0, 0);
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
 - (void)setupUI {
     /*
     NSArray *itemTitle = @[@"德",@"智",@"财",@"势",@"创",@"观",@"透",@"行"];
@@ -43,15 +111,15 @@
     
     */
     
-    UIScrollView *scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-55)];
-    scrollView.contentSize = CGSizeMake(kScreenWidth, 500);
-    scrollView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-55)];
+    _scrollView.contentSize = CGSizeMake(kScreenWidth, 505);
+    _scrollView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
-    [scrollView addGestureRecognizer:tap];
+    [_scrollView addGestureRecognizer:tap];
     
     UIView *gradeView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 315)];
     gradeView.backgroundColor = [UIColor whiteColor];
-    [scrollView addSubview:gradeView];
+    [_scrollView addSubview:gradeView];
     
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:8];
     
@@ -94,7 +162,7 @@
     
     UIView *textPanel = [[UIView alloc] initWithFrame:CGRectMake(0, 325, kScreenWidth, 180)];
     textPanel.backgroundColor = [UIColor whiteColor];
-    [scrollView addSubview:textPanel];
+    [_scrollView addSubview:textPanel];
     
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 5, kScreenWidth-40, 180-35)];
     _textView.placeholder = @"写点评价吧，股民也能给出评级～";
@@ -121,7 +189,7 @@
     sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
     [toolView addSubview:sep];
     
-    [self.view addSubview:scrollView];
+    [self.view addSubview:_scrollView];
     [self.view addSubview:toolView];
 }
 

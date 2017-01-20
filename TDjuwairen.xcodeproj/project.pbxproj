@@ -2168,8 +2168,8 @@
 		19959B711E2C5D4300AB26DF /* Grade */ = {
 			isa = PBXGroup;
 			children = (
-				19959B721E2C5D4300AB26DF /* Cells */,
 				19959B761E2C5D4300AB26DF /* Controllers */,
+				19959B721E2C5D4300AB26DF /* Cells */,
 				19959B7B1E2C5D4300AB26DF /* Models */,
 				19959B7E1E2C5D4300AB26DF /* Views */,
 			);
