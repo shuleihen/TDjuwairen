@@ -85,11 +85,12 @@
         YXCheckBox *check = [[YXCheckBox alloc] initWithCheckImage:[UIImage imageNamed:@"subscription_unchecked.png"]
                                                       checkedImage:[UIImage imageNamed:@"subscription_selected.png"]];
         check.tag = i;
-        check.titleEdgeInsets = UIEdgeInsetsMake(0, 2, 0, 0);
+        check.titleLabel.font = [UIFont systemFontOfSize:18.0f];
+        check.titleEdgeInsets = UIEdgeInsetsMake(0, 4, 0, 0);
         [check setTitle:type.subDesc forState:UIControlStateNormal];
         [check setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateNormal];
-        check.titleLabel.font = [UIFont systemFontOfSize:18.0f];
-        check.frame = CGRectMake(15+(80+30)*i, 18, 80, 30);
+        
+        check.frame = CGRectMake(12+(80+15)*i, 18, 80, 30);
         [tool addSubview:check];
         
         __weak SubscriptionViewController *wself = self;
@@ -140,11 +141,25 @@
     if (self.selectedIndex >=0 && self.selectedIndex<[self.subItems count]) {
         SubscriptionTypeModel *type = self.subItems[self.selectedIndex];
         NSString *key = [NSString stringWithFormat:@"%ld",(long)type.keyNum];
-        NSString *title = [NSString stringWithFormat:@"需使用%@把金钥匙",key];
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:title];
-        [attr addAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#666666"]} range:NSMakeRange(0, title.length)];
-        [attr addAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#fe6c00"]} range:NSMakeRange(3, key.length)];
-        self.keyLabel.attributedText = attr;
+        NSString *title = [NSString stringWithFormat:@"需使用钥匙%@把",key];
+        
+
+        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:title
+                                                                                   attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
+                                                                                                NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]}];
+        
+        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+        attatch.bounds = CGRectMake(0, -4, 19, 22);
+        attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
+        
+        [strAtt addAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#fe6c00"]} range:NSMakeRange(title.length-key.length-1, key.length)];
+        
+        NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
+        NSRange range = [title rangeOfString:@"钥匙"];
+        if (range.location != NSNotFound) {
+            [strAtt replaceCharactersInRange:range withAttributedString:wait];
+        }
+        self.keyLabel.attributedText = strAtt;
     }
 }
 

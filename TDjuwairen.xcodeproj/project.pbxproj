@@ -1721,9 +1721,9 @@
 		194F058E1E27425400C8CB8A /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
+				194F05911E27425400C8CB8A /* Models */,
 				194F058F1E27425400C8CB8A /* Cells */,
 				194F05901E27425400C8CB8A /* Controllers */,
-				194F05911E27425400C8CB8A /* Models */,
 			);
 			name = Subscription;
 			path = TDjuwairen/Modules/Subscription;
