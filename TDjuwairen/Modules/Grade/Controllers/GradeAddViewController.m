@@ -18,7 +18,9 @@
 #import "NetworkManager.h"
 #import "NotificationDef.h"
 
-@interface GradeAddViewController ()<MBProgressHUDDelegate>
+#define kTextViewNumberLimit 140
+
+@interface GradeAddViewController ()<MBProgressHUDDelegate, UITextViewDelegate>
 @property (nonatomic, strong) UIScrollView *scrollView;
 @property (nonatomic, strong) NSArray *gradeItems;
 @property (nonatomic, strong) UITextView *textView;
@@ -165,14 +167,19 @@
     [_scrollView addSubview:textPanel];
     
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(10, 5, kScreenWidth-40, 180-35)];
+    _textView.delegate = self;
     _textView.placeholder = @"写点评价吧，股民也能给出评级～";
     _textView.placeholderLabel.font = [UIFont systemFontOfSize:15.0f];
+    _textView.returnKeyType = UIReturnKeyDone;
     [textPanel addSubview:_textView];
     
-    _textLimitLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth-200, 180-50, 200, 20)];
+    _textLimitLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth-200-12, 180-30, 200, 20)];
+    _textLimitLabel.textAlignment = NSTextAlignmentRight;
     _textLimitLabel.font = [UIFont systemFontOfSize:14.0f];
     _textLimitLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
     [textPanel addSubview:_textLimitLabel];
+    
+    [self textViewDidChange:_textView];
     
     UIView *toolView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-55, kScreenWidth, 55)];
     toolView.backgroundColor = [UIColor whiteColor];
@@ -193,6 +200,20 @@
     [self.view addSubview:toolView];
 }
 
+- (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
+    if ([text isEqualToString:@"\n"]) {
+        [textView resignFirstResponder];
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+- (void)textViewDidChange:(UITextView *)textView {
+    NSString *string = [NSString stringWithFormat:@"还能输入%ld个字",(long)(kTextViewNumberLimit-textView.text.length)];
+    self.textLimitLabel.text = string;
+}
+
 - (void)didChangeValue:(id)sender {
     
 }
@@ -209,22 +230,31 @@
         return;
     }
     
+    for (HCSStarRatingView *rateView in self.gradeItems) {
+        if (rateView.value <= 0) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"您的评级还未填写完成";
+            [hud hide:YES afterDelay:0.4];
+            return;
+        }
+    }
     
-    NSString *comment = [self.textView.text stringByReplacingEmojiUnicodeWithCheatCodes];
-    
+    NSString *comment = self.textView.text;
     if (!comment.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = @"评价不能为空";
         [hud hide:YES afterDelay:0.4];
         return;
-    } else if(comment.length >= 200) {
+    } else if(comment.length > kTextViewNumberLimit) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"评价不能为空";
+        hud.labelText = @"评价最多140字";
         [hud hide:YES afterDelay:0.4];
         return;
     }
+
     
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self.gradeItems count]];
     for (int i=0; i<[self.gradeItems count] && i<[self.gradeDetail.itemGrades count] ; i++) {
@@ -241,15 +271,16 @@
     if (!jsonString.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"评价不能为空";
+        hud.labelText = @"您的评级还未填写完成";
         [hud hide:YES afterDelay:0.4];
         return;
     }
     
+    NSString *emojiComment = [comment stringByReplacingEmojiUnicodeWithCheatCodes];
     NSDictionary *dict = @{@"user_id" : US.userId,
                            @"code" : self.stockId,
                            @"grades" : jsonString,
-                           @"review_text" : comment};
+                           @"review_text" : emojiComment};
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     
