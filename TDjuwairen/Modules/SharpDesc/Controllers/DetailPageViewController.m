@@ -996,7 +996,7 @@
                 DetailTableViewController *childTab = self.childViewControllers[0];
                 [childTab requestCommentDataWithPage:self.page];  //请求
                 //滑动到评论
-                [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
+                [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
                 [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
                 
             } else {
@@ -1025,7 +1025,7 @@
                 DetailTableViewController *childTab = self.childViewControllers[0];
                 [childTab requestWithCommentDataWithTimeHot];  //请求
                 //滑动到评论
-                [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
+                [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
                 [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
                 
             } else {
@@ -1040,7 +1040,7 @@
 #pragma mark - Action
 - (void)clickComments:(UIButton *)sender{
     if (self.scrollview.contentOffset.y > self.webview.frame.size.height-400) {
-        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
         //回到顶部
         [self.scrollview setContentOffset:CGPointMake(0, 0) animated:YES];
         
@@ -1048,7 +1048,7 @@
     else
     {
         //滑动到评论
-        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
         [self.scrollview setContentOffset:CGPointMake(0, 75+titlesize.height+10+websize.height+10+self.tagList.frame.size.height+10) animated:YES];
         
     }
@@ -1111,11 +1111,11 @@
     self.nmview.alpha = 0.0;
     if (self.scrollview.contentOffset.y > self.webview.frame.size.height-400) {
         
-        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
     }
     else
     {
-        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"comment"] forState:UIControlStateNormal];
+        [self.backcommentview.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
     }
 }
 

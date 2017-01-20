@@ -43,7 +43,7 @@
     /* 评论按钮 */
     self.backComment = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-100, 0, 50, 50)];
     [self.backComment setBackgroundColor:[UIColor clearColor]];
-    [self.backComment setImage:[UIImage imageNamed:@"comment.png"] forState:UIControlStateNormal];
+    [self.backComment setImage:[UIImage imageNamed:@"nav_zt.png"] forState:UIControlStateNormal];
     [self.backComment setImageEdgeInsets:UIEdgeInsetsMake(0, 10, 0, 0)];
     
     /* 分享按钮 */
