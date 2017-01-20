@@ -151,6 +151,8 @@
     self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockModel.stockId];
     [self.stockHeaderView setupStockModel:self.stockModel];
     
+    self.segment.isLock = self.stockModel.isLocked;
+    
     if (self.stockModel.isLocked) {
         self.segment.selectedIndex = 2;
     } else {
@@ -190,6 +192,7 @@
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
     vc.stockCode = [self.stockId substringFromIndex:2];
     vc.stockName = self.stockModel.stockName;
+    vc.needKey = self.stockModel.keyNum;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.containerView.layer.cornerRadius = 4;

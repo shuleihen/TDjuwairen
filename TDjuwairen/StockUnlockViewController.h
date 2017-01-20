@@ -12,5 +12,5 @@
 @interface StockUnlockViewController : UIViewController
 @property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) NSString *stockName;
-@property (nonatomic, assign) NSInteger *needKey;
+@property (nonatomic, assign) NSInteger needKey;
 @end

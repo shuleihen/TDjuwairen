@@ -30,6 +30,7 @@
     self.contentSizeInPopup = CGSizeMake(260, 200);
     
     self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.stockName,self.stockCode];
+    [self.keyNumberBtn setTitle:[NSString stringWithFormat:@"%d",self.needKey] forState:UIControlStateNormal];
     
     if (US.isLogIn) {
         NSDictionary *para = @{@"user_id":US.userId};
@@ -48,7 +49,7 @@
 
 - (void)setupDataWithKeyNumber:(long)keyNumber {
     self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",keyNumber];
-    if (keyNumber > 1) {
+    if (keyNumber >= self.needKey) {
         [self.doneBtn setTitle:@"解锁" forState:UIControlStateNormal];
         [self.doneBtn setTitle:@"解锁" forState:UIControlStateHighlighted];
         [self.doneBtn addTarget:self action:@selector(unlockPressed:) forControlEvents:UIControlEventTouchUpInside];
