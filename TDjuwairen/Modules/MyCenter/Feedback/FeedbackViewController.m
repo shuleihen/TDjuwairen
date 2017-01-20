@@ -247,12 +247,9 @@
 {
     if (self.dataArray.count > 0) {
         NSDictionary *dic = self.dataArray[indexPath.row];
-        NSString *identifier = @"cell";
-        ResponsListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-        if (cell == nil) {
-            cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
-        }
-        cell.contentLab.text = dic[@"feedback_content"];
+        NSString *identifier = @"FeedbackCellID";
+        ResponsListTableViewCell *cell = cell = [[ResponsListTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier andArr:dic];
+//        cell.contentLab.text = dic[@"feedback_content"];
         self.cellheight = cell.viewheight;
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
