@@ -23,7 +23,7 @@
         [self addSubview:_gradeView];
         
         _gradeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 60, 20)];
-        _gradeLabel.font = [UIFont systemFontOfSize:20.0f];
+        _gradeLabel.font = [UIFont boldSystemFontOfSize:20.0f];
         _gradeLabel.textColor = [UIColor whiteColor];
         _gradeLabel.textAlignment = NSTextAlignmentCenter;
         _gradeLabel.center = _gradeView.center;
