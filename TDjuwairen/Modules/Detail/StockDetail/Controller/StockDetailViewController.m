@@ -318,7 +318,34 @@
 }
 
 - (void)addStockPressed:(id)sender {
-    
+    if (US.isLogIn) {
+        NSDictionary *para = @{@"code": self.stockModel.stockId,
+                               @"user_id":US.userId};
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        __weak StockDetailViewController *wself = self;
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSString *url = @"Survey/addMyStock";
+        [manager POST:url parameters:para completion:^(id data, NSError *error) {
+            if (!error) {
+                hud.labelText = @"添加成功";
+                [hud hide:YES afterDelay:0.5];
+                
+                wself.stockModel.isAdd = YES;
+                [wself.stockHeaderView setupStockModel:wself.stockModel];
+            }
+            else
+            {
+                hud.labelText = @"添加失败";
+                [hud hide:YES afterDelay:0.5];
+                
+            }
+        }];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
 }
 
 - (void)invitePressed:(id)sender {
