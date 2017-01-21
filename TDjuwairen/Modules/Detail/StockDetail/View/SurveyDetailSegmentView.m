@@ -89,19 +89,6 @@
 
 - (void)setLocked:(BOOL)locked {
     _locked = locked;
-    
-    if (locked) {
-        UIImageView *lockView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
-        lockView.tag = 4;
-        lockView.image = [UIImage imageNamed:@"ico_chains"];
-        lockView.center = CGPointMake(CGRectGetMaxX(self.bounds), 6);
-        [self addSubview:lockView];
-    } else {
-        UIImageView *imageView = [self viewWithTag:4];
-        if (imageView) {
-            [imageView removeFromSuperview];
-        }
-    }
 }
 
 - (void)setSelected:(BOOL)selected {
@@ -164,7 +151,6 @@
         item.frame = CGRectMake(SegmentEdge+(SegmentItemSpace+w)*i, self.bounds.size.height - SegmentItemHeight + 5, w, SegmentItemHeight);
         item.index = i;
         [self addSubview:item];
-        [self sendSubviewToBack:item];
         
         item.clickBlock = ^(NSInteger index) {
             self.selectedIndex = index;
@@ -178,6 +164,21 @@
     
     for (int i=0; i<2; i++) {
         [self setLocked:isLock withIndex:i];
+    }
+    
+    if (isLock) {
+        CGFloat w = (kScreenWidth-SegmentEdge*2-SegmentItemSpace*([self.segments count]-1))/[self.segments count];
+        
+        UIImageView *lockView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
+        lockView.center = CGPointMake(SegmentEdge+w+SegmentItemSpace/2, 22);
+        lockView.tag = 100;
+        lockView.image = [UIImage imageNamed:@"ico_chains.png"];
+        [self addSubview:lockView];
+    } else {
+        UIImageView *imageView = [self viewWithTag:100];
+        if (imageView) {
+            [imageView removeFromSuperview];
+        }
     }
 }
 

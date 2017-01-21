@@ -2705,11 +2705,11 @@
 		19F00CCA1E2EFFD9009270D5 /* StockDetail */ = {
 			isa = PBXGroup;
 			children = (
-				19F00CCB1E2EFFD9009270D5 /* Cell */,
-				19F00CD81E2EFFD9009270D5 /* Controller */,
-				19F00CF71E2EFFD9009270D5 /* Manager */,
 				19F00CF81E2EFFD9009270D5 /* Model */,
 				19F00CFF1E2EFFD9009270D5 /* View */,
+				19F00CCB1E2EFFD9009270D5 /* Cell */,
+				19F00CF71E2EFFD9009270D5 /* Manager */,
+				19F00CD81E2EFFD9009270D5 /* Controller */,
 			);
 			path = StockDetail;
 			sourceTree = "<group>";
