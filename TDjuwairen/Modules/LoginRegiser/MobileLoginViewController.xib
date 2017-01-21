@@ -15,7 +15,7 @@
                 <outlet property="agreeBtn" destination="EAk-TO-G3e" id="Dy4-T4-hxS"/>
                 <outlet property="loginBtn" destination="4sX-G8-ofR" id="PL6-BT-uXh"/>
                 <outlet property="panelView" destination="FR5-F8-VcD" id="MPD-dq-ej1"/>
-                <outlet property="validationBtn" destination="Cdf-PV-zyW" id="6KC-Vz-4sh"/>
+                <outlet property="validationBtn" destination="Cdf-PV-zyW" id="kzT-5I-mfY"/>
                 <outlet property="validationText" destination="6yU-w0-w2Z" id="lgh-It-Rax"/>
                 <outlet property="view" destination="nQu-pg-AmH" id="Xan-8s-3x1"/>
             </connections>
@@ -38,7 +38,7 @@
                             <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                         </textField>
                         <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6yU-w0-w2Z">
-                            <rect key="frame" x="10" y="44" width="305" height="44"/>
+                            <rect key="frame" x="10" y="44" width="216" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="dOn-0f-wA2"/>
                             </constraints>
@@ -46,32 +46,36 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                         </textField>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-PV-zyW">
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-PV-zyW" customClass="YXSecurityCodeButton">
                             <rect key="frame" x="231" y="47" width="110" height="38"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="110" id="1no-kp-bUD"/>
                                 <constraint firstAttribute="height" constant="38" id="wog-J0-IIV"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <state key="normal" title="| 发送验证码">
+                            <state key="normal">
                                 <color key="titleColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </state>
                             <state key="selected" image="password_hidden"/>
-                            <connections>
-                                <action selector="getCodePressed:" destination="-1" eventType="touchUpInside" id="fgf-3h-HDu"/>
-                            </connections>
+                            <userDefinedRuntimeAttributes>
+                                <userDefinedRuntimeAttribute type="string" keyPath="normalTitle" value="| 发送验证码"/>
+                                <userDefinedRuntimeAttribute type="string" keyPath="formatTitle" value="重新发送(%ds)"/>
+                                <userDefinedRuntimeAttribute type="number" keyPath="remainTime">
+                                    <integer key="value" value="60"/>
+                                </userDefinedRuntimeAttribute>
+                            </userDefinedRuntimeAttributes>
                         </button>
                     </subviews>
                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <constraints>
                         <constraint firstAttribute="trailing" secondItem="Cdf-PV-zyW" secondAttribute="trailing" constant="10" id="4TH-aO-JdR"/>
                         <constraint firstAttribute="height" constant="88" id="6tL-zm-9VM"/>
+                        <constraint firstItem="Cdf-PV-zyW" firstAttribute="leading" secondItem="6yU-w0-w2Z" secondAttribute="trailing" constant="5" id="9q2-W5-Q45"/>
                         <constraint firstItem="J69-0R-gMh" firstAttribute="top" secondItem="FR5-F8-VcD" secondAttribute="top" id="Hsc-zD-lV7"/>
                         <constraint firstItem="6yU-w0-w2Z" firstAttribute="top" secondItem="J69-0R-gMh" secondAttribute="bottom" id="Jv4-N2-fKt"/>
                         <constraint firstAttribute="trailing" secondItem="J69-0R-gMh" secondAttribute="trailing" constant="5" id="S6P-jC-iUu"/>
                         <constraint firstItem="Cdf-PV-zyW" firstAttribute="centerY" secondItem="6yU-w0-w2Z" secondAttribute="centerY" id="Zhh-2h-FK5"/>
                         <constraint firstItem="J69-0R-gMh" firstAttribute="leading" secondItem="FR5-F8-VcD" secondAttribute="leading" constant="10" id="dU4-Pt-2a5"/>
-                        <constraint firstAttribute="trailing" secondItem="6yU-w0-w2Z" secondAttribute="trailing" constant="36" id="n5q-Qn-SuA"/>
                         <constraint firstItem="6yU-w0-w2Z" firstAttribute="leading" secondItem="FR5-F8-VcD" secondAttribute="leading" constant="10" id="yJB-38-Bio"/>
                     </constraints>
                     <userDefinedRuntimeAttributes>
@@ -185,7 +189,7 @@
                 <constraint firstItem="Ck3-OL-R41" firstAttribute="top" secondItem="4sX-G8-ofR" secondAttribute="bottom" constant="10" id="r1w-YA-veo"/>
                 <constraint firstAttribute="trailing" secondItem="Ck3-OL-R41" secondAttribute="trailing" constant="12" id="rbx-hL-EQU"/>
             </constraints>
-            <point key="canvasLocation" x="552.5" y="380.5"/>
+            <point key="canvasLocation" x="473" y="158"/>
         </view>
     </objects>
     <resources>

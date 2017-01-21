@@ -68,7 +68,7 @@
         self.headerView.nickname.text = US.nickName;
     } else {
         self.headerView.nickname.text = @"登陆注册";
-        self.headerView.headImg.image = [UIImage imageNamed:@"HeadUnLogin"];
+        self.headerView.headImg.image = [UIImage imageNamed:@"HeadUnLogin.png"];
     }
 }
 

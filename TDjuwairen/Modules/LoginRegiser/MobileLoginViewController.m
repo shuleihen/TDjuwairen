@@ -18,12 +18,15 @@
 #import "NSString+Util.h"
 #import "MBProgressHUD.h"
 #import "NotificationDef.h"
+#import "FastLoginUpdateInfoViewController.h"
+#import "LoginHandler.h"
+#import "YXSecurityCodeButton.h"
 
-@interface MobileLoginViewController ()
+@interface MobileLoginViewController ()<YXSecurityCodeButtonDelegate>
 
-@property (nonatomic,strong) IBOutlet UITextField *accountText;
-@property (nonatomic,strong) IBOutlet UITextField *validationText;
-@property (nonatomic,strong) IBOutlet UIButton *validationBtn;
+@property (nonatomic, weak) IBOutlet UITextField *accountText;
+@property (nonatomic, weak) IBOutlet UITextField *validationText;
+@property (nonatomic, weak) IBOutlet YXSecurityCodeButton *validationBtn;
 @property (weak, nonatomic) IBOutlet YXTextFieldPanel *panelView;
 @property (weak, nonatomic) IBOutlet UIButton *loginBtn;
 
@@ -49,6 +52,9 @@
     self.loginBtn.layer.cornerRadius = 3.0f;
     self.loginBtn.clipsToBounds = YES;
     
+    self.agreeBtn.checked = YES;
+    self.validationBtn.delegate = self;
+    
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -73,54 +79,19 @@
 }
 
 
-- (IBAction)getCodePressed:(UIButton *)sender{
-    if (!self.accountText.text.length) {
-        return;
-    }
-    
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
-        if (!error) {
-            [self verification];
-        } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"获取验证码失败";
-            [hud hide:YES afterDelay:0.4];
-        }
-    }];
+#pragma mark -YXSecurityCodeButtonDelegate
+- (NSString *)codeWithPhone {
+    NSString *phone = self.accountText.text;
+    return phone;
 }
 
--(void)verification
-{
-    __block int timeout=59;  //倒计时时间
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);  //每秒执行
-    dispatch_source_set_event_handler(_timer, ^{
-        if (timeout<=0) {      //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                [self.validationBtn setTitle:@"| 获取验证码" forState:UIControlStateNormal];
-                [self.validationBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#3371e2"] forState:UIControlStateNormal];
-                
-                self.validationBtn.userInteractionEnabled = YES;
-            });
-        }else{
-            int seconds = timeout % 60;
-            NSString *strTime = [NSString stringWithFormat:@"%.2d",seconds];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                [self.validationBtn setTitle:[NSString stringWithFormat:@"重新发送(%@s)",strTime] forState:UIControlStateNormal];
-                [self.validationBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
-                self.validationBtn.userInteractionEnabled = NO;
-            });
-            timeout--;
-        }
-    });
-    dispatch_resume(_timer);
-    
+- (void)codeCompletionWithResult:(NSError *)error {
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = error.userInfo[@"getVerificationCode"];
+    [hud hide:YES afterDelay:0.6];
 }
+
 
 - (IBAction)loginPressed:(id)sender{
     
@@ -152,38 +123,48 @@
             //请求登录信息
             [self requestLogin];
         } else {
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"验证码错误，请重新输入";
+            [hud hide:YES afterDelay:0.4];
         }
     }];
-    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 - (void)requestLogin{
+    if (!self.validateString.length ||
+        !self.encryptedStr.length) {
+        return;
+    }
+    
+    NSString *phone = self.accountText.text;
+    
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    NSDictionary *dic = @{@"user_phone":self.accountText.text,
+    NSDictionary *dic = @{@"user_phone": phone,
                           @"authenticationStr":self.validateString,
                           @"encryptedStr":self.encryptedStr};
 
     
     [manager POST:API_LoginWithPhone parameters:dic completion:^(id data, NSError *error){
         if (!error) {
-            NSDictionary *dic = data;
-            US.userId = dic[@"user_id"];
-            US.userName = dic[@"user_name"];
-            US.nickName = dic[@"user_nickname"];
-            US.userPhone = dic[@"userinfo_phone"];
-            US.headImage = dic[@"userinfo_facesmall"];
-            US.company = dic[@"userinfo_company"];
-            US.post = dic[@"userinfo_occupation"];
-            US.personal = dic[@"userinfo_info"];
-            
-            US.isLogIn = YES;
-            
-            [self.navigationController popToRootViewControllerAnimated:YES];
-
-            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
+            if ([data[@"need_complete"] boolValue] == NO) {
+                US.isLogIn = YES;
+                
+                [LoginHandler saveLoginSuccessedData:data];
+                [LoginHandler saveFastLoginWithPhone:phone];
+                [LoginHandler checkOpenRemotePush];
+                
+                [self.navigationController popToRootViewControllerAnimated:YES];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
+            } else {
+                // 需要补齐信息
+                US.isLogIn = NO;
+                
+                FastLoginUpdateInfoViewController *vc = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"FastLoginUpdateInfoViewController"];
+                vc.phone = phone;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
             

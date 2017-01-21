@@ -21,7 +21,7 @@
     [super setEnabled:enabled];
     
     if (enabled) {
-        HXColor *color = [HXColor hx_colorWithHexRGBAString:@"#09B1F3"];
+        HXColor *color = [HXColor hx_colorWithHexRGBAString:@"#3371E2"];
         [self setTitleColor:color forState:UIControlStateNormal];
         [self setTitleColor:color forState:UIControlStateHighlighted];
     } else {
@@ -95,6 +95,14 @@
 
 - (void)getCode {
     NSString *phone = [self.delegate codeWithPhone];
+    if (!phone.length) {
+        [self reset];
+        
+        NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:1 userInfo:@{@"getVerificationCode":@"手机号为空"}];
+        [self.delegate codeCompletionWithResult:error];
+        return;
+    }
+    
     [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:phone zone:@"86" customIdentifier:nil result:^(NSError *error) {
         if (error) {
             [self reset];

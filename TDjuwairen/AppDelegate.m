@@ -58,7 +58,6 @@ static BOOL isBackGroundActivateApplication;
 #endif
     
 //    [NSThread sleepForTimeInterval:3.0];//设置启动页面时间
-    
     [self setupUICommon];
     [self setupURLCacheSize];
     [self setupSMSSDK];

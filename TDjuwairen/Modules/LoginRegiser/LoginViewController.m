@@ -20,6 +20,8 @@
 #import "BPush.h"
 #import "YXTextFieldPanel.h"
 #import "HexColors.h"
+#import "LoginHandler.h"
+#import "ThirdPartLoginUpdateViewController.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet YXTextFieldPanel *panelView;
@@ -70,7 +72,11 @@
 - (IBAction)loginBtnPressed:(id)sender
 {
     [self.view endEditing:YES];
-    if (!self.accountText.text.length || !self.passwordText.text.length) {
+    
+    NSString *account = self.accountText.text;
+    NSString *pwd = self.passwordText.text;
+    
+    if (!account.length || !pwd.length) {
         
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
@@ -85,42 +91,27 @@
         return;
     }
     
+    __weak LoginViewController *wself = self;
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"登录中";
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *paras = @{@"account":self.accountText.text,
-                            @"password":self.passwordText.text};
+    NSDictionary *paras = @{@"account": account,
+                            @"password": pwd};
+    
     [ma POST:@"Login/loginDo" parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"登录成功";
             [hud hide:YES afterDelay:0.4];
             
+            US.isLogIn = YES;
             
-            NSDictionary *dic = data;
-            US.userId = dic[@"user_id"];
-            US.userName = dic[@"user_name"];
-            US.nickName = dic[@"user_nickname"];
-            US.userPhone = dic[@"userinfo_phone"];
-            US.headImage = dic[@"userinfo_facesmall"];
-            US.company = dic[@"userinfo_company"];
-            US.post = dic[@"userinfo_occupation"];
-            US.personal = dic[@"userinfo_info"];
+            [LoginHandler saveLoginSuccessedData:data];
+            [LoginHandler saveLoginAccountId:account password:pwd];
+            [LoginHandler checkOpenRemotePush];
             
-            US.isLogIn=YES;
-            
-            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-            [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
-            [accountDefaults setValue:self.accountText.text forKey:@"account"];
-            [accountDefaults setValue:self.passwordText.text forKey:@"password"];
-            [accountDefaults synchronize];
-            
-            //判断是否开启推送
-            UIApplication *app = [UIApplication sharedApplication];
-            if ([app isRegisteredForRemoteNotifications]  == YES) {
-                [self sendChannel_id];//绑定channel_id
-            }
-            [self.navigationController popViewControllerAnimated:YES];
+            [wself.navigationController popToRootViewControllerAnimated:YES];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
@@ -144,175 +135,123 @@
     [self.navigationController pushViewController:forget animated:YES];
 }
 
-- (IBAction)weixinLoginPressed:(id)sender
-{    /* 取消授权 */
+- (IBAction)weixinLoginPressed:(id)sender {
+    
+    __weak LoginViewController *wself = self;
+    
     [ShareSDK cancelAuthorize:SSDKPlatformTypeWechat];
+    
     [ShareSDK getUserInfo:SSDKPlatformTypeWechat
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
-//         NSLog(@"%lu",(unsigned long)state);
          if (state == SSDKResponseStateSuccess)
          {
              NSString *unionid = user.uid;
+             NSString *nickName = user.nickname;
+             NSString *avatar = user.icon;
              
              NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-             NSDictionary *dic = @{@"unionid":unionid};
+             NSDictionary *dic = @{@"unionid":unionid,
+                                   @"nickname" : nickName,
+                                   @"avatar_url": avatar};
              
-             [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
+             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+             hud.labelText = @"登录中...";
+             
+             [manager POST:API_LoginWithWeixin parameters:dic completion:^(id data, NSError *error){
+                 [hud hide:YES];
+                 
                  if (!error) {
-                     NSDictionary *dic = data;
-                     //给loginstate 填充
-                     US.userId = dic[@"user_id"];
-                     US.userName = dic[@"user_name"];
-                     US.nickName = dic[@"user_nickname"];
-                     US.userPhone = dic[@"userinfo_phone"];
-                     US.headImage = dic[@"userinfo_facesmall"];
-                     US.company = dic[@"userinfo_company"];
-                     US.post = dic[@"userinfo_occupation"];
-                     US.personal = dic[@"userinfo_info"];
-                     
-                     US.isLogIn = YES;
-                     
-                     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:@"WXlogin" forKey:@"loginStyle"];
-                     [accountDefaults setValue:unionid forKey:@"unionid"];
-                     [accountDefaults synchronize];
-
-                     if ([dic[@"user_wxunionid"] isEqualToString:@""] ||
-                         [dic[@"user_nickname"] isEqualToString:@""] ||
-                         [dic[@"user_pwd"] isEqualToString:@""] ||
-                         ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
-
-                         AddUpdatesViewController *addview = [[AddUpdatesViewController alloc] init];
-                         addview.unionid = unionid;
-                         [self.navigationController pushViewController:addview animated:YES];
+                     if ([data[@"need_complete"] boolValue] == NO) {
+                         US.isLogIn = YES;
+                         
+                         [LoginHandler saveLoginSuccessedData:data];
+                         [LoginHandler saveThirdType:@"weixin" unionid:unionid nickName:nickName avatar:avatar];
+                         [LoginHandler checkOpenRemotePush];
+                         
+                         [wself.navigationController popToRootViewControllerAnimated:YES];
+                         
+                         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
                      } else {
-                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-                         NSDictionary *infoDic = @{@"unionid":unionid,
-                                                   @"nickname":dic[@"user_nickname"],
-                                                   @"password":dic[@"user_pwd"],
-                                                   @"email":dic[@"userinfo_email"],
-                                                   @"phone":dic[@"userinfo_phone"]};
+                         // 需要补齐信息
+                         US.isLogIn = NO;
                          
-                         [manager POST:API_LoginWithWeixin parameters:infoDic completion:^(id data, NSError *error){
-                             if (!error) {
-                                 
-                             } else {
-                                 
-                             }
-                         }];
-                         UIApplication *app = [UIApplication sharedApplication];
-                         if ([app isRegisteredForRemoteNotifications]  == YES) {
-                             [self sendChannel_id];//绑定channel_id
-                         }
-                         
-                         [self.navigationController popToRootViewControllerAnimated:YES];
+                         ThirdPartLoginUpdateViewController *vc = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"ThirdPartLoginUpdateViewController"];
+                         vc.thirdPartId = unionid;
+                         vc.thirdPartName = nickName;
+                         vc.avatar_url = avatar;
+                         [self.navigationController pushViewController:vc animated:YES];
                      }
-                     
                  } else {
+                     NSString *message = error.localizedDescription?:@"登录失败";
                      
+                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                     hud.mode = MBProgressHUDModeText;
+                     hud.labelText = message;
+                     [hud hide:YES afterDelay:0.4];
                  }
              }];
          }
      }];
 }
 
-- (IBAction)qqLoginPressed:(id)sender
-{     /* 取消授权 */
+- (IBAction)qqLoginPressed:(id)sender {
+    __weak LoginViewController *wself = self;
+    
     [ShareSDK cancelAuthorize:SSDKPlatformTypeQQ];
     [ShareSDK getUserInfo:SSDKPlatformTypeQQ
            onStateChanged:^(SSDKResponseState state, SSDKUser *user, NSError *error)
      {
          if (state == SSDKResponseStateSuccess)
          {
-//             NSLog(@"uid=%@",user.uid);
-//             NSLog(@"%@",user.credential);
-//             NSLog(@"token=%@",user.credential.token);
-//             NSLog(@"nickname=%@",user.nickname);
-//             NSLog(@"icon=%@",user.rawData[@"figureurl_qq_2"]);
-             NSString *openid = user.credential.rawData[@"openid"];//rawData 为NSDictionary原始数据
+             NSString *unionid = user.uid;
+             NSString *nickName = user.nickname;
+             NSString *avatar = user.icon;
              
              NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-             NSDictionary *dic = @{@"openid":openid};
+             NSDictionary *dic = @{@"unionid":unionid,
+                                   @"nickname" : nickName,
+                                   @"avatar_url": avatar};
              
-             [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
+             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+             hud.labelText = @"登录中...";
+             
+             [manager POST:API_LoginWithQQ parameters:dic completion:^(id data, NSError *error){
+                 [hud hide:YES];
+                 
                  if (!error) {
-                     NSDictionary *dic = data;
-                     
-                     //给loginstate 填充
-                     US.userId = dic[@"user_id"];
-                     US.userName = dic[@"user_name"];
-                     US.nickName = dic[@"user_nickname"];
-                     US.userPhone = dic[@"userinfo_phone"];
-                     US.headImage = dic[@"userinfo_facesmall"];
-                     US.company = dic[@"userinfo_company"];
-                     US.post = dic[@"userinfo_occupation"];
-                     US.personal = dic[@"userinfo_info"];
-                     
-                     US.isLogIn = YES;
-                     
-                     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-                     [accountDefaults setValue:@"QQlogin" forKey:@"loginStyle"];
-                     [accountDefaults setValue:openid forKey:@"openid"];
-                     [accountDefaults synchronize];
-                     
-                     if ([dic[@"user_qqopenid"] isEqualToString:@""] ||
-                         [dic[@"user_nickname"] isEqualToString:@""] ||
-                         [dic[@"user_pwd"] isEqualToString:@""] ||
-                         ([dic[@"userinfo_phone"] isEqualToString:@""] && [dic[@"userinfo_email"] isEqualToString:@""])) {
+                     if ([data[@"need_complete"] boolValue] == NO) {
+                         US.isLogIn = YES;
                          
-                         AddUpdatesViewController *addview = [[AddUpdatesViewController alloc] init];
-                         addview.qqopenid = openid;
-                         [self.navigationController pushViewController:addview animated:YES];
+                         [LoginHandler saveLoginSuccessedData:data];
+                         [LoginHandler saveThirdType:@"qq" unionid:unionid nickName:nickName avatar:avatar];
+                         [LoginHandler checkOpenRemotePush];
+                         
+                         [wself.navigationController popToRootViewControllerAnimated:YES];
+                         
+                         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
                      } else {
-                         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-                         NSDictionary *infoDic = @{@"openid":openid,
-                                                   @"nickname":dic[@"user_nickname"],
-                                                   @"password":dic[@"user_pwd"],
-                                                   @"email":dic[@"userinfo_email"],
-                                                   @"phone":dic[@"userinfo_phone"]};
-
+                         // 需要补齐信息
+                         US.isLogIn = NO;
                          
-                         [manager POST:API_LoginWithQQ parameters:infoDic completion:^(id data, NSError *error){
-                             if (!error) {
-                                 
-                             } else {
-                                 
-                             }
-                         }];
-                         
-                         UIApplication *app = [UIApplication sharedApplication];
-                         if ([app isRegisteredForRemoteNotifications]  == YES) {
-                             [self sendChannel_id];//绑定channel_id
-                         }
-                         
-                         [self.navigationController popToRootViewControllerAnimated:YES];
+                         ThirdPartLoginUpdateViewController *vc = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"ThirdPartLoginUpdateViewController"];
+                         vc.thirdPartId = unionid;
+                         vc.thirdPartName = nickName;
+                         vc.avatar_url = avatar;
+                         [self.navigationController pushViewController:vc animated:YES];
                      }
-                     
                  } else {
+                     NSString *message = error.localizedDescription?:@"登录失败";
                      
+                     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                     hud.mode = MBProgressHUDModeText;
+                     hud.labelText = message;
+                     [hud hide:YES afterDelay:0.4];
                  }
              }];
          }
          
      }];
-}
-
-#pragma mark - 发送channel_id
-- (void)sendChannel_id{
-    NSString *channel_id = [BPush getChannelId];
-    NSString *url = @"index.php/Login/saveUserChannelID";
-    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
-    NSDictionary *para = @{@"user_id":US.userId,
-                           @"type":@"1",
-                           @"channel_id":channel_id};
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
-        NSLog(@"%@",data);
-        //绑定指定推送的时候打开回复提醒
-        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-        [userdefault setValue:@"YES" forKey:@"isReply"];
-        [userdefault synchronize];
-    }];
 }
 
 @end

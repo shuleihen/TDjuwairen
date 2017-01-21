@@ -35,6 +35,7 @@
 #import "SubscriptionViewController.h"
 #import "SurveySubjectModel.h"
 #import "NotificationDef.h"
+#import "LoginManager.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -171,25 +172,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChangedNotifi:) name:kLoginStateChangedNotification object:nil];
+    
     [self setupNavigationBar];
     [self setupTableView];
-    
     [self refreshAction];
-    [self requestToLogin];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshSubListAction) name:kLoginStateChangedNotification object:nil];
+
+    [LoginManager checkLogin];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    if (US.isLogIn) {
-        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-        [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
-    } else {
-        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-        [btn setImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"] forState:UIControlStateNormal];
-    }
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -351,6 +344,19 @@
     }];
 }
 
+- (void)loginStatusChangedNotifi:(NSNotification *)notifi {
+    
+    if (US.isLogIn) {
+        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
+        [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
+    } else {
+        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
+        [btn setImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"] forState:UIControlStateNormal];
+    }
+    
+    [[self currentContentViewController] refreshData];
+}
+
 - (void)refreshAction {
     [self getBanners];
     [self querySurveySubject];
@@ -358,7 +364,7 @@
 
 - (void)refreshSubListAction {
     // 登录成功刷新当前tab 下面的内容
-    [[self currentContentViewController] refreshData];
+    
 }
 
 - (void)loadMoreAction {
@@ -562,119 +568,4 @@
     }
 }
 
-#pragma mark - 保持登录
-- (void)requestToLogin{
-    NSUserDefaults *user = [NSUserDefaults standardUserDefaults];
-    NSString *loginStyle = [user objectForKey:@"loginStyle"];
-    NSLog(@"loginStyle is :---%lu",(unsigned long)loginStyle.length);
-
-    if (loginStyle.length > 0) {          //如果有登陆状态
-        self.welcomeView = [[WelcomeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
-        [[UIApplication sharedApplication].keyWindow addSubview:self.welcomeView];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            //删除
-            [self.welcomeView removeFromSuperview];
-        });
-    }
-    
-    if ([loginStyle isEqualToString:@"QQlogin"]) {
-        NSString *openid = [user objectForKey:@"openid"];
-        NSDictionary *dic = @{@"openid":openid};
-        
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-        [manager POST:API_CheckQQLogin parameters:dic completion:^(id data, NSError *error){
-            if (!error) {
-                NSDictionary *dic = data;
-                US.userId=dic[@"user_id"];
-                US.userName=dic[@"user_name"];
-                US.nickName=dic[@"user_nickname"];
-                US.userPhone=dic[@"userinfo_phone"];
-                US.headImage=dic[@"userinfo_facesmall"];
-                US.company=dic[@"userinfo_company"];
-                US.post=dic[@"userinfo_occupation"];
-                US.personal=dic[@"userinfo_info"];
-                
-                US.isLogIn=YES;
-                [self refreshSubListAction];
-                
-                UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-                [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
-                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
-                [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
-                [self.navigationController popViewControllerAnimated:YES];
-            } else {
-                
-            }
-        }];
-    }
-    else if ([loginStyle isEqualToString:@"WXlogin"]){
-        NSString *unionid = [user objectForKey:@"unionid"];
-        NSDictionary *dic = @{@"unionid":unionid};
-        
-        NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-        [manager POST:API_CheckWeixinLogin parameters:dic completion:^(id data, NSError *error){
-            if (!error) {
-                NSDictionary *dic = data;
-                US.userId=dic[@"user_id"];
-                US.userName=dic[@"user_name"];
-                US.nickName=dic[@"user_nickname"];
-                US.userPhone=dic[@"userinfo_phone"];
-                US.headImage=dic[@"userinfo_facesmall"];
-                US.company=dic[@"userinfo_company"];
-                US.post=dic[@"userinfo_occupation"];
-                US.personal=dic[@"userinfo_info"];
-                
-                US.isLogIn=YES;
-                [self refreshSubListAction];
-                
-                UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-                [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
-                NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
-                [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
-                
-                [self.navigationController popViewControllerAnimated:YES];
-            } else {
-                
-            }
-        }];
-    }
-    else if([loginStyle isEqualToString:@"normal"])
-    {
-        NSString *account = [user objectForKey:@"account"];
-        NSString *password = [user objectForKey:@"password"];
-        if (account != nil ) {
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary*paras=@{@"account":account,
-                                 @"password":password};
-            
-            [manager POST:API_Login parameters:paras completion:^(id data, NSError *error){
-                if (!error) {
-                    NSDictionary *dic = data;
-                    US.userId=dic[@"user_id"];
-                    US.userName=dic[@"user_name"];
-                    US.nickName=dic[@"user_nickname"];
-                    US.userPhone=dic[@"userinfo_phone"];
-                    US.headImage=dic[@"userinfo_facesmall"];
-                    US.company=dic[@"userinfo_company"];
-                    US.post=dic[@"userinfo_occupation"];
-                    US.personal=dic[@"userinfo_info"];
-                    
-                    US.isLogIn=YES;
-                    [self refreshSubListAction];
-                    
-                    UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-                    [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
-                    NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
-                    [self.welcomeView.welHead sd_setImageWithURL:[NSURL URLWithString:bigface]];
-                    
-                    [self.navigationController popViewControllerAnimated:YES];
-                } else {
-                    
-                }
-            }];
-        }
-    }
-    
-}
 @end

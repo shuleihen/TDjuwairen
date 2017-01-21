@@ -26,14 +26,17 @@
 #define API_GetUserComment      @"index.php/User/getUserComnment"
 #define API_AddViewCommont      @"index.php/View/addViewCommont1_2"
 #define API_AddUserFeedback     @"User/addUserFeedback/"
-#define API_GetUserFeedbackList @"index.php/Feedback/getUserFeedbackList1_2"//
+#define API_GetUserFeedbackList @"index.php/Feedback/getUserFeedbackList1_2"
 #define API_ResetPasswordk      @"Login/telFindpwd"
 #define API_Login               @"Login/loginDo"
-#define API_CheckWeixinLogin    @"index.php/Login/checkWXAccount1_2"//
-#define API_LoginWithWeixin     @"index.php/Login/WXLoginDo1_2"//
-#define API_CheckQQLogin        @"index.php/Login/checkQQAccount1_2"//
-#define API_LoginWithQQ         @"index.php/Login/qqLoginDo1_2"//
-#define API_LoginWithPhone      @"index.php/Login/phoneLogin1_2"//
+//#define API_CheckWeixinLogin    @"index.php/Login/checkWXAccount1_2"//
+#define API_LoginWithWeixin     @"Login/WXLogin2_2"
+#define API_LoginWithWeixinAdd  @"Login/WXInfoComplete"
+//#define API_CheckQQLogin        @"index.php/Login/checkQQAccount1_2"//
+#define API_LoginWithQQ         @"Login/qqLogin2_2"
+#define API_LoginWithQQAdd      @"Login/qqInfoComplete"
+#define API_LoginWithPhone      @"Login/phoneLogin2_2"
+#define API_LoginWithPhoneAdd   @"Login/phoneInfoComplete"
 
 #define API_SendChannel_id      @"index.php/Login/saveUserChannelID"  //发送channel_id
 

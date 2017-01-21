@@ -11,6 +11,10 @@
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
 		190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */; };
+		190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65AF1E33418600B83ADF /* FastLoginUpdateInfoViewController.m */; };
+		190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65B21E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m */; };
+		190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65B61E334CD300B83ADF /* LoginHandler.m */; };
+		190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65BA1E335AA500B83ADF /* LoginManager.m */; };
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
@@ -472,6 +476,14 @@
 		190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SubscriptionHistoryListCell.xib; sourceTree = "<group>"; };
 		190B37E91E274E6300A5C1B1 /* SubscriptionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionModel.h; sourceTree = "<group>"; };
 		190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionModel.m; sourceTree = "<group>"; };
+		190F65AE1E33418600B83ADF /* FastLoginUpdateInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FastLoginUpdateInfoViewController.h; sourceTree = "<group>"; };
+		190F65AF1E33418600B83ADF /* FastLoginUpdateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastLoginUpdateInfoViewController.m; sourceTree = "<group>"; };
+		190F65B11E33419E00B83ADF /* ThirdPartLoginUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartLoginUpdateViewController.h; sourceTree = "<group>"; };
+		190F65B21E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartLoginUpdateViewController.m; sourceTree = "<group>"; };
+		190F65B51E334CD300B83ADF /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHandler.h; sourceTree = "<group>"; };
+		190F65B61E334CD300B83ADF /* LoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHandler.m; sourceTree = "<group>"; };
+		190F65B91E335AA500B83ADF /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		190F65BA1E335AA500B83ADF /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		191027A51DE410F2006A2275 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
 		191027A61DE410F2006A2275 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
 		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
@@ -1288,6 +1300,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		190F65B41E334CC800B83ADF /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				190F65B51E334CD300B83ADF /* LoginHandler.h */,
+				190F65B61E334CD300B83ADF /* LoginHandler.m */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
+		190F65B81E335A9900B83ADF /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				190F65B91E335AA500B83ADF /* LoginManager.h */,
+				190F65BA1E335AA500B83ADF /* LoginManager.m */,
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
 		191027AD1DE52B04006A2275 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
@@ -1566,13 +1596,6 @@
 			path = Singletons;
 			sourceTree = "<group>";
 		};
-		194186E31DF90633000C5197 /* Login */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Login;
-			sourceTree = "<group>";
-		};
 		194186E71DF90CA4000C5197 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
@@ -1745,6 +1768,8 @@
 		1955B3AC1D644D9800DC102E /* LoginRegiser */ = {
 			isa = PBXGroup;
 			children = (
+				190F65B81E335A9900B83ADF /* Manager */,
+				190F65B41E334CC800B83ADF /* Handler */,
 				1955B3AD1D644D9800DC102E /* AddUpdatesViewController.h */,
 				1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */,
 				1955B3AF1D644D9800DC102E /* AgreeViewController.h */,
@@ -1761,6 +1786,10 @@
 				1955B3B91D644D9800DC102E /* RegisterViewController.m */,
 				84CA3A281D6EB512003E9B53 /* PhoneNumHold.h */,
 				84CA3A291D6EB513003E9B53 /* PhoneNumHold.m */,
+				190F65AE1E33418600B83ADF /* FastLoginUpdateInfoViewController.h */,
+				190F65AF1E33418600B83ADF /* FastLoginUpdateInfoViewController.m */,
+				190F65B11E33419E00B83ADF /* ThirdPartLoginUpdateViewController.h */,
+				190F65B21E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m */,
 			);
 			path = LoginRegiser;
 			sourceTree = "<group>";
@@ -2462,7 +2491,6 @@
 				1924DFED1D62C3CE00FEC383 /* Category */,
 				191027AD1DE52B04006A2275 /* Handler */,
 				194186DF1DF8132A000C5197 /* Singletons */,
-				194186E31DF90633000C5197 /* Login */,
 				1955B3AC1D644D9800DC102E /* LoginRegiser */,
 				1955B3BA1D644D9800DC102E /* MyCenter */,
 				1955B4051D644D9800DC102E /* Search */,
@@ -3772,6 +3800,7 @@
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				19F00D121E2EFFD9009270D5 /* StockDetailViewController.m in Sources */,
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
+				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
@@ -3829,6 +3858,7 @@
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
+				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				194186DE1DF8128B000C5197 /* PersonalCenterViewController.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -3899,6 +3929,7 @@
 				19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
+				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
@@ -3917,6 +3948,7 @@
 				19193B3F1E07C03B000A6AD2 /* PlayMarketMainViewController.m in Sources */,
 				846E5A2E1DE452E20031C993 /* NoOrderTableViewCell.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
+				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
 				19F00D111E2EFFD9009270D5 /* SpotViewController.m in Sources */,
 				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,

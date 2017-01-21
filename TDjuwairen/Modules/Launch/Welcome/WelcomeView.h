@@ -16,4 +16,5 @@
 
 @property (nonatomic,strong) UIImageView *welcomeLogo;
 
+- (instancetype)initWithFrame:(CGRect)frame withNickName:(NSString *)nickName avatart:(NSString *)avatar;
 @end
