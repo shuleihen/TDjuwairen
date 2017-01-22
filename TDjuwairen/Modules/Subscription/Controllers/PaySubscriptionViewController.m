@@ -37,7 +37,7 @@
         [_toolView addSubview:btn];
         
         UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        sep.backgroundColor = TDSeparatorColor;
         [_toolView addSubview:sep];
         
         _toolView.backgroundColor = [UIColor whiteColor];
@@ -53,8 +53,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
     
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);
     
@@ -151,7 +151,7 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(10, 0, 100, 35)];
     label.backgroundColor = [UIColor clearColor];
     label.font = [UIFont systemFontOfSize:14.0f];
-    label.dk_textColorPicker = DKColorPickerWithKey(DETAIL);
+    label.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
     [view addSubview:label];
     
     if (section == 0) {
@@ -169,7 +169,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
 }
 
 @end

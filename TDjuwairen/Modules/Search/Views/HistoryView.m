@@ -21,7 +21,7 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -33,11 +33,12 @@
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, 13, 100, 20)];
     label.text = @"历史搜索";
     label.font = [UIFont systemFontOfSize:14.0f];
-    label.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+    label.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
     [self addSubview:label];
     
     UIButton *clearBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [clearBtn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
+    [clearBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#222222"] forState:UIControlStateNormal];
+    [clearBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#222222"] forState:UIControlStateHighlighted];
     [clearBtn setTitle:@"清除记录" forState:UIControlStateNormal];
     clearBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     clearBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
@@ -51,8 +52,8 @@
     [arr enumerateObjectsUsingBlock:^(NSString*str, NSUInteger idx, BOOL *stop) {
         UIButton *tag = [[UIButton alloc]initWithFrame:CGRectZero];
         tag.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f5f5f5"];
-        [tag dk_setTitleColorPicker:DKColorPickerWithKey(CELLTITLE) forState:UIControlStateNormal];
-        
+        [tag setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateNormal];
+        [tag setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateHighlighted];
         tag.layer.cornerRadius = 4;
         tag.clipsToBounds = YES;
         tag.titleLabel.textAlignment = NSTextAlignmentCenter;

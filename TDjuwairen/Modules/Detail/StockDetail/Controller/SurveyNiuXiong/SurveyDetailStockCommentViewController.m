@@ -184,7 +184,7 @@
         __weak SurveyDetailStockCommentViewController *wself = self;
         
         _sectionHeader = [[NiuxiongSectionHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
-        _sectionHeader.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        _sectionHeader.backgroundColor = [UIColor whiteColor];
         _sectionHeader.buttonBlock = ^(NSInteger tag) {
             if (tag == 1) {
                 wself.isNiu = YES;
@@ -201,7 +201,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
-        _tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        _tableView.backgroundColor = [UIColor whiteColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;

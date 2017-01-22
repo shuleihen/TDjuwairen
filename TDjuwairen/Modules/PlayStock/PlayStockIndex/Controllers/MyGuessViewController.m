@@ -32,7 +32,7 @@
     UINib *nib = [UINib nibWithNibName:@"MyGuessCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MyGuessCellID"];
     self.tableView.rowHeight = 132.0f;
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     self.title = @"我的竞猜";

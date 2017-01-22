@@ -109,7 +109,7 @@
         _tableView.scrollEnabled = NO;
         _tableView.rowHeight = 90;
         _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+        _tableView.separatorColor = TDSeparatorColor;
         
         UINib *nib = [UINib nibWithNibName:@"SpotTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"SpotTableViewCellID"];

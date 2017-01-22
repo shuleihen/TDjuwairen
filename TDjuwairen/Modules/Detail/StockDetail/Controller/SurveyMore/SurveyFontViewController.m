@@ -26,8 +26,8 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.tableView.backgroundColor = [UIColor whiteColor];
+    self.tableView.separatorColor = TDSeparatorColor;
     
     if ([[NSUserDefaults standardUserDefaults] integerForKey:kSurveyContentFontSize] == 0) {
         self.currentFontSize = 3;
@@ -70,7 +70,6 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    cell.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     
     cell.accessoryType = ((indexPath.row+1) == self.currentFontSize)?UITableViewCellAccessoryCheckmark:UITableViewCellAccessoryNone;
 }

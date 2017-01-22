@@ -30,7 +30,7 @@
         UILabel *titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 28, SegmentItemWidth, 20)];
         titleLabel.tag = 2;
         titleLabel.font = [UIFont systemFontOfSize:13.0f];
-        titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
         titleLabel.highlightedTextColor = highlightedTextColor;
         titleLabel.text = title;
         [self addSubview:titleLabel];
@@ -128,11 +128,11 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, CGRectGetWidth(frame), 1)];
-        top.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        top.backgroundColor = TDSeparatorColor;
         [self addSubview:top];
         
         UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(frame)-1, CGRectGetWidth(frame), 1)];
-        bottom.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        bottom.backgroundColor = TDSeparatorColor;
         [self addSubview:bottom];
         
         self.selectedIndex = -1;

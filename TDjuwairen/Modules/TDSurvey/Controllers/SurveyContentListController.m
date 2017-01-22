@@ -39,8 +39,8 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-        _tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-        _tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+        _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.delegate = self;
         _tableView.dataSource = self;

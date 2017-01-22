@@ -32,8 +32,8 @@
     
     UINib *nib = [UINib nibWithNibName:@"GradeListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StockAssessedCellID"];
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.separatorInset = UIEdgeInsetsZero;
     
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 0.001)];

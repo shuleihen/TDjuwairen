@@ -32,7 +32,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.view.backgroundColor = TDViewBackgrouondColor;
     self.title = [NSString stringWithFormat:@"评价 %@",self.stockName];
     
     [self setupUI];
@@ -115,7 +115,7 @@
     
     _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-55)];
     _scrollView.contentSize = CGSizeMake(kScreenWidth, 505);
-    _scrollView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    _scrollView.backgroundColor = TDViewBackgrouondColor;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
     [_scrollView addGestureRecognizer:tap];
     
@@ -193,7 +193,7 @@
     [toolView addSubview:btn];
     
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-    sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+    sep.backgroundColor = TDSeparatorColor;
     [toolView addSubview:sep];
     
     [self.view addSubview:_scrollView];

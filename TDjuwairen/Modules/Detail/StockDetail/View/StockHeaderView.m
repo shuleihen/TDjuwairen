@@ -15,8 +15,8 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    self.valueLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
-    self.valueBLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+    self.valueLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
+    self.valueBLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
 }
 
 - (void)setupStockInfo:(StockInfo *)stockInfo {

@@ -36,9 +36,8 @@
         [self.contentView addSubview:self.nature];
         [self.contentView addSubview:self.titleLabel];
         
-        self.nicknameLabel.dk_textColorPicker = DKColorPickerWithKey(TITLE);
-        self.titleLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        self.nicknameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#646464"];
+        self.titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
     }
     return self;
 }

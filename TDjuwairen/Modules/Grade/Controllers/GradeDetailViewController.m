@@ -237,7 +237,7 @@
         [_toolView addSubview:btn];
         
         UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        sep.backgroundColor = TDSeparatorColor;
         [_toolView addSubview:sep];
         
         _toolView.backgroundColor = [UIColor whiteColor];

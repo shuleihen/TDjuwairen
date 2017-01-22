@@ -56,9 +56,8 @@
 @end
 
 @implementation SurveyListViewController
+
 - (void)dealloc {
-    self.tableView.delegate = nil;
-    self.tableView.dataSource = nil;
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -66,7 +65,8 @@
 - (SDCycleScrollView *)cycleScrollView {
     if (!_cycleScrollView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kBannerHeiht);
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:self placeholderImage:[UIImage imageNamed:@"bannerPlaceholder.png"]];
+        __weak SurveyListViewController *wself = self;
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:wself placeholderImage:[UIImage imageNamed:@"bannerPlaceholder.png"]];
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     }
     return _cycleScrollView;
@@ -74,12 +74,12 @@
 
 - (UIView *)tableViewHeaderView {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kBannerHeiht+kButtonViewHeight+10)];
-    view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    view.backgroundColor = TDViewBackgrouondColor;
     
     [view addSubview:self.cycleScrollView];
     
     UIView *buttonContain = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht, kScreenHeight, kButtonViewHeight)];
-    buttonContain.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    buttonContain.backgroundColor = [UIColor whiteColor];
     [view addSubview:buttonContain];
     
     NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"敬请期待"];
@@ -96,8 +96,8 @@
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitle:title forState:UIControlStateNormal];
         
-        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateNormal];
-        [btn dk_setTitleColorPicker:DKColorPickerWithKey(TEXT) forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#222222"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#222222"] forState:UIControlStateHighlighted];
         
         UIImage *image = [UIImage imageNamed:images[i]];
         [btn setImage:image forState:UIControlStateNormal];
@@ -112,7 +112,7 @@
     }
 
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
-    sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+    sep.backgroundColor = TDSeparatorColor;
     [view addSubview:sep];
     
     return view;
@@ -121,16 +121,16 @@
 - (UIView *)segment {
     if (!_segment) {
         UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
-        view.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        view.backgroundColor = [UIColor whiteColor];
         
         [view addSubview:self.segmentControl];
         
         UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-        top.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        top.backgroundColor = TDSeparatorColor;
         [view addSubview:top];
         
         UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
-        bottom.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        bottom.backgroundColor = TDSeparatorColor;
         [view addSubview:bottom];
         
         _segment = view;
@@ -243,7 +243,7 @@
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];

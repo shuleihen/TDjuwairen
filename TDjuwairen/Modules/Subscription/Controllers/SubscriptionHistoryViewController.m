@@ -28,8 +28,8 @@
     UINib *nib = [UINib nibWithNibName:@"SubscriptionHistoryListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"SubscriptionHistoryListCellID"];
     
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.rowHeight = 132.0f;
     

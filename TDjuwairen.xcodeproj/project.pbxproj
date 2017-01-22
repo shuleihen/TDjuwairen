@@ -16,6 +16,7 @@
 		190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65B61E334CD300B83ADF /* LoginHandler.m */; };
 		190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65BA1E335AA500B83ADF /* LoginManager.m */; };
 		190F65BF1E349D8100B83ADF /* TextHtml.html in Resources */ = {isa = PBXBuildFile; fileRef = 190F65BE1E349D8100B83ADF /* TextHtml.html */; };
+		190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 190F65C21E34F19300B83ADF /* Launch.storyboard */; };
 		191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027A61DE410F2006A2275 /* SurveryStockListCell.m */; };
 		191027AC1DE42492006A2275 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027AB1DE42492006A2275 /* SurveyModel.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
@@ -156,8 +157,6 @@
 		19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */; };
 		19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
-		19A0CAB41E1A23BB003C4079 /* DKNightVersion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; };
-		19A0CAB51E1A23BB003C4079 /* DKNightVersion.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A5AC401E0A49AC00FE953A /* Recharge.storyboard */; };
 		19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC8B1E0BA2B800FE953A /* UITextView+Placeholder.m */; };
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
@@ -219,7 +218,6 @@
 		19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */; };
 		19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */; };
 		19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */; };
-		19DFE2401E11174000CC3C3F /* DKColorTable.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19DFE23F1E11174000CC3C3F /* DKColorTable.txt */; };
 		19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
@@ -416,27 +414,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		19A0CAB01E1A2229003C4079 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 729323341CB9F98C009E544E;
-			remoteInfo = DKNightVersion;
-		};
-		19A0CAB21E1A2231003C4079 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 729323331CB9F98C009E544E;
-			remoteInfo = DKNightVersion;
-		};
-		19A0CAB61E1A23BB003C4079 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 729323331CB9F98C009E544E;
-			remoteInfo = DKNightVersion;
-		};
 		84E334011CE2BA3E00E5DCEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84E333DF1CE2BA3D00E5DCEE /* Project object */;
@@ -460,7 +437,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				19A0CAB51E1A23BB003C4079 /* DKNightVersion.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -485,6 +461,7 @@
 		190F65BA1E335AA500B83ADF /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		190F65BE1E349D8100B83ADF /* TextHtml.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TextHtml.html; sourceTree = "<group>"; };
 		190F65C01E34A85200B83ADF /* UIMacroDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIMacroDef.h; sourceTree = "<group>"; };
+		190F65C21E34F19300B83ADF /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
 		191027A51DE410F2006A2275 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
 		191027A61DE410F2006A2275 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
 		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
@@ -761,7 +738,6 @@
 		19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeDetailModel.m; sourceTree = "<group>"; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
 		19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarController.m; sourceTree = "<group>"; };
-		19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DKNightVersion.xcodeproj; path = DKNightVersion/DKNightVersion.xcodeproj; sourceTree = "<group>"; };
 		19A5AC401E0A49AC00FE953A /* Recharge.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recharge.storyboard; sourceTree = "<group>"; };
 		19A5AC8A1E0BA2B800FE953A /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		19A5AC8B1E0BA2B800FE953A /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
@@ -883,7 +859,6 @@
 		19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		19DFE22D1E10EBAE00CC3C3F /* BVUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVUnderlineButton.h; sourceTree = "<group>"; };
 		19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BVUnderlineButton.m; sourceTree = "<group>"; };
-		19DFE23F1E11174000CC3C3F /* DKColorTable.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = DKColorTable.txt; sourceTree = "<group>"; };
 		19E48FF81E1DDC230012CE6E /* NSString+Emoji.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Emoji.h"; sourceTree = "<group>"; };
 		19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Emoji.m"; sourceTree = "<group>"; };
 		19E5193A1D509C7000CFF149 /* TDNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDNavigationController.h; sourceTree = "<group>"; };
@@ -1242,7 +1217,6 @@
 			files = (
 				841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */,
 				1946EE371E0E9E3C00D8FB3A /* libWeChatSDK.a in Frameworks */,
-				19A0CAB41E1A23BB003C4079 /* DKNightVersion.framework in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
 				2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */,
 				841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */,
@@ -1508,7 +1482,6 @@
 			isa = PBXGroup;
 			children = (
 				19F43C321E233A1C001B72CD /* playStock.wav */,
-				19DFE23F1E11174000CC3C3F /* DKColorTable.txt */,
 				19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */,
 				193EF0791D392CE00043F3EB /* availableTags.plist */,
 				193EF0771D392CB40043F3EB /* simkai.ttf */,
@@ -2240,14 +2213,6 @@
 				19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */,
 			);
 			path = TabbarController;
-			sourceTree = "<group>";
-		};
-		19A0CAAD1E1A2229003C4079 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		19A5AC891E0BA2B800FE953A /* UITextView+Placeholder */ = {
@@ -3296,6 +3261,7 @@
 				84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */,
 				84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */,
 				84E333F31CE2BA3D00E5DCEE /* Main.storyboard */,
+				190F65C21E34F19300B83ADF /* Launch.storyboard */,
 				19A5AC401E0A49AC00FE953A /* Recharge.storyboard */,
 				19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */,
 				197595331DED5E39006441BE /* SurveyDetail.storyboard */,
@@ -3345,7 +3311,6 @@
 			children = (
 				19959B951E2CA11900AB26DF /* HCSStarRatingView */,
 				19AF98161E24A7880097A585 /* LocationPicker */,
-				19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */,
 				19BA912D1E14DECA00C27124 /* PAStepper */,
 				19E5F26B1E12614200984DBC /* BorderButton */,
 				19DFE22C1E10EBAE00CC3C3F /* BVUnderlineButton */,
@@ -3520,8 +3485,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				19A0CAB31E1A2231003C4079 /* PBXTargetDependency */,
-				19A0CAB71E1A23BB003C4079 /* PBXTargetDependency */,
 			);
 			name = TDjuwairen;
 			productName = TDjuwairen;
@@ -3610,12 +3573,6 @@
 			mainGroup = 84E333DE1CE2BA3D00E5DCEE;
 			productRefGroup = 84E333E81CE2BA3D00E5DCEE /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 19A0CAAD1E1A2229003C4079 /* Products */;
-					ProjectRef = 19A0CAAC1E1A2229003C4079 /* DKNightVersion.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				84E333E61CE2BA3D00E5DCEE /* TDjuwairen */,
@@ -3624,16 +3581,6 @@
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		19A0CAB11E1A2229003C4079 /* DKNightVersion.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = DKNightVersion.framework;
-			remoteRef = 19A0CAB01E1A2229003C4079 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		84E333E51CE2BA3D00E5DCEE /* Resources */ = {
@@ -3646,7 +3593,6 @@
 				19F00D091E2EFFD9009270D5 /* AnsTableViewCell.xib in Resources */,
 				190F65BF1E349D8100B83ADF /* TextHtml.html in Resources */,
 				19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */,
-				19DFE2401E11174000CC3C3F /* DKColorTable.txt in Resources */,
 				1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */,
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
 				19959B8E1E2C909000AB26DF /* GradeDetailCell.xib in Resources */,
@@ -3683,6 +3629,7 @@
 				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
 				8488E42D1D90E2EC00888D07 /* test.caf in Resources */,
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
+				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
@@ -4052,16 +3999,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		19A0CAB31E1A2231003C4079 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DKNightVersion;
-			targetProxy = 19A0CAB21E1A2231003C4079 /* PBXContainerItemProxy */;
-		};
-		19A0CAB71E1A23BB003C4079 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = DKNightVersion;
-			targetProxy = 19A0CAB61E1A23BB003C4079 /* PBXContainerItemProxy */;
-		};
 		84E334021CE2BA3E00E5DCEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84E333E61CE2BA3D00E5DCEE /* TDjuwairen */;

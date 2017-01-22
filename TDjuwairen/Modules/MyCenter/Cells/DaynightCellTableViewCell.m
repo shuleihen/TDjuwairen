@@ -24,9 +24,7 @@
         [self.contentView addSubview:self.title];
         self.accessoryView = self.mySwitch;
         
-        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-        self.title.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-        self.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        self.title.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
     }
     return self;
 }

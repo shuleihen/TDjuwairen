@@ -44,7 +44,7 @@
         [self addSubview:_xiongBtn];
 
         UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 49, kScreenWidth, 1)];
-        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        sep.backgroundColor = TDSeparatorColor;
         [self addSubview:sep];
         
         _indicator = [[UIView alloc] initWithFrame:CGRectMake(0, 49, kScreenWidth/2, 1)];

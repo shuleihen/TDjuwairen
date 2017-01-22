@@ -24,7 +24,7 @@
     // Do any additional setup after loading the view.
 //    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"奖品兑换" style:UIBarButtonItemStylePlain target:self action:@selector(exchangePressed:)];
     
-    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.view.backgroundColor = TDViewBackgrouondColor;
     
     [self queryPlayStockList];
 }

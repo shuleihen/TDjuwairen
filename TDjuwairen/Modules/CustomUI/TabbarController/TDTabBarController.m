@@ -18,7 +18,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.tabBar.translucent = NO;
-    self.tabBar.dk_barTintColorPicker = DKColorPickerWithKey(BAR);
+    self.tabBar.barTintColor = [UIColor whiteColor];
 }
 
 - (void)didReceiveMemoryWarning {

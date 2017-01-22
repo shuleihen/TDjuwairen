@@ -43,7 +43,6 @@
         [self.contentView addSubview:_contentLabel];
         self.selectionStyle = UITableViewCellSelectionStyleNone;
         self.backgroundColor = [UIColor clearColor];
-        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
     }
     
     return self;

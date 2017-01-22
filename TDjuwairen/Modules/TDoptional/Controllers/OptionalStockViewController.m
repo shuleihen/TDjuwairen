@@ -51,7 +51,7 @@
 {
     if (!_headView) {
         _headView = [[OptionalHeadView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
-        _headView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        _headView.backgroundColor = [UIColor whiteColor];
     }
     return _headView;
 }
@@ -59,7 +59,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.view.backgroundColor = TDViewBackgrouondColor;
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -94,8 +94,8 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableview.backgroundView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableview.backgroundView.backgroundColor = TDViewBackgrouondColor;
+    self.tableview.backgroundColor = TDViewBackgrouondColor;
     self.tableview.estimatedRowHeight = 250;
     self.tableview.rowHeight = UITableViewAutomaticDimension;
     
@@ -208,9 +208,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    
+{    
     if (self.optionArr.count > 0) {
         OptionalStockTableViewCell *scell = (OptionalStockTableViewCell *)cell;
         SurveyModel *model = self.optionArr[indexPath.row];

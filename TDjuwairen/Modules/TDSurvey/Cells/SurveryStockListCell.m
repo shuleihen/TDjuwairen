@@ -106,7 +106,7 @@
         [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:26.0f]} range:NSMakeRange(0, 1)];
         [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} range:NSMakeRange(1,string.length-1)];
         
-        _stockNameLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
         _stockNowPriLabel.attributedText = attr;
     } else {
         float value = [stock priValue];            //跌涨额
@@ -132,9 +132,9 @@
         [attr setAttributes:@{NSFontAttributeName:font2} range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
         
         if (value >= 0.00) {
-            _stockNowPriLabel.dk_textColorPicker = DKColorPickerWithKey(STOCKRED);
+            _stockNowPriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#e74922"];
         } else {
-            _stockNowPriLabel.dk_textColorPicker = DKColorPickerWithKey(STOCKBLUE);
+            _stockNowPriLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#13C869"];
         }
         _stockNowPriLabel.attributedText = attr;
     }

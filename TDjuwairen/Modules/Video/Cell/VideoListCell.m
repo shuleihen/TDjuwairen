@@ -40,10 +40,9 @@
     [self.labelbackview.layer insertSublayer:headerLayer atIndex:0];
     // Initialization code
     
-    self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    self.titlelabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-    self.backview.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
-    self.titlelabel.dk_backgroundColorPicker = DKColorPickerWithKey(BAR);
+    self.titlelabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
+    self.backview.backgroundColor = [UIColor whiteColor];
+    self.titlelabel.backgroundColor = [UIColor whiteColor];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

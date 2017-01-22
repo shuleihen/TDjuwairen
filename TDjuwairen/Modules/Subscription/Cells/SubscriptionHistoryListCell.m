@@ -13,7 +13,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

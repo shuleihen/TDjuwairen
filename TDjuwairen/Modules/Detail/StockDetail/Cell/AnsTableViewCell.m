@@ -16,8 +16,7 @@
     // Initialization code
     self.avatar.clipsToBounds = YES;
     self.avatar.layer.cornerRadius = 11.0f;
-    self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    self.contentLabel.dk_textColorPicker = DKColorPickerWithKey(TEXT);
+    self.contentLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

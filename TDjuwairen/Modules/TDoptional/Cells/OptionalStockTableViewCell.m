@@ -83,8 +83,8 @@
             make.height.mas_equalTo(60);
         }];
         
-        self.nameLab.dk_textColorPicker = DKColorPickerWithKey(TEXT);
-        self.codeLab.dk_textColorPicker = DKColorPickerWithKey(DETAIL);
+        self.nameLab.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
+        self.codeLab.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
     }
     return self;
 }

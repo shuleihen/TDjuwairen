@@ -43,7 +43,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.tableview.backgroundColor = [UIColor whiteColor];
     
     self.daynightModel = [UIdaynightModel sharedInstance];
     self.dataArr = [NSMutableArray array];
@@ -68,7 +68,7 @@
 
 - (void)setupWithTableView{
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+    self.tableview.backgroundColor = [UIColor whiteColor];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;

@@ -41,7 +41,7 @@
         [_toolView addSubview:btn];
         
         UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        sep.backgroundColor = TDSeparatorColor;
         [_toolView addSubview:sep];
         
         _toolView.backgroundColor = [UIColor whiteColor];
@@ -61,8 +61,8 @@
     self.stockNumberTextField.text = self.stockId;
     self.companyTextField.text = self.stockName;
     
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);
     
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
@@ -177,7 +177,6 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    cell.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
 }
 
 

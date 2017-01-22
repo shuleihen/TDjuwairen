@@ -112,7 +112,8 @@
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 20, 50, 44)];
     back.titleLabel.font = [UIFont systemFontOfSize:14];
     [back setTitle:@"取消" forState:UIControlStateNormal];
-    [back dk_setTitleColorPicker:DKColorPickerWithKey(TITLE) forState:UIControlStateNormal];
+    [back setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateNormal];
+    [back setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateHighlighted];
     [back addTarget:self action:@selector(backPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.customSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(6, 20+7, kScreenWidth-6-50, 30)];
@@ -139,8 +140,8 @@
     self.tableview.dataSource = self;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
     self.tableview.separatorInset = UIEdgeInsetsZero;
-    self.tableview.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
-    self.tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableview.separatorColor = TDSeparatorColor;
+    self.tableview.backgroundColor = TDViewBackgrouondColor;
     [self.view addSubview:self.tableview];
     
     UINib *nib = [UINib nibWithNibName:@"SearchResultTableViewCell" bundle:nil];
@@ -386,7 +387,7 @@
     UILabel *title = [[UILabel alloc] initWithFrame:CGRectMake(12.0f, 11, 100, 16)];
     title.backgroundColor = [UIColor clearColor];
     title.font = [UIFont systemFontOfSize:14.0f];
-    title.dk_textColorPicker = DKColorPickerWithKey(DETAIL);
+    title.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
     [view addSubview:title];
     
     SearchSectionData *sectionData = self.resultSections[section];

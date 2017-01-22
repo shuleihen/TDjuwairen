@@ -43,10 +43,9 @@
 #import "StockDetailViewController.h"
 
 static BOOL isBackGroundActivateApplication;
+
 @interface AppDelegate ()
-{
-    UITabBarController *_tabBarCtr;
-}
+@property (nonatomic, strong) UITabBarController *tabBarController;
 @end
 
 @implementation AppDelegate
@@ -56,8 +55,8 @@ static BOOL isBackGroundActivateApplication;
 #ifdef DEBUG
     NSLog(@"HomeDirectory = %@",NSHomeDirectory());
 #endif
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     
-//    [NSThread sleepForTimeInterval:3.0];//设置启动页面时间
     [self setupUICommon];
     [self setupURLCacheSize];
     [self setupSMSSDK];
@@ -133,8 +132,8 @@ static BOOL isBackGroundActivateApplication;
                     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                     vc.stockId = c;
                     vc.hidesBottomBarWhenPushed = YES;
-                    _tabBarCtr.selectedIndex = 0;
-                    [_tabBarCtr.selectedViewController pushViewController:vc animated:YES];
+                    self.tabBarController.selectedIndex = 0;
+                    [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
                 }
             }
             else
@@ -143,8 +142,8 @@ static BOOL isBackGroundActivateApplication;
                 detail.view_id = userInfo[@"view_id"];
                 detail.pageMode = @"view";
                 [detail setHidesBottomBarWhenPushed:YES];
-                _tabBarCtr.selectedIndex = 1;
-                [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+                self.tabBarController.selectedIndex = 1;
+                [self.tabBarController.selectedViewController pushViewController:detail animated:YES];
             }
             NSLog(@"applacation is unactive ===== %@",userInfo);
         });
@@ -240,8 +239,8 @@ static BOOL isBackGroundActivateApplication;
                     vc.stockId = c;
                     vc.hidesBottomBarWhenPushed = YES;
                     
-                    _tabBarCtr.selectedIndex = 0;
-                    [_tabBarCtr.selectedViewController pushViewController:vc animated:YES];
+                    self.tabBarController.selectedIndex = 0;
+                    [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
                 }
             }
             else
@@ -250,8 +249,8 @@ static BOOL isBackGroundActivateApplication;
                 detail.view_id = userInfo[@"view_id"];
                 detail.pageMode = @"view";
                 [detail setHidesBottomBarWhenPushed:YES];
-                _tabBarCtr.selectedIndex = 1;
-                [_tabBarCtr.selectedViewController pushViewController:detail animated:YES];
+                self.tabBarController.selectedIndex = 1;
+                [self.tabBarController.selectedViewController pushViewController:detail animated:YES];
             }
             NSLog(@"applacation is unactive ===== %@",userInfo);
         });
@@ -377,17 +376,6 @@ static BOOL isBackGroundActivateApplication;
     UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
     [daynightmodel day];
     [userdefault setObject:@"yes" forKey:@"daynight"];
-    
-    self.dk_manager.themeVersion = DKThemeVersionNormal;
-    /*
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
-        [daynightmodel night];
-        [userdefault setObject:@"no" forKey:@"daynight"];
-    } else {
-        [daynightmodel day];
-        [userdefault setObject:@"yes" forKey:@"daynight"];
-    }
-     */
 }
 /*
  - (void)setupUICommon
@@ -529,11 +517,12 @@ static BOOL isBackGroundActivateApplication;
 }
 
 - (void)checkSwitchToGuide
-{
+{    
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     NSString *oldVersion = [userdefault stringForKey:@"version"];
     NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
     NSString *currentVersion = dict[@"CFBundleShortVersionString"];
+    
     if (![oldVersion isEqualToString:currentVersion]) {
         GuideViewController *launchView=[[GuideViewController alloc] init];
         self.window.rootViewController=launchView;
@@ -545,8 +534,8 @@ static BOOL isBackGroundActivateApplication;
     }
     else
     {
-        _tabBarCtr = [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"tabbarView"];
-        self.window.rootViewController = _tabBarCtr;
+        self.tabBarController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+        self.window.rootViewController = self.tabBarController;
         [self.window makeKeyAndVisible];
     }
 }

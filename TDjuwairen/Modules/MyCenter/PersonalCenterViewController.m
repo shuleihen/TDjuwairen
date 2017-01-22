@@ -45,7 +45,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.view.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.view.backgroundColor = TDViewBackgrouondColor;
     
     self.setupImgArr = @[@[@"1"],@[@"icon_remind.png",@"icon_issued.png",@"icon_collection.png"],@[@"icon_us.png"],@[@"icon_setting.png"]];
     self.setupTitleArr = @[@[@"1"],@[@"消息提醒",@"发布管理",@"我的收藏"],@[@"关于我们"],@[@"设置"]];
@@ -143,10 +143,6 @@
         [btn align:BAVerticalImage withSpacing:12.0f];
         i++;
     }
-    
-//    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
-//    sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
-//    [view addSubview:sep];
     
     self.buttonsPanel = view;
 }
@@ -324,21 +320,6 @@
 
 - (void)updateSwitchAtIndexPath:(id)sender
 {
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
-    
-    // 夜间模式切换
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
-        [self.dk_manager dawnComing];
-        [daynightmodel day];
-        [userdefault setObject:@"yes" forKey:@"daynight"];
-    } else {
-        [self.dk_manager nightFalling];
-        [daynightmodel night];
-        [userdefault setObject:@"no" forKey:@"daynight"];
-    }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kNightVersionChanged object:nil];
 }
 
 @end

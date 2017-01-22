@@ -33,10 +33,9 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.tableView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-    self.tableView.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
-    self.footerView.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
+    self.footerView.backgroundColor = TDViewBackgrouondColor;
     
     self.addressTextField.delegate = self;
     

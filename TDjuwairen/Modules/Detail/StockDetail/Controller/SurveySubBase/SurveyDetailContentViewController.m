@@ -45,12 +45,7 @@
     NSString *code = [self.stockId substringFromIndex:2];
     
     NSString *model = @"0";
-    if ([self.dk_manager.themeVersion isEqualToString:DKThemeVersionNight]) {
-        model = @"1";
-    } else {
-        model = @"0";
-    }
-    
+
     NSString *urlString = nil;
     if (!US.isLogIn) {
         urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,(long)tag,model];

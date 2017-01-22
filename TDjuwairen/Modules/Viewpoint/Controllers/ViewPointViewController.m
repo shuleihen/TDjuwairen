@@ -259,8 +259,8 @@
 
     for (int i = 0; i<self.categoryArr.count; i++) {
         UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(kScreenWidth*i, 0, kScreenWidth, kScreenHeight-64-44) style:UITableViewStylePlain];
-        tableview.dk_backgroundColorPicker = DKColorPickerWithKey(BG);
-        tableview.dk_separatorColorPicker = DKColorPickerWithKey(SEP);
+        tableview.backgroundColor = TDViewBackgrouondColor;
+        tableview.separatorColor = TDSeparatorColor;
         tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         tableview.separatorInset = UIEdgeInsetsMake(0, 0, 0, 0);
         tableview.delegate = self;

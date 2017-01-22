@@ -15,8 +15,7 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
-    self.titleLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+    self.titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

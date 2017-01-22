@@ -19,7 +19,7 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-        sep.dk_backgroundColorPicker = DKColorPickerWithKey(SEP);
+        sep.backgroundColor = TDSeparatorColor;
         [self addSubview:sep];
         
         
