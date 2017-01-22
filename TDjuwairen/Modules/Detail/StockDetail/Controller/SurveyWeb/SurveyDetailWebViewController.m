@@ -128,7 +128,7 @@
 
 #pragma mark - StockShareDelegate
 - (void)sharePressed {
-    NSString *urlString = [NSString stringWithFormat:@"%@Survey/%@",API_HOST,self.stockId];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.juwairen.net/@Survey/%@",self.stockId];
     [ShareHandler shareWithTitle:self.stockName
                            image:self.cover
                              url:[NSURL URLWithString:urlString]];
