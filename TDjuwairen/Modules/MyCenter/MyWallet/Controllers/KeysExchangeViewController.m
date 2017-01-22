@@ -41,10 +41,14 @@
     self.daynightModel = [UIdaynightModel sharedInstance];
     [self setupWithNavigation];
     [self setupWithTableView];
-    
+
+    // Do any additional setup after loading the view.
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     //请求奖品列表
     [self requestWithPrize];
-    // Do any additional setup after loading the view.
 }
 
 - (void)setupWithNavigation{
