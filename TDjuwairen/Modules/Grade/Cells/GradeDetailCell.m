@@ -24,6 +24,14 @@
     // Configure the view for the selected state
 }
 
++ (CGFloat)heightWithContent:(NSString *)content {
+    CGFloat height = 0;
+    
+    height = [content boundingRectWithSize:CGSizeMake(kScreenWidth-62-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f]} context:nil].size.height + 39+31+12;
+
+    return height;
+}
+
 - (void)setupCommentModel:(GradeCommentModel *)model {
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"photo_m.png"]];
     self.userNameLabel.text = model.userName;

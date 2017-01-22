@@ -16,5 +16,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 
++ (CGFloat)heightWithContent:(NSString *)content;
 - (void)setupCommentModel:(GradeCommentModel *)model;
 @end

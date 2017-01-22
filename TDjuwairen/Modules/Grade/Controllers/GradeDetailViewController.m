@@ -151,7 +151,9 @@
     if (indexPath.section == 0) {
         return 203;
     }
-    return 120;
+    
+    GradeCommentModel *model = self.items[indexPath.row];
+    return [GradeDetailCell heightWithContent:model.content];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -207,7 +209,6 @@
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-55) style:UITableViewStyleGrouped];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.rowHeight = 120.0f;
         _tableView.separatorInset = UIEdgeInsetsZero;
         
         UINib *nib = [UINib nibWithNibName:@"GradeDetailCell" bundle:nil];
