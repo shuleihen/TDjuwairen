@@ -110,7 +110,8 @@
         hud.labelText = @"公司名称不能为空";
         [hud hide:YES afterDelay:0.4];
         return;
-    } else if(!count.length) {
+    }
+    /*else if(!count.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = @"持股数量不能为空";
@@ -122,7 +123,7 @@
         hud.labelText = @"关注内容不能为空";
         [hud hide:YES afterDelay:0.4];
         return;
-    } else if(![phone isValidateMobile]) {
+    } */else if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
@@ -138,8 +139,8 @@
     NSDictionary *dict = @{@"user_id" : US.userId,
                            @"code" : stockCode,
                            @"com_name" : companyName,
-                           @"stock_number" : count,
-                           @"focus" : attent,
+                           @"stock_number" : count.length?count:@"",
+                           @"focus" : attent.length?attent:@"",
                            @"get_way" : @(2),
                            @"phone" : phone,
                            @"email" : email};
