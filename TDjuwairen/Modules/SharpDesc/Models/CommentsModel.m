@@ -7,6 +7,7 @@
 //
 
 #import "CommentsModel.h"
+#import "NSString+Emoji.h"
 
 @implementation CommentsModel
 
@@ -41,7 +42,7 @@
     model.viewcomment_id = dic[@"viewcomment_id"];
     model.viewcomment_pid = dic[@"viewcomment_pid"];
     model.viewcomment_userid = dic[@"viewcomment_userid"];
-    model.viewcomment = dic[@"viewcomment_text"];
+    model.viewcomment = [dic[@"viewcomment_text"] stringByReplacingEmojiCheatCodesWithUnicode];
     
     model.view_id = dic[@"view_id"];
     model.view_title = dic[@"view_title"];
