@@ -296,9 +296,12 @@
 
 - (void)invitePressedWithResult:(SearchResultModel *)model {
     if (US.isLogIn) {
+        
+        NSString *stockName = [model.title stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"(%@)",model.resultId] withString:@""];
         ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
         vc.hidesBottomBarWhenPushed = YES;
         vc.stockId = model.resultId;
+        vc.stockName = stockName;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -533,7 +536,15 @@
 }
 
 - (void)addSurveyPressed:(id)sender {
-    
+    if (US.isLogIn) {
+        
+        ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
 }
 
 - (void)clickAddOptionalStock:(UIButton *)sender
