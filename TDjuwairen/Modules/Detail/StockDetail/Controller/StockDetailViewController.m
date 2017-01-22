@@ -155,7 +155,7 @@
     self.segment.isLock = self.stockModel.isLocked;
     
     if (self.stockModel.isLocked) {
-        self.segment.selectedIndex = 2;
+        self.segment.selectedIndex = 3;
     } else {
         self.segment.selectedIndex = 0;
     }

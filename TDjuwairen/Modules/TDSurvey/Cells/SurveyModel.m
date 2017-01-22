@@ -11,6 +11,7 @@
 @implementation SurveyModel
 + (SurveyModel *)getInstanceWithDictionary:(NSDictionary *)dic {
     SurveyModel *model = [[SurveyModel alloc] init];
+    model.surveyType = [dic[@"survey_title_pre"] integerValue];
     model.surveyCover = dic[@"survey_cover"];
     model.surveyUrl = dic[@"survey_url"];
     model.companyCode = dic[@"company_code"];

@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SurveyModel : NSObject
+@property (nonatomic, assign) NSInteger surveyType;
 @property (nonatomic, copy) NSString *surveyId;
 @property (nonatomic, copy) NSString *surveyTitle;
 @property (nonatomic, copy) NSString *companyName;

@@ -26,7 +26,7 @@
         // 上市公司名称和股票代码
         _stockNameLabel = [[UILabel alloc] init];
         _stockNameLabel.font = [UIFont systemFontOfSize:17.0f];
-        _stockNameLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
+        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"333333"];
         [self.contentView addSubview:_stockNameLabel];
         
         // 当前交易价格
@@ -43,17 +43,10 @@
         // 调用文章标题
         _surveyTitleLabel = [[UILabel alloc] init];
         _surveyTitleLabel.font = [UIFont systemFontOfSize:12.0f];
-        _surveyTitleLabel.dk_textColorPicker = DKColorPickerWithKey(CELLTITLE);
         [self.contentView addSubview:_surveyTitleLabel];
         
-        /* 分割线
-        UIImage *slipImage = [UIImage imageNamed:@"slipLine"];
-        UIImageView *slipImageView = [[UIImageView alloc] initWithImage:slipImage];
-        slipImageView.frame = CGRectMake(15.0f, 85, [UIScreen mainScreen].bounds.size.width-30, 1/[UIScreen mainScreen].scale);
-        [self.contentView addSubview:slipImageView];
-         */
         
-        self.contentView.dk_backgroundColorPicker = DKColorPickerWithKey(CONTENTBG);
+        self.contentView.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -84,9 +77,21 @@
 - (void)setupSurvey:(SurveyModel *)survey {
     _stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",survey.companyName,[survey.companyCode stockCode]];
     
-    NSString *title = [NSString stringWithFormat:@"调研 %@",survey.surveyTitle];
-    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:title];
-    [attri setAttributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#cccccc"]} range:NSMakeRange(0, 3)];
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] init];
+    
+    if (survey.surveyType == 1) {
+        // 调研
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"调研 " attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#cccccc"]}];
+        [attri appendAttributedString:title];
+    } else if (survey.surveyType == 2) {
+        // 热点
+        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"热点 " attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#cccccc"]}];
+        [attri appendAttributedString:title];
+    } else {
+    }
+    
+    NSAttributedString *content = [[NSAttributedString alloc] initWithString:survey.surveyTitle attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    [attri appendAttributedString:content];
     _surveyTitleLabel.attributedText = attri;
     
     [_surveyImageView sd_setImageWithURL:[NSURL URLWithString:survey.surveyCover]];
