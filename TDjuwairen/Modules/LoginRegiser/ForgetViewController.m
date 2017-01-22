@@ -143,7 +143,7 @@
     [submitBtn addTarget:self action:@selector(ClickSubmit:) forControlEvents:UIControlEventTouchUpInside];
     
     UIButton *service = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30+50+10, kScreenWidth-30, 14)];
-    [service setTitle:@"没有绑定手机号码/邮箱？点击联系客服" forState:UIControlStateNormal];
+    [service setTitle:@"没有绑定手机号码？点击联系客服" forState:UIControlStateNormal];
     service.titleLabel.font = [UIFont systemFontOfSize:14];
     [service setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
     
