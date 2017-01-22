@@ -48,13 +48,17 @@
 }
 
 - (void)codeCompletionWithResult:(NSError *)error {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = error.userInfo[@"getVerificationCode"];
-    [hud hide:YES afterDelay:0.6];
+    if (error) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = error.userInfo[@"getVerificationCode"];
+        [hud hide:YES afterDelay:0.6];
+    }
 }
 
 - (IBAction)donePressed:(id)sender {
+    [self.view endEditing:YES];
+    
     NSString *phone = self.phoneTextField.text;
     NSString *code = self.codeTextField.text;
     NSString *nickName = self.nickNameTextField.text;
@@ -86,6 +90,22 @@
         return;
     }
     
+    // 检测用户名称是否重复
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSDictionary *dic = @{@"nickname": nickName};
+    [manager POST:API_CheckNickName parameters:dic completion:^(id data, NSError *error){
+        if (!error) {
+            [self verificationPhone:phone code:code];
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"昵称重复或不合法，请重新输入";
+            [hud hide:YES afterDelay:0.4];
+        }
+    }];
+}
+
+- (void)verificationPhone:(NSString *)phone code:(NSString *)code {
     [SMSSDK commitVerificationCode:code phoneNumber:phone zone:@"86" result:^(NSError *error) {
         if (!error) {
             [self requestLogin];
@@ -105,7 +125,7 @@
     NSString *phone = self.phoneTextField.text;
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    NSDictionary *dic = @{@"openid": self.thirdPartId,
+    NSDictionary *dic = @{@"unionid": self.thirdPartId,
                           @"nickname": nickName,
                           @"phone": phone,
                           @"password": pwd,
@@ -131,7 +151,7 @@
             US.isLogIn = YES;
             
             [LoginHandler saveLoginSuccessedData:data];
-            [LoginHandler saveLoginAccountId:US.userId password:pwd];
+            [LoginHandler saveLoginAccountId:US.userName password:pwd];
             [LoginHandler checkOpenRemotePush];
             
             [wself.navigationController popToRootViewControllerAnimated:YES];

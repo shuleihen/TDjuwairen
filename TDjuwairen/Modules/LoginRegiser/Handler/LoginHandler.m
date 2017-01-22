@@ -25,25 +25,25 @@
 
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
-    [accountDefaults setValue:account forKey:@"account"];
-    [accountDefaults setValue:password forKey:@"password"];
+    [accountDefaults setObject:@"normal" forKey:@"loginStyle"];
+    [accountDefaults setObject:account forKey:@"account"];
+    [accountDefaults setObject:password forKey:@"password"];
     [accountDefaults synchronize];
 }
 
 + (void)saveFastLoginWithPhone:(NSString *)phone {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setValue:@"fast" forKey:@"loginStyle"];
-    [accountDefaults setValue:phone forKey:@"fast_phone"];
+    [accountDefaults setObject:@"fast" forKey:@"loginStyle"];
+    [accountDefaults setObject:phone forKey:@"fast_phone"];
     [accountDefaults synchronize];
 }
 
 + (void)saveThirdType:(NSString *)typeString unionid:(NSString *)unionid nickName:(NSString *)nickName avatar:(NSString *)avatar {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setValue:typeString forKey:@"loginStyle"];
-    [accountDefaults setValue:unionid forKey:@"third_userId"];
-    [accountDefaults setValue:unionid forKey:@"third_nickName"];
-    [accountDefaults setValue:unionid forKey:@"third_avatar"];
+    [accountDefaults setObject:typeString forKey:@"loginStyle"];
+    [accountDefaults setObject:unionid forKey:@"third_userId"];
+    [accountDefaults setObject:nickName forKey:@"third_nickName"];
+    [accountDefaults setObject:avatar forKey:@"third_avatar"];
     [accountDefaults synchronize];
 }
 
@@ -69,7 +69,7 @@
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
         //绑定指定推送的时候打开回复提醒
         NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-        [userdefault setValue:@"YES" forKey:@"isReply"];
+        [userdefault setObject:@"YES" forKey:@"isReply"];
         [userdefault synchronize];
     }];
 }

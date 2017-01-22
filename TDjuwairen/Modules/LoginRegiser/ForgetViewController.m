@@ -249,7 +249,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *paras = @{@"account":self.accountText.text,
                             @"password":self.passwordText.text};
-    [ma POST:@"Login/loginDo" parameters:paras completion:^(id data, NSError *error){
+    [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"登录成功";
             [hud hide:YES afterDelay:0.4];

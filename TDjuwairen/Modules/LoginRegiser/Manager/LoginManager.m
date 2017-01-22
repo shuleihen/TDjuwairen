@@ -44,7 +44,7 @@
     NSDictionary *paras = @{@"account": account,
                             @"password": password};
     
-    [ma POST:@"Login/loginDo" parameters:paras completion:^(id data, NSError *error){
+    [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             US.isLogIn = YES;
             

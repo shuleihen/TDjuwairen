@@ -86,10 +86,13 @@
 }
 
 - (void)codeCompletionWithResult:(NSError *)error {
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.mode = MBProgressHUDModeText;
-    hud.labelText = error.userInfo[@"getVerificationCode"];
-    [hud hide:YES afterDelay:0.6];
+    if (error) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = error.userInfo[@"getVerificationCode"];
+        [hud hide:YES afterDelay:0.6];
+    }
+    
 }
 
 

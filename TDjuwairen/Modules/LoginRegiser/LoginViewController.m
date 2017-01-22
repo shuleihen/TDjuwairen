@@ -100,7 +100,7 @@
     NSDictionary *paras = @{@"account": account,
                             @"password": pwd};
     
-    [ma POST:@"Login/loginDo" parameters:paras completion:^(id data, NSError *error){
+    [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"登录成功";
             [hud hide:YES afterDelay:0.4];
@@ -175,10 +175,13 @@
                      } else {
                          // 需要补齐信息
                          US.isLogIn = NO;
+                         // 这里要去服务器返回的nickname，因为服务器会检测第三方的nickname 是否重复
+                         NSString *userName = data[@"user_nickname"];
                          
                          ThirdPartLoginUpdateViewController *vc = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"ThirdPartLoginUpdateViewController"];
+                         vc.type = kUpdateTypeWeXin;
                          vc.thirdPartId = unionid;
-                         vc.thirdPartName = nickName;
+                         vc.thirdPartName = userName;
                          vc.avatar_url = avatar;
                          [self.navigationController pushViewController:vc animated:YES];
                      }
@@ -233,10 +236,13 @@
                      } else {
                          // 需要补齐信息
                          US.isLogIn = NO;
+                         // 这里要去服务器返回的nickname，因为服务器会检测第三方的nickname 是否重复
+                         NSString *userName = data[@"user_nickname"];
                          
                          ThirdPartLoginUpdateViewController *vc = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"ThirdPartLoginUpdateViewController"];
+                         vc.type = kUpdateTypeQQ;
                          vc.thirdPartId = unionid;
-                         vc.thirdPartName = nickName;
+                         vc.thirdPartName = userName;
                          vc.avatar_url = avatar;
                          [self.navigationController pushViewController:vc animated:YES];
                      }
