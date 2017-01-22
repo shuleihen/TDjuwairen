@@ -22,21 +22,21 @@
     if (self = [super initWithFrame:frame]) {
         self.model = [UIdaynightModel sharedInstance];
         
-        NSUserDefaults *userdefalut = [NSUserDefaults standardUserDefaults];
-        NSString *daynight = [userdefalut objectForKey:@"daynight"];
-        NSString *mod ;//模式
-        NSString *img ;//图片
+//        NSUserDefaults *userdefalut = [NSUserDefaults standardUserDefaults];
+//        NSString *daynight = [userdefalut objectForKey:@"daynight"];
+//        NSString *mod ;//模式
+//        NSString *img ;//图片
         NSString *coll;//收藏
         NSString *colImg;
-        if ([daynight isEqualToString:@"yes"]) {
-            mod = @"夜间模式";
-            img = @"btn_yejian.png";
-        }
-        else
-        {
-            mod = @"日间模式";
-            img = @"btn_night_rijian.png";
-        }
+//        if ([daynight isEqualToString:@"yes"]) {
+//            mod = @"夜间模式";
+//            img = @"btn_yejian.png";
+//        }
+//        else
+//        {
+//            mod = @"日间模式";
+//            img = @"btn_night_rijian.png";
+//        }
         if ([iscollect isEqualToString:@"yes"]) {
             coll = @"取消收藏";
             colImg = @"btn_col_pre.png";
@@ -47,8 +47,8 @@
             colImg = @"btn_col.png";
         }
         
-        self.imgArr = @[colImg,@"btn_ziti.png",img,@"btn_jubao.png"];
-        self.titleArr = @[coll,@"字体大小",mod,@"举报"];
+        self.imgArr = @[colImg,@"btn_ziti.png",@"btn_jubao.png"];
+        self.titleArr = @[coll,@"字体大小",@"举报"];
         
         
         [self setupWithViewShadow];
@@ -83,7 +83,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 4;
+    return 3;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -106,19 +106,19 @@
     /* 取消选中状态 */
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    if (indexPath.row == 2) {
-        
-        if ([cell.textLabel.text isEqualToString:@"日间模式"]) {
-            cell.imageView.image = [UIImage imageNamed:@"btn_yejian@3x.png"];
-            cell.textLabel.text = @"夜间模式";
-        }
-        else
-        {
-            cell.imageView.image = [UIImage imageNamed:@"btn_night_rijian@3x.png"];
-            cell.textLabel.text = @"日间模式";
-        }
-        [tableView reloadData];
-    }
+//    if (indexPath.row == 2) {
+//        
+//        if ([cell.textLabel.text isEqualToString:@"日间模式"]) {
+//            cell.imageView.image = [UIImage imageNamed:@"btn_yejian@3x.png"];
+//            cell.textLabel.text = @"夜间模式";
+//        }
+//        else
+//        {
+//            cell.imageView.image = [UIImage imageNamed:@"btn_night_rijian@3x.png"];
+//            cell.textLabel.text = @"日间模式";
+//        }
+//        [tableView reloadData];
+//    }
     
     if ([self respondsToSelector:@selector(tableView:didSelectRowAtIndexPath:)]) {
         [self.delegate didSelectedWithIndexPath:cell];
@@ -127,7 +127,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return self.frame.size.height/4;
+    return self.frame.size.height/3;
 }
 
 @end

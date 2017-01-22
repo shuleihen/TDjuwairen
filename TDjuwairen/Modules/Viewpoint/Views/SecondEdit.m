@@ -22,15 +22,15 @@
 - (instancetype)initWithFrame:(CGRect)frame
 {
     if (self = [super initWithFrame:frame]) {
-        self.imgArr = @[@"tab_jiacu@3x.png",
-                        @"tab_xieti@3x.png",
-                        @"tab_xiahuaxian@3x.png",
-                        @"tab_yingyong@3x.png",
+        self.imgArr = @[@"tab_jiacu.png",
+                        @"tab_xieti.png",
+                        @"tab_xiahuaxian.png",
+                        @"tab_yingyong.png",
                         ];
-        self.selectImgArr = @[@"tab_jiacu_pre@3x.png",
-                              @"tab_xieti_pre@3x.png",
-                              @"tab_xiahuaxian_pre@3x.png",
-                              @"tab_yinyong_pre@3x.png",
+        self.selectImgArr = @[@"tab_jiacu_pre.png",
+                              @"tab_xieti_pre.png",
+                              @"tab_xiahuaxian_pre.png",
+                              @"tab_yinyong_pre.png",
                               ];
         for (int i = 0; i<self.imgArr.count; i++) {
             

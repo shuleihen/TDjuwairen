@@ -83,7 +83,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
-    cell.imageView.image = [UIImage imageNamed:@"btn_select2@3x.png"];
+    cell.imageView.image = [UIImage imageNamed:@"btn_select2.png"];
     cell.textLabel.text = self.titleArr[indexPath.row];
     CGFloat flo = [self.fontArr[indexPath.row] floatValue];
     cell.textLabel.font = [YXFont lightFontSize:flo];
@@ -95,10 +95,10 @@
     /* 取消选中状态 */
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    self.selectcell.imageView.image = [UIImage imageNamed:@"btn_select2@3x.png"];
+    self.selectcell.imageView.image = [UIImage imageNamed:@"btn_select2.png"];
     
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    cell.imageView.image = [UIImage imageNamed:@"btn_select2_pre@3x.png"];
+    cell.imageView.image = [UIImage imageNamed:@"btn_select2_pre.png"];
     
     self.selectcell = cell;
     

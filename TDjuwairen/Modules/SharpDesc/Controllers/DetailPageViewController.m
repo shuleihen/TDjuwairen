@@ -97,7 +97,7 @@
             }
         }
         
-        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*4) withString:str];
+        _nmview = [[NaviMoreView alloc]initWithFrame:CGRectMake(kScreenWidth/2, 0, kScreenWidth/2, kScreenHeight/16*3) withString:str];
         
         _nmview.delegate = self;
         [self.view addSubview:_nmview];
@@ -186,7 +186,7 @@
     [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
     
     UIButton *rightButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-    [rightButton setImage:[UIImage imageNamed:@"nav_more@3x.png"] forState:UIControlStateNormal];
+    [rightButton setImage:[UIImage imageNamed:@"nav_more.png"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(naviMore:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
@@ -723,7 +723,7 @@
         }
         else
         {
-            FeedbackViewController *feedback =  [[UIStoryboard mainStoryboard] instantiateViewControllerWithIdentifier:@"FeedbackView"];
+            FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
             [self.navigationController pushViewController:feedback animated:YES];
             
         }

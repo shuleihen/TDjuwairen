@@ -384,7 +384,7 @@
             [self.SelSecView removeFromSuperview];//移除子视图
             [self.companySelView removeFromSuperview];
             //插入
-            NSArray *imgArr = @[@"btn_img@3x.png",@"btn_biaoqian"];
+            NSArray *imgArr = @[@"btn_img.png",@"btn_biaoqian.png"];
             NSArray *textArr = @[@"图片",@"股票"];
             self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
             self.secondView.backgroundColor = self.daynightmodel.navigationColor;
@@ -413,7 +413,7 @@
             [self.SelSecView removeFromSuperview];//移除子视图
             [self.companySelView removeFromSuperview];
             //更多
-            NSArray *imgArr = @[@"tab_yulan@3x.png",@"tab_caogao@3x.png"];
+            NSArray *imgArr = @[@"tab_yulan.png",@"tab_caogao.png"];
             NSArray *textArr = @[@"预览",@"存为草稿"];
             self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
             self.secondView.backgroundColor = self.daynightmodel.navigationColor;
