@@ -171,11 +171,11 @@
             }
         }
         
+        [wself reloadTableView];
+        
         if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
             [wself.delegate contentListLoadComplete];
         }
-        
-        [wself reloadTableView];
     }];
 }
 

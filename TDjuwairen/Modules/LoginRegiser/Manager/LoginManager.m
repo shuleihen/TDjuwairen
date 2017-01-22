@@ -53,6 +53,10 @@
             [LoginManager showWelcomeWithNickName:US.nickName avatar:US.headImage];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
+        } else if (error.code == 300){
+            // 密码不正确
+            [LoginManager clearLoginStatus];
+            DDLogError(@"Default login noraml type error= %@",error);
         } else {
             DDLogError(@"Default login noraml type error= %@",error);
         }
@@ -161,5 +165,10 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [welcomeView removeFromSuperview];
     });
+}
+
++ (void)clearLoginStatus {
+    NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
+    [accountDefaults removeObjectForKey:@"loginStyle"];
 }
 @end

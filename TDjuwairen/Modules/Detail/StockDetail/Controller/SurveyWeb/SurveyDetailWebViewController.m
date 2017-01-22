@@ -91,6 +91,10 @@
 
     DDLogInfo(@"Survey detail web load url = %@", urlString);
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    
+//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"TextHtml" withExtension:@"html"];
+//    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    
 }
 
 - (void)questionPressed:(id)sender {
@@ -146,7 +150,7 @@
     }
 }
 
-#pragma mark WKNavigationDelegate
+#pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     DDLogInfo(@"Survey detail web start load");
     [self.indicatorView startAnimating];
@@ -171,13 +175,24 @@
     [self AddQuestionButton];
 }
 
-
+#pragma mark - Getter
 - (WKWebView *)webView {
     if (!_webView) {
         _webView = [[WKWebView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
         _webView.backgroundColor = [UIColor whiteColor];
         _webView.scrollView.backgroundColor = [UIColor whiteColor];
         _webView.navigationDelegate = self;
+        _webView.configuration.allowsInlineMediaPlayback = YES;
+        
+        if ([_webView.configuration respondsToSelector:@selector(setMediaTypesRequiringUserActionForPlayback:)]) {
+            _webView.configuration.mediaTypesRequiringUserActionForPlayback = WKAudiovisualMediaTypeNone;
+        }
+        if ([_webView.configuration respondsToSelector:@selector(setMediaPlaybackRequiresUserAction:)]) {
+            _webView.configuration.mediaPlaybackRequiresUserAction = NO;
+        }
+        if ([_webView.configuration respondsToSelector:@selector(setRequiresUserActionForMediaPlayback:)]) {
+            _webView.configuration.requiresUserActionForMediaPlayback = NO;
+        }
     }
     return _webView;
 }

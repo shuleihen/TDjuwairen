@@ -188,6 +188,11 @@
 }
 
 - (void)unlockStockPressed {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
     
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
     vc.stockCode = self.stockModel.stockId;
@@ -250,7 +255,7 @@
         
         [UIView animateWithDuration:0.3 animations:^{
             self.bottomToolView.center = CGPointMake(kScreenWidth/2, kScreenHeight+25);
-            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 50, 0);
+            self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
         } completion:^(BOOL finish){
 
             [self.bottomToolView removeFromSuperview];
@@ -300,10 +305,13 @@
 
 - (void)reloadTableView {
     CGFloat contentHeight = [[self currentContentViewController] contentHeight];
-    CGFloat minHeight = kScreenHeight - 200;
+    CGFloat minHeight = kScreenHeight - kHeaderViewHeight-kSegmentHeight-64;
     CGFloat height = MAX(contentHeight, minHeight);
     
     self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
+    // iOS10以下需要添加以下
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
     [self.tableView reloadData];
 }
 

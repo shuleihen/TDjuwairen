@@ -30,7 +30,7 @@
     self.contentSizeInPopup = CGSizeMake(260, 200);
     
     self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.stockName,self.stockCode];
-    [self.keyNumberBtn setTitle:[NSString stringWithFormat:@"%d",self.needKey] forState:UIControlStateNormal];
+    [self.keyNumberBtn setTitle:[NSString stringWithFormat:@"%ld",(long)self.needKey] forState:UIControlStateNormal];
     
     if (US.isLogIn) {
         NSDictionary *para = @{@"user_id":US.userId};

@@ -7,7 +7,6 @@
 //
 
 #import "StockAskView.h"
-#import "HPGrowingTextView.h"
 #import "HexColors.h"
 #import "UITextView+Placeholder.h"
 
@@ -43,27 +42,6 @@
     }
     return self;
 }
-/*
-- (HPGrowingTextView *)textView {
-    if (!_textView) {
-        
-        _textView = [[HPGrowingTextView alloc] init];
-        _textView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
-        _textView.layer.borderWidth = 1.0f;
-        _textView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#dfdfdf"].CGColor;
-        _textView.delegate = self;
-        _textView.placeholder = @"写下你的问题";
-        _textView.placeholderColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
-        _textView.font = [UIFont systemFontOfSize:14.0f];
-        _textView.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
-        _textView.returnKeyType = UIReturnKeySend;
-        _textView.maxHeight = 160-28;
-        _textView.minHeight = 160-28;
-         
-    }
-    return _textView;
-}
-*/
 
 - (UITextView *)textView {
     if (!_textView) {
@@ -169,17 +147,6 @@
     [UIView commitAnimations];
 }
 
-- (void)growingTextView:(HPGrowingTextView *)growingTextView willChangeHeight:(float)height
-{
-    /*
-    float diff = (growingTextView.frame.size.height - height);
-    
-    CGRect r = self.panelView.frame;
-    r.size.height -= diff;
-    r.origin.y += diff;
-    self.panelView.frame = r;
-     */
-}
 
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text{
     if ([text isEqualToString:@"\n"]){ //判断输入的字是否是回车，即按下return

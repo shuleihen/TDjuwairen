@@ -430,6 +430,8 @@
     CGFloat minHeight = kScreenHeight - 64-kBannerHeiht-kButtonViewHeight-10-50;
     CGFloat height = MAX(contentHeight, minHeight);
     self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
+    // iOS10以下需要添加以下
+    self.tableView.tableFooterView = self.pageViewController.view;
     
     [self.tableView reloadData];
 }
