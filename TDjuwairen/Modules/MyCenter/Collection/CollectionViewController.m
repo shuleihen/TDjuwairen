@@ -48,7 +48,7 @@
 - (NSArray *)categoryArr
 {
     if (!_categoryArr) {
-        _categoryArr = @[@"调研",@"观点"];
+        _categoryArr = @[@"视频",@"观点"];
     }
     return _categoryArr;
 }
@@ -499,7 +499,7 @@
     self.cateview.selectBtn = sender;
     self.cateview.selectLab.frame = CGRectMake(sender.frame.origin.x, 38, 70, 2);
     
-    if ([sender.titleLabel.text isEqualToString:@"调研"]) {
+    if ([sender.titleLabel.text isEqualToString:@"视频"]) {
         self.typeID = 0;
         [self.tableview reloadData];
     }
