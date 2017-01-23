@@ -22,7 +22,6 @@
 #import "MyAttentionViewController.h"
 #import "HexColors.h"
 #import "YXFont.h"
-#import "UIStoryboard+MainStoryboard.h"
 #import "PersonalHeaderView.h"
 #import "UIdaynightModel.h"
 #import "NotificationDef.h"

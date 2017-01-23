@@ -35,7 +35,6 @@
 		1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFDF1D62B49C00FEC383 /* AFURLRequestSerialization.m */; };
 		1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFE11D62B49C00FEC383 /* AFURLResponseSerialization.m */; };
 		1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFE31D62B49C00FEC383 /* AFURLSessionManager.m */; };
-		1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFEF1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m */; };
 		19252C101D51E830003E5D18 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19252BF61D51E830003E5D18 /* Info.plist */; };
 		19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252BF81D51E830003E5D18 /* MASCompositeConstraint.m */; };
 		19252C121D51E830003E5D18 /* MASConstraint.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252BFB1D51E830003E5D18 /* MASConstraint.m */; };
@@ -501,8 +500,6 @@
 		1924DFE11D62B49C00FEC383 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		1924DFE21D62B49C00FEC383 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		1924DFE31D62B49C00FEC383 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		1924DFEE1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIStoryboard+MainStoryboard.h"; sourceTree = "<group>"; };
-		1924DFEF1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIStoryboard+MainStoryboard.m"; sourceTree = "<group>"; };
 		19252BF61D51E830003E5D18 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		19252BF71D51E830003E5D18 /* MASCompositeConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MASCompositeConstraint.h; sourceTree = "<group>"; };
 		19252BF81D51E830003E5D18 /* MASCompositeConstraint.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MASCompositeConstraint.m; sourceTree = "<group>"; };
@@ -1422,8 +1419,6 @@
 				19193B301E03CE6D000A6AD2 /* UIImage+Color.m */,
 				1961DF451DF9573200A08A4B /* NSString+Util.h */,
 				1961DF461DF9573200A08A4B /* NSString+Util.m */,
-				1924DFEE1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.h */,
-				1924DFEF1D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m */,
 				19AD853D1DADCA80007BC000 /* UIImage+Resize.h */,
 				19AD853E1DADCA80007BC000 /* UIImage+Resize.m */,
 				19BA91311E14DF1700C27124 /* UIImage+Create.h */,
@@ -3825,7 +3820,6 @@
 				194186E21DF8132A000C5197 /* LoginState.m in Sources */,
 				847BD6F61DE6FD1C006AEECE /* PopUsExchangeSuccessView.m in Sources */,
 				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,
-				1924DFF01D62C3E600FEC383 /* UIStoryboard+MainStoryboard.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */,

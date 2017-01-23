@@ -7,7 +7,6 @@
 //
 
 #import "GuideViewController.h"
-#import "UIStoryboard+MainStoryboard.h"
 
 @interface GuideViewController ()<UIScrollViewDelegate>
 
