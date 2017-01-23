@@ -52,6 +52,11 @@
     }];
 }
 
+- (void)relaodDateWithNiu:(BOOL)isNiu {
+    self.isNiu = isNiu;
+    [self reloadData];
+}
+
 - (void)reloadTableViewWithData:(NSArray *)list {
     NSMutableArray *niu = [NSMutableArray arrayWithCapacity:[list count]/2];
     NSMutableArray *xiong = [NSMutableArray arrayWithCapacity:[list count]/2];
@@ -66,7 +71,12 @@
     
     self.niuArray = niu;
     self.xiongArray = xiong;
-    self.isNiu = YES;
+    
+    if (self.isNiu) {
+        self.comments = self.niuArray;
+    } else {
+        self.comments = self.xiongArray;
+    }
     
     [self reloadTableView];
 }

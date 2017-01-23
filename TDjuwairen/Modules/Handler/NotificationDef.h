@@ -10,6 +10,7 @@
 #define NotificationDef_h
 
 #define kLoginStateChangedNotification  @"LoginStateChangedNotification"
+#define kUserInfoChangedNotification    @"UserInfoChangedNotification"
 
 #define kSurveyDetailContentChanged     @"SurveyDetailContentChanged"
 #define kSurveyContentFontSizeChanged   @"SurveyContentFontSizeChanged"

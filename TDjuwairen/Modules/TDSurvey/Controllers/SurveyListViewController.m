@@ -173,6 +173,8 @@
     [super viewDidLoad];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChangedNotifi:) name:kLoginStateChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
+    
     
     [self setupNavigationBar];
     [self setupTableView];
@@ -280,6 +282,16 @@
     }
 }
 
+- (void)setupUserAvatar {
+    if (US.isLogIn) {
+        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
+        [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
+    } else {
+        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
+        [btn setImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"] forState:UIControlStateNormal];
+    }
+}
+
 #pragma mark - Action 
 - (void)updateAvatar:(NSNotification *)notif {
     UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
@@ -344,15 +356,14 @@
     }];
 }
 
+- (void)userInfoChangedNotifi:(NSNotification *)notifi {
+    
+    [self setupUserAvatar];
+}
+
 - (void)loginStatusChangedNotifi:(NSNotification *)notifi {
     
-    if (US.isLogIn) {
-        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-        [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
-    } else {
-        UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-        [btn setImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"] forState:UIControlStateNormal];
-    }
+    [self setupUserAvatar];
     
     [[self currentContentViewController] refreshData];
 }

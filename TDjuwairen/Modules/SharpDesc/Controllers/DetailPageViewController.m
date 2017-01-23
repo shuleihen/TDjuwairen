@@ -235,6 +235,13 @@
         self.titleView.backgroundColor = self.daynightmodel.navigationColor;
         
         //添加关注
+        // 如果是自己就屏蔽入口
+        if (US.isLogIn && [self.sharpInfo.sharpUserId isEqualToString:US.userId]) {
+            self.titleView.isAttention.hidden = YES;
+        } else {
+            self.titleView.isAttention.hidden = NO;
+        }
+        
         __weak DetailPageViewController *wself = self;
         self.titleView.block = ^(UIButton *sender){
             if (US.isLogIn) {
@@ -288,6 +295,13 @@
         {
             self.titleView.isAttention.selected = YES;
             self.titleView.isAttention.layer.borderColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0].CGColor;
+        }
+        
+        // 如果是自己就屏蔽入口
+        if (US.isLogIn && [self.sharpInfo.sharpUserId isEqualToString:US.userId]) {
+            self.titleView.isAttention.hidden = YES;
+        } else {
+            self.titleView.isAttention.hidden = NO;
         }
         
         __weak DetailPageViewController *wself = self;

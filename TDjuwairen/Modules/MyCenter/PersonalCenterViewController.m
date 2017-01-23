@@ -27,6 +27,7 @@
 #import "UIdaynightModel.h"
 #import "NotificationDef.h"
 #import "UIButton+Align.h"
+#import "NSString+Util.h"
 
 #define kPersonalHeaderViewHeight 210
 #define kButtonsPanelHeight 75
@@ -63,8 +64,8 @@
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
     if (US.isLogIn == YES) {
-        NSString *bigface = [US.headImage stringByReplacingOccurrencesOfString:@"_70." withString:@"_200."];
-        [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:nil options:SDWebImageRefreshCached];
+        NSString *bigface = [US.headImage userBigAvatar];
+        [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
         self.headerView.nickname.text = US.nickName;
     } else {
         self.headerView.nickname.text = @"登陆注册";

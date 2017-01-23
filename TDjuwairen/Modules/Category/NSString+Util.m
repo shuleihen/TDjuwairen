@@ -10,6 +10,12 @@
 #import <CommonCrypto/CommonDigest.h>
 
 @implementation NSString (Util)
+
+- (NSString *)userBigAvatar {
+    NSString *bigface = [self stringByReplacingOccurrencesOfString:@"_70" withString:@"_200"];
+    return bigface;
+}
+
 - (NSString *)stockCode {
     // 去掉 上证sh，创业 sz
     NSString *code = [self stringByTrimmingCharactersInSet:[NSCharacterSet letterCharacterSet]];

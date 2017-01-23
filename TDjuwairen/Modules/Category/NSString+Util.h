@@ -20,6 +20,7 @@
 - (NSString *)trim;
 - (NSString *)stockCode;
 - (NSString *)queryStockCode;
+- (NSString *)userBigAvatar;
 
 - (BOOL)isValidateMobile;
 - (BOOL)isValidateNumber;

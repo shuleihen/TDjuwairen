@@ -36,6 +36,8 @@
 }
 
 - (void)publishPressed:(id)sender {
+    [self.view endEditing:YES];
+    
     NSString *content = self.textView.text;
     if (!content.length) {
         return;

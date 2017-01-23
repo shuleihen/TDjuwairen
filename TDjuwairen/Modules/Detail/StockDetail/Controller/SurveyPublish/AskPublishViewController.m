@@ -56,6 +56,7 @@
 }
 
 - (void)publishPressed:(id)sender {
+    [self.view endEditing:YES];
     
     NSString *content = self.textView.text;
     if (!content.length) {
@@ -63,6 +64,7 @@
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
+    BOOL isNiu;
     NSDictionary *para ;
     NSString *url ;
     NSString *code = self.comanyCode;
@@ -74,6 +76,7 @@
                  @"content":    emojiCovert,
                  @"code":       code,
                  @"user_id":    US.userId};
+        isNiu = YES;
     }
     else if (self.type == kPublishXiong){
         url = API_SurveyAddComment;
@@ -81,6 +84,7 @@
                  @"content":    emojiCovert,
                  @"code":       code,
                  @"user_id":    US.userId};
+        isNiu = NO;
     }
     else if (self.type == kPublishAsk){
         url = API_SurveyAddQuestion;
@@ -98,7 +102,7 @@
             if (self.type == kPublishAsk) {
                 [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailContentChanged object:nil userInfo:@{@"Tag": @(5)}];
             } else {
-                [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailContentChanged object:nil userInfo:@{@"Tag": @(2)}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailContentChanged object:nil userInfo:@{@"Tag": @(2),@"IsNiu": @(isNiu)}];
             }
             
             [self.navigationController popViewControllerAnimated:YES];

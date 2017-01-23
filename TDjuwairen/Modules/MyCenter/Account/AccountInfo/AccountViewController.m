@@ -12,6 +12,7 @@
 #import "ELCImagePickerController.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
+#import "NotificationDef.h"
 
 @interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -48,7 +49,7 @@
         if (self.headImage) {
             self.avatarImageView.image = self.headImage;
         } else {
-            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage]];
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
         }
         
     } else if ((indexPath.section == 0) && (indexPath.row == 1)) {
@@ -200,7 +201,12 @@
             hud.labelText = @"上传成功";
             [hud hide:YES afterDelay:1];
             
+            // 修改头像
+            US.headImage = data[@"userinfo_facesmall"];
+            
             [self.tableView reloadData];
+            
+            [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChangedNotification object:nil];
         } else {
             hud.labelText = @"网络错误";
             [hud hide:YES afterDelay:1];

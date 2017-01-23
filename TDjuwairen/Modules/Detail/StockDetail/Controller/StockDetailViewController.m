@@ -275,7 +275,17 @@
 - (void)reloadContentData:(NSNotification *)notifi {
     NSInteger tag = [notifi.userInfo[@"Tag"] integerValue];
     SurveyDetailContentViewController *vc = self.contentControllers[tag];
-    [vc reloadData];
+    
+    if (tag == 2) {
+        // 熊牛说
+        BOOL isNiu = [notifi.userInfo[@"IsNiu"] boolValue];
+        
+        SurveyDetailStockCommentViewController *commentVc = (SurveyDetailStockCommentViewController *)vc;
+        [commentVc relaodDateWithNiu:isNiu];
+    } else {
+        [vc reloadData];
+    }
+    
 }
 
 - (void)unlockStock:(NSNotification *)notifi {

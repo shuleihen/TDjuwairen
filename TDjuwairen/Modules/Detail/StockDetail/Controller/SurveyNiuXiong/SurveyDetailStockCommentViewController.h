@@ -11,4 +11,5 @@
 
 @interface SurveyDetailStockCommentViewController : SurveyDetailContentViewController
 - (void)reloadData;
+- (void)relaodDateWithNiu:(BOOL)isNiu;
 @end
