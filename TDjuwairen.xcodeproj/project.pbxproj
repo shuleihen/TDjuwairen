@@ -81,11 +81,9 @@
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
 		1954E6E21DE3D6400058403A /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1954E6E11DE3D6400058403A /* StockManager.m */; };
 		1955B45B1D644D9800DC102E /* AddUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */; };
-		1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B01D644D9800DC102E /* AgreeViewController.m */; };
 		1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B21D644D9800DC102E /* ForgetViewController.m */; };
 		1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B41D644D9800DC102E /* LoginViewController.m */; };
 		1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B71D644D9800DC102E /* MobileLoginViewController.m */; };
-		1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B91D644D9800DC102E /* RegisterViewController.m */; };
 		1955B4621D644D9800DC102E /* BrowserTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3BD1D644D9800DC102E /* BrowserTableViewCell.m */; };
 		1955B4631D644D9800DC102E /* BrowserTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3BE1D644D9800DC102E /* BrowserTableViewCell.xib */; };
 		1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3C01D644D9800DC102E /* BrowserViewController.m */; };
@@ -592,16 +590,12 @@
 		1954E6E11DE3D6400058403A /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
 		1955B3AD1D644D9800DC102E /* AddUpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddUpdatesViewController.h; sourceTree = "<group>"; };
 		1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddUpdatesViewController.m; sourceTree = "<group>"; };
-		1955B3AF1D644D9800DC102E /* AgreeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AgreeViewController.h; sourceTree = "<group>"; };
-		1955B3B01D644D9800DC102E /* AgreeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AgreeViewController.m; sourceTree = "<group>"; };
 		1955B3B11D644D9800DC102E /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
 		1955B3B21D644D9800DC102E /* ForgetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetViewController.m; sourceTree = "<group>"; };
 		1955B3B31D644D9800DC102E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
 		1955B3B41D644D9800DC102E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1955B3B61D644D9800DC102E /* MobileLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileLoginViewController.h; sourceTree = "<group>"; };
 		1955B3B71D644D9800DC102E /* MobileLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileLoginViewController.m; sourceTree = "<group>"; };
-		1955B3B81D644D9800DC102E /* RegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegisterViewController.h; sourceTree = "<group>"; };
-		1955B3B91D644D9800DC102E /* RegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegisterViewController.m; sourceTree = "<group>"; };
 		1955B3BC1D644D9800DC102E /* BrowserTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserTableViewCell.h; sourceTree = "<group>"; };
 		1955B3BD1D644D9800DC102E /* BrowserTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserTableViewCell.m; sourceTree = "<group>"; };
 		1955B3BE1D644D9800DC102E /* BrowserTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BrowserTableViewCell.xib; sourceTree = "<group>"; };
@@ -1739,8 +1733,6 @@
 				190F65B41E334CC800B83ADF /* Handler */,
 				1955B3AD1D644D9800DC102E /* AddUpdatesViewController.h */,
 				1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */,
-				1955B3AF1D644D9800DC102E /* AgreeViewController.h */,
-				1955B3B01D644D9800DC102E /* AgreeViewController.m */,
 				1955B3B11D644D9800DC102E /* ForgetViewController.h */,
 				1955B3B21D644D9800DC102E /* ForgetViewController.m */,
 				1955B3B31D644D9800DC102E /* LoginViewController.h */,
@@ -1749,8 +1741,6 @@
 				1955B3B61D644D9800DC102E /* MobileLoginViewController.h */,
 				1955B3B71D644D9800DC102E /* MobileLoginViewController.m */,
 				19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */,
-				1955B3B81D644D9800DC102E /* RegisterViewController.h */,
-				1955B3B91D644D9800DC102E /* RegisterViewController.m */,
 				84CA3A281D6EB512003E9B53 /* PhoneNumHold.h */,
 				84CA3A291D6EB513003E9B53 /* PhoneNumHold.m */,
 				190F65AE1E33418600B83ADF /* FastLoginUpdateInfoViewController.h */,
@@ -3735,7 +3725,6 @@
 				84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
-				1955B4611D644D9800DC102E /* RegisterViewController.m in Sources */,
 				196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
@@ -3826,7 +3815,6 @@
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
-				1955B45C1D644D9800DC102E /* AgreeViewController.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,

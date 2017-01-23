@@ -11,7 +11,6 @@
 #import "LoginState.h"
 #import "MobileLoginViewController.h"
 #import "ForgetViewController.h"
-#import "RegisterViewController.h"
 #import "AddUpdatesViewController.h"
 #import "YXCheckBox.h"
 #import "MBProgressHUD.h"
@@ -63,11 +62,6 @@
     [self.view endEditing:YES];
 }
 
-- (void)registerPressed:(UIButton *)sender
-{
-    RegisterViewController *regis = [[RegisterViewController alloc] init];
-    [self.navigationController pushViewController:regis animated:YES];
-}
 
 - (IBAction)loginBtnPressed:(id)sender
 {

@@ -9,10 +9,10 @@
 #import "RegisterViewController.h"
 #import "LoginState.h"
 #import "MBProgressHUD.h"
-#import "AgreeViewController.h"
 #import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
+#import "TDWebViewController.h"
 
 @interface RegisterViewController ()<UITextFieldDelegate>
 
@@ -175,8 +175,10 @@
 }
 
 - (void)labelTouchUpInside:(UITapGestureRecognizer *)recognizer{
-    AgreeViewController *agreeview = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"AgreeViewController"];
-    [self.navigationController pushViewController:agreeview animated:YES];
+    
+    NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/Page/index/p/yonghuxieyi"];
+    TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)ClickSend:(UIButton *)sender{

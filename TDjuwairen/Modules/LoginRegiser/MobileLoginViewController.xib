@@ -37,14 +37,14 @@
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
                             <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
                         </textField>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入密码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6yU-w0-w2Z">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="6yU-w0-w2Z">
                             <rect key="frame" x="10" y="44" width="216" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="dOn-0f-wA2"/>
                             </constraints>
                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                            <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                            <textInputTraits key="textInputTraits" keyboardType="numberPad" secureTextEntry="YES"/>
                         </textField>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cdf-PV-zyW" customClass="YXSecurityCodeButton">
                             <rect key="frame" x="231" y="47" width="110" height="38"/>
@@ -111,14 +111,14 @@
                     <rect key="frame" x="12" y="188" width="351" height="40"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eXY-9Z-I7c">
-                            <rect key="frame" x="100" y="0.0" width="60" height="40"/>
+                            <rect key="frame" x="100" y="0.0" width="158" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="VKe-0A-GAQ"/>
-                                <constraint firstAttribute="width" constant="60" id="ZAz-XY-hKE"/>
+                                <constraint firstAttribute="width" constant="158" id="ZAz-XY-hKE"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                             <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="用户协议">
+                            <state key="normal" title="《用户协议和隐私政策》">
                                 <color key="titleColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                             </state>
                             <connections>
@@ -138,30 +138,6 @@
                             </state>
                             <state key="selected" image="icon_checked"/>
                         </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="和" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdL-sy-XCh">
-                            <rect key="frame" x="160" y="12" width="20" height="17"/>
-                            <constraints>
-                                <constraint firstAttribute="width" constant="20" id="xc3-7b-Dpm"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
-                            <nil key="highlightedColor"/>
-                        </label>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EvT-3r-aKK">
-                            <rect key="frame" x="180" y="0.0" width="60" height="40"/>
-                            <constraints>
-                                <constraint firstAttribute="height" constant="40" id="DQL-gz-Yi2"/>
-                                <constraint firstAttribute="width" constant="60" id="H7o-0s-meE"/>
-                            </constraints>
-                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                            <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                            <state key="normal" title="隐私政策">
-                                <color key="titleColor" red="0.20000000000000001" green="0.4431372549" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
-                            </state>
-                            <connections>
-                                <action selector="agreePressed:" destination="-1" eventType="touchUpInside" id="rQn-il-o6l"/>
-                            </connections>
-                        </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <constraints>
@@ -169,11 +145,7 @@
                         <constraint firstItem="EAk-TO-G3e" firstAttribute="top" secondItem="Ck3-OL-R41" secondAttribute="top" id="7Qm-gE-VrP"/>
                         <constraint firstItem="eXY-9Z-I7c" firstAttribute="top" secondItem="Ck3-OL-R41" secondAttribute="top" id="Efc-e9-jsQ"/>
                         <constraint firstItem="EAk-TO-G3e" firstAttribute="leading" secondItem="Ck3-OL-R41" secondAttribute="leading" id="Ep4-b6-j8b"/>
-                        <constraint firstItem="cdL-sy-XCh" firstAttribute="centerY" secondItem="EAk-TO-G3e" secondAttribute="centerY" id="Nx7-Rz-JNZ"/>
                         <constraint firstAttribute="height" constant="40" id="WGA-oh-J4m"/>
-                        <constraint firstItem="EvT-3r-aKK" firstAttribute="centerY" secondItem="EAk-TO-G3e" secondAttribute="centerY" id="iuU-IP-bIo"/>
-                        <constraint firstItem="cdL-sy-XCh" firstAttribute="leading" secondItem="eXY-9Z-I7c" secondAttribute="trailing" id="op9-CM-aXe"/>
-                        <constraint firstItem="EvT-3r-aKK" firstAttribute="leading" secondItem="cdL-sy-XCh" secondAttribute="trailing" id="vo0-kf-c2N"/>
                     </constraints>
                 </view>
             </subviews>
