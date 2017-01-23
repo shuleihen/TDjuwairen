@@ -140,6 +140,19 @@
                            @"award" : award,
                            @"game_item_id" : self.guessId};
     
+    __weak AddAddressViewController *wself = self;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:@"请仔细检查并确认您填写的信息无误~" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再改改" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [wself sendAddressWithDict:dict];
+    }];
+    [alert addAction:cancel];
+    [alert addAction:done];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)sendAddressWithDict:(NSDictionary *)dict {
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
