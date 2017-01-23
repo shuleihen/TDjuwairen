@@ -144,7 +144,7 @@
         [cell setupUIWithString:model.order_amount andIndexPath:indexPath];
         cell.IDLab.text = @"订单ID: ";
         cell.orderID.text = model.order_sn;
-        cell.orderTitle.text = model.order_sn;
+        cell.orderTitle.text = model.order_title;
         cell.timeLab.text = @"下单时间：";
         cell.orderTime.text = model.order_ptime;
         cell.orderStatus.text = model.order_paystatus;
