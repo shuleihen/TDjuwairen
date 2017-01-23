@@ -28,7 +28,7 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FR5-F8-VcD" customClass="YXTextFieldPanel">
                     <rect key="frame" x="12" y="25" width="351" height="88"/>
                     <subviews>
-                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="J69-0R-gMh">
+                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="J69-0R-gMh">
                             <rect key="frame" x="10" y="0.0" width="336" height="44"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="44" id="QUs-sq-0zi"/>

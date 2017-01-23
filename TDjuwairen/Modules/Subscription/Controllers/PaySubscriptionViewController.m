@@ -81,13 +81,6 @@
 
 - (void)confirmPressed:(id)sender {
     
-    if (!US.isLogIn) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        login.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:login animated:YES];
-        return;
-    }
-    
     if (!self.typeModel) {
         return;
     }

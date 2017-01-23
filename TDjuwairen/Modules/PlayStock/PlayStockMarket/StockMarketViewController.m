@@ -85,7 +85,7 @@
 
     if (US.isLogIn) {
         NSDictionary *para = @{@"user_id":US.userId};
-        NetworkManager *ma = [[NetworkManager alloc] initWithBaseUrl:kAPI_songsong];
+        NetworkManager *ma = [[NetworkManager alloc] init];
         [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 long keyNumber = [data[@"keyNum"] longValue];

@@ -101,9 +101,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RF1-98-VZp">
-                    <rect key="frame" x="15" y="188" width="115" height="29"/>
+                    <rect key="frame" x="15" y="188" width="100" height="29"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="手机短信验证登录">
+                    <state key="normal" title="验证码快速登录">
                         <color key="titleColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </state>
                     <connections>

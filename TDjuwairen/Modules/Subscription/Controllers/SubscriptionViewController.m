@@ -16,6 +16,8 @@
 #import "YXCheckBox.h"
 #import "LoginState.h"
 #import "LoginViewController.h"
+#import "RechargeViewController.h"
+#import "STPopupController.h"
 
 @interface SubscriptionViewController ()<WKNavigationDelegate>
 @property (nonatomic, strong) WKWebView *webView;
@@ -174,13 +176,65 @@
 }
 
 - (IBAction)subscriptionPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    [self queyUserKey];
+}
+
+- (void)queyUserKey {
+    
+    __weak SubscriptionViewController *wself = self;
+    NSDictionary *para = @{@"user_id":US.userId};
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSInteger keyNumber = [data[@"keyNum"] integerValue];
+            [wself subsriptedWithUserKeyNumber:keyNumber];
+        }
+        else
+        {
+            [wself subsriptedWithUserKeyNumber:0];
+        }
+    }];
+}
+
+- (void)subsriptedWithUserKeyNumber:(NSInteger)keyNumber {
+    __weak SubscriptionViewController *wself = self;
+    
     if (self.selectedIndex >=0 && self.selectedIndex<[self.subItems count]) {
         SubscriptionTypeModel *type = self.subItems[self.selectedIndex];
         
-        PaySubscriptionViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySubscriptionViewController"];
-        vc.typeModel = type;
-        [self.navigationController pushViewController:vc animated:YES];
+        if (type.keyNum > keyNumber) {
+            NSString *message = [NSString stringWithFormat:@"金钥匙不足，先去充值吧~\r\n当前余额：%ld把",(long)keyNumber];
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再看看" style:UIAlertActionStyleDefault handler:nil];
+            UIAlertAction *done = [UIAlertAction actionWithTitle:@"立即充值" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+                [wself recharge];
+            }];
+            [alert addAction:cancel];
+            [alert addAction:done];
+            [self presentViewController:alert animated:YES completion:nil];
+            
+        } else {
+            PaySubscriptionViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"PaySubscriptionViewController"];
+            vc.typeModel = type;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
+}
+
+- (void)recharge {
+    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.containerView.layer.cornerRadius = 4;
+    [popupController presentInViewController:self];
 }
 
 #pragma mark -WKNavigationDelegate

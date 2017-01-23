@@ -66,7 +66,7 @@
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="43A-v9-r9A" customClass="YXTextFieldPanel">
                                                     <rect key="frame" x="12" y="0.0" width="351" height="176"/>
                                                     <subviews>
-                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3vK-Kn-ziC">
+                                                        <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请填写手机号" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="3vK-Kn-ziC">
                                                             <rect key="frame" x="10" y="0.0" width="331" height="44"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="Jru-Js-pF1"/>
