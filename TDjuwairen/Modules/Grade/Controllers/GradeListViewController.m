@@ -12,6 +12,7 @@
 #import "NetworkManager.h"
 #import "MJRefresh.h"
 #import "GradeDetailViewController.h"
+#import "StockDetailViewController.h"
 
 @interface GradeListViewController ()
 @property (nonatomic, assign) NSInteger page;
@@ -131,9 +132,8 @@
     
     GradeListModel *model = self.items[indexPath.row];
     
-    GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
-    vc.stockName = model.stockName;
+    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
     vc.stockId = model.stockId;
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
 }
 @end
