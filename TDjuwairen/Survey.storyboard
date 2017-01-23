@@ -18,6 +18,48 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <view key="tableFooterView" contentMode="scaleToFill" id="Kbv-fo-aF8" userLabel="agreement">
+                            <rect key="frame" x="0.0" y="501" width="375" height="40"/>
+                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VMr-Pk-DYh">
+                                    <rect key="frame" x="117" y="0.0" width="160" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="160" id="K1g-eG-760"/>
+                                        <constraint firstAttribute="height" constant="40" id="qOR-oc-ovJ"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="《局外人调研服务说明》">
+                                        <color key="titleColor" red="0.20000000000000001" green="0.4431372549" blue="0.8862745098" alpha="1" colorSpace="calibratedRGB"/>
+                                    </state>
+                                    <connections>
+                                        <action selector="agreePressed:" destination="o7r-dK-mdF" eventType="touchUpInside" id="tjR-CZ-paV"/>
+                                    </connections>
+                                </button>
+                                <button opaque="NO" contentMode="scaleToFill" selected="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="F74-Wm-Bim" customClass="YXCheckBox">
+                                    <rect key="frame" x="15" y="0.0" width="110" height="40"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="40" id="8P7-aF-2td"/>
+                                        <constraint firstAttribute="width" constant="110" id="rch-nW-ep7"/>
+                                    </constraints>
+                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                    <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                    <state key="normal" title="看过并已同意" image="subscription_unchecked">
+                                        <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                    </state>
+                                    <state key="selected" image="subscription_selected"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            <constraints>
+                                <constraint firstItem="VMr-Pk-DYh" firstAttribute="top" secondItem="Kbv-fo-aF8" secondAttribute="top" id="Jns-NE-V63"/>
+                                <constraint firstItem="F74-Wm-Bim" firstAttribute="leading" secondItem="Kbv-fo-aF8" secondAttribute="leading" constant="15" id="Jo7-5V-Wd8"/>
+                                <constraint firstItem="VMr-Pk-DYh" firstAttribute="leading" secondItem="F74-Wm-Bim" secondAttribute="trailing" constant="-8" id="P85-XP-vmW"/>
+                                <constraint firstAttribute="height" constant="40" id="RFd-xo-i8s"/>
+                                <constraint firstItem="F74-Wm-Bim" firstAttribute="top" secondItem="Kbv-fo-aF8" secondAttribute="top" id="hTZ-vz-eho"/>
+                            </constraints>
+                        </view>
                         <sections>
                             <tableViewSection id="Y9S-fW-3WO">
                                 <cells>
@@ -333,6 +375,7 @@
                     <connections>
                         <outlet property="HoldingNumberTextField" destination="KCM-AU-jUU" id="VNx-xp-Iqh"/>
                         <outlet property="attentionTextField" destination="PTY-rY-fO4" id="67X-cK-NPC"/>
+                        <outlet property="checkBox" destination="F74-Wm-Bim" id="jJw-QF-hRP"/>
                         <outlet property="companyTextField" destination="XBc-0a-57U" id="wWQ-ZB-Yo5"/>
                         <outlet property="emailTextField" destination="gb3-En-jxa" id="KQB-uy-gDq"/>
                         <outlet property="phoneTextField" destination="tTE-1W-iMP" id="xbH-sf-uIg"/>
@@ -525,5 +568,7 @@
     </scenes>
     <resources>
         <image name="icon_key_small" width="19" height="22"/>
+        <image name="subscription_selected" width="17" height="17"/>
+        <image name="subscription_unchecked" width="17" height="17"/>
     </resources>
 </document>

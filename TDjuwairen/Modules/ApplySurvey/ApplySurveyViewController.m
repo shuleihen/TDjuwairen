@@ -15,6 +15,8 @@
 #import "NSString+Emoji.h"
 #import "NetworkManager.h"
 #import "NSString+Util.h"
+#import "YXCheckBox.h"
+#import "TDWebViewController.h"
 
 @interface ApplySurveyViewController ()<MBProgressHUDDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
@@ -24,6 +26,8 @@
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (nonatomic, strong) UIView *toolView;
+@property (weak, nonatomic) IBOutlet YXCheckBox *checkBox;
+
 @end
 
 @implementation ApplySurveyViewController
@@ -57,6 +61,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.checkBox.checked = YES;
     
     self.stockNumberTextField.text = self.stockId;
     self.companyTextField.text = self.stockName;
@@ -82,6 +87,12 @@
     [self.toolView removeFromSuperview];
 }
 
+- (IBAction)agreePressed:(id)sender {
+    NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/Page/index/p/diaoyanfuwushuoming"];
+    TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 - (void)applySurveyPressed:(id)sender {
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -90,6 +101,13 @@
         return;
     }
 
+    if (!self.checkBox.checked) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先同意《局外人调研服务说明》";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    }
     
     NSString *stockCode = self.stockNumberTextField.text;
     NSString *companyName = self.companyTextField.text;
