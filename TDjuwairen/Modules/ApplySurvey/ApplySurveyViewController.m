@@ -17,6 +17,8 @@
 #import "NSString+Util.h"
 #import "YXCheckBox.h"
 #import "TDWebViewController.h"
+#import "RechargeViewController.h"
+#import "STPopupController.h"
 
 @interface ApplySurveyViewController ()<MBProgressHUDDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
@@ -100,7 +102,7 @@
         [self.navigationController pushViewController:login animated:YES];
         return;
     }
-
+    
     if (!self.checkBox.checked) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
@@ -111,8 +113,8 @@
     
     NSString *stockCode = self.stockNumberTextField.text;
     NSString *companyName = self.companyTextField.text;
-    NSString *count = self.HoldingNumberTextField.text;
-    NSString *attent = self.attentionTextField.text;
+//    NSString *count = self.HoldingNumberTextField.text;
+//    NSString *attent = self.attentionTextField.text;
     NSString *phone = self.phoneTextField.text;
     NSString *email = self.emailTextField.text;
     
@@ -128,20 +130,7 @@
         hud.labelText = @"公司名称不能为空";
         [hud hide:YES afterDelay:0.4];
         return;
-    }
-    /*else if(!count.length) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"持股数量不能为空";
-        [hud hide:YES afterDelay:0.4];
-        return;
-    } else if(!attent.length) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"关注内容不能为空";
-        [hud hide:YES afterDelay:0.4];
-        return;
-    } */else if(![phone isValidateMobile]) {
+    } else if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
@@ -154,6 +143,73 @@
         [hud hide:YES afterDelay:0.4];
         return;
     }
+    
+    __weak ApplySurveyViewController *wself = self;
+    NSString *message = [NSString stringWithFormat:@"需支付调研费用500把钥匙"];
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再看看" style:UIAlertActionStyleDefault handler:nil];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [wself queyUserKey];
+    }];
+    [alert addAction:cancel];
+    [alert addAction:done];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)queyUserKey {
+    
+    __weak ApplySurveyViewController *wself = self;
+    
+    NSDictionary *para = @{@"user_id":US.userId};
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSInteger keyNumber = [data[@"keyNum"] integerValue];
+            [wself applySurveyWithKeyNumber:keyNumber];
+        }
+        else
+        {
+            [wself applySurveyWithKeyNumber:0];
+        }
+    }];
+}
+
+- (void)applySurveyWithKeyNumber:(NSInteger)keyNumber {
+    __weak ApplySurveyViewController *wself = self;
+    
+    if (keyNumber < 500) {
+        NSString *message = [NSString stringWithFormat:@"金钥匙不足，先去充值吧~\r\n当前余额：%ld把",(long)keyNumber];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再看看" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"立即充值" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [wself recharge];
+        }];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self sendApplySurveyRequest];
+    }
+}
+
+- (void)recharge {
+    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.containerView.layer.cornerRadius = 4;
+    [popupController presentInViewController:self];
+}
+
+- (void)sendApplySurveyRequest {
+    NSString *stockCode = self.stockNumberTextField.text;
+    NSString *companyName = self.companyTextField.text;
+    NSString *count = self.HoldingNumberTextField.text;
+    NSString *attent = self.attentionTextField.text;
+    NSString *phone = self.phoneTextField.text;
+    NSString *email = self.emailTextField.text;
+    
+    
     NSDictionary *dict = @{@"user_id" : US.userId,
                            @"code" : stockCode,
                            @"com_name" : companyName,
@@ -169,6 +225,7 @@
     hud.labelText = @"提交中...";
     
     __weak ApplySurveyViewController *wself = self;
+    
     [ma POST:API_SurveyAddSurvey parameters:dict completion:^(id data,NSError *error){
         if (!error && data && [data[@"status"] boolValue]) {
             hud.labelText = @"提交成功";

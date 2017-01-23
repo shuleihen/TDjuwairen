@@ -116,7 +116,7 @@
     __weak PaySubscriptionViewController *wself = self;
     [ma POST:API_SubscriptionAdd parameters:dict completion:^(id data,NSError *error){
         if (!error && data && [data[@"status"] boolValue]) {
-            hud.labelText = @"订阅成功";
+            hud.labelText = @"恭喜，订阅成功";
             hud.delegate = wself;
             [hud hide:YES afterDelay:0.4];
         } else {
