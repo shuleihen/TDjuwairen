@@ -10,7 +10,7 @@
 
 @protocol KeysNumberTableViewCellDelegate <NSObject>
 
-- (void)clickTopUp:(UIButton *)sender;
+- (void)chargePressed:(UIButton *)sender;
 
 @end
 

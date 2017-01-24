@@ -139,8 +139,7 @@
     self.comparison.kandie = 1-self.stockMarket.upPre/100;
 }
 
-#pragma mark - 弹出充值页面
-- (IBAction)clickTopUp:(UIButton *)sender {
+- (IBAction)chargePressed:(UIButton *)sender {
     self.rechargeView = [[RechargeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64)];
     self.rechargeView.delegate = self;
     [self.view addSubview:self.rechargeView];
