@@ -323,10 +323,12 @@
 }
 
 - (void)subscribePressed:(id)sender {
-    
+    return;
+    /*
     SubscriptionViewController *vc = [[SubscriptionViewController alloc] init];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
+     */
 }
 
 - (void)surveyPressed:(id)sender {

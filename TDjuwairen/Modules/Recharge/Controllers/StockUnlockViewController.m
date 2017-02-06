@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *keyNumberBtn;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneBtn;
-
+@property (assign, nonatomic) NSInteger balanceKey;
 @end
 
 @implementation StockUnlockViewController
@@ -38,6 +38,7 @@
         [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
             if (!error) {
                 long keyNumber = [data[@"keyNum"] longValue];
+                self.balanceKey = keyNumber;
                 [self setupDataWithKeyNumber:keyNumber];
             } else {
                 //
@@ -49,18 +50,26 @@
 
 - (void)setupDataWithKeyNumber:(long)keyNumber {
     self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",keyNumber];
-    if (keyNumber >= self.needKey) {
+//    if (keyNumber >= self.needKey) {
         [self.doneBtn setTitle:@"解锁" forState:UIControlStateNormal];
         [self.doneBtn setTitle:@"解锁" forState:UIControlStateHighlighted];
         [self.doneBtn addTarget:self action:@selector(unlockPressed:) forControlEvents:UIControlEventTouchUpInside];
-    } else {
-        [self.doneBtn setTitle:@"充值" forState:UIControlStateNormal];
-        [self.doneBtn setTitle:@"充值" forState:UIControlStateHighlighted];
-        [self.doneBtn addTarget:self action:@selector(rechargePressed:) forControlEvents:UIControlEventTouchUpInside];
-    }
+//    } else {
+//        [self.doneBtn setTitle:@"充值" forState:UIControlStateNormal];
+//        [self.doneBtn setTitle:@"充值" forState:UIControlStateHighlighted];
+//        [self.doneBtn addTarget:self action:@selector(rechargePressed:) forControlEvents:UIControlEventTouchUpInside];
+//    }
 }
 
 - (void)unlockPressed:(id)sender {
+    if (self.needKey > self.balanceKey) {
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"账户余额不足！" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:done];
+        [self.popupController presentInViewController:alert completion:nil];
+        return;
+    }
+    
     [self dismissViewControllerAnimated:NO completion:^{
         [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailUnlock object:nil];
     }];

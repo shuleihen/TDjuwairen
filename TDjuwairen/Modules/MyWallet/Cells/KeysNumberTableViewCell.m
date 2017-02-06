@@ -46,6 +46,7 @@
     self.topupBtn.titleLabel.textColor = [UIColor whiteColor];
     self.topupBtn.titleLabel.font = [UIFont systemFontOfSize:15];
     [self.topupBtn addTarget:self action:@selector(clickTopUp:) forControlEvents:UIControlEventTouchUpInside];
+    self.topupBtn.hidden = YES;
     
     [self addSubview:self.keysLab];
     [self addSubview:self.keysImg];
