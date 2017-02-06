@@ -25,6 +25,8 @@
         model.user_nickname = dic[@"user_nickname"];
     }
     
+    model.wtime = [dic[@"view_addtime"] integerValue];
+    
     NSString *str = dic[@"view_addtime"];
     NSTimeInterval time = [str doubleValue];
     NSDate *detaildate = [NSDate dateWithTimeIntervalSince1970:time];
@@ -40,10 +42,10 @@
 
 - (NSComparisonResult)compare:(ViewPointListModel *)other
 {
-    if (self.view_wtime.integerValue > other.view_wtime.integerValue) {
-        return NSOrderedDescending;
-    } else if (self.view_wtime.integerValue < other.view_wtime.integerValue) {
+    if (self.wtime > other.wtime) {
         return NSOrderedAscending;
+    } else if (self.wtime < other.wtime) {
+        return NSOrderedDescending;
     } else {
         return NSOrderedSame;
     }

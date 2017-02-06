@@ -16,6 +16,7 @@
 
 @property (nonatomic,copy) NSString *view_imgurl;         //文章图片url
 @property (nonatomic,copy) NSString *view_wtime;          //文章发表时间
+@property (nonatomic, assign) NSInteger wtime;
 
 @property (nonatomic,copy) NSString *user_facemin;         //发表人头像
 @property (nonatomic,copy) NSString *user_nickname;        //发表人昵称
