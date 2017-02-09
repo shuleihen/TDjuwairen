@@ -42,7 +42,7 @@
     [self.betBtn setTitle:key forState:UIControlStateNormal];
     [self.betBtn setTitle:key forState:UIControlStateHighlighted];
     
-    self.prizeBtn.hidden = !(guess.status == 1);
+    self.prizeBtn.hidden = YES;//!(guess.status == 1);
     
     if (guess.status == 0) {
         // 待结算
@@ -57,9 +57,9 @@
         [strAtt insertAttributedString:wait atIndex:0];
         self.statusLabel.attributedText = strAtt;
         
-    } else if (guess.status == 1) {
+    } /*else if (guess.status == 1) {
         // 完全猜中
-        NSString *str = [NSString stringWithFormat:@"赢取%ld把钥匙 + %ld台iPhone7Plus", (long)(guess.odds*guess.buyKeyNum),(long)guess.buyKeyNum];
+        NSString *str = [NSString stringWithFormat:@"赢取%ld把钥匙 + 1500", (long)(guess.odds*guess.buyKeyNum),(long)guess.buyKeyNum];
         NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
                                                                                    attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
                                                                                                 NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#ff0000"]}];
@@ -74,7 +74,8 @@
         }
         self.statusLabel.attributedText = strAtt;
         
-    } else if (guess.status == 2) {
+    }*/ else if (guess.status == 1 ||
+               guess.status == 2) {
         // 获胜钥匙
         NSString *str = [NSString stringWithFormat:@"恭喜您，赢取%ld把",(long)(guess.odds*guess.buyKeyNum)];
         NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str

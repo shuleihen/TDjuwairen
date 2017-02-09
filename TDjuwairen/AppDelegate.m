@@ -469,8 +469,8 @@ static BOOL isBackGroundActivateApplication;
                                             authType:SSDKAuthTypeBoth];
                  break;
              case SSDKPlatformTypeWechat:
-                 [appInfo SSDKSetupWeChatByAppId:@"wx7296a52656167640"
-                                       appSecret:@"d4ca652e5ed4107b4757fc2647802c37"];
+                 [appInfo SSDKSetupWeChatByAppId:@"wx08cb55058d7f237b"
+                                       appSecret:@"ea759c2a15c3affb5d956cb8394c8402"];
                  break;
              case SSDKPlatformTypeQQ:
                  [appInfo SSDKSetupQQByAppId:@"101266993"

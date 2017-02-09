@@ -140,11 +140,15 @@
      {
          if (state == SSDKResponseStateSuccess)
          {
-             NSString *unionid = user.uid;
+             NSDictionary *rowData = user.rawData;
+             
+             NSString *unionid = rowData[@"unionid"];
              NSString *nickName = user.nickname;
              NSString *avatar = user.icon;
              
              NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+             
+             
              NSDictionary *dic = @{@"unionid":unionid,
                                    @"nickname" : nickName,
                                    @"avatar_url": avatar};

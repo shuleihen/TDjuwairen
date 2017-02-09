@@ -26,7 +26,8 @@
     
     self.view.backgroundColor = TDViewBackgrouondColor;
     
-    [self queryPlayStockList];
+    [self addDefault];
+//    [self queryPlayStockList];
 }
 
 - (void)queryPlayStockList {

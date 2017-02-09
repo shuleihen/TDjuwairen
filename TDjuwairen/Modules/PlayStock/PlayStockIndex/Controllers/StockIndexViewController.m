@@ -178,7 +178,7 @@
 }
 
 - (IBAction)rulePressed:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/index.php/Game/guessRule"];
+    NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/Page/index/p/jingcaiguize"];
     TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
     [self.navigationController pushViewController:vc animated:YES];
 }

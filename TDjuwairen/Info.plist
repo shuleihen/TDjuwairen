@@ -21,13 +21,15 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>net.juwairen.www</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>iOSDevTip</string>
 				<string>QQ06093631</string>
-				<string>wx7296a52656167640</string>
+				<string>wx08cb55058d7f237b</string>
 				<string>wb1536339071</string>
 			</array>
 		</dict>
@@ -44,7 +46,7 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>wx7296a52656167640</string>
+				<string>wx08cb55058d7f237b</string>
 			</array>
 		</dict>
 		<dict>
@@ -65,7 +67,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>28</string>
+	<string>34</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>wtloginmqq2</string>

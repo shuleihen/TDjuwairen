@@ -83,7 +83,7 @@
     [view addSubview:buttonContain];
     
     NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"敬请期待"];
-    NSArray *images = @[@"fun_weekly.png",@"fun_investigation.png",@"fun_ranking.png",@"fun_more.png"];
+    NSArray *images = @[@"fun_weekly_dis.png",@"fun_investigation.png",@"fun_ranking.png",@"fun_more_dis.png"];
     NSArray *selectors = @[@"subscribePressed:",@"surveyPressed:",@"gradePressed:",@"morePressed:"];
     
     int i=0;
