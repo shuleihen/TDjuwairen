@@ -59,6 +59,11 @@
 		19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252C0A1D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252C0C1D51E830003E5D18 /* View+MASAdditions.m */; };
 		19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252C0F1D51E830003E5D18 /* ViewController+MASAdditions.m */; };
+		1933257C1E4DAF7200E3D500 /* MessageChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325721E4DAF7200E3D500 /* MessageChildTableViewController.m */; };
+		1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325751E4DAF7200E3D500 /* ReplyRemindTableViewCell.m */; };
+		1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325771E4DAF7200E3D500 /* PushMessageViewController.m */; };
+		1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325791E4DAF7200E3D500 /* PushSwitchViewController.m */; };
+		193325801E4DAF7200E3D500 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */; };
 		19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */; };
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
@@ -304,12 +309,8 @@
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
-		84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B581D6C14010020A1F0 /* SettingUpViewController.m */; };
-		84053B5C1D6C28B30020A1F0 /* PushMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */; };
-		84053B5F1D6C2BC20020A1F0 /* MessageChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */; };
 		84053B661D6C46740020A1F0 /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B651D6C46740020A1F0 /* UserInfoHeadView.m */; };
 		84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC21DB496D200CB21DA /* SurveyListViewController.m */; };
-		8408F66D1D878F74004A332A /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8408F66C1D878F74004A332A /* PushSwitchViewController.m */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
 		841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CA1DF537140047DA7E /* UMMobClick.framework */; };
 		841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CC1DF537570047DA7E /* libsqlite3.0.tbd */; };
@@ -319,7 +320,6 @@
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
 		842D94EC1E024AC800D9AFDB /* UserSurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D94EB1E024AC800D9AFDB /* UserSurveyModel.m */; };
 		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
-		845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 845071271D954605000798F4 /* ReplyRemindTableViewCell.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
 		8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8470E9621DDD8405002F727D /* AlipaySDK.bundle */; };
@@ -539,6 +539,16 @@
 		19252C0D1D51E830003E5D18 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		19252C0E1D51E830003E5D18 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		19252C0F1D51E830003E5D18 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
+		193325711E4DAF7200E3D500 /* MessageChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageChildTableViewController.h; sourceTree = "<group>"; };
+		193325721E4DAF7200E3D500 /* MessageChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageChildTableViewController.m; sourceTree = "<group>"; };
+		193325741E4DAF7200E3D500 /* ReplyRemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyRemindTableViewCell.h; sourceTree = "<group>"; };
+		193325751E4DAF7200E3D500 /* ReplyRemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyRemindTableViewCell.m; sourceTree = "<group>"; };
+		193325761E4DAF7200E3D500 /* PushMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushMessageViewController.h; sourceTree = "<group>"; };
+		193325771E4DAF7200E3D500 /* PushMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageViewController.m; sourceTree = "<group>"; };
+		193325781E4DAF7200E3D500 /* PushSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSwitchViewController.h; sourceTree = "<group>"; };
+		193325791E4DAF7200E3D500 /* PushSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSwitchViewController.m; sourceTree = "<group>"; };
+		1933257A1E4DAF7200E3D500 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
+		1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
 		19347E4E1E0E3E5200E651B5 /* StockGuessListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessListCell.h; sourceTree = "<group>"; };
 		19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessListCell.m; sourceTree = "<group>"; };
 		19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockGuessListCell.xib; sourceTree = "<group>"; };
@@ -1001,18 +1011,10 @@
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMineViewController.h; sourceTree = "<group>"; };
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
-		84053B571D6C14010020A1F0 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
-		84053B581D6C14010020A1F0 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
-		84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PushMessageViewController.h; path = TDjuwairen/Modules/MyCenter/Setting/PushMessageViewController.h; sourceTree = SOURCE_ROOT; };
-		84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushMessageViewController.m; path = TDjuwairen/Modules/MyCenter/Setting/PushMessageViewController.m; sourceTree = SOURCE_ROOT; };
-		84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MessageChildTableViewController.h; path = ../MessageChildTableViewController.h; sourceTree = "<group>"; };
-		84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MessageChildTableViewController.m; path = ../MessageChildTableViewController.m; sourceTree = "<group>"; };
 		84053B641D6C46740020A1F0 /* UserInfoHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UserInfoHeadView.h; path = ../UserInfoHeadView.h; sourceTree = "<group>"; };
 		84053B651D6C46740020A1F0 /* UserInfoHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UserInfoHeadView.m; path = ../UserInfoHeadView.m; sourceTree = "<group>"; };
 		84069EC11DB496D200CB21DA /* SurveyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListViewController.h; sourceTree = "<group>"; };
 		84069EC21DB496D200CB21DA /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
-		8408F66B1D878F74004A332A /* PushSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSwitchViewController.h; sourceTree = "<group>"; };
-		8408F66C1D878F74004A332A /* PushSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSwitchViewController.m; sourceTree = "<group>"; };
 		8416DA811D6800E90098A412 /* CommentManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentManagerModel.h; sourceTree = "<group>"; };
 		8416DA821D6800E90098A412 /* CommentManagerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CommentManagerModel.m; sourceTree = "<group>"; };
 		841848CA1DF537140047DA7E /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
@@ -1026,8 +1028,6 @@
 		842D94EA1E024AC800D9AFDB /* UserSurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserSurveyModel.h; sourceTree = "<group>"; };
 		842D94EB1E024AC800D9AFDB /* UserSurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserSurveyModel.m; sourceTree = "<group>"; };
 		843FD3371D8E3D4F00116802 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
-		845071261D954605000798F4 /* ReplyRemindTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReplyRemindTableViewCell.h; sourceTree = "<group>"; };
-		845071271D954605000798F4 /* ReplyRemindTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReplyRemindTableViewCell.m; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
 		845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftRightBtn.m; sourceTree = "<group>"; };
 		8470E9621DDD8405002F727D /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
@@ -1462,6 +1462,31 @@
 			path = Masonry;
 			sourceTree = "<group>";
 		};
+		193325701E4DAF7200E3D500 /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				193325711E4DAF7200E3D500 /* MessageChildTableViewController.h */,
+				193325721E4DAF7200E3D500 /* MessageChildTableViewController.m */,
+				193325731E4DAF7200E3D500 /* PushMessage */,
+				193325761E4DAF7200E3D500 /* PushMessageViewController.h */,
+				193325771E4DAF7200E3D500 /* PushMessageViewController.m */,
+				193325781E4DAF7200E3D500 /* PushSwitchViewController.h */,
+				193325791E4DAF7200E3D500 /* PushSwitchViewController.m */,
+				1933257A1E4DAF7200E3D500 /* SettingUpViewController.h */,
+				1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		193325731E4DAF7200E3D500 /* PushMessage */ = {
+			isa = PBXGroup;
+			children = (
+				193325741E4DAF7200E3D500 /* ReplyRemindTableViewCell.h */,
+				193325751E4DAF7200E3D500 /* ReplyRemindTableViewCell.m */,
+			);
+			path = PushMessage;
+			sourceTree = "<group>";
+		};
 		19347E4D1E0E3E2F00E651B5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -1769,8 +1794,6 @@
 				1955B3BB1D644D9800DC102E /* BrowserHistory */,
 				1955B3D81D644D9800DC102E /* Comments */,
 				1955B3CF1D644D9800DC102E /* Collection */,
-				845071251D9545BD000798F4 /* PushMessage */,
-				1955B3F91D644D9800DC102E /* Setting */,
 				84053B531D6BE9AF0020A1F0 /* AboutMine */,
 				1955B3ED1D644D9800DC102E /* Feedback */,
 				84053B601D6C343F0020A1F0 /* UserInfo */,
@@ -1846,17 +1869,6 @@
 				1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */,
 			);
 			path = Feedback;
-			sourceTree = "<group>";
-		};
-		1955B3F91D644D9800DC102E /* Setting */ = {
-			isa = PBXGroup;
-			children = (
-				84053B571D6C14010020A1F0 /* SettingUpViewController.h */,
-				84053B581D6C14010020A1F0 /* SettingUpViewController.m */,
-				8408F66B1D878F74004A332A /* PushSwitchViewController.h */,
-				8408F66C1D878F74004A332A /* PushSwitchViewController.m */,
-			);
-			path = Setting;
 			sourceTree = "<group>";
 		};
 		1955B3FE1D644D9800DC102E /* Views */ = {
@@ -2449,6 +2461,7 @@
 				194186DF1DF8132A000C5197 /* Singletons */,
 				1955B3AC1D644D9800DC102E /* LoginRegiser */,
 				190F65C41E36E73000B83ADF /* MyWallet */,
+				193325701E4DAF7200E3D500 /* Setting */,
 				1955B3BA1D644D9800DC102E /* MyCenter */,
 				1955B4051D644D9800DC102E /* Search */,
 				19AA61EA1DAA24A300FB7E83 /* Detail */,
@@ -2992,20 +3005,6 @@
 				842D94EB1E024AC800D9AFDB /* UserSurveyModel.m */,
 			);
 			path = Models;
-			sourceTree = "<group>";
-		};
-		845071251D9545BD000798F4 /* PushMessage */ = {
-			isa = PBXGroup;
-			children = (
-				84053B5A1D6C28B30020A1F0 /* PushMessageViewController.h */,
-				84053B5B1D6C28B30020A1F0 /* PushMessageViewController.m */,
-				84053B5D1D6C2BC20020A1F0 /* MessageChildTableViewController.h */,
-				84053B5E1D6C2BC20020A1F0 /* MessageChildTableViewController.m */,
-				845071261D954605000798F4 /* ReplyRemindTableViewCell.h */,
-				845071271D954605000798F4 /* ReplyRemindTableViewCell.m */,
-			);
-			name = PushMessage;
-			path = Setting/PushMessage;
 			sourceTree = "<group>";
 		};
 		8470E9611DDD8405002F727D /* AliSDK */ = {
@@ -3607,6 +3606,7 @@
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
+				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */,
@@ -3640,6 +3640,7 @@
 				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				84F4DFC71D8F83DC00886FF5 /* CommentsChildTableViewController.m in Sources */,
+				193325801E4DAF7200E3D500 /* SettingUpViewController.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */,
@@ -3653,7 +3654,6 @@
 				19E5F2861E1364CF00984DBC /* StockGuessModel.m in Sources */,
 				19AF98301E2609950097A585 /* SearchResultModel.m in Sources */,
 				8497E0651CEF0B2800D7D105 /* TAAnimatedDotView.m in Sources */,
-				84053B5F1D6C2BC20020A1F0 /* MessageChildTableViewController.m in Sources */,
 				190F65FB1E36E73000B83ADF /* OrderModel.m in Sources */,
 				84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
@@ -3661,7 +3661,6 @@
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
 				19F00D1D1E2EFFD9009270D5 /* StockInfoModel.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
-				845071281D954605000798F4 /* ReplyRemindTableViewCell.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */,
 				19B11CAB1D655B9E00BB4DF4 /* DDLog.m in Sources */,
@@ -3715,6 +3714,7 @@
 				19F00D101E2EFFD9009270D5 /* DialogueViewController.m in Sources */,
 				19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */,
 				19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */,
+				1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
@@ -3734,6 +3734,7 @@
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
+				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
@@ -3791,6 +3792,7 @@
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
+				1933257C1E4DAF7200E3D500 /* MessageChildTableViewController.m in Sources */,
 				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
 				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
@@ -3832,12 +3834,9 @@
 				19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */,
 				19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */,
 				84E3346D1CE3123700E5DCEE /* UIImage+GIF.m in Sources */,
-				84053B5C1D6C28B30020A1F0 /* PushMessageViewController.m in Sources */,
-				8408F66D1D878F74004A332A /* PushSwitchViewController.m in Sources */,
 				196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */,
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
-				84053B591D6C14010020A1F0 /* SettingUpViewController.m in Sources */,
 				191027AC1DE42492006A2275 /* SurveyModel.m in Sources */,
 				19F00D161E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.m in Sources */,
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,

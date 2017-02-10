@@ -8,20 +8,20 @@
 
 #import "SettingUpViewController.h"
 #import "PushSwitchViewController.h"
-#import "UIdaynightModel.h"
+#import "FeedbackViewController.h"
 #import "LoginState.h"
 #import "NotificationDef.h"
 #import "SDImageCache.h"
 #import "MBProgressHUD.h"
+#import "UIMacroDef.h"
 
 @interface SettingUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *imgArr;
 @property (nonatomic,strong) NSArray *titleArr;
 @property (nonatomic,strong) NSMutableArray *cachePathArr;
-
+@property (nonatomic, strong) NSString *clearString;
 @end
 
 @implementation SettingUpViewController
@@ -29,12 +29,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.imgArr = @[@"icon_push.png",@"icon_clear.png"];
-    self.titleArr = @[@"消息推送",@"清除缓存"];
+    self.imgArr = @[@[@"icon_push.png",@"icon_push.png",@"icon_clear.png"],@[@"btn_fankui.png"]];
+    self.titleArr = @[@[@"账号绑定",@"消息推送",@"清除缓存"],@[@"问题反馈"],@[@"退出"]];
     self.cachePathArr = [NSMutableArray array];
     
     [self setupWithNavigation];
+    [self setupClearString];
     [self setupWithTableView];
     // Do any additional setup after loading the view.
 }
@@ -49,61 +49,72 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
-    self.tableview.backgroundColor = self.daynightmodel.backColor;
-    [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
+    self.tableview.backgroundColor = TDViewBackgrouondColor;
+    [self.tableview setSeparatorColor:TDSeparatorColor];
     
     [self.view addSubview:self.tableview];
 }
 
+- (void)setupClearString {
+    //取沙盒路径
+    NSString *rootPath = NSHomeDirectory();
+    NSString *tmpC = [NSString stringWithFormat:@"%@/tmp/MediaCache",rootPath];
+    NSString *LibraryC = [NSString stringWithFormat:@"%@/Library/Caches",rootPath];
+    NSString *DocumentC = [NSString stringWithFormat:@"%@/Documents",rootPath];
+    [self.cachePathArr addObject:tmpC];
+    [self.cachePathArr addObject:LibraryC];
+    [self.cachePathArr addObject:DocumentC];
+    //建立文件管理类
+    NSFileManager *manager=[NSFileManager defaultManager];
+    float size = [[manager attributesOfItemAtPath:tmpC error:nil] fileSize];
+    float size2 = [[manager attributesOfItemAtPath:LibraryC error:nil] fileSize];
+    float size3 = [[manager attributesOfItemAtPath:DocumentC error:nil] fileSize];
+    NSString *text = [NSString stringWithFormat:@"%.2fM",(size+size2+size3)/1024];
+    if ([text floatValue ]<0.25) {
+        self.clearString = @"0.00M";
+    } else {
+        self.clearString = text;
+    }
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 2;
+    return [self.titleArr count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (section == 0) {
-        return 2;
-    }
-    else
-    {
-        return 1;
-    }
+    NSArray *array = self.titleArr[section];
+    return [array count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0) {
-        NSString *identifier = @"cell";
+    if (indexPath.section <= 1) {
+        NSString *identifier = @"SettingsCellID";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identifier];
+            cell.textLabel.font = [UIFont systemFontOfSize:16.0f];
+            cell.textLabel.textColor = TDTitleTextColor;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
-        cell.imageView.image = [UIImage imageNamed:self.imgArr[indexPath.row]];
-        cell.textLabel.text = self.titleArr[indexPath.row];
         
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        if (indexPath.row == 1) {
-            //取沙盒路径
-            NSString *rootPath = NSHomeDirectory();
-            NSString *tmpC = [NSString stringWithFormat:@"%@/tmp/MediaCache",rootPath];
-            NSString *LibraryC = [NSString stringWithFormat:@"%@/Library/Caches",rootPath];
-            NSString *DocumentC = [NSString stringWithFormat:@"%@/Documents",rootPath];
-            [self.cachePathArr addObject:tmpC];
-            [self.cachePathArr addObject:LibraryC];
-            [self.cachePathArr addObject:DocumentC];
-            //建立文件管理类
-            NSFileManager *manager=[NSFileManager defaultManager];
-            float size = [[manager attributesOfItemAtPath:tmpC error:nil] fileSize];
-            float size2 = [[manager attributesOfItemAtPath:LibraryC error:nil] fileSize];
-            float size3 = [[manager attributesOfItemAtPath:DocumentC error:nil] fileSize];
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%.2fM",(size+size2+size3)/1024];
-            if ([cell.detailTextLabel.text floatValue ]<0.25) {
-                cell.detailTextLabel.text = @"0.00M";
-            }
+        NSArray *array = self.titleArr[indexPath.section];
+        NSString *title = array[indexPath.row];
+        
+//        NSArray *images = self.imgArr[indexPath.section];
+//        NSString *imageName = images[indexPath.row];
+        
+//        cell.imageView.image = [UIImage imageNamed:imageName];
+        cell.textLabel.text = title;
+        
+        
+        if (indexPath.row == 2) {
+            cell.detailTextLabel.text = self.clearString;
+        } else {
+            cell.detailTextLabel.text = @"";
         }
-        cell.textLabel.textColor = self.daynightmodel.textColor;
-        cell.backgroundColor = self.daynightmodel.navigationColor;
         
         return cell;
     }
@@ -118,7 +129,6 @@
         cell.textLabel.textAlignment = NSTextAlignmentCenter;
         
         cell.textLabel.textColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
-        cell.backgroundColor = self.daynightmodel.navigationColor;
         
         return cell;
     }
@@ -129,6 +139,8 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
+            
+        } else if (indexPath.row == 1) {
             PushSwitchViewController *SwitchView = [[PushSwitchViewController alloc]init];
             [self.navigationController pushViewController:SwitchView animated:YES];
         }
@@ -162,9 +174,10 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         }
-    }
-    else
-    {
+    } else if (indexPath.section == 1) {
+        FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
+        [self.navigationController pushViewController:feedback animated:YES];
+    } else {
         UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录？" preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
             
@@ -189,19 +202,5 @@
     }
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

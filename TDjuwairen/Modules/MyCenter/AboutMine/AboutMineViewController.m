@@ -7,16 +7,13 @@
 //
 
 #import "AboutMineViewController.h"
-#import "UIdaynightModel.h"
-#import "FeedbackViewController.h"
 #import "AFNetworking.h"
-
+#import "UIMacroDef.h"
 
 @interface AboutMineViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     BOOL haveUpdate;
 }
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *titleArr;
 
@@ -30,8 +27,8 @@
     [super viewDidLoad];
     
     self.title = @"关于我们";
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.titleArr = @[@"给我们评分",@"反馈意见"];
+    
+    self.titleArr = @[@"给我们评分"];
     haveUpdate = NO;
     
     [self setupWithTableView];
@@ -44,8 +41,8 @@
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
     
-    self.tableview.backgroundColor = self.daynightmodel.backColor;
-    [self.tableview setSeparatorColor:self.daynightmodel.lineColor];
+    self.tableview.backgroundColor = TDViewBackgrouondColor;
+    self.tableview.separatorColor = TDSeparatorColor;
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 200)];
     UIImageView *imgview = [[UIImageView alloc] initWithFrame:view.bounds];
@@ -61,7 +58,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
+    return 1;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -73,8 +70,8 @@
     }
     
     cell.textLabel.text = self.titleArr[indexPath.row];
-    cell.textLabel.textColor = self.daynightmodel.textColor;
-    cell.backgroundColor = self.daynightmodel.navigationColor;
+    cell.textLabel.textColor = TDTitleTextColor;
+
     return cell;
 }
 
@@ -83,10 +80,6 @@
     if (indexPath.row == 0) {
         NSString *str = [NSString stringWithFormat:@"itms-apps://itunes.apple.com/app/id1125295972"];
         [[UIApplication sharedApplication] openURL:[NSURL URLWithString:str]];
-    }
-    else {
-        FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
-        [self.navigationController pushViewController:feedback animated:YES];
     }
 }
 
