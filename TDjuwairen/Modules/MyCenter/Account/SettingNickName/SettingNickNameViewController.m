@@ -29,7 +29,7 @@
     
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(donePressed:)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
-    self.textField.text = US.userName;
+    self.textField.text = US.nickName;
     [self.textField becomeFirstResponder];
     
     [self getValidation];
@@ -46,13 +46,13 @@
     NSDictionary *paras = @{@"authenticationStr":US.userId,
                             @"encryptedStr":self.str,
                             @"userid": US.userId,
-                            @"username": userName};
+                            @"user_nickname": userName};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"加载中...";
     [self.textField resignFirstResponder];
-    [manager POST:API_UpdateUserName parameters:paras completion:^(id data, NSError *error){
+    [manager POST:API_UpdateNickName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            US.userName = userName;
+            US.nickName = userName;
             [hud hide:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else {

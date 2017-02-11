@@ -736,8 +736,8 @@
         }
         else
         {
-            FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
-            [self.navigationController pushViewController:feedback animated:YES];
+            FeedbackViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedbackViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
             
         }
     }

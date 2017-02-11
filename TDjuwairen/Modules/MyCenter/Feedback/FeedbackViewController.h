@@ -1,17 +1,13 @@
 //
 //  FeedbackViewController.h
-//  juwairen
+//  TDjuwairen
 //
-//  Created by tuanda on 16/5/25.
-//  Copyright © 2016年 tuanda. All rights reserved.
+//  Created by zdy on 2017/2/10.
+//  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-@interface FeedbackViewController : UIViewController
-@property (nonatomic,strong) UIView *backView;
-@property (nonatomic,strong) UITextField *contentTextField;
-@property (nonatomic,strong) UIButton *SendBtn;
-@property (nonatomic,copy)NSString *str;
+@interface FeedbackViewController : UITableViewController
 
 @end

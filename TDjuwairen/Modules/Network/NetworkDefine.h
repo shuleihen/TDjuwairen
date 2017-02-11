@@ -44,6 +44,7 @@
 #define API_RegWithPhone        @"Reg/doTelReg"
 #define API_CheckNickName       @"Reg/checkNickname"
 #define API_UpdateUserName      @"User/updateUsername"
+#define API_UpdateNickName      @"User/updateUserNickname"
 #define API_UpdateCompanyName   @"User/updateCompanyName"
 #define API_UpdateOccupationName @"User/updateOccupationName"
 #define API_UpdateUserInfo      @"User/updateUserinfo"

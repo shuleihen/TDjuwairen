@@ -10,6 +10,7 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "MBProgressHUD.h"
+#import "UITextView+Placeholder.h"
 
 @interface SettingIntroViewController ()
 @property (nonatomic, strong) NSString *str;
@@ -30,6 +31,7 @@
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"完成" style:UIBarButtonItemStylePlain target:self action:@selector(donePressed:)];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     self.textView.text = US.personal;
+    self.textView.placeholder = @"很懒哦，什么也没留下";
     [self.textView becomeFirstResponder];
     
     [self getValidation];

@@ -13,6 +13,8 @@
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "NotificationDef.h"
+#import "UIMacroDef.h"
+#import "HexColors.h"
 
 @interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
@@ -71,8 +73,10 @@
         // 个人简介
         if (US.personal.length) {
             self.introLabel.text = US.personal;
+            self.introLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#646464"];
         } else {
-            self.introLabel.text = @"暂无";
+            self.introLabel.text = @"很懒哦，什么也没留下";
+            self.introLabel.textColor = TDDetailTextColor;
         }
     }
 }

@@ -64,6 +64,7 @@
 		1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325771E4DAF7200E3D500 /* PushMessageViewController.m */; };
 		1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325791E4DAF7200E3D500 /* PushSwitchViewController.m */; };
 		193325801E4DAF7200E3D500 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */; };
+		193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325821E4DC9A400E3D500 /* FeedbackViewController.m */; };
 		19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */; };
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
@@ -115,8 +116,6 @@
 		1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3DD1D644D9800DC102E /* CommentsViewController.m */; };
 		1955B47A1D644D9800DC102E /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3EB1D644D9800DC102E /* EditView.m */; };
 		1955B47B1D644D9800DC102E /* EditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3EC1D644D9800DC102E /* EditView.xib */; };
-		1955B47E1D644D9800DC102E /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F21D644D9800DC102E /* FeedbackViewController.m */; };
-		1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */; };
 		1955B4801D644D9800DC102E /* JWRImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3F61D644D9800DC102E /* JWRImageView.m */; };
 		1955B4851D644D9800DC102E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4041D644D9800DC102E /* NetworkManager.m */; };
 		1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40C1D644D9800DC102E /* SearchResultTableViewCell.m */; };
@@ -549,6 +548,8 @@
 		193325791E4DAF7200E3D500 /* PushSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSwitchViewController.m; sourceTree = "<group>"; };
 		1933257A1E4DAF7200E3D500 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
 		1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
+		193325811E4DC9A400E3D500 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
+		193325821E4DC9A400E3D500 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		19347E4E1E0E3E5200E651B5 /* StockGuessListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessListCell.h; sourceTree = "<group>"; };
 		19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessListCell.m; sourceTree = "<group>"; };
 		19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockGuessListCell.xib; sourceTree = "<group>"; };
@@ -643,10 +644,6 @@
 		1955B3EA1D644D9800DC102E /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
 		1955B3EB1D644D9800DC102E /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
 		1955B3EC1D644D9800DC102E /* EditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditView.xib; sourceTree = "<group>"; };
-		1955B3F11D644D9800DC102E /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
-		1955B3F21D644D9800DC102E /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		1955B3F31D644D9800DC102E /* ResponsListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ResponsListTableViewCell.h; sourceTree = "<group>"; };
-		1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ResponsListTableViewCell.m; sourceTree = "<group>"; };
 		1955B3F51D644D9800DC102E /* JWRImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JWRImageView.h; sourceTree = "<group>"; };
 		1955B3F61D644D9800DC102E /* JWRImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JWRImageView.m; sourceTree = "<group>"; };
 		1955B4021D644D9800DC102E /* NetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
@@ -1863,10 +1860,8 @@
 		1955B3ED1D644D9800DC102E /* Feedback */ = {
 			isa = PBXGroup;
 			children = (
-				1955B3F11D644D9800DC102E /* FeedbackViewController.h */,
-				1955B3F21D644D9800DC102E /* FeedbackViewController.m */,
-				1955B3F31D644D9800DC102E /* ResponsListTableViewCell.h */,
-				1955B3F41D644D9800DC102E /* ResponsListTableViewCell.m */,
+				193325811E4DC9A400E3D500 /* FeedbackViewController.h */,
+				193325821E4DC9A400E3D500 /* FeedbackViewController.m */,
 			);
 			path = Feedback;
 			sourceTree = "<group>";
@@ -3602,6 +3597,7 @@
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
 				19F00D211E2EFFD9009270D5 /* SurveyDetailSegmentView.m in Sources */,
 				19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */,
+				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
 				84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
@@ -3774,7 +3770,6 @@
 				19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */,
 				1955B48F1D644D9800DC102E /* SharpTags.m in Sources */,
 				19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */,
-				1955B47E1D644D9800DC102E /* FeedbackViewController.m in Sources */,
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
@@ -3867,7 +3862,6 @@
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,
 				84F4DFC41D8F75ED00886FF5 /* UserCommentTableViewCell.m in Sources */,
-				1955B47F1D644D9800DC102E /* ResponsListTableViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

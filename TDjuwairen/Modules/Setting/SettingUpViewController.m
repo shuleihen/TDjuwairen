@@ -175,8 +175,8 @@
             
         }
     } else if (indexPath.section == 1) {
-        FeedbackViewController *feedback = [[FeedbackViewController alloc] init];
-        [self.navigationController pushViewController:feedback animated:YES];
+        FeedbackViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedbackViewController"];
+        [self.navigationController pushViewController:vc animated:YES];
     } else {
         UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录？" preferredStyle:UIAlertControllerStyleActionSheet];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
