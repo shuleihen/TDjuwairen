@@ -396,10 +396,10 @@
             </objects>
             <point key="canvasLocation" x="-346" y="465"/>
         </scene>
-        <!--用户名-->
+        <!--昵称-->
         <scene sceneID="fii-Px-BRe">
             <objects>
-                <tableViewController storyboardIdentifier="SettingNickNameViewController" title="用户名" id="3oJ-oh-E2T" customClass="SettingNickNameViewController" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="SettingNickNameViewController" title="昵称" id="3oJ-oh-E2T" customClass="SettingNickNameViewController" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="18" id="meT-da-wph">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

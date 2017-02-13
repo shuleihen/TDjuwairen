@@ -40,7 +40,9 @@
     self.panelView.clipsToBounds = YES;
     
     self.validateString = @"tuandawangluokeji";
+    [self requestAuthentication];
     self.codeBtn.delegate = self;
+    self.title = @"更换手机号";
 }
 
 
@@ -107,7 +109,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     [manager POST:API_UpdateUserPhone parameters:dic completion:^(id data, NSError *error){
-        if (!error && [data[@"need_complete"] boolValue]) {
+        if (!error && [data[@"status"] boolValue]) {
             hud.labelText = @"更新成功";
             hud.delegate = self;
             [hud hide:YES afterDelay:0.4];

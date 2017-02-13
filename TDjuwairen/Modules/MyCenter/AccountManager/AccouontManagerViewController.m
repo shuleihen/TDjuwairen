@@ -134,7 +134,7 @@
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
                      hud.labelText = message;
-                     [hud hide:YES afterDelay:0.4];
+                     [hud hide:YES afterDelay:0.6];
                  }
              }];
          }
@@ -171,7 +171,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            [hud hide:YES afterDelay:0.6];
         }
     }];
 }
@@ -214,7 +214,7 @@
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
                      hud.labelText = message;
-                     [hud hide:YES afterDelay:0.4];
+                     [hud hide:YES afterDelay:0.6];
                  }
              }];
          }
@@ -251,7 +251,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            [hud hide:YES afterDelay:0.6];
         }
     }];
 }
