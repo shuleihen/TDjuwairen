@@ -49,6 +49,13 @@
 #define API_UpdateOccupationName @"User/updateOccupationName"
 #define API_UpdateUserInfo      @"User/updateUserinfo"
 #define API_UploadUserface      @"User/userfaceImgUp"
+#define API_UserBindInfo        @"User/userbindInfo"
+#define API_UpdateUserPhone     @"User/updateUserphone"
+#define API_BindWeixin          @"User/bindWXAccount"
+#define API_UnbindWeixin        @"User/unbindWXAccount"
+#define API_BindQQ              @"User/bindQQAccount"
+#define API_UnbindQQ            @"User/unbindQQAccount"
+
 #define API_UploadContentPic    @"index.php/View/upViewContenPic1_2" //
 #define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"//
 #define API_AddGoodComment1_2   @"index.php/View/AddCommentAssessGood1_2"

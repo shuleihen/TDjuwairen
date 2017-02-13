@@ -230,6 +230,10 @@
 		19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2FC1E0D0126008368F4 /* STPopupNavigationBar.m */; };
 		19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2FE1E0D0126008368F4 /* UIResponder+STPopup.m */; };
 		19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */; };
+		19D6B9F91E508E3C00475AA1 /* AccountManager.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19D6B9F81E508E3C00475AA1 /* AccountManager.storyboard */; };
+		19D6B9FD1E50902C00475AA1 /* AccouontManagerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6B9FC1E50902C00475AA1 /* AccouontManagerViewController.m */; };
+		19D6BA011E50948D00475AA1 /* ChangePhoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6BA001E50948D00475AA1 /* ChangePhoneViewController.m */; };
+		19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19D6BA021E514B6700475AA1 /* ChangePhoneViewController.xib */; };
 		19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */; };
 		19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19DFE22E1E10EBAE00CC3C3F /* BVUnderlineButton.m */; };
 		19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */; };
@@ -868,6 +872,12 @@
 		19D6A2FE1E0D0126008368F4 /* UIResponder+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIResponder+STPopup.m"; sourceTree = "<group>"; };
 		19D6A2FF1E0D0126008368F4 /* UIViewController+STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+STPopup.h"; sourceTree = "<group>"; };
 		19D6A3001E0D0126008368F4 /* UIViewController+STPopup.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+STPopup.m"; sourceTree = "<group>"; };
+		19D6B9F81E508E3C00475AA1 /* AccountManager.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = AccountManager.storyboard; sourceTree = "<group>"; };
+		19D6B9FB1E50902C00475AA1 /* AccouontManagerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccouontManagerViewController.h; sourceTree = "<group>"; };
+		19D6B9FC1E50902C00475AA1 /* AccouontManagerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AccouontManagerViewController.m; sourceTree = "<group>"; };
+		19D6B9FF1E50948D00475AA1 /* ChangePhoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChangePhoneViewController.h; sourceTree = "<group>"; };
+		19D6BA001E50948D00475AA1 /* ChangePhoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangePhoneViewController.m; sourceTree = "<group>"; };
+		19D6BA021E514B6700475AA1 /* ChangePhoneViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ChangePhoneViewController.xib; sourceTree = "<group>"; };
 		19DFE2291E10E3C300CC3C3F /* TTTAttributedLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TTTAttributedLabel.h; sourceTree = "<group>"; };
 		19DFE22A1E10E3C300CC3C3F /* TTTAttributedLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TTTAttributedLabel.m; sourceTree = "<group>"; };
 		19DFE22D1E10EBAE00CC3C3F /* BVUnderlineButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BVUnderlineButton.h; sourceTree = "<group>"; };
@@ -1784,6 +1794,8 @@
 		1955B3BA1D644D9800DC102E /* MyCenter */ = {
 			isa = PBXGroup;
 			children = (
+				19D6B9FE1E50935000475AA1 /* ChangePhone */,
+				19D6B9FA1E50900E00475AA1 /* AccountManager */,
 				194186C71DF81284000C5197 /* Account */,
 				194186C01DF81235000C5197 /* ViewpointManager */,
 				1955B3FE1D644D9800DC102E /* Views */,
@@ -2506,6 +2518,25 @@
 			path = STPopup/STPopup;
 			sourceTree = "<group>";
 		};
+		19D6B9FA1E50900E00475AA1 /* AccountManager */ = {
+			isa = PBXGroup;
+			children = (
+				19D6B9FB1E50902C00475AA1 /* AccouontManagerViewController.h */,
+				19D6B9FC1E50902C00475AA1 /* AccouontManagerViewController.m */,
+			);
+			path = AccountManager;
+			sourceTree = "<group>";
+		};
+		19D6B9FE1E50935000475AA1 /* ChangePhone */ = {
+			isa = PBXGroup;
+			children = (
+				19D6B9FF1E50948D00475AA1 /* ChangePhoneViewController.h */,
+				19D6BA001E50948D00475AA1 /* ChangePhoneViewController.m */,
+				19D6BA021E514B6700475AA1 /* ChangePhoneViewController.xib */,
+			);
+			path = ChangePhone;
+			sourceTree = "<group>";
+		};
 		19DFE2281E10E3C300CC3C3F /* TTTAttributedLabel */ = {
 			isa = PBXGroup;
 			children = (
@@ -3168,6 +3199,7 @@
 				19AF98481E2720290097A585 /* Survey.storyboard */,
 				194186E51DF90672000C5197 /* Register.storyboard */,
 				19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */,
+				19D6B9F81E508E3C00475AA1 /* AccountManager.storyboard */,
 				84E333F61CE2BA3D00E5DCEE /* Assets.xcassets */,
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
 				84E333FB1CE2BA3D00E5DCEE /* Info.plist */,
@@ -3514,6 +3546,7 @@
 				19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */,
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
+				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
@@ -3527,6 +3560,7 @@
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
 				19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */,
 				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
+				19D6B9F91E508E3C00475AA1 /* AccountManager.storyboard in Resources */,
 				8488E42D1D90E2EC00888D07 /* test.caf in Resources */,
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
@@ -3621,6 +3655,7 @@
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
 				19E5F26E1E12614200984DBC /* BorderButton.m in Sources */,
+				19D6BA011E50948D00475AA1 /* ChangePhoneViewController.m in Sources */,
 				847ADA6C1DF79CFC002600AA /* OptionalStockViewController.m in Sources */,
 				19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */,
 				19E5F2A81E13653200984DBC /* SQTopicCellViewModel.m in Sources */,
@@ -3695,6 +3730,7 @@
 				19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */,
 				19F43C251E232C98001B72CD /* VideoViewController.m in Sources */,
 				19193B311E03CE6D000A6AD2 /* UIImage+Color.m in Sources */,
+				19D6B9FD1E50902C00475AA1 /* AccouontManagerViewController.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
 				194186D81DF81284000C5197 /* SettingCompanyViewController.m in Sources */,
 				190F65F81E36E73000B83ADF /* MyWalletViewController.m in Sources */,

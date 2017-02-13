@@ -14,6 +14,7 @@
 #import "SDImageCache.h"
 #import "MBProgressHUD.h"
 #import "UIMacroDef.h"
+#import "AccouontManagerViewController.h"
 
 @interface SettingUpViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -139,7 +140,8 @@
     [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 0) {
         if (indexPath.row == 0) {
-            
+            AccouontManagerViewController *vc = [[UIStoryboard storyboardWithName:@"AccountManager" bundle:nil] instantiateViewControllerWithIdentifier:@"AccouontManagerViewController"];
+            [self.navigationController pushViewController:vc animated:YES];
         } else if (indexPath.row == 1) {
             PushSwitchViewController *SwitchView = [[PushSwitchViewController alloc]init];
             [self.navigationController pushViewController:SwitchView animated:YES];
