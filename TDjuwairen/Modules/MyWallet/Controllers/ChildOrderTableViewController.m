@@ -13,7 +13,7 @@
 #import "OrderModel.h"
 #import "OrderDetailTableViewCell.h"
 #import "NoOrderTableViewCell.h"
-
+#import "NetworkManager.h"
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
 #import "MJRefresh.h"

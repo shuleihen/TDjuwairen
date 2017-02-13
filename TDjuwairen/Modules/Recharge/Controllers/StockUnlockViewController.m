@@ -27,7 +27,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    self.contentSizeInPopup = CGSizeMake(260, 200);
+    self.contentSizeInPopup = CGSizeMake(210, 220);
     
     self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.stockName,self.stockCode];
     [self.keyNumberBtn setTitle:[NSString stringWithFormat:@"%ld",(long)self.needKey] forState:UIControlStateNormal];
@@ -81,4 +81,7 @@
     [self.popupController pushViewController:vc animated:YES];
 }
 
+- (IBAction)closePressed:(id)sender {
+    [self.popupController dismiss];
+}
 @end

@@ -184,12 +184,12 @@
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
     SurveyDetailSegmentItem *selectedItem = self.segments[selectedIndex];
-    if (selectedItem.locked) {
+    /*if (selectedItem.locked) {
         // 锁住
         if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedSegment:withIndex:)]) {
             [self.delegate didSelectedSegment:self withIndex:selectedItem.index];
         }
-    } else {
+    } else {*/
         if (_selectedIndex >= 0) {
             SurveyDetailSegmentItem *item = self.segments[_selectedIndex];
             item.selected = NO;
@@ -201,7 +201,7 @@
         if (self.delegate && [self.delegate respondsToSelector:@selector(didSelectedSegment:withIndex:)]) {
             [self.delegate didSelectedSegment:self withIndex:_selectedIndex];
         }
-    }
+//    }
 }
 
 - (void)changedSelectedIndex:(NSInteger)selectedIndex executeDelegate:(BOOL)execute {

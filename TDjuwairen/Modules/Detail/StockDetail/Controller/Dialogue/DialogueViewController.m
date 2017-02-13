@@ -88,15 +88,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    StockSurveyModel *model = self.items[indexPath.row];
-    
-    SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-    vc.contentId = model.surveyId;
-    vc.stockId = self.stockId;
-    vc.stockName = self.stockName;
-    vc.cover = self.stockCover;
-    vc.tag = self.tag;
-    [self.rootController.navigationController pushViewController:vc animated:YES];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(canRead)]) {
+        if ([self.delegate canRead]) {
+            StockSurveyModel *model = self.items[indexPath.row];
+            
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = model.surveyId;
+            vc.stockId = self.stockId;
+            vc.stockName = self.stockName;
+            vc.cover = self.stockCover;
+            vc.tag = self.tag;
+            [self.rootController.navigationController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 - (UITableView *)tableView {

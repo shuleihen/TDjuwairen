@@ -12,6 +12,8 @@
 @class SurveyDetailContentViewController;
 @protocol SurveyDetailContenDelegate <NSObject>
 - (void)contentDetailController:(SurveyDetailContentViewController *)controller withHeight:(CGFloat)height;
+@optional
+- (BOOL)canRead;
 @end
 
 @interface SurveyDetailContentViewController : UIViewController

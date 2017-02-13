@@ -200,6 +200,7 @@
     vc.needKey = self.stockModel.keyNum;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
     popupController.containerView.layer.cornerRadius = 4;
     [popupController presentInViewController:self];
 }
@@ -439,11 +440,11 @@
         return;
     }
     
-    SurveyDetailSegmentItem *item = segmentView.segments[index];
-    if (item.locked) {
-        [self unlockStockPressed];
-    } else {
-        
+//    SurveyDetailSegmentItem *item = segmentView.segments[index];
+//    if (item.locked) {
+//        [self unlockStockPressed];
+//    } else {
+    
         __weak StockDetailViewController *wself = self;
         SurveyDetailContentViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
@@ -460,7 +461,7 @@
         } else {
             [self hideBottomTool];
         }
-    }
+//    }
 }
 
 #pragma mark - SurveyDetailContenDelegate
@@ -468,6 +469,14 @@
     [self reloadTableView];
 }
 
+- (BOOL)canRead {
+    if (self.stockModel.isLocked) {
+        [self unlockStockPressed];
+        return NO;
+    }
+    
+    return YES;
+}
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -504,12 +513,12 @@
     if (before < 0) {
         return nil;
     } else {
-        SurveyDetailSegmentItem *item = self.segment.segments[before];
-        if (item.locked) {
-            return nil;
-        } else {
+//        SurveyDetailSegmentItem *item = self.segment.segments[before];
+//        if (item.locked) {
+//            return nil;
+//        } else {
             return self.contentControllers[before];
-        }
+//        }
     }
 }
 
@@ -524,12 +533,12 @@
     if (after >= [self.contentControllers count]) {
         return nil;
     } else {
-        SurveyDetailSegmentItem *item = self.segment.segments[after];
-        if (item.locked) {
-            return nil;
-        } else {
+//        SurveyDetailSegmentItem *item = self.segment.segments[after];
+//        if (item.locked) {
+//            return nil;
+//        } else {
             return self.contentControllers[after];
-        }
+//        }
     }
 }
 
