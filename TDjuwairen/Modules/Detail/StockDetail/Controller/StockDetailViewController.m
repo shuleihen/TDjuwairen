@@ -304,6 +304,7 @@
         
         if (!error) {
             self.segment.isLock = NO;
+            self.stockModel.isLocked = NO;
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
