@@ -93,6 +93,9 @@
     // 解锁通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unlockStock:) name:kSurveyDetailUnlock object:nil];
     
+    // 评分通知
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(querySurveySimpleDetail) name:kAddStockGradeSuccessed object:nil];
+    
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     
     // 表头
@@ -345,18 +348,51 @@
         __weak StockDetailViewController *wself = self;
         
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSString *url = @"Survey/addMyStock";
-        [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        [manager POST:API_SurveyAddStock parameters:para completion:^(id data, NSError *error) {
             if (!error) {
                 hud.labelText = @"添加成功";
                 [hud hide:YES afterDelay:0.5];
                 
                 wself.stockModel.isAdd = YES;
                 [wself.stockHeaderView setupStockModel:wself.stockModel];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
             }
             else
             {
                 hud.labelText = @"添加失败";
+                [hud hide:YES afterDelay:0.5];
+                
+            }
+        }];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+}
+
+- (void)removeStockPressed:(id)sender {
+    if (US.isLogIn) {
+        NSDictionary *para = @{@"code": self.stockModel.stockId,
+                               @"user_id":US.userId};
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        __weak StockDetailViewController *wself = self;
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        [manager POST:API_SurveyDeleteStock parameters:para completion:^(id data, NSError *error) {
+            if (!error) {
+                hud.labelText = @"取消成功";
+                [hud hide:YES afterDelay:0.5];
+                
+                wself.stockModel.isAdd = NO;
+                [wself.stockHeaderView setupStockModel:wself.stockModel];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
+            }
+            else
+            {
+                hud.labelText = @"取消失败";
                 [hud hide:YES afterDelay:0.5];
                 
             }

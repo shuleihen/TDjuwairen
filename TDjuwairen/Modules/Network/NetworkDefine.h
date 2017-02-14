@@ -84,6 +84,8 @@
 #define API_SurveyCompanyReview @"Survey/companyReview"
 #define API_SurveyCompanyGradeAdd    @"Survey/addCompanyGrade"
 #define API_SurveyAddSurvey     @"Survey/addSurveyOrder"
+#define API_SurveyAddStock      @"Survey/addMyStock"
+#define API_SurveyDeleteStock   @"Survey/delMyStockCode"
 
 #define API_QueryKeyNumber      @"Survey/getUserKeyNum"
 #define API_AliPay              @"Survey/alipayKey"

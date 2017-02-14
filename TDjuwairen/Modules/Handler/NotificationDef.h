@@ -20,4 +20,6 @@
 #define kNightVersionChanged            @"NightVersionChanged"
 
 #define kAddStockGradeSuccessed         @"AddStockGradeSuccessed"
+#define kAddOptionalStockSuccessed      @"AddOptionalStockSuccessed"
+
 #endif /* NotificationDef_h */

@@ -14,6 +14,7 @@
 
 - (void)gradePressed:(id)sender;
 - (void)addStockPressed:(id)sender;
+- (void)removeStockPressed:(id)sender;
 - (void)invitePressed:(id)sender;
 @end
 
@@ -27,7 +28,7 @@
 @property (nonatomic, weak) IBOutlet UIButton *addBtn;
 @property (nonatomic, weak) IBOutlet UILabel *gradeNumLabel;
 @property (nonatomic, weak) IBOutlet UILabel *orderNumLabel;
-
+@property (nonatomic, assign) BOOL isAdd;
 @property (nonatomic, weak) id<StockHeaderDelegate> delegate;
 
 - (void)setupStockInfo:(StockInfo *)stockInfo;

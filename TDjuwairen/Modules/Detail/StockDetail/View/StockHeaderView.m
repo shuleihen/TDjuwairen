@@ -57,10 +57,11 @@
     self.gradeNumLabel.text = [NSString stringWithFormat:@"已有%@人评价",model.joinGradeNum];
     self.orderNumLabel.text = [NSString stringWithFormat:@"排名%@/%@",model.orderNum,model.allCompanyNum];
     
+    self.isAdd = model.isAdd;
+    
     if (model.isAdd) {
-        [self.addBtn setTitle:@"自选股" forState:UIControlStateNormal];
+        [self.addBtn setTitle:@"取消自选" forState:UIControlStateNormal];
         [self.addBtn setImage:nil forState:UIControlStateNormal];
-        self.addBtn.enabled = NO;
     } else {
         [self.addBtn setTitle:nil forState:UIControlStateNormal];
         [self.addBtn setImage:[UIImage imageNamed:@"add_shares2.png"] forState:UIControlStateNormal];
@@ -75,8 +76,14 @@
 }
 
 - (IBAction)addPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(addStockPressed:)]) {
-        [self.delegate addStockPressed:sender];
+    if (self.isAdd) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(removeStockPressed:)]) {
+            [self.delegate removeStockPressed:sender];
+        }
+    } else {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(addStockPressed:)]) {
+            [self.delegate addStockPressed:sender];
+        }
     }
 }
 

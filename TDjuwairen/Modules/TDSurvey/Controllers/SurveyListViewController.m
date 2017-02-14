@@ -174,7 +174,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChangedNotifi:) name:kLoginStateChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionalStockChangedNotifi:) name:kAddOptionalStockSuccessed object:nil];
     
     [self setupNavigationBar];
     [self setupTableView];
@@ -368,6 +368,11 @@
     [self setupUserAvatar];
     
     [[self currentContentViewController] refreshData];
+}
+
+- (void)optionalStockChangedNotifi:(NSNotification *)notifi {
+    
+    [self.contentControllers.firstObject refreshData];
 }
 
 - (void)refreshAction {

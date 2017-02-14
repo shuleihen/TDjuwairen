@@ -23,6 +23,7 @@
 #import "SearchResultModel.h"
 #import "NoResultView.h"
 #import "ApplySurveyViewController.h"
+#import "NotificationDef.h"
 
 @interface SearchSectionData : NSObject
 @property (nonatomic, strong) NSString *sectionTitle;
@@ -273,14 +274,15 @@
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
         NetworkManager *manager = [[NetworkManager alloc] init];
-        NSString *url = @"Survey/addMyStock";
-        [manager POST:url parameters:para completion:^(id data, NSError *error) {
+        [manager POST:API_SurveyAddStock parameters:para completion:^(id data, NSError *error) {
             if (!error) {
                 hud.labelText = @"添加成功";
                 [hud hide:YES afterDelay:0.5];
                 
                 model.isMyStock = YES;
                 [self.tableview reloadData];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
             }
             else
             {
@@ -580,13 +582,14 @@
         {
             //添加
             NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-            NSString *url = @"Survey/addMyStock";
-            [manager POST:url parameters:para completion:^(id data, NSError *error) {
+            [manager POST:API_SurveyAddStock parameters:para completion:^(id data, NSError *error) {
                 if (!error) {
                     NSLog(@"%@",data);
                     [self requestDataWithText];
                     hud.labelText = @"添加成功";
                     [hud hide:YES afterDelay:0.5];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
                 }
                 else
                 {

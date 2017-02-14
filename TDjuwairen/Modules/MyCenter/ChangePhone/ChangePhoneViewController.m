@@ -63,6 +63,8 @@
 }
 
 - (IBAction)donePressed:(id)sender {
+    [self.view endEditing:YES];
+    
     NSString *phone = self.phoneTextField.text;
     NSString *code = self.codeTextField.text;
     
