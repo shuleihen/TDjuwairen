@@ -156,4 +156,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     return dataTask;
 }
 
+- (void)cancel {
+    [self.manager invalidateSessionCancelingTasks:YES];
+}
 @end

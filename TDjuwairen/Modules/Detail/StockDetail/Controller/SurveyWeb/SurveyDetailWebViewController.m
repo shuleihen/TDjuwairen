@@ -159,13 +159,16 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     DDLogInfo(@"Survey detail web load successed");
     
+    [self.indicatorView stopAnimating];
+    
+    [self AddQuestionButton];
+    /*
     __weak SurveyDetailWebViewController *wself = self;
     [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
         
-        [wself.indicatorView stopAnimating];
         
-        [wself AddQuestionButton];
     }];
+     */
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {

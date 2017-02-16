@@ -12,6 +12,8 @@
 @interface NetworkManager : NSObject
 - (id)initWithBaseUrl:(NSString *)baseUrl;
 
+- (void)cancel;
+
 - (NSURLSessionDataTask *)GET:(NSString *)URLString
                    parameters:(id)parameters
                    completion:(void (^)(id data, NSError *error))completion;
@@ -24,4 +26,5 @@
                     parameters:(id)parameters
      constructingBodyWithBlock:(void (^)(id <AFMultipartFormData> formData))block
                     completion:(void (^)(id data, NSError *error))completion;
+
 @end

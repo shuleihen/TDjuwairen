@@ -62,6 +62,8 @@
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 
 @property (nonatomic, strong) NSArray *resultSections;
+
+@property (nonatomic, strong) NSMutableArray *searchQueue;
 @end
 
 @implementation SearchViewController
@@ -69,6 +71,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0];
+    self.searchQueue = [NSMutableArray arrayWithCapacity:10];
     
     self.surveydata = [NSMutableArray array];
     self.researchdata = [NSMutableArray array];
@@ -195,7 +198,13 @@
     }
     
     __weak SearchViewController *wself = self;
+    
     [manager POST:API_Search parameters:dic completion:^(id data, NSError *error){
+            
+        if (![wself needResponseWithNetManager:manager]) {
+            return;
+        }
+        
         if (!error) {
             NSDictionary *dic = data;
             
@@ -243,27 +252,44 @@
                 [sections addObject:sectionData];
             }
             /*
-            NSArray *videoList = dic[@"videoList"];
-            if (videoList) {
-                SearchSectionData *sectionData = [[SearchSectionData alloc] init];
-                sectionData.sectionTitle = @"视频";
-                NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[videoList count]];
-                
-                for (NSDictionary *dict in videoList) {
-                    SearchResultModel *result = [[SearchResultModel alloc] initWithSurveyDict:dict];
-                    [marray addObject:result];
-                }
-                sectionData.items = marray;
-                [sections addObject:sectionData];
-            }
-            */
+             NSArray *videoList = dic[@"videoList"];
+             if (videoList) {
+             SearchSectionData *sectionData = [[SearchSectionData alloc] init];
+             sectionData.sectionTitle = @"视频";
+             NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[videoList count]];
+             
+             for (NSDictionary *dict in videoList) {
+             SearchResultModel *result = [[SearchResultModel alloc] initWithSurveyDict:dict];
+             [marray addObject:result];
+             }
+             sectionData.items = marray;
+             [sections addObject:sectionData];
+             }
+             */
             wself.resultSections = sections;
             [wself.tableview reloadData];
+            
         } else {
             wself.resultSections = nil;
             [wself.tableview reloadData];
         }
     }];
+    
+    [self.searchQueue addObject:manager];
+}
+
+- (BOOL)needResponseWithNetManager:(NetworkManager *)manager {
+
+    NSInteger index = [self.searchQueue indexOfObject:manager];
+    if (index < 0 || index > self.searchQueue.count) {
+        return NO;
+    }
+    
+    @synchronized (self.searchQueue) {
+        [self.searchQueue removeObjectsInRange:NSMakeRange(0, index+1)];
+    }
+    
+    return YES;
 }
 
 #pragma mark - SearchResultCellDelegate
