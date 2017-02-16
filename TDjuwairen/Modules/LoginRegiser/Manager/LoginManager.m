@@ -15,6 +15,23 @@
 #import "WelcomeView.h"
 
 @implementation LoginManager
++ (void)getAuthKey {
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NetworkManager *ma = [[NetworkManager alloc] init];
+        
+        [ma POST:API_GetAuthKey parameters:nil completion:^(id data, NSError *error){
+            if (!error) {
+                NSString *authKey = data[@"auth_key"];
+                [[NSUserDefaults standardUserDefaults] setValue:authKey forKey:@"auth_key"];
+                [[NSUserDefaults standardUserDefaults] synchronize];
+            } else {
+                
+            }
+        }];
+    
+    });
+}
+
 + (void)checkLogin {
     // normal、fast、qq、weixin
     NSString *loginType = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStyle"];
@@ -40,9 +57,11 @@
         return;
     }
     
+    NSString *ecriptPwd = [LoginHandler encryptWithPassword:password];
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *paras = @{@"account": account,
-                            @"password": password};
+                            @"password": ecriptPwd};
     
     [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {

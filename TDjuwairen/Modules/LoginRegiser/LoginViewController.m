@@ -86,13 +86,14 @@
     }
     
     __weak LoginViewController *wself = self;
+    NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"登录中";
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *paras = @{@"account": account,
-                            @"password": pwd};
+                            @"password": ecriptPwd};
     
     [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {

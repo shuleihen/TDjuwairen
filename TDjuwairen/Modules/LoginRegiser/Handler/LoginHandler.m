@@ -10,6 +10,8 @@
 #import "BPush.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
+#import "Base64.h"
+#import "UIDevice+Identifier.h"
 
 @implementation LoginHandler
 + (void)saveLoginSuccessedData:(NSDictionary *)data {
@@ -21,6 +23,9 @@
     US.company = data[@"userinfo_company"];
     US.post = data[@"userinfo_occupation"];
     US.personal = data[@"userinfo_info"];
+    
+    NSString *unique_str = data[@"user_appuidcode"];
+    [[NSUserDefaults standardUserDefaults] setObject:unique_str forKey:@"unique_str"];
 }
 
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password {
@@ -72,5 +77,30 @@
         [userdefault setObject:@"YES" forKey:@"isReply"];
         [userdefault synchronize];
     }];
+}
+
++ (NSString *)machineInfoJsonString {
+    UIDevice *device = [UIDevice currentDevice];
+    NSString *uuid = [device uniqueDeviceIdentifier];
+    CGRect rect = [UIScreen mainScreen].bounds;
+    NSString *screen = [NSString stringWithFormat:@"%.0f*%.0f", CGRectGetWidth(rect), CGRectGetHeight(rect)];
+    
+    NSDictionary *dict = @{@"machineid":   uuid,
+                           @"screen":       screen,
+                           @"manufacturer": @"Apple",
+                           @"os_model":     device.model,
+                           @"os_sdk":       device.systemVersion};
+    
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:dict options:0 error:NULL];
+    return [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+}
+
++ (NSString *)encryptWithPassword:(NSString *)password {
+
+    NSString *auth = [[NSUserDefaults standardUserDefaults] stringForKey:@"auth_key"];
+    NSString *string = [NSString stringWithFormat:@"%@%@",password,auth];
+    
+    NSString *encrypt = [string base64EncodedString];
+    return encrypt;
 }
 @end

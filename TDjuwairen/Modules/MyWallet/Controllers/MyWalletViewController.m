@@ -77,11 +77,15 @@
 
 - (void)chargePressed:(UIButton *)sender
 {
-    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
+    UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"请到电脑端充值" preferredStyle:UIAlertControllerStyleAlert];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
     
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.containerView.layer.cornerRadius = 4;
-    [popupController presentInViewController:self];
+//    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
+//    
+//    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+//    popupController.containerView.layer.cornerRadius = 4;
+//    [popupController presentInViewController:self];
 }
 
 #pragma mark - UITableView

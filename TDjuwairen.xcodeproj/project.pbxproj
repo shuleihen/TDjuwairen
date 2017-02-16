@@ -153,6 +153,12 @@
 		196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */; };
 		196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */; };
 		196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C051DFA602D00084894 /* PersonalHeaderView.m */; };
+		196F5EC91E54847700928B60 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5EC81E54847700928B60 /* Base64.m */; };
+		196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5ECC1E54858600928B60 /* UIDevice+Identifier.m */; };
+		196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5ED31E5485B700928B60 /* SAMKeychain.m */; };
+		196F5EDB1E5485B700928B60 /* SAMKeychainQuery.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5ED51E5485B700928B60 /* SAMKeychainQuery.m */; };
+		196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 196F5ED71E5485B700928B60 /* SAMKeychain.bundle */; };
+		196F5EE01E553ADB00928B60 /* AppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5EDF1E553ADB00928B60 /* AppContext.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
 		19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B751E2C5D4300AB26DF /* GradeListCell.xib */; };
@@ -723,6 +729,17 @@
 		196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "MBProgressHUD+Custom.m"; sourceTree = "<group>"; };
 		196B8C041DFA602D00084894 /* PersonalHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalHeaderView.h; sourceTree = "<group>"; };
 		196B8C051DFA602D00084894 /* PersonalHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalHeaderView.m; sourceTree = "<group>"; };
+		196F5EC71E54847700928B60 /* Base64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64.h; sourceTree = "<group>"; };
+		196F5EC81E54847700928B60 /* Base64.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Base64.m; sourceTree = "<group>"; };
+		196F5ECB1E54858600928B60 /* UIDevice+Identifier.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Identifier.h"; sourceTree = "<group>"; };
+		196F5ECC1E54858600928B60 /* UIDevice+Identifier.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Identifier.m"; sourceTree = "<group>"; };
+		196F5ED21E5485B700928B60 /* SAMKeychain.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychain.h; sourceTree = "<group>"; };
+		196F5ED31E5485B700928B60 /* SAMKeychain.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMKeychain.m; sourceTree = "<group>"; };
+		196F5ED41E5485B700928B60 /* SAMKeychainQuery.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SAMKeychainQuery.h; sourceTree = "<group>"; };
+		196F5ED51E5485B700928B60 /* SAMKeychainQuery.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SAMKeychainQuery.m; sourceTree = "<group>"; };
+		196F5ED71E5485B700928B60 /* SAMKeychain.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SAMKeychain.bundle; sourceTree = "<group>"; };
+		196F5EDE1E553ADB00928B60 /* AppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppContext.h; sourceTree = "<group>"; };
+		196F5EDF1E553ADB00928B60 /* AppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppContext.m; sourceTree = "<group>"; };
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
 		19959B731E2C5D4300AB26DF /* GradeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListCell.h; sourceTree = "<group>"; };
 		19959B741E2C5D4300AB26DF /* GradeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeListCell.m; sourceTree = "<group>"; };
@@ -1421,6 +1438,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				196F5ECA1E54858600928B60 /* UIDevice */,
 				19E48FF41E1D01030012CE6E /* Emoji */,
 				19F43C5B1E235788001B72CD /* UIButton+Align */,
 				19A5AC891E0BA2B800FE953A /* UITextView+Placeholder */,
@@ -1591,6 +1609,7 @@
 		194186DF1DF8132A000C5197 /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
+				196F5EDD1E553ADB00928B60 /* AppContext */,
 				194186E01DF8132A000C5197 /* LoginState.h */,
 				194186E11DF8132A000C5197 /* LoginState.m */,
 			);
@@ -2083,6 +2102,61 @@
 				196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */,
 			);
 			path = YXSecurityCodeButton;
+			sourceTree = "<group>";
+		};
+		196F5EC61E54847700928B60 /* Base64 */ = {
+			isa = PBXGroup;
+			children = (
+				196F5EC71E54847700928B60 /* Base64.h */,
+				196F5EC81E54847700928B60 /* Base64.m */,
+			);
+			path = Base64;
+			sourceTree = "<group>";
+		};
+		196F5ECA1E54858600928B60 /* UIDevice */ = {
+			isa = PBXGroup;
+			children = (
+				196F5ECB1E54858600928B60 /* UIDevice+Identifier.h */,
+				196F5ECC1E54858600928B60 /* UIDevice+Identifier.m */,
+			);
+			path = UIDevice;
+			sourceTree = "<group>";
+		};
+		196F5ECE1E5485B700928B60 /* SAMKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				196F5ED11E5485B700928B60 /* Sources */,
+				196F5ED61E5485B700928B60 /* Support */,
+			);
+			path = SAMKeychain;
+			sourceTree = "<group>";
+		};
+		196F5ED11E5485B700928B60 /* Sources */ = {
+			isa = PBXGroup;
+			children = (
+				196F5ED21E5485B700928B60 /* SAMKeychain.h */,
+				196F5ED31E5485B700928B60 /* SAMKeychain.m */,
+				196F5ED41E5485B700928B60 /* SAMKeychainQuery.h */,
+				196F5ED51E5485B700928B60 /* SAMKeychainQuery.m */,
+			);
+			path = Sources;
+			sourceTree = "<group>";
+		};
+		196F5ED61E5485B700928B60 /* Support */ = {
+			isa = PBXGroup;
+			children = (
+				196F5ED71E5485B700928B60 /* SAMKeychain.bundle */,
+			);
+			path = Support;
+			sourceTree = "<group>";
+		};
+		196F5EDD1E553ADB00928B60 /* AppContext */ = {
+			isa = PBXGroup;
+			children = (
+				196F5EDE1E553ADB00928B60 /* AppContext.h */,
+				196F5EDF1E553ADB00928B60 /* AppContext.m */,
+			);
+			path = AppContext;
 			sourceTree = "<group>";
 		};
 		197595201DED29FE006441BE /* VideoDetail */ = {
@@ -3241,6 +3315,8 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				196F5ECE1E5485B700928B60 /* SAMKeychain */,
+				196F5EC61E54847700928B60 /* Base64 */,
 				19959B951E2CA11900AB26DF /* HCSStarRatingView */,
 				19AF98161E24A7880097A585 /* LocationPicker */,
 				19BA912D1E14DECA00C27124 /* PAStepper */,
@@ -3540,6 +3616,7 @@
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
+				196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
 				19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */,
@@ -3612,6 +3689,7 @@
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
+				196F5EC91E54847700928B60 /* Base64.m in Sources */,
 				19F00D1E1E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m in Sources */,
 				19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */,
 				19B11CAC1D655B9E00BB4DF4 /* DDTTYLogger.m in Sources */,
@@ -3637,6 +3715,7 @@
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
+				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */,
@@ -3714,6 +3793,7 @@
 				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
+				196F5EDB1E5485B700928B60 /* SAMKeychainQuery.m in Sources */,
 				84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
@@ -3795,6 +3875,7 @@
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
+				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
@@ -3832,6 +3913,7 @@
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
 				19F00D081E2EFFD9009270D5 /* AnsTableViewCell.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
+				196F5EE01E553ADB00928B60 /* AppContext.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				19F00D171E2EFFD9009270D5 /* AnsPublishViewController.m in Sources */,

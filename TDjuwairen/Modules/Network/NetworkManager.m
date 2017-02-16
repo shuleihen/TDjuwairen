@@ -8,6 +8,7 @@
 
 #import "NetworkManager.h"
 #import "CocoaLumberjack.h"
+#import "AppContext.h"
 
 NSString *NetworkErrorDomain    = @"network.error.domain";
 
@@ -114,6 +115,9 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                                        constructingBodyWithBlock:block
                                                                            error:nil];
     }
+    
+    // 添加header
+    [kAppContext addHttpHeaderWithRequest:request];
     
     DDLogInfo(@"\nRequest * * * * * * * * * * *\nMethod = %@\nURL = %@\nHeaders = %@\nParameters = %@\n* * * * * * * * * * *\n",
               method,request.URL,request.allHTTPHeaderFields,parameters);

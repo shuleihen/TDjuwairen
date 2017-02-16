@@ -194,6 +194,7 @@
             [Defaults setValue:@"" forKey:@"password"];
             [Defaults setValue:@"" forKey:@"openid"];
             [Defaults setValue:@"" forKey:@"unionid"];
+            [Defaults setValue:@"" forKey:@"unique_str"];
             [Defaults synchronize];
             [self.navigationController popViewControllerAnimated:YES];
             

@@ -180,6 +180,7 @@
     [self setupTableView];
     [self refreshAction];
 
+    [LoginManager getAuthKey];
     [LoginManager checkLogin];
 }
 

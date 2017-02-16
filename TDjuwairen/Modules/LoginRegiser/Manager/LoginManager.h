@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface LoginManager : NSObject
++ (void)getAuthKey;
 + (void)checkLogin;
 @end

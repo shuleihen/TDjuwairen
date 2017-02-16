@@ -124,11 +124,13 @@
     NSString *pwd = self.passwordTextField.text;
     NSString *phone = self.phoneTextField.text;
     
+    NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
+    
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"unionid": self.thirdPartId,
                           @"nickname": nickName,
                           @"phone": phone,
-                          @"password": pwd,
+                          @"password": ecriptPwd,
                           @"avatar_url": self.avatar_url};
     NSString *url;
     if (self.type == kUpdateTypeQQ) {

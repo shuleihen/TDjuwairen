@@ -14,4 +14,7 @@
 + (void)saveFastLoginWithPhone:(NSString *)phone;
 + (void)saveThirdType:(NSString *)typeString unionid:(NSString *)unionid nickName:(NSString *)nickName avatar:(NSString *)avatar;
 + (BOOL)checkOpenRemotePush;
+
++ (NSString *)machineInfoJsonString;
++ (NSString *)encryptWithPassword:(NSString *)password;
 @end

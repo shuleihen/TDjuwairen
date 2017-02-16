@@ -51,10 +51,12 @@
         return;
     }
     
+    NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
+    
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"phone": self.phone,
                           @"nickname": nickName,
-                          @"password": pwd};
+                          @"password": ecriptPwd};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"提交中...";
