@@ -77,15 +77,26 @@
 
 - (void)chargePressed:(UIButton *)sender
 {
-    UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"请到电脑端充值" preferredStyle:UIAlertControllerStyleAlert];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
-    [self presentViewController:alert animated:YES completion:nil];
+    __weak MyWalletViewController *wself = self;
     
-//    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
-//    
-//    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-//    popupController.containerView.layer.cornerRadius = 4;
-//    [popupController presentInViewController:self];
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    [ma POST:API_PayIsShow parameters:nil completion:^(id data, NSError *error){
+        if (!error && [data[@"is_show"] boolValue]) {
+            RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
+            
+            STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+            popupController.containerView.layer.cornerRadius = 4;
+            [popupController presentInViewController:wself];
+
+        }
+        else
+        {
+            UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"请到电脑端充值" preferredStyle:UIAlertControllerStyleAlert];
+            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+            [wself presentViewController:alert animated:YES completion:nil];
+        }
+    }];
 }
 
 #pragma mark - UITableView

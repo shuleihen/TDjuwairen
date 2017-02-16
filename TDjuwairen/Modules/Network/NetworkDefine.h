@@ -107,4 +107,6 @@
 #define API_SubscriptionAdd     @"Subscribe/addCompanySubscribe"
 #define API_SubscriptionHistory @"Subscribe/subscribeRecord"
 
+#define API_PayIsShow           @"Pay/isPayShow"
+
 #endif /* NetworkDefine_h */
