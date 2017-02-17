@@ -37,7 +37,7 @@
 #define API_LoginWithPhone      @"Login/phoneLogin2_3"
 #define API_LoginWithPhoneAdd   @"Login/phoneInfoComplete2_3"
 
-#define API_SendChannel_id      @"Login/saveUserChannelID"  //发送channel_id
+#define API_LoginSaveChannelid  @"Login/saveUserChannelID"  
 #define API_GetAuthKey          @"Login/checkUniqueStrValid"
 
 #define API_CheckPhone          @"Reg/checkTelephone/"

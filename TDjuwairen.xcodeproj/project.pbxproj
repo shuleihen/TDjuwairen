@@ -330,7 +330,7 @@
 		842D94EC1E024AC800D9AFDB /* UserSurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D94EB1E024AC800D9AFDB /* UserSurveyModel.m */; };
 		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
-		845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXTitleButton.m */; };
+		845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXSearchButton.m */; };
 		8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8470E9621DDD8405002F727D /* AlipaySDK.bundle */; };
 		8470E9651DDD8405002F727D /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470E9631DDD8405002F727D /* AlipaySDK.framework */; };
 		8470E9671DDD8426002F727D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470E9661DDD8426002F727D /* CoreMotion.framework */; };
@@ -498,8 +498,8 @@
 		191027AA1DE42492006A2275 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SurveyModel.h; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.h; sourceTree = SOURCE_ROOT; };
 		191027AB1DE42492006A2275 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SurveyModel.m; path = TDjuwairen/Modules/TDSurvey/Cells/SurveyModel.m; sourceTree = SOURCE_ROOT; };
 		191027AE1DE52B1B006A2275 /* NotificationDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationDef.h; sourceTree = "<group>"; };
-		191027B01DE52FFE006A2275 /* YXTitleButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTitleButton.h; sourceTree = "<group>"; };
-		191027B11DE52FFE006A2275 /* YXTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTitleButton.m; sourceTree = "<group>"; };
+		191027B01DE52FFE006A2275 /* YXSearchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSearchButton.h; sourceTree = "<group>"; };
+		191027B11DE52FFE006A2275 /* YXSearchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSearchButton.m; sourceTree = "<group>"; };
 		19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayStock.storyboard; sourceTree = "<group>"; };
 		19193B231E03B402000A6AD2 /* PlayStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockViewController.h; sourceTree = "<group>"; };
 		19193B241E03B402000A6AD2 /* PlayStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockViewController.m; sourceTree = "<group>"; };
@@ -1360,8 +1360,8 @@
 		191027AF1DE52FF0006A2275 /* YXTitleButton */ = {
 			isa = PBXGroup;
 			children = (
-				191027B01DE52FFE006A2275 /* YXTitleButton.h */,
-				191027B11DE52FFE006A2275 /* YXTitleButton.m */,
+				191027B01DE52FFE006A2275 /* YXSearchButton.h */,
+				191027B11DE52FFE006A2275 /* YXSearchButton.m */,
 			);
 			path = YXTitleButton;
 			sourceTree = "<group>";
@@ -3669,7 +3669,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				845E7D181DE5970B00E620DB /* YXTitleButton.m in Sources */,
+				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
 				1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,

@@ -65,13 +65,12 @@
 
 + (void)sendRemotePush {
     NSString *channel_id = [BPush getChannelId];
-    NSString *url = @"index.php/Login/saveUserChannelID";
     
     NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"user_id": US.userId,
                            @"type": @"1",
                            @"channel_id": channel_id};
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+    [manager POST:API_LoginSaveChannelid parameters:para completion:^(id data, NSError *error) {
         //绑定指定推送的时候打开回复提醒
         NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
         [userdefault setObject:@"YES" forKey:@"isReply"];

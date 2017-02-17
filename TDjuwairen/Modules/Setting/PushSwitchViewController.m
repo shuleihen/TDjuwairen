@@ -167,23 +167,22 @@
 #pragma mark - 发送channel_id
 - (void)regisChannel_id{
     NSString *channel_id = [BPush getChannelId];
-    NSString *url = @"index.php/Login/saveUserChannelID";
     NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"user_id":US.userId,
                            @"type":@"1",
                            @"channel_id":channel_id};
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+    [manager POST:API_LoginSaveChannelid parameters:para completion:^(id data, NSError *error) {
         NSLog(@"%@",data);
     }];
 }
 
 - (void)unRegisChannel_id{
-    NSString *url = @"index.php/Login/saveUserChannelID";
+
     NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
     NSDictionary *para = @{@"user_id":US.userId,
                            @"type":@"1",
                            @"channel_id":@""};
-    [manager POST:url parameters:para completion:^(id data, NSError *error) {
+    [manager POST:API_LoginSaveChannelid parameters:para completion:^(id data, NSError *error) {
         NSLog(@"%@",data);
     }];
 }

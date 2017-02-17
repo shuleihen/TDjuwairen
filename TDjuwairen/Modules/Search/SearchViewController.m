@@ -17,7 +17,6 @@
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
-#import "UIdaynightModel.h"
 #import "LoginState.h"
 #import "StockDetailViewController.h"
 #import "SearchResultModel.h"
@@ -58,9 +57,6 @@
 @property (nonatomic,strong) NSMutableArray *researchdata;
 @property (nonatomic,strong) NSMutableArray *videodata;
 
-
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
-
 @property (nonatomic, strong) NSArray *resultSections;
 
 @property (nonatomic, strong) NSMutableArray *searchQueue;
@@ -70,13 +66,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor colorWithRed:200/255.0 green:200/255.0 blue:200/255.0 alpha:1.0];
+    self.view.backgroundColor = TDViewBackgrouondColor;
     self.searchQueue = [NSMutableArray arrayWithCapacity:10];
     
     self.surveydata = [NSMutableArray array];
     self.researchdata = [NSMutableArray array];
     self.videodata = [NSMutableArray array];
-    self.daynightmodel = [UIdaynightModel sharedInstance];
     
     [self setupWithSearchBar];
     [self setupWithTableview];
@@ -111,7 +106,7 @@
 
 - (void)setupWithSearchBar{
     UIView *titleview = [[UIView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    titleview.backgroundColor = self.daynightmodel.navigationColor;
+    titleview.backgroundColor = [UIColor whiteColor];
     
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 20, 50, 44)];
     back.titleLabel.font = [UIFont systemFontOfSize:14];
@@ -122,15 +117,12 @@
     
     self.customSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(6, 20+7, kScreenWidth-6-50, 30)];
     self.customSearchBar.delegate = self;
-    self.customSearchBar.placeholder = @"请输入关键字、股票代码";
+    self.customSearchBar.placeholder = @"关键字/股票代码";
     self.customSearchBar.searchBarStyle = UISearchBarStyleMinimal;
     
-    //获取searchBar里面的TextField
     UITextField*searchField = [self.customSearchBar valueForKey:@"_searchField"];
-    //更改searchBar 中PlaceHolder 字体颜色
-    [searchField setValue:self.daynightmodel.titleColor forKeyPath:@"_placeholderLabel.textColor"];
-    //更改searchBar输入文字颜色
-    searchField.textColor= self.daynightmodel.textColor;
+    [searchField setValue:TDDetailTextColor forKeyPath:@"_placeholderLabel.textColor"];
+    searchField.textColor= TDTitleTextColor;
     
     
     [self.view addSubview:titleview];

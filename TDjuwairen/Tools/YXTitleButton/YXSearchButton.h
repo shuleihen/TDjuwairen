@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface YXTitleButton : UIButton
+@interface YXSearchButton : UIButton
 
 @end

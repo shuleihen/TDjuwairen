@@ -18,6 +18,7 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "MJRefresh.h"
+#import "YXSearchButton.h"
 
 @interface VideoViewController ()<UITableViewDelegate,UITableViewDataSource>
 
@@ -48,9 +49,11 @@
     self.navigationItem.leftBarButtonItem = left;
     
     // 通知
-    UIImage *rightImage = [[UIImage imageNamed:@"survey_search.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(searchPressed:)];
-    self.navigationItem.rightBarButtonItem = right;
+    YXSearchButton *search = [[YXSearchButton alloc] init];
+    [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = search;
+    
+    search.frame = CGRectMake(120, 7, [UIScreen mainScreen].bounds.size.width-135, 30);
 }
 
 - (void)setupWithTableView{

@@ -16,7 +16,7 @@
 #import "UIImageView+WebCache.h"
 #import "SDCycleScrollView.h"
 #import "NotificationDef.h"
-#import "YXTitleButton.h"
+#import "YXSearchButton.h"
 #import "SearchViewController.h"
 #import "DetailPageViewController.h"
 #import "PushMessageViewController.h"
@@ -216,6 +216,9 @@
     avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
     avatarBtn.imageView.layer.cornerRadius = 15.0f;
     avatarBtn.imageView.clipsToBounds = YES;
+//    avatarBtn.backgroundColor = [UIColor redColor];
+    avatarBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+    avatarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
     [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"]];
     [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
@@ -225,11 +228,14 @@
     UIImage *rightImage = [[UIImage imageNamed:@"news_read.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
     self.navigationItem.rightBarButtonItem = right;
+
     
     // 搜索
-    YXTitleButton *search = [[YXTitleButton alloc] init];
+    YXSearchButton *search = [[YXSearchButton alloc] init];
     [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = search;
+    
+    search.frame = CGRectMake(0, 7, [UIScreen mainScreen].bounds.size.width, 30);
 }
 
 - (void)setupTableView {

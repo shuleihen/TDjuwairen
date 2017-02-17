@@ -66,7 +66,7 @@
         
         UIImage *image;
         if ([self.subjectTitle isEqualToString:@"自选"]) {
-            image = [UIImage imageNamed:@"no_result.png"];
+            image = [UIImage imageNamed:@"add_specialno.png"];
         } else {
             image = [UIImage imageNamed:@"no_result.png"];
         }
