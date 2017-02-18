@@ -53,13 +53,8 @@
     return phone;
 }
 
-- (void)codeCompletionWithResult:(NSError *)error {
-    if (error) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = error.userInfo[@"getVerificationCode"];
-        [hud hide:YES afterDelay:0.6];
-    }
+- (PhoneCodeType)codeType {
+    return kPhoneCodeForUpdate;
 }
 
 - (IBAction)donePressed:(id)sender {
@@ -67,6 +62,7 @@
     
     NSString *phone = self.phoneTextField.text;
     NSString *code = self.codeTextField.text;
+    NSString *msg_unique_id = self.codeBtn.msg_unique_id;
     
     if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -74,7 +70,13 @@
         hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
         [hud hide:YES afterDelay:0.4];
         return;
-    }else if (!code.length) {
+    } else if (!msg_unique_id.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先获取证码";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (!code.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = @"请先填写验证码";
@@ -82,9 +84,23 @@
         return;
     }
     
-    [SMSSDK commitVerificationCode:code phoneNumber:phone zone:@"86" result:^(NSError *error) {
-        if (!error) {
-            [self requestChangePhone];
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
+                          @"msg_code": code};
+    
+    [manager POST:API_LoginCheckPhoneCode parameters:dic completion:^(id data, NSError *error){
+        if (data) {
+            BOOL is_expire = [data[@"is_expire"] boolValue];
+            BOOL is_verify = [data[@"is_verify"] boolValue];
+            
+            if (is_verify) {
+                [self requestChangePhone];
+            } else {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [hud hide:YES afterDelay:0.4];
+            }
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
@@ -101,12 +117,14 @@
     }
     
     NSString *phone = self.phoneTextField.text;
+    NSString *msg_unique_id = self.codeBtn.msg_unique_id;
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"phone": phone,
                           @"authenticationStr":self.validateString,
                           @"encryptedStr":self.str,
-                          @"userid": US.userId};
+                          @"userid": US.userId,
+                          @"msg_unique_id" : msg_unique_id};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
