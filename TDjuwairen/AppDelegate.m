@@ -244,9 +244,19 @@ static BOOL isBackGroundActivateApplication;
     
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         // 应用处于前台的远程推送
-        if ([userInfo[@"category"] isEqualToString:@"com.lianlian.update"]) {
-            
-        }
+        NSString *msg = userInfo[@"aps"][@"alert"];
+        
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self handlePushNotificationWithUserInfo:userInfo];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        
+    } else {
+        [self handlePushNotificationWithUserInfo:userInfo];
     }
 }
 
@@ -256,10 +266,7 @@ static BOOL isBackGroundActivateApplication;
 #endif
     
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        // 本地通知
-        if ([notification.category isEqualToString:@"com.lianlian.update"]) {
-            
-        }
+        
         
     }
 }
@@ -280,14 +287,18 @@ static BOOL isBackGroundActivateApplication;
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         // 应用处于前台时的远程推送接受
-        if ([notification.request.content.categoryIdentifier isEqualToString:@"com.lianlian.update"]) {
-            
-            
-            completionHandler(UNNotificationPresentationOptionSound);
-        } else {
-            completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
-        }
+        NSString *msg = userInfo[@"aps"][@"alert"];
         
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self handlePushNotificationWithUserInfo:userInfo];
+        }];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:nil];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        
+        completionHandler(UNNotificationPresentationOptionSound);
     }else{
         // 应用处于前台时的本地推送接受
         completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
@@ -303,13 +314,39 @@ static BOOL isBackGroundActivateApplication;
     NSDictionary * userInfo = response.notification.request.content.userInfo;
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         // 应用处于后台时的远程推送接受
-        if ([response.actionIdentifier isEqualToString:@"update.open"]) {
-            
+        if ([response.actionIdentifier isEqualToString:@"查看"]) {
+            [self handlePushNotificationWithUserInfo:userInfo];
         }
-        
     }else{
         // 应用处于后台时的本地推送接受
     }
+}
+
+- (void)handlePushNotificationWithUserInfo:(NSDictionary *)userInfo {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        NSString *view_id = userInfo[@"view_id"];
+        NSString *stock_id = userInfo[@"code"];
+        
+        if (view_id.length) {
+            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+            detail.view_id = userInfo[@"view_id"];
+            detail.pageMode = @"view";
+            [detail setHidesBottomBarWhenPushed:YES];
+            self.tabBarController.selectedIndex = 1;
+            [self.tabBarController.selectedViewController pushViewController:detail animated:YES];
+            return;
+        }
+        
+        if (stock_id.length) {
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockId = stock_id;
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            self.tabBarController.selectedIndex = 0;
+            [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+            return;
+        }
+    });
 }
 
 #pragma mark - Setup
@@ -488,36 +525,36 @@ static BOOL isBackGroundActivateApplication;
         }];
         
         // 升级提示Action
-        UNNotificationAction *action1_ios10 = [UNNotificationAction actionWithIdentifier:@"update.open" title:@"升级" options:UNNotificationActionOptionForeground];
-        UNNotificationAction *action2_ios10 = [UNNotificationAction actionWithIdentifier:@"update.ignore" title:@"忽略" options:UNNotificationActionOptionForeground];
-        
-        UNNotificationCategory *category1_ios10 = [UNNotificationCategory categoryWithIdentifier:@"com.lianlian.update" actions:@[action1_ios10,action2_ios10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-        
-        NSSet *categories_ios10 = [NSSet setWithObjects:category1_ios10, nil];
-        [center setNotificationCategories:categories_ios10];
+//        UNNotificationAction *action1_ios10 = [UNNotificationAction actionWithIdentifier:@"jwr.open" title:@"查看" options:UNNotificationActionOptionForeground];
+//        UNNotificationAction *action2_ios10 = [UNNotificationAction actionWithIdentifier:@"jwr.ignore" title:@"忽略" options:UNNotificationActionOptionForeground];
+//        
+//        UNNotificationCategory *category1_ios10 = [UNNotificationCategory categoryWithIdentifier:@"com.jwr.read" actions:@[action1_ios10,action2_ios10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+//        
+//        NSSet *categories_ios10 = [NSSet setWithObjects:category1_ios10, nil];
+//        [center setNotificationCategories:categories_ios10];
     }
     
     if ((NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) && (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_9_x_Max)) {
         //如果你期望使用交互式(只有iOS 8.0及以上有)的通知，请参考下面注释部分的初始化代码
         UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
-        action1.identifier = @"update.open";
-        action1.title=@"升级";
+        action1.identifier = @"jwr.open";
+        action1.title=@"查看";
         action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
         
         UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
-        action2.identifier = @"update.ignore";
+        action2.identifier = @"jwr.ignore";
         action2.title=@"忽略";
         action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
         action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
         action2.destructive = YES;
         UIMutableUserNotificationCategory *actionCategory1 = [[UIMutableUserNotificationCategory alloc] init];
-        actionCategory1.identifier = @"com.lianlian.update";
+        actionCategory1.identifier = @"com.jwr.read";
         [actionCategory1 setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
         NSSet *categories = [NSSet setWithObjects:actionCategory1, nil];
         
         UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:categories];
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     
@@ -528,7 +565,7 @@ static BOOL isBackGroundActivateApplication;
     mode = BPushModeDevelopment;
 #endif
     
-    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:mode withFirstAction:@"" withSecondAction:@"" withCategory:nil useBehaviorTextInput:NO isDebug:isDebug];
+    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:mode withFirstAction:@"查看" withSecondAction:@"忽略" withCategory:nil useBehaviorTextInput:NO isDebug:isDebug];
     
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (userInfo) {
