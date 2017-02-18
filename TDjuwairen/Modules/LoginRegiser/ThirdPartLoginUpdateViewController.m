@@ -25,6 +25,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *nickNameTextField;
 @property (weak, nonatomic) IBOutlet YXSecurityCodeButton *codeBtn;
 @property (weak, nonatomic) IBOutlet YXTextFieldPanel *panelView;
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation ThirdPartLoginUpdateViewController
@@ -47,13 +48,8 @@
     return phone;
 }
 
-- (void)codeCompletionWithResult:(NSError *)error {
-    if (error) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = error.userInfo[@"getVerificationCode"];
-        [hud hide:YES afterDelay:0.6];
-    }
+- (PhoneCodeType)codeType {
+    return kPhoneCodeForSupplement;
 }
 
 - (IBAction)donePressed:(id)sender {
@@ -63,11 +59,18 @@
     NSString *code = self.codeTextField.text;
     NSString *nickName = self.nickNameTextField.text;
     NSString *pwd = self.passwordTextField.text;
+    NSString *msg_unique_id = self.codeBtn.msg_unique_id;
     
     if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (!msg_unique_id.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先获取证码";
         [hud hide:YES afterDelay:0.4];
         return;
     } else if (!code.length) {
@@ -91,29 +94,43 @@
     }
     
     // 检测用户名称是否重复
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"提交中...";
+    
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"nickname": nickName};
     [manager POST:API_CheckNickName parameters:dic completion:^(id data, NSError *error){
         if (!error) {
-            [self verificationPhone:phone code:code];
+            [self checkPhoneCode];
         } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"昵称重复或不合法，请重新输入";
-            [hud hide:YES afterDelay:0.4];
+            self.hud.labelText = @"昵称重复或不合法，请重新输入";
+            [self.hud hide:YES afterDelay:0.4];
         }
     }];
 }
 
-- (void)verificationPhone:(NSString *)phone code:(NSString *)code {
-    [SMSSDK commitVerificationCode:code phoneNumber:phone zone:@"86" result:^(NSError *error) {
-        if (!error) {
-            [self requestLogin];
+- (void)checkPhoneCode {
+    NSString *code = self.codeTextField.text;
+    NSString *msg_unique_id = self.codeBtn.msg_unique_id;
+    
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
+                          @"msg_code": code};
+    
+    [manager POST:API_LoginCheckPhoneCode parameters:dic completion:^(id data, NSError *error){
+        if (data) {
+            BOOL is_expire = [data[@"is_expire"] boolValue];
+            BOOL is_verify = [data[@"is_verify"] boolValue];
+            
+            if (is_verify) {
+                [self requestLogin];
+            } else {
+                self.hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [self.hud hide:YES afterDelay:0.4];
+            }
         } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"验证码错误，请重新输入";
-            [hud hide:YES afterDelay:0.4];
+            self.hud.labelText = @"验证码错误，请重新输入";
+            [self.hud hide:YES afterDelay:0.4];
         }
     }];
 }
@@ -123,6 +140,7 @@
     NSString *nickName = self.nickNameTextField.text;
     NSString *pwd = self.passwordTextField.text;
     NSString *phone = self.phoneTextField.text;
+    NSString *msg_unique_id = self.codeBtn.msg_unique_id;
     
     NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
     
@@ -131,7 +149,8 @@
                           @"nickname": nickName,
                           @"phone": phone,
                           @"password": ecriptPwd,
-                          @"avatar_url": self.avatar_url};
+                          @"avatar_url": self.avatar_url,
+                          @"msg_unique_id": msg_unique_id};
     NSString *url;
     if (self.type == kUpdateTypeQQ) {
         url = API_LoginWithQQAdd;
@@ -141,14 +160,9 @@
         NSAssert(nil, @"第三方登录类型不对");
     }
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
-    __weak ThirdPartLoginUpdateViewController *wself = self;
     
     [manager POST:url parameters:dic completion:^(id data, NSError *error){
-        
-        [hud hide:YES];
-        
+
         if (!error) {
             US.isLogIn = YES;
             
@@ -156,16 +170,15 @@
             [LoginHandler saveLoginAccountId:US.userName password:pwd];
             [LoginHandler checkOpenRemotePush];
             
-            [wself.navigationController popToRootViewControllerAnimated:YES];
+            [self.hud hide:YES];
+            
+            [self.navigationController popToRootViewControllerAnimated:YES];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"提交失败";
-            
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            self.hud.labelText = message;
+            [self.hud hide:YES afterDelay:0.4];
         }
     }];
 }

@@ -9,6 +9,9 @@
 #import "YXSecurityCodeButton.h"
 #import "HexColors.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "NetworkManager.h"
+#import "MBProgressHUD.h"
+#import "NSString+Util.h"
 
 @interface YXSecurityCodeButton ()
 @property (nonatomic, strong) NSTimer *timer;
@@ -31,23 +34,36 @@
     }
 }
 
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setup];
+    }
+    return self;
+}
+
 - (void)awakeFromNib
 {
     [super awakeFromNib];
     
+    [self setup];
+}
+
+- (void)setup {
     if (!self.remainTime) {
         self.remainTime = 60;
     }
     
     if (!self.normalTitle) {
-        self.normalTitle = @"获取验证码";
+        self.normalTitle = @"| 发送验证码";
     }
     
     if (!self.formatTitle) {
-        self.formatTitle = @"%d重新发送";
+        self.formatTitle = @"重新发送(%ds)";
     }
     
     self.time = self.remainTime;
+    
+    self.enabled = YES;
     [self setTitle:self.normalTitle forState:UIControlStateNormal];
     [self addTarget:self action:@selector(click:) forControlEvents:UIControlEventTouchUpInside];
 }
@@ -95,24 +111,69 @@
 
 - (void)getCode {
     NSString *phone = [self.delegate codeWithPhone];
+    PhoneCodeType type = [self.delegate codeType];
+    
+    phone = [phone stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
+    
+    
     if (!phone.length) {
         [self reset];
         
-        NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:1 userInfo:@{@"getVerificationCode":@"手机号为空"}];
-        [self.delegate codeCompletionWithResult:error];
+        NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:0 userInfo:@{NSLocalizedDescriptionKey:@"手机号不能为空"}];
+        [self showErrorTip:error];
         return;
     }
     
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:phone zone:@"86" customIdentifier:nil result:^(NSError *error) {
-        if (error) {
-            [self reset];
-        }
+    if (![phone isValidateMobile]) {
+        [self reset];
         
-        [self.delegate codeCompletionWithResult:error];
+        NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:0 userInfo:@{NSLocalizedDescriptionKey:@"手机号格式错误"}];
+        [self showErrorTip:error];
+        return;
+    }
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *para = @{@"phone": phone,@"type":@(type)};
+    [manager POST:API_LoginGetPhoneCode parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+           
+            self.msg_unique_id = data[@"msg_unique_id"];
+            NSInteger status = [data[@"send_status"] integerValue];
+            
+            //0表示成功，1表示超过当日发送上线，2表示1分钟内只能发送一次
+            if (status == 0) {
+                
+            } else if (status == 1) {
+                [self reset];
+                NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:status userInfo:@{NSLocalizedDescriptionKey: @"超过当日发送上线"}];
+                [self showErrorTip:error];
+            } else if (status == 2) {
+                [self reset];
+                NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:status userInfo:@{NSLocalizedDescriptionKey: @"1分钟内只能发送一次"}];
+                [self showErrorTip:error];
+            } else {
+                [self reset];
+                NSError *error = [NSError errorWithDomain:@"YXSecrityCodeButton" code:status userInfo:@{NSLocalizedDescriptionKey: @"获取验证码失败"}];
+                [self showErrorTip:error];
+            }
+            
+        } else {
+            [self reset];
+            [self showErrorTip:error];
+        }
     }];
 }
 
 - (void)handStart {
     [self click:self];
+}
+
+- (void)showErrorTip:(NSError *)error {
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.labelText = error.localizedDescription;
+    [hud hide:YES afterDelay:0.6];
 }
 @end

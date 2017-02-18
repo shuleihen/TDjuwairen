@@ -12,17 +12,21 @@
 #import "MBProgressHUD.h"
 #import "UIdaynightModel.h"
 #import <SMS_SDK/SMSSDK.h>
+#import "YXSecurityCodeButton.h"
+#import "NSString+Util.h"
+#import "LoginHandler.h"
+#import "NotificationDef.h"
 
-@interface ForgetViewController ()
+@interface ForgetViewController ()<YXSecurityCodeButtonDelegate>
 
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
-@property (nonatomic,strong) UIButton *validationBtn;
+@property (nonatomic,strong) YXSecurityCodeButton *validationBtn;
 @property (nonatomic,strong) UITextField *passwordText;
 @property (nonatomic,strong) UITextField *surePassword;
 @property (nonatomic,strong) NSString *str;
-
+@property (nonatomic, strong) MBProgressHUD *hud;
 @end
 
 @implementation ForgetViewController
@@ -43,8 +47,6 @@
     
     // Do any additional setup after loading the view.
 }
-
-
 
 -(void)viewTapped:(UITapGestureRecognizer*)tap
 {
@@ -67,7 +69,8 @@
     self.accountText.backgroundColor = [UIColor whiteColor];
     self.accountText.textColor = [UIColor darkGrayColor];
     self.accountText.font = [UIFont systemFontOfSize:14];
-    self.accountText.placeholder = @"手机号/用户名";
+    self.accountText.placeholder = @"手机号";
+    self.accountText.keyboardType = UIKeyboardTypePhonePad;
     self.accountText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.accountText.leftViewMode = UITextFieldViewModeAlways;
@@ -80,19 +83,11 @@
     self.validationText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.validationText.leftViewMode = UITextFieldViewModeAlways;
-    //竖线
-    UILabel *label = [[UILabel alloc]initWithFrame:CGRectMake(kScreenWidth-8-101, 16+47+1+18, 1, 12)];
-    label.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    label.layer.borderWidth = 1.0;
+    self.validationText.keyboardType = UIKeyboardTypeNumberPad;
     
-    self.validationBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 16+47+1, 100, 47)];
-    self.validationBtn.backgroundColor = [UIColor clearColor];
-    [self.validationBtn setTitle:@"发送验证码" forState:UIControlStateNormal];
-    self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.validationBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
-    //验证码的监听事件
-    [self.validationBtn addTarget:self action:@selector(Verification) forControlEvents:UIControlEventTouchUpInside];
-    [self.validationBtn addTarget:self action:@selector(ClickSend:) forControlEvents:UIControlEventTouchUpInside];
+    self.validationBtn = [[YXSecurityCodeButton alloc]initWithFrame:CGRectMake(kScreenWidth-8-100, 16+47+1, 100, 47)];
+    self.validationBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    self.validationBtn.delegate = self;
     
     self.passwordText = [[UITextField alloc]initWithFrame:CGRectMake(0, 16+47+1+47+1, kScreenWidth, 47)];
     self.passwordText.backgroundColor = [UIColor whiteColor];
@@ -128,12 +123,10 @@
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];
     [self.view addSubview:self.validationBtn];
-    [self.view addSubview:label];
     [self.view addSubview:self.passwordText];
     [self.view addSubview:self.surePassword];
 }
 
-#pragma mark - 点击提交
 - (void)setupWithSubmit{
     UIButton *submitBtn = [[UIButton alloc]initWithFrame:CGRectMake(15, 16+47+1+47+1+47+1+47+30, kScreenWidth-30, 50)];
     submitBtn.backgroundColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
@@ -152,51 +145,83 @@
     [self.view addSubview:service];
 }
 
-- (void)ClickSubmit:(UIButton *)sender{
-    //判断
-    if ([self.accountText.text isEqualToString:@""]) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"请输入手机号" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
-        return;
-    }else if ([self.validationText.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        return;
-    }else if ([self.passwordText.text isEqualToString:@""]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"密码不能为空" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        return;
-    }
-    else if ([self.passwordText.text isEqualToString:self.surePassword.text]){
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"两次输入密码不一样" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-        return;
-    }
-    else
-    {
-        [SMSSDK commitVerificationCode:self.validationText.text phoneNumber:self.accountText.text zone:@"86" result:^(NSError *error) {
-            if (!error) {
-                //提交修改信息
-                [self SubmitUserinfo];
-            } else {
-                NSLog(@"错误信息：%@",error);
-                if ([self.validationText.text isEqualToString:@""]) {
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码为空" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-                    [self presentViewController:alert animated:YES completion:nil];
-                }
-                else{
-                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"验证码错误，请重新输入" preferredStyle:UIAlertControllerStyleAlert];
-                    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-                    [self presentViewController:alert animated:YES completion:nil];
-                }
-            }
-        }];
-    }
+#pragma mark -YXSecurityCodeButtonDelegate
+- (NSString *)codeWithPhone {
+    NSString *phone = self.accountText.text;
+    return phone;
 }
 
-- (void)SubmitUserinfo{
+- (PhoneCodeType)codeType {
+    return kPhoneCodeForLogin;
+}
+
+
+- (void)ClickSubmit:(UIButton *)sender{
+    
+    NSString *phone = self.accountText.text;
+    NSString *code = self.validationText.text;
+    NSString *pwd = self.passwordText.text;
+    NSString *pwd2 = self.surePassword.text;
+    NSString *msg_unique_id = self.validationBtn.msg_unique_id;
+   
+    if(![phone isValidateMobile]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (!msg_unique_id.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"验证码有误";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (!code.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先填写验证码";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (!pwd.length || !pwd2.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先填写密码";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (![pwd isEqualToString:pwd2]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"两次密码输入不一致";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    }
+    
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"提交中...";
+    
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
+                          @"msg_code": code};
+    
+    [manager POST:API_LoginCheckPhoneCode parameters:dic completion:^(id data, NSError *error){
+        if (data) {
+            BOOL is_expire = [data[@"is_expire"] boolValue];
+            BOOL is_verify = [data[@"is_verify"] boolValue];
+            
+            if (is_verify) {
+                [self submitUserinfo];
+            } else {
+                self.hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [self.hud hide:YES afterDelay:0.4];
+            }
+        } else {
+            self.hud.labelText = @"验证码错误，请重新输入";
+            [self.hud hide:YES afterDelay:0.4];
+        }
+    }];
+}
+
+- (void)submitUserinfo{
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *para = @{@"validatestring":self.accountText.text};
     
@@ -204,25 +229,33 @@
         if (!error) {
             NSDictionary *dic = data;
             self.str = dic[@"str"];
-            [self Submit];
+            [self submit];
         } else {
-            
+            self.hud.labelText = @"提交失败";
+            [self.hud hide:YES afterDelay:0.5];
         }
     }];
-    
-    
 }
 
-- (void)Submit{
+- (void)submit{
+    NSString *phone = self.accountText.text;
+    NSString *pwd = self.passwordText.text;
+    NSString *msg_unique_id = self.validationBtn.msg_unique_id;
+    
+    NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *paras = @{@"authenticationStr":self.accountText.text,
+    NSDictionary *paras = @{@"authenticationStr": phone,
                             @"encryptedStr":self.str,
-                            @"telephone":self.accountText.text,
-                            @"password":self.passwordText.text
+                            @"telephone": phone,
+                            @"password": ecriptPwd,
+                            @"msg_unique_id" : msg_unique_id
                             };
-    NSString *url = [NSString stringWithFormat:@"http://appapi.juwairen.net/Login/telFindpwd/"];
-    [manager POST:url parameters:paras completion:^(id data, NSError *error){
+    
+    [manager POST:API_ResetPasswordk parameters:paras completion:^(id data, NSError *error){
         if (!error) {
+            [self.hud hide:YES];
+            
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
                 //登录
@@ -231,10 +264,9 @@
             [self presentViewController:alert animated:YES completion:nil];
             
         } else {
-            NSLog(@"%@",error);
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"修改失败" message:@"修改失败" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
+            NSString *message = error.localizedDescription?:@"修改密码失败";
+            self.hud.labelText = message;
+            [self.hud hide:YES afterDelay:0.4];
         }
     }];
     
@@ -242,38 +274,32 @@
 
 #pragma mark - 登录
 - (void)requestLoging{
+    NSString *phone = self.accountText.text;
+    NSString *pwd = self.passwordText.text;
+    
+    NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
+    
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"登录中";
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *paras = @{@"account":self.accountText.text,
-                            @"password":self.passwordText.text};
+    NSDictionary *paras = @{@"account": phone,
+                            @"password": ecriptPwd};
+    
     [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             hud.labelText = @"登录成功";
             [hud hide:YES afterDelay:0.4];
             
+            US.isLogIn = YES;
             
-            NSDictionary *dic = data;
-            US.userId = dic[@"user_id"];
-            US.userName = dic[@"user_name"];
-            US.nickName = dic[@"user_nickname"];
-            US.userPhone = dic[@"userinfo_phone"];
-            US.headImage = dic[@"userinfo_facesmall"];
-            US.company = dic[@"userinfo_company"];
-            US.post = dic[@"userinfo_occupation"];
-            US.personal = dic[@"userinfo_info"];
-            
-            US.isLogIn=YES;
-            
-            NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-            [accountDefaults setValue:@"normal" forKey:@"loginStyle"];
-            [accountDefaults setValue:self.accountText.text forKey:@"account"];
-            [accountDefaults setValue:self.passwordText.text forKey:@"password"];
-            [accountDefaults synchronize];
+            [LoginHandler saveLoginSuccessedData:data];
+            [LoginHandler saveLoginAccountId:phone password:pwd];
+            [LoginHandler checkOpenRemotePush];
             
             [self.navigationController popToRootViewControllerAnimated:YES];
             
+            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
             hud.labelText = message;
@@ -282,67 +308,9 @@
     }];
 }
 
-- (void)ClickSend:(UIButton *)sender{
-    [SMSSDK getVerificationCodeByMethod:SMSGetCodeMethodSMS phoneNumber:self.accountText.text zone:@"86" customIdentifier:nil result:^(NSError *error) {
-        if (!error) {
-            //  NSLog(@"获取验证码成功");
-        } else {
-            NSLog(@"错误信息：%@",error);
-        }
-    }];
-}
-
 - (void)contactCS:(UIButton *)sender{
     NSURL *url = [NSURL URLWithString:@"telprompt://0571-86716203"];
     [[UIApplication sharedApplication] openURL:url];
 }
-
--(void)Verification
-{
-    __block int timeout=59;  //倒计时时间
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0*NSEC_PER_SEC, 0);  //每秒执行
-    dispatch_source_set_event_handler(_timer, ^{
-        if (timeout<=0) {      //倒计时结束，关闭
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                [self.validationBtn setTitle:@"获取验证码" forState:UIControlStateNormal];
-                [self.validationBtn setTitleColor:[UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0] forState:UIControlStateNormal];
-                
-                self.validationBtn.userInteractionEnabled = YES;
-            });
-        }else{
-            int seconds = timeout % 60;
-            NSString *strTime = [NSString stringWithFormat:@"%.2d",seconds];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //设置界面的按钮显示 根据自己需求设置
-                [self.validationBtn setTitle:[NSString stringWithFormat:@"重新发送(%@s)",strTime] forState:UIControlStateNormal];
-                [self.validationBtn setTitleColor:[UIColor lightGrayColor] forState:UIControlStateNormal];
-                self.validationBtn.userInteractionEnabled = NO;
-            });
-            timeout--;
-        }
-    });
-    dispatch_resume(_timer);
-    
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

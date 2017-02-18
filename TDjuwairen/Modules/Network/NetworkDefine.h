@@ -28,7 +28,6 @@
 #define API_AddUserFeedback     @"User/addUserFeedback/"
 #define API_GetUserFeedbackList @"index.php/Feedback/getUserFeedbackList1_2"
 
-#define API_ResetPasswordk      @"Login/telFindpwd"
 #define API_Login               @"Login/loginDo2_3"
 #define API_LoginWithWeixin     @"Login/WXLogin2_3"
 #define API_LoginWithWeixinAdd  @"Login/WXInfoComplete2_3"
@@ -36,7 +35,9 @@
 #define API_LoginWithQQAdd      @"Login/qqInfoComplete2_3"
 #define API_LoginWithPhone      @"Login/phoneLogin2_3"
 #define API_LoginWithPhoneAdd   @"Login/phoneInfoComplete2_3"
-
+#define API_ResetPasswordk      @"Login/telFindpwd2_3"
+#define API_LoginGetPhoneCode   @"Login/phoneSendVerifyCode"
+#define API_LoginCheckPhoneCode @"Login/phoneCheckVeirfy"
 #define API_LoginSaveChannelid  @"Login/saveUserChannelID"  
 #define API_GetAuthKey          @"Login/checkUniqueStrValid"
 

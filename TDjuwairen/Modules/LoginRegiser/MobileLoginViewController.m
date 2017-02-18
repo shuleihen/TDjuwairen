@@ -32,6 +32,7 @@
 @property (nonatomic,strong) NSString *validateString;
 @property (nonatomic,strong) NSString *encryptedStr;
 @property (weak, nonatomic) IBOutlet YXCheckBox *agreeBtn;
+@property (nonatomic, strong) MBProgressHUD *hud;
 
 @end
 
@@ -80,21 +81,15 @@
     return phone;
 }
 
-- (void)codeCompletionWithResult:(NSError *)error {
-    if (error) {
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = error.userInfo[@"getVerificationCode"];
-        [hud hide:YES afterDelay:0.6];
-    }
-    
+- (PhoneCodeType)codeType {
+    return kPhoneCodeForLogin;
 }
-
 
 - (IBAction)loginPressed:(id)sender{
     
     NSString *phone = self.accountText.text;
     NSString *code = self.validationText.text;
+    NSString *msg_unique_id = self.validationBtn.msg_unique_id;
     
     if (!self.agreeBtn.checked) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -108,7 +103,13 @@
         hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
         [hud hide:YES afterDelay:0.4];
         return;
-    }else if (!code.length) {
+    } else if (!msg_unique_id.length) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请先获取证码";
+        [hud hide:YES afterDelay:0.4];
+        return;
+    } else if (!code.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
         hud.labelText = @"请先填写验证码";
@@ -116,15 +117,27 @@
         return;
     }
     
-    [SMSSDK commitVerificationCode:code phoneNumber:phone zone:@"86" result:^(NSError *error) {
-        if (!error) {
-            //请求登录信息
-            [self requestLogin];
+    self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.hud.labelText = @"登录";
+    
+    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+    NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
+                          @"msg_code": code};
+    
+    [manager POST:API_LoginCheckPhoneCode parameters:dic completion:^(id data, NSError *error){
+        if (data) {
+            BOOL is_expire = [data[@"is_expire"] boolValue];
+            BOOL is_verify = [data[@"is_verify"] boolValue];
+            
+            if (is_verify) {
+                [self requestLogin];
+            } else {
+                self.hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [self.hud hide:YES afterDelay:0.4];
+            }
         } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"验证码错误，请重新输入";
-            [hud hide:YES afterDelay:0.4];
+            self.hud.labelText = @"验证码错误，请重新输入";
+            [self.hud hide:YES afterDelay:0.4];
         }
     }];
 }
@@ -136,22 +149,26 @@
     }
     
     NSString *phone = self.accountText.text;
+    NSString *msg_unique_id = self.validationBtn.msg_unique_id;
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"user_phone": phone,
                           @"authenticationStr":self.validateString,
-                          @"encryptedStr":self.encryptedStr};
+                          @"encryptedStr":self.encryptedStr,
+                          @"msg_unique_id": msg_unique_id};
 
     
     [manager POST:API_LoginWithPhone parameters:dic completion:^(id data, NSError *error){
         if (!error) {
+            [self.hud hide:YES];
+            
             if ([data[@"need_complete"] boolValue] == NO) {
                 US.isLogIn = YES;
                 
                 [LoginHandler saveLoginSuccessedData:data];
                 [LoginHandler saveFastLoginWithPhone:phone];
                 [LoginHandler checkOpenRemotePush];
-                
+                                
                 [self.navigationController popToRootViewControllerAnimated:YES];
                 
                 [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
@@ -165,11 +182,8 @@
             }
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
-            
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            self.hud.labelText = message;
+            [self.hud hide:YES afterDelay:0.4];
         }
     }];
 }

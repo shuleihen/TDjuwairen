@@ -100,5 +100,8 @@
     // 身份窜
     NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
     [request setValue:accessToken?accessToken:@"" forHTTPHeaderField:@"unique_str"];
+    
+    // SENDVERIFYCODE=35915b08bfd96b72c0763cfd7880c0e2cee9c907
+    [request addValue:@"35915b08bfd96b72c0763cfd7880c0e2cee9c907" forHTTPHeaderField:@"SENDVERIFYCODE"];
 }
 @end
