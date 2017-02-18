@@ -10,7 +10,6 @@
 #import "LoginState.h"
 #import "MBProgressHUD.h"
 #import "PhoneNumHold.h"
-#import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 
 @interface AddUpdatesViewController ()<PhoneNumHoldDelegate>

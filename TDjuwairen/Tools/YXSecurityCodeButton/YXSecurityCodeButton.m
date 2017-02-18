@@ -8,7 +8,6 @@
 
 #import "YXSecurityCodeButton.h"
 #import "HexColors.h"
-#import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "NSString+Util.h"

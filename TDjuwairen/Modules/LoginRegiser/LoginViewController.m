@@ -11,7 +11,6 @@
 #import "LoginState.h"
 #import "MobileLoginViewController.h"
 #import "ForgetViewController.h"
-#import "AddUpdatesViewController.h"
 #import "YXCheckBox.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"

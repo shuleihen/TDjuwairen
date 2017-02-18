@@ -10,7 +10,6 @@
 #import "YXSecurityCodeButton.h"
 #import "MBProgressHUD.h"
 #import "NSString+Util.h"
-#import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "YXTextFieldPanel.h"

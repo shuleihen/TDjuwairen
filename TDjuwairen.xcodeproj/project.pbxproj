@@ -99,7 +99,6 @@
 		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
 		1954E6E21DE3D6400058403A /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1954E6E11DE3D6400058403A /* StockManager.m */; };
-		1955B45B1D644D9800DC102E /* AddUpdatesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */; };
 		1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B21D644D9800DC102E /* ForgetViewController.m */; };
 		1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B41D644D9800DC102E /* LoginViewController.m */; };
 		1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B71D644D9800DC102E /* MobileLoginViewController.m */; };
@@ -310,6 +309,7 @@
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54481D5D7DF40011BA33 /* YXFont.m */; };
+		19FCCA4C1E5827EE000CEBDC /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */; };
 		2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2651D015EEE00916844 /* SystemConfiguration.framework */; };
 		2764A2681D015F0A00916844 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2671D015F0A00916844 /* QuartzCore.framework */; };
 		2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2691D015F2900916844 /* CoreTelephony.framework */; };
@@ -345,8 +345,6 @@
 		84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB71DD1ACB3004440A9 /* NSString+GetDevice.m */; };
 		8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488E42A1D90E2EC00888D07 /* libBPush.a */; };
 		8488E42D1D90E2EC00888D07 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8488E42B1D90E2EC00888D07 /* test.caf */; };
-		848AF4FB1D93B6C1001A56D2 /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848AF4EC1D93B6C1001A56D2 /* MOBFoundation.framework */; };
-		848AF4FC1D93B6C1001A56D2 /* SMS_SDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 848AF4ED1D93B6C1001A56D2 /* SMS_SDK.framework */; };
 		8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0571CEF0B2800D7D105 /* TAAbstractDotView.m */; };
 		8497E0651CEF0B2800D7D105 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0591CEF0B2800D7D105 /* TAAnimatedDotView.m */; };
 		8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E05B1CEF0B2800D7D105 /* TADotView.m */; };
@@ -624,8 +622,6 @@
 		194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySubscriptionViewController.m; sourceTree = "<group>"; };
 		1954E6E01DE3D6400058403A /* StockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockManager.h; sourceTree = "<group>"; };
 		1954E6E11DE3D6400058403A /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
-		1955B3AD1D644D9800DC102E /* AddUpdatesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddUpdatesViewController.h; sourceTree = "<group>"; };
-		1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddUpdatesViewController.m; sourceTree = "<group>"; };
 		1955B3B11D644D9800DC102E /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
 		1955B3B21D644D9800DC102E /* ForgetViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ForgetViewController.m; sourceTree = "<group>"; };
 		1955B3B31D644D9800DC102E /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginViewController.h; sourceTree = "<group>"; };
@@ -1026,6 +1022,7 @@
 		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		19FB54471D5D7DF40011BA33 /* YXFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXFont.h; sourceTree = "<group>"; };
 		19FB54481D5D7DF40011BA33 /* YXFont.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXFont.m; sourceTree = "<group>"; };
+		19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
 		2764A2651D015EEE00916844 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2764A2671D015F0A00916844 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2764A2691D015F2900916844 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
@@ -1078,8 +1075,6 @@
 		8488E42A1D90E2EC00888D07 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
 		8488E42B1D90E2EC00888D07 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		8488E42E1D90E30800888D07 /* TDjuwairen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TDjuwairen.entitlements; sourceTree = "<group>"; };
-		848AF4EC1D93B6C1001A56D2 /* MOBFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MOBFoundation.framework; sourceTree = "<group>"; };
-		848AF4ED1D93B6C1001A56D2 /* SMS_SDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = SMS_SDK.framework; sourceTree = "<group>"; };
 		8497E0561CEF0B2800D7D105 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		8497E0571CEF0B2800D7D105 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
 		8497E0581CEF0B2800D7D105 /* TAAnimatedDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAnimatedDotView.h; sourceTree = "<group>"; };
@@ -1216,16 +1211,15 @@
 				84D57BC21D83934300274E9C /* Foundation.framework in Frameworks */,
 				84D57BBC1D83930E00274E9C /* CFNetwork.framework in Frameworks */,
 				8470E9671DDD8426002F727D /* CoreMotion.framework in Frameworks */,
-				848AF4FC1D93B6C1001A56D2 /* SMS_SDK.framework in Frameworks */,
 				2764A26E1D015F6B00916844 /* Security.framework in Frameworks */,
 				84D57BBE1D83931A00274E9C /* CoreFoundation.framework in Frameworks */,
-				848AF4FB1D93B6C1001A56D2 /* MOBFoundation.framework in Frameworks */,
 				8470E9651DDD8405002F727D /* AlipaySDK.framework in Frameworks */,
 				19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */,
 				1946EE9C1E0EA90200D8FB3A /* ShareSDKUI.framework in Frameworks */,
 				2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */,
 				2764A26C1D015F5B00916844 /* libz.1.2.5.tbd in Frameworks */,
 				84F9FDAF1CF80DCF00683791 /* StoreKit.framework in Frameworks */,
+				19FCCA4C1E5827EE000CEBDC /* MOBFoundation.framework in Frameworks */,
 				84E334D71CE329CB00E5DCEE /* MessageUI.framework in Frameworks */,
 				84E334D51CE329B200E5DCEE /* libsqlite3.tbd in Frameworks */,
 				84E334D31CE329A900E5DCEE /* ImageIO.framework in Frameworks */,
@@ -1790,8 +1784,6 @@
 			children = (
 				190F65B81E335A9900B83ADF /* Manager */,
 				190F65B41E334CC800B83ADF /* Handler */,
-				1955B3AD1D644D9800DC102E /* AddUpdatesViewController.h */,
-				1955B3AE1D644D9800DC102E /* AddUpdatesViewController.m */,
 				1955B3B11D644D9800DC102E /* ForgetViewController.h */,
 				1955B3B21D644D9800DC102E /* ForgetViewController.m */,
 				1955B3B31D644D9800DC102E /* LoginViewController.h */,
@@ -2425,11 +2417,11 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				19FCCA491E5827EE000CEBDC /* SMS_SDK */,
 				1946EE761E0EA90200D8FB3A /* ShareSDK */,
 				1946EE311E0E9DF100D8FB3A /* WexinSDK1.7.5 */,
 				841848CA1DF537140047DA7E /* UMMobClick.framework */,
 				8470E9611DDD8405002F727D /* AliSDK */,
-				848AF4EB1D93B6C1001A56D2 /* SMS_SDK */,
 				8488E4281D90E2EC00888D07 /* idfaversion */,
 			);
 			path = Lib;
@@ -3026,6 +3018,14 @@
 			path = YXFont;
 			sourceTree = "<group>";
 		};
+		19FCCA491E5827EE000CEBDC /* SMS_SDK */ = {
+			isa = PBXGroup;
+			children = (
+				19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */,
+			);
+			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
 		84053B531D6BE9AF0020A1F0 /* AboutMine */ = {
 			isa = PBXGroup;
 			children = (
@@ -3175,15 +3175,6 @@
 				8488E42B1D90E2EC00888D07 /* test.caf */,
 			);
 			path = idfaversion;
-			sourceTree = "<group>";
-		};
-		848AF4EB1D93B6C1001A56D2 /* SMS_SDK */ = {
-			isa = PBXGroup;
-			children = (
-				848AF4EC1D93B6C1001A56D2 /* MOBFoundation.framework */,
-				848AF4ED1D93B6C1001A56D2 /* SMS_SDK.framework */,
-			);
-			path = SMS_SDK;
 			sourceTree = "<group>";
 		};
 		8497E0541CEF0B2800D7D105 /* SDCycleScrollView */ = {
@@ -3856,7 +3847,6 @@
 				1955B4621D644D9800DC102E /* BrowserTableViewCell.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
-				1955B45B1D644D9800DC102E /* AddUpdatesViewController.m in Sources */,
 				842D94EC1E024AC800D9AFDB /* UserSurveyModel.m in Sources */,
 				847ADA7A1DF7B20B002600AA /* OptionalStockTableViewCell.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,

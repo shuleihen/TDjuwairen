@@ -17,8 +17,6 @@
 #import <TencentOpenAPI/QQApiInterface.h>
 #import "WXApi.h"
 #import "WeiboSDK.h"
-#import <SMS_SDK/SMSSDK.h>
-
 #import "GuideViewController.h"
 #import "HexColors.h"
 #import "YXFont.h"
@@ -41,8 +39,6 @@
 #import "NotificationDef.h"
 #import "StockDetailViewController.h"
 
-static BOOL isBackGroundActivateApplication;
-
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
 @end
@@ -58,7 +54,6 @@ static BOOL isBackGroundActivateApplication;
     
     [self setupUICommon];
     [self setupURLCacheSize];
-    [self setupSMSSDK];
     [self setupShareSDK];
     [self setupWebImageCache];
     [self checkSwitchToGuide];
@@ -365,11 +360,6 @@ static BOOL isBackGroundActivateApplication;
     [NSURLCache setSharedURLCache:shardCache];
 }
 
-- (void)setupSMSSDK
-{
-    [SMSSDK registerApp:@"133251c67bb26" withSecret:@"f5535332a67b4228d0b792ef82c2ce34"];
-}
-
 - (void)setupShareSDK
 {
     [ShareSDK registerApp:@"133251c67bb26"
@@ -536,6 +526,7 @@ static BOOL isBackGroundActivateApplication;
     
     if ((NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) && (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_9_x_Max)) {
         //如果你期望使用交互式(只有iOS 8.0及以上有)的通知，请参考下面注释部分的初始化代码
+        /*
         UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
         action1.identifier = @"jwr.open";
         action1.title=@"查看";
@@ -551,7 +542,7 @@ static BOOL isBackGroundActivateApplication;
         actionCategory1.identifier = @"com.jwr.read";
         [actionCategory1 setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
         NSSet *categories = [NSSet setWithObjects:actionCategory1, nil];
-        
+        */
         UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];

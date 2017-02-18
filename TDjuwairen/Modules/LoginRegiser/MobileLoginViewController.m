@@ -8,7 +8,6 @@
 
 #import "MobileLoginViewController.h"
 #import "LoginState.h"
-#import <SMS_SDK/SMSSDK.h>
 #import "NetworkManager.h"
 #import "HexColors.h"
 #import "YXTextFieldPanel.h"

@@ -11,7 +11,6 @@
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "UIdaynightModel.h"
-#import <SMS_SDK/SMSSDK.h>
 #import "YXSecurityCodeButton.h"
 #import "NSString+Util.h"
 #import "LoginHandler.h"

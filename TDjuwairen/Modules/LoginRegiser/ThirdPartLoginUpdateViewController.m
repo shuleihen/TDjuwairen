@@ -16,7 +16,6 @@
 #import "HexColors.h"
 #import "LoginHandler.h"
 #import "YXSecurityCodeButton.h"
-#import <SMS_SDK/SMSSDK.h>
 
 @interface ThirdPartLoginUpdateViewController ()<YXSecurityCodeButtonDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *phoneTextField;
