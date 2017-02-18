@@ -13,7 +13,8 @@ typedef enum : NSUInteger {
     kPhoneCodeForRegister   =1,
     kPhoneCodeForLogin      =2,
     kPhoneCodeForUpdate     =3,
-    kPhoneCodeForSupplement =4
+    kPhoneCodeForSupplement =4,
+    kPhoneCodeForFind       =5
 } PhoneCodeType;
 
 @class YXSecurityCodeButton;

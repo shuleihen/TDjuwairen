@@ -152,7 +152,7 @@
 }
 
 - (PhoneCodeType)codeType {
-    return kPhoneCodeForLogin;
+    return kPhoneCodeForFind;
 }
 
 
