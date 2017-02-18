@@ -43,7 +43,7 @@
 
 static BOOL isBackGroundActivateApplication;
 
-@interface AppDelegate ()
+@interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
 @end
 
@@ -63,10 +63,8 @@ static BOOL isBackGroundActivateApplication;
     [self setupWebImageCache];
     [self checkSwitchToGuide];
     [self setupLog];
-    
     [self setupWithUMMobClick];
-    
-    [self setupWithBPush:application andDic:launchOptions];
+    [self setupBaiduPushWithLaunchOptions:launchOptions];
     
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -111,161 +109,6 @@ static BOOL isBackGroundActivateApplication;
     
 }
 
-// 此方法是 用户点击了通知，应用在前台 或者开启后台并且应用在后台 时调起
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler
-{
-    // 打印到日志 textView 中
-    NSLog(@"********** iOS7.0之后 background **********");
-    //杀死状态下，直接跳转到跳转页面。
-    if (application.applicationState == UIApplicationStateInactive && !isBackGroundActivateApplication)
-    {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *nothing = userInfo[@"view_id"];
-            if (nothing == nil) {
-                NSString *c = userInfo[@"code"];
-                if (c == nil) {
-                    //
-                }
-                else
-                {
-                    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-                    vc.stockId = c;
-                    vc.hidesBottomBarWhenPushed = YES;
-                    self.tabBarController.selectedIndex = 0;
-                    [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
-                }
-            }
-            else
-            {
-                DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-                detail.view_id = userInfo[@"view_id"];
-                detail.pageMode = @"view";
-                [detail setHidesBottomBarWhenPushed:YES];
-                self.tabBarController.selectedIndex = 1;
-                [self.tabBarController.selectedViewController pushViewController:detail animated:YES];
-            }
-            NSLog(@"applacation is unactive ===== %@",userInfo);
-        });
-    }
-    // 应用在后台。当后台设置aps字段里的 content-available 值为 1 并开启远程通知激活应用的选项
-    if (application.applicationState == UIApplicationStateBackground) {
-        NSLog(@"background is Activated Application ");
-        // 此处可以选择激活应用提前下载邮件图片等内容。
-        isBackGroundActivateApplication = YES;
-        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:@"收到一条消息" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
-    }
-    
-    completionHandler(UIBackgroundFetchResultNewData);
-    NSLog(@"backgroud : %@",userInfo);
-    
-}
-
-// 在 iOS8 系统中，还需要添加这个方法。通过新的 API 注册推送服务
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
-{
-    [application registerForRemoteNotifications];
-}
-
-
-- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    NSLog(@"test:%@",deviceToken);
-    [BPush registerDeviceToken:deviceToken];
-    [BPush bindChannelWithCompleteHandler:^(id result, NSError *error) {
-        //        [self.viewController addLogString:[NSString stringWithFormat:@"Method: %@\n%@",BPushRequestMethodBind,result]];
-        // 需要在绑定成功后进行 settag listtag deletetag unbind 操作否则会失败
-        // 网络错误
-        if (error) {
-            return ;
-        }
-        if (result) {
-            // 确认绑定成功
-            if ([result[@"error_code"]intValue]!=0) {
-                return;
-            }
-            [BPush setTag:@"Mytag" withCompleteHandler:^(id result, NSError *error) {
-                if (result) {
-                    NSLog(@"设置tag成功");
-                    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
-                    NSString *url = @"index.php/Index/resetUnreadMsg";
-                    NSString *channel_id = [BPush getChannelId];
-                    NSDictionary *para = @{@"channel_id":channel_id,
-                                           @"type":@"1"};
-                    [manager POST:url parameters:para completion:^(id data, NSError *error) {
-                        //角标同步到后台
-                        NSLog(@"%@",data);
-                    }];
-                }
-            }];
-        }
-    }];
-    // 打印到日志 textView 中
-    //    [self.viewController addLogString:[NSString stringWithFormat:@"Register use deviceToken : %@",deviceToken]];
-    
-    
-}
-
-// 当 DeviceToken 获取失败时，系统会回调此方法
-- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error
-{
-    NSLog(@"DeviceToken 获取失败，原因：%@",error);
-}
-
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo
-{
-    // App 收到推送的通知
-    [BPush handleNotification:userInfo];
-    NSLog(@"********** ios7.0之前 **********");
-    // 应用在前台 或者后台开启状态下，不跳转页面，让用户选择。
-    if (application.applicationState == UIApplicationStateActive || application.applicationState == UIApplicationStateBackground) {
-        NSLog(@"acitve or background");
-        UIAlertView *alertView =[[UIAlertView alloc]initWithTitle:@"收到一条消息" message:userInfo[@"aps"][@"alert"] delegate:self cancelButtonTitle:@"取消" otherButtonTitles:@"确定", nil];
-        [alertView show];
-    }
-    else//杀死状态下，直接跳转到跳转页面。
-    {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSString *nothing = userInfo[@"view_id"];
-            if (nothing == nil) {
-                NSString *c = userInfo[@"code"];
-                if (c == nil) {
-                    //
-                }
-                else
-                {
-                    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-                    vc.stockId = c;
-                    vc.hidesBottomBarWhenPushed = YES;
-                    
-                    self.tabBarController.selectedIndex = 0;
-                    [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
-                }
-            }
-            else
-            {
-                DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-                detail.view_id = userInfo[@"view_id"];
-                detail.pageMode = @"view";
-                [detail setHidesBottomBarWhenPushed:YES];
-                self.tabBarController.selectedIndex = 1;
-                [self.tabBarController.selectedViewController pushViewController:detail animated:YES];
-            }
-            NSLog(@"applacation is unactive ===== %@",userInfo);
-        });
-    }
-    
-    NSLog(@"%@",userInfo);
-    
-}
-
-- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification
-{
-    NSLog(@"接收本地通知啦！！！");
-    [BPush showLocalNotificationAtFront:notification identifierKey:nil];
-}
-
-#pragma mark - 支付返回结果
 - (BOOL)application:(UIApplication *)application
             openURL:(NSURL *)url
   sourceApplication:(NSString *)sourceApplication
@@ -362,63 +205,121 @@ static BOOL isBackGroundActivateApplication;
     
 }
 
-#pragma mark - 微信支付回调
-
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
     return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
 
-#pragma mark -
+#pragma mark - Push
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+    [BPush registerDeviceToken:deviceToken];
+    
+    [BPush bindChannelWithCompleteHandler:^(id result, NSError *error){
+        if (result && (result[@"error_code"] == 0)) {
+            NSString *channelid = result[@"channel_id"];
+            DDLogInfo(@"Baidu push bind success with channel_id = %@",channelid);
+        } else {
+            DDLogError(@"Baidu push bind faild");
+        }
+    }];
+}
+
+- (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
+#ifdef  DEBUG
+    NSLog(@"Register Token Error = %@",error);
+#endif
+}
+
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings {
+    [application registerForRemoteNotifications];
+}
+
+// iOS10以下使用这个方法接收通知
+- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+#ifdef DEBUG
+    NSLog(@"iOS 10 以下 RemoteNotification UserInfo = %@",userInfo);
+#endif
+    
+    [BPush handleNotification:userInfo];
+    
+    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        // 应用处于前台的远程推送
+        if ([userInfo[@"category"] isEqualToString:@"com.lianlian.update"]) {
+            
+        }
+    }
+}
+
+- (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
+#ifdef DEBUG
+    NSLog(@"iOS 10 以下 LocalNotification Notification = %@",notification);
+#endif
+    
+    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
+        // 本地通知
+        if ([notification.category isEqualToString:@"com.lianlian.update"]) {
+            
+        }
+        
+    }
+}
+
+- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
+    // 处理远程通知 Action
+    
+}
+
+
+//iOS10新增：处理前台收到通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
+#ifdef DEBUG
+    NSLog(@"iOS10 以上 前台收到通知 UNNotification = %@",notification);
+#endif
+    
+    NSDictionary * userInfo = notification.request.content.userInfo;
+    
+    if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        // 应用处于前台时的远程推送接受
+        if ([notification.request.content.categoryIdentifier isEqualToString:@"com.lianlian.update"]) {
+            
+            
+            completionHandler(UNNotificationPresentationOptionSound);
+        } else {
+            completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+        }
+        
+    }else{
+        // 应用处于前台时的本地推送接受
+        completionHandler(UNNotificationPresentationOptionSound|UNNotificationPresentationOptionBadge|UNNotificationPresentationOptionAlert);
+    }
+}
+
+//iOS10新增：处理后台点击通知的代理方法
+-(void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)())completionHandler{
+#ifdef DEBUG
+    NSLog(@"iOS10 以上 后台收到通知 UNNotificationResponse =  %@",response);
+#endif
+    
+    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
+        // 应用处于后台时的远程推送接受
+        if ([response.actionIdentifier isEqualToString:@"update.open"]) {
+            
+        }
+        
+    }else{
+        // 应用处于后台时的本地推送接受
+    }
+}
+
+#pragma mark - Setup
 - (void)setupUICommon {
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
     UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
     [daynightmodel day];
     [userdefault setObject:@"yes" forKey:@"daynight"];
 }
-/*
- - (void)setupUICommon
- {
- NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
- UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
- NSString *daynight = [userdefault objectForKey:@"daynight"];
- if ([daynight isEqualToString:@"yes"]) {
- [daynightmodel day];
- [UINavigationBar appearance].barTintColor = daynightmodel.navigationColor;   // 设置导航条背景颜色
- [UINavigationBar appearance].translucent = NO;
- [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
- 
- // 设置导航条标题字体和颜色
- NSDictionary *dict = @{NSForegroundColorAttributeName:[UIColor blackColor], NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
- [[UINavigationBar appearance] setTitleTextAttributes:dict];
- 
- // 设置导航条左右按钮字体和颜色
- NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
- [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
- }
- else
- {
- [daynightmodel night];
- [UINavigationBar appearance].barTintColor = [HXColor hx_colorWithHexRGBAString:@"#222222"];   // 设置导航条背景颜色
- [UINavigationBar appearance].translucent = NO;
- [UINavigationBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#646464"];    // 设置左右按钮，文字和图片颜色
- 
- // 设置导航条标题字体和颜色
- NSDictionary *dict = @{NSForegroundColorAttributeName:daynightmodel.titleColor, NSFontAttributeName:[YXFont mediumFontSize:17.0f]};
- [[UINavigationBar appearance] setTitleTextAttributes:dict];
- 
- // 设置导航条左右按钮字体和颜色
- NSDictionary *barItemDict = @{NSForegroundColorAttributeName:[HXColor hx_colorWithHexRGBAString:@"#1b69b1"], NSFontAttributeName:[YXFont lightFontSize:16.0f]};
- [[UIBarButtonItem appearance] setTitleTextAttributes:barItemDict forState:UIControlStateNormal];
- }
- 
- 
- 
- [UITabBar appearance].barTintColor = daynightmodel.navigationColor;
- [UITabBar appearance].tintColor = [HXColor hx_colorWithHexRGBAString:@"#1b69b1"];
- [UITabBar appearance].translucent = NO;
- }
- */
+
 - (void)setupURLCacheSize
 {
     int cacheSizeMemory = 4*1024*1024; // 4MB
@@ -566,89 +467,75 @@ static BOOL isBackGroundActivateApplication;
     [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
 }
 
-- (void)setupWithBPush:(UIApplication *)application andDic:(NSDictionary *)launchOptions{
-    if (![[NSUserDefaults standardUserDefaults] boolForKey:@"everLaunched"]) {
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"everLaunched"];
-        [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"firstLaunch"];
-        [[NSUserDefaults standardUserDefaults] setObject:launchOptions forKey:@"launchOptions"];
+- (void)setupBaiduPushWithLaunchOptions:(NSDictionary *)launchOptions {
+    
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    //iOS10必须加下面这段代码。
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_9_x_Max) {
+        UNUserNotificationCenter *center = [UNUserNotificationCenter currentNotificationCenter];
+        center.delegate = self;
         
-        NSLog(@"first launch");
-        // iOS10 下需要使用新的 API
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-            UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-            
-            [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                                  completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                      // Enable or disable features based on authorization.
-                                      if (granted) {
-                                          [application registerForRemoteNotifications];
-                                      }
-                                  }];
-#endif
-        }
-        else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-            
-            UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-            [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-        }else {
-            //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
-            //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-        }
-        
-        //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
-        
-        // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-        [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
-        
-    }else {
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"firstLaunch"];
-        NSLog(@"second launch");
-        UIApplication *app = [UIApplication sharedApplication];
-        if ([app isRegisteredForRemoteNotifications]  == YES) {
-            if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 10.0) {
-#ifdef NSFoundationVersionNumber_iOS_9_x_Max
-                UNUserNotificationCenter* center = [UNUserNotificationCenter currentNotificationCenter];
-                
-                [center requestAuthorizationWithOptions:(UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionBadge)
-                                      completionHandler:^(BOOL granted, NSError * _Nullable error) {
-                                          // Enable or disable features based on authorization.
-                                          if (granted) {
-                                              [application registerForRemoteNotifications];
-                                          }
-                                      }];
-#endif
+        UNAuthorizationOptions types10=UNAuthorizationOptionBadge|UNAuthorizationOptionAlert|UNAuthorizationOptionSound;
+        [center requestAuthorizationWithOptions:types10 completionHandler:^(BOOL granted, NSError * _Nullable error) {
+            if (granted) {
+                //点击允许
+                //这里可以添加一些自己的逻辑
+            } else {
+                //点击不允许
+                //这里可以添加一些自己的逻辑
             }
-            else if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-                UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
-                
-                UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
-                [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-            }else {
-                //        UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge|UIRemoteNotificationTypeAlert|UIRemoteNotificationTypeSound;
-                //        [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
-            }
-            
-            //#warning 上线 AppStore 时需要修改BPushMode为BPushModeProduction 需要修改Apikey为自己的Apikey
-            
-            // 在 App 启动时注册百度云推送服务，需要提供 Apikey
-            [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:BPushModeProduction withFirstAction:@"打开" withSecondAction:@"回复" withCategory:@"test" useBehaviorTextInput:YES isDebug:YES];
-        }
+        }];
+        
+        // 升级提示Action
+        UNNotificationAction *action1_ios10 = [UNNotificationAction actionWithIdentifier:@"update.open" title:@"升级" options:UNNotificationActionOptionForeground];
+        UNNotificationAction *action2_ios10 = [UNNotificationAction actionWithIdentifier:@"update.ignore" title:@"忽略" options:UNNotificationActionOptionForeground];
+        
+        UNNotificationCategory *category1_ios10 = [UNNotificationCategory categoryWithIdentifier:@"com.lianlian.update" actions:@[action1_ios10,action2_ios10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
+        
+        NSSet *categories_ios10 = [NSSet setWithObjects:category1_ios10, nil];
+        [center setNotificationCategories:categories_ios10];
     }
-    // App 是用户点击推送消息启动
+    
+    if ((NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) && (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_9_x_Max)) {
+        //如果你期望使用交互式(只有iOS 8.0及以上有)的通知，请参考下面注释部分的初始化代码
+        UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
+        action1.identifier = @"update.open";
+        action1.title=@"升级";
+        action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
+        
+        UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
+        action2.identifier = @"update.ignore";
+        action2.title=@"忽略";
+        action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
+        action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
+        action2.destructive = YES;
+        UIMutableUserNotificationCategory *actionCategory1 = [[UIMutableUserNotificationCategory alloc] init];
+        actionCategory1.identifier = @"com.lianlian.update";
+        [actionCategory1 setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
+        NSSet *categories = [NSSet setWithObjects:actionCategory1, nil];
+        
+        UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
+        
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:categories];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
+    }
+    
+    BOOL isDebug = NO;
+    BPushMode mode = BPushModeProduction;
+#ifdef DEBUG
+    isDebug = YES;
+    mode = BPushModeDevelopment;
+#endif
+    
+    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:mode withFirstAction:@"" withSecondAction:@"" withCategory:nil useBehaviorTextInput:NO isDebug:isDebug];
+    
     NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
     if (userInfo) {
-        NSLog(@"从消息启动:%@",userInfo);
         [BPush handleNotification:userInfo];
     }
-}
-
-- (void)testLocalNotifi
-{
-    NSLog(@"测试本地通知啦！！！");
-    NSDate *fireDate = [[NSDate new] dateByAddingTimeInterval:5];
-    [BPush localNotification:fireDate alertBody:@"这是本地通知" badge:3 withFirstAction:@"打开" withSecondAction:@"关闭" userInfo:nil soundName:nil region:nil regionTriggersOnce:YES category:nil useBehaviorTextInput:YES];
+    
+    [BPush disableLbs];
 }
 
 @end
