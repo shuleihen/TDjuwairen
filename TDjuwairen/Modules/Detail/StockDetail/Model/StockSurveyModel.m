@@ -15,6 +15,7 @@
         _title = dict[@"survey_title"];
         _surveyId = dict[@"survey_id"];
         _dateTime = dict[@"survey_addtime"];
+        self.surveyTag = [dict[@"survey_tag"] integerValue];
     }
     return self;
 }

@@ -10,6 +10,7 @@
 #import "SpotTableViewCell.h"
 #import "StockSurveyModel.h"
 #import "NetworkManager.h"
+#import "DetailPageViewController.h"
 
 @interface DialogueViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -92,13 +93,20 @@
         if ([self.delegate canRead]) {
             StockSurveyModel *model = self.items[indexPath.row];
             
-            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-            vc.contentId = model.surveyId;
-            vc.stockId = self.stockId;
-            vc.stockName = self.stockName;
-            vc.cover = self.stockCover;
-            vc.tag = self.tag;
-            [self.rootController.navigationController pushViewController:vc animated:YES];
+            if (model.surveyTag == kSurveyTagVido) {
+                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
+                vc.sharp_id = model.surveyId;
+                vc.pageMode = @"sharp";
+                [self.rootController.navigationController pushViewController:vc animated:YES];
+            } else {
+                SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+                vc.contentId = model.surveyId;
+                vc.stockId = self.stockId;
+                vc.stockName = self.stockName;
+                vc.cover = self.stockCover;
+                vc.tag = self.tag;
+                [self.rootController.navigationController pushViewController:vc animated:YES];
+            }
         }
     }
 }
