@@ -445,26 +445,26 @@
 
 - (void)checkSwitchToGuide
 {    
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *oldVersion = [userdefault stringForKey:@"version"];
-    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
-    NSString *currentVersion = dict[@"CFBundleShortVersionString"];
-    
-    if (![oldVersion isEqualToString:currentVersion]) {
-        GuideViewController *launchView=[[GuideViewController alloc] init];
-        self.window.rootViewController=launchView;
-        [self.window makeKeyAndVisible];
-        
-        [userdefault setObject:currentVersion forKey:@"version"];
-        [userdefault setObject:@"yes" forKey:@"daynight"];
-        [userdefault synchronize];
-    }
-    else
-    {
+//    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
+//    NSString *oldVersion = [userdefault stringForKey:@"version"];
+//    NSDictionary *dict = [[NSBundle mainBundle] infoDictionary];
+//    NSString *currentVersion = dict[@"CFBundleShortVersionString"];
+//    
+//    if (![oldVersion isEqualToString:currentVersion]) {
+//        GuideViewController *launchView=[[GuideViewController alloc] init];
+//        self.window.rootViewController=launchView;
+//        [self.window makeKeyAndVisible];
+//        
+//        [userdefault setObject:currentVersion forKey:@"version"];
+//        [userdefault setObject:@"yes" forKey:@"daynight"];
+//        [userdefault synchronize];
+//    }
+//    else
+//    {
         self.tabBarController = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
         self.window.rootViewController = self.tabBarController;
         [self.window makeKeyAndVisible];
-    }
+//    }
 }
 
 - (void)setupLog
