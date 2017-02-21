@@ -47,6 +47,18 @@
 
 
 #pragma mark -YXSecurityCodeButtonDelegate
+- (BOOL)canRequest {
+    NSString *phone = [self.phoneTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+    if ([US.userPhone isEqualToString:phone]) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"请输入正确的手机号";
+        [hud hide:YES afterDelay:0.8];
+        return NO;
+    }
+    return YES;
+}
+
 - (NSString *)codeWithPhone {
     NSString *phone = self.phoneTextField.text;
     return phone;
