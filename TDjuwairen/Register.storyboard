@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="Z9o-2I-ErT">
-                            <rect key="frame" x="0.0" y="212" width="375" height="64"/>
+                            <rect key="frame" x="0.0" y="212" width="375" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="top" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7NI-Uw-nSI">
@@ -44,12 +44,20 @@
                                         <action selector="donePressed:" destination="J84-8i-HFv" eventType="touchUpInside" id="S8s-i1-2oj"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册成功即送5把金钥匙" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gO2-BA-XrE">
+                                    <rect key="frame" x="111.5" y="83" width="151.5" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
+                                <constraint firstItem="7NI-Uw-nSI" firstAttribute="top" secondItem="Z9o-2I-ErT" secondAttribute="top" constant="20" id="6uD-ar-7dQ"/>
                                 <constraint firstItem="7NI-Uw-nSI" firstAttribute="leading" secondItem="Z9o-2I-ErT" secondAttribute="leading" constant="12" id="8qn-UF-XDg"/>
-                                <constraint firstAttribute="bottom" secondItem="7NI-Uw-nSI" secondAttribute="bottom" id="Qqj-qr-5Wn"/>
+                                <constraint firstItem="gO2-BA-XrE" firstAttribute="centerX" secondItem="Z9o-2I-ErT" secondAttribute="centerX" id="avx-oE-3SY"/>
                                 <constraint firstAttribute="trailing" secondItem="7NI-Uw-nSI" secondAttribute="trailing" constant="12" id="bRZ-eb-Z9e"/>
+                                <constraint firstAttribute="bottom" secondItem="gO2-BA-XrE" secondAttribute="bottom" constant="10" id="gJ9-KL-TKo"/>
                                 <constraint firstItem="7NI-Uw-nSI" firstAttribute="centerX" secondItem="Z9o-2I-ErT" secondAttribute="centerX" id="lxP-hw-gPx"/>
                             </constraints>
                         </view>
@@ -176,7 +184,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j9i-Nq-ky9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1929" y="627"/>
+            <point key="canvasLocation" x="-1930.4000000000001" y="626.53673163418296"/>
         </scene>
         <!--补全信息-->
         <scene sceneID="hd0-f5-eyg">
@@ -186,9 +194,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
-                        <color key="sectionIndexBackgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
                         <view key="tableFooterView" contentMode="scaleToFill" id="n1s-RY-1Uj">
-                            <rect key="frame" x="0.0" y="124" width="375" height="64"/>
+                            <rect key="frame" x="0.0" y="124" width="375" height="110"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
                                 <button opaque="NO" contentMode="top" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="no7-5U-NMC">
@@ -214,11 +221,19 @@
                                         <action selector="donePressed:" destination="12g-lI-P5n" eventType="touchUpInside" id="m7n-g6-WkQ"/>
                                     </connections>
                                 </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注册成功即送5把金钥匙" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Upq-fh-vHs">
+                                    <rect key="frame" x="111.5" y="83" width="151.5" height="17"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                    <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
                             </subviews>
                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             <constraints>
-                                <constraint firstAttribute="bottom" secondItem="no7-5U-NMC" secondAttribute="bottom" id="59D-fe-739"/>
+                                <constraint firstAttribute="bottom" secondItem="Upq-fh-vHs" secondAttribute="bottom" constant="10" id="50B-Zr-gbL"/>
+                                <constraint firstItem="Upq-fh-vHs" firstAttribute="centerX" secondItem="n1s-RY-1Uj" secondAttribute="centerX" id="631-sV-mZn"/>
                                 <constraint firstItem="no7-5U-NMC" firstAttribute="leading" secondItem="n1s-RY-1Uj" secondAttribute="leading" constant="12" id="Kf0-dL-87p"/>
+                                <constraint firstItem="no7-5U-NMC" firstAttribute="top" secondItem="n1s-RY-1Uj" secondAttribute="top" constant="20" id="R1B-IJ-74N"/>
                                 <constraint firstAttribute="trailing" secondItem="no7-5U-NMC" secondAttribute="trailing" constant="12" id="So5-Yk-MAD"/>
                                 <constraint firstItem="no7-5U-NMC" firstAttribute="centerX" secondItem="n1s-RY-1Uj" secondAttribute="centerX" id="eER-a1-J9y"/>
                             </constraints>
