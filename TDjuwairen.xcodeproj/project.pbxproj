@@ -98,6 +98,8 @@
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
 		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
+		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
+		1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */; };
 		1954E6E21DE3D6400058403A /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1954E6E11DE3D6400058403A /* StockManager.m */; };
 		1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B21D644D9800DC102E /* ForgetViewController.m */; };
 		1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B41D644D9800DC102E /* LoginViewController.m */; };
@@ -159,6 +161,7 @@
 		196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 196F5ED71E5485B700928B60 /* SAMKeychain.bundle */; };
 		196F5EE01E553ADB00928B60 /* AppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5EDF1E553ADB00928B60 /* AppContext.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
+		19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
 		19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B751E2C5D4300AB26DF /* GradeListCell.xib */; };
 		19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B781E2C5D4300AB26DF /* GradeListViewController.m */; };
@@ -620,6 +623,9 @@
 		194F05931E2746D600C8CB8A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
 		194F05951E27496600C8CB8A /* PaySubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySubscriptionViewController.h; sourceTree = "<group>"; };
 		194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySubscriptionViewController.m; sourceTree = "<group>"; };
+		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
+		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
+		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
 		1954E6E01DE3D6400058403A /* StockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockManager.h; sourceTree = "<group>"; };
 		1954E6E11DE3D6400058403A /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
 		1955B3B11D644D9800DC102E /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
@@ -737,6 +743,8 @@
 		196F5EDE1E553ADB00928B60 /* AppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppContext.h; sourceTree = "<group>"; };
 		196F5EDF1E553ADB00928B60 /* AppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppContext.m; sourceTree = "<group>"; };
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
+		19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeViewController.h; sourceTree = "<group>"; };
+		19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeViewController.m; sourceTree = "<group>"; };
 		19959B731E2C5D4300AB26DF /* GradeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListCell.h; sourceTree = "<group>"; };
 		19959B741E2C5D4300AB26DF /* GradeListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeListCell.m; sourceTree = "<group>"; };
 		19959B751E2C5D4300AB26DF /* GradeListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GradeListCell.xib; sourceTree = "<group>"; };
@@ -1770,6 +1778,13 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		1953CA421E6BE75000A64B3C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		1954E6DF1DE3D5F00058403A /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -2754,6 +2769,7 @@
 		19F0073C1E31E5AE000A5F98 /* Recharge */ = {
 			isa = PBXGroup;
 			children = (
+				1953CA421E6BE75000A64B3C /* Models */,
 				19F0073D1E31E5AE000A5F98 /* Controllers */,
 				19F007461E31E5AE000A5F98 /* Views */,
 			);
@@ -2769,6 +2785,8 @@
 				19F007431E31E5AE000A5F98 /* RechargeViewController.m */,
 				19F007441E31E5AE000A5F98 /* StockUnlockViewController.h */,
 				19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */,
+				19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */,
+				19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2776,6 +2794,9 @@
 		19F007461E31E5AE000A5F98 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */,
+				1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */,
+				1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3633,6 +3654,7 @@
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
+				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
 				190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */,
@@ -3836,6 +3858,7 @@
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
+				1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
@@ -3863,6 +3886,7 @@
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
+				19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,

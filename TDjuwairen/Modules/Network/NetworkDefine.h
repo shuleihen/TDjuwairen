@@ -91,7 +91,7 @@
 #define API_QueryKeyNumber      @"Survey/getUserKeyNum"
 #define API_AliPay              @"Survey/alipayKey"
 #define API_WXPay               @"Survey/wxpayKey"
-
+#define API_IAPVerify           @"Pay/iapVerify"
 
 #define API_GetGuessIndex       @"Game/guessIndex"
 

@@ -15,6 +15,7 @@
 #import "NetworkManager.h"
 #import "RechargeViewController.h"
 #import "STPopupController.h"
+#import "TDRechargeViewController.h"
 
 @interface MyWalletViewController ()<UITableViewDelegate,UITableViewDataSource,KeysNumberTableViewCellDelegate>
 
@@ -77,11 +78,13 @@
 
 - (void)chargePressed:(UIButton *)sender
 {
-    __weak MyWalletViewController *wself = self;
+    sender.enabled = NO;
     
+    __weak MyWalletViewController *wself = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     [ma POST:API_PayIsShow parameters:nil completion:^(id data, NSError *error){
+        sender.enabled = YES;
         if (!error && [data[@"is_show"] boolValue]) {
             RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
             
@@ -92,9 +95,8 @@
         }
         else
         {
-            UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"请到电脑端充值" preferredStyle:UIAlertControllerStyleAlert];
-            [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
-            [wself presentViewController:alert animated:YES completion:nil];
+            TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+            [self.navigationController pushViewController:vc animated:YES];
         }
     }];
 }
