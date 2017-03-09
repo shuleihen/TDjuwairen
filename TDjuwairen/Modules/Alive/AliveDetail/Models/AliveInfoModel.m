@@ -1,13 +1,13 @@
 //
-//  AliveMasterViewController.h
+//  AliveInfoModel.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/3/9.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "AliveInfoModel.h"
 
-@interface AliveMasterViewController : UIViewController
+@implementation AliveInfoModel
 
 @end

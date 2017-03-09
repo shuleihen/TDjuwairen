@@ -1,18 +1,18 @@
 //
-//  AliveMasterViewController.m
+//  AliveRoomViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/3/9.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "AliveMasterViewController.h"
+#import "AliveRoomViewController.h"
 
-@interface AliveMasterViewController ()
+@interface AliveRoomViewController ()
 
 @end
 
-@implementation AliveMasterViewController
+@implementation AliveRoomViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

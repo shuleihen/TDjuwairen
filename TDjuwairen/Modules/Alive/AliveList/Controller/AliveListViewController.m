@@ -131,7 +131,7 @@ typedef enum : NSUInteger {
     
     NSDictionary *dict = @{@"tag" :@(listType),@"page" :@(page)};
     
-    [manager GET:API_AliveGetList parameters:dict completion:^(id data, NSError *error){
+    [manager GET:API_AliveGetRoomList parameters:dict completion:^(id data, NSError *error){
         
         if (wself.tableView.mj_header.isRefreshing) {
             [wself.tableView.mj_header endRefreshing];

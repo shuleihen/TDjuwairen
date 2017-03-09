@@ -1,5 +1,5 @@
 //
-//  AliveMasterListModel.h
+//  AliveMasterModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/3/9.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface AliveMasterListModel : NSObject
+@interface AliveMasterModel : NSObject
 @property (nonatomic, copy) NSString *masterId;
 @property (nonatomic, copy) NSString *masterNickName;
 @property (nonatomic, copy) NSString *avatar;

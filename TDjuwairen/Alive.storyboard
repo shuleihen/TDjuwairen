@@ -9,10 +9,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Alive Master View Controller-->
+        <!--Alive Room View Controller-->
         <scene sceneID="azG-1H-xAy">
             <objects>
-                <viewController id="oEs-Yr-9a8" customClass="AliveMasterViewController" sceneMemberID="viewController">
+                <viewController id="oEs-Yr-9a8" customClass="AliveRoomViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="Hcj-Tw-XFQ"/>
                         <viewControllerLayoutGuide type="bottom" id="DGS-Qu-tph"/>
