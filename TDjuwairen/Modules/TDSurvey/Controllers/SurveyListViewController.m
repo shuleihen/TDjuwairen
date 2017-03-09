@@ -48,7 +48,7 @@
 @property (nonatomic, strong) NSArray *bannerLinks;
 
 @property (nonatomic, strong) WelcomeView *welcomeView;
-@property (nonatomic, strong) UIView *segment;
+@property (nonatomic, strong) UIScrollView *segmentContentScrollView;
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
@@ -118,10 +118,11 @@
     return view;
 }
 
-- (UIView *)segment {
-    if (!_segment) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
+- (UIScrollView *)segmentContentScrollView {
+    if (!_segmentContentScrollView) {
+        UIScrollView *view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
         view.backgroundColor = [UIColor whiteColor];
+        view.showsHorizontalScrollIndicator = NO;
         
         [view addSubview:self.segmentControl];
         
@@ -133,9 +134,9 @@
         bottom.backgroundColor = TDSeparatorColor;
         [view addSubview:bottom];
         
-        _segment = view;
+        _segmentContentScrollView = view;
     }
-    return _segment;
+    return _segmentContentScrollView;
 }
 
 - (HMSegmentedControl *)segmentControl {
@@ -192,6 +193,7 @@
     [super viewWillDisappear:animated];
 }
 
+#pragma mark - UIScroll
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     CGFloat headerHeight = kBannerHeiht+kButtonViewHeight+10;
@@ -201,11 +203,11 @@
         if (offset.y > headerHeight) {
             
             CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kSegmentHeight);
-            self.segment.frame = newFrame;
+            self.segmentContentScrollView.frame = newFrame;
             
         } else {
             CGRect newFrame = CGRectMake(0, headerHeight, self.view.frame.size.width, kSegmentHeight);
-            self.segment.frame = newFrame;
+            self.segmentContentScrollView.frame = newFrame;
         }
     }
 }
@@ -246,8 +248,8 @@
     self.tableView.tableFooterView = self.pageViewController.view;
     
     // 自定义悬浮segment
-    self.segment.frame = CGRectMake(0, kBannerHeiht+kButtonViewHeight+10, kScreenWidth, kSegmentHeight);
-    [self.tableView addSubview:self.segment];
+    self.segmentContentScrollView.frame = CGRectMake(0, kBannerHeiht+kButtonViewHeight+10, kScreenWidth, kSegmentHeight);
+    [self.tableView addSubview:self.segmentContentScrollView];
     
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -282,6 +284,7 @@
     CGFloat w = [titles count]*70;
     self.segmentControl.sectionTitles = titles;
     self.segmentControl.frame = CGRectMake(0, 0, w, kSegmentHeight);
+    self.segmentContentScrollView.contentSize = CGSizeMake(w, kSegmentHeight);
     
     if ([titles count]) {
         self.segmentControl.selectedSegmentIndex = 0;

@@ -110,4 +110,6 @@
 
 #define API_PayIsShow           @"Pay/isPayShow"
 
+#define API_AliveGetList        @"Room/lists"
+
 #endif /* NetworkDefine_h */

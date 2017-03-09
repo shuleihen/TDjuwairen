@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -21,8 +21,8 @@
                     <connections>
                         <segue destination="LI6-93-0zO" kind="relationship" relationship="viewControllers" id="XBD-0x-hMY"/>
                         <segue destination="ycf-W0-lfw" kind="relationship" relationship="viewControllers" id="I9j-44-6vo"/>
-                        <segue destination="ga3-vP-UFe" kind="relationship" relationship="viewControllers" id="2Xo-o2-GV3"/>
-                        <segue destination="22j-MB-CLh" kind="relationship" relationship="viewControllers" id="AJt-TB-5el"/>
+                        <segue destination="gwh-7o-z6I" kind="relationship" relationship="viewControllers" id="ZOz-VZ-CBl"/>
+                        <segue destination="ga3-vP-UFe" kind="relationship" relationship="viewControllers" id="5Rf-Qs-ZRI"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FnA-FJ-TP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -112,7 +112,7 @@
                     <tabBarItem key="tabBarItem" title="观点" image="tab_viewpoint" selectedImage="tab_viewpoint_in" id="kza-97-zxR">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="bgV-I3-yrm">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="bgV-I3-yrm">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -122,7 +122,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="rFP-fM-fkI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4471" y="-1091"/>
+            <point key="canvasLocation" x="-3583" y="-1090"/>
         </scene>
         <!--观点-->
         <scene sceneID="f4H-0B-gUx">
@@ -141,7 +141,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tHu-13-2iA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4471" y="-421"/>
+            <point key="canvasLocation" x="-3583" y="-420"/>
         </scene>
         <!--视频-->
         <scene sceneID="2Pf-WV-e9N">
@@ -150,7 +150,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video" selectedImage="tab_video_in" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -160,7 +160,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b5d-0t-v43" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3788" y="-1092"/>
+            <point key="canvasLocation" x="-2900" y="-1091"/>
         </scene>
         <!--视频-->
         <scene sceneID="qrJ-Kp-8qb">
@@ -179,10 +179,50 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Z8t-xL-Fla" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3788" y="-421"/>
+            <point key="canvasLocation" x="-2900" y="-420"/>
+        </scene>
+        <!--直播-->
+        <scene sceneID="kgz-jo-Y8H">
+            <objects>
+                <navigationController id="gwh-7o-z6I" customClass="TDNavigationController" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="直播" image="tab_alive" selectedImage="tab_alive_in" id="ZNX-aC-Q9m">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
+                    </tabBarItem>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ty4-cg-kNd">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="nc2-I1-D99" kind="relationship" relationship="rootViewController" id="9y0-O0-p5V"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hWj-iZ-Djo" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4334" y="-1092"/>
+        </scene>
+        <!--直播-->
+        <scene sceneID="vIg-vr-IKn">
+            <objects>
+                <viewController id="nc2-I1-D99" customClass="AliveListViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="mwk-b9-sq6"/>
+                        <viewControllerLayoutGuide type="bottom" id="5ih-Jk-E5c"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="rMb-OF-dpZ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="直播" id="wYW-4Y-DD1"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ZBZ-31-eos" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-4334" y="-421"/>
         </scene>
     </scenes>
     <resources>
+        <image name="tab_alive" width="19" height="19"/>
+        <image name="tab_alive_in" width="19" height="19"/>
         <image name="tab_play" width="20" height="21"/>
         <image name="tab_play_in" width="20" height="21"/>
         <image name="tab_research" width="18" height="20"/>

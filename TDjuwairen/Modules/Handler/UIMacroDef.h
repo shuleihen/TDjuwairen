@@ -21,4 +21,5 @@
 // 辅助文字
 #define TDAssistTextColor        [UIColor hx_colorWithHexRGBAString:@"#cccccc"]
 
+#define TDThemeColor [UIColor hx_colorWithHexRGBAString:@"#3371E2"]
 #endif /* UIMacroDef_h */
