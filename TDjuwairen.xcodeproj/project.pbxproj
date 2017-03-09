@@ -69,6 +69,10 @@
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
 		19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */; };
+		19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EC21E71883F00D4426E /* AliveMasterListViewController.m */; };
+		19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EC61E71887500D4426E /* AliveMasterListTableViewCell.m */; };
+		19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19386EC71E71887500D4426E /* AliveMasterListTableViewCell.xib */; };
+		19386ECC1E7188AD00D4426E /* AliveMasterListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386ECB1E7188AD00D4426E /* AliveMasterListModel.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186C21DF81235000C5197 /* ChildTableViewController.m */; };
@@ -576,6 +580,13 @@
 		19347E5A1E0E45D200E651B5 /* MyGuessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuessCell.h; sourceTree = "<group>"; };
 		19347E5B1E0E45D200E651B5 /* MyGuessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuessCell.m; sourceTree = "<group>"; };
 		19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuessCell.xib; sourceTree = "<group>"; };
+		19386EC11E71883F00D4426E /* AliveMasterListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListViewController.h; sourceTree = "<group>"; };
+		19386EC21E71883F00D4426E /* AliveMasterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListViewController.m; sourceTree = "<group>"; };
+		19386EC51E71887500D4426E /* AliveMasterListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListTableViewCell.h; sourceTree = "<group>"; };
+		19386EC61E71887500D4426E /* AliveMasterListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListTableViewCell.m; sourceTree = "<group>"; };
+		19386EC71E71887500D4426E /* AliveMasterListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveMasterListTableViewCell.xib; sourceTree = "<group>"; };
+		19386ECA1E7188AD00D4426E /* AliveMasterListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListModel.h; sourceTree = "<group>"; };
+		19386ECB1E7188AD00D4426E /* AliveMasterListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListModel.m; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194186C11DF81235000C5197 /* ChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildTableViewController.h; sourceTree = "<group>"; };
@@ -1551,6 +1562,16 @@
 			path = Cell;
 			sourceTree = "<group>";
 		};
+		19386EC41E71885600D4426E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				19386EC51E71887500D4426E /* AliveMasterListTableViewCell.h */,
+				19386EC61E71887500D4426E /* AliveMasterListTableViewCell.m */,
+				19386EC71E71887500D4426E /* AliveMasterListTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
 			children = (
@@ -1880,6 +1901,7 @@
 		1953CB001E7172DB00A64B3C /* AliveMaster */ = {
 			isa = PBXGroup;
 			children = (
+				19386EC41E71885600D4426E /* Cells */,
 				1953CB011E7172DB00A64B3C /* Controllers */,
 				1953CB041E7172DB00A64B3C /* Models */,
 				1953CB051E7172DB00A64B3C /* Views */,
@@ -1892,6 +1914,8 @@
 			children = (
 				1953CB021E7172DB00A64B3C /* AliveMasterViewController.h */,
 				1953CB031E7172DB00A64B3C /* AliveMasterViewController.m */,
+				19386EC11E71883F00D4426E /* AliveMasterListViewController.h */,
+				19386EC21E71883F00D4426E /* AliveMasterListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1899,6 +1923,8 @@
 		1953CB041E7172DB00A64B3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				19386ECA1E7188AD00D4426E /* AliveMasterListModel.h */,
+				19386ECB1E7188AD00D4426E /* AliveMasterListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3769,6 +3795,7 @@
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
 				19F00D0F1E2EFFD9009270D5 /* SpotTableViewCell.xib in Resources */,
+				19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */,
 				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
 				1955B4721D644D9800DC102E /* CommentsTableViewCell.xib in Resources */,
 				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
@@ -3833,6 +3860,7 @@
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
+				19386ECC1E7188AD00D4426E /* AliveMasterListModel.m in Sources */,
 				196F5EC91E54847700928B60 /* Base64.m in Sources */,
 				19F00D1E1E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m in Sources */,
 				19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */,
@@ -4058,6 +4086,7 @@
 				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
+				19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
 				19F00D081E2EFFD9009270D5 /* AnsTableViewCell.m in Sources */,
@@ -4120,6 +4149,7 @@
 				190F65F71E36E73000B83ADF /* MyOrderViewController.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
 				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
+				19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				19AF98281E24AB4D0097A585 /* AddAddressViewController.m in Sources */,

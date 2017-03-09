@@ -291,6 +291,7 @@
 - (void)addAnimationWithGuessId:(NSString *)guessId withPri:(CGFloat)pri{
     for (int i=0;i < [self.guessList count];i++) {
         StockGuessModel *guess = self.guessList[i];
+        
         if ([guess.guessId isEqualToString:guessId]) {
             // 添加点数到GuessModel中
             NSString *point = [NSString stringWithFormat:@"%.02f",pri];
@@ -304,7 +305,10 @@
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
             StockGuessListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             
-            [self addAnimationToCell:cell withPri:pri];
+            if (cell) {
+                [self addAnimationToCell:cell withPri:pri];
+            }
+            
         }
         
     }
