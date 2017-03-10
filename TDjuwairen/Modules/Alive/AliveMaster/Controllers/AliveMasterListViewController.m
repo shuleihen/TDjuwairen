@@ -36,7 +36,7 @@
         _tableView.dataSource = self;
         _tableView.tableFooterView = [UIView new];
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
-//        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     }
 
     return _tableView;
@@ -57,19 +57,20 @@
 
 
 - (void)refreshActions{
-//    self.page = 1;
+    self.page = 1;
     [self requestDataWithPage:self.page];
 }
 
-//- (void)loadMoreActions{
-//    [self requestDataWithPage:self.page];
-//}
+- (void)loadMoreActions{
+    [self requestDataWithPage:self.page];
+}
 
 - (void)requestDataWithPage:(NSInteger)aPage{
 
     __weak typeof(self)weakSelf = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_AliveGetMasterList  parameters:nil completion:^(id data, NSError *error){
+    
+    [ma GET:API_AliveGetMasterList  parameters:@{@"page":@(self.page)} completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
             NSLog(@"_________%@",data);
@@ -77,11 +78,11 @@
             if (dataArray.count > 0) {
                 NSMutableArray *list = nil;
 //
-//                if (weakSelf.page == 1) {
+                if (weakSelf.page == 1) {
                     list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-//                } else {
-//                    list = [NSMutableArray arrayWithArray:self.aliveArr];
-//                }
+                } else {
+                    list = [NSMutableArray arrayWithArray:self.aliveArr];
+                }
 
                 for (NSDictionary *d in dataArray) {
                     AliveMasterModel *model = [[AliveMasterModel alloc] initWithDictionary:d];
@@ -91,14 +92,14 @@
             }
             
             [weakSelf.tableView.mj_header endRefreshing];
-//            [weakSelf.tableView.mj_footer endRefreshing];
-//            weakSelf.page++;
+            [weakSelf.tableView.mj_footer endRefreshing];
+            weakSelf.page++;
             [weakSelf.tableView reloadData];
             
             
         } else {
             [weakSelf.tableView.mj_header endRefreshing];
-//            [weakSelf.tableView.mj_footer endRefreshing];
+            [weakSelf.tableView.mj_footer endRefreshing];
             [weakSelf.tableView reloadData];
         }
     }];

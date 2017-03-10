@@ -9,12 +9,17 @@
 #import <Foundation/Foundation.h>
 
 @interface AliveMasterModel : NSObject
+/// 播主ID
 @property (nonatomic, copy) NSString *masterId;
 /// 头像
 @property (nonatomic, copy) NSString *avatar;
+/// 播主昵称
 @property (nonatomic, copy) NSString *masterNickName;
+/// 粉丝数
 @property (nonatomic, copy) NSString *attenNum;
+/// 用户等级
 @property (nonatomic, assign) NSInteger level;
+/// true 表示当前用户已关注
 @property (nonatomic, assign) BOOL isAtten;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
