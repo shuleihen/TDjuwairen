@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AliveMasterListViewController : UITableViewController
+@interface AliveMasterListViewController : UIViewController
 
 @end

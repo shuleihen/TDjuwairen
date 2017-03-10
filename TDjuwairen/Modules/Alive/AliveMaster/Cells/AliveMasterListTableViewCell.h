@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+@class AliveMasterModel;
+
 @interface AliveMasterListTableViewCell : UITableViewCell
+@property (strong, nonatomic) AliveMasterModel *aliveModel;
+
++ (instancetype)loadAliveMasterListTableViewCell:(UITableView *)tableView;
 
 @end

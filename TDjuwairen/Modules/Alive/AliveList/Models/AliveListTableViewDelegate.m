@@ -43,7 +43,6 @@
 - (void)reloadWithArray:(NSArray *)array {
     self.itemList = array;
     [self.tableView reloadData];
-    NSLog(@"我的提交测试数据");
 }
 
 

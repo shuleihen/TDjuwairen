@@ -157,6 +157,7 @@ typedef enum : NSUInteger {
                     [list addObject:model];
                     
                 }
+                
                 wself.aliveList = [NSArray arrayWithArray:list];
                 
                 wself.currentPage++;
