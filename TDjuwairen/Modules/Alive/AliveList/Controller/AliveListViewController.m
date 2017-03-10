@@ -14,6 +14,7 @@
 #import "AliveListModel.h"
 #import "MJRefresh.h"
 #import "UIImage+Color.h"
+#import "AliveMasterListViewController.h"
 
 typedef enum : NSUInteger {
     AliveAttention  =0,
@@ -113,6 +114,9 @@ typedef enum : NSUInteger {
 
 - (void)anchorPressed:(id)sender {
     
+    AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+    [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }
 
 - (void)refreshActions{
