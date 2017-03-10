@@ -11,7 +11,6 @@
 @interface AliveMasterModel : NSObject
 /// 播主ID
 @property (nonatomic, copy) NSString *masterId;
-/// 头像
 @property (nonatomic, copy) NSString *avatar;
 /// 播主昵称
 @property (nonatomic, copy) NSString *masterNickName;
