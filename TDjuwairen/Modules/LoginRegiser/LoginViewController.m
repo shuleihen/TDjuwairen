@@ -20,6 +20,7 @@
 #import "HexColors.h"
 #import "LoginHandler.h"
 #import "ThirdPartLoginUpdateViewController.h"
+#import "STPopupController.h"
 
 @interface LoginViewController ()
 @property (weak, nonatomic) IBOutlet YXTextFieldPanel *panelView;
@@ -59,6 +60,15 @@
 -(void)viewTapped:(UITapGestureRecognizer*)tap
 {
     [self.view endEditing:YES];
+}
+
+- (IBAction)connectPressed:(id)sender {
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Register" bundle:nil] instantiateViewControllerWithIdentifier:@"ContactViewController"];
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.containerView.layer.cornerRadius = 4;
+    [popupController presentInViewController:self];
 }
 
 
