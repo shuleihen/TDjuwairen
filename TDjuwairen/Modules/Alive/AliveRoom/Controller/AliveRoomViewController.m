@@ -7,12 +7,21 @@
 //
 
 #import "AliveRoomViewController.h"
+#import "NetworkManager.h"
+#import "AliveRoomMasterModel.h"
 
 @interface AliveRoomViewController ()
-
+@property (nonatomic, strong) NSString *masterId;
 @end
 
 @implementation AliveRoomViewController
+
+- (id)initWithRoomMasterId:(NSString *)masterId {
+    if (self = [super init]) {
+        self.masterId = masterId;
+    }
+    return self;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,4 +38,31 @@
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
+- (void)queryRoomInfoWithMasterId:(NSString *)masterId {
+    
+    if (!masterId.length) {
+        return;
+    }
+    
+    __weak AliveRoomViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *dict = @{@"master_id" :masterId};
+    
+    [manager GET:API_AliveGetRoomInfo parameters:dict completion:^(id data, NSError *error){
+    
+        if (!error) {
+            AliveRoomMasterModel *model = [[AliveRoomMasterModel alloc] initWithDictionary:data];
+            [wself setupRoomInfoWithMasterRoomModel:model];
+        } else {
+            
+        }
+        
+    }];
+}
+
+#pragma mark -
+- (void)setupRoomInfoWithMasterRoomModel:(AliveRoomMasterModel *)roomModel {
+    
+}
 @end

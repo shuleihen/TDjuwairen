@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AliveRoomViewController : UIViewController
-
+- (id)initWithRoomMasterId:(NSString *)masterId;
 @end

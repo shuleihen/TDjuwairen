@@ -111,7 +111,7 @@
 #define API_PayIsShow           @"Pay/isPayShow"
 
 #define API_AliveGetRoomList        @"Room/lists"
-#define API_AliveGetRoomDetail      @"Room/showLiveInfo"
+#define API_AliveGetAliveInfo       @"Room/showLiveInfo"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"
 #define API_AliveGetRoomLike        @"Room/showLiveAssess"
 #define API_AlvieGetRoomShare       @"Room/showLiveShare"
