@@ -7,88 +7,143 @@
 //
 
 #import "AliveMasterListViewController.h"
+#import "MJRefresh.h"
+#import "NetworkManager.h"
+#import "MBProgressHUD.h"
+#import "AliveMasterListTableViewCell.h"
+#import "AliveMasterModel.h"
 
-@interface AliveMasterListViewController ()
+@interface AliveMasterListViewController ()<UITableViewDelegate,UITableViewDataSource>
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) NSInteger page;
+@property (strong, nonatomic)  NSArray *aliveArr;
+
+
 
 @end
 
 @implementation AliveMasterListViewController
 
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.separatorColor = TDSeparatorColor;
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.tableFooterView = [UIView new];
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
+//        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+    }
+
+    return _tableView;
+}
+
+
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"播主";
+    [self.view addSubview:self.tableView];
+    self.aliveArr = [NSArray array];
+    [self refreshActions];
 }
+
+
+
+- (void)refreshActions{
+//    self.page = 1;
+    [self requestDataWithPage:self.page];
+}
+
+//- (void)loadMoreActions{
+//    [self requestDataWithPage:self.page];
+//}
+
+- (void)requestDataWithPage:(NSInteger)aPage{
+
+    __weak typeof(self)weakSelf = self;
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:API_AliveGetMasterList  parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            NSArray *dataArray = data;
+            NSLog(@"_________%@",data);
+           
+            if (dataArray.count > 0) {
+                NSMutableArray *list = nil;
+//
+//                if (weakSelf.page == 1) {
+                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+//                } else {
+//                    list = [NSMutableArray arrayWithArray:self.aliveArr];
+//                }
+
+                for (NSDictionary *d in dataArray) {
+                    AliveMasterModel *model = [[AliveMasterModel alloc] initWithDictionary:d];
+                    [list addObject:model];
+                }
+                weakSelf.aliveArr = [NSMutableArray arrayWithArray:list];
+            }
+            
+            [weakSelf.tableView.mj_header endRefreshing];
+//            [weakSelf.tableView.mj_footer endRefreshing];
+//            weakSelf.page++;
+            [weakSelf.tableView reloadData];
+            
+            
+        } else {
+            [weakSelf.tableView.mj_header endRefreshing];
+//            [weakSelf.tableView.mj_footer endRefreshing];
+            [weakSelf.tableView reloadData];
+        }
+    }];
+    
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
 
-#pragma mark - Table view data source
-
+#pragma mark -------------- UITableViewDataSource ---------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+
+    return self.aliveArr.count;
 }
 
-/*
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+
+    AliveMasterListTableViewCell *cell = [AliveMasterListTableViewCell loadAliveMasterListTableViewCell:tableView];
+    AliveMasterModel *model = self.aliveArr[indexPath.row];
+    cell.aliveModel = model;
     return cell;
 }
-*/
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+#pragma mark ----------------------------------------------------------
+
+
+
+#pragma mark -------------- UITableViewDelegate ---------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+[tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    return 70;
 }
-*/
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
 
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
+#pragma mark ----------------------------------------------------------
 @end
