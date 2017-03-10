@@ -14,9 +14,9 @@
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *attenNum;
 @property (nonatomic, copy) NSString *fansNum;
-@property (nonatomic, assign) NSInteger level;
+@property (nonatomic, copy) NSNumber *level;
 @property (nonatomic, assign) BOOL isAtten;
-@property (nonatomic, copy) NSString *guessRate;
+@property (nonatomic, copy) NSNumber *guessRate;
 @property (nonatomic, copy) NSString *sex;
 @property (nonatomic, copy) NSString *roomInfo;
 @property (nonatomic, copy) NSString *roomCover;

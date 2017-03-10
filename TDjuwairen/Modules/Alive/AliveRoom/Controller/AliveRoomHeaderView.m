@@ -19,6 +19,9 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *aRoomInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *aSexImageView;
+@property (weak, nonatomic) IBOutlet UIButton *aLevelButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *aGuessRateButton;
 
 
 @end
@@ -40,6 +43,9 @@
 - (void)setHeaderModel:(AliveRoomMasterModel *)headerModel {
 
     _headerModel = headerModel;
+    [self.aLevelButton setTitle:[NSString stringWithFormat:@"%@",headerModel.level] forState:UIControlStateNormal];
+    [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",headerModel.guessRate] forState:UIControlStateNormal];
+    
     [self.aImageView sd_setImageWithURL:[NSURL URLWithString:headerModel.avatar] placeholderImage:nil];
     self.aNickNameLabel.text = headerModel.masterNickName;
     self.aAddressLabel.text = headerModel.city;
