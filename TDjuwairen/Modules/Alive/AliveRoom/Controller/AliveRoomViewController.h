@@ -2,7 +2,7 @@
 //  AliveRoomViewController.h
 //  TDjuwairen
 //
-//  Created by zdy on 2017/3/9.
+//  Created by ZYP-MAC on 17/3/10.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 

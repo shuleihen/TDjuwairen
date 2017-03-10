@@ -14,6 +14,7 @@
 #import "AliveMasterModel.h"
 #import "LoginState.h"
 #import "MBProgressHUD.h"
+#import "AliveRoomViewController.h"
 
 @interface AliveMasterListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -166,6 +167,13 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    AliveMasterModel *model = self.aliveArr[indexPath.row];
+    if (model.masterId.length <= 0) {
+        return;
+    }
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithRoomMasterId:model.masterId];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
