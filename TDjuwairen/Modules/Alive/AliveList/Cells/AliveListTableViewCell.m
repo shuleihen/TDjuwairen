@@ -25,6 +25,24 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)avatarPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:avatarPressed:)]) {
+        [self.delegate aliveListTableCell:self avatarPressed:sender];
+    }
+}
+
+
+- (void)setupAliveModel:(AliveListModel *)aliveModel {
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:nil];
+    self.nickNameLabel.text = aliveModel.masterNickName;
+    self.timeLabel.text = aliveModel.aliveTime;
+    
+    self.titleLabel.text = aliveModel.aliveTitle;
+    
+    self.imagesView.images = aliveModel.aliveImgs;
+    self.imagesHeight.constant = [AliveListTableViewCell imagesViewHeightWithImages:aliveModel.aliveImgs];
+}
+
 + (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel {
     CGFloat height = 0.f;
     
@@ -41,17 +59,6 @@
     height += 14.0f;
     
     return height;
-}
-
-- (void)setupAliveModel:(AliveListModel *)aliveModel {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:nil];
-    self.nickNameLabel.text = aliveModel.masterNickName;
-    self.timeLabel.text = aliveModel.aliveTime;
-    
-    self.titleLabel.text = aliveModel.aliveTitle;
-    
-    self.imagesView.images = aliveModel.aliveImgs;
-    self.imagesHeight.constant = [AliveListTableViewCell imagesViewHeightWithImages:aliveModel.aliveImgs];
 }
 
 + (CGFloat)imagesViewHeightWithImages:(NSArray *)images {

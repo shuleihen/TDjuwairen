@@ -21,6 +21,24 @@
     // Configure the view for the selected state
 }
 
+- (IBAction)sharePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListBottomTableCell:sharePressed:)]) {
+        [self.delegate aliveListBottomTableCell:self sharePressed:sender];
+    }
+}
+
+- (IBAction)commentPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListBottomTableCell:commentPressed:)]) {
+        [self.delegate aliveListBottomTableCell:self commentPressed:sender];
+    }
+}
+
+- (IBAction)likePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListBottomTableCell:likePressed:)]) {
+        [self.delegate aliveListBottomTableCell:self likePressed:sender];
+    }
+}
+
 - (void)setupAliveModel:(AliveListModel *)aliveModel {
     [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld", aliveModel.shareNum] forState:UIControlStateNormal];
     [self.commentBtn setTitle:[NSString stringWithFormat:@"%ld", aliveModel.commentNum] forState:UIControlStateNormal];
