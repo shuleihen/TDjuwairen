@@ -48,6 +48,9 @@
                         <state key="normal" title="加关注">
                             <color key="titleColor" red="0.12549019607843137" green="0.27843137254901962" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="attentionButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="87q-nL-o2m"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="46539粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfE-Pm-R2X">
                         <rect key="frame" x="319.5" y="55" width="62.5" height="15"/>

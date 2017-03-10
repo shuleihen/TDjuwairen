@@ -10,8 +10,11 @@
 
 @class AliveMasterModel;
 
+typedef void(^AttentionAliveMasterBlock)();
+
 @interface AliveMasterListTableViewCell : UITableViewCell
 @property (strong, nonatomic) AliveMasterModel *aliveModel;
+@property (copy, nonatomic) AttentionAliveMasterBlock  attentedBlock;
 
 + (instancetype)loadAliveMasterListTableViewCell:(UITableView *)tableView;
 

@@ -11,7 +11,7 @@
 @implementation AliveRoomMasterModel
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
-        self.masterNickName = dict[@"userinfo_facemin"];
+        self.masterNickName = dict[@"user_nickname"];
         self.roomInfo = dict[@"room_info"];
         self.sex = dict[@"userinfo_sex"];
         self.avatar = dict[@"userinfo_facemin"];
