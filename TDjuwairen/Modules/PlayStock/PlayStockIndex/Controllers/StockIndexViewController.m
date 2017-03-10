@@ -24,6 +24,7 @@
 #import "MyGuessViewController.h"
 #import "NotificationDef.h"
 #import <AudioToolbox/AudioToolbox.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,6 +39,8 @@
 @property (nonatomic, strong) NSMutableArray *guessList;
 
 @property (nonatomic, strong) UIImageView *animationKey;
+
+@property (nonatomic, strong) AVAudioPlayer *player;
 @end
 
 @implementation StockIndexViewController
@@ -49,6 +52,8 @@
     }
     
     [self.stockManager stopThread];
+    
+    [self stopBgAudio];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -62,6 +67,17 @@
     }
     
     return _animationKey;
+}
+
+- (AVAudioPlayer *)player {
+    if (!_player) {
+        NSURL *fileUrl = [[NSBundle mainBundle] URLForResource:@"playStockBg" withExtension:@"mp3"];
+        
+        NSError *error;
+        _player = [[AVAudioPlayer alloc] initWithContentsOfURL:fileUrl fileTypeHint:@"mp3" error:&error];
+        _player.numberOfLoops = INT_MAX;
+    }
+    return _player;
 }
 
 - (void)viewDidLoad {
@@ -91,14 +107,20 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryGuessStock) name:kLoginStateChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
+    
+    [self.player prepareToPlay];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self playBgAudio];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    
+    [self pauseBgAudio];
 }
 
 
@@ -199,6 +221,25 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)playBgAudio {
+    
+    if (self.player) {
+        [self.player play];
+    }
+}
+
+- (void)stopBgAudio {
+    if (self.player) {
+        [self.player stop];
+        self.player = nil;
+    }
+}
+
+- (void)pauseBgAudio {
+    if (self.player) {
+        [self.player pause];
+    }
+}
 - (void)playAudio {
     NSString *audioFile = [[NSBundle mainBundle] pathForResource:@"playStock" ofType:@"wav"];
     NSURL *fileUrl=[NSURL fileURLWithPath:audioFile];

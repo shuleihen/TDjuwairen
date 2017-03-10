@@ -77,6 +77,9 @@
 		19386EE81E72432B00D4426E /* AliveListTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */; };
 		19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EEA1E72485A00D4426E /* AliveDetailViewController.m */; };
 		19386EEF1E72769C00D4426E /* AliveRoomMasterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EEE1E72769C00D4426E /* AliveRoomMasterModel.m */; };
+		19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 19386EF01E7289D100D4426E /* playStockBg.mp3 */; };
+		19386EF51E728C9900D4426E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19386EF41E728C9900D4426E /* AVFoundation.framework */; };
+		19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EF71E72A2BC00D4426E /* ContactViewController.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186C21DF81235000C5197 /* ChildTableViewController.m */; };
@@ -601,6 +604,11 @@
 		19386EEA1E72485A00D4426E /* AliveDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveDetailViewController.m; sourceTree = "<group>"; };
 		19386EED1E72769C00D4426E /* AliveRoomMasterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomMasterModel.h; sourceTree = "<group>"; };
 		19386EEE1E72769C00D4426E /* AliveRoomMasterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomMasterModel.m; sourceTree = "<group>"; };
+		19386EF01E7289D100D4426E /* playStockBg.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = playStockBg.mp3; sourceTree = "<group>"; };
+		19386EF21E728C6500D4426E /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		19386EF41E728C9900D4426E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		19386EF61E72A2BC00D4426E /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
+		19386EF71E72A2BC00D4426E /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194186C11DF81235000C5197 /* ChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildTableViewController.h; sourceTree = "<group>"; };
@@ -1252,6 +1260,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19386EF51E728C9900D4426E /* AVFoundation.framework in Frameworks */,
 				841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */,
 				1946EE371E0E9E3C00D8FB3A /* libWeChatSDK.a in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
@@ -1748,6 +1757,7 @@
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
 			children = (
+				19386EF01E7289D100D4426E /* playStockBg.mp3 */,
 				19F43C321E233A1C001B72CD /* playStock.wav */,
 				19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */,
 				193EF0791D392CE00043F3EB /* availableTags.plist */,
@@ -2144,6 +2154,8 @@
 				190F65AF1E33418600B83ADF /* FastLoginUpdateInfoViewController.m */,
 				190F65B11E33419E00B83ADF /* ThirdPartLoginUpdateViewController.h */,
 				190F65B21E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m */,
+				19386EF61E72A2BC00D4426E /* ContactViewController.h */,
+				19386EF71E72A2BC00D4426E /* ContactViewController.m */,
 			);
 			path = LoginRegiser;
 			sourceTree = "<group>";
@@ -3794,6 +3806,8 @@
 		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				19386EF41E728C9900D4426E /* AVFoundation.framework */,
+				19386EF21E728C6500D4426E /* AVKit.framework */,
 				841848CC1DF537570047DA7E /* libsqlite3.0.tbd */,
 				8470E9681DDD84B6002F727D /* libc++.tbd */,
 				8470E9661DDD8426002F727D /* CoreMotion.framework */,
@@ -3983,6 +3997,7 @@
 				19AF98491E2720290097A585 /* Survey.storyboard in Resources */,
 				19252C101D51E830003E5D18 /* Info.plist in Resources */,
 				1955B4631D644D9800DC102E /* BrowserTableViewCell.xib in Resources */,
+				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
 				19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */,
 				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
@@ -4298,6 +4313,7 @@
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
+				19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */,
 				1955B49F1D644D9800DC102E /* ViewInfoModel.m in Sources */,
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				847ADA6F1DF7A15D002600AA /* OptionalHeadView.m in Sources */,
