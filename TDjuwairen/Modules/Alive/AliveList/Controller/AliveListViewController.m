@@ -13,6 +13,7 @@
 #import "MJRefresh.h"
 #import "UIImage+Color.h"
 #import "AliveMasterListViewController.h"
+#import "AliveListTableViewDelegate.h"
 
 typedef enum : NSUInteger {
     AliveAttention  =0,
