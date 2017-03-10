@@ -26,6 +26,9 @@
                         <state key="normal" title="1" image="alive_share">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="sharePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="AwL-UE-5MT"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cy6-ZB-nCb">
                         <rect key="frame" x="106.5" y="0.0" width="107" height="36.5"/>
@@ -35,6 +38,9 @@
                         <state key="normal" title="2" image="alive_comment">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="commentPressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="mvF-bF-WUF"/>
+                        </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IyQ-dl-Aop">
                         <rect key="frame" x="213.5" y="0.0" width="106.5" height="36.5"/>
@@ -44,6 +50,9 @@
                         <state key="normal" title="3" image="alive_zan">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
+                        <connections>
+                            <action selector="likePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="yj1-cB-7V7"/>
+                        </connections>
                     </button>
                 </subviews>
                 <constraints>

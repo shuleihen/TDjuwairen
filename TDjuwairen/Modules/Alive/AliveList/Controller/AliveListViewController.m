@@ -9,8 +9,6 @@
 #import "AliveListViewController.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
-#import "AliveListTableViewCell.h"
-#import "AliveListBottomTableViewCell.h"
 #import "AliveListModel.h"
 #import "MJRefresh.h"
 #import "UIImage+Color.h"
@@ -22,12 +20,13 @@ typedef enum : NSUInteger {
     AliveALL        =2,
 } AliveListType;
 
-@interface AliveListViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) AliveListType listType;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
+@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
 @end
 
 @implementation AliveListViewController
@@ -39,15 +38,7 @@ typedef enum : NSUInteger {
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
         _tableView.showsVerticalScrollIndicator = NO;
-
-        UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
-        [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
-        
-        UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
-        [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
         
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
@@ -62,6 +53,8 @@ typedef enum : NSUInteger {
     
     [self setupNavigationBar];
     [self.view addSubview:self.tableView];
+    
+    self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
     
     self.listType = AliveAttention;
     self.currentPage = 1;
@@ -172,7 +165,7 @@ typedef enum : NSUInteger {
                 }
             }
             
-            [wself.tableView reloadData];
+            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
             
             if (scrollToTop) {
                 [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
@@ -185,62 +178,5 @@ typedef enum : NSUInteger {
     }];
 }
 
-#pragma mark - Table view data source
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.aliveList count];
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 2;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        AliveListModel *model = self.aliveList[indexPath.section];
-        return [AliveListTableViewCell heightWithAliveModel:model];
-    } else {
-        return 37;
-    }
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.001f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10.0f;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
-        
-        
-        return cell;
-    } else {
-        AliveListBottomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListBottomTableViewCellID"];
-        
-        return cell;
-    }
-}
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    AliveListModel *model = self.aliveList[indexPath.section];
-    
-    if (indexPath.row == 0) {
-        AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
-        [scell setupAliveModel:model];
-    } else {
-        AliveListBottomTableViewCell *scell = (AliveListBottomTableViewCell *)cell;
-        [scell setupAliveModel:model];
-    }
-    
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    AliveListModel *model = self.aliveList[indexPath.section];
-}
 @end
