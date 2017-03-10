@@ -74,6 +74,12 @@
     
 }
 - (IBAction)attentionButtonClick:(UIButton *)sender {
+
+    if (self.attentedBlock) {
+        self.attentedBlock();
+    }
+    
+    
 }
 
 @end

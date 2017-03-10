@@ -12,6 +12,8 @@
 #import "MBProgressHUD.h"
 #import "AliveMasterListTableViewCell.h"
 #import "AliveMasterModel.h"
+#import "LoginState.h"
+#import "MBProgressHUD.h"
 
 @interface AliveMasterListViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -38,7 +40,7 @@
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     }
-
+    
     return _tableView;
 }
 
@@ -63,23 +65,23 @@
 }
 
 - (void)requestDataWithPage:(NSInteger)aPage{
-
+    
     __weak typeof(self)weakSelf = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     [ma GET:API_AliveGetMasterList  parameters:@{@"page":@(self.page)} completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
-           
+            
             if (dataArray.count > 0) {
                 NSMutableArray *list = nil;
-//
+                
                 if (weakSelf.page == 1) {
                     list = [NSMutableArray arrayWithCapacity:[dataArray count]];
                 } else {
                     list = [NSMutableArray arrayWithArray:self.aliveArr];
                 }
-
+                
                 for (NSDictionary *d in dataArray) {
                     AliveMasterModel *model = [[AliveMasterModel alloc] initWithDictionary:d];
                     [list addObject:model];
@@ -102,23 +104,61 @@
     
 }
 
-#pragma mark - UITableViewDataSource 
+#pragma mark - UITableViewDataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return self.aliveArr.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     AliveMasterListTableViewCell *cell = [AliveMasterListTableViewCell loadAliveMasterListTableViewCell:tableView];
     AliveMasterModel *model = self.aliveArr[indexPath.row];
     cell.aliveModel = model;
+    __weak typeof(self)weakSelf = self;
+    
+    cell.attentedBlock = ^(){
+        if (model.masterId.length <= 0) {
+            return ;
+        }
+        
+        NSString *str = API_AliveAddAttention;
+        if (model.isAtten == YES) {
+            // 取消关注
+            str = API_AliveDelAttention;
+        }
+        
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"提交中...";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        
+        [manager POST:str parameters:@{@"user_id":model.masterId} completion:^(id data, NSError *error){
+         
+            if (!error) {
+                
+                if (data && [data[@"status"] integerValue] == 1) {
+                    
+                    model.isAtten = !model.isAtten;
+                    [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                    [hud hide:YES afterDelay:0.2];
+                }
+            } else {
+                hud.labelText = error.localizedDescription?:@"提交失败";
+                [hud hide:YES afterDelay:0.4];
+            }
+            
+        }];
+        
+        
+    };
     return cell;
 }
 
@@ -130,8 +170,14 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     return 70;
 }
+
+
+
+
+
+
 
 @end
