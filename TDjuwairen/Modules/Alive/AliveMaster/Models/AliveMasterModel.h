@@ -10,7 +10,6 @@
 
 @interface AliveMasterModel : NSObject
 @property (nonatomic, copy) NSString *masterId;
-/// 头像
 @property (nonatomic, copy) NSString *avatar;
 @property (nonatomic, copy) NSString *masterNickName;
 @property (nonatomic, copy) NSString *attenNum;

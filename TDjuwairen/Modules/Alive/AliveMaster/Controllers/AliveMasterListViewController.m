@@ -42,22 +42,19 @@
     return _tableView;
 }
 
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
     self.title = @"播主";
     [self.view addSubview:self.tableView];
+    
     self.aliveArr = [NSArray array];
     [self refreshActions];
 }
 
 
-
 - (void)refreshActions{
-//    self.page = 1;
+    self.page = 1;
     [self requestDataWithPage:self.page];
 }
 
@@ -72,7 +69,6 @@
     [ma GET:API_AliveGetMasterList  parameters:nil completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
-            NSLog(@"_________%@",data);
            
             if (dataArray.count > 0) {
                 NSMutableArray *list = nil;
@@ -105,12 +101,8 @@
     
 }
 
+#pragma mark - UITableViewDataSource 
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-#pragma mark -------------- UITableViewDataSource ---------------------
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     return 1;
@@ -129,13 +121,10 @@
     return cell;
 }
 
-#pragma mark ----------------------------------------------------------
+#pragma mark - UITableViewDelegate
 
-
-
-#pragma mark -------------- UITableViewDelegate ---------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
 
@@ -144,6 +133,4 @@
     return 70;
 }
 
-
-#pragma mark ----------------------------------------------------------
 @end
