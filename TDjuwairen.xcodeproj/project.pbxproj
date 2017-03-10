@@ -74,6 +74,7 @@
 		19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19386EC71E71887500D4426E /* AliveMasterListTableViewCell.xib */; };
 		19386ECC1E7188AD00D4426E /* AliveMasterListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386ECB1E7188AD00D4426E /* AliveMasterListModel.m */; };
 		19386ED31E71A2DC00D4426E /* AliveInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386ED21E71A2DC00D4426E /* AliveInfoModel.m */; };
+		19386EDB1E723ED600D4426E /* AliveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EDA1E723ED600D4426E /* AliveRoomViewController.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186C21DF81235000C5197 /* ChildTableViewController.m */; };
@@ -114,7 +115,6 @@
 		1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAF91E7172DB00A64B3C /* AliveListViewController.m */; };
 		1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAFC1E7172DB00A64B3C /* AliveListModel.m */; };
 		1953CB0C1E7172DB00A64B3C /* AliveListImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAFF1E7172DB00A64B3C /* AliveListImagesView.m */; };
-		1953CB0D1E7172DB00A64B3C /* AliveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CB031E7172DB00A64B3C /* AliveRoomViewController.m */; };
 		1954E6E21DE3D6400058403A /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1954E6E11DE3D6400058403A /* StockManager.m */; };
 		1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B21D644D9800DC102E /* ForgetViewController.m */; };
 		1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B41D644D9800DC102E /* LoginViewController.m */; };
@@ -590,6 +590,8 @@
 		19386ECB1E7188AD00D4426E /* AliveMasterListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListModel.m; sourceTree = "<group>"; };
 		19386ED11E71A2DC00D4426E /* AliveInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveInfoModel.h; sourceTree = "<group>"; };
 		19386ED21E71A2DC00D4426E /* AliveInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveInfoModel.m; sourceTree = "<group>"; };
+		19386ED91E723ED600D4426E /* AliveRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomViewController.h; sourceTree = "<group>"; };
+		19386EDA1E723ED600D4426E /* AliveRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomViewController.m; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194186C11DF81235000C5197 /* ChildTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ChildTableViewController.h; sourceTree = "<group>"; };
@@ -664,8 +666,6 @@
 		1953CAFC1E7172DB00A64B3C /* AliveListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListModel.m; sourceTree = "<group>"; };
 		1953CAFE1E7172DB00A64B3C /* AliveListImagesView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListImagesView.h; sourceTree = "<group>"; };
 		1953CAFF1E7172DB00A64B3C /* AliveListImagesView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListImagesView.m; sourceTree = "<group>"; };
-		1953CB021E7172DB00A64B3C /* AliveRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomViewController.h; sourceTree = "<group>"; };
-		1953CB031E7172DB00A64B3C /* AliveRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomViewController.m; sourceTree = "<group>"; };
 		1954E6E01DE3D6400058403A /* StockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockManager.h; sourceTree = "<group>"; };
 		1954E6E11DE3D6400058403A /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
 		1955B3B11D644D9800DC102E /* ForgetViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ForgetViewController.h; sourceTree = "<group>"; };
@@ -1605,6 +1605,125 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		19386ED41E723E8700D4426E /* AliveRoom */ = {
+			isa = PBXGroup;
+			children = (
+				19386ED51E723E8700D4426E /* Cells */,
+				19386ED61E723E8700D4426E /* Controller */,
+				19386ED71E723E8700D4426E /* Models */,
+				19386ED81E723E8700D4426E /* Views */,
+			);
+			path = AliveRoom;
+			sourceTree = "<group>";
+		};
+		19386ED51E723E8700D4426E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19386ED61E723E8700D4426E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				19386ED91E723ED600D4426E /* AliveRoomViewController.h */,
+				19386EDA1E723ED600D4426E /* AliveRoomViewController.m */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		19386ED71E723E8700D4426E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19386ED81E723E8700D4426E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19386EDC1E72401E00D4426E /* AliveEditMaster */ = {
+			isa = PBXGroup;
+			children = (
+				19386EDD1E72401E00D4426E /* Cells */,
+				19386EDE1E72401E00D4426E /* Controllers */,
+				19386EDF1E72401E00D4426E /* Models */,
+				19386EE01E72401E00D4426E /* Views */,
+			);
+			path = AliveEditMaster;
+			sourceTree = "<group>";
+		};
+		19386EDD1E72401E00D4426E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19386EDE1E72401E00D4426E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19386EDF1E72401E00D4426E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19386EE01E72401E00D4426E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19386EE11E72401E00D4426E /* AlivePublish */ = {
+			isa = PBXGroup;
+			children = (
+				19386EE21E72401E00D4426E /* Cells */,
+				19386EE31E72401E00D4426E /* Controllers */,
+				19386EE41E72401E00D4426E /* Models */,
+				19386EE51E72401E00D4426E /* Views */,
+			);
+			path = AlivePublish;
+			sourceTree = "<group>";
+		};
+		19386EE21E72401E00D4426E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19386EE31E72401E00D4426E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19386EE41E72401E00D4426E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19386EE51E72401E00D4426E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
 			children = (
@@ -1866,6 +1985,9 @@
 		1953CAED1E7172DB00A64B3C /* Alive */ = {
 			isa = PBXGroup;
 			children = (
+				19386EDC1E72401E00D4426E /* AliveEditMaster */,
+				19386EE11E72401E00D4426E /* AlivePublish */,
+				19386ED41E723E8700D4426E /* AliveRoom */,
 				1953CAEE1E7172DB00A64B3C /* AliveDetail */,
 				1953CAEF1E7172DB00A64B3C /* AliveList */,
 				1953CB001E7172DB00A64B3C /* AliveMaster */,
@@ -1949,8 +2071,6 @@
 		1953CB011E7172DB00A64B3C /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				1953CB021E7172DB00A64B3C /* AliveRoomViewController.h */,
-				1953CB031E7172DB00A64B3C /* AliveRoomViewController.m */,
 				19386EC11E71883F00D4426E /* AliveMasterListViewController.h */,
 				19386EC21E71883F00D4426E /* AliveMasterListViewController.m */,
 			);
@@ -3989,7 +4109,6 @@
 				194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */,
 				19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */,
 				19F00D2C1E2F0B0C009270D5 /* HotTableViewCell.m in Sources */,
-				1953CB0D1E7172DB00A64B3C /* AliveRoomViewController.m in Sources */,
 				19E5F2A61E13653200984DBC /* SQTopicTableViewCell.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
 				19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */,
@@ -4136,6 +4255,7 @@
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,
 				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
+				19386EDB1E723ED600D4426E /* AliveRoomViewController.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,
