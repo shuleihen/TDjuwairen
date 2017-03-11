@@ -309,7 +309,8 @@
 }
 
 - (void)avatarPressed:(id)sender {
-    PersonalCenterViewController *vc = [[PersonalCenterViewController alloc] init];
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateInitialViewController];
+//    PersonalCenterViewController *vc = [[PersonalCenterViewController alloc] init];
     TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }
