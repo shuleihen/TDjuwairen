@@ -48,7 +48,20 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"播主";
+    switch (self.listType) {
+        case AliveMasterList:
+            self.title = @"播主";
+            break;
+        case AliveAttentionList:
+            self.title = @"关注";
+            break;
+        case  AliveFansList:
+            self.title = @"粉丝";
+            break;
+        default:
+            break;
+    }
+    
     [self.view addSubview:self.tableView];
     
     self.aliveArr = [NSArray array];
@@ -70,7 +83,27 @@
     __weak typeof(self)weakSelf = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     
-    [ma GET:API_AliveGetMasterList  parameters:@{@"page":@(self.page)} completion:^(id data, NSError *error){
+    NSDictionary *dict = nil;
+    NSString *url = nil;
+    
+    switch (self.listType) {
+        case AliveMasterList:
+            dict = @{@"page":@(self.page)};
+            url = API_AliveGetMasterList;
+            break;
+        case AliveAttentionList:
+            dict = @{@"master_id": self.masterId,@"page":@(self.page)};
+            url = API_AliveGetAttenList;
+            break;
+        case  AliveFansList:
+            dict = @{@"master_id": self.masterId,@"page":@(self.page)};
+            url = API_AliveGetFansList;
+            break;
+        default:
+            break;
+    }
+    
+    [ma GET:url  parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
             
@@ -181,11 +214,5 @@
     
     return 70;
 }
-
-
-
-
-
-
 
 @end

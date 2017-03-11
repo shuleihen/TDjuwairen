@@ -7,6 +7,7 @@
 //
 
 #import "CenterItemView.h"
+#import "HexColors.h"
 
 @implementation CenterItemView
 
@@ -25,9 +26,17 @@
     return self;
 }
 
-- (void)setupUI {
-    
-//    self.imageView = [[UITableView alloc] initWithFrame:<#(CGRect)#>]
-}
 
+- (void)setupNumber:(NSInteger)number{
+    NSString *numberString = [NSString stringWithFormat:@"%ld",number];
+    
+    NSString *title = [self.titleLabel.text substringFromIndex:self.titleLabel.text.length-2];
+    
+    NSString *string = [NSString stringWithFormat:@"%@ %@",numberString, title];
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:string];
+    [attri addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} range:NSMakeRange(0, numberString.length)];
+    [attri addAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:11], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]} range:NSMakeRange(numberString.length+1, title.length)];
+    self.titleLabel.attributedText = attri;
+    
+}
 @end

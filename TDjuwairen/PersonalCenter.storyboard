@@ -13,7 +13,7 @@
         <scene sceneID="Sdb-w4-7se">
             <objects>
                 <tableViewController storyboardIdentifier="CenterViewController" id="5Wg-Gu-mJm" customClass="CenterViewController" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="J29-7m-WG8">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" id="J29-7m-WG8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -89,7 +89,7 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_fans" translatesAutoresizingMaskIntoConstraints="NO" id="fHx-v3-m6Q">
                                                             <rect key="frame" x="50" y="10" width="25" height="24"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="37 粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vA8-Za-ubt">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vA8-Za-ubt">
                                                             <rect key="frame" x="2" y="44" width="121" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -110,6 +110,7 @@
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="button" destination="x4m-QF-HlV" id="pho-dr-M2g"/>
+                                                        <outlet property="titleLabel" destination="vA8-Za-ubt" id="WCv-1q-Y2L"/>
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uhs-Og-Iob" customClass="CenterItemView">
@@ -124,7 +125,7 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_attention_alive" translatesAutoresizingMaskIntoConstraints="NO" id="pYv-cf-dY2">
                                                             <rect key="frame" x="49.5" y="10" width="26" height="25"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="12 关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MV-YW-8kU">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MV-YW-8kU">
                                                             <rect key="frame" x="2" y="45" width="121" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -145,6 +146,7 @@
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="button" destination="9Fa-kc-xJV" id="pHC-Bs-kuM"/>
+                                                        <outlet property="titleLabel" destination="2MV-YW-8kU" id="DCb-re-ot8"/>
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-hz-X95" customClass="CenterItemView">
@@ -159,7 +161,7 @@
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_dynamic" translatesAutoresizingMaskIntoConstraints="NO" id="aOI-HS-iUJ">
                                                             <rect key="frame" x="49.5" y="10" width="26" height="26"/>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="9 动态" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC7-Np-o97">
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="动态" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC7-Np-o97">
                                                             <rect key="frame" x="2" y="46" width="121" height="14.5"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -180,6 +182,7 @@
                                                     </constraints>
                                                     <connections>
                                                         <outlet property="button" destination="ema-ST-q2g" id="qoX-uz-aEQ"/>
+                                                        <outlet property="titleLabel" destination="sC7-Np-o97" id="kYF-pB-Bks"/>
                                                     </connections>
                                                 </view>
                                             </subviews>
@@ -351,7 +354,10 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="attentionView" destination="uhs-Og-Iob" id="3hL-a3-4rr"/>
                         <outlet property="avatarBtn" destination="UkR-mw-sIV" id="fyJ-p2-UWx"/>
+                        <outlet property="dynamicView" destination="sA4-hz-X95" id="qrp-z7-IwI"/>
+                        <outlet property="fansView" destination="HP2-Tw-y06" id="1EX-UR-Bmc"/>
                         <outlet property="nickNameLabel" destination="gSZ-XA-zGU" id="pkI-Nr-ods"/>
                     </connections>
                 </tableViewController>

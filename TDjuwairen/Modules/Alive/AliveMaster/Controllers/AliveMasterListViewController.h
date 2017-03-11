@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AliveMasterListViewController : UIViewController
+typedef enum : NSUInteger {
+    AliveMasterList     =0, // 播主列表
+    AliveAttentionList  =1, // 关注列表
+    AliveFansList       =2, // 粉丝列表
+} AliveMasterListType;
 
+@interface AliveMasterListViewController : UIViewController
+@property (nonatomic, assign) AliveMasterListType listType;
+@property (nonatomic, strong) NSString *masterId;
 @end

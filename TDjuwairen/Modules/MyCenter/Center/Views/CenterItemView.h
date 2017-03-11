@@ -12,4 +12,6 @@
 @property (nonatomic, weak) IBOutlet UIButton *button;
 @property (nonatomic, weak) IBOutlet UIImageView *imageView;
 @property (nonatomic, weak) IBOutlet UILabel *titleLabel;
+
+- (void)setupNumber:(NSInteger)number;
 @end

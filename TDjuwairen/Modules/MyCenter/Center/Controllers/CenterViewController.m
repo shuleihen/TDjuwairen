@@ -11,11 +11,17 @@
 #import "LoginViewController.h"
 #import "UIButton+WebCache.h"
 #import "NSString+Util.h"
+#import "AliveMasterListViewController.h"
+#import "NetworkManager.h"
+#import "CenterItemView.h"
 
 @interface CenterViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (nonatomic, strong) NSArray *classesArray;
+@property (nonatomic, strong) IBOutlet CenterItemView *dynamicView;
+@property (nonatomic, strong) IBOutlet CenterItemView *attentionView;
+@property (nonatomic, strong) IBOutlet CenterItemView *fansView;
 @end
 
 @implementation CenterViewController
@@ -49,6 +55,7 @@
     
     [self.navigationController setNavigationBarHidden:YES animated:animated];
     
+    [self queryUserInfo];
     [self setupUserInfo];
 }
 
@@ -62,6 +69,23 @@
     return UIStatusBarStyleLightContent;
 }
 
+- (void)queryUserInfo {
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    __weak CenterViewController *wself = self;
+    
+    [manager POST:API_GetUserInfo parameters:nil completion:^(id data, NSError *error){
+        
+        if (!error) {
+            [wself setupAliveInfoWithDictionary:data];
+            
+        } else {
+            
+        }
+        
+    }];
+}
+
 - (void)setupUserInfo {
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage userBigAvatar];
@@ -71,6 +95,18 @@
     } else {
         [self.avatarBtn setImage:[UIImage imageNamed:@"HeadUnLogin.png"] forState:UIControlStateNormal];
         self.nickNameLabel.text = @"登陆注册";
+    }
+}
+
+- (void)setupAliveInfoWithDictionary:(NSDictionary *)dict {
+    if (dict) {
+        NSInteger dy = [dict[@"alive_num"] integerValue];
+        NSInteger at = [dict[@"atten_num"] integerValue];
+        NSInteger fan = [dict[@"fans_num"] integerValue];
+        
+        [self.dynamicView setupNumber:dy];
+        [self.attentionView setupNumber:at];
+        [self.fansView setupNumber:fan];
     }
 }
 
@@ -94,11 +130,30 @@
 }
 
 - (IBAction)attentionPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+        aliveMasterListVC.masterId = US.userId;
+        aliveMasterListVC.listType = AliveAttentionList;
+        [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+    }
     
 }
 
 - (IBAction)fansPressed:(id)sender {
-    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+        aliveMasterListVC.masterId = US.userId;
+        aliveMasterListVC.listType = AliveFansList;
+        [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+    }
 }
 
 #pragma mark - UITableView 
