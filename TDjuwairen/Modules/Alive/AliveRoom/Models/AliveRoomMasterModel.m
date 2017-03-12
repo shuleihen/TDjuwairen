@@ -17,7 +17,7 @@
         self.avatar = dict[@"userinfo_facemin"];
         self.attenNum = dict[@"atten_num"];
         self.fansNum = dict[@"fans_num"];
-        self.level = [dict[@"atten_level"] integerValue];
+        self.level = dict[@"atten_level"];
         self.isMaster = [dict[@"is_master"] boolValue];
         self.isAtten = [dict[@"has_atten"] boolValue];
         self.canModifyRoomCover = [dict[@"is_upload_cover"] boolValue];

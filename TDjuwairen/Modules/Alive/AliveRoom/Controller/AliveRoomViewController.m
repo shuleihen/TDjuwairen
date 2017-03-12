@@ -12,27 +12,57 @@
 #import "AliveRoomHeaderView.h"
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"
+#import "AliveRoomPageSelectView.h"
+#import "AliveListTableViewDelegate.h"
 
-@interface AliveRoomViewController ()
-@property (nonatomic, strong) NSString *masterId;
+#import "AliveListModel.h"
+
+@interface AliveRoomViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
+
 @property (strong, nonatomic) AliveRoomHeaderView *roomHeaderV;
 @property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) UIScrollView *pageScrollView;
+@property (assign, nonatomic) NSInteger selectedPage;
+@property (strong, nonatomic) AliveRoomPageSelectView *pHeaderV;
+
+
+@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
+@property (strong, nonatomic) UITableView *contentTableView;
+@property (assign, nonatomic) NSInteger pageOne;
+@property (strong, nonatomic) NSMutableArray *contentArrM1;
+
+
+
+
+@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate2;
+@property (strong, nonatomic) UITableView *contentTableView2;
+@property (assign, nonatomic) NSInteger pageTwo;
+@property (strong, nonatomic) NSMutableArray *contentArrM2;
+
+
+
+@property (assign, nonatomic) NSInteger currentPage;
+
+
+
+
+
 
 @end
 
 @implementation AliveRoomViewController
 
-- (id)initWithRoomMasterId:(NSString *)masterId {
-    if (self = [super init]) {
-        self.view.backgroundColor = TDViewBackgrouondColor;
-        [self queryRoomInfoWithMasterId:masterId];
-        self.masterId = masterId;
-    }
-    return self;
+
+- (void)setMasterId:(NSString *)masterId {
+    
+    _masterId = masterId;
+    [self queryRoomInfoWithMasterId:masterId];
+    
 }
 
-- (AliveRoomHeaderView *)roomHeaderV {
 
+- (AliveRoomHeaderView *)roomHeaderV {
+    
     if (!_roomHeaderV) {
         __weak typeof(self)weakSelf = self;
         _roomHeaderV = [AliveRoomHeaderView loadAliveRoomeHeaderView];
@@ -48,19 +78,100 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.tableFooterView = [UIView new];
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.tableHeaderView = self.roomHeaderV;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
         
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     }
     
     return _tableView;
 }
+
+- (UITableView *)contentTableView {
+    
+    if (!_contentTableView) {
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-255);
+        _contentTableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+        _contentTableView.backgroundColor = TDViewBackgrouondColor;
+        _contentTableView.separatorColor = TDSeparatorColor;
+        _contentTableView.separatorInset = UIEdgeInsetsZero;
+        _contentTableView.showsVerticalScrollIndicator = NO;
+        
+        _contentTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions1)];
+        _contentTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions1)];
+        [self refreshActions1];
+        
+    }
+    
+    return _contentTableView;
+}
+
+- (UITableView *)contentTableView2 {
+    
+    if (!_contentTableView2) {
+        CGRect rect = CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight-255);
+        _contentTableView2 = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+        _contentTableView2.backgroundColor = TDViewBackgrouondColor;
+        _contentTableView2.separatorColor = TDSeparatorColor;
+        _contentTableView2.separatorInset = UIEdgeInsetsZero;
+        _contentTableView2.showsVerticalScrollIndicator = NO;
+        
+        _contentTableView2.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions2)];
+        _contentTableView2.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions2)];
+         [self refreshActions2];
+    }
+    
+    return _contentTableView2;
+}
+
+
+- (UIScrollView *)pageScrollView {
+    
+    if (!_pageScrollView) {
+        _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-255)];
+        _pageScrollView.contentSize = CGSizeMake(kScreenWidth*2, kScreenHeight-255);
+        _pageScrollView.pagingEnabled = YES;
+        _pageScrollView.showsHorizontalScrollIndicator = NO;
+        _pageScrollView.showsVerticalScrollIndicator = NO;
+        _pageScrollView.delegate = self;
+        [_pageScrollView addSubview:self.contentTableView];
+        [_pageScrollView addSubview:self.contentTableView2];
+        
+    }
+    return _pageScrollView;
+}
+
+- (AliveRoomPageSelectView *)pHeaderV {
+    
+    if (!_pHeaderV) {
+        _pHeaderV = [AliveRoomPageSelectView loadAliveRoomPageSelectView];
+        
+        _pHeaderV.frame = CGRectMake(0, 0, kScreenWidth, 45);
+        __weak typeof(self)weakSelf = self;
+        _pHeaderV.selectedBtnBlock = ^(UIButton *sender){
+            [weakSelf.pageScrollView setContentOffset:CGPointMake((sender.tag-100)*kScreenWidth, 0) animated:YES];
+            weakSelf.selectedPage = sender.tag-100;
+            
+        };
+    }
+    return _pHeaderV;
+}
+
+- (void)setSelectedPage:(NSInteger)selectedPage {
+    
+    _selectedPage = selectedPage;
+    [self.pHeaderV showBtnUI:selectedPage];
+}
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self setUpValue];
@@ -68,13 +179,21 @@
 }
 
 - (void)setUpValue {
-
-
+    self.selectedPage = 0;
+    self.contentArrM1 = [NSMutableArray array];
+    self.contentArrM2 = [NSMutableArray array];
+    
+    
 }
 
 
 - (void)setUpUICommon {
-    [self.view addSubview:self.roomHeaderV];
+    self.view.backgroundColor = TDViewBackgrouondColor;
+    [self.view addSubview:self.tableView];
+    self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView withViewController:self];
+    self.tableViewDelegate2 = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView2 withViewController:self];
+    
+    
     
     
 }
@@ -104,7 +223,7 @@
         
         if (!error) {
             AliveRoomMasterModel *model = [[AliveRoomMasterModel alloc] initWithDictionary:data];
-//            [wself setupRoomInfoWithMasterRoomModel:model];
+            //            [wself setupRoomInfoWithMasterRoomModel:model];
             wself.roomHeaderV.headerModel = model;
         } else {
             
@@ -113,85 +232,173 @@
     }];
 }
 
-#pragma mark -
-- (void)setupRoomInfoWithMasterRoomModel:(AliveRoomMasterModel *)roomModel {
-    
-    
+
+- (void)refreshActions1 {
+    self.pageOne = 1;
+    [self loadAliveRoomListData:@"0" pageNum:self.pageOne];
     
 }
 
 
-
-//- (void)refreshActions{
-//    self.currentPage = 1;
-//    [self queryAliveListWithType:self.listType withPage:self.currentPage];
-//}
-//
-//- (void)loadMoreActions{
-//    [self queryAliveListWithType:self.listType withPage:self.currentPage];
-//}
-//
-//- (void)queryAliveListWithType:(AliveListType)listType withPage:(NSInteger)page {
-//    __weak AliveListViewController *wself = self;
-//    
-//    NetworkManager *manager = [[NetworkManager alloc] init];
-//    
-//    NSDictionary *dict = @{@"tag" :@(listType),@"page" :@(page)};
-//    
-//    [manager GET:API_AliveGetRoomList parameters:dict completion:^(id data, NSError *error){
-//        
-//        if (wself.tableView.mj_header.isRefreshing) {
-//            [wself.tableView.mj_header endRefreshing];
-//        }
-//        
-//        if (wself.tableView.mj_footer.isRefreshing) {
-//            [wself.tableView.mj_footer endRefreshing];
-//        }
-//        
-//        if (!error) {
-//            NSArray *dataArray = data;
-//            BOOL scrollToTop = NO;
-//            
-//            if (dataArray.count > 0) {
-//                NSMutableArray *list = nil;
-//                if (wself.currentPage == 1) {
-//                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-//                    scrollToTop = YES;
-//                } else {
-//                    list = [NSMutableArray arrayWithArray:wself.aliveList];
-//                }
-//                
-//                for (NSDictionary *d in dataArray) {
-//                    AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
-//                    [list addObject:model];
-//                    
-//                }
-//                
-//                wself.aliveList = [NSArray arrayWithArray:list];
-//                
-//                wself.currentPage++;
-//            } else {
-//                if (wself.currentPage == 1) {
-//                    wself.aliveList = nil;
-//                }
-//            }
-//            
-//            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
-//            
-//            if (scrollToTop) {
-//                [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
-//            }
-//            
-//        } else {
-//            
-//        }
-//        
-//    }];
-//}
+- (void)loadMoreActions1 {
+    [self loadAliveRoomListData:@"0" pageNum:self.pageOne];
+    
+}
 
 
+- (void)refreshActions2 {
+    self.pageTwo = 1;
+    [self loadAliveRoomListData:@"1" pageNum:self.pageTwo];
+}
 
 
+- (void)loadMoreActions2 {
+    [self loadAliveRoomListData:@"1" pageNum:self.pageTwo];
+    
+}
+
+- (void)loadAliveRoomListData:(NSString *)tagStr pageNum:(NSInteger)pageNum {
+    __weak typeof(self)weakSelf = self;
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_AliveGetRoomLiveList parameters:@{@"master_id":self.masterId,@"tag":tagStr,@"page":@(pageNum)} completion:^(id data, NSError *error){
+        
+        [weakSelf.tableView.mj_header endRefreshing];
+        [weakSelf.contentTableView.mj_header endRefreshing];
+        [weakSelf.contentTableView2.mj_header endRefreshing];
+        
+        [weakSelf.tableView.mj_footer endRefreshing];
+        [weakSelf.contentTableView.mj_footer endRefreshing];
+        [weakSelf.contentTableView2.mj_footer endRefreshing];
+        
+        
+        if (!error) {
+            NSMutableArray *list = [NSMutableArray array];
+            
+            
+            for (NSDictionary *d in data) {
+                AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
+                [list addObject:model];
+                
+            }
+            
+            
+            if ([tagStr isEqualToString:@"0"]) {
+                
+                if (pageNum == 1) {
+                    [self.contentArrM1 removeAllObjects];
+                    
+                }
+                
+                [self.contentArrM1 addObjectsFromArray:[list mutableCopy]];
+                [self.tableViewDelegate reloadWithArray:self.contentArrM1];
+                
+            }else {
+                // 贴单
+                
+                if (pageNum == 1) {
+                    [self.contentArrM2 removeAllObjects];
+                    
+                }
+                
+                [self.contentArrM2 addObjectsFromArray:[list mutableCopy]];
+                [self.tableViewDelegate2 reloadWithArray:self.contentArrM2];
+                
+                
+            }
+            
+            
+        } else {
+            
+        }
+        
+    }];
+}
+
+#pragma mark -
+
+
+
+#pragma mark -------------- UITableViewDataSource ---------------------
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 1;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    UITableViewCell *contentCell =  [tableView dequeueReusableCellWithIdentifier:@"contentTableViewCell"];
+    if (contentCell == nil) {
+        contentCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contentTableViewCell"];
+    }
+    
+    [contentCell.contentView addSubview:self.pageScrollView];
+    
+    return contentCell;
+}
+
+#pragma mark ----------------------------------------------------------
+
+
+
+#pragma mark -------------- UITableViewDelegate ---------------------
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    
+    
+    
+    return self.pHeaderV;
+}
+
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return kScreenHeight-255;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    
+    return 45;
+}
+
+
+
+#pragma mark ----------------------------------------------------------
+
+
+
+
+
+
+
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    if(!decelerate)
+    {   //OK,真正停止了，do something}
+        [self scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    int currentPage = scrollView.contentOffset.x/kScreenWidth;
+    
+    if (currentPage == self.selectedPage) {
+        return;
+    }else {
+        
+        self.selectedPage = currentPage;
+    }
+    
+    
+}
 
 
 

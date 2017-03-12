@@ -72,6 +72,9 @@
                     <state key="normal" title="关注27">
                         <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="attentionButton:" destination="kdO-EP-rtC" eventType="touchUpInside" id="1di-S7-Eaa"/>
+                    </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-ns-DEB">
                     <rect key="frame" x="202" y="144" width="40" height="27"/>
@@ -79,6 +82,9 @@
                     <state key="normal" title="粉丝25">
                         <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="attentionButton:" destination="kdO-EP-rtC" eventType="touchUpInside" id="654-ZV-apE"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="主播间介绍：为直播而生" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El6-6G-eFi">
                     <rect key="frame" x="15" y="178" width="337" height="15"/>
@@ -167,12 +173,14 @@
                 <outlet property="aAddressLabel" destination="8el-BF-Y7b" id="gy1-Z0-pAX"/>
                 <outlet property="aAttentionButton" destination="oty-S7-X8U" id="kzs-Y5-P30"/>
                 <outlet property="aFansButton" destination="vXf-ns-DEB" id="Gcy-5C-CjP"/>
+                <outlet property="aGuessRateButton" destination="NCN-LZ-7E9" id="svF-3t-CTL"/>
                 <outlet property="aImageView" destination="hSC-04-36v" id="X9S-2W-5tY"/>
+                <outlet property="aLevelButton" destination="bW2-Cl-Jl1" id="3m2-Hx-p71"/>
                 <outlet property="aNickNameLabel" destination="ROj-Gu-0qP" id="AMs-K4-fch"/>
                 <outlet property="aRoomInfoLabel" destination="El6-6G-eFi" id="9B1-bG-TiP"/>
                 <outlet property="aSexImageView" destination="MhS-qV-8tH" id="G9g-aS-iD1"/>
             </connections>
-            <point key="canvasLocation" x="-443" y="1"/>
+            <point key="canvasLocation" x="-313" y="-46"/>
         </view>
     </objects>
     <resources>

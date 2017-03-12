@@ -205,7 +205,8 @@
         return;
     }
     
-    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithRoomMasterId:model.masterId];
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
+    vc.masterId = model.masterId;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
