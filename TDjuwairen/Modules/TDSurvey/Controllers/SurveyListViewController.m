@@ -125,14 +125,15 @@
         view.showsHorizontalScrollIndicator = NO;
         
         [view addSubview:self.segmentControl];
-        
-        UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-        top.backgroundColor = TDSeparatorColor;
-        [view addSubview:top];
-        
-        UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
-        bottom.backgroundColor = TDSeparatorColor;
-        [view addSubview:bottom];
+
+//        view.layer.borderColor = TDSeparatorColor.CGColor;
+//        UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+//        top.backgroundColor = TDSeparatorColor;
+//        [view addSubview:top];
+//        
+//        UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
+//        bottom.backgroundColor = TDSeparatorColor;
+//        [view addSubview:bottom];
         
         _segmentContentScrollView = view;
     }
@@ -241,7 +242,10 @@
 }
 
 - (void)setupTableView {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
+    
     // 表头
     self.tableView.tableHeaderView = [self tableViewHeaderView];
     // 表尾
@@ -254,7 +258,7 @@
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    self.tableView.backgroundColor = TDViewBackgrouondColor;
+//    self.tableView.backgroundColor = TDViewBackgrouondColor;
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
@@ -309,7 +313,8 @@
 }
 
 - (void)avatarPressed:(id)sender {
-    PersonalCenterViewController *vc = [[PersonalCenterViewController alloc] init];
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateInitialViewController];
+//    PersonalCenterViewController *vc = [[PersonalCenterViewController alloc] init];
     TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }

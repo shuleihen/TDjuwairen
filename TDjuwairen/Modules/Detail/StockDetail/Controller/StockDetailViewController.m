@@ -147,36 +147,10 @@
     }
 }
 
-- (void)setupStockModel {
-    if (!self.stockModel) {
-        return;
-    }
-    
-    self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockModel.stockId];
-    [self.stockHeaderView setupStockModel:self.stockModel];
-    
-    self.segment.isLock = self.stockModel.isLocked;
-    
-    if (self.stockModel.isLocked) {
-        self.segment.selectedIndex = 3;
-    } else {
-        self.segment.selectedIndex = 0;
-    }
-}
-
-#pragma mark - Action
 - (void)querySurveySimpleDetail {
     // 查询解锁
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para ;
-    if (US.isLogIn) {
-        para = @{@"code": self.stockId,
-                 @"user_id": US.userId};
-    }
-    else
-    {
-        para = @{@"code": self.stockId};
-    }
+    NSDictionary *para = @{@"code": self.stockId?:@""};
     
     __weak StockDetailViewController *wself = self;
     [ma GET:API_SurveyDetailHeader parameters:para completion:^(id data, NSError *error){
@@ -190,6 +164,26 @@
     }];
 }
 
+- (void)setupStockModel {
+    if (!self.stockModel) {
+        return;
+    }
+    
+    self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockModel.stockId];
+    [self.stockHeaderView setupStockModel:self.stockModel];
+    
+    self.segment.isLock = self.stockModel.isLocked;
+    self.segment.selectedIndex = 0;
+    
+//    if (self.stockModel.isLocked) {
+//        self.segment.selectedIndex = 3;
+//    } else {
+//        self.segment.selectedIndex = 0;
+//    }
+}
+
+#pragma mark - Action
+
 - (void)unlockStockPressed {
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -198,7 +192,7 @@
     }
     
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-    vc.stockCode = self.stockModel.stockId;
+    vc.stockCode = self.stockId;
     vc.stockName = self.stockModel.stockName;
     vc.needKey = self.stockModel.keyNum;
     
@@ -334,14 +328,14 @@
 - (void)gradePressed:(id)sender {
     GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
     vc.stockName = self.stockModel.stockName;
-    vc.stockId = self.stockModel.stockId;
+    vc.stockId = self.stockId;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)addStockPressed:(id)sender {
     if (US.isLogIn) {
-        NSDictionary *para = @{@"code": self.stockModel.stockId,
+        NSDictionary *para = @{@"code": self.stockId,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
@@ -373,7 +367,7 @@
 
 - (void)removeStockPressed:(id)sender {
     if (US.isLogIn) {
-        NSDictionary *para = @{@"code": self.stockModel.stockId,
+        NSDictionary *para = @{@"code": self.stockId,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
@@ -405,7 +399,7 @@
 
 - (void)invitePressed:(id)sender {
     ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
-    vc.stockId = self.stockModel.stockId;
+    vc.stockId = self.stockId;
     vc.stockName = self.stockModel.stockName;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -484,7 +478,10 @@
     
         __weak StockDetailViewController *wself = self;
         SurveyDetailContentViewController *vc = self.contentControllers[index];
-        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
+        [self.pageViewController setViewControllers:@[vc]
+                                          direction:UIPageViewControllerNavigationDirectionReverse
+                                           animated:NO
+                                         completion:^(BOOL finish){
 
             [wself reloadTableView];
             
@@ -699,7 +696,7 @@
             Class class = NSClassFromString(string);
             SurveyDetailContentViewController *obj = [[class alloc] init];
             obj.rootController = self;
-            obj.stockId = self.stockModel.stockId;
+            obj.stockId = self.stockId;
             obj.stockName = self.stockModel.stockName;
             obj.stockCover = self.stockModel.cover;
             obj.tag = i++;

@@ -56,7 +56,7 @@
             [hud hide:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            hud.labelText = @"修改失败";
+            hud.labelText = error.localizedDescription?:@"修改失败";
             [hud hide:YES];
         }
     }];

@@ -109,6 +109,7 @@ typedef enum : NSUInteger {
 - (void)anchorPressed:(id)sender {
     
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+    aliveMasterListVC.listType = AliveMasterList;
     [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }

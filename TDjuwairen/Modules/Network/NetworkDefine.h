@@ -49,6 +49,7 @@
 #define API_UpdateCompanyName   @"User/updateCompanyName"
 #define API_UpdateOccupationName @"User/updateOccupationName"
 #define API_UpdateUserInfo      @"User/updateUserinfo"
+#define API_GetUserInfo         @"User/getUserInfo"
 #define API_UploadUserface      @"User/userfaceImgUp"
 #define API_UserBindInfo        @"User/userbindInfo"
 #define API_UpdateUserPhone     @"User/updateUserphone"
