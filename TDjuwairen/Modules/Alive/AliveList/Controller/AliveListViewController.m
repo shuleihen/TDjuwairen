@@ -14,6 +14,7 @@
 #import "UIImage+Color.h"
 #import "AliveMasterListViewController.h"
 #import "AliveListTableViewDelegate.h"
+#import "AlivePublishViewController.h"
 
 typedef enum : NSUInteger {
     AliveAttention  =0,
@@ -107,7 +108,8 @@ typedef enum : NSUInteger {
 }
 
 - (void)anchorPressed:(id)sender {
-    
+//    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    [self.navigationController pushViewController:vc animated:YES];
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
     aliveMasterListVC.listType = AliveMasterList;
     [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
