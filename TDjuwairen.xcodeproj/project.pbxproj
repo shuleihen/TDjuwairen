@@ -343,6 +343,9 @@
 		2764A26E1D015F6B00916844 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26D1D015F6B00916844 /* Security.framework */; };
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
+		4DD73B641E74E8180071678B /* AliveRoomPageSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD73B631E74E8180071678B /* AliveRoomPageSelectView.m */; };
+		4DD73B661E74E8250071678B /* AliveRoomPageSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DD73B651E74E8250071678B /* AliveRoomPageSelectView.xib */; };
+		4DD73B691E752BE40071678B /* AliveAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD73B681E752BE40071678B /* AliveAlertView.m */; };
 		4DE3965F1E728BC40010DAD3 /* AliveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE3965D1E728BC40010DAD3 /* AliveRoomViewController.m */; };
 		4DE396631E728C310010DAD3 /* AliveRoomHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE396621E728C310010DAD3 /* AliveRoomHeaderView.m */; };
 		4DE396651E728C3A0010DAD3 /* AliveRoomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DE396641E728C3A0010DAD3 /* AliveRoomHeaderView.xib */; };
@@ -1103,6 +1106,11 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		4DD73B621E74E8180071678B /* AliveRoomPageSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliveRoomPageSelectView.h; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomPageSelectView.h; sourceTree = SOURCE_ROOT; };
+		4DD73B631E74E8180071678B /* AliveRoomPageSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliveRoomPageSelectView.m; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomPageSelectView.m; sourceTree = SOURCE_ROOT; };
+		4DD73B651E74E8250071678B /* AliveRoomPageSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AliveRoomPageSelectView.xib; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomPageSelectView.xib; sourceTree = SOURCE_ROOT; };
+		4DD73B671E752BE40071678B /* AliveAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliveAlertView.h; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveAlertView.h; sourceTree = SOURCE_ROOT; };
+		4DD73B681E752BE40071678B /* AliveAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliveAlertView.m; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveAlertView.m; sourceTree = SOURCE_ROOT; };
 		4DE3965C1E728BC40010DAD3 /* AliveRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomViewController.h; sourceTree = "<group>"; };
 		4DE3965D1E728BC40010DAD3 /* AliveRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomViewController.m; sourceTree = "<group>"; };
 		4DE396611E728C310010DAD3 /* AliveRoomHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliveRoomHeaderView.h; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomHeaderView.h; sourceTree = SOURCE_ROOT; };
@@ -1680,6 +1688,11 @@
 				4DE396611E728C310010DAD3 /* AliveRoomHeaderView.h */,
 				4DE396621E728C310010DAD3 /* AliveRoomHeaderView.m */,
 				4DE396641E728C3A0010DAD3 /* AliveRoomHeaderView.xib */,
+				4DD73B621E74E8180071678B /* AliveRoomPageSelectView.h */,
+				4DD73B631E74E8180071678B /* AliveRoomPageSelectView.m */,
+				4DD73B651E74E8250071678B /* AliveRoomPageSelectView.xib */,
+				4DD73B671E752BE40071678B /* AliveAlertView.h */,
+				4DD73B681E752BE40071678B /* AliveAlertView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4064,6 +4077,7 @@
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				4DE396651E728C3A0010DAD3 /* AliveRoomHeaderView.xib in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
+				4DD73B661E74E8250071678B /* AliveRoomPageSelectView.xib in Resources */,
 				190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4373,6 +4387,7 @@
 				1955B49F1D644D9800DC102E /* ViewInfoModel.m in Sources */,
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				847ADA6F1DF7A15D002600AA /* OptionalHeadView.m in Sources */,
+				4DD73B691E752BE40071678B /* AliveAlertView.m in Sources */,
 				1955B49D1D644D9800DC102E /* SpecialModel.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
@@ -4383,6 +4398,7 @@
 				19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */,
 				84E3346D1CE3123700E5DCEE /* UIImage+GIF.m in Sources */,
 				196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */,
+				4DD73B641E74E8180071678B /* AliveRoomPageSelectView.m in Sources */,
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				191027AC1DE42492006A2275 /* SurveyModel.m in Sources */,

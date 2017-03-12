@@ -14,6 +14,7 @@
 #import "MBProgressHUD.h"
 #import "AliveRoomPageSelectView.h"
 #import "AliveListTableViewDelegate.h"
+#import "AliveMasterListViewController.h"
 
 #import "AliveListModel.h"
 
@@ -71,6 +72,58 @@
             [weakSelf.navigationController popViewControllerAnimated:YES];
             
         };
+        
+        _roomHeaderV.addAttentionBlock = ^(BOOL addAttention){
+        
+            if (weakSelf.masterId.length <= 0) {
+                return ;
+            }
+            
+            NSString *str = API_AliveAddAttention;
+            if (addAttention == YES) {
+                // 取消关注
+                str = API_AliveDelAttention;
+            }
+            
+            
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:weakSelf.view animated:YES];
+            hud.labelText = @"提交中...";
+            
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            
+            [manager POST:str parameters:@{@"user_id":weakSelf.masterId} completion:^(id data, NSError *error){
+                NSLog(@"---------%@",data);
+                if (!error) {
+                    
+                    if (data && [data[@"status"] integerValue] == 1) {
+                        AliveRoomMasterModel *model = weakSelf.roomHeaderV.headerModel;
+                        model.isAtten = !model.isAtten;
+                        weakSelf.roomHeaderV.headerModel = model;
+                        
+                        [hud hide:YES afterDelay:0.2];
+                    }
+                } else {
+                    hud.labelText = error.localizedDescription?:@"提交失败";
+                    [hud hide:YES afterDelay:0.4];
+                }
+                
+            }];
+        
+        };
+        
+        
+        _roomHeaderV.btnClickBlock = ^(ButtonType btnType){
+            AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+            if (btnType == ButtonAttentionType) {
+                
+                aliveMasterListVC.listType = AliveAttentionList;
+            }else {
+                
+                aliveMasterListVC.listType = AliveFansList;
+            }
+            aliveMasterListVC.masterId = weakSelf.masterId;
+            [weakSelf.navigationController pushViewController:aliveMasterListVC animated:YES];
+        };
     }
     return _roomHeaderV;
 }
@@ -126,7 +179,7 @@
         
         _contentTableView2.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions2)];
         _contentTableView2.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions2)];
-         [self refreshActions2];
+        [self refreshActions2];
     }
     
     return _contentTableView2;

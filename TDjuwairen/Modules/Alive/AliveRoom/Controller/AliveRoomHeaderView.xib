@@ -33,7 +33,7 @@
                                 <action selector="backButtonClick" destination="kdO-EP-rtC" eventType="touchUpInside" id="bCX-0w-7Dy"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLq-1G-cfr">
+                        <button opaque="NO" tag="1004" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tLq-1G-cfr">
                             <rect key="frame" x="288" y="7" width="64" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="64" id="BxX-1e-6fZ"/>
@@ -41,6 +41,10 @@
                             </constraints>
                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
                             <state key="normal" title="加关注"/>
+                            <state key="selected" title="取消关注"/>
+                            <connections>
+                                <action selector="attentionButton:" destination="kdO-EP-rtC" eventType="touchUpInside" id="Haa-gZ-hBH"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -66,7 +70,7 @@
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oty-S7-X8U">
+                <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oty-S7-X8U">
                     <rect key="frame" x="127" y="144" width="39" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="关注27">
@@ -76,7 +80,7 @@
                         <action selector="attentionButton:" destination="kdO-EP-rtC" eventType="touchUpInside" id="1di-S7-Eaa"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-ns-DEB">
+                <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-ns-DEB">
                     <rect key="frame" x="202" y="144" width="40" height="27"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <state key="normal" title="粉丝25">
@@ -92,7 +96,7 @@
                     <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bW2-Cl-Jl1">
+                <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bW2-Cl-Jl1">
                     <rect key="frame" x="45" y="99" width="60" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="UWR-UV-WGY"/>
@@ -102,8 +106,11 @@
                     <state key="normal" title="15" image="alive_level">
                         <color key="titleColor" red="1" green="0.80000000000000004" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="attentionButton:" destination="kdO-EP-rtC" eventType="touchUpInside" id="fgY-BM-alr"/>
+                    </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCN-LZ-7E9">
+                <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NCN-LZ-7E9">
                     <rect key="frame" x="262" y="99" width="60" height="22"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="60" id="YSl-6g-pVG"/>
@@ -113,6 +120,9 @@
                     <state key="normal" title="24" image="alive_fans">
                         <color key="titleColor" red="1" green="0.80000000000000004" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                     </state>
+                    <connections>
+                        <action selector="attentionButton:" destination="kdO-EP-rtC" eventType="touchUpInside" id="udF-N7-9dh"/>
+                    </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="杭州" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="8el-BF-Y7b">
                     <rect key="frame" x="219" y="127" width="21" height="12"/>
@@ -170,6 +180,7 @@
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <connections>
+                <outlet property="aAddAttentionBtn" destination="tLq-1G-cfr" id="qdM-3w-zrA"/>
                 <outlet property="aAddressLabel" destination="8el-BF-Y7b" id="gy1-Z0-pAX"/>
                 <outlet property="aAttentionButton" destination="oty-S7-X8U" id="kzs-Y5-P30"/>
                 <outlet property="aFansButton" destination="vXf-ns-DEB" id="Gcy-5C-CjP"/>
@@ -180,7 +191,7 @@
                 <outlet property="aRoomInfoLabel" destination="El6-6G-eFi" id="9B1-bG-TiP"/>
                 <outlet property="aSexImageView" destination="MhS-qV-8tH" id="G9g-aS-iD1"/>
             </connections>
-            <point key="canvasLocation" x="-313" y="-46"/>
+            <point key="canvasLocation" x="-802" y="-290"/>
         </view>
     </objects>
     <resources>
