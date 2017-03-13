@@ -12,6 +12,7 @@
 #import "MJRefresh.h"
 #import "NetworkManager.h"
 #import "AliveListModel.h"
+#import "AliveMasterListViewController.h"
 
 @interface AliveDetailViewController ()<AliveListTableCellDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -19,6 +20,11 @@
 @property (assign, nonatomic) NSInteger selectedPage;
 @property (weak, nonatomic) AliveContentHeaderView *headerV;
 @property (strong, nonatomic) AliveListModel *aliveInfoModel;
+@property (strong, nonatomic) AliveMasterListViewController *dianZanVC;
+@property (strong, nonatomic) AliveMasterListViewController *shareVC;
+
+
+
 
 
 
@@ -28,6 +34,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"直播正文";
     [self setUpValue];
     [self setUpUICommon];
@@ -77,12 +84,15 @@
 - (UIScrollView *)pageScrollView {
     
     if (!_pageScrollView) {
-        _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 210)];
-        _pageScrollView.contentSize = CGSizeMake(kScreenWidth*3, 210);
+        _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
+        _pageScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
         _pageScrollView.pagingEnabled = YES;
 //        _pageScrollView.showsHorizontalScrollIndicator = NO;
 //        _pageScrollView.showsVerticalScrollIndicator = NO;
         _pageScrollView.backgroundColor = [UIColor lightGrayColor];
+        [_pageScrollView addSubview:[UIView new]];
+        [_pageScrollView addSubview:self.dianZanVC.view];
+        [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
         
     }
@@ -114,21 +124,52 @@
     
 }
 
+- (AliveMasterListViewController *)dianZanVC {
+
+    if (!_dianZanVC) {
+        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self];
+        _dianZanVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.pageScrollView.frame.size.height);
+        _dianZanVC.listType = AliveDianZanList;
+        _dianZanVC.masterId = self.alive_ID;
+         __weak typeof(self)weakSelf = self;
+        _dianZanVC.dataBlock = ^(NSInteger dataCount){
+        UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:101];
+            [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
+        };
+    }
+    return  _dianZanVC;
+}
+
+
+- (AliveMasterListViewController *)shareVC {
+
+    if (!_shareVC) {
+        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self];
+        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self];
+        _shareVC.view.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, self.pageScrollView.frame.size.height);
+        _shareVC.listType = AliveDianZanList;
+        _shareVC.masterId = self.alive_ID;
+        __weak typeof(self)weakSelf = self;
+        _shareVC.dataBlock = ^(NSInteger dataCount){
+            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:102];
+            [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
+        };
+    }
+    return _shareVC;
+}
+
+
 #pragma mark ---loadData
 /// 加载动态详情页内容
 - (void)loadDynamicDetailData {
     NetworkManager *manager = [[NetworkManager alloc] init];
     
-    NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :@"1"};
+    NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
     
     [manager GET:API_AliveGetAliveInfo parameters:dict completion:^(id data, NSError *error){
         
-       
-        
         if (!error) {
           
-            
-            
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
              [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             
@@ -175,6 +216,7 @@
         
         [contentCell.contentView addSubview:self.pageScrollView];
         
+        
         return contentCell;
     }
 }
@@ -210,7 +252,7 @@
         return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel];
     }else {
     
-        return 210;
+        return kScreenHeight;
     }
 }
 
@@ -225,8 +267,12 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section; {
-
-    return 10;
+    if (section == 0) {
+        return 10;
+    }else {
+    
+        return CGFLOAT_MIN;
+    }
 }
 
 #pragma mark ----------------------------------------------------------
@@ -235,6 +281,9 @@
 
 #pragma mark ----- UIScrollViewDelegate
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView != self.pageScrollView) {
+        return;
+    }
     
     if(!decelerate)
     {   //OK,真正停止了，do something}
@@ -245,7 +294,11 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
-    int currentPage = scrollView.contentOffset.x/kScreenWidth;
+    if (scrollView != self.pageScrollView) {
+        return;
+    }
+    
+    int currentPage = self.pageScrollView.contentOffset.x/kScreenWidth;
     
     if (currentPage == self.selectedPage) {
         return;

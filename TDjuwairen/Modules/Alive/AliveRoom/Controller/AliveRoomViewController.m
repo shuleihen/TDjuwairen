@@ -412,7 +412,6 @@
         }
         
         [contentCell.contentView addSubview:self.pageScrollView];
-        contentCell.backgroundColor = [UIColor blueColor];
         
         return contentCell;
         

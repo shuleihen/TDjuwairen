@@ -137,6 +137,7 @@
     }
     AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
     vc.alive_ID = model.aliveId;
+    vc.alive_type = model.aliveType==1?@"1":@"2";
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
     

@@ -95,7 +95,7 @@
                 <outlet property="selectedLineView" destination="5nD-d6-5TZ" id="rox-hS-XB5"/>
                 <outlet property="threeBtn" destination="xj2-MU-jHY" id="Xv4-Be-OXq"/>
             </connections>
-            <point key="canvasLocation" x="-49" y="-71"/>
+            <point key="canvasLocation" x="-164" y="-64"/>
         </view>
     </objects>
 </document>

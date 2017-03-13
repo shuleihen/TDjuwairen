@@ -73,7 +73,7 @@
 - (void)requestDataWithPage:(NSInteger)aPage{
     
     __weak typeof(self)weakSelf = self;
-    NSDictionary *dict = @{@"page":@(self.page)};
+    NSDictionary *dict = @{@"page":@"1"};
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:API_AliveGetRoomNotify parameters:dict completion:^(id data, NSError *error){
