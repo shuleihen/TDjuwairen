@@ -13,7 +13,8 @@
 #import "NetworkManager.h"
 #import "AliveListModel.h"
 #import "AliveMasterListViewController.h"
-#import "PlayStockCommentViewController.h"
+#import "AlivePingLunViewController.h"
+#import "AliveListBottomTableViewCell.h"
 
 @interface AliveDetailViewController ()<AliveListTableCellDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -23,8 +24,8 @@
 @property (strong, nonatomic) AliveListModel *aliveInfoModel;
 @property (strong, nonatomic) AliveMasterListViewController *dianZanVC;
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
-@property (strong, nonatomic) PlayStockCommentViewController *pinglunVC;
-
+@property (strong, nonatomic) AlivePingLunViewController *pinglunVC;
+@property (strong, nonatomic) AliveListBottomTableViewCell *toolView;
 
 
 
@@ -43,7 +44,7 @@
     self.title = @"直播正文";
     [self setUpValue];
     [self setUpUICommon];
-   
+    [self setSelectedPage:0];
 }
 
 
@@ -66,12 +67,18 @@
     [self.view addSubview:self.tableView];
     [self loadDynamicDetailData];
     
+    
+    _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
+    _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
+    _toolView.backgroundColor = [UIColor whiteColor];
+    [self.view addSubview:_toolView];
+    
 }
 
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
@@ -82,6 +89,9 @@
         _tableView.dataSource = self;
         UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
+        
+//        UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
+//        [_tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
         
     }
     
@@ -97,8 +107,8 @@
 //        _pageScrollView.showsHorizontalScrollIndicator = NO;
 //        _pageScrollView.showsVerticalScrollIndicator = NO;
         _pageScrollView.backgroundColor = [UIColor lightGrayColor];
-        [_pageScrollView addSubview:[UIView new]];
-        [_pageScrollView addSubview:_pinglunVC.view];
+//        [_pageScrollView addSubview:[UIView new]];
+        [_pageScrollView addSubview:self.pinglunVC.view];
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
@@ -136,8 +146,8 @@
     switch (selectedPage) {
         case 0:
         {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-            self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
+            self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
 
         }
             break;
@@ -167,11 +177,12 @@
     
 }
 
-- (PlayStockCommentViewController *)pinglunVC
+- (AlivePingLunViewController *)pinglunVC
 {
     if (!_pinglunVC) {
-        _pinglunVC = [[PlayStockCommentViewController alloc] init];
-        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, 200);
+        _pinglunVC = [[AlivePingLunViewController alloc] init];
+//        [_pinglunVC.navigationController setNavigationBarHidden:YES animated:NO];
+        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, 200-44);
     }
     return _pinglunVC;
 }
@@ -226,7 +237,7 @@
           
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
              [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-            
+            [_toolView setupAliveModel:_aliveInfoModel];
             
         } else {
             

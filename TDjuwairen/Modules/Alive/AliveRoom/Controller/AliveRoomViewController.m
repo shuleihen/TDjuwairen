@@ -101,8 +101,9 @@
         _contentTableView.separatorColor = TDSeparatorColor;
         _contentTableView.separatorInset = UIEdgeInsetsZero;
         _contentTableView.showsVerticalScrollIndicator = NO;
-//        _contentTableView.scrollEnabled = NO;
-//        _contentTableView.backgroundColor = [UIColor redColor];
+        _contentTableView.scrollEnabled = NO;
+        //        _contentTableView.frame = CGRectMake(0, 0, kScreenWidth, _contentTableView.contentSize.height);
+        //        _contentTableView.backgroundColor = [UIColor redColor];
         
         _contentTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions1)];
         _contentTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions1)];
@@ -136,7 +137,7 @@
     
     if (!_pageScrollView) {
         _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-119)];
-        _pageScrollView.contentSize = CGSizeMake(kScreenWidth*2, kScreenHeight-119);
+        _pageScrollView.contentSize = CGSizeMake(kScreenWidth*2, 0);
         _pageScrollView.pagingEnabled = YES;
         _pageScrollView.showsHorizontalScrollIndicator = NO;
         _pageScrollView.showsVerticalScrollIndicator = NO;
@@ -164,25 +165,33 @@
     return _pHeaderV;
 }
 
+
+
 - (void)setSelectedPage:(NSInteger)selectedPage {
     
     _selectedPage = selectedPage;
+    if (selectedPage == 0) {
+        
+        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, self.contentTableView.frame.size.height);
+    }else {
+        
+        
+        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, self.contentTableView2.frame.size.height);
+        
+    }
+    
     [self.pHeaderV showBtnUI:selectedPage];
+    
+    
+    
+    
+    
+    
+    
+    
 }
 
 
-//- (void)setContentCellH:(CGFloat)contentCellH {
-//
-//    _contentCellH = contentCellH;
-//    
-//    
-//    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, contentCellH);
-//    if (self.selectedPage == 0) {
-//        self.contentTableView.frame = CGRectMake(0, 0, kScreenWidth, contentCellH);
-//    }
-//    
-//    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-//}
 
 
 - (void)viewDidLoad {
@@ -202,7 +211,7 @@
 
 - (void)setUpUICommon {
     self.view.backgroundColor = TDViewBackgrouondColor;
-     __weak typeof(self)weakSelf = self;
+    __weak typeof(self)weakSelf = self;
     
     self.navImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
     self.navImageView.image = [UIImage imageNamed:@"navImageColor"];
@@ -230,11 +239,22 @@
     
     [self.view addSubview:self.tableView];
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView withViewController:self];
-//    self.tableViewDelegate.hBlock = ^(CGFloat contentH){
-//        weakSelf.contentCellH = contentH;
-//    };
+    self.tableViewDelegate.hBlock = ^(CGFloat contentH){
+        weakSelf.contentTableView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
+        weakSelf.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
+        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    self.tableViewDelegate.tableView.scrollEnabled = NO;
+    
+    
     
     self.tableViewDelegate2 = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView2 withViewController:self];
+    self.tableViewDelegate2.hBlock = ^(CGFloat contentH){
+        weakSelf.contentTableView2.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, contentH);
+        weakSelf.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
+        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    };
+    self.tableViewDelegate2.tableView.scrollEnabled = NO;
     
     
     
@@ -250,6 +270,9 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
+
+
+
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {
     
@@ -272,7 +295,7 @@
             if (self.headermodel.isAtten == YES) {
                 self.rightBtn.selected = YES;
             }else {
-            
+                
                 self.rightBtn.selected = NO;
             }
             
@@ -360,7 +383,7 @@
             
             
             
-           
+            
             
             
         } else {
@@ -405,7 +428,7 @@
         };
         return oneCell;
     }else {
-    
+        
         UITableViewCell *contentCell =  [tableView dequeueReusableCellWithIdentifier:@"contentTableViewCell"];
         if (contentCell == nil) {
             contentCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contentTableViewCell"];
@@ -434,31 +457,22 @@
         return nil;
     }else {
         
-         return self.pHeaderV;
+        return self.pHeaderV;
     }
     
-  
+    
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-  
+    
     if (indexPath.section == 0) {
         NSString *str = [NSString stringWithFormat:@"直播间介绍：%@",self.headermodel.roomInfo];
         CGFloat h = [str boundingRectWithSize:CGSizeMake(kScreenWidth-24, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0]} context:nil].size.height;
         return 149+h;
     }else {
+        return self.pageScrollView.frame.size.height;
         
-//        if (self.selectedPage == 0) {
-//            
-//            return self.contentTableView.contentSize.height;
-//        }else {
-//          
-//        return self.contentTableView2.contentSize.height;
-//        }
-    
-        return kScreenHeight-119;
-//        return self.contentCellH;
     }
     
     
@@ -468,7 +482,7 @@
     if (section == 0) {
         return CGFLOAT_MIN;
     }else {
-    
+        
         return 45;
     }
 }
@@ -484,6 +498,9 @@
 
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    if (scrollView != self.pageScrollView) {
+        return;
+    }
     
     if(!decelerate)
     {   //OK,真正停止了，do something}
@@ -493,6 +510,10 @@
 
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    
+    if (scrollView != self.pageScrollView) {
+        return;
+    }
     
     int currentPage = scrollView.contentOffset.x/kScreenWidth;
     
