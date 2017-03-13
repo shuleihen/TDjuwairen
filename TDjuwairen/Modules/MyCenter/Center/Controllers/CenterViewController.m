@@ -14,6 +14,7 @@
 #import "AliveMasterListViewController.h"
 #import "NetworkManager.h"
 #import "CenterItemView.h"
+#import "AliveRoomViewController.h"
 
 @interface CenterViewController ()
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
@@ -126,7 +127,15 @@
 }
 
 - (IBAction)liveDynamicPressed:(id)sender {
-    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
+        vc.masterId = US.userId;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (IBAction)attentionPressed:(id)sender {
