@@ -15,6 +15,8 @@
 #import "AliveMasterListViewController.h"
 #import "AliveListTableViewDelegate.h"
 #import "AlivePublishViewController.h"
+#import "AliveEditMasterViewController.h"
+#import "LoginState.h"
 
 typedef enum : NSUInteger {
     AliveAttention  =0,
@@ -108,8 +110,14 @@ typedef enum : NSUInteger {
 }
 
 - (void)anchorPressed:(id)sender {
+//    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
+//    vc.masterId = US.userId;
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
+    
 //    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
 //    [self.navigationController pushViewController:vc animated:YES];
+    
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
     aliveMasterListVC.listType = AliveMasterList;
     [aliveMasterListVC setHidesBottomBarWhenPushed:YES];

@@ -22,4 +22,8 @@
 #define kAddStockGradeSuccessed         @"AddStockGradeSuccessed"
 #define kAddOptionalStockSuccessed      @"AddOptionalStockSuccessed"
 
+#define kUpdateAliveSexNotification     @"UpdateAliveSexNotification"
+#define kUpdateAliveCityNotification    @"UpdateAliveCityNotification"
+#define kUpdateAliveIntroNotification   @"UpdateAliveIntroNotification"
+
 #endif /* NotificationDef_h */

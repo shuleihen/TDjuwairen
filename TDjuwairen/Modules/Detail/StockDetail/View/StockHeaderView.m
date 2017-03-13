@@ -53,7 +53,12 @@
 
 - (void)setupStockModel:(StockInfoModel *)model {
     NSString *score = [NSString stringWithFormat:@"%@分",model.score];
-    [self.gradeBtn setTitle:score forState:UIControlStateNormal];
+    NSString *title = [NSString stringWithFormat:@"评级 %@",score];
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:title];
+    [attri addAttributes:@{NSUnderlineStyleAttributeName: @(NSUnderlineStyleSingle)} range:NSMakeRange(3, score.length)];
+    
+    [self.gradeBtn setAttributedTitle:attri forState:UIControlStateNormal];
+    
     self.gradeNumLabel.text = [NSString stringWithFormat:@"已有%@人评价",model.joinGradeNum];
     self.orderNumLabel.text = [NSString stringWithFormat:@"排名%@/%@",model.orderNum,model.allCompanyNum];
     

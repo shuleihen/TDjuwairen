@@ -233,6 +233,10 @@
 		19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 19BA91321E14DF1700C27124 /* UIImage+Create.m */; };
 		19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C257F51E73E69F00433D0D /* AlivePublishViewController.m */; };
 		19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C257F91E75250000433D0D /* ImagePickerHandler.m */; };
+		19C258021E753DA300433D0D /* AliveEditMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258011E753DA300433D0D /* AliveEditMasterViewController.m */; };
+		19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */; };
+		19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258091E76379200433D0D /* AliveCitySettingViewController.m */; };
+		19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */; };
 		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
 		19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348381D3F76DB008ABD16 /* MJRefreshAutoFooter.m */; };
 		19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C3483A1D3F76DB008ABD16 /* MJRefreshBackFooter.m */; };
@@ -909,6 +913,14 @@
 		19C257F51E73E69F00433D0D /* AlivePublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePublishViewController.m; sourceTree = "<group>"; };
 		19C257F81E75250000433D0D /* ImagePickerHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImagePickerHandler.h; sourceTree = "<group>"; };
 		19C257F91E75250000433D0D /* ImagePickerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerHandler.m; sourceTree = "<group>"; };
+		19C258001E753DA300433D0D /* AliveEditMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveEditMasterViewController.h; sourceTree = "<group>"; };
+		19C258011E753DA300433D0D /* AliveEditMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveEditMasterViewController.m; sourceTree = "<group>"; };
+		19C258041E758E7A00433D0D /* AliveSexSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSexSettingViewController.h; sourceTree = "<group>"; };
+		19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSexSettingViewController.m; sourceTree = "<group>"; };
+		19C258081E76379200433D0D /* AliveCitySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCitySettingViewController.h; sourceTree = "<group>"; };
+		19C258091E76379200433D0D /* AliveCitySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCitySettingViewController.m; sourceTree = "<group>"; };
+		19C2580B1E763E7C00433D0D /* AliveIntroSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveIntroSettingViewController.h; sourceTree = "<group>"; };
+		19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveIntroSettingViewController.m; sourceTree = "<group>"; };
 		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		19C348371D3F76DB008ABD16 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		19C348381D3F76DB008ABD16 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
@@ -1733,6 +1745,14 @@
 		19386EDE1E72401E00D4426E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				19C258001E753DA300433D0D /* AliveEditMasterViewController.h */,
+				19C258011E753DA300433D0D /* AliveEditMasterViewController.m */,
+				19C258041E758E7A00433D0D /* AliveSexSettingViewController.h */,
+				19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */,
+				19C258081E76379200433D0D /* AliveCitySettingViewController.h */,
+				19C258091E76379200433D0D /* AliveCitySettingViewController.m */,
+				19C2580B1E763E7C00433D0D /* AliveIntroSettingViewController.h */,
+				19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4180,6 +4200,7 @@
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
+				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
@@ -4279,6 +4300,7 @@
 				190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */,
+				19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */,
 				194186DE1DF8128B000C5197 /* PersonalCenterViewController.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
 				19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */,
@@ -4377,9 +4399,11 @@
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
 				19F43C311E23339B001B72CD /* SurveyListModel.m in Sources */,
+				19C258021E753DA300433D0D /* AliveEditMasterViewController.m in Sources */,
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
+				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				1933257C1E4DAF7200E3D500 /* MessageChildTableViewController.m in Sources */,
 				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
