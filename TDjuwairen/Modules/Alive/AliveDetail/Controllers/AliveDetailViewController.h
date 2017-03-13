@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface AliveDetailViewController : UIViewController
+@property (copy, nonatomic) NSString *alive_ID;
 
 @end

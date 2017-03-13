@@ -12,6 +12,7 @@
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
 #import "AliveRoomViewController.h"
+#import "AliveDetailViewController.h"
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
@@ -127,6 +128,16 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     AliveListModel *model = self.itemList[indexPath.section];
+    if (model.aliveId.length <= 0) {
+        return;
+    }
+    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+    vc.alive_ID = model.aliveId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+    
+    
+    
 }
 
 @end
