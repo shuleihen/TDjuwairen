@@ -51,7 +51,10 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath) {
-        AliveRoomViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomViewController"];
+        AliveListModel *model = self.itemList[indexPath.section];
+        
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
+        vc.masterId = model.masterId;
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }

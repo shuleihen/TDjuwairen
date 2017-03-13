@@ -60,7 +60,7 @@
     self.aTitleLabel.text = aliveModel.masterNickName;
     self.aLevelLabel.text = [NSString stringWithFormat:@"%ld级",(long)aliveModel.level];
     self.aFansCountLabel.text = [NSString stringWithFormat:@"%@粉丝",aliveModel.attenNum];
-    self.introLabel.text = aliveModel.roomIntro;
+    self.introLabel.text = (aliveModel.roomIntro.length)?aliveModel.roomIntro:@"暂无介绍";
     
     if (aliveModel.isAtten == YES) {
         [self.aAttentionButton setTitleColor:TDThemeColor forState:UIControlStateNormal];
