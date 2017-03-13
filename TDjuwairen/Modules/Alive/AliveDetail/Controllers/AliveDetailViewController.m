@@ -13,6 +13,7 @@
 #import "NetworkManager.h"
 #import "AliveListModel.h"
 #import "AliveMasterListViewController.h"
+#import "PlayStockCommentViewController.h"
 
 @interface AliveDetailViewController ()<AliveListTableCellDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -22,6 +23,10 @@
 @property (strong, nonatomic) AliveListModel *aliveInfoModel;
 @property (strong, nonatomic) AliveMasterListViewController *dianZanVC;
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
+@property (strong, nonatomic) PlayStockCommentViewController *pinglunVC;
+
+
+
 
 
 
@@ -56,6 +61,8 @@
 
 - (void)setUpUICommon {
     self.view.backgroundColor = TDViewBackgrouondColor;
+
+    
     [self.view addSubview:self.tableView];
     [self loadDynamicDetailData];
     
@@ -91,9 +98,16 @@
 //        _pageScrollView.showsVerticalScrollIndicator = NO;
         _pageScrollView.backgroundColor = [UIColor lightGrayColor];
         [_pageScrollView addSubview:[UIView new]];
+        [_pageScrollView addSubview:_pinglunVC.view];
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
+        
+        
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+        [self.navigationController pushViewController:vc animated:YES];
+        
+        
         
     }
     return _pageScrollView;
@@ -118,23 +132,64 @@
 
     _selectedPage = selectedPage;
 
+
+    switch (selectedPage) {
+        case 0:
+        {
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+            self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+
+        }
+            break;
+        case 1:
+        {
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+            self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+
+        }
+            break;
+        case 2:
+        {
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
+            self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
+
+        }
+            break;
+            
+        default:
+            break;
+    }
+    
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     [self.headerV configShowUI:selectedPage];
     
     
+    
 }
 
+- (PlayStockCommentViewController *)pinglunVC
+{
+    if (!_pinglunVC) {
+        _pinglunVC = [[PlayStockCommentViewController alloc] init];
+        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, 200);
+    }
+    return _pinglunVC;
+}
 - (AliveMasterListViewController *)dianZanVC {
 
     if (!_dianZanVC) {
-        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self];
+        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveDianZanList];
         _dianZanVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.pageScrollView.frame.size.height);
-        _dianZanVC.listType = AliveDianZanList;
-        _dianZanVC.masterId = self.alive_ID;
+
+        _dianZanVC.tableView.scrollEnabled = NO;
          __weak typeof(self)weakSelf = self;
         _dianZanVC.dataBlock = ^(NSInteger dataCount){
+            
         UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:101];
             [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
+            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
     return  _dianZanVC;
@@ -144,11 +199,10 @@
 - (AliveMasterListViewController *)shareVC {
 
     if (!_shareVC) {
-        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self];
-        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self];
+        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveShareList];
+       
         _shareVC.view.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, self.pageScrollView.frame.size.height);
-        _shareVC.listType = AliveDianZanList;
-        _shareVC.masterId = self.alive_ID;
+        _shareVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
         _shareVC.dataBlock = ^(NSInteger dataCount){
             UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:102];
@@ -186,7 +240,7 @@
 
 
 
-#pragma mark -------------- UITableViewDataSource ---------------------
+#pragma mark - dasource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     return 2;
@@ -252,7 +306,7 @@
         return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel];
     }else {
     
-        return kScreenHeight;
+        return self.pageScrollView.frame.size.height;
     }
 }
 

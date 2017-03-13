@@ -13,6 +13,7 @@ typedef enum : NSUInteger {
     AliveAttentionList  =1, // 关注列表
     AliveFansList       =2, // 粉丝列表
     AliveDianZanList       =3, // 点赞列表
+    AliveShareList       =4 // 分享列表
 } AliveMasterListType;
 
 typedef void(^DataArrMCountBlock)(NSInteger dataCount);
@@ -23,6 +24,6 @@ typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 @property (nonatomic, strong) NSString *masterId;
 @property (copy, nonatomic) NSString *alive_type;
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
-
-- (instancetype)initWithDianZanVC:(UIViewController *)vc;
+@property (nonatomic, strong) UITableView *tableView;
+- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId  aliveType:(NSString *)aliveType viewControllerType:(AliveMasterListType)listType;
 @end
