@@ -7,12 +7,25 @@
 //
 
 #import "AliveEditMasterViewController.h"
+#import "AliveRoomMasterModel.h"
+#import "NetworkManager.h"
+#import "UIImageView+WebCache.h"
+#import "LoginState.h"
+#import "NotificationDef.h"
+#import "AliveCitySettingViewController.h"
+#import "AliveIntroSettingViewController.h"
+#import "AliveSexSettingViewController.h"
 
 @interface AliveEditMasterViewController ()
-
+@property (nonatomic, strong) IBOutlet UIImageView *avatar;
+@property (nonatomic, strong) AliveRoomMasterModel *masterModel;
 @end
 
 @implementation AliveEditMasterViewController
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -22,77 +35,145 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    self.avatar.layer.cornerRadius = 30.0f;
+    self.avatar.clipsToBounds = YES;
+    
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
+    
+    [self queryMasterInfo];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSexNotifi:) name:kUpdateAliveSexNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCityNotifi:) name:kUpdateAliveCityNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateIntroNotifi:) name:kUpdateAliveIntroNotification object:nil];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+- (void)queryMasterInfo {
+
+    NSDictionary *dict = @{@"master_id": self.masterId?:@""};
+    __weak AliveEditMasterViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_AliveGetRoomInfo parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            wself.masterModel = [[AliveRoomMasterModel alloc] initWithDictionary:data];
+            [wself setupMasterInfo];
+        } else {
+            
+        }
+    }];
+
+}
+
+- (void)setupMasterInfo {
+    
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:self.masterModel.avatar] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"]];
+    [self.tableView reloadData];
+}
+
+
+#pragma mark - Notifi
+- (void)updateSexNotifi:(NSNotification *)notifi {
+    NSString *sex = notifi.object;
+    if (!sex.length) {
+        return;
+    }
+    
+    NSDictionary *dict = @{@"sex": sex?:@""};
+    __weak AliveEditMasterViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_AliveUpdateUserSex parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            
+            if ([sex isEqualToString:@"male"]) {
+                wself.masterModel.sex = @"男";
+            } else if ([sex isEqualToString:@"female"]) {
+                wself.masterModel.sex = @"女";
+            }
+            
+            [wself.tableView reloadData];
+            
+        } else {
+            
+        }
+    }];
+}
+
+- (void)updateCityNotifi:(NSNotification *)notifi {
+    
+    [self.navigationController popToViewController:self animated:YES];
+    
+    NSString *city = notifi.object;
+    if (!city.length) {
+        return;
+    }
+    
+    NSDictionary *dict = @{@"address": city?:@""};
+    __weak AliveEditMasterViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_AliveUpdateUserCity parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            
+            wself.masterModel.city = city;
+            [wself.tableView reloadData];
+            
+        } else {
+            
+        }
+    }];
+}
+
+- (void)updateIntroNotifi:(NSNotification *)notifi {
+    NSString *intro = notifi.object;
+    self.masterModel.roomInfo = intro;
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if ((indexPath.section == 1) &&
+        (indexPath.row == 0)) {
+        // 昵称
+        cell.detailTextLabel.text = self.masterModel.masterNickName;
+    } else if ((indexPath.section == 1) &&
+               (indexPath.row == 1)) {
+        // 性别
+        cell.detailTextLabel.text = self.masterModel.sex?:@"未选择";
+    } else if ((indexPath.section == 1) &&
+               (indexPath.row == 2)) {
+        // 所在城市
+        cell.detailTextLabel.text = self.masterModel.city?:@"省 市";
+    }else if ((indexPath.section == 2) &&
+              (indexPath.row == 0)) {
+        // 直播间介绍
+        cell.detailTextLabel.text = self.masterModel.roomInfo?:@"很懒哦，一句介绍都木有";
+    }
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
-}
-
-/*
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    // Configure the cell...
-    
-    return cell;
+    if ((indexPath.section == 1) &&
+        (indexPath.row == 1)) {
+        // 性别
+        AliveSexSettingViewController *vc = [[AliveSexSettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.sex = self.masterModel.sex;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if ((indexPath.section == 1) &&
+               (indexPath.row == 2)) {
+        // 所在城市
+        AliveCitySettingViewController *vc = [[AliveCitySettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.level = 0;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else if ((indexPath.section == 2) &&
+              (indexPath.row == 0)) {
+        // 直播间介绍
+        AliveIntroSettingViewController *vc = [[AliveIntroSettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.intro = self.masterModel.roomInfo;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
-*/
-
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
-}
-*/
-
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath {
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
 @end

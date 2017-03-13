@@ -83,6 +83,7 @@
     textView.placeholder = @"请填写买入卖出理由或其他";
     textView.font = [UIFont systemFontOfSize:15.0f];
     textView.delegate = self;
+    textView.text = self.reason;
     [footerView addSubview:textView];
     
     __block CGFloat offx = 15,offy=154,height=0;

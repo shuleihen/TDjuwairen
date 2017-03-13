@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AliveEditMasterViewController : UITableViewController
-
+@property (nonatomic, strong) NSString *masterId;
 @end

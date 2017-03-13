@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface AliveSexSettingViewController : UITableViewController
-
+@property (nonatomic, strong) NSString *sex;
 @end
