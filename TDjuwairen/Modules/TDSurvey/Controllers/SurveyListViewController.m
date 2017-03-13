@@ -222,7 +222,7 @@
 //    avatarBtn.backgroundColor = [UIColor redColor];
     avatarBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     avatarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"]];
+    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_avatar.png"]];
     [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
     self.navigationItem.leftBarButtonItem = left;
@@ -299,10 +299,10 @@
 - (void)setupUserAvatar {
     if (US.isLogIn) {
         UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-        [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
+        [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_avatar.png"] options:SDWebImageRefreshCached];
     } else {
         UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-        [btn setImage:[UIImage imageNamed:@"nav_unLoginAvatar.png"] forState:UIControlStateNormal];
+        [btn setImage:[UIImage imageNamed:@"nav_avatar.png"] forState:UIControlStateNormal];
     }
 }
 

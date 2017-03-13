@@ -51,7 +51,7 @@
         if (self.headImage) {
             self.avatarImageView.image = self.headImage;
         } else {
-            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
         }
         
     } else if ((indexPath.section == 0) && (indexPath.row == 1)) {

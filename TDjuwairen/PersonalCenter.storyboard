@@ -41,7 +41,7 @@
                                         <constraint firstAttribute="width" constant="80" id="2ZY-2Z-Iba"/>
                                         <constraint firstAttribute="height" constant="80" id="WDr-5u-wp6"/>
                                     </constraints>
-                                    <state key="normal" image="HeadUnLogin"/>
+                                    <state key="normal" image="icon_avatar"/>
                                     <connections>
                                         <action selector="avatarPressed:" destination="5Wg-Gu-mJm" eventType="touchUpInside" id="Wgg-5B-JyO"/>
                                     </connections>
@@ -367,9 +367,9 @@
         </scene>
     </scenes>
     <resources>
-        <image name="HeadUnLogin" width="70" height="70"/>
         <image name="bg_mine" width="375" height="210"/>
         <image name="icon_attention_alive" width="26" height="25"/>
+        <image name="icon_avatar" width="70" height="70"/>
         <image name="icon_close" width="17" height="17"/>
         <image name="icon_collection" width="16" height="15"/>
         <image name="icon_comment_alive" width="14" height="14"/>

@@ -112,8 +112,8 @@ typedef enum : NSUInteger {
 
 - (void)anchorPressed:(id)sender {
     
-    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
+//    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    [self.navigationController pushViewController:vc animated:YES];
 
     
 //    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
@@ -124,10 +124,10 @@ typedef enum : NSUInteger {
 //    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
 //    [self.navigationController pushViewController:vc animated:YES];
     
-//    AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-//    aliveMasterListVC.listType = AliveMasterList;
-//    [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
-//    [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+    AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+    aliveMasterListVC.listType = AliveMasterList;
+    [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }
 
 - (void)refreshActions{

@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *aFansCountLabel;
+@property (weak, nonatomic) IBOutlet UILabel *introLabel;
 
 
 @end
@@ -55,10 +56,11 @@
 - (void)setAliveModel:(AliveMasterModel *)aliveModel {
     
     _aliveModel = aliveModel;
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:aliveModel.avatar] placeholderImage:nil];
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:aliveModel.avatar] placeholderImage:TDDefaultUserAvatar];
     self.aTitleLabel.text = aliveModel.masterNickName;
-    self.aLevelLabel.text = [NSString stringWithFormat:@"%ld级",aliveModel.level];
+    self.aLevelLabel.text = [NSString stringWithFormat:@"%ld级",(long)aliveModel.level];
     self.aFansCountLabel.text = [NSString stringWithFormat:@"%@粉丝",aliveModel.attenNum];
+    self.introLabel.text = aliveModel.roomIntro;
     
     if (aliveModel.isAtten == YES) {
         [self.aAttentionButton setTitleColor:TDThemeColor forState:UIControlStateNormal];

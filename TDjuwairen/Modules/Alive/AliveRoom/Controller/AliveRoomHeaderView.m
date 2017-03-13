@@ -48,7 +48,7 @@
     [self.aLevelButton setTitle:[NSString stringWithFormat:@"%@",headerModel.level] forState:UIControlStateNormal];
     [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",headerModel.guessRate] forState:UIControlStateNormal];
     
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:headerModel.avatar] placeholderImage:nil];
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:headerModel.avatar] placeholderImage:TDDefaultUserAvatar];
     self.aNickNameLabel.text = headerModel.masterNickName;
     self.aAddressLabel.text = headerModel.city;
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",headerModel.attenNum] forState:UIControlStateNormal];

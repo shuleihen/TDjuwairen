@@ -64,11 +64,11 @@
     
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage userBigAvatar];
-        [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
+        [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
         self.headerView.nickname.text = US.nickName;
     } else {
         self.headerView.nickname.text = @"登陆注册";
-        self.headerView.headImg.image = [UIImage imageNamed:@"HeadUnLogin.png"];
+        self.headerView.headImg.image = TDDefaultUserAvatar;
     }
 }
 

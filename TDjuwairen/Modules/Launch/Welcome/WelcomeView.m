@@ -23,7 +23,7 @@
             self.welHead.layer.cornerRadius = 50;
             self.welHead.layer.masksToBounds = YES;
             self.welHead.alpha = 0.0;
-            [self.welHead sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"] options:SDWebImageRefreshCached];
+            [self.welHead sd_setImageWithURL:[NSURL URLWithString:avatar] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
             [self addSubview:self.welHead];
             
             self.welLab = [[UILabel alloc] initWithFrame:CGRectMake(0,220, kScreenWidth, 30)];

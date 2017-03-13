@@ -68,7 +68,7 @@
 
 - (void)setupMasterInfo {
     
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:self.masterModel.avatar] placeholderImage:[UIImage imageNamed:@"HeadUnLogin.png"]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:self.masterModel.avatar] placeholderImage:TDDefaultUserAvatar];
     [self.tableView reloadData];
 }
 

@@ -17,6 +17,7 @@
         self.attenNum = dict[@"userinfo_atten_num"];
         self.level = [dict[@"user_atten_level"] integerValue];
         self.isAtten = [dict[@"has_atten"] boolValue];
+        self.roomIntro = dict[@"room_info"];
     }
     return self;
 }

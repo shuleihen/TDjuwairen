@@ -14,6 +14,7 @@
 @property (nonatomic, copy) NSString *avatar;
 /// 播主昵称
 @property (nonatomic, copy) NSString *masterNickName;
+@property (nonatomic, copy) NSString *roomIntro;
 /// 粉丝数
 @property (nonatomic, copy) NSString *attenNum;
 /// 用户等级

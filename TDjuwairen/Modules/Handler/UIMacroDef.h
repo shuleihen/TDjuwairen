@@ -22,4 +22,7 @@
 #define TDAssistTextColor        [UIColor hx_colorWithHexRGBAString:@"#cccccc"]
 
 #define TDThemeColor [UIColor hx_colorWithHexRGBAString:@"#3371E2"]
+
+#define TDDefaultUserAvatar     [UIImage imageNamed:@"icon_avatar.png"]
+#define TDDefaultLoginAvatar    [UIImage imageNamed:@"login_avatar.png"]
 #endif /* UIMacroDef_h */

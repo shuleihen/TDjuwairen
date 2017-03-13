@@ -33,7 +33,7 @@
 
 
 - (void)setupAliveModel:(AliveListModel *)aliveModel {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:nil];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:TDDefaultUserAvatar];
     self.nickNameLabel.text = aliveModel.masterNickName;
     self.timeLabel.text = aliveModel.aliveTime;
     
