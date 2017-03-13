@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
+
+
 @interface AliveListTableViewDelegate : NSObject<UITableViewDataSource, UITableViewDelegate>
+@property (copy, nonatomic) ChangeAliveListHBlock  hBlock;
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;
 - (void)reloadWithArray:(NSArray *)array;
+
 @end

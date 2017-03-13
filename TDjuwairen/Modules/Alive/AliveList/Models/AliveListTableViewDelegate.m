@@ -12,6 +12,7 @@
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
 #import "AliveRoomViewController.h"
+#import "AliveDetailViewController.h"
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
@@ -35,6 +36,10 @@
         
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
+       
+//        [self.tableView addObserver:viewController forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+//        [_tableView addObserver:self.viewController forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+
     }
     
     return self;
@@ -130,6 +135,32 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     AliveListModel *model = self.itemList[indexPath.section];
+    if (model.aliveId.length <= 0) {
+        return;
+    }
+    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+    vc.alive_ID = model.aliveId;
+    vc.alive_type = model.aliveType==1?@"1":@"2";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+    
+    
+    
 }
+
+//- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+//    
+//    if (observer == _tableView && [keyPath isEqualToString:@"contentSize"]) {
+//        if (self.hBlock) {
+//            self.hBlock(self.tableView.contentSize.height);
+//        }
+//    }
+//}
+
+
+//- (void)dealloc {
+//
+//    [self.tableView removeObserver:self.viewController forKeyPath:@"contentSize"];
+//}
 
 @end

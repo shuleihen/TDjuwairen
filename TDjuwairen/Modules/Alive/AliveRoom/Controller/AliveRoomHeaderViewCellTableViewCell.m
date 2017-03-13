@@ -1,17 +1,20 @@
 //
-//  AliveRoomHeaderView.m
+//  AliveRoomHeaderViewCellTableViewCell.m
 //  TDjuwairen
 //
-//  Created by ZYP-MAC on 17/3/10.
+//  Created by ZYP-MAC on 17/3/13.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "AliveRoomHeaderView.h"
+#import "AliveRoomHeaderViewCellTableViewCell.h"
 #import "AliveRoomMasterModel.h"
 #import "UIImageView+WebCache.h"
 #import "AliveAlertView.h"
 
-@interface AliveRoomHeaderView ()
+
+@interface AliveRoomHeaderViewCellTableViewCell()
+
+
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aNickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aAddressLabel;
@@ -24,10 +27,9 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *aGuessRateButton;
 
-
 @end
 
-@implementation AliveRoomHeaderView
+@implementation AliveRoomHeaderViewCellTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -36,9 +38,21 @@
     
 }
 
-+ (instancetype)loadAliveRoomeHeaderView {
-    
-    return [[[NSBundle mainBundle] loadNibNamed:@"AliveRoomHeaderView" owner:nil options:nil] lastObject];
+- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
+    [super setSelected:selected animated:animated];
+
+    // Configure the view for the selected state
+}
+
++ (instancetype)AliveRoomHeaderViewCellTableViewCell:(UITableView *)tableView {
+
+    AliveRoomHeaderViewCellTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomHeaderViewCellTableViewCell"];
+    if (cell == nil)
+    {
+        cell = [[[NSBundle mainBundle] loadNibNamed:@"AliveRoomHeaderViewCellTableViewCell" owner:self options:nil] lastObject];
+        
+    }
+    return cell;
 }
 
 - (void)setHeaderModel:(AliveRoomMasterModel *)headerModel {
@@ -47,7 +61,7 @@
     [self.aLevelButton setTitle:[NSString stringWithFormat:@"%@",headerModel.level] forState:UIControlStateNormal];
     [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",headerModel.guessRate] forState:UIControlStateNormal];
     
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:headerModel.avatar] placeholderImage:TDDefaultUserAvatar];
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:headerModel.avatar] placeholderImage:nil];
     self.aNickNameLabel.text = headerModel.masterNickName;
     self.aAddressLabel.text = headerModel.city;
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",headerModel.attenNum] forState:UIControlStateNormal];
@@ -60,7 +74,7 @@
         self.aSexImageView.highlighted = YES;
     }
     
-
+    
     
 }
 
@@ -85,26 +99,26 @@
         case 2:
         {
             
-//            if (self.btnClickBlock) {
-            
-//                self.btnClickBlock(ButtonAttentionType);
+            if (self.btnClickBlock) {
+                
+                self.btnClickBlock(ButtonAttentionType);
                 
                 
-//            }
+            }
         }
             break;
         case 3:
         {
-//            if (self.btnClickBlock) {
-            
-//                self.btnClickBlock(ButtonFansType);
+            if (self.btnClickBlock) {
+                
+                self.btnClickBlock(ButtonFansType);
                 
                 
-//            }
+            }
             
         }
             break;
-       
+            
             
         default:
             break;

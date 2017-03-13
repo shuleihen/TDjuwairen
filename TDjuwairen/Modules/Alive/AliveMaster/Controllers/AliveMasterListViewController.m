@@ -20,6 +20,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger page;
 @property (strong, nonatomic)  NSArray *aliveArr;
+@property (strong, nonatomic) UIViewController *vc;
+
 
 
 
@@ -27,9 +29,17 @@
 
 @implementation AliveMasterListViewController
 
+- (instancetype)initWithDianZanVC:(UIViewController *)vc {
+
+    if (self = [super init]) {
+        self.vc = vc;
+    }
+    return self;
+}
+
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+        CGRect rect = CGRectMake(0, 0, CGRectGetWidth(self.view.frame), CGRectGetHeight(self.view.frame)-64);
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
@@ -47,6 +57,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+   self.edgesForExtendedLayout = UIRectEdgeNone;
     
     switch (self.listType) {
         case AliveMasterList:
@@ -99,6 +110,13 @@
             dict = @{@"master_id": self.masterId,@"page":@(self.page)};
             url = API_AliveGetFansList;
             break;
+        case  AliveDianZanList:
+        {
+            self.page = 1;
+            dict = @{@"alive_id": self.masterId,@"alive_type":self.alive_type==nil?@"":self.alive_type};
+            url = API_AliveGetRoomLike;
+        }
+            break;
         default:
             break;
     }
@@ -127,6 +145,12 @@
             [weakSelf.tableView.mj_footer endRefreshing];
             weakSelf.page++;
             [weakSelf.tableView reloadData];
+            
+            if (self.listType == AliveDianZanList) {
+                if (self.dataBlock) {
+                    self.dataBlock(weakSelf.aliveArr.count);
+                }
+            }
             
             
         } else {
@@ -169,8 +193,8 @@
         }
         
         
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"提交中...";
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        hud.labelText = @"提交中...";
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         
@@ -182,11 +206,11 @@
                     
                     model.isAtten = !model.isAtten;
                     [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                    [hud hide:YES afterDelay:0.2];
+//                    [hud hide:YES afterDelay:0.2];
                 }
             } else {
-                hud.labelText = error.localizedDescription?:@"提交失败";
-                [hud hide:YES afterDelay:0.4];
+//                hud.labelText = error.localizedDescription?:@"提交失败";
+//                [hud hide:YES afterDelay:0.4];
             }
             
         }];
@@ -207,7 +231,13 @@
     
     AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
     vc.masterId = model.masterId;
-    [self.navigationController pushViewController:vc animated:YES];
+    
+    if (self.listType == AliveDianZanList) {
+        [self.vc.navigationController pushViewController:vc animated:YES];
+    }else {
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
 }
 
 
