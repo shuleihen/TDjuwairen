@@ -237,6 +237,10 @@
 		19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */; };
 		19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258091E76379200433D0D /* AliveCitySettingViewController.m */; };
 		19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */; };
+		19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258141E76499100433D0D /* AliveMessageListViewController.m */; };
+		19C258191E7649C200433D0D /* AliveMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258171E7649C200433D0D /* AliveMessageListCell.m */; };
+		19C2581A1E7649C200433D0D /* AliveMessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C258181E7649C200433D0D /* AliveMessageListCell.xib */; };
+		19C2581D1E7649D200433D0D /* AliveMessageModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C2581C1E7649D200433D0D /* AliveMessageModel.m */; };
 		19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */ = {isa = PBXBuildFile; fileRef = 19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */; };
 		19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348381D3F76DB008ABD16 /* MJRefreshAutoFooter.m */; };
 		19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C3483A1D3F76DB008ABD16 /* MJRefreshBackFooter.m */; };
@@ -923,6 +927,13 @@
 		19C258091E76379200433D0D /* AliveCitySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCitySettingViewController.m; sourceTree = "<group>"; };
 		19C2580B1E763E7C00433D0D /* AliveIntroSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveIntroSettingViewController.h; sourceTree = "<group>"; };
 		19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveIntroSettingViewController.m; sourceTree = "<group>"; };
+		19C258131E76499100433D0D /* AliveMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMessageListViewController.h; sourceTree = "<group>"; };
+		19C258141E76499100433D0D /* AliveMessageListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMessageListViewController.m; sourceTree = "<group>"; };
+		19C258161E7649C200433D0D /* AliveMessageListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMessageListCell.h; sourceTree = "<group>"; };
+		19C258171E7649C200433D0D /* AliveMessageListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMessageListCell.m; sourceTree = "<group>"; };
+		19C258181E7649C200433D0D /* AliveMessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveMessageListCell.xib; sourceTree = "<group>"; };
+		19C2581B1E7649D200433D0D /* AliveMessageModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMessageModel.h; sourceTree = "<group>"; };
+		19C2581C1E7649D200433D0D /* AliveMessageModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMessageModel.m; sourceTree = "<group>"; };
 		19C311011D3CDBCC00218F41 /* sharpDetailJS.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = sharpDetailJS.txt; sourceTree = "<group>"; };
 		19C348371D3F76DB008ABD16 /* MJRefreshAutoFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MJRefreshAutoFooter.h; sourceTree = "<group>"; };
 		19C348381D3F76DB008ABD16 /* MJRefreshAutoFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MJRefreshAutoFooter.m; sourceTree = "<group>"; };
@@ -2125,6 +2136,7 @@
 		1953CAED1E7172DB00A64B3C /* Alive */ = {
 			isa = PBXGroup;
 			children = (
+				19C2580E1E76498100433D0D /* AliveMessage */,
 				19386EDC1E72401E00D4426E /* AliveEditMaster */,
 				19386EE11E72401E00D4426E /* AlivePublish */,
 				19386ED41E723E8700D4426E /* AliveRoom */,
@@ -2889,6 +2901,52 @@
 				19C257F91E75250000433D0D /* ImagePickerHandler.m */,
 			);
 			path = ImagePicker;
+			sourceTree = "<group>";
+		};
+		19C2580E1E76498100433D0D /* AliveMessage */ = {
+			isa = PBXGroup;
+			children = (
+				19C2580F1E76498100433D0D /* Cells */,
+				19C258101E76498100433D0D /* Controllers */,
+				19C258111E76498100433D0D /* Models */,
+				19C258121E76498100433D0D /* Views */,
+			);
+			path = AliveMessage;
+			sourceTree = "<group>";
+		};
+		19C2580F1E76498100433D0D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				19C258161E7649C200433D0D /* AliveMessageListCell.h */,
+				19C258171E7649C200433D0D /* AliveMessageListCell.m */,
+				19C258181E7649C200433D0D /* AliveMessageListCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19C258101E76498100433D0D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19C258131E76499100433D0D /* AliveMessageListViewController.h */,
+				19C258141E76499100433D0D /* AliveMessageListViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19C258111E76498100433D0D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19C2581B1E7649D200433D0D /* AliveMessageModel.h */,
+				19C2581C1E7649D200433D0D /* AliveMessageModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19C258121E76498100433D0D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
@@ -4123,6 +4181,7 @@
 				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
 				19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */,
+				19C2581A1E7649C200433D0D /* AliveMessageListCell.xib in Resources */,
 				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
 				19D6B9F91E508E3C00475AA1 /* AccountManager.storyboard in Resources */,
 				8488E42D1D90E2EC00888D07 /* test.caf in Resources */,
@@ -4195,6 +4254,7 @@
 				19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
+				19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */,
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
 				19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */,
 				19AF98331E26234D0097A585 /* NoResultView.m in Sources */,
@@ -4215,6 +4275,7 @@
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
 				19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
+				19C2581D1E7649D200433D0D /* AliveMessageModel.m in Sources */,
 				190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */,
 				847ADA881DF7D485002600AA /* OptionalManageHeadView.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
@@ -4348,6 +4409,7 @@
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				191027A81DE410F2006A2275 /* SurveryStockListCell.m in Sources */,
 				4DE3965F1E728BC40010DAD3 /* AliveRoomViewController.m in Sources */,
+				19C258191E7649C200433D0D /* AliveMessageListCell.m in Sources */,
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
