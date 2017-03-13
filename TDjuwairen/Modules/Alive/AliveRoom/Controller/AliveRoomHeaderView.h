@@ -9,22 +9,16 @@
 #import <UIKit/UIKit.h>
 
 @class AliveRoomMasterModel;
-typedef enum : NSUInteger {
-    ButtonAttentionType     =0, // 关注
-    ButtonFansType  =1 // 粉丝
-} ButtonType;
-
-typedef void(^BackBlock)();
-typedef void(^AttentionButtonClickBlock)(ButtonType btnType);
-
-
-typedef void(^AddAttentionBlock)(BOOL addAttention);
+//typedef enum : NSUInteger {
+//    ButtonAttentionType     =0, // 关注
+//    ButtonFansType  =1 // 粉丝
+//} ButtonType;
+//
+//typedef void(^AttentionButtonClickBlock)(ButtonType btnType);
 
 @interface AliveRoomHeaderView : UIView
 @property (strong, nonatomic) AliveRoomMasterModel *headerModel;
-@property (copy, nonatomic) BackBlock  backBlock;
-@property (copy, nonatomic) AttentionButtonClickBlock  btnClickBlock;
-@property (copy, nonatomic) AddAttentionBlock  addAttentionBlock;
+//@property (copy, nonatomic) AttentionButtonClickBlock  btnClickBlock;
 
 + (instancetype)loadAliveRoomeHeaderView;
 

@@ -127,7 +127,6 @@
         
         if (!error) {
           
-            NSLog(@"---------%@",data);
             
             
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];

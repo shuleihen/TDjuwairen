@@ -36,6 +36,10 @@
         
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
+       
+//        [self.tableView addObserver:viewController forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+//        [_tableView addObserver:self.viewController forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+
     }
     
     return self;
@@ -139,5 +143,20 @@
     
     
 }
+
+//- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
+//    
+//    if (observer == _tableView && [keyPath isEqualToString:@"contentSize"]) {
+//        if (self.hBlock) {
+//            self.hBlock(self.tableView.contentSize.height);
+//        }
+//    }
+//}
+
+
+//- (void)dealloc {
+//
+//    [self.tableView removeObserver:self.viewController forKeyPath:@"contentSize"];
+//}
 
 @end

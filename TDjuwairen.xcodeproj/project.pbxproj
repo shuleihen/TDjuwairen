@@ -357,6 +357,8 @@
 		4DE396651E728C3A0010DAD3 /* AliveRoomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DE396641E728C3A0010DAD3 /* AliveRoomHeaderView.xib */; };
 		4DF421E51E76352900E1FDF7 /* AliveContentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF421E41E76352900E1FDF7 /* AliveContentHeaderView.m */; };
 		4DF421E91E76359F00E1FDF7 /* AliveContentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF421E81E76359F00E1FDF7 /* AliveContentHeaderView.xib */; };
+		4DF421ED1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF421EB1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.m */; };
+		4DF421EE1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF421EC1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.xib */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
 		84069EC31DB496D200CB21DA /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84069EC21DB496D200CB21DA /* SurveyListViewController.m */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
@@ -1139,6 +1141,9 @@
 		4DF421E31E76352900E1FDF7 /* AliveContentHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliveContentHeaderView.h; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveContentHeaderView.h; sourceTree = SOURCE_ROOT; };
 		4DF421E41E76352900E1FDF7 /* AliveContentHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliveContentHeaderView.m; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveContentHeaderView.m; sourceTree = SOURCE_ROOT; };
 		4DF421E81E76359F00E1FDF7 /* AliveContentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AliveContentHeaderView.xib; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveContentHeaderView.xib; sourceTree = SOURCE_ROOT; };
+		4DF421EA1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AliveRoomHeaderViewCellTableViewCell.h; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomHeaderViewCellTableViewCell.h; sourceTree = SOURCE_ROOT; };
+		4DF421EB1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AliveRoomHeaderViewCellTableViewCell.m; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomHeaderViewCellTableViewCell.m; sourceTree = SOURCE_ROOT; };
+		4DF421EC1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AliveRoomHeaderViewCellTableViewCell.xib; path = TDjuwairen/Modules/Alive/AliveRoom/Controller/AliveRoomHeaderViewCellTableViewCell.xib; sourceTree = SOURCE_ROOT; };
 		84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMineViewController.h; sourceTree = "<group>"; };
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		84069EC11DB496D200CB21DA /* SurveyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListViewController.h; sourceTree = "<group>"; };
@@ -1687,6 +1692,9 @@
 		19386ED51E723E8700D4426E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4DF421EA1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.h */,
+				4DF421EB1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.m */,
+				4DF421EC1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4071,6 +4079,7 @@
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
 				19F00D091E2EFFD9009270D5 /* AnsTableViewCell.xib in Resources */,
+				4DF421EE1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */,
 				190F65BF1E349D8100B83ADF /* TextHtml.html in Resources */,
 				19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */,
 				1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */,
@@ -4481,6 +4490,7 @@
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				19386ED31E71A2DC00D4426E /* AliveInfoModel.m in Sources */,
 				19AF98281E24AB4D0097A585 /* AddAddressViewController.m in Sources */,
+				4DF421ED1E767A0900E1FDF7 /* AliveRoomHeaderViewCellTableViewCell.m in Sources */,
 				19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */,
 				19AF98471E2720110097A585 /* ApplySurveyViewController.m in Sources */,
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
