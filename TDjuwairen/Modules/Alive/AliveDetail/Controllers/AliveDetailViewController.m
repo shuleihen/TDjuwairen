@@ -203,47 +203,21 @@
 
 - (void)setUpUICommon {
 
+    self.view.backgroundColor = TDViewBackgrouondColor;
+    
+    
     [self.view addSubview:self.tableView];
-    [self.view addSubview:self.toolView];
-    
     [self loadDynamicDetailData];
-}
-
-
-- (void)setSelectedPage:(NSInteger)selectedPage {
-
-    _selectedPage = selectedPage;
-
-    switch (selectedPage) {
-        case 0:
-        {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
-            self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
-
-        }
-            break;
-        case 1:
-        {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-            self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-
-        }
-            break;
-        case 2:
-        {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
-            self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
-
-        }
-            break;
-            
-        default:
-            break;
-    }
     
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    [self.headerV configShowUI:selectedPage];
+    
+    _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
+    _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
+    _toolView.backgroundColor = [UIColor whiteColor];
+    _toolView.delegate = self;
+    [self.view addSubview:_toolView];
 }
+
+
 
 
 - (void)loadDynamicDetailData {
