@@ -17,5 +17,4 @@ typedef void(^SelectedButtonBlock)(UIButton *btn);
 
 + (instancetype)loadAliveContentHeaderView;
 
-
 @end

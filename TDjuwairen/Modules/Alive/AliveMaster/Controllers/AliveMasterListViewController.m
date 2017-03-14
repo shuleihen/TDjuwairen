@@ -19,13 +19,11 @@
 @interface AliveMasterListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger page;
-@property (strong, nonatomic)  NSArray *aliveArr;
+@property (strong, nonatomic) NSArray *aliveArr;
 @property (strong, nonatomic) UIViewController *vc;
 
-
-
-
 @end
+
 
 @implementation AliveMasterListViewController
 

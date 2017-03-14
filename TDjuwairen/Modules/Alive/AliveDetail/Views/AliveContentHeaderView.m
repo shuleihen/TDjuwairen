@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIView *selectedLineView;
 @property (weak, nonatomic) IBOutlet UIButton *firstBtn;
 @property (weak, nonatomic) IBOutlet UIButton *secondeBtn;
-
 @property (weak, nonatomic) IBOutlet UIButton *threeBtn;
 
 @end
@@ -24,26 +23,21 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.lastSelectedBtn = self.firstBtn;
     
+    self.lastSelectedBtn = self.firstBtn;
 }
 
 + (instancetype)loadAliveContentHeaderView {
-    
-    
     AliveContentHeaderView *hv = [[[NSBundle mainBundle] loadNibNamed:@"AliveContentHeaderView" owner:nil options:nil] lastObject];
     
     return hv;
 }
 
 
-
 - (IBAction)choiceBtnClick:(UIButton *)sender {
-    
     if (self.selectedBlock) {
         self.selectedBlock(sender);
     }
-    
 }
 
 - (void)configShowUI:(NSInteger)selectedTag {
@@ -54,9 +48,5 @@
     self.lastSelectedBtn = btn;
     
     self.selectedLineView.frame = CGRectMake(CGRectGetMinX(btn.frame), 44, CGRectGetWidth(btn.frame), 1);
-    
 }
-
-
-
 @end

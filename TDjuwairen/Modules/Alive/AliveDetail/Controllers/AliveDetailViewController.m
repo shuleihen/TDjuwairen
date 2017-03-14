@@ -16,12 +16,13 @@
 #import "AlivePingLunViewController.h"
 #import "AliveListBottomTableViewCell.h"
 #import "AliveCommentViewController.h"
+#import "AliveRoomViewController.h"
 
-@interface AliveDetailViewController ()<AliveListTableCellDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate>
+@interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) UIScrollView *pageScrollView;
 @property (assign, nonatomic) NSInteger selectedPage;
-@property (weak, nonatomic) AliveContentHeaderView *headerV;
+@property (weak, nonatomic) AliveContentHeaderView *sectionHeaderView;
 @property (strong, nonatomic) AliveListModel *aliveInfoModel;
 @property (strong, nonatomic) AliveMasterListViewController *dianZanVC;
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
@@ -51,6 +52,16 @@
     return _tableView;
 }
 
+- (AliveListBottomTableViewCell *)toolView {
+    if (!_toolView) {
+        _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:self options:nil] firstObject];
+        _toolView.backgroundColor = [UIColor whiteColor];
+        _toolView.frame = CGRectMake(0, kScreenHeight-64-44, kScreenWidth, 44);
+        _toolView.delegate = self;
+    }
+    return _toolView;
+}
+
 - (UIScrollView *)pageScrollView {
     
     if (!_pageScrollView) {
@@ -62,27 +73,26 @@
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
-        
-        
-        
+
     }
     return _pageScrollView;
 }
 
-- (AliveContentHeaderView *)headerV {
+- (AliveContentHeaderView *)sectionHeaderView {
     
-    if (!_headerV) {
-        _headerV = [AliveContentHeaderView loadAliveContentHeaderView];
-        _headerV.frame = CGRectMake(0, 0, kScreenWidth, 45);
+    if (!_sectionHeaderView) {
+        _sectionHeaderView = [AliveContentHeaderView loadAliveContentHeaderView];
+        _sectionHeaderView.frame = CGRectMake(0, 0, kScreenWidth, 45);
+        
         __weak typeof(self)weakSelf = self;
-        _headerV.selectedBlock = ^(UIButton *btn){
+        _sectionHeaderView.selectedBlock = ^(UIButton *btn){
             [weakSelf.pageScrollView setContentOffset:CGPointMake(kScreenWidth*(btn.tag-100), 0) animated:YES];
             weakSelf.selectedPage = btn.tag-100;
-            
         };
     }
-    return _headerV;
+    return _sectionHeaderView;
 }
+
 
 - (AlivePingLunViewController *)pinglunVC
 {
@@ -95,8 +105,9 @@
         __weak typeof(self)weakSelf = self;
         _pinglunVC.dataBlock = ^(NSInteger dataCount){
             
-            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:100];
+            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:100];
             [btn setTitle:[NSString stringWithFormat:@"评论 %ld",dataCount] forState:UIControlStateNormal];
+            
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             weakSelf.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -117,11 +128,8 @@
         __weak typeof(self)weakSelf = self;
         _dianZanVC.dataBlock = ^(NSInteger dataCount){
             
-            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:101];
+            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:101];
             [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
-            //            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            //            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            //            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
     return  _dianZanVC;
@@ -137,7 +145,7 @@
         _shareVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
         _shareVC.dataBlock = ^(NSInteger dataCount){
-            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:102];
+            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
             [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
         };
     }
@@ -195,7 +203,7 @@
     }
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    [self.headerV configShowUI:selectedPage];
+    [self.sectionHeaderView configShowUI:selectedPage];
 }
 
 
@@ -222,12 +230,10 @@
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return 1;
 }
 
@@ -243,9 +249,9 @@
         return cell;
     }else {
         
-        UITableViewCell *contentCell =  [tableView dequeueReusableCellWithIdentifier:@"contentTableViewCell"];
+        UITableViewCell *contentCell =  [tableView dequeueReusableCellWithIdentifier:@"AliveContentTableViewCell"];
         if (contentCell == nil) {
-            contentCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contentTableViewCell"];
+            contentCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveContentTableViewCell"];
         }
         
         [contentCell.contentView addSubview:self.pageScrollView];
@@ -263,7 +269,7 @@
     if (section == 0) {
         return nil;
     }else {
-        return self.headerV;
+        return self.sectionHeaderView;
     }
 }
 
@@ -322,7 +328,17 @@
     }
 }
 
-#pragma mark - 任务栏事件代理
+#pragma mark - AliveListTableCellDelegate
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:self.aliveInfoModel.masterId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - AliveListBottomTableCellDelegate
+
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
     
@@ -333,9 +349,11 @@
     commVC.alive_ID = _alive_ID;
     [self.navigationController pushViewController:commVC animated:YES];
 }
+
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
 {
     
 }
+
 
 @end
