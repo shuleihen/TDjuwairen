@@ -18,6 +18,7 @@
 #import "NetworkManager.h"
 #import "UINavigationBar+Awesome.h"
 #import "UIImage+Color.h"
+#import "MBProgressHUD.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
@@ -35,6 +36,7 @@
 
 @property (nonatomic, strong) NSArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
+@property (nonatomic, strong) AliveRoomMasterModel *roomMasterModel;
 @end
 
 @implementation AliveRoomViewController
@@ -98,7 +100,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         _segmentControl.sectionTitles = @[@"全部动态",@"贴单"];
-        _segmentControl.frame = CGRectMake(0, 0, 160, 34);
+        
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -114,6 +116,7 @@
         _pageViewController.dataSource = self;
         _pageViewController.delegate = self;
         
+        [self addChildViewController:_pageViewController];
     }
     return _pageViewController;
 }
@@ -178,8 +181,10 @@
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
-- (void)setupRoomWithAliveMasterModel:(AliveRoomMasterModel *)model {
-    [self.roomHeaderView setupRoomMasterModel:model];
+- (void)setRoomMasterModel:(AliveRoomMasterModel *)roomMasterModel {
+    _roomMasterModel = roomMasterModel;
+    
+    [self.roomHeaderView setupRoomMasterModel:roomMasterModel];
 }
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {
@@ -196,7 +201,7 @@
         
         if (!error) {
             AliveRoomMasterModel *model = [[AliveRoomMasterModel alloc] initWithDictionary:data];
-            [wself setupRoomWithAliveMasterModel:model];
+            [wself setRoomMasterModel:model];
             
         } else {
             
@@ -267,9 +272,68 @@
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender {
     
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
+    __weak AliveRoomViewController *wself = self;
+    
+    if (self.roomMasterModel.isAtten) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"取消关注";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
+        [manager POST:API_AliveDelAttention parameters:dict completion:^(id data, NSError *error){
+            
+            if (!error) {
+                hud.labelText = @"取消成功";
+                [hud hide:YES];
+                
+                wself.roomMasterModel.isAtten = NO;
+                
+                NSInteger fans = [self.roomMasterModel.fansNum integerValue];
+                NSNumber *fansNumber = [NSNumber numberWithInteger:(fans-1)];
+                wself.roomMasterModel.fansNum = fansNumber;
+                
+                [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
+            } else {
+                hud.labelText = @"取消失败";
+                [hud hide:YES afterDelay:0.8];
+            }
+        }];
+    } else {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"添加关注";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
+        [manager POST:API_AliveAddAttention parameters:dict completion:^(id data, NSError *error){
+            
+            if (!error) {
+                hud.labelText = @"关注成功";
+                [hud hide:YES];
+                
+                wself.roomMasterModel.isAtten = YES;
+                
+                NSInteger fans = [self.roomMasterModel.fansNum integerValue];
+                NSNumber *fansNumber = [NSNumber numberWithInteger:(fans+1)];
+                wself.roomMasterModel.fansNum = fansNumber;
+                
+                [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
+            } else {
+                hud.labelText = @"关注失败";
+                [hud hide:YES afterDelay:0.8];
+            }
+        }];
+    }
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender {
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
     aliveMasterListVC.listType = AliveAttentionList;
     aliveMasterListVC.masterId = self.masterId;
@@ -277,6 +341,10 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView fansListPressed:(id)sender {
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
     aliveMasterListVC.listType = AliveFansList;
     aliveMasterListVC.masterId = self.masterId;
@@ -381,14 +449,16 @@
     if ([keyPath isEqualToString:@"contentOffset"])
     {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
-        if (offset.y > headerHeight) {
+        if (offset.y > (headerHeight-20)) {
             
-            CGRect newFrame = CGRectMake(0, offset.y+20, self.view.frame.size.width, kAliveSegmentHeight);
+            CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kAliveSegmentHeight+20);
             self.segmentContentScrollView.frame = newFrame;
+            self.segmentControl.frame = CGRectMake(0, 20, 160, 34);
             
         } else {
             CGRect newFrame = CGRectMake(0, headerHeight, self.view.frame.size.width, kAliveSegmentHeight);
             self.segmentContentScrollView.frame = newFrame;
+            self.segmentControl.frame = CGRectMake(0, 0, 160, 34);
         }
     }
 }

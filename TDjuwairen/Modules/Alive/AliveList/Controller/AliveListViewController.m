@@ -11,7 +11,6 @@
 #import "MBProgressHUD.h"
 #import "AliveListModel.h"
 #import "MJRefresh.h"
-#import "UIImage+Color.h"
 #import "AliveMasterListViewController.h"
 #import "AliveListTableViewDelegate.h"
 #import "AlivePublishViewController.h"
@@ -19,18 +18,10 @@
 #import "AliveMessageListViewController.h"
 #import "LoginState.h"
 
-typedef enum : NSUInteger {
-    AliveAttention  =0,
-    AliveRecommend  =1,
-    AliveALL        =2,
-} AliveListType;
-
 @interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) AliveListType listType;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
-@property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
 @end
 
@@ -56,79 +47,15 @@ typedef enum : NSUInteger {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    [self setupNavigationBar];
     [self.view addSubview:self.tableView];
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
     
-    self.listType = AliveAttention;
-    self.currentPage = 1;
-    [self.segmentControl setSelectedSegmentIndex:self.listType];
-    
-    [self queryAliveListWithType:self.listType withPage:self.currentPage];
+    [self refreshActions];
 }
 
-- (void)setupNavigationBar {
-    
-    UIImage *normal = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:[UIColor whiteColor]];
-    UIImage *pressed = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:TDThemeColor];
-    
-    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"关注",@"推荐",@"全部"]];
-    segmented.layer.cornerRadius = 0.0f;
-    segmented.layer.borderWidth = 1.0f;
-    segmented.layer.borderColor = TDThemeColor.CGColor;
-
-    [segmented addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: TDThemeColor}
-                             forState:UIControlStateNormal];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor whiteColor]}
-                             forState:UIControlStateHighlighted];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor whiteColor]}
-                             forState:UIControlStateSelected];
-    
-    segmented.frame = CGRectMake(0, 0, 135, 28);
-    [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-    [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    self.navigationItem.titleView = segmented;
-    self.segmentControl = segmented;
-    
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    rightBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [rightBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
-    [rightBtn setTitle:@"播主" forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(anchorPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
-}
 
 #pragma mark - Action
-- (void)segmentValueChanged:(UISegmentedControl *)segment {
-    self.listType = segment.selectedSegmentIndex;
-    self.currentPage = 1;
-    [self.segmentControl setSelectedSegmentIndex:self.listType];
-    
-    [self queryAliveListWithType:self.listType withPage:self.currentPage];
-}
-
-- (void)anchorPressed:(id)sender {
-    
-//    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    [self.navigationController pushViewController:vc animated:YES];
-
-    
-//    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
-//    vc.masterId = US.userId;
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
-    
-//    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    [self.navigationController pushViewController:vc animated:YES];
-    
-    AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-    aliveMasterListVC.listType = AliveMasterList;
-    [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:aliveMasterListVC animated:YES];
-}
 
 - (void)refreshActions{
     self.currentPage = 1;

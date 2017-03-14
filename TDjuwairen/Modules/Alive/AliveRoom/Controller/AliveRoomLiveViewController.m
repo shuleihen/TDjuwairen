@@ -48,6 +48,7 @@
     [self.view addSubview:self.tableView];
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
+    self.tableViewDelegate.avatarPressedEnabled = NO;
     
     self.currentPage = 1;    
     [self queryAliveListWithType:self.listType withPage:self.currentPage];

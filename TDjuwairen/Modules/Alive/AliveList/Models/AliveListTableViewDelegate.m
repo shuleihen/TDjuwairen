@@ -13,6 +13,19 @@
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
 
+
+#define kAliveListCellToolHeight 37
+
+@interface AliveListCellData : NSObject
+@property (nonatomic, strong) AliveListModel *aliveModel;
+@property (nonatomic, assign) CGFloat cellHeight;
+@end
+
+@implementation AliveListCellData
+
+
+@end
+
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
 
@@ -26,6 +39,7 @@
         tableView.delegate = self;
         tableView.dataSource = self;
         
+        self.avatarPressedEnabled = YES;
         self.tableView = tableView;
         self.viewController = viewController;
         
@@ -41,21 +55,24 @@
 }
 
 - (void)reloadWithArray:(NSArray *)array {
-    self.itemList = array;
+    
+    NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
+    for (AliveListModel *model in array) {
+        AliveListCellData *cellData = [[AliveListCellData alloc] init];
+        cellData.aliveModel = model;
+        cellData.cellHeight = [AliveListTableViewCell heightWithAliveModel:model];
+        [cellArray addObject:cellData];
+    }
+    
+    self.itemList = cellArray;
     [self.tableView reloadData];
-    
-//    if (self.hBlock) {
-//        self.tableView.frame = CGRectMake(CGRectGetMinX(self.tableView.frame), 0, kScreenWidth, self.tableView.contentSize.height);
-//        self.hBlock(self.tableView.contentSize.height);
-//    }
-    
 }
 
 - (CGFloat)contentHeight {
     CGFloat height = 0;
     
-    for (AliveListModel *model in self.itemList) {
-        height += ([AliveListTableViewCell heightWithAliveModel:model] + 37 +10);
+    for (AliveListCellData *model in self.itemList) {
+        height += (model.cellHeight + kAliveListCellToolHeight + 10);
     }
     
     return height;
@@ -63,11 +80,15 @@
 #pragma mark - AliveListTableCellDelegate
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
+    if (!self.avatarPressedEnabled) {
+        return;
+    }
+    
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     if (indexPath) {
-        AliveListModel *model = self.itemList[indexPath.section];
+        AliveListCellData *cellData = self.itemList[indexPath.section];
         
-        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.masterId];
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.masterId];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }
@@ -98,10 +119,10 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
-        AliveListModel *model = self.itemList[indexPath.section];
-        return [AliveListTableViewCell heightWithAliveModel:model];
+        AliveListCellData *cellData = self.itemList[indexPath.section];
+        return cellData.cellHeight;
     } else {
-        return 37;
+        return kAliveListCellToolHeight;
     }
 }
 
@@ -127,7 +148,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    AliveListModel *model = self.itemList[indexPath.section];
+    AliveListCellData *cellData = self.itemList[indexPath.section];
+    AliveListModel *model = cellData.aliveModel;
     
     if (indexPath.row == 0) {
         AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
@@ -136,13 +158,14 @@
         AliveListBottomTableViewCell *scell = (AliveListBottomTableViewCell *)cell;
         [scell setupAliveModel:model];
     }
-    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    AliveListModel *model = self.itemList[indexPath.section];
+    AliveListCellData *cellData = self.itemList[indexPath.section];
+    AliveListModel *model = cellData.aliveModel;
+    
     if (model.aliveId.length <= 0) {
         return;
     }
