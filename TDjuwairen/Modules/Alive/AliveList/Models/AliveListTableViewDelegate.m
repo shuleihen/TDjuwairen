@@ -12,7 +12,6 @@
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
-#import "ImageBrowserViewController.h"
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
@@ -35,8 +34,6 @@
         
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
-//        [[NSNotificationCenter defaultCenter] postNotificationName:@"showPhotoBoreser" object:@{@"index":@(tap.view.tag),@"imageArr":self.images}];
-//        [[NSNotificationCenter defaultCenter] addObserver:self.viewController selector:@selector(showPhotoBrowser:) name:@"showPhotoBoreser" object:nil];
 
     }
     
@@ -157,12 +154,6 @@
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)showPhotoBoreser:(NSNotification *)noti {
-    
-        [ImageBrowserViewController show:self.viewController type:PhotoBroswerVCTypePush index:noti.userInfo[@"index"] imagesBlock:^NSArray *{
-            return noti.userInfo[@"imageArr"];
-        }];
-    
-}
+
 
 @end
