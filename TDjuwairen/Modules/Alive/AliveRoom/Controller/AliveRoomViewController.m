@@ -26,6 +26,11 @@
 @property (strong, nonatomic) AliveRoomPageSelectView *pHeaderV;
 
 @property (strong, nonatomic) AliveRoomMasterModel *headermodel;
+@property (strong, nonatomic) UIView *navView;
+@property (strong, nonatomic) UIButton *backBtn;
+
+@property (strong, nonatomic) UIButton *rightBtn;
+
 
 
 
@@ -43,9 +48,7 @@
 @property (strong, nonatomic) NSMutableArray *contentArrM2;
 @property (assign, nonatomic) NSInteger currentPage;
 
-//@property (assign, nonatomic) CGFloat contentCellH;
-@property (strong, nonatomic) UIImageView *navImageView;
-@property (strong, nonatomic) UIButton *rightBtn;
+
 
 
 
@@ -76,7 +79,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 64, kScreenWidth, kScreenHeight-64);
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
@@ -213,20 +216,19 @@
     self.view.backgroundColor = TDViewBackgrouondColor;
     __weak typeof(self)weakSelf = self;
     
-    self.navImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    self.navImageView.image = [UIImage imageNamed:@"navImageColor"];
-    UIView *navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    [self.view addSubview:self.tableView];
     
-    [navView addSubview:self.navImageView];
-    
-    UIButton *backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
-    [backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateSelected];
-    backBtn.frame = CGRectMake(12, 30, 24, 24);
-    backBtn.tag = 1000;
-    [backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [navView addSubview:backBtn];
-    [self.view addSubview:navView];
+    self.navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    self.navView.backgroundColor = [UIColor clearColor];
+      [self.view addSubview:self.navView];
+    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
+    [self.backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateSelected];
+    self.backBtn.frame = CGRectMake(12, 30, 24, 24);
+    self.backBtn.tag = 1000;
+    [self.backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
+    [self.navView addSubview:self.backBtn];
+  
     
     self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.rightBtn setTitle:@"加关注" forState:UIControlStateNormal];
@@ -234,10 +236,10 @@
     self.rightBtn.frame = CGRectMake(kScreenWidth-82, 27, 70, 30);
     [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self.rightBtn addTarget:self action:@selector(addAttentionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [navView addSubview:self.rightBtn];
+    [self.navView addSubview:self.rightBtn];
     
     
-    [self.view addSubview:self.tableView];
+    
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView withViewController:self];
     self.tableViewDelegate.hBlock = ^(CGFloat contentH){
         weakSelf.contentTableView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
@@ -469,7 +471,7 @@
     if (indexPath.section == 0) {
         NSString *str = [NSString stringWithFormat:@"直播间介绍：%@",self.headermodel.roomInfo];
         CGFloat h = [str boundingRectWithSize:CGSizeMake(kScreenWidth-24, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0]} context:nil].size.height;
-        return 149+h;
+        return 213+h;
     }else {
         return self.pageScrollView.frame.size.height;
         
@@ -570,6 +572,29 @@
     
     
 }
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+
+    if (scrollView != self.tableView) {
+        return;
+    }
+
+    
+    if (scrollView.contentOffset.y > 160) {
+        self.navView.backgroundColor = [UIColor whiteColor];
+        self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
+        self.backBtn.selected = YES;
+        self.rightBtn.hidden = YES;
+    }else {
+    
+        self.navView.backgroundColor = [UIColor clearColor];
+        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
+        self.backBtn.selected = NO;
+        self.rightBtn.hidden = NO;
+    }
+}
+
 
 
 @end

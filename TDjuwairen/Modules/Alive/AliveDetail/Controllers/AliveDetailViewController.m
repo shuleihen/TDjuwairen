@@ -107,7 +107,6 @@
 //        _pageScrollView.showsHorizontalScrollIndicator = NO;
 //        _pageScrollView.showsVerticalScrollIndicator = NO;
         _pageScrollView.backgroundColor = [UIColor lightGrayColor];
-//        [_pageScrollView addSubview:[UIView new]];
         [_pageScrollView addSubview:self.pinglunVC.view];
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
