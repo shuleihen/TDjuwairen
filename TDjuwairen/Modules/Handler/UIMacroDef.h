@@ -25,4 +25,7 @@
 
 #define TDDefaultUserAvatar     [UIImage imageNamed:@"icon_avatar.png"]
 #define TDDefaultLoginAvatar    [UIImage imageNamed:@"login_avatar.png"]
+#define SetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
+
+
 #endif /* UIMacroDef_h */
