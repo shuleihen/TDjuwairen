@@ -1,266 +1,148 @@
 //
-//  AliveRoomViewController.m
+//  AliveRoom2ViewController.m
 //  TDjuwairen
 //
-//  Created by ZYP-MAC on 17/3/10.
+//  Created by zdy on 2017/3/13.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
 #import "AliveRoomViewController.h"
-#import "NetworkManager.h"
 #import "AliveRoomMasterModel.h"
-#import "MJRefresh.h"
-#import "MBProgressHUD.h"
-#import "AliveRoomPageSelectView.h"
-#import "AliveListTableViewDelegate.h"
+#import "AliveRoomLiveViewController.h"
 #import "AliveMasterListViewController.h"
-#import "AliveRoomHeaderViewCellTableViewCell.h"
+#import "AliveEditMasterViewController.h"
+#import "AliveMessageListViewController.h"
+#import "AliveRoomHeaderView.h"
+#import "HMSegmentedControl.h"
+#import "MJRefresh.h"
+#import "NetworkManager.h"
 
-#import "AliveListModel.h"
+#define kAliveHeaderHeight  210
+#define kAliveSegmentHeight 34
 
-@interface AliveRoomViewController ()<UITableViewDelegate,UITableViewDataSource,UIScrollViewDelegate>
-
+@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate>
+@property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, strong) UITableView *tableView;
-@property (strong, nonatomic) UIScrollView *pageScrollView;
-@property (assign, nonatomic) NSInteger selectedPage;
-@property (strong, nonatomic) AliveRoomPageSelectView *pHeaderV;
+@property (nonatomic, assign) AliveRoomLiveType listType;
+@property (nonatomic, assign) NSInteger currentPage;
+@property (nonatomic, strong) NSArray *aliveList;
 
-@property (strong, nonatomic) AliveRoomMasterModel *headermodel;
-@property (strong, nonatomic) UIView *navView;
-@property (strong, nonatomic) UIButton *backBtn;
+@property (nonatomic, strong) AliveRoomHeaderView *roomHeaderView;
+@property (nonatomic, strong) UIScrollView *segmentContentScrollView;
+@property (nonatomic, strong) HMSegmentedControl *segmentControl;
 
-@property (strong, nonatomic) UIButton *rightBtn;
-
-
-
-
-@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
-@property (strong, nonatomic) UITableView *contentTableView;
-@property (assign, nonatomic) NSInteger pageOne;
-@property (strong, nonatomic) NSMutableArray *contentArrM1;
-
-
-
-
-@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate2;
-@property (strong, nonatomic) UITableView *contentTableView2;
-@property (assign, nonatomic) NSInteger pageTwo;
-@property (strong, nonatomic) NSMutableArray *contentArrM2;
-@property (assign, nonatomic) NSInteger currentPage;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+@property (nonatomic, strong) NSArray *contentControllers;
+@property (nonatomic, strong) UIPageViewController *pageViewController;
 @end
 
 @implementation AliveRoomViewController
-
-
-- (void)setMasterId:(NSString *)masterId {
-    
-    _masterId = masterId;
-    [self queryRoomInfoWithMasterId:masterId];
-    
+- (void)dealloc {
+    [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-
+- (id)initWithMasterId:(NSString *)masterId {
+    if (self = [super init]) {
+        self.masterId = masterId;
+        
+        [self queryRoomInfoWithMasterId:masterId];
+    }
+    return self;
+}
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
-        _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.tableFooterView = [UIView new];
-        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        
     }
-    
     return _tableView;
 }
 
-- (UITableView *)contentTableView {
-    
-    if (!_contentTableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-119);
-        _contentTableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
-        _contentTableView.backgroundColor = TDViewBackgrouondColor;
-        _contentTableView.separatorColor = TDSeparatorColor;
-        _contentTableView.separatorInset = UIEdgeInsetsZero;
-        _contentTableView.showsVerticalScrollIndicator = NO;
-        _contentTableView.scrollEnabled = NO;
-        //        _contentTableView.frame = CGRectMake(0, 0, kScreenWidth, _contentTableView.contentSize.height);
-        //        _contentTableView.backgroundColor = [UIColor redColor];
-        
-        _contentTableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions1)];
-        _contentTableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions1)];
-        [self refreshActions1];
-        
+- (AliveRoomHeaderView *)roomHeaderView {
+    if (!_roomHeaderView) {
+        _roomHeaderView = [AliveRoomHeaderView loadAliveRoomeHeaderView];
+        _roomHeaderView.delegate = self;
     }
     
-    return _contentTableView;
+    return _roomHeaderView;
 }
 
-- (UITableView *)contentTableView2 {
-    
-    if (!_contentTableView2) {
-        CGRect rect = CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight-119);
-        _contentTableView2 = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
-        _contentTableView2.backgroundColor = TDViewBackgrouondColor;
-        _contentTableView2.separatorColor = TDSeparatorColor;
-        _contentTableView2.separatorInset = UIEdgeInsetsZero;
-        _contentTableView2.showsVerticalScrollIndicator = NO;
+- (UIScrollView *)segmentContentScrollView {
+    if (!_segmentContentScrollView) {
+        UIScrollView *view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kAliveSegmentHeight)];
+        view.backgroundColor = [UIColor whiteColor];
+        view.showsHorizontalScrollIndicator = NO;
         
-        _contentTableView2.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions2)];
-        _contentTableView2.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions2)];
-        [self refreshActions2];
+        [view addSubview:self.segmentControl];
+        
+        
+        _segmentContentScrollView = view;
+    }
+    return _segmentContentScrollView;
+}
+
+- (HMSegmentedControl *)segmentControl {
+    if (!_segmentControl) {
+        _segmentControl = [[HMSegmentedControl alloc] init];
+        _segmentControl.backgroundColor = [UIColor clearColor];
+        _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
+        _segmentControl.titleTextAttributes =@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                               NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#666666"]};
+        _segmentControl.selectedTitleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                                                        NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
+        _segmentControl.selectionIndicatorHeight = 3.0f;
+        _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+        _segmentControl.sectionTitles = @[@"全部动态",@"贴单"];
+        _segmentControl.frame = CGRectMake(0, 0, 160, 34);
+        [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
-    return _contentTableView2;
+    return _segmentControl;
 }
 
-
-- (UIScrollView *)pageScrollView {
-    
-    if (!_pageScrollView) {
-        _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-119)];
-        _pageScrollView.contentSize = CGSizeMake(kScreenWidth*2, 0);
-        _pageScrollView.pagingEnabled = YES;
-        _pageScrollView.showsHorizontalScrollIndicator = NO;
-        _pageScrollView.showsVerticalScrollIndicator = NO;
-        _pageScrollView.delegate = self;
-        [_pageScrollView addSubview:self.contentTableView];
-        [_pageScrollView addSubview:self.contentTableView2];
+- (UIPageViewController *)pageViewController {
+    if (!_pageViewController) {
+        
+        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
+                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+        _pageViewController.dataSource = self;
+        _pageViewController.delegate = self;
         
     }
-    return _pageScrollView;
+    return _pageViewController;
 }
 
-- (AliveRoomPageSelectView *)pHeaderV {
-    
-    if (!_pHeaderV) {
-        _pHeaderV = [AliveRoomPageSelectView loadAliveRoomPageSelectView];
+- (NSArray *)contentControllers {
+    if (!_contentControllers) {
+        AliveRoomLiveViewController *one = [[AliveRoomLiveViewController alloc] init];
+        one.masterId = self.masterId;
+        one.listType = AliveRoomLiveNormal;
+        one.delegate = self;
         
-        _pHeaderV.frame = CGRectMake(0, 0, kScreenWidth, 45);
-        __weak typeof(self)weakSelf = self;
-        _pHeaderV.selectedBtnBlock = ^(UIButton *sender){
-            [weakSelf.pageScrollView setContentOffset:CGPointMake((sender.tag-100)*kScreenWidth, 0) animated:YES];
-            weakSelf.selectedPage = sender.tag-100;
-            
-        };
-    }
-    return _pHeaderV;
-}
-
-
-
-- (void)setSelectedPage:(NSInteger)selectedPage {
-    
-    _selectedPage = selectedPage;
-    if (selectedPage == 0) {
+        AliveRoomLiveViewController *two = [[AliveRoomLiveViewController alloc] init];
+        two.masterId = self.masterId;
+        two.listType = AliveRoomLivePosts;
+        two.delegate = self;
         
-        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, self.contentTableView.frame.size.height);
-    }else {
-        
-        
-        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, self.contentTableView2.frame.size.height);
-        
+        _contentControllers = @[one,two];
     }
     
-    [self.pHeaderV showBtnUI:selectedPage];
-    
-    
-    
-    
-    
-    
-    
-    
+    return _contentControllers;
 }
-
-
-
-
 - (void)viewDidLoad {
     [super viewDidLoad];
-    [self setUpValue];
-    [self setUpUICommon];
-}
-
-- (void)setUpValue {
-    self.selectedPage = 0;
-    self.contentArrM1 = [NSMutableArray array];
-    self.contentArrM2 = [NSMutableArray array];
+    // Do any additional setup after loading the view.
     
+    [self setupTableView];
     
-}
-
-
-- (void)setUpUICommon {
-    self.view.backgroundColor = TDViewBackgrouondColor;
-    __weak typeof(self)weakSelf = self;
-    
-    [self.view addSubview:self.tableView];
-    
-    self.navView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
-    self.navView.backgroundColor = [UIColor clearColor];
-      [self.view addSubview:self.navView];
-    self.backBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.backBtn setImage:[UIImage imageNamed:@"nav_backwhite"] forState:UIControlStateNormal];
-    [self.backBtn setImage:[UIImage imageNamed:@"nav_back"] forState:UIControlStateSelected];
-    self.backBtn.frame = CGRectMake(12, 30, 24, 24);
-    self.backBtn.tag = 1000;
-    [self.backBtn addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [self.navView addSubview:self.backBtn];
-  
-    
-    self.rightBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.rightBtn setTitle:@"加关注" forState:UIControlStateNormal];
-    [self.rightBtn setTitle:@"已关注" forState:UIControlStateSelected];
-    self.rightBtn.frame = CGRectMake(kScreenWidth-82, 27, 70, 30);
-    [self.rightBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [self.rightBtn addTarget:self action:@selector(addAttentionButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navView addSubview:self.rightBtn];
-    
-    
-    
-    self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView withViewController:self];
-    self.tableViewDelegate.hBlock = ^(CGFloat contentH){
-        weakSelf.contentTableView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
-        weakSelf.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
-        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    };
-    self.tableViewDelegate.tableView.scrollEnabled = NO;
-    
-    
-    
-    self.tableViewDelegate2 = [[AliveListTableViewDelegate alloc] initWithTableView:self.contentTableView2 withViewController:self];
-    self.tableViewDelegate2.hBlock = ^(CGFloat contentH){
-        weakSelf.contentTableView2.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, contentH);
-        weakSelf.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, contentH);
-        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    };
-    self.tableViewDelegate2.tableView.scrollEnabled = NO;
-    
-    
-    
-    
+    self.listType = AliveRoomLiveNormal;
+    self.currentPage = 1;
+    self.segmentControl.selectedSegmentIndex = 0;
+    [self segmentPressed:self.segmentControl];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -270,11 +152,36 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
     [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
+- (void)setupTableView {
+    //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
+    [self.view addSubview:self.tableView];
+    
+    // 表头
+    self.tableView.tableHeaderView = self.roomHeaderView;
+    // 表尾
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
+    // 自定义悬浮segment
+    self.segmentContentScrollView.frame = CGRectMake(0, kAliveHeaderHeight+10, kScreenWidth, kAliveSegmentHeight);
+    [self.tableView addSubview:self.segmentContentScrollView];
+    
+    //添加监听，动态观察tableview的contentOffset的改变
+    [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
+    
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
 
-
+- (void)setupRoomWithAliveMasterModel:(AliveRoomMasterModel *)model {
+    [self.roomHeaderView setupRoomMasterModel:model];
+}
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {
     
@@ -286,20 +193,11 @@
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dict = @{@"master_id" :masterId};
-    
     [manager GET:API_AliveGetRoomInfo parameters:dict completion:^(id data, NSError *error){
         
         if (!error) {
-            self.headermodel = [[AliveRoomMasterModel alloc] initWithDictionary:data];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
-            
-            
-            if (self.headermodel.isAtten == YES) {
-                self.rightBtn.selected = YES;
-            }else {
-                
-                self.rightBtn.selected = NO;
-            }
+            AliveRoomMasterModel *model = [[AliveRoomMasterModel alloc] initWithDictionary:data];
+            [wself setupRoomWithAliveMasterModel:model];
             
         } else {
             
@@ -308,293 +206,191 @@
     }];
 }
 
-
-- (void)refreshActions1 {
-    self.pageOne = 1;
-    [self loadAliveRoomListData:@"0" pageNum:self.pageOne];
+#pragma mark - Action
+- (void)segmentPressed:(HMSegmentedControl *)sender {
+    NSInteger index = sender.selectedSegmentIndex;
+    __weak AliveRoomViewController *wself = self;
+    AliveRoomLiveViewController *vc = self.contentControllers[index];
     
-}
-
-
-- (void)loadMoreActions1 {
-    [self loadAliveRoomListData:@"0" pageNum:self.pageOne];
-    
-}
-
-
-- (void)refreshActions2 {
-    self.pageTwo = 1;
-    [self loadAliveRoomListData:@"1" pageNum:self.pageTwo];
-}
-
-
-- (void)loadMoreActions2 {
-    [self loadAliveRoomListData:@"1" pageNum:self.pageTwo];
-    
-}
-
-- (void)loadAliveRoomListData:(NSString *)tagStr pageNum:(NSInteger)pageNum {
-    __weak typeof(self)weakSelf = self;
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    [manager GET:API_AliveGetRoomLiveList parameters:@{@"master_id":self.masterId,@"tag":tagStr,@"page":@(pageNum)} completion:^(id data, NSError *error){
-        
-        [weakSelf.contentTableView.mj_header endRefreshing];
-        [weakSelf.contentTableView2.mj_header endRefreshing];
-        
-        [weakSelf.contentTableView.mj_footer endRefreshing];
-        [weakSelf.contentTableView2.mj_footer endRefreshing];
-        
-        
-        if (!error) {
-            NSMutableArray *list = [NSMutableArray array];
-            
-            if ([data count]<=0) {
-                return ;
-            }
-            for (NSDictionary *d in data) {
-                AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
-                [list addObject:model];
-                
-            }
-            
-            
-            if ([tagStr isEqualToString:@"0"]) {
-                
-                if (pageNum == 1) {
-                    [self.contentArrM1 removeAllObjects];
-                    
-                }
-                
-                [self.contentArrM1 addObjectsFromArray:[list mutableCopy]];
-                [self.tableViewDelegate reloadWithArray:self.contentArrM1];
-                self.pageOne++;
-                
-            }else {
-                // 贴单
-                
-                if (pageNum == 1) {
-                    [self.contentArrM2 removeAllObjects];
-                    
-                }
-                
-                [self.contentArrM2 addObjectsFromArray:[list mutableCopy]];
-                [self.tableViewDelegate2 reloadWithArray:self.contentArrM2];
-                self.pageTwo++;
-                
-            }
-            
-            
-            
-            
-            
-            
-        } else {
-            
-        }
-        
+    [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
+        [wself reloadTableView];
     }];
 }
 
-#pragma mark -
-
-
-
-#pragma mark -------------- UITableViewDataSource ---------------------
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    
-    return 2;
+- (void)refreshAction {
+    AliveRoomLiveViewController *vc = [self currentContentViewController];
+    [vc refreshAction];
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
-    return 1;
+- (void)refreshSubListAction {
+
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        AliveRoomHeaderViewCellTableViewCell *oneCell = [AliveRoomHeaderViewCellTableViewCell AliveRoomHeaderViewCellTableViewCell:tableView];
-        oneCell.headerModel = self.headermodel;
-        __weak typeof(self)weakSelf = self;
-        
-        oneCell.btnClickBlock = ^(ButtonType btnType){
-            AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-            if (btnType == ButtonAttentionType) {
-                
-                aliveMasterListVC.listType = AliveAttentionList;
-            }else {
-                
-                aliveMasterListVC.listType = AliveFansList;
-            }
-            aliveMasterListVC.masterId = weakSelf.masterId;
-            [weakSelf.navigationController pushViewController:aliveMasterListVC animated:YES];
-        };
-        return oneCell;
-    }else {
-        
-        UITableViewCell *contentCell =  [tableView dequeueReusableCellWithIdentifier:@"contentTableViewCell"];
-        if (contentCell == nil) {
-            contentCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contentTableViewCell"];
-        }
-        
-        [contentCell.contentView addSubview:self.pageScrollView];
-        
-        return contentCell;
-        
-    }
-    
+- (void)loadMoreAction {
+    AliveRoomLiveViewController *vc = [self currentContentViewController];
+    [vc loadMoreAction];
 }
 
-#pragma mark ----------------------------------------------------------
-
-
-
-#pragma mark -------------- UITableViewDelegate ---------------------
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
-
-- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    
-    if (section == 0) {
+- (AliveRoomLiveViewController *)currentContentViewController {
+    NSInteger index = self.segmentControl.selectedSegmentIndex;
+    if (index >= 0 && index < [self.contentControllers count]) {
+        return self.contentControllers[index];
+    } else {
         return nil;
-    }else {
-        
-        return self.pHeaderV;
-    }
-    
-    
-}
-
-
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    if (indexPath.section == 0) {
-        NSString *str = [NSString stringWithFormat:@"直播间介绍：%@",self.headermodel.roomInfo];
-        CGFloat h = [str boundingRectWithSize:CGSizeMake(kScreenWidth-24, CGFLOAT_MAX) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0]} context:nil].size.height;
-        return 213+h;
-    }else {
-        return self.pageScrollView.frame.size.height;
-        
-    }
-    
-    
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (section == 0) {
-        return CGFLOAT_MIN;
-    }else {
-        
-        return 45;
     }
 }
 
-
-
-#pragma mark ----------------------------------------------------------
-
-
-
-
-
-
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
-    if (scrollView != self.pageScrollView) {
-        return;
-    }
+- (void)reloadTableView {
+    CGFloat contentHeight = [[self currentContentViewController] contentHeight];
+    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveSegmentHeight-10;
+    CGFloat height = MAX(contentHeight, minHeight);
+    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
+    // iOS10以下需要添加以下
+    self.tableView.tableFooterView = self.pageViewController.view;
     
-    if(!decelerate)
-    {   //OK,真正停止了，do something}
-        [self scrollViewDidEndDecelerating:scrollView];
-    }
+    [self.tableView reloadData];
 }
 
+#pragma mark - AliveRoomLiveContentListDelegate
+- (void)contentListLoadComplete {
+    if ([self.tableView.mj_footer isRefreshing]) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+    
+    if ([self.tableView.mj_header isRefreshing]) {
+        [self.tableView.mj_header endRefreshing];
+    }
+    
+    [self reloadTableView];
+}
 
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
-    
-    if (scrollView != self.pageScrollView) {
-        return;
-    }
-    
-    int currentPage = scrollView.contentOffset.x/kScreenWidth;
-    
-    if (currentPage == self.selectedPage) {
-        return;
-    }else {
-        
-        self.selectedPage = currentPage;
-    }
-    
+#pragma mark - AliveRoomHeaderViewDelegate
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender {
     
 }
 
-#pragma mark ---- 按钮点击事件
-// 返回
-- (void)back {
-    
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender {
+    AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+    aliveMasterListVC.listType = AliveAttentionList;
+    aliveMasterListVC.masterId = self.masterId;
+    [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView fansListPressed:(id)sender {
+    AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
+    aliveMasterListVC.listType = AliveFansList;
+    aliveMasterListVC.masterId = self.masterId;
+    [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender {
+    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
+    vc.masterId = self.masterId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView messagePressed:(id)sender {
+    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender {
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)addAttentionButtonClick:(UIButton *)sender {
-    
-    
-    if (self.masterId.length <= 0) {
-        return ;
-    }
-    
-    NSString *str = API_AliveAddAttention;
-    if ([sender.currentTitle isEqualToString:@"已关注"]) {
-        // 取消关注
-        str = API_AliveDelAttention;
-    }
-    
-    
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
-    
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    
-    [manager POST:str parameters:@{@"user_id":self.masterId} completion:^(id data, NSError *error){
-        NSLog(@"---------%@",data);
-        if (!error) {
-            
-            if (data && [data[@"status"] integerValue] == 1) {
-                self.headermodel.isAtten = !self.headermodel.isAtten;
-                [hud hide:YES afterDelay:0.2];
-            }
-        } else {
-            hud.labelText = error.localizedDescription?:@"提交失败";
-            [hud hide:YES afterDelay:0.4];
-        }
-        
-    }];
-    
-    
+
+#pragma mark - UITableViewDelegate
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return 1;
+}
 
-    if (scrollView != self.tableView) {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 10.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return kAliveSegmentHeight;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomContentCellID"];
+    if (cell == nil) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveRoomContentCellID"];
+    }
+    
+    return cell;
+}
+
+#pragma mark - UIPageViewControllerDataSource
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerBeforeViewController:(UIViewController *)viewController{
+    
+    NSInteger index = [self.contentControllers indexOfObject:viewController];
+    NSInteger before = index - 1;
+    
+    if (before < 0) {
+        return nil;
+    } else {
+        return self.contentControllers[before];
+    }
+}
+
+
+- (UIViewController *)pageViewController:(UIPageViewController *)pageViewController viewControllerAfterViewController:(UIViewController *)viewController{
+    
+    NSInteger index = [self.contentControllers indexOfObject:viewController];
+    NSInteger after = index + 1;
+    
+    if (after >= [self.contentControllers count]) {
+        return nil;
+    } else {
+        return self.contentControllers[after];
+    }
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController willTransitionToViewControllers:(NSArray<UIViewController *> *)pendingViewControllers {
+}
+
+- (void)pageViewController:(UIPageViewController *)pageViewController didFinishAnimating:(BOOL)finished previousViewControllers:(NSArray<UIViewController *> *)previousViewControllers transitionCompleted:(BOOL)completed {
+    if (!completed) {
         return;
     }
-
+    if (!finished) {
+        return;
+    }
     
-    if (scrollView.contentOffset.y > 160) {
-        self.navView.backgroundColor = [UIColor whiteColor];
-        self.tableView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0);
-        self.backBtn.selected = YES;
-        self.rightBtn.hidden = YES;
-    }else {
+    UIViewController *currentVc = [pageViewController.viewControllers firstObject];
+    NSInteger index = [self.contentControllers indexOfObject:currentVc];
     
-        self.navView.backgroundColor = [UIColor clearColor];
-        self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 0, 0);
-        self.backBtn.selected = NO;
-        self.rightBtn.hidden = NO;
+    if (index != self.segmentControl.selectedSegmentIndex) {
+        self.segmentControl.selectedSegmentIndex = index;
+        
+        [self reloadTableView];
     }
 }
 
-
-
+#pragma mark - UIScroll
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    CGFloat headerHeight = kAliveHeaderHeight + 10;
+    if ([keyPath isEqualToString:@"contentOffset"])
+    {
+        CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
+        if (offset.y > headerHeight) {
+            
+            CGRect newFrame = CGRectMake(0, offset.y+20, self.view.frame.size.width, kAliveSegmentHeight);
+            self.segmentContentScrollView.frame = newFrame;
+            
+        } else {
+            CGRect newFrame = CGRectMake(0, headerHeight, self.view.frame.size.width, kAliveSegmentHeight);
+            self.segmentContentScrollView.frame = newFrame;
+        }
+    }
+}
 @end

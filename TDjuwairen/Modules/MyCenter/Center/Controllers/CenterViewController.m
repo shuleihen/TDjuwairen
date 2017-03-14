@@ -132,8 +132,7 @@
         login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
     } else {
-        AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
-        vc.masterId = US.userId;
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:US.userId];
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

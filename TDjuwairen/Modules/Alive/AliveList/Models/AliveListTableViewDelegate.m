@@ -11,9 +11,7 @@
 #import "AliveListBottomTableViewCell.h"
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
-#import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
-#import "AliveRoom2ViewController.h"
 #import "ImageBrowserViewController.h"
 
 @interface AliveListTableViewDelegate ()
@@ -60,7 +58,7 @@
     CGFloat height = 0;
     
     for (AliveListModel *model in self.itemList) {
-        height += ([AliveListTableViewCell heightWithAliveModel:model] + 37);
+        height += ([AliveListTableViewCell heightWithAliveModel:model] + 37 +10);
     }
     
     return height;
@@ -72,7 +70,7 @@
     if (indexPath) {
         AliveListModel *model = self.itemList[indexPath.section];
         
-        AliveRoom2ViewController *vc = [[AliveRoom2ViewController alloc] initWithMasterId:model.masterId];
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.masterId];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }

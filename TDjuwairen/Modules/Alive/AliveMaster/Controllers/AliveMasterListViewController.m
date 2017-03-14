@@ -239,8 +239,7 @@
         return;
     }
     
-    AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
-    vc.masterId = model.masterId;
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.masterId];
     
     if (self.listType == AliveDianZanList || self.listType == AliveShareList) {
         [self.vc.navigationController pushViewController:vc animated:YES];

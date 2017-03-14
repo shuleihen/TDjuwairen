@@ -1,14 +1,13 @@
 //
-//  AliveRoomViewController.h
+//  AliveRoom2ViewController.h
 //  TDjuwairen
 //
-//  Created by ZYP-MAC on 17/3/10.
+//  Created by zdy on 2017/3/13.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
 @interface AliveRoomViewController : UIViewController
-//- (id)initWithRoomMasterId:(NSString *)masterId;
-@property (nonatomic, strong) NSString *masterId;
+- (id)initWithMasterId:(NSString *)masterId;
 @end
