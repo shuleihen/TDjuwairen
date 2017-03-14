@@ -26,54 +26,9 @@
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
 @property (strong, nonatomic) AlivePingLunViewController *pinglunVC;
 @property (strong, nonatomic) AliveListBottomTableViewCell *toolView;
-
-
-
-
-
-
-
-
 @end
 
 @implementation AliveDetailViewController
-
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.title = @"直播正文";
-    [self setUpValue];
-    [self setUpUICommon];
-    [self setSelectedPage:0];
-}
-
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
-
-
-- (void)setUpValue {
-    
-    
-    
-}
-
-- (void)setUpUICommon {
-    self.view.backgroundColor = TDViewBackgrouondColor;
-
-    
-    [self.view addSubview:self.tableView];
-    [self loadDynamicDetailData];
-    
-    
-    _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
-    _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
-    _toolView.backgroundColor = [UIColor whiteColor];
-    [self.view addSubview:_toolView];
-    
-}
 
 
 - (UITableView *)tableView {
@@ -87,11 +42,9 @@
         
         _tableView.delegate = self;
         _tableView.dataSource = self;
+        
         UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
-        
-//        UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
-//        [_tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
         
     }
     
@@ -104,26 +57,17 @@
         _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _pageScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
         _pageScrollView.pagingEnabled = YES;
-//        _pageScrollView.showsHorizontalScrollIndicator = NO;
-//        _pageScrollView.showsVerticalScrollIndicator = NO;
         _pageScrollView.backgroundColor = [UIColor lightGrayColor];
         [_pageScrollView addSubview:self.pinglunVC.view];
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
-        
-        
-        UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
-        [self.navigationController pushViewController:vc animated:YES];
-        
-        
-        
     }
     return _pageScrollView;
 }
 
 - (AliveContentHeaderView *)headerV {
-
+    
     if (!_headerV) {
         _headerV = [AliveContentHeaderView loadAliveContentHeaderView];
         _headerV.frame = CGRectMake(0, 0, kScreenWidth, 45);
@@ -137,10 +81,85 @@
     return _headerV;
 }
 
+- (AliveListBottomTableViewCell *)toolView {
+    if (!_toolView) {
+        _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
+        _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
+        _toolView.backgroundColor = [UIColor whiteColor];
+    }
+    return _toolView;
+}
+
+
+- (AlivePingLunViewController *)pinglunVC
+{
+    if (!_pinglunVC) {
+        _pinglunVC = [[AlivePingLunViewController alloc] init];
+        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, 200-44);
+    }
+    return _pinglunVC;
+}
+
+- (AliveMasterListViewController *)dianZanVC {
+    
+    if (!_dianZanVC) {
+        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveDianZanList];
+        _dianZanVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.pageScrollView.frame.size.height);
+        
+        _dianZanVC.tableView.scrollEnabled = NO;
+        __weak typeof(self)weakSelf = self;
+        _dianZanVC.dataBlock = ^(NSInteger dataCount){
+            
+            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:101];
+            [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
+            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        };
+    }
+    return  _dianZanVC;
+}
+
+
+- (AliveMasterListViewController *)shareVC {
+    
+    if (!_shareVC) {
+        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveShareList];
+        
+        _shareVC.view.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, self.pageScrollView.frame.size.height);
+        _shareVC.tableView.scrollEnabled = NO;
+        __weak typeof(self)weakSelf = self;
+        _shareVC.dataBlock = ^(NSInteger dataCount){
+            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:102];
+            [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
+        };
+    }
+    return _shareVC;
+}
+
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.title = @"直播正文";
+    
+    [self setUpUICommon];
+    [self setSelectedPage:0];
+}
+
+
+- (void)setUpUICommon {
+
+    [self.view addSubview:self.tableView];
+    [self.view addSubview:_toolView];
+    
+    [self loadDynamicDetailData];
+}
+
+
 - (void)setSelectedPage:(NSInteger)selectedPage {
 
     _selectedPage = selectedPage;
-
 
     switch (selectedPage) {
         case 0:
@@ -171,60 +190,9 @@
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     [self.headerV configShowUI:selectedPage];
-    
-    
-    
-}
-
-- (AlivePingLunViewController *)pinglunVC
-{
-    if (!_pinglunVC) {
-        _pinglunVC = [[AlivePingLunViewController alloc] init];
-//        [_pinglunVC.navigationController setNavigationBarHidden:YES animated:NO];
-        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, 200-44);
-    }
-    return _pinglunVC;
-}
-- (AliveMasterListViewController *)dianZanVC {
-
-    if (!_dianZanVC) {
-        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveDianZanList];
-        _dianZanVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.pageScrollView.frame.size.height);
-
-        _dianZanVC.tableView.scrollEnabled = NO;
-         __weak typeof(self)weakSelf = self;
-        _dianZanVC.dataBlock = ^(NSInteger dataCount){
-            
-        UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:101];
-            [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
-            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-        };
-    }
-    return  _dianZanVC;
 }
 
 
-- (AliveMasterListViewController *)shareVC {
-
-    if (!_shareVC) {
-        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveShareList];
-       
-        _shareVC.view.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, self.pageScrollView.frame.size.height);
-        _shareVC.tableView.scrollEnabled = NO;
-        __weak typeof(self)weakSelf = self;
-        _shareVC.dataBlock = ^(NSInteger dataCount){
-            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:102];
-            [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
-        };
-    }
-    return _shareVC;
-}
-
-
-#pragma mark ---loadData
-/// 加载动态详情页内容
 - (void)loadDynamicDetailData {
     NetworkManager *manager = [[NetworkManager alloc] init];
     
@@ -243,14 +211,10 @@
         }
         
     }];
-
-    
 }
 
 
-
-
-#pragma mark - dasource
+#pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
     return 2;
@@ -285,31 +249,17 @@
     }
 }
 
-#pragma mark ----------------------------------------------------------
-
-
-
-#pragma mark -------------- UITableViewDelegate ---------------------
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-[tableView deselectRowAtIndexPath:indexPath animated:YES];
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
 
-
-
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section; {
-
-    
-   
     if (section == 0) {
         return nil;
     }else {
         return self.headerV;
     }
-    
-    
 }
-
-
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
@@ -321,7 +271,6 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-
     if (section == 0) {
         return CGFLOAT_MIN;
     }else {
@@ -339,11 +288,7 @@
     }
 }
 
-#pragma mark ----------------------------------------------------------
-
-
-
-#pragma mark ----- UIScrollViewDelegate
+#pragma mark - UISCroolView
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
     if (scrollView != self.pageScrollView) {
         return;
@@ -367,12 +312,8 @@
     if (currentPage == self.selectedPage) {
         return;
     }else {
-        
         self.selectedPage = currentPage;
-        
     }
-    
-    
 }
 
 @end
