@@ -61,7 +61,7 @@
     //    self.tableView.mj_footer = mj_footer;
     
     self.page = 1;
-    [self queryGuessComment];
+//    [self queryGuessComment];
     [self initViews];
     [self initValue];
 }
@@ -90,6 +90,11 @@
     [self queryGuessComment];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
+}
 
 - (void)queryGuessComment {
     
@@ -119,6 +124,7 @@
                 [array addObject:viewModel];
                 
             }
+            
             if (wself.dataBlock) {
                 wself.dataBlock(array.count);
             }
@@ -128,23 +134,36 @@
         }
         
         [wself.tableView reloadData];
+//        self.view.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
+//        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
     }];
+}
+
+- (void)viewWillLayoutSubviews
+{
+//    self.view.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
+//            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
 }
 
 - (void)reloadWithCommentList:(NSArray *)array {
     
 }
 //
-//- (IBAction)addCommentPressed:(id)sender {
-//    if (US.isLogIn) {
-//        [self showPublishControllerWithType:kGuessPublishAdd withReplyCommentId:nil];
-//    } else {
-//        LoginViewController *login = [[LoginViewController alloc] init];
-//        [self.navigationController pushViewController:login animated:YES];
-//    }
-//}
+- (IBAction)addCommentPressed:(id)sender {
+    if (US.isLogIn) {
+        [self showPublishControllerWithType:kGuessPublishAdd withReplyCommentId:nil];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+}
 
 - (void)showPublishControllerWithType:(GuessPublishType)type withReplyCommentId:(NSString *)replyCommentId{
+    
+//    UIView *replayView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-200, kScreenWidth, 200)];
+//    replayView.backgroundColor = [UIColor purpleColor];
+//    UIWindow *win = [UIApplication sharedApplication].keyWindow;
+//    [win addSubview: replayView];
     GuessCommentPublishViewController *vc = (GuessCommentPublishViewController *)[[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessCommentPublishViewController"];
     vc.delegate = self;
     vc.type = type;
@@ -152,7 +171,7 @@
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.navigationBarHidden = YES;
     popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
+    [popupController presentInViewController:_superVC];
 }
 
 - (void)publishCommentType:(GuessPublishType)type withContent:(NSString *)content withReplyCommentId:(NSString *)commentId{
@@ -160,28 +179,28 @@
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
     if (US.isLogIn) {
-        NSAssert(US.userId, @"用户Id不能为空");
-        dict[@"user_id"] = US.userId;
+//        NSAssert(US.userId, @"用户Id不能为空");
+//        dict[@"user_id"] = US.userId;
     }
     
     if (type == kGuessPublishReply) {
         NSAssert(commentId, @"回复评论的Id不能为空");
-        dict[@"comment_id"] = commentId;
+        dict[@"comment_id"] = SafeValue(commentId);
     }
     
     dict[@"content"] = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
     __weak AlivePingLunViewController *wself = self;
-    [ma POST:API_GameAddComment parameters:dict completion:^(id data, NSError *error){
+    [ma POST:API_AliveAddRoomRemark parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"发布成功";
+            hud.labelText = @"评论成功";
             hud.labelFont = [UIFont systemFontOfSize:14.0f];
             [hud hide:YES afterDelay:0.4];
             
             if (type == kGuessPublishAdd) {
-                //                [wself addNewTopicWithContent:content];
+                [wself addNewTopicWithContent:content];
             } else if (type == kGuessPublishReply) {
                 [wself addNewReplayWithReplyCommentId:commentId withContent:content];
             }
@@ -189,37 +208,37 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"发布失败";
+            hud.labelText = @"评论失败";
             hud.labelFont = [UIFont systemFontOfSize:14.0f];
             [hud hide:YES afterDelay:0.4];
         }
     }];
 }
 //
-//- (void)addNewTopicWithContent:(NSString *)content {
-//    SQTopicModel *topic = [[SQTopicModel alloc] init];
-//    topic.userId = US.userId;
-//    topic.icon = US.headImage;
-//    topic.userName = US.nickName;
-//    topic.content = content;
-//
-//    SQTopicCellViewModel *viewModel = [[SQTopicCellViewModel alloc] init];
-//    viewModel.topicModel = topic;
-//
-//    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self.dataArray count]+1];
-//    [array addObject:viewModel];
-//    [array addObjectsFromArray:self.dataArray];
-//
-//    self.dataArray = array;
-//
-//    [self.tableView reloadData];
-//
-//    dispatch_async(dispatch_get_main_queue(), ^{
-//        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
-//    });
-//
+- (void)addNewTopicWithContent:(NSString *)content {
+    SQTopicModel *topic = [[SQTopicModel alloc] init];
+    topic.userId = US.userId;
+    topic.icon = US.headImage;
+    topic.userName = US.nickName;
+    topic.roomcomment_text = content;
+
+    SQTopicCellViewModel *viewModel = [[SQTopicCellViewModel alloc] init];
+    viewModel.topicModel = topic;
+
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self.dataArray count]+1];
+    [array addObject:viewModel];
+    [array addObjectsFromArray:self.dataArray];
+
+    self.dataArray = array;
+
+    [self.tableView reloadData];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+    });
+
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
-//}
+}
 
 - (void)addNewReplayWithReplyCommentId:(NSString *)replyCommentId withContent:(NSString *)content {
     // 回复之后移到最新
@@ -227,15 +246,15 @@
     reply.userId = US.userId;
     reply.icon = US.headImage;
     reply.userName = US.nickName;
-    reply.content = content;
+    reply.roomremark_text = content;
     
     int i = 0;
     SQTopicCellViewModel *topTopic = nil;
     for (SQTopicCellViewModel *topicCell in self.dataArray) {
-        if ([topicCell.topicModel.commentId isEqualToString:replyCommentId]) {
+        if ([topicCell.topicModel.roomCommentId isEqualToString:replyCommentId]) {
             
             SQTopicModel *topic = topicCell.topicModel;
-            [topic.commentModels insertObject:reply atIndex:0];
+            [topic.roomCommentModels insertObject:reply atIndex:0];
             topicCell.topicModel = topic;
             
             topTopic = topicCell;
@@ -253,20 +272,21 @@
             [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
         });
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
+
+    [self loadPingLunSource];
+
 }
 
-//#pragma mark - GuessCommentPublishDelegate
-//- (void)guessCommentPublishType:(GuessPublishType)type withContent:(NSString *)content withReplyCommentId:(NSString *)commentId {
-//    [self publishCommentType:type withContent:content withReplyCommentId:commentId];
-//}
+#pragma mark - GuessCommentPublishDelegate
+- (void)guessCommentPublishType:(GuessPublishType)type withContent:(NSString *)content withReplyCommentId:(NSString *)commentId {
+    [self publishCommentType:type withContent:content withReplyCommentId:commentId];
+}
 
 #pragma mark - SQTopicTableViewCellDelegate
 - (void)cell:(SQTopicTableViewCell *)cell didReplyTopicClicked:(SQTopicModel *)topicModel {
     
     if (US.isLogIn) {//回复
-        //        [self showPublishControllerWithType:kGuessPublishReply withReplyCommentId:topicModel.commentId];
+        [self showPublishControllerWithType:kGuessPublishReply withReplyCommentId:topicModel.roomCommentId];
     } else {
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
@@ -319,6 +339,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SQTopicTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"GuessCommentCellID"];
+    cell.identifoer = @"zhibo";
     
     cell.delegate = self;
     

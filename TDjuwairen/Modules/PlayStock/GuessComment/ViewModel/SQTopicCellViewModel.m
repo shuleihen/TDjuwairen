@@ -80,6 +80,30 @@
     }
     self.commentCellViewModels = mutableVMs.copy;
     
+    
+    NSArray *roomCommentModels = topicModel.roomCommentModels;
+    
+    NSMutableArray *RoommutableVMs = [NSMutableArray array];
+    
+    if (roomCommentModels.count > 0) {
+        for (int i = 0; i < roomCommentModels.count; i++) {
+            SQCommentCellViewModel *commmentVM = [[SQCommentCellViewModel alloc] init];
+            commmentVM.maxW = tableViewW;
+            commmentVM.commentModel = roomCommentModels[i];
+            
+            tableViewH += commmentVM.cellHeight;
+            
+            [RoommutableVMs addObject:commmentVM];
+        }
+        
+        tableViewH += 10;
+    }
+    self.roomCommentCellViewModels = RoommutableVMs.copy;
+    
+
+    
+    
+    
     CGFloat replyButtonW = 60;
     CGFloat replyButtonX = [UIScreen mainScreen].bounds.size.width - margin - replyButtonW;
     CGFloat replyButtonH = 20;

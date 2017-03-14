@@ -20,6 +20,8 @@
         _dateTime = dict[@"comment_ptime"];
         _parentId = dict[@"comment_ppid"];
         _isSelf = [dict[@"is_self"] boolValue];
+        
+        _roomremark_text = [SafeValue(dict[@"roomremark_text"]) stringByReplacingEmojiCheatCodesWithUnicode];
     }
     return self;
 }

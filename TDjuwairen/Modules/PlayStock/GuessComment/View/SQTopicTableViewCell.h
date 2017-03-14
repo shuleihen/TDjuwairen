@@ -24,4 +24,5 @@
 @interface SQTopicTableViewCell : UITableViewCell
 @property(nonatomic, strong) SQTopicCellViewModel *topicViewModel;
 @property(nonatomic, weak) id<SQTopicTableViewCellDelegate> delegate;
+@property (nonatomic, copy) NSString *identifoer;
 @end

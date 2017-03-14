@@ -23,11 +23,18 @@
 //** 直播正文 评论头像*/
 @property (nonatomic, copy) NSString *user_icon;
 
-//** 评论内容*/
+//** 直播正文 评论内容*/
 @property (nonatomic, copy) NSString *roomcomment_text;
 
-//** 评论时间*/
+//** 直播正文 评论时间*/
 @property (nonatomic, copy) NSString *roomcomment_ptime;
+
+//** 直播正文 回复id*/
+@property (nonatomic, copy) NSString *roomCommentId;
+
+
+//** 直播正文 回复内容*/
+@property (nonatomic, strong) NSMutableArray *roomCommentModels;
 
 - (id)initWithDict:(NSDictionary *)dict;
 @end

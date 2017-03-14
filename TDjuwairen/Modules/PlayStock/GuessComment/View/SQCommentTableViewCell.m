@@ -70,7 +70,7 @@
     self.nameLabel.text = commentCellVM.commentModel.userName;
     
     self.contentLabel.frame = commentCellVM.contentLabelF;
-    self.contentLabel.text = commentCellVM.commentModel.content;
+    self.contentLabel.text = [Tool isStringNull: commentCellVM.commentModel.content]? commentCellVM.commentModel.roomremark_text: commentCellVM.commentModel.content;
     
     /*
     TTTAttributedLabelLink *fromLink = [self.contentLabel addLinkToPhoneNumber:commentCellVM.commentModel.from withRange:NSMakeRange(0, commentCellVM.commentModel.from.length)];
