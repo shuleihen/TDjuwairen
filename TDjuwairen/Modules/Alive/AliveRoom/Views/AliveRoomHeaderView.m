@@ -38,6 +38,9 @@
     self.aImageView.layer.cornerRadius = 25;
     self.aImageView.layer.masksToBounds = YES;
     
+    self.addAttenBtn.hidden = YES;
+    self.editBtn.hidden = YES;
+    self.messageBtn.hidden = YES;
 }
 
 + (instancetype)loadAliveRoomeHeaderView {
@@ -54,14 +57,22 @@
     [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar];
     self.aNickNameLabel.text = master.masterNickName;
     self.aAddressLabel.text = master.city;
+    
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateNormal];
-    self.aRoomInfoLabel.text = [NSString stringWithFormat:@"直播间介绍：%@",master.roomInfo];
+    
+    if (master.roomInfo.length) {
+        self.aRoomInfoLabel.text = [NSString stringWithFormat:@"直播间介绍：%@",master.roomInfo];
+    }
+    
     if ([master.sex isEqualToString:@"女"]) {
         self.aSexImageView.highlighted = NO;
-    }else {
-        
+        self.aSexImageView.hidden = NO;
+    } else if ([master.sex isEqualToString:@"男"]){
         self.aSexImageView.highlighted = YES;
+        self.aSexImageView.hidden = NO;
+    } else {
+        self.aSexImageView.hidden = YES;
     }
     
     if ([US.userId isEqualToString:master.masterId]) {
