@@ -17,7 +17,7 @@
 #import "AliveRoomViewController.h"
 
 @interface AliveMasterListViewController ()<UITableViewDelegate,UITableViewDataSource>
-@property (nonatomic, strong) UITableView *tableView;
+
 @property (nonatomic, assign) NSInteger page;
 @property (strong, nonatomic)  NSArray *aliveArr;
 @property (strong, nonatomic) UIViewController *vc;
@@ -29,10 +29,13 @@
 
 @implementation AliveMasterListViewController
 
-- (instancetype)initWithDianZanVC:(UIViewController *)vc {
+- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId aliveType:(NSString *)aliveType viewControllerType:(AliveMasterListType)listType {
 
     if (self = [super init]) {
         self.vc = vc;
+        self.listType = listType;
+        self.masterId = aliveId;
+        self.alive_type = aliveType;
     }
     return self;
 }
@@ -117,6 +120,13 @@
             url = API_AliveGetRoomLike;
         }
             break;
+        case  AliveShareList:
+        {
+            self.page = 1;
+            dict = @{@"alive_id": self.masterId,@"alive_type":self.alive_type==nil?@"":self.alive_type};
+            url = API_AlvieGetRoomShare;
+        }
+            break;
         default:
             break;
     }
@@ -146,7 +156,7 @@
             weakSelf.page++;
             [weakSelf.tableView reloadData];
             
-            if (self.listType == AliveDianZanList) {
+            if (self.listType == AliveDianZanList || self.listType == AliveShareList) {
                 if (self.dataBlock) {
                     self.dataBlock(weakSelf.aliveArr.count);
                 }
@@ -232,7 +242,7 @@
     AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
     vc.masterId = model.masterId;
     
-    if (self.listType == AliveDianZanList) {
+    if (self.listType == AliveDianZanList || self.listType == AliveShareList) {
         [self.vc.navigationController pushViewController:vc animated:YES];
     }else {
         [self.navigationController pushViewController:vc animated:YES];

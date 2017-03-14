@@ -9,6 +9,7 @@
 #import "AliveListImagesView.h"
 #import "UIImageView+WebCache.h"
 
+
 @implementation AliveListImagesView
 
 - (void)setImages:(NSArray *)images {
@@ -20,6 +21,10 @@
     
     if (images.count == 1) {
         UIImageView *one = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 180, 180)];
+        one.userInteractionEnabled = YES;
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
+        one.tag = 0;
+        [one addGestureRecognizer:tap];
         one.contentMode = UIViewContentModeScaleAspectFit;
         [one sd_setImageWithURL:[NSURL URLWithString:images.firstObject] placeholderImage:nil];
         [self addSubview:one];
@@ -30,6 +35,10 @@
         
         for (NSString *imageUrl in images) {
             UIImageView *imageView = [[UIImageView alloc] init];
+            imageView.userInteractionEnabled = YES;
+            imageView.tag = i;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
+            [imageView addGestureRecognizer:tap];
             imageView.frame = CGRectMake((80+10)*x, (80+10)*y, 80, 80);
             imageView.contentMode = UIViewContentModeScaleAspectFit;
             [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
@@ -48,6 +57,14 @@
 //    self.bounds = rect;
 }
 
+
+- (void)showDetailImageView:(UITapGestureRecognizer *)tap {
+
+
+
+//    [[NSNotificationCenter defaultCenter] postNotificationName:@"showPhotoBoreser" object:@{@"index":@(tap.view.tag),@"imageArr":self.images}];
+
+}
 
 
 @end

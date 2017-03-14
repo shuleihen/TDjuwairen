@@ -13,8 +13,6 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 
 @interface AliveListTableViewDelegate : NSObject<UITableViewDataSource, UITableViewDelegate>
 @property (nonatomic, weak) UITableView *tableView;
-@property (nonatomic, weak) UIViewController *viewController;
-@property (nonatomic, copy) NSArray *itemList;
 
 @property (copy, nonatomic) ChangeAliveListHBlock  hBlock;
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;

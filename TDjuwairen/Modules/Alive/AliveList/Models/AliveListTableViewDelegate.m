@@ -14,10 +14,13 @@
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
 #import "AliveRoom2ViewController.h"
+#import "ImageBrowserViewController.h"
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
 
+@property (nonatomic, weak) UIViewController *viewController;
+@property (nonatomic, strong) NSArray *itemList;
 @end
 
 @implementation AliveListTableViewDelegate
@@ -34,9 +37,8 @@
         
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
-       
-//        [self.tableView addObserver:viewController forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
-//        [_tableView addObserver:self.viewController forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
+//        [[NSNotificationCenter defaultCenter] postNotificationName:@"showPhotoBoreser" object:@{@"index":@(tap.view.tag),@"imageArr":self.images}];
+        [[NSNotificationCenter defaultCenter] addObserver:self.viewController selector:@selector(showPhotoBrowser:) name:@"showPhotoBoreser" object:nil];
 
     }
     
@@ -46,6 +48,12 @@
 - (void)reloadWithArray:(NSArray *)array {
     self.itemList = array;
     [self.tableView reloadData];
+    
+    if (self.hBlock) {
+        self.tableView.frame = CGRectMake(CGRectGetMinX(self.tableView.frame), 0, kScreenWidth, self.tableView.contentSize.height);
+        self.hBlock(self.tableView.contentSize.height);
+    }
+    
 }
 
 - (CGFloat)contentHeight {
@@ -147,25 +155,22 @@
     vc.alive_ID = model.aliveId;
     vc.alive_type = model.aliveType==1?@"1":@"2";
     vc.hidesBottomBarWhenPushed = YES;
+    
+    
+    
+    
     [self.viewController.navigationController pushViewController:vc animated:YES];
     
     
     
 }
 
-//- (void)addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
-//    
-//    if (observer == _tableView && [keyPath isEqualToString:@"contentSize"]) {
-//        if (self.hBlock) {
-//            self.hBlock(self.tableView.contentSize.height);
-//        }
-//    }
-//}
-
-
-//- (void)dealloc {
-//
-//    [self.tableView removeObserver:self.viewController forKeyPath:@"contentSize"];
-//}
+- (void)showPhotoBoreser:(NSNotification *)noti {
+    
+        [ImageBrowserViewController show:self.viewController type:PhotoBroswerVCTypePush index:noti.userInfo[@"index"] imagesBlock:^NSArray *{
+            return noti.userInfo[@"imageArr"];
+        }];
+    
+}
 
 @end
