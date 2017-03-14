@@ -11,4 +11,5 @@
 @interface AliveListImagesView : UIView
 
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, strong) NSMutableArray *imageViews;
 @end
