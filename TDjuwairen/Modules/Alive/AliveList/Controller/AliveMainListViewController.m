@@ -38,15 +38,12 @@
     if (!_contentControllers) {
         AliveListViewController *one = [[AliveListViewController alloc] init];
         one.listType = AliveAttention;
-        [self addChildViewController:one];
         
         AliveListViewController *two = [[AliveListViewController alloc] init];
         two.listType = AliveRecommend;
-        [self addChildViewController:two];
         
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = AliveALL;
-        [self addChildViewController:three];
         
         _contentControllers = @[one,two,three];
     }

@@ -116,6 +116,7 @@
         _pageViewController.dataSource = self;
         _pageViewController.delegate = self;
         
+        [self addChildViewController:_pageViewController];
     }
     return _pageViewController;
 }
@@ -126,13 +127,11 @@
         one.masterId = self.masterId;
         one.listType = AliveRoomLiveNormal;
         one.delegate = self;
-        [self addChildViewController:one];
         
         AliveRoomLiveViewController *two = [[AliveRoomLiveViewController alloc] init];
         two.masterId = self.masterId;
         two.listType = AliveRoomLivePosts;
         two.delegate = self;
-        [self addChildViewController:two];
         
         _contentControllers = @[one,two];
     }
