@@ -36,7 +36,7 @@
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
 //        [[NSNotificationCenter defaultCenter] postNotificationName:@"showPhotoBoreser" object:@{@"index":@(tap.view.tag),@"imageArr":self.images}];
-        [[NSNotificationCenter defaultCenter] addObserver:self.viewController selector:@selector(showPhotoBrowser:) name:@"showPhotoBoreser" object:nil];
+//        [[NSNotificationCenter defaultCenter] addObserver:self.viewController selector:@selector(showPhotoBrowser:) name:@"showPhotoBoreser" object:nil];
 
     }
     
