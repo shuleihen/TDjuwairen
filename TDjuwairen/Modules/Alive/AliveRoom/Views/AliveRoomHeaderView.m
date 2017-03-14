@@ -40,6 +40,8 @@
     self.addAttenBtn.hidden = YES;
     self.editBtn.hidden = YES;
     self.messageBtn.hidden = YES;
+    
+    self.aSexImageView.hidden = YES;
 }
 
 + (instancetype)loadAliveRoomeHeaderView {

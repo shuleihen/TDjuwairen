@@ -126,11 +126,13 @@
         one.masterId = self.masterId;
         one.listType = AliveRoomLiveNormal;
         one.delegate = self;
+        [self addChildViewController:one];
         
         AliveRoomLiveViewController *two = [[AliveRoomLiveViewController alloc] init];
         two.masterId = self.masterId;
         two.listType = AliveRoomLivePosts;
         two.delegate = self;
+        [self addChildViewController:two];
         
         _contentControllers = @[one,two];
     }
@@ -275,7 +277,6 @@
         return;
     }
     
-    UIButton *btn = (UIButton *)sender;
     __weak AliveRoomViewController *wself = self;
     
     if (self.roomMasterModel.isAtten) {
@@ -330,6 +331,10 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender {
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
     aliveMasterListVC.listType = AliveAttentionList;
     aliveMasterListVC.masterId = self.masterId;
@@ -337,6 +342,10 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView fansListPressed:(id)sender {
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
     aliveMasterListVC.listType = AliveFansList;
     aliveMasterListVC.masterId = self.masterId;
@@ -443,7 +452,7 @@
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
         if (offset.y > (headerHeight-20)) {
             
-            CGRect newFrame = CGRectMake(0, 0, self.view.frame.size.width, kAliveSegmentHeight+20);
+            CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kAliveSegmentHeight+20);
             self.segmentContentScrollView.frame = newFrame;
             self.segmentControl.frame = CGRectMake(0, 20, 160, 34);
             
