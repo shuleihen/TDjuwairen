@@ -185,6 +185,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     AliveMasterListTableViewCell *cell = [AliveMasterListTableViewCell loadAliveMasterListTableViewCell:tableView];
+    cell.selectionStyle = UITableViewCellAccessoryNone;
     AliveMasterModel *model = self.aliveArr[indexPath.row];
     cell.aliveModel = model;
     __weak typeof(self)weakSelf = self;

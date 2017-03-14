@@ -68,7 +68,7 @@
         _pageScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         _pageScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
         _pageScrollView.pagingEnabled = YES;
-        _pageScrollView.backgroundColor = [UIColor lightGrayColor];
+        _pageScrollView.backgroundColor = [UIColor clearColor];
         [_pageScrollView addSubview:self.pinglunVC.view];
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
@@ -92,7 +92,6 @@
     }
     return _sectionHeaderView;
 }
-
 
 - (AlivePingLunViewController *)pinglunVC
 {
@@ -130,6 +129,10 @@
             
             UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:101];
             [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
+
+            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
     return  _dianZanVC;
@@ -147,6 +150,9 @@
         _shareVC.dataBlock = ^(NSInteger dataCount){
             UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
             [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
+                        weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
+                        weakSelf.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
+                        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
     return _shareVC;
@@ -164,37 +170,44 @@
 
 - (void)setUpUICommon {
 
-    [self.view addSubview:self.tableView];
-    [self.view addSubview:self.toolView];
+    self.view.backgroundColor = TDViewBackgrouondColor;
     
+    
+    [self.view addSubview:self.tableView];
     [self loadDynamicDetailData];
+    
+    
+    _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
+    _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
+    _toolView.backgroundColor = [UIColor whiteColor];
+    _toolView.delegate = self;
+    [self.view addSubview:_toolView];
 }
 
-
 - (void)setSelectedPage:(NSInteger)selectedPage {
-
+    
     _selectedPage = selectedPage;
-
+    
     switch (selectedPage) {
         case 0:
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
             self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
-
+            
         }
             break;
         case 1:
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
             self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-
+            
         }
             break;
         case 2:
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
             self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
-
+            
         }
             break;
             
@@ -217,7 +230,7 @@
         if (!error) {
             
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
-            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView reloadData];
             [_toolView setupAliveModel:_aliveInfoModel];
             
         } else {
@@ -277,7 +290,7 @@
     if (indexPath.section == 0) {
         return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel];
     }else {
-        
+        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(self.pageScrollView.frame.size.height, kScreenHeight-[AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel]-45));
         return self.pageScrollView.frame.size.height;
     }
 }
