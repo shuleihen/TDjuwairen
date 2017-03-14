@@ -459,6 +459,10 @@
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
 		9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */; };
 		9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */; };
+		9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */; };
+		9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */; };
+		9EC07EEF1E78078C006EE97E /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EEE1E78078C006EE97E /* Tool.m */; };
+		9EC07EF21E780796006EE97E /* NSObject+ChangeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1337,6 +1341,13 @@
 		9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePingLunViewController.h; sourceTree = "<group>"; };
 		9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePingLunViewController.m; sourceTree = "<group>"; };
 		9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlivePingLunViewController.xib; sourceTree = "<group>"; };
+		9EC07EE81E7806F3006EE97E /* AliveCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCommentViewController.h; sourceTree = "<group>"; };
+		9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCommentViewController.m; sourceTree = "<group>"; };
+		9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveCommentViewController.xib; sourceTree = "<group>"; };
+		9EC07EED1E78078C006EE97E /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
+		9EC07EEE1E78078C006EE97E /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
+		9EC07EF01E780796006EE97E /* NSObject+ChangeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ChangeState.h"; sourceTree = "<group>"; };
+		9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ChangeState.m"; sourceTree = "<group>"; };
 		FE108943B4653426E130FAD3 /* libPods-TDjuwairen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1749,6 +1760,9 @@
 				9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */,
 				9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */,
 				9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */,
+				9EC07EE81E7806F3006EE97E /* AliveCommentViewController.h */,
+				9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */,
+				9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3923,6 +3937,10 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9EC07EF01E780796006EE97E /* NSObject+ChangeState.h */,
+				9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */,
+				9EC07EED1E78078C006EE97E /* Tool.h */,
+				9EC07EEE1E78078C006EE97E /* Tool.m */,
 				4DD179D11E77C00B00FBE66D /* MYPhotoBrowser */,
 				196F5ECE1E5485B700928B60 /* SAMKeychain */,
 				196F5EC61E54847700928B60 /* Base64 */,
@@ -4224,6 +4242,7 @@
 				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
 				9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
+				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
@@ -4329,6 +4348,7 @@
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
 				19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */,
+				9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */,
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
 				19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */,
 				19AF98331E26234D0097A585 /* NoResultView.m in Sources */,
@@ -4536,6 +4556,7 @@
 				1955B48F1D644D9800DC102E /* SharpTags.m in Sources */,
 				19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */,
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
+				9EC07EF21E780796006EE97E /* NSObject+ChangeState.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
 				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
@@ -4640,6 +4661,7 @@
 				19AF98471E2720110097A585 /* ApplySurveyViewController.m in Sources */,
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
+				9EC07EEF1E78078C006EE97E /* Tool.m in Sources */,
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,

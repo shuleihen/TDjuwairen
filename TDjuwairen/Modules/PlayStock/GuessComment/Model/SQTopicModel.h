@@ -20,5 +20,14 @@
 @property(nonatomic, assign, getter = isExpanded) BOOL expanded;
 @property(nonatomic, strong) NSMutableArray *commentModels;
 
+//** 直播正文 评论头像*/
+@property (nonatomic, copy) NSString *user_icon;
+
+//** 评论内容*/
+@property (nonatomic, copy) NSString *roomcomment_text;
+
+//** 评论时间*/
+@property (nonatomic, copy) NSString *roomcomment_ptime;
+
 - (id)initWithDict:(NSDictionary *)dict;
 @end

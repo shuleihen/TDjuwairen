@@ -1,10 +1,4 @@
-//
-//  AlivePingLunViewController.m
-//  TDjuwairen
-//
-//  Created by deng shu on 2017/3/13.
-//  Copyright © 2017年 团大网络科技. All rights reserved.
-//
+
 
 #import "AlivePingLunViewController.h"
 
@@ -56,17 +50,31 @@
     [self.tableView registerClass:[SQTopicTableViewCell class] forCellReuseIdentifier:@"GuessCommentCellID"];
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+    self.tableView.estimatedRowHeight = 120;
+    self.tableView.rowHeight = UITableViewAutomaticDimension ;
     
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     
-//    MJRefreshFooter *mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
-//    mj_footer.automaticallyHidden = YES;
-//    self.tableView.mj_footer = mj_footer;
+    //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    
+    //    MJRefreshFooter *mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    //    mj_footer.automaticallyHidden = YES;
+    //    self.tableView.mj_footer = mj_footer;
     
     self.page = 1;
     [self queryGuessComment];
+    [self initViews];
+    [self initValue];
 }
 
+- (void)initValue
+{
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPingLunSource) name:@"KnotifierGoPingLun" object:nil];
+}
+
+- (void)initViews
+{
+    
+}
 - (void)refreshAction {
     self.page = 1;
     [self queryGuessComment];
@@ -76,25 +84,31 @@
     [self queryGuessComment];
 }
 
+#pragma mark - 评论数据
+- (void)loadPingLunSource
+{
+    [self queryGuessComment];
+}
+
+
 - (void)queryGuessComment {
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *dict = nil;
-    if (!US.isLogIn) {
-        dict = @{@"page": @(self.page)};
-    } else {
-        dict = @{@"user_id": US.userId, @"page": @(self.page)};
-    }
+    //    if (!US.isLogIn) {
+    //        dict = @{@"page": @(self.page)};
+    //    } else {
+    dict = @{@"alive_id":_detail_id, @"alive_type": @(2)};
+    //    }
     
     __weak AlivePingLunViewController *wself = self;
-    [ma GET:API_GameCommentList parameters:dict completion:^(id data, NSError *error){
+    [ma GET:API_AliveGetRoomComment parameters:dict completion:^(id data, NSError *error){
         if (self.tableView.mj_header.state == MJRefreshStateRefreshing) {
             [self.tableView.mj_header endRefreshing];
         }
         if (self.tableView.mj_footer.state == MJRefreshStateRefreshing) {
             [self.tableView.mj_footer endRefreshing];
         }
-        
         if (!error && data) {
             NSMutableArray *array = [NSMutableArray arrayWithCapacity:[data count]];
             for (NSDictionary *dict in data) {
@@ -103,21 +117,14 @@
                 
                 viewModel.topicModel = topic;
                 [array addObject:viewModel];
+                
+            }
+            if (wself.dataBlock) {
+                wself.dataBlock(array.count);
             }
             
-            if ([array count] == 20) {
-                [self.tableView.mj_footer resetNoMoreData];
-            } else {
-                [self.tableView.mj_footer endRefreshingWithNoMoreData];
-            }
+            wself.dataArray = array;
             
-            if (wself.page == 1) {
-                wself.dataArray = array;
-            } else {
-                [wself.dataArray addObjectsFromArray:array];
-            }
-            
-            wself.page += 1;
         }
         
         [wself.tableView reloadData];
@@ -174,7 +181,7 @@
             [hud hide:YES afterDelay:0.4];
             
             if (type == kGuessPublishAdd) {
-//                [wself addNewTopicWithContent:content];
+                //                [wself addNewTopicWithContent:content];
             } else if (type == kGuessPublishReply) {
                 [wself addNewReplayWithReplyCommentId:commentId withContent:content];
             }
@@ -195,22 +202,22 @@
 //    topic.icon = US.headImage;
 //    topic.userName = US.nickName;
 //    topic.content = content;
-//    
+//
 //    SQTopicCellViewModel *viewModel = [[SQTopicCellViewModel alloc] init];
 //    viewModel.topicModel = topic;
-//    
+//
 //    NSMutableArray *array = [NSMutableArray arrayWithCapacity:[self.dataArray count]+1];
 //    [array addObject:viewModel];
 //    [array addObjectsFromArray:self.dataArray];
-//    
+//
 //    self.dataArray = array;
-//    
+//
 //    [self.tableView reloadData];
-//    
+//
 //    dispatch_async(dispatch_get_main_queue(), ^{
 //        [_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 //    });
-//    
+//
 //    [[NSNotificationCenter defaultCenter] postNotificationName:kGuessCommentChanged  object:nil];
 //}
 
@@ -259,7 +266,7 @@
 - (void)cell:(SQTopicTableViewCell *)cell didReplyTopicClicked:(SQTopicModel *)topicModel {
     
     if (US.isLogIn) {//回复
-//        [self showPublishControllerWithType:kGuessPublishReply withReplyCommentId:topicModel.commentId];
+        //        [self showPublishControllerWithType:kGuessPublishReply withReplyCommentId:topicModel.commentId];
     } else {
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
