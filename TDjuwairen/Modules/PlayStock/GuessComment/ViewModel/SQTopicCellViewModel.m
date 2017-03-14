@@ -38,7 +38,7 @@
     CGFloat contentLabelH = 0;
     
     UIFont *contentLabelFont = [UIFont systemFontOfSize:14];
-    contentLabelH = [topicModel.content boundingRectWithSize:CGSizeMake(contentLabelW, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentLabelFont} context:nil].size.height;
+    contentLabelH = [[Tool isStringNull:topicModel.content]?topicModel.roomcomment_text:topicModel.content boundingRectWithSize:CGSizeMake(contentLabelW, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentLabelFont} context:nil].size.height;
     
     int lineNum = contentLabelH / contentLabelFont.lineHeight;
     
@@ -53,7 +53,7 @@
             contentLabelH = contentLabelFont.lineHeight * 5;
         }
         toggoleButtonH = 20;
-    
+        
     }
     
     
@@ -115,14 +115,14 @@
         self.tableviewF = CGRectMake(tableViewX, self.cellHeight, tableViewW, tableViewH);
         self.cellHeight += tableViewH;
     }
-
+    
     if (dateTimeLabelH > 0) {
         if (tableViewH > 0) {
             self.cellHeight += 13;
         } else {
             self.cellHeight += 13;
         }
-            
+        
         self.dateTimeLabelF = CGRectMake(dateTimeLabelX, self.cellHeight, dateTimeLabelW, dateTimeLabelH);
         self.replyButtonF = CGRectMake(replyButtonX, self.cellHeight, replyButtonW, replyButtonH);
         self.cellHeight += dateTimeLabelH;

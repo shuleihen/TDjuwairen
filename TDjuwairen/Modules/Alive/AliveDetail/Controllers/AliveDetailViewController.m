@@ -15,8 +15,9 @@
 #import "AliveMasterListViewController.h"
 #import "AlivePingLunViewController.h"
 #import "AliveListBottomTableViewCell.h"
+#import "AliveCommentViewController.h"
 
-@interface AliveDetailViewController ()<AliveListTableCellDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource>
+@interface AliveDetailViewController ()<AliveListTableCellDelegate,UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) UIScrollView *pageScrollView;
 @property (assign, nonatomic) NSInteger selectedPage;
@@ -29,6 +30,45 @@
 @end
 
 @implementation AliveDetailViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.title = @"直播正文";
+    [self setUpValue];
+    [self setUpUICommon];
+    [self setSelectedPage:0];
+}
+
+
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
+    
+}
+
+
+- (void)setUpValue {
+    
+    
+    
+}
+
+- (void)setUpUICommon {
+    self.view.backgroundColor = TDViewBackgrouondColor;
+    
+    
+    [self.view addSubview:self.tableView];
+    [self loadDynamicDetailData];
+    
+    
+    _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
+    _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
+    _toolView.backgroundColor = [UIColor whiteColor];
+    _toolView.delegate = self;
+    [self.view addSubview:_toolView];
+    
+}
+
 
 
 - (UITableView *)tableView {
@@ -62,6 +102,9 @@
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
+        
+        
+        
     }
     return _pageScrollView;
 }
@@ -81,22 +124,63 @@
     return _headerV;
 }
 
-- (AliveListBottomTableViewCell *)toolView {
-    if (!_toolView) {
-        _toolView = [[[NSBundle mainBundle] loadNibNamed:@"AliveListBottomTableViewCell" owner:nil options:nil] lastObject];
-        _toolView.frame = CGRectMake(0, kScreenHeight-44-64, kScreenWidth, 44);
-        _toolView.backgroundColor = [UIColor whiteColor];
+
+- (void)setSelectedPage:(NSInteger)selectedPage {
+    
+    _selectedPage = selectedPage;
+    
+#define KnotifierGoPingLun @"KnotifierGoPingLun"
+    switch (selectedPage) {
+        case 0:
+        {
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
+            self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
+            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoPingLun object:nil];
+            
+        }
+            break;
+        case 1:
+        {
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+            self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+            
+        }
+            break;
+        case 2:
+        {
+            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
+            self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
+            
+        }
+            break;
+            
+        default:
+            break;
     }
-    return _toolView;
+    [self.headerV configShowUI:selectedPage];
+    
+    
 }
-
-
 - (AlivePingLunViewController *)pinglunVC
 {
     if (!_pinglunVC) {
         _pinglunVC = [[AlivePingLunViewController alloc] init];
-        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, 200-44);
-    }
+        
+        _pinglunVC.detail_id = self.alive_ID;
+        _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.pinglunVC.tableView.frame.size.height-44);
+        _pinglunVC.tableView.scrollEnabled = NO;
+        __weak typeof(self)weakSelf = self;
+        _pinglunVC.dataBlock = ^(NSInteger dataCount){
+            
+            UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:100];
+            [btn setTitle:[NSString stringWithFormat:@"评论 %ld",dataCount] forState:UIControlStateNormal];
+            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
+            weakSelf.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+        };
+    };
+    
+    
     return _pinglunVC;
 }
 
@@ -112,9 +196,9 @@
             
             UIButton *btn = (UIButton *)[weakSelf.headerV viewWithTag:101];
             [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
-            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            //            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            //            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            //            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
     return  _dianZanVC;
@@ -138,59 +222,6 @@
 }
 
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    self.edgesForExtendedLayout = UIRectEdgeNone;
-    self.title = @"直播正文";
-    
-    [self setUpUICommon];
-    [self setSelectedPage:0];
-}
-
-
-- (void)setUpUICommon {
-
-    [self.view addSubview:self.tableView];
-    [self.view addSubview:_toolView];
-    
-    [self loadDynamicDetailData];
-}
-
-
-- (void)setSelectedPage:(NSInteger)selectedPage {
-
-    _selectedPage = selectedPage;
-
-    switch (selectedPage) {
-        case 0:
-        {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
-            self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
-
-        }
-            break;
-        case 1:
-        {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-            self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-
-        }
-            break;
-        case 2:
-        {
-            self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
-            self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
-
-        }
-            break;
-            
-        default:
-            break;
-    }
-    
-    [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-    [self.headerV configShowUI:selectedPage];
-}
 
 
 - (void)loadDynamicDetailData {
@@ -201,9 +232,9 @@
     [manager GET:API_AliveGetAliveInfo parameters:dict completion:^(id data, NSError *error){
         
         if (!error) {
-          
+            
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
-             [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             [_toolView setupAliveModel:_aliveInfoModel];
             
         } else {
@@ -216,12 +247,12 @@
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-
+    
     return 1;
 }
 
@@ -236,7 +267,7 @@
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }else {
-    
+        
         UITableViewCell *contentCell =  [tableView dequeueReusableCellWithIdentifier:@"contentTableViewCell"];
         if (contentCell == nil) {
             contentCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"contentTableViewCell"];
@@ -265,7 +296,7 @@
     if (indexPath.section == 0) {
         return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel];
     }else {
-    
+        
         return self.pageScrollView.frame.size.height;
     }
 }
@@ -274,7 +305,7 @@
     if (section == 0) {
         return CGFLOAT_MIN;
     }else {
-    
+        
         return 45;
     }
 }
@@ -283,7 +314,7 @@
     if (section == 0) {
         return 10;
     }else {
-    
+        
         return CGFLOAT_MIN;
     }
 }
@@ -314,6 +345,22 @@
     }else {
         self.selectedPage = currentPage;
     }
+}
+
+#pragma mark - 任务栏事件代理
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
+{
+    
+}
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
+{
+    AliveCommentViewController *commVC = [AliveCommentViewController new];
+    commVC.alive_ID = _alive_ID;
+    [self.navigationController pushViewController:commVC animated:YES];
+}
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
+{
+    
 }
 
 @end

@@ -29,6 +29,10 @@
         _parentId = dict[@"comment_ppid"];
         _isSelf = [dict[@"is_self"] boolValue];
         
+        _user_icon = dict[@"user_facesmall"];
+        _roomcomment_text = dict[@"roomcomment_text"];
+        _roomcomment_ptime = dict[@"roomcomment_ptime"];
+        
         NSArray *list = dict[@"remark"];
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:[list count]];
         

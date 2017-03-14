@@ -62,7 +62,7 @@
         _nameLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _nameLabel.numberOfLines = 1;
         _nameLabel.font = [UIFont systemFontOfSize:14.0f];
-//        _nameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+        //        _nameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         _nameLabel.linkAttributes = @{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]};
         _nameLabel.activeLinkAttributes = @{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]};
         [self.contentView addSubview:_nameLabel];
@@ -133,15 +133,15 @@
 {
     _topicViewModel = topicViewModel;
     
-    [self.icon sd_setImageWithURL:[NSURL URLWithString:topicViewModel.topicModel.icon] placeholderImage:[UIImage imageNamed:@"photo_m.png"]];
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:[Tool isStringNull:SafeValue(topicViewModel.topicModel.icon)]?SafeValue(topicViewModel.topicModel.user_icon):topicViewModel.topicModel.icon] placeholderImage:[UIImage imageNamed:@"photo_m.png"]];
     self.icon.frame = topicViewModel.iconF;
     
     
     self.nameLabel.frame = topicViewModel.nameLabelF;
     self.nameLabel.text = topicViewModel.topicModel.userName;
     TTTAttributedLabelLink *nameLink = [self.nameLabel addLinkToPhoneNumber:topicViewModel.topicModel.userName
-                               withRange:NSMakeRange(0, topicViewModel.topicModel.userName.length)];
-
+                                                                  withRange:NSMakeRange(0, topicViewModel.topicModel.userName.length)];
+    
     
     nameLink.linkTapBlock = ^(TTTAttributedLabel *label, TTTAttributedLabelLink *link)
     {
@@ -149,9 +149,9 @@
             [self.delegate cell:self didUserClicked:topicViewModel.topicModel.userName];
         }
     };
-
     
-    self.topicLabel.text = topicViewModel.topicModel.content;
+    
+    self.topicLabel.text = [Tool isStringNull:topicViewModel.topicModel.content]?topicViewModel.topicModel.roomcomment_text:topicViewModel.topicModel.content;
     self.topicLabel.frame = topicViewModel.contentF;
     
     self.toggoleButton.frame = topicViewModel.toggoleButtonF;
@@ -169,7 +169,7 @@
     self.toggoleButton.hidden = topicViewModel.toggoleButtonF.size.height == 0;
     
     self.dateTimeLabel.frame = topicViewModel.dateTimeLabelF;
-    self.dateTimeLabel.text = topicViewModel.topicModel.dateTime;
+    self.dateTimeLabel.text = [Tool isStringNull:topicViewModel.topicModel.dateTime]?topicViewModel.topicModel.roomcomment_ptime:topicViewModel.topicModel.dateTime;
     
     self.replyButton.frame = topicViewModel.replyButtonF;
     
@@ -196,9 +196,9 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     
-//    if (self.delegate && [self.delegate respondsToSelector:@selector(cell:didReplyClicked:)]) {
-//        [self.delegate cell:self didReplyClicked:((SQCommentCellViewModel *)self.topicViewModel.commentCellViewModels[indexPath.row]).commentModel];
-//    }
+    //    if (self.delegate && [self.delegate respondsToSelector:@selector(cell:didReplyClicked:)]) {
+    //        [self.delegate cell:self didReplyClicked:((SQCommentCellViewModel *)self.topicViewModel.commentCellViewModels[indexPath.row]).commentModel];
+    //    }
     
 }
 

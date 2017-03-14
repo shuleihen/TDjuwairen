@@ -18,4 +18,14 @@ typedef NS_ENUM(NSInteger, ButtonAlign) {
 @interface UIButton (Align)
 - (void)align:(ButtonAlign)align withSpacing:(CGFloat)spacing;
 - (void)rightAlign:(ButtonAlign)align withSpacing:(CGFloat)spacing;
+
+
+@property(nonatomic, assign) UIEdgeInsets hitTestEdgeInsets;
+- (void)setBackNormalImageWith:(NSString *)imgName;
+- (void)setTitleNormalWith:(NSString *)title;
+- (void)setTitleColorNormalWith:(UIColor *)color;
+- (void)setNormalImageWith:(NSString*)imgName;
+- (void)setSelectedImg:(NSString *)selectedImgName;
+- (void)setBackColorWith:(UIColor *)backColor;
+
 @end
