@@ -41,7 +41,6 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"设置";
 }
 

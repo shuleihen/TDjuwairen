@@ -64,7 +64,6 @@
 {
     [super viewWillAppear:animated];
     [self refreshAction];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
 }
 
 - (void)setupWithNavigation{

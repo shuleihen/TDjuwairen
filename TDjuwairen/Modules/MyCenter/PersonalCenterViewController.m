@@ -59,9 +59,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
+
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage userBigAvatar];
         [self.headerView.headImg sd_setImageWithURL:[NSURL URLWithString:bigface] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
@@ -75,8 +73,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
     [super viewWillDisappear:animated];
-    
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

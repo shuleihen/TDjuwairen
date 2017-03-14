@@ -151,7 +151,7 @@
 - (void)setUpUICommon {
 
     [self.view addSubview:self.tableView];
-    [self.view addSubview:_toolView];
+    [self.view addSubview:self.toolView];
     
     [self loadDynamicDetailData];
 }

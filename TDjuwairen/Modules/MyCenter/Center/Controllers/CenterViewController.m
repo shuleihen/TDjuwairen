@@ -53,17 +53,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:YES animated:animated];
-    
+        
     [self queryUserInfo];
     [self setupUserInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    
-    [self.navigationController setNavigationBarHidden:NO animated:animated];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {

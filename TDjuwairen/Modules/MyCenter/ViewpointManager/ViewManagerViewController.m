@@ -51,7 +51,6 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"观点管理";
 }
 

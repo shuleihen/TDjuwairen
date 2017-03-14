@@ -67,17 +67,14 @@
 		193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325821E4DC9A400E3D500 /* FeedbackViewController.m */; };
 		193419A41E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419901E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m */; };
 		193419A51E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419911E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib */; };
-		193419A61E76B4DB00F22788 /* AliveRoom1ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419941E76B4DB00F22788 /* AliveRoom1ViewController.m */; };
 		193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */; };
-		193419A81E76B4DB00F22788 /* AliveAlertView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1934199A1E76B4DB00F22788 /* AliveAlertView.m */; };
 		193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */; };
 		193419AC1E76B4DB00F22788 /* AliveRoomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */; };
-		193419AD1E76B4DB00F22788 /* AliveRoomPageSelectView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419A21E76B4DB00F22788 /* AliveRoomPageSelectView.m */; };
-		193419AE1E76B4DB00F22788 /* AliveRoomPageSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419A31E76B4DB00F22788 /* AliveRoomPageSelectView.xib */; };
 		193419B21E76B54600F22788 /* AliveContentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B01E76B54600F22788 /* AliveContentHeaderView.m */; };
 		193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419B11E76B54600F22788 /* AliveContentHeaderView.xib */; };
 		193419B61E76B84B00F22788 /* AliveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B51E76B84B00F22788 /* AliveRoomViewController.m */; };
 		193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419C21E77945B00F22788 /* AliveRoomLiveViewController.m */; };
+		193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */; };
 		19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */; };
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
@@ -619,18 +616,11 @@
 		1934198F1E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomHeaderViewCellTableViewCell.h; sourceTree = "<group>"; };
 		193419901E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomHeaderViewCellTableViewCell.m; sourceTree = "<group>"; };
 		193419911E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveRoomHeaderViewCellTableViewCell.xib; sourceTree = "<group>"; };
-		193419931E76B4DB00F22788 /* AliveRoom1ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoom1ViewController.h; sourceTree = "<group>"; };
-		193419941E76B4DB00F22788 /* AliveRoom1ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoom1ViewController.m; sourceTree = "<group>"; };
 		193419961E76B4DB00F22788 /* AliveRoomMasterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomMasterModel.h; sourceTree = "<group>"; };
 		193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomMasterModel.m; sourceTree = "<group>"; };
-		193419991E76B4DB00F22788 /* AliveAlertView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveAlertView.h; sourceTree = "<group>"; };
-		1934199A1E76B4DB00F22788 /* AliveAlertView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveAlertView.m; sourceTree = "<group>"; };
 		1934199E1E76B4DB00F22788 /* AliveRoomHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomHeaderView.h; sourceTree = "<group>"; };
 		1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomHeaderView.m; sourceTree = "<group>"; };
 		193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveRoomHeaderView.xib; sourceTree = "<group>"; };
-		193419A11E76B4DB00F22788 /* AliveRoomPageSelectView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomPageSelectView.h; sourceTree = "<group>"; };
-		193419A21E76B4DB00F22788 /* AliveRoomPageSelectView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomPageSelectView.m; sourceTree = "<group>"; };
-		193419A31E76B4DB00F22788 /* AliveRoomPageSelectView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveRoomPageSelectView.xib; sourceTree = "<group>"; };
 		193419AF1E76B54600F22788 /* AliveContentHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveContentHeaderView.h; sourceTree = "<group>"; };
 		193419B01E76B54600F22788 /* AliveContentHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveContentHeaderView.m; sourceTree = "<group>"; };
 		193419B11E76B54600F22788 /* AliveContentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveContentHeaderView.xib; sourceTree = "<group>"; };
@@ -638,6 +628,9 @@
 		193419B51E76B84B00F22788 /* AliveRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomViewController.m; sourceTree = "<group>"; };
 		193419C11E77945B00F22788 /* AliveRoomLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomLiveViewController.h; sourceTree = "<group>"; };
 		193419C21E77945B00F22788 /* AliveRoomLiveViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomLiveViewController.m; sourceTree = "<group>"; };
+		193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliveListTableViewDelegate.h; sourceTree = "<group>"; };
+		193419D21E77F58F00F22788 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
+		193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		19347E4E1E0E3E5200E651B5 /* StockGuessListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessListCell.h; sourceTree = "<group>"; };
 		19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessListCell.m; sourceTree = "<group>"; };
 		19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockGuessListCell.xib; sourceTree = "<group>"; };
@@ -653,7 +646,6 @@
 		19386ECB1E7188AD00D4426E /* AliveMasterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterModel.m; sourceTree = "<group>"; };
 		19386ED11E71A2DC00D4426E /* AliveInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveInfoModel.h; sourceTree = "<group>"; };
 		19386ED21E71A2DC00D4426E /* AliveInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveInfoModel.m; sourceTree = "<group>"; };
-		19386EE61E72432B00D4426E /* AliveListTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListTableViewDelegate.h; sourceTree = "<group>"; };
 		19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListTableViewDelegate.m; sourceTree = "<group>"; };
 		19386EE91E72485A00D4426E /* AliveDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveDetailViewController.h; sourceTree = "<group>"; };
 		19386EEA1E72485A00D4426E /* AliveDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveDetailViewController.m; sourceTree = "<group>"; };
@@ -1598,6 +1590,7 @@
 				196F5ECA1E54858600928B60 /* UIDevice */,
 				19E48FF41E1D01030012CE6E /* Emoji */,
 				19F43C5B1E235788001B72CD /* UIButton+Align */,
+				193419D11E77F58F00F22788 /* UINavigationBar+Awesome */,
 				19A5AC891E0BA2B800FE953A /* UITextView+Placeholder */,
 				19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */,
 				19193B301E03CE6D000A6AD2 /* UIImage+Color.m */,
@@ -1682,8 +1675,6 @@
 		193419921E76B4DB00F22788 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				193419931E76B4DB00F22788 /* AliveRoom1ViewController.h */,
-				193419941E76B4DB00F22788 /* AliveRoom1ViewController.m */,
 				193419B41E76B84A00F22788 /* AliveRoomViewController.h */,
 				193419B51E76B84B00F22788 /* AliveRoomViewController.m */,
 				193419C11E77945B00F22788 /* AliveRoomLiveViewController.h */,
@@ -1704,16 +1695,20 @@
 		193419981E76B4DB00F22788 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				193419991E76B4DB00F22788 /* AliveAlertView.h */,
-				1934199A1E76B4DB00F22788 /* AliveAlertView.m */,
 				1934199E1E76B4DB00F22788 /* AliveRoomHeaderView.h */,
 				1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */,
 				193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */,
-				193419A11E76B4DB00F22788 /* AliveRoomPageSelectView.h */,
-				193419A21E76B4DB00F22788 /* AliveRoomPageSelectView.m */,
-				193419A31E76B4DB00F22788 /* AliveRoomPageSelectView.xib */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		193419D11E77F58F00F22788 /* UINavigationBar+Awesome */ = {
+			isa = PBXGroup;
+			children = (
+				193419D21E77F58F00F22788 /* UINavigationBar+Awesome.h */,
+				193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */,
+			);
+			path = "UINavigationBar+Awesome";
 			sourceTree = "<group>";
 		};
 		19347E4D1E0E3E2F00E651B5 /* Cell */ = {
@@ -2241,7 +2236,7 @@
 			children = (
 				1953CAFB1E7172DB00A64B3C /* AliveListModel.h */,
 				1953CAFC1E7172DB00A64B3C /* AliveListModel.m */,
-				19386EE61E72432B00D4426E /* AliveListTableViewDelegate.h */,
+				193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */,
 				19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */,
 			);
 			path = Models;
@@ -4267,7 +4262,6 @@
 				8488E42D1D90E2EC00888D07 /* test.caf in Resources */,
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
-				193419AE1E76B4DB00F22788 /* AliveRoomPageSelectView.xib in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
@@ -4363,7 +4357,6 @@
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				19386F081E73A88800D4426E /* CenterViewController.m in Sources */,
-				193419A81E76B4DB00F22788 /* AliveAlertView.m in Sources */,
 				1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */,
 				19D6A3051E0D0126008368F4 /* STPopupLeftBarItem.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
@@ -4415,7 +4408,6 @@
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
 				19F00D1D1E2EFFD9009270D5 /* StockInfoModel.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
-				193419A61E76B4DB00F22788 /* AliveRoom1ViewController.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */,
 				19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */,
@@ -4506,7 +4498,6 @@
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
-				193419AD1E76B4DB00F22788 /* AliveRoomPageSelectView.m in Sources */,
 				1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */,
 				19F00D1F1E2EFFD9009270D5 /* StockHeaderView.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
@@ -4582,6 +4573,7 @@
 				19F00D241E2F0704009270D5 /* StockHotModel.m in Sources */,
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,
 				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
+				193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,

@@ -249,14 +249,12 @@
         
         [self.navigationController popViewControllerAnimated:YES];
         //        [self.tabBarController.tabBar setHidden:NO];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *giveup = [UIAlertAction actionWithTitle:@"放弃编辑" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         //
         [self.navigationController popViewControllerAnimated:YES];
         //        [self.tabBarController.tabBar setHidden:NO];
-        [self.navigationController setNavigationBarHidden:NO animated:YES];
     }];
     
     UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {

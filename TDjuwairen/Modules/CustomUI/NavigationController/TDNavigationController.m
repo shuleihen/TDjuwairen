@@ -28,6 +28,10 @@
     // viewcontroller 不延伸到状态栏下
     viewController.edgesForExtendedLayout = UIRectEdgeNone;
     
+    NSString *classString = NSStringFromClass([viewController class]);
+    BOOL hidden = [self isHiddenNavigationBarWithViewController:classString];
+    [navigationController setNavigationBarHidden:hidden animated:animated];
+    
     if ([navigationController.viewControllers count] > 1) {
         if (!viewController.navigationItem.leftBarButtonItem) {
             UIButton *left = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -45,6 +49,24 @@
     [self.navController popViewControllerAnimated:YES];
 }
 
+- (BOOL)isHiddenNavigationBarWithViewController:(NSString *)className {
+    
+    __block BOOL hidden = NO;
+    
+    NSArray *filtArray = @[@"CenterViewController",
+                           @"AliveRoomViewController",
+                           @"SearchViewController",
+                           @"UserInfoViewController",
+                           @"PersonalCenterViewController"];
+    [filtArray enumerateObjectsUsingBlock:^(NSString *string, NSUInteger idx, BOOL *stop){
+        if ([string isEqualToString:className]) {
+            hidden = YES;
+            *stop = YES;
+        }
+    }];
+    
+    return hidden;
+}
 @end
 
 
