@@ -47,6 +47,7 @@
     btn.selected = YES;
     self.lastSelectedBtn = btn;
     
-    self.selectedLineView.frame = CGRectMake(CGRectGetMinX(btn.frame), 44, CGRectGetWidth(btn.frame), 1);
+    self.selectedLineView.frame = CGRectMake(CGRectGetMinX(btn.frame), 43, CGRectGetWidth(btn.frame), 2);
+//    self.selectedLineView.hidden = btn.selected;
 }
 @end

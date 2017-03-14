@@ -110,6 +110,7 @@
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             weakSelf.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     };
     
@@ -133,6 +134,9 @@
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
             weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.toolView.likeBtn setTitle:[NSString stringWithFormat:@"%ld", dataCount] forState:UIControlStateNormal];
+            
+            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     }
     return  _dianZanVC;
@@ -153,6 +157,7 @@
                         weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
                         weakSelf.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
                         [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     }
     return _shareVC;
@@ -188,11 +193,16 @@
     
     _selectedPage = selectedPage;
     
+#define KnotifierGoPingLun @"KnotifierGoPingLun"
     switch (selectedPage) {
         case 0:
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
             self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
+            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoPingLun object:nil];
+            self.toolView.hidden = NO;
+            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
+            
             
         }
             break;
@@ -200,6 +210,8 @@
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
             self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
+            self.toolView.hidden = YES;
+            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
             
         }
             break;
@@ -207,6 +219,8 @@
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
             self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
+            self.toolView.hidden = YES;
+            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
             
         }
             break;
@@ -216,6 +230,8 @@
     }
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+    
+    
     [self.sectionHeaderView configShowUI:selectedPage];
 }
 
@@ -360,12 +376,24 @@
 {
     AliveCommentViewController *commVC = [AliveCommentViewController new];
     commVC.alive_ID = _alive_ID;
+    commVC.alive_type = _alive_type;
     [self.navigationController pushViewController:commVC animated:YES];
 }
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
 {
+    NetworkManager *manager = [[NetworkManager alloc] init];
     
+    NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
+    
+    __weak typeof(self)wself = self;
+    [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
+#define KnotifierGoAddLike @"KnotifierGoAddLike"
+        if (!error) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+            
+        }
+    }];
 }
 
 

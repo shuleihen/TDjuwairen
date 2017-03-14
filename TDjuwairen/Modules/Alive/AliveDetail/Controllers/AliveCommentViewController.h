@@ -11,5 +11,6 @@
 @interface AliveCommentViewController : UIViewController
 
 @property (nonatomic, copy) NSString *alive_ID;
+@property (nonatomic, copy) NSString *alive_type;
 
 @end

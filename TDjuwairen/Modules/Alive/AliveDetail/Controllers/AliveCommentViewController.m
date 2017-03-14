@@ -81,7 +81,7 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     NSDictionary *dict = @{@"alive_id":SafeValue(self.alive_ID),
-                           @"alive_type" :@"2",
+                           @"alive_type" :SafeValue(_alive_type),
                            @"content":SafeValue(_commentText)};
  
 #define KnotifierGoPingLun @"KnotifierGoPingLun"

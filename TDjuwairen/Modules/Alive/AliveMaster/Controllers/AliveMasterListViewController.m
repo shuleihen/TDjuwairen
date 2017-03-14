@@ -78,8 +78,12 @@
     
     self.aliveArr = [NSArray array];
     [self refreshActions];
+    
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick) name:@"KnotifierGoAddLike" object:nil];
 }
-
+- (void)refreshAddLick{
+    [self requestDataWithPage:AliveDianZanList];
+}
 
 - (void)refreshActions{
     self.page = 1;
@@ -128,6 +132,7 @@
         default:
             break;
     }
+    
     
     [ma GET:url  parameters:dict completion:^(id data, NSError *error){
         if (!error) {
