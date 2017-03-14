@@ -44,10 +44,10 @@
     self.itemList = array;
     [self.tableView reloadData];
     
-    if (self.hBlock) {
-        self.tableView.frame = CGRectMake(CGRectGetMinX(self.tableView.frame), 0, kScreenWidth, self.tableView.contentSize.height);
-        self.hBlock(self.tableView.contentSize.height);
-    }
+//    if (self.hBlock) {
+//        self.tableView.frame = CGRectMake(CGRectGetMinX(self.tableView.frame), 0, kScreenWidth, self.tableView.contentSize.height);
+//        self.hBlock(self.tableView.contentSize.height);
+//    }
     
 }
 
@@ -153,7 +153,5 @@
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
-
-
 
 @end

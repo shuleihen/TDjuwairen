@@ -58,7 +58,6 @@
 
 -(void)setNavigation
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"评论管理";
     
     //设置navigation背景色

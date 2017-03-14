@@ -53,8 +53,6 @@
 }
 
 - (void)setupWithNavigation{
-    //    [self.navigationController.navigationBar setHidden:NO];
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:[UIColor whiteColor]];
     self.title = @"找回密码";

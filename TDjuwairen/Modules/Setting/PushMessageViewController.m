@@ -49,7 +49,6 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     self.title = @"消息提醒";
 }
 

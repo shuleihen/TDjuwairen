@@ -49,9 +49,7 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
-    
+        
     [self requestBrowser];
     [self requestAuthentication];
 }

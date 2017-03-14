@@ -178,7 +178,6 @@
 }
 
 - (void)setupWithNavigation{
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     
     //设置navigation背景色
     [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
@@ -1135,7 +1134,6 @@
 #pragma mark - viewWill
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self.navigationController setNavigationBarHidden:NO animated:YES];
     [super viewWillAppear:animated];
     [self registerForKeyboardNotifications];
     NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];

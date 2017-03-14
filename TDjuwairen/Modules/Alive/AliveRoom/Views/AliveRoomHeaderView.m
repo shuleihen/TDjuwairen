@@ -9,7 +9,6 @@
 #import "AliveRoomHeaderView.h"
 #import "AliveRoomMasterModel.h"
 #import "UIImageView+WebCache.h"
-#import "AliveAlertView.h"
 #import "LoginState.h"
 
 @interface AliveRoomHeaderView ()
