@@ -9,17 +9,21 @@
 #import <UIKit/UIKit.h>
 
 @class AliveRoomMasterModel;
-//typedef enum : NSUInteger {
-//    ButtonAttentionType     =0, // 关注
-//    ButtonFansType  =1 // 粉丝
-//} ButtonType;
-//
-//typedef void(^AttentionButtonClickBlock)(ButtonType btnType);
+@class AliveRoomHeaderView;
+@protocol AliveRoomHeaderViewDelegate <NSObject>
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView fansListPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView messagePressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender;
+@end
 
 @interface AliveRoomHeaderView : UIView
 @property (strong, nonatomic) AliveRoomMasterModel *headerModel;
-//@property (copy, nonatomic) AttentionButtonClickBlock  btnClickBlock;
+@property (nonatomic, weak) id<AliveRoomHeaderViewDelegate> delegate;
 
 + (instancetype)loadAliveRoomeHeaderView;
-
+- (void)setupRoomMasterModel:(AliveRoomMasterModel *)master;
 @end

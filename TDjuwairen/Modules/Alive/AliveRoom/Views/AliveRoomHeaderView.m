@@ -10,20 +10,25 @@
 #import "AliveRoomMasterModel.h"
 #import "UIImageView+WebCache.h"
 #import "AliveAlertView.h"
+#import "LoginState.h"
 
 @interface AliveRoomHeaderView ()
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aNickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aAddressLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 @property (weak, nonatomic) IBOutlet UIButton *aFansButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *aRoomInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *aSexImageView;
-@property (weak, nonatomic) IBOutlet UIButton *aLevelButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *aLevelButton;
 @property (weak, nonatomic) IBOutlet UIButton *aGuessRateButton;
 
+@property (weak, nonatomic) IBOutlet UIButton *addAttenBtn;
+@property (weak, nonatomic) IBOutlet UIButton *editBtn;
+@property (weak, nonatomic) IBOutlet UIButton *messageBtn;
 
 @end
 
@@ -41,84 +46,65 @@
     return [[[NSBundle mainBundle] loadNibNamed:@"AliveRoomHeaderView" owner:nil options:nil] lastObject];
 }
 
-- (void)setHeaderModel:(AliveRoomMasterModel *)headerModel {
+- (void)setupRoomMasterModel:(AliveRoomMasterModel *)master {
     
-    _headerModel = headerModel;
-    [self.aLevelButton setTitle:[NSString stringWithFormat:@"%@",headerModel.level] forState:UIControlStateNormal];
-    [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",headerModel.guessRate] forState:UIControlStateNormal];
+    _headerModel = master;
+    [self.aLevelButton setTitle:[NSString stringWithFormat:@"%@",master.level] forState:UIControlStateNormal];
+    [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",master.guessRate] forState:UIControlStateNormal];
     
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:headerModel.avatar] placeholderImage:TDDefaultUserAvatar];
-    self.aNickNameLabel.text = headerModel.masterNickName;
-    self.aAddressLabel.text = headerModel.city;
-    [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",headerModel.attenNum] forState:UIControlStateNormal];
-    [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",headerModel.fansNum] forState:UIControlStateNormal];
-    self.aRoomInfoLabel.text = [NSString stringWithFormat:@"直播间介绍：%@",headerModel.roomInfo];
-    if ([headerModel.sex isEqualToString:@"女"]) {
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar];
+    self.aNickNameLabel.text = master.masterNickName;
+    self.aAddressLabel.text = master.city;
+    [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
+    [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateNormal];
+    self.aRoomInfoLabel.text = [NSString stringWithFormat:@"直播间介绍：%@",master.roomInfo];
+    if ([master.sex isEqualToString:@"女"]) {
         self.aSexImageView.highlighted = NO;
     }else {
         
         self.aSexImageView.highlighted = YES;
     }
     
-
-    
+    if ([US.userId isEqualToString:master.masterId]) {
+        // 自己
+        self.addAttenBtn.hidden = YES;
+        self.editBtn.hidden = NO;
+        self.messageBtn.hidden = NO;
+    } else {
+        self.addAttenBtn.hidden = NO;
+        self.editBtn.hidden = YES;
+        self.messageBtn.hidden = YES;
+    }
 }
 
-
-
-- (IBAction)attentionButton:(UIButton *)sender {
-    
-    
-    
-    
-    switch (sender.tag-1000) {
-        case 0:
-        {
-            [[AliveAlertView alloc] initWithAliveAlertView:@"等级说明" detail:@"等级根据：关注数1级0-20人；2级21-40人；100以内，每增加20个关注度，增加一级；500以内，每增加50个关注度，增加一级"];
-            
-        }
-            
-            break;
-        case 1:
-            [[AliveAlertView alloc] initWithAliveAlertView:@"股神指数规则" detail:@"1.用户起始指数为50，指数上不封顶\n2.比谁准中指数竞猜获得大奖（猜中）+20，5倍+10，2倍+1，lose-1\n3.个股竞猜中，赢一场+4，输一场-0.5\n4.pc猜红绿赢一场+2，输一场-2\n5、分享、评论、点赞成功后，数量+1"];
-            break;
-        case 2:
-        {
-            
-//            if (self.btnClickBlock) {
-            
-//                self.btnClickBlock(ButtonAttentionType);
-                
-                
-//            }
-        }
-            break;
-        case 3:
-        {
-//            if (self.btnClickBlock) {
-            
-//                self.btnClickBlock(ButtonFansType);
-                
-                
-//            }
-            
-        }
-            break;
-       
-            
-        default:
-            break;
+- (IBAction)backPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:backPressed:)]) {
+        [self.delegate aliveRommHeaderView:self backPressed:sender];
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+}
+
+- (IBAction)editPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:editPressed:)]) {
+        [self.delegate aliveRommHeaderView:self editPressed:sender];
+    }
+}
+
+- (IBAction)messagePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:messagePressed:)]) {
+        [self.delegate aliveRommHeaderView:self messagePressed:sender];
+    }
+}
+
+- (IBAction)attentionPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:attentionListPressed:)]) {
+        [self.delegate aliveRommHeaderView:self attentionListPressed:sender];
+    }
+}
+
+- (IBAction)fansPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:fansListPressed:)]) {
+        [self.delegate aliveRommHeaderView:self fansListPressed:sender];
+    }
 }
 
 

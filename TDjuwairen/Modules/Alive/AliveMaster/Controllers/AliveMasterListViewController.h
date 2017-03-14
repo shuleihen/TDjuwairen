@@ -12,7 +12,7 @@ typedef enum : NSUInteger {
     AliveMasterList     =0, // 播主列表
     AliveAttentionList  =1, // 关注列表
     AliveFansList       =2, // 粉丝列表
-    AliveDianZanList       =3, // 点赞列表
+    AliveDianZanList    =3, // 点赞列表
 } AliveMasterListType;
 
 typedef void(^DataArrMCountBlock)(NSInteger dataCount);

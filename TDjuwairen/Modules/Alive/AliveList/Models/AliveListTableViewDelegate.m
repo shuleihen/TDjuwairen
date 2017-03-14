@@ -13,13 +13,11 @@
 #import "AliveRoomViewController.h"
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
+#import "AliveRoom2ViewController.h"
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
 
-@property (nonatomic, weak) UITableView *tableView;
-@property (nonatomic, weak) UIViewController *viewController;
-@property (nonatomic, strong) NSArray *itemList;
 @end
 
 @implementation AliveListTableViewDelegate
@@ -50,7 +48,15 @@
     [self.tableView reloadData];
 }
 
-
+- (CGFloat)contentHeight {
+    CGFloat height = 0;
+    
+    for (AliveListModel *model in self.itemList) {
+        height += ([AliveListTableViewCell heightWithAliveModel:model] + 37);
+    }
+    
+    return height;
+}
 #pragma mark - AliveListTableCellDelegate
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
@@ -58,8 +64,7 @@
     if (indexPath) {
         AliveListModel *model = self.itemList[indexPath.section];
         
-        AliveRoomViewController *vc = [[AliveRoomViewController alloc] init];
-        vc.masterId = model.masterId;
+        AliveRoom2ViewController *vc = [[AliveRoom2ViewController alloc] initWithMasterId:model.masterId];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }

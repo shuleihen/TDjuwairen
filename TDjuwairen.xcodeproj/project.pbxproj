@@ -76,6 +76,7 @@
 		193419AE1E76B4DB00F22788 /* AliveRoomPageSelectView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419A31E76B4DB00F22788 /* AliveRoomPageSelectView.xib */; };
 		193419B21E76B54600F22788 /* AliveContentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B01E76B54600F22788 /* AliveContentHeaderView.m */; };
 		193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419B11E76B54600F22788 /* AliveContentHeaderView.xib */; };
+		193419B61E76B84B00F22788 /* AliveRoom2ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B51E76B84B00F22788 /* AliveRoom2ViewController.m */; };
 		19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */; };
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
@@ -621,6 +622,8 @@
 		193419AF1E76B54600F22788 /* AliveContentHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveContentHeaderView.h; sourceTree = "<group>"; };
 		193419B01E76B54600F22788 /* AliveContentHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveContentHeaderView.m; sourceTree = "<group>"; };
 		193419B11E76B54600F22788 /* AliveContentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveContentHeaderView.xib; sourceTree = "<group>"; };
+		193419B41E76B84A00F22788 /* AliveRoom2ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoom2ViewController.h; sourceTree = "<group>"; };
+		193419B51E76B84B00F22788 /* AliveRoom2ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoom2ViewController.m; sourceTree = "<group>"; };
 		19347E4E1E0E3E5200E651B5 /* StockGuessListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessListCell.h; sourceTree = "<group>"; };
 		19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessListCell.m; sourceTree = "<group>"; };
 		19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockGuessListCell.xib; sourceTree = "<group>"; };
@@ -1646,6 +1649,8 @@
 			children = (
 				193419931E76B4DB00F22788 /* AliveRoomViewController.h */,
 				193419941E76B4DB00F22788 /* AliveRoomViewController.m */,
+				193419B41E76B84A00F22788 /* AliveRoom2ViewController.h */,
+				193419B51E76B84B00F22788 /* AliveRoom2ViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4276,6 +4281,7 @@
 				19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */,
 				1955B4711D644D9800DC102E /* CommentsTableViewCell.m in Sources */,
 				19C2581D1E7649D200433D0D /* AliveMessageModel.m in Sources */,
+				193419B61E76B84B00F22788 /* AliveRoom2ViewController.m in Sources */,
 				190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */,
 				847ADA881DF7D485002600AA /* OptionalManageHeadView.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
