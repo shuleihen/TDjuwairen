@@ -15,9 +15,8 @@
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aNickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aAddressLabel;
-
-@property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 @property (weak, nonatomic) IBOutlet UIButton *aFansButton;
+@property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *aRoomInfoLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *aSexImageView;
@@ -59,7 +58,10 @@
     self.aAddressLabel.text = master.city;
     
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
+    [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateHighlighted];
+    
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateNormal];
+    [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateHighlighted];
     
     if (master.roomInfo.length) {
         self.aRoomInfoLabel.text = [NSString stringWithFormat:@"直播间介绍：%@",master.roomInfo];
@@ -75,7 +77,7 @@
         self.aSexImageView.hidden = YES;
     }
     
-    if ([US.userId isEqualToString:master.masterId]) {
+    if (master.isMaster) {
         // 自己
         self.addAttenBtn.hidden = YES;
         self.editBtn.hidden = NO;
@@ -84,6 +86,12 @@
         self.addAttenBtn.hidden = NO;
         self.editBtn.hidden = YES;
         self.messageBtn.hidden = YES;
+    }
+    
+    if (master.isAtten) {
+        [self.addAttenBtn setTitle:@"已关注" forState:UIControlStateNormal];
+    } else {
+        [self.addAttenBtn setTitle:@"加关注" forState:UIControlStateNormal];
     }
 }
 
@@ -117,5 +125,10 @@
     }
 }
 
+- (IBAction)addAttentionPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:attenPressed:)]) {
+        [self.delegate aliveRommHeaderView:self attenPressed:sender];
+    }
+}
 
 @end

@@ -27,13 +27,17 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="         " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ROj-Gu-0qP">
-                    <rect key="frame" x="167.5" y="125" width="33.5" height="17"/>
+                    <rect key="frame" x="167" y="125" width="34" height="17"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oty-S7-X8U">
-                    <rect key="frame" x="140.5" y="139" width="30" height="27"/>
+                <button opaque="NO" tag="1002" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oty-S7-X8U">
+                    <rect key="frame" x="91" y="139.5" width="80" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="80" id="CKd-wK-zXv"/>
+                        <constraint firstAttribute="height" constant="26" id="feQ-zb-ooK"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                     <state key="normal" title="关注">
                         <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -42,8 +46,12 @@
                         <action selector="attentionPressed:" destination="kdO-EP-rtC" eventType="touchUpInside" id="Rvk-IU-Rhf"/>
                     </connections>
                 </button>
-                <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-ns-DEB">
-                    <rect key="frame" x="196.5" y="139" width="30" height="27"/>
+                <button opaque="NO" tag="1003" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vXf-ns-DEB">
+                    <rect key="frame" x="197" y="139.5" width="80" height="26"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="26" id="0Au-lN-nek"/>
+                        <constraint firstAttribute="width" constant="80" id="XjG-lA-b3Y"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
                     <state key="normal" title="粉丝">
                         <color key="titleColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
@@ -53,7 +61,7 @@
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="El6-6G-eFi">
-                    <rect key="frame" x="15" y="181" width="337" height="0.0"/>
+                    <rect key="frame" x="15" y="180.5" width="337" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                     <nil key="highlightedColor"/>
@@ -72,7 +80,7 @@
                     </constraints>
                 </imageView>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ggt-Cd-nDT">
-                    <rect key="frame" x="173.5" y="144" width="20" height="16"/>
+                    <rect key="frame" x="174" y="144" width="20" height="16"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="20" id="HTy-9V-aep"/>
                     </constraints>
@@ -126,6 +134,9 @@
                             <state key="normal" title="加关注">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
+                            <connections>
+                                <action selector="addAttentionPressed:" destination="kdO-EP-rtC" eventType="touchUpInside" id="c7L-a6-Y6p"/>
+                            </connections>
                         </button>
                     </subviews>
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>

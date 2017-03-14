@@ -12,8 +12,8 @@
 @property (nonatomic, copy) NSString *masterId;
 @property (nonatomic, copy) NSString *masterNickName;
 @property (nonatomic, copy) NSString *avatar;
-@property (nonatomic, copy) NSString *attenNum;
-@property (nonatomic, copy) NSString *fansNum;
+@property (nonatomic, copy) NSNumber *attenNum;
+@property (nonatomic, copy) NSNumber *fansNum;
 @property (nonatomic, copy) NSNumber *level;
 @property (nonatomic, assign) BOOL isAtten;
 @property (nonatomic, copy) NSNumber *guessRate;

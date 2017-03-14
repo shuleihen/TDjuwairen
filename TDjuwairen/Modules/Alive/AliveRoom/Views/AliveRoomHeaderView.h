@@ -21,6 +21,7 @@
 @end
 
 @interface AliveRoomHeaderView : UIView
+
 @property (strong, nonatomic) AliveRoomMasterModel *headerModel;
 @property (nonatomic, weak) id<AliveRoomHeaderViewDelegate> delegate;
 
