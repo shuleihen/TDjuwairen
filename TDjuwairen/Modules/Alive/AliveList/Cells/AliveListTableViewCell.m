@@ -75,7 +75,11 @@
         height = 180.0f;
     } else if (images.count > 1) {
         NSInteger x = images.count/3;
-        height = 80*x + (((x-1)>0)?((x-1)*10):0);
+        NSInteger y = images.count%3;
+        if (y > 0) {
+            x++;
+        }
+        height = 80*x+(((x-1)>0)?((x-1)*10):0);
     }
     
     return height;

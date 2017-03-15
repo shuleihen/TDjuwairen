@@ -56,8 +56,8 @@
             [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
             [self addSubview:imageView];
             
-            x = i/3;
-            y = i%3;
+            x = i%3;
+            y = i/3;
             i++;
         }
         
