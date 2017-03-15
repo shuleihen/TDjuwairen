@@ -29,6 +29,7 @@
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
 @property (strong, nonatomic) AlivePingLunViewController *pinglunVC;
 @property (strong, nonatomic) AliveListBottomTableViewCell *toolView;
+@property (nonatomic, assign) NSInteger shareCount;
 @end
 
 @implementation AliveDetailViewController
@@ -153,6 +154,7 @@
         _shareVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
         _shareVC.dataBlock = ^(NSInteger dataCount){
+            weakSelf.shareCount = dataCount;
             UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
             [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
                         weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
@@ -376,7 +378,16 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
-//    ShareHandler shareWithTitle:@"xx" image: url:<#(NSURL *)#>
+    __weak typeof(self)weakSelf = self;
+    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
+        if (state) {
+            
+            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
+            [btn setTitle:[NSString stringWithFormat:@"分享 %ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
+            [weakSelf.toolView.shareBtn setTitle:[NSString stringWithFormat:@"%ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
+            
+        }
+    }];
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {

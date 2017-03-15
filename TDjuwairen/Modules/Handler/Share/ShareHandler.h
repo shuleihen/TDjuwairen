@@ -9,5 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface ShareHandler : NSObject
-+ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSURL *)url;
+
++ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSURL *)url ;
+
++ (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url shareState:(void(^)(BOOL state))stateBlock;
+
+
 @end
