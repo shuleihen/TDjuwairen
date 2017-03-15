@@ -105,6 +105,12 @@
     [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
             [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.shareNum+1] forState:UIControlStateNormal];
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dict = @{@"item_id":SafeValue(cell.cellModel.aliveId),@"type" :@(cell.cellModel.aliveType)};
+            
+            [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
+                
+            }];
         }
     }];
 }

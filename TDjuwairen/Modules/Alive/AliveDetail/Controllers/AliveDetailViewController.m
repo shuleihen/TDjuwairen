@@ -387,6 +387,13 @@
             UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
             [btn setTitle:[NSString stringWithFormat:@"分享 %ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
             [weakSelf.toolView.shareBtn setTitle:[NSString stringWithFormat:@"%ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dict = @{@"item_id":self.alive_ID,@"type" :self.alive_type};
+            
+            [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
+                
+            }];
+            
             
         }
     }];
