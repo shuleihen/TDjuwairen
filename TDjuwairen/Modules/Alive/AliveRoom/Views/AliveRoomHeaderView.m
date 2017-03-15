@@ -11,7 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "LoginState.h"
 
-@interface AliveRoomHeaderView ()
+@interface AliveRoomHeaderView ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aNickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aAddressLabel;
@@ -27,6 +27,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addAttenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UIButton *messageBtn;
+@property (nonatomic, strong)UIAlertView *alert;
 
 @end
 
@@ -132,5 +133,18 @@
         [self.delegate aliveRommHeaderView:self attenPressed:sender];
     }
 }
+- (IBAction)levelClick:(id)sender {
+//    _alert = [[UIAlertView alloc] initWithTitle:@"" message:@"xxxxx" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//    
+//    [_alert show];
+}
+- (IBAction)guestRuleClick:(id)sender {
+//    _alert = [[UIAlertView alloc] initWithTitle:@"" message:@"xxxxx" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
+//    
+//    [_alert show];
+}
+
+
+
 
 @end
