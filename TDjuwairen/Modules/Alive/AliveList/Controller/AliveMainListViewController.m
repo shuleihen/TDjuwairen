@@ -10,12 +10,18 @@
 #import "AliveListViewController.h"
 #import "UIImage+Color.h"
 #import "AliveMasterListViewController.h"
+#import "DCPathButton.h"
+#import "AlivePublishViewController.h"
+#import "LoginState.h"
+#import "LoginViewController.h"
 
-@interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;
+
+@property (nonatomic, strong) DCPathButton *publishBtn;
 @end
 
 @implementation AliveMainListViewController
@@ -51,6 +57,52 @@
     return _contentControllers;
 }
 
+- (DCPathButton *)publishBtn {
+    if (!_publishBtn) {
+        DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"alive_publish_bg.png"]
+                                                             highlightedImage:[UIImage imageNamed:@"alive_publish_bg.png"]];
+        dcPathButton.delegate = self;
+        
+        // Configure item buttons
+        //
+        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"跟帖"
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]
+                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]];
+        
+        DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc] initWithTitle:@"话题"
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]
+                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]];
+        
+        // Add the item button into the center button
+        //
+        [dcPathButton addPathItems:@[itemButton_1,
+                                     itemButton_2
+                                     ]];
+        
+        dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
+        
+        // Change the bloom radius, default is 105.0f
+        //
+        dcPathButton.bloomRadius = 90.0f;
+        dcPathButton.bloomAngel = 60.0f;
+        
+        // Change the DCButton's center
+        //
+        dcPathButton.dcButtonCenter = CGPointMake(kScreenWidth - 26 - dcPathButton.frame.size.width/2, kScreenHeight -64 - 90);
+        
+        // Setting the DCButton appearance
+        //
+        dcPathButton.allowSounds = YES;
+        dcPathButton.allowCenterButtonRotation = YES;
+        
+        dcPathButton.bottomViewColor = [UIColor grayColor];
+        
+        _publishBtn = dcPathButton;
+    }
+    
+    return _publishBtn;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -62,6 +114,8 @@
     
     self.segmentControl.selectedSegmentIndex = self.listType;
     [self segmentValueChanged:self.segmentControl];
+    
+    [self.view addSubview:self.publishBtn];
 }
 
 - (void)setupNavigationBar {
@@ -113,6 +167,22 @@
     aliveMasterListVC.listType = AliveMasterList;
     [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+}
+
+#pragma mark - DCPathButtonDelegate
+- (void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex {
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.hidesBottomBarWhenPushed = YES;
+    vc.isTiedan = (itemButtonIndex == 0)?YES:NO;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UIPageViewControllerDataSource

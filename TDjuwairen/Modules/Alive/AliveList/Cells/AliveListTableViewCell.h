@@ -23,6 +23,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *imagesHeight;
 @property (weak, nonatomic) IBOutlet AliveListImagesView *imagesView;
+@property (weak, nonatomic) IBOutlet UILabel *tiedanLabel;
+
 @property (weak, nonatomic) id<AliveListTableCellDelegate> delegate;
 
 + (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel;

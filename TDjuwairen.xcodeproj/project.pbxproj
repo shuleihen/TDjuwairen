@@ -76,6 +76,11 @@
 		193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419C21E77945B00F22788 /* AliveRoomLiveViewController.m */; };
 		193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */; };
 		193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419D61E782C9B00F22788 /* AliveMainListViewController.m */; };
+		193419E41E78DF2B00F22788 /* DCPathButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419DC1E78DF2B00F22788 /* DCPathButton.m */; };
+		193419E51E78DF2B00F22788 /* DCPathItemButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419DE1E78DF2B00F22788 /* DCPathItemButton.m */; };
+		193419E61E78DF2B00F22788 /* bloom.caf in Resources */ = {isa = PBXBuildFile; fileRef = 193419E01E78DF2B00F22788 /* bloom.caf */; };
+		193419E71E78DF2B00F22788 /* fold.caf in Resources */ = {isa = PBXBuildFile; fileRef = 193419E11E78DF2B00F22788 /* fold.caf */; };
+		193419E81E78DF2B00F22788 /* selected.caf in Resources */ = {isa = PBXBuildFile; fileRef = 193419E21E78DF2B00F22788 /* selected.caf */; };
 		19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */; };
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
@@ -638,6 +643,13 @@
 		193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
 		193419D51E782C9B00F22788 /* AliveMainListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMainListViewController.h; sourceTree = "<group>"; };
 		193419D61E782C9B00F22788 /* AliveMainListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMainListViewController.m; sourceTree = "<group>"; };
+		193419DB1E78DF2B00F22788 /* DCPathButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCPathButton.h; sourceTree = "<group>"; };
+		193419DC1E78DF2B00F22788 /* DCPathButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPathButton.m; sourceTree = "<group>"; };
+		193419DD1E78DF2B00F22788 /* DCPathItemButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DCPathItemButton.h; sourceTree = "<group>"; };
+		193419DE1E78DF2B00F22788 /* DCPathItemButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DCPathItemButton.m; sourceTree = "<group>"; };
+		193419E01E78DF2B00F22788 /* bloom.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = bloom.caf; sourceTree = "<group>"; };
+		193419E11E78DF2B00F22788 /* fold.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = fold.caf; sourceTree = "<group>"; };
+		193419E21E78DF2B00F22788 /* selected.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = selected.caf; sourceTree = "<group>"; };
 		19347E4E1E0E3E5200E651B5 /* StockGuessListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessListCell.h; sourceTree = "<group>"; };
 		19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessListCell.m; sourceTree = "<group>"; };
 		19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockGuessListCell.xib; sourceTree = "<group>"; };
@@ -1723,6 +1735,44 @@
 				193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */,
 			);
 			path = "UINavigationBar+Awesome";
+			sourceTree = "<group>";
+		};
+		193419D81E78DF2B00F22788 /* DCPathButton */ = {
+			isa = PBXGroup;
+			children = (
+				193419D91E78DF2B00F22788 /* DCPathButton */,
+			);
+			path = DCPathButton;
+			sourceTree = "<group>";
+		};
+		193419D91E78DF2B00F22788 /* DCPathButton */ = {
+			isa = PBXGroup;
+			children = (
+				193419DA1E78DF2B00F22788 /* Classes */,
+				193419DF1E78DF2B00F22788 /* Sounds */,
+			);
+			path = DCPathButton;
+			sourceTree = "<group>";
+		};
+		193419DA1E78DF2B00F22788 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				193419DB1E78DF2B00F22788 /* DCPathButton.h */,
+				193419DC1E78DF2B00F22788 /* DCPathButton.m */,
+				193419DD1E78DF2B00F22788 /* DCPathItemButton.h */,
+				193419DE1E78DF2B00F22788 /* DCPathItemButton.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		193419DF1E78DF2B00F22788 /* Sounds */ = {
+			isa = PBXGroup;
+			children = (
+				193419E01E78DF2B00F22788 /* bloom.caf */,
+				193419E11E78DF2B00F22788 /* fold.caf */,
+				193419E21E78DF2B00F22788 /* selected.caf */,
+			);
+			path = Sounds;
 			sourceTree = "<group>";
 		};
 		19347E4D1E0E3E2F00E651B5 /* Cell */ = {
@@ -3942,6 +3992,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				193419D81E78DF2B00F22788 /* DCPathButton */,
 				9EC07EF01E780796006EE97E /* NSObject+ChangeState.h */,
 				9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */,
 				9EC07EED1E78078C006EE97E /* Tool.h */,
@@ -4260,8 +4311,10 @@
 				19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */,
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
+				193419E81E78DF2B00F22788 /* selected.caf in Resources */,
 				1953CB091E7172DB00A64B3C /* AliveListTableViewCell.xib in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
+				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
@@ -4287,6 +4340,7 @@
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
+				193419E61E78DF2B00F22788 /* bloom.caf in Resources */,
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
@@ -4418,6 +4472,7 @@
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
+				193419E41E78DF2B00F22788 /* DCPathButton.m in Sources */,
 				190F65FA1E36E73000B83ADF /* ExchangeModel.m in Sources */,
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
 				190F65F31E36E73000B83ADF /* AwardViewController.m in Sources */,
@@ -4517,6 +4572,7 @@
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
 				193419B21E76B54600F22788 /* AliveContentHeaderView.m in Sources */,
 				1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */,
+				193419E51E78DF2B00F22788 /* DCPathItemButton.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -60,6 +60,12 @@
                             <constraint firstAttribute="height" constant="62" id="rbB-q1-4Se"/>
                         </constraints>
                     </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="贴单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hps-4S-jTW">
+                        <rect key="frame" x="12" y="59" width="40" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstItem="jND-cj-8CV" firstAttribute="centerY" secondItem="Uo6-sd-BKk" secondAttribute="centerY" id="5NN-X6-1XT"/>
@@ -69,13 +75,16 @@
                     <constraint firstAttribute="trailing" secondItem="jND-cj-8CV" secondAttribute="trailing" constant="12" id="QWI-Qk-QhW"/>
                     <constraint firstItem="3qY-5g-b9E" firstAttribute="trailing" secondItem="wS4-tG-rOe" secondAttribute="trailing" id="YXy-I2-ioK"/>
                     <constraint firstItem="wS4-tG-rOe" firstAttribute="top" secondItem="Uo6-sd-BKk" secondAttribute="bottom" constant="10" id="cFj-2F-OQ2"/>
+                    <constraint firstItem="Hps-4S-jTW" firstAttribute="leading" secondItem="20x-r0-ELg" secondAttribute="leading" id="cXT-vB-QFm"/>
                     <constraint firstItem="Uo6-sd-BKk" firstAttribute="leading" secondItem="20x-r0-ELg" secondAttribute="trailing" constant="12" id="emU-GK-IvK"/>
+                    <constraint firstItem="Hps-4S-jTW" firstAttribute="top" secondItem="20x-r0-ELg" secondAttribute="bottom" constant="4" id="i1h-RG-FAG"/>
                     <constraint firstItem="wS4-tG-rOe" firstAttribute="leading" secondItem="Uo6-sd-BKk" secondAttribute="leading" id="ir3-GP-Fzk"/>
                     <constraint firstItem="Uo6-sd-BKk" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="lFE-i9-aGQ"/>
                     <constraint firstItem="3qY-5g-b9E" firstAttribute="top" secondItem="wS4-tG-rOe" secondAttribute="bottom" constant="8" id="o2r-Gj-ekm"/>
                     <constraint firstItem="20x-r0-ELg" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="oR4-4o-4Ru"/>
                     <constraint firstItem="a8V-cd-DiD" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="pmW-2M-EDl"/>
                     <constraint firstItem="a8V-cd-DiD" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="sCz-xd-KgP"/>
+                    <constraint firstItem="Hps-4S-jTW" firstAttribute="centerX" secondItem="20x-r0-ELg" secondAttribute="centerX" id="sLn-k4-qlY"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -83,6 +92,7 @@
                 <outlet property="imagesHeight" destination="rbB-q1-4Se" id="dIC-en-vRk"/>
                 <outlet property="imagesView" destination="3qY-5g-b9E" id="VcR-iF-A5a"/>
                 <outlet property="nickNameLabel" destination="Uo6-sd-BKk" id="q0T-Km-iXO"/>
+                <outlet property="tiedanLabel" destination="Hps-4S-jTW" id="Kf2-Dy-yZZ"/>
                 <outlet property="timeLabel" destination="jND-cj-8CV" id="ws0-Gb-DwU"/>
                 <outlet property="titleLabel" destination="wS4-tG-rOe" id="A5F-JG-22Z"/>
             </connections>

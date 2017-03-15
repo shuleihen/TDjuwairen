@@ -19,11 +19,13 @@
 #import "UINavigationBar+Awesome.h"
 #import "UIImage+Color.h"
 #import "MBProgressHUD.h"
+#import "DCPathButton.h"
+#import "AlivePublishViewController.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
 
-@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate>
+@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate>
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) AliveRoomLiveType listType;
@@ -37,6 +39,8 @@
 @property (nonatomic, strong) NSArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) AliveRoomMasterModel *roomMasterModel;
+
+@property (nonatomic, strong) DCPathButton *publishBtn;
 @end
 
 @implementation AliveRoomViewController
@@ -139,6 +143,52 @@
     return _contentControllers;
 }
 
+- (DCPathButton *)publishBtn {
+    if (!_publishBtn) {
+        DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"alive_publish_bg.png"]
+                                                             highlightedImage:[UIImage imageNamed:@"alive_publish_bg.png"]];
+        dcPathButton.delegate = self;
+        
+        // Configure item buttons
+        //
+        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"跟帖"
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]
+                                                     backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]];
+        
+        DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc] initWithTitle:@"话题"
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]
+                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]];
+        
+        // Add the item button into the center button
+        //
+        [dcPathButton addPathItems:@[itemButton_1,
+                                     itemButton_2
+                                     ]];
+        
+        dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
+        
+        // Change the bloom radius, default is 105.0f
+        //
+        dcPathButton.bloomRadius = 90.0f;
+        dcPathButton.bloomAngel = 60.0f;
+        
+        // Change the DCButton's center
+        //
+        dcPathButton.dcButtonCenter = CGPointMake(self.view.frame.size.width - 26 - dcPathButton.frame.size.width/2, self.view.bounds.size.height -dcPathButton.frame.size.height/2 - 50);
+        
+        // Setting the DCButton appearance
+        //
+        dcPathButton.allowSounds = YES;
+        dcPathButton.allowCenterButtonRotation = YES;
+        
+        dcPathButton.bottomViewColor = [UIColor grayColor];
+        
+        _publishBtn = dcPathButton;
+    }
+    
+    return _publishBtn;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -149,6 +199,9 @@
     self.currentPage = 1;
     self.segmentControl.selectedSegmentIndex = 0;
     [self segmentPressed:self.segmentControl];
+    
+    self.publishBtn.hidden = YES;
+    [self.view addSubview:self.publishBtn];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -185,6 +238,8 @@
     _roomMasterModel = roomMasterModel;
     
     [self.roomHeaderView setupRoomMasterModel:roomMasterModel];
+    
+    self.publishBtn.hidden = !roomMasterModel.isMaster;
 }
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {
@@ -253,6 +308,14 @@
     self.tableView.tableFooterView = self.pageViewController.view;
     
     [self.tableView reloadData];
+}
+
+#pragma mark - DCPathButtonDelegate
+- (void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex {
+    
+    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.isTiedan = (itemButtonIndex == 0)?YES:NO;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - AliveRoomLiveContentListDelegate

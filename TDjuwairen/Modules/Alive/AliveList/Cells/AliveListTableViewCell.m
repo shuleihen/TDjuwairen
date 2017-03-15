@@ -8,6 +8,7 @@
 
 #import "AliveListTableViewCell.h"
 #import "UIImageView+WebCache.h"
+#import "HexColors.h"
 
 @implementation AliveListTableViewCell
 
@@ -17,6 +18,9 @@
     
     self.avatar.layer.cornerRadius = 20.0f;
     self.avatar.clipsToBounds = YES;
+    
+    self.tiedanLabel.layer.borderWidth = 0.5f;
+    self.tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#999999"].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -41,6 +45,8 @@
     
     self.imagesView.images = aliveModel.aliveImgs;
     self.imagesHeight.constant = [AliveListTableViewCell imagesViewHeightWithImages:aliveModel.aliveImgs];
+    
+    self.tiedanLabel.hidden = (aliveModel.aliveType ==2)?NO:YES;
 }
 
 + (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel {

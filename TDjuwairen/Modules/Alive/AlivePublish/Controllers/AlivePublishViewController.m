@@ -63,6 +63,7 @@
         _stockIdTextField = [[UITextField alloc] init];
         _stockIdTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _stockIdTextField.font = [UIFont systemFontOfSize:15.0f];
+        _stockIdTextField.placeholder = @"请输入股票代码";
     }
     
     return _stockIdTextField;
@@ -235,6 +236,14 @@
 }
 
 #pragma mark - TableView
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return FLT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return FLT_MIN;
+}
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return self.isTiedan?1:0;
 }
@@ -250,8 +259,9 @@
         cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         cell.textLabel.frame = CGRectMake(15, 12, 70, 20);
+        cell.textLabel.text = @"股票代码";
         
-        self.stockIdTextField.frame = CGRectMake(75, 12, kScreenWidth-86, 20);
+        self.stockIdTextField.frame = CGRectMake(85, 12, kScreenWidth-97, 20);
         [cell.contentView addSubview:self.stockIdTextField];
     }
     
