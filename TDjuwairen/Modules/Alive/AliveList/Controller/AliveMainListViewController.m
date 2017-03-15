@@ -14,6 +14,7 @@
 #import "AlivePublishViewController.h"
 #import "LoginState.h"
 #import "LoginViewController.h"
+#import "NotificationDef.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
@@ -25,6 +26,11 @@
 @end
 
 @implementation AliveMainListViewController
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
@@ -112,12 +118,18 @@
     [self setupNavigationBar];
     [self.view addSubview:self.pageViewController.view];
     
-    self.listType = AliveAttention;
+    if (US.isLogIn) {
+        self.listType = AliveAttention;
+    } else {
+        self.listType = AliveRecommend;
+    }
     
     self.segmentControl.selectedSegmentIndex = self.listType;
     [self segmentValueChanged:self.segmentControl];
     
     [self.view addSubview:self.publishBtn];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
 }
 
 - (void)setupNavigationBar {
@@ -169,6 +181,19 @@
     aliveMasterListVC.listType = AliveMasterList;
     [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+}
+
+- (void)loginStatusChanged:(id)sender {
+    if (self.contentControllers.count) {
+        AliveListViewController *vc = self.contentControllers.firstObject;
+        [vc refreshActions];
+    }
+    
+    if (!US.isLogIn && (self.listType == AliveAttention)) {
+        self.listType = AliveRecommend;
+        self.segmentControl.selectedSegmentIndex = self.listType;
+        [self segmentValueChanged:self.segmentControl];
+    }
 }
 
 #pragma mark - DCPathButtonDelegate

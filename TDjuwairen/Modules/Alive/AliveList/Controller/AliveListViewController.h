@@ -16,4 +16,6 @@ typedef enum : NSUInteger {
 
 @interface AliveListViewController : UIViewController
 @property (nonatomic, assign) AliveListType listType;
+
+- (void)refreshActions;
 @end

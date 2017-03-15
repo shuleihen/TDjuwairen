@@ -193,13 +193,21 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_AliveAddRoomPublish parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         
-        [wself.imageArray enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL *stop){
+        for(int i=0;i<wself.imageArray.count;i++) {
+            UIImage *image = wself.imageArray[i];
             NSData *data = UIImageJPEGRepresentation(image, 1);
-            NSString *name = [wself imageNameWithIndex:idx];
+            NSString *name = [wself imageNameWithIndex:i];
             NSString *fileName = [name stringByAppendingString:@".jpg"];
             
             [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpg"];
-        }];
+        }
+//        [wself.imageArray enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL *stop){
+//            NSData *data = UIImageJPEGRepresentation(image, 1);
+//            NSString *name = [wself imageNameWithIndex:idx];
+//            NSString *fileName = [name stringByAppendingString:@".jpg"];
+//            
+//            [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpg"];
+//        }];
         
     } completion:^(id data, NSError *error) {
         wself.navigationItem.rightBarButtonItem.enabled = YES;

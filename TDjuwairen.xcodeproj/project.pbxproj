@@ -735,6 +735,7 @@
 		194F05931E2746D600C8CB8A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
 		194F05951E27496600C8CB8A /* PaySubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySubscriptionViewController.h; sourceTree = "<group>"; };
 		194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySubscriptionViewController.m; sourceTree = "<group>"; };
+		195057711E79759A0097C57A /* ErrorCodeDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ErrorCodeDefine.h; sourceTree = "<group>"; };
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
@@ -2496,6 +2497,7 @@
 			isa = PBXGroup;
 			children = (
 				1955B4021D644D9800DC102E /* NetworkDefine.h */,
+				195057711E79759A0097C57A /* ErrorCodeDefine.h */,
 				1955B4031D644D9800DC102E /* NetworkManager.h */,
 				1955B4041D644D9800DC102E /* NetworkManager.m */,
 			);
