@@ -24,6 +24,12 @@
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_mine" translatesAutoresizingMaskIntoConstraints="NO" id="cQT-a7-pHf">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                 </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggs-Qz-NoH">
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
+                                    <connections>
+                                        <action selector="avatarPressed:" destination="5Wg-Gu-mJm" eventType="touchUpInside" id="2a6-46-0MM"/>
+                                    </connections>
+                                </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="h7y-XW-mfb">
                                     <rect key="frame" x="6" y="30" width="46" height="30"/>
                                     <constraints>
@@ -59,11 +65,15 @@
                                 <constraint firstItem="gSZ-XA-zGU" firstAttribute="centerX" secondItem="4YU-ta-Cfl" secondAttribute="centerX" id="1tw-0T-vx2"/>
                                 <constraint firstItem="h7y-XW-mfb" firstAttribute="leading" secondItem="4YU-ta-Cfl" secondAttribute="leading" constant="6" id="3Z4-ac-TIM"/>
                                 <constraint firstItem="h7y-XW-mfb" firstAttribute="top" secondItem="4YU-ta-Cfl" secondAttribute="top" constant="30" id="FFl-Ut-bQj"/>
+                                <constraint firstItem="ggs-Qz-NoH" firstAttribute="leading" secondItem="4YU-ta-Cfl" secondAttribute="leading" id="GUK-UW-6fn"/>
                                 <constraint firstItem="UkR-mw-sIV" firstAttribute="centerX" secondItem="4YU-ta-Cfl" secondAttribute="centerX" id="LQE-OQ-N0R"/>
                                 <constraint firstAttribute="bottom" secondItem="cQT-a7-pHf" secondAttribute="bottom" id="Pao-7b-N3W"/>
+                                <constraint firstAttribute="trailing" secondItem="ggs-Qz-NoH" secondAttribute="trailing" id="R8c-9p-t2y"/>
                                 <constraint firstItem="cQT-a7-pHf" firstAttribute="top" secondItem="4YU-ta-Cfl" secondAttribute="top" id="m5L-Q1-QPi"/>
+                                <constraint firstItem="ggs-Qz-NoH" firstAttribute="top" secondItem="4YU-ta-Cfl" secondAttribute="top" id="nKQ-hN-6Y1"/>
                                 <constraint firstItem="cQT-a7-pHf" firstAttribute="leading" secondItem="4YU-ta-Cfl" secondAttribute="leading" id="oIa-ee-WDE"/>
                                 <constraint firstAttribute="trailing" secondItem="cQT-a7-pHf" secondAttribute="trailing" id="opU-DR-RQK"/>
+                                <constraint firstAttribute="bottom" secondItem="ggs-Qz-NoH" secondAttribute="bottom" id="td8-LG-dx5"/>
                                 <constraint firstItem="gSZ-XA-zGU" firstAttribute="top" secondItem="UkR-mw-sIV" secondAttribute="bottom" constant="8" id="uSR-LX-C4e"/>
                             </constraints>
                         </view>
@@ -369,7 +379,7 @@
     <resources>
         <image name="bg_mine" width="375" height="210"/>
         <image name="icon_attention_alive" width="26" height="25"/>
-        <image name="icon_avatar" width="70" height="70"/>
+        <image name="icon_avatar" width="40" height="40"/>
         <image name="icon_close" width="17" height="17"/>
         <image name="icon_collection" width="16" height="15"/>
         <image name="icon_comment_alive" width="14" height="14"/>

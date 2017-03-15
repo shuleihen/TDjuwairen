@@ -61,19 +61,19 @@
 
 - (DCPathButton *)publishBtn {
     if (!_publishBtn) {
-        DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"alive_publish_bg.png"]
-                                                             highlightedImage:[UIImage imageNamed:@"alive_publish_bg.png"]];
+        DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"alive_publish_normal.png"]
+                                                             highlightedImage:[UIImage imageNamed:@"alive_publish_pressed.png"]];
         dcPathButton.delegate = self;
         
         // Configure item buttons
         //
-        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"跟帖"
-                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]
-                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]];
+        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"贴单"
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
+                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
         
         DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc] initWithTitle:@"话题"
-                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]
-                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small_bg.png"]];
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
+                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
         
         // Add the item button into the center button
         //

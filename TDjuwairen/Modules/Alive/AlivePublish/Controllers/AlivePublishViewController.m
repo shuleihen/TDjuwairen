@@ -180,6 +180,7 @@
     }
     
     [self.view endEditing:YES];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
     NSDictionary *dict = @{@"alive_type": self.isTiedan?@"2":@"1",
                            @"content": self.reason,
@@ -201,6 +202,8 @@
         }];
         
     } completion:^(id data, NSError *error) {
+        wself.navigationItem.rightBarButtonItem.enabled = YES;
+        
         if (!error) {
             hud.labelText = @"提交成功";
             hud.delegate = self;

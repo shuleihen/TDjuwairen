@@ -6,12 +6,12 @@
     },
     {
       "idiom" : "universal",
-      "filename" : "alive_publish_small_bg@2x.png",
+      "filename" : "alive_publish_normal@2x.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "alive_publish_small_bg@3x.png",
+      "filename" : "alive_publish_normal@3x.png",
       "scale" : "3x"
     }
   ],

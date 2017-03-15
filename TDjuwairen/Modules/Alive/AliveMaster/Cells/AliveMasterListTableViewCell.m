@@ -9,6 +9,7 @@
 #import "AliveMasterListTableViewCell.h"
 #import "AliveMasterModel.h"
 #import "UIImageView+WebCache.h"
+#import "LoginState.h"
 
 @interface AliveMasterListTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
@@ -74,6 +75,12 @@
         [self.aAttentionButton setTitle:@"加关注" forState:UIControlStateNormal];
     }
     
+    // 自己隐藏关注按钮
+    if (US.isLogIn && [US.userId isEqualToString:aliveModel.masterId]) {
+        self.aAttentionButton.hidden = YES;
+    } else {
+        self.aAttentionButton.hidden = NO;
+    }
 }
 
 - (IBAction)attentionButtonClick:(UIButton *)sender {
