@@ -57,7 +57,7 @@
 
 #pragma mark - Action
 
-- (void)refreshActions{
+- (void)refreshActions {
     self.currentPage = 1;
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
 }
@@ -117,8 +117,9 @@
                 [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
             }
             
-        } else {
-            
+        } else if (error.code == kErrorNoLogin){
+            wself.aliveList = nil;
+            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
         }
         
     }];

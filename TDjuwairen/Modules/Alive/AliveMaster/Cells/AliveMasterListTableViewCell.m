@@ -31,6 +31,7 @@
     self.aAttentionButton.layer.masksToBounds = YES;
     self.aAttentionButton.layer.borderWidth = 1;
     self.aAttentionButton.layer.borderColor = TDThemeColor.CGColor;
+    
     self.aImageView.layer.cornerRadius = 25;
     self.aImageView.layer.masksToBounds = YES;
     self.aImageView.layer.borderWidth = 1;

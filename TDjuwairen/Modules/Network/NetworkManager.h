@@ -8,6 +8,7 @@
 
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
+#import "ErrorCodeDefine.h"
 
 @interface NetworkManager : NSObject
 - (id)initWithBaseUrl:(NSString *)baseUrl;
