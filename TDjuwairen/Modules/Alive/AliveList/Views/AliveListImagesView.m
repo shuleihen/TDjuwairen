@@ -22,7 +22,6 @@
 
 - (void)setImages:(NSArray *)images {
     _images = images;
-    
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     CGFloat height = 0.f;
@@ -44,20 +43,23 @@
     } else if (images.count > 1)  {
         int x =0,y =0,i =0;
         
+        
         for (NSString *imageUrl in images) {
             UIImageView *imageView = [[UIImageView alloc] init];
             imageView.userInteractionEnabled = YES;
-            imageView.tag = i;
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
-            [imageView addGestureRecognizer:tap];
-            [self.imageViews addObject:imageView];
             imageView.frame = CGRectMake((80+10)*x, (80+10)*y, 80, 80);
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
+            imageView.contentMode = UIViewContentModeScaleAspectFill;
+            imageView.clipsToBounds = YES;
+            [self.imageViews addObject:imageView];
             [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
             [self addSubview:imageView];
             
-            x = i%3;
-            y = i/3;
+            imageView.tag = i;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
+            [imageView addGestureRecognizer:tap];
+            
+            x = (i+1)%3;
+            y = (i+1)/3;
             i++;
         }
         
