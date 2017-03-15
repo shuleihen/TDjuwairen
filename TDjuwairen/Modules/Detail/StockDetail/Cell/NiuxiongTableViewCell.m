@@ -37,7 +37,7 @@
 }
 
 - (void)setupComment:(StockCommentModel *)comment {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:comment.userAvatar]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:comment.userAvatar] placeholderImage:TDDefaultUserAvatar];
     self.userNameLabel.text = comment.userName;
     self.contentLabel.text = comment.content;
     self.favourBtn.selected = comment.isLiked;

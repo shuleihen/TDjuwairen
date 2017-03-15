@@ -35,7 +35,7 @@
 }
 
 - (void)setupAsk:(AskModel *)ask {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:ask.userinfo_facemin]];
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:ask.userinfo_facemin] placeholderImage:TDDefaultUserAvatar];
     self.userNameLabel.text = ask.user_nickname;
     self.contentLabel.text = ask.surveyask_content;
     self.dateTimeLabel.text = ask.surveyask_addtime;
