@@ -126,16 +126,32 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
-
-    [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
-
-        if (!error) {
-        [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum+1] forState:UIControlStateNormal];
-            cell.likeBtn.selected = YES;
-        }else{
-            MBAlert(@"用户已点赞")
-        }
-    }];
+    
+    UIButton *btn = sender;
+    if (btn.selected) {
+        [manager POST:API_AliveCancelLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                cell.cellModel.likeNum--;
+                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum] forState:UIControlStateNormal];
+                cell.likeBtn.selected = NO;
+            }else{
+                MBAlert(@"用户已取消点赞")
+            }
+        }];
+    }else{
+        [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                cell.cellModel.likeNum++;
+                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum] forState:UIControlStateNormal];
+                cell.likeBtn.selected = YES;
+            }else{
+                MBAlert(@"用户已点赞")
+            }
+        }];
+    }
+   
 }
 
 

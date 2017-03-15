@@ -7,15 +7,19 @@
 //
 
 #import "AliveContentHeaderView.h"
-
+#import "UIButton+Align.h"
 
 @interface AliveContentHeaderView ()
 
 @property (strong, nonatomic) UIButton *lastSelectedBtn;
-@property (weak, nonatomic) IBOutlet UIView *selectedLineView;
+@property (strong, nonatomic) UIView *selectedLineView;
 @property (weak, nonatomic) IBOutlet UIButton *firstBtn;
 @property (weak, nonatomic) IBOutlet UIButton *secondeBtn;
 @property (weak, nonatomic) IBOutlet UIButton *threeBtn;
+@property (weak, nonatomic) IBOutlet UIView *twoLineView;
+@property (weak, nonatomic) IBOutlet UIView *threeLineView;
+@property (weak, nonatomic) IBOutlet UIView *oneLineView;
+
 
 @end
 
@@ -25,6 +29,10 @@
     [super awakeFromNib];
     
     self.lastSelectedBtn = self.firstBtn;
+    self.selectedLineView = self.oneLineView;
+    _firstBtn.hitTestEdgeInsets = UIEdgeInsetsMake(-10, -10, -10, 0);
+    _secondeBtn.hitTestEdgeInsets = UIEdgeInsetsMake(-10, 0, -10, 0);
+    _threeBtn.hitTestEdgeInsets = UIEdgeInsetsMake(-10, 0, -10, -10);
 }
 
 + (instancetype)loadAliveContentHeaderView {
@@ -43,11 +51,13 @@
 - (void)configShowUI:(NSInteger)selectedTag {
     self.lastSelectedBtn.selected = NO;
     UIButton *btn = (UIButton *)[self viewWithTag:selectedTag+100];
-    
+    UIView *lineV = (UIView *)[self viewWithTag:selectedTag+1000];
     btn.selected = YES;
     self.lastSelectedBtn = btn;
-    
-    self.selectedLineView.frame = CGRectMake(CGRectGetMinX(btn.frame), 43, CGRectGetWidth(btn.frame), 2);
+    self.selectedLineView.hidden = YES;
+    lineV.hidden = NO;
+    self.selectedLineView = lineV;
+//    self.selectedLineView.frame = CGRectMake(CGRectGetMinX(btn.frame), 43, CGRectGetWidth(btn.frame), 2);
 //    self.selectedLineView.hidden = btn.selected;
 }
 @end

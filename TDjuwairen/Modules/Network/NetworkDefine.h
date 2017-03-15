@@ -119,6 +119,7 @@
 #define API_AliveAddRoomComment     @"Room/addRoomLiveComment"
 #define API_AliveAddRoomRemark      @"Room/addRoomLiveRemark"
 #define API_AliveAddLike            @"Room/addLiveAssess"
+#define API_AliveCancelLike         @"Room/cancelLiveAssess"
 #define API_AliveAddShare           @"Room/addShareRecord"
 #define API_AliveGetMasterList      @"Room/getRoomMasters"
 #define API_AliveGetFansList        @"Room/getFansList"

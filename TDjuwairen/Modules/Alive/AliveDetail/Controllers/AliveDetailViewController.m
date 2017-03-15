@@ -403,21 +403,36 @@
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    
     NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
-    
     __weak typeof(self)wself = self;
-    [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
-
-        if (!error) {
-            wself.toolView.likeBtn.selected = YES;
-            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
-        }else{
-            MBAlert(@"用户已点赞")
+    
+    if (cell.cellModel.isLike) {
+        [manager POST:API_AliveCancelLike parameters:dict completion:^(id data, NSError *error) {
             
-        }
-
-    }];
+            if (!error) {
+                cell.cellModel.isLike = NO;
+                wself.toolView.likeBtn.selected = NO;
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+            }else{
+                MBAlert(@"用户已取消点赞")
+            }
+        }];
+    }else{
+        
+        [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                cell.cellModel.isLike = YES;
+                wself.toolView.likeBtn.selected = YES;
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+            }else{
+                MBAlert(@"用户已点赞")
+            }
+            
+        }];
+    }
+    
+    
 }
 
 
