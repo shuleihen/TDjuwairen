@@ -180,9 +180,14 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
 {
-    SQCommentCellViewModel *topicViewModel = self.topicViewModel.commentCellViewModels[indexPath.row];
+    if ([self.identifoer isEqualToString:@"zhibo"]) {
+       SQCommentCellViewModel *topicViewModel = self.topicViewModel.roomCommentCellViewModels[indexPath.row];
+        return topicViewModel.cellHeight;
+    }else{
+        SQCommentCellViewModel *topicViewModel = self.topicViewModel.commentCellViewModels[indexPath.row];
+        return topicViewModel.cellHeight;
+    }
     
-    return topicViewModel.cellHeight;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -196,22 +201,31 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     
-    //    if (self.delegate && [self.delegate respondsToSelector:@selector(cell:didReplyClicked:)]) {
-    //        [self.delegate cell:self didReplyClicked:((SQCommentCellViewModel *)self.topicViewModel.commentCellViewModels[indexPath.row]).commentModel];
-    //    }
+//        if (self.delegate && [self.delegate respondsToSelector:@selector(cell:didReplyClicked:)]) {
+//            [self.delegate cell:self didReplyClicked:((SQCommentCellViewModel *)self.topicViewModel.commentCellViewModels[indexPath.row]).commentModel];
+//        }
     
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return self.topicViewModel.commentCellViewModels.count;;
+    if ([self.identifoer isEqualToString:@"zhibo"]) {
+        return self.topicViewModel.roomCommentCellViewModels.count;
+    }
+    
+    return self.topicViewModel.commentCellViewModels.count;
 }
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SQCommentTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"comment"];
     
-    cell.commentCellVM = self.topicViewModel.commentCellViewModels[indexPath.row];
+    if ([self.identifoer isEqualToString:@"zhibo"]) {
+     cell.commentCellVM = self.topicViewModel.roomCommentCellViewModels[indexPath.row];
+    }else{
+        cell.commentCellVM = self.topicViewModel.commentCellViewModels[indexPath.row];
+    }
+    
     cell.delegate = self;
     return cell;
 }

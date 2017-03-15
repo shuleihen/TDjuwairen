@@ -17,6 +17,7 @@
 #import "AliveListBottomTableViewCell.h"
 #import "AliveCommentViewController.h"
 #import "AliveRoomViewController.h"
+#import "ShareHandler.h"
 
 @interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -97,7 +98,7 @@
 {
     if (!_pinglunVC) {
         _pinglunVC = [[AlivePingLunViewController alloc] init];
-        
+        _pinglunVC.superVC = self;
         _pinglunVC.detail_id = self.alive_ID;
         _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.pinglunVC.tableView.frame.size.height-44);
         _pinglunVC.tableView.scrollEnabled = NO;
@@ -110,7 +111,7 @@
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             weakSelf.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
+//            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     };
     
@@ -136,7 +137,7 @@
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
             [weakSelf.toolView.likeBtn setTitle:[NSString stringWithFormat:@"%ld", dataCount] forState:UIControlStateNormal];
             
-            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
+//            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     }
     return  _dianZanVC;
@@ -157,7 +158,7 @@
                         weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
                         weakSelf.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
                         [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
+//            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     }
     return _shareVC;
@@ -170,6 +171,7 @@
     
     [self setUpUICommon];
     [self setSelectedPage:0];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadReplayClick) name:@"KZHIBoRefresh" object:nil];
 }
 
 
@@ -231,7 +233,7 @@
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
-    
+//        [self.tableView reloadData];
     [self.sectionHeaderView configShowUI:selectedPage];
 }
 
@@ -247,6 +249,8 @@
             
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
             [self.tableView reloadData];
+//            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
+            self.selectedPage = 0;
             [_toolView setupAliveModel:_aliveInfoModel];
             
         } else {
@@ -256,7 +260,9 @@
     }];
 }
 
-
+- (void)loadReplayClick{
+    [self.tableView reloadData];
+}
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 2;
@@ -370,7 +376,7 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
-    
+//    ShareHandler shareWithTitle:@"xx" image: url:<#(NSURL *)#>
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {

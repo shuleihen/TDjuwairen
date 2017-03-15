@@ -45,7 +45,7 @@
     contentLabelH = [self.contentAttributedString boundingRectWithSize:CGSizeMake(contentLabelW, MAXFLOAT)  options:NSStringDrawingUsesLineFragmentOrigin context:nil].size.height;
     */
     UIFont *contentLabelFont = [UIFont systemFontOfSize:14];
-    contentLabelH = [commentModel.content boundingRectWithSize:CGSizeMake(contentLabelW, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentLabelFont} context:nil].size.height;
+    contentLabelH = [[Tool isStringNull:commentModel.content]?commentModel.roomremark_text:commentModel.content boundingRectWithSize:CGSizeMake(contentLabelW, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:contentLabelFont} context:nil].size.height;
     
     self.contentLabelF = CGRectMake(contentLabelX, contentLabelY, contentLabelW, contentLabelH);
     

@@ -17,4 +17,5 @@ typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 @property (nonatomic, copy) NSString *detail_id;
 
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
+@property (nonatomic, strong) id superVC;
 @end

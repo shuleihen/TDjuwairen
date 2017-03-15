@@ -32,6 +32,16 @@
         _user_icon = dict[@"user_facesmall"];
         _roomcomment_text = dict[@"roomcomment_text"];
         _roomcomment_ptime = dict[@"roomcomment_ptime"];
+        _roomCommentId = dict[@"roomcomment_id"];
+        NSArray *roomList = dict[@"remark_list"];
+        NSMutableArray *roomArray = [NSMutableArray arrayWithCapacity:[roomList count]];
+        
+        for (NSDictionary *dic in roomList) {
+            SQCommentModel *sub = [[SQCommentModel alloc] initWithDict:dic];
+            [roomArray addObject:sub];
+        }
+        _roomCommentModels = roomArray;
+        
         
         NSArray *list = dict[@"remark"];
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:[list count]];

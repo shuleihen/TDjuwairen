@@ -29,8 +29,10 @@
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
 
+
         NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
         forKey: UIPageViewControllerOptionSpineLocationKey];
+
         _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
         _pageViewController.dataSource = self;
         _pageViewController.delegate = self;

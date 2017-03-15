@@ -22,4 +22,6 @@
 @property(nonatomic, assign) CGRect replyButtonF;
 @property(nonatomic, assign) CGFloat cellHeight;
 
+//** 直播正文回复*/
+@property(nonatomic, strong) NSArray *roomCommentCellViewModels;
 @end

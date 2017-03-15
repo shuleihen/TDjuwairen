@@ -23,5 +23,11 @@
 
 @property(nonatomic, copy) NSString *all;
 
+//** 直播正文回复详情*/
+@property (nonatomic, copy) NSString *roomremark_text;
+
 - (id)initWithDict:(NSDictionary *)dict;
+
+
+
 @end
