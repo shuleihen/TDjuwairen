@@ -21,6 +21,7 @@
 #import "MBProgressHUD.h"
 #import "DCPathButton.h"
 #import "AlivePublishViewController.h"
+#import "NotificationDef.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
@@ -232,6 +233,10 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSexNotifi:) name:kUpdateAliveSexNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateCityNotifi:) name:kUpdateAliveCityNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateIntroNotifi:) name:kUpdateAliveIntroNotification object:nil];
 }
 
 - (void)setRoomMasterModel:(AliveRoomMasterModel *)roomMasterModel {
@@ -308,6 +313,46 @@
     self.tableView.tableFooterView = self.pageViewController.view;
     
     [self.tableView reloadData];
+}
+
+#pragma mark - Notifi
+- (void)updateSexNotifi:(NSNotification *)notifi {
+    NSString *sex = notifi.object;
+    if (!sex.length) {
+        return;
+    }
+    
+    NSString *sexString;
+    if ([sex isEqualToString:@"male"]) {
+        sexString = @"男";
+    } else if ([sex isEqualToString:@"female"]) {
+        sexString = @"女";
+    }
+    
+    self.roomMasterModel.sex = sexString;
+    [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
+}
+
+- (void)updateCityNotifi:(NSNotification *)notifi {
+    
+    NSString *city = notifi.object;
+    if (!city.length) {
+        return;
+    }
+    
+    self.roomMasterModel.city = city;
+    [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
+}
+
+- (void)updateIntroNotifi:(NSNotification *)notifi {
+    
+    NSString *intro = notifi.object;
+    if (!intro.length) {
+        return;
+    }
+    
+    self.roomMasterModel.roomInfo = intro;
+    [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
 }
 
 #pragma mark - DCPathButtonDelegate

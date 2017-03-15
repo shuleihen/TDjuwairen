@@ -73,9 +73,9 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_sex-women" highlightedImage="ico_sex-man" translatesAutoresizingMaskIntoConstraints="NO" id="MhS-qV-8tH">
-                    <rect key="frame" x="202" y="106" width="14" height="14"/>
+                    <rect key="frame" x="195" y="99" width="14" height="14"/>
                     <constraints>
-                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="14" id="Se7-Vb-V5i"/>
+                        <constraint firstAttribute="width" constant="14" id="Se7-Vb-V5i"/>
                         <constraint firstAttribute="width" secondItem="MhS-qV-8tH" secondAttribute="height" multiplier="1:1" id="vtg-k3-0gP"/>
                     </constraints>
                 </imageView>
@@ -187,7 +187,7 @@
                 <constraint firstItem="Ggt-Cd-nDT" firstAttribute="centerX" secondItem="kdO-EP-rtC" secondAttribute="centerX" id="SFR-A7-DO5"/>
                 <constraint firstItem="6yW-MU-bzO" firstAttribute="leading" secondItem="kdO-EP-rtC" secondAttribute="leading" id="SIZ-Zg-V9Y"/>
                 <constraint firstAttribute="trailing" secondItem="6yW-MU-bzO" secondAttribute="trailing" id="SXc-Yp-tFx"/>
-                <constraint firstItem="MhS-qV-8tH" firstAttribute="bottom" secondItem="hSC-04-36v" secondAttribute="bottom" constant="7" id="VhB-Mw-xhf"/>
+                <constraint firstItem="MhS-qV-8tH" firstAttribute="bottom" secondItem="hSC-04-36v" secondAttribute="bottom" id="VhB-Mw-xhf"/>
                 <constraint firstItem="ROj-Gu-0qP" firstAttribute="top" secondItem="hSC-04-36v" secondAttribute="bottom" constant="12" id="X7F-2T-7hd"/>
                 <constraint firstItem="bW2-Cl-Jl1" firstAttribute="top" secondItem="5we-vo-SVx" secondAttribute="bottom" constant="24" id="YVn-dl-tgi"/>
                 <constraint firstItem="NCN-LZ-7E9" firstAttribute="leading" secondItem="hSC-04-36v" secondAttribute="trailing" constant="50" id="ZKL-87-hrk"/>
@@ -201,7 +201,7 @@
                 <constraint firstItem="hSC-04-36v" firstAttribute="leading" secondItem="bW2-Cl-Jl1" secondAttribute="trailing" constant="50" id="nDO-A5-bJd"/>
                 <constraint firstItem="5we-vo-SVx" firstAttribute="leading" secondItem="kdO-EP-rtC" secondAttribute="leading" id="nb7-LR-ciA"/>
                 <constraint firstItem="8el-BF-Y7b" firstAttribute="leading" secondItem="ROj-Gu-0qP" secondAttribute="trailing" constant="5" id="nhD-3S-sJD"/>
-                <constraint firstItem="MhS-qV-8tH" firstAttribute="trailing" secondItem="hSC-04-36v" secondAttribute="trailing" constant="7" id="qJS-aX-mq4"/>
+                <constraint firstItem="MhS-qV-8tH" firstAttribute="trailing" secondItem="hSC-04-36v" secondAttribute="trailing" id="qJS-aX-mq4"/>
                 <constraint firstItem="hSC-04-36v" firstAttribute="centerX" secondItem="kdO-EP-rtC" secondAttribute="centerX" id="utN-Xd-lSy"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
@@ -230,7 +230,7 @@
         <image name="bg_alive" width="375" height="210"/>
         <image name="ico_sex-man" width="14" height="14"/>
         <image name="ico_sex-women" width="14" height="14"/>
-        <image name="icon_avatar" width="70" height="70"/>
-        <image name="nav_backwhite" width="11" height="20"/>
+        <image name="icon_avatar" width="40" height="40"/>
+        <image name="nav_backwhite" width="9" height="19"/>
     </resources>
 </document>

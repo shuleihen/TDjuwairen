@@ -101,7 +101,7 @@
             weakSelf.page++;
             [weakSelf.tableView reloadData];
             
-            
+            weakSelf.navigationItem.rightBarButtonItem.enabled = weakSelf.items.count?YES:NO;
         } else {
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
