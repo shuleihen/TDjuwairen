@@ -22,9 +22,9 @@
 
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
-
+        
         NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
-        forKey: UIPageViewControllerOptionSpineLocationKey];
+                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
         _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
         _pageViewController.dataSource = self;
         _pageViewController.delegate = self;
@@ -99,7 +99,7 @@
 
 - (void)segmentValueChanged:(UISegmentedControl *)segment {
     NSInteger index = segment.selectedSegmentIndex;
-
+    
     if (index>=0 && index<self.contentControllers.count) {
         AliveListViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
