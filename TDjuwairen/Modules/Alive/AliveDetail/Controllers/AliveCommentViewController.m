@@ -84,13 +84,16 @@
                            @"alive_type" :SafeValue(_alive_type),
                            @"content":SafeValue(_commentText)};
  
-#define KnotifierGoPingLun @"KnotifierGoPingLun"
     __weak typeof(self)wSelf = self;
     [manager POST:API_AliveAddRoomComment parameters:dict completion:^(id data, NSError *error) {
         
         if (!error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoPingLun object:nil];
             [wSelf bachAction:wSelf.button_send];
+            
+            if (wSelf.commentBlock) {
+                wSelf.commentBlock();
+            }
         }
         
     }];

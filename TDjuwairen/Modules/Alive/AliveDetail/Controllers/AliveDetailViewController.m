@@ -198,7 +198,7 @@
     
     _selectedPage = selectedPage;
     
-#define KnotifierGoPingLun @"KnotifierGoPingLun"
+
     switch (selectedPage) {
         case 0:
         {

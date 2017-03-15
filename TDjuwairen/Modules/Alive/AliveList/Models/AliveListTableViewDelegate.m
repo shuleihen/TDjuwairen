@@ -114,6 +114,10 @@
     commVc.alive_ID = SafeValue(cell.cellModel.aliveId);
     commVc.alive_type = [NSString stringWithFormat:@"%ld",cell.cellModel.aliveType];
     commVc.hidesBottomBarWhenPushed = YES;
+    
+    commVc.commentBlock = ^(){
+        [cell.commentBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.commentNum+1] forState:UIControlStateNormal];
+    };
     [self.viewController.navigationController pushViewController:commVc animated:YES];
 }
 

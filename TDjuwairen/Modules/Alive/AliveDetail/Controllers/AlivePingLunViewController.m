@@ -69,7 +69,7 @@
 
 - (void)initValue
 {
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPingLunSource) name:@"KnotifierGoPingLun" object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPingLunSource) name:KnotifierGoPingLun object:nil];
 }
 
 - (void)initViews

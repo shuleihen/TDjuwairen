@@ -10,7 +10,10 @@
 
 @interface AliveCommentViewController : UIViewController
 
+typedef void(^RefreshCommentBlock)();
+
 @property (nonatomic, copy) NSString *alive_ID;
 @property (nonatomic, copy) NSString *alive_type;
+@property (nonatomic, copy) RefreshCommentBlock commentBlock;
 
 @end
