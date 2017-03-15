@@ -397,6 +397,7 @@
     commVC.alive_ID = _alive_ID;
     commVC.alive_type = _alive_type;
     [self.navigationController pushViewController:commVC animated:YES];
+
 }
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
@@ -407,8 +408,9 @@
     
     __weak typeof(self)wself = self;
     [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
-#define KnotifierGoAddLike @"KnotifierGoAddLike"
+
         if (!error) {
+            wself.toolView.likeBtn.selected = YES;
             [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
         }else{
             MBAlert(@"用户已点赞")
