@@ -12,6 +12,8 @@
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
+#import "ShareHandler.h"
+#import "NetworkManager.h"
 
 
 #define kAliveListCellToolHeight 37
@@ -31,6 +33,7 @@
 
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, strong) NSArray *itemList;
+
 @end
 
 @implementation AliveListTableViewDelegate
@@ -96,17 +99,39 @@
 
 #pragma mark - AliveListBottomTableCellDelegate 
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender {
-    
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
+{
+    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
+        if (state) {
+            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.shareNum+1] forState:UIControlStateNormal];
+        }
+    }];
+}
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
+{
 }
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender {
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
+{
+    NetworkManager *manager = [[NetworkManager alloc] init];
     
+    NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
+    
+    __weak typeof(self)wself = self;
+    [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
+#define KnotifierGoAddLike @"KnotifierGoAddLike"
+        if (!error) {
+        [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum+1] forState:UIControlStateNormal];
+        }else{
+            MBAlert(@"用户已点赞")
+            
+        }
+        
+    }];
 }
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender {
-    
-}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -142,6 +167,7 @@
         return cell;
     } else {
         AliveListBottomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListBottomTableViewCellID"];
+        cell.delegate = self;
         
         return cell;
     }

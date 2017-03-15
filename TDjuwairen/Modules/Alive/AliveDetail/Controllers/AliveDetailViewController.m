@@ -381,6 +381,7 @@
     __weak typeof(self)weakSelf = self;
     [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
+
             
             UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
             [btn setTitle:[NSString stringWithFormat:@"分享 %ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
@@ -408,8 +409,11 @@
 #define KnotifierGoAddLike @"KnotifierGoAddLike"
         if (!error) {
             [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+        }else{
+            MBAlert(@"用户已点赞")
             
         }
+
     }];
 }
 

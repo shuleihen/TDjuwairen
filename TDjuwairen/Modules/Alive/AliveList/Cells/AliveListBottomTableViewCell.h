@@ -22,5 +22,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *likeBtn;
 @property (weak, nonatomic) id<AliveListBottomTableCellDelegate> delegate;
 
+@property (nonatomic, strong) AliveListModel *cellModel;
+
 - (void)setupAliveModel:(AliveListModel *)aliveModel;
 @end

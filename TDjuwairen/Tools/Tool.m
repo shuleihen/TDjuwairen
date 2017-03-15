@@ -8,6 +8,7 @@
 
 #import "Tool.h"
 #import "NSObject+ChangeState.h"
+#import "MBProgressHUD.h"
 @implementation Tool
 
 
@@ -626,6 +627,16 @@ NSString *SafeValueTwoZero(NSString *value){
     
 }
 
++ (void)alertWithTitle:(NSString *)title{
+    UIWindow *window = [UIApplication sharedApplication].keyWindow;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+    hud.mode = MBProgressHUDModeText;
+    hud.animationType = MBProgressHUDAnimationZoomIn;
+    hud.labelText = title;
+    hud.removeFromSuperViewOnHide = YES;
+    [hud hide:YES afterDelay:0.4];
+}
+
 #pragma mark --- 判断时间
 +(BOOL)doCheckOutRangeTime:(NSString*)beginstr
                  andEndStr:(NSString*)endTimeStr{
@@ -649,4 +660,7 @@ NSString *SafeValueTwoZero(NSString *value){
     }
     
 }
+
+
 @end
+
