@@ -141,15 +141,15 @@
     } else if ((indexPath.section == 1) &&
                (indexPath.row == 1)) {
         // 性别
-        cell.detailTextLabel.text = self.masterModel.sex?:@"未选择";
+        cell.detailTextLabel.text = self.masterModel.sex.length?self.masterModel.sex:@"未选择";
     } else if ((indexPath.section == 1) &&
                (indexPath.row == 2)) {
         // 所在城市
-        cell.detailTextLabel.text = self.masterModel.city?:@"省 市";
+        cell.detailTextLabel.text = self.masterModel.city.length?self.masterModel.city:@"省 市";
     }else if ((indexPath.section == 2) &&
               (indexPath.row == 0)) {
         // 直播间介绍
-        cell.detailTextLabel.text = self.masterModel.roomInfo?:@"很懒哦，一句介绍都木有";
+        cell.detailTextLabel.text = self.masterModel.roomInfo.length?self.masterModel.roomInfo:@"很懒哦，一句介绍都木有";
     }
 }
 
