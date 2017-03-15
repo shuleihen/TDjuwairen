@@ -145,13 +145,15 @@
     }
 }
 
-- (NSString *)imageFileNameWithIndex:(NSInteger)index {
+- (NSString *)imageNameWithIndex:(NSInteger)index {
     
     NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
     formatter.dateFormat = @"yyyyMMddHHmmss";
     NSString *str = [formatter stringFromDate:[NSDate date]];
+
+//    int random = arc4random() % 100;
     
-    NSString *fileName = [NSString stringWithFormat:@"%@%ld.png", str,(long)index];
+    NSString *fileName = [NSString stringWithFormat:@"%@_%@_%ld", US.userId, str, (long)index];
     return fileName;
 }
 
@@ -194,9 +196,10 @@
         
         [wself.imageArray enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL *stop){
             NSData *data = UIImageJPEGRepresentation(image, 1);
-            NSString *fileName = [wself imageFileNameWithIndex:idx];
+            NSString *name = [wself imageNameWithIndex:idx];
+            NSString *fileName = [name stringByAppendingString:@".png"];
             
-            [formData appendPartWithFileData:data name:US.userId fileName:fileName mimeType:@"image/png"];
+            [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/png"];
         }];
         
     } completion:^(id data, NSError *error) {
