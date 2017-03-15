@@ -376,7 +376,7 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
-//    ShareHandler shareWithTitle:@"xx" image: url:<#(NSURL *)#>
+    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl)];
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {

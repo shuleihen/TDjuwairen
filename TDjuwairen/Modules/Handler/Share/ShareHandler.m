@@ -12,13 +12,13 @@
 #import "MBProgressHUD.h"
 
 @implementation ShareHandler
-+ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSURL *)url  {
++ (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url  {
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    NSArray *images;
-    if (image) {
-        images = @[image];
-    }
-    [shareParams SSDKSetupShareParamsByText:nil images:images url:url title:title type:SSDKContentTypeAuto];
+//    NSArray *images;
+//    if (image) {
+//        images = @[image];
+//    }
+    [shareParams SSDKSetupShareParamsByText:nil images:images url:[NSURL URLWithString:SafeValue(url)] title:title type:SSDKContentTypeAuto];
     
     [ShareSDK showShareActionSheet:nil
                              items:nil

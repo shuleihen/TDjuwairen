@@ -23,6 +23,7 @@
         self.isLike = [dict[@"alive_has_assess"] boolValue];
         self.likeNum = [dict[@"alive_assess_num"] integerValue];
         self.shareNum = [dict[@"alive_share_num"] integerValue];
+        self.shareUrl = SafeValue(dict[@"alive_share_url"]);
     }
     return self;
 }
