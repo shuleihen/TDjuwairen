@@ -47,16 +47,16 @@
         for (NSString *imageUrl in images) {
             UIImageView *imageView = [[UIImageView alloc] init];
             imageView.userInteractionEnabled = YES;
-            imageView.tag = i;
-            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
-            [imageView addGestureRecognizer:tap];
+            imageView.frame = CGRectMake((80+10)*x, (80+10)*y, 80, 80);
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.clipsToBounds = YES;
             [self.imageViews addObject:imageView];
-            imageView.frame = CGRectMake((80+10)*x, (80+10)*y, 80, 80);
-            imageView.contentMode = UIViewContentModeScaleAspectFit;
             [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
             [self addSubview:imageView];
+            
+            imageView.tag = i;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
+            [imageView addGestureRecognizer:tap];
             
             x = (i+1)%3;
             y = (i+1)/3;
