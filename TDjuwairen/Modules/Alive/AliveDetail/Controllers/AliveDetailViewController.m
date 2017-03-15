@@ -17,6 +17,7 @@
 #import "AliveListBottomTableViewCell.h"
 #import "AliveCommentViewController.h"
 #import "AliveRoomViewController.h"
+#import "ShareHandler.h"
 
 @interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -375,7 +376,7 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
-    
+//    ShareHandler shareWithTitle:@"xx" image: url:<#(NSURL *)#>
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {

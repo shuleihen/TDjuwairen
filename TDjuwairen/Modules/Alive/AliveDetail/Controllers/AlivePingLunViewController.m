@@ -62,8 +62,9 @@
     
     self.page = 1;
 //    [self queryGuessComment];
-    [self initViews];
+    
     [self initValue];
+    [self initViews];
 }
 
 - (void)initValue
@@ -93,7 +94,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [super viewDidDisappear:animated];
-    [[NSNotificationCenter defaultCenter]removeObserver:self];
+//    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 - (void)queryGuessComment {
