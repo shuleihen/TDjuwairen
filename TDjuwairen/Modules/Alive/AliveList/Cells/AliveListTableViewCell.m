@@ -20,7 +20,7 @@
     self.avatar.clipsToBounds = YES;
     
     self.tiedanLabel.layer.borderWidth = 0.5f;
-    self.tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#999999"].CGColor;
+    self.tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
