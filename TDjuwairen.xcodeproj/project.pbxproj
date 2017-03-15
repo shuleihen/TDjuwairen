@@ -75,6 +75,7 @@
 		193419B61E76B84B00F22788 /* AliveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B51E76B84B00F22788 /* AliveRoomViewController.m */; };
 		193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419C21E77945B00F22788 /* AliveRoomLiveViewController.m */; };
 		193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */; };
+		193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419D61E782C9B00F22788 /* AliveMainListViewController.m */; };
 		19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */; };
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
@@ -636,6 +637,8 @@
 		193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliveListTableViewDelegate.h; sourceTree = "<group>"; };
 		193419D21E77F58F00F22788 /* UINavigationBar+Awesome.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UINavigationBar+Awesome.h"; sourceTree = "<group>"; };
 		193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UINavigationBar+Awesome.m"; sourceTree = "<group>"; };
+		193419D51E782C9B00F22788 /* AliveMainListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMainListViewController.h; sourceTree = "<group>"; };
+		193419D61E782C9B00F22788 /* AliveMainListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMainListViewController.m; sourceTree = "<group>"; };
 		19347E4E1E0E3E5200E651B5 /* StockGuessListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessListCell.h; sourceTree = "<group>"; };
 		19347E4F1E0E3E5200E651B5 /* StockGuessListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessListCell.m; sourceTree = "<group>"; };
 		19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockGuessListCell.xib; sourceTree = "<group>"; };
@@ -2242,8 +2245,10 @@
 		1953CAF71E7172DB00A64B3C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				9E0AC8701E78D60000D05668 /* AliveMainListViewController.h */,
-				9E0AC8711E78D60000D05668 /* AliveMainListViewController.m */,
+
+				193419D51E782C9B00F22788 /* AliveMainListViewController.h */,
+				193419D61E782C9B00F22788 /* AliveMainListViewController.m */,
+
 				1953CAF81E7172DB00A64B3C /* AliveListViewController.h */,
 				1953CAF91E7172DB00A64B3C /* AliveListViewController.m */,
 			);
@@ -4369,7 +4374,10 @@
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
-				9E0AC8721E78D60000D05668 /* AliveMainListViewController.m in Sources */,
+
+
+				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
+
 				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
