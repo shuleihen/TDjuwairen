@@ -8,7 +8,7 @@
 
 #import "ImagePickerHandler.h"
 #import "ELCImagePickerController.h"
-
+#import "UIImage+Resize.h"
 
 @interface ImagePickerHandler () <ELCImagePickerControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, weak) UIViewController *controller;
@@ -76,9 +76,9 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    NSData *data = UIImageJPEGRepresentation(image, 0.5);
+    NSData *data = UIImageJPEGRepresentation(image, 0.75);
     UIImage *reSizeImg = [UIImage imageWithData:data];
-    
+
     if (self.delegate && [self.delegate respondsToSelector:@selector(imagePickerHanderl:didFinishPickingImages:)]) {
         [self.delegate imagePickerHanderl:self didFinishPickingImages:@[reSizeImg]];
     }
