@@ -150,4 +150,6 @@ NSString *SafeValueTwoZero(NSString *value);
 #pragma mark --- 判断时间
 +(BOOL)doCheckOutRangeTime:(NSString*)beginstr
                  andEndStr:(NSString*)endTimeStr;
+
++ (void)alertWithTitle:(NSString *)title;
 @end

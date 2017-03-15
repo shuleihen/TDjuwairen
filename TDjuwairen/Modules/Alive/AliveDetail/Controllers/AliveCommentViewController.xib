@@ -80,7 +80,7 @@
                     </state>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Zkm-2X-Ofh">
-                    <rect key="frame" x="10" y="31" width="11" height="22"/>
+                    <rect key="frame" x="20" y="31" width="9" height="22"/>
                     <state key="normal" image="nav_back">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
@@ -106,15 +106,15 @@
                 <constraint firstItem="yW9-7F-3M7" firstAttribute="top" secondItem="g6R-Th-ipE" secondAttribute="bottom" constant="18" id="bN5-jL-t7r"/>
                 <constraint firstAttribute="trailing" secondItem="uip-J3-4Ww" secondAttribute="trailing" id="gYr-AY-5Pn"/>
                 <constraint firstAttribute="trailing" secondItem="CYE-3i-xdd" secondAttribute="trailing" constant="20" id="n3u-aM-gTA"/>
-                <constraint firstItem="Zkm-2X-Ofh" firstAttribute="leading" secondItem="ZAN-i3-8uV" secondAttribute="leading" constant="10" id="odi-JG-eGr"/>
+                <constraint firstItem="Zkm-2X-Ofh" firstAttribute="leading" secondItem="ZAN-i3-8uV" secondAttribute="leading" constant="20" id="odi-JG-eGr"/>
                 <constraint firstItem="g6R-Th-ipE" firstAttribute="leading" secondItem="ZAN-i3-8uV" secondAttribute="leading" id="qwW-v8-N8g"/>
                 <constraint firstItem="yW9-7F-3M7" firstAttribute="leading" secondItem="ZAN-i3-8uV" secondAttribute="leading" constant="22" id="sMR-Ou-Gtu"/>
                 <constraint firstItem="6yN-Fd-Lyb" firstAttribute="centerX" secondItem="ZAN-i3-8uV" secondAttribute="centerX" id="xX8-J9-1gn"/>
             </constraints>
-            <point key="canvasLocation" x="-90" y="-312"/>
+            <point key="canvasLocation" x="13" y="-713"/>
         </view>
     </objects>
     <resources>
-        <image name="nav_back" width="11" height="20"/>
+        <image name="nav_back" width="9" height="19"/>
     </resources>
 </document>

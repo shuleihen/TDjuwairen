@@ -51,7 +51,7 @@
     NSLog(@"HomeDirectory = %@",NSHomeDirectory());
 #endif
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    
+    self.window.backgroundColor = [UIColor whiteColor];
     [self setupUICommon];
     [self setupURLCacheSize];
     [self setupShareSDK];

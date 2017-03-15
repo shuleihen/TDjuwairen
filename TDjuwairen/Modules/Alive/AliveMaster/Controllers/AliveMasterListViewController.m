@@ -79,7 +79,7 @@
     self.aliveArr = [NSArray array];
     [self refreshActions];
     
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick) name:@"KnotifierGoAddLike" object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick) name:KnotifierGoAddLike object:nil];
 }
 - (void)refreshAddLick{
     [self requestDataWithPage:AliveDianZanList];

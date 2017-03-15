@@ -12,6 +12,9 @@
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
+#import "ShareHandler.h"
+#import "NetworkManager.h"
+#import "AliveCommentViewController.h"
 
 
 #define kAliveListCellToolHeight 37
@@ -31,6 +34,7 @@
 
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, strong) NSArray *itemList;
+
 @end
 
 @implementation AliveListTableViewDelegate
@@ -96,17 +100,62 @@
 
 #pragma mark - AliveListBottomTableCellDelegate 
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender {
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
+{
+    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
+        if (state) {
+            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.shareNum+1] forState:UIControlStateNormal];
+        }
+    }];
+}
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
+{
+    AliveCommentViewController * commVc = [AliveCommentViewController new];
+    commVc.alive_ID = SafeValue(cell.cellModel.aliveId);
+    commVc.alive_type = [NSString stringWithFormat:@"%ld",cell.cellModel.aliveType];
+    commVc.hidesBottomBarWhenPushed = YES;
     
+    commVc.commentBlock = ^(){
+        [cell.commentBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.commentNum+1] forState:UIControlStateNormal];
+    };
+    [self.viewController.navigationController pushViewController:commVc animated:YES];
 }
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender {
+- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
+{
+    NetworkManager *manager = [[NetworkManager alloc] init];
     
+    NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
+    
+    UIButton *btn = sender;
+    if (btn.selected) {
+        [manager POST:API_AliveCancelLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                cell.cellModel.likeNum--;
+                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum] forState:UIControlStateNormal];
+                cell.likeBtn.selected = NO;
+            }else{
+                MBAlert(@"用户已取消点赞")
+            }
+        }];
+    }else{
+        [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                cell.cellModel.likeNum++;
+                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum] forState:UIControlStateNormal];
+                cell.likeBtn.selected = YES;
+            }else{
+                MBAlert(@"用户已点赞")
+            }
+        }];
+    }
+   
 }
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender {
-    
-}
+
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -142,6 +191,7 @@
         return cell;
     } else {
         AliveListBottomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListBottomTableViewCellID"];
+        cell.delegate = self;
         
         return cell;
     }
@@ -169,7 +219,6 @@
     if (model.aliveId.length <= 0) {
         return;
     }
-    
     AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
     vc.alive_ID = model.aliveId;
     vc.alive_type = (model.aliveType==1)?@"1":@"2";

@@ -101,6 +101,7 @@
         _pinglunVC = [[AlivePingLunViewController alloc] init];
         _pinglunVC.superVC = self;
         _pinglunVC.detail_id = self.alive_ID;
+        _pinglunVC.detail_type = self.alive_type;
         _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.pinglunVC.tableView.frame.size.height-44);
         _pinglunVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
@@ -197,7 +198,7 @@
     
     _selectedPage = selectedPage;
     
-#define KnotifierGoPingLun @"KnotifierGoPingLun"
+
     switch (selectedPage) {
         case 0:
         {
@@ -381,6 +382,7 @@
     __weak typeof(self)weakSelf = self;
     [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
+
             
             UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
             [btn setTitle:[NSString stringWithFormat:@"分享 %ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
@@ -395,22 +397,42 @@
     commVC.alive_ID = _alive_ID;
     commVC.alive_type = _alive_type;
     [self.navigationController pushViewController:commVC animated:YES];
+
 }
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
 {
     NetworkManager *manager = [[NetworkManager alloc] init];
-    
     NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
-    
     __weak typeof(self)wself = self;
-    [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
-#define KnotifierGoAddLike @"KnotifierGoAddLike"
-        if (!error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+    
+    if (cell.cellModel.isLike) {
+        [manager POST:API_AliveCancelLike parameters:dict completion:^(id data, NSError *error) {
             
-        }
-    }];
+            if (!error) {
+                cell.cellModel.isLike = NO;
+                wself.toolView.likeBtn.selected = NO;
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+            }else{
+                MBAlert(@"用户已取消点赞")
+            }
+        }];
+    }else{
+        
+        [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                cell.cellModel.isLike = YES;
+                wself.toolView.likeBtn.selected = YES;
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+            }else{
+                MBAlert(@"用户已点赞")
+            }
+            
+        }];
+    }
+    
+    
 }
 
 
