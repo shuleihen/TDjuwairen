@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="143"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="142"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="142.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a8V-cd-DiD">
@@ -61,9 +61,12 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="贴单" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hps-4S-jTW">
-                        <rect key="frame" x="12" y="59" width="40" height="17"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <rect key="frame" x="16" y="59" width="32" height="14.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="32" id="dO0-cx-jMH"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -75,7 +78,6 @@
                     <constraint firstAttribute="trailing" secondItem="jND-cj-8CV" secondAttribute="trailing" constant="12" id="QWI-Qk-QhW"/>
                     <constraint firstItem="3qY-5g-b9E" firstAttribute="trailing" secondItem="wS4-tG-rOe" secondAttribute="trailing" id="YXy-I2-ioK"/>
                     <constraint firstItem="wS4-tG-rOe" firstAttribute="top" secondItem="Uo6-sd-BKk" secondAttribute="bottom" constant="10" id="cFj-2F-OQ2"/>
-                    <constraint firstItem="Hps-4S-jTW" firstAttribute="leading" secondItem="20x-r0-ELg" secondAttribute="leading" id="cXT-vB-QFm"/>
                     <constraint firstItem="Uo6-sd-BKk" firstAttribute="leading" secondItem="20x-r0-ELg" secondAttribute="trailing" constant="12" id="emU-GK-IvK"/>
                     <constraint firstItem="Hps-4S-jTW" firstAttribute="top" secondItem="20x-r0-ELg" secondAttribute="bottom" constant="4" id="i1h-RG-FAG"/>
                     <constraint firstItem="wS4-tG-rOe" firstAttribute="leading" secondItem="Uo6-sd-BKk" secondAttribute="leading" id="ir3-GP-Fzk"/>
