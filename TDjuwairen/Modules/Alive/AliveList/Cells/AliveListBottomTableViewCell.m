@@ -45,5 +45,6 @@
     [self.shareBtn setTitle:[NSString stringWithFormat:@"%ld", aliveModel.shareNum] forState:UIControlStateNormal];
     [self.commentBtn setTitle:[NSString stringWithFormat:@"%ld", aliveModel.commentNum] forState:UIControlStateNormal];
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%ld", aliveModel.likeNum] forState:UIControlStateNormal];
+    self.likeBtn.selected = aliveModel.isLike;
 }
 @end

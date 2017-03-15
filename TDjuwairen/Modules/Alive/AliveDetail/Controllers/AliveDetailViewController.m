@@ -101,6 +101,7 @@
         _pinglunVC = [[AlivePingLunViewController alloc] init];
         _pinglunVC.superVC = self;
         _pinglunVC.detail_id = self.alive_ID;
+        _pinglunVC.detail_type = self.alive_type;
         _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.pinglunVC.tableView.frame.size.height-44);
         _pinglunVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;

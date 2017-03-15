@@ -463,9 +463,9 @@
 		84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDB61CF80E0A00683791 /* ELCAssetCell.m */; };
 		84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */; };
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
-		9E0AC8721E78D60000D05668 /* AliveMainListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E0AC8711E78D60000D05668 /* AliveMainListViewController.m */; };
 		9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */; };
 		9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */; };
+		9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */; };
 		9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */; };
 		9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */; };
 		9EC07EEF1E78078C006EE97E /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EEE1E78078C006EE97E /* Tool.m */; };
@@ -1354,11 +1354,11 @@
 		84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
 		84F9FDBB1CF80E0A00683791 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
 		84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
-		9E0AC8701E78D60000D05668 /* AliveMainListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMainListViewController.h; sourceTree = "<group>"; };
-		9E0AC8711E78D60000D05668 /* AliveMainListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMainListViewController.m; sourceTree = "<group>"; };
 		9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePingLunViewController.h; sourceTree = "<group>"; };
 		9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePingLunViewController.m; sourceTree = "<group>"; };
 		9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlivePingLunViewController.xib; sourceTree = "<group>"; };
+		9EBF092F1E7933BA007B2DC0 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
+		9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		9EC07EE81E7806F3006EE97E /* AliveCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCommentViewController.h; sourceTree = "<group>"; };
 		9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCommentViewController.m; sourceTree = "<group>"; };
 		9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveCommentViewController.xib; sourceTree = "<group>"; };
@@ -1622,6 +1622,8 @@
 				193419D11E77F58F00F22788 /* UINavigationBar+Awesome */,
 				19A5AC891E0BA2B800FE953A /* UITextView+Placeholder */,
 				19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */,
+				9EBF092F1E7933BA007B2DC0 /* UIView+Additions.h */,
+				9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */,
 				19193B301E03CE6D000A6AD2 /* UIImage+Color.m */,
 				1961DF451DF9573200A08A4B /* NSString+Util.h */,
 				1961DF461DF9573200A08A4B /* NSString+Util.m */,
@@ -2295,10 +2297,8 @@
 		1953CAF71E7172DB00A64B3C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-
 				193419D51E782C9B00F22788 /* AliveMainListViewController.h */,
 				193419D61E782C9B00F22788 /* AliveMainListViewController.m */,
-
 				1953CAF81E7172DB00A64B3C /* AliveListViewController.h */,
 				1953CAF91E7172DB00A64B3C /* AliveListViewController.m */,
 			);
@@ -4428,10 +4428,7 @@
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
-
-
 				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
-
 				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
@@ -4485,6 +4482,7 @@
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
 				190F65F31E36E73000B83ADF /* AwardViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
+				9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
 				84EE2AF71D929E48005D5C8C /* DetailPageViewController.m in Sources */,
 				19E5F2861E1364CF00984DBC /* StockGuessModel.m in Sources */,

@@ -15,6 +15,7 @@ typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 @interface AlivePingLunViewController : UIViewController
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (nonatomic, copy) NSString *detail_id;
+@property (nonatomic, copy) NSString *detail_type;
 
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
 @property (nonatomic, strong) id superVC;

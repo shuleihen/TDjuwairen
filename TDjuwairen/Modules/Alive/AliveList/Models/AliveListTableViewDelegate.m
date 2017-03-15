@@ -14,6 +14,7 @@
 #import "AliveDetailViewController.h"
 #import "ShareHandler.h"
 #import "NetworkManager.h"
+#import "AliveCommentViewController.h"
 
 
 #define kAliveListCellToolHeight 37
@@ -109,6 +110,11 @@
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {
+    AliveCommentViewController * commVc = [AliveCommentViewController new];
+    commVc.alive_ID = SafeValue(cell.cellModel.aliveId);
+    commVc.alive_type = [NSString stringWithFormat:@"%ld",cell.cellModel.aliveType];
+    commVc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:commVc animated:YES];
 }
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
@@ -116,17 +122,15 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
-    
-    __weak typeof(self)wself = self;
+
     [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
-#define KnotifierGoAddLike @"KnotifierGoAddLike"
+
         if (!error) {
-        [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum+1] forState:UIControlStateNormal];
+        [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum+1] forState:UIControlStateNormal];
+            cell.likeBtn.selected = YES;
         }else{
             MBAlert(@"用户已点赞")
-            
         }
-        
     }];
 }
 
@@ -195,7 +199,6 @@
     if (model.aliveId.length <= 0) {
         return;
     }
-    
     AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
     vc.alive_ID = model.aliveId;
     vc.alive_type = (model.aliveType==1)?@"1":@"2";

@@ -104,7 +104,7 @@
     //    if (!US.isLogIn) {
     //        dict = @{@"page": @(self.page)};
     //    } else {
-    dict = @{@"alive_id":_detail_id, @"alive_type": @(2)};
+    dict = @{@"alive_id":SafeValue(_detail_id), @"alive_type": SafeValue(self.detail_type)};
     //    }
     
     __weak AlivePingLunViewController *wself = self;
