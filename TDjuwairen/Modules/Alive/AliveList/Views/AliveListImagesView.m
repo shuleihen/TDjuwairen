@@ -47,7 +47,7 @@
         for (NSString *imageUrl in images) {
             UIImageView *imageView = [[UIImageView alloc] init];
             imageView.userInteractionEnabled = YES;
-            imageView.frame = CGRectMake((80+10)*x, (80+10)*y, 80, 80);
+            imageView.frame = CGRectMake((80+5)*x, (80+5)*y, 80, 80);
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.clipsToBounds = YES;
             [self.imageViews addObject:imageView];
@@ -63,7 +63,7 @@
             i++;
         }
         
-        height = 80*x + (((x-1)>0)?((x-1)*10):0);
+        height = 80*x + (((x-1)>0)?((x-1)*5):0);
     }
     
 //    CGRect rect = self.bounds;
