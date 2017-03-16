@@ -130,8 +130,6 @@
 		195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057731E7A22470097C57A /* AlicloudUtils.framework */; };
 		195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057741E7A22470097C57A /* CloudPushSDK.framework */; };
 		1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057791E7A22A30097C57A /* libresolv.tbd */; };
-		195057871E7A364C0097C57A /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 195057861E7A364C0097C57A /* NotificationService.m */; };
-		1950578B1E7A364C0097C57A /* PushExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 195057831E7A364C0097C57A /* PushExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		195057951E7A3CA90097C57A /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057931E7A3CA90097C57A /* libBPush.a */; };
 		195057961E7A3CA90097C57A /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 195057941E7A3CA90097C57A /* test.caf */; };
 		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
@@ -478,13 +476,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		195057891E7A364C0097C57A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 84E333DF1CE2BA3D00E5DCEE /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 195057821E7A364C0097C57A;
-			remoteInfo = PushExtension;
-		};
 		84E334011CE2BA3E00E5DCEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84E333DF1CE2BA3D00E5DCEE /* Project object */;
@@ -508,7 +499,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				1950578B1E7A364C0097C57A /* PushExtension.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -762,7 +752,6 @@
 		195057731E7A22470097C57A /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
 		195057741E7A22470097C57A /* CloudPushSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudPushSDK.framework; sourceTree = "<group>"; };
 		195057791E7A22A30097C57A /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		195057831E7A364C0097C57A /* PushExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PushExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		195057851E7A364C0097C57A /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		195057861E7A364C0097C57A /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		195057881E7A364C0097C57A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -1401,13 +1390,6 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		195057801E7A364C0097C57A /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84E333E41CE2BA3D00E5DCEE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -4011,7 +3993,6 @@
 				84E333E71CE2BA3D00E5DCEE /* TDjuwairen.app */,
 				84E334001CE2BA3E00E5DCEE /* TDjuwairenTests.xctest */,
 				84E3340B1CE2BA3E00E5DCEE /* TDjuwairenUITests.xctest */,
-				195057831E7A364C0097C57A /* PushExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4252,23 +4233,6 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		195057821E7A364C0097C57A /* PushExtension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 1950578C1E7A364D0097C57A /* Build configuration list for PBXNativeTarget "PushExtension" */;
-			buildPhases = (
-				1950577F1E7A364C0097C57A /* Sources */,
-				195057801E7A364C0097C57A /* Frameworks */,
-				195057811E7A364C0097C57A /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = PushExtension;
-			productName = PushExtension;
-			productReference = 195057831E7A364C0097C57A /* PushExtension.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 		84E333E61CE2BA3D00E5DCEE /* TDjuwairen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84E334141CE2BA3E00E5DCEE /* Build configuration list for PBXNativeTarget "TDjuwairen" */;
@@ -4282,7 +4246,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				1950578A1E7A364C0097C57A /* PBXTargetDependency */,
 			);
 			name = TDjuwairen;
 			productName = TDjuwairen;
@@ -4334,11 +4297,6 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "团大网络科技";
 				TargetAttributes = {
-					195057821E7A364C0097C57A = {
-						CreatedOnToolsVersion = 8.2.1;
-						DevelopmentTeam = V9B4FLHXSX;
-						ProvisioningStyle = Automatic;
-					};
 					84E333E61CE2BA3D00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = V9B4FLHXSX;
@@ -4381,19 +4339,11 @@
 				84E333E61CE2BA3D00E5DCEE /* TDjuwairen */,
 				84E333FF1CE2BA3E00E5DCEE /* TDjuwairenTests */,
 				84E3340A1CE2BA3E00E5DCEE /* TDjuwairenUITests */,
-				195057821E7A364C0097C57A /* PushExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		195057811E7A364C0097C57A /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84E333E51CE2BA3D00E5DCEE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4484,14 +4434,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1950577F1E7A364C0097C57A /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				195057871E7A364C0097C57A /* NotificationService.m in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		84E333E31CE2BA3D00E5DCEE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4877,11 +4819,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1950578A1E7A364C0097C57A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 195057821E7A364C0097C57A /* PushExtension */;
-			targetProxy = 195057891E7A364C0097C57A /* PBXContainerItemProxy */;
-		};
 		84E334021CE2BA3E00E5DCEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84E333E61CE2BA3D00E5DCEE /* TDjuwairen */;
@@ -4914,54 +4851,6 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1950578D1E7A364D0097C57A /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V9B4FLHXSX;
-				INFOPLIST_FILE = PushExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Debug;
-		};
-		1950578E1E7A364D0097C57A /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				DEVELOPMENT_TEAM = V9B4FLHXSX;
-				INFOPLIST_FILE = PushExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = Release;
-		};
-		1950578F1E7A364D0097C57A /* AdHoc */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
-				CODE_SIGN_IDENTITY = "Mac Developer: 450924349@qq.com (PBD87MW68Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou TuanDa NetworkTechnology Co., Ltd. (V9B4FLHXSX)";
-				DEVELOPMENT_TEAM = V9B4FLHXSX;
-				INFOPLIST_FILE = PushExtension/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-			};
-			name = AdHoc;
-		};
 		8408F66E1D87D429004A332A /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5298,15 +5187,6 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1950578C1E7A364D0097C57A /* Build configuration list for PBXNativeTarget "PushExtension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				1950578D1E7A364D0097C57A /* Debug */,
-				1950578E1E7A364D0097C57A /* Release */,
-				1950578F1E7A364D0097C57A /* AdHoc */,
-			);
-			defaultConfigurationIsVisible = 0;
-		};
 		84E333E21CE2BA3D00E5DCEE /* Build configuration list for PBXProject "TDjuwairen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
