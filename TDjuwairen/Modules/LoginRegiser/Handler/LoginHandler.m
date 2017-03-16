@@ -7,11 +7,12 @@
 //
 
 #import "LoginHandler.h"
-#import "BPush.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "Base64.h"
 #import "UIDevice+Identifier.h"
+#import <CloudPushSDK/CloudPushSDK.h>
+#import "CocoaLumberjack.h"
 
 @implementation LoginHandler
 + (void)saveLoginSuccessedData:(NSDictionary *)data {
@@ -52,29 +53,41 @@
     [accountDefaults synchronize];
 }
 
-+ (BOOL)checkOpenRemotePush {
-    //判断是否开启推送
-    UIApplication *app = [UIApplication sharedApplication];
-    if ([app isRegisteredForRemoteNotifications]  == YES) {
-        [self sendRemotePush];
-        return YES;
++ (void)checkOpenRemotePush {
+
+    if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
+        BOOL isClosePush = [[NSUserDefaults standardUserDefaults] boolForKey:@"isClosePush"];
+        
+        if (US.isLogIn && !isClosePush) {
+            [CloudPushSDK bindAccount:US.userId withCallback:^(CloudPushCallbackResult *res){
+                DDLogInfo(@"CloudPushSDK BindAccount =%@",res.success?@"成功":@"失败");
+            }];
+        }
     }
-    
-    return NO;
 }
 
-+ (void)sendRemotePush {
-    NSString *channel_id = [BPush getChannelId];
+
++ (void)openRemotePush {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:@"isClosePush"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     
-    NetworkManager *manager = [[NetworkManager alloc]initWithBaseUrl:API_HOST];
-    NSDictionary *para = @{@"user_id": US.userId,
-                           @"type": @"1",
-                           @"channel_id": channel_id?:@""};
-    [manager POST:API_LoginSaveChannelid parameters:para completion:^(id data, NSError *error) {
-        //绑定指定推送的时候打开回复提醒
-        NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-        [userdefault setObject:@"YES" forKey:@"isReply"];
-        [userdefault synchronize];
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    
+    if (US.isLogIn) {
+        [CloudPushSDK bindAccount:US.userId withCallback:^(CloudPushCallbackResult *res){
+            DDLogInfo(@"CloudPushSDK BindAccount =%@",res.success?@"成功":@"失败");
+        }];
+    }
+}
+
++ (void)closeRemotePush {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:@"isClosePush"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+    
+    [CloudPushSDK unbindAccount:^(CloudPushCallbackResult *res){
+        DDLogInfo(@"CloudPushSDK unBindAccount =%@",res.success?@"成功":@"失败");
     }];
 }
 

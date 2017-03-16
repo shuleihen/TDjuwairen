@@ -130,8 +130,6 @@
 		195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057731E7A22470097C57A /* AlicloudUtils.framework */; };
 		195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057741E7A22470097C57A /* CloudPushSDK.framework */; };
 		1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057791E7A22A30097C57A /* libresolv.tbd */; };
-		195057951E7A3CA90097C57A /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057931E7A3CA90097C57A /* libBPush.a */; };
-		195057961E7A3CA90097C57A /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 195057941E7A3CA90097C57A /* test.caf */; };
 		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
 		1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */; };
 		1953CAE31E716EA400A64B3C /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAE21E716EA400A64B3C /* UserInfoHeadView.m */; };
@@ -755,9 +753,6 @@
 		195057851E7A364C0097C57A /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		195057861E7A364C0097C57A /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		195057881E7A364C0097C57A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		195057921E7A3CA90097C57A /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
-		195057931E7A3CA90097C57A /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
-		195057941E7A3CA90097C57A /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
@@ -1431,7 +1426,6 @@
 				84E334D31CE329A900E5DCEE /* ImageIO.framework in Frameworks */,
 				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
 				84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */,
-				195057951E7A3CA90097C57A /* libBPush.a in Frameworks */,
 				84E334CB1CE3297A00E5DCEE /* libicucore.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2295,16 +2289,6 @@
 			path = PushExtension;
 			sourceTree = "<group>";
 		};
-		195057911E7A3CA90097C57A /* idfaversion */ = {
-			isa = PBXGroup;
-			children = (
-				195057921E7A3CA90097C57A /* BPush.h */,
-				195057931E7A3CA90097C57A /* libBPush.a */,
-				195057941E7A3CA90097C57A /* test.caf */,
-			);
-			path = idfaversion;
-			sourceTree = "<group>";
-		};
 		1953CA421E6BE75000A64B3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -3134,7 +3118,6 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
-				195057911E7A3CA90097C57A /* idfaversion */,
 				195057721E7A22470097C57A /* AliPushSDK */,
 				19FCCA491E5827EE000CEBDC /* SMS_SDK */,
 				1946EE761E0EA90200D8FB3A /* ShareSDK */,
@@ -4348,7 +4331,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				195057961E7A3CA90097C57A /* test.caf in Resources */,
 				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,

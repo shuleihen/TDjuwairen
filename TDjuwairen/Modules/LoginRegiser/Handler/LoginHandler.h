@@ -13,8 +13,11 @@
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password;
 + (void)saveFastLoginWithPhone:(NSString *)phone;
 + (void)saveThirdType:(NSString *)typeString unionid:(NSString *)unionid nickName:(NSString *)nickName avatar:(NSString *)avatar;
-+ (BOOL)checkOpenRemotePush;
 
 + (NSString *)machineInfoJsonString;
 + (NSString *)encryptWithPassword:(NSString *)password;
+
++ (void)checkOpenRemotePush;
++ (void)openRemotePush;
++ (void)closeRemotePush;
 @end

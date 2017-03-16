@@ -535,8 +535,10 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
-    
+    BOOL isClosePush = [[NSUserDefaults standardUserDefaults] boolForKey:@"isClosePush"];
+    if (!isClosePush) {
+        [[UIApplication sharedApplication] registerForRemoteNotifications];
+    }
 
     // 点击通知将App从关闭状态启动时，将通知打开回执上报
     [CloudPushSDK sendNotificationAck:launchOptions];
