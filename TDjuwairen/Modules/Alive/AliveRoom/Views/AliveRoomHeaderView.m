@@ -27,7 +27,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *addAttenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
 @property (weak, nonatomic) IBOutlet UIButton *messageBtn;
-@property (nonatomic, strong)UIAlertView *alert;
 
 @end
 
@@ -134,17 +133,16 @@
     }
 }
 - (IBAction)levelClick:(id)sender {
-//    _alert = [[UIAlertView alloc] initWithTitle:@"" message:@"xxxxx" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//    
-//    [_alert show];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:levelPressed:)]) {
+        [self.delegate aliveRommHeaderView:self levelPressed:sender];
+    }
 }
+
 - (IBAction)guestRuleClick:(id)sender {
-//    _alert = [[UIAlertView alloc] initWithTitle:@"" message:@"xxxxx" delegate:self cancelButtonTitle:nil otherButtonTitles:nil, nil];
-//    
-//    [_alert show];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:guestRulePressed:)]) {
+        [self.delegate aliveRommHeaderView:self guestRulePressed:sender];
+    }
 }
-
-
-
 
 @end

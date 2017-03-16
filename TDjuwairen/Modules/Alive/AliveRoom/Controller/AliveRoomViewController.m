@@ -22,6 +22,8 @@
 #import "DCPathButton.h"
 #import "AlivePublishViewController.h"
 #import "NotificationDef.h"
+#import "AliveRoomPopupViewController.h"
+#import "STPopup.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
@@ -475,6 +477,30 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender {
+    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
+    vc.titleString = @"等级规则";
+    vc.content = @"根据关注数1级 0-20人；2级 21-40人；100以内，每增加20个关注度，增加一级；500以内，每增加50个关注度，增加一级";
+    vc.contentSizeInPopup = CGSizeMake(220, 230);
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.containerView.layer.cornerRadius = 4;
+    popupController.navigationBarHidden = YES;
+    [popupController presentInViewController:self];
+
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender {
+    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
+    vc.titleString = @"股神指数规则";
+    vc.content = @"股神指数初始为50，参与“猜红绿”游戏，每猜对一次增加2，猜错一次减少2。参与“比谁准”游戏，获胜一次加4，失败一次减0.5。只要猜得准，你就能成为比人心中的股神！";
+    vc.contentSizeInPopup = CGSizeMake(220, 250);
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.containerView.layer.cornerRadius = 4;
+    popupController.navigationBarHidden = YES;
+    [popupController presentInViewController:self];
+}
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

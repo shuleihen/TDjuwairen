@@ -130,6 +130,7 @@
 		195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057731E7A22470097C57A /* AlicloudUtils.framework */; };
 		195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057741E7A22470097C57A /* CloudPushSDK.framework */; };
 		1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057791E7A22A30097C57A /* libresolv.tbd */; };
+		195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 195057C21E7AAA650097C57A /* AliveRoomPopupViewController.m */; };
 		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
 		1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */; };
 		1953CAE31E716EA400A64B3C /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAE21E716EA400A64B3C /* UserInfoHeadView.m */; };
@@ -753,6 +754,8 @@
 		195057851E7A364C0097C57A /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
 		195057861E7A364C0097C57A /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		195057881E7A364C0097C57A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		195057C11E7AAA650097C57A /* AliveRoomPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomPopupViewController.h; sourceTree = "<group>"; };
+		195057C21E7AAA650097C57A /* AliveRoomPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomPopupViewController.m; sourceTree = "<group>"; };
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
@@ -1727,6 +1730,8 @@
 				193419B51E76B84B00F22788 /* AliveRoomViewController.m */,
 				193419C11E77945B00F22788 /* AliveRoomLiveViewController.h */,
 				193419C21E77945B00F22788 /* AliveRoomLiveViewController.m */,
+				195057C11E7AAA650097C57A /* AliveRoomPopupViewController.h */,
+				195057C21E7AAA650097C57A /* AliveRoomPopupViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -4430,6 +4435,7 @@
 				19F00D1C1E2EFFD9009270D5 /* StockCommentModel.m in Sources */,
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				1955B4641D644D9800DC102E /* BrowserViewController.m in Sources */,
+				195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				19F00D151E2EFFD9009270D5 /* SurveyMoreViewController.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,

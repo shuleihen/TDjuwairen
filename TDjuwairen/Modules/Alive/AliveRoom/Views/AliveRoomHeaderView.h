@@ -18,6 +18,8 @@
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView messagePressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender;
 @end
 
 @interface AliveRoomHeaderView : UIView

@@ -16,10 +16,11 @@
 
 + (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSURL *)url {
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        NSArray *images;
-        if (image) {
-            images = @[image];
-        }
+    NSArray *images;
+    if (image) {
+        images = @[image];
+    }
+    
     [shareParams SSDKSetupShareParamsByText:nil images:images url:url title:title type:SSDKContentTypeAuto];
     
     [ShareSDK showShareActionSheet:nil
