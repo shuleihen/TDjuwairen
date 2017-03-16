@@ -127,6 +127,13 @@
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
 		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
+		195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057731E7A22470097C57A /* AlicloudUtils.framework */; };
+		195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057741E7A22470097C57A /* CloudPushSDK.framework */; };
+		1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057791E7A22A30097C57A /* libresolv.tbd */; };
+		195057871E7A364C0097C57A /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 195057861E7A364C0097C57A /* NotificationService.m */; };
+		1950578B1E7A364C0097C57A /* PushExtension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 195057831E7A364C0097C57A /* PushExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		195057951E7A3CA90097C57A /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057931E7A3CA90097C57A /* libBPush.a */; };
+		195057961E7A3CA90097C57A /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 195057941E7A3CA90097C57A /* test.caf */; };
 		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
 		1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */; };
 		1953CAE31E716EA400A64B3C /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAE21E716EA400A64B3C /* UserInfoHeadView.m */; };
@@ -402,8 +409,6 @@
 		847ADA931DF7E08B002600AA /* OptionalManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 847ADA921DF7E08B002600AA /* OptionalManageTableViewCell.m */; };
 		84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB41DD1AC36004440A9 /* TopBotButton.m */; };
 		84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB71DD1ACB3004440A9 /* NSString+GetDevice.m */; };
-		8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8488E42A1D90E2EC00888D07 /* libBPush.a */; };
-		8488E42D1D90E2EC00888D07 /* test.caf in Resources */ = {isa = PBXBuildFile; fileRef = 8488E42B1D90E2EC00888D07 /* test.caf */; };
 		8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0571CEF0B2800D7D105 /* TAAbstractDotView.m */; };
 		8497E0651CEF0B2800D7D105 /* TAAnimatedDotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E0591CEF0B2800D7D105 /* TAAnimatedDotView.m */; };
 		8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */ = {isa = PBXBuildFile; fileRef = 8497E05B1CEF0B2800D7D105 /* TADotView.m */; };
@@ -473,6 +478,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		195057891E7A364C0097C57A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 84E333DF1CE2BA3D00E5DCEE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 195057821E7A364C0097C57A;
+			remoteInfo = PushExtension;
+		};
 		84E334011CE2BA3E00E5DCEE /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 84E333DF1CE2BA3D00E5DCEE /* Project object */;
@@ -490,6 +502,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		195057901E7A364D0097C57A /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				1950578B1E7A364C0097C57A /* PushExtension.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		19A0CAB81E1A23BB003C4079 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -736,6 +759,16 @@
 		194F05951E27496600C8CB8A /* PaySubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySubscriptionViewController.h; sourceTree = "<group>"; };
 		194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySubscriptionViewController.m; sourceTree = "<group>"; };
 		195057711E79759A0097C57A /* ErrorCodeDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ErrorCodeDefine.h; sourceTree = "<group>"; };
+		195057731E7A22470097C57A /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
+		195057741E7A22470097C57A /* CloudPushSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudPushSDK.framework; sourceTree = "<group>"; };
+		195057791E7A22A30097C57A /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
+		195057831E7A364C0097C57A /* PushExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = PushExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		195057851E7A364C0097C57A /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
+		195057861E7A364C0097C57A /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
+		195057881E7A364C0097C57A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		195057921E7A3CA90097C57A /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
+		195057931E7A3CA90097C57A /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
+		195057941E7A3CA90097C57A /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
@@ -1242,9 +1275,6 @@
 		84823CB41DD1AC36004440A9 /* TopBotButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TopBotButton.m; sourceTree = "<group>"; };
 		84823CB61DD1ACB3004440A9 /* NSString+GetDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+GetDevice.h"; sourceTree = "<group>"; };
 		84823CB71DD1ACB3004440A9 /* NSString+GetDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+GetDevice.m"; sourceTree = "<group>"; };
-		8488E4291D90E2EC00888D07 /* BPush.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPush.h; sourceTree = "<group>"; };
-		8488E42A1D90E2EC00888D07 /* libBPush.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libBPush.a; sourceTree = "<group>"; };
-		8488E42B1D90E2EC00888D07 /* test.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = test.caf; sourceTree = "<group>"; };
 		8488E42E1D90E30800888D07 /* TDjuwairen.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = TDjuwairen.entitlements; sourceTree = "<group>"; };
 		8497E0561CEF0B2800D7D105 /* TAAbstractDotView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TAAbstractDotView.h; sourceTree = "<group>"; };
 		8497E0571CEF0B2800D7D105 /* TAAbstractDotView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TAAbstractDotView.m; sourceTree = "<group>"; };
@@ -1371,11 +1401,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		195057801E7A364C0097C57A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84E333E41CE2BA3D00E5DCEE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */,
 				19386EF51E728C9900D4426E /* AVFoundation.framework in Frameworks */,
+				195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */,
 				841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */,
 				1946EE371E0E9E3C00D8FB3A /* libWeChatSDK.a in Frameworks */,
 				84E334CD1CE3298B00E5DCEE /* libz.tbd in Frameworks */,
@@ -1397,6 +1436,7 @@
 				8470E9671DDD8426002F727D /* CoreMotion.framework in Frameworks */,
 				2764A26E1D015F6B00916844 /* Security.framework in Frameworks */,
 				84D57BBE1D83931A00274E9C /* CoreFoundation.framework in Frameworks */,
+				195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */,
 				8470E9651DDD8405002F727D /* AlipaySDK.framework in Frameworks */,
 				19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */,
 				1946EE9C1E0EA90200D8FB3A /* ShareSDKUI.framework in Frameworks */,
@@ -1407,9 +1447,9 @@
 				84E334D71CE329CB00E5DCEE /* MessageUI.framework in Frameworks */,
 				84E334D51CE329B200E5DCEE /* libsqlite3.tbd in Frameworks */,
 				84E334D31CE329A900E5DCEE /* ImageIO.framework in Frameworks */,
-				8488E42C1D90E2EC00888D07 /* libBPush.a in Frameworks */,
 				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
 				84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */,
+				195057951E7A3CA90097C57A /* libBPush.a in Frameworks */,
 				84E334CB1CE3297A00E5DCEE /* libicucore.tbd in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -2237,6 +2277,50 @@
 				19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		195057721E7A22470097C57A /* AliPushSDK */ = {
+			isa = PBXGroup;
+			children = (
+				195057731E7A22470097C57A /* AlicloudUtils.framework */,
+				195057741E7A22470097C57A /* CloudPushSDK.framework */,
+			);
+			path = AliPushSDK;
+			sourceTree = "<group>";
+		};
+		1950577D1E7A35D10097C57A /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				1950577E1E7A35D10097C57A /* Push */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
+		1950577E1E7A35D10097C57A /* Push */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Push;
+			sourceTree = "<group>";
+		};
+		195057841E7A364C0097C57A /* PushExtension */ = {
+			isa = PBXGroup;
+			children = (
+				195057851E7A364C0097C57A /* NotificationService.h */,
+				195057861E7A364C0097C57A /* NotificationService.m */,
+				195057881E7A364C0097C57A /* Info.plist */,
+			);
+			path = PushExtension;
+			sourceTree = "<group>";
+		};
+		195057911E7A3CA90097C57A /* idfaversion */ = {
+			isa = PBXGroup;
+			children = (
+				195057921E7A3CA90097C57A /* BPush.h */,
+				195057931E7A3CA90097C57A /* libBPush.a */,
+				195057941E7A3CA90097C57A /* test.caf */,
+			);
+			path = idfaversion;
 			sourceTree = "<group>";
 		};
 		1953CA421E6BE75000A64B3C /* Models */ = {
@@ -3068,12 +3152,13 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				195057911E7A3CA90097C57A /* idfaversion */,
+				195057721E7A22470097C57A /* AliPushSDK */,
 				19FCCA491E5827EE000CEBDC /* SMS_SDK */,
 				1946EE761E0EA90200D8FB3A /* ShareSDK */,
 				1946EE311E0E9DF100D8FB3A /* WexinSDK1.7.5 */,
 				841848CA1DF537140047DA7E /* UMMobClick.framework */,
 				8470E9611DDD8405002F727D /* AliSDK */,
-				8488E4281D90E2EC00888D07 /* idfaversion */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -3176,6 +3261,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				1950577D1E7A35D10097C57A /* Extension */,
 				1955B4011D644D9800DC102E /* Network */,
 				19F0073C1E31E5AE000A5F98 /* Recharge */,
 				19193B171E03B3E9000A6AD2 /* PlayStock */,
@@ -3858,16 +3944,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		8488E4281D90E2EC00888D07 /* idfaversion */ = {
-			isa = PBXGroup;
-			children = (
-				8488E4291D90E2EC00888D07 /* BPush.h */,
-				8488E42A1D90E2EC00888D07 /* libBPush.a */,
-				8488E42B1D90E2EC00888D07 /* test.caf */,
-			);
-			path = idfaversion;
-			sourceTree = "<group>";
-		};
 		8497E0541CEF0B2800D7D105 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -3923,6 +3999,7 @@
 				84E333E91CE2BA3D00E5DCEE /* TDjuwairen */,
 				84E334031CE2BA3E00E5DCEE /* TDjuwairenTests */,
 				84E3340E1CE2BA3E00E5DCEE /* TDjuwairenUITests */,
+				195057841E7A364C0097C57A /* PushExtension */,
 				84E333E81CE2BA3D00E5DCEE /* Products */,
 				F70B9F0ADFA276EBCA9300AD /* Frameworks */,
 			);
@@ -3934,6 +4011,7 @@
 				84E333E71CE2BA3D00E5DCEE /* TDjuwairen.app */,
 				84E334001CE2BA3E00E5DCEE /* TDjuwairenTests.xctest */,
 				84E3340B1CE2BA3E00E5DCEE /* TDjuwairenUITests.xctest */,
+				195057831E7A364C0097C57A /* PushExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -4139,6 +4217,7 @@
 		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				195057791E7A22A30097C57A /* libresolv.tbd */,
 				19386EF41E728C9900D4426E /* AVFoundation.framework */,
 				19386EF21E728C6500D4426E /* AVKit.framework */,
 				841848CC1DF537570047DA7E /* libsqlite3.0.tbd */,
@@ -4173,6 +4252,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		195057821E7A364C0097C57A /* PushExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1950578C1E7A364D0097C57A /* Build configuration list for PBXNativeTarget "PushExtension" */;
+			buildPhases = (
+				1950577F1E7A364C0097C57A /* Sources */,
+				195057801E7A364C0097C57A /* Frameworks */,
+				195057811E7A364C0097C57A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushExtension;
+			productName = PushExtension;
+			productReference = 195057831E7A364C0097C57A /* PushExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		84E333E61CE2BA3D00E5DCEE /* TDjuwairen */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 84E334141CE2BA3E00E5DCEE /* Build configuration list for PBXNativeTarget "TDjuwairen" */;
@@ -4181,10 +4277,12 @@
 				84E333E41CE2BA3D00E5DCEE /* Frameworks */,
 				84E333E51CE2BA3D00E5DCEE /* Resources */,
 				19A0CAB81E1A23BB003C4079 /* Embed Frameworks */,
+				195057901E7A364D0097C57A /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				1950578A1E7A364C0097C57A /* PBXTargetDependency */,
 			);
 			name = TDjuwairen;
 			productName = TDjuwairen;
@@ -4236,6 +4334,11 @@
 				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = "团大网络科技";
 				TargetAttributes = {
+					195057821E7A364C0097C57A = {
+						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = V9B4FLHXSX;
+						ProvisioningStyle = Automatic;
+					};
 					84E333E61CE2BA3D00E5DCEE = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = V9B4FLHXSX;
@@ -4278,15 +4381,24 @@
 				84E333E61CE2BA3D00E5DCEE /* TDjuwairen */,
 				84E333FF1CE2BA3E00E5DCEE /* TDjuwairenTests */,
 				84E3340A1CE2BA3E00E5DCEE /* TDjuwairenUITests */,
+				195057821E7A364C0097C57A /* PushExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		195057811E7A364C0097C57A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84E333E51CE2BA3D00E5DCEE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				195057961E7A3CA90097C57A /* test.caf in Resources */,
 				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
@@ -4343,7 +4455,6 @@
 				19C2581A1E7649C200433D0D /* AliveMessageListCell.xib in Resources */,
 				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
 				19D6B9F91E508E3C00475AA1 /* AccountManager.storyboard in Resources */,
-				8488E42D1D90E2EC00888D07 /* test.caf in Resources */,
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
@@ -4373,6 +4484,14 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		1950577F1E7A364C0097C57A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				195057871E7A364C0097C57A /* NotificationService.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		84E333E31CE2BA3D00E5DCEE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4758,6 +4877,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		1950578A1E7A364C0097C57A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 195057821E7A364C0097C57A /* PushExtension */;
+			targetProxy = 195057891E7A364C0097C57A /* PBXContainerItemProxy */;
+		};
 		84E334021CE2BA3E00E5DCEE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 84E333E61CE2BA3D00E5DCEE /* TDjuwairen */;
@@ -4790,6 +4914,54 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1950578D1E7A364D0097C57A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
+				INFOPLIST_FILE = PushExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1950578E1E7A364D0097C57A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
+				INFOPLIST_FILE = PushExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1950578F1E7A364D0097C57A /* AdHoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer: 450924349@qq.com (PBD87MW68Z)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou TuanDa NetworkTechnology Co., Ltd. (V9B4FLHXSX)";
+				DEVELOPMENT_TEAM = V9B4FLHXSX;
+				INFOPLIST_FILE = PushExtension/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = AdHoc;
+		};
 		8408F66E1D87D429004A332A /* AdHoc */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4850,6 +5022,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/AliPushSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -5004,6 +5177,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/AliPushSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -5044,6 +5218,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/ShareSDK/Support/Required",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/AliPushSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -5123,6 +5298,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1950578C1E7A364D0097C57A /* Build configuration list for PBXNativeTarget "PushExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1950578D1E7A364D0097C57A /* Debug */,
+				1950578E1E7A364D0097C57A /* Release */,
+				1950578F1E7A364D0097C57A /* AdHoc */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		84E333E21CE2BA3D00E5DCEE /* Build configuration list for PBXProject "TDjuwairen" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

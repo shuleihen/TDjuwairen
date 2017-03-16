@@ -31,13 +31,14 @@
 #import "WXApi.h"
 #import "WXApiManager.h"
 
-#import "BPush.h"
 #ifdef NSFoundationVersionNumber_iOS_9_x_Max
 #import <UserNotifications/UserNotifications.h>
 #endif
 
 #import "NotificationDef.h"
 #import "StockDetailViewController.h"
+
+#import <CloudPushSDK/CloudPushSDK.h>
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -59,7 +60,8 @@
     [self checkSwitchToGuide];
     [self setupLog];
     [self setupWithUMMobClick];
-    [self setupBaiduPushWithLaunchOptions:launchOptions];
+//    [self setupBaiduPushWithLaunchOptions:launchOptions];
+    [self setupAliCloudPushWithLaunchOptions:launchOptions];
     
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -207,21 +209,20 @@
 
 #pragma mark - Push
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    [BPush registerDeviceToken:deviceToken];
+    DDLogInfo(@"Register deviceToken = %@",[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding]);
     
-    [BPush bindChannelWithCompleteHandler:^(id result, NSError *error){
-        if (result && (result[@"error_code"] == 0)) {
-            NSString *channelid = result[@"channel_id"];
-            DDLogInfo(@"Baidu push bind success with channel_id = %@",channelid);
+    [CloudPushSDK registerDevice:deviceToken withCallback:^(CloudPushCallbackResult *res) {
+        if (res.success) {
+            DDLogInfo(@"Register deviceToken success.");
         } else {
-            DDLogError(@"Baidu push bind faild");
+            DDLogError(@"Register deviceToken failed, error: %@", res.error);
         }
     }];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 #ifdef  DEBUG
-    NSLog(@"Register Token Error = %@",error);
+    DDLogError(@"Register Token Error = %@",error);
 #endif
 }
 
@@ -232,10 +233,9 @@
 // iOS10以下使用这个方法接收通知
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
 #ifdef DEBUG
-    NSLog(@"iOS 10 以下 RemoteNotification UserInfo = %@",userInfo);
+    DDLogInfo(@"iOS 10 以下 RemoteNotification UserInfo = %@",userInfo);
 #endif
-    
-    [BPush handleNotification:userInfo];
+    [CloudPushSDK sendNotificationAck:userInfo];
     
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         // 应用处于前台的远程推送
@@ -245,10 +245,12 @@
             [self handlePushNotificationWithUserInfo:userInfo];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:nil];
+        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:cancel];
         [alert addAction:done];
-        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         
     } else {
         [self handlePushNotificationWithUserInfo:userInfo];
@@ -257,41 +259,40 @@
 
 - (void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
 #ifdef DEBUG
-    NSLog(@"iOS 10 以下 LocalNotification Notification = %@",notification);
+    DDLogInfo(@"iOS 10 以下 LocalNotification Notification = %@",notification);
 #endif
     
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         
-        
     }
-}
-
-- (void)application:(UIApplication *)application handleActionWithIdentifier:(NSString *)identifier forRemoteNotification:(NSDictionary *)userInfo completionHandler:(void (^)())completionHandler {
-    // 处理远程通知 Action
-    
 }
 
 
 //iOS10新增：处理前台收到通知的代理方法
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
 #ifdef DEBUG
-    NSLog(@"iOS10 以上 前台收到通知 UNNotification = %@",notification);
+    DDLogInfo(@"iOS10 以上 前台收到通知 UNNotification = %@",notification);
 #endif
     
+    
     NSDictionary * userInfo = notification.request.content.userInfo;
+    // 通知打开回执上报
+    [CloudPushSDK sendNotificationAck:userInfo];
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         // 应用处于前台时的远程推送接受
-        NSString *msg = userInfo[@"aps"][@"alert"];
+        NSString *msg = notification.request.content.body;
         
         UIAlertAction *done = [UIAlertAction actionWithTitle:@"查看" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
             [self handlePushNotificationWithUserInfo:userInfo];
         }];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"忽略" style:UIAlertActionStyleCancel handler:nil];
+        
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:nil message:msg preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:cancel];
         [alert addAction:done];
-        [self.window.rootViewController presentViewController:alert animated:YES completion:nil];
+        
+        [[UIApplication sharedApplication].keyWindow.rootViewController presentViewController:alert animated:YES completion:nil];
         
         completionHandler(UNNotificationPresentationOptionSound);
     }else{
@@ -306,7 +307,10 @@
     NSLog(@"iOS10 以上 后台收到通知 UNNotificationResponse =  %@",response);
 #endif
     
-    NSDictionary * userInfo = response.notification.request.content.userInfo;
+    NSDictionary *userInfo = response.notification.request.content.userInfo;
+    // 通知打开回执上报
+    [CloudPushSDK sendNotificationAck:userInfo];
+    
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         // 应用处于后台时的远程推送接受
         if ([response.actionIdentifier isEqualToString:@"查看"]) {
@@ -494,9 +498,17 @@
     [MobClick startWithConfigure:UMConfigInstance];//配置以上参数后调用此方法初始化SDK！
 }
 
-- (void)setupBaiduPushWithLaunchOptions:(NSDictionary *)launchOptions {
+- (void)setupAliCloudPushWithLaunchOptions:(NSDictionary *)launchOptions {
     
-    [[UIApplication sharedApplication] registerForRemoteNotifications];
+    // SDK初始化
+    [CloudPushSDK asyncInit:@"23699780" appSecret:@"336e293e6ab707765ef780d7a73764b2" callback:^(CloudPushCallbackResult *res) {
+        if (res.success) {
+            DDLogInfo(@"Push SDK init success, deviceId: %@.", [CloudPushSDK getDeviceId]);
+        } else {
+            DDLogError(@"Push SDK init failed, error: %@", res.error);
+        }
+    }];
+    
     
     //iOS10必须加下面这段代码。
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_9_x_Max) {
@@ -513,57 +525,21 @@
                 //这里可以添加一些自己的逻辑
             }
         }];
-        
-        // 升级提示Action
-//        UNNotificationAction *action1_ios10 = [UNNotificationAction actionWithIdentifier:@"jwr.open" title:@"查看" options:UNNotificationActionOptionForeground];
-//        UNNotificationAction *action2_ios10 = [UNNotificationAction actionWithIdentifier:@"jwr.ignore" title:@"忽略" options:UNNotificationActionOptionForeground];
-//        
-//        UNNotificationCategory *category1_ios10 = [UNNotificationCategory categoryWithIdentifier:@"com.jwr.read" actions:@[action1_ios10,action2_ios10]   intentIdentifiers:@[] options:UNNotificationCategoryOptionNone];
-//        
-//        NSSet *categories_ios10 = [NSSet setWithObjects:category1_ios10, nil];
-//        [center setNotificationCategories:categories_ios10];
-    }
-    
-    if ((NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) && (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_9_x_Max)) {
+
+    } else if ((NSFoundationVersionNumber >= NSFoundationVersionNumber_iOS_8_0) && (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_9_x_Max)) {
         //如果你期望使用交互式(只有iOS 8.0及以上有)的通知，请参考下面注释部分的初始化代码
-        /*
-        UIMutableUserNotificationAction *action1 = [[UIMutableUserNotificationAction alloc] init];
-        action1.identifier = @"jwr.open";
-        action1.title=@"查看";
-        action1.activationMode = UIUserNotificationActivationModeForeground;//当点击的时候启动程序
-        
-        UIMutableUserNotificationAction *action2 = [[UIMutableUserNotificationAction alloc] init];  //第二按钮
-        action2.identifier = @"jwr.ignore";
-        action2.title=@"忽略";
-        action2.activationMode = UIUserNotificationActivationModeBackground;//当点击的时候不启动程序，在后台处理
-        action2.authenticationRequired = YES;//需要解锁才能处理，如果action.activationMode = UIUserNotificationActivationModeForeground;则这个属性被忽略；
-        action2.destructive = YES;
-        UIMutableUserNotificationCategory *actionCategory1 = [[UIMutableUserNotificationCategory alloc] init];
-        actionCategory1.identifier = @"com.jwr.read";
-        [actionCategory1 setActions:@[action1,action2] forContext:(UIUserNotificationActionContextDefault)];
-        NSSet *categories = [NSSet setWithObjects:actionCategory1, nil];
-        */
+    
         UIUserNotificationType myTypes = UIUserNotificationTypeBadge | UIUserNotificationTypeSound | UIUserNotificationTypeAlert;
         
         UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:myTypes categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
     
-    BOOL isDebug = NO;
-    BPushMode mode = BPushModeProduction;
-#ifdef DEBUG
-    isDebug = YES;
-    mode = BPushModeDevelopment;
-#endif
+    [[UIApplication sharedApplication] registerForRemoteNotifications];
     
-    [BPush registerChannel:launchOptions apiKey:@"YewcrZIsfLIvO2MNoOXIO8ru" pushMode:mode withFirstAction:@"查看" withSecondAction:@"忽略" withCategory:nil useBehaviorTextInput:NO isDebug:isDebug];
-    
-    NSDictionary *userInfo = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
-    if (userInfo) {
-        [BPush handleNotification:userInfo];
-    }
-    
-    [BPush disableLbs];
+
+    // 点击通知将App从关闭状态启动时，将通知打开回执上报
+    [CloudPushSDK sendNotificationAck:launchOptions];
 }
 
 @end
