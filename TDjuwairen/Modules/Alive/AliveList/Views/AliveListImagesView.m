@@ -74,16 +74,15 @@
 
 - (void)showDetailImageView:(UITapGestureRecognizer *)tap {
 
-//    UIImageView *currentImageView = (UIImageView *)tap.view;
-    NSInteger index = tap.view.tag==nil?0:tap.view.tag;
-    MYPhotoBrowser *photoBrowser = [[MYPhotoBrowser alloc]initWithUrls:self.images imgViews:self.imageViews placeholder:nil currentIdx:index handleNames:nil callback:^(UIImage *handleImage,NSString *handleType) {
-        
-        NSLog(@"-------------图片对象-%@----操作类型-%ld",handleImage,(long)handleType);
-        
-    }];
-    [photoBrowser showWithAnimation:YES];
-
-
+    NSInteger index = tap.view.tag;
+    if (index>= 0 && index<self.images.count) {
+        MYPhotoBrowser *photoBrowser = [[MYPhotoBrowser alloc] initWithUrls:self.images imgViews:self.imageViews placeholder:nil currentIdx:index handleNames:nil callback:^(UIImage *handleImage,NSString *handleType) {
+            
+            NSLog(@"-------------图片对象-%@----操作类型-%ld",handleImage,(long)handleType);
+            
+        }];
+        [photoBrowser showWithAnimation:YES];
+    }
 }
 
 

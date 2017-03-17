@@ -13,6 +13,8 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
+#import "NotificationDef.h"
+#import "AliveListModel.h"
 
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate>
 
@@ -201,13 +203,6 @@
             
             [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpg"];
         }
-//        [wself.imageArray enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL *stop){
-//            NSData *data = UIImageJPEGRepresentation(image, 1);
-//            NSString *name = [wself imageNameWithIndex:idx];
-//            NSString *fileName = [name stringByAppendingString:@".jpg"];
-//            
-//            [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpg"];
-//        }];
         
     } completion:^(id data, NSError *error) {
         wself.navigationItem.rightBarButtonItem.enabled = YES;

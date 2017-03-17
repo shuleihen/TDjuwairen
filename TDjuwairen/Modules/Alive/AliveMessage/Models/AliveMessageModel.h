@@ -7,25 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AliveTypeDefine.h"
 
-typedef enum : NSInteger {
-    kAliveContentTxt    =0,
-    kAliveContentImg    =1
-} AliveContentType;
-
-typedef enum : NSInteger {
-    kAliveNormal    =1,
-    kAlivePosts     =2
-} AliveType;
-
-typedef enum : NSInteger {
-    kMessageTypeAliveNormalComment  =1,
-    kMessageTypeAlivePostsComment   =2,
-    kMessageTypeAliveNormalLike     =3,
-    kMessageTypeAlivePostsLike      =4,
-    kMessageTypeAliveNormalShare    =5,
-    kMessageTypeAlivePostsShare     =6
-} AliveMessageType;
 
 @interface AliveMessageModel : NSObject
 @property (nonatomic, copy) NSString *messageId;

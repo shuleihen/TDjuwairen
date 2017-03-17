@@ -58,6 +58,22 @@
     return self;
 }
 
+- (void)insertAtHeaderWithArray:(NSArray *)array {
+    NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:(array.count+self.itemList.count)];
+    for (AliveListModel *model in array) {
+        AliveListCellData *cellData = [[AliveListCellData alloc] init];
+        cellData.aliveModel = model;
+        cellData.cellHeight = [AliveListTableViewCell heightWithAliveModel:model];
+        [cellArray addObject:cellData];
+    }
+    
+    [cellArray addObjectsFromArray:self.itemList];
+    [self.tableView beginUpdates];
+    self.itemList = cellArray;
+    [self.tableView reloadData];
+    [self.tableView endUpdates];
+}
+
 - (void)reloadWithArray:(NSArray *)array {
     
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
@@ -104,7 +120,7 @@
 {
     [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
-            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.shareNum+1] forState:UIControlStateNormal];
+            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
             NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary *dict = @{@"item_id":SafeValue(cell.cellModel.aliveId),@"type" :@(cell.cellModel.aliveType)};
             
@@ -118,11 +134,11 @@
 {
     AliveCommentViewController * commVc = [AliveCommentViewController new];
     commVc.alive_ID = SafeValue(cell.cellModel.aliveId);
-    commVc.alive_type = [NSString stringWithFormat:@"%ld",cell.cellModel.aliveType];
+    commVc.alive_type = [NSString stringWithFormat:@"%ld",(long)cell.cellModel.aliveType];
     commVc.hidesBottomBarWhenPushed = YES;
     
     commVc.commentBlock = ^(){
-        [cell.commentBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.commentNum+1] forState:UIControlStateNormal];
+        [cell.commentBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.commentNum+1)] forState:UIControlStateNormal];
     };
     [self.viewController.navigationController pushViewController:commVc animated:YES];
 }

@@ -27,4 +27,5 @@
 #define kUpdateAliveIntroNotification   @"UpdateAliveIntroNotification"
 #define KnotifierGoPingLun              @"KnotifierGoPingLun"
 #define KnotifierGoAddLike              @"KnotifierGoAddLike"
+#define kAlivePublishNotification       @"AlivePublishNotification"
 #endif /* NotificationDef_h */

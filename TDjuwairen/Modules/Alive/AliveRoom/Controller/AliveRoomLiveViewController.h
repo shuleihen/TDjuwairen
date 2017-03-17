@@ -7,11 +7,8 @@
 //
 
 #import "AliveListViewController.h"
+#import "AliveTypeDefine.h"
 
-typedef enum : NSUInteger {
-    AliveRoomLiveNormal =0,
-    AliveRoomLivePosts  =1,
-} AliveRoomLiveType;
 
 @protocol AliveRoomLiveContentListDelegate <NSObject>
 
@@ -20,7 +17,7 @@ typedef enum : NSUInteger {
 
 @interface AliveRoomLiveViewController : UIViewController
 @property (nonatomic, strong) NSString *masterId;
-@property (nonatomic, assign) AliveRoomLiveType listType;
+@property (nonatomic, assign) AliveType listType;
 
 @property (nonatomic, weak) id<AliveRoomLiveContentListDelegate> delegate;
 

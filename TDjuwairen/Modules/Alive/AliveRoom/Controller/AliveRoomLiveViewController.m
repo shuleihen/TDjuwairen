@@ -52,8 +52,18 @@
     
     self.currentPage = 1;    
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publishNotifi:) name:kAlivePublishNotification object:nil];
 }
 
+
+- (void)publishNotifi:(NSNotification *)notifi {
+    AliveListModel *model = notifi.object;
+    if (model.aliveType == self.listType) {
+        [self.tableViewDelegate insertAtHeaderWithArray:@[model]];
+        [self reloadTableView];
+    }
+}
 
 - (CGFloat)contentHeight {
     return [self.tableViewDelegate contentHeight];
@@ -68,7 +78,7 @@
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
 }
 
-- (void)queryAliveListWithType:(AliveRoomLiveType)listType withPage:(NSInteger)page {
+- (void)queryAliveListWithType:(AliveType)listType withPage:(NSInteger)page {
     __weak AliveRoomLiveViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -104,14 +114,11 @@
                 }
             }
             
+            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
             [wself reloadTableView];
             
             if (scrollToTop) {
                 [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
-            }
-            
-            if (wself.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
-                [wself.delegate contentListLoadComplete];
             }
             
         } else {
@@ -122,10 +129,12 @@
 }
 
 - (void)reloadTableView {
-    
-    [self.tableViewDelegate reloadWithArray:self.aliveList];
-    
+
     CGFloat height = [self contentHeight];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(contentListLoadComplete)]) {
+        [self.delegate contentListLoadComplete];
+    }
 }
 @end

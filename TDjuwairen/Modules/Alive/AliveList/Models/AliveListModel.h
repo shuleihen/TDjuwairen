@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AliveTypeDefine.h"
 
 @interface AliveListModel : NSObject
 @property (nonatomic, copy) NSString *aliveId;
-@property (nonatomic, assign) NSInteger aliveType;
+@property (nonatomic, assign) AliveType aliveType;
 @property (nonatomic, copy) NSString *aliveTitle;
 @property (nonatomic, strong) NSArray *aliveImgs;
 @property (nonatomic, copy) NSString *aliveTime;

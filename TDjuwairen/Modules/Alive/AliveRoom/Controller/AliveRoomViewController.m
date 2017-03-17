@@ -31,7 +31,6 @@
 @interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate>
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) AliveRoomLiveType listType;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
 
@@ -132,12 +131,12 @@
     if (!_contentControllers) {
         AliveRoomLiveViewController *one = [[AliveRoomLiveViewController alloc] init];
         one.masterId = self.masterId;
-        one.listType = AliveRoomLiveNormal;
+        one.listType = kAliveNormal;
         one.delegate = self;
         
         AliveRoomLiveViewController *two = [[AliveRoomLiveViewController alloc] init];
         two.masterId = self.masterId;
-        two.listType = AliveRoomLivePosts;
+        two.listType = kAlivePosts;
         two.delegate = self;
         
         _contentControllers = @[one,two];
@@ -198,7 +197,6 @@
     
     [self setupTableView];
     
-    self.listType = AliveRoomLiveNormal;
     self.currentPage = 1;
     self.segmentControl.selectedSegmentIndex = 0;
     [self segmentPressed:self.segmentControl];

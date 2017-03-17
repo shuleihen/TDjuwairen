@@ -756,6 +756,7 @@
 		195057881E7A364C0097C57A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		195057C11E7AAA650097C57A /* AliveRoomPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomPopupViewController.h; sourceTree = "<group>"; };
 		195057C21E7AAA650097C57A /* AliveRoomPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomPopupViewController.m; sourceTree = "<group>"; };
+		195057C61E7B7F3D0097C57A /* AliveTypeDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliveTypeDefine.h; sourceTree = "<group>"; };
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
@@ -2294,6 +2295,14 @@
 			path = PushExtension;
 			sourceTree = "<group>";
 		};
+		195057C51E7B7F2B0097C57A /* AliveHandler */ = {
+			isa = PBXGroup;
+			children = (
+				195057C61E7B7F3D0097C57A /* AliveTypeDefine.h */,
+			);
+			path = AliveHandler;
+			sourceTree = "<group>";
+		};
 		1953CA421E6BE75000A64B3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2304,6 +2313,7 @@
 		1953CAED1E7172DB00A64B3C /* Alive */ = {
 			isa = PBXGroup;
 			children = (
+				195057C51E7B7F2B0097C57A /* AliveHandler */,
 				19C2580E1E76498100433D0D /* AliveMessage */,
 				19386EDC1E72401E00D4426E /* AliveEditMaster */,
 				19386EE11E72401E00D4426E /* AlivePublish */,
