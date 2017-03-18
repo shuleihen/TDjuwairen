@@ -47,7 +47,7 @@
                                         <constraint firstAttribute="width" constant="80" id="2ZY-2Z-Iba"/>
                                         <constraint firstAttribute="height" constant="80" id="WDr-5u-wp6"/>
                                     </constraints>
-                                    <state key="normal" image="icon_avatar"/>
+                                    <state key="normal" image="center_avatar"/>
                                     <connections>
                                         <action selector="avatarPressed:" destination="5Wg-Gu-mJm" eventType="touchUpInside" id="Wgg-5B-JyO"/>
                                     </connections>
@@ -88,10 +88,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HP2-Tw-y06" customClass="CenterItemView">
-                                                    <rect key="frame" x="250" y="0.0" width="125" height="74.5"/>
+                                                    <rect key="frame" x="250" y="0.0" width="125" height="75"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="x4m-QF-HlV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="74.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="75"/>
                                                             <connections>
                                                                 <action selector="fansPressed:" destination="5Wg-Gu-mJm" eventType="touchUpInside" id="SJY-uu-aYN"/>
                                                             </connections>
@@ -100,7 +100,7 @@
                                                             <rect key="frame" x="50" y="10" width="25" height="24"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vA8-Za-ubt">
-                                                            <rect key="frame" x="2" y="44" width="121" height="14.5"/>
+                                                            <rect key="frame" x="2" y="44" width="121" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -124,19 +124,19 @@
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uhs-Og-Iob" customClass="CenterItemView">
-                                                    <rect key="frame" x="125" y="0.0" width="125" height="74.5"/>
+                                                    <rect key="frame" x="125" y="0.0" width="125" height="75"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9Fa-kc-xJV">
-                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="74.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="75"/>
                                                             <connections>
                                                                 <action selector="attentionPressed:" destination="5Wg-Gu-mJm" eventType="touchUpInside" id="giu-Xc-fgB"/>
                                                             </connections>
                                                         </button>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_attention_alive" translatesAutoresizingMaskIntoConstraints="NO" id="pYv-cf-dY2">
-                                                            <rect key="frame" x="49.5" y="10" width="26" height="25"/>
+                                                            <rect key="frame" x="50" y="10" width="26" height="25"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="关注" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2MV-YW-8kU">
-                                                            <rect key="frame" x="2" y="45" width="121" height="14.5"/>
+                                                            <rect key="frame" x="2" y="45" width="121" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -160,19 +160,19 @@
                                                     </connections>
                                                 </view>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sA4-hz-X95" customClass="CenterItemView">
-                                                    <rect key="frame" x="0.0" y="0.0" width="125" height="74.5"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="125" height="75"/>
                                                     <subviews>
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ema-ST-q2g">
-                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="74.5"/>
+                                                            <rect key="frame" x="0.0" y="0.0" width="125" height="75"/>
                                                             <connections>
                                                                 <action selector="liveDynamicPressed:" destination="5Wg-Gu-mJm" eventType="touchUpInside" id="ygh-ab-6BI"/>
                                                             </connections>
                                                         </button>
                                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_dynamic" translatesAutoresizingMaskIntoConstraints="NO" id="aOI-HS-iUJ">
-                                                            <rect key="frame" x="49.5" y="10" width="26" height="26"/>
+                                                            <rect key="frame" x="50" y="10" width="26" height="26"/>
                                                         </imageView>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="动态" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sC7-Np-o97">
-                                                            <rect key="frame" x="2" y="46" width="121" height="14.5"/>
+                                                            <rect key="frame" x="2" y="46" width="121" height="15"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -378,8 +378,8 @@
     </scenes>
     <resources>
         <image name="bg_mine" width="375" height="210"/>
+        <image name="center_avatar" width="79" height="79"/>
         <image name="icon_attention_alive" width="26" height="25"/>
-        <image name="icon_avatar" width="40" height="40"/>
         <image name="icon_close" width="17" height="17"/>
         <image name="icon_collection" width="16" height="15"/>
         <image name="icon_comment_alive" width="14" height="14"/>
