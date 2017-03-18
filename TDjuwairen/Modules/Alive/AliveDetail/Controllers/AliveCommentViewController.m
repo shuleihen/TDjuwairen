@@ -43,8 +43,10 @@
     _textView_input.delegate = self;
     
     self.button_send = [UIButton buttonWithType:UIButtonTypeCustom];
-    self.button_send.frame = CGRectMake(0, 0, 40, 44);
+    self.button_send.frame = CGRectMake(0, 0, 30, 44);
+    [self.button_send setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -20, -10, -20)];
     [self.button_send setTitle:@"发送" forState:UIControlStateNormal];
+    self.button_send.titleLabel.font = [UIFont systemFontOfSize:14];
     [self.button_send setTitle:@"发送" forState:UIControlStateDisabled];
     [self.button_send setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     [self.button_send setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
