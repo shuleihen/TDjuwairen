@@ -57,6 +57,8 @@
 #define API_UnbindWeixin        @"User/unbindWXAccount"
 #define API_BindQQ              @"User/bindQQAccount"
 #define API_UnbindQQ            @"User/unbindQQAccount"
+#define API_UserGetDetailAvatar @"User/getDefaultHeadImg"
+#define API_UserUpdateDetailAvatar  @"User/chooseDefaultHeadImg"
 
 #define API_UploadContentPic    @"index.php/View/upViewContenPic1_2" //
 #define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"//
