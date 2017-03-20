@@ -43,8 +43,6 @@
 		19194CCC1E7FACC400641085 /* UIViewController+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CCB1E7FACC400641085 /* UIViewController+Login.m */; };
 		19194CD11E7FC63900641085 /* ChangeDefaultAvatarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CD01E7FC63900641085 /* ChangeDefaultAvatarViewController.m */; };
 		19194CE41E7FDDA800641085 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CD71E7FDDA800641085 /* SurveryStockListCell.m */; };
-		19194CE51E7FDDA800641085 /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CD91E7FDDA800641085 /* SurveyListModel.m */; };
-		19194CE61E7FDDA800641085 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CDB1E7FDDA800641085 /* SurveyModel.m */; };
 		19194CE71E7FDDA800641085 /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CDE1E7FDDA800641085 /* SurveyContentListController.m */; };
 		19194CE81E7FDDA800641085 /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CE01E7FDDA800641085 /* SurveyListViewController.m */; };
 		19194CE91E7FDDA800641085 /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CE31E7FDDA800641085 /* StockManager.m */; };
@@ -54,6 +52,9 @@
 		19194CFD1E7FDDDE00641085 /* OptionalStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF41E7FDDDE00641085 /* OptionalStockViewController.m */; };
 		19194CFE1E7FDDDE00641085 /* OptionalHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF71E7FDDDE00641085 /* OptionalHeadView.m */; };
 		19194CFF1E7FDDDE00641085 /* OptionalManageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF91E7FDDDE00641085 /* OptionalManageHeadView.m */; };
+		19194D051E7FDED000641085 /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D021E7FDED000641085 /* SurveyListModel.m */; };
+		19194D061E7FDED000641085 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D041E7FDED000641085 /* SurveyModel.m */; };
+		19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D081E7FDF0500641085 /* SurveySubjectModel.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -589,10 +590,6 @@
 		19194CD01E7FC63900641085 /* ChangeDefaultAvatarViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ChangeDefaultAvatarViewController.m; sourceTree = "<group>"; };
 		19194CD61E7FDDA800641085 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
 		19194CD71E7FDDA800641085 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
-		19194CD81E7FDDA800641085 /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
-		19194CD91E7FDDA800641085 /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
-		19194CDA1E7FDDA800641085 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
-		19194CDB1E7FDDA800641085 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
 		19194CDD1E7FDDA800641085 /* SurveyContentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyContentListController.h; sourceTree = "<group>"; };
 		19194CDE1E7FDDA800641085 /* SurveyContentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyContentListController.m; sourceTree = "<group>"; };
 		19194CDF1E7FDDA800641085 /* SurveyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListViewController.h; sourceTree = "<group>"; };
@@ -611,6 +608,12 @@
 		19194CF71E7FDDDE00641085 /* OptionalHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalHeadView.m; sourceTree = "<group>"; };
 		19194CF81E7FDDDE00641085 /* OptionalManageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageHeadView.h; sourceTree = "<group>"; };
 		19194CF91E7FDDDE00641085 /* OptionalManageHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageHeadView.m; sourceTree = "<group>"; };
+		19194D011E7FDED000641085 /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
+		19194D021E7FDED000641085 /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
+		19194D031E7FDED000641085 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
+		19194D041E7FDED000641085 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
+		19194D071E7FDF0500641085 /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveySubjectModel.h; sourceTree = "<group>"; };
+		19194D081E7FDF0500641085 /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveySubjectModel.m; sourceTree = "<group>"; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		1924DFD51D62B49C00FEC383 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1674,6 +1677,7 @@
 		19194CD41E7FDDA700641085 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
+				19194D001E7FDED000641085 /* Models */,
 				19194CD51E7FDDA800641085 /* Cells */,
 				19194CDC1E7FDDA800641085 /* Controllers */,
 				19194CE11E7FDDA800641085 /* Manager */,
@@ -1686,10 +1690,6 @@
 			children = (
 				19194CD61E7FDDA800641085 /* SurveryStockListCell.h */,
 				19194CD71E7FDDA800641085 /* SurveryStockListCell.m */,
-				19194CD81E7FDDA800641085 /* SurveyListModel.h */,
-				19194CD91E7FDDA800641085 /* SurveyListModel.m */,
-				19194CDA1E7FDDA800641085 /* SurveyModel.h */,
-				19194CDB1E7FDDA800641085 /* SurveyModel.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1755,6 +1755,19 @@
 				19194CF91E7FDDDE00641085 /* OptionalManageHeadView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		19194D001E7FDED000641085 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19194D071E7FDF0500641085 /* SurveySubjectModel.h */,
+				19194D081E7FDF0500641085 /* SurveySubjectModel.m */,
+				19194D011E7FDED000641085 /* SurveyListModel.h */,
+				19194D021E7FDED000641085 /* SurveyListModel.m */,
+				19194D031E7FDED000641085 /* SurveyModel.h */,
+				19194D041E7FDED000641085 /* SurveyModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */ = {
@@ -4499,7 +4512,6 @@
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
-				19194CE51E7FDDA800641085 /* SurveyListModel.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				19194CFD1E7FDDDE00641085 /* OptionalStockViewController.m in Sources */,
@@ -4733,6 +4745,7 @@
 				9EC07EF21E780796006EE97E /* NSObject+ChangeState.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
+				19194D051E7FDED000641085 /* SurveyListModel.m in Sources */,
 				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
 				19F00D111E2EFFD9009270D5 /* SpotViewController.m in Sources */,
@@ -4771,7 +4784,7 @@
 				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
 				193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
-				19194CE61E7FDDA800641085 /* SurveyModel.m in Sources */,
+				19194D061E7FDED000641085 /* SurveyModel.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
@@ -4820,6 +4833,7 @@
 				84EF8CC21D712F2C002F3F69 /* MyAttentionTableViewCell.m in Sources */,
 				193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,
+				19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */,
 				1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */,
 				190F65F71E36E73000B83ADF /* MyOrderViewController.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
