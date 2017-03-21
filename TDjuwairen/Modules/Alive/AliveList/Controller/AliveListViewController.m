@@ -17,12 +17,16 @@
 #import "AliveEditMasterViewController.h"
 #import "AliveMessageListViewController.h"
 #import "LoginState.h"
+#import "ZFCWaveActivityIndicatorView.h"
+#import "SSColorfulRefresh.h"
 
 @interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
 @property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
+@property (nonatomic, strong) ZFCWaveActivityIndicatorView *waveActivityIndicator;
+@property (nonatomic, strong) SSColorfulRefresh *refresh;
 @end
 
 @implementation AliveListViewController
@@ -37,10 +41,26 @@
         _tableView.showsVerticalScrollIndicator = NO;
         
         _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+        _tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     }
     
     return _tableView;
+}
+
+- (SSColorfulRefresh *)refresh {
+    if (!_refresh) {
+        NSArray *colors= @[];
+        _refresh = [[SSColorfulRefresh alloc] initWithScrollView:self.tableView colors:@[]];
+    }
+    return _refresh;
+}
+
+- (ZFCWaveActivityIndicatorView *)waveActivityIndicator {
+    if (!_waveActivityIndicator) {
+        _waveActivityIndicator = [[ZFCWaveActivityIndicatorView alloc] init];
+        _waveActivityIndicator.center = CGPointMake(kScreenWidth*2.5, 200);
+    }
+    return _waveActivityIndicator;
 }
 
 - (void)viewDidLoad {
@@ -70,8 +90,10 @@
     __weak AliveListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    
     NSDictionary *dict = @{@"tag" :@(listType),@"page" :@(page)};
+    
+    [self.view addSubview:self.waveActivityIndicator];
+    [self.waveActivityIndicator startAnimating];
     
     [manager GET:API_AliveGetRoomList parameters:dict completion:^(id data, NSError *error){
         
@@ -82,6 +104,9 @@
         if (wself.tableView.mj_footer.isRefreshing) {
             [wself.tableView.mj_footer endRefreshing];
         }
+        
+        [self.waveActivityIndicator stopAnimating];
+        [self.waveActivityIndicator removeFromSuperview];
         
         if (!error) {
             NSArray *dataArray = data;

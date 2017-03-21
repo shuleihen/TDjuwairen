@@ -28,5 +28,7 @@
 @property (weak, nonatomic) id<AliveListTableCellDelegate> delegate;
 
 + (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel;
++ (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel isShowDetail:(BOOL)isShowDetail;
 - (void)setupAliveModel:(AliveListModel *)aliveModel;
+- (void)setupAliveModel:(AliveListModel *)aliveModel isShowDetail:(BOOL)isShowDetail;
 @end
