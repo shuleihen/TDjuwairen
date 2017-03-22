@@ -13,6 +13,7 @@
 typedef void(^AttentionAliveMasterBlock)();
 
 @interface AliveMasterListTableViewCell : UITableViewCell
+@property (weak, nonatomic) IBOutlet UILabel *introLabel;
 @property (strong, nonatomic) AliveMasterModel *aliveModel;
 @property (copy, nonatomic) AttentionAliveMasterBlock  attentedBlock;
 

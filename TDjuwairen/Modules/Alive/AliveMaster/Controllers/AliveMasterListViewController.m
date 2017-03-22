@@ -28,7 +28,7 @@
 @implementation AliveMasterListViewController
 
 - (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId aliveType:(NSString *)aliveType viewControllerType:(AliveMasterListType)listType {
-
+    
     if (self = [super init]) {
         self.vc = vc;
         self.listType = listType;
@@ -58,7 +58,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-   self.edgesForExtendedLayout = UIRectEdgeNone;
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     
     switch (self.listType) {
         case AliveMasterList:
@@ -79,7 +79,7 @@
     self.aliveArr = [NSArray array];
     [self refreshActions];
     
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick) name:KnotifierGoAddLike object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick) name:KnotifierGoAddLike object:nil];
 }
 - (void)refreshAddLick{
     [self requestDataWithPage:AliveDianZanList];
@@ -193,8 +193,16 @@
     cell.selectionStyle = UITableViewCellAccessoryNone;
     AliveMasterModel *model = self.aliveArr[indexPath.row];
     cell.aliveModel = model;
-    __weak typeof(self)weakSelf = self;
     
+    if (self.listType == AliveDianZanList) {
+        cell.introLabel.hidden = YES;
+    }else {
+        cell.introLabel.hidden = NO;
+        
+    }
+    
+    __weak typeof(self)weakSelf = self;
+#pragma mark - 关注／取消关注操作
     cell.attentedBlock = ^(){
         if (model.masterId.length <= 0) {
             return ;
@@ -206,29 +214,22 @@
             str = API_AliveDelAttention;
         }
         
-        
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        hud.labelText = @"提交中...";
-        
         NetworkManager *manager = [[NetworkManager alloc] init];
         
         [manager POST:str parameters:@{@"user_id":model.masterId} completion:^(id data, NSError *error){
-         
+            
             if (!error) {
                 
                 if (data && [data[@"status"] integerValue] == 1) {
                     
                     model.isAtten = !model.isAtten;
                     [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-//                    [hud hide:YES afterDelay:0.2];
+                    
                 }
             } else {
-//                hud.labelText = error.localizedDescription?:@"提交失败";
-//                [hud hide:YES afterDelay:0.4];
             }
             
         }];
-        
         
     };
     return cell;
@@ -255,8 +256,13 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    return 100;
+    if (self.listType == AliveDianZanList) {
+        
+        return 74;
+    }else {
+        
+        return 100;
+    }
     
 }
 

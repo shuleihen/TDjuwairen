@@ -18,7 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *aFansCountLabel;
-@property (weak, nonatomic) IBOutlet UILabel *introLabel;
+
 
 
 @end
