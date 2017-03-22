@@ -55,6 +55,13 @@
 		19194D051E7FDED000641085 /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D021E7FDED000641085 /* SurveyListModel.m */; };
 		19194D061E7FDED000641085 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D041E7FDED000641085 /* SurveyModel.m */; };
 		19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D081E7FDF0500641085 /* SurveySubjectModel.m */; };
+		19194D131E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D0C1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m */; };
+		19194D141E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D0E1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m */; };
+		19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D101E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m */; };
+		19194D161E80CBE900641085 /* ZFCWaveActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D121E80CBE900641085 /* ZFCWaveActivityIndicatorView.m */; };
+		19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D191E80CC5200641085 /* NSObject+ChangeState.m */; };
+		19194D1D1E80CC5200641085 /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D1B1E80CC5200641085 /* Tool.m */; };
+		19194D221E80D08900641085 /* SSColorfulRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D211E80D08900641085 /* SSColorfulRefresh.m */; };
 		191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */ = {isa = PBXBuildFile; fileRef = 191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */; };
 		1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD61D62B49C00FEC383 /* AFHTTPSessionManager.m */; };
 		1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1924DFD91D62B49C00FEC383 /* AFNetworkReachabilityManager.m */; };
@@ -473,8 +480,6 @@
 		9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */; };
 		9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */; };
 		9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */; };
-		9EC07EEF1E78078C006EE97E /* Tool.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EEE1E78078C006EE97E /* Tool.m */; };
-		9EC07EF21E780796006EE97E /* NSObject+ChangeState.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -614,6 +619,20 @@
 		19194D041E7FDED000641085 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
 		19194D071E7FDF0500641085 /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveySubjectModel.h; sourceTree = "<group>"; };
 		19194D081E7FDF0500641085 /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveySubjectModel.m; sourceTree = "<group>"; };
+		19194D0B1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCDoubleBounceActivityIndicatorView.h; sourceTree = "<group>"; };
+		19194D0C1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCDoubleBounceActivityIndicatorView.m; sourceTree = "<group>"; };
+		19194D0D1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCRotatingPlaneActivityIndicatorView.h; sourceTree = "<group>"; };
+		19194D0E1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCRotatingPlaneActivityIndicatorView.m; sourceTree = "<group>"; };
+		19194D0F1E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCWanderingCubesActivityIndicatorView.h; sourceTree = "<group>"; };
+		19194D101E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCWanderingCubesActivityIndicatorView.m; sourceTree = "<group>"; };
+		19194D111E80CBE900641085 /* ZFCWaveActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCWaveActivityIndicatorView.h; sourceTree = "<group>"; };
+		19194D121E80CBE900641085 /* ZFCWaveActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCWaveActivityIndicatorView.m; sourceTree = "<group>"; };
+		19194D181E80CC5200641085 /* NSObject+ChangeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ChangeState.h"; sourceTree = "<group>"; };
+		19194D191E80CC5200641085 /* NSObject+ChangeState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ChangeState.m"; sourceTree = "<group>"; };
+		19194D1A1E80CC5200641085 /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
+		19194D1B1E80CC5200641085 /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
+		19194D201E80D08900641085 /* SSColorfulRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SSColorfulRefresh.h; sourceTree = "<group>"; };
+		19194D211E80D08900641085 /* SSColorfulRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SSColorfulRefresh.m; sourceTree = "<group>"; };
 		191CB4911D5C709300E4AFB5 /* YXTextFieldPanel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTextFieldPanel.h; sourceTree = "<group>"; };
 		191CB4921D5C709300E4AFB5 /* YXTextFieldPanel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTextFieldPanel.m; sourceTree = "<group>"; };
 		1924DFD51D62B49C00FEC383 /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
@@ -1390,10 +1409,6 @@
 		9EC07EE81E7806F3006EE97E /* AliveCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCommentViewController.h; sourceTree = "<group>"; };
 		9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCommentViewController.m; sourceTree = "<group>"; };
 		9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveCommentViewController.xib; sourceTree = "<group>"; };
-		9EC07EED1E78078C006EE97E /* Tool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tool.h; sourceTree = "<group>"; };
-		9EC07EEE1E78078C006EE97E /* Tool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Tool.m; sourceTree = "<group>"; };
-		9EC07EF01E780796006EE97E /* NSObject+ChangeState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+ChangeState.h"; sourceTree = "<group>"; };
-		9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+ChangeState.m"; sourceTree = "<group>"; };
 		FE108943B4653426E130FAD3 /* libPods-TDjuwairen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -1768,6 +1783,49 @@
 				19194D041E7FDED000641085 /* SurveyModel.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		19194D0A1E80CBE900641085 /* ZFCActivityIndicator */ = {
+			isa = PBXGroup;
+			children = (
+				19194D0B1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.h */,
+				19194D0C1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m */,
+				19194D0D1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.h */,
+				19194D0E1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m */,
+				19194D0F1E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.h */,
+				19194D101E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m */,
+				19194D111E80CBE900641085 /* ZFCWaveActivityIndicatorView.h */,
+				19194D121E80CBE900641085 /* ZFCWaveActivityIndicatorView.m */,
+			);
+			path = ZFCActivityIndicator;
+			sourceTree = "<group>";
+		};
+		19194D171E80CC5200641085 /* YPTool */ = {
+			isa = PBXGroup;
+			children = (
+				19194D181E80CC5200641085 /* NSObject+ChangeState.h */,
+				19194D191E80CC5200641085 /* NSObject+ChangeState.m */,
+				19194D1A1E80CC5200641085 /* Tool.h */,
+				19194D1B1E80CC5200641085 /* Tool.m */,
+			);
+			path = YPTool;
+			sourceTree = "<group>";
+		};
+		19194D1E1E80D08900641085 /* Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				19194D1F1E80D08900641085 /* SSColorfulRefresh */,
+			);
+			path = Refresh;
+			sourceTree = "<group>";
+		};
+		19194D1F1E80D08900641085 /* SSColorfulRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				19194D201E80D08900641085 /* SSColorfulRefresh.h */,
+				19194D211E80D08900641085 /* SSColorfulRefresh.m */,
+			);
+			path = SSColorfulRefresh;
 			sourceTree = "<group>";
 		};
 		191CB4901D5C709300E4AFB5 /* YXTextFieldPanel */ = {
@@ -4112,11 +4170,10 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19194D1E1E80D08900641085 /* Refresh */,
+				19194D171E80CC5200641085 /* YPTool */,
+				19194D0A1E80CBE900641085 /* ZFCActivityIndicator */,
 				193419D81E78DF2B00F22788 /* DCPathButton */,
-				9EC07EF01E780796006EE97E /* NSObject+ChangeState.h */,
-				9EC07EF11E780796006EE97E /* NSObject+ChangeState.m */,
-				9EC07EED1E78078C006EE97E /* Tool.h */,
-				9EC07EEE1E78078C006EE97E /* Tool.m */,
 				4DD179D11E77C00B00FBE66D /* MYPhotoBrowser */,
 				196F5ECE1E5485B700928B60 /* SAMKeychain */,
 				196F5EC61E54847700928B60 /* Base64 */,
@@ -4582,6 +4639,7 @@
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
 				19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
+				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */,
@@ -4615,6 +4673,7 @@
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */,
+				19194D131E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m in Sources */,
 				19B11CA81D655B9E00BB4DF4 /* DDASLLogCapture.m in Sources */,
 				4DD179E51E77C00B00FBE66D /* MYAnimationHelper.m in Sources */,
 				19B11CAB1D655B9E00BB4DF4 /* DDLog.m in Sources */,
@@ -4634,6 +4693,7 @@
 				19F43C2E1E23335B001B72CD /* NewTableViewCell.m in Sources */,
 				19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
+				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,
 				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
@@ -4665,6 +4725,7 @@
 				19F00D281E2F0935009270D5 /* HotViewController.m in Sources */,
 				190F65ED1E36E73000B83ADF /* AwardAdressTableViewCell.m in Sources */,
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
+				19194D1D1E80CC5200641085 /* Tool.m in Sources */,
 				19959B831E2C5D4300AB26DF /* GradeListModel.m in Sources */,
 				1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */,
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
@@ -4677,6 +4738,7 @@
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
 				194186C61DF81235000C5197 /* ViewManagerViewController.m in Sources */,
+				19194D161E80CBE900641085 /* ZFCWaveActivityIndicatorView.m in Sources */,
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,
 				9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */,
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
@@ -4742,7 +4804,6 @@
 				1955B48F1D644D9800DC102E /* SharpTags.m in Sources */,
 				19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */,
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
-				9EC07EF21E780796006EE97E /* NSObject+ChangeState.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
 				19194D051E7FDED000641085 /* SurveyListModel.m in Sources */,
@@ -4800,6 +4861,7 @@
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
+				19194D221E80D08900641085 /* SSColorfulRefresh.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
 				19194CFC1E7FDDDE00641085 /* OptionalManageViewController.m in Sources */,
 				4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */,
@@ -4841,6 +4903,7 @@
 				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
 				19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
+				19194D141E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m in Sources */,
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				19386ED31E71A2DC00D4426E /* AliveInfoModel.m in Sources */,
 				19AF98281E24AB4D0097A585 /* AddAddressViewController.m in Sources */,
@@ -4849,7 +4912,6 @@
 				19194CE91E7FDDA800641085 /* StockManager.m in Sources */,
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
-				9EC07EEF1E78078C006EE97E /* Tool.m in Sources */,
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,

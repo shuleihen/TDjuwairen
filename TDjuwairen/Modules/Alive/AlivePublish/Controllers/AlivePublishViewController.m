@@ -24,6 +24,7 @@
 @property (nonatomic, strong) ImagePickerHandler *imagePicker;
 @property (nonatomic, strong) NSString *stockId;
 @property (nonatomic, strong) NSString *reason;
+@property (nonatomic, strong) NSString *textFieldPlaceholder;
 @end
 
 @implementation AlivePublishViewController
@@ -39,8 +40,10 @@
     
     if (self.isTiedan) {
         self.title = @"发布贴单";
+        self.textFieldPlaceholder = @"填写买入卖出理由或其他";
     } else {
         self.title = @"发布动态";
+        self.textFieldPlaceholder = @"写点什么吧...";
     }
     
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:self.isTiedan?@"推单":@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishPressed:)];
@@ -83,7 +86,7 @@
     footerView.backgroundColor = [UIColor whiteColor];
     
     UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(15, 15, kScreenWidth-30, 137)];
-    textView.placeholder = @"请填写买入卖出理由或其他";
+    textView.placeholder = self.textFieldPlaceholder;
     textView.font = [UIFont systemFontOfSize:15.0f];
     textView.delegate = self;
     textView.text = self.reason;

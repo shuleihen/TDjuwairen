@@ -35,12 +35,20 @@
     }
 }
 
-
 - (void)setupAliveModel:(AliveListModel *)aliveModel {
+    [self setupAliveModel:aliveModel isShowDetail:NO];
+}
+
+- (void)setupAliveModel:(AliveListModel *)aliveModel isShowDetail:(BOOL)isShowDetail{
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:TDDefaultUserAvatar];
     self.nickNameLabel.text = aliveModel.masterNickName;
     self.timeLabel.text = aliveModel.aliveTime;
     
+    if (isShowDetail) {
+        self.titleLabel.numberOfLines = 0;
+    } else {
+        self.titleLabel.numberOfLines = 3;
+    }
     self.titleLabel.text = aliveModel.aliveTitle;
     
     self.imagesView.images = aliveModel.aliveImgs;
@@ -49,14 +57,20 @@
     self.tiedanLabel.hidden = (aliveModel.aliveType ==2)?NO:YES;
 }
 
-+ (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel {
-    CGFloat height = 0.f;
++ (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel isShowDetail:(BOOL)isShowDetail {
+    CGFloat height = 0.0f;
     
     height += 42.0f;
     
-    // 3行文字高50
-    CGSize size = [aliveModel.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-64-12, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
-    height += size.height;
+    if (isShowDetail) {
+        // 文字全部显示
+        CGSize size = [aliveModel.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-64-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
+        height += size.height;
+    } else {
+        CGSize size = [aliveModel.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-64-12, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
+        height += size.height;
+    }
+    
     
     height += 8;
     
@@ -65,6 +79,10 @@
     height += 14.0f;
     
     return height;
+}
+
++ (CGFloat)heightWithAliveModel:(AliveListModel *)aliveModel {
+    return [self heightWithAliveModel:aliveModel isShowDetail:NO];
 }
 
 + (CGFloat)imagesViewHeightWithImages:(NSArray *)images {

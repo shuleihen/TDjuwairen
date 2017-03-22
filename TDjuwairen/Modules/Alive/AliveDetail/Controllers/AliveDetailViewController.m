@@ -281,7 +281,7 @@
         cell.delegate = self;
         if (self.aliveInfoModel != nil) {
             
-            [cell setupAliveModel:self.aliveInfoModel];
+            [cell setupAliveModel:self.aliveInfoModel isShowDetail:YES];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -313,7 +313,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel];
+        return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel isShowDetail:YES];
     }else {
         self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(self.pageScrollView.frame.size.height, kScreenHeight-[AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel]-45));
         return self.pageScrollView.frame.size.height;

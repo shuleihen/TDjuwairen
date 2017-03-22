@@ -64,6 +64,7 @@
 #define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"//
 #define API_AddGoodComment1_2   @"index.php/View/AddCommentAssessGood1_2"
 #define API_Search              @"Search/search2_2"
+#define API_ViewSearchCompnay   @"View/getCompanyCode"
 
 #define API_AddSharpComment     @"index.php/Sharp/addSharpComnment"
 #define API_GetSurveryList      @"index.php/Sharp/surveyList/page"

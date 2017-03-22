@@ -24,17 +24,10 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     self.title = @"评论";
     [self initViews];
-    [self initValue];
-    
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-}
-
-- (void)initValue { }
 
 
 - (void)initViews
@@ -53,8 +46,6 @@
     [self.button_send addTarget:self action:@selector(sendCommentClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:self.button_send];
     [self.button_send setEnabled:NO];
-
-    
 }
 
 
@@ -79,9 +70,7 @@
         }
         
     }];
-    
 }
-
 
 
 - (void)textViewDidChange:(UITextView *)textView{
@@ -90,6 +79,7 @@
         [textView endEditing:YES];
         return;
     }
+    
     _label_placeHolder.hidden = textView.text.length;
     _label_residue_count.text = [NSString stringWithFormat:@"还能输入%ld字",MAX_Count-textView.text.length];
     [Tool mtextviewDidChangeLimitLetter:textView andLimitLength:MAX_Count];
@@ -97,18 +87,14 @@
     
     if (textView.text.length > 0) {
         if (self.button_send.enabled == NO) {
-            
             self.button_send.enabled = YES;
         }
     }else {
         if (self.button_send.enabled == YES) {
-            
            self.button_send.enabled = NO;
         }
-        
     }
 }
-
 
 
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
