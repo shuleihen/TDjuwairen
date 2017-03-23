@@ -86,11 +86,11 @@
 - (void)setupUserInfo {
     if (US.isLogIn == YES) {
         NSString *bigface = [US.headImage userBigAvatar];
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:bigface] forState:UIControlStateNormal placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
+        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:bigface] forState:UIControlStateNormal placeholderImage:TDCenterUserAvatar options:SDWebImageRefreshCached];
         
         self.nickNameLabel.text = US.nickName;
     } else {
-        [self.avatarBtn setImage:TDDefaultUserAvatar forState:UIControlStateNormal];
+        [self.avatarBtn setImage:TDCenterUserAvatar forState:UIControlStateNormal];
         self.nickNameLabel.text = @"登陆注册";
     }
 }

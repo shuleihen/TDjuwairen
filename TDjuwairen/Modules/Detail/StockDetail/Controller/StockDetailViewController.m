@@ -41,11 +41,12 @@
 #import "StockInfoModel.h"
 #import "HotViewController.h"
 #import "NSString+Util.h"
+#import "TDRechargeViewController.h"
 
 #define kHeaderViewHeight 135
 #define kSegmentHeight 45
 
-@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate>
+@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate, StockUnlockDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
@@ -89,9 +90,6 @@
     
     // 监听 发布牛熊说、回答或提问通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadContentData:) name:kSurveyDetailContentChanged object:nil];
-    
-    // 解锁通知
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(unlockStock:) name:kSurveyDetailUnlock object:nil];
     
     // 评分通知
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(querySurveySimpleDetail) name:kAddStockGradeSuccessed object:nil];
@@ -195,6 +193,7 @@
     vc.stockCode = self.stockId;
     vc.stockName = self.stockModel.stockName;
     vc.needKey = self.stockModel.keyNum;
+    vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.navigationBarHidden = YES;
@@ -286,7 +285,21 @@
     
 }
 
-- (void)unlockStock:(NSNotification *)notifi {
+- (void)reloadTableView {
+    CGFloat contentHeight = [[self currentContentViewController] contentHeight];
+    CGFloat minHeight = kScreenHeight - kHeaderViewHeight-kSegmentHeight-64;
+    CGFloat height = MAX(contentHeight, minHeight);
+    
+    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
+    // iOS10以下需要添加以下
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
+    [self.tableView reloadData];
+}
+
+#pragma mark - StockUnlockDelegate
+
+- (void)unlockPressed:(id)sender {
     NSDictionary *para = @{@"user_id":  US.userId,
                            @"code":     self.stockId};
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -308,21 +321,15 @@
             hud.labelText = error.localizedDescription;
             [hud hide:YES afterDelay:0.4];
         }
-            
+        
     }];
 }
 
-- (void)reloadTableView {
-    CGFloat contentHeight = [[self currentContentViewController] contentHeight];
-    CGFloat minHeight = kScreenHeight - kHeaderViewHeight-kSegmentHeight-64;
-    CGFloat height = MAX(contentHeight, minHeight);
-    
-    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
-    // iOS10以下需要添加以下
-    self.tableView.tableFooterView = self.pageViewController.view;
-    
-    [self.tableView reloadData];
+- (void)rechargePressed:(id)sender {
+    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
 
 #pragma mark - StockHeaderDelegate
 - (void)gradePressed:(id)sender {

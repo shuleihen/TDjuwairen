@@ -16,8 +16,8 @@
 #import "YXCheckBox.h"
 #import "LoginState.h"
 #import "LoginViewController.h"
-#import "RechargeViewController.h"
 #import "STPopupController.h"
+#import "TDRechargeViewController.h"
 
 @interface SubscriptionViewController ()<WKNavigationDelegate>
 @property (nonatomic, strong) WKWebView *webView;
@@ -230,11 +230,8 @@
 }
 
 - (void)recharge {
-    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.containerView.layer.cornerRadius = 4;
-    [popupController presentInViewController:self];
+    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark -WKNavigationDelegate

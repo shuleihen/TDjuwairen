@@ -244,7 +244,8 @@
     
     [self.roomHeaderView setupRoomMasterModel:roomMasterModel];
     
-    self.publishBtn.hidden = !roomMasterModel.isMaster;
+    BOOL isMaster = [roomMasterModel.masterId isEqualToString:US.userId];
+    self.publishBtn.hidden = !isMaster;
 }
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {

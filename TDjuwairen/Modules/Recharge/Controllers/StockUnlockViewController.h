@@ -9,8 +9,16 @@
 #import <UIKit/UIKit.h>
 
 
+@protocol StockUnlockDelegate <NSObject>
+- (void)unlockPressed:(id)sender;
+- (void)rechargePressed:(id)sender;
+
+@end
+
 @interface StockUnlockViewController : UIViewController
 @property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, assign) NSInteger needKey;
+
+@property (nonatomic, weak) id<StockUnlockDelegate> delegate;
 @end
