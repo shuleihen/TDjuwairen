@@ -118,6 +118,14 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.viewController.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    
     [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
             [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
@@ -132,6 +140,12 @@
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.viewController.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     AliveCommentViewController * commVc = [AliveCommentViewController new];
     commVc.alive_ID = SafeValue(cell.cellModel.aliveId);
     commVc.alive_type = [NSString stringWithFormat:@"%ld",(long)cell.cellModel.aliveType];
@@ -145,6 +159,12 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
 {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.viewController.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
