@@ -389,6 +389,10 @@
 		2764A26E1D015F6B00916844 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26D1D015F6B00916844 /* Security.framework */; };
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
+		4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */; };
+		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
+		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
+		4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */; };
 		4DD179E51E77C00B00FBE66D /* MYAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */; };
 		4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D61E77C00B00FBE66D /* MYBottomMenuCell.m */; };
 		4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D81E77C00B00FBE66D /* MYBottomMenuTool.m */; };
@@ -1248,6 +1252,13 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		4D29B9BC1E83AE960019DD20 /* SearchCompanyListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListTableView.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.h; sourceTree = SOURCE_ROOT; };
+		4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListTableView.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.m; sourceTree = SOURCE_ROOT; };
+		4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListCell.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.h; sourceTree = SOURCE_ROOT; };
+		4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListCell.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.m; sourceTree = SOURCE_ROOT; };
+		4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchCompanyListCell.xib; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.xib; sourceTree = SOURCE_ROOT; };
+		4D29B9C41E83B30E0019DD20 /* SearchCompanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListModel.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.h; sourceTree = SOURCE_ROOT; };
+		4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListModel.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.m; sourceTree = SOURCE_ROOT; };
 		4DD179D21E77C00B00FBE66D /* MYAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYAnimationHelper.h; sourceTree = "<group>"; };
 		4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYAnimationHelper.m; sourceTree = "<group>"; };
 		4DD179D51E77C00B00FBE66D /* MYBottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBottomMenuCell.h; sourceTree = "<group>"; };
@@ -2164,6 +2175,9 @@
 		19386EE21E72401E00D4426E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */,
+				4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */,
+				4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2180,6 +2194,8 @@
 		19386EE41E72401E00D4426E /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D29B9C41E83B30E0019DD20 /* SearchCompanyListModel.h */,
+				4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2187,6 +2203,8 @@
 		19386EE51E72401E00D4426E /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D29B9BC1E83AE960019DD20 /* SearchCompanyListTableView.h */,
+				4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4508,6 +4526,7 @@
 				193419A51E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */,
 				19386EFA1E73A0EB00D4426E /* PersonalCenter.storyboard in Resources */,
 				19252C101D51E830003E5D18 /* Info.plist in Resources */,
+				4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */,
 				1955B4631D644D9800DC102E /* BrowserTableViewCell.xib in Resources */,
 				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
@@ -4616,6 +4635,7 @@
 				19C2581D1E7649D200433D0D /* AliveMessageModel.m in Sources */,
 				193419B61E76B84B00F22788 /* AliveRoomViewController.m in Sources */,
 				190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */,
+				4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				19386F081E73A88800D4426E /* CenterViewController.m in Sources */,
@@ -4706,6 +4726,7 @@
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
+				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
 				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
 				190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
@@ -4837,6 +4858,7 @@
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
 				196F5EE01E553ADB00928B60 /* AppContext.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
+				4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */,
 				4DD179EB1E77C00B00FBE66D /* MYRollScrollView.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				19F00D171E2EFFD9009270D5 /* AnsPublishViewController.m in Sources */,
