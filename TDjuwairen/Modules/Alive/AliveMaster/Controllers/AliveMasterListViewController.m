@@ -216,6 +216,12 @@
     __weak typeof(self)weakSelf = self;
 #pragma mark - 关注／取消关注操作
     cell.attentedBlock = ^(){
+        if (!US.isLogIn) {
+            LoginViewController *login = [[LoginViewController alloc] init];
+            [self.navigationController pushViewController:login animated:YES];
+            return;
+        }
+        
         if (model.masterId.length <= 0) {
             return ;
         }

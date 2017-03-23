@@ -380,6 +380,13 @@
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender {
     
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+
+    
     if (!self.roomMasterModel) {
         return;
     }

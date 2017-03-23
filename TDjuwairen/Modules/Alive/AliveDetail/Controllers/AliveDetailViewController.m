@@ -386,6 +386,12 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
 {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     __weak typeof(self)weakSelf = self;
     [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
@@ -395,8 +401,7 @@
             [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
                 if (!error) {
                     
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
- [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+                    [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
                 }
             }];
             
@@ -406,6 +411,12 @@
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     AliveCommentViewController *commVC = [AliveCommentViewController new];
     commVC.alive_ID = _alive_ID;
     commVC.alive_type = _alive_type;
@@ -415,6 +426,13 @@
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
 {
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
     __weak typeof(self)wself = self;
@@ -425,7 +443,6 @@
             if (!error) {
                 cell.cellModel.isLike = NO;
                 wself.toolView.likeBtn.selected = NO;
-//                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
                  [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已取消点赞")
@@ -438,7 +455,6 @@
             if (!error) {
                 cell.cellModel.isLike = YES;
                 wself.toolView.likeBtn.selected = YES;
-//                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已点赞")

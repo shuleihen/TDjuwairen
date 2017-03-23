@@ -32,9 +32,6 @@
 #import "NSString+Emoji.h"
 
 @interface AlivePingLunViewController ()<SQTopicTableViewCellDelegate, GuessCommentPublishDelegate>
-//@property (weak, nonatomic) IBOutlet UITableView *tableView;
-//@property (weak, nonatomic) IBOutlet UIView *toolView;
-//@property (weak, nonatomic) IBOutlet UITextField *textField;
 
 @property (copy, nonatomic) NSArray *items;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -45,7 +42,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     
     [self.tableView registerClass:[SQTopicTableViewCell class] forCellReuseIdentifier:@"GuessCommentCellID"];
     self.tableView.backgroundColor = TDViewBackgrouondColor;
@@ -54,14 +50,7 @@
     self.tableView.rowHeight = UITableViewAutomaticDimension ;
     
     
-    //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
-    
-    //    MJRefreshFooter *mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
-    //    mj_footer.automaticallyHidden = YES;
-    //    self.tableView.mj_footer = mj_footer;
-    
     self.page = 1;
-//    [self queryGuessComment];
     
     [self initValue];
     [self initViews];
@@ -101,11 +90,7 @@
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *dict = nil;
-    //    if (!US.isLogIn) {
-    //        dict = @{@"page": @(self.page)};
-    //    } else {
     dict = @{@"alive_id":SafeValue(_detail_id), @"alive_type": SafeValue(self.detail_type)};
-    //    }
     
     __weak AlivePingLunViewController *wself = self;
     [ma GET:API_AliveGetRoomComment parameters:dict completion:^(id data, NSError *error){
@@ -135,15 +120,11 @@
         }
         
         [wself.tableView reloadData];
-//        self.view.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
-//        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
     }];
 }
 
 - (void)viewWillLayoutSubviews
 {
-//    self.view.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
-//            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
 }
 
 - (void)reloadWithCommentList:(NSArray *)array {
@@ -161,10 +142,6 @@
 
 - (void)showPublishControllerWithType:(GuessPublishType)type withReplyCommentId:(NSString *)replyCommentId{
     
-//    UIView *replayView = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-200, kScreenWidth, 200)];
-//    replayView.backgroundColor = [UIColor purpleColor];
-//    UIWindow *win = [UIApplication sharedApplication].keyWindow;
-//    [win addSubview: replayView];
     GuessCommentPublishViewController *vc = (GuessCommentPublishViewController *)[[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessCommentPublishViewController"];
     vc.delegate = self;
     vc.type = type;
