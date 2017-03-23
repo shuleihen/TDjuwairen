@@ -214,8 +214,8 @@
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
             self.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.pinglunVC.tableView.contentSize.height);
             [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoPingLun object:nil];
-            self.toolView.hidden = NO;
-            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
+//            self.toolView.hidden = NO;
+//            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
             
         }
             break;
@@ -223,8 +223,8 @@
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
             self.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.dianZanVC.tableView.contentSize.height);
-            self.toolView.hidden = YES;
-            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+//            self.toolView.hidden = YES;
+//            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
             
         }
             break;
@@ -232,8 +232,8 @@
         {
             self.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
             self.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, self.shareVC.tableView.contentSize.height);
-            self.toolView.hidden = YES;
-            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+//            self.toolView.hidden = YES;
+//            self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
             
         }
             break;

@@ -15,8 +15,10 @@
 #import "LoginState.h"
 #import "NotificationDef.h"
 #import "AliveListModel.h"
+#import "SearchCompanyListTableView.h"
+#import "SearchCompanyListModel.h"
 
-@interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate>
+@interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *stockIdTextField;
 @property (nonatomic, strong) UITextView *textView;
@@ -25,6 +27,8 @@
 @property (nonatomic, strong) NSString *stockId;
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *textFieldPlaceholder;
+@property (strong, nonatomic) SearchCompanyListTableView *companyListTableView;
+
 @end
 
 @implementation AlivePublishViewController
@@ -32,11 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     if (self.isTiedan) {
         self.title = @"发布贴单";
@@ -58,9 +57,22 @@
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.scrollEnabled = NO;
     
     [self setupFooterView];
     [self checkRightBarItemEnabled];
+    self.companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectMake(85, 44, kScreenWidth-97, 0)];
+
+    __weak typeof(self)weakSelf = self;
+    self.companyListTableView.choiceCode = ^(NSString *str){
+       weakSelf.stockIdTextField.text = str;
+        weakSelf.companyListTableView.hidden = YES;
+        weakSelf.stockId = str;
+        [weakSelf checkRightBarItemEnabled];
+        
+    };
+    [self.tableView addSubview:self.companyListTableView];
+    
 }
 
 - (UITextField *)stockIdTextField {
@@ -69,6 +81,9 @@
         _stockIdTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _stockIdTextField.font = [UIFont systemFontOfSize:15.0f];
         _stockIdTextField.placeholder = @"请输入股票代码";
+        _stockIdTextField.keyboardType = UIKeyboardTypeNumberPad;
+        _stockIdTextField.delegate = self;
+        [_stockIdTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     }
     
     return _stockIdTextField;
@@ -142,6 +157,7 @@
 }
 
 - (void)checkRightBarItemEnabled {
+    
     if (self.isTiedan) {
         NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         self.navigationItem.rightBarButtonItem.enabled = (stockId.length&&self.reason.length);
@@ -161,6 +177,10 @@
 }
 
 - (void)addPressed:(UIButton *)sendr {
+    if (self.isTiedan && self.companyListTableView.hidden == NO) {
+        self.companyListTableView.hidden = YES;
+    }
+    
     [self.imagePicker showImagePickerInController:self withLimitSelectedCount:(9-self.imageArray.count)];
 }
 
@@ -176,6 +196,10 @@
 - (void)publishPressed:(id)sender {
     if (!self.reason.length) {
         return;
+    }
+    
+    if (self.isTiedan && self.companyListTableView.hidden == NO) {
+        self.companyListTableView.hidden = YES;
     }
     
     self.stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
@@ -233,17 +257,87 @@
     [self setupFooterView];
 }
 
-#pragma mark - UITextField
+
+#pragma mark - loadCompanyList
+- (void)loadCompanyListData:(NSString *)textStr {
+
+    NSDictionary *dict = @{@"keyword":textStr};
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_ViewSearchCompnay parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *dataArray = data;
+            NSMutableArray *resultModelArrM = [NSMutableArray array];
+            for (NSDictionary *d in dataArray) {
+                SearchCompanyListModel *model = [[SearchCompanyListModel alloc] initWithDictionary:d];
+                [resultModelArrM addObject:model];
+            }
+            self.companyListTableView.resultDataArr = [resultModelArrM mutableCopy];
+        }else{
+            
+            self.companyListTableView.resultDataArr = [NSArray array];
+        }
+    }];
+}
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    
+    if (textField == self.stockIdTextField) {
+        if (string.length == 0) return YES;
+        
+        NSInteger existedLength = textField.text.length;
+        NSInteger selectedLength = range.length;
+        NSInteger replaceLength = string.length;
+        if (existedLength - selectedLength + replaceLength > 6) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+
 - (void)textFieldDidChange:(UITextField *)textField {
     self.stockId = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [self checkRightBarItemEnabled];
+    if (textField == self.stockIdTextField) {
+        if (textField.text.length > 20) {
+            textField.text = [textField.text substringToIndex:20];
+            return;
+        }
+    }
+    
+    if (textField.text.length > 0) {
+        
+        [self loadCompanyListData:textField.text];
+    }else {
+    
+        self.companyListTableView.resultDataArr = [NSMutableArray array];
+    }
+    
+    
+    
 }
+
+
+
 
 #pragma mark - UITextViewDelegate
 - (void)textViewDidChange:(UITextView *)textView {
     self.reason = [textView.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [self checkRightBarItemEnabled];
 }
+
+- (void)textViewDidBeginEditing:(UITextView *)textView {
+
+    if (self.isTiedan && self.companyListTableView.hidden == NO) {
+        self.companyListTableView.hidden = YES;
+    }
+}
+
+
+
 
 #pragma mark - TableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -274,7 +368,12 @@
         self.stockIdTextField.frame = CGRectMake(85, 12, kScreenWidth-97, 20);
         [cell.contentView addSubview:self.stockIdTextField];
     }
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     
     return cell;
 }
+
+
+
+
 @end
