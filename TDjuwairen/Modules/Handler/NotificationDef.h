@@ -14,7 +14,6 @@
 
 #define kSurveyDetailContentChanged     @"SurveyDetailContentChanged"
 #define kSurveyContentFontSizeChanged   @"SurveyContentFontSizeChanged"
-#define kSurveyDetailUnlock             @"SurveyDetailUnlock"
 
 #define kGuessCommentChanged            @"GuessCommentChanged"
 #define kNightVersionChanged            @"NightVersionChanged"

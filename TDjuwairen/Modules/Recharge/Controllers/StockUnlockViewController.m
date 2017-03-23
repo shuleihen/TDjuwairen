@@ -9,7 +9,6 @@
 #import "StockUnlockViewController.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "RechargeViewController.h"
 #import "NotificationDef.h"
 #import "STPopup.h"
 
@@ -50,15 +49,15 @@
 
 - (void)setupDataWithKeyNumber:(long)keyNumber {
     self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",keyNumber];
-//    if (keyNumber >= self.needKey) {
+    if (keyNumber >= self.needKey) {
         [self.doneBtn setTitle:@"解锁" forState:UIControlStateNormal];
         [self.doneBtn setTitle:@"解锁" forState:UIControlStateHighlighted];
         [self.doneBtn addTarget:self action:@selector(unlockPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    } else {
-//        [self.doneBtn setTitle:@"充值" forState:UIControlStateNormal];
-//        [self.doneBtn setTitle:@"充值" forState:UIControlStateHighlighted];
-//        [self.doneBtn addTarget:self action:@selector(rechargePressed:) forControlEvents:UIControlEventTouchUpInside];
-//    }
+    } else {
+        [self.doneBtn setTitle:@"充值" forState:UIControlStateNormal];
+        [self.doneBtn setTitle:@"充值" forState:UIControlStateHighlighted];
+        [self.doneBtn addTarget:self action:@selector(rechargePressed:) forControlEvents:UIControlEventTouchUpInside];
+    }
 }
 
 - (void)unlockPressed:(id)sender {
@@ -70,15 +69,19 @@
         return;
     }
     
-    [self dismissViewControllerAnimated:NO completion:^{
-        [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailUnlock object:nil];
-    }];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockPressed:)]) {
+        [self.delegate unlockPressed:sender];
+    }
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)rechargePressed:(id)sender {
-    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(rechargePressed:)]) {
+        [self.delegate rechargePressed:sender];
+    }
     
-    [self.popupController pushViewController:vc animated:YES];
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (IBAction)closePressed:(id)sender {

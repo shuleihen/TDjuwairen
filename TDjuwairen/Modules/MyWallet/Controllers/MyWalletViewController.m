@@ -91,7 +91,6 @@
             STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
             popupController.containerView.layer.cornerRadius = 4;
             [popupController presentInViewController:wself];
-
         }
         else
         {

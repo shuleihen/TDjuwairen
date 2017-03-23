@@ -32,7 +32,7 @@
     self.title = @"充值";
     self.view.backgroundColor = TDViewBackgrouondColor;
     
-    self.products = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.rechargevip"];
+    self.products = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.recharge60",@"com.jwr.recharge200",@"com.jwr.rechargevip"];
     [self.view addSubview:self.tableView];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     
@@ -206,38 +206,20 @@
     cell.selectedBackgroundView = view;
     
     NSString *productIdentifier = self.products[indexPath.row];
+    NSAttributedString *attr  = [self attributedStringWithIdentifier:productIdentifier];
+    
     if ([productIdentifier isEqualToString:@"com.jwr.recharge5"]) {
-        NSString *str = @"钥匙  5";
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
-                                                                                   attributes:nil];
-        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-        attatch.bounds = CGRectMake(0, -4, 19, 22);
-        attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
-        
-        NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
-        NSRange range = [str rangeOfString:@"钥匙"];
-        if (range.location != NSNotFound) {
-            [strAtt replaceCharactersInRange:range withAttributedString:wait];
-        }
-        cell.keyLabel.attributedText = strAtt;
-        
+        cell.keyLabel.attributedText = attr;
         cell.amountLabel.text = @"￥25";
     } else if ([productIdentifier isEqualToString:@"com.jwr.recharge10"]) {
-        NSString *str = @"钥匙  10";
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
-                                                                                   attributes:nil];
-        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-        attatch.bounds = CGRectMake(0, -4, 19, 22);
-        attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
-        
-        NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
-        NSRange range = [str rangeOfString:@"钥匙"];
-        if (range.location != NSNotFound) {
-            [strAtt replaceCharactersInRange:range withAttributedString:wait];
-        }
-        cell.keyLabel.attributedText = strAtt;
-        
+        cell.keyLabel.attributedText = attr;
         cell.amountLabel.text = @"￥50";
+    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge60"]) {
+        cell.keyLabel.attributedText = attr;
+        cell.amountLabel.text = @"￥298";
+    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge200"]) {
+        cell.keyLabel.attributedText = attr;
+        cell.amountLabel.text = @"￥998";
     } else if ([productIdentifier isEqualToString:@"com.jwr.rechargevip"]) {
         NSString *str = @"VIP（一次性解锁所有公司调研）";
         NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
@@ -249,6 +231,35 @@
     }
     
     return cell;
+}
+
+- (NSMutableAttributedString *)attributedStringWithIdentifier:(NSString *)productIdentifier {
+    NSString *str;
+    if ([productIdentifier isEqualToString:@"com.jwr.recharge5"]) {
+        str = @"钥匙  5";
+    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge10"]) {
+        str = @"钥匙  10";
+    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge60"]) {
+        str = @"钥匙  60";
+    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge200"]) {
+        str = @"钥匙  200";
+    } else {
+        return nil;
+    }
+    
+    NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
+                                                                               attributes:nil];
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(0, -4, 19, 22);
+    attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
+    
+    NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
+    NSRange range = [str rangeOfString:@"钥匙"];
+    if (range.location != NSNotFound) {
+        [strAtt replaceCharactersInRange:range withAttributedString:wait];
+    }
+    
+    return strAtt;
 }
 
 #pragma mark - Getter

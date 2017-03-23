@@ -17,8 +17,8 @@
 #import "NSString+Util.h"
 #import "YXCheckBox.h"
 #import "TDWebViewController.h"
-#import "RechargeViewController.h"
 #import "STPopupController.h"
+#import "TDRechargeViewController.h"
 
 @interface ApplySurveyViewController ()<MBProgressHUDDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
@@ -176,10 +176,10 @@
 }
 
 - (void)applySurveyWithKeyNumber:(NSInteger)keyNumber {
-//    __weak ApplySurveyViewController *wself = self;
+    __weak ApplySurveyViewController *wself = self;
     
     if (keyNumber < 500) {
-        /*
+        
         NSString *message = [NSString stringWithFormat:@"金钥匙不足，先去充值吧~\r\n当前余额：%ld把",(long)keyNumber];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"温馨提示" message:message preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再看看" style:UIAlertActionStyleDefault handler:nil];
@@ -189,22 +189,14 @@
         [alert addAction:cancel];
         [alert addAction:done];
         [self presentViewController:alert animated:YES completion:nil];
-         */
-        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"账户余额不足！" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:done];
-        [self presentViewController:alert animated:YES completion:nil];
     } else {
         [self sendApplySurveyRequest];
     }
 }
 
 - (void)recharge {
-    RechargeViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"RechargeViewController"];
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.containerView.layer.cornerRadius = 4;
-    [popupController presentInViewController:self];
+    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)sendApplySurveyRequest {
