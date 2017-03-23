@@ -86,7 +86,10 @@
                                                     </constraints>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                                    <textInputTraits key="textInputTraits" keyboardType="numbersAndPunctuation"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="o7r-dK-mdF" id="trG-OM-fz0"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -122,6 +125,9 @@
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <textInputTraits key="textInputTraits"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="o7r-dK-mdF" id="91V-f3-zs9"/>
+                                                    </connections>
                                                 </textField>
                                             </subviews>
                                             <constraints>
@@ -376,15 +382,17 @@
                         <outlet property="HoldingNumberTextField" destination="KCM-AU-jUU" id="VNx-xp-Iqh"/>
                         <outlet property="attentionTextField" destination="PTY-rY-fO4" id="67X-cK-NPC"/>
                         <outlet property="checkBox" destination="F74-Wm-Bim" id="jJw-QF-hRP"/>
+                        <outlet property="companyNameCell" destination="MbZ-sX-1fU" id="ea9-nS-Dmx"/>
                         <outlet property="companyTextField" destination="XBc-0a-57U" id="wWQ-ZB-Yo5"/>
                         <outlet property="emailTextField" destination="gb3-En-jxa" id="KQB-uy-gDq"/>
                         <outlet property="phoneTextField" destination="tTE-1W-iMP" id="xbH-sf-uIg"/>
+                        <outlet property="stockNumberCell" destination="5Xg-F2-6LE" id="8yi-Pi-7YJ"/>
                         <outlet property="stockNumberTextField" destination="Kf8-HR-RsX" id="P8x-ZJ-5gc"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9vp-7T-4uM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1586" y="69"/>
+            <point key="canvasLocation" x="-2362" y="-219"/>
         </scene>
         <!--周刊订阅支付-->
         <scene sceneID="dwO-Hu-fIE">

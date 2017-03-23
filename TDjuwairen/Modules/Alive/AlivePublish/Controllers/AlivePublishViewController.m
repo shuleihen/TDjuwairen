@@ -66,7 +66,6 @@
     __weak typeof(self)weakSelf = self;
     self.companyListTableView.choiceCode = ^(NSString *str){
        weakSelf.stockIdTextField.text = str;
-        weakSelf.companyListTableView.hidden = YES;
         weakSelf.stockId = str;
         [weakSelf checkRightBarItemEnabled];
         
@@ -271,10 +270,11 @@
                 SearchCompanyListModel *model = [[SearchCompanyListModel alloc] initWithDictionary:d];
                 [resultModelArrM addObject:model];
             }
-            self.companyListTableView.resultDataArr = [resultModelArrM mutableCopy];
+            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:44];
         }else{
             
-            self.companyListTableView.resultDataArr = [NSArray array];
+            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:44];
+            
         }
     }];
 }
@@ -302,8 +302,8 @@
     self.stockId = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     [self checkRightBarItemEnabled];
     if (textField == self.stockIdTextField) {
-        if (textField.text.length > 20) {
-            textField.text = [textField.text substringToIndex:20];
+        if (textField.text.length > 6) {
+            textField.text = [textField.text substringToIndex:6];
             return;
         }
     }
@@ -313,7 +313,8 @@
         [self loadCompanyListData:textField.text];
     }else {
     
-        self.companyListTableView.resultDataArr = [NSMutableArray array];
+        [self.companyListTableView configResultDataArr:[NSArray array] andRectY:44];
+        
     }
     
     

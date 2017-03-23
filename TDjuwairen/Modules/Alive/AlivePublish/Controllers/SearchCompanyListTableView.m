@@ -11,6 +11,7 @@
 
 
 @interface SearchCompanyListTableView ()<UITableViewDelegate,UITableViewDataSource>
+@property (strong, nonatomic) NSArray *resultDataArr;
 
 @end
 
@@ -30,20 +31,27 @@
 - (void)setResultDataArr:(NSArray *)resultDataArr {
     
     _resultDataArr = resultDataArr;
+    [self reloadData];
+    
+}
+
+- (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY {
+    
     self.delegate = self;
     self.dataSource = self;
-    if (resultDataArr.count <= 0) {
+    if (arr.count <= 0) {
         self.hidden = YES;
     }else {
         
         self.hidden = NO;
     }
     
-    CGFloat tableViewH = MIN(resultDataArr.count*24, kScreenHeight-CGRectGetMinY(self.frame));
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), CGRectGetMinY(self.frame), CGRectGetWidth(self.frame), tableViewH);
-    [self reloadData];
-    
+    CGFloat tableViewH = MIN(arr.count*24, kScreenHeight-CGRectGetMinY(self.frame));
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
+    self.resultDataArr = arr;
 }
+
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -71,9 +79,23 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     SearchCompanyListModel *model =self.resultDataArr[indexPath.row];
-    if (self.choiceCode) {
-        self.choiceCode(model.company_code);
+    
+    
+    if (self.vcType) {
+        
+        if (self.backBlock) {
+            self.backBlock(model.company_code,model.company_name);
+        }
+    }else {
+    
+        if (self.choiceCode) {
+            self.choiceCode(model.company_code);
+        }
+        
     }
+    
+    self.hidden = YES;
+    
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

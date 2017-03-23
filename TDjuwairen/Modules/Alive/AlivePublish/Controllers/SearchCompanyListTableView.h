@@ -10,19 +10,19 @@
 
 
 typedef void(^ChoiceCompanyCodeBlock)(NSString *code);
+typedef void(^ChoiceCompanyCodeNameBlock)(NSString *code,NSString *name);
 
-//@protocol SearchCompanyListDelegate <NSObject>
-//
-//
-//- (void)choiceCompanyCode:(NSString *)companyCodeStr;
-//
-//@end
+
 
 @interface SearchCompanyListTableView : UITableView
-//@property (weak, nonatomic) id<SearchCompanyListDelegate> delegate;
 @property (copy, nonatomic) ChoiceCompanyCodeBlock  choiceCode;
-@property (strong, nonatomic) NSArray *resultDataArr;
+@property (copy, nonatomic) ChoiceCompanyCodeNameBlock  backBlock;
+
+@property (copy, nonatomic) NSString *vcType;
 - (instancetype)initWithSearchCompanyListTableViewWithFrame:(CGRect)rect;
+
+- (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY;
+
 
 
 @end

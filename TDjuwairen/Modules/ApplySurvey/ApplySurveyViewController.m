@@ -20,7 +20,11 @@
 #import "STPopupController.h"
 #import "TDRechargeViewController.h"
 
-@interface ApplySurveyViewController ()<MBProgressHUDDelegate>
+#import "SearchCompanyListTableView.h"
+#import "SearchCompanyListModel.h"
+
+
+@interface ApplySurveyViewController ()<MBProgressHUDDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
 @property (weak, nonatomic) IBOutlet UITextField *companyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *HoldingNumberTextField;
@@ -29,6 +33,9 @@
 @property (weak, nonatomic) IBOutlet UITextField *emailTextField;
 @property (nonatomic, strong) UIView *toolView;
 @property (weak, nonatomic) IBOutlet YXCheckBox *checkBox;
+@property (strong, nonatomic) SearchCompanyListTableView *companyListTableView;
+@property (weak, nonatomic) IBOutlet UITableViewCell *stockNumberCell;
+@property (weak, nonatomic) IBOutlet UITableViewCell *companyNameCell;
 
 @end
 
@@ -58,11 +65,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
-    
-    // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-    // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     self.checkBox.checked = YES;
     
     self.stockNumberTextField.text = self.stockId;
@@ -71,9 +73,23 @@
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);
+
+    [self.stockNumberTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [self.companyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
-    [self.tableView addGestureRecognizer:tap];
+    self.companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectMake(85, 44, kScreenWidth-97, 0)];
+    self.companyListTableView.vcType = @"特约调研";
+    self.companyListTableView.userInteractionEnabled = YES;
+    __weak typeof(self)weakSelf = self;
+    self.companyListTableView.backBlock = ^(NSString *code,NSString *name){
+        
+        weakSelf.stockNumberTextField.text = code;
+        weakSelf.companyTextField.text = name;
+        
+    };
+    [self.view addSubview:self.companyListTableView];
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -194,6 +210,34 @@
     }
 }
 
+#pragma mark - loadCompanyList
+- (void)loadCompanyListData:(NSString *)textStr andTextField:(UITableViewCell *)cell {
+    
+    
+    CGRect rect = [self.tableView convertRect:cell.frame toView:self.view];
+    NSDictionary *dict = @{@"keyword":textStr};
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_ViewSearchCompnay parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *dataArray = data;
+            NSMutableArray *resultModelArrM = [NSMutableArray array];
+            for (NSDictionary *d in dataArray) {
+                SearchCompanyListModel *model = [[SearchCompanyListModel alloc] initWithDictionary:d];
+                [resultModelArrM addObject:model];
+            }
+            
+            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:CGRectGetMaxY(rect)];
+            
+        }else{
+            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:CGRectGetMaxY(rect)];
+        }
+    }];
+}
+
+
+
+
+
 - (void)recharge {
     TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
     [self.navigationController pushViewController:vc animated:YES];
@@ -240,9 +284,7 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-- (void)hideKeyboardPressed:(id)sender {
-    [self.view endEditing:YES];
-}
+
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return (section==0)?0.001:10;
@@ -251,6 +293,71 @@
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
 }
+
+
+#pragma mark - UITextFieldDelegate
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    
+    
+    if (textField == self.stockNumberTextField) {
+        if (string.length == 0) return YES;
+        
+        NSInteger existedLength = textField.text.length;
+        NSInteger selectedLength = range.length;
+        NSInteger replaceLength = string.length;
+        if (existedLength - selectedLength + replaceLength > 6) {
+            return NO;
+        }
+    }
+    
+    return YES;
+}
+
+
+- (void)textFieldDidChange:(UITextField *)textField {
+    self.stockId = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (textField == self.stockNumberTextField) {
+        if (textField.text.length > 6) {
+            textField.text = [textField.text substringToIndex:6];
+            return;
+        }
+    }
+    
+    if (textField.text.length > 0) {
+        
+        if (textField == self.stockNumberTextField) {
+            [self loadCompanyListData:textField.text andTextField:self.stockNumberCell];
+        }if (textField == self.companyTextField) {
+            [self loadCompanyListData:textField.text andTextField:self.companyNameCell];
+        }
+        
+    }else {
+        
+        CGRect rect = [self.tableView convertRect:textField.frame toView:self.view];
+        [self.companyListTableView configResultDataArr:[NSMutableArray array] andRectY:CGRectGetMaxY(rect)];
+    }
+    
+    
+    
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+
+    if (scrollView == self.tableView) {
+         [self.view endEditing:YES];
+    }
+}
+
+
+- (void)textFieldDidEndEditing:(UITextField *)textField {
+
+    if (textField == self.stockNumberTextField || textField == self.companyTextField) {
+        if (self.companyListTableView.hidden == NO) {
+            self.companyListTableView.hidden = YES;
+        }
+    }
+}
+
 
 
 @end
