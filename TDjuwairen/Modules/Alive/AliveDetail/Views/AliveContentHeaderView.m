@@ -57,7 +57,17 @@
     self.selectedLineView.hidden = YES;
     lineV.hidden = NO;
     self.selectedLineView = lineV;
-//    self.selectedLineView.frame = CGRectMake(CGRectGetMinX(btn.frame), 43, CGRectGetWidth(btn.frame), 2);
-//    self.selectedLineView.hidden = btn.selected;
 }
+
+
+- (void)setShowDictM:(NSMutableDictionary *)showDictM {
+    _showDictM = showDictM;
+    [self.firstBtn setTitle:showDictM[@"pinglun"] forState:UIControlStateNormal];
+    [self.secondeBtn setTitle:showDictM[@"dianzan"] forState:UIControlStateNormal];
+    [self.threeBtn setTitle:showDictM[@"fenxiang"] forState:UIControlStateNormal];
+    NSInteger index = [showDictM[@"selectedPage"] integerValue];
+    [self configShowUI:index];
+    
+}
+
 @end

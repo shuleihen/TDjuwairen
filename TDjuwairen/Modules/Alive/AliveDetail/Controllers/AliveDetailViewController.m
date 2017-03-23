@@ -30,6 +30,8 @@
 @property (strong, nonatomic) AlivePingLunViewController *pinglunVC;
 @property (strong, nonatomic) AliveListBottomTableViewCell *toolView;
 @property (nonatomic, assign) NSInteger shareCount;
+@property (strong, nonatomic) NSMutableDictionary *headerDictM;
+
 @end
 
 @implementation AliveDetailViewController
@@ -75,7 +77,7 @@
         [_pageScrollView addSubview:self.dianZanVC.view];
         [_pageScrollView addSubview:self.shareVC.view];
         _pageScrollView.delegate = self;
-
+        
     }
     return _pageScrollView;
 }
@@ -106,14 +108,11 @@
         _pinglunVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
         _pinglunVC.dataBlock = ^(NSInteger dataCount){
-            
-            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:100];
-            [btn setTitle:[NSString stringWithFormat:@"评论 %ld",dataCount] forState:UIControlStateNormal];
-            
+            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"评论 %ld",dataCount] forKey:@"pinglun"];
+            [weakSelf.toolView.commentBtn setTitle:[NSString stringWithFormat:@"%ld", dataCount] forState:UIControlStateNormal];
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             weakSelf.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-//            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
         };
     };
     
@@ -131,15 +130,13 @@
         __weak typeof(self)weakSelf = self;
         _dianZanVC.dataBlock = ^(NSInteger dataCount){
             
-            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:101];
-            [btn setTitle:[NSString stringWithFormat:@"点赞 %ld",dataCount] forState:UIControlStateNormal];
-
-            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
-            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"点赞 %ld",dataCount] forKey:@"dianzan"];
             [weakSelf.toolView.likeBtn setTitle:[NSString stringWithFormat:@"%ld", dataCount] forState:UIControlStateNormal];
             
-//            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
+            weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
+            
         };
     }
     return  _dianZanVC;
@@ -156,12 +153,12 @@
         __weak typeof(self)weakSelf = self;
         _shareVC.dataBlock = ^(NSInteger dataCount){
             weakSelf.shareCount = dataCount;
-            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
-            [btn setTitle:[NSString stringWithFormat:@"分享 %ld",dataCount] forState:UIControlStateNormal];
-                        weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
-                        weakSelf.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
-                        [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
-//            [weakSelf.sectionHeaderView configShowUI:weakSelf.selectedPage];
+            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"分享 %ld",dataCount] forKey:@"fenxiang"];
+            [weakSelf.toolView.shareBtn setTitle:[NSString stringWithFormat:@"%ld",dataCount] forState:UIControlStateNormal];
+            
+            weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
+            weakSelf.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
+            [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
         };
     }
     return _shareVC;
@@ -172,6 +169,13 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"直播正文";
     
+    
+    self.headerDictM = [NSMutableDictionary dictionary];
+    [self.headerDictM setObject:@"评论 0" forKey:@"pinglun"];
+    [self.headerDictM setObject:@"点赞 0" forKey:@"dianzan"];
+    [self.headerDictM setObject:@"分享 0" forKey:@"fenxiang"];
+    [self.headerDictM setObject:@(0) forKey:@"selectedPage"];
+    
     [self setUpUICommon];
     [self setSelectedPage:0];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadReplayClick) name:@"KZHIBoRefresh" object:nil];
@@ -179,7 +183,7 @@
 
 
 - (void)setUpUICommon {
-
+    
     self.view.backgroundColor = TDViewBackgrouondColor;
     
     
@@ -192,13 +196,18 @@
     _toolView.backgroundColor = [UIColor whiteColor];
     _toolView.delegate = self;
     [self.view addSubview:_toolView];
+    
+    
+    
+    
+    
 }
 
 - (void)setSelectedPage:(NSInteger)selectedPage {
     
     _selectedPage = selectedPage;
     
-
+    
     switch (selectedPage) {
         case 0:
         {
@@ -207,7 +216,6 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoPingLun object:nil];
             self.toolView.hidden = NO;
             self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
-            
             
         }
             break;
@@ -233,11 +241,10 @@
         default:
             break;
     }
+    [self.headerDictM setObject:@(selectedPage) forKey:@"selectedPage"];
     
     [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
     
-//        [self.tableView reloadData];
-    [self.sectionHeaderView configShowUI:selectedPage];
 }
 
 
@@ -249,10 +256,8 @@
     [manager GET:API_AliveGetAliveInfo parameters:dict completion:^(id data, NSError *error){
         
         if (!error) {
-            
             self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
             [self.tableView reloadData];
-//            [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationNone];
             self.selectedPage = 0;
             [_toolView setupAliveModel:_aliveInfoModel];
             
@@ -307,6 +312,8 @@
     if (section == 0) {
         return nil;
     }else {
+        
+        self.sectionHeaderView.showDictM = self.headerDictM;
         return self.sectionHeaderView;
     }
 }
@@ -382,16 +389,15 @@
     __weak typeof(self)weakSelf = self;
     [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
-
-            
-            UIButton *btn = (UIButton *)[weakSelf.sectionHeaderView viewWithTag:102];
-            [btn setTitle:[NSString stringWithFormat:@"分享 %ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
-            [weakSelf.toolView.shareBtn setTitle:[NSString stringWithFormat:@"%ld",weakSelf.shareCount+1] forState:UIControlStateNormal];
             NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary *dict = @{@"item_id":self.alive_ID,@"type" :self.alive_type};
             
             [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
-                
+                if (!error) {
+                    
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+ [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+                }
             }];
             
             
@@ -404,7 +410,7 @@
     commVC.alive_ID = _alive_ID;
     commVC.alive_type = _alive_type;
     [self.navigationController pushViewController:commVC animated:YES];
-
+    
 }
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
@@ -419,7 +425,8 @@
             if (!error) {
                 cell.cellModel.isLike = NO;
                 wself.toolView.likeBtn.selected = NO;
-                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已取消点赞")
             }
@@ -431,7 +438,8 @@
             if (!error) {
                 cell.cellModel.isLike = YES;
                 wself.toolView.likeBtn.selected = YES;
-                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+//                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil];
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已点赞")
             }

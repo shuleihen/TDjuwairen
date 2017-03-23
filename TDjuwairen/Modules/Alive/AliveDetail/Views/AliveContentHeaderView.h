@@ -12,8 +12,12 @@ typedef void(^SelectedButtonBlock)(UIButton *btn);
 
 @interface AliveContentHeaderView : UIView
 @property (copy, nonatomic) SelectedButtonBlock  selectedBlock;
+
+@property (strong, nonatomic) NSMutableDictionary *showDictM;
+
 - (IBAction)choiceBtnClick:(UIButton *)sender;
 - (void)configShowUI:(NSInteger)selectedTag;
+
 
 + (instancetype)loadAliveContentHeaderView;
 

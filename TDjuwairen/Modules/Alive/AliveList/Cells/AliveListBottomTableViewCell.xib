@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -19,11 +19,11 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXR-i4-M9Q">
-                        <rect key="frame" x="0.0" y="0.0" width="106.5" height="36.5"/>
+                        <rect key="frame" x="0.0" y="0.0" width="106.5" height="37"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="1" image="alive_share">
+                        <state key="normal" title="0" image="alive_share">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>
@@ -31,11 +31,11 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cy6-ZB-nCb">
-                        <rect key="frame" x="106.5" y="0.0" width="107" height="36.5"/>
+                        <rect key="frame" x="106.5" y="0.0" width="107" height="37"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="2" image="alive_comment">
+                        <state key="normal" title="0" image="alive_comment">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>
@@ -43,11 +43,11 @@
                         </connections>
                     </button>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IyQ-dl-Aop">
-                        <rect key="frame" x="213.5" y="0.0" width="106.5" height="36.5"/>
+                        <rect key="frame" x="213.5" y="0.0" width="106.5" height="37"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <inset key="imageEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <state key="normal" title="3" image="alive_zan">
+                        <state key="normal" title="0" image="alive_zan">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <state key="selected" image="alive_zan_pressed">
@@ -80,7 +80,7 @@
                 <outlet property="likeBtn" destination="IyQ-dl-Aop" id="Agv-ai-g0U"/>
                 <outlet property="shareBtn" destination="yXR-i4-M9Q" id="ihx-wl-MBG"/>
             </connections>
-            <point key="canvasLocation" x="25" y="51.5"/>
+            <point key="canvasLocation" x="-100" y="2"/>
         </tableViewCell>
     </objects>
     <resources>

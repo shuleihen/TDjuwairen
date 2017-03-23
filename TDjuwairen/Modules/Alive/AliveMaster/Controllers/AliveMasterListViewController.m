@@ -19,7 +19,7 @@
 @interface AliveMasterListViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic, assign) NSInteger page;
-@property (strong, nonatomic) NSArray *aliveArr;
+@property (strong, nonatomic) NSMutableArray *aliveArr;
 @property (strong, nonatomic) UIViewController *vc;
 
 @end
@@ -76,14 +76,23 @@
     
     [self.view addSubview:self.tableView];
     
-    self.aliveArr = [NSArray array];
+    self.aliveArr = [NSMutableArray array];
     [self refreshActions];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick) name:KnotifierGoAddLike object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick:) name:KnotifierGoAddLike object:nil];
 }
-- (void)refreshAddLick{
-    [self requestDataWithPage:AliveDianZanList];
+- (void)refreshAddLick:(NSNotification *)noti{
+    
+    if ([noti.userInfo[@"notiType"] isEqualToString:@"dianzan"] && self.listType == AliveDianZanList) {
+         [self requestDataWithPage:1];
+    }else if ([noti.userInfo[@"notiType"] isEqualToString:@"fenxiang"] && self.listType == AliveShareList) {
+    
+        [self requestDataWithPage:1];
+    }
+   
 }
+
+
 
 - (void)refreshActions{
     self.page = 1;
@@ -104,15 +113,15 @@
     
     switch (self.listType) {
         case AliveMasterList:
-            dict = @{@"page":@(self.page)};
+            dict = @{@"page":@(aPage)};
             url = API_AliveGetMasterList;
             break;
         case AliveAttentionList:
-            dict = @{@"master_id": self.masterId,@"page":@(self.page)};
+            dict = @{@"master_id": self.masterId,@"page":@(aPage)};
             url = API_AliveGetAttenList;
             break;
         case  AliveFansList:
-            dict = @{@"master_id": self.masterId,@"page":@(self.page)};
+            dict = @{@"master_id": self.masterId,@"page":@(aPage)};
             url = API_AliveGetFansList;
             break;
         case  AliveDianZanList:
@@ -138,30 +147,33 @@
         if (!error) {
             NSArray *dataArray = data;
             
-            if (dataArray.count > 0) {
-                NSMutableArray *list = nil;
-                
-                if (weakSelf.page == 1) {
-                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-                } else {
-                    list = [NSMutableArray arrayWithArray:self.aliveArr];
+            
+            NSMutableArray *list = nil;
+            
+            if (aPage == 1) {
+                if ([self.aliveArr respondsToSelector:@selector(removeAllObjects)]) {
+                    [self.aliveArr removeAllObjects];
                 }
-                
-                for (NSDictionary *d in dataArray) {
-                    AliveMasterModel *model = [[AliveMasterModel alloc] initWithDictionary:d];
-                    [list addObject:model];
-                }
-                weakSelf.aliveArr = [NSMutableArray arrayWithArray:list];
+                list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+            } else {
+                list = [NSMutableArray arrayWithArray:self.aliveArr];
             }
+            
+            for (NSDictionary *d in dataArray) {
+                AliveMasterModel *model = [[AliveMasterModel alloc] initWithDictionary:d];
+                [list addObject:model];
+            }
+            weakSelf.aliveArr = [NSMutableArray arrayWithArray:list];
+
             
             [weakSelf.tableView.mj_header endRefreshing];
             [weakSelf.tableView.mj_footer endRefreshing];
             weakSelf.page++;
             [weakSelf.tableView reloadData];
             
-            if (self.listType == AliveDianZanList || self.listType == AliveShareList) {
-                if (self.dataBlock) {
-                    self.dataBlock(weakSelf.aliveArr.count);
+            if (weakSelf.listType == AliveDianZanList || weakSelf.listType == AliveShareList) {
+                if (weakSelf.dataBlock) {
+                    weakSelf.dataBlock(weakSelf.aliveArr.count);
                 }
             }
             
