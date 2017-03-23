@@ -131,12 +131,12 @@
     if (!_contentControllers) {
         AliveRoomLiveViewController *one = [[AliveRoomLiveViewController alloc] init];
         one.masterId = self.masterId;
-        one.listType = kAliveNormal;
+        one.listType = kAliveRoomListAll;
         one.delegate = self;
         
         AliveRoomLiveViewController *two = [[AliveRoomLiveViewController alloc] init];
         two.masterId = self.masterId;
-        two.listType = kAlivePosts;
+        two.listType = kAliveRoomListPosts;
         two.delegate = self;
         
         _contentControllers = @[one,two];
