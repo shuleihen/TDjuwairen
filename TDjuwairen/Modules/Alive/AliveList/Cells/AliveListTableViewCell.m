@@ -46,13 +46,31 @@
     
     if (isShowDetail) {
         self.titleLabel.numberOfLines = 0;
+        self.titleLabel.text = aliveModel.aliveTitle;
     } else {
         self.titleLabel.numberOfLines = 3;
+        
+        NSMutableAttributedString *str = [self getStringWithAliveModelTitle:aliveModel.aliveTitle];
+        if (str != nil) {
+            
+            self.titleLabel.attributedText = str;
+            
+        }else {
+            self.titleLabel.text = aliveModel.aliveTitle;
+        
+        }
+        
     }
-    self.titleLabel.text = aliveModel.aliveTitle;
     
     self.imagesView.images = aliveModel.aliveImgs;
     self.imagesHeight.constant = [AliveListTableViewCell imagesViewHeightWithImages:aliveModel.aliveImgs];
+    
+   
+    
+    
+
+    
+    
     
     self.tiedanLabel.hidden = (aliveModel.aliveType ==2)?NO:YES;
 }
@@ -102,4 +120,46 @@
     
     return height;
 }
+
+
+
+
+- (NSMutableAttributedString *)getStringWithAliveModelTitle:(NSString *)titleStr {
+
+   
+    
+    NSString *str = [NSString string];
+    BOOL haveAll = NO;
+    
+    titleStr = [titleStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
+    
+   
+    
+    for (int i=0; i<titleStr.length; i++) {
+        str = [titleStr substringToIndex:i];
+        
+        CGFloat maxW = [str boundingRectWithSize:CGSizeMake(MAXFLOAT, 10) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size.width;
+        if (maxW > ([UIScreen mainScreen].bounds.size.width-76)*3-80) {
+            haveAll = YES;
+            break;
+        }
+    }
+    
+    
+    if (haveAll == YES) {
+        str = [NSString stringWithFormat:@"%@...全部",str];
+        
+        NSMutableAttributedString *aStrM = [[NSMutableAttributedString alloc] initWithString:str attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0],NSForegroundColorAttributeName:TDTitleTextColor}];
+        [aStrM setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0],NSForegroundColorAttributeName:TDThemeColor} range:NSMakeRange(str.length-2, 2)];
+        
+        return aStrM;
+    }else {
+    
+        return nil;
+    }
+    
+    
+}
+
+
 @end
