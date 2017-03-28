@@ -23,6 +23,8 @@
         self.delegate = self;
         self.dataSource = self;
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
+        self.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#EFEFEF"];
+        self.hidden = YES;
     }
     return self;
 }
@@ -46,8 +48,8 @@
         self.hidden = NO;
     }
     
-    CGFloat tableViewH = MIN(arr.count*24, kScreenHeight-CGRectGetMinY(self.frame));
-    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
+//    CGFloat tableViewH = MIN(arr.count*24, kScreenHeight-CGRectGetMinY(self.frame));
+//    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
     self.resultDataArr = arr;
 }
 
