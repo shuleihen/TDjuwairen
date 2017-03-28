@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^guessButtonBlock)(UIButton *btn);
 @interface PlayIndividualContentCell : UITableViewCell
 
++ (instancetype)loadCell;
+
+@property (nonatomic, copy) guessButtonBlock guessBlock;
 @end

@@ -533,7 +533,7 @@ static NSMutableSet *_retainedPopupControllers;
             break;
     }
     
-    NSAssert(!CGSizeEqualToSize(contentSize, CGSizeZero), @"contentSizeInPopup should not be size zero.");
+//    NSAssert(!CGSizeEqualToSize(contentSize, CGSizeZero), @"contentSizeInPopup should not be size zero.");
     
     return contentSize;
 }

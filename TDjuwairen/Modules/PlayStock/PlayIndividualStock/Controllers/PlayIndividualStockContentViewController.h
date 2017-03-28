@@ -7,10 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+@class PlayIndividualStockViewController;
 
 @interface PlayIndividualStockContentViewController : UIViewController
 
 - (void)reloadPlayIndividualStockTableView;
 - (CGFloat)viewHeight;
+@property (nonatomic, strong) PlayIndividualStockViewController *superVC;
+
 
 @end

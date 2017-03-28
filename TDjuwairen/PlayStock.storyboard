@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -445,7 +445,7 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="填写详细地址" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsq-H6-5U9">
-                                                    <rect key="frame" x="10" y="10" width="355" height="79.5"/>
+                                                    <rect key="frame" x="10" y="10" width="355" height="79"/>
                                                     <nil key="textColor"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <textInputTraits key="textInputTraits"/>
@@ -799,7 +799,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xpc-Rc-ff1" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1778" y="148"/>
+            <point key="canvasLocation" x="-1689" y="166"/>
         </scene>
         <!--个股竞猜-->
         <scene sceneID="vzL-wa-kkG">
@@ -894,7 +894,7 @@
                                                 <constraint firstAttribute="height" constant="36" id="b5U-Cy-qEe"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                                            <state key="normal" title="参与竞猜" backgroundImage="button_enjoy">
+                                            <state key="normal" title="发起竞猜" backgroundImage="button_enjoy">
                                                 <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
                                             <state key="disabled" backgroundImage="button_notenjoy"/>

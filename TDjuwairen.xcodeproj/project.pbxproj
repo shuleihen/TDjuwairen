@@ -482,6 +482,8 @@
 		84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDB61CF80E0A00683791 /* ELCAssetCell.m */; };
 		84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */; };
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
+		9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */; };
+		9E2233C31E8A713200B1FAC4 /* PlayGuessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */; };
 		9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */; };
 		9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */; };
 		9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */; };
@@ -1420,6 +1422,9 @@
 		84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
 		84F9FDBB1CF80E0A00683791 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
 		84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
+		9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayGuessViewController.h; sourceTree = "<group>"; };
+		9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayGuessViewController.m; sourceTree = "<group>"; };
+		9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayGuessViewController.xib; sourceTree = "<group>"; };
 		9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePingLunViewController.h; sourceTree = "<group>"; };
 		9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePingLunViewController.m; sourceTree = "<group>"; };
 		9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlivePingLunViewController.xib; sourceTree = "<group>"; };
@@ -1678,6 +1683,9 @@
 				19194CC81E7FAC3700641085 /* PlayIndividualStockViewController.m */,
 				4DA844401E8A151F006838B3 /* PlayIndividualStockContentViewController.h */,
 				4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */,
+				9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */,
+				9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */,
+				9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4502,6 +4510,7 @@
 				19959B8E1E2C909000AB26DF /* GradeDetailCell.xib in Resources */,
 				84E333F71CE2BA3D00E5DCEE /* Assets.xcassets in Resources */,
 				19F00D0B1E2EFFD9009270D5 /* AskTableViewCell.xib in Resources */,
+				9E2233C31E8A713200B1FAC4 /* PlayGuessViewController.xib in Resources */,
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
@@ -4863,6 +4872,7 @@
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				1933257C1E4DAF7200E3D500 /* MessageChildTableViewController.m in Sources */,
 				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
+				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
 				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				19194CC91E7FAC3700641085 /* PlayIndividualStockViewController.m in Sources */,

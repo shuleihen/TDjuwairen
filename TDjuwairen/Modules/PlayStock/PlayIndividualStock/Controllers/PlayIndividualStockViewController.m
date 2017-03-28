@@ -50,11 +50,12 @@
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
         PlayIndividualStockContentViewController *one = [[PlayIndividualStockContentViewController alloc] init];
-        one.view.frame = CGRectMake(0, 0, kScreenWidth, 300);
+        one.view.frame = CGRectMake(0, 0, kScreenWidth, 500);
         one.view.backgroundColor = [UIColor redColor];
+        one.superVC = self;
         
         PlayIndividualStockContentViewController *two = [[PlayIndividualStockContentViewController alloc] init];
-        two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 700);
+        two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 200);
         two.view.backgroundColor = [UIColor yellowColor];
         _contentControllers = @[one,two];
     }
@@ -86,7 +87,7 @@
 - (void)setPageIndex:(NSInteger)pageIndex {
     _pageIndex = pageIndex;
     PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
-    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, vc.viewHeight);
+//    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, vc.viewHeight);
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
     [self.tableView reloadData];
@@ -175,7 +176,7 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *hv = [[UIView alloc] init];
-    hv.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#191A1F"];
+    hv.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"];
     
     [hv addSubview:self.segmentControl];
     return hv;

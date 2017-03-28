@@ -7,10 +7,18 @@
 //
 
 #import "PlayIndividualStockContentViewController.h"
+#import "PlayIndividualContentCell.h"
+//#import "GuessAddPourViewController.h"
+#import "STPopupController.h"
+#import "PlayIndividualStockViewController.h"
+#import "PlayGuessViewController.h"
+#import "GuessAddPourViewController.h"
+#import "UIViewController+STPopup.h"
 
 @interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @end
+static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 @implementation PlayIndividualStockContentViewController
 
@@ -26,8 +34,9 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
-        UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
+//        UINib *nib = [UINib nibWithNibName:KPlayIndividualContentCell bundle:nil];
+//        [_tableView registerNib:nib forCellReuseIdentifier:KPlayIndividualContentCell];
+        [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
         
     }
     
@@ -36,6 +45,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self.view addSubview:self.tableView];
    
 }
 
@@ -46,14 +56,14 @@
 
 - (CGFloat)viewHeight {
 
-    return 200;
+    return self.tableView.contentSize.height;
 }
 
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 5;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -63,10 +73,31 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
 
-//    UITableViewCell *cell
-    return nil;
+    PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.guessBlock = ^(UIButton *btn){
+//        GuessAddPourViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
+        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
+//        vc.userKeyNum = self.keyNum;
+//        vc.nowPri = stock.nowPriValue;
+//        vc.guessId = guess.guessId;
+//        vc.delegate = self;
+
+        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.navigationBarHidden = YES;
+        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+        popupController.style = STPopupStyleBottomSheet;
+        [popupController presentInViewController:_superVC];
+        
+    };
+    return cell;
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 141;
+}
 #pragma mark -
 
 
