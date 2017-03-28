@@ -52,25 +52,15 @@
         
         NSMutableAttributedString *str = [self getStringWithAliveModelTitle:aliveModel.aliveTitle];
         if (str != nil) {
-            
             self.titleLabel.attributedText = str;
             
         }else {
             self.titleLabel.text = aliveModel.aliveTitle;
-        
         }
-        
     }
     
     self.imagesView.images = aliveModel.aliveImgs;
     self.imagesHeight.constant = [AliveListTableViewCell imagesViewHeightWithImages:aliveModel.aliveImgs];
-    
-   
-    
-    
-
-    
-    
     
     self.tiedanLabel.hidden = (aliveModel.aliveType ==2)?NO:YES;
 }
@@ -85,7 +75,7 @@
         CGSize size = [aliveModel.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-64-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
         height += size.height;
     } else {
-        CGSize size = [aliveModel.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-64-12, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
+        CGSize size = [aliveModel.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-64-12, 56) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
         height += size.height;
     }
     
@@ -126,14 +116,11 @@
 
 - (NSMutableAttributedString *)getStringWithAliveModelTitle:(NSString *)titleStr {
 
-   
-    
     NSString *str = [NSString string];
     BOOL haveAll = NO;
     
     titleStr = [titleStr stringByReplacingOccurrencesOfString:@"\n" withString:@" "];
     
-   
     
     for (int i=0; i<titleStr.length; i++) {
         str = [titleStr substringToIndex:i];
@@ -144,7 +131,6 @@
             break;
         }
     }
-    
     
     if (haveAll == YES) {
         str = [NSString stringWithFormat:@"%@...全部",str];
