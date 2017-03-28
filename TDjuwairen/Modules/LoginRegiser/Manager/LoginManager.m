@@ -32,6 +32,35 @@
     });
 }
 
++ (void)multiLoginError {
+    
+    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"您的账户在其他端登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        US.isLogIn=NO;
+        US.userName=nil;
+        US.headImage=nil;
+        US.userId=nil;
+        
+        NSUserDefaults*Defaults=[NSUserDefaults standardUserDefaults];
+        [Defaults setValue:@"" forKey:@"loginStyle"];
+        [Defaults setValue:@"" forKey:@"account"];
+        [Defaults setValue:@"" forKey:@"password"];
+        [Defaults setValue:@"" forKey:@"openid"];
+        [Defaults setValue:@"" forKey:@"unionid"];
+        [Defaults setValue:@"" forKey:@"unique_str"];
+        [Defaults synchronize];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
+    }]];
+//    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [root presentViewController:alert animated:YES completion:nil];
+}
+
+#pragma mark - Relogin
+
 + (void)checkLogin {
     // normal、fast、qq、weixin
     NSString *loginType = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStyle"];
@@ -177,13 +206,17 @@
 }
 
 + (void)showWelcomeWithNickName:(NSString *)nickName avatar:(NSString *)avatar {
-//    WelcomeView *welcomeView = [[WelcomeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) withNickName:nickName avatart:avatar];
-//    
-//    [[UIApplication sharedApplication].keyWindow addSubview:welcomeView];
-//    
-//    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//        [welcomeView removeFromSuperview];
-//    });
+    
+    /*
+     暂时去掉重新登录欢迎页
+    WelcomeView *welcomeView = [[WelcomeView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) withNickName:nickName avatart:avatar];
+    
+    [[UIApplication sharedApplication].keyWindow addSubview:welcomeView];
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(3.0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [welcomeView removeFromSuperview];
+    });
+     */
 }
 
 + (void)clearLoginStatus {

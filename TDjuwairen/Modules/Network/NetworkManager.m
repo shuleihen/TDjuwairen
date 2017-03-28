@@ -9,6 +9,7 @@
 #import "NetworkManager.h"
 #import "CocoaLumberjack.h"
 #import "AppContext.h"
+#import "LoginManager.h"
 
 NSString *NetworkErrorDomain    = @"network.error.domain";
 
@@ -142,6 +143,17 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                completion(data, nil);
                                            });
+                                       } else if (code == 401) {
+                                           // 多端登录提示
+                                           NSString *msg = responseObject[@"msg"];
+                                           NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
+                                           
+                                           dispatch_async(dispatch_get_main_queue(), ^{
+                                               completion(nil, error);
+                                           });
+                                           
+                                           [LoginManager multiLoginError];
+                                           
                                        } else {
                                            NSString *msg = responseObject[@"msg"];
                                            NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
