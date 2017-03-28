@@ -37,7 +37,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="胜者奖励" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sw6-DS-5gx">
-                        <rect key="frame" x="473" y="35" width="49.5" height="14.5"/>
+                        <rect key="frame" x="477.5" y="35" width="49.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
@@ -55,7 +55,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="24 把" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZYN-8b-h50">
-                        <rect key="frame" x="472.5" y="59.5" width="30.5" height="14.5"/>
+                        <rect key="frame" x="477" y="59.5" width="30.5" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.94429916143417358" green="0.68672186136245728" blue="0.23899362981319427" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
@@ -70,12 +70,13 @@
                         <rect key="frame" x="508" y="57" width="15" height="18"/>
                     </imageView>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VNk-QG-3lk">
-                        <rect key="frame" x="441" y="88.5" width="112" height="36"/>
+                        <rect key="frame" x="445.5" y="88.5" width="112" height="36"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="参与竞猜" backgroundImage="button_enjoy">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </state>
                         <state key="selected" title="已封盘" backgroundImage="button_notenjoy">
-                            <color key="titleColor" red="0.61573219299316406" green="0.61578536033630371" blue="0.61181735992431641" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <color key="titleColor" red="0.22323669493198395" green="0.20850534737110138" blue="0.16872917115688324" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </state>
                         <connections>
                             <action selector="buttonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="iVu-Kn-uWT"/>
@@ -135,7 +136,7 @@
                     <constraint firstItem="KJk-hF-QKd" firstAttribute="leading" secondItem="ZYN-8b-h50" secondAttribute="trailing" constant="5" id="V7x-qv-ojb"/>
                     <constraint firstItem="5xS-xl-0Pt" firstAttribute="top" secondItem="QkF-OG-Ab4" secondAttribute="bottom" constant="10" id="VdC-La-Uyb"/>
                     <constraint firstItem="LLi-YL-wne" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="X4b-CW-ykx"/>
-                    <constraint firstAttribute="trailing" secondItem="sw6-DS-5gx" secondAttribute="trailing" constant="50" id="Z4f-On-r3H"/>
+                    <constraint firstAttribute="trailing" secondItem="sw6-DS-5gx" secondAttribute="trailing" constant="45" id="Z4f-On-r3H"/>
                     <constraint firstItem="VXr-Du-Aj1" firstAttribute="centerY" secondItem="5xS-xl-0Pt" secondAttribute="centerY" constant="2" id="cfF-0I-g2J"/>
                     <constraint firstItem="ZYN-8b-h50" firstAttribute="top" secondItem="sw6-DS-5gx" secondAttribute="bottom" constant="10" id="eAL-7z-Zdw"/>
                     <constraint firstItem="h5m-cS-Gg2" firstAttribute="leading" secondItem="0ht-zQ-qwb" secondAttribute="leading" id="eEu-cA-60K"/>
@@ -160,7 +161,7 @@
                 <outlet property="label_right" destination="H2S-Nl-UY2" id="FaA-UY-wZ9"/>
                 <outlet property="label_title" destination="LLi-YL-wne" id="Ks0-tg-PhZ"/>
             </connections>
-            <point key="canvasLocation" x="-1924" y="-108"/>
+            <point key="canvasLocation" x="-2071" y="-109"/>
         </tableViewCell>
     </objects>
     <resources>

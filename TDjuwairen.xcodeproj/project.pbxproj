@@ -484,6 +484,9 @@
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
 		9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */; };
 		9E2233C31E8A713200B1FAC4 /* PlayGuessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */; };
+		9E2233C61E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C51E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m */; };
+		9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C81E8AA68900B1FAC4 /* PlayItemPersonView.m */; };
+		9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233CA1E8AA6A200B1FAC4 /* PlayItemPersonView.xib */; };
 		9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */; };
 		9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */; };
 		9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */; };
@@ -1425,6 +1428,11 @@
 		9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayGuessViewController.h; sourceTree = "<group>"; };
 		9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayGuessViewController.m; sourceTree = "<group>"; };
 		9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayGuessViewController.xib; sourceTree = "<group>"; };
+		9E2233C41E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayEnjoyPeopleViewController.h; sourceTree = "<group>"; };
+		9E2233C51E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayEnjoyPeopleViewController.m; sourceTree = "<group>"; };
+		9E2233C71E8AA68900B1FAC4 /* PlayItemPersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayItemPersonView.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayItemPersonView.h; sourceTree = SOURCE_ROOT; };
+		9E2233C81E8AA68900B1FAC4 /* PlayItemPersonView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayItemPersonView.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayItemPersonView.m; sourceTree = SOURCE_ROOT; };
+		9E2233CA1E8AA6A200B1FAC4 /* PlayItemPersonView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayItemPersonView.xib; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayItemPersonView.xib; sourceTree = SOURCE_ROOT; };
 		9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePingLunViewController.h; sourceTree = "<group>"; };
 		9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePingLunViewController.m; sourceTree = "<group>"; };
 		9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlivePingLunViewController.xib; sourceTree = "<group>"; };
@@ -1686,6 +1694,8 @@
 				9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */,
 				9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */,
 				9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */,
+				9E2233C41E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.h */,
+				9E2233C51E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1700,6 +1710,9 @@
 		19194CC31E7FA76400641085 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9E2233C71E8AA68900B1FAC4 /* PlayItemPersonView.h */,
+				9E2233C81E8AA68900B1FAC4 /* PlayItemPersonView.m */,
+				9E2233CA1E8AA6A200B1FAC4 /* PlayItemPersonView.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4500,6 +4513,7 @@
 			files = (
 				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
+				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
 				19F00D091E2EFFD9009270D5 /* AnsTableViewCell.xib in Resources */,
@@ -4739,6 +4753,7 @@
 				19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
 				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,
+				9E2233C61E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m in Sources */,
 				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
@@ -4779,6 +4794,7 @@
 				19F00D101E2EFFD9009270D5 /* DialogueViewController.m in Sources */,
 				19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */,
 				19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */,
+				9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */,
 				1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,

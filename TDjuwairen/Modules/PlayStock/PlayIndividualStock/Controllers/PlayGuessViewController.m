@@ -10,9 +10,17 @@
 #import "PAStepper.h"
 #import "HexColors.h"
 #import "UIImage+Create.h"
+#import "STPopup.h"
 
 
 @interface PlayGuessViewController ()
+{
+    __weak IBOutlet UILabel *label_CountDown;
+    __weak IBOutlet UITextField *inputView;
+    
+    
+    __weak IBOutlet UILabel *label_moneyUse;
+}
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
 @property (nonatomic, assign) float nowPri;
 
@@ -26,6 +34,15 @@
     [self initValue];
     // Do any additional setup after loading the view from its nib.
 }
+- (IBAction)determineClick:(id)sender {
+
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:keyNum:)]) {
+        [self.delegate addWithGuessId:self.guessId pri:self.stepper.value keyNum:self.userKeyNum];
+    }
+    
+    [self.popupController dismiss];
+}
 
 - (void)initValue
 {
@@ -34,6 +51,10 @@
 
 - (void)initViews
 {
+    [inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+    inputView.layer.cornerRadius = 4;
+    inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
+    inputView.layer.borderWidth = 1;
     self.stepper.maximumValue = self.nowPri + 100;
     self.stepper.minimumValue = self.nowPri - 100;
     self.stepper.value = self.nowPri;
@@ -42,17 +63,17 @@
     self.stepper.textColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"];
     
     UIImage *bg = [UIImage imageWithSize:CGSizeMake(200, 30)
-                          backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
+                          backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#0A0B0D"]
                              borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                             cornerRadius:4.0f];
     
     UIImage *decrease = [UIImage imageWithSize:CGSizeMake(30, 30)
-                                backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
+                                backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#0A0B0D"]
                                    borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                   cornerRadius:4.0f];
     
     UIImage *increase = [UIImage imageWithSize:CGSizeMake(30, 30)
-                                backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
+                                backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#0A0B0D"]
                                    borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                   cornerRadius:4.0f];
     UIImage *heightlight = [UIImage imageWithSize:CGSizeMake(30, 30)

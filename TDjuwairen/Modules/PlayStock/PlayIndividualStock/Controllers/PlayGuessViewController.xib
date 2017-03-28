@@ -11,6 +11,9 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="PlayGuessViewController">
             <connections>
+                <outlet property="inputView" destination="dZD-S1-Alh" id="OhQ-n1-bDv"/>
+                <outlet property="label_CountDown" destination="vlj-67-g91" id="wU7-aI-Wfx"/>
+                <outlet property="label_moneyUse" destination="Rfb-d5-sd9" id="PZW-4v-vUy"/>
                 <outlet property="stepper" destination="hCk-Eh-wu1" id="em2-e3-Mvl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -27,13 +30,16 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="股票代码" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bsd-4b-EXq">
-                    <rect key="frame" x="45" y="67" width="58" height="17"/>
+                    <rect key="frame" x="124" y="67" width="58" height="17"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="58" id="rxb-q9-WxR"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜指数" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LgS-YH-SlL">
-                    <rect key="frame" x="45" y="130" width="58" height="17"/>
+                    <rect key="frame" x="124" y="130" width="58" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
@@ -57,34 +63,37 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="将会消耗1把" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfb-d5-sd9">
-                    <rect key="frame" x="230" y="250" width="67" height="15"/>
+                    <rect key="frame" x="230" y="245" width="67" height="15"/>
                     <fontDescription key="fontDescription" type="system" pointSize="12"/>
                     <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="请输入" borderStyle="roundedRect" placeholder="请输入股票代码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dZD-S1-Alh">
-                    <rect key="frame" x="123" y="54" width="200" height="44"/>
-                    <color key="backgroundColor" red="0.098322376608848572" green="0.10173992812633514" blue="0.1216939240694046" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="请输入股票代码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dZD-S1-Alh">
+                    <rect key="frame" x="202" y="54" width="200" height="44"/>
+                    <color key="backgroundColor" red="0.039215686274509803" green="0.043137254901960784" blue="0.050980392156862744" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="44" id="bHM-9B-gos"/>
                         <constraint firstAttribute="width" constant="200" id="dOy-Ls-eAn"/>
                     </constraints>
                     <color key="textColor" red="0.4001024067401886" green="0.40000858902931213" blue="0.40400433540344238" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <textInputTraits key="textInputTraits"/>
+                    <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                 </textField>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hCk-Eh-wu1" customClass="PAStepper">
-                    <rect key="frame" x="123" y="117" width="200" height="44"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <rect key="frame" x="202" y="117" width="200" height="44"/>
+                    <color key="backgroundColor" red="0.039466176182031631" green="0.043134268373250961" blue="0.05111284926533699" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 </view>
                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_small" translatesAutoresizingMaskIntoConstraints="NO" id="UBt-Qa-EIz">
-                    <rect key="frame" x="302" y="246" width="19" height="22"/>
+                    <rect key="frame" x="302" y="241" width="19" height="22"/>
                 </imageView>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4v-sC-tQo">
                     <rect key="frame" x="217" y="201" width="112" height="36"/>
                     <state key="normal" title="确定竞猜" backgroundImage="button_enjoy">
                         <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                     </state>
+                    <connections>
+                        <action selector="determineClick:" destination="-1" eventType="touchUpInside" id="di3-XE-NM9"/>
+                    </connections>
                 </button>
             </subviews>
             <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -93,11 +102,11 @@
                 <constraint firstItem="hCk-Eh-wu1" firstAttribute="top" secondItem="dZD-S1-Alh" secondAttribute="bottom" constant="19" id="2mF-if-1gz"/>
                 <constraint firstItem="n4v-sC-tQo" firstAttribute="top" secondItem="TRa-ed-Vis" secondAttribute="bottom" constant="10" id="A3x-ug-iSy"/>
                 <constraint firstItem="Rfb-d5-sd9" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="-10" id="I2X-oN-eKb"/>
-                <constraint firstAttribute="bottom" secondItem="Rfb-d5-sd9" secondAttribute="bottom" constant="10" id="I8T-uS-Lf4"/>
+                <constraint firstAttribute="bottom" secondItem="Rfb-d5-sd9" secondAttribute="bottom" constant="15" id="I8T-uS-Lf4"/>
                 <constraint firstItem="oi4-wa-iJo" firstAttribute="leading" secondItem="lu7-0a-1BG" secondAttribute="trailing" constant="10" id="K2l-9X-ag6"/>
+                <constraint firstItem="dZD-S1-Alh" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" constant="29" id="KJS-YI-l4E"/>
                 <constraint firstItem="UBt-Qa-EIz" firstAttribute="leading" secondItem="Rfb-d5-sd9" secondAttribute="trailing" constant="5" id="L6W-Ft-QYt"/>
                 <constraint firstItem="TRa-ed-Vis" firstAttribute="top" secondItem="hCk-Eh-wu1" secondAttribute="bottom" constant="15" id="Pao-sI-HDi"/>
-                <constraint firstItem="bsd-4b-EXq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" constant="45" id="Qvc-Kw-Bnl"/>
                 <constraint firstItem="vlj-67-g91" firstAttribute="centerY" secondItem="lu7-0a-1BG" secondAttribute="centerY" id="Ss2-U4-HhL"/>
                 <constraint firstItem="vlj-67-g91" firstAttribute="leading" secondItem="oi4-wa-iJo" secondAttribute="trailing" constant="5" id="Ubx-lR-kzz"/>
                 <constraint firstItem="LgS-YH-SlL" firstAttribute="leading" secondItem="bsd-4b-EXq" secondAttribute="leading" id="W8Y-TT-W56"/>
@@ -116,7 +125,7 @@
             </constraints>
             <nil key="simulatedStatusBarMetrics"/>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
-            <point key="canvasLocation" x="-650" y="-361"/>
+            <point key="canvasLocation" x="-658" y="-355"/>
         </view>
     </objects>
     <resources>

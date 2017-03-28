@@ -14,6 +14,7 @@
 #import "PlayGuessViewController.h"
 #import "GuessAddPourViewController.h"
 #import "UIViewController+STPopup.h"
+#import "PlayEnjoyPeopleViewController.h"
 
 @interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -75,8 +76,9 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
     PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+#pragma mark - 参与竞猜
     cell.guessBlock = ^(UIButton *btn){
-//        GuessAddPourViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
+
         PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
         vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
 //        vc.userKeyNum = self.keyNum;
@@ -91,6 +93,26 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [popupController presentInViewController:_superVC];
         
     };
+    
+#pragma mark - 参与人数
+    cell.enjoyBlock = ^(){
+        PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
+        //        vc.userKeyNum = self.keyNum;
+        //        vc.nowPri = stock.nowPriValue;
+        //        vc.guessId = guess.guessId;
+        //        vc.delegate = self;
+        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.navigationBarHidden = YES;
+        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-80, 220);
+        popupController.style = STPopupTransitionStyleSlideVertical;
+        [popupController presentInViewController:_superVC];
+        
+    };
+#pragma mark - 奖励
+    cell.moneyBlock = ^(){
+        
+    };
+    
     return cell;
 }
 

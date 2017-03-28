@@ -24,6 +24,14 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
+    
+    label_enjoy.userInteractionEnabled = YES;
+    UITapGestureRecognizer *enjoy_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enjoyClick)];
+    [label_enjoy addGestureRecognizer:enjoy_Tap];
+
+    label_money.userInteractionEnabled = YES;
+    UITapGestureRecognizer *money_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moneyClick)];
+    [label_money addGestureRecognizer:money_Tap];
     // Initialization code
 }
 
@@ -35,6 +43,18 @@
 - (IBAction)buttonClick:(id)sender {
     if (_guessBlock) {
         _guessBlock(sender);
+    }
+}
+- (void)enjoyClick{
+    if (_enjoyBlock) {
+        _enjoyBlock();
+    }
+}
+
+- (void)moneyClick
+{
+    if (_moneyBlock) {
+        _moneyBlock();
     }
 }
 
