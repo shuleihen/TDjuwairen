@@ -393,6 +393,9 @@
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
 		4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */; };
+		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
+		4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */; };
+		4DA844421E8A151F006838B3 /* PlayIndividualStockContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */; };
 		4DD179E51E77C00B00FBE66D /* MYAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */; };
 		4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D61E77C00B00FBE66D /* MYBottomMenuCell.m */; };
 		4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D81E77C00B00FBE66D /* MYBottomMenuTool.m */; };
@@ -1259,6 +1262,11 @@
 		4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchCompanyListCell.xib; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.xib; sourceTree = SOURCE_ROOT; };
 		4D29B9C41E83B30E0019DD20 /* SearchCompanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListModel.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.h; sourceTree = SOURCE_ROOT; };
 		4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListModel.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.m; sourceTree = SOURCE_ROOT; };
+		4DA177FB1E8A51DE00C438BE /* PlayIndividualContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayIndividualContentCell.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.h; sourceTree = SOURCE_ROOT; };
+		4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayIndividualContentCell.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.m; sourceTree = SOURCE_ROOT; };
+		4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayIndividualContentCell.xib; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.xib; sourceTree = SOURCE_ROOT; };
+		4DA844401E8A151F006838B3 /* PlayIndividualStockContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayIndividualStockContentViewController.h; sourceTree = "<group>"; };
+		4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayIndividualStockContentViewController.m; sourceTree = "<group>"; };
 		4DD179D21E77C00B00FBE66D /* MYAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYAnimationHelper.h; sourceTree = "<group>"; };
 		4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYAnimationHelper.m; sourceTree = "<group>"; };
 		4DD179D51E77C00B00FBE66D /* MYBottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBottomMenuCell.h; sourceTree = "<group>"; };
@@ -1656,6 +1664,9 @@
 		19194CC01E7FA76400641085 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4DA177FB1E8A51DE00C438BE /* PlayIndividualContentCell.h */,
+				4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */,
+				4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -1665,6 +1676,8 @@
 			children = (
 				19194CC71E7FAC3700641085 /* PlayIndividualStockViewController.h */,
 				19194CC81E7FAC3700641085 /* PlayIndividualStockViewController.m */,
+				4DA844401E8A151F006838B3 /* PlayIndividualStockContentViewController.h */,
+				4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4512,6 +4525,7 @@
 				1953CB091E7172DB00A64B3C /* AliveListTableViewCell.xib in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
+				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
@@ -4637,10 +4651,12 @@
 				190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */,
 				4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
+				4DA844421E8A151F006838B3 /* PlayIndividualStockContentViewController.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				19386F081E73A88800D4426E /* CenterViewController.m in Sources */,
 				1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */,
 				19D6A3051E0D0126008368F4 /* STPopupLeftBarItem.m in Sources */,
+				4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
 				19F00D361E3089B4009270D5 /* StockShareView.m in Sources */,
