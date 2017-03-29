@@ -66,8 +66,19 @@
 {
     if (!_timeControl) {
         _timeControl = [[UISegmentedControl alloc] initWithItems:@[@"上午场",@"下午场"]];
-        _timeControl.frame = CGRectMake(kScreenWidth-12-100, 10, 100, 25);
-        _timeControl.tintColor = [UIColor whiteColor];
+        _timeControl.frame = CGRectMake(kScreenWidth-12-120, 5, 120, 35);
+        _timeControl.tintColor = [UIColor blackColor];
+        _timeControl.backgroundColor = [UIColor darkGrayColor];
+        
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor darkTextColor], NSForegroundColorAttributeName,[UIFont systemFontOfSize:14],NSFontAttributeName,nil];
+        [_timeControl setTitleTextAttributes:dic forState:UIControlStateNormal];
+        
+        NSDictionary *dic2 = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,[UIFont systemFontOfSize:14],NSFontAttributeName,nil];
+        [_timeControl setTitleTextAttributes:dic2 forState:UIControlStateSelected];
+        
+        _timeControl.selectedSegmentIndex = 0;
+        _timeControl.layer.borderWidth = 2;
+        _timeControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
         
     }
     return _timeControl;
@@ -77,12 +88,11 @@
     if (!_contentControllers) {
         PlayIndividualStockContentViewController *one = [[PlayIndividualStockContentViewController alloc] init];
         one.view.frame = CGRectMake(0, 0, kScreenWidth, 500);
-        one.view.backgroundColor = [UIColor redColor];
         one.superVC = self;
         
         PlayIndividualStockContentViewController *two = [[PlayIndividualStockContentViewController alloc] init];
         two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 200);
-        two.view.backgroundColor = [UIColor yellowColor];
+        two.superVC = self;
         _contentControllers = @[one,two];
     }
     
