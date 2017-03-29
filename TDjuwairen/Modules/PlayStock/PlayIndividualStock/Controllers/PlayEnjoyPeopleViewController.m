@@ -12,7 +12,7 @@
 
 #import "PlayEnjoyPeopleViewController.h"
 #import "STPopup.h"
-#import "PlayItemPersonView.h"U
+#import "PlayItemPersonView.h"
 @interface PlayEnjoyPeopleViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *label_title;
 @property (weak, nonatomic) IBOutlet UILabel *label_join;
@@ -34,8 +34,6 @@
         vi.frame = CGRectMake(i*width, 0, width, 66);
         [_contentView addSubview:vi];
     }
-   
-    // Do any additional setup after loading the view.
 }
 
 - (void)didReceiveMemoryWarning {

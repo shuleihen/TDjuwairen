@@ -97,6 +97,8 @@
 #define API_WXPay               @"Survey/wxpayKey"
 #define API_IAPVerify           @"Pay/iapVerify"
 
+#define API_GetGuessIndividual  @"Game/guessIndividual"
+#define API_GetGuessIndividualList  @"Game/getGuessIndividualList"
 #define API_GetGuessIndex       @"Game/guessIndex"
 
 #define API_GameImage           @"Game/guessImage"

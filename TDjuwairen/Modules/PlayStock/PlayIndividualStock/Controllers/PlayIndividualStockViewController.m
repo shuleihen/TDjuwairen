@@ -15,13 +15,25 @@
 #import "PushMessageViewController.h"
 #import "HMSegmentedControl.h"
 #import "PlayIndividualStockContentViewController.h"
+#import "NetworkManager.h"
+#import "PlayGuessIndividua.h"
+#import "PlayListModel.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *keyNum;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *sponsorGuess;
+
+
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
 @property (nonatomic, strong) NSArray *contentControllers;
 @property (strong, nonatomic) UIScrollView *pageScrollView;
 @property (assign, nonatomic) NSInteger pageIndex;
+@property (nonatomic, strong) PlayGuessIndividua *guessModel;
+@property (nonatomic, strong) PlayListModel *guessListModel;
+@property (nonatomic, strong) NSMutableArray *listModelArr;
+
 
 @end
 
@@ -97,6 +109,57 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.pageIndex = 0;
+    [self initViews];
+    [self initValue];
+    
+}
+- (void)initValue
+{
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    __weak PlayIndividualStockViewController *wself = self;
+    [ma GET:API_GetGuessIndividual parameters:nil completion:^(id data, NSError *error) {
+        if (!error) {
+            wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
+            [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
+            wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
+        }
+    }];
+    [self guessSourceListWith:0 season:1 pageNum:1];
+    
+    _listModelArr = [NSMutableArray new];
+
+}
+
+#pragma mark - 竞猜列表
+- (void)guessSourceListWith:(NSInteger)tag season:(NSInteger)season pageNum:(NSInteger)page
+{
+    /**
+     名称	类型	说明	是否必填	示例	默认值
+     season	int	1表示上午场，2表示下午场	是
+     tag	int	0表示按时间倒序，1表示按参与人数倒序	是
+     page	int	当前页码，从1开始	是
+     */
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    __weak PlayIndividualStockViewController *wself = self;
+    NSDictionary *parmark = @{
+                              @"season":@(season),
+                              @"tag":@(tag),
+                              @"page":@(page),
+                              };
+    [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
+        if (!error) {
+            NSArray *arr = data;
+            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+              PlayListModel *model = [[PlayListModel alloc] initWithDictionary:obj];
+                [wself.listModelArr addObject:model];
+            }];
+        }
+    }];
+}
+
+- (void)initViews
+{
     
 }
 
@@ -117,6 +180,9 @@
         MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
         [self.navigationController pushViewController:vc animated:YES];
     }
+}
+#pragma mark - 发起竞猜
+- (IBAction)guessClick:(id)sender {
 }
 
 - (IBAction)rulePressed:(id)sender {
