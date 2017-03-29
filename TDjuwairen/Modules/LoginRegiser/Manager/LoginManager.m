@@ -36,7 +36,7 @@
     
     UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
     
-    UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"您的账户在其他端登录" preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"您的账户在其他端登录" preferredStyle:UIAlertControllerStyleAlert];
     [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         
         US.isLogIn=NO;
