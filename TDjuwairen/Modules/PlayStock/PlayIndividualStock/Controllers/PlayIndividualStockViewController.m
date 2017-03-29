@@ -18,6 +18,9 @@
 #import "NetworkManager.h"
 #import "PlayGuessIndividua.h"
 #import "PlayListModel.h"
+#import "PlayGuessViewController.h"
+#import "STPopupController.h"
+#import "UIViewController+STPopup.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -33,6 +36,7 @@
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
 @property (nonatomic, strong) PlayListModel *guessListModel;
 @property (nonatomic, strong) NSMutableArray *listModelArr;
+@property (nonatomic, strong) UISegmentedControl *timeControl;
 
 
 @end
@@ -58,17 +62,37 @@
     return _segmentControl;
 }
 
+- (UISegmentedControl *)timeControl
+{
+    if (!_timeControl) {
+        _timeControl = [[UISegmentedControl alloc] initWithItems:@[@"上午场",@"下午场"]];
+        _timeControl.frame = CGRectMake(kScreenWidth-12-120, 5, 120, 35);
+        _timeControl.tintColor = [UIColor blackColor];
+        _timeControl.backgroundColor = [UIColor darkGrayColor];
+        
+        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor darkTextColor], NSForegroundColorAttributeName,[UIFont systemFontOfSize:14],NSFontAttributeName,nil];
+        [_timeControl setTitleTextAttributes:dic forState:UIControlStateNormal];
+        
+        NSDictionary *dic2 = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,[UIFont systemFontOfSize:14],NSFontAttributeName,nil];
+        [_timeControl setTitleTextAttributes:dic2 forState:UIControlStateSelected];
+        
+        _timeControl.selectedSegmentIndex = 0;
+        _timeControl.layer.borderWidth = 2;
+        _timeControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
+        
+    }
+    return _timeControl;
+}
 
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
         PlayIndividualStockContentViewController *one = [[PlayIndividualStockContentViewController alloc] init];
         one.view.frame = CGRectMake(0, 0, kScreenWidth, 500);
-        one.view.backgroundColor = [UIColor redColor];
         one.superVC = self;
         
         PlayIndividualStockContentViewController *two = [[PlayIndividualStockContentViewController alloc] init];
         two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 200);
-        two.view.backgroundColor = [UIColor yellowColor];
+        two.superVC = self;
         _contentControllers = @[one,two];
     }
     
@@ -103,6 +127,8 @@
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
     [self.tableView reloadData];
+    
+    [self guessSourceListWith:self.pageIndex season:2 pageNum:1];
     
 }
 
@@ -154,6 +180,9 @@
               PlayListModel *model = [[PlayListModel alloc] initWithDictionary:obj];
                 [wself.listModelArr addObject:model];
             }];
+            
+            PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
+            vc.listArr = wself.listModelArr.mutableCopy;
         }
     }];
 }
@@ -183,6 +212,18 @@
 }
 #pragma mark - 发起竞猜
 - (IBAction)guessClick:(id)sender {
+    PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+    vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
+    //        vc.userKeyNum = self.keyNum;
+    //        vc.nowPri = stock.nowPriValue;
+    //        vc.guessId = guess.guessId;
+    //        vc.delegate = self;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 }
 
 - (IBAction)rulePressed:(id)sender {
@@ -245,6 +286,7 @@
     hv.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"];
     
     [hv addSubview:self.segmentControl];
+    [hv addSubview:self.timeControl];
     return hv;
 }
 

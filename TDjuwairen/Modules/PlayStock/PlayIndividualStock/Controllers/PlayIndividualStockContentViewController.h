@@ -15,5 +15,6 @@
 - (CGFloat)viewHeight;
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
 
+@property (nonatomic, strong) NSArray *listArr;
 
 @end
