@@ -218,6 +218,7 @@
 		1966A6551E8BB81C007DDA14 /* DYRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6541E8BB81C007DDA14 /* DYRefresh.m */; };
 		1966A6591E8BBEDF007DDA14 /* UIViewController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6581E8BBEDF007DDA14 /* UIViewController+Loading.m */; };
 		1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */; };
+		1966A6611E8BD650007DDA14 /* DYLikeAnimationButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6601E8BD650007DDA14 /* DYLikeAnimationButton.m */; };
 		196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */; };
 		196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */; };
 		196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C051DFA602D00084894 /* PersonalHeaderView.m */; };
@@ -950,6 +951,8 @@
 		1966A6581E8BBEDF007DDA14 /* UIViewController+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Loading.m"; sourceTree = "<group>"; };
 		1966A65B1E8BD083007DDA14 /* UIViewController+Refresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Refresh.h"; sourceTree = "<group>"; };
 		1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Refresh.m"; sourceTree = "<group>"; };
+		1966A65F1E8BD650007DDA14 /* DYLikeAnimationButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYLikeAnimationButton.h; sourceTree = "<group>"; };
+		1966A6601E8BD650007DDA14 /* DYLikeAnimationButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYLikeAnimationButton.m; sourceTree = "<group>"; };
 		196B8BFE1DFA40DD00084894 /* YXSecurityCodeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSecurityCodeButton.h; sourceTree = "<group>"; };
 		196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSecurityCodeButton.m; sourceTree = "<group>"; };
 		196B8C011DFA4EC500084894 /* MBProgressHUD+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Custom.h"; sourceTree = "<group>"; };
@@ -3072,6 +3075,15 @@
 			path = "UIViewController+Refresh";
 			sourceTree = "<group>";
 		};
+		1966A65E1E8BD63B007DDA14 /* DYLikeAnimationButton */ = {
+			isa = PBXGroup;
+			children = (
+				1966A65F1E8BD650007DDA14 /* DYLikeAnimationButton.h */,
+				1966A6601E8BD650007DDA14 /* DYLikeAnimationButton.m */,
+			);
+			path = DYLikeAnimationButton;
+			sourceTree = "<group>";
+		};
 		196B8BFD1DFA40DD00084894 /* YXSecurityCodeButton */ = {
 			isa = PBXGroup;
 			children = (
@@ -4280,6 +4292,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1966A65E1E8BD63B007DDA14 /* DYLikeAnimationButton */,
 				19194D1E1E80D08900641085 /* Refresh */,
 				19194D171E80CC5200641085 /* YPTool */,
 				19194D0A1E80CBE900641085 /* ZFCActivityIndicator */,
@@ -4866,6 +4879,7 @@
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,
 				9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */,
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
+				1966A6611E8BD650007DDA14 /* DYLikeAnimationButton.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				190F65EE1E36E73000B83ADF /* AwardImfomationTableViewCell.m in Sources */,
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
