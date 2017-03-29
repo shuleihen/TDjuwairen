@@ -290,8 +290,7 @@
 
 - (void)addGuessPri:(CGFloat)pri withStockId:(NSString *)stockId {
     
-    for (int i=0;i < [self.guessList count];i++) {
-        StockGuessModel *guess = self.guessList[i];
+    for (StockGuessModel *guess in self.guessList) {
         
         if ([guess.stockId isEqualToString:stockId]) {
             NSString *point = [NSString stringWithFormat:@"%.02f",pri];

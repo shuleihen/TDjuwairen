@@ -78,7 +78,7 @@
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
 }
 
-- (void)queryAliveListWithType:(AliveType)listType withPage:(NSInteger)page {
+- (void)queryAliveListWithType:(AliveRoomListType)listType withPage:(NSInteger)page {
     __weak AliveRoomLiveViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];

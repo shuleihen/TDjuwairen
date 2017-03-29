@@ -17,7 +17,7 @@
 
 @interface AliveRoomLiveViewController : UIViewController
 @property (nonatomic, strong) NSString *masterId;
-@property (nonatomic, assign) AliveType listType;
+@property (nonatomic, assign) AliveRoomListType listType;
 
 @property (nonatomic, weak) id<AliveRoomLiveContentListDelegate> delegate;
 

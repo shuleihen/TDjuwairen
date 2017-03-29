@@ -9,6 +9,11 @@
 #ifndef AliveTypeDefine_h
 #define AliveTypeDefine_h
 
+typedef enum : NSInteger {
+    kAliveRoomListAll      =0,
+    kAliveRoomListPosts    =1
+} AliveRoomListType;
+
 // 直播动态类型，1：图文，2：贴单
 typedef enum : NSInteger {
     kAliveNormal    =1,

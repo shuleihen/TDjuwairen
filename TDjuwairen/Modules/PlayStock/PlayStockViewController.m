@@ -80,8 +80,8 @@
     
     UIButton *down = [UIButton buttonWithType:UIButtonTypeCustom];
     down.frame = CGRectMake(0, CGRectGetHeight(up.frame), kScreenWidth, itemH);
-    [down setBackgroundImage:[UIImage imageNamed:@"ad_mine.png"] forState:UIControlStateNormal];
-    [down setBackgroundImage:[UIImage imageNamed:@"ad_mine.png"] forState:UIControlStateHighlighted];
+    [down setBackgroundImage:[UIImage imageNamed:@"ad_gegu.png"] forState:UIControlStateNormal];
+    [down setBackgroundImage:[UIImage imageNamed:@"ad_gegu.png"] forState:UIControlStateHighlighted];
     [down addTarget:self action:@selector(playStockMarketPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:down];
 }

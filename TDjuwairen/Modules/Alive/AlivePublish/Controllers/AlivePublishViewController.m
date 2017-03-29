@@ -33,6 +33,11 @@
 
 @implementation AlivePublishViewController
 
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -61,17 +66,27 @@
     
     [self setupFooterView];
     [self checkRightBarItemEnabled];
-    self.companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectMake(85, 44, kScreenWidth-97, 0)];
-
-    __weak typeof(self)weakSelf = self;
-    self.companyListTableView.choiceCode = ^(NSString *str){
-       weakSelf.stockIdTextField.text = str;
-        weakSelf.stockId = str;
-        [weakSelf checkRightBarItemEnabled];
-        
-    };
+    
     [self.tableView addSubview:self.companyListTableView];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+}
+
+- (SearchCompanyListTableView *)companyListTableView {
+    if (!_companyListTableView) {
+        _companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectZero];
+        
+        __weak typeof(self)weakSelf = self;
+        _companyListTableView.choiceCode = ^(NSString *str){
+            weakSelf.stockIdTextField.text = str;
+            weakSelf.stockId = str;
+            [weakSelf checkRightBarItemEnabled];
+        };
+    }
+    return _companyListTableView;
 }
 
 - (UITextField *)stockIdTextField {
@@ -93,6 +108,18 @@
         _imagePicker = [[ImagePickerHandler alloc] initWithDelegate:self];
     }
     return _imagePicker;
+}
+
+- (void)keyboardWillShow:(NSNotification *)aNotification
+{
+    //获取键盘的高度
+    NSDictionary *userInfo = [aNotification userInfo];
+    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
+    CGRect keyboardRect = [aValue CGRectValue];
+    int height = keyboardRect.size.height;
+    
+    CGFloat listHeight = CGRectGetHeight(self.view.frame)-44-height;
+    self.companyListTableView.frame = CGRectMake(85, 44, kScreenWidth-97, listHeight);
 }
 
 - (void)setupFooterView {
@@ -300,7 +327,9 @@
 
 - (void)textFieldDidChange:(UITextField *)textField {
     self.stockId = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    
     [self checkRightBarItemEnabled];
+    
     if (textField == self.stockIdTextField) {
         if (textField.text.length > 6) {
             textField.text = [textField.text substringToIndex:6];
@@ -309,16 +338,10 @@
     }
     
     if (textField.text.length > 0) {
-        
         [self loadCompanyListData:textField.text];
     }else {
-    
         [self.companyListTableView configResultDataArr:[NSArray array] andRectY:44];
-        
     }
-    
-    
-    
 }
 
 
