@@ -18,6 +18,9 @@
 #import "NetworkManager.h"
 #import "PlayGuessIndividua.h"
 #import "PlayListModel.h"
+#import "PlayGuessViewController.h"
+#import "STPopupController.h"
+#import "UIViewController+STPopup.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -199,6 +202,18 @@
 }
 #pragma mark - 发起竞猜
 - (IBAction)guessClick:(id)sender {
+    PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+    vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
+    //        vc.userKeyNum = self.keyNum;
+    //        vc.nowPri = stock.nowPriValue;
+    //        vc.guessId = guess.guessId;
+    //        vc.delegate = self;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 }
 
 - (IBAction)rulePressed:(id)sender {

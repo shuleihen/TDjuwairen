@@ -8,13 +8,12 @@
 
 #import "PlayIndividualStockContentViewController.h"
 #import "PlayIndividualContentCell.h"
-//#import "GuessAddPourViewController.h"
 #import "STPopupController.h"
 #import "PlayIndividualStockViewController.h"
 #import "PlayGuessViewController.h"
-#import "GuessAddPourViewController.h"
 #import "UIViewController+STPopup.h"
 #import "PlayEnjoyPeopleViewController.h"
+#import "GuessAddPourViewController.h"
 
 @interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -62,7 +61,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
-    
+    _listArr = @[@"",@"",@""];
     [self.tableView reloadData];
 }
 
@@ -84,19 +83,16 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 #pragma mark - 参与竞猜
     cell.guessBlock = ^(UIButton *btn){
 
-        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-        vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
+        GuessAddPourViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
 //        vc.userKeyNum = self.keyNum;
 //        vc.nowPri = stock.nowPriValue;
 //        vc.guessId = guess.guessId;
 //        vc.delegate = self;
-
+        
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
         popupController.navigationBarHidden = YES;
-        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
         popupController.style = STPopupStyleBottomSheet;
         [popupController presentInViewController:_superVC];
-        
     };
     
 #pragma mark - 参与人数
