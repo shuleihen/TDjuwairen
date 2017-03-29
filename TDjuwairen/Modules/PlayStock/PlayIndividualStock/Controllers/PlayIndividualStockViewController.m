@@ -33,6 +33,7 @@
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
 @property (nonatomic, strong) PlayListModel *guessListModel;
 @property (nonatomic, strong) NSMutableArray *listModelArr;
+@property (nonatomic, strong) UISegmentedControl *timeControl;
 
 
 @end
@@ -58,6 +59,16 @@
     return _segmentControl;
 }
 
+- (UISegmentedControl *)timeControl
+{
+    if (!_timeControl) {
+        _timeControl = [[UISegmentedControl alloc] initWithItems:@[@"上午场",@"下午场"]];
+        _timeControl.frame = CGRectMake(kScreenWidth-12-100, 10, 100, 25);
+        _timeControl.tintColor = [UIColor whiteColor];
+        
+    }
+    return _timeControl;
+}
 
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
@@ -103,6 +114,8 @@
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
     [self.tableView reloadData];
+    
+    [self guessSourceListWith:self.pageIndex season:2 pageNum:1];
     
 }
 
@@ -154,6 +167,9 @@
               PlayListModel *model = [[PlayListModel alloc] initWithDictionary:obj];
                 [wself.listModelArr addObject:model];
             }];
+            
+            PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
+            vc.listArr = wself.listModelArr.mutableCopy;
         }
     }];
 }
@@ -245,6 +261,7 @@
     hv.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"];
     
     [hv addSubview:self.segmentControl];
+    [hv addSubview:self.timeControl];
     return hv;
 }
 

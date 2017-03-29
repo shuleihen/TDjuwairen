@@ -60,11 +60,16 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     return self.tableView.contentSize.height;
 }
 
+- (void)setListArr:(NSArray *)listArr{
+    _listArr = listArr;
+    
+    [self.tableView reloadData];
+}
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
 
-    return 3;
+    return _listArr.count;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
