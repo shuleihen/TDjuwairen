@@ -36,6 +36,7 @@
 #import "SurveySubjectModel.h"
 #import "NotificationDef.h"
 #import "LoginManager.h"
+#import "UIViewController+Refresh.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -260,7 +261,8 @@
     
 //    self.tableView.backgroundColor = TDViewBackgrouondColor;
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshAction)];
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
@@ -486,6 +488,8 @@
     if ([self.tableView.mj_header isRefreshing]) {
         [self.tableView.mj_header endRefreshing];
     }
+    
+    [self endHeaderRefresh];
     
     [self reloadTableView];
 }

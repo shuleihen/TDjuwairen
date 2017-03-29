@@ -215,6 +215,9 @@
 		1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 1961DF461DF9573200A08A4B /* NSString+Util.m */; };
 		1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A64B1E8B8995007DDA14 /* ShareViewController.m */; };
 		1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1966A64F1E8B89CB007DDA14 /* Popup.storyboard */; };
+		1966A6551E8BB81C007DDA14 /* DYRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6541E8BB81C007DDA14 /* DYRefresh.m */; };
+		1966A6591E8BBEDF007DDA14 /* UIViewController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6581E8BBEDF007DDA14 /* UIViewController+Loading.m */; };
+		1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */; };
 		196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */; };
 		196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */; };
 		196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C051DFA602D00084894 /* PersonalHeaderView.m */; };
@@ -941,6 +944,12 @@
 		1966A64A1E8B8995007DDA14 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
 		1966A64B1E8B8995007DDA14 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
 		1966A64F1E8B89CB007DDA14 /* Popup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Popup.storyboard; sourceTree = "<group>"; };
+		1966A6531E8BB81C007DDA14 /* DYRefresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRefresh.h; sourceTree = "<group>"; };
+		1966A6541E8BB81C007DDA14 /* DYRefresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRefresh.m; sourceTree = "<group>"; };
+		1966A6571E8BBEDF007DDA14 /* UIViewController+Loading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Loading.h"; sourceTree = "<group>"; };
+		1966A6581E8BBEDF007DDA14 /* UIViewController+Loading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Loading.m"; sourceTree = "<group>"; };
+		1966A65B1E8BD083007DDA14 /* UIViewController+Refresh.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Refresh.h"; sourceTree = "<group>"; };
+		1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Refresh.m"; sourceTree = "<group>"; };
 		196B8BFE1DFA40DD00084894 /* YXSecurityCodeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSecurityCodeButton.h; sourceTree = "<group>"; };
 		196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSecurityCodeButton.m; sourceTree = "<group>"; };
 		196B8C011DFA4EC500084894 /* MBProgressHUD+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Custom.h"; sourceTree = "<group>"; };
@@ -1874,6 +1883,7 @@
 		19194D1E1E80D08900641085 /* Refresh */ = {
 			isa = PBXGroup;
 			children = (
+				1966A6521E8BB81C007DDA14 /* DYRefresh */,
 				19194D1F1E80D08900641085 /* SSColorfulRefresh */,
 			);
 			path = Refresh;
@@ -1920,10 +1930,12 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1966A65A1E8BD07B007DDA14 /* UIViewController+Refresh */,
 				196F5ECA1E54858600928B60 /* UIDevice */,
 				19E48FF41E1D01030012CE6E /* Emoji */,
 				19F43C5B1E235788001B72CD /* UIButton+Align */,
 				193419D11E77F58F00F22788 /* UINavigationBar+Awesome */,
+				1966A6561E8BBECA007DDA14 /* UIViewController+Loading */,
 				19A5AC891E0BA2B800FE953A /* UITextView+Placeholder */,
 				19193B2F1E03CE6D000A6AD2 /* UIImage+Color.h */,
 				9EBF092F1E7933BA007B2DC0 /* UIView+Additions.h */,
@@ -3030,6 +3042,34 @@
 				842D58031D893BB3006385CB /* CompanySelTableView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1966A6521E8BB81C007DDA14 /* DYRefresh */ = {
+			isa = PBXGroup;
+			children = (
+				1966A6531E8BB81C007DDA14 /* DYRefresh.h */,
+				1966A6541E8BB81C007DDA14 /* DYRefresh.m */,
+			);
+			path = DYRefresh;
+			sourceTree = "<group>";
+		};
+		1966A6561E8BBECA007DDA14 /* UIViewController+Loading */ = {
+			isa = PBXGroup;
+			children = (
+				1966A6571E8BBEDF007DDA14 /* UIViewController+Loading.h */,
+				1966A6581E8BBEDF007DDA14 /* UIViewController+Loading.m */,
+			);
+			name = "UIViewController+Loading";
+			path = "TDjuwairen/Modules/Category/UIViewController+Loading";
+			sourceTree = SOURCE_ROOT;
+		};
+		1966A65A1E8BD07B007DDA14 /* UIViewController+Refresh */ = {
+			isa = PBXGroup;
+			children = (
+				1966A65B1E8BD083007DDA14 /* UIViewController+Refresh.h */,
+				1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */,
+			);
+			path = "UIViewController+Refresh";
 			sourceTree = "<group>";
 		};
 		196B8BFD1DFA40DD00084894 /* YXSecurityCodeButton */ = {
@@ -4713,6 +4753,7 @@
 				19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */,
 				19E5F2A81E13653200984DBC /* SQTopicCellViewModel.m in Sources */,
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
+				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
 				19F00D0A1E2EFFD9009270D5 /* AskTableViewCell.m in Sources */,
 				1953CAE31E716EA400A64B3C /* UserInfoHeadView.m in Sources */,
@@ -4883,6 +4924,7 @@
 				194186DA1DF81284000C5197 /* SettingNickNameViewController.m in Sources */,
 				1955B48C1D644D9800DC102E /* ShowTableViewCell.m in Sources */,
 				19C348711D3F76DB008ABD16 /* MJRefreshStateHeader.m in Sources */,
+				1966A6591E8BBEDF007DDA14 /* UIViewController+Loading.m in Sources */,
 				19D6A3031E0D0126008368F4 /* STPopupControllerTransitioningFade.m in Sources */,
 				19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */,
 				1955B48F1D644D9800DC102E /* SharpTags.m in Sources */,
@@ -4893,6 +4935,7 @@
 				19194D051E7FDED000641085 /* SurveyListModel.m in Sources */,
 				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
+				1966A6551E8BB81C007DDA14 /* DYRefresh.m in Sources */,
 				19F00D111E2EFFD9009270D5 /* SpotViewController.m in Sources */,
 				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,
 				19F0074E1E31E5AE000A5F98 /* StockUnlockViewController.m in Sources */,

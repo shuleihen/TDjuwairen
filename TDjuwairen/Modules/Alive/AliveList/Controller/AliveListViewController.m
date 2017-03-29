@@ -18,49 +18,31 @@
 #import "AliveMessageListViewController.h"
 #import "LoginState.h"
 #import "ZFCWaveActivityIndicatorView.h"
-#import "SSColorfulRefresh.h"
+#import "DYRefresh.h"
+#import "UIViewController+Loading.h"
+#import "UIViewController+Refresh.h"
 
 @interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
 @property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
-@property (nonatomic, strong) ZFCWaveActivityIndicatorView *waveActivityIndicator;
-@property (nonatomic, strong) SSColorfulRefresh *refresh;
 @end
 
 @implementation AliveListViewController
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
+
+        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.showsVerticalScrollIndicator = NO;
-        
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
-        _tableView.mj_footer = [MJRefreshBackFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     }
     
     return _tableView;
-}
-
-- (SSColorfulRefresh *)refresh {
-    if (!_refresh) {
-        NSArray *colors= @[];
-        _refresh = [[SSColorfulRefresh alloc] initWithScrollView:self.tableView colors:@[]];
-    }
-    return _refresh;
-}
-
-- (ZFCWaveActivityIndicatorView *)waveActivityIndicator {
-    if (!_waveActivityIndicator) {
-        _waveActivityIndicator = [[ZFCWaveActivityIndicatorView alloc] init];
-        _waveActivityIndicator.center = CGPointMake(kScreenWidth*2.5, 200);
-    }
-    return _waveActivityIndicator;
 }
 
 - (void)viewDidLoad {
@@ -71,9 +53,18 @@
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
     
+    [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, (kScreenHeight-64-50)/2)];
+    
+    [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
+    
     [self refreshActions];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.tableView.frame = self.view.bounds;
+}
 
 #pragma mark - Action
 
@@ -92,8 +83,6 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dict = @{@"tag" :@(listType),@"page" :@(page)};
     
-    [self.view addSubview:self.waveActivityIndicator];
-    [self.waveActivityIndicator startAnimating];
     
     [manager GET:API_AliveGetRoomList parameters:dict completion:^(id data, NSError *error){
         
@@ -105,8 +94,8 @@
             [wself.tableView.mj_footer endRefreshing];
         }
         
-        [self.waveActivityIndicator stopAnimating];
-        [self.waveActivityIndicator removeFromSuperview];
+        [wself endHeaderRefresh];
+        [wself removeLoadingAnimation];
         
         if (!error) {
             NSArray *dataArray = data;

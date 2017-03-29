@@ -67,7 +67,7 @@
     self.size = CGSizeMake(6, 10);
     self.duration = 1.0f;
     self.delay = 0.1;
-    self.defaultColor = [UIColor whiteColor];
+    self.defaultColor = TDThemeColor;
 }
 
 - (UIView *)createRectangleWithSize:(CGSize)size color:(UIColor *)color positionX:(CGFloat)x

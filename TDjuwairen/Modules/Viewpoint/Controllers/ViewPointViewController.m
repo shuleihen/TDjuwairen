@@ -23,6 +23,8 @@
 #import "NetworkManager.h"
 #import "MJRefresh.h"
 #import "NetworkManager.h"
+#import "UIViewController+Refresh.h"
+#import "UIViewController+Loading.h"
 
 @interface ViewPointViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -42,6 +44,7 @@
     [self setupWithNavigation];
     [self setupTabelView];
     
+    [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, CGRectGetHeight(self.tableView.bounds)/2)];
     self.page = 1;
     [self requestDataWithPage:self.page];
 }
@@ -59,7 +62,8 @@
     [self.view addSubview:tableview];
     self.tableView = tableview;
     
-    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
+    [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
+//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
 }
 
@@ -111,18 +115,17 @@
                 }
                 wself.viewNewArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
-            
-            [wself.tableView.mj_header endRefreshing];
-            [wself.tableView.mj_footer endRefreshing];
+
             wself.page++;
-            [wself.tableView reloadData];
-        } else {
-            [wself.tableView.mj_header endRefreshing];
-            [wself.tableView.mj_footer endRefreshing];
-            [wself.tableView reloadData];
         }
+        
+//        [wself.tableView.mj_header endRefreshing];
+        [wself.tableView.mj_footer endRefreshing];
+        [wself endHeaderRefresh];
+        [wself removeLoadingAnimation];
+        
+        [wself.tableView reloadData];
     }];
-    
 }
 
 
