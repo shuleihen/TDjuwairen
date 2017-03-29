@@ -15,6 +15,7 @@
 #import "ShareHandler.h"
 #import "NetworkManager.h"
 #import "AliveCommentViewController.h"
+#import "UIButton+LikeAnimation.h"
 
 
 #define kAliveListCellToolHeight 37
@@ -175,8 +176,9 @@
             
             if (!error) {
                 cell.cellModel.likeNum--;
-                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum] forState:UIControlStateNormal];
+                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)cell.cellModel.likeNum] forState:UIControlStateNormal];
                 cell.likeBtn.selected = NO;
+                [cell.likeBtn addLikeAnimation];
             }else{
                 MBAlert(@"用户已取消点赞")
             }
@@ -186,8 +188,9 @@
             
             if (!error) {
                 cell.cellModel.likeNum++;
-                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",cell.cellModel.likeNum] forState:UIControlStateNormal];
+                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)cell.cellModel.likeNum] forState:UIControlStateNormal];
                 cell.likeBtn.selected = YES;
+                [cell.likeBtn addLikeAnimation];
             }else{
                 MBAlert(@"用户已点赞")
             }

@@ -1,5 +1,5 @@
 //
-//  DYLikeAnimationButton.h
+//  UIButton+LikeAnimation.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/3/29.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DYLikeAnimationButton : UIButton
-
+@interface UIButton (LikeAnimation)
+- (void)addLikeAnimation;
 @end

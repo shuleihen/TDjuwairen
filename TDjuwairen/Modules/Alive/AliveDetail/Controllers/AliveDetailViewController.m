@@ -18,6 +18,7 @@
 #import "AliveCommentViewController.h"
 #import "AliveRoomViewController.h"
 #import "ShareHandler.h"
+#import "UIButton+LikeAnimation.h"
 
 @interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -396,7 +397,7 @@
     [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
         if (state) {
             NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dict = @{@"item_id":self.alive_ID,@"type" :self.alive_type};
+            NSDictionary *dict = @{@"item_id":weakSelf.alive_ID,@"type" :weakSelf.alive_type};
             
             [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
                 if (!error) {
@@ -443,7 +444,9 @@
             if (!error) {
                 cell.cellModel.isLike = NO;
                 wself.toolView.likeBtn.selected = NO;
-                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
+                [wself.toolView.likeBtn addLikeAnimation];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已取消点赞")
             }
@@ -455,6 +458,8 @@
             if (!error) {
                 cell.cellModel.isLike = YES;
                 wself.toolView.likeBtn.selected = YES;
+                [wself.toolView.likeBtn addLikeAnimation];
+                
                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已点赞")

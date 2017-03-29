@@ -81,6 +81,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshAddLick:) name:KnotifierGoAddLike object:nil];
 }
+
 - (void)refreshAddLick:(NSNotification *)noti{
     
     if ([noti.userInfo[@"notiType"] isEqualToString:@"dianzan"] && self.listType == AliveDianZanList) {

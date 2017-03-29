@@ -33,8 +33,8 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-
-        _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
@@ -53,17 +53,11 @@
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
     
-    [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, (kScreenHeight-64-50)/2)];
+    [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
     
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
     
     [self refreshActions];
-}
-
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    self.tableView.frame = self.view.bounds;
 }
 
 #pragma mark - Action
