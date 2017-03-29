@@ -213,6 +213,8 @@
 		1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4581D644D9800DC102E /* SelectFontView.m */; };
 		1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B45A1D644D9800DC102E /* TimeHotComView.m */; };
 		1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 1961DF461DF9573200A08A4B /* NSString+Util.m */; };
+		1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A64B1E8B8995007DDA14 /* ShareViewController.m */; };
+		1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1966A64F1E8B89CB007DDA14 /* Popup.storyboard */; };
 		196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */; };
 		196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */; };
 		196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C051DFA602D00084894 /* PersonalHeaderView.m */; };
@@ -936,6 +938,9 @@
 		1955B45A1D644D9800DC102E /* TimeHotComView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeHotComView.m; sourceTree = "<group>"; };
 		1961DF451DF9573200A08A4B /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		1961DF461DF9573200A08A4B /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
+		1966A64A1E8B8995007DDA14 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
+		1966A64B1E8B8995007DDA14 /* ShareViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareViewController.m; sourceTree = "<group>"; };
+		1966A64F1E8B89CB007DDA14 /* Popup.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Popup.storyboard; sourceTree = "<group>"; };
 		196B8BFE1DFA40DD00084894 /* YXSecurityCodeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSecurityCodeButton.h; sourceTree = "<group>"; };
 		196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSecurityCodeButton.m; sourceTree = "<group>"; };
 		196B8C011DFA4EC500084894 /* MBProgressHUD+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Custom.h"; sourceTree = "<group>"; };
@@ -3970,6 +3975,8 @@
 			children = (
 				19F00D311E307FFC009270D5 /* ShareHandler.h */,
 				19F00D321E307FFC009270D5 /* ShareHandler.m */,
+				1966A64A1E8B8995007DDA14 /* ShareViewController.h */,
+				1966A64B1E8B8995007DDA14 /* ShareViewController.m */,
 			);
 			path = Share;
 			sourceTree = "<group>";
@@ -4193,6 +4200,7 @@
 				19386EF91E73A0EB00D4426E /* PersonalCenter.storyboard */,
 				84E333F61CE2BA3D00E5DCEE /* Assets.xcassets */,
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
+				1966A64F1E8B89CB007DDA14 /* Popup.storyboard */,
 				84E333FB1CE2BA3D00E5DCEE /* Info.plist */,
 				842D58001D8938FD006385CB /* availableTags.plist */,
 				84E334401CE3037200E5DCEE /* PrefixHeader.pch */,
@@ -4559,6 +4567,7 @@
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
+				1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */,
 				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
@@ -4852,6 +4861,7 @@
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */,
 				843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */,
+				1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */,
 				4DD179E81E77C00B00FBE66D /* UIImage+blankImage.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,

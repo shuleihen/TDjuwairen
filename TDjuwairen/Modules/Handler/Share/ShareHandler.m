@@ -10,6 +10,8 @@
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 #import "MBProgressHUD.h"
+#import "ShareViewController.h"
+#import "STPopup.h"
 
 @implementation ShareHandler
 
@@ -49,6 +51,84 @@
 }
 
 + (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url shareState:(void(^)(BOOL state))stateBlock  {
+    
+    ShareViewController *vc = [[UIStoryboard storyboardWithName:@"Popup" bundle:nil] instantiateViewControllerWithIdentifier:@"ShareViewController"];
+    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.style = STPopupStyleBottomSheet;
+    popupController.navigationBarHidden = YES;
+    [popupController presentInViewController:root];
+    
+    
+    void (^ShareWithType)(SSDKPlatformType type) = ^(SSDKPlatformType type){
+        if (type == SSDKPlatformTypeUnknown) {
+            return;
+        }
+        
+        NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
+        [shareParams SSDKSetupShareParamsByText:nil
+                                         images:images
+                                            url:[NSURL URLWithString:SafeValue(url)]
+                                          title:title
+                                           type:SSDKContentTypeAuto];
+        
+        //进行分享
+        [ShareSDK share:type
+             parameters:shareParams
+         onStateChanged:^(SSDKResponseState state, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error) {
+             if (state == SSDKResponseStateSuccess) {
+                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+                 hud.mode = MBProgressHUDModeText;
+                 hud.animationType = MBProgressHUDAnimationZoomIn;
+                 hud.labelText = @"分享成功";
+                 hud.removeFromSuperViewOnHide = YES;
+                 [hud hide:YES afterDelay:0.4];
+                 
+             } else if (state == SSDKResponseStateFail) {
+                 UIWindow *window = [UIApplication sharedApplication].keyWindow;
+                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+                 hud.mode = MBProgressHUDModeText;
+                 hud.animationType = MBProgressHUDAnimationZoomIn;
+                 hud.labelText = @"分享失败";
+                 hud.removeFromSuperViewOnHide = YES;
+                 [hud hide:YES afterDelay:0.4];
+             }
+             stateBlock(state == SSDKResponseStateSuccess);
+         }];
+    };
+    
+    vc.buttonClickBlock = ^(NSInteger index){
+        SSDKPlatformType type;
+        
+        switch (index) {
+            case 0:
+                type = SSDKPlatformTypeUnknown;
+                break;
+            case 1:
+                type = SSDKPlatformSubTypeWechatTimeline;
+                break;
+            case 2:
+                type = SSDKPlatformSubTypeWechatSession;
+                break;
+            case 3:
+                type = SSDKPlatformTypeSinaWeibo;
+                break;
+            case 4:
+                type = SSDKPlatformSubTypeQQFriend;
+                break;
+            case 5:
+                type = SSDKPlatformSubTypeQZone;
+                break;
+            default:
+                break;
+        }
+        
+        ShareWithType(type);
+    };
+    
+    /*
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
 
     [shareParams SSDKSetupShareParamsByText:nil images:images url:[NSURL URLWithString:SafeValue(url)] title:title type:SSDKContentTypeAuto];
@@ -77,5 +157,6 @@
                    }
                    stateBlock(state == SSDKResponseStateSuccess);
                }];
+     */
 }
 @end
