@@ -124,15 +124,20 @@
 
 - (void)setPageIndex:(NSInteger)pageIndex {
     _pageIndex = pageIndex;
-    PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
-//    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, vc.viewHeight);
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
-    [self.tableView reloadData];
     
     [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
     
 }
+
+- (void)configTableViewHeightWithHeight:(CGFloat)height {
+
+    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, height);
+   
+    [self.tableView reloadData];
+}
+
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -151,6 +156,7 @@
             wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
             [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
             wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
+            
         }
     }];
 
@@ -203,7 +209,10 @@
             PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
-            wself.pageScrollView.contentSize = CGSizeMake(kScreenWidth, [vc viewHeight]+207);
+            vc.changeHBlock = ^(CGFloat height){
+            
+                [wself configTableViewHeightWithHeight:height];
+            };
         }
     }];
 }

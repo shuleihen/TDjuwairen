@@ -7,14 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+
+typedef void(^ChangeHeightBlock)(CGFloat h);
+
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
 @interface PlayIndividualStockContentViewController : UIViewController
 
 - (void)reloadPlayIndividualStockTableView;
-- (CGFloat)viewHeight;
+
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
 
 @property (nonatomic, strong) NSArray *listArr;//PlayListModel
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
+
+@property (copy, nonatomic) ChangeHeightBlock  changeHBlock;
 @end
