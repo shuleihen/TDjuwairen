@@ -16,5 +16,5 @@
 
 @property (nonatomic, assign) id<PlayGuessViewControllerDelegate> delegate;
 @property (nonatomic, assign) NSInteger season;
-\
+
 @end

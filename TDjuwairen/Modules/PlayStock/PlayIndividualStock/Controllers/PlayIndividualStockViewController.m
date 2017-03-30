@@ -110,7 +110,6 @@
         _pageScrollView.pagingEnabled = YES;
         _pageScrollView.backgroundColor = [UIColor clearColor];
         _pageScrollView.bounces = NO;
-        _pageScrollView.backgroundColor = [UIColor blueColor];
         for (PlayIndividualStockContentViewController *vc in self.contentControllers) {
             
             [_pageScrollView addSubview:vc.view];
@@ -204,6 +203,7 @@
             PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
+            wself.pageScrollView.contentSize = CGSizeMake(kScreenWidth, [vc viewHeight]+207);
         }
     }];
 }
@@ -233,7 +233,7 @@
 - (IBAction)guessClick:(id)sender {
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
-    vc.season = 1;
+    vc.season = _timeIndex;
     vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];

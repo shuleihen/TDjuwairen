@@ -65,6 +65,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
     [self.tableView reloadData];
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
 }
 
 #pragma mark -UITableViewDataSource
@@ -182,7 +183,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    return 141;
+    return 141.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
@@ -194,8 +195,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
     view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
-    
-    
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = view.bounds;
@@ -218,6 +217,11 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     return view;
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+}
 - (void)commentPressed:(UIButton *)sender{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
