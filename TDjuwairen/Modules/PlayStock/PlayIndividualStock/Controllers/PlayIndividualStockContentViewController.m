@@ -35,7 +35,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.showsVerticalScrollIndicator = NO;
-        
+        _tableView.scrollEnabled = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.scrollEnabled = NO;
@@ -57,15 +57,15 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     
 }
 
-- (CGFloat)viewHeight {
-
-    return self.tableView.contentSize.height;
-}
-
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
     [self.tableView reloadData];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
+    self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, self.tableView.contentSize.height);
+    if (self.changeHBlock) {
+        self.changeHBlock(self.tableView.contentSize.height);
+    }
+    
 }
 
 #pragma mark -UITableViewDataSource
