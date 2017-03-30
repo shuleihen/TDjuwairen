@@ -34,4 +34,33 @@
     }
     return self;
 }
+
+
+- (id)initWithIndividualDict:(NSDictionary *)dict {
+
+    if (self = [super init]) {
+        self.guessId = dict[@"item_id"];
+        self.guessCategory = dict[@"guess_category"];
+        self.addTime = dict[@"item_addtime"];
+        self.endPri = [dict[@"guess_end_price"] floatValue];
+        self.guessStock = dict[@"guess_stock"];
+        self.stockName = dict[@"guess_name"];
+        self.status = [dict[@"guess_status"] integerValue];
+        self.buyKeyNum = [dict[@"item_keynum"] integerValue];
+        self.season = [dict[@"guess_season"] integerValue];
+        self.statusString = dict[@"guess_reword"];
+        self.guessDate = dict[@"guess_date"];
+        self.buyPri = [dict[@"item_points"] floatValue];
+        
+        if (self.season == 1) {
+            self.seasonString = @"上午场";
+        } else if (self.season == 2) {
+            self.seasonString = @"下午场";
+        }
+    }
+    return self;
+}
+
+
+
 @end

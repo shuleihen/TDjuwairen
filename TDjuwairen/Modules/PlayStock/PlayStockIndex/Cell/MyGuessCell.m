@@ -22,13 +22,17 @@
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
 
-    // Configure the view for the selected state
 }
 
 - (void)setupGuessInfo:(MyGuessModel *)guess {
     self.guessNameLabel.text = guess.stockName;
     self.dateLabel.text = guess.addTime;
-    self.sessionLabel.text = guess.seasonString;
+//    self.sessionLabel.text = guess.seasonString;
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy.MM.dd HH:mm"];
+    NSDate *d = [df dateFromString:guess.addTime];
+    [df setDateFormat:@"M月dd日"];
+    self.sessionLabel.text = [NSString stringWithFormat:@"%@%@",[df stringFromDate:d],guess.seasonString];
     
     self.guessIndexLabel.text = [NSString stringWithFormat:@"%.02f",guess.buyPri];
     

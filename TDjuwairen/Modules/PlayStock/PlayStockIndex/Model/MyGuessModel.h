@@ -24,5 +24,19 @@
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, copy) NSString *statusString;
 @property (nonatomic, copy) NSString *seasonString;
+
+
+#pragma mark - 个股竞猜新增参数
+/// 1表示指数竞猜，2表示个股竞猜
+@property (copy, nonatomic) NSString *guessCategory;
+/// 股票代码
+@property (copy, nonatomic) NSString *guessStock;
+/// 竞猜日期
+@property (copy, nonatomic) NSString *guessDate;
+
+
 - (id)initWithDict:(NSDictionary *)dict;
+
+- (id)initWithIndividualDict:(NSDictionary *)dict;
+
 @end

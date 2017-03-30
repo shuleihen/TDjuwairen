@@ -110,6 +110,11 @@
 #define API_GameAddAddress      @"Game/saveReciveAwardInfo"
 #define API_GameQueryAddress    @"Game/getAwardInfo"
 
+
+#define API_GameMyIndividualGuess    @"Game/myGuessList2_1"
+
+
+
 #define API_SubscriptionInfo    @"Subscribe/subscribeInfo"
 #define API_SubscriptionAdd     @"Subscribe/addCompanySubscribe"
 #define API_SubscriptionHistory @"Subscribe/subscribeRecord"

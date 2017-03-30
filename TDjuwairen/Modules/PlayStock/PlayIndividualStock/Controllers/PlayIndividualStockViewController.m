@@ -207,6 +207,7 @@
         [self pushLoginViewController];
     } else {
         MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.guessListType = MyGuessIndividualListType;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

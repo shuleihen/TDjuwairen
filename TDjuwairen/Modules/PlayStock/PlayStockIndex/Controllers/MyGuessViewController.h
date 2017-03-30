@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    MyGuessIndexListType     =0, // 指数竞猜
+    MyGuessIndividualListType  =1 // 个股竞猜
+} MyGuessListType;
+
 @interface MyGuessViewController : UITableViewController
+@property (assign, nonatomic) MyGuessListType guessListType;
 
 @end
