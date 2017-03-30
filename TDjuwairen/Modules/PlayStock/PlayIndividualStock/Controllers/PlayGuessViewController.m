@@ -19,6 +19,7 @@
     __weak IBOutlet UILabel *label_CountDown;
     __weak IBOutlet UITextField *inputView;
     
+    __weak IBOutlet UILabel *label_NowTime;
     
     __weak IBOutlet UILabel *label_moneyUse;
 }
@@ -45,8 +46,14 @@
     [self.popupController dismiss];
 }
 
+- (void)setSeason:(NSInteger)season
+{
+    _season = season;
+     label_NowTime.text = [NSString stringWithFormat:@"%@%@",_guess_date,_season == 1?@"上午场":@"下午场"];
+}
 - (void)initValue
 {
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     __weak PlayGuessViewController *wself = self;
@@ -57,7 +64,7 @@
             NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
             NSTimeInterval nowDate = [date timeIntervalSince1970];
             NSInteger  regiTime = [guess_endtime integerValue] - nowDate;
-           
+            
             [wself startWithTime:regiTime block:^(NSString *day) {
                 label_CountDown.text = day;
             }];

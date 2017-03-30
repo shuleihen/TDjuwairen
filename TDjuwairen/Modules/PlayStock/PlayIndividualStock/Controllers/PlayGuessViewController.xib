@@ -13,6 +13,7 @@
             <connections>
                 <outlet property="inputView" destination="dZD-S1-Alh" id="OhQ-n1-bDv"/>
                 <outlet property="label_CountDown" destination="vlj-67-g91" id="wU7-aI-Wfx"/>
+                <outlet property="label_NowTime" destination="lu7-0a-1BG" id="1wr-Cz-u28"/>
                 <outlet property="label_moneyUse" destination="Rfb-d5-sd9" id="PZW-4v-vUy"/>
                 <outlet property="stepper" destination="hCk-Eh-wu1" id="em2-e3-Mvl"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>

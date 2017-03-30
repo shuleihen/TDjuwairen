@@ -79,7 +79,7 @@
         
         _timeControl.selectedSegmentIndex = 0;
         [_timeControl addTarget:self action:@selector(switchingView) forControlEvents:UIControlEventValueChanged];
-        _timeIndex = 0;
+        _timeIndex = 1;
         _timeControl.layer.borderWidth = 2;
         _timeControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
         
@@ -136,6 +136,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _timeIndex = 1;
     self.pageIndex = 0;
     [self initViews];
     [self initValue];
@@ -162,7 +163,7 @@
 }
 - (void)switchingView
 {
-    _timeIndex = _timeControl.selectedSegmentIndex;
+    _timeIndex = _timeControl.selectedSegmentIndex+1;
     switch (_timeControl.selectedSegmentIndex) {
         case 0: {
             [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
@@ -187,7 +188,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     __weak PlayIndividualStockViewController *wself = self;
     NSDictionary *parmark = @{
-                              @"season":@(season+1),
+                              @"season":@(season),
                               @"tag":@(tag),
                               @"page":@(page),
                               };
@@ -207,8 +208,6 @@
         }
     }];
 }
-
-
 
 #pragma mark - Action
 - (IBAction)walletPressed:(id)sender {
@@ -234,6 +233,7 @@
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
     vc.season = _timeIndex;
+    vc.guess_date = _guessModel.guess_date;
     vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
