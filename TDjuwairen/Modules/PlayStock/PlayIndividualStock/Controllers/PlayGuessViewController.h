@@ -8,13 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
-@protocol GPlayGuessViewControllerDelegate <NSObject>
-- (void)addWithGuessId:(NSString *)stockId pri:(float)pri keyNum:(NSInteger)keyNum;
+@protocol PlayGuessViewControllerDelegate <NSObject>
+- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season;
 @end
 
 @interface PlayGuessViewController : UIViewController
 
-@property (nonatomic, assign) id<GPlayGuessViewControllerDelegate> delegate;
-@property (nonatomic, assign) NSInteger userKeyNum;
-@property (nonatomic, copy) NSString *guessId;
+@property (nonatomic, assign) id<PlayGuessViewControllerDelegate> delegate;
+@property (nonatomic, assign) NSInteger season;
+\
 @end

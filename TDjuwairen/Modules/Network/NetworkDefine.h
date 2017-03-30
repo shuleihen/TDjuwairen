@@ -100,6 +100,8 @@
 #define API_GetGuessIndividual  @"Game/guessIndividual"
 #define API_GetGuessIndividualList  @"Game/getGuessIndividualList"
 #define API_GetGuessIndex       @"Game/guessIndex"
+#define API_AddGuessIndividual       @"Game/addGuessIndividual"
+
 
 #define API_GameImage           @"Game/guessImage"
 #define API_GuessIndexList      @"Game/indexGuessing"

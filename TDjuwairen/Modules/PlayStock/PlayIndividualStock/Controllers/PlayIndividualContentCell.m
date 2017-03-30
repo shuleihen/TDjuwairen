@@ -35,11 +35,19 @@
     // Initialization code
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)setModel:(PlayListModel *)model
+{
+    _model = model;
+    label_title.text = [NSString stringWithFormat:@"%@(%@)",model.guess_company,model.com_code];
+    label_left.text = [NSString stringWithFormat:@"%@",model.guess_end_price];
+    label_enjoy.text = [NSString stringWithFormat:@"%@",model.guess_item_num];
+    label_detailDesc.text = SafeValue(model.artile_info[@"article_title"]);
+    label_money.text = [NSString stringWithFormat:@"%@",model.guess_key_num];
+    
+    button_guess.selected = !model.guess_status;
+    
 }
+
 - (IBAction)buttonClick:(id)sender {
     if (_guessBlock) {
         _guessBlock(sender);

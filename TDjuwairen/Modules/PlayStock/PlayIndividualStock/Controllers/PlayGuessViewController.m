@@ -37,8 +37,8 @@
 - (IBAction)determineClick:(id)sender {
 
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:keyNum:)]) {
-        [self.delegate addWithGuessId:self.guessId pri:self.stepper.value keyNum:self.userKeyNum];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:season:)]) {
+        [self.delegate addWithGuessId:inputView.text pri:self.stepper.value season:self.season];
     }
     
     [self.popupController dismiss];

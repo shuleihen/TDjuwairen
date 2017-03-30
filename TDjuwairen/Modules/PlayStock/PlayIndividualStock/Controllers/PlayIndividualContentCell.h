@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "PlayListModel.h"
 typedef void(^guessButtonBlock)(UIButton *btn);
 typedef void(^guessEnjoyBlock)();
 typedef void(^guessMoneyBlock)();
@@ -18,4 +18,5 @@ typedef void(^guessMoneyBlock)();
 @property (nonatomic, copy) guessButtonBlock guessBlock;
 @property (nonatomic, copy) guessEnjoyBlock enjoyBlock;
 @property (nonatomic, copy) guessMoneyBlock moneyBlock;
+@property (nonatomic, strong) PlayListModel *model;
 @end

@@ -22,7 +22,7 @@
 #import "STPopupController.h"
 #import "UIViewController+STPopup.h"
 
-@interface PlayIndividualStockViewController ()<UIScrollViewDelegate>
+@interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -37,6 +37,7 @@
 @property (nonatomic, strong) PlayListModel *guessListModel;
 @property (nonatomic, strong) NSMutableArray *listModelArr;
 @property (nonatomic, strong) UISegmentedControl *timeControl;
+@property (nonatomic, assign) NSInteger timeIndex;
 
 
 @end
@@ -77,6 +78,8 @@
         [_timeControl setTitleTextAttributes:dic2 forState:UIControlStateSelected];
         
         _timeControl.selectedSegmentIndex = 0;
+        [_timeControl addTarget:self action:@selector(switchingView) forControlEvents:UIControlEventValueChanged];
+        _timeIndex = 0;
         _timeControl.layer.borderWidth = 2;
         _timeControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
         
@@ -128,7 +131,7 @@
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
     [self.tableView reloadData];
     
-    [self guessSourceListWith:self.pageIndex season:2 pageNum:1];
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
     
 }
 
@@ -151,10 +154,26 @@
             wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
         }
     }];
-    [self guessSourceListWith:0 season:1 pageNum:1];
-    
-    _listModelArr = [NSMutableArray new];
 
+}
+
+- (void)initViews
+{
+    
+}
+- (void)switchingView
+{
+    _timeIndex = _timeControl.selectedSegmentIndex;
+    switch (_timeControl.selectedSegmentIndex) {
+        case 0: {
+            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
+        }
+            break;
+        case 1: {
+            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
+        }
+            break;
+    }
 }
 
 #pragma mark - 竞猜列表
@@ -169,10 +188,11 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     __weak PlayIndividualStockViewController *wself = self;
     NSDictionary *parmark = @{
-                              @"season":@(season),
+                              @"season":@(season+1),
                               @"tag":@(tag),
                               @"page":@(page),
                               };
+    _listModelArr = [NSMutableArray new];
     [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
         if (!error) {
             NSArray *arr = data;
@@ -183,14 +203,12 @@
             
             PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
             vc.listArr = wself.listModelArr.mutableCopy;
+            vc.guessModel = _guessModel;
         }
     }];
 }
 
-- (void)initViews
-{
-    
-}
+
 
 #pragma mark - Action
 - (IBAction)walletPressed:(id)sender {
@@ -215,16 +233,30 @@
 - (IBAction)guessClick:(id)sender {
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
-    //        vc.userKeyNum = self.keyNum;
-    //        vc.nowPri = stock.nowPriValue;
-    //        vc.guessId = guess.guessId;
-    //        vc.delegate = self;
+    vc.season = 1;
+    vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.navigationBarHidden = YES;
     popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
     popupController.style = STPopupStyleBottomSheet;
     [popupController presentInViewController:self];
+}
+
+#pragma mark - 确定竞猜
+- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
+{
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    __weak PlayIndividualStockViewController *wself = self;
+    NSDictionary *parmark = @{
+                              @"season":@(season),
+                              @"stock":SafeValue(stockId),
+                              @"points":@(pri),
+                              };
+    
+    [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
+        
+    }];
 }
 
 - (IBAction)rulePressed:(id)sender {
