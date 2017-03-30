@@ -21,6 +21,7 @@
 #import "PlayGuessViewController.h"
 #import "STPopupController.h"
 #import "UIViewController+STPopup.h"
+#import "MJRefresh.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) NSMutableArray *listModelArr;
 @property (nonatomic, strong) UISegmentedControl *timeControl;
 @property (nonatomic, assign) NSInteger timeIndex;
+@property (nonatomic, assign) NSInteger currentIndex;
 
 
 @end
@@ -127,7 +129,7 @@
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
     
-    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
     
 }
 
@@ -141,6 +143,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _currentIndex = 1;
     _timeIndex = 1;
     self.pageIndex = 0;
     [self initViews];
@@ -165,18 +168,32 @@
 
 - (void)initViews
 {
-    
+    _currentIndex = 1;
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefresh)];
+    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+}
+
+- (void)onRefresh
+{
+    _currentIndex = 1;
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+}
+
+- (void)loadMore
+{
+    _currentIndex++;
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
 }
 - (void)switchingView
 {
     _timeIndex = _timeControl.selectedSegmentIndex+1;
     switch (_timeControl.selectedSegmentIndex) {
         case 0: {
-            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
+            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
         }
             break;
         case 1: {
-            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:1];
+            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
         }
             break;
     }
@@ -198,7 +215,9 @@
                               @"tag":@(tag),
                               @"page":@(page),
                               };
-    _listModelArr = [NSMutableArray new];
+    if (page==1) {
+        _listModelArr = [NSMutableArray new];
+    }
     [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
         if (!error) {
             NSArray *arr = data;
@@ -211,10 +230,12 @@
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
             vc.changeHBlock = ^(CGFloat height){
-            
+
                 [wself configTableViewHeightWithHeight:height];
             };
         }
+        [wself.tableView.mj_header endRefreshing];
+        [wself.tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -241,8 +262,8 @@
 - (IBAction)guessClick:(id)sender {
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
-    vc.season = _timeIndex;
     vc.guess_date = _guessModel.guess_date;
+    vc.season = _timeIndex;
     vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
