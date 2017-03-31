@@ -271,7 +271,7 @@
     [popupController presentInViewController:self];
 }
 
-#pragma mark - 确定竞猜
+#pragma mark - 确定发起竞猜
 - (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
 {
     NetworkManager *ma = [[NetworkManager alloc] init];

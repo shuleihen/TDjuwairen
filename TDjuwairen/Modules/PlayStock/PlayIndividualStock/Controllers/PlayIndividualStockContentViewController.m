@@ -112,10 +112,9 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 #pragma mark - 参与人数
     cell.enjoyBlock = ^(){
         PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
-        //        vc.userKeyNum = self.keyNum;
-        //        vc.nowPri = stock.nowPriValue;
-        //        vc.guessId = guess.guessId;
-        //        vc.delegate = self;
+        
+        vc.guessID = [NSString stringWithFormat:@"%@",model.guess_id];
+        
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
         popupController.navigationBarHidden = YES;
         popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-80, 220);
@@ -184,22 +183,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 #pragma mark - GuessAddPourDelegate
 - (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
-    /*
-     __weak StockIndexViewController *wself = self;
-     for (int i=0;i < [self.guessList count];i++) {
-     StockGuessModel *guess = self.guessList[i];
-     if ([guess.guessId isEqualToString:guessId]) {
-     
-     [wself addAnimationWithGuessId:guessId withPri:pri];
-     [wself queryGuessStock];
-     [wself playAudio];
-     }
-     
-     }
-     
-     return;
-     
-     */
+  
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSString *point = [NSString stringWithFormat:@"%.2f",pri];
     
@@ -237,6 +221,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         
         
     }];
+    
 }
 
 - (void)commentPressed:(UIButton *)sender{
@@ -253,4 +238,5 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [self.superVC.navigationController pushViewController:comments animated:YES];
     }
 }
+
 @end

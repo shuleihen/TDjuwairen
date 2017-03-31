@@ -32,7 +32,7 @@
     label_money.userInteractionEnabled = YES;
     UITapGestureRecognizer *money_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moneyClick)];
     [label_money addGestureRecognizer:money_Tap];
-    // Initialization code
+   
 }
 
 - (void)setModel:(PlayListModel *)model

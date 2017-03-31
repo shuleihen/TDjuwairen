@@ -13,6 +13,10 @@
 #import "PlayEnjoyPeopleViewController.h"
 #import "STPopup.h"
 #import "PlayItemPersonView.h"
+#import "NetworkManager.h"
+#import "PlayIndividualUserListModel.h"
+#import "PlayIndividualUserModel.h"
+
 @interface PlayEnjoyPeopleViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *label_title;
 @property (weak, nonatomic) IBOutlet UILabel *label_join;
@@ -27,19 +31,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    CGFloat width = (_contentView.frame.size.width-40)/5;
-    for (int i = 0; i<5; i++) {
-        PlayItemPersonView *vi = [[PlayItemPersonView alloc] init];
-        vi.frame = CGRectMake(i*width, 0, width, 66);
-        [_contentView addSubview:vi];
-    }
+   
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
 }
+
+
+
+
+- (void)setGuessID:(NSString *)guessID {
+    _guessID = guessID;
+    [self loadGuessUserList];
+}
+
+
 - (IBAction)closeClick:(id)sender {
     [self.popupController dismiss];
 }
@@ -50,14 +57,65 @@
     self.view.layer.cornerRadius = 4;
     self.view.layer.masksToBounds = YES;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
+
+#pragma mark - 获取竞猜用户列表
+- (void)loadGuessUserList {
+    
+    if (self.guessID.length <= 0) {
+        return;
+    }
+
+    NetworkManager *ma = [[NetworkManager alloc] init];
+ 
+    
+    [ma POST:API_GetGuessIndividualUserList parameters:@{@"guess_id":self.guessID} completion:^(id data, NSError *error){
+        if (!error && data) {
+            
+            PlayIndividualUserModel *userModel = [[PlayIndividualUserModel alloc] initWithDictionary:data];
+            self.label_title.text = userModel.guess_stock_name;
+            self.label_join.text = userModel.guess_item_count;
+            self.label_price.text = userModel.guess_avg_points;
+            self.label_end_price.text = userModel.guess_end_price;
+            self.label_state.text = userModel.guessStatusStr;
+            
+            
+            
+            
+            for (UIView *v in self.contentView.subviews) {
+                if ([v isKindOfClass:[PlayItemPersonView class]]) {
+                    [v removeFromSuperview];
+                }
+            }
+            
+            CGFloat width = (_contentView.frame.size.width-40)/5;
+            for (int i = 0; i<MIN(userModel.guess_users.count, 5); i++) {
+                PlayItemPersonView *vi = [[PlayItemPersonView alloc] init];
+                vi.frame = CGRectMake(i*width, 0, width, 66);
+                vi.userModel = userModel.guess_users[i];
+                [_contentView addSubview:vi];
+            }
+            
+        } else {
+        }
+        
+        
+    }];
 }
-*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @end

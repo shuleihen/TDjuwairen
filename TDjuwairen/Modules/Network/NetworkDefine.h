@@ -102,6 +102,8 @@
 #define API_GetGuessIndex       @"Game/guessIndex"
 #define API_AddGuessIndividual       @"Game/addGuessIndividual"
 #define API_GetGuessIndividualEndtime       @"Game/getGuessIndividualEndtime"
+#define API_GetGuessIndividualUserList       @"Game/getGuessIndividualUserList"
+
 
 
 

@@ -10,11 +10,7 @@
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
 @interface PlayIndividualStockContentViewController : UIViewController
-
-- (void)reloadPlayIndividualStockTableView;
-
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
-
 @property (nonatomic, strong) NSArray *listArr;//PlayListModel
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
 @end
