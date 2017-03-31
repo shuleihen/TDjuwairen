@@ -59,11 +59,17 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
+    CGFloat h = listArr.count*141;
+    
+    if (listArr.count > 0) {
+        h += 44;
+    }
+
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
+    self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
     [self.tableView reloadData];
-    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, self.tableView.contentSize.height);
-    self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, self.tableView.contentSize.height);
     if (self.changeHBlock) {
-        self.changeHBlock(self.tableView.contentSize.height);
+        self.changeHBlock(h);
     }
     
 }

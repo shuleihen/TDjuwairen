@@ -229,6 +229,7 @@
             PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
+//            [wself configTableViewHeightWithHeight:wself.listModelArr.count*141+44];
             vc.changeHBlock = ^(CGFloat height){
 
                 [wself configTableViewHeightWithHeight:height];
