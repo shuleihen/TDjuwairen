@@ -57,6 +57,12 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     
 }
 
+- (void)viewDidLayoutSubviews
+{
+    [super viewDidLayoutSubviews];
+    
+}
+
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
     CGFloat h = listArr.count*141;
@@ -127,6 +133,56 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 }
 
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return 141.0f;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (_listArr.count > 0) {
+        
+        return 44.0f;
+    }else {
+    
+        return CGFLOAT_MIN;
+    }
+}
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
+    
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    btn.frame = view.bounds;
+    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    
+    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateHighlighted];
+    [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    if (self.guessModel.guess_comment_count > 0) {
+        NSString *title = [NSString stringWithFormat:@"评价(%@)",self.guessModel.guess_comment_count];
+        [btn setTitle:title forState:UIControlStateNormal];
+        [btn setTitle:title forState:UIControlStateHighlighted];
+    } else {
+        [btn setTitle:@"评价" forState:UIControlStateNormal];
+        [btn setTitle:@"评价" forState:UIControlStateHighlighted];
+    }
+    
+    [view addSubview:btn];
+    
+    
+    if (_listArr.count > 0) {
+        return view;
+    }else {
+        
+        return nil;
+    }
+}
+
+
 
 #pragma mark - GuessAddPourDelegate
 - (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
@@ -185,47 +241,9 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     }];
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 141.0f;
-}
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    return 44.0f;
-}
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = view.bounds;
-    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateHighlighted];
-    [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    if (self.guessModel.guess_comment_count > 0) {
-        NSString *title = [NSString stringWithFormat:@"评价(%@)",self.guessModel.guess_comment_count];
-        [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitle:title forState:UIControlStateHighlighted];
-    } else {
-        [btn setTitle:@"评价" forState:UIControlStateNormal];
-        [btn setTitle:@"评价" forState:UIControlStateHighlighted];
-    }
-    
-    [view addSubview:btn];
-    return view;
-}
 
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    
-}
+
 - (void)commentPressed:(UIButton *)sender{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
