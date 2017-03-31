@@ -68,9 +68,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
     self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
     [self.tableView reloadData];
-    if (self.changeHBlock) {
-        self.changeHBlock(h);
-    }
+  
     
 }
 
