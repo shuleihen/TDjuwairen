@@ -31,13 +31,11 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     if (!_tableView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
-        _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.backgroundColor = [UIColor clearColor];
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.scrollEnabled = NO;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
         [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
         
     }
@@ -47,6 +45,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
    
 }
@@ -65,14 +64,19 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
     CGFloat h = listArr.count*141;
-    
-    if (listArr.count > 0) {
-        h += 44;
-    }
+    _tableView.delegate = self;
+    _tableView.dataSource = self;
+//    if (listArr.count > 0) {
+//        h += 44;
+//    }
 
+    [self.tableView reloadData];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
     self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
-    [self.tableView reloadData];
+    
+    if (self.changeH) {
+        self.changeH(h);
+    }
   
     
 }
@@ -92,6 +96,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
     PlayListModel *model = _listArr[indexPath.row];
     PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
+    cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = model;
 #pragma mark - 参与竞猜
@@ -136,48 +141,48 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     return 141.0f;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-{
-    if (_listArr.count > 0) {
-        
-        return 44.0f;
-    }else {
-    
-        return CGFLOAT_MIN;
-    }
-}
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = view.bounds;
-    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateHighlighted];
-    [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    if (self.guessModel.guess_comment_count > 0) {
-        NSString *title = [NSString stringWithFormat:@"评价(%@)",self.guessModel.guess_comment_count];
-        [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitle:title forState:UIControlStateHighlighted];
-    } else {
-        [btn setTitle:@"评价" forState:UIControlStateNormal];
-        [btn setTitle:@"评价" forState:UIControlStateHighlighted];
-    }
-    
-    [view addSubview:btn];
-    
-    
-    if (_listArr.count > 0) {
-        return view;
-    }else {
-        
-        return nil;
-    }
-}
+//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+//{
+//    if (_listArr.count > 0) {
+//        
+//        return 44.0f;
+//    }else {
+//    
+//        return CGFLOAT_MIN;
+//    }
+//}
+//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+//
+//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+//    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
+//    
+//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+//    btn.frame = view.bounds;
+//    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+//    
+//    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
+//    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateHighlighted];
+//    [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    
+//    if (self.guessModel.guess_comment_count > 0) {
+//        NSString *title = [NSString stringWithFormat:@"评价(%@)",self.guessModel.guess_comment_count];
+//        [btn setTitle:title forState:UIControlStateNormal];
+//        [btn setTitle:title forState:UIControlStateHighlighted];
+//    } else {
+//        [btn setTitle:@"评价" forState:UIControlStateNormal];
+//        [btn setTitle:@"评价" forState:UIControlStateHighlighted];
+//    }
+//    
+//    [view addSubview:btn];
+//    
+//    
+//    if (_listArr.count > 0) {
+//        return view;
+//    }else {
+//        
+//        return nil;
+//    }
+//}
 
 
 

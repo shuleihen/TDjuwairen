@@ -79,9 +79,6 @@
             self.label_end_price.text = userModel.guess_end_price;
             self.label_state.text = userModel.guessStatusStr;
             
-            
-            
-            
             for (UIView *v in self.contentView.subviews) {
                 if ([v isKindOfClass:[PlayItemPersonView class]]) {
                     [v removeFromSuperview];

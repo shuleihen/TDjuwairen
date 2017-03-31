@@ -40,6 +40,7 @@
 @property (nonatomic, strong) UISegmentedControl *timeControl;
 @property (nonatomic, assign) NSInteger timeIndex;
 @property (nonatomic, assign) NSInteger currentIndex;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutH;
 
 
 @end
@@ -92,11 +93,11 @@
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
         PlayIndividualStockContentViewController *one = [[PlayIndividualStockContentViewController alloc] init];
-        one.view.frame = CGRectMake(0, 0, kScreenWidth, 500);
+        one.view.frame = CGRectMake(0, 0, kScreenWidth, 0);
         one.superVC = self;
         
         PlayIndividualStockContentViewController *two = [[PlayIndividualStockContentViewController alloc] init];
-        two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 200);
+        two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 0);
         two.superVC = self;
         _contentControllers = @[one,two];
     }
@@ -113,7 +114,6 @@
         _pageScrollView.backgroundColor = [UIColor clearColor];
         _pageScrollView.bounces = NO;
         for (PlayIndividualStockContentViewController *vc in self.contentControllers) {
-            
             [_pageScrollView addSubview:vc.view];
         }
         
@@ -230,6 +230,16 @@
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
             [wself configTableViewHeightWithHeight:vc.view.frame.size.height];
+//            vc.changeH = ^(CGFloat h){
+//            
+//            };
+            
+            if (wself.listModelArr.count<= 0) {
+                wself.bottomLayoutH.constant = 0;
+            }else {
+             wself.bottomLayoutH.constant = 45;
+                
+            }
 
         }
         [wself.tableView.mj_header endRefreshing];
@@ -256,6 +266,13 @@
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+/*
+ UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+ [self.navigationController pushViewController:vc animated:YES];
+ */
+
+
 #pragma mark - 发起竞猜
 - (IBAction)guessClick:(id)sender {
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
@@ -331,9 +348,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"123"];
     }
-    
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     [cell.contentView addSubview:self.pageScrollView];
-    cell.contentView.backgroundColor = [UIColor orangeColor];
     return cell;
 }
 
