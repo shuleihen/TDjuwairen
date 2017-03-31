@@ -38,7 +38,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         _tableView.scrollEnabled = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.scrollEnabled = NO;
         [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
         
     }
@@ -149,8 +148,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     }
 }
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    
-    
+
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
     view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
     
@@ -241,9 +239,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     }];
 }
 
-
-
-
 - (void)commentPressed:(UIButton *)sender{
     if (US.isLogIn==NO) {//检查是否登录，没有登录直接跳转登录界面
         //跳转到登录页面
@@ -258,27 +253,4 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [self.superVC.navigationController pushViewController:comments animated:YES];
     }
 }
-
-#pragma mark -
-
-
-
-#pragma mark - UITableViewDelegate
-//- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-//[tableView deselectRowAtIndexPath:indexPath animated:YES];
-//}
-
-//- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section;
-
-//- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section;
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath;
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section;
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section;
-
-#pragma mark -
-
-
 @end
