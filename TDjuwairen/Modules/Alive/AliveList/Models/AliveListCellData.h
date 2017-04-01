@@ -12,8 +12,16 @@
 @interface AliveListCellData : NSObject
 @property (nonatomic, strong) AliveListModel *aliveModel;
 @property (nonatomic, assign) CGFloat cellHeight;
-@property (nonatomic, assign) CGRect contentFrame;
-@property (nonatomic, assign) CGRect contentImgFrame;
+@property (nonatomic, assign) CGRect messageLabelFrame;
+@property (nonatomic, assign) CGRect imgsViewFrame;
 @property (nonatomic, assign) CGRect contentTagFrame;
-//@property (nonatomic, assign) 
+
+@property (nonatomic, assign) BOOL isShowDetail;
+@property (nonatomic, assign) BOOL isShowTiedan;
+// 默认显示转发图片
+@property (nonatomic, assign) BOOL isShowForwardImg;
+@property (nonatomic, strong) NSAttributedString *message;
+
+- (id)initWithAliveModel:(AliveListModel *)aliveModel;
+- (void)setup;
 @end

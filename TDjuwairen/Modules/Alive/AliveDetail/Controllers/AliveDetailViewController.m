@@ -26,6 +26,7 @@
 @property (assign, nonatomic) NSInteger selectedPage;
 @property (weak, nonatomic) AliveContentHeaderView *sectionHeaderView;
 @property (strong, nonatomic) AliveListModel *aliveInfoModel;
+@property (strong, nonatomic) AliveListCellData *aliveCellData;
 @property (strong, nonatomic) AliveMasterListViewController *dianZanVC;
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
 @property (strong, nonatomic) AlivePingLunViewController *pinglunVC;
@@ -49,9 +50,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
-        UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
-        
+        [_tableView registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
     }
     
     return _tableView;
@@ -254,11 +253,17 @@
     
     NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
     
+    __weak AliveDetailViewController *wself = self;
     [manager GET:API_AliveGetAliveInfo parameters:dict completion:^(id data, NSError *error){
         
         if (!error) {
-            self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
-            [self.tableView reloadData];
+            wself.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
+            wself.aliveCellData = [[AliveListCellData alloc] initWithAliveModel:wself.aliveInfoModel];
+            wself.aliveCellData.isShowDetail = YES;
+            wself.aliveCellData.isShowForwardImg = NO;
+            [wself.aliveCellData setup];
+            
+            [wself.tableView reloadData];
             self.selectedPage = 0;
             [_toolView setupAliveModel:_aliveInfoModel];
             
@@ -287,7 +292,7 @@
         cell.delegate = self;
         if (self.aliveInfoModel != nil) {
             
-            [cell setupAliveModel:self.aliveInfoModel isShowDetail:YES];
+            [cell setupAliveListCellData:self.aliveCellData];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -321,9 +326,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel isShowDetail:YES];
+        return self.aliveCellData.cellHeight;
     }else {
-        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(self.pageScrollView.frame.size.height, kScreenHeight-[AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel]-45));
+        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(self.pageScrollView.frame.size.height, kScreenHeight-self.aliveCellData.cellHeight-45));
         return self.pageScrollView.frame.size.height;
     }
 }

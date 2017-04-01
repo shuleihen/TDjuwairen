@@ -38,8 +38,7 @@
         self.tableView = tableView;
         self.viewController = viewController;
         
-        UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
-        [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
+        [self.tableView registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
         
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
@@ -52,9 +51,10 @@
 - (void)insertAtHeaderWithArray:(NSArray *)array {
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:(array.count+self.itemList.count)];
     for (AliveListModel *model in array) {
-        AliveListCellData *cellData = [[AliveListCellData alloc] init];
-        cellData.aliveModel = model;
-        cellData.cellHeight = [AliveListTableViewCell heightWithAliveModel:model];
+        AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+        cellData.isShowDetail = NO;
+        cellData.isShowForwardImg = NO;
+        [cellData setup];
         [cellArray addObject:cellData];
     }
     
@@ -69,9 +69,10 @@
     
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
     for (AliveListModel *model in array) {
-        AliveListCellData *cellData = [[AliveListCellData alloc] init];
-        cellData.aliveModel = model;
-        cellData.cellHeight = [AliveListTableViewCell heightWithAliveModel:model];
+        AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+        cellData.isShowDetail = NO;
+        cellData.isShowForwardImg = NO;
+        [cellData setup];
         [cellArray addObject:cellData];
     }
     
@@ -238,7 +239,7 @@
     
     if (indexPath.row == 0) {
         AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
-        [scell setupAliveModel:model];
+        [scell setupAliveListCellData:cellData];
     } else {
         AliveListBottomTableViewCell *scell = (AliveListBottomTableViewCell *)cell;
         [scell setupAliveModel:model];
