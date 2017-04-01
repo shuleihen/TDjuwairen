@@ -8,6 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
+#import "PlayIndividualUserListModel.h"
+
 @interface PlayItemPersonView : UIView
+@property (strong, nonatomic) PlayIndividualUserListModel *userModel;
+
 
 @end

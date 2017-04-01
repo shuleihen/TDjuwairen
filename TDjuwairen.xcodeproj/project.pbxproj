@@ -397,6 +397,8 @@
 		2764A26E1D015F6B00916844 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26D1D015F6B00916844 /* Security.framework */; };
 		2764A2701D015F9600916844 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A26F1D015F9600916844 /* CoreText.framework */; };
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
+		4D023BC71E8E2C8000AB463E /* PlayIndividualUserListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC61E8E2C8000AB463E /* PlayIndividualUserListModel.m */; };
+		4D023BCA1E8E327500AB463E /* PlayIndividualUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC91E8E327500AB463E /* PlayIndividualUserModel.m */; };
 		4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */; };
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
@@ -1285,6 +1287,10 @@
 		2764A26D1D015F6B00916844 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2764A26F1D015F9600916844 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		2764A2711D015FC100916844 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		4D023BC51E8E2C8000AB463E /* PlayIndividualUserListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayIndividualUserListModel.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualUserListModel.h; sourceTree = SOURCE_ROOT; };
+		4D023BC61E8E2C8000AB463E /* PlayIndividualUserListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayIndividualUserListModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualUserListModel.m; sourceTree = SOURCE_ROOT; };
+		4D023BC81E8E327500AB463E /* PlayIndividualUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayIndividualUserModel.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualUserModel.h; sourceTree = SOURCE_ROOT; };
+		4D023BC91E8E327500AB463E /* PlayIndividualUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayIndividualUserModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualUserModel.m; sourceTree = SOURCE_ROOT; };
 		4D29B9BC1E83AE960019DD20 /* SearchCompanyListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListTableView.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.h; sourceTree = SOURCE_ROOT; };
 		4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListTableView.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.m; sourceTree = SOURCE_ROOT; };
 		4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListCell.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.h; sourceTree = SOURCE_ROOT; };
@@ -1736,6 +1742,10 @@
 				9E2233D01E8B576F00B1FAC4 /* PlayGuessIndividua.m */,
 				9E2233CC1E8AB81B00B1FAC4 /* PlayListModel.h */,
 				9E2233CD1E8AB81B00B1FAC4 /* PlayListModel.m */,
+				4D023BC81E8E327500AB463E /* PlayIndividualUserModel.h */,
+				4D023BC91E8E327500AB463E /* PlayIndividualUserModel.m */,
+				4D023BC51E8E2C8000AB463E /* PlayIndividualUserListModel.h */,
+				4D023BC61E8E2C8000AB463E /* PlayIndividualUserListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4689,6 +4699,7 @@
 				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
 				1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */,
+				4D023BC71E8E2C8000AB463E /* PlayIndividualUserListModel.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,
 				190F65F41E36E73000B83ADF /* ChildOrderTableViewController.m in Sources */,
 				19E9582C1DAC886C00BA37C5 /* MyAttentionViewController.m in Sources */,
@@ -4835,6 +4846,7 @@
 				1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */,
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
+				4D023BCA1E8E327500AB463E /* PlayIndividualUserModel.m in Sources */,
 				19F43C2E1E23335B001B72CD /* NewTableViewCell.m in Sources */,
 				19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,

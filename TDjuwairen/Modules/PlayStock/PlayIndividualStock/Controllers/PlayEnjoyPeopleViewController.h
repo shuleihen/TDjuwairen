@@ -9,5 +9,7 @@
 #import <UIKit/UIKit.h>
 
 @interface PlayEnjoyPeopleViewController : UIViewController
+/// 竞猜ID
+@property (copy, nonatomic) NSString *guessID;
 
 @end

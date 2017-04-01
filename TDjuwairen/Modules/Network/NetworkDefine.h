@@ -100,6 +100,12 @@
 #define API_GetGuessIndividual  @"Game/guessIndividual"
 #define API_GetGuessIndividualList  @"Game/getGuessIndividualList"
 #define API_GetGuessIndex       @"Game/guessIndex"
+#define API_AddGuessIndividual       @"Game/addGuessIndividual"
+#define API_GetGuessIndividualEndtime       @"Game/getGuessIndividualEndtime"
+#define API_GetGuessIndividualUserList       @"Game/getGuessIndividualUserList"
+
+
+
 
 #define API_GameImage           @"Game/guessImage"
 #define API_GuessIndexList      @"Game/indexGuessing"
@@ -109,6 +115,11 @@
 #define API_GameAddComment      @"Game/addGuessComment"
 #define API_GameAddAddress      @"Game/saveReciveAwardInfo"
 #define API_GameQueryAddress    @"Game/getAwardInfo"
+
+
+#define API_GameMyIndividualGuess    @"Game/myGuessList2_1"
+
+
 
 #define API_SubscriptionInfo    @"Subscribe/subscribeInfo"
 #define API_SubscriptionAdd     @"Subscribe/addCompanySubscribe"

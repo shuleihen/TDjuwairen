@@ -21,8 +21,9 @@
 #import "PlayGuessViewController.h"
 #import "STPopupController.h"
 #import "UIViewController+STPopup.h"
+#import "MJRefresh.h"
 
-@interface PlayIndividualStockViewController ()<UIScrollViewDelegate>
+@interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
@@ -37,6 +38,11 @@
 @property (nonatomic, strong) PlayListModel *guessListModel;
 @property (nonatomic, strong) NSMutableArray *listModelArr;
 @property (nonatomic, strong) UISegmentedControl *timeControl;
+@property (nonatomic, assign) NSInteger timeIndex;
+@property (nonatomic, assign) NSInteger currentIndex;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutH;
+@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
+
 
 
 @end
@@ -77,6 +83,8 @@
         [_timeControl setTitleTextAttributes:dic2 forState:UIControlStateSelected];
         
         _timeControl.selectedSegmentIndex = 0;
+        [_timeControl addTarget:self action:@selector(switchingView) forControlEvents:UIControlEventValueChanged];
+        _timeIndex = 1;
         _timeControl.layer.borderWidth = 2;
         _timeControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
         
@@ -87,11 +95,11 @@
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
         PlayIndividualStockContentViewController *one = [[PlayIndividualStockContentViewController alloc] init];
-        one.view.frame = CGRectMake(0, 0, kScreenWidth, 500);
+        one.view.frame = CGRectMake(0, 0, kScreenWidth, 0);
         one.superVC = self;
         
         PlayIndividualStockContentViewController *two = [[PlayIndividualStockContentViewController alloc] init];
-        two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 200);
+        two.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, 0);
         two.superVC = self;
         _contentControllers = @[one,two];
     }
@@ -107,9 +115,11 @@
         _pageScrollView.pagingEnabled = YES;
         _pageScrollView.backgroundColor = [UIColor clearColor];
         _pageScrollView.bounces = NO;
-        _pageScrollView.backgroundColor = [UIColor blueColor];
+        _pageScrollView.showsVerticalScrollIndicator = NO;
+        _pageScrollView.showsHorizontalScrollIndicator = NO;
+        _pageScrollView.userInteractionEnabled = YES;
         for (PlayIndividualStockContentViewController *vc in self.contentControllers) {
-            
+            vc.view.userInteractionEnabled = YES;
             [_pageScrollView addSubview:vc.view];
         }
         
@@ -122,25 +132,75 @@
 
 - (void)setPageIndex:(NSInteger)pageIndex {
     _pageIndex = pageIndex;
-    PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
-//    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, vc.viewHeight);
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
     [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
+    
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+    
+}
+
+- (void)configTableViewHeightWithHeight:(CGFloat)height {
+
+    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, height);
+   
     [self.tableView reloadData];
-    
-    [self guessSourceListWith:self.pageIndex season:2 pageNum:1];
-    
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    _currentIndex = 1;
+    _timeIndex = 1;
     self.pageIndex = 0;
     [self initViews];
     [self initValue];
+    [self.tableView.mj_header beginRefreshing];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
     
 }
+
 - (void)initValue
 {
+    
+    [self loadFistViewMessage];
+}
+
+- (void)initViews
+{
+    _currentIndex = 1;
+    _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefresh)];
+    _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
+}
+
+- (void)onRefresh
+{
+    _currentIndex = 1;
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+}
+
+- (void)loadMore
+{
+    _currentIndex++;
+    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+}
+- (void)switchingView
+{
+    _timeIndex = _timeControl.selectedSegmentIndex+1;
+    switch (_timeControl.selectedSegmentIndex) {
+        case 0: {
+            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+        }
+            break;
+        case 1: {
+            [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+        }
+            break;
+    }
+}
+
+
+#pragma mark - 获取首页信息
+- (void)loadFistViewMessage{
+
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     __weak PlayIndividualStockViewController *wself = self;
@@ -149,13 +209,12 @@
             wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
             [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
             wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
+            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",wself.guessModel.guess_comment_count] forState:UIControlStateNormal];
+            
         }
     }];
-    [self guessSourceListWith:0 season:1 pageNum:1];
-    
-    _listModelArr = [NSMutableArray new];
-
 }
+
 
 #pragma mark - 竞猜列表
 - (void)guessSourceListWith:(NSInteger)tag season:(NSInteger)season pageNum:(NSInteger)page
@@ -173,6 +232,9 @@
                               @"tag":@(tag),
                               @"page":@(page),
                               };
+    if (page==1) {
+        _listModelArr = [NSMutableArray new];
+    }
     [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
         if (!error) {
             NSArray *arr = data;
@@ -183,13 +245,37 @@
             
             PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
             vc.listArr = wself.listModelArr.mutableCopy;
+            vc.guessModel = _guessModel;
+            [wself configTableViewHeightWithHeight:vc.view.frame.size.height];
+            if (wself.listModelArr.count <= 0) {
+                wself.bottomLayoutH.constant = 0;
+                wself.bottomButton.hidden = YES;
+            }else {
+             wself.bottomLayoutH.constant = 45;
+                wself.bottomButton.hidden = NO;
+                
+            }
+
         }
+        [wself.tableView.mj_header endRefreshing];
+        [wself.tableView.mj_footer endRefreshing];
     }];
 }
 
-- (void)initViews
+#pragma mark - 确定发起竞猜
+- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
 {
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    __weak PlayIndividualStockViewController *wself = self;
+    NSDictionary *parmark = @{
+                              @"season":@(season),
+                              @"stock":SafeValue(stockId),
+                              @"points":@(pri),
+                              };
     
+    [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
+        
+    }];
 }
 
 #pragma mark - Action
@@ -202,22 +288,32 @@
     }
 }
 
+/// 我的竞猜
 - (IBAction)myGuessPressed:(id)sender {
+    
     if (!US.isLogIn) {
         [self pushLoginViewController];
     } else {
         MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.guessListType = MyGuessIndividualListType;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
+
+/// 评论
+- (IBAction)commentButtonClick:(UIButton *)sender {
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
 #pragma mark - 发起竞猜
 - (IBAction)guessClick:(id)sender {
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
-    //        vc.userKeyNum = self.keyNum;
-    //        vc.nowPri = stock.nowPriValue;
-    //        vc.guessId = guess.guessId;
-    //        vc.delegate = self;
+    vc.guess_date = _guessModel.guess_date;
+    vc.season = _timeIndex;
+    vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.navigationBarHidden = YES;
@@ -247,11 +343,14 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-
 - (void)segmentPressed:(HMSegmentedControl *)sender {
     self.pageIndex = sender.selectedSegmentIndex;
 }
 
+
+- (void)commentChanged:(id)sender {
+    [self loadFistViewMessage];
+}
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -270,9 +369,9 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"123"];
     }
-    
+    cell.backgroundColor = [UIColor clearColor];
+    cell.contentView.backgroundColor = [UIColor clearColor];
     [cell.contentView addSubview:self.pageScrollView];
-    cell.contentView.backgroundColor = [UIColor orangeColor];
     return cell;
 }
 
@@ -314,7 +413,6 @@
     }
 }
 
-
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
     if (scrollView != self.pageScrollView) {
@@ -331,5 +429,10 @@
 }
 
 
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

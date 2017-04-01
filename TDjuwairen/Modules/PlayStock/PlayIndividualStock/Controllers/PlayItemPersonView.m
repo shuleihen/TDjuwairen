@@ -8,6 +8,7 @@
 
 #import "PlayItemPersonView.h"
 #import "HexColors.h"
+#import "UIImageView+WebCache.h"
 
 #define BLACKCOLOR  [UIColor hx_colorWithHexRGBAString:@"#333333"]
 #define REDCOLOR  [UIColor hx_colorWithHexRGBAString:@"#e64920"]
@@ -20,24 +21,14 @@
 @end
 @implementation PlayItemPersonView
 
-
-
-
-
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         self = [[[NSBundle mainBundle] loadNibNamed:@"PlayItemPersonView" owner:nil options:nil] lastObject];
         [self initViews];
-        [self initValue];
     }
     return self;
-}
-
-- (void)initValue
-{
-   
 }
 
 - (void)initViews
@@ -45,4 +36,30 @@
     _icon.layer.cornerRadius  = 18;
     _icon.layer.masksToBounds = YES;
 }
+
+
+- (void)setUserModel:(PlayIndividualUserListModel *)userModel {
+    _userModel = userModel;
+    [self.icon sd_setImageWithURL:[NSURL URLWithString:userModel.userinfo_facemin] placeholderImage:TDDefaultUserAvatar];
+    if (userModel.is_winner == YES) {
+        self.vipIcon.hidden = NO;
+    }else {
+        self.vipIcon.hidden = YES;
+    }
+    
+    if (userModel.showItemPoints == YES) {
+        
+        self.label_desc.text = [NSString stringWithFormat:@"%@",userModel.item_points];
+        self.label_desc.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        
+    }else {
+        self.label_desc.text = @" ？？";
+        self.label_desc.textColor = TDDetailTextColor;
+        
+    }
+    
+    
+    
+}
+
 @end
