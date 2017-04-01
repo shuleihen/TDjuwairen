@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -81,7 +81,7 @@
                         <state key="normal" title="参与竞猜" backgroundImage="button_enjoy">
                             <color key="titleColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </state>
-                        <state key="selected" title="已封盘" backgroundImage="button_notenjoy">
+                        <state key="selected" backgroundImage="button_notenjoy">
                             <color key="titleColor" red="0.22323669493198395" green="0.20850534737110138" blue="0.16872917115688324" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         </state>
                         <connections>
@@ -101,25 +101,31 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2345" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-zQ-qwb">
-                        <rect key="frame" x="79" y="83" width="35" height="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0ht-zQ-qwb">
+                        <rect key="frame" x="79" y="83" width="10" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.95208501815795898" green="0.69067287445068359" blue="0.23898811638355255" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="参与" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GCj-8B-VPj">
-                        <rect key="frame" x="124" y="83" width="29" height="17"/>
+                        <rect key="frame" x="99" y="83" width="29" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="h5m-cS-Gg2">
-                        <rect key="frame" x="79" y="101" width="35" height="1"/>
+                        <rect key="frame" x="79" y="100" width="10" height="1"/>
                         <color key="backgroundColor" red="0.95212280750274658" green="0.69462341070175171" blue="0.23898549377918243" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="cTC-aq-pW8"/>
                         </constraints>
                     </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4hb-vL-YNm">
+                        <rect key="frame" x="69" y="83" width="30" height="30"/>
+                        <connections>
+                            <action selector="enjoyClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="4Yu-mE-BwU"/>
+                        </connections>
+                    </button>
                 </subviews>
                 <color key="backgroundColor" red="0.098039215686274508" green="0.10196078431372549" blue="0.12156862745098039" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                 <constraints>
@@ -136,7 +142,7 @@
                     <constraint firstItem="VNk-QG-3lk" firstAttribute="centerX" secondItem="sw6-DS-5gx" secondAttribute="centerX" id="HZ6-tU-Jgr"/>
                     <constraint firstItem="0ht-zQ-qwb" firstAttribute="leading" secondItem="VXr-Du-Aj1" secondAttribute="trailing" constant="10" id="Nhi-8f-T35"/>
                     <constraint firstItem="EO2-Pg-chc" firstAttribute="leading" secondItem="QkF-OG-Ab4" secondAttribute="trailing" constant="10" id="Q4C-SL-jUr"/>
-                    <constraint firstItem="h5m-cS-Gg2" firstAttribute="top" secondItem="0ht-zQ-qwb" secondAttribute="bottom" constant="1" id="QSn-S6-DYY"/>
+                    <constraint firstItem="h5m-cS-Gg2" firstAttribute="top" secondItem="0ht-zQ-qwb" secondAttribute="bottom" id="QSn-S6-DYY"/>
                     <constraint firstItem="0ht-zQ-qwb" firstAttribute="centerY" secondItem="VXr-Du-Aj1" secondAttribute="centerY" id="Rvx-g8-GNJ"/>
                     <constraint firstItem="GCj-8B-VPj" firstAttribute="centerY" secondItem="VXr-Du-Aj1" secondAttribute="centerY" id="Ry0-ny-SlI"/>
                     <constraint firstItem="Q0k-vj-mrs" firstAttribute="leading" secondItem="th4-CX-uqJ" secondAttribute="trailing" constant="10" id="Tlb-do-YtX"/>
@@ -150,8 +156,11 @@
                     <constraint firstItem="h5m-cS-Gg2" firstAttribute="leading" secondItem="0ht-zQ-qwb" secondAttribute="leading" id="eEu-cA-60K"/>
                     <constraint firstItem="VNk-QG-3lk" firstAttribute="bottom" secondItem="Q0k-vj-mrs" secondAttribute="bottom" id="fiJ-Ga-diT"/>
                     <constraint firstItem="5xS-xl-0Pt" firstAttribute="leading" secondItem="QkF-OG-Ab4" secondAttribute="leading" id="gxd-7H-wGL"/>
+                    <constraint firstItem="GCj-8B-VPj" firstAttribute="leading" secondItem="4hb-vL-YNm" secondAttribute="trailing" id="haI-ht-GW4"/>
+                    <constraint firstItem="4hb-vL-YNm" firstAttribute="top" secondItem="VXr-Du-Aj1" secondAttribute="top" id="kFe-0E-N1e"/>
                     <constraint firstItem="QkF-OG-Ab4" firstAttribute="top" secondItem="LLi-YL-wne" secondAttribute="bottom" constant="5" id="mcB-OZ-ta3"/>
                     <constraint firstItem="KJk-hF-QKd" firstAttribute="centerY" secondItem="ZYN-8b-h50" secondAttribute="centerY" id="mm1-Po-Uce"/>
+                    <constraint firstItem="4hb-vL-YNm" firstAttribute="leading" secondItem="VXr-Du-Aj1" secondAttribute="trailing" id="nNf-cm-w2E"/>
                     <constraint firstItem="LLi-YL-wne" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="orG-C1-zkm"/>
                     <constraint firstItem="Q0k-vj-mrs" firstAttribute="centerY" secondItem="th4-CX-uqJ" secondAttribute="centerY" id="sAs-gf-2wa"/>
                     <constraint firstItem="GCj-8B-VPj" firstAttribute="leading" secondItem="0ht-zQ-qwb" secondAttribute="trailing" constant="10" id="wmo-9w-jao"/>
@@ -160,6 +169,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="button_guess" destination="VNk-QG-3lk" id="ah2-Jf-iR3"/>
+                <outlet property="enjoyBtn" destination="4hb-vL-YNm" id="01W-YB-YFs"/>
                 <outlet property="label_detailDesc" destination="Q0k-vj-mrs" id="nSQ-av-WvY"/>
                 <outlet property="label_detailTitle" destination="th4-CX-uqJ" id="MDW-o1-fSi"/>
                 <outlet property="label_enjoy" destination="0ht-zQ-qwb" id="Dyg-AF-RMY"/>
@@ -169,7 +179,7 @@
                 <outlet property="label_right" destination="H2S-Nl-UY2" id="FaA-UY-wZ9"/>
                 <outlet property="label_title" destination="LLi-YL-wne" id="Ks0-tg-PhZ"/>
             </connections>
-            <point key="canvasLocation" x="-2071" y="-109"/>
+            <point key="canvasLocation" x="-2529" y="-120"/>
         </tableViewCell>
     </objects>
     <resources>

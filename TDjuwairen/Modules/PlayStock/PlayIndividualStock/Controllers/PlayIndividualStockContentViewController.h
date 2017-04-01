@@ -10,8 +10,10 @@
 
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
+@class StockInfo;
 @interface PlayIndividualStockContentViewController : UIViewController
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
 @property (nonatomic, strong) NSArray *listArr;//PlayListModel
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
+@property (nonatomic, strong) NSDictionary *stockInfo;
 @end

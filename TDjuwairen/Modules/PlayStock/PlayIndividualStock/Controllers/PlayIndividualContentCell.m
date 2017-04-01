@@ -7,7 +7,8 @@
 //
 
 #import "PlayIndividualContentCell.h"
-
+#import "StockManager.h"
+#import "UIButton+Align.h"
 @implementation PlayIndividualContentCell
 {
     __weak IBOutlet UILabel *label_title;
@@ -19,32 +20,80 @@
     __weak IBOutlet UILabel *label_detailDesc;
     __weak IBOutlet UILabel *label_money;
     __weak IBOutlet UIButton *button_guess;
+    __weak IBOutlet UIButton *enjoyBtn;
     
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    
-    label_enjoy.userInteractionEnabled = YES;
-    UITapGestureRecognizer *enjoy_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(enjoyClick)];
-    [label_enjoy addGestureRecognizer:enjoy_Tap];
-
+    [enjoyBtn setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -20, -10, -20)];
     label_money.userInteractionEnabled = YES;
     UITapGestureRecognizer *money_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moneyClick)];
     [label_money addGestureRecognizer:money_Tap];
    
 }
++ (instancetype)loadCell
+{
+    return [[[NSBundle mainBundle]loadNibNamed:@"PlayIndividualContentCell" owner:self options:nil] lastObject];
+}
 
 - (void)setModel:(PlayListModel *)model
 {
+    /**
+     文章类型，0表示没有，1表示调研，2表示热点，3表示观点，4表示直播
+     */
     _model = model;
     label_title.text = [NSString stringWithFormat:@"%@(%@)",model.guess_company,model.com_code];
-    label_left.text = [NSString stringWithFormat:@"%@",model.guess_end_price];
     label_enjoy.text = [NSString stringWithFormat:@"%@",model.guess_item_num];
     label_detailDesc.text = SafeValue(model.artile_info[@"article_title"]);
     label_money.text = [NSString stringWithFormat:@"%@",model.guess_key_num];
-    
+    if ([model.artile_info[@"article_type"] isEqual:@1]) {
+        label_detailTitle.text = @"调研";
+    }else if ([model.artile_info[@"article_type"] isEqual:@2]) {
+        label_detailTitle.text = @"热点";
+    }else if ([model.artile_info[@"article_type"] isEqual:@3]) {
+        label_detailTitle.text = @"观点";
+    }else if ([model.artile_info[@"article_type"] isEqual:@4]) {
+        label_detailTitle.text = @"直播";
+    }else{
+        label_detailTitle.text = @"";
+    }
     button_guess.selected = !model.guess_status;
+    [button_guess setEnabled:model.guess_status];
+    if ([model.guess_status isEqual:@0]) {
+        
+    }
+    [button_guess setTitle:[self getStateWithState:model.guess_status] forState:UIControlStateNormal];
+}
+
+- (void)setupStock:(StockInfo *)stock {
+    float value = [stock priValue];            //跌涨额
+    float valueB = [stock priPercentValue];     //跌涨百分比
+    
+    if (value >= 0.00) {
+        label_left.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        label_mid.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        label_right.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+        
+    } else {
+        label_left.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+        label_mid.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+        label_right.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+    }
+    
+    NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
+    
+    label_left.text = nowPriString;
+    label_mid.text = [NSString stringWithFormat:@"%+.2lf",value];
+    label_right.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
+//    self.stockWheel.index = stock.nowPriValue;
+    
+}
+
+- (IBAction)enjoyClick:(id)sender {
+    if (_enjoyBlock) {
+        _enjoyBlock();
+    }
     
 }
 
@@ -53,11 +102,7 @@
         _guessBlock(sender);
     }
 }
-- (void)enjoyClick{
-    if (_enjoyBlock) {
-        _enjoyBlock();
-    }
-}
+
 
 - (void)moneyClick
 {
@@ -66,8 +111,14 @@
     }
 }
 
-+ (instancetype)loadCell
+
+- (NSString *)getStateWithState:(NSNumber *)state
 {
-    return [[[NSBundle mainBundle]loadNibNamed:@"PlayIndividualContentCell" owner:self options:nil] lastObject];
+    if ([state isEqual:@0]) {
+        return @"参与竞猜";
+    }else if ([state isEqual:@1]){
+        return @"已封盘";
+    }return @"已收盘";
 }
+
 @end

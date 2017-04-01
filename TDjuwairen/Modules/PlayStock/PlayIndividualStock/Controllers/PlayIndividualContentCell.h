@@ -8,12 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import "PlayListModel.h"
+
+@class StockInfo;
+
 typedef void(^guessButtonBlock)(UIButton *btn);
 typedef void(^guessEnjoyBlock)();
 typedef void(^guessMoneyBlock)();
 @interface PlayIndividualContentCell : UITableViewCell
 
 + (instancetype)loadCell;
+- (void)setupStock:(StockInfo *)stock;
 
 @property (nonatomic, copy) guessButtonBlock guessBlock;
 @property (nonatomic, copy) guessEnjoyBlock enjoyBlock;
