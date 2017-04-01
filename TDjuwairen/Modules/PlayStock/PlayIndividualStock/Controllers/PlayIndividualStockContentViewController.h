@@ -8,13 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-typedef void(^ChangeTabelViewH)(CGFloat height);
-
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
 @interface PlayIndividualStockContentViewController : UIViewController
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
 @property (nonatomic, strong) NSArray *listArr;//PlayListModel
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
-@property (copy, nonatomic) ChangeTabelViewH  changeH;
 @end

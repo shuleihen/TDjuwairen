@@ -35,6 +35,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.tableFooterView = [UIView new];
         _tableView.scrollEnabled = NO;
         [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
         
@@ -66,19 +67,12 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     CGFloat h = listArr.count*141;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-//    if (listArr.count > 0) {
-//        h += 44;
-//    }
+
 
     [self.tableView reloadData];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
     self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
-    
-    if (self.changeH) {
-        self.changeH(h);
-    }
-  
-    
+ 
 }
 
 #pragma mark -UITableViewDataSource
@@ -96,7 +90,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
     PlayListModel *model = _listArr[indexPath.row];
     PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
-    cell.backgroundColor = [UIColor clearColor];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.model = model;
 #pragma mark - 参与竞猜

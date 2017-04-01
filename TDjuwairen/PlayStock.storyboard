@@ -971,7 +971,7 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="602"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7lu-s0-oah">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="98"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_money" translatesAutoresizingMaskIntoConstraints="NO" id="b3H-HG-aCz">
@@ -1036,13 +1036,13 @@
                                             </connections>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-3-28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pE2-Q1-4aV">
-                                            <rect key="frame" x="12" y="55" width="83" height="21"/>
+                                            <rect key="frame" x="12" y="53" width="83" height="21"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                             <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hU-bA-qLY">
-                                            <rect key="frame" x="251" y="47" width="112" height="36"/>
+                                            <rect key="frame" x="251" y="45" width="112" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="112" id="4Iw-uR-NOM"/>
                                                 <constraint firstAttribute="height" constant="36" id="b5U-Cy-qEe"/>
@@ -1089,9 +1089,12 @@
                                     <constraint firstAttribute="height" constant="45" id="NqE-cu-qtI"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <state key="normal" title="评论（100）">
+                                <state key="normal" title="评论（0）">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
+                                <connections>
+                                    <action selector="commentButtonClick:" destination="DTf-2i-A6K" eventType="touchUpInside" id="gCv-he-jdG"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" red="0.098039215690000001" green="0.1019607843" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
@@ -1107,6 +1110,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="个股竞猜" id="whi-0r-wyX"/>
                     <connections>
+                        <outlet property="bottomButton" destination="bYu-GE-yX2" id="P6P-nt-tIW"/>
                         <outlet property="bottomLayoutH" destination="NqE-cu-qtI" id="f9x-re-nKM"/>
                         <outlet property="keyNum" destination="wj9-Mq-fwc" id="XJh-21-Pzb"/>
                         <outlet property="sponsorGuess" destination="9hU-bA-qLY" id="zuh-yc-cLv"/>
@@ -1116,7 +1120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tS3-nc-aDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1170.4000000000001" y="-429.53523238380814"/>
+            <point key="canvasLocation" x="-858.39999999999998" y="-456.52173913043481"/>
         </scene>
     </scenes>
     <resources>

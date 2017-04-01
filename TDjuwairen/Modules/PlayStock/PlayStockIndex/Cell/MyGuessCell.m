@@ -94,7 +94,7 @@
         self.statusLabel.attributedText = strAtt;
         
     } else if (guess.status == 3 ||
-               guess.status == 4) {
+               guess.status == 4 || guess.status == 5) {
         // 3表示失败 4表示平局
         NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:guess.statusString
                                                                                    attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],

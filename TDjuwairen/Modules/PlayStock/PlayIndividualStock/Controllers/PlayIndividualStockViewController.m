@@ -41,6 +41,7 @@
 @property (nonatomic, assign) NSInteger timeIndex;
 @property (nonatomic, assign) NSInteger currentIndex;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *bottomLayoutH;
+@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 
 
 @end
@@ -113,7 +114,11 @@
         _pageScrollView.pagingEnabled = YES;
         _pageScrollView.backgroundColor = [UIColor clearColor];
         _pageScrollView.bounces = NO;
+        _pageScrollView.showsVerticalScrollIndicator = NO;
+        _pageScrollView.showsHorizontalScrollIndicator = NO;
+        _pageScrollView.userInteractionEnabled = YES;
         for (PlayIndividualStockContentViewController *vc in self.contentControllers) {
+            vc.view.userInteractionEnabled = YES;
             [_pageScrollView addSubview:vc.view];
         }
         
@@ -140,7 +145,6 @@
     [self.tableView reloadData];
 }
 
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     _currentIndex = 1;
@@ -150,6 +154,7 @@
     [self initValue];
     
 }
+
 - (void)initValue
 {
     NetworkManager *ma = [[NetworkManager alloc] init];
@@ -160,6 +165,7 @@
             wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
             [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
             wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
+            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",wself.guessModel.guess_comment_count] forState:UIControlStateNormal];
             
         }
     }];
@@ -230,14 +236,12 @@
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
             [wself configTableViewHeightWithHeight:vc.view.frame.size.height];
-//            vc.changeH = ^(CGFloat h){
-//            
-//            };
-            
-            if (wself.listModelArr.count<= 0) {
+            if (wself.listModelArr.count <= 0) {
                 wself.bottomLayoutH.constant = 0;
+                wself.bottomButton.hidden = YES;
             }else {
              wself.bottomLayoutH.constant = 45;
+                wself.bottomButton.hidden = NO;
                 
             }
 
@@ -245,47 +249,6 @@
         [wself.tableView.mj_header endRefreshing];
         [wself.tableView.mj_footer endRefreshing];
     }];
-}
-
-#pragma mark - Action
-- (IBAction)walletPressed:(id)sender {
-    if (!US.isLogIn) {
-        [self pushLoginViewController];
-    } else {
-        MyWalletViewController *myWallet = [[MyWalletViewController alloc] init];
-        [self.navigationController pushViewController:myWallet animated:YES];
-    }
-}
-
-- (IBAction)myGuessPressed:(id)sender {
-    if (!US.isLogIn) {
-        [self pushLoginViewController];
-    } else {
-        MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        vc.guessListType = MyGuessIndividualListType;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-}
-
-/*
- UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
- [self.navigationController pushViewController:vc animated:YES];
- */
-
-
-#pragma mark - 发起竞猜
-- (IBAction)guessClick:(id)sender {
-    PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-    vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
-    vc.guess_date = _guessModel.guess_date;
-    vc.season = _timeIndex;
-    vc.delegate = self;
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.navigationBarHidden = YES;
-    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
-    popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
 }
 
 #pragma mark - 确定发起竞猜
@@ -302,6 +265,50 @@
     [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
         
     }];
+}
+
+#pragma mark - Action
+- (IBAction)walletPressed:(id)sender {
+    if (!US.isLogIn) {
+        [self pushLoginViewController];
+    } else {
+        MyWalletViewController *myWallet = [[MyWalletViewController alloc] init];
+        [self.navigationController pushViewController:myWallet animated:YES];
+    }
+}
+
+/// 我的竞猜
+- (IBAction)myGuessPressed:(id)sender {
+    
+    if (!US.isLogIn) {
+        [self pushLoginViewController];
+    } else {
+        MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.guessListType = MyGuessIndividualListType;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+/// 评论
+- (IBAction)commentButtonClick:(UIButton *)sender {
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+
+#pragma mark - 发起竞猜
+- (IBAction)guessClick:(id)sender {
+    PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+    vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
+    vc.guess_date = _guessModel.guess_date;
+    vc.season = _timeIndex;
+    vc.delegate = self;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
 }
 
 - (IBAction)rulePressed:(id)sender {
@@ -324,7 +331,6 @@
     UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
     [self.navigationController pushViewController:vc animated:YES];
 }
-
 
 - (void)segmentPressed:(HMSegmentedControl *)sender {
     self.pageIndex = sender.selectedSegmentIndex;
@@ -391,7 +397,6 @@
         [self scrollViewDidEndDecelerating:scrollView];
     }
 }
-
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
     
