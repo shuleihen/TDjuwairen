@@ -1,0 +1,23 @@
+//
+//  AliveListForwardModel.m
+//  TDjuwairen
+//
+//  Created by zdy on 2017/3/30.
+//  Copyright © 2017年 团大网络科技. All rights reserved.
+//
+
+#import "AliveListForwardModel.h"
+
+@implementation AliveListForwardModel
+- (id)initWithDictionary:(NSDictionary *)dict {
+    if (self =  [super init]) {
+        self.aliveId = dict[@"alive_id"];
+        self.aliveType = [dict[@"alive_type"] integerValue];
+        self.aliveImg = dict[@"alive_img"];
+        self.aliveTitle = dict[@"alive_title"];
+        self.masterNickName = dict[@"user_nickname"];
+        self.aliveTags = dict[@"alive_com_tag"];
+    }
+    return self;
+}
+@end

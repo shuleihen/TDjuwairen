@@ -16,19 +16,9 @@
 #import "NetworkManager.h"
 #import "AliveCommentViewController.h"
 #import "UIButton+LikeAnimation.h"
-
+#import "AliveListCellData.h"
 
 #define kAliveListCellToolHeight 37
-
-@interface AliveListCellData : NSObject
-@property (nonatomic, strong) AliveListModel *aliveModel;
-@property (nonatomic, assign) CGFloat cellHeight;
-@end
-
-@implementation AliveListCellData
-
-
-@end
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
