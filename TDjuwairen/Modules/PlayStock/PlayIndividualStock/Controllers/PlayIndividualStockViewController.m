@@ -44,6 +44,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 
 
+
 @end
 
 @implementation PlayIndividualStockViewController
@@ -152,24 +153,15 @@
     self.pageIndex = 0;
     [self initViews];
     [self initValue];
+    [self.tableView.mj_header beginRefreshing];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
     
 }
 
 - (void)initValue
 {
-    NetworkManager *ma = [[NetworkManager alloc] init];
     
-    __weak PlayIndividualStockViewController *wself = self;
-    [ma GET:API_GetGuessIndividual parameters:nil completion:^(id data, NSError *error) {
-        if (!error) {
-            wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
-            [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
-            wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
-            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",wself.guessModel.guess_comment_count] forState:UIControlStateNormal];
-            
-        }
-    }];
-
+    [self loadFistViewMessage];
 }
 
 - (void)initViews
@@ -204,6 +196,25 @@
             break;
     }
 }
+
+
+#pragma mark - 获取首页信息
+- (void)loadFistViewMessage{
+
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    __weak PlayIndividualStockViewController *wself = self;
+    [ma GET:API_GetGuessIndividual parameters:nil completion:^(id data, NSError *error) {
+        if (!error) {
+            wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
+            [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
+            wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
+            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",wself.guessModel.guess_comment_count] forState:UIControlStateNormal];
+            
+        }
+    }];
+}
+
 
 #pragma mark - 竞猜列表
 - (void)guessSourceListWith:(NSInteger)tag season:(NSInteger)season pageNum:(NSInteger)page
@@ -337,6 +348,10 @@
 }
 
 
+- (void)commentChanged:(id)sender {
+    [self loadFistViewMessage];
+}
+
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
@@ -414,5 +429,10 @@
 }
 
 
+
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end
