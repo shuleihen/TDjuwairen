@@ -19,8 +19,9 @@
 #import "MBProgressHUD.h"
 #import "PlayGuessIndividua.h"
 #import "CommentsViewController.h"
+#import "NSObject+ChangeState.h"
 
-@interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource,GuessAddPourDelegate>
+@interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource,GuessAddPourDelegate,PlayGuessViewControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @end
 static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
@@ -37,6 +38,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.tableFooterView = [UIView new];
         _tableView.scrollEnabled = NO;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
         
     }
@@ -48,7 +50,8 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
     [self.view addSubview:self.tableView];
-   
+    
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,17 +70,36 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     CGFloat h = listArr.count*141;
     _tableView.delegate = self;
     _tableView.dataSource = self;
-
-
     [self.tableView reloadData];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
     self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
- 
+    
+}
+- (void)setStockInfo:(NSDictionary *)stockInfo
+{
+    _stockInfo = stockInfo;
+    [self.tableView reloadData];
+}
+
+#pragma mark - loadData
+- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
+{
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    __weak PlayIndividualStockViewController *wself = self;
+    NSDictionary *parmark = @{
+                              @"season":@(season),
+                              @"stock":SafeValue(stockId),
+                              @"points":@(pri),
+                              };
+    
+    [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshGuessHome" object:nil];
+    }];
 }
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-
+    
     return 1;
 }
 
@@ -87,25 +109,31 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-
+    
     PlayListModel *model = _listArr[indexPath.row];
+    StockInfo *sInfo = [self.stockInfo objectForKey:model.stock];
     PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    [cell setupStock:sInfo];
     cell.model = model;
+    AddLineAtBottom(cell);
 #pragma mark - 参与竞猜
     cell.guessBlock = ^(UIButton *btn){
-        
-        GuessAddPourViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"GuessAddPourViewController"];
-        vc.userKeyNum = [_guessModel.user_keynum integerValue];
-        vc.nowPri = 0;
-        vc.guessId = [NSString stringWithFormat:@"%@",model.guess_id];
+        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
+        vc.guess_date = _guessModel.guess_date;
+        vc.season = [model.guess_season integerValue];
+        vc.inputView.userInteractionEnabled = NO;
+        vc.inputView.text = model.com_code;
         vc.delegate = self;
         
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
         popupController.navigationBarHidden = YES;
+        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
         popupController.style = STPopupStyleBottomSheet;
         [popupController presentInViewController:_superVC];
     };
+    
     
 #pragma mark - 参与人数
     cell.enjoyBlock = ^(){
@@ -114,6 +142,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         vc.guessID = [NSString stringWithFormat:@"%@",model.guess_id];
         
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.containerView.layer.cornerRadius = 4;
         popupController.navigationBarHidden = YES;
         popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-80, 220);
         popupController.style = STPopupTransitionStyleSlideVertical;
@@ -128,60 +157,15 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     return cell;
 }
 
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     return 141.0f;
 }
 
-//- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
-//{
-//    if (_listArr.count > 0) {
-//        
-//        return 44.0f;
-//    }else {
-//    
-//        return CGFLOAT_MIN;
-//    }
-//}
-//- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-//
-//    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-//    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
-//    
-//    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-//    btn.frame = view.bounds;
-//    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-//    
-//    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
-//    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateHighlighted];
-//    [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    
-//    if (self.guessModel.guess_comment_count > 0) {
-//        NSString *title = [NSString stringWithFormat:@"评价(%@)",self.guessModel.guess_comment_count];
-//        [btn setTitle:title forState:UIControlStateNormal];
-//        [btn setTitle:title forState:UIControlStateHighlighted];
-//    } else {
-//        [btn setTitle:@"评价" forState:UIControlStateNormal];
-//        [btn setTitle:@"评价" forState:UIControlStateHighlighted];
-//    }
-//    
-//    [view addSubview:btn];
-//    
-//    
-//    if (_listArr.count > 0) {
-//        return view;
-//    }else {
-//        
-//        return nil;
-//    }
-//}
-
-
 
 #pragma mark - GuessAddPourDelegate
 - (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
-  
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSString *point = [NSString stringWithFormat:@"%.2f",pri];
     
@@ -209,7 +193,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         if (!error && data) {
             BOOL status = [data[@"status"] boolValue];
             if (status) {
-               
+                
             } else {
                 errorBlock(@"竞猜失败");
             }

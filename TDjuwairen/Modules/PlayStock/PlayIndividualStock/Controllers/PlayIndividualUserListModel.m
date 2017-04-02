@@ -11,7 +11,7 @@
 @implementation PlayIndividualUserListModel
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
-        self.is_winner = dict[@"is_winner"];
+        self.is_winner = [dict[@"is_winner"] boolValue];
         self.is_points_closet = dict[@"is_points_closet"];
         self.userinfo_facemin = dict[@"userinfo_facemin"];
         self.user_nickname = dict[@"user_nickname"];

@@ -12,4 +12,5 @@
 -(NSString*)safeString;
 -(NSString *)changeToZero;
 -(NSString *)changeToZeroB;
+void AddLineAtBottom (UIView *addView);
 @end

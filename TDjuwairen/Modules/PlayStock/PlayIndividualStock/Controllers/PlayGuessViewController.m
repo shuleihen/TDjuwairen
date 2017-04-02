@@ -14,10 +14,10 @@
 #import "NetworkManager.h"
 
 
-@interface PlayGuessViewController ()
+@interface PlayGuessViewController ()<UITextFieldDelegate>
 {
     __weak IBOutlet UILabel *label_CountDown;
-    __weak IBOutlet UITextField *inputView;
+    
     
     __weak IBOutlet UILabel *label_NowTime;
     
@@ -36,21 +36,11 @@
     [self initValue];
     // Do any additional setup after loading the view from its nib.
 }
-- (IBAction)determineClick:(id)sender {
-
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:season:)]) {
-        [self.delegate addWithGuessId:inputView.text pri:self.stepper.value season:self.season];
-    }
-    
-    [self.popupController dismiss];
 }
 
-- (void)setSeason:(NSInteger)season
-{
-    _season = season;
-     label_NowTime.text = [NSString stringWithFormat:@"%@%@",_guess_date,_season == 1?@"上午场":@"下午场"];
-}
 - (void)initValue
 {
     
@@ -71,15 +61,16 @@
         }
     }];
     
+    [_inputView addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
+    _inputView.delegate = self;
 }
-
 
 - (void)initViews
 {
-    [inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
-    inputView.layer.cornerRadius = 4;
-    inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
-    inputView.layer.borderWidth = 1;
+    [_inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+    _inputView.layer.cornerRadius = 4;
+    _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
+    _inputView.layer.borderWidth = 1;
     self.stepper.maximumValue = self.nowPri + 100;
     self.stepper.minimumValue = self.nowPri - 100;
     self.stepper.value = self.nowPri;
@@ -111,10 +102,10 @@
     
     [self.stepper.decrementButton setBackgroundImage:decrease forState:UIControlStateNormal];
     [self.stepper.decrementButton setBackgroundImage:heightlight forState:UIControlStateHighlighted];
-//    self.stepper.decrementButton.frame = CGRectMake(0, 0, 44, 44);
+    //    self.stepper.decrementButton.frame = CGRectMake(0, 0, 44, 44);
     [self.stepper.incrementButton setBackgroundImage:increase forState:UIControlStateNormal];
     [self.stepper.incrementButton setBackgroundImage:heightlight forState:UIControlStateHighlighted];
-//    self.stepper.incrementButton.frame = CGRectMake(0, 0, 44, 44);
+    //    self.stepper.incrementButton.frame = CGRectMake(0, 0, 44, 44);
     
     [self.stepper.decrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.decrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
@@ -122,6 +113,18 @@
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
 }
 
+- (void)inputChange:(UITextField *)tf
+{
+    if (tf.text.length>6) {
+        [tf.text stringByReplacingCharactersInRange:NSMakeRange(6,1) withString:@""];
+    }
+}
+
+- (void)setSeason:(NSInteger)season
+{
+    _season = season;
+    label_NowTime.text = [NSString stringWithFormat:@"%@%@",_guess_date,_season == 1?@"上午场":@"下午场"];
+}
 
 - (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
     
@@ -151,19 +154,16 @@
     });
     dispatch_resume(_timer);
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+#pragma mark - action
+- (IBAction)determineClick:(id)sender {
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:season:)]) {
+        [self.delegate addWithGuessId:_inputView.text pri:self.stepper.value season:self.season];
+    }
+    
+    [self.popupController dismiss];
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

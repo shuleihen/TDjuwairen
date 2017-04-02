@@ -41,12 +41,7 @@
 - (void)setUserModel:(PlayIndividualUserListModel *)userModel {
     _userModel = userModel;
     [self.icon sd_setImageWithURL:[NSURL URLWithString:userModel.userinfo_facemin] placeholderImage:TDDefaultUserAvatar];
-    if (userModel.is_winner == YES) {
-        self.vipIcon.hidden = NO;
-    }else {
-        self.vipIcon.hidden = YES;
-    }
-    
+    self.vipIcon.hidden = !userModel.is_winner;
     if (userModel.showItemPoints == YES) {
         
         self.label_desc.text = [NSString stringWithFormat:@"%@",userModel.item_points];
