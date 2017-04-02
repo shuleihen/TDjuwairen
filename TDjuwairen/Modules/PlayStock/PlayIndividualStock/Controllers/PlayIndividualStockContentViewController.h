@@ -10,7 +10,8 @@
 
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
-@class StockInfo;
+#import "StockManager.h"
+
 @interface PlayIndividualStockContentViewController : UIViewController
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
 @property (nonatomic, strong) NSArray *listArr;//PlayListModel

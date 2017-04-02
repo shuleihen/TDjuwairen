@@ -17,6 +17,11 @@
     return [nowPri floatValue];
 }
 
+- (float)yestodEndPriValue {
+    NSDecimalNumber *nowPri = [NSDecimalNumber decimalNumberWithString:self.yestodEndPri];
+    return [nowPri floatValue];
+}
+
 - (float)priValue {
     NSDecimalNumber *yestodEndPri = [NSDecimalNumber decimalNumberWithString:self.yestodEndPri];
     NSDecimalNumber *nowPri = [NSDecimalNumber decimalNumberWithString:self.nowPri];

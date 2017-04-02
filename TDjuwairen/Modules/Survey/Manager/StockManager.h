@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *time;
 
+- (float)yestodEndPriValue;
 - (float)nowPriValue;
 - (float)priValue;
 - (float)priPercentValue;
