@@ -17,6 +17,7 @@
 #import "AliveCommentViewController.h"
 #import "UIButton+LikeAnimation.h"
 #import "AliveListCellData.h"
+#import "AlivePublishViewController.h"
 
 #define kAliveListCellToolHeight 37
 
@@ -65,8 +66,7 @@
     [self.tableView endUpdates];
 }
 
-- (void)reloadWithArray:(NSArray *)array {
-    
+- (void)setupAliveListArray:(NSArray *)array {
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
     for (AliveListModel *model in array) {
         AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
@@ -77,8 +77,29 @@
     }
     
     self.itemList = cellArray;
-    [self.tableView reloadData];
 }
+
+/*
+- (void)reloadWithArray:(NSArray *)array {
+    
+    __weak AliveListTableViewDelegate *wself = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
+        for (AliveListModel *model in array) {
+            AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+            cellData.isShowDetail = NO;
+            cellData.isShowForwardImg = NO;
+            [cellData setup];
+            [cellArray addObject:cellData];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            wself.itemList = cellArray;
+            [wself.tableView reloadData];
+        });
+    });
+}
+ */
 
 - (CGFloat)contentHeight {
     CGFloat height = 0;
@@ -118,7 +139,19 @@
     }
     
     
-    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
+    __weak AliveListTableViewDelegate *wself = self;
+    
+    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            vc.publishType = kAlivePublishForward;
+            vc.aliveListModel = cell.cellModel;
+            [wself.viewController.navigationController pushViewController:vc animated:YES];
+        }
+    } shareState:^(BOOL state) {
         if (state) {
             [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
             NetworkManager *manager = [[NetworkManager alloc] init];

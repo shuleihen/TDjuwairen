@@ -66,7 +66,7 @@
         _queue = [[NSOperationQueue alloc] init];
         _queue.name = @"com.td.stock";
         
-        _isVerifyTime = YES;
+        _isOpenTimer = YES;
         _interval = 15;
         _stockIds = [NSMutableArray arrayWithCapacity:10];
         
@@ -144,6 +144,8 @@ void executeSource(void *info) {
 }
 
 - (void)stopThread {
+    [self stop];
+    
     if (currentRunlopRef) {
         CFRunLoopStop(currentRunlopRef);
     }
@@ -225,7 +227,7 @@ void executeSource(void *info) {
     });
     
     // 获取成功后判定是否在查询时间内
-    if (self.isVerifyTime && ![self isInQueryTime]) {
+    if (self.isOpenTimer && ![self isInQueryTime]) {
         [self performSelector:@selector(removeTimer)];
     }
 }

@@ -61,7 +61,9 @@
         _imagesView = [[AliveListImagesView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imagesView];
         
-        
+        self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-64-12, 80)];
+        self.forwardView.hidden = YES;
+        [self.contentView addSubview:self.forwardView];
     }
     return self;
 }
@@ -84,6 +86,8 @@
 - (void)setupAliveListCellData:(AliveListCellData *)cellData {
     self.messageLabel.frame = cellData.messageLabelFrame;
     self.imagesView.frame = cellData.imgsViewFrame;
+    self.forwardView.hidden = !cellData.aliveModel.isForward;
+    self.forwardView.frame = cellData.forwardFrame;
     
     AliveListModel *aliveModel = cellData.aliveModel;
     
@@ -95,6 +99,9 @@
     self.imagesView.images = aliveModel.aliveImgs;
 
     self.tiedanLabel.hidden = cellData.isShowTiedan;
+    
+    [self.forwardView setupAliveForward:aliveModel.forwardModel];
 }
 
+//- ()
 @end

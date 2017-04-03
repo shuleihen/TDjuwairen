@@ -9,6 +9,14 @@
 #ifndef AliveTypeDefine_h
 #define AliveTypeDefine_h
 
+// 直播发布页面类型，1：图文，2：跟单，3：转发
+typedef enum : NSInteger {
+    kAlivePublishNormal     =1,
+    kAlivePublishPosts      =2,
+    kAlivePublishForward    =3
+} AlivePublishType;
+
+// 直播间列表类型，0：全部，1：跟单
 typedef enum : NSInteger {
     kAliveRoomListAll      =0,
     kAliveRoomListPosts    =1

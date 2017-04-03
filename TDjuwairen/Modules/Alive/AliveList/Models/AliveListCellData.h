@@ -15,6 +15,7 @@
 @property (nonatomic, assign) CGRect messageLabelFrame;
 @property (nonatomic, assign) CGRect imgsViewFrame;
 @property (nonatomic, assign) CGRect contentTagFrame;
+@property (nonatomic, assign) CGRect forwardFrame;
 
 @property (nonatomic, assign) BOOL isShowDetail;
 @property (nonatomic, assign) BOOL isShowTiedan;

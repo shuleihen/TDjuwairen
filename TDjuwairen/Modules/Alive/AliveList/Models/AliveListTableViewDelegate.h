@@ -18,7 +18,8 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;
 
 - (void)insertAtHeaderWithArray:(NSArray *)array;
-- (void)reloadWithArray:(NSArray *)array;
+
+- (void)setupAliveListArray:(NSArray *)array;
 
 - (CGFloat)contentHeight;
 @end

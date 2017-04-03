@@ -10,6 +10,7 @@
 #import "AliveListModel.h"
 #import "AliveListImagesView.h"
 #import "AliveListCellData.h"
+#import "AliveListForwardView.h"
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
@@ -25,6 +26,7 @@
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesHeight;
 @property (strong, nonatomic) IBOutlet AliveListImagesView *imagesView;
 @property (strong, nonatomic) IBOutlet UILabel *tiedanLabel;
+@property (strong, nonatomic) AliveListForwardView *forwardView;
 
 @property (weak, nonatomic) id<AliveListTableCellDelegate> delegate;
 

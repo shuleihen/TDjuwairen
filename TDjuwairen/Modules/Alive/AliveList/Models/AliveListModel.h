@@ -11,6 +11,7 @@
 #import "AliveListForwardModel.h"
 
 @interface AliveListModel : NSObject
+@property (nonatomic, assign) BOOL isForward;
 @property (nonatomic, copy) NSString *aliveId;
 @property (nonatomic, assign) AliveType aliveType;
 @property (nonatomic, copy) NSString *aliveTitle;

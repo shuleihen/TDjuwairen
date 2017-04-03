@@ -19,6 +19,7 @@
 #import "AliveRoomViewController.h"
 #import "ShareHandler.h"
 #import "UIButton+LikeAnimation.h"
+#import "AlivePublishViewController.h"
 
 @interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -399,7 +400,17 @@
     }
     
     __weak typeof(self)weakSelf = self;
-    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
+    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            vc.publishType = kAlivePublishForward;
+            vc.aliveListModel = cell.cellModel;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+    }  shareState:^(BOOL state) {
         if (state) {
             NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary *dict = @{@"item_id":weakSelf.alive_ID,@"type" :weakSelf.alive_type};

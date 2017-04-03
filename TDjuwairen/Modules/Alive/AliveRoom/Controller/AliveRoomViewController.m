@@ -360,7 +360,7 @@
 - (void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex {
     
     AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    vc.isTiedan = (itemButtonIndex == 0)?YES:NO;
+    vc.publishType = (itemButtonIndex == 0)?kAlivePublishPosts:kAlivePublishNormal;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

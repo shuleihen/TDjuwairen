@@ -70,7 +70,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#FD9E0A"];
         _segmentControl.sectionTitles = @[@"最新",@"最热"];
-        self.segmentControl.frame = CGRectMake(0, 12, 100, 30);
+        self.segmentControl.frame = CGRectMake(0, 6, 100, 36);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -162,6 +162,7 @@
     self.pageIndex = 0;
     [self initViews];
     [self initValue];
+    
     [self.tableView.mj_header beginRefreshing];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
@@ -173,7 +174,6 @@
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.interval = 10;
-    self.stockManager.isVerifyTime = NO;
     self.stockManager.delegate = self;
     [self loadFistViewMessage];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshKeyNum) name:@"refreshGuessHome" object:nil];

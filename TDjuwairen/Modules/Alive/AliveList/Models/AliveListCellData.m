@@ -34,7 +34,13 @@
     CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
     self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+15, kScreenWidth-left-12, imagesViewHeight);
     
-    self.cellHeight = CGRectGetMaxY(self.imgsViewFrame) + 11.0f;
+    if (self.aliveModel.isForward) {
+        self.forwardFrame = CGRectMake(64, CGRectGetMaxY(self.imgsViewFrame)+15, kScreenWidth-left-12, 80);
+        self.cellHeight = CGRectGetMaxY(self.forwardFrame) + 11.0f;
+    } else {
+        self.cellHeight = CGRectGetMaxY(self.imgsViewFrame) + 11.0f;
+    }
+    
 }
 
 

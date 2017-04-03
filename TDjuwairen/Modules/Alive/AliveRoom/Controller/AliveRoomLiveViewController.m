@@ -87,39 +87,47 @@
     [manager GET:API_AliveGetRoomLiveList parameters:dict completion:^(id data, NSError *error){
         
         if (!error) {
-            NSArray *dataArray = data;
-            BOOL scrollToTop = NO;
-            
-            if (dataArray.count > 0) {
-                NSMutableArray *list = nil;
-                if (wself.currentPage == 1) {
-                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-                    scrollToTop = YES;
-                } else {
-                    list = [NSMutableArray arrayWithArray:wself.aliveList];
-                }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *dataArray = data;
+                BOOL scrollToTop = NO;
                 
-                for (NSDictionary *d in dataArray) {
-                    AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
-                    [list addObject:model];
+                if (dataArray.count > 0) {
+                    NSMutableArray *list = nil;
+                    if (wself.currentPage == 1) {
+                        list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+                        scrollToTop = YES;
+                    } else {
+                        list = [NSMutableArray arrayWithArray:wself.aliveList];
+                    }
                     
+                    for (NSDictionary *d in dataArray) {
+                        AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
+                        [list addObject:model];
+                        
+                    }
+                    
+                    wself.aliveList = [NSArray arrayWithArray:list];
+                    
+                    wself.currentPage++;
+                } else {
+                    if (wself.currentPage == 1) {
+                        wself.aliveList = nil;
+                    }
                 }
                 
-                wself.aliveList = [NSArray arrayWithArray:list];
+                [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
                 
-                wself.currentPage++;
-            } else {
-                if (wself.currentPage == 1) {
-                    wself.aliveList = nil;
-                }
-            }
-            
-            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
-            [wself reloadTableView];
-            
-            if (scrollToTop) {
-                [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
-            }
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [wself.tableView reloadData];
+                    
+                    [wself reloadTableView];
+                    
+                    if (scrollToTop) {
+                        [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
+                    }
+                });
+                
+            });
             
         } else {
             

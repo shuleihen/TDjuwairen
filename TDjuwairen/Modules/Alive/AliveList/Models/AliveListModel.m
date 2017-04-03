@@ -27,9 +27,11 @@
         self.aliveTags = dict[@"alive_com_tag"];
         
         BOOL isforward = [dict[@"is_forward"] boolValue];
+        self.isForward = isforward;
+        
         if (isforward) {
-            NSDictionary *dict = dict[@"forward_info"];
-            self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:dict];
+            NSDictionary *d = dict[@"forward_info"];
+            self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:d];
         }
     }
     return self;

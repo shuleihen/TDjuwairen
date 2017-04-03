@@ -22,6 +22,9 @@
 
 - (void)setImages:(NSArray *)images {
     _images = images;
+    
+    self.backgroundColor = [UIColor blueColor];
+    
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     CGFloat height = 0.f;
