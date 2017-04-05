@@ -30,7 +30,7 @@
     label_money.userInteractionEnabled = YES;
     UITapGestureRecognizer *money_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(moneyClick)];
     [label_money addGestureRecognizer:money_Tap];
-   
+
 }
 + (instancetype)loadCell
 {
@@ -58,8 +58,7 @@
     }else{
         label_detailTitle.text = @"";
     }
-    button_guess.selected = model.guess_status;
-    [button_guess setEnabled:model.guess_status];
+    button_guess.selected = [model.guess_status boolValue];
     button_guess.userInteractionEnabled = !model.guess_status;
     [button_guess setTitle:[self getStateWithState:model.guess_status] forState:UIControlStateNormal];
 }
