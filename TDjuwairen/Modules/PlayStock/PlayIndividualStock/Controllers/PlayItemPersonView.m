@@ -44,7 +44,7 @@
     self.vipIcon.hidden = !userModel.is_winner;
     if (userModel.showItemPoints == YES) {
         
-        self.label_desc.text = [NSString stringWithFormat:@"%@",userModel.item_points];
+        self.label_desc.text = [NSString stringWithFormat:@"%.2f",[userModel.item_points floatValue]];
         self.label_desc.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
         
     }else {

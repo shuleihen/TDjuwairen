@@ -58,11 +58,9 @@
     }else{
         label_detailTitle.text = @"";
     }
-    button_guess.selected = !model.guess_status;
+    button_guess.selected = model.guess_status;
     [button_guess setEnabled:model.guess_status];
-    if ([model.guess_status isEqual:@0]) {
-        
-    }
+    button_guess.userInteractionEnabled = !model.guess_status;
     [button_guess setTitle:[self getStateWithState:model.guess_status] forState:UIControlStateNormal];
 }
 

@@ -17,7 +17,7 @@
         self.user_nickname = dict[@"user_nickname"];
         self.is_up = dict[@"is_up"];
         self.is_self = dict[@"is_self"];
-        self.item_points = [NSString stringWithFormat:@"%@",dict[@"item_points"]];
+        self.item_points = dict[@"item_points"];
     }
     
     return self;

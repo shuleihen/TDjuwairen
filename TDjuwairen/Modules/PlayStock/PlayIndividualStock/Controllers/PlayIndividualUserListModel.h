@@ -22,7 +22,7 @@
 /// 是否为当前用户
 @property (copy, nonatomic) NSString *is_self;
 /// 竞猜的价格
-@property (copy, nonatomic) NSString *item_points;
+@property (strong, nonatomic) NSNumber *item_points;
 
 @property (assign, nonatomic) BOOL showItemPoints;
 
