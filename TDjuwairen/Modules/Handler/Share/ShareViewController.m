@@ -28,11 +28,11 @@
 }
 
 - (IBAction)buttonPressed:(UIButton *)sender {
+    [self.popupController dismiss];
+    
     if (self.buttonClickBlock) {
         self.buttonClickBlock(sender.tag);
     }
-    
-    [self.popupController dismiss];
 }
 
 - (IBAction)cancelPressed:(id)sender {

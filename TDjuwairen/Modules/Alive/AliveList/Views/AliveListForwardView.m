@@ -36,7 +36,7 @@
 }
 
 - (void)setupAliveForward:(AliveListForwardModel *)foward {
-    if (foward.aliveImg) {
+    if (foward.aliveImg.length) {
         [self.imageView sd_setImageWithURL:[NSURL URLWithString:foward.aliveImg]];
     } else {
         self.imageView.image = [UIImage imageNamed:@"app_icon.png"];

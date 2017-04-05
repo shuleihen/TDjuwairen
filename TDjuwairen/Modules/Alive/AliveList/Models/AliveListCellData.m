@@ -35,7 +35,7 @@
                              isAppendingShowImg:self.isShowImg];
     
     CGSize messageSize = [self.message boundingRectWithSize:CGSizeMake(kScreenWidth-left-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-    self.messageLabelFrame = CGRectMake(left, 42, kScreenWidth-left-12, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 42, kScreenWidth-left-12, messageSize.height + 2);// 这里必须多加几个像素，否则显示不全
     
     if (self.aliveModel.isForward) {
         self.imgsViewFrame = CGRectZero;
@@ -72,7 +72,7 @@
             msg = [message stringByAppendingString:@"  查看图片"];
         }
         
-        CGSize textSize = [message boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil].size;
+        CGSize textSize = [msg boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil].size;
         
         if (textSize.height/oneLineSize.height <= 3) {
             // 3行以内

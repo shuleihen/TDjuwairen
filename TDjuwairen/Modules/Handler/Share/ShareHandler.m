@@ -53,7 +53,10 @@
 + (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock  {
     
     ShareViewController *vc = [[UIStoryboard storyboardWithName:@"Popup" bundle:nil] instantiateViewControllerWithIdentifier:@"ShareViewController"];
-    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
+    if (!root) {
+        root = [UIApplication sharedApplication].keyWindow.rootViewController;
+    }
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.style = STPopupStyleBottomSheet;

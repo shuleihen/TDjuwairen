@@ -428,7 +428,10 @@
     }
     
     __weak typeof(self)weakSelf = self;
-    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle)
+                           image:self.aliveInfoModel.aliveImgs
+                             url:SafeValue(_aliveInfoModel.shareUrl)
+                   selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
