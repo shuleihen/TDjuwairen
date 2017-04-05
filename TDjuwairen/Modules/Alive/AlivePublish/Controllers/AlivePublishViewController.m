@@ -17,6 +17,7 @@
 #import "AliveListModel.h"
 #import "SearchCompanyListTableView.h"
 #import "SearchCompanyListModel.h"
+#import "AliveListForwardView.h"
 
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate>
 
@@ -28,7 +29,8 @@
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *textFieldPlaceholder;
 @property (strong, nonatomic) SearchCompanyListTableView *companyListTableView;
-
+@property (nonatomic, strong) AliveListForwardView *forwardView;
+@property (nonatomic, assign) NSInteger imageLimit;
 @end
 
 @implementation AlivePublishViewController
@@ -41,16 +43,32 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSString *rightButtonTitle = @"";
     
-    if (self.isTiedan) {
-        self.title = @"发布贴单";
-        self.textFieldPlaceholder = @"填写买入卖出理由或其他";
-    } else {
-        self.title = @"发布动态";
-        self.textFieldPlaceholder = @"写点什么吧...";
+    switch (self.publishType) {
+        case kAlivePublishNormal:
+            self.title = @"发布动态";
+            self.textFieldPlaceholder = @"写点什么吧...";
+            rightButtonTitle = @"发布";
+            self.imageLimit = 9;
+            break;
+        case kAlivePublishPosts:
+            self.title = @"发布贴单";
+            self.textFieldPlaceholder = @"填写买入卖出理由或其他";
+            rightButtonTitle = @"推单";
+            self.imageLimit = 9;
+            break;
+        case kAlivePublishForward:
+            self.title = @"转发直播";
+            self.textFieldPlaceholder = @"写点分享心得吧...";
+            rightButtonTitle = @"发布";
+            self.imageLimit = 1;
+            break;
+        default:
+            break;
     }
     
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:self.isTiedan?@"推单":@"发布" style:UIBarButtonItemStylePlain target:self action:@selector(publishPressed:)];
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(publishPressed:)];
     [right setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSBackgroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]}
                          forState:UIControlStateNormal];
     [right setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSBackgroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}
@@ -110,6 +128,20 @@
     return _imagePicker;
 }
 
+- (AliveListForwardView *)forwardView {
+    if (!_forwardView) {
+        _forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-30, 80)];
+        
+        AliveListForwardModel *forward = [[AliveListForwardModel alloc] init];
+        forward.aliveImg = self.aliveListModel.aliveImgs.firstObject;
+        forward.masterNickName = self.aliveListModel.masterNickName;
+        forward.aliveTitle = self.aliveListModel.aliveTitle;
+        
+        [_forwardView setupAliveForward:forward];
+    }
+    return _forwardView;
+}
+
 - (void)keyboardWillShow:(NSNotification *)aNotification
 {
     //获取键盘的高度
@@ -143,7 +175,7 @@
     [array enumerateObjectsUsingBlock:^(UIImage *image, NSUInteger idx, BOOL *stop){
         
         CGRect rect = CGRectMake(offx, offy, itemSize, itemSize);
-        if (idx >= 9) {
+        if (idx >= self.imageLimit) {
             *stop = YES;
             return;
         }
@@ -178,13 +210,19 @@
         height = CGRectGetMaxY(rect);
     }];
     
+    if (self.publishType == kAlivePublishForward) {
+        self.forwardView.frame = CGRectMake(15, height+15, kScreenWidth-30, 80);
+        [footerView addSubview:self.forwardView];
+        height = CGRectGetMaxY(self.forwardView.frame);
+    }
+    
     footerView.frame = CGRectMake(0, 0, kScreenWidth, height+15);
     self.tableView.tableFooterView = footerView;
 }
 
 - (void)checkRightBarItemEnabled {
     
-    if (self.isTiedan) {
+    if (self.publishType == kAlivePublishPosts) {
         NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         self.navigationItem.rightBarButtonItem.enabled = (stockId.length&&self.reason.length);
     } else {
@@ -203,11 +241,12 @@
 }
 
 - (void)addPressed:(UIButton *)sendr {
-    if (self.isTiedan && self.companyListTableView.hidden == NO) {
+    if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
         self.companyListTableView.hidden = YES;
     }
     
-    [self.imagePicker showImagePickerInController:self withLimitSelectedCount:(9-self.imageArray.count)];
+    [self.imagePicker showImagePickerInController:self withLimitSelectedCount:(self.imageLimit-self.imageArray.count)];
+    
 }
 
 - (void)delPressed:(UIButton *)sender {
@@ -224,22 +263,43 @@
         return;
     }
     
-    if (self.isTiedan && self.companyListTableView.hidden == NO) {
+    if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
         self.companyListTableView.hidden = YES;
     }
     
     self.stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     
-    if (!self.isTiedan && !self.stockId) {
+    if (!(self.publishType == kAlivePublishPosts) && !self.stockId) {
         return;
     }
     
     [self.view endEditing:YES];
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    NSDictionary *dict = @{@"alive_type": self.isTiedan?@"2":@"1",
-                           @"content": self.reason,
-                           @"stock": self.stockId?:@""};
+    NSDictionary *dict = nil;
+    
+    switch (self.publishType) {
+        case kAlivePublishNormal:
+            dict = @{@"alive_type": @"1",
+                     @"content": self.reason};
+            
+            break;
+        case kAlivePublishPosts:
+            dict = @{@"alive_type": @"2",
+                     @"content": self.reason,
+                     @"stock": self.stockId?:@""};
+            break;
+        case kAlivePublishForward:
+            dict = @{@"alive_type": @"3",
+                     @"content": self.reason,
+                     @"forward_type": @(self.aliveListModel.aliveType),
+                     @"forward_id": self.aliveListModel.aliveId};
+            break;
+            
+        default:
+            NSAssert(NO, @"不支持的类型发布动态");
+            break;
+    }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"提交中";
@@ -355,7 +415,7 @@
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
 
-    if (self.isTiedan && self.companyListTableView.hidden == NO) {
+    if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
         self.companyListTableView.hidden = YES;
     }
 }
@@ -373,11 +433,11 @@
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.isTiedan?1:0;
+    return (self.publishType == kAlivePublishPosts)?1:0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.isTiedan?1:0;
+    return (self.publishType == kAlivePublishPosts)?1:0;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

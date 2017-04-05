@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AliveTypeDefine.h"
+#import "AliveListModel.h"
 
 @interface AlivePublishViewController : UITableViewController
-
-@property (nonatomic, assign) BOOL isTiedan;
+@property (nonatomic, assign) AlivePublishType publishType;
+@property (nonatomic, strong) AliveListModel *aliveListModel;
 @end

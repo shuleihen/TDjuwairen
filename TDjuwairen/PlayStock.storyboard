@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -969,7 +969,7 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelection="NO" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="94d-cU-8Gs">
                                 <rect key="frame" x="0.0" y="20" width="375" height="602"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.097848750650882721" green="0.10158800333738327" blue="0.12233037501573563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="7lu-s0-oah">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1035,10 +1035,10 @@
                                                 <action selector="walletPressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="Hy8-Gb-53A"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-3-28" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pE2-Q1-4aV">
-                                            <rect key="frame" x="12" y="53" width="83" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="   " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pE2-Q1-4aV">
+                                            <rect key="frame" x="12" y="55" width="12" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9hU-bA-qLY">
@@ -1053,11 +1053,11 @@
                                             </state>
                                             <state key="disabled" backgroundImage="button_notenjoy"/>
                                             <connections>
-                                                <action selector="guessClick:" destination="DTf-2i-A6K" eventType="touchUpInside" id="She-As-kue"/>
+                                                <action selector="startGuessPressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="ZiN-ci-LJ5"/>
                                             </connections>
                                         </button>
                                     </subviews>
-                                    <color key="backgroundColor" red="0.098039215690000001" green="0.1019607843" blue="0.1215686275" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.097848750650882721" green="0.10158800333738327" blue="0.12233037501573563" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="euB-0i-CkS" firstAttribute="leading" secondItem="7lu-s0-oah" secondAttribute="leading" constant="15" id="Ew7-FE-6K5"/>
                                         <constraint firstItem="m6c-HD-evM" firstAttribute="centerY" secondItem="b3H-HG-aCz" secondAttribute="centerY" id="Gcv-5O-Tyn"/>
@@ -1093,7 +1093,7 @@
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
-                                    <action selector="commentButtonClick:" destination="DTf-2i-A6K" eventType="touchUpInside" id="gCv-he-jdG"/>
+                                    <action selector="commentPressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="PlD-Km-fAd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1113,14 +1113,13 @@
                         <outlet property="bottomButton" destination="bYu-GE-yX2" id="P6P-nt-tIW"/>
                         <outlet property="bottomLayoutH" destination="NqE-cu-qtI" id="f9x-re-nKM"/>
                         <outlet property="keyNum" destination="wj9-Mq-fwc" id="XJh-21-Pzb"/>
-                        <outlet property="sponsorGuess" destination="9hU-bA-qLY" id="zuh-yc-cLv"/>
                         <outlet property="tableView" destination="94d-cU-8Gs" id="vyn-vF-hoN"/>
                         <outlet property="timeLabel" destination="pE2-Q1-4aV" id="p3K-fJ-0Db"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tS3-nc-aDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-858.39999999999998" y="-456.52173913043481"/>
+            <point key="canvasLocation" x="-962" y="-306"/>
         </scene>
     </scenes>
     <resources>

@@ -79,57 +79,77 @@
     
     
     [manager GET:API_AliveGetRoomList parameters:dict completion:^(id data, NSError *error){
-        
-        if (wself.tableView.mj_header.isRefreshing) {
-            [wself.tableView.mj_header endRefreshing];
-        }
-        
-        if (wself.tableView.mj_footer.isRefreshing) {
-            [wself.tableView.mj_footer endRefreshing];
-        }
-        
-        [wself endHeaderRefresh];
-        [wself removeLoadingAnimation];
-        
+    
         if (!error) {
-            NSArray *dataArray = data;
-            BOOL scrollToTop = NO;
             
-            if (dataArray.count > 0) {
-                NSMutableArray *list = nil;
-                if (wself.currentPage == 1) {
-                    list = [NSMutableArray arrayWithCapacity:[dataArray count]];
-                    scrollToTop = YES;
-                } else {
-                    list = [NSMutableArray arrayWithArray:wself.aliveList];
-                }
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSArray *dataArray = data;
+                BOOL scrollToTop = NO;
                 
-                for (NSDictionary *d in dataArray) {
-                    AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
-                    [list addObject:model];
+                if (dataArray.count > 0) {
+                    NSMutableArray *list = nil;
+                    if (wself.currentPage == 1) {
+                        list = [NSMutableArray arrayWithCapacity:[dataArray count]];
+                        scrollToTop = YES;
+                    } else {
+                        list = [NSMutableArray arrayWithArray:wself.aliveList];
+                    }
                     
+                    for (NSDictionary *d in dataArray) {
+                        AliveListModel *model = [[AliveListModel alloc] initWithDictionary:d];
+                        [list addObject:model];
+                        
+                    }
+                    
+                    wself.aliveList = [NSArray arrayWithArray:list];
+                    
+                    wself.currentPage++;
+                } else {
+                    if (wself.currentPage == 1) {
+                        wself.aliveList = nil;
+                    }
                 }
                 
-                wself.aliveList = [NSArray arrayWithArray:list];
+                [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
                 
-                wself.currentPage++;
-            } else {
-                if (wself.currentPage == 1) {
-                    wself.aliveList = nil;
-                }
-            }
-            
-            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
-            
-            if (scrollToTop) {
-                [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
-            }
+                dispatch_async(dispatch_get_main_queue(), ^{
+
+                    if (wself.tableView.mj_footer.isRefreshing) {
+                        [wself.tableView.mj_footer endRefreshing];
+                    }
+                    
+                    [wself endHeaderRefresh];
+                    [wself removeLoadingAnimation];
+                    
+                    [wself.tableView reloadData];
+                    
+                    if (scrollToTop) {
+                        [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
+                    }
+                });
+                
+            });
             
         } else if (error.code == kErrorNoLogin){
+            if (wself.tableView.mj_footer.isRefreshing) {
+                [wself.tableView.mj_footer endRefreshing];
+            }
+            
+            [wself endHeaderRefresh];
+            [wself removeLoadingAnimation];
+            
+            
             wself.aliveList = nil;
-            [wself.tableViewDelegate reloadWithArray:wself.aliveList];
+            [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
+            [wself.tableView reloadData];
+        } else {
+            if (wself.tableView.mj_footer.isRefreshing) {
+                [wself.tableView.mj_footer endRefreshing];
+            }
+            
+            [wself endHeaderRefresh];
+            [wself removeLoadingAnimation];
         }
-        
     }];
 }
 

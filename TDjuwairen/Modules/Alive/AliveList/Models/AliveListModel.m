@@ -24,6 +24,15 @@
         self.likeNum = [dict[@"alive_assess_num"] integerValue];
         self.shareNum = [dict[@"alive_share_num"] integerValue];
         self.shareUrl = SafeValue(dict[@"alive_share_url"]);
+        self.aliveTags = dict[@"alive_com_tag"];
+        
+        BOOL isforward = [dict[@"is_forward"] boolValue];
+        self.isForward = isforward;
+        
+        if (isforward) {
+            NSDictionary *d = dict[@"forward_info"];
+            self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:d];
+        }
     }
     return self;
 }

@@ -21,6 +21,7 @@
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *time;
 
+- (float)yestodEndPriValue;
 - (float)nowPriValue;
 - (float)priValue;
 - (float)priPercentValue;
@@ -36,8 +37,8 @@
 @property (nonatomic, strong) NSMutableArray *stockIds;
 @property (nonatomic, weak) id<StockManagerDelegate>delegate;
 
-// 是否判断有效时间，默认为YES
-@property (nonatomic, assign) BOOL isVerifyTime;
+// 是否开启定时器
+@property (nonatomic, assign) BOOL isOpenTimer;
 
 // 查询时间间隔，默认15秒
 @property (nonatomic, assign) NSInteger interval;

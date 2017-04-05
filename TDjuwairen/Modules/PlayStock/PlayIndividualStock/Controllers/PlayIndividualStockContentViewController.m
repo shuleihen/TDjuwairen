@@ -48,21 +48,8 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor clearColor];
+    
     [self.view addSubview:self.tableView];
-    
-    
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
-
-- (void)viewDidLayoutSubviews
-{
-    [super viewDidLayoutSubviews];
-    
 }
 
 - (void)setListArr:(NSArray *)listArr{
@@ -85,14 +72,38 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 - (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
 {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    __weak PlayIndividualStockViewController *wself = self;
+    __weak PlayIndividualStockContentViewController *wself = self;
     NSDictionary *parmark = @{
                               @"season":@(season),
                               @"stock":SafeValue(stockId),
                               @"points":@(pri),
                               };
     
+    UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    view.hidesWhenStopped = YES;
+    [view startAnimating];
+    
     [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
+        [view stopAnimating];
+        
+        void (^errorBlock)(NSString *) = ^(NSString *title){
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"竞猜失败";
+            [hud hide:YES afterDelay:0.5];
+        };
+        
+        if (!error && data) {
+            BOOL status = [data[@"status"] boolValue];
+            if (status) {
+                
+            } else {
+                errorBlock(@"竞猜失败");
+            }
+        } else {
+            errorBlock(@"竞猜失败");
+        }
+        
         [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshGuessHome" object:nil];
     }];
 }
@@ -117,15 +128,16 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     [cell setupStock:sInfo];
     cell.model = model;
     AddLineAtBottom(cell);
-#pragma mark - 参与竞猜
+
     cell.guessBlock = ^(UIButton *btn){
         PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-        vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
         vc.guess_date = _guessModel.guess_date;
         vc.season = [model.guess_season integerValue];
+        vc.stockInfo = sInfo;
+        vc.delegate = self;
+        vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
         vc.inputView.userInteractionEnabled = NO;
         vc.inputView.text = model.com_code;
-        vc.delegate = self;
         
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
         popupController.navigationBarHidden = YES;
@@ -135,7 +147,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     };
     
     
-#pragma mark - 参与人数
     cell.enjoyBlock = ^(){
         PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
         
@@ -149,7 +160,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [popupController presentInViewController:_superVC];
         
     };
-#pragma mark - 奖励
+
     cell.moneyBlock = ^(){
         
     };

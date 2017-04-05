@@ -16,19 +16,10 @@
 #import "NetworkManager.h"
 #import "AliveCommentViewController.h"
 #import "UIButton+LikeAnimation.h"
-
+#import "AliveListCellData.h"
+#import "AlivePublishViewController.h"
 
 #define kAliveListCellToolHeight 37
-
-@interface AliveListCellData : NSObject
-@property (nonatomic, strong) AliveListModel *aliveModel;
-@property (nonatomic, assign) CGFloat cellHeight;
-@end
-
-@implementation AliveListCellData
-
-
-@end
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
@@ -48,8 +39,7 @@
         self.tableView = tableView;
         self.viewController = viewController;
         
-        UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
-        [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
+        [self.tableView registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
         
         UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
         [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
@@ -62,9 +52,9 @@
 - (void)insertAtHeaderWithArray:(NSArray *)array {
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:(array.count+self.itemList.count)];
     for (AliveListModel *model in array) {
-        AliveListCellData *cellData = [[AliveListCellData alloc] init];
-        cellData.aliveModel = model;
-        cellData.cellHeight = [AliveListTableViewCell heightWithAliveModel:model];
+        AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+        cellData.isShowDetail = NO;
+        [cellData setup];
         [cellArray addObject:cellData];
     }
     
@@ -75,19 +65,39 @@
     [self.tableView endUpdates];
 }
 
-- (void)reloadWithArray:(NSArray *)array {
-    
+- (void)setupAliveListArray:(NSArray *)array {
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
     for (AliveListModel *model in array) {
-        AliveListCellData *cellData = [[AliveListCellData alloc] init];
-        cellData.aliveModel = model;
-        cellData.cellHeight = [AliveListTableViewCell heightWithAliveModel:model];
+        AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+        cellData.isShowDetail = NO;
+        [cellData setup];
         [cellArray addObject:cellData];
     }
     
     self.itemList = cellArray;
-    [self.tableView reloadData];
 }
+
+/*
+- (void)reloadWithArray:(NSArray *)array {
+    
+    __weak AliveListTableViewDelegate *wself = self;
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
+        for (AliveListModel *model in array) {
+            AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+            cellData.isShowDetail = NO;
+            cellData.isShowForwardImg = NO;
+            [cellData setup];
+            [cellArray addObject:cellData];
+        }
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            wself.itemList = cellArray;
+            [wself.tableView reloadData];
+        });
+    });
+}
+ */
 
 - (CGFloat)contentHeight {
     CGFloat height = 0;
@@ -115,6 +125,42 @@
     }
 }
 
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender {
+    if (!self.avatarPressedEnabled) {
+        return;
+    }
+    
+    AliveListCellData *cellData = cell.cellData;
+    
+    if (!cellData.aliveModel.forwardModel.masterId.length) {
+        return;
+    }
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.forwardModel.masterId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
+    if (!self.avatarPressedEnabled) {
+        return;
+    }
+    
+    AliveListCellData *cellData = cell.cellData;
+    AliveListForwardModel *model = cellData.aliveModel.forwardModel;
+    
+    if (model.aliveId.length <= 0) {
+        return;
+    }
+    
+    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+    vc.alive_ID = model.aliveId;
+    vc.alive_type = (model.aliveType==1)?@"1":@"2";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+}
+
+
 #pragma mark - AliveListBottomTableCellDelegate 
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
@@ -127,7 +173,19 @@
     }
     
     
-    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) shareState:^(BOOL state) {
+    __weak AliveListTableViewDelegate *wself = self;
+    
+    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            vc.publishType = kAlivePublishForward;
+            vc.aliveListModel = cell.cellModel;
+            [wself.viewController.navigationController pushViewController:vc animated:YES];
+        }
+    } shareState:^(BOOL state) {
         if (state) {
             [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
             NetworkManager *manager = [[NetworkManager alloc] init];
@@ -248,7 +306,7 @@
     
     if (indexPath.row == 0) {
         AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
-        [scell setupAliveModel:model];
+        [scell setupAliveListCellData:cellData];
     } else {
         AliveListBottomTableViewCell *scell = (AliveListBottomTableViewCell *)cell;
         [scell setupAliveModel:model];

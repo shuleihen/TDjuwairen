@@ -7,12 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AliveTypeDefine.h"
 
-typedef enum : NSUInteger {
-    AliveAttention  =0,
-    AliveRecommend  =1,
-    AliveALL        =2,
-} AliveListType;
 
 @interface AliveListViewController : UIViewController
 @property (nonatomic, assign) AliveListType listType;

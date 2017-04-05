@@ -96,7 +96,6 @@
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.interval = 10;
-    self.stockManager.isVerifyTime = NO;
     self.stockManager.delegate = self;
     
     // 开始定时刷新页面，计算倒计时

@@ -46,7 +46,7 @@
     label_title.text = [NSString stringWithFormat:@"%@(%@)",model.guess_company,model.com_code];
     label_enjoy.text = [NSString stringWithFormat:@"%@",model.guess_item_num];
     label_detailDesc.text = SafeValue(model.artile_info[@"article_title"]);
-    label_money.text = [NSString stringWithFormat:@"%@",model.guess_key_num];
+    label_money.text = [NSString stringWithFormat:@"%@把",model.guess_key_num];
     if ([model.artile_info[@"article_type"] isEqual:@1]) {
         label_detailTitle.text = @"调研";
     }else if ([model.artile_info[@"article_type"] isEqual:@2]) {

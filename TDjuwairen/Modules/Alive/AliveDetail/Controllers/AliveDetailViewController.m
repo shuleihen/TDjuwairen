@@ -19,6 +19,7 @@
 #import "AliveRoomViewController.h"
 #import "ShareHandler.h"
 #import "UIButton+LikeAnimation.h"
+#import "AlivePublishViewController.h"
 
 @interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -26,6 +27,7 @@
 @property (assign, nonatomic) NSInteger selectedPage;
 @property (weak, nonatomic) AliveContentHeaderView *sectionHeaderView;
 @property (strong, nonatomic) AliveListModel *aliveInfoModel;
+@property (strong, nonatomic) AliveListCellData *aliveCellData;
 @property (strong, nonatomic) AliveMasterListViewController *dianZanVC;
 @property (strong, nonatomic) AliveMasterListViewController *shareVC;
 @property (strong, nonatomic) AlivePingLunViewController *pinglunVC;
@@ -49,9 +51,7 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
-        UINib *nib = [UINib nibWithNibName:@"AliveListTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"AliveListTableViewCellID"];
-        
+        [_tableView registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
     }
     
     return _tableView;
@@ -254,11 +254,16 @@
     
     NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
     
+    __weak AliveDetailViewController *wself = self;
     [manager GET:API_AliveGetAliveInfo parameters:dict completion:^(id data, NSError *error){
         
         if (!error) {
-            self.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
-            [self.tableView reloadData];
+            wself.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
+            wself.aliveCellData = [[AliveListCellData alloc] initWithAliveModel:wself.aliveInfoModel];
+            wself.aliveCellData.isShowDetail = YES;
+            [wself.aliveCellData setup];
+            
+            [wself.tableView reloadData];
             self.selectedPage = 0;
             [_toolView setupAliveModel:_aliveInfoModel];
             
@@ -287,7 +292,7 @@
         cell.delegate = self;
         if (self.aliveInfoModel != nil) {
             
-            [cell setupAliveModel:self.aliveInfoModel isShowDetail:YES];
+            [cell setupAliveListCellData:self.aliveCellData];
         }
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
@@ -321,9 +326,9 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
-        return [AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel isShowDetail:YES];
+        return self.aliveCellData.cellHeight;
     }else {
-        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(self.pageScrollView.frame.size.height, kScreenHeight-[AliveListTableViewCell heightWithAliveModel:self.aliveInfoModel]-45));
+        self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(self.pageScrollView.frame.size.height, kScreenHeight-self.aliveCellData.cellHeight-45));
         return self.pageScrollView.frame.size.height;
     }
 }
@@ -383,6 +388,35 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender {
+
+    AliveListCellData *cellData = cell.cellData;
+    
+    if (!cellData.aliveModel.forwardModel.masterId.length) {
+        return;
+    }
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.forwardModel.masterId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
+
+    AliveListCellData *cellData = cell.cellData;
+    AliveListForwardModel *model = cellData.aliveModel.forwardModel;
+    
+    if (model.aliveId.length <= 0) {
+        return;
+    }
+    
+    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+    vc.alive_ID = model.aliveId;
+    vc.alive_type = (model.aliveType==1)?@"1":@"2";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - AliveListBottomTableCellDelegate
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
@@ -394,7 +428,17 @@
     }
     
     __weak typeof(self)weakSelf = self;
-    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) shareState:^(BOOL state) {
+    [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle) image:self.aliveInfoModel.aliveImgs url:SafeValue(_aliveInfoModel.shareUrl) selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            vc.publishType = kAlivePublishForward;
+            vc.aliveListModel = cell.cellModel;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+    }  shareState:^(BOOL state) {
         if (state) {
             NetworkManager *manager = [[NetworkManager alloc] init];
             NSDictionary *dict = @{@"item_id":weakSelf.alive_ID,@"type" :weakSelf.alive_type};

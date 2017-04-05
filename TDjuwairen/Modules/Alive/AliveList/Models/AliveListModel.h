@@ -8,8 +8,10 @@
 
 #import <Foundation/Foundation.h>
 #import "AliveTypeDefine.h"
+#import "AliveListForwardModel.h"
 
 @interface AliveListModel : NSObject
+@property (nonatomic, assign) BOOL isForward;
 @property (nonatomic, copy) NSString *aliveId;
 @property (nonatomic, assign) AliveType aliveType;
 @property (nonatomic, copy) NSString *aliveTitle;
@@ -23,6 +25,8 @@
 @property (nonatomic, assign) NSInteger likeNum;
 @property (nonatomic, assign) NSInteger shareNum;
 @property (nonatomic, copy) NSString *shareUrl;
+@property (nonatomic, strong) NSArray *aliveTags;   // 标签数组
+@property (nonatomic, strong) AliveListForwardModel *forwardModel;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

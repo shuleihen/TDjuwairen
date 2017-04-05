@@ -159,7 +159,6 @@
 		1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAF21E7172DB00A64B3C /* AliveListBottomTableViewCell.m */; };
 		1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CAF31E7172DB00A64B3C /* AliveListBottomTableViewCell.xib */; };
 		1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAF51E7172DB00A64B3C /* AliveListTableViewCell.m */; };
-		1953CB091E7172DB00A64B3C /* AliveListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CAF61E7172DB00A64B3C /* AliveListTableViewCell.xib */; };
 		1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAF91E7172DB00A64B3C /* AliveListViewController.m */; };
 		1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAFC1E7172DB00A64B3C /* AliveListModel.m */; };
 		1953CB0C1E7172DB00A64B3C /* AliveListImagesView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAFF1E7172DB00A64B3C /* AliveListImagesView.m */; };
@@ -219,6 +218,8 @@
 		1966A6591E8BBEDF007DDA14 /* UIViewController+Loading.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6581E8BBEDF007DDA14 /* UIViewController+Loading.m */; };
 		1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */; };
 		1966A6681E8BD8C5007DDA14 /* UIButton+LikeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A6671E8BD8C5007DDA14 /* UIButton+LikeAnimation.m */; };
+		1966A66B1E8CA30E007DDA14 /* AliveListForwardModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A66A1E8CA30E007DDA14 /* AliveListForwardModel.m */; };
+		1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */; };
 		196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */; };
 		196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */; };
 		196B8C061DFA602D00084894 /* PersonalHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C051DFA602D00084894 /* PersonalHeaderView.m */; };
@@ -252,6 +253,7 @@
 		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
 		19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */; };
+		19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */; };
 		19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD853E1DADCA80007BC000 /* UIImage+Resize.m */; };
 		19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */; };
 		19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98191E24A7880097A585 /* YXLocationPicker.m */; };
@@ -840,7 +842,6 @@
 		1953CAF31E7172DB00A64B3C /* AliveListBottomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListBottomTableViewCell.xib; sourceTree = "<group>"; };
 		1953CAF41E7172DB00A64B3C /* AliveListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListTableViewCell.h; sourceTree = "<group>"; };
 		1953CAF51E7172DB00A64B3C /* AliveListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListTableViewCell.m; sourceTree = "<group>"; };
-		1953CAF61E7172DB00A64B3C /* AliveListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListTableViewCell.xib; sourceTree = "<group>"; };
 		1953CAF81E7172DB00A64B3C /* AliveListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListViewController.h; sourceTree = "<group>"; };
 		1953CAF91E7172DB00A64B3C /* AliveListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewController.m; sourceTree = "<group>"; };
 		1953CAFB1E7172DB00A64B3C /* AliveListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListModel.h; sourceTree = "<group>"; };
@@ -955,6 +956,10 @@
 		1966A65C1E8BD083007DDA14 /* UIViewController+Refresh.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Refresh.m"; sourceTree = "<group>"; };
 		1966A6661E8BD8C5007DDA14 /* UIButton+LikeAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+LikeAnimation.h"; sourceTree = "<group>"; };
 		1966A6671E8BD8C5007DDA14 /* UIButton+LikeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+LikeAnimation.m"; sourceTree = "<group>"; };
+		1966A6691E8CA30E007DDA14 /* AliveListForwardModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardModel.h; sourceTree = "<group>"; };
+		1966A66A1E8CA30E007DDA14 /* AliveListForwardModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardModel.m; sourceTree = "<group>"; };
+		1966A66C1E8CAAA3007DDA14 /* AliveListCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListCellData.h; sourceTree = "<group>"; };
+		1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListCellData.m; sourceTree = "<group>"; };
 		196B8BFE1DFA40DD00084894 /* YXSecurityCodeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSecurityCodeButton.h; sourceTree = "<group>"; };
 		196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSecurityCodeButton.m; sourceTree = "<group>"; };
 		196B8C011DFA4EC500084894 /* MBProgressHUD+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Custom.h"; sourceTree = "<group>"; };
@@ -1012,6 +1017,8 @@
 		19A7EE581D423ED200F833A9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		19A9721B1D4226A600A9D521 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
 		19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileLoginViewController.xib; sourceTree = "<group>"; };
+		19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView.h; sourceTree = "<group>"; };
+		19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView.m; sourceTree = "<group>"; };
 		19AD853D1DADCA80007BC000 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		19AD853E1DADCA80007BC000 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ChineseSubdivisions.plist; sourceTree = "<group>"; };
@@ -2673,7 +2680,6 @@
 				1953CAF31E7172DB00A64B3C /* AliveListBottomTableViewCell.xib */,
 				1953CAF41E7172DB00A64B3C /* AliveListTableViewCell.h */,
 				1953CAF51E7172DB00A64B3C /* AliveListTableViewCell.m */,
-				1953CAF61E7172DB00A64B3C /* AliveListTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2694,6 +2700,10 @@
 			children = (
 				1953CAFB1E7172DB00A64B3C /* AliveListModel.h */,
 				1953CAFC1E7172DB00A64B3C /* AliveListModel.m */,
+				1966A6691E8CA30E007DDA14 /* AliveListForwardModel.h */,
+				1966A66A1E8CA30E007DDA14 /* AliveListForwardModel.m */,
+				1966A66C1E8CAAA3007DDA14 /* AliveListCellData.h */,
+				1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */,
 				193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */,
 				19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */,
 			);
@@ -2705,6 +2715,8 @@
 			children = (
 				1953CAFE1E7172DB00A64B3C /* AliveListImagesView.h */,
 				1953CAFF1E7172DB00A64B3C /* AliveListImagesView.m */,
+				19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */,
+				19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4626,7 +4638,6 @@
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
 				193419E81E78DF2B00F22788 /* selected.caf in Resources */,
-				1953CB091E7172DB00A64B3C /* AliveListTableViewCell.xib in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
@@ -4706,6 +4717,7 @@
 				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
 				19194CFB1E7FDDDE00641085 /* OptionalStockTableViewCell.m in Sources */,
+				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
@@ -4911,6 +4923,7 @@
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
+				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
@@ -4949,6 +4962,7 @@
 				19B11CAE1D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m in Sources */,
 				194186DA1DF81284000C5197 /* SettingNickNameViewController.m in Sources */,
 				1955B48C1D644D9800DC102E /* ShowTableViewCell.m in Sources */,
+				1966A66B1E8CA30E007DDA14 /* AliveListForwardModel.m in Sources */,
 				19C348711D3F76DB008ABD16 /* MJRefreshStateHeader.m in Sources */,
 				1966A6591E8BBEDF007DDA14 /* UIViewController+Loading.m in Sources */,
 				19D6A3031E0D0126008368F4 /* STPopupControllerTransitioningFade.m in Sources */,

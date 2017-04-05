@@ -29,7 +29,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UIButton *sponsorGuess;
 
 
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
@@ -53,6 +52,12 @@
 
 @implementation PlayIndividualStockViewController
 
+- (void)dealloc {
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [self.stockManager stopThread];
+}
+
 - (HMSegmentedControl *)segmentControl {
     if (!_segmentControl) {
         _segmentControl = [[HMSegmentedControl alloc] init];
@@ -65,7 +70,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#FD9E0A"];
         _segmentControl.sectionTitles = @[@"最新",@"最热"];
-        self.segmentControl.frame = CGRectMake(0, 0, 100, 45);
+        self.segmentControl.frame = CGRectMake(0, 6, 100, 36);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -76,7 +81,7 @@
 {
     if (!_timeControl) {
         _timeControl = [[UISegmentedControl alloc] initWithItems:@[@"上午场",@"下午场"]];
-        _timeControl.frame = CGRectMake(kScreenWidth-12-110, 8, 110, 29);
+        _timeControl.frame = CGRectMake(kScreenWidth-12-110, 7, 110, 28);
         _timeControl.tintColor = [UIColor hx_colorWithHexRGBAString:@"#191a1f"];
         _timeControl.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         
@@ -89,6 +94,7 @@
         _timeControl.selectedSegmentIndex = 0;
         [_timeControl addTarget:self action:@selector(switchingView) forControlEvents:UIControlEventValueChanged];
         _timeIndex = 1;
+        
         _timeControl.layer.borderWidth = 2;
         _timeControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
         
@@ -137,11 +143,10 @@
 - (void)setPageIndex:(NSInteger)pageIndex {
     _pageIndex = pageIndex;
     _currentIndex =1;
-    [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*self.pageIndex, 0) animated:YES];
-    [self.segmentControl setSelectedSegmentIndex:self.pageIndex];
     
-    [self guessSourceListWith:self.pageIndex season:_timeIndex pageNum:_currentIndex];
+    [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*pageIndex, 0) animated:YES];
     
+    [self guessSourceListWith:pageIndex season:_timeIndex pageNum:_currentIndex];
 }
 
 - (void)configTableViewHeightWithHeight:(CGFloat)height {
@@ -157,6 +162,7 @@
     self.pageIndex = 0;
     [self initViews];
     [self initValue];
+    
     [self.tableView.mj_header beginRefreshing];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
@@ -168,7 +174,6 @@
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.interval = 10;
-    self.stockManager.isVerifyTime = NO;
     self.stockManager.delegate = self;
     [self loadFistViewMessage];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshKeyNum) name:@"refreshGuessHome" object:nil];
@@ -176,8 +181,9 @@
 
 - (void)refreshKeyNum
 {
-    [_keyNum setTitle:[NSString stringWithFormat:@"%ld",[_guessModel.user_keynum integerValue]-1] forState:UIControlStateNormal];
+    [_keyNum setTitle:[NSString stringWithFormat:@"%d",(int)([_guessModel.user_keynum integerValue]-1)] forState:UIControlStateNormal];
 }
+
 - (void)initViews
 {
     _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefresh)];
@@ -273,42 +279,12 @@
         [wself.tableView.mj_footer endRefreshing];
     }];
 }
+
+
 - (void)reloadWithStocks:(NSDictionary *)stocks
 {
     PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
     vc.stockInfo = stocks;
-}
-
-#pragma mark - 确定发起竞猜
-- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
-{
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    __weak PlayIndividualStockViewController *wself = self;
-    NSDictionary *parmark1 = @{
-                              @"stock":SafeValue(stockId),
-                              @"points":@(pri),
-                              };
-    
-    [ma POST:API_CheckStockAndPointsValid parameters:parmark1 completion:^(id data, NSError *error) {
-        if (!error) {
-            NSDictionary *parmark = @{
-                                      @"season":@(season),
-                                      @"stock":SafeValue(stockId),
-                                      @"points":@(pri),
-                                      };
-            
-            [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
-                
-            }];
-        }else
-        {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"不支持该股票的竞猜";
-            [hud hide:YES afterDelay:0.5];
-        }
-    }];
-    
 }
 
 #pragma mark - Action
@@ -333,15 +309,13 @@
     }
 }
 
-/// 评论
-- (IBAction)commentButtonClick:(UIButton *)sender {
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
-
-#pragma mark - 发起竞猜
-- (IBAction)guessClick:(id)sender {
+- (IBAction)startGuessPressed:(id)sender {
+    if (!US.isLogIn) {
+        [self pushLoginViewController];
+        return;
+    }
+    
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.view.frame = CGRectMake(0, 0, kScreenWidth, 275);
     vc.guess_date = _guessModel.guess_date;
@@ -361,17 +335,7 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
-- (void)messagePressed:(id)sender {
-    if (US.isLogIn==NO) {
-        [self pushLoginViewController];
-    } else {
-        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
-        messagePush.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:messagePush animated:YES];
-    }
-}
-
-- (void)commentPressed:(id)sender {
+- (IBAction)commentPressed:(id)sender {
     UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -385,7 +349,42 @@
     [self loadFistViewMessage];
 }
 
-#pragma mark -UITableViewDataSource
+#pragma mark - PlayGuessViewControllerDelegate
+
+- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
+{
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    __weak PlayIndividualStockViewController *wself = self;
+    NSDictionary *parmark1 = @{
+                               @"stock":SafeValue(stockId),
+                               @"points":@(pri),
+                               };
+    
+    [ma POST:API_CheckStockAndPointsValid parameters:parmark1 completion:^(id data, NSError *error) {
+        if (!error) {
+            NSDictionary *parmark = @{
+                                      @"season":@(season),
+                                      @"stock":SafeValue(stockId),
+                                      @"points":@(pri),
+                                      };
+            
+            [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
+                
+            }];
+        }else
+        {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"不支持该股票的竞猜";
+            [hud hide:YES afterDelay:0.5];
+        }
+    }];
+    
+}
+
+
+#pragma mark - UITableViewDataSource
+
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
     return 1;
@@ -430,7 +429,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     
-    return 45;
+    return 42;
 }
 
 
@@ -459,12 +458,6 @@
     }else {
         self.pageIndex = currentPage;
     }
-}
-
-- (void)dealloc {
-    
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.stockManager stopThread];
 }
 
 @end

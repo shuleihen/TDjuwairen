@@ -20,7 +20,7 @@
 @property (nonatomic, assign) NSInteger messageType;
 @property (nonatomic, copy) NSString *messageContent;
 // 动态类型：1表示图文，2表示贴单
-@property (nonatomic, assign) NSInteger aliveType;
+@property (nonatomic, assign) AliveType aliveType;
 // 动态内容类型：0表示文本，1表示图片
 @property (nonatomic, assign) NSInteger aliveContentType;
 @property (nonatomic, copy) NSString *aliveContent;

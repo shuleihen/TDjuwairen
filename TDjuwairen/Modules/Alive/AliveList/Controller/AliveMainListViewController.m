@@ -51,10 +51,10 @@
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
         AliveListViewController *one = [[AliveListViewController alloc] init];
-        one.listType = AliveAttention;
+        one.listType = AliveRecommend;
         
         AliveListViewController *two = [[AliveListViewController alloc] init];
-        two.listType = AliveRecommend;
+        two.listType = AliveAttention;
         
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = AliveALL;
@@ -118,13 +118,9 @@
     [self setupNavigationBar];
     [self.view addSubview:self.pageViewController.view];
     
-    if (US.isLogIn) {
-        self.listType = AliveAttention;
-    } else {
-        self.listType = AliveRecommend;
-    }
+    self.listType = AliveRecommend;
     
-    self.segmentControl.selectedSegmentIndex = self.listType;
+    self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
     [self segmentValueChanged:self.segmentControl];
     
     [self.view addSubview:self.publishBtn];
@@ -137,7 +133,7 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:TDThemeColor];
     
-    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"关注",@"推荐",@"全部"]];
+    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注"]];
     segmented.layer.cornerRadius = 0.0f;
     segmented.layer.borderWidth = 1.0f;
     segmented.layer.borderColor = TDThemeColor.CGColor;
@@ -184,6 +180,14 @@
 }
 
 - (void)loginStatusChanged:(id)sender {
+    
+    NSInteger index = self.segmentControl.selectedSegmentIndex;
+    if (index >=0 && index<=self.contentControllers.count) {
+        AliveListViewController *vc = self.contentControllers[index];
+        [vc refreshActions];
+    }
+    
+    /*
     if (self.contentControllers.count) {
         AliveListViewController *vc = self.contentControllers.firstObject;
         [vc refreshActions];
@@ -191,9 +195,10 @@
     
     if (!US.isLogIn && (self.listType == AliveAttention)) {
         self.listType = AliveRecommend;
-        self.segmentControl.selectedSegmentIndex = self.listType;
+        self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
         [self segmentValueChanged:self.segmentControl];
     }
+     */
 }
 
 #pragma mark - DCPathButtonDelegate
@@ -208,7 +213,8 @@
     
     AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.hidesBottomBarWhenPushed = YES;
-    vc.isTiedan = (itemButtonIndex == 0)?YES:NO;
+    
+    vc.publishType = (itemButtonIndex == 0)?kAlivePublishPosts:kAlivePublishNormal;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

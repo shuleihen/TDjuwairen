@@ -24,7 +24,7 @@
     __weak IBOutlet UILabel *label_moneyUse;
 }
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
-@property (nonatomic, assign) float nowPri;
+
 
 @end
 
@@ -36,10 +36,7 @@
     [self initValue];
     // Do any additional setup after loading the view from its nib.
 }
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
+
 
 - (void)initValue
 {
@@ -71,9 +68,15 @@
     _inputView.layer.cornerRadius = 4;
     _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
     _inputView.layer.borderWidth = 1;
-    self.stepper.maximumValue = self.nowPri + 100;
-    self.stepper.minimumValue = self.nowPri - 100;
-    self.stepper.value = self.nowPri;
+    
+    if (self.stockInfo) {
+        // 发起竞猜，因为输入股票代码，没有查询股票的价格信息
+        self.stepper.maximumValue = self.stockInfo.yestodEndPriValue*1.1;
+        self.stepper.minimumValue = self.stockInfo.yestodEndPriValue*0.9;
+        self.stepper.value = self.stockInfo.nowPriValue;
+    } else {
+        
+    }
     
     self.stepper.stepValue = 0.01;
     self.stepper.textColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"];
@@ -157,6 +160,8 @@
 
 #pragma mark - action
 - (IBAction)determineClick:(id)sender {
+    
+    
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:season:)]) {
         [self.delegate addWithGuessId:_inputView.text pri:self.stepper.value season:self.season];
