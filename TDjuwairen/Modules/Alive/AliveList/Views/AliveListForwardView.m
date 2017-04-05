@@ -20,9 +20,10 @@
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
         [self addSubview:_imageView];
         
-        _nameLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(80, 10, CGRectGetWidth(frame)-90, 16)];
+        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 10, CGRectGetWidth(frame)-90, 16)];
         _nameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         _nameLabel.font = [UIFont systemFontOfSize:14.0f];
+        _nameLabel.userInteractionEnabled = YES;
         [self addSubview:_nameLabel];
         
         _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 26, CGRectGetWidth(frame)-90, CGRectGetHeight(frame)-26-10)];

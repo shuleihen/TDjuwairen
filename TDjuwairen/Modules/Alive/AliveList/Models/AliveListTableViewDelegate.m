@@ -54,7 +54,6 @@
     for (AliveListModel *model in array) {
         AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
         cellData.isShowDetail = NO;
-        cellData.isShowForwardImg = NO;
         [cellData setup];
         [cellArray addObject:cellData];
     }
@@ -71,7 +70,6 @@
     for (AliveListModel *model in array) {
         AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
         cellData.isShowDetail = NO;
-        cellData.isShowForwardImg = NO;
         [cellData setup];
         [cellArray addObject:cellData];
     }
@@ -126,6 +124,42 @@
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }
 }
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender {
+    if (!self.avatarPressedEnabled) {
+        return;
+    }
+    
+    AliveListCellData *cellData = cell.cellData;
+    
+    if (!cellData.aliveModel.forwardModel.masterId.length) {
+        return;
+    }
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.forwardModel.masterId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
+    if (!self.avatarPressedEnabled) {
+        return;
+    }
+    
+    AliveListCellData *cellData = cell.cellData;
+    AliveListForwardModel *model = cellData.aliveModel.forwardModel;
+    
+    if (model.aliveId.length <= 0) {
+        return;
+    }
+    
+    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+    vc.alive_ID = model.aliveId;
+    vc.alive_type = (model.aliveType==1)?@"1":@"2";
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+}
+
 
 #pragma mark - AliveListBottomTableCellDelegate 
 

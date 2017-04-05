@@ -7,12 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TTTAttributedLabel.h"
 
 @class AliveListForwardModel;
 @interface AliveListForwardView : UIView
 @property (nonatomic, strong) UIImageView *imageView;
-@property (nonatomic, strong) TTTAttributedLabel *nameLabel;
+@property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
 
 - (void)setupAliveForward:(AliveListForwardModel *)foward;

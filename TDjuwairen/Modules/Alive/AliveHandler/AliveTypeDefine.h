@@ -9,6 +9,13 @@
 #ifndef AliveTypeDefine_h
 #define AliveTypeDefine_h
 
+// 直播列表类型
+typedef enum : NSUInteger {
+    AliveAttention  =0, // 关注
+    AliveRecommend  =1, // 推荐
+    AliveALL        =2, // 全部
+} AliveListType;
+
 // 直播发布页面类型，1：图文，2：跟单，3：转发
 typedef enum : NSInteger {
     kAlivePublishNormal     =1,

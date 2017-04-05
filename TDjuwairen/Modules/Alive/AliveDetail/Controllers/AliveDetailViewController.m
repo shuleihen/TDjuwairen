@@ -261,7 +261,6 @@
             wself.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
             wself.aliveCellData = [[AliveListCellData alloc] initWithAliveModel:wself.aliveInfoModel];
             wself.aliveCellData.isShowDetail = YES;
-            wself.aliveCellData.isShowForwardImg = NO;
             [wself.aliveCellData setup];
             
             [wself.tableView reloadData];
@@ -385,6 +384,35 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
     
     AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:self.aliveInfoModel.masterId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender {
+
+    AliveListCellData *cellData = cell.cellData;
+    
+    if (!cellData.aliveModel.forwardModel.masterId.length) {
+        return;
+    }
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.forwardModel.masterId];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
+
+    AliveListCellData *cellData = cell.cellData;
+    AliveListForwardModel *model = cellData.aliveModel.forwardModel;
+    
+    if (model.aliveId.length <= 0) {
+        return;
+    }
+    
+    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+    vc.alive_ID = model.aliveId;
+    vc.alive_type = (model.aliveType==1)?@"1":@"2";
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

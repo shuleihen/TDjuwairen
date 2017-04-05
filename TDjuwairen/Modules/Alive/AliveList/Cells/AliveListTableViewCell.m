@@ -9,6 +9,7 @@
 #import "AliveListTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "HexColors.h"
+#import "MYPhotoBrowser.h"
 
 @implementation AliveListTableViewCell
 
@@ -39,6 +40,7 @@
         _nickNameLabel.font = [UIFont systemFontOfSize:16.0f];
         _nickNameLabel.textAlignment = NSTextAlignmentLeft;
         _nickNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
+        _nickNameLabel.userInteractionEnabled = YES;
         [self.contentView addSubview:_nickNameLabel];
         
         UITapGestureRecognizer *nickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
@@ -51,11 +53,12 @@
         [self.contentView addSubview:_timeLabel];
         
         
-        _messageLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 42, kScreenWidth-12-64, 0)];
+        _messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(64, 42, kScreenWidth-12-64, 0)];
         _messageLabel.font = [UIFont systemFontOfSize:16.0f];
         _messageLabel.textAlignment = NSTextAlignmentLeft;
         _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
         _messageLabel.numberOfLines = 0;
+        _messageLabel.delegate = self;
         [self.contentView addSubview:_messageLabel];
         
         _imagesView = [[AliveListImagesView alloc] initWithFrame:CGRectZero];
@@ -64,6 +67,12 @@
         self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-64-12, 80)];
         self.forwardView.hidden = YES;
         [self.contentView addSubview:self.forwardView];
+        
+        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardAvatarPressed:)];
+        [self.forwardView.nameLabel addGestureRecognizer:tap1];
+        
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
+        [self.forwardView addGestureRecognizer:tap2];
     }
     return self;
 }
@@ -84,8 +93,12 @@
 
 
 - (void)setupAliveListCellData:(AliveListCellData *)cellData {
+    self.cellData = cellData;
+    
     self.messageLabel.frame = cellData.messageLabelFrame;
     self.imagesView.frame = cellData.imgsViewFrame;
+    self.imagesView.hidden = cellData.isShowImg;
+    
     self.forwardView.hidden = !cellData.aliveModel.isForward;
     self.forwardView.frame = cellData.forwardFrame;
     
@@ -96,12 +109,47 @@
     self.timeLabel.text = aliveModel.aliveTime;
     
     self.messageLabel.attributedText = cellData.message;
+
+    if ([cellData.message.string hasSuffix:@"查看图片"]) {
+        [self.messageLabel setLinkAttributes:@{NSUnderlineStyleAttributeName: @(0)}];
+        [self.messageLabel setActiveLinkAttributes:@{NSUnderlineStyleAttributeName: @(0),
+                                                     NSUnderlineColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}];
+        [self.messageLabel addLinkToURL:[NSURL URLWithString:@"jwr://show_alive_list_img"] withRange:NSMakeRange(cellData.message.string.length-4, 4)];
+    }
+    
     self.imagesView.images = aliveModel.aliveImgs;
 
     self.tiedanLabel.hidden = cellData.isShowTiedan;
     
-    [self.forwardView setupAliveForward:aliveModel.forwardModel];
+    
+    if (cellData.aliveModel.isForward) {
+        [self.forwardView setupAliveForward:aliveModel.forwardModel];
+    }
+    
 }
 
-//- ()
+#pragma mark - 
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    MYPhotoBrowser *photoBrowser = [[MYPhotoBrowser alloc] initWithUrls:self.cellData.aliveModel.aliveImgs
+                                                               imgViews:nil
+                                                            placeholder:nil
+                                                             currentIdx:0
+                                                            handleNames:nil
+                                                               callback:^(UIImage *handleImage,NSString *handleType) {
+    }];
+    [photoBrowser showWithAnimation:YES];
+}
+
+- (void)forwardMsgPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardMsgPressed:)]) {
+        [self.delegate aliveListTableCell:self forwardMsgPressed:sender];
+    }
+}
+
+- (void)forwardAvatarPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardAvatarPressed:)]) {
+        [self.delegate aliveListTableCell:self forwardAvatarPressed:sender];
+    }
+}
 @end

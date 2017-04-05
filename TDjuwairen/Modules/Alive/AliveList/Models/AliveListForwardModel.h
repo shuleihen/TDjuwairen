@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSString *aliveId;
 @property (nonatomic, copy) NSString *aliveImg;
 @property (nonatomic, assign) AliveType aliveType;
+@property (nonatomic, copy) NSString *masterId;
 @property (nonatomic, copy) NSString *masterNickName;
 @property (nonatomic, copy) NSString *aliveTitle;
 @property (nonatomic, strong) NSArray *aliveTags;

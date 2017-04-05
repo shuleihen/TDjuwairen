@@ -19,8 +19,7 @@
 
 @property (nonatomic, assign) BOOL isShowDetail;
 @property (nonatomic, assign) BOOL isShowTiedan;
-// 默认显示转发图片
-@property (nonatomic, assign) BOOL isShowForwardImg;
+@property (nonatomic, assign) BOOL isShowImg;
 @property (nonatomic, strong) NSAttributedString *message;
 
 - (id)initWithAliveModel:(AliveListModel *)aliveModel;
