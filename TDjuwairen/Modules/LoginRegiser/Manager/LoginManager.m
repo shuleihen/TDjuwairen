@@ -55,7 +55,7 @@
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
     }]];
-//    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+
     [root presentViewController:alert animated:YES completion:nil];
 }
 
