@@ -175,6 +175,12 @@
     
     __weak AliveListTableViewDelegate *wself = self;
     
+    void (^shareBlock)(BOOL state) = ^(BOOL state) {
+        if (state) {
+            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
+        }
+    };
+    
     [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
@@ -183,6 +189,7 @@
             
             vc.publishType = kAlivePublishForward;
             vc.aliveListModel = cell.cellModel;
+            vc.shareBlock = shareBlock;
             [wself.viewController.navigationController pushViewController:vc animated:YES];
         }
     } shareState:^(BOOL state) {

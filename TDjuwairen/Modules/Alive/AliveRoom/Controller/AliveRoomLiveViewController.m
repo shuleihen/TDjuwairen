@@ -52,17 +52,6 @@
     
     self.currentPage = 1;    
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publishNotifi:) name:kAlivePublishNotification object:nil];
-}
-
-
-- (void)publishNotifi:(NSNotification *)notifi {
-    AliveListModel *model = notifi.object;
-    if (model.aliveType == self.listType) {
-        [self.tableViewDelegate insertAtHeaderWithArray:@[model]];
-        [self reloadTableView];
-    }
 }
 
 - (CGFloat)contentHeight {

@@ -11,6 +11,7 @@
 #import "AliveListModel.h"
 
 @interface AlivePublishViewController : UITableViewController
+@property (nonatomic, copy) void (^shareBlock)(BOOL state);
 @property (nonatomic, assign) AlivePublishType publishType;
 @property (nonatomic, strong) AliveListModel *aliveListModel;
 @end

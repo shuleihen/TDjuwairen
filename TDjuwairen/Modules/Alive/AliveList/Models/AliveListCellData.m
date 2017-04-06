@@ -16,10 +16,12 @@
         self.isShowTiedan = (aliveModel.aliveType ==kAlivePosts)?NO:YES;
         
         if (!aliveModel.isForward) {
-            self.isShowImg = NO;
+            self.isShowReviewImageButton = NO;
+            self.isShowImgView = aliveModel.aliveImgs.count?YES:NO;
         } else {
             // 转发有图片才提示“查看图片”，不显示图片
-            self.isShowImg = (aliveModel.forwardModel.aliveImg.length>0)?YES:NO;
+            self.isShowReviewImageButton = (aliveModel.aliveImgs.count>0)?YES:NO;
+            self.isShowImgView = NO;
         }
     }
     return self;
@@ -32,7 +34,7 @@
     self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
                                        withSize:CGSizeMake(kScreenWidth-left-12, MAXFLOAT)
                              isAppendingShowAll:self.isShowDetail
-                             isAppendingShowImg:self.isShowImg];
+                             isAppendingShowImg:self.isShowReviewImageButton];
     
     CGSize messageSize = [self.message boundingRectWithSize:CGSizeMake(kScreenWidth-left-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     self.messageLabelFrame = CGRectMake(left, 42, kScreenWidth-left-12, messageSize.height + 2);// 这里必须多加几个像素，否则显示不全
@@ -40,13 +42,20 @@
     if (self.aliveModel.isForward) {
         self.imgsViewFrame = CGRectZero;
         
-        self.forwardFrame = CGRectMake(64, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, 80);
-        self.cellHeight = CGRectGetMaxY(self.forwardFrame) + 11.0f;
+        if (self.message.string.length == 0) {
+            // 转发分享，没有标题内容
+            self.forwardFrame = CGRectMake(64, 42, kScreenWidth-left-12, 80);
+            self.cellHeight = CGRectGetMaxY(self.forwardFrame) + 11.0f;
+        } else {
+            self.forwardFrame = CGRectMake(64, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, 80);
+            self.cellHeight = CGRectGetMaxY(self.forwardFrame) + 11.0f;
+        }
+        
     } else {
         CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
         self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, imagesViewHeight);
         
-        if (imagesViewHeight > 0.0) {
+        if (imagesViewHeight > 0.0f) {
             self.cellHeight = CGRectGetMaxY(self.imgsViewFrame) + 11.0f;
         } else {
             self.cellHeight = CGRectGetMaxY(self.messageLabelFrame) + 11.0f;
@@ -58,9 +67,24 @@
 
 - (NSAttributedString *)stringWithAliveMessage:(NSString *)message withSize:(CGSize)size isAppendingShowAll:(BOOL)isShowAll isAppendingShowImg:(BOOL)isShowImg {
     if (isShowAll) {
-        NSAttributedString *attri = [[NSAttributedString alloc] initWithString:message
-                                                                    attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
+        NSString *msg = message;
+        if (isShowImg) {
+            if (message.length > 0) {
+                msg = [message stringByAppendingString:@"  查看图片"];
+            } else {
+                msg = [message stringByAppendingString:@"查看图片"];
+            }
+            
+        }
+        
+        NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:msg
+                                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
                                                                                  NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#222222"]}];
+        
+        if (isShowImg) {
+            [attri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#3371E2"] range:NSMakeRange(msg.length-4, 4)];
+        }
+        
         return attri;
     } else {
         // 计算一行文本高度
@@ -69,7 +93,11 @@
         
         NSString *msg = message;
         if (isShowImg) {
-            msg = [message stringByAppendingString:@"  查看图片"];
+            if (message.length > 0) {
+                msg = [message stringByAppendingString:@"  查看图片"];
+            } else {
+                msg = [message stringByAppendingString:@"查看图片"];
+            }
         }
         
         CGSize textSize = [msg boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil].size;

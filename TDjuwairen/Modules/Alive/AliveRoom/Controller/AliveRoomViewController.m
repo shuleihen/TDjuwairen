@@ -203,6 +203,8 @@
     
     self.publishBtn.hidden = YES;
     [self.view addSubview:self.publishBtn];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publishNotifi:) name:kAlivePublishNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -355,6 +357,13 @@
     self.roomMasterModel.roomInfo = intro;
     [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
 }
+
+- (void)publishNotifi:(NSNotification *)notifi {
+    // 先直接刷新列表
+    [self refreshAction];
+    
+}
+
 
 #pragma mark - DCPathButtonDelegate
 - (void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex {

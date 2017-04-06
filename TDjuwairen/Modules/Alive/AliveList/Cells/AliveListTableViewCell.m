@@ -36,7 +36,7 @@
         _tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"].CGColor;
         [self.contentView addSubview:_tiedanLabel];
         
-        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 15, kScreenWidth-92-64, 12)];
+        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 15, kScreenWidth-92-64, 18)];
         _nickNameLabel.font = [UIFont systemFontOfSize:16.0f];
         _nickNameLabel.textAlignment = NSTextAlignmentLeft;
         _nickNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
@@ -97,7 +97,7 @@
     
     self.messageLabel.frame = cellData.messageLabelFrame;
     self.imagesView.frame = cellData.imgsViewFrame;
-    self.imagesView.hidden = cellData.isShowImg;
+    self.imagesView.hidden = !cellData.isShowImgView;
     
     self.forwardView.hidden = !cellData.aliveModel.isForward;
     self.forwardView.frame = cellData.forwardFrame;

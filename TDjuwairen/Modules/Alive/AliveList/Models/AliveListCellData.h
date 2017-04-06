@@ -19,7 +19,11 @@
 
 @property (nonatomic, assign) BOOL isShowDetail;
 @property (nonatomic, assign) BOOL isShowTiedan;
-@property (nonatomic, assign) BOOL isShowImg;
+// 显示查看图片
+@property (nonatomic, assign) BOOL isShowReviewImageButton;
+// 是否显示图片
+@property (nonatomic, assign) BOOL isShowImgView;
+
 @property (nonatomic, strong) NSAttributedString *message;
 
 - (id)initWithAliveModel:(AliveListModel *)aliveModel;

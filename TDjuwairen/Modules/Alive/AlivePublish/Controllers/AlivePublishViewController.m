@@ -343,6 +343,14 @@
 
 #pragma mark - MBProgressHUDDelegate
 - (void)hudWasHidden:(MBProgressHUD *)hud {
+    if (self.publishType == kAlivePublishForward) {
+        if (self.shareBlock) {
+            self.shareBlock(YES);
+        }
+    } else {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kAlivePublishNotification object:nil];
+    }
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 

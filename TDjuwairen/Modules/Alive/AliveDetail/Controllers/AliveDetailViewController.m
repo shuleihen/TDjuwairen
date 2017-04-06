@@ -428,6 +428,14 @@
     }
     
     __weak typeof(self)weakSelf = self;
+    
+    void (^shareBlock)(BOOL state) = ^(BOOL state) {
+        if (state) {
+            // 转发服务器会将分享数加1
+            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+        }
+    };
+    
     [ShareHandler shareWithTitle:SafeValue(self.aliveInfoModel.aliveTitle)
                            image:self.aliveInfoModel.aliveImgs
                              url:SafeValue(_aliveInfoModel.shareUrl)
@@ -439,23 +447,22 @@
             
             vc.publishType = kAlivePublishForward;
             vc.aliveListModel = cell.cellModel;
+            vc.shareBlock = shareBlock;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         }
-    }  shareState:^(BOOL state) {
-        if (state) {
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dict = @{@"item_id":weakSelf.alive_ID,@"type" :weakSelf.alive_type};
-            
-            [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
-                if (!error) {
-                    
-                    [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
-                }
-            }];
-            
-            
-        }
-    }];
+       }  shareState:^(BOOL state) {
+           if (state) {
+               NetworkManager *manager = [[NetworkManager alloc] init];
+               NSDictionary *dict = @{@"item_id":weakSelf.alive_ID,@"type" :weakSelf.alive_type};
+               
+               [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
+                   if (!error) {
+                       
+                       [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+                   }
+               }];
+           }
+       }];
 }
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {
