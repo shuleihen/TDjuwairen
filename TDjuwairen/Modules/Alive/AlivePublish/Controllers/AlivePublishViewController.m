@@ -22,10 +22,8 @@
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate>
 
 @property (nonatomic, strong) UITextField *stockIdTextField;
-@property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) NSMutableArray *imageArray;
 @property (nonatomic, strong) ImagePickerHandler *imagePicker;
-@property (nonatomic, strong) NSString *stockId;
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, strong) NSString *textFieldPlaceholder;
 @property (strong, nonatomic) SearchCompanyListTableView *companyListTableView;
@@ -100,7 +98,6 @@
         __weak typeof(self)weakSelf = self;
         _companyListTableView.choiceCode = ^(NSString *str){
             weakSelf.stockIdTextField.text = str;
-            weakSelf.stockId = str;
             [weakSelf checkRightBarItemEnabled];
         };
     }
@@ -222,11 +219,13 @@
 
 - (void)checkRightBarItemEnabled {
     
-    if (self.publishType == kAlivePublishPosts) {
+    if (self.publishType == kAlivePublishNormal) {
+        self.navigationItem.rightBarButtonItem.enabled = self.reason.length;
+    } else if (self.publishType == kAlivePublishPosts){
         NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         self.navigationItem.rightBarButtonItem.enabled = (stockId.length&&self.reason.length);
-    } else {
-        self.navigationItem.rightBarButtonItem.enabled = self.reason.length;
+    } else if (self.publishType == kAlivePublishForward) {
+        self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
 
@@ -259,18 +258,25 @@
 }
 
 - (void)publishPressed:(id)sender {
-    if (!self.reason.length) {
-        return;
-    }
     
-    if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
+    NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *reasonString = self.reason;
+    
+    if (self.publishType == kAlivePublishNormal) {
+        // 图文发布，描述不能为空
+        if (!reasonString.length) {
+            return;
+        }
+    } else if (self.publishType == kAlivePublishPosts) {
+        // 贴单发布，描述和股票代码不能为空
         self.companyListTableView.hidden = YES;
-    }
-    
-    self.stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-    
-    if (!(self.publishType == kAlivePublishPosts) && !self.stockId) {
-        return;
+        
+        if (!stockId.length ||
+            !reasonString.length) {
+            return;
+        }
+    } else if (self.publishType == kAlivePublishForward) {
+        // 转发，描述可以为空
     }
     
     [self.view endEditing:YES];
@@ -281,17 +287,17 @@
     switch (self.publishType) {
         case kAlivePublishNormal:
             dict = @{@"alive_type": @"1",
-                     @"content": self.reason};
+                     @"content": reasonString?:@""};
             
             break;
         case kAlivePublishPosts:
             dict = @{@"alive_type": @"2",
-                     @"content": self.reason,
-                     @"stock": self.stockId?:@""};
+                     @"content": reasonString?:@"",
+                     @"stock": stockId?:@""};
             break;
         case kAlivePublishForward:
             dict = @{@"alive_type": @"3",
-                     @"content": self.reason,
+                     @"content": reasonString?:@"",
                      @"forward_type": @(self.aliveListModel.aliveType),
                      @"forward_id": self.aliveListModel.aliveId};
             break;
@@ -386,7 +392,6 @@
 
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    self.stockId = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     
     [self checkRightBarItemEnabled];
     
