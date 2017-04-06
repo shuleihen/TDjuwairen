@@ -115,7 +115,7 @@
         return @"参与竞猜";
     }else if ([state isEqual:@1]){
         return @"已封盘";
-    }return @"已收盘";
+    }return @"已结束";
 }
 
 @end

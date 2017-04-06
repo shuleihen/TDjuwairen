@@ -143,14 +143,14 @@
 - (void)setPageIndex:(NSInteger)pageIndex {
     _pageIndex = pageIndex;
     _currentIndex =1;
-    
+    self.segmentControl.selectedSegmentIndex = pageIndex;
     [self guessSourceListWith:pageIndex season:_timeIndex pageNum:_currentIndex];
     [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*pageIndex, 0) animated:YES];
 }
 
 - (void)configTableViewHeightWithHeight:(CGFloat)height {
 
-    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, height);
+    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(height, kScreenHeight-150));
     [self.tableView reloadData];
 }
 
@@ -273,6 +273,7 @@
             
 
         }
+//        [self.tableView reloadData];
         [wself.tableView.mj_header endRefreshing];
         [wself.tableView.mj_footer endRefreshing];
     }];
