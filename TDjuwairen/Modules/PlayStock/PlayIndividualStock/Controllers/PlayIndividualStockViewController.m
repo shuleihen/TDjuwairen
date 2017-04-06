@@ -143,26 +143,25 @@
 - (void)setPageIndex:(NSInteger)pageIndex {
     _pageIndex = pageIndex;
     _currentIndex =1;
-    
-    [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*pageIndex, 0) animated:YES];
-    
+    self.segmentControl.selectedSegmentIndex = pageIndex;
     [self guessSourceListWith:pageIndex season:_timeIndex pageNum:_currentIndex];
+    [self.pageScrollView setContentOffset:CGPointMake(kScreenWidth*pageIndex, 0) animated:YES];
 }
 
 - (void)configTableViewHeightWithHeight:(CGFloat)height {
 
-    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, height);
+    self.pageScrollView.frame = CGRectMake(0, 0, kScreenWidth, MAX(height, kScreenHeight-150));
     [self.tableView reloadData];
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self initViews];
+    [self initValue];
     _currentIndex = 1;
     _timeIndex = 1;
     self.pageIndex = 0;
-    [self initViews];
-    [self initValue];
-    
     [self.tableView.mj_header beginRefreshing];
     
      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
@@ -177,6 +176,7 @@
     self.stockManager.delegate = self;
     [self loadFistViewMessage];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(refreshKeyNum) name:@"refreshGuessHome" object:nil];
+    _listModelArr = [NSMutableArray new];
 }
 
 - (void)refreshKeyNum
@@ -252,20 +252,18 @@
                               @"tag":@(tag),
                               @"page":@(page),
                               };
-    if (page==1) {
-        _listModelArr = [NSMutableArray new];
-    }
+   
     [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
+        if (page==1) {
+            [_listModelArr removeAllObjects];
+        }
         if (!error) {
-            NSArray *arr = data;
            __block NSMutableArray *stockIds = [NSMutableArray new];
-            
-            [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
               PlayListModel *model = [[PlayListModel alloc] initWithDictionary:obj];
                 [wself.listModelArr addObject:model];
                 [stockIds addObject:model.stock];
             }];
-            
             PlayIndividualStockContentViewController *vc = self.contentControllers[self.pageIndex];
             vc.listArr = wself.listModelArr.mutableCopy;
             vc.guessModel = _guessModel;
@@ -275,6 +273,7 @@
             
 
         }
+//        [self.tableView reloadData];
         [wself.tableView.mj_header endRefreshing];
         [wself.tableView.mj_footer endRefreshing];
     }];

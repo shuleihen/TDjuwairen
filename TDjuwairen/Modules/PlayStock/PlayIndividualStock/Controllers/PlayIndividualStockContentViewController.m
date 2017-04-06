@@ -38,6 +38,8 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.tableFooterView = [UIView new];
         _tableView.scrollEnabled = NO;
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
         
@@ -48,18 +50,16 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+    _listArr = [NSArray new];
     [self.view addSubview:self.tableView];
 }
 
 - (void)setListArr:(NSArray *)listArr{
     _listArr = listArr;
     CGFloat h = listArr.count*141;
-    _tableView.delegate = self;
-    _tableView.dataSource = self;
-    [self.tableView reloadData];
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
     self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
+    [self.tableView reloadData];
     
 }
 - (void)setStockInfo:(NSDictionary *)stockInfo
@@ -145,7 +145,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         popupController.style = STPopupStyleBottomSheet;
         [popupController presentInViewController:_superVC];
     };
-    
     
     cell.enjoyBlock = ^(){
         PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];

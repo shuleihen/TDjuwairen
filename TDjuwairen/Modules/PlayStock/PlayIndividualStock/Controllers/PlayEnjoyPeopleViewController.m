@@ -23,6 +23,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *label_price;
 @property (weak, nonatomic) IBOutlet UILabel *label_state;
 @property (weak, nonatomic) IBOutlet UILabel *label_end_price;
+@property (weak, nonatomic) IBOutlet UILabel *recentPeopleLabel;
 @property (weak, nonatomic) IBOutlet UIView *contentView;
 
 @end
@@ -67,17 +68,17 @@
     }
 
     NetworkManager *ma = [[NetworkManager alloc] init];
- 
-    
+
     [ma POST:API_GetGuessIndividualUserList parameters:@{@"guess_id":self.guessID} completion:^(id data, NSError *error){
         if (!error && data) {
             
             PlayIndividualUserModel *userModel = [[PlayIndividualUserModel alloc] initWithDictionary:data];
-            self.label_title.text = userModel.guess_stock_name;
+            self.label_title.text = [NSString stringWithFormat:@"%@(%@)",userModel.guess_stock_name,userModel.guess_stock];
             self.label_join.text = userModel.guess_item_count;
             self.label_price.text = userModel.guess_avg_points;
             self.label_end_price.text = userModel.guess_end_price;
             self.label_state.text = userModel.guessStatusStr;
+            self.recentPeopleLabel.text = [NSString stringWithFormat:@"以上为与当前价最接近的%ld位用户",MIN(userModel.guess_users.count, 5)];
             
             for (UIView *v in self.contentView.subviews) {
                 if ([v isKindOfClass:[PlayItemPersonView class]]) {
