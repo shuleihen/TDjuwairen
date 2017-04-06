@@ -223,7 +223,8 @@
         self.navigationItem.rightBarButtonItem.enabled = self.reason.length;
     } else if (self.publishType == kAlivePublishPosts){
         NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-        self.navigationItem.rightBarButtonItem.enabled = (stockId.length&&self.reason.length);
+        
+        self.navigationItem.rightBarButtonItem.enabled = ((stockId.length==6)&&(self.imageArray.count>0));
     } else if (self.publishType == kAlivePublishForward) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
@@ -254,6 +255,8 @@
         [self.imageArray removeObjectAtIndex:row];
         
         [self setupFooterView];
+        
+        [self checkRightBarItemEnabled];
     }
 }
 
@@ -268,11 +271,11 @@
             return;
         }
     } else if (self.publishType == kAlivePublishPosts) {
-        // 贴单发布，描述和股票代码不能为空
+        // 贴单发布，股票代码和图片不能为空
         self.companyListTableView.hidden = YES;
         
         if (!stockId.length ||
-            !reasonString.length) {
+            !self.imageArray.count) {
             return;
         }
     } else if (self.publishType == kAlivePublishForward) {
@@ -347,6 +350,7 @@
 - (void)imagePickerHanderl:(ImagePickerHandler *)imagePicker didFinishPickingImages:(NSArray *)images {
     [self.imageArray addObjectsFromArray:images];
     [self setupFooterView];
+    [self checkRightBarItemEnabled];
 }
 
 
