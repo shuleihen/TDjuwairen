@@ -42,6 +42,7 @@
 #define kBannerHeiht 160
 #define kButtonViewHeight 76
 #define kSegmentHeight 34
+#define kSegmentItemWidth  70
 
 @interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate, SurveyContentListDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
@@ -287,7 +288,7 @@
 }
 
 - (void)setupSegmentWithTitles:(NSArray *)titles {
-    CGFloat w = [titles count]*70;
+    CGFloat w = [titles count]*kSegmentItemWidth;
     self.segmentControl.sectionTitles = titles;
     self.segmentControl.frame = CGRectMake(0, 0, w, kSegmentHeight);
     self.segmentContentScrollView.contentSize = CGSizeMake(w, kSegmentHeight);
@@ -600,6 +601,9 @@
     
     if (index != self.segmentControl.selectedSegmentIndex) {
         self.segmentControl.selectedSegmentIndex = index;
+        
+        CGFloat offx = kSegmentItemWidth*index;
+        [self.segmentContentScrollView scrollRectToVisible:CGRectMake(offx, 0, kSegmentItemWidth, kSegmentHeight) animated:YES];
         
         [self reloadTableView];
     }
