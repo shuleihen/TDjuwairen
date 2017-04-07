@@ -24,6 +24,7 @@
 #import "MJRefresh.h"
 #import "StockManager.h"
 #import "MBProgressHUD.h"
+#import "PlayStockCommentViewController.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate,StockManagerDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -335,7 +336,8 @@
 }
 
 - (IBAction)commentPressed:(id)sender {
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    PlayStockCommentViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    vc.playStockType = kPlayStockIndividual;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

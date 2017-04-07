@@ -115,6 +115,9 @@
         [self.messageLabel setActiveLinkAttributes:@{NSUnderlineStyleAttributeName: @(0),
                                                      NSUnderlineColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}];
         [self.messageLabel addLinkToURL:[NSURL URLWithString:@"jwr://show_alive_list_img"] withRange:NSMakeRange(cellData.message.string.length-4, 4)];
+    } else {
+        [self.messageLabel setLinkAttributes:nil];
+        [self.messageLabel setActiveLinkAttributes:nil];
     }
     
     self.imagesView.images = aliveModel.aliveImgs;
