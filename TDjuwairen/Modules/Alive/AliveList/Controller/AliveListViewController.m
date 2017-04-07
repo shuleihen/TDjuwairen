@@ -18,8 +18,8 @@
 #import "AliveMessageListViewController.h"
 #import "LoginState.h"
 #import "ZFCWaveActivityIndicatorView.h"
-#import "DYRefresh.h"
 #import "UIViewController+Loading.h"
+#import "DYRefresh.h"
 #import "UIViewController+Refresh.h"
 
 @interface AliveListViewController ()

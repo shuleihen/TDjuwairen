@@ -7,14 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "StockManager.h"
+
+typedef enum : NSUInteger {
+    PlayIndividualContentNewType     =0, // 最新列表
+    PlayIndividualContentHostType  =1 // 最热列表
+} PlayIndividualContentType;
 
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
-#import "StockManager.h"
 
 @interface PlayIndividualStockContentViewController : UIViewController
+/// 1表示上午场，2表示下午场	是
+@property (assign, nonatomic) NSInteger listSeason;
+@property (copy, nonatomic) NSString *listTag;
+
 @property (nonatomic, strong) PlayIndividualStockViewController *superVC;
-@property (nonatomic, strong) NSArray *listArr;//PlayListModel
+//PlayListModel
 @property (nonatomic, strong) PlayGuessIndividua *guessModel;
 @property (nonatomic, strong) NSDictionary *stockInfo;
+
+- (id)initWithPlayIndividualStockContentViewControllerWithFrame:(CGRect)rect andListType:(PlayIndividualContentType)listType;
+
 @end

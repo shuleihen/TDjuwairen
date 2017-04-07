@@ -59,7 +59,7 @@
         label_detailTitle.text = @"";
     }
     button_guess.selected = [model.guess_status boolValue];
-    button_guess.userInteractionEnabled = !model.guess_status;
+    button_guess.userInteractionEnabled = ![model.guess_status boolValue];
     [button_guess setTitle:[self getStateWithState:model.guess_status] forState:UIControlStateNormal];
 }
 
@@ -83,7 +83,7 @@
     label_left.text = nowPriString;
     label_mid.text = [NSString stringWithFormat:@"%+.2lf",value];
     label_right.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
-//    self.stockWheel.index = stock.nowPriValue;
+
     
 }
 
@@ -95,6 +95,7 @@
 }
 
 - (IBAction)buttonClick:(id)sender {
+    
     if (_guessBlock) {
         _guessBlock(sender);
     }

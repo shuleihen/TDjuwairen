@@ -403,6 +403,9 @@
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
 		4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */; };
+		4D6E67D41E976BAA009A9FB0 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4D6E67CE1E976BAA009A9FB0 /* license */; };
+		4D6E67D51E976BAA009A9FB0 /* README.markdown in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67CF1E976BAA009A9FB0 /* README.markdown */; };
+		4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */; };
 		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
 		4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */; };
 		4DA844421E8A151F006838B3 /* PlayIndividualStockContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */; };
@@ -1299,6 +1302,10 @@
 		4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchCompanyListCell.xib; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.xib; sourceTree = SOURCE_ROOT; };
 		4D29B9C41E83B30E0019DD20 /* SearchCompanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListModel.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.h; sourceTree = SOURCE_ROOT; };
 		4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListModel.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.m; sourceTree = SOURCE_ROOT; };
+		4D6E67CE1E976BAA009A9FB0 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
+		4D6E67CF1E976BAA009A9FB0 /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		4D6E67D21E976BAA009A9FB0 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
 		4DA177FB1E8A51DE00C438BE /* PlayIndividualContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayIndividualContentCell.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.h; sourceTree = SOURCE_ROOT; };
 		4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayIndividualContentCell.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.m; sourceTree = SOURCE_ROOT; };
 		4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayIndividualContentCell.xib; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.xib; sourceTree = SOURCE_ROOT; };
@@ -4111,6 +4118,33 @@
 			path = SMS_SDK;
 			sourceTree = "<group>";
 		};
+		4D6E67CD1E976BAA009A9FB0 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				4D6E67CE1E976BAA009A9FB0 /* license */,
+				4D6E67CF1E976BAA009A9FB0 /* README.markdown */,
+				4D6E67D01E976BAA009A9FB0 /* Toast */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		4D6E67D01E976BAA009A9FB0 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				4D6E67D11E976BAA009A9FB0 /* Toast */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		4D6E67D11E976BAA009A9FB0 /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				4D6E67D21E976BAA009A9FB0 /* UIView+Toast.h */,
+				4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
 		4DD179D11E77C00B00FBE66D /* MYPhotoBrowser */ = {
 			isa = PBXGroup;
 			children = (
@@ -4315,6 +4349,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				4D6E67CD1E976BAA009A9FB0 /* Toast */,
 				19194D1E1E80D08900641085 /* Refresh */,
 				19194D171E80CC5200641085 /* YPTool */,
 				19194D0A1E80CBE900641085 /* ZFCActivityIndicator */,
@@ -4654,6 +4689,7 @@
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
 				19AF98491E2720290097A585 /* Survey.storyboard in Resources */,
 				193419A51E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */,
+				4D6E67D41E976BAA009A9FB0 /* license in Resources */,
 				19386EFA1E73A0EB00D4426E /* PersonalCenter.storyboard in Resources */,
 				19252C101D51E830003E5D18 /* Info.plist in Resources */,
 				4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */,
@@ -4835,6 +4871,7 @@
 				4DD179E51E77C00B00FBE66D /* MYAnimationHelper.m in Sources */,
 				19B11CAB1D655B9E00BB4DF4 /* DDLog.m in Sources */,
 				19E5F2A51E13653200984DBC /* SQCommentTableViewCell.m in Sources */,
+				4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */,
 				19E5F2A41E13653200984DBC /* SQTopicModel.m in Sources */,
 				194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */,
 				19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */,
@@ -4918,6 +4955,7 @@
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
 				193419B21E76B54600F22788 /* AliveContentHeaderView.m in Sources */,
 				1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */,
+				4D6E67D51E976BAA009A9FB0 /* README.markdown in Sources */,
 				193419E51E78DF2B00F22788 /* DCPathItemButton.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,

@@ -44,7 +44,7 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     __weak PlayGuessViewController *wself = self;
-    [ma GET:API_GetGuessIndividualEndtime parameters:@{@"season":@(_season)} completion:^(id data, NSError *error) {
+    [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(_season)} completion:^(id data, NSError *error) {
         if (!error) {
             NSDictionary *dict = data;
             NSNumber *guess_endtime = dict[@"guess_endtime"];

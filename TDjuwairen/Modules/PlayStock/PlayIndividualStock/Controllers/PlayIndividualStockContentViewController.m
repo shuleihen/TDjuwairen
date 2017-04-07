@@ -20,13 +20,39 @@
 #import "PlayGuessIndividua.h"
 #import "CommentsViewController.h"
 #import "NSObject+ChangeState.h"
+#import "StockManager.h"
+#import "MJRefresh.h"
 
-@interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource,GuessAddPourDelegate,PlayGuessViewControllerDelegate>
+@interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource,GuessAddPourDelegate,PlayGuessViewControllerDelegate,StockManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
+@property (assign, nonatomic) NSInteger currentIndex;
+
+@property (nonatomic, strong) NSArray *listArr;
+@property (nonatomic, strong) StockManager *stockManager;
+
 @end
+
+
 static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 @implementation PlayIndividualStockContentViewController
+
+- (id)initWithPlayIndividualStockContentViewControllerWithFrame:(CGRect)rect andListType:(PlayIndividualContentType)listType {
+    
+    if (self = [super init]) {
+        self.view.frame = rect;
+        if (listType == PlayIndividualContentNewType) {
+            self.listTag = @"0";
+            self.listSeason = 1;
+        }else {
+            
+            self.listTag = @"1";
+        }
+        
+    }
+    return self;
+}
+
 
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -37,12 +63,12 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.tableFooterView = [UIView new];
-        _tableView.scrollEnabled = NO;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
-        
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefresh)];
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
     }
     
     return _tableView;
@@ -50,25 +76,99 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    _listArr = [NSArray new];
-    [self.view addSubview:self.tableView];
+    
+    [self setUpValue];
+    [self setUpUICommon];
 }
 
-- (void)setListArr:(NSArray *)listArr{
-    _listArr = listArr;
-    CGFloat h = listArr.count*141;
-    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, h);
-    self.view.frame = CGRectMake(CGRectGetMinX(self.view.frame), 0, kScreenWidth, h);
-    [self.tableView reloadData];
+
+- (void)setUpValue {
+    _listArr = [NSArray new];
+    // 开启股票刷新
+    self.stockManager = [[StockManager alloc] init];
+    self.stockManager.interval = 10;
+    self.stockManager.delegate = self;
+}
+
+- (void)setUpUICommon {
+    
+    [self.view addSubview:self.tableView];
     
 }
+
+
 - (void)setStockInfo:(NSDictionary *)stockInfo
 {
     _stockInfo = stockInfo;
     [self.tableView reloadData];
 }
 
+- (void)setListSeason:(NSInteger)listSeason {
+    _listSeason = listSeason;
+    [self onRefresh];
+}
+
+
 #pragma mark - loadData
+- (void)onRefresh
+{
+    _currentIndex = 1;
+    [self guessSourceListData];
+}
+
+- (void)loadMore
+{
+    [self guessSourceListData];
+}
+
+#pragma mark - loadData
+/// 竞猜列表
+- (void)guessSourceListData
+{
+    /**
+     名称	类型	说明	是否必填	示例	默认值
+     season	int	1表示上午场，2表示下午场	是
+     tag	int	0表示按时间倒序，1表示按参与人数倒序	是
+     page	int	当前页码，从1开始	是
+     */
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    NSDictionary *parmark = @{
+                              @"season":@(self.listSeason),
+                              @"tag":self.listTag,
+                              @"page":@(self.currentIndex)
+                              };
+    [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
+        NSMutableArray *arrM = nil;
+        if (self.currentIndex == 1) {
+            arrM = [NSMutableArray array];
+        }else {
+            arrM = [NSMutableArray arrayWithArray:self.listArr];
+            
+        }
+        if (!error) {
+            __block NSMutableArray *stockIds = [NSMutableArray new];
+            [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                PlayListModel *model = [[PlayListModel alloc] initWithDictionary:obj];
+                [arrM addObject:model];
+                [stockIds addObject:model.stock];
+            }];
+            
+            self.listArr = [arrM mutableCopy];
+            [self.stockManager addStocks:stockIds];
+            [self.tableView reloadData];
+            _currentIndex++;
+            
+        }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+    }];
+}
+- (void)reloadWithStocks:(NSDictionary *)stocks
+{
+    self.stockInfo = stocks;
+}
+
+
 - (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season
 {
     NetworkManager *ma = [[NetworkManager alloc] init];
@@ -128,7 +228,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     [cell setupStock:sInfo];
     cell.model = model;
     AddLineAtBottom(cell);
-
+    
     cell.guessBlock = ^(UIButton *btn){
         PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
         vc.guess_date = _guessModel.guess_date;
@@ -146,6 +246,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [popupController presentInViewController:_superVC];
     };
     
+#pragma mark - 获取参与竞猜人员
     cell.enjoyBlock = ^(){
         PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
         
@@ -159,7 +260,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [popupController presentInViewController:_superVC];
         
     };
-
+    
     cell.moneyBlock = ^(){
         
     };
@@ -229,6 +330,12 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         comments.hidesBottomBarWhenPushed = YES;
         [self.superVC.navigationController pushViewController:comments animated:YES];
     }
+}
+
+- (void)dealloc {
+    
+    
+    [self.stockManager stopThread];
 }
 
 @end

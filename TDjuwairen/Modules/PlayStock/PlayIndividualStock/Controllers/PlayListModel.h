@@ -12,6 +12,7 @@
 
 @property (nonatomic, copy) NSString *guess_company;
 @property (nonatomic, strong) NSNumber *guess_end_price;
+/// 0表示正在进行，1表示已封盘，2表示已收盘
 @property (nonatomic, strong) NSNumber *guess_status;
 @property (nonatomic, copy) NSNumber *guess_season;
 @property (nonatomic, copy) NSString *guess_key_num;
