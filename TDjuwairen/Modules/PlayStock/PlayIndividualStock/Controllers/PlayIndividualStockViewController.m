@@ -23,6 +23,7 @@
 #import "UIViewController+STPopup.h"
 #import "MBProgressHUD.h"
 #import "UIView+Toast.h"
+#import "PlayStockCommentViewController.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
