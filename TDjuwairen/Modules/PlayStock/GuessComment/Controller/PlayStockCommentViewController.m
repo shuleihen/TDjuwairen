@@ -152,6 +152,8 @@
     
     dict[@"content"] = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
+    dict[@"comment_type"] = @(self.playStockType);
+    
     __weak PlayStockCommentViewController *wself = self;
     [ma POST:API_GameAddComment parameters:dict completion:^(id data, NSError *error){
         if (!error) {

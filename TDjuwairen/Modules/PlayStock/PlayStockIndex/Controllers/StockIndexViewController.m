@@ -25,6 +25,7 @@
 #import "NotificationDef.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
+#import "PlayStockCommentViewController.h"
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -217,7 +218,8 @@
 }
 
 - (void)commentPressed:(id)sender {
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    PlayStockCommentViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    vc.playStockType = kPlayStockIndex;
     [self.navigationController pushViewController:vc animated:YES];
 }
 

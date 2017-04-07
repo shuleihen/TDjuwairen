@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayStockCommentViewController : UIViewController
+typedef enum : NSUInteger {
+    kPlayStockIndex         =0,   // 股指竞猜
+    kPlayStockIndividual    =1,   // 个股竞猜
+} PlayStockType;
 
+@interface PlayStockCommentViewController : UIViewController
+@property (nonatomic, assign) PlayStockType playStockType;
 @end

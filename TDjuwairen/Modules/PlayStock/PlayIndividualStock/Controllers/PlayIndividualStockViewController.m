@@ -260,7 +260,8 @@
 
 /// 评论
 - (IBAction)commentPressed:(id)sender {
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    PlayStockCommentViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
+    vc.playStockType = kPlayStockIndividual;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
