@@ -227,7 +227,7 @@
         [strAtt addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(3, 13)];
         cell.keyLabel.attributedText = strAtt;
         
-        cell.amountLabel.text = @"￥2998";
+        cell.amountLabel.text = @"￥98";
     }
     
     return cell;
