@@ -135,7 +135,7 @@
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     
-    NSDictionary *dict = @{};
+    NSDictionary *dict;
     if (US.isLogIn) {
         dict = @{@"sub_id" : self.tag,@"page" : @(pageA),@"user_id" : US.userId};
     } else {

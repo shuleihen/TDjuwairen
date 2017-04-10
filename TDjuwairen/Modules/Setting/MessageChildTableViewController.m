@@ -272,7 +272,7 @@
     if (self.typeID == 0) {
         if (self.replyArray.count > 0) {
             self.replyDic = self.replyArray[indexPath.row];
-            NSString *detailID = self.replyDic[@"view_id"];
+            NSString *detailID = @"";
             NSString *type = @"view";
             if (self.replyDic[@"viewcomment_id"]) {
                 detailID = self.replyDic[@"viewcomment_id"];

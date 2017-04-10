@@ -63,39 +63,46 @@
         return;
     }
     
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    BOOL isNiu;
+    
+    BOOL isNiu = NO;
     NSDictionary *para ;
     NSString *url ;
     NSString *code = self.comanyCode;
     NSString *emojiCovert = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
-    if (self.type == kPublishNiu) {
-        url = API_SurveyAddComment;
-        para = @{@"type":       @"1",
-                 @"content":    emojiCovert,
-                 @"code":       code,
-                 @"user_id":    US.userId};
-        isNiu = YES;
+    switch (self.type) {
+        case kPublishNiu:
+            url = API_SurveyAddComment;
+            para = @{@"type":       @"1",
+                     @"content":    emojiCovert,
+                     @"code":       code,
+                     @"user_id":    US.userId};
+            isNiu = YES;
+            break;
+        case kPublishXiong:
+            url = API_SurveyAddComment;
+            para = @{@"type":       @"2",
+                     @"content":    emojiCovert,
+                     @"code":       code,
+                     @"user_id":    US.userId};
+            isNiu = NO;
+            break;
+        case kPublishAsk:
+            url = API_SurveyAddQuestion;
+            para = @{@"code":       code,
+                     @"question":   emojiCovert,
+                     @"user_id":    US.userId};
+            break;
+        default:
+            return;
+            break;
     }
-    else if (self.type == kPublishXiong){
-        url = API_SurveyAddComment;
-        para = @{@"type":       @"2",
-                 @"content":    emojiCovert,
-                 @"code":       code,
-                 @"user_id":    US.userId};
-        isNiu = NO;
-    }
-    else if (self.type == kPublishAsk){
-        url = API_SurveyAddQuestion;
-        para = @{@"code":       code,
-                 @"question":   emojiCovert,
-                 @"user_id":    US.userId};
-    }
+    
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"提交中";
     
+    NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:url parameters:para completion:^(id data, NSError *error) {
         if (!error) {
             [hud hide:YES];

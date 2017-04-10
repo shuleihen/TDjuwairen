@@ -16,7 +16,7 @@
 #import "MJRefresh.h"
 
 @interface MyGuessViewController ()
-@property (copy, nonatomic) NSMutableArray *items;
+@property (strong, nonatomic) NSMutableArray *items;
 @property (assign, nonatomic) NSInteger currentPage;
 @end
 

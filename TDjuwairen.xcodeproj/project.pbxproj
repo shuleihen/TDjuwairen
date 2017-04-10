@@ -46,12 +46,6 @@
 		19194CE71E7FDDA800641085 /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CDE1E7FDDA800641085 /* SurveyContentListController.m */; };
 		19194CE81E7FDDA800641085 /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CE01E7FDDA800641085 /* SurveyListViewController.m */; };
 		19194CE91E7FDDA800641085 /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CE31E7FDDA800641085 /* StockManager.m */; };
-		19194CFA1E7FDDDE00641085 /* OptionalManageTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CED1E7FDDDE00641085 /* OptionalManageTableViewCell.m */; };
-		19194CFB1E7FDDDE00641085 /* OptionalStockTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CEF1E7FDDDE00641085 /* OptionalStockTableViewCell.m */; };
-		19194CFC1E7FDDDE00641085 /* OptionalManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF21E7FDDDE00641085 /* OptionalManageViewController.m */; };
-		19194CFD1E7FDDDE00641085 /* OptionalStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF41E7FDDDE00641085 /* OptionalStockViewController.m */; };
-		19194CFE1E7FDDDE00641085 /* OptionalHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF71E7FDDDE00641085 /* OptionalHeadView.m */; };
-		19194CFF1E7FDDDE00641085 /* OptionalManageHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CF91E7FDDDE00641085 /* OptionalManageHeadView.m */; };
 		19194D051E7FDED000641085 /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D021E7FDED000641085 /* SurveyListModel.m */; };
 		19194D061E7FDED000641085 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D041E7FDED000641085 /* SurveyModel.m */; };
 		19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D081E7FDF0500641085 /* SurveySubjectModel.m */; };
@@ -628,18 +622,6 @@
 		19194CE01E7FDDA800641085 /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
 		19194CE21E7FDDA800641085 /* StockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockManager.h; sourceTree = "<group>"; };
 		19194CE31E7FDDA800641085 /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
-		19194CEC1E7FDDDE00641085 /* OptionalManageTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageTableViewCell.h; sourceTree = "<group>"; };
-		19194CED1E7FDDDE00641085 /* OptionalManageTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageTableViewCell.m; sourceTree = "<group>"; };
-		19194CEE1E7FDDDE00641085 /* OptionalStockTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalStockTableViewCell.h; sourceTree = "<group>"; };
-		19194CEF1E7FDDDE00641085 /* OptionalStockTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalStockTableViewCell.m; sourceTree = "<group>"; };
-		19194CF11E7FDDDE00641085 /* OptionalManageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageViewController.h; sourceTree = "<group>"; };
-		19194CF21E7FDDDE00641085 /* OptionalManageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageViewController.m; sourceTree = "<group>"; };
-		19194CF31E7FDDDE00641085 /* OptionalStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalStockViewController.h; sourceTree = "<group>"; };
-		19194CF41E7FDDDE00641085 /* OptionalStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalStockViewController.m; sourceTree = "<group>"; };
-		19194CF61E7FDDDE00641085 /* OptionalHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalHeadView.h; sourceTree = "<group>"; };
-		19194CF71E7FDDDE00641085 /* OptionalHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalHeadView.m; sourceTree = "<group>"; };
-		19194CF81E7FDDDE00641085 /* OptionalManageHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OptionalManageHeadView.h; sourceTree = "<group>"; };
-		19194CF91E7FDDDE00641085 /* OptionalManageHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OptionalManageHeadView.m; sourceTree = "<group>"; };
 		19194D011E7FDED000641085 /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
 		19194D021E7FDED000641085 /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
 		19194D031E7FDED000641085 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
@@ -1823,49 +1805,6 @@
 				19194CE31E7FDDA800641085 /* StockManager.m */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		19194CEA1E7FDDDE00641085 /* Optional */ = {
-			isa = PBXGroup;
-			children = (
-				19194CEB1E7FDDDE00641085 /* Cells */,
-				19194CF01E7FDDDE00641085 /* Controllers */,
-				19194CF51E7FDDDE00641085 /* Views */,
-			);
-			path = Optional;
-			sourceTree = "<group>";
-		};
-		19194CEB1E7FDDDE00641085 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				19194CEC1E7FDDDE00641085 /* OptionalManageTableViewCell.h */,
-				19194CED1E7FDDDE00641085 /* OptionalManageTableViewCell.m */,
-				19194CEE1E7FDDDE00641085 /* OptionalStockTableViewCell.h */,
-				19194CEF1E7FDDDE00641085 /* OptionalStockTableViewCell.m */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		19194CF01E7FDDDE00641085 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				19194CF11E7FDDDE00641085 /* OptionalManageViewController.h */,
-				19194CF21E7FDDDE00641085 /* OptionalManageViewController.m */,
-				19194CF31E7FDDDE00641085 /* OptionalStockViewController.h */,
-				19194CF41E7FDDDE00641085 /* OptionalStockViewController.m */,
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		19194CF51E7FDDDE00641085 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-				19194CF61E7FDDDE00641085 /* OptionalHeadView.h */,
-				19194CF71E7FDDDE00641085 /* OptionalHeadView.m */,
-				19194CF81E7FDDDE00641085 /* OptionalManageHeadView.h */,
-				19194CF91E7FDDDE00641085 /* OptionalManageHeadView.m */,
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		19194D001E7FDED000641085 /* Models */ = {
@@ -3629,7 +3568,6 @@
 				19959B711E2C5D4300AB26DF /* Grade */,
 				19AF98441E271FFB0097A585 /* ApplySurvey */,
 				194F058E1E27425400C8CB8A /* Subscription */,
-				19194CEA1E7FDDDE00641085 /* Optional */,
 				19194CD41E7FDDA700641085 /* Survey */,
 				1953CAED1E7172DB00A64B3C /* Alive */,
 			);
@@ -4748,18 +4686,15 @@
 				195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				19F00D151E2EFFD9009270D5 /* SurveyMoreViewController.m in Sources */,
-				19194CFE1E7FDDDE00641085 /* OptionalHeadView.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
 				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
-				19194CFB1E7FDDDE00641085 /* OptionalStockTableViewCell.m in Sources */,
 				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
-				19194CFD1E7FDDDE00641085 /* OptionalStockViewController.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
 				19386ECC1E7188AD00D4426E /* AliveMasterModel.m in Sources */,
 				196F5EC91E54847700928B60 /* Base64.m in Sources */,
@@ -4987,7 +4922,6 @@
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */,
-				19194CFA1E7FDDDE00641085 /* OptionalManageTableViewCell.m in Sources */,
 				19E958351DAC896800BA37C5 /* UserInfoViewController.m in Sources */,
 				19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
@@ -5070,7 +5004,6 @@
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
 				19194D221E80D08900641085 /* SSColorfulRefresh.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
-				19194CFC1E7FDDDE00641085 /* OptionalManageViewController.m in Sources */,
 				4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */,
 				19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */,
 				1955B49F1D644D9800DC102E /* ViewInfoModel.m in Sources */,
@@ -5106,7 +5039,6 @@
 				1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */,
 				190F65F71E36E73000B83ADF /* MyOrderViewController.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
-				19194CFF1E7FDDDE00641085 /* OptionalManageHeadView.m in Sources */,
 				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
 				19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,

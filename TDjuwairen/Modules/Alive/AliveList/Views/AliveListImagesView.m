@@ -26,9 +26,7 @@
 //    self.backgroundColor = [UIColor blueColor];
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
-    CGFloat height = 0.f;
-    
+        
     [self.imageViews removeAllObjects];
     
     if (images.count == 1) {
@@ -42,7 +40,6 @@
         [one sd_setImageWithURL:[NSURL URLWithString:images.firstObject] placeholderImage:nil];
         [self addSubview:one];
         
-        height = 180.0f;
     } else if (images.count > 1)  {
         int x =0,y =0,i =0;
         
@@ -65,13 +62,8 @@
             y = (i+1)/3;
             i++;
         }
-        
-        height = 80*x + (((x-1)>0)?((x-1)*5):0);
     }
     
-//    CGRect rect = self.bounds;
-//    rect.size.height = height;
-//    self.bounds = rect;
 }
 
 

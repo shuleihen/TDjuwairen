@@ -15,9 +15,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        
-        CGFloat w = kScreenWidth;
-        
+                
         _avatar = [[UIImageView alloc] initWithFrame:CGRectMake(12, 15, 40, 40)];
         _avatar.layer.cornerRadius = 20.0f;
         _avatar.clipsToBounds = YES;

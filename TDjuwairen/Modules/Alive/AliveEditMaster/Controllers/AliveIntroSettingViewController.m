@@ -79,7 +79,7 @@
 - (BOOL)textView:(UITextView *)textView shouldChangeTextInRange:(NSRange)range replacementText:(NSString *)text {
     
     NSString *string = textView.text;
-    string = [string stringByReplacingCharactersInRange:range withString:string];
+    string = [string stringByReplacingCharactersInRange:range withString:text];
     
     if (text.length > 49) {
         return NO;

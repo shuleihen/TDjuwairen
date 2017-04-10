@@ -10,7 +10,7 @@
 
 @implementation UIImage (Resize)
 - (UIImage *)resize:(CGSize)size {
-    UIImage *image = self;
+    UIImage *image;
 
     UIGraphicsBeginImageContextWithOptions(size, YES, [UIScreen mainScreen].scale);
     [self drawInRect:CGRectMake(0, 0, size.width, size.height)];
