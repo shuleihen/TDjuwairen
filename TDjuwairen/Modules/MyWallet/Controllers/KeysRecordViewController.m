@@ -13,16 +13,15 @@
 #import "RecordModel.h"
 #import "OrderDetailTableViewCell.h"
 #import "NoOrderTableViewCell.h"
-
 #import "LoginState.h"
 #import "UIdaynightModel.h"
-
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
 #import "MJRefresh.h"
 #import "Masonry.h"
 #import "HexColors.h"
 #import "NSString+Ext.h"
+#import "NetworkManager.h"
 
 @interface KeysRecordViewController ()<UITableViewDataSource,UITableViewDelegate,OrderDetailCellDelegate>
 @property (nonatomic,strong) UIdaynightModel *daynightModel;
@@ -142,40 +141,40 @@
 }
 
 - (void)requestWithKeyRecord{
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@User/getUserKeyRecord",API_HOST];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *para = @{@"user_id":US.userId,
                            @"page":[NSString stringWithFormat:@"%d",self.page]};
-    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-        nil;
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSLog(@"%@",responseObject);
-        NSArray *dataArr = responseObject[@"data"];
-        
-        if (dataArr.count > 0 ) {
-            NSMutableArray *list = nil;
-            if (self.page == 1) {
-                list = [NSMutableArray arrayWithCapacity:[dataArr count]];
+    
+    __weak KeysRecordViewController *wself = self;
+    
+    [ma POST:API_GetUserKeyRecord parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            NSArray *dataArr = data;
+            
+            if (dataArr.count > 0 ) {
+                NSMutableArray *list = nil;
+                if (wself.page == 1) {
+                    list = [NSMutableArray arrayWithCapacity:[dataArr count]];
+                }
+                else
+                {
+                    list = [NSMutableArray arrayWithArray:self.keyRecordArr];
+                }
+                for (NSDictionary *dic in dataArr) {
+                    RecordModel *model = [RecordModel getInstanceWithDic:dic];
+                    [list addObject:model];
+                }
+                wself.keyRecordArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
-            else
-            {
-                list = [NSMutableArray arrayWithArray:self.keyRecordArr];
-            }
-            for (NSDictionary *dic in dataArr) {
-                RecordModel *model = [RecordModel getInstanceWithDic:dic];
-                [list addObject:model];
-            }
-            self.keyRecordArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+            
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
+            [wself.tableview reloadData];
+        } else {
+            [wself.tableview.mj_header endRefreshing];
+            [wself.tableview.mj_footer endRefreshing];
         }
-        
-        [self.tableview.mj_header endRefreshing];
-        [self.tableview.mj_footer endRefreshing];
-        [self.tableview reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-        [self.tableview.mj_header endRefreshing];
-        [self.tableview.mj_footer endRefreshing];
     }];
 }
 
@@ -184,37 +183,18 @@
 {
     RecordModel *model = self.keyRecordArr[sender.tag];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@User/delKeyRecord",API_HOST];
     NSDictionary *para = @{@"recordID":model.record_id};
-    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-        nil;
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *data = responseObject[@"data"];
-        if (data[@"status"]) {
-            [self.keyRecordArr removeObject:model];
-            [self.tableview deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-        }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-    }];
+    NetworkManager *ma = [[NetworkManager alloc] init];
     
+    [ma POST:API_DeleteUserKeyRecord parameters:para completion:^(id data,NSError *error){
+        if (!error) {
+            if (data[@"status"]) {
+                [self.keyRecordArr removeObject:model];
+                [self.tableview deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            }
+        }
+    }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
- #pragma mark - Navigation
- 
- // In a storyboard-based application, you will often want to do a little preparation before navigation
- - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
- // Get the new view controller using [segue destinationViewController].
- // Pass the selected object to the new view controller.
- }
- */
 
 @end

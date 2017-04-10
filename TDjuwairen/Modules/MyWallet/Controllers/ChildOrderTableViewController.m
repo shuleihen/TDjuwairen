@@ -19,7 +19,7 @@
 #import "MJRefresh.h"
 #import "HexColors.h"
 #import "Masonry.h"
-
+#import "NetworkManager.h"
 #import "LoginState.h"
 #import "UIdaynightModel.h"
 
@@ -75,37 +75,39 @@
     NSDictionary *para = @{@"user_id":US.userId,
                            @"type":[NSString stringWithFormat:@"%d",tag-1],
                            @"page":[NSString stringWithFormat:@"%d",self.page]};
-    NSString *url = [NSString stringWithFormat:@"%@User/getUserOrder",API_HOST];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-        nil;
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSArray *dataArr = responseObject[@"data"];
-        
-        if (dataArr.count > 0 ) {
-            NSMutableArray *list = nil;
-            if (self.page == 1) {
-                list = [NSMutableArray arrayWithCapacity:[dataArr count]];
+
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_GetUserOrder parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            if (![data isKindOfClass:[NSArray class]]) {
+                return;
             }
-            else
-            {
-                list = [NSMutableArray arrayWithArray:self.orderArr];
+            
+            NSArray *dataArr = data;
+            
+            if (dataArr.count > 0 ) {
+                NSMutableArray *list = nil;
+                if (self.page == 1) {
+                    list = [NSMutableArray arrayWithCapacity:[dataArr count]];
+                }
+                else
+                {
+                    list = [NSMutableArray arrayWithArray:self.orderArr];
+                }
+                for (NSDictionary *dic in dataArr) {
+                    OrderModel *model = [OrderModel getInstanceFromDic:dic];
+                    [list addObject:model];
+                }
+                self.orderArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
             }
-            for (NSDictionary *dic in dataArr) {
-                OrderModel *model = [OrderModel getInstanceFromDic:dic];
-                [list addObject:model];
-            }
-            self.orderArr = [NSMutableArray arrayWithArray:[list sortedArrayUsingSelector:@selector(compare:)]];
+            
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
+            [self.tableView reloadData];
+        } else {
+            [self.tableView.mj_header endRefreshing];
+            [self.tableView.mj_footer endRefreshing];
         }
-        
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
-        [self.tableView reloadData];
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
-        [self.tableView.mj_header endRefreshing];
-        [self.tableView.mj_footer endRefreshing];
     }];
 }
 
@@ -182,20 +184,18 @@
 {
     OrderModel *model = self.orderArr[sender.tag];
     NSIndexPath *indexPath = [NSIndexPath indexPathForRow:sender.tag inSection:0];
-    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
-    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json", @"text/json", @"text/javascript",@"application/x-json",@"text/html", nil];
-    NSString *url = [NSString stringWithFormat:@"%@User/delUserOrder",API_HOST];
     NSDictionary *para = @{@"orderID":model.order_id};
-    [manager POST:url parameters:para progress:^(NSProgress * _Nonnull uploadProgress) {
-        nil;
-    } success:^(NSURLSessionDataTask * _Nonnull task, id  _Nullable responseObject) {
-        NSDictionary *data = responseObject[@"data"];
-        if (data[@"status"]) {
-            [self.orderArr removeObject:model];
-            [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_DeleteUserOrder parameters:para completion:^(id data, NSError *error){
+        if (!error) {
+            if (data[@"status"]) {
+                [self.orderArr removeObject:model];
+                [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+            }
+        } else {
+            
         }
-    } failure:^(NSURLSessionDataTask * _Nullable task, NSError * _Nonnull error) {
-        NSLog(@"%@",error);
     }];
     
 }
