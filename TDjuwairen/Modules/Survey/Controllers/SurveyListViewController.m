@@ -25,7 +25,6 @@
 #import "MJRefresh.h"
 #import "StockDetailViewController.h"
 #import "WelcomeView.h"
-#import "PersonalCenterViewController.h"
 #import "TDNavigationController.h"
 #import "UIButton+Align.h"
 #import "HMSegmentedControl.h"
@@ -317,7 +316,6 @@
 
 - (void)avatarPressed:(id)sender {
     UIViewController *vc = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateInitialViewController];
-//    PersonalCenterViewController *vc = [[PersonalCenterViewController alloc] init];
     TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:nav animated:YES completion:nil];
 }

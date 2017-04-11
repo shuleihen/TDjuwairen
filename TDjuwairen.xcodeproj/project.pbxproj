@@ -122,7 +122,6 @@
 		194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186D01DF81284000C5197 /* SettingIntroViewController.m */; };
 		194186DA1DF81284000C5197 /* SettingNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186D31DF81284000C5197 /* SettingNickNameViewController.m */; };
 		194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186D61DF81284000C5197 /* SettingPostViewController.m */; };
-		194186DE1DF8128B000C5197 /* PersonalCenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186DD1DF8128B000C5197 /* PersonalCenterViewController.m */; };
 		194186E21DF8132A000C5197 /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186E11DF8132A000C5197 /* LoginState.m */; };
 		194186E61DF90672000C5197 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 194186E51DF90672000C5197 /* Register.storyboard */; };
 		194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186EA1DF90CA4000C5197 /* GuideViewController.m */; };
@@ -766,8 +765,6 @@
 		194186D31DF81284000C5197 /* SettingNickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingNickNameViewController.m; sourceTree = "<group>"; };
 		194186D51DF81284000C5197 /* SettingPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPostViewController.h; sourceTree = "<group>"; };
 		194186D61DF81284000C5197 /* SettingPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPostViewController.m; sourceTree = "<group>"; };
-		194186DC1DF8128B000C5197 /* PersonalCenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PersonalCenterViewController.h; sourceTree = "<group>"; };
-		194186DD1DF8128B000C5197 /* PersonalCenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PersonalCenterViewController.m; sourceTree = "<group>"; };
 		194186E01DF8132A000C5197 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
 		194186E11DF8132A000C5197 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
 		194186E51DF90672000C5197 /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
@@ -2750,8 +2747,6 @@
 				1955B3EA1D644D9800DC102E /* EditView.h */,
 				1955B3EB1D644D9800DC102E /* EditView.m */,
 				1955B3EC1D644D9800DC102E /* EditView.xib */,
-				194186DC1DF8128B000C5197 /* PersonalCenterViewController.h */,
-				194186DD1DF8128B000C5197 /* PersonalCenterViewController.m */,
 			);
 			path = MyCenter;
 			sourceTree = "<group>";
@@ -4844,7 +4839,6 @@
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */,
 				19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */,
-				194186DE1DF8128B000C5197 /* PersonalCenterViewController.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
 				19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */,
 				19F43C251E232C98001B72CD /* VideoViewController.m in Sources */,

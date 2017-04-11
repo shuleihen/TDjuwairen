@@ -15,8 +15,11 @@
 #import "NetworkManager.h"
 #import "CenterItemView.h"
 #import "AliveRoomViewController.h"
+#import "UIImage+Resize.h"
 
-@interface CenterViewController ()
+@interface CenterViewController ()<UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
+@property (weak, nonatomic) IBOutlet UIImageView *headerImageView;
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (nonatomic, strong) NSArray *classesArray;
@@ -38,6 +41,10 @@
     
     self.tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
+    
+    self.headerImageView.contentMode = UIViewContentModeCenter;
+    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
+    self.headerImageView.image = [image resize:CGSizeMake(kScreenWidth, 210)];
     
     self.avatarBtn.layer.cornerRadius = 40.0f;
     self.avatarBtn.clipsToBounds = YES;
@@ -157,6 +164,21 @@
         aliveMasterListVC.masterId = US.userId;
         aliveMasterListVC.listType = AliveFansList;
         [self.navigationController pushViewController:aliveMasterListVC animated:YES];
+    }
+}
+
+#pragma mark - UIScrollDelegate
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+    CGFloat offy = scrollView.contentOffset.y;
+    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
+    
+    if (offy < 0) {
+        CGFloat f = 1+fabs(offy)/210;
+        self.headerBgImageheight.constant = 210 + fabs(offy);
+        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame)*f, 210*f)];
+    } else {
+        self.headerBgImageheight.constant = 210;
+        self.headerImageView.image = image;
     }
 }
 
