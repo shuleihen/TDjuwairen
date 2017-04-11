@@ -216,6 +216,7 @@
 		196894751E9C800B009F1741 /* MyAttentionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1968946B1E9C800B009F1741 /* MyAttentionViewController.m */; };
 		196894761E9C800B009F1741 /* UserInfoHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1968946D1E9C800B009F1741 /* UserInfoHeadView.m */; };
 		196894771E9C800B009F1741 /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1968946F1E9C800B009F1741 /* UserInfoViewController.m */; };
+		1968947A1E9CB307009F1741 /* IndividualStockRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 196894791E9CB307009F1741 /* IndividualStockRecordModel.m */; };
 		196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */; };
 		196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */ = {isa = PBXBuildFile; fileRef = 196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */; };
 		196F5EC91E54847700928B60 /* Base64.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5EC81E54847700928B60 /* Base64.m */; };
@@ -322,7 +323,7 @@
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
 		19E5F26E1E12614200984DBC /* BorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F26D1E12614200984DBC /* BorderButton.m */; };
 		19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2791E1364CF00984DBC /* GuessCommentModel.m */; };
-		19E5F2851E1364CF00984DBC /* MyGuessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27B1E1364CF00984DBC /* MyGuessModel.m */; };
+		19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27B1E1364CF00984DBC /* IndexStockRecordModel.m */; };
 		19E5F2861E1364CF00984DBC /* StockGuessModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27D1E1364CF00984DBC /* StockGuessModel.m */; };
 		19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2831E1364CF00984DBC /* StockWheelView.m */; };
 		19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */ = {isa = PBXBuildFile; fileRef = 19E5F28A1E1364E000984DBC /* PlayStockIndexRule.html */; };
@@ -944,6 +945,8 @@
 		1968946D1E9C800B009F1741 /* UserInfoHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoHeadView.m; sourceTree = "<group>"; };
 		1968946E1E9C800B009F1741 /* UserInfoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
 		1968946F1E9C800B009F1741 /* UserInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		196894781E9CB307009F1741 /* IndividualStockRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndividualStockRecordModel.h; sourceTree = "<group>"; };
+		196894791E9CB307009F1741 /* IndividualStockRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndividualStockRecordModel.m; sourceTree = "<group>"; };
 		196B8BFE1DFA40DD00084894 /* YXSecurityCodeButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSecurityCodeButton.h; sourceTree = "<group>"; };
 		196B8BFF1DFA40DD00084894 /* YXSecurityCodeButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSecurityCodeButton.m; sourceTree = "<group>"; };
 		196B8C011DFA4EC500084894 /* MBProgressHUD+Custom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "MBProgressHUD+Custom.h"; sourceTree = "<group>"; };
@@ -1147,8 +1150,8 @@
 		19E5F26D1E12614200984DBC /* BorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderButton.m; sourceTree = "<group>"; };
 		19E5F2781E1364CF00984DBC /* GuessCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentModel.h; sourceTree = "<group>"; };
 		19E5F2791E1364CF00984DBC /* GuessCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentModel.m; sourceTree = "<group>"; };
-		19E5F27A1E1364CF00984DBC /* MyGuessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuessModel.h; sourceTree = "<group>"; };
-		19E5F27B1E1364CF00984DBC /* MyGuessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuessModel.m; sourceTree = "<group>"; };
+		19E5F27A1E1364CF00984DBC /* IndexStockRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IndexStockRecordModel.h; sourceTree = "<group>"; };
+		19E5F27B1E1364CF00984DBC /* IndexStockRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IndexStockRecordModel.m; sourceTree = "<group>"; };
 		19E5F27C1E1364CF00984DBC /* StockGuessModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockGuessModel.h; sourceTree = "<group>"; };
 		19E5F27D1E1364CF00984DBC /* StockGuessModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockGuessModel.m; sourceTree = "<group>"; };
 		19E5F2821E1364CF00984DBC /* StockWheelView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockWheelView.h; sourceTree = "<group>"; };
@@ -3672,10 +3675,12 @@
 			children = (
 				19E5F2781E1364CF00984DBC /* GuessCommentModel.h */,
 				19E5F2791E1364CF00984DBC /* GuessCommentModel.m */,
-				19E5F27A1E1364CF00984DBC /* MyGuessModel.h */,
-				19E5F27B1E1364CF00984DBC /* MyGuessModel.m */,
+				19E5F27A1E1364CF00984DBC /* IndexStockRecordModel.h */,
+				19E5F27B1E1364CF00984DBC /* IndexStockRecordModel.m */,
 				19E5F27C1E1364CF00984DBC /* StockGuessModel.h */,
 				19E5F27D1E1364CF00984DBC /* StockGuessModel.m */,
+				196894781E9CB307009F1741 /* IndividualStockRecordModel.h */,
+				196894791E9CB307009F1741 /* IndividualStockRecordModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4639,7 +4644,7 @@
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
 				19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */,
 				19AF98331E26234D0097A585 /* NoResultView.m in Sources */,
-				19E5F2851E1364CF00984DBC /* MyGuessModel.m in Sources */,
+				19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */,
 				19386EE81E72432B00D4426E /* AliveListTableViewDelegate.m in Sources */,
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
 				193419A41E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m in Sources */,
@@ -4650,6 +4655,7 @@
 				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
+				1968947A1E9CB307009F1741 /* IndividualStockRecordModel.m in Sources */,
 				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
 				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,

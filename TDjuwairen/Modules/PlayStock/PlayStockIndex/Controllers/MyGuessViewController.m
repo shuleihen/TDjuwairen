@@ -10,9 +10,10 @@
 #import "HexColors.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "MyGuessModel.h"
+#import "IndexStockRecordModel.h"
 #import "MyGuessCell.h"
 #import "AddAddressViewController.h"
+#import "IndividualStockRecordModel.h"
 #import "MJRefresh.h"
 
 @interface MyGuessViewController ()
@@ -89,8 +90,9 @@
                     } else {
                         guessList = [NSMutableArray arrayWithArray:wself.items];
                     }
+                    
                     for (NSDictionary *dict in array) {
-                        MyGuessModel *model = [[MyGuessModel alloc] initWithIndividualDict:dict];
+                        IndividualStockRecordModel *model = [[IndividualStockRecordModel alloc] initWithDictionary:dict];
                         [guessList addObject:model];
                     }
                     
@@ -101,7 +103,7 @@
                 }else {
                     
                     for (NSDictionary *dict in array) {
-                        MyGuessModel *model = [[MyGuessModel alloc] initWithDict:dict];
+                        IndexStockRecordModel *model = [[IndexStockRecordModel alloc] initWithDict:dict];
                         [guessList addObject:model];
                     }
                     wself.items = [NSMutableArray arrayWithArray:guessList];
@@ -150,18 +152,25 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     MyGuessCell *cell = [tableView dequeueReusableCellWithIdentifier:@"MyGuessCellID"];
     
-    MyGuessModel *guess = self.items[indexPath.section];
-    [cell setupGuessInfo:guess];
-    
+    if (self.guessListType == MyGuessIndexListType) {
+        IndexStockRecordModel *guess = self.items[indexPath.section];
+        [cell setupIndexGuessModel:guess];
+    } else {
+        IndividualStockRecordModel *guess = self.items[indexPath.section];
+        [cell setupIndividualGuessModel:guess];
+    }
     
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    MyGuessModel *guess = self.items[indexPath.section];
+    /*
+     领取奖励功能屏蔽掉
+    IndexStockRecordModel *guess = self.items[indexPath.section];
     
     AddAddressViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"AddAddressViewController"];
     vc.guessId = guess.guessId;
     [self.navigationController pushViewController:vc animated:YES];
+     */
 }
 @end

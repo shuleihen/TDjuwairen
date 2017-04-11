@@ -24,10 +24,12 @@
 
 }
 
-- (void)setupGuessInfo:(MyGuessModel *)guess {
+- (void)setupIndexGuessModel:(IndexStockRecordModel *)guess {
+    self.guessTitleLabel.text = @"竞猜指数";
+    self.realTitleLabel.text = @"收盘指数";
     self.guessNameLabel.text = guess.stockName;
     self.dateLabel.text = guess.addTime;
-//    self.sessionLabel.text = guess.seasonString;
+
     NSDateFormatter *df = [[NSDateFormatter alloc] init];
     [df setDateFormat:@"yyyy.MM.dd HH:mm"];
     NSDate *d = [df dateFromString:guess.addTime];
@@ -46,8 +48,25 @@
     [self.betBtn setTitle:key forState:UIControlStateNormal];
     [self.betBtn setTitle:key forState:UIControlStateHighlighted];
     
-    self.prizeBtn.hidden = YES;//!(guess.status == 1);
+    switch (guess.status) {
+        case 0:
+            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            break;
+        case 1:
+        case 2:
+            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            break;
+        case 3:
+        case 4:
+        case 5:
+            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+            break;
+        default:
+            break;
+    }
     
+    self.statusLabel.text = guess.statusString;
+    /*
     if (guess.status == 0) {
         // 待结算
         NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:@" 待开奖"
@@ -61,24 +80,7 @@
         [strAtt insertAttributedString:wait atIndex:0];
         self.statusLabel.attributedText = strAtt;
         
-    } /*else if (guess.status == 1) {
-        // 完全猜中
-        NSString *str = [NSString stringWithFormat:@"赢取%ld把钥匙 + 1500", (long)(guess.odds*guess.buyKeyNum),(long)guess.buyKeyNum];
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
-                                                                                   attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
-                                                                                                NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#ff0000"]}];
-        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-        attatch.bounds = CGRectMake(0, -4, 19, 22);
-        attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
-        
-        NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
-        NSRange range = [str rangeOfString:@"钥匙"];
-        if (range.location != NSNotFound) {
-            [strAtt replaceCharactersInRange:range withAttributedString:wait];
-        }
-        self.statusLabel.attributedText = strAtt;
-        
-    }*/ else if (guess.status == 1 ||
+    } else if (guess.status == 1 ||
                guess.status == 2) {
         // 获胜钥匙
         NSString *str = [NSString stringWithFormat:@"恭喜您，赢取%ld把",(long)(guess.odds*guess.buyKeyNum)];
@@ -101,14 +103,46 @@
                                                                                                 NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}];
         self.statusLabel.attributedText = strAtt;
     }
+     */
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    CGPoint point = [[event.allTouches anyObject] locationInView:self.contentView];
-    BOOL contain = CGRectContainsPoint(self.prizeBtn.frame, point);
+- (void)setupIndividualGuessModel:(IndividualStockRecordModel *)guess {
+    self.guessTitleLabel.text = @"竞猜价";
+    self.realTitleLabel.text = @"收盘价";
+    self.guessNameLabel.text = guess.stockName;
+    self.dateLabel.text = guess.addTime;
+    self.sessionLabel.text = [NSString stringWithFormat:@"%@%@", guess.guessDate,guess.seasonString];
     
-    if (contain) {
-        [super touchesBegan:touches withEvent:event];
+    NSString *key = [NSString stringWithFormat:@"x %ld",(long)guess.keyNumber];
+    [self.betBtn setTitle:key forState:UIControlStateNormal];
+    [self.betBtn setTitle:key forState:UIControlStateHighlighted];
+    
+    self.guessIndexLabel.text = guess.guessPoint;
+    
+    if (guess.endPrice.length) {
+        self.realIndexLabel.text = guess.endPrice;
+    } else {
+        self.realIndexLabel.text = @"--";
     }
+    
+    switch (guess.status) {
+        case 0:
+            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            break;
+        case 1:
+        case 2:
+            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            break;
+        case 3:
+        case 4:
+        case 5:
+            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+            break;
+        default:
+            break;
+    }
+    
+    self.statusLabel.text = guess.guessReword;
 }
+
 @end
