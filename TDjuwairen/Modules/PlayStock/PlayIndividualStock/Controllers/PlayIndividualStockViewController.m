@@ -229,7 +229,7 @@
         if (!error) {
             NSDictionary *dict = data;
             
-            if (dict[@"guess_status"]) {
+            if ([dict[@"guess_status"] boolValue] == NO) {
                 [self.view makeToast:@"已封盘" duration:0.8 position:CSToastPositionCenter];
             }else {
                 
