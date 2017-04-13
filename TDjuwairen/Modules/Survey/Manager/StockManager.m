@@ -185,6 +185,15 @@ void executeSource(void *info) {
     }
 }
 
+- (void)queryStockId:(NSString *)stockId {
+    self.stockIds = [NSMutableArray arrayWithObjects:stockId, nil];
+    
+    if (sourceRef) {
+        DDLogInfo(@"Add stocks wakeup");
+        CFRunLoopSourceSignal(sourceRef);
+        CFRunLoopWakeUp(currentRunlopRef);
+    }
+}
 
 - (void)handleWithStockData:(NSData *)data {
 
@@ -259,4 +268,6 @@ void executeSource(void *info) {
     }
     return _manager;
 }
+
+
 @end

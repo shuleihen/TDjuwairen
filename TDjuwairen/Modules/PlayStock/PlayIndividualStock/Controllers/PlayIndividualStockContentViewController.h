@@ -17,16 +17,9 @@ typedef enum : NSUInteger {
 @class PlayIndividualStockViewController;
 @class PlayGuessIndividua;
 
-@interface PlayIndividualStockContentViewController : UIViewController
+@interface PlayIndividualStockContentViewController : UITableViewController
 /// 1表示上午场，2表示下午场	是
 @property (assign, nonatomic) NSInteger listSeason;
-@property (copy, nonatomic) NSString *listTag;
 
-@property (nonatomic, strong) PlayIndividualStockViewController *superVC;
-//PlayListModel
-@property (nonatomic, strong) PlayGuessIndividua *guessModel;
-@property (nonatomic, strong) NSDictionary *stockInfo;
-
-- (id)initWithPlayIndividualStockContentViewControllerWithFrame:(CGRect)rect andListType:(PlayIndividualContentType)listType;
-
+@property (nonatomic, assign) PlayIndividualContentType listType;
 @end

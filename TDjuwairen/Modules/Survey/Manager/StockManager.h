@@ -43,7 +43,11 @@
 // 查询时间间隔，默认15秒
 @property (nonatomic, assign) NSInteger interval;
 
+// 添加查询
 - (void)addStocks:(NSArray *)stockArray;
+
+// 单独查询一次
+- (void)queryStockId:(NSString *)stockId;
 
 // 默认每15秒查询一次
 - (void)start;

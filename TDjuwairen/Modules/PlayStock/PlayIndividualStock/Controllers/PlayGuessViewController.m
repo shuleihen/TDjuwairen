@@ -12,19 +12,15 @@
 #import "UIImage+Create.h"
 #import "STPopup.h"
 #import "NetworkManager.h"
+#import "StockManager.h"
 
+@interface PlayGuessViewController ()<UITextFieldDelegate, StockManagerDelegate>
 
-@interface PlayGuessViewController ()<UITextFieldDelegate>
-{
-    __weak IBOutlet UILabel *label_CountDown;
-    
-    
-    __weak IBOutlet UILabel *label_NowTime;
-    
-    __weak IBOutlet UILabel *label_moneyUse;
-}
+@property (weak, nonatomic) IBOutlet UILabel *label_CountDown;
+@property (weak, nonatomic) IBOutlet UILabel *label_NowTime;
+@property (weak, nonatomic) IBOutlet UILabel *label_moneyUse;
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
-
+@property (nonatomic, strong) StockManager *stockManager;
 
 @end
 
@@ -35,12 +31,14 @@
     [self initViews];
     [self initValue];
     // Do any additional setup after loading the view from its nib.
+    
+    self.stockManager = [[StockManager alloc] init];
+    self.stockManager.delegate = self;
+    self.stockManager.isOpenTimer = NO;
 }
 
 
-- (void)initValue
-{
-    
+- (void)initValue {
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     __weak PlayGuessViewController *wself = self;
@@ -53,7 +51,7 @@
             NSInteger  regiTime = [guess_endtime integerValue] - nowDate;
             
             [wself startWithTime:regiTime block:^(NSString *day) {
-                label_CountDown.text = day;
+                wself.label_CountDown.text = day;
             }];
         }
     }];
@@ -62,8 +60,7 @@
     _inputView.delegate = self;
 }
 
-- (void)initViews
-{
+- (void)initViews {
     [_inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
     _inputView.layer.cornerRadius = 4;
     _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
@@ -116,17 +113,37 @@
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
 }
 
+#pragma mark - UITextFieldDelegate
+
 - (void)inputChange:(UITextField *)tf
 {
-    if (tf.text.length>6) {
-        [tf.text stringByReplacingCharactersInRange:NSMakeRange(6,1) withString:@""];
+    if (tf.text.length == 6) {
+        [self.stockManager queryStockId:tf.text];
+    }
+}
+
+- (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
+    NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
+    
+    return !(text.length == 7);
+}
+
+#pragma mark - StockManagerDelegate
+- (void)reloadWithStocks:(NSDictionary *)stocks {
+    StockInfo *stock = stocks.allValues.firstObject;
+    
+    if (stock) {
+        self.stepper.maximumValue = stock.yestodEndPriValue*1.1;
+        self.stepper.minimumValue = stock.yestodEndPriValue*0.9;
+        self.stepper.value = stock.nowPriValue;
+        self.stepper.stepValue = 0.01;
     }
 }
 
 - (void)setSeason:(NSInteger)season
 {
     _season = season;
-    label_NowTime.text = [NSString stringWithFormat:@"%@%@",_guess_date,_season == 1?@"上午场":@"下午场"];
+    self.label_NowTime.text = [NSString stringWithFormat:@"%@%@",self.guess_date,self.season == 1?@"上午场":@"下午场"];
 }
 
 - (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
@@ -160,8 +177,6 @@
 
 #pragma mark - action
 - (IBAction)determineClick:(id)sender {
-    
-    
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:season:)]) {
         [self.delegate addWithGuessId:_inputView.text pri:self.stepper.value season:self.season];

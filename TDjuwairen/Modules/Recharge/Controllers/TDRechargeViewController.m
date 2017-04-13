@@ -147,7 +147,13 @@
     
     __weak TDRechargeViewController *wself = self;
     
-    NSDictionary *para = @{@"receipt": receiptString};
+    BOOL isDebug = NO;
+#ifdef DEBUG
+    isDebug = YES;
+#endif
+    
+    NSDictionary *para = @{@"receipt": receiptString,
+                           @"debug": @(isDebug)};
     NetworkManager *ma = [[NetworkManager alloc] init];
 
     

@@ -47,6 +47,7 @@
     label_enjoy.text = [NSString stringWithFormat:@"%@",model.guess_item_num];
     label_detailDesc.text = SafeValue(model.artile_info[@"article_title"]);
     label_money.text = [NSString stringWithFormat:@"%@把",model.guess_key_num];
+    
     if ([model.artile_info[@"article_type"] isEqual:@1]) {
         label_detailTitle.text = @"调研";
     }else if ([model.artile_info[@"article_type"] isEqual:@2]) {
@@ -58,9 +59,9 @@
     }else{
         label_detailTitle.text = @"";
     }
-    button_guess.selected = [model.guess_status boolValue];
-    button_guess.userInteractionEnabled = ![model.guess_status boolValue];
-    [button_guess setTitle:[self getStateWithState:model.guess_status] forState:UIControlStateNormal];
+    
+    button_guess.enabled = [self joinButtonEnabled];
+    [button_guess setTitle:[self joinButtonTitle] forState:UIControlStateNormal];
 }
 
 - (void)setupStock:(StockInfo *)stock {
@@ -83,15 +84,12 @@
     label_left.text = nowPriString;
     label_mid.text = [NSString stringWithFormat:@"%+.2lf",value];
     label_right.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
-
-    
 }
 
 - (IBAction)enjoyClick:(id)sender {
     if (_enjoyBlock) {
         _enjoyBlock();
     }
-    
 }
 
 - (IBAction)buttonClick:(id)sender {
@@ -109,14 +107,24 @@
     }
 }
 
+- (BOOL)joinButtonEnabled {
+    if (self.model.has_join) {
+        return NO;
+    } else {
+        return ([self.model.guess_status intValue] == 0);
+    }
+}
 
-- (NSString *)getStateWithState:(NSNumber *)state
-{
-    if ([state isEqual:@0]) {
-        return @"参与竞猜";
-    }else if ([state isEqual:@1]){
-        return @"已封盘";
-    }return @"已结束";
+- (NSString *)joinButtonTitle {
+    if (self.model.has_join) {
+        return @"已参与";
+    } else {
+        if ([self.model.guess_status isEqual:@0]) {
+            return @"参与竞猜";
+        }else if ([self.model.guess_status isEqual:@1]){
+            return @"已封盘";
+        }return @"已结束";
+    }
 }
 
 @end

@@ -24,9 +24,14 @@
 #import "MJRefresh.h"
 
 @interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource,GuessAddPourDelegate,PlayGuessViewControllerDelegate,StockManagerDelegate>
-@property (nonatomic, strong) UITableView *tableView;
-@property (assign, nonatomic) NSInteger currentIndex;
 
+
+@property (copy, nonatomic) NSString *listTag;
+
+//PlayListModel
+@property (nonatomic, strong) PlayGuessIndividua *guessModel;
+@property (nonatomic, strong) NSDictionary *stockInfo;
+@property (assign, nonatomic) NSInteger currentIndex;
 @property (nonatomic, strong) NSArray *listArr;
 @property (nonatomic, strong) StockManager *stockManager;
 
@@ -37,43 +42,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
 
 @implementation PlayIndividualStockContentViewController
 
-- (id)initWithPlayIndividualStockContentViewControllerWithFrame:(CGRect)rect andListType:(PlayIndividualContentType)listType {
-    
-    if (self = [super init]) {
-        self.view.frame = rect;
-        if (listType == PlayIndividualContentNewType) {
-            self.listTag = @"0";
-            self.listSeason = 1;
-        }else {
-            
-            self.listTag = @"1";
-        }
-        
-    }
-    return self;
-}
-
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
-        _tableView.backgroundColor = [UIColor clearColor];
-        _tableView.separatorColor = TDSeparatorColor;
-        _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.showsVerticalScrollIndicator = NO;
-        _tableView.tableFooterView = [UIView new];
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-        [_tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefresh)];
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
-    }
-    
-    return _tableView;
-}
-
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -81,19 +49,35 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     [self setUpUICommon];
 }
 
-
 - (void)setUpValue {
     _listArr = [NSArray new];
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.interval = 10;
     self.stockManager.delegate = self;
+    
+    if (self.listType == PlayIndividualContentNewType) {
+        self.listTag = @"0";
+        self.listSeason = 1;
+    }else {
+        
+        self.listTag = @"1";
+    }
 }
 
 - (void)setUpUICommon {
     
-    [self.view addSubview:self.tableView];
-    
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = TDSeparatorColor;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.showsVerticalScrollIndicator = NO;
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [self.tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:KPlayIndividualContentCell];
+    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefresh)];
+    self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMore)];
 }
 
 
@@ -243,7 +227,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         popupController.navigationBarHidden = YES;
         popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
         popupController.style = STPopupStyleBottomSheet;
-        [popupController presentInViewController:_superVC];
+        [popupController presentInViewController:self];
     };
     
 #pragma mark - 获取参与竞猜人员
@@ -257,7 +241,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         popupController.navigationBarHidden = YES;
         popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-80, 220);
         popupController.style = STPopupTransitionStyleSlideVertical;
-        [popupController presentInViewController:_superVC];
+        [popupController presentInViewController:self];
         
     };
     
@@ -322,13 +306,13 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         //跳转到登录页面
         LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;//跳转时隐藏tabbar
-        [self.superVC.navigationController pushViewController:login animated:YES];
+        [self.navigationController pushViewController:login animated:YES];
     }
     else//登录后 跳转评论管理页面
     {
         CommentsViewController *comments = [[CommentsViewController alloc] init];
         comments.hidesBottomBarWhenPushed = YES;
-        [self.superVC.navigationController pushViewController:comments animated:YES];
+        [self.navigationController pushViewController:comments animated:YES];
     }
 }
 
