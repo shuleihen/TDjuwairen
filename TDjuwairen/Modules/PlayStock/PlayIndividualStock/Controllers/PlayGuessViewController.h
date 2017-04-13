@@ -17,7 +17,6 @@
 
 @property (nonatomic, assign) id<PlayGuessViewControllerDelegate> delegate;
 @property (nonatomic, assign) NSInteger season;
-@property (nonatomic, copy) NSString *guess_date;
 @property (nonatomic, strong) StockInfo *stockInfo;
 @property (nonatomic, weak) IBOutlet UITextField *inputView;
 @end

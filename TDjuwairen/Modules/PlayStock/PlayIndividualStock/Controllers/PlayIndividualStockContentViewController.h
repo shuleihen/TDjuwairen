@@ -10,8 +10,8 @@
 #import "StockManager.h"
 
 typedef enum : NSUInteger {
-    PlayIndividualContentNewType     =0, // 最新列表
-    PlayIndividualContentHostType  =1 // 最热列表
+    PlayIndividualContentNewType    =0, // 最新列表
+    PlayIndividualContentHostType   =1  // 最热列表
 } PlayIndividualContentType;
 
 @class PlayIndividualStockViewController;
@@ -22,4 +22,5 @@ typedef enum : NSUInteger {
 @property (assign, nonatomic) NSInteger listSeason;
 
 @property (nonatomic, assign) PlayIndividualContentType listType;
+- (void)onRefresh;
 @end

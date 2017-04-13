@@ -71,6 +71,8 @@
         
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
         [self.forwardView addGestureRecognizer:tap2];
+        
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
@@ -121,7 +123,6 @@
     self.imagesView.images = aliveModel.aliveImgs;
 
     self.tiedanLabel.hidden = cellData.isShowTiedan;
-    
     
     if (cellData.aliveModel.isForward) {
         [self.forwardView setupAliveForward:aliveModel.forwardModel];

@@ -1083,18 +1083,15 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="574-Hm-ysY">
-                                <rect key="frame" x="0.0" y="141" width="375" height="481"/>
+                                <rect key="frame" x="0.0" y="141" width="375" height="496"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <connections>
                                     <outlet property="delegate" destination="DTf-2i-A6K" id="n0J-FJ-7Cg"/>
                                 </connections>
                             </scrollView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bYu-GE-yX2">
-                                <rect key="frame" x="0.0" y="622" width="375" height="45"/>
+                                <rect key="frame" x="0.0" y="637" width="375" height="30"/>
                                 <color key="backgroundColor" red="0.054901960784313725" green="0.054901960784313725" blue="0.066666666666666666" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="NqE-cu-qtI"/>
-                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                 <state key="normal" title="评论（0）">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
@@ -1124,7 +1121,6 @@
                     <navigationItem key="navigationItem" title="个股竞猜" id="whi-0r-wyX"/>
                     <connections>
                         <outlet property="bottomButton" destination="bYu-GE-yX2" id="P6P-nt-tIW"/>
-                        <outlet property="bottomLayoutH" destination="NqE-cu-qtI" id="f9x-re-nKM"/>
                         <outlet property="headerView" destination="DLN-5i-AAW" id="GgD-5u-EG3"/>
                         <outlet property="keyNum" destination="nWK-vg-1aE" id="GrS-x9-0kJ"/>
                         <outlet property="pageScrollView" destination="574-Hm-ysY" id="fXu-Yb-m0o"/>

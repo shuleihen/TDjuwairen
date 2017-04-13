@@ -7,6 +7,7 @@
 //
 
 #import "AliveListCellData.h"
+#import "TTTAttributedLabel.h"
 
 @implementation AliveListCellData
 
@@ -36,8 +37,11 @@
                              isAppendingShowAll:self.isShowDetail
                              isAppendingShowImg:self.isShowReviewImageButton];
     
-    CGSize messageSize = [self.message boundingRectWithSize:CGSizeMake(kScreenWidth-left-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-    self.messageLabelFrame = CGRectMake(left, 42, kScreenWidth-left-12, messageSize.height + 2);// 这里必须多加几个像素，否则显示不全
+    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
+                                     withConstraints:CGSizeMake(kScreenWidth-left-12, MAXFLOAT)
+                              limitedToNumberOfLines:0];
+    
+    self.messageLabelFrame = CGRectMake(left, 42, kScreenWidth-left-12, messageSize.height);
     
     if (self.aliveModel.isForward) {
         self.imgsViewFrame = CGRectZero;
@@ -66,6 +70,9 @@
 
 
 - (NSAttributedString *)stringWithAliveMessage:(NSString *)message withSize:(CGSize)size isAppendingShowAll:(BOOL)isShowAll isAppendingShowImg:(BOOL)isShowImg {
+    
+    NSDictionary *sizeDict = [self messageAttritDictionary];
+
     if (isShowAll) {
         NSString *msg = message;
         if (isShowImg) {
@@ -78,8 +85,7 @@
         }
         
         NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:msg
-                                                                                  attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
-                                                                                 NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#222222"]}];
+                                                                                  attributes:sizeDict];
         
         if (isShowImg) {
             [attri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#3371E2"] range:NSMakeRange(msg.length-4, 4)];
@@ -89,7 +95,7 @@
     } else {
         // 计算一行文本高度
         NSString *oneLineString = @"一行高度abc";
-        CGSize oneLineSize = [oneLineString boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil].size;
+        CGSize oneLineSize = [oneLineString boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
         
         NSString *msg = message;
         if (isShowImg) {
@@ -100,16 +106,13 @@
             }
         }
         
-        CGSize textSize = [msg boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil].size;
+        CGSize textSize = [msg boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
         
         if (textSize.height/oneLineSize.height <= 3) {
             // 3行以内
-            NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
-                                   NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#222222"]};
-            
             NSMutableAttributedString *attri = [[NSMutableAttributedString alloc]
                                                 initWithString:msg
-                                                attributes:dict];
+                                                attributes:sizeDict];
             
             if (isShowImg) {
                 [attri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#3371E2"] range:NSMakeRange(msg.length-4, 4)];
@@ -123,31 +126,89 @@
             appendingString = [appendingString stringByAppendingString:@"  查看图片"];
         }
         
+        
+        
+        NSInteger index = [self rangeIndexOfString:message appendingString:appendingString withSize:size index:message.length/2 length:message.length/2 oneLineHeight:oneLineSize.height];
+        
+        NSString *planText = [message substringToIndex:index];
+        /*
         __block NSString *planText;
         
-        [message enumerateSubstringsInRange:NSMakeRange(0, message.length) options:NSStringEnumerationReverse|NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
+        [message enumerateSubstringsInRange:NSMakeRange(0, message.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
             NSString *mstr = [message substringToIndex:substringRange.location];
             NSString *pstr = [mstr stringByAppendingString:appendingString];
             
-            CGSize textSize = [pstr boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f]} context:nil].size;
+            CGSize textSize = [pstr boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
             
-            if (textSize.height/oneLineSize.height <= 3) {
+            if (textSize.height/oneLineSize.height >= 3) {
                 // 3行以内
-                planText = mstr;
                 *stop = YES;
+            } else {
+                planText = mstr;
             }
         }];
+        */
         
-        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:planText attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#222222"]}];
-        NSMutableAttributedString *appendAttri = [[NSMutableAttributedString alloc] initWithString:appendingString];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:planText attributes:sizeDict];
+        
+        NSMutableAttributedString *appendAttri = [[NSMutableAttributedString alloc] initWithString:appendingString attributes:sizeDict];
         [appendAttri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#222222"] range:NSMakeRange(0, 3)];
         [appendAttri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#3371E2"] range:NSMakeRange(3, appendingString.length - 3)];
         
         [attr appendAttributedString:appendAttri];
-        [attr addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0f] range:NSMakeRange(0, attr.length)];
-         
+        
         return attr;
     }
+}
+
+- (NSInteger)rangeIndexOfString:(NSString *)string
+                appendingString:(NSString *)appendingString
+                       withSize:(CGSize)size
+                          index:(NSInteger)index
+                         length:(NSInteger)length
+                   oneLineHeight:(CGFloat)oneLineHeight {
+
+    NSDictionary *sizeDict = [self messageAttritDictionary];
+    
+    NSString *mstr = [string substringToIndex:index];
+    NSString *pstr = [mstr stringByAppendingString:appendingString];
+    
+    CGSize textSize = [pstr boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
+    
+    if (textSize.height/oneLineHeight >= 3) {
+        NSInteger nextIndex;
+        NSInteger len = length/2;
+        
+        if (length/2 == 0) {
+            nextIndex = index-1;
+            len = 0;
+        } else {
+            nextIndex = index - length/2;
+            len = length/2;
+        }
+        
+        return [self rangeIndexOfString:string appendingString:appendingString withSize:size index:nextIndex length:len oneLineHeight:oneLineHeight];
+    } else {
+        if (length == 0) {
+            return index;
+        }
+        NSInteger nextIndex = index + length/2;
+        
+        return [self rangeIndexOfString:string appendingString:appendingString withSize:size index:nextIndex length:length/2 oneLineHeight:oneLineHeight];
+    }
+}
+
+- (NSDictionary *)messageAttritDictionary {
+    NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
+    ps.lineSpacing = 3.0f;
+    ps.paragraphSpacingBefore = 0.0f;
+    ps.paragraphSpacing = 0.0f;
+    ps.alignment = NSTextAlignmentLeft;
+    
+    NSDictionary *sizeDict = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
+                               NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#222222"],
+                               NSParagraphStyleAttributeName:ps};
+    return sizeDict;
 }
 
 - (CGFloat)imagesViewHeightWithImages:(NSArray *)images {

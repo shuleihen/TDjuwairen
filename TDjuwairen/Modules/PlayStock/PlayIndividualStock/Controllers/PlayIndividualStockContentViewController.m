@@ -22,6 +22,7 @@
 #import "NSObject+ChangeState.h"
 #import "StockManager.h"
 #import "MJRefresh.h"
+#import "NotificationDef.h"
 
 @interface PlayIndividualStockContentViewController ()<UITableViewDelegate,UITableViewDataSource,GuessAddPourDelegate,PlayGuessViewControllerDelegate,StockManagerDelegate>
 
@@ -47,22 +48,17 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     
     [self setUpValue];
     [self setUpUICommon];
+    
+    [self onRefresh];
 }
 
 - (void)setUpValue {
     _listArr = [NSArray new];
+    
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
     self.stockManager.interval = 10;
     self.stockManager.delegate = self;
-    
-    if (self.listType == PlayIndividualContentNewType) {
-        self.listTag = @"0";
-        self.listSeason = 1;
-    }else {
-        
-        self.listTag = @"1";
-    }
 }
 
 - (void)setUpUICommon {
@@ -86,12 +82,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     _stockInfo = stockInfo;
     [self.tableView reloadData];
 }
-
-- (void)setListSeason:(NSInteger)listSeason {
-    _listSeason = listSeason;
-    [self onRefresh];
-}
-
 
 #pragma mark - loadData
 - (void)onRefresh
@@ -118,7 +108,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *parmark = @{
                               @"season":@(self.listSeason),
-                              @"tag":self.listTag,
+                              @"tag": @(self.listType),
                               @"page":@(self.currentIndex)
                               };
     [ma GET:API_GetGuessIndividualList parameters:parmark completion:^(id data, NSError *error) {
@@ -173,23 +163,42 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         void (^errorBlock)(NSString *) = ^(NSString *title){
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"竞猜失败";
+            hud.labelText = title;
             [hud hide:YES afterDelay:0.5];
         };
         
         if (!error && data) {
             BOOL status = [data[@"status"] boolValue];
             if (status) {
+                errorBlock(@"投注成功，等待开奖");
                 
+                [wself reloadCellWithStockId:stockId];
             } else {
-                errorBlock(@"竞猜失败");
+                errorBlock(error.localizedDescription?:@"竞猜失败");
             }
         } else {
-            errorBlock(@"竞猜失败");
+            errorBlock(error.localizedDescription?:@"竞猜失败");
         }
-        
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"refreshGuessHome" object:nil];
     }];
+}
+
+
+- (void)reloadCellWithStockId:(NSString *)stockId {
+    
+    [self.listArr enumerateObjectsUsingBlock:^(PlayListModel *obj, NSUInteger idx, BOOL *stop){
+        if ([obj.stock isEqualToString:stockId]) {
+            
+            obj.has_join = YES;
+            
+            [self.tableView beginUpdates];
+            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView endUpdates];
+            
+            *stop = YES;
+        }
+    }];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAddJoinGuessNotification object:nil];
 }
 
 #pragma mark -UITableViewDataSource
@@ -215,7 +224,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
     
     cell.guessBlock = ^(UIButton *btn){
         PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-        vc.guess_date = _guessModel.guess_date;
         vc.season = [model.guess_season integerValue];
         vc.stockInfo = sInfo;
         vc.delegate = self;
@@ -230,7 +238,6 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         [popupController presentInViewController:self];
     };
     
-#pragma mark - 获取参与竞猜人员
     cell.enjoyBlock = ^(){
         PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
         

@@ -13,6 +13,7 @@
 #import "STPopup.h"
 #import "NetworkManager.h"
 #import "StockManager.h"
+#import "NSString+Util.h"
 
 @interface PlayGuessViewController ()<UITextFieldDelegate, StockManagerDelegate>
 
@@ -20,8 +21,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *label_NowTime;
 @property (weak, nonatomic) IBOutlet UILabel *label_moneyUse;
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
-@property (nonatomic, strong) StockManager *stockManager;
 
+@property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, copy) NSString *guess_date;
 @end
 
 @implementation PlayGuessViewController
@@ -49,6 +51,12 @@
             NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
             NSTimeInterval nowDate = [date timeIntervalSince1970];
             NSInteger  regiTime = [guess_endtime integerValue] - nowDate;
+            
+            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+            formatter.dateFormat = @"yyyy-MM-dd";
+            wself.guess_date = [formatter stringFromDate:date];
+            
+            wself.label_NowTime.text = [NSString stringWithFormat:@"%@%@",self.guess_date,self.season == 1?@"上午场":@"下午场"];
             
             [wself startWithTime:regiTime block:^(NSString *day) {
                 wself.label_CountDown.text = day;
@@ -118,7 +126,12 @@
 - (void)inputChange:(UITextField *)tf
 {
     if (tf.text.length == 6) {
-        [self.stockManager queryStockId:tf.text];
+        NSString *queryStockId = [tf.text queryStockCode];
+        [self.stockManager queryStockId:queryStockId];
+    } else {
+        self.stepper.minimumValue = 0;
+        self.stepper.maximumValue = 0;
+        self.stepper.value = 0;
     }
 }
 
@@ -140,11 +153,6 @@
     }
 }
 
-- (void)setSeason:(NSInteger)season
-{
-    _season = season;
-    self.label_NowTime.text = [NSString stringWithFormat:@"%@%@",self.guess_date,self.season == 1?@"上午场":@"下午场"];
-}
 
 - (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
     

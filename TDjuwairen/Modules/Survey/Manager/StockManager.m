@@ -123,6 +123,8 @@ void executeSource(void *info) {
                      success:^(NSURLSessionDataTask * dataTask, id data){
                          
                          [self handleWithStockData:data];
+                         
+                         DDLogInfo(@"Stock query success");
                      }
                      failure:^(NSURLSessionDataTask * dataTask, NSError *error){
                          DDLogInfo(@"Stock query error = %@",error);
@@ -225,7 +227,7 @@ void executeSource(void *info) {
                 
                 [stocks setObject:stock forKey:stock.gid];
             }
-            DDLogInfo(@"\nStock Gid = %@ Info = %@\n",first,second);
+//            DDLogInfo(@"\nStock Gid = %@ Info = %@\n",first,second);
         }
     }
     

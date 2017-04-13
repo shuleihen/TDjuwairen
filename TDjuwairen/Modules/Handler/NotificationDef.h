@@ -17,6 +17,7 @@
 
 #define kGuessCommentChanged            @"GuessCommentChanged"
 #define kNightVersionChanged            @"NightVersionChanged"
+#define kAddJoinGuessNotification       @"AddJoinGuessNotification"
 
 #define kAddStockGradeSuccessed         @"AddStockGradeSuccessed"
 #define kAddOptionalStockSuccessed      @"AddOptionalStockSuccessed"
