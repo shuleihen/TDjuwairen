@@ -1351,7 +1351,7 @@
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager POST:API_UploadContentPic parameters:nil constructingBodyWithBlock:^(id<AFMultipartFormData> formData){
         UIImage *image = Photo;
-        NSData *data = UIImageJPEGRepresentation(image, 0.5);
+        NSData *data = UIImageJPEGRepresentation(image, 0.9);
         
         NSDateFormatter*formatter=[[NSDateFormatter alloc]init];
         formatter.dateFormat = @"yyyyMMddHHmmss";

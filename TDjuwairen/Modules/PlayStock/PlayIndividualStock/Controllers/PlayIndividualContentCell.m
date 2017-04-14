@@ -44,7 +44,7 @@
      */
     _model = model;
     label_title.text = [NSString stringWithFormat:@"%@(%@)",model.guess_company,model.com_code];
-    label_enjoy.text = [NSString stringWithFormat:@"%@",model.guess_item_num];
+    label_enjoy.text = [NSString stringWithFormat:@"%ld",(long)model.guess_item_num];
     label_detailDesc.text = SafeValue(model.artile_info[@"article_title"]);
     label_money.text = [NSString stringWithFormat:@"%@把",model.guess_key_num];
     

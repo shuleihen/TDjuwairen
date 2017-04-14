@@ -78,7 +78,7 @@
             self.label_price.text = userModel.guess_avg_points;
             self.label_end_price.text = userModel.guess_end_price;
             self.label_state.text = userModel.guessStatusStr;
-            self.recentPeopleLabel.text = [NSString stringWithFormat:@"以上为与当前价最接近的%ld位用户",MIN(userModel.guess_users.count, 5)];
+            self.recentPeopleLabel.text = [NSString stringWithFormat:@"以上为与当前价最接近的%ld位用户",(long)MIN(userModel.guess_users.count, 5)];
             
             for (UIView *v in self.contentView.subviews) {
                 if ([v isKindOfClass:[PlayItemPersonView class]]) {
@@ -86,7 +86,7 @@
                 }
             }
             
-            CGFloat width = (_contentView.frame.size.width-40)/5;
+            CGFloat width = (_contentView.frame.size.width)/5;
             for (int i = 0; i<MIN(userModel.guess_users.count, 5); i++) {
                 PlayItemPersonView *vi = [[PlayItemPersonView alloc] init];
                 vi.frame = CGRectMake(i*width, 0, width, 66);

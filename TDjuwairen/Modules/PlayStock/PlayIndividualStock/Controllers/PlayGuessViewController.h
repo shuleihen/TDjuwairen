@@ -10,13 +10,16 @@
 #import "StockManager.h"
 
 @protocol PlayGuessViewControllerDelegate <NSObject>
-- (void)addWithGuessId:(NSString *)stockId pri:(float)pri season:(NSInteger)season;
+- (void)addGuessWithStockCode:(NSString *)stockId pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin;
 @end
 
 @interface PlayGuessViewController : UIViewController
 
 @property (nonatomic, assign) id<PlayGuessViewControllerDelegate> delegate;
+
+@property (nonatomic, assign) BOOL isJoin;
 @property (nonatomic, assign) NSInteger season;
-@property (nonatomic, strong) StockInfo *stockInfo;
-@property (nonatomic, weak) IBOutlet UITextField *inputView;
+
+
+- (void)setupDefaultStock:(StockInfo *)stockInfo withStockCode:(NSString *)stockCode;
 @end

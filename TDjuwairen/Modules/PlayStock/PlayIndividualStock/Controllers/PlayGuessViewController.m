@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *label_CountDown;
 @property (weak, nonatomic) IBOutlet UILabel *label_NowTime;
 @property (weak, nonatomic) IBOutlet UILabel *label_moneyUse;
+@property (nonatomic, weak) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
 
 @property (nonatomic, strong) StockManager *stockManager;
@@ -30,6 +31,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    self.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+    
     [self initViews];
     [self initValue];
     // Do any additional setup after loading the view from its nib.
@@ -39,6 +43,17 @@
     self.stockManager.isOpenTimer = NO;
 }
 
+- (void)setupDefaultStock:(StockInfo *)stockInfo withStockCode:(NSString *)stockCode {
+    if (stockInfo) {
+        // 发起竞猜，因为输入股票代码，没有查询股票的价格信息
+        self.stepper.maximumValue = stockInfo.yestodEndPriValue*1.1;
+        self.stepper.minimumValue = stockInfo.yestodEndPriValue*0.9;
+        self.stepper.value = stockInfo.nowPriValue;
+        
+        self.inputView.text = stockCode;
+        self.inputView.enabled = NO;
+    } 
+}
 
 - (void)initValue {
     NetworkManager *ma = [[NetworkManager alloc] init];
@@ -74,14 +89,6 @@
     _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
     _inputView.layer.borderWidth = 1;
     
-    if (self.stockInfo) {
-        // 发起竞猜，因为输入股票代码，没有查询股票的价格信息
-        self.stepper.maximumValue = self.stockInfo.yestodEndPriValue*1.1;
-        self.stepper.minimumValue = self.stockInfo.yestodEndPriValue*0.9;
-        self.stepper.value = self.stockInfo.nowPriValue;
-    } else {
-        
-    }
     
     self.stepper.stepValue = 0.01;
     self.stepper.textColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"];
@@ -186,8 +193,8 @@
 #pragma mark - action
 - (IBAction)determineClick:(id)sender {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(addWithGuessId:pri:season:)]) {
-        [self.delegate addWithGuessId:_inputView.text pri:self.stepper.value season:self.season];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:)]) {
+        [self.delegate addGuessWithStockCode:_inputView.text pri:self.stepper.value season:self.season isJoin:self.isJoin];
     }
     
     [self.popupController dismiss];

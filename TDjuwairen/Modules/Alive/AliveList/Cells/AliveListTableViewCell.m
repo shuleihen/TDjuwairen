@@ -54,7 +54,7 @@
         _messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(64, 42, kScreenWidth-12-64, 0)];
         _messageLabel.font = [UIFont systemFontOfSize:16.0f];
         _messageLabel.textAlignment = NSTextAlignmentLeft;
-        _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
+        _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _messageLabel.numberOfLines = 0;
         _messageLabel.delegate = self;
         [self.contentView addSubview:_messageLabel];

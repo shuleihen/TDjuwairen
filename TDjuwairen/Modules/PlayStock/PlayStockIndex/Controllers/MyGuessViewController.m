@@ -56,7 +56,8 @@
 
 
 - (void)queryMyGuess {
-    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    __weak MyGuessViewController *wself = self;
     
     NSDictionary *dict = @{};
     NSString *urlStr = API_GameMyGuess;
@@ -65,15 +66,13 @@
         urlStr = API_GameMyIndividualGuess;
         dict = @{@"page":@(self.currentPage)};
     }else {
-        
         if (US.isLogIn) {
             NSAssert(US.userId, @"用户Id不能为空");
             dict = @{@"user_id": US.userId};
         }
     }
     
-    
-    __weak MyGuessViewController *wself = self;
+    NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:urlStr parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             
@@ -98,26 +97,27 @@
                     
                   wself.items = [NSMutableArray arrayWithArray:guessList];
                 
-                    _currentPage++;
+                  wself.currentPage++;
                     
-                }else {
-                    
+                } else {
                     for (NSDictionary *dict in array) {
                         IndexStockRecordModel *model = [[IndexStockRecordModel alloc] initWithDict:dict];
                         [guessList addObject:model];
                     }
                     wself.items = [NSMutableArray arrayWithArray:guessList];
-                    
                 }
-                
-                
             }
             
             if (self.guessListType == MyGuessIndividualListType) {
                 [wself.tableView.mj_header endRefreshing];
-                [wself.tableView.mj_footer endRefreshing];
+                
+                if (array.count != 20) {
+                    [wself.tableView.mj_footer endRefreshingWithNoMoreData];
+                } else {
+                    [wself.tableView.mj_footer endRefreshing];
+                }
             }
-            [wself.tableView reloadData];
+            
         }else {
         
             if (self.guessListType == MyGuessIndividualListType) {
@@ -126,9 +126,9 @@
             }
             
         }
+        
+        [wself.tableView reloadData];
     }];
-    
-    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source

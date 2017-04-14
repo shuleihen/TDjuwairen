@@ -21,7 +21,7 @@
         self.guess_key_num = dict[@"guess_key_num"];
         self.guess_id = dict[@"guess_id"];
         self.com_code = dict[@"com_code"];
-        self.guess_item_num = dict[@"guess_item_num"];
+        self.guess_item_num = [dict[@"guess_item_num"] integerValue];
         self.has_join = [dict[@"has_join"] boolValue];
         self.winner_list = dict[@"winner_list"];
         self.artile_info = dict[@"artile_info"];

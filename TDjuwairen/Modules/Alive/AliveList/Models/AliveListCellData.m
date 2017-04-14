@@ -152,7 +152,7 @@
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:planText attributes:sizeDict];
         
         NSMutableAttributedString *appendAttri = [[NSMutableAttributedString alloc] initWithString:appendingString attributes:sizeDict];
-        [appendAttri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#222222"] range:NSMakeRange(0, 3)];
+        [appendAttri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#333333"] range:NSMakeRange(0, 3)];
         [appendAttri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#3371E2"] range:NSMakeRange(3, appendingString.length - 3)];
         
         [attr appendAttributedString:appendAttri];
@@ -206,7 +206,7 @@
     ps.alignment = NSTextAlignmentLeft;
     
     NSDictionary *sizeDict = @{NSFontAttributeName: [UIFont systemFontOfSize:16.0f],
-                               NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#222222"],
+                               NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"],
                                NSParagraphStyleAttributeName:ps};
     return sizeDict;
 }

@@ -189,6 +189,7 @@ static NSString *KPlayIndividualContentCell = @"PlayIndividualContentCell";
         if ([obj.stock isEqualToString:stockId]) {
             
             obj.has_join = YES;
+            obj.guess_item_num += 1;
             
             [self.tableView beginUpdates];
             [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];

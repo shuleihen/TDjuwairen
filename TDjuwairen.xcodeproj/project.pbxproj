@@ -400,7 +400,6 @@
 		4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */; };
 		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
 		4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */; };
-		4DA844421E8A151F006838B3 /* PlayIndividualStockContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */; };
 		4DD179E51E77C00B00FBE66D /* MYAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */; };
 		4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D61E77C00B00FBE66D /* MYBottomMenuCell.m */; };
 		4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D81E77C00B00FBE66D /* MYBottomMenuTool.m */; };
@@ -1283,8 +1282,6 @@
 		4DA177FB1E8A51DE00C438BE /* PlayIndividualContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayIndividualContentCell.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.h; sourceTree = SOURCE_ROOT; };
 		4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayIndividualContentCell.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.m; sourceTree = SOURCE_ROOT; };
 		4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayIndividualContentCell.xib; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.xib; sourceTree = SOURCE_ROOT; };
-		4DA844401E8A151F006838B3 /* PlayIndividualStockContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayIndividualStockContentViewController.h; sourceTree = "<group>"; };
-		4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayIndividualStockContentViewController.m; sourceTree = "<group>"; };
 		4DD179D21E77C00B00FBE66D /* MYAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYAnimationHelper.h; sourceTree = "<group>"; };
 		4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYAnimationHelper.m; sourceTree = "<group>"; };
 		4DD179D51E77C00B00FBE66D /* MYBottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBottomMenuCell.h; sourceTree = "<group>"; };
@@ -1700,8 +1697,6 @@
 			children = (
 				19194CC71E7FAC3700641085 /* PlayIndividualStockViewController.h */,
 				19194CC81E7FAC3700641085 /* PlayIndividualStockViewController.m */,
-				4DA844401E8A151F006838B3 /* PlayIndividualStockContentViewController.h */,
-				4DA844411E8A151F006838B3 /* PlayIndividualStockContentViewController.m */,
 				9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */,
 				9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */,
 				9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */,
@@ -4668,7 +4663,6 @@
 				190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */,
 				4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */,
 				1955B49B1D644D9800DC102E /* EditZiti.m in Sources */,
-				4DA844421E8A151F006838B3 /* PlayIndividualStockContentViewController.m in Sources */,
 				84F7DB3E1D0FDD770097E710 /* NSString+Ext.m in Sources */,
 				19386F081E73A88800D4426E /* CenterViewController.m in Sources */,
 				1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */,

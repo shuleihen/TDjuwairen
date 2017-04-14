@@ -76,7 +76,7 @@
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     
-    NSData *data = UIImageJPEGRepresentation(image, 0.75);
+    NSData *data = UIImageJPEGRepresentation(image, 0.9);
     UIImage *reSizeImg = [UIImage imageWithData:data];
 
     if (self.delegate && [self.delegate respondsToSelector:@selector(imagePickerHanderl:didFinishPickingImages:)]) {
@@ -98,7 +98,7 @@
     for (NSDictionary *dict in info) {
         UIImage *img = [dict objectForKey:UIImagePickerControllerOriginalImage];
         
-        NSData *data = UIImageJPEGRepresentation(img, 0.5);
+        NSData *data = UIImageJPEGRepresentation(img, 0.9);
         UIImage *reSizeImg = [UIImage imageWithData:data];
         [array addObject:reSizeImg];
     }

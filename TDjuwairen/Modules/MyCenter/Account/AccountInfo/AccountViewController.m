@@ -136,7 +136,7 @@
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
     UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
-    NSData *data = UIImageJPEGRepresentation(image, 0.75);
+    NSData *data = UIImageJPEGRepresentation(image, 0.9);
     UIImage *reSizeImg = [UIImage imageWithData:data];
     reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
     self.headImage = reSizeImg;
@@ -149,7 +149,7 @@
     UIImage *img = [dic objectForKey:UIImagePickerControllerOriginalImage];
     
     [self dismissViewControllerAnimated:YES completion:nil];
-    NSData *data = UIImageJPEGRepresentation(img, 0.5);
+    NSData *data = UIImageJPEGRepresentation(img, 0.9);
     UIImage *reSizeImg = [UIImage imageWithData:data];
     reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
     self.headImage = reSizeImg;

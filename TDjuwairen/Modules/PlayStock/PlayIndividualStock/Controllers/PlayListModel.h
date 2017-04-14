@@ -19,7 +19,7 @@
 @property (nonatomic, strong) NSNumber *guess_id;
 
 @property (nonatomic, copy) NSString *com_code;
-@property (nonatomic, copy) NSString *guess_item_num;
+@property (nonatomic, assign) NSInteger guess_item_num;
 @property (nonatomic, copy) NSString *stock;
 @property (nonatomic, strong) NSArray *winner_list;
 
