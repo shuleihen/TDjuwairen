@@ -96,8 +96,17 @@
 - (UISegmentedControl *)seasonSegmentControl
 {
     if (!_seasonSegmentControl) {
-        _seasonSegmentControl = [[UISegmentedControl alloc] initWithItems:@[@"上午场",@"下午场"]];
-        _seasonSegmentControl.frame = CGRectMake(kScreenWidth-12-110, 6.5, 110, 28);
+        NSInteger seasion = [self seasonWithCurrentTime];
+        NSArray *items;
+        if (seasion == 1) {
+            // 上午场
+            items = @[@"上午场"];
+        } else {
+            items = @[@"上午场",@"下午场"];
+        }
+        
+        _seasonSegmentControl = [[UISegmentedControl alloc] initWithItems:items];
+        _seasonSegmentControl.frame = CGRectMake(kScreenWidth-12- 55*items.count, 6.5, 55*items.count, 28);
         _seasonSegmentControl.tintColor = [UIColor hx_colorWithHexRGBAString:@"#191a1f"];
         _seasonSegmentControl.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         
@@ -112,12 +121,7 @@
         _seasonSegmentControl.layer.borderWidth = 2;
         _seasonSegmentControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
         
-        NSInteger seasion = [self seasonWithCurrentTime];
-        if (seasion == 2) {
-            _seasonSegmentControl.selectedSegmentIndex = 1;
-        } else {
-            _seasonSegmentControl.selectedSegmentIndex = 0;
-        }
+        _seasonSegmentControl.selectedSegmentIndex = ((seasion == 2)?2:1)-1;
         
     }
     return _seasonSegmentControl;
@@ -520,10 +524,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.items.count == 0) {
-        return 0;
-    }
-    
+ 
     return 41.0f;
 }
 
