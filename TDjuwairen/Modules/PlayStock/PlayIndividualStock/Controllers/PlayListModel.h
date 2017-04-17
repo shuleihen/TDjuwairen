@@ -16,7 +16,7 @@
 @property (nonatomic, strong) NSNumber *guess_status;
 @property (nonatomic, copy) NSNumber *guess_season;
 @property (nonatomic, copy) NSString *guess_key_num;
-@property (nonatomic, strong) NSNumber *guess_id;
+@property (nonatomic, strong) NSString *guess_id;
 
 @property (nonatomic, copy) NSString *com_code;
 @property (nonatomic, assign) NSInteger guess_item_num;

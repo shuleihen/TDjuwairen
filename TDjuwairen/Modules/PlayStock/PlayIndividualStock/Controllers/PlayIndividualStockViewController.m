@@ -189,7 +189,6 @@
 
 - (void)addNotifi {
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChangedNotifi:) name:kGuessCommentChanged object:nil];
-    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(addJoinNotifi:) name:kAddJoinGuessNotification object:nil];
 }
 
 #pragma mark - 按钮点击事件
@@ -278,10 +277,6 @@
 }
 
 #pragma mark - Notifi
-- (void)addJoinNotifi:(NSNotification *)notifi {
-    [self loadGuessUserInfo];
-}
-
 
 - (void)commentChangedNotifi:(NSNotification *)notifi {
     [self loadGuessUserInfo];
@@ -442,21 +437,56 @@
 
 - (void)reloadCellWithStockCode:(NSString *)stockCode {
     
+    // 刷新钥匙
+    [self loadGuessUserInfo];
+    
+    __block NSString *guessId;
     [self.items enumerateObjectsUsingBlock:^(PlayListModel *obj, NSUInteger idx, BOOL *stop){
         if ([obj.com_code isEqualToString:stockCode]) {
-            
-            obj.has_join = YES;
-            obj.guess_item_num += 1;
-            
-            [self.tableView beginUpdates];
-            [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:idx inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
-            
+            guessId = obj.guess_id;
             *stop = YES;
         }
     }];
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kAddJoinGuessNotification object:nil];
+    if (!guessId.length) {
+        return;
+    }
+    
+    __weak PlayIndividualStockViewController *wself = self;
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    NSDictionary *parmark = @{@"guess_id": guessId};
+    
+    [ma GET:API_GetGuessInfo parameters:parmark completion:^(id data, NSError *error) {
+        if (!error) {
+            PlayListModel *model = [[PlayListModel alloc] initWithDictionary:data];
+            [wself reloadCellWithGuessInfo:model];
+        }
+    }];
+}
+
+- (void)reloadCellWithGuessInfo:(PlayListModel *)guess {
+    
+    __block NSInteger index;
+    
+    [self.items enumerateObjectsUsingBlock:^(PlayListModel *obj, NSUInteger idx, BOOL *stop){
+        if ([obj.guess_id isEqualToString:guess.guess_id]) {
+            
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    if (index >= 0 && index<self.items.count) {
+        
+        NSMutableArray *array = [NSMutableArray arrayWithArray:self.items];
+        [array replaceObjectAtIndex:index withObject:guess];
+        self.items = array;
+        
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    }
 }
 
 #pragma mark - StockManagerDelegate
