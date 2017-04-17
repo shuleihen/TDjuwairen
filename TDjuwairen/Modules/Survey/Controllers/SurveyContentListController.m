@@ -148,7 +148,7 @@
             
             if (dataArray.count > 0) {
                 NSMutableArray *list = nil;
-                if (wself.page == 1) {
+                if (pageA == 1) {
                     list = [NSMutableArray arrayWithCapacity:[dataArray count]];
                 } else {
                     list = [NSMutableArray arrayWithArray:wself.surveyList];
@@ -165,7 +165,7 @@
                 [wself.stockManager addStocks:self.stockArr];
                 wself.page++;
             } else {
-                if (wself.page == 1) {
+                if (pageA == 1) {
                     wself.surveyList = nil;
                 }
             }

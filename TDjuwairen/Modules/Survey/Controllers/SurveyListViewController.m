@@ -381,22 +381,24 @@
     
     [self setupUserAvatar];
     
-    [[self currentContentViewController] refreshData];
+    // 如果当前页面是自选
+    SurveyContentListController *vc = [self currentContentViewController];
+    if ([vc.subjectTitle isEqualToString:@"自选"]) {
+        [vc refreshData];
+    }
 }
 
 - (void)optionalStockChangedNotifi:(NSNotification *)notifi {
-    
-    [self.contentControllers.firstObject refreshData];
+    for (SurveyContentListController *vc in self.contentControllers) {
+        if ([vc.subjectTitle isEqualToString:@"自选"]) {
+            [vc refreshData];
+        }
+    }
 }
 
 - (void)refreshAction {
     [self getBanners];
     [self querySurveySubject];
-}
-
-- (void)refreshSubListAction {
-    // 登录成功刷新当前tab 下面的内容
-    
 }
 
 - (void)loadMoreAction {
