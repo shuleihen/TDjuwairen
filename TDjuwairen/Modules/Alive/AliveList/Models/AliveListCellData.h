@@ -16,7 +16,10 @@
 @property (nonatomic, assign) CGRect imgsViewFrame;
 @property (nonatomic, assign) CGRect contentTagFrame;
 @property (nonatomic, assign) CGRect forwardFrame;
+@property (nonatomic, assign) CGRect tagsFrame;
 
+
+@property (nonatomic, assign) BOOL isShowTags;
 @property (nonatomic, assign) BOOL isShowDetail;
 @property (nonatomic, assign) BOOL isShowTiedan;
 // 显示查看图片

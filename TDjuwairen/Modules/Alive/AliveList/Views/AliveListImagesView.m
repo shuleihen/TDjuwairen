@@ -26,8 +26,8 @@
 //    self.backgroundColor = [UIColor blueColor];
     
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
-        
     [self.imageViews removeAllObjects];
+    
     
     if (images.count == 1) {
         UIImageView *one = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 180, 180)];

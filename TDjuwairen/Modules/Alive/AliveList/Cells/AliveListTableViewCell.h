@@ -12,6 +12,7 @@
 #import "AliveListCellData.h"
 #import "AliveListForwardView.h"
 #import "TTTAttributedLabel.h"
+#import "AliveListTagsView.h"
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
@@ -29,6 +30,7 @@
 @property (strong, nonatomic) IBOutlet AliveListImagesView *imagesView;
 @property (strong, nonatomic) IBOutlet UILabel *tiedanLabel;
 @property (strong, nonatomic) AliveListForwardView *forwardView;
+@property (strong, nonatomic) AliveListTagsView *tagsView;
 @property (strong, nonatomic) AliveListCellData *cellData;
 
 @property (weak, nonatomic) id<AliveListTableCellDelegate> delegate;

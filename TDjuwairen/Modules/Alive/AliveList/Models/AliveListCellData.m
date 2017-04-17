@@ -24,6 +24,8 @@
             self.isShowReviewImageButton = (aliveModel.aliveImgs.count>0)?YES:NO;
             self.isShowImgView = NO;
         }
+        
+        self.isShowTags = (aliveModel.aliveTags.count>0);
     }
     return self;
 }
@@ -31,6 +33,7 @@
 - (void)setup {
     
     CGFloat left = 64.0f;
+    CGFloat height = 0;
     
     self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
                                        withSize:CGSizeMake(kScreenWidth-left-12, MAXFLOAT)
@@ -49,25 +52,58 @@
         if (self.message.string.length == 0) {
             // 转发分享，没有标题内容
             self.forwardFrame = CGRectMake(64, 42, kScreenWidth-left-12, 80);
-            self.cellHeight = CGRectGetMaxY(self.forwardFrame) + 11.0f;
         } else {
             self.forwardFrame = CGRectMake(64, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, 80);
-            self.cellHeight = CGRectGetMaxY(self.forwardFrame) + 11.0f;
         }
+        
+        height = CGRectGetMaxY(self.forwardFrame) + 11.0f;
         
     } else {
-        CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
-        self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, imagesViewHeight);
         
-        if (imagesViewHeight > 0.0f) {
-            self.cellHeight = CGRectGetMaxY(self.imgsViewFrame) + 11.0f;
+        BOOL isHaveImage = (self.aliveModel.aliveImgs.count>0);
+        
+        if (isHaveImage) {
+            CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
+            self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, imagesViewHeight);
         } else {
-            self.cellHeight = CGRectGetMaxY(self.messageLabelFrame) + 11.0f;
+            self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame), 0, 0);
         }
+        
+        // 标签
+        if (self.isShowTags) {
+            CGFloat tagsViewHeight = [self tagsViewHeightWithTags:self.aliveModel.aliveTags withLimitWidth:(kScreenWidth-left-12)];
+            self.tagsFrame = CGRectMake(left, CGRectGetMaxY(self.imgsViewFrame)+10, kScreenWidth-left-12, tagsViewHeight);
+        } else {
+            self.tagsFrame = CGRectMake(left, CGRectGetMaxY(self.imgsViewFrame), 0, 0);
+        }
+        
+        height = CGRectGetMaxY(self.tagsFrame)+11;
     }
     
+    self.cellHeight = height;
 }
 
+- (CGFloat)tagsViewHeightWithTags:(NSArray *)tags withLimitWidth:(CGFloat)limitWidth{
+    CGFloat height = 0;
+    
+    CGFloat offx=0,offy=0;
+    CGRect rect = CGRectZero;
+    
+    for (NSString *tag in tags) {
+        CGSize size = [tag boundingRectWithSize:CGSizeMake(MAXFLOAT, 15.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
+        
+        if ((offx + size.width+6) > limitWidth) {
+            offx =0;
+            offy += 25;
+        }
+        
+        rect = CGRectMake(offx, offy, size.width+6, 15);
+    }
+    
+    height = CGRectGetMaxY(rect);
+    
+    return height;
+}
 
 - (NSAttributedString *)stringWithAliveMessage:(NSString *)message withSize:(CGSize)size isAppendingShowAll:(BOOL)isShowAll isAppendingShowImg:(BOOL)isShowImg {
     

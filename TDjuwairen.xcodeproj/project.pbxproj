@@ -137,6 +137,7 @@
 		1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1946EE8C1E0EA90200D8FB3A /* WeiboSDK.bundle */; };
 		1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1946EE971E0EA90200D8FB3A /* ShareSDK.bundle */; };
 		1946EEA51E0EA90200D8FB3A /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */; };
+		19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19475C541EA4661F00F749E6 /* AliveListTagsView.m */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
 		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
@@ -791,6 +792,8 @@
 		1946EE8E1E0EA90200D8FB3A /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
 		1946EE971E0EA90200D8FB3A /* ShareSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ShareSDK.bundle; sourceTree = "<group>"; };
 		1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
+		19475C531EA4661F00F749E6 /* AliveListTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListTagsView.h; sourceTree = "<group>"; };
+		19475C541EA4661F00F749E6 /* AliveListTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListTagsView.m; sourceTree = "<group>"; };
 		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		194F05921E2746D600C8CB8A /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
 		194F05931E2746D600C8CB8A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
@@ -2627,6 +2630,8 @@
 				1953CAFF1E7172DB00A64B3C /* AliveListImagesView.m */,
 				19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */,
 				19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */,
+				19475C531EA4661F00F749E6 /* AliveListTagsView.h */,
+				19475C541EA4661F00F749E6 /* AliveListTagsView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4743,6 +4748,7 @@
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
 				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,
 				9E2233C61E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m in Sources */,
+				19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */,
 				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,

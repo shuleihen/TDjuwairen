@@ -62,6 +62,10 @@
         _imagesView = [[AliveListImagesView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imagesView];
         
+        _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-64-12, 80)];
+        _tagsView.hidden = YES;
+        [self.contentView addSubview:_tagsView];
+        
         self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-64-12, 80)];
         self.forwardView.hidden = YES;
         [self.contentView addSubview:self.forwardView];
@@ -96,11 +100,17 @@
     self.cellData = cellData;
     
     self.messageLabel.frame = cellData.messageLabelFrame;
+    
     self.imagesView.frame = cellData.imgsViewFrame;
     self.imagesView.hidden = !cellData.isShowImgView;
     
+    self.tagsView.hidden = !cellData.isShowTags;
+    self.tagsView.frame = cellData.tagsFrame;
+    
     self.forwardView.hidden = !cellData.aliveModel.isForward;
     self.forwardView.frame = cellData.forwardFrame;
+    
+    self.tiedanLabel.hidden = cellData.isShowTiedan;
     
     AliveListModel *aliveModel = cellData.aliveModel;
     
@@ -122,7 +132,7 @@
     
     self.imagesView.images = aliveModel.aliveImgs;
 
-    self.tiedanLabel.hidden = cellData.isShowTiedan;
+    self.tagsView.tags = aliveModel.aliveTags;
     
     if (cellData.aliveModel.isForward) {
         [self.forwardView setupAliveForward:aliveModel.forwardModel];
