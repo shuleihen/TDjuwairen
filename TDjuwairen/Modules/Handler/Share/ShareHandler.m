@@ -23,7 +23,14 @@
         images = @[image];
     }
     
-    [shareParams SSDKSetupShareParamsByText:nil images:images url:url title:title type:SSDKContentTypeAuto];
+    NSArray *imageArray;
+    if (images.count == 0) {
+        imageArray = @[[UIImage imageNamed:@"app_icon.png"]];
+    } else {
+        imageArray = images;
+    }
+    
+    [shareParams SSDKSetupShareParamsByText:nil images:imageArray url:url title:title type:SSDKContentTypeAuto];
     
     [ShareSDK showShareActionSheet:nil
                              items:nil
@@ -69,9 +76,16 @@
             return;
         }
         
+        NSArray *imageArray;
+        if (images.count == 0) {
+            imageArray = @[[UIImage imageNamed:@"app_icon.png"]];
+        } else {
+            imageArray = images;
+        }
+        
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:nil
-                                         images:images
+                                         images:imageArray
                                             url:[NSURL URLWithString:SafeValue(url)]
                                           title:title
                                            type:SSDKContentTypeAuto];
