@@ -138,6 +138,7 @@
 		1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1946EE971E0EA90200D8FB3A /* ShareSDK.bundle */; };
 		1946EEA51E0EA90200D8FB3A /* ShareSDKConnector.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */; };
 		19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19475C541EA4661F00F749E6 /* AliveListTagsView.m */; };
+		19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 19475C581EA497B500F749E6 /* SKProduct+LocalizedPrice.m */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
 		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
@@ -794,6 +795,8 @@
 		1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ShareSDKConnector.framework; sourceTree = "<group>"; };
 		19475C531EA4661F00F749E6 /* AliveListTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListTagsView.h; sourceTree = "<group>"; };
 		19475C541EA4661F00F749E6 /* AliveListTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListTagsView.m; sourceTree = "<group>"; };
+		19475C571EA497B500F749E6 /* SKProduct+LocalizedPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKProduct+LocalizedPrice.h"; sourceTree = "<group>"; };
+		19475C581EA497B500F749E6 /* SKProduct+LocalizedPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKProduct+LocalizedPrice.m"; sourceTree = "<group>"; };
 		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		194F05921E2746D600C8CB8A /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
 		194F05931E2746D600C8CB8A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
@@ -1863,6 +1866,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				19475C561EA497B500F749E6 /* SKProduct+LocalizedPrice */,
 				1966A6621E8BD898007DDA14 /* UIButton+LikeAnimation */,
 				1966A65A1E8BD07B007DDA14 /* UIViewController+Refresh */,
 				196F5ECA1E54858600928B60 /* UIDevice */,
@@ -2452,6 +2456,15 @@
 				1946EE981E0EA90200D8FB3A /* ShareSDKConnector.framework */,
 			);
 			path = Required;
+			sourceTree = "<group>";
+		};
+		19475C561EA497B500F749E6 /* SKProduct+LocalizedPrice */ = {
+			isa = PBXGroup;
+			children = (
+				19475C571EA497B500F749E6 /* SKProduct+LocalizedPrice.h */,
+				19475C581EA497B500F749E6 /* SKProduct+LocalizedPrice.m */,
+			);
+			path = "SKProduct+LocalizedPrice";
 			sourceTree = "<group>";
 		};
 		194F058E1E27425400C8CB8A /* Subscription */ = {
@@ -4883,6 +4896,7 @@
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
 				19194CE81E7FDDA800641085 /* SurveyListViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
+				19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */,
 				4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,

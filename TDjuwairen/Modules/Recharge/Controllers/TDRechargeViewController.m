@@ -12,10 +12,12 @@
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
 #import "CocoaLumberjack.h"
-
+#import "SKProduct+LocalizedPrice.h"
 
 @interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UITableViewDelegate, UITableViewDataSource, MBProgressHUDDelegate>
+@property (nonatomic, strong) NSArray *productId;
 @property (nonatomic, strong) NSArray *products;
+@property (nonatomic, strong) NSArray *productIdentifiers;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @end
@@ -32,7 +34,7 @@
     self.title = @"充值";
     self.view.backgroundColor = TDViewBackgrouondColor;
     
-    self.products = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.recharge60",@"com.jwr.recharge200",@"com.jwr.rechargevip"];
+    self.productIdentifiers = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.recharge60",@"com.jwr.recharge200",@"com.jwr.rechargevip"];
     [self.view addSubview:self.tableView];
     [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     
@@ -40,19 +42,12 @@
     
     self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.indicatorView.center = CGPointMake((kScreenWidth)/2, (kScreenHeight-64)/2);
-}
-
-- (void)donePressed:(id)sender {
-    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
-    if (!indexPath) {
-        return;
-    }
     
-    NSString *productIdentifier = self.products[indexPath.row];
-    [self requestProductWithIdentifier:productIdentifier];
+    [self requestProductWithIdentifiers:self.productIdentifiers];
 }
 
-- (void)requestProductWithIdentifier:(NSString *)Identifier {
+
+- (void)requestProductWithIdentifiers:(NSArray *)array {
     if (![SKPaymentQueue canMakePayments]) {
         return;
     }
@@ -60,26 +55,59 @@
     [self.view addSubview:self.indicatorView];
     [self.indicatorView startAnimating];
     
-    NSSet *nsset = [NSSet setWithObjects:Identifier, nil];
+    NSSet *nsset = [NSSet setWithArray:array];
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
     request.delegate = self;
     [request start];
 }
 
+
 #pragma mark -SKProductsRequestDelegate
 - (void)productsRequest:(SKProductsRequest *)request didReceiveResponse:(SKProductsResponse *)response{
     
-    NSArray *products = response.products;
-    if([products count] == 0){
+    if([response.products count] == 0){
+        [self.indicatorView stopAnimating];
+        
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = @"加载失败";
         [hud hide:YES afterDelay:0.6];
         DDLogError(@"应用内购买商品为空");
         return;
     }
-
-    SKPayment *payment = [SKPayment paymentWithProduct:products.firstObject];
-    [[SKPaymentQueue defaultQueue] addPayment:payment];
+    
+    SKProduct *(^QueryProduct)(NSString *identifier) = ^(NSString *identifier){
+        
+        for (SKProduct *product in response.products) {
+            if ([product.productIdentifier isEqualToString:identifier]) {
+                return product;
+            }
+        }
+        return (SKProduct *)nil;
+    };
+    
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:response.products.count];
+    
+    for (NSString *identifier in self.productIdentifiers) {
+        SKProduct *product = QueryProduct(identifier);
+        if (product) {
+            [array addObject:product];
+        }
+    }
+    
+    [self.indicatorView stopAnimating];
+    
+    self.products = array;
+    [self.tableView reloadData];
+    
+    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
+    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [btn setTitle:@"购买" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    btn.frame = CGRectMake(12, 15, kScreenWidth-24, 44);
+    btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+    [btn addTarget:self action:@selector(donePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [bottom addSubview:btn];
+    self.tableView.tableFooterView = bottom;
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
@@ -95,6 +123,20 @@
 - (void)requestDidFinish:(SKRequest *)request{
 }
 
+
+- (void)donePressed:(id)sender {
+    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    if (!indexPath) {
+        return;
+    }
+    
+    [self.indicatorView startAnimating];
+    
+    SKProduct *product = self.products[indexPath.row];
+    
+    SKPayment *payment = [SKPayment paymentWithProduct:product];
+    [[SKPaymentQueue defaultQueue] addPayment:payment];
+}
 
 #pragma mark -SKPaymentTransactionObserver
 - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray<SKPaymentTransaction *> *)transactions  {
@@ -181,7 +223,7 @@
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return (self.products.count>0)?1:0;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -204,6 +246,7 @@
     
     return view;
 }
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     TDRechargeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TDRechargeTableViewCellID"];
 
@@ -211,21 +254,22 @@
     view.backgroundColor = [UIColor clearColor];
     cell.selectedBackgroundView = view;
     
-    NSString *productIdentifier = self.products[indexPath.row];
+    SKProduct *product = self.products[indexPath.row];
+    NSString *productIdentifier = product.productIdentifier;
     NSAttributedString *attr  = [self attributedStringWithIdentifier:productIdentifier];
     
     if ([productIdentifier isEqualToString:@"com.jwr.recharge5"]) {
         cell.keyLabel.attributedText = attr;
-        cell.amountLabel.text = @"￥25";
+        
     } else if ([productIdentifier isEqualToString:@"com.jwr.recharge10"]) {
         cell.keyLabel.attributedText = attr;
-        cell.amountLabel.text = @"￥50";
+//        cell.amountLabel.text = @"￥50";
     } else if ([productIdentifier isEqualToString:@"com.jwr.recharge60"]) {
         cell.keyLabel.attributedText = attr;
-        cell.amountLabel.text = @"￥298";
+//        cell.amountLabel.text = @"￥298";
     } else if ([productIdentifier isEqualToString:@"com.jwr.recharge200"]) {
         cell.keyLabel.attributedText = attr;
-        cell.amountLabel.text = @"￥998";
+//        cell.amountLabel.text = @"￥998";
     } else if ([productIdentifier isEqualToString:@"com.jwr.rechargevip"]) {
         NSString *str = @"VIP（一次性解锁所有公司调研）";
         NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
@@ -233,8 +277,10 @@
         [strAtt addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(3, 13)];
         cell.keyLabel.attributedText = strAtt;
         
-        cell.amountLabel.text = @"￥98";
+//        cell.amountLabel.text = @"￥98";
     }
+    
+    cell.amountLabel.text = [NSString stringWithFormat:@"%@",product.localizedPrice];
     
     return cell;
 }
@@ -279,16 +325,6 @@
         
         UINib *nib = [UINib nibWithNibName:@"TDRechargeTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"TDRechargeTableViewCellID"];
-        
-        UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
-        UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:@"购买" forState:UIControlStateNormal];
-        btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-        btn.frame = CGRectMake(12, 15, kScreenWidth-24, 44);
-        btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        [btn addTarget:self action:@selector(donePressed:) forControlEvents:UIControlEventTouchUpInside];
-        [bottom addSubview:btn];
-        _tableView.tableFooterView = bottom;
     }
     
     return _tableView;
