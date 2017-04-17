@@ -51,6 +51,7 @@
 //    CGFloat tableViewH = MIN(arr.count*24, kScreenHeight-CGRectGetMinY(self.frame));
 //    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
     self.resultDataArr = arr;
+    [self reloadData];
 }
 
 

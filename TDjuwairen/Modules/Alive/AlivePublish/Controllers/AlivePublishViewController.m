@@ -80,14 +80,20 @@
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.scrollEnabled = NO;
     
+    [self.tableView addSubview:self.companyListTableView];
+    
     [self setupFooterView];
     [self checkRightBarItemEnabled];
     
-    [self.tableView addSubview:self.companyListTableView];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(keyboardWillShow:)
                                                  name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardDidHide:)
+                                                 name:UIKeyboardDidHideNotification
                                                object:nil];
 }
 
@@ -149,6 +155,10 @@
     
     CGFloat listHeight = CGRectGetHeight(self.view.frame)-44-height;
     self.companyListTableView.frame = CGRectMake(85, 44, kScreenWidth-97, listHeight);
+}
+
+- (void)keyboardDidHide:(NSNotification *)aNotification {
+    self.companyListTableView.hidden = YES;
 }
 
 - (void)setupFooterView {
@@ -215,6 +225,8 @@
     
     footerView.frame = CGRectMake(0, 0, kScreenWidth, height+15);
     self.tableView.tableFooterView = footerView;
+    
+    [self.tableView bringSubviewToFront:self.companyListTableView];
 }
 
 - (void)checkRightBarItemEnabled {
@@ -375,6 +387,7 @@
                 SearchCompanyListModel *model = [[SearchCompanyListModel alloc] initWithDictionary:d];
                 [resultModelArrM addObject:model];
             }
+            
             [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:44];
         }else{
             
