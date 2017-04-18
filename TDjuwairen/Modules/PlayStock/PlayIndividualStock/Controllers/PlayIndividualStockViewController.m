@@ -51,7 +51,7 @@
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
-
+@property (nonatomic, strong) UIView *emptyView;
 @end
 
 @implementation PlayIndividualStockViewController
@@ -120,14 +120,33 @@
         
         _seasonSegmentControl.layer.borderWidth = 2;
         _seasonSegmentControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
-        
-        _seasonSegmentControl.selectedSegmentIndex = ((seasion == 2)?2:1)-1;
-        
     }
     return _seasonSegmentControl;
 }
 
-
+- (UIView *)emptyView {
+    if (!_emptyView) {
+        UIImage *image = [UIImage imageNamed:@"icon_guessList_empty.png"];
+        
+        _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, image.size.height+40)];
+        _emptyView.center = CGPointMake(kScreenWidth/2, CGRectGetWidth(self.tableView.frame)/2+65);
+        _emptyView.tag = 20000;
+        
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
+        imageView.bounds = CGRectMake(0, 0, image.size.width, image.size.height);
+        imageView.center = CGPointMake(CGRectGetWidth(_emptyView.frame)/2, image.size.height/2);
+        
+        [_emptyView addSubview:imageView];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, image.size.height+10, kScreenWidth, 20)];
+        label.font = [UIFont systemFontOfSize:14.0f];
+        label.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+        label.textAlignment = NSTextAlignmentCenter;
+        label.text = @"试试主动发起竞猜吧~";
+        [_emptyView addSubview:label];
+    }
+    return _emptyView;
+}
 #pragma mark - View
 
 - (void)viewDidLoad {
@@ -135,7 +154,8 @@
     
     self.tagIndex = 0;
     self.pageIndex = 1;
-    self.seasonIndex = ([self seasonWithCurrentTime]==2)?2:1;
+    self.seasonIndex = ([self seasonWithCurrentTime]==1)?1:2;
+    self.seasonSegmentControl.selectedSegmentIndex = self.seasonIndex-1;
     
     [self setupTableView];
     
@@ -158,32 +178,11 @@
 - (void)showEmptyView:(BOOL)empty {
     
     if (empty) {
-        UIImage *image = [UIImage imageNamed:@"icon_guessList_empty.png"];
-        
-        UIView *emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, image.size.height+40)];
-        emptyView.center = CGPointMake(kScreenWidth/2, CGRectGetWidth(self.tableView.frame)/2+65);
-        emptyView.tag = 20000;
-        
-        UIImageView *imageView = [[UIImageView alloc] initWithImage:image];
-        imageView.bounds = CGRectMake(0, 0, image.size.width, image.size.height);
-        imageView.center = CGPointMake(CGRectGetWidth(emptyView.frame)/2, image.size.height/2);
-        
-        [emptyView addSubview:imageView];
-        
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(0, image.size.height+10, kScreenWidth, 20)];
-        label.font = [UIFont systemFontOfSize:14.0f];
-        label.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = @"试试主动发起竞猜吧~";
-        [emptyView addSubview:label];
-        
-        
-        [self.tableView addSubview:emptyView];
+        self.emptyView.hidden = NO;
+        [self.tableView addSubview:self.emptyView];
     } else {
-        UIView *emptyView = [self.tableView viewWithTag:20000];
-        if (emptyView) {
-            [emptyView removeFromSuperview];
-        }
+        self.emptyView.hidden = YES;
+        [self.emptyView removeFromSuperview];
     }
 }
 
