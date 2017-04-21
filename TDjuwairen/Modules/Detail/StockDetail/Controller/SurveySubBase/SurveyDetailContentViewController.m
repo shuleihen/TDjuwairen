@@ -26,14 +26,10 @@
     return 200;
 }
 
-- (NSDictionary *)contentParmWithTag:(NSInteger)tag {
+- (NSDictionary *)contentParm {
     NSDictionary *para = @{@"code": self.stockId,
-                           @"tag": @(tag)};
-    if (US.isLogIn) {
-        para = @{@"code": self.stockId,
-                 @"tag": @(tag),
-                 @"user_id" : US.userId};
-    }
+                           @"tag":  self.tag};
+
     return para;
 }
 

@@ -47,7 +47,7 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.bounces = NO;
         _tableView.scrollEnabled = NO;
-        _tableView.rowHeight = 114;
+        _tableView.rowHeight = [SurveryStockListCell rowHeight];
         
         [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
     }
@@ -117,7 +117,7 @@
 - (CGFloat)contentHeight {
     CGFloat height = 0.0f;
     
-    height = 114*[self.surveyList count];
+    height = [SurveryStockListCell rowHeight]*[self.surveyList count];
     return height;
 }
 
@@ -133,15 +133,9 @@
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SurveyContentListController *wself = self;
     
+    NSDictionary *dict = @{@"sub_id" : self.subjectId,@"page" : @(pageA)};
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
-    
-    NSDictionary *dict;
-    if (US.isLogIn) {
-        dict = @{@"sub_id" : self.tag,@"page" : @(pageA),@"user_id" : US.userId};
-    } else {
-        dict = @{@"sub_id" : self.tag,@"page" : @(pageA)};
-    }
-    
     [manager GET:API_SurveySubjectList parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
@@ -157,7 +151,7 @@
                 for (NSDictionary *d in dataArray) {
                     SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
                     [list addObject:model];
-                    [wself.stockArr addObject:model.companyCode];
+                    [wself.stockArr addObject:model.stockCode];
                     
                 }
                 wself.surveyList = [NSArray arrayWithArray:list];
@@ -210,7 +204,6 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
-    cell.isLeft = YES;
     
     return cell;
 }
@@ -220,7 +213,7 @@
     SurveyModel *survey = self.surveyList[indexPath.section];
     [scell setupSurvey:survey];
     
-    StockInfo *stock = [self.stockDict objectForKey:survey.companyCode];
+    StockInfo *stock = [self.stockDict objectForKey:survey.stockCode];
     [scell setupStock:stock];
 }
 
@@ -230,7 +223,7 @@
     SurveyModel *survey = self.surveyList[indexPath.section];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockId = [survey.companyCode stockCode];
+    vc.stockId = survey.companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }

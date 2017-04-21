@@ -24,6 +24,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *valueBLabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailALabel;
 @property (nonatomic, weak) IBOutlet UILabel *detailBLabel;
+@property (nonatomic, weak) IBOutlet UILabel *detailCLabel;
 @property (nonatomic, weak) IBOutlet UIButton *gradeBtn;
 @property (nonatomic, weak) IBOutlet UIButton *addBtn;
 @property (nonatomic, weak) IBOutlet UILabel *gradeNumLabel;

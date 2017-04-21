@@ -569,32 +569,26 @@
 
 
 - (NSInteger)seasonWithCurrentTime {
+    
     // 10:30 之前为上午场，11：30--14：00为下午场
+    
+    // 11：30之前显示上午场，之后显示，上午场和下午场
+
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDate *now = [NSDate date];
     
     NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:now];
-    dateComponents.hour = 10;
+    dateComponents.hour = 11;
     dateComponents.minute = 30;
     dateComponents.second =0;
     dateComponents.nanosecond =0;
+    
     NSDate *date1 = [calendar dateFromComponents:dateComponents];
-    
-    dateComponents.hour = 11;
-    dateComponents.minute = 30;
-    NSDate *date2 = [calendar dateFromComponents:dateComponents];
-    
-    dateComponents.hour = 14;
-    dateComponents.minute = 00;
-    NSDate *date3 = [calendar dateFromComponents:dateComponents];
     
     if ([[now earlierDate:date1] isEqualToDate:now]) {
         return 1;
-    } else if ([[now laterDate:date2] isEqualToDate:now] &&
-               [[now earlierDate:date3] isEqualToDate:now]){
-        return 2;
     } else {
-        return 0;
+        return 2;
     }
 }
 @end

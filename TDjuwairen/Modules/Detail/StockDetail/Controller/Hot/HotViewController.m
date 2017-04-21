@@ -28,7 +28,7 @@
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParmWithTag:self.tag];
+    NSDictionary *para = [self contentParm];
     
     [ma GET:API_SurveyDetailHot parameters:para completion:^(id data, NSError *error){
         if (!error && data && [data isKindOfClass:[NSArray class]]) {

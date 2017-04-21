@@ -11,15 +11,16 @@
 @implementation SurveyModel
 + (SurveyModel *)getInstanceWithDictionary:(NSDictionary *)dic {
     SurveyModel *model = [[SurveyModel alloc] init];
-    model.surveyType = [dic[@"survey_title_pre"] integerValue];
+    model.surveyType = [dic[@"survey_type"] integerValue];
     model.surveyCover = dic[@"survey_cover"];
     model.surveyUrl = dic[@"survey_url"];
     model.companyCode = dic[@"company_code"];
     model.companyName = dic[@"company_name"];
     model.surveyId = dic[@"survey_id"];
     model.surveyTitle = dic[@"survey_title"];
+    model.stockCode = dic[@"stock_code"];
+    model.addTime = dic[@"survey_addtime"];
     
-    model.collection_id = dic[@"collection_id"];
     return model;
 }
 

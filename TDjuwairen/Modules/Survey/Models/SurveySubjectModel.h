@@ -12,5 +12,8 @@
 @property (nonatomic, strong) NSString *subjectId;
 @property (nonatomic, strong) NSString *subjectTitle;
 
+@property (nonatomic, assign) BOOL isSelected;
+@property (nonatomic, assign) BOOL enabled;
+
 - (SurveySubjectModel *)initWithDict:(NSDictionary *)dic;
 @end

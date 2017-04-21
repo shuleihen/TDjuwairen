@@ -11,6 +11,9 @@
 #import "CocoaLumberjack.h"
 
 @implementation StockInfo
+- (BOOL)enabled {
+    return ([self.nowPri floatValue] > 0.0);
+}
 
 - (float)nowPriValue {
     NSDecimalNumber *nowPri = [NSDecimalNumber decimalNumberWithString:self.nowPri];
@@ -23,6 +26,7 @@
 }
 
 - (float)priValue {
+
     NSDecimalNumber *yestodEndPri = [NSDecimalNumber decimalNumberWithString:self.yestodEndPri];
     NSDecimalNumber *nowPri = [NSDecimalNumber decimalNumberWithString:self.nowPri];
     NSDecimalNumber *value = [nowPri decimalNumberBySubtracting:yestodEndPri];
@@ -30,6 +34,7 @@
 }
 
 - (float)priPercentValue {
+    
     NSDecimalNumber *yestodEndPri = [NSDecimalNumber decimalNumberWithString:self.yestodEndPri];
     NSDecimalNumber *nowPri = [NSDecimalNumber decimalNumberWithString:self.nowPri];
     NSDecimalNumber *value = [[nowPri decimalNumberBySubtracting:yestodEndPri] decimalNumberByDividingBy:yestodEndPri];
@@ -135,7 +140,6 @@ void executeSource(void *info) {
 - (void)start {
     DDLogInfo(@"Start query stock thread for delegate = %@ ",[self.delegate class]);
     
-
     [self addTimer];
 }
 
@@ -220,8 +224,8 @@ void executeSource(void *info) {
                 stock.nowPri = infoArray[3];
                 stock.todayMax = infoArray[4];
                 stock.todayMin = infoArray[5];
-                stock.traNumber = infoArray[8];
-                stock.traAmount = infoArray[9];
+                stock.traNumber = [infoArray[8] floatValue];
+                stock.traAmount = [infoArray[9] floatValue];
                 stock.date = infoArray[30];
                 stock.time = infoArray[31];
                 

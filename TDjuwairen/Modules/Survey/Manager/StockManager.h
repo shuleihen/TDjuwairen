@@ -16,15 +16,19 @@
 @property (nonatomic, copy) NSString *nowPri;            //当前价格
 @property (nonatomic, copy) NSString *todayMax;
 @property (nonatomic, copy) NSString *todayMin;
-@property (nonatomic, copy) NSString *traAmount;
-@property (nonatomic, copy) NSString *traNumber;
+@property (nonatomic, assign) float traAmount;        // 成交股票金额(元)
+@property (nonatomic, assign) float traNumber;        // 成交股票数量(一股)
 @property (nonatomic, copy) NSString *date;
 @property (nonatomic, copy) NSString *time;
+@property (nonatomic, copy) NSString *allValue;         // 总市值
+@property (nonatomic, copy) NSString *currentValue;     // 流通市值
+@property (nonatomic, copy) NSString *dynamicRatio;     // 市盈率(动)
 
 - (float)yestodEndPriValue;
 - (float)nowPriValue;
 - (float)priValue;
 - (float)priPercentValue;
+- (BOOL)enabled;
 @end
 
 @protocol StockManagerDelegate <NSObject>

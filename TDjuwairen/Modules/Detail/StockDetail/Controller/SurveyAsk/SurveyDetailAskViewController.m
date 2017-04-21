@@ -33,9 +33,9 @@
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParmWithTag:self.tag];
+    NSDictionary *para = [self contentParm];
     
-    [ma POST:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
+    [ma POST:API_SurveyDetailAsk parameters:para completion:^(id data, NSError *error){
         if (!error && data) {
             [self reloadTableViewWithData:data];
         } else {

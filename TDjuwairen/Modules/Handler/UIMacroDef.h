@@ -13,6 +13,8 @@
 #define kScreenWidth [UIScreen mainScreen].bounds.size.width
 #define kScreenHeight [UIScreen mainScreen].bounds.size.height
 
+#define TDPixel (1.0/[UIScreen mainScreen].scale)
+
 #define TDViewBackgrouondColor   [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"]
 #define TDSeparatorColor         [UIColor hx_colorWithHexRGBAString:@"#eeeeee"]
 

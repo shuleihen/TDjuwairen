@@ -20,14 +20,14 @@
 @property (nonatomic, copy) NSString *stockId;
 @property (nonatomic, copy) NSString *stockName;
 @property (nonatomic, copy) NSString *stockCover;
-@property (nonatomic, assign) NSInteger tag;
+@property (nonatomic, copy) NSString *tag;
 @property (nonatomic, weak) UIViewController *rootController;
 
 @property (nonatomic, weak) id<SurveyDetailContenDelegate> delegate;
 
 
 - (CGFloat)contentHeight;
-- (NSDictionary *)contentParmWithTag:(NSInteger)tag;
+- (NSDictionary *)contentParm;
 
 - (void)reloadData;
 - (NSString *)contenWebUrlWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag;

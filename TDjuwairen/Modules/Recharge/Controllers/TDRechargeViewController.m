@@ -108,6 +108,9 @@
     [btn addTarget:self action:@selector(donePressed:) forControlEvents:UIControlEventTouchUpInside];
     [bottom addSubview:btn];
     self.tableView.tableFooterView = bottom;
+    
+    // 默认选择第一个
+    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{

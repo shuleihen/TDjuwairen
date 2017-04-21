@@ -102,6 +102,7 @@
         return;
     }
     
+    /*
     if (!self.gradeDetail.canGrade) {
         // 下次评分时间
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.gradeDetail.lastTime];
@@ -115,7 +116,7 @@
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:string preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:done];
         [self presentViewController:alert animated:YES completion:nil];
-    }
+    }*/
     
     GradeAddViewController *vc = [[GradeAddViewController alloc] init];
     vc.stockName = self.stockName;

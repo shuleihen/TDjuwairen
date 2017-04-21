@@ -11,7 +11,7 @@
 @implementation SurveySubjectModel
 - (id)initWithDict:(NSDictionary *)dic {
     if (self = [super init]) {
-        self.subjectId = dic[@"subject_id"];
+        self.subjectId = [NSString stringWithFormat:@"%d",[dic[@"subject_id"] intValue]];
         self.subjectTitle = dic[@"subject_title"];
     }
     return self;

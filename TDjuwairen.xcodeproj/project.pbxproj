@@ -244,6 +244,7 @@
 		19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959BA11E2CE7C000AB26DF /* SearchResultTableViewCell.xib */; };
 		19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */; };
 		19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */; };
+		19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A5AC401E0A49AC00FE953A /* Recharge.storyboard */; };
 		19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A5AC8B1E0BA2B800FE953A /* UITextView+Placeholder.m */; };
@@ -337,6 +338,7 @@
 		19E5F2A81E13653200984DBC /* SQTopicCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2A11E13653200984DBC /* SQTopicCellViewModel.m */; };
 		19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */; };
 		19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */; };
+		19ECB9731EA84B070009F625 /* SelectedSurveySubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */; };
 		19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F006F81E31B005000A5F98 /* LoginViewController.xib */; };
 		19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007371E31E4EF000A5F98 /* AnsModel.m */; };
 		19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007391E31E4EF000A5F98 /* AskModel.m */; };
@@ -419,7 +421,6 @@
 		8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8426ED6A1D864CBC00B82ACF /* NothingTableViewCell.xib */; };
 		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
-		843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 843FD3371D8E3D4F00116802 /* Foundation+Log.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXSearchButton.m */; };
 		8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8470E9621DDD8405002F727D /* AlipaySDK.bundle */; };
@@ -997,6 +998,8 @@
 		19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionTypeModel.m; sourceTree = "<group>"; };
 		19959BA81E2DE28C00AB26DF /* GradeDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeDetailModel.h; sourceTree = "<group>"; };
 		19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeDetailModel.m; sourceTree = "<group>"; };
+		19A0636B1EA612DB00C94ED8 /* TencentStockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentStockManager.h; sourceTree = "<group>"; };
+		19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentStockManager.m; sourceTree = "<group>"; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
 		19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarController.m; sourceTree = "<group>"; };
 		19A5AC401E0A49AC00FE953A /* Recharge.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Recharge.storyboard; sourceTree = "<group>"; };
@@ -1178,6 +1181,8 @@
 		19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockCommentViewController.m; sourceTree = "<group>"; };
 		19E5F2AD1E138FC300984DBC /* GuessCommentPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentPublishViewController.h; sourceTree = "<group>"; };
 		19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentPublishViewController.m; sourceTree = "<group>"; };
+		19ECB9711EA84B070009F625 /* SelectedSurveySubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedSurveySubjectViewController.h; sourceTree = "<group>"; };
+		19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedSurveySubjectViewController.m; sourceTree = "<group>"; };
 		19F006F81E31B005000A5F98 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		19F007361E31E4EF000A5F98 /* AnsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsModel.h; sourceTree = "<group>"; };
 		19F007371E31E4EF000A5F98 /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
@@ -1318,7 +1323,6 @@
 		842D58001D8938FD006385CB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		842D58021D893BB3006385CB /* CompanySelTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySelTableView.h; sourceTree = "<group>"; };
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
-		843FD3371D8E3D4F00116802 /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
 		845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftRightBtn.m; sourceTree = "<group>"; };
 		8470E9621DDD8405002F727D /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
@@ -1764,6 +1768,8 @@
 				19194CDE1E7FDDA800641085 /* SurveyContentListController.m */,
 				19194CDF1E7FDDA800641085 /* SurveyListViewController.h */,
 				19194CE01E7FDDA800641085 /* SurveyListViewController.m */,
+				19ECB9711EA84B070009F625 /* SelectedSurveySubjectViewController.h */,
+				19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -1773,6 +1779,8 @@
 			children = (
 				19194CE21E7FDDA800641085 /* StockManager.h */,
 				19194CE31E7FDDA800641085 /* StockManager.m */,
+				19A0636B1EA612DB00C94ED8 /* TencentStockManager.h */,
+				19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -4163,7 +4171,6 @@
 		84CC347C1CEAE75700193D9C /* Utility */ = {
 			isa = PBXGroup;
 			children = (
-				843FD3371D8E3D4F00116802 /* Foundation+Log.m */,
 				84F7DB3C1D0FDD770097E710 /* NSString+Ext.h */,
 				84F7DB3D1D0FDD770097E710 /* NSString+Ext.m */,
 				84CC34861CEAEC2A00193D9C /* NSString+TimeInfo.h */,
@@ -4690,6 +4697,7 @@
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
 				19F00D361E3089B4009270D5 /* StockShareView.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
+				19ECB9731EA84B070009F625 /* SelectedSurveySubjectViewController.m in Sources */,
 				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
@@ -4850,7 +4858,6 @@
 				190F65F61E36E73000B83ADF /* KeysRecordViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
 				19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */,
-				843FD3381D8E3D4F00116802 /* Foundation+Log.m in Sources */,
 				1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */,
 				4DD179E81E77C00B00FBE66D /* UIImage+blankImage.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
@@ -4902,6 +4909,7 @@
 				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				1933257C1E4DAF7200E3D500 /* MessageChildTableViewController.m in Sources */,
+				19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */,
 				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
 				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
 				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,

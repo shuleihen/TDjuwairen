@@ -14,7 +14,7 @@
 @end
 
 @interface SurveyContentListController : UIViewController
-@property (nonatomic, strong) NSString *tag;
+@property (nonatomic, strong) NSString *subjectId;
 @property (nonatomic, strong) NSString *subjectTitle;
 @property (nonatomic, weak) UIViewController *rootController;
 

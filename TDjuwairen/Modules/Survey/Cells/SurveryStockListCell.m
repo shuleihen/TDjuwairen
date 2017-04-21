@@ -18,33 +18,40 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
         
-        self.daynightModel = [UIdaynightModel sharedInstance];
         // 调用公司缩略图
-        _surveyImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 100, 60)];
+        _surveyImageView = [[UIImageView alloc] init];
         [self.contentView addSubview:_surveyImageView];
         
         // 上市公司名称和股票代码
         _stockNameLabel = [[UILabel alloc] init];
-        _stockNameLabel.font = [UIFont systemFontOfSize:17.0f];
-        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"333333"];
+        _stockNameLabel.font = [UIFont systemFontOfSize:12.0f];
+        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"999999"];
+        _stockNameLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"999999"].CGColor;
+        _stockNameLabel.layer.borderWidth = TDPixel;
+        _stockNameLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_stockNameLabel];
         
         // 当前交易价格
         _stockNowPriLabel = [[UILabel alloc] init];
-        _stockNowPriLabel.font = [UIFont systemFontOfSize:25.0f];
         [self.contentView addSubview:_stockNowPriLabel];
         
-        /* 当前涨幅值和百分百
-        _stockDetailLabel = [[UILabel alloc] init];
-        _stockDetailLabel.font = [UIFont systemFontOfSize:14.0f];
-        [self.contentView addSubview:_stockDetailLabel];
-        */
         
         // 调用文章标题
         _surveyTitleLabel = [[UILabel alloc] init];
-        _surveyTitleLabel.font = [UIFont systemFontOfSize:12.0f];
+        _surveyTitleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+        _surveyTitleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
+        _surveyTitleLabel.numberOfLines = 2;
         [self.contentView addSubview:_surveyTitleLabel];
         
+        // 时间
+        _dateLabel = [[UILabel alloc] init];
+        _dateLabel.font = [UIFont systemFontOfSize:12.0f];
+        _dateLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+        [self.contentView addSubview:_dateLabel];
+        
+        // 类别icon
+        _typeImageView = [[UIImageView alloc] init];
+        [self.contentView addSubview:_typeImageView];
         
         self.contentView.backgroundColor = [UIColor whiteColor];
     }
@@ -57,56 +64,51 @@
     // Configure the view for the selected state
 }
 
-- (void)setIsLeft:(BOOL)isLeft {
-    _isLeft = isLeft;
++ (CGFloat)rowHeight {
+    return 118;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
     
     CGFloat w = [UIScreen mainScreen].bounds.size.width;
-    if (_isLeft) {
-        _surveyImageView.frame = CGRectMake(15.0f, 15.0f, 100, 60);
-        _stockNameLabel.frame = CGRectMake(130.0f, 17.0f, w-145, 20);
-        _stockNowPriLabel.frame = CGRectMake(130.0f, 44, w-145, 30);
-    } else {
-        _surveyImageView.frame = CGRectMake(w-115, 15.0f, 100, 60);
-        _stockNameLabel.frame = CGRectMake(15.0f, 17.0f, w-135, 20);
-        _stockNowPriLabel.frame = CGRectMake(15.0f, 44.0f, w-135, 30);
-    }
     
-    _surveyTitleLabel.frame = CGRectMake(15.0f, 87.0f, w-30, 20);
+    _surveyImageView.frame = CGRectMake(15.0f, 15.0f, 100, 60);
+    _typeImageView.frame = CGRectMake(w-17-12, 15, 17, 17);
+    
+    _dateLabel.frame = CGRectMake(127, 63, 150, 14);
 }
 
 - (void)setupSurvey:(SurveyModel *)survey {
-    _stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",survey.companyName,[survey.companyCode stockCode]];
     
-    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] init];
+    CGFloat w = [UIScreen mainScreen].bounds.size.width;
     
-    if (survey.surveyType == 1) {
-        // 调研
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"调研 " attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#cccccc"]}];
-        [attri appendAttributedString:title];
-    } else if (survey.surveyType == 2) {
-        // 热点
-        NSAttributedString *title = [[NSAttributedString alloc] initWithString:@"热点 " attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#cccccc"]}];
-        [attri appendAttributedString:title];
-    } else {
-    }
+    NSString *stockName = [NSString stringWithFormat:@"%@(%@)",survey.companyName,[survey.companyCode stockCode]];
+    CGSize stockNameSize = [stockName boundingRectWithSize:CGSizeMake(MAXFLOAT, 14) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil].size;
+    _stockNameLabel.text = stockName;
+    _stockNameLabel.frame = CGRectMake(15, 86, stockNameSize.width+4, 20);
     
-    NSAttributedString *content = [[NSAttributedString alloc] initWithString:survey.surveyTitle attributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
-    [attri appendAttributedString:content];
-    _surveyTitleLabel.attributedText = attri;
+    _stockNowPriLabel.frame = CGRectMake(CGRectGetMaxX(_stockNameLabel.frame)+12, 86, w-CGRectGetMaxX(_stockNameLabel.frame)-24, 20);
+    
+    _surveyTitleLabel.text = survey.surveyTitle;
+    CGSize titleSize = [_surveyTitleLabel sizeThatFits:CGSizeMake(w-127-36, MAXFLOAT)];
+    _surveyTitleLabel.frame = CGRectMake(127, 14, w-127-36, titleSize.height);
+    
+    self.dateLabel.text = survey.addTime;
     
     [_surveyImageView sd_setImageWithURL:[NSURL URLWithString:survey.surveyCover]];
+    
+    _typeImageView.image = [self imageWithSurveyType:survey.surveyType];
 }
 
 - (void)setupStock:(StockInfo *)stock {
     
-    if (!stock.nowPri.length) {
-        // 没有值 退市，开盘前半小时
-        NSString *string = [NSString stringWithFormat:@"0  0 0%%"];
+    if (!stock.enabled) {
+        // 没有值 退市，停盘,开盘前半小时
+        NSString *string = [NSString stringWithFormat:@"--"];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-        [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:26.0f]} range:NSMakeRange(0, 1)];
-        [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} range:NSMakeRange(1,string.length-1)];
+        [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]} range:NSMakeRange(0, string.length)];
         
-        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#222222"];
         _stockNowPriLabel.attributedText = attr;
     } else {
         float value = [stock priValue];            //跌涨额
@@ -120,13 +122,13 @@
         UIFont *font1 ;
         UIFont *font2 ;
         if ([fo isEqualToString:@"1"]) {
-            font1 = [UIFont systemFontOfSize:26];
-            font2 = [UIFont systemFontOfSize:14];
+            font1 = [UIFont systemFontOfSize:13];
+            font2 = [UIFont systemFontOfSize:12];
         }
         else
         {
-            font1 = [UIFont systemFontOfSize:28];
-            font2 = [UIFont systemFontOfSize:16];
+            font1 = [UIFont systemFontOfSize:12];
+            font2 = [UIFont systemFontOfSize:11];
         }
         [attr setAttributes:@{NSFontAttributeName:font1} range:NSMakeRange(0, nowPriString.length)];
         [attr setAttributes:@{NSFontAttributeName:font2} range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
@@ -140,4 +142,35 @@
     }
 }
 
+// 1为实地、2为对话、5为深度、6为评论，11表示视频
+- (UIImage *)imageWithSurveyType:(NSInteger)type {
+    UIImage *image;
+    
+    switch (type) {
+        case 1:
+            // 调研
+            image = [UIImage imageNamed:@"type_shi.png"];
+            break;
+        case 2:
+            // 热点
+            image = [UIImage imageNamed:@"tye_talk.png"];
+            break;
+        case 5:
+            // 深度
+            image = [UIImage imageNamed:@"tye_deep.png"];
+            break;
+        case 6:
+            // 评论
+            image = [UIImage imageNamed:@"type_discuss.png"];
+            break;
+        case 11:
+            // 热点
+            image = [UIImage imageNamed:@"tye_video.png"];
+            break;
+        default:
+            break;
+    }
+    
+    return image;
+}
 @end

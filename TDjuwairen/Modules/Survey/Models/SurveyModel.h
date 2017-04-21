@@ -13,11 +13,11 @@
 @property (nonatomic, copy) NSString *surveyId;
 @property (nonatomic, copy) NSString *surveyTitle;
 @property (nonatomic, copy) NSString *companyName;
-@property (nonatomic, copy) NSString *companyCode;
+@property (nonatomic, copy) NSString *companyCode;  // 股票代码不包含前缀
+@property (nonatomic, copy) NSString *stockCode;    // 包含前缀 sz，sh
 @property (nonatomic, copy) NSString *surveyCover;
 @property (nonatomic, copy) NSString *surveyUrl;
-
-@property (nonatomic, copy) NSString *collection_id; //收藏自选股id
+@property (nonatomic, copy) NSString *addTime;
 
 + (SurveyModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 @end

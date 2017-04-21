@@ -18,10 +18,10 @@
 @property (nonatomic, strong) UILabel *stockNowPriLabel;
 @property (nonatomic, strong) UILabel *stockDetailLabel;
 @property (nonatomic, strong) UILabel *surveyTitleLabel;
+@property (nonatomic, strong) UILabel *dateLabel;
+@property (nonatomic, strong) UIImageView *typeImageView;
 
-@property (nonatomic,strong ) UIdaynightModel *daynightModel;
-
-@property (nonatomic, assign) BOOL isLeft;
++ (CGFloat)rowHeight;
 
 - (void)setupSurvey:(SurveyModel *)survey;
 - (void)setupStock:(StockInfo *)stock;

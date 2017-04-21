@@ -169,8 +169,8 @@
     if (isLock) {
         CGFloat w = (kScreenWidth-SegmentEdge*2-SegmentItemSpace*([self.segments count]-1))/[self.segments count];
         
-        UIImageView *lockView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 22, 22)];
-        lockView.center = CGPointMake(SegmentEdge+w+SegmentItemSpace/2, 22);
+        UIImageView *lockView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 18, 18)];
+        lockView.center = CGPointMake(SegmentEdge+w-6, 20);
         lockView.tag = 100;
         lockView.image = [UIImage imageNamed:@"ico_chains.png"];
         [self addSubview:lockView];

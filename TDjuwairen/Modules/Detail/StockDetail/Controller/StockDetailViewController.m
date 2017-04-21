@@ -42,8 +42,9 @@
 #import "HotViewController.h"
 #import "NSString+Util.h"
 #import "TDRechargeViewController.h"
+#import "TencentStockManager.h"
 
-#define kHeaderViewHeight 135
+#define kHeaderViewHeight 163
 #define kSegmentHeight 45
 
 @interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate, StockUnlockDelegate>
@@ -56,6 +57,7 @@
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, weak) UIViewController *pageWillToController;
 @property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, strong) TencentStockManager *tencentStockManager;
 @property (nonatomic, strong) StockInfoModel *stockModel;
 @end
 
@@ -66,7 +68,7 @@
     self.tableView.dataSource = nil;
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    [self.stockManager stopThread];
+//    [self.stockManager stopThread];
 }
 
 - (void)viewDidLoad {
@@ -74,8 +76,11 @@
     // Do any additional setup after loading the view from its nib.
     
     // 添加查询股票
-    NSString *queryStockId = [self.stockId queryStockCode];
-    [self.stockManager addStocks:@[queryStockId]];
+//    NSString *queryStockId = [self.stockId queryStockCode];
+//    [self.stockManager addStocks:@[queryStockId]];
+    
+    self.tencentStockManager = [[TencentStockManager alloc] init];
+    [self queryTencentStock];
     
     // 查询
     [self querySurveySimpleDetail];
@@ -115,7 +120,7 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.stockManager start];
+//    [self.stockManager start];
     
     [self showBottomTool];
 }
@@ -123,7 +128,7 @@
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self.stockManager stop];
+//    [self.stockManager stop];
     
     [self hideBottomTool];
 }
@@ -178,6 +183,15 @@
 //    } else {
 //        self.segment.selectedIndex = 0;
 //    }
+}
+
+- (void)queryTencentStock {
+    NSString *queryStockId = [self.stockId queryStockCode];
+    [self.tencentStockManager queryStock:queryStockId completion:^(StockInfo *stock,NSError *error){
+        if (stock) {
+            [self.stockHeaderView setupStockInfo:stock];
+        }
+    }];
 }
 
 #pragma mark - Action
@@ -497,11 +511,11 @@
             }
         }];
         
-        if (index == 5 || index == 2) {
-            [self showBottomTool];
-        } else {
-            [self hideBottomTool];
-        }
+//        if (index == 5 || index == 2) {
+//            [self showBottomTool];
+//        } else {
+//            [self hideBottomTool];
+//        }
 //    }
 }
 
@@ -666,15 +680,15 @@
         SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地"
                                                                                   image:[UIImage imageNamed:@"ico_spot.png"]
                                                                 selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#69ae1d"]];
-        SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"对话"
-                                                                                  image:[UIImage imageNamed:@"ico_dialogue.png"]
+        SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"公告"
+                                                                                  image:[UIImage imageNamed:@"ico_notice.png"]
                                                                  selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#5e7ef0"]];
-        SurveyDetailSegmentItem *niuxiong = [[SurveyDetailSegmentItem alloc] initWithTitle:@"牛熊"
-                                                                                   image:[UIImage imageNamed:@"ico_vs.png"]
-                                                                   selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#ff9600"]];
-        SurveyDetailSegmentItem *redian = [[SurveyDetailSegmentItem alloc] initWithTitle:@"热点"
+        SurveyDetailSegmentItem *niuxiong = [[SurveyDetailSegmentItem alloc] initWithTitle:@"热点"
                                                                                    image:[UIImage imageNamed:@"ico_hot.png"]
-                                                                 selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#f65050"]];
+                                                                   selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#f65050"]];
+        SurveyDetailSegmentItem *redian = [[SurveyDetailSegmentItem alloc] initWithTitle:@"问答"
+                                                                                   image:[UIImage imageNamed:@"ico_answer.png"]
+                                                                 selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#ff9600"]];
         /*
         SurveyDetailSegmentItem *chanpin = [[SurveyDetailSegmentItem alloc] initWithTitle:@"产品篇"
                                                                                    image:[UIImage imageNamed:@"btn_chanpin_nor"]
@@ -696,7 +710,8 @@
     if (!_contentControllers) {
         _contentControllers = [NSMutableArray arrayWithCapacity:4];
                 
-        NSArray *classeArray = @[@"SpotViewController",@"DialogueViewController",@"SurveyDetailStockCommentViewController",@"HotViewController"];
+        NSArray *classeArray = @[@"SpotViewController",@"DialogueViewController",@"HotViewController",@"SurveyDetailAskViewController"];
+        NSArray *tags = @[@"0",@"1",@"3",@"5"];
         
         int i =0;
         for (NSString *string in classeArray) {
@@ -706,7 +721,7 @@
             obj.stockId = self.stockId;
             obj.stockName = self.stockModel.stockName;
             obj.stockCover = self.stockModel.cover;
-            obj.tag = i++;
+            obj.tag = tags[i++];
             obj.delegate = self;
             [_contentControllers addObject:obj];
         }

@@ -36,12 +36,15 @@
 #import "NotificationDef.h"
 #import "LoginManager.h"
 #import "UIViewController+Refresh.h"
+#import "UIImage+Resize.h"
+#import "SelectedSurveySubjectViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
 #define kButtonViewHeight 76
 #define kSegmentHeight 34
 #define kSegmentItemWidth  70
+#define kUserAttenSegmentTag    @"154"
 
 @interface SurveyListViewController ()<UITableViewDelegate, UITableViewDataSource, SDCycleScrollViewDelegate, SurveyContentListDelegate, UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 
@@ -49,8 +52,10 @@
 @property (nonatomic, strong) NSArray *bannerLinks;
 
 @property (nonatomic, strong) WelcomeView *welcomeView;
+@property (nonatomic, strong) UIView *segmentContentView;
 @property (nonatomic, strong) UIScrollView *segmentContentScrollView;
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
+
 @property (nonatomic, strong) NSMutableArray *contentControllers;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *subjectItems;
@@ -67,7 +72,9 @@
     if (!_cycleScrollView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kBannerHeiht);
         __weak SurveyListViewController *wself = self;
-        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:wself placeholderImage:[UIImage imageNamed:@"bannerPlaceholder.png"]];
+        
+        UIImage *image = [[UIImage imageNamed:@"bannerPlaceholder.png"] resize:CGSizeMake(kScreenWidth, kBannerHeiht)];
+        _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:wself placeholderImage:image];
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
     }
     return _cycleScrollView;
@@ -112,31 +119,37 @@
         i++;
     }
 
-    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+75.5, kScreenWidth, 0.5)];
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kBannerHeiht+kButtonViewHeight-TDPixel, kScreenWidth, TDPixel)];
     sep.backgroundColor = TDSeparatorColor;
     [view addSubview:sep];
     
     return view;
 }
 
+- (UIView *)segmentContentView {
+    if (!_segmentContentView) {
+        _segmentContentView = [[UIView alloc] initWithFrame:CGRectMake(-1, 0, kScreenWidth+2, kSegmentHeight)];
+        _segmentContentView.backgroundColor = [UIColor whiteColor];
+        _segmentContentView.layer.borderColor = TDSeparatorColor.CGColor;
+        _segmentContentView.layer.borderWidth = TDPixel;
+        
+        UIButton *addBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-12-20, 7, 20, 20)];
+        [addBtn setImage:[UIImage imageNamed:@"add_guanzhu.png"] forState:UIControlStateNormal];
+        [addBtn addTarget:self action:@selector(selectedSubjectPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_segmentContentView addSubview:addBtn];
+        
+        [_segmentContentView addSubview:self.segmentContentScrollView];
+    }
+    
+    return _segmentContentView;
+}
+
 - (UIScrollView *)segmentContentScrollView {
     if (!_segmentContentScrollView) {
-        UIScrollView *view = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kSegmentHeight)];
-        view.backgroundColor = [UIColor whiteColor];
-        view.showsHorizontalScrollIndicator = NO;
+        _segmentContentScrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-12-20-10, kSegmentHeight)];
+        _segmentContentScrollView.showsHorizontalScrollIndicator = NO;
         
-        [view addSubview:self.segmentControl];
-
-//        view.layer.borderColor = TDSeparatorColor.CGColor;
-//        UIView *top = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-//        top.backgroundColor = TDSeparatorColor;
-//        [view addSubview:top];
-//        
-//        UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kSegmentHeight-0.5, kScreenWidth, 1)];
-//        bottom.backgroundColor = TDSeparatorColor;
-//        [view addSubview:bottom];
-        
-        _segmentContentScrollView = view;
+        [_segmentContentScrollView addSubview:self.segmentControl];
     }
     return _segmentContentScrollView;
 }
@@ -178,6 +191,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChangedNotifi:) name:kLoginStateChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionalStockChangedNotifi:) name:kAddOptionalStockSuccessed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChangedNotifi:) name:kSubjectChangedNotification object:nil];
+    
     
     [self setupNavigationBar];
     [self setupTableView];
@@ -205,11 +220,11 @@
         if (offset.y > headerHeight) {
             
             CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kSegmentHeight);
-            self.segmentContentScrollView.frame = newFrame;
+            self.segmentContentView.frame = newFrame;
             
         } else {
             CGRect newFrame = CGRectMake(0, headerHeight, self.view.frame.size.width, kSegmentHeight);
-            self.segmentContentScrollView.frame = newFrame;
+            self.segmentContentView.frame = newFrame;
         }
     }
 }
@@ -243,18 +258,19 @@
 }
 
 - (void)setupTableView {
-//    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = TDViewBackgrouondColor;
-    self.tableView.separatorColor = TDSeparatorColor;
+//    self.tableView.separatorColor = TDSeparatorColor;
     
     // 表头
     self.tableView.tableHeaderView = [self tableViewHeaderView];
+
     // 表尾
     self.tableView.tableFooterView = self.pageViewController.view;
     
     // 自定义悬浮segment
-    self.segmentContentScrollView.frame = CGRectMake(0, kBannerHeiht+kButtonViewHeight+10, kScreenWidth, kSegmentHeight);
-    [self.tableView addSubview:self.segmentContentScrollView];
+    self.segmentContentView.frame = CGRectMake(0, kBannerHeiht+kButtonViewHeight+10, kScreenWidth, kSegmentHeight);
+    [self.tableView addSubview:self.segmentContentView];
     
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
@@ -275,7 +291,7 @@
         [segmentTitles addObject:model.subjectTitle];
         
         SurveyContentListController *vc = [[SurveyContentListController alloc] init];
-        vc.tag = model.subjectId;
+        vc.subjectId = model.subjectId;
         vc.subjectTitle = model.subjectTitle;
         vc.rootController = self;
         vc.delegate = self;
@@ -289,7 +305,7 @@
 - (void)setupSegmentWithTitles:(NSArray *)titles {
     CGFloat w = [titles count]*kSegmentItemWidth;
     self.segmentControl.sectionTitles = titles;
-    self.segmentControl.frame = CGRectMake(0, 0, w, kSegmentHeight);
+    self.segmentControl.frame = CGRectMake(1, 0, w, kSegmentHeight);
     self.segmentContentScrollView.contentSize = CGSizeMake(w, kSegmentHeight);
     
     if ([titles count]) {
@@ -372,6 +388,24 @@
     }];
 }
 
+- (void)selectedSubjectPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    SelectedSurveySubjectViewController *vc = [[SelectedSurveySubjectViewController alloc] init];
+    vc.selectedArray = self.subjectItems;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    vc.selectedBlock = ^(NSArray *array){
+    
+    };
+}
+
 - (void)userInfoChangedNotifi:(NSNotification *)notifi {
     
     [self setupUserAvatar];
@@ -383,18 +417,27 @@
     
     // 如果当前页面是自选
     SurveyContentListController *vc = [self currentContentViewController];
-    if ([vc.subjectTitle isEqualToString:@"自选"]) {
+    if ([vc.subjectId isEqualToString:kUserAttenSegmentTag]) {
         [vc refreshData];
     }
 }
 
 - (void)optionalStockChangedNotifi:(NSNotification *)notifi {
     for (SurveyContentListController *vc in self.contentControllers) {
-        if ([vc.subjectTitle isEqualToString:@"自选"]) {
+        if ([vc.subjectId isEqualToString:kUserAttenSegmentTag]) {
             [vc refreshData];
         }
     }
 }
+
+- (void)subjectChangedNotifi:(NSNotification *)notifi {
+    NSArray *subjects = notifi.object;
+
+    self.subjectItems = subjects;
+    
+    [self setupWithSubjectArray:self.subjectItems];
+}
+
 
 - (void)refreshAction {
     [self getBanners];
@@ -433,9 +476,10 @@
     __weak SurveyListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    [manager GET:API_SurveySubject parameters:nil completion:^(id data, NSError *error) {
+    [manager GET:API_SurveyAttenSubject parameters:nil completion:^(id data, NSError *error) {
         if (!error && data) {
             NSMutableArray *array = [NSMutableArray arrayWithCapacity:[data count]];
+
             for (NSDictionary *dict in data) {
                 SurveySubjectModel *model = [[SurveySubjectModel alloc] initWithDict:dict];
                 [array addObject:model];
