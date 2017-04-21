@@ -83,11 +83,31 @@
             imageArray = images;
         }
         
+        NSString *shareTitle = title;
+        if (type == SSDKPlatformSubTypeQQFriend ||
+            type == SSDKPlatformSubTypeQZone) {
+            // title 现在30字符
+            if (shareTitle.length > 30) {
+                shareTitle = [shareTitle substringToIndex:30];
+            }
+        } else if (type == SSDKPlatformTypeSinaWeibo) {
+            // 140个汉字
+            if (shareTitle.length > 140) {
+                shareTitle = [shareTitle substringToIndex:140];
+            }
+        } else if (type == SSDKPlatformSubTypeWechatTimeline ||
+                   type == SSDKPlatformSubTypeWechatSession) {
+            // 512Bytes以内
+            if (shareTitle.length > 512) {
+                shareTitle = [shareTitle substringToIndex:512];
+            }
+        }
+        
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:nil
                                          images:imageArray
                                             url:[NSURL URLWithString:SafeValue(url)]
-                                          title:title
+                                          title:shareTitle
                                            type:SSDKContentTypeAuto];
         
         //进行分享
@@ -101,7 +121,7 @@
                  hud.animationType = MBProgressHUDAnimationZoomIn;
                  hud.labelText = @"分享成功";
                  hud.removeFromSuperViewOnHide = YES;
-                 [hud hide:YES afterDelay:0.4];
+                 [hud hide:YES afterDelay:0.6];
                  
              } else if (state == SSDKResponseStateFail) {
                  UIWindow *window = [UIApplication sharedApplication].keyWindow;
@@ -110,7 +130,7 @@
                  hud.animationType = MBProgressHUDAnimationZoomIn;
                  hud.labelText = @"分享失败";
                  hud.removeFromSuperViewOnHide = YES;
-                 [hud hide:YES afterDelay:0.4];
+                 [hud hide:YES afterDelay:0.6];
              }
              stateBlock(state == SSDKResponseStateSuccess);
          }];
@@ -139,42 +159,12 @@
                 type = SSDKPlatformSubTypeQZone;
                 break;
             default:
+                type = SSDKPlatformTypeUnknown;
                 break;
         }
         
         selectedBlock(type);
         ShareWithType(type);
     };
-    
-    /*
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-
-    [shareParams SSDKSetupShareParamsByText:nil images:images url:[NSURL URLWithString:SafeValue(url)] title:title type:SSDKContentTypeAuto];
-    
-    [ShareSDK showShareActionSheet:nil
-                             items:nil
-                       shareParams:shareParams
-               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                   if (state == SSDKResponseStateSuccess) {
-                       UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                       MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-                       hud.mode = MBProgressHUDModeText;
-                       hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.labelText = @"分享成功";
-                       hud.removeFromSuperViewOnHide = YES;
-                       [hud hide:YES afterDelay:0.4];
-                       
-                   } else if (state == SSDKResponseStateFail) {
-                       UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                       MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-                       hud.mode = MBProgressHUDModeText;
-                       hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.labelText = @"分享失败";
-                       hud.removeFromSuperViewOnHide = YES;
-                       [hud hide:YES afterDelay:0.4];
-                   }
-                   stateBlock(state == SSDKResponseStateSuccess);
-               }];
-     */
 }
 @end
