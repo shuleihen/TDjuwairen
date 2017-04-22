@@ -8,14 +8,19 @@
 
 #import <UIKit/UIKit.h>
 #import "GradeCommentModel.h"
+#import "GradeCommReplyView.h"
 
 @interface GradeDetailCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *avatar;
 @property (weak, nonatomic) IBOutlet UILabel *userNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *stockGodLabel;
 @property (weak, nonatomic) IBOutlet UILabel *contentLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
+@property (weak, nonatomic) IBOutlet GradeCommReplyView *replyView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *replyViewHeight;
 
 + (CGFloat)heightWithContent:(NSString *)content;
++ (CGFloat)heightWithCommentModel:(GradeCommentModel *)model;
 - (void)setupCommentModel:(GradeCommentModel *)model;
 @end

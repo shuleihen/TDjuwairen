@@ -17,6 +17,18 @@
         _content = [dict[@"review_content"] stringByReplacingEmojiCheatCodesWithUnicode];
         _createTime = dict[@"review_time"];
         _grade = dict[@"user_score"];
+        self.guessRate = dict[@"guess_rate"];
+        
+        NSArray *array = dict[@"reply_list"];
+        NSMutableArray *replyArray = [NSMutableArray arrayWithCapacity:array.count];
+        
+        if (array.count) {
+            for (NSDictionary *dic in array) {
+                GradeCommentReplyModel *model = [[GradeCommentReplyModel alloc] initWithDict:dic];
+                [replyArray addObject:model];
+            }
+        }
+        self.replyList = replyArray;
     }
     return self;
 }

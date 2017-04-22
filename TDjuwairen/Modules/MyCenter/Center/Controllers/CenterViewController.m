@@ -167,6 +167,8 @@
     }
 }
 
+- (IBAction)memberCenterPressed:(id)sender {
+}
 #pragma mark - UIScrollDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offy = scrollView.contentOffset.y;

@@ -32,12 +32,32 @@
     return height;
 }
 
++ (CGFloat)heightWithCommentModel:(GradeCommentModel *)model {
+    CGFloat height = 0;
+    
+    CGFloat contentHeight = [model.content boundingRectWithSize:CGSizeMake(kScreenWidth-62-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:15.0f]} context:nil].size.height;
+    
+    CGFloat replyViewHeight = [GradeCommReplyView heightWithReplyList:model.replyList withWidth:kScreenWidth-62-12];
+    
+    if (model.replyList.count) {
+        height = 63 + contentHeight + 10 +replyViewHeight+ 36;
+    } else {
+        height = 63 + contentHeight + 36;
+    }
+    
+    return height;
+}
+
 - (void)setupCommentModel:(GradeCommentModel *)model {
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:model.avatar] placeholderImage:[UIImage imageNamed:@"photo_m.png"]];
     self.userNameLabel.text = model.userName;
     self.contentLabel.text = model.content;
     self.dateTimeLabel.text = model.createTime;
     self.gradeLabel.text = [NSString stringWithFormat:@"%@分",model.grade];
+    self.stockGodLabel.text = [NSString stringWithFormat:@"股神指数：%@",model.guessRate];
+    
+    self.replyViewHeight.constant = [GradeCommReplyView heightWithReplyList:model.replyList withWidth:kScreenWidth-62-12];
+    self.replyView.replyList = model.replyList;
 }
 
 @end

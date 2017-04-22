@@ -7,13 +7,17 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "GradeCommentReplyModel.h"
 
 @interface GradeCommentModel : NSObject
+@property (nonatomic, copy) NSString *reviewId;
 @property (nonatomic, strong) NSString *avatar;
 @property (nonatomic, strong) NSString *userName;
 @property (nonatomic, strong) NSString *content;
 @property (nonatomic, strong) NSString *createTime;
 @property (nonatomic, strong) NSString *grade;
+@property (nonatomic, strong) NSArray *replyList;
+@property (nonatomic, strong) NSNumber *guessRate;
 
 - (id)initWithDict:(NSDictionary *)dict;
 @end

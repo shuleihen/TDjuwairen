@@ -14,9 +14,9 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:self.bounds];
-        imageView.image = [UIImage imageNamed:@"bg_grade.png"];
-        [self addSubview:imageView];
+        _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+//        imageView.image = [UIImage imageNamed:@"bg_grade.png"];
+        [self addSubview:_imageView];
         
         _gradeView = [[GradeView alloc] initWithFrame:CGRectMake(0, 0, 164, 164)];
         _gradeView.center = CGPointMake(frame.size.width/2, frame.size.height/2);
@@ -45,6 +45,18 @@
 }
 
 - (void)setupGradeModel:(GradeDetailModel *)model {
+    
+    NSString *imageName;
+    if (model.totalGrade < 50) {
+        imageName = @"bg_grade1.png";
+    } else if (model.totalGrade >= 50 &&
+               model.totalGrade < 80) {
+        imageName = @"bg_grade2.png";
+    } else {
+        imageName = @"bg_grade3.png";
+    }
+    self.imageView.image = [[UIImage imageNamed:imageName] imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+    
     CGSize size = [model.stockName boundingRectWithSize:CGSizeMake(kScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.stockNameLabel.font} context:nil].size;
     
     CGSize stockIdSize = [model.stockId boundingRectWithSize:CGSizeMake(kScreenWidth, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : self.stockIdLabel.font} context:nil].size;

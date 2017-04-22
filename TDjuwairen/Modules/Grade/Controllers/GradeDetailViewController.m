@@ -47,6 +47,11 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView) name:kAddStockGradeSuccessed object:nil];
 }
 
+- (void)setupToolView {
+    UIView *v = [self.toolView viewWithTag:10];
+    v.backgroundColor = [self colorWithGrade:self.gradeDetail.totalGrade];
+}
+
 - (void)reloadView {
     [self queryGradeTetail];
     [self queryCompanyReview];
@@ -67,6 +72,7 @@
         }
         
         [wself.headerView setupGradeModel:wself.gradeDetail];
+        [wself setupToolView];
     }];
 }
 
@@ -101,22 +107,6 @@
         [self.navigationController pushViewController:login animated:YES];
         return;
     }
-    
-    /*
-    if (!self.gradeDetail.canGrade) {
-        // 下次评分时间
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.gradeDetail.lastTime];
-        NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-        formatter.dateFormat = @"MM月dd日";
-        NSString *dateTime = [formatter stringFromDate:date];
-        
-        NSString *string = [NSString stringWithFormat:@"您已评分，%@以后可以再次评分",dateTime];
-        
-        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:string preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:done];
-        [self presentViewController:alert animated:YES completion:nil];
-    }*/
     
     GradeAddViewController *vc = [[GradeAddViewController alloc] init];
     vc.stockName = self.stockName;
@@ -154,7 +144,7 @@
     }
     
     GradeCommentModel *model = self.items[indexPath.row];
-    return [GradeDetailCell heightWithContent:model.content];
+    return [GradeDetailCell heightWithCommentModel:model];
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -221,6 +211,10 @@
 - (GradeHeaderView *)headerView {
     if (!_headerView) {
         _headerView = [[GradeHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 204)];
+        
+        if (self.gradeDetail) {
+            [_headerView setupGradeModel:self.gradeDetail];
+        }
     }
     return _headerView;
 }
@@ -233,7 +227,7 @@
         [btn setTitle:@"我要评分" forState:UIControlStateNormal];
         btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         btn.frame = CGRectMake(12, 12, kScreenWidth-24, 34);
-        btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+        btn.tag = 10;
         [btn addTarget:self action:@selector(gradePressed:) forControlEvents:UIControlEventTouchUpInside];
         [_toolView addSubview:btn];
         
@@ -246,4 +240,17 @@
     return _toolView;
 }
 
+- (UIColor *)colorWithGrade:(NSInteger)grade {
+    
+    UIColor *color;
+    if (grade < 50) {
+        color = [UIColor hx_colorWithHexRGBAString:@"#dc4e5a"];
+    } else if (grade >= 50 &&
+               grade < 80) {
+        color = [UIColor hx_colorWithHexRGBAString:@"#e77b21"];
+    } else {
+        color = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+    }
+    return color;
+}
 @end

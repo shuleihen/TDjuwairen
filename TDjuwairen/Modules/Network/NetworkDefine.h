@@ -93,7 +93,7 @@
 #define API_SurveySubjectList   @"Survey/lists3_1"
 #define API_SurveyGradeList     @"Survey/companyRank"
 #define API_SurveyCompanyGrade  @"Survey/companyGrade"
-#define API_SurveyCompanyReview @"Survey/companyReview"
+#define API_SurveyCompanyReview @"Survey/companyReview3_1"
 #define API_SurveyCompanyGradeAdd    @"Survey/addCompanyGrade"
 #define API_SurveyAddSurvey     @"Survey/addSurveyOrder"
 #define API_SurveyAddStock      @"Survey/addMyStock"

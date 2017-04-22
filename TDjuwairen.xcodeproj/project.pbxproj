@@ -339,6 +339,9 @@
 		19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */; };
 		19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */; };
 		19ECB9731EA84B070009F625 /* SelectedSurveySubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */; };
+		19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */; };
+		19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */; };
+		19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */; };
 		19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F006F81E31B005000A5F98 /* LoginViewController.xib */; };
 		19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007371E31E4EF000A5F98 /* AnsModel.m */; };
 		19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007391E31E4EF000A5F98 /* AskModel.m */; };
@@ -1183,6 +1186,12 @@
 		19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentPublishViewController.m; sourceTree = "<group>"; };
 		19ECB9711EA84B070009F625 /* SelectedSurveySubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedSurveySubjectViewController.h; sourceTree = "<group>"; };
 		19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedSurveySubjectViewController.m; sourceTree = "<group>"; };
+		19ECB99B1EAAEF160009F625 /* GradeCommentReplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommentReplyModel.h; sourceTree = "<group>"; };
+		19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommentReplyModel.m; sourceTree = "<group>"; };
+		19ECB99E1EAAF4440009F625 /* GradeCommReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommReplyView.h; sourceTree = "<group>"; };
+		19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommReplyView.m; sourceTree = "<group>"; };
+		19ECB9A11EAB30040009F625 /* GradeReplyToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeReplyToolView.h; sourceTree = "<group>"; };
+		19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeReplyToolView.m; sourceTree = "<group>"; };
 		19F006F81E31B005000A5F98 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		19F007361E31E4EF000A5F98 /* AnsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsModel.h; sourceTree = "<group>"; };
 		19F007371E31E4EF000A5F98 /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
@@ -3224,6 +3233,8 @@
 			children = (
 				19959B7C1E2C5D4300AB26DF /* GradeListModel.h */,
 				19959B7D1E2C5D4300AB26DF /* GradeListModel.m */,
+				19ECB99B1EAAEF160009F625 /* GradeCommentReplyModel.h */,
+				19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */,
 				19959B8F1E2C93A800AB26DF /* GradeCommentModel.h */,
 				19959B901E2C93A800AB26DF /* GradeCommentModel.m */,
 				19959BA81E2DE28C00AB26DF /* GradeDetailModel.h */,
@@ -3239,6 +3250,10 @@
 				19959B851E2C5F4200AB26DF /* GradeView.m */,
 				19959B871E2C694A00AB26DF /* GradeHeaderView.h */,
 				19959B881E2C694A00AB26DF /* GradeHeaderView.m */,
+				19ECB99E1EAAF4440009F625 /* GradeCommReplyView.h */,
+				19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */,
+				19ECB9A11EAB30040009F625 /* GradeReplyToolView.h */,
+				19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4627,6 +4642,7 @@
 				190F65F41E36E73000B83ADF /* ChildOrderTableViewController.m in Sources */,
 				19C348741D3F76DB008ABD16 /* NSBundle+MJRefresh.m in Sources */,
 				9E2233D11E8B576F00B1FAC4 /* PlayGuessIndividua.m in Sources */,
+				19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */,
 				19F00D1C1E2EFFD9009270D5 /* StockCommentModel.m in Sources */,
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */,
@@ -4816,6 +4832,7 @@
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
+				19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */,
 				194186C61DF81235000C5197 /* ViewManagerViewController.m in Sources */,
 				19194D161E80CBE900641085 /* ZFCWaveActivityIndicatorView.m in Sources */,
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,
@@ -4848,6 +4865,7 @@
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
 				196894771E9C800B009F1741 /* UserInfoViewController.m in Sources */,
 				1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */,
+				19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */,
 				19F00D1F1E2EFFD9009270D5 /* StockHeaderView.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
