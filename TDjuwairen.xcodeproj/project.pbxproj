@@ -498,9 +498,16 @@
 		9E2233D11E8B576F00B1FAC4 /* PlayGuessIndividua.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233D01E8B576F00B1FAC4 /* PlayGuessIndividua.m */; };
 		9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */; };
 		9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */; };
+		9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E614E4C1EAC85710014DC0B /* OpenAnAccountController.m */; };
+		9E614E4F1EAC85710014DC0B /* OpenAnAccountController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E614E4D1EAC85710014DC0B /* OpenAnAccountController.xib */; };
+		9E614E531EACADAB0014DC0B /* PhoneNumViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E614E511EACADAB0014DC0B /* PhoneNumViewController.m */; };
+		9E614E541EACADAB0014DC0B /* PhoneNumViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E614E521EACADAB0014DC0B /* PhoneNumViewController.xib */; };
 		9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */; };
 		9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */; };
 		9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */; };
+		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
+		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
+		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1463,11 +1470,22 @@
 		9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePingLunViewController.h; sourceTree = "<group>"; };
 		9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePingLunViewController.m; sourceTree = "<group>"; };
 		9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlivePingLunViewController.xib; sourceTree = "<group>"; };
+		9E614E4B1EAC85710014DC0B /* OpenAnAccountController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenAnAccountController.h; sourceTree = "<group>"; };
+		9E614E4C1EAC85710014DC0B /* OpenAnAccountController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenAnAccountController.m; sourceTree = "<group>"; };
+		9E614E4D1EAC85710014DC0B /* OpenAnAccountController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = OpenAnAccountController.xib; sourceTree = "<group>"; };
+		9E614E501EACADAB0014DC0B /* PhoneNumViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhoneNumViewController.h; sourceTree = "<group>"; };
+		9E614E511EACADAB0014DC0B /* PhoneNumViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhoneNumViewController.m; sourceTree = "<group>"; };
+		9E614E521EACADAB0014DC0B /* PhoneNumViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhoneNumViewController.xib; sourceTree = "<group>"; };
 		9EBF092F1E7933BA007B2DC0 /* UIView+Additions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Additions.h"; sourceTree = "<group>"; };
 		9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Additions.m"; sourceTree = "<group>"; };
 		9EC07EE81E7806F3006EE97E /* AliveCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCommentViewController.h; sourceTree = "<group>"; };
 		9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCommentViewController.m; sourceTree = "<group>"; };
 		9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveCommentViewController.xib; sourceTree = "<group>"; };
+		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
+		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
+		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
+		9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationCell.m; sourceTree = "<group>"; };
+		9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActualQuotationCell.xib; sourceTree = "<group>"; };
 		FE108943B4653426E130FAD3 /* libPods-TDjuwairen.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-TDjuwairen.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -3588,6 +3606,7 @@
 				194F058E1E27425400C8CB8A /* Subscription */,
 				19194CD41E7FDDA700641085 /* Survey */,
 				1953CAED1E7172DB00A64B3C /* Alive */,
+				9EFD75651EAC72230028F18B /* OpenAnAccount */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -4388,6 +4407,48 @@
 			path = Resources;
 			sourceTree = "<group>";
 		};
+		9EFD75651EAC72230028F18B /* OpenAnAccount */ = {
+			isa = PBXGroup;
+			children = (
+				9EFD75681EAC72D70028F18B /* Models */,
+				9EFD75671EAC72C10028F18B /* Cells */,
+				9EFD75661EAC724A0028F18B /* Controller */,
+			);
+			path = OpenAnAccount;
+			sourceTree = "<group>";
+		};
+		9EFD75661EAC724A0028F18B /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */,
+				9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */,
+				9E614E4B1EAC85710014DC0B /* OpenAnAccountController.h */,
+				9E614E4C1EAC85710014DC0B /* OpenAnAccountController.m */,
+				9E614E4D1EAC85710014DC0B /* OpenAnAccountController.xib */,
+				9E614E501EACADAB0014DC0B /* PhoneNumViewController.h */,
+				9E614E511EACADAB0014DC0B /* PhoneNumViewController.m */,
+				9E614E521EACADAB0014DC0B /* PhoneNumViewController.xib */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		9EFD75671EAC72C10028F18B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */,
+				9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */,
+				9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		9EFD75681EAC72D70028F18B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		F70B9F0ADFA276EBCA9300AD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -4567,6 +4628,7 @@
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
+				9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */,
 				196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
@@ -4576,6 +4638,7 @@
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
 				193419E81E78DF2B00F22788 /* selected.caf in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
+				9E614E541EACADAB0014DC0B /* PhoneNumViewController.xib in Resources */,
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
 				1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */,
@@ -4603,6 +4666,7 @@
 				19D6B9F91E508E3C00475AA1 /* AccountManager.storyboard in Resources */,
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
+				9E614E4F1EAC85710014DC0B /* OpenAnAccountController.xib in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				193419E61E78DF2B00F22788 /* bloom.caf in Resources */,
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
@@ -4669,6 +4733,7 @@
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
+				9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */,
 				19F00D201E2EFFD9009270D5 /* SurveyBottomToolView.m in Sources */,
 				19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
@@ -4869,6 +4934,7 @@
 				19F00D1F1E2EFFD9009270D5 /* StockHeaderView.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
+				9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
 				19194CCC1E7FACC400641085 /* UIViewController+Login.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
@@ -4962,6 +5028,7 @@
 				194186EF1DF90CA4000C5197 /* WelcomeView.m in Sources */,
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
+				9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */,
 				19F00D131E2EFFD9009270D5 /* SurveyDetailAskViewController.m in Sources */,
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
@@ -5005,6 +5072,7 @@
 				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
 				19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
+				9E614E531EACADAB0014DC0B /* PhoneNumViewController.m in Sources */,
 				19194D141E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m in Sources */,
 				1955B48D1D644D9800DC102E /* TitlesTableViewCell.m in Sources */,
 				19386ED31E71A2DC00D4426E /* AliveInfoModel.m in Sources */,

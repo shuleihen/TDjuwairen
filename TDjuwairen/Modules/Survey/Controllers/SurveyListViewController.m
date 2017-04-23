@@ -38,6 +38,7 @@
 #import "UIViewController+Refresh.h"
 #import "UIImage+Resize.h"
 #import "SelectedSurveySubjectViewController.h"
+#import "ActualQuotationViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -90,7 +91,7 @@
     buttonContain.backgroundColor = [UIColor whiteColor];
     [view addSubview:buttonContain];
     
-    NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"敬请期待"];
+    NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"实盘开户"];
     NSArray *images = @[@"fun_weekly.png",@"fun_investigation.png",@"fun_ranking.png",@"fun_more_dis.png"];
     NSArray *selectors = @[@"subscribePressed:",@"surveyPressed:",@"gradePressed:",@"morePressed:"];
     
@@ -374,7 +375,11 @@
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+/// 实盘开户
 - (void)morePressed:(id)sender {
+    ActualQuotationViewController *vc = [[ActualQuotationViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
