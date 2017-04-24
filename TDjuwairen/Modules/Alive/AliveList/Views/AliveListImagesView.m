@@ -37,7 +37,11 @@
         [one addGestureRecognizer:tap];
         [self.imageViews addObject:one];
         one.contentMode = UIViewContentModeScaleAspectFit;
-        [one sd_setImageWithURL:[NSURL URLWithString:images.firstObject] placeholderImage:nil];
+        one.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
+        
+        [one sd_setImageWithURL:[NSURL URLWithString:images.firstObject] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+            one.backgroundColor = [UIColor whiteColor];
+        }];
         [self addSubview:one];
         
     } else if (images.count > 1)  {
@@ -51,7 +55,12 @@
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.clipsToBounds = YES;
             [self.imageViews addObject:imageView];
-            [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] placeholderImage:nil];
+            
+            imageView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
+            [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
+                imageView.backgroundColor = [UIColor whiteColor];
+            }];
+            
             [self addSubview:imageView];
             
             imageView.tag = i;
