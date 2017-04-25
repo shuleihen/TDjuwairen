@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -13,7 +13,10 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="OpenAnAccountController">
             <connections>
                 <outlet property="checkView" destination="hLD-8e-8pa" id="qf6-S1-icE"/>
+                <outlet property="input_phoneCode" destination="WAE-pM-1hH" id="Rkd-4G-U6V"/>
+                <outlet property="input_phoneNum" destination="WXv-4x-N3g" id="8bg-ya-tvD"/>
                 <outlet property="openAnAccountView" destination="RDW-18-LIT" id="G2F-xP-mqI"/>
+                <outlet property="sendCodeButton" destination="lVE-rF-QCB" id="AQG-Ek-Q1W"/>
                 <outlet property="showLabel1" destination="oqe-YA-fox" id="NBj-qv-rVx"/>
                 <outlet property="showLabel2" destination="N7R-Ug-eG3" id="qis-Ra-Da7"/>
                 <outlet property="triangleRight" destination="x6T-Xy-X4y" id="5o7-2u-rDN"/>
@@ -46,30 +49,30 @@
                                         <constraint firstAttribute="height" constant="1" id="L18-9e-CKZ"/>
                                     </constraints>
                                 </view>
-                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xW0-qe-gfa">
-                                    <rect key="frame" x="250" y="57" width="1" height="20"/>
+                                <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xW0-qe-gfa">
+                                    <rect key="frame" x="216" y="57" width="1" height="20"/>
                                     <color key="backgroundColor" red="0.26499822735786438" green="0.43626949191093445" blue="0.85892021656036377" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="1" id="3Fl-vs-Ka8"/>
                                         <constraint firstAttribute="height" constant="20" id="sQ1-ve-3or"/>
                                     </constraints>
                                 </view>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WXv-4x-N3g">
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入手机号" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WXv-4x-N3g">
                                     <rect key="frame" x="12" y="0.0" width="333" height="44"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 </textField>
-                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-pM-1hH">
-                                    <rect key="frame" x="12" y="45" width="230" height="44"/>
+                                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="请输入验证码" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="WAE-pM-1hH">
+                                    <rect key="frame" x="12" y="45" width="196" height="44"/>
                                     <nil key="textColor"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                     <textInputTraits key="textInputTraits" keyboardType="numberPad"/>
                                 </textField>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVE-rF-QCB">
-                                    <rect key="frame" x="259" y="45" width="86" height="44"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lVE-rF-QCB" customClass="YXSecurityCodeButton">
+                                    <rect key="frame" x="225" y="45" width="120" height="44"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="86" id="CLX-Rv-huh"/>
+                                        <constraint firstAttribute="width" constant="120" id="CLX-Rv-huh"/>
                                     </constraints>
                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                     <state key="normal" title="发送验证码">
@@ -315,7 +318,7 @@
                 <constraint firstItem="wed-wI-OR8" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="vDd-Vb-DgI"/>
                 <constraint firstItem="cHW-4c-89K" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" constant="40" id="wif-xU-Jdu"/>
             </constraints>
-            <point key="canvasLocation" x="-866" y="442"/>
+            <point key="canvasLocation" x="-622" y="149"/>
         </view>
     </objects>
     <resources>

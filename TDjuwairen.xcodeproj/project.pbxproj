@@ -501,6 +501,7 @@
 		9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233CA1E8AA6A200B1FAC4 /* PlayItemPersonView.xib */; };
 		9E2233CE1E8AB81B00B1FAC4 /* PlayListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233CD1E8AB81B00B1FAC4 /* PlayListModel.m */; };
 		9E2233D11E8B576F00B1FAC4 /* PlayGuessIndividua.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233D01E8B576F00B1FAC4 /* PlayGuessIndividua.m */; };
+		9E22E96A1EAEFE540029F18D /* FirmPlatListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E22E9691EAEFE540029F18D /* FirmPlatListModel.m */; };
 		9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */; };
 		9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */; };
 		9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E614E4C1EAC85710014DC0B /* OpenAnAccountController.m */; };
@@ -1481,6 +1482,8 @@
 		9E2233CD1E8AB81B00B1FAC4 /* PlayListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayListModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayListModel.m; sourceTree = SOURCE_ROOT; };
 		9E2233CF1E8B576F00B1FAC4 /* PlayGuessIndividua.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayGuessIndividua.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayGuessIndividua.h; sourceTree = SOURCE_ROOT; };
 		9E2233D01E8B576F00B1FAC4 /* PlayGuessIndividua.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayGuessIndividua.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayGuessIndividua.m; sourceTree = SOURCE_ROOT; };
+		9E22E9681EAEFE540029F18D /* FirmPlatListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FirmPlatListModel.h; sourceTree = "<group>"; };
+		9E22E9691EAEFE540029F18D /* FirmPlatListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FirmPlatListModel.m; sourceTree = "<group>"; };
 		9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePingLunViewController.h; sourceTree = "<group>"; };
 		9E6026F41E76DE6B004D1BFC /* AlivePingLunViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePingLunViewController.m; sourceTree = "<group>"; };
 		9E6026F51E76DE6B004D1BFC /* AlivePingLunViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AlivePingLunViewController.xib; sourceTree = "<group>"; };
@@ -4476,6 +4479,8 @@
 		9EFD75681EAC72D70028F18B /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9E22E9681EAEFE540029F18D /* FirmPlatListModel.h */,
+				9E22E9691EAEFE540029F18D /* FirmPlatListModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5053,6 +5058,7 @@
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
 				19194D061E7FDED000641085 /* SurveyModel.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
+				9E22E96A1EAEFE540029F18D /* FirmPlatListModel.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
