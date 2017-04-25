@@ -18,9 +18,8 @@
                 <rect key="frame" x="0.0" y="0.0" width="401" height="159.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
-                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2J4-FV-eL4">
-                        <rect key="frame" x="15" y="50" width="80" height="60"/>
-                        <color key="backgroundColor" red="0.9521228075" green="0.6946234107" blue="0.2389854938" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="2J4-FV-eL4">
+                        <rect key="frame" x="15" y="15" width="80" height="60"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="60" id="KMA-Pk-EPZ"/>
                             <constraint firstAttribute="width" constant="80" id="Uta-n8-dI3"/>
@@ -47,8 +46,11 @@
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="开户奖励：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sa4-m2-b6Y">
                         <rect key="frame" x="110" y="127" width="72" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="72" id="UJm-bJ-uWn"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.66285789012908936" green="0.66675746440887451" blue="0.66279101371765137" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ekB-eN-UCG">
@@ -77,8 +79,8 @@
                     <constraint firstItem="vKZ-B9-W8n" firstAttribute="leading" secondItem="Wua-Go-HPD" secondAttribute="trailing" constant="9" id="3l8-4d-Uur"/>
                     <constraint firstItem="VGu-FT-hZT" firstAttribute="centerY" secondItem="sa4-m2-b6Y" secondAttribute="centerY" id="GC2-CA-xya"/>
                     <constraint firstItem="Wua-Go-HPD" firstAttribute="leading" secondItem="2J4-FV-eL4" secondAttribute="trailing" constant="15" id="Mx9-OQ-Svk"/>
-                    <constraint firstItem="2J4-FV-eL4" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="P1S-d9-Oeh"/>
                     <constraint firstItem="ekB-eN-UCG" firstAttribute="leading" secondItem="sa4-m2-b6Y" secondAttribute="trailing" id="VMg-NC-yoW"/>
+                    <constraint firstItem="Wua-Go-HPD" firstAttribute="top" secondItem="2J4-FV-eL4" secondAttribute="top" id="bva-AM-rA0"/>
                     <constraint firstItem="Ped-fJ-3qv" firstAttribute="top" secondItem="Wua-Go-HPD" secondAttribute="bottom" constant="11" id="ciF-Mh-2Fo"/>
                     <constraint firstAttribute="trailing" secondItem="Ped-fJ-3qv" secondAttribute="trailing" constant="15" id="ekI-oM-1Ic"/>
                     <constraint firstItem="VGu-FT-hZT" firstAttribute="trailing" secondItem="Ped-fJ-3qv" secondAttribute="trailing" id="gdG-Ar-GYO"/>
@@ -97,9 +99,10 @@
                 <outlet property="label_Award" destination="ekB-eN-UCG" id="kdw-rv-AxB"/>
                 <outlet property="label_desc" destination="Ped-fJ-3qv" id="T1p-wn-XUb"/>
                 <outlet property="label_title" destination="Wua-Go-HPD" id="xCW-OM-3Z8"/>
+                <outlet property="label_width" destination="UJm-bJ-uWn" id="Bbz-DR-vhW"/>
                 <outlet property="openAnAccountBtn" destination="VGu-FT-hZT" id="c1z-ID-Vsh"/>
             </connections>
-            <point key="canvasLocation" x="-909" y="-257"/>
+            <point key="canvasLocation" x="-988" y="-277"/>
         </tableViewCell>
     </objects>
     <resources>

@@ -9,6 +9,7 @@
 #import "ActualQuotationCell.h"
 #import "UIButton+Align.h"
 #import "UIImageView+WebCache.h"
+#import "HexColors.h"
 @interface ActualQuotationCell ()
 {
     __weak IBOutlet UIImageView *iconImgV;
@@ -16,6 +17,7 @@
     __weak IBOutlet UILabel *label_desc;
     __weak IBOutlet UIButton *label_Award;
     __weak IBOutlet UIButton *callButton;
+    __weak IBOutlet NSLayoutConstraint *label_width;
     
 }
 @property (weak, nonatomic) IBOutlet UIButton *openAnAccountBtn;
@@ -31,6 +33,8 @@
     self.openAnAccountBtn.layer.cornerRadius = 3;
     self.openAnAccountBtn.layer.masksToBounds = YES;
     [callButton setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -15)];
+//    iconImgV.layer.borderColor =[UIColor hx_colorWithHexRGBAString:@"EDEDED"].CGColor;
+//    iconImgV.layer.borderWidth = 0.5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -43,7 +47,13 @@
     [iconImgV sd_setImageWithURL:[NSURL URLWithString:firmModel.plat_logo] placeholderImage:TDDefaultUserAvatar];
     label_title.text = firmModel.plat_name;
     label_desc.text = firmModel.plat_info;
-    [label_Award setTitle:[NSString stringWithFormat:@"X%@",firmModel.plat_keynum] forState:UIControlStateNormal];
+    if ([firmModel.account_status isEqual:@2]) {
+        [label_Award setTitle:[NSString stringWithFormat:@" X %@已发放",firmModel.plat_keynum] forState:UIControlStateNormal];
+        label_width.constant = 0;
+    }else{
+        [label_Award setTitle:[NSString stringWithFormat:@" X %@",firmModel.plat_keynum] forState:UIControlStateNormal];
+    }
+    
     //** 当前用户开户状态，0表示没有开户，1表示正在审核，2表示开户成功，3表示开户失败*/
     [_openAnAccountBtn setTitle:[self getTitleWithTag:firmModel.account_status] forState:UIControlStateNormal];
 }
