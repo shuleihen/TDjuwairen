@@ -122,7 +122,7 @@
     
 //    [self.stockManager start];
     
-    [self showBottomTool];
+//    [self showBottomTool];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -130,7 +130,7 @@
     
 //    [self.stockManager stop];
     
-    [self hideBottomTool];
+//    [self hideBottomTool];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -350,6 +350,7 @@
     GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
     vc.stockName = self.stockModel.stockName;
     vc.stockCode = self.stockCode;
+    vc.score = self.stockModel.score;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -359,6 +360,7 @@
         NSDictionary *para = @{@"code": self.stockCode,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"添加关注";
         
         __weak StockDetailViewController *wself = self;
         
@@ -391,6 +393,7 @@
         NSDictionary *para = @{@"code": self.stockCode,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"取消关注";
         
         __weak StockDetailViewController *wself = self;
         
@@ -622,11 +625,11 @@
             self.tableView.contentOffset = CGPointMake(0, self.stockHeaderView.bounds.size.height);
         }
         
-        if (index == 5 || index == 2) {
-            [self showBottomTool];
-        } else {
-            [self hideBottomTool];
-        }
+//        if (index == 5 || index == 2) {
+//            [self showBottomTool];
+//        } else {
+//            [self hideBottomTool];
+//        }
     }
 }
 
@@ -712,7 +715,6 @@
                 
         NSArray *classeArray = @[@"SpotViewController",@"SurveyAnnounceViewController",@"HotViewController",@"SurveyDetailAskViewController"];
         NSArray *tags = @[@"0",@"1",@"3",@"5"];
-        NSString *stockCode = [self.stockCode stockCode];
         
         int i =0;
         for (NSString *string in classeArray) {

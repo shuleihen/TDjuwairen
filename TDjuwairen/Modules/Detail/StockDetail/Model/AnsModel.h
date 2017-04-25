@@ -14,7 +14,7 @@
 @property (nonatomic, copy) NSString *ansContent;
 @property (nonatomic, copy) NSString *ansUserName;
 @property (nonatomic, copy) NSString *ansUserAvatar;
-@property (nonatomic, strong) NSNumber *ansLikeNum;
+@property (nonatomic, assign) NSInteger ansLikeNum;
 @property (nonatomic, assign) BOOL isLiked;
 
 

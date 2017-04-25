@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *addTimeLabel;
 @property (weak, nonatomic) IBOutlet UIButton *likeBtn;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *ansViewHeight;
+@property (nonatomic, strong) AskModel *askModel;
 
 + (CGFloat)cellHeightWithSurveyAskModel:(AskModel *)model;
 - (void)setupAskModel:(AskModel *)model;

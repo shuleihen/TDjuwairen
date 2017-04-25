@@ -58,6 +58,9 @@
                         </state>
                         <state key="selected" image="btn_dianzan_pre"/>
                         <state key="highlighted" image="btn_dianzan_pre"/>
+                        <connections>
+                            <action selector="likePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="NKW-K8-8sT"/>
+                        </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8u-C5-A5P">
                         <rect key="frame" x="62" y="113.5" width="31" height="14.5"/>

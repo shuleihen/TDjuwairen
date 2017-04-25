@@ -212,9 +212,7 @@
     if (!_headerView) {
         _headerView = [[GradeHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 204)];
         
-        if (self.gradeDetail) {
-            [_headerView setupGradeModel:self.gradeDetail];
-        }
+        [_headerView setupScore:self.score];
     }
     return _headerView;
 }
@@ -236,6 +234,7 @@
         [_toolView addSubview:sep];
         
         _toolView.backgroundColor = [UIColor whiteColor];
+        btn.backgroundColor = [self colorWithGrade:[self.score integerValue]];
     }
     return _toolView;
 }

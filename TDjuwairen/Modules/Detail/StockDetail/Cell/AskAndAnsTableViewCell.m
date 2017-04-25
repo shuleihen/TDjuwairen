@@ -9,6 +9,8 @@
 #import "AskAndAnsTableViewCell.h"
 #import "UIImageView+WebCache.h"
 #import "AnsModel.h"
+#import "NetworkManager.h"
+#import "UIButton+LikeAnimation.h"
 
 @implementation AskAndAnsTableViewCell
 
@@ -17,6 +19,9 @@
     // Initialization code
     self.askAvatar.layer.cornerRadius = 20.0f;
     self.askAvatar.clipsToBounds = YES;
+    
+    self.ansView.layer.cornerRadius = 4.0f;
+    self.ansView.clipsToBounds = YES;
     
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
@@ -44,6 +49,8 @@
 }
 
 - (void)setupAskModel:(AskModel *)model {
+    self.askModel = model;
+    
     [self.askAvatar sd_setImageWithURL:[NSURL URLWithString:model.askUserAvatar] placeholderImage:[UIImage imageNamed:@"photo_m.png"]];
     self.askUserNameLabel.text = model.askUserName;
     self.askCommentLable.text = model.askContent;
@@ -54,8 +61,50 @@
     
     if (model.ansList.count) {
         AnsModel *ans = model.ansList.firstObject;
-         [self.likeBtn setTitle:[NSString stringWithFormat:@"%@",ans.ansLikeNum] forState:UIControlStateNormal];
+         [self.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)ans.ansLikeNum] forState:UIControlStateNormal];
         self.likeBtn.selected = ans.isLiked;
+    }
+}
+
+- (IBAction)likePressed:(id)sender {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    AnsModel *model = self.askModel.ansList.firstObject;
+    if (!model) {
+        return;
+    }
+    
+    NSDictionary *dict = @{@"answer_id": model.answerId};
+    __weak AskAndAnsTableViewCell *wself = self;
+    
+    UIButton *btn = sender;
+    if (btn.selected) {
+        [manager POST:API_SurveyAskUnLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                model.ansLikeNum--;
+                model.isLiked = NO;
+                
+                [wself.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)model.ansLikeNum] forState:UIControlStateNormal];
+                wself.likeBtn.selected = NO;
+                [wself.likeBtn addLikeAnimation];
+            }else{
+                MBAlert(@"用户已取消点赞")
+            }
+        }];
+    }else{
+        [manager POST:API_SurveyAskLike parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                model.ansLikeNum++;
+                model.isLiked = YES;
+
+                [wself.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)model.ansLikeNum] forState:UIControlStateNormal];
+                wself.likeBtn.selected = YES;
+                [wself.likeBtn addLikeAnimation];
+            }else{
+                MBAlert(@"用户已点赞")
+            }
+        }];
     }
 }
 

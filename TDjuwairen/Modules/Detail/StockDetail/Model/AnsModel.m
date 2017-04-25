@@ -17,7 +17,7 @@
         self.ansContent = [dict[@"answer_content"] stringByReplacingEmojiCheatCodesWithUnicode];
         self.ansUserName = dict[@"user_nickname"];
         self.ansUserAvatar = dict[@"userinfo_facemin"];
-        self.ansLikeNum = dict[@"answer_likenum"];
+        self.ansLikeNum = [dict[@"answer_likenum"] integerValue];
         self.isLiked = [dict[@"isliked"] boolValue];
     }
     

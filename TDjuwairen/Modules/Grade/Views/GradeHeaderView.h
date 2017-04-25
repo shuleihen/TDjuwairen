@@ -19,4 +19,5 @@
 @property (nonatomic, strong) UIImageView *imageView;
 
 - (void)setupGradeModel:(GradeDetailModel *)model;
+- (void)setupScore:(NSString *)score;
 @end

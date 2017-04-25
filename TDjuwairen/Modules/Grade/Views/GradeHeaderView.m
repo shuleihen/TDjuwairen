@@ -44,6 +44,21 @@
     return self;
 }
 
+- (void)setupScore:(NSString *)score {
+    NSInteger grade = [score integerValue];
+    
+    NSString *imageName;
+    if (grade < 50) {
+        imageName = @"bg_grade1.png";
+    } else if (grade >= 50 &&
+               grade < 80) {
+        imageName = @"bg_grade2.png";
+    } else {
+        imageName = @"bg_grade3.png";
+    }
+    self.imageView.image = [[UIImage imageNamed:imageName] imageWithAlignmentRectInsets:UIEdgeInsetsMake(0, 10, 0, 10)];
+}
+
 - (void)setupGradeModel:(GradeDetailModel *)model {
     
     NSString *imageName;
