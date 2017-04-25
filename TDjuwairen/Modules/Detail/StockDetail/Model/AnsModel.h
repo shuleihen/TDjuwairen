@@ -10,27 +10,14 @@
 
 @interface AnsModel : NSObject
 
-@property (nonatomic,copy) NSString *surveyanswer_isdel;
-
-@property (nonatomic,assign) BOOL isliked;
-
-@property (nonatomic,copy) NSString *surveyanswer_id;
-
-@property (nonatomic,copy) NSString *user_nickname;
-
-@property (nonatomic,copy) NSString *surveyanswer_goodnums;
-
-@property (nonatomic,copy) NSString *surveyanswer_content;
-
-@property (nonatomic,copy) NSString *surveyanswer_userid;
-
-@property (nonatomic,copy) NSString *userinfo_facemin;
-
-@property (nonatomic,copy) NSString *surveyanswer_askid;
-
-@property (nonatomic,copy) NSString *surveyanswer_addtime;
+@property (nonatomic, copy) NSString *answerId;
+@property (nonatomic, copy) NSString *ansContent;
+@property (nonatomic, copy) NSString *ansUserName;
+@property (nonatomic, copy) NSString *ansUserAvatar;
+@property (nonatomic, strong) NSNumber *ansLikeNum;
+@property (nonatomic, assign) BOOL isLiked;
 
 
-+ (AnsModel *)getInstanceWithDictionary:(NSDictionary *)dic;
+- (id)initWithDict:(NSDictionary *)dict;
 
 @end

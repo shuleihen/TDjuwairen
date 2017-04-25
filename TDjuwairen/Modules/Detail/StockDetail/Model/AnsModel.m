@@ -11,21 +11,17 @@
 
 @implementation AnsModel
 
-+ (AnsModel *)getInstanceWithDictionary:(NSDictionary *)dic
-{
-    AnsModel *model = [[AnsModel alloc] init];
+- (id)initWithDict:(NSDictionary *)dict {
+    if (self = [super init]) {
+        self.answerId = dict[@"answer_id"];
+        self.ansContent = [dict[@"answer_content"] stringByReplacingEmojiCheatCodesWithUnicode];
+        self.ansUserName = dict[@"user_nickname"];
+        self.ansUserAvatar = dict[@"userinfo_facemin"];
+        self.ansLikeNum = dict[@"answer_likenum"];
+        self.isLiked = [dict[@"isliked"] boolValue];
+    }
     
-    model.surveyanswer_isdel = dic[@"surveyanswer_isdel"];
-    model.isliked = [dic[@"isliked"] boolValue];
-    model.surveyanswer_id = dic[@"surveyanswer_id"];
-    model.user_nickname = dic[@"user_nickname"];
-    model.surveyanswer_goodnums = dic[@"surveyanswer_goodnums"];
-    model.surveyanswer_content = [dic[@"surveyanswer_content"] stringByReplacingEmojiCheatCodesWithUnicode];
-    model.surveyanswer_userid = dic[@"surveyanswer_userid"];
-    model.userinfo_facemin = dic[@"userinfo_facemin"];
-    model.surveyanswer_askid = dic[@"surveyanswer_askid"];
-    model.surveyanswer_addtime = dic[@"surveyanswer_addtime"];
-    return model;
+    return self;
 }
 
 @end

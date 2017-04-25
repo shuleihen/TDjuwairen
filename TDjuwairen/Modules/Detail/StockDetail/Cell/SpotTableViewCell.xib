@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="90"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="89"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="89.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hBz-5y-a7E">
@@ -24,8 +24,8 @@
                             <constraint firstAttribute="width" constant="100" id="E27-ef-FVM"/>
                         </constraints>
                     </imageView>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BO7-bi-bOU">
-                        <rect key="frame" x="128" y="15" width="176" height="19.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabelLabel" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BO7-bi-bOU">
+                        <rect key="frame" x="128" y="15" width="157" height="20"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -36,6 +36,13 @@
                         <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="V2t-oR-NR9">
+                        <rect key="frame" x="290" y="15" width="18" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="18" id="JBg-be-oMW"/>
+                            <constraint firstAttribute="height" constant="18" id="bRH-A2-KMF"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="hBz-5y-a7E" secondAttribute="bottom" constant="15" id="00R-fh-mFu"/>
@@ -44,14 +51,17 @@
                     <constraint firstItem="BO7-bi-bOU" firstAttribute="top" secondItem="hBz-5y-a7E" secondAttribute="top" id="Crd-8i-LXs"/>
                     <constraint firstItem="hBz-5y-a7E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Du1-Tz-3T2"/>
                     <constraint firstItem="ye3-XM-fz4" firstAttribute="bottom" secondItem="hBz-5y-a7E" secondAttribute="bottom" id="NBI-TG-Ngs"/>
+                    <constraint firstItem="V2t-oR-NR9" firstAttribute="top" secondItem="hBz-5y-a7E" secondAttribute="top" id="SXJ-8x-UHm"/>
                     <constraint firstItem="BO7-bi-bOU" firstAttribute="leading" secondItem="hBz-5y-a7E" secondAttribute="trailing" constant="12" id="Zp2-rX-sKB"/>
-                    <constraint firstAttribute="trailing" secondItem="BO7-bi-bOU" secondAttribute="trailing" constant="16" id="wLT-r1-nuT"/>
+                    <constraint firstAttribute="trailing" secondItem="V2t-oR-NR9" secondAttribute="trailing" constant="12" id="kdD-YW-rb1"/>
+                    <constraint firstItem="V2t-oR-NR9" firstAttribute="leading" secondItem="BO7-bi-bOU" secondAttribute="trailing" constant="5" id="qkW-1y-uRQ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateTimeLabel" destination="ye3-XM-fz4" id="bl3-xv-nsk"/>
                 <outlet property="spotImageView" destination="hBz-5y-a7E" id="dDx-Pl-fhZ"/>
                 <outlet property="titleLabel" destination="BO7-bi-bOU" id="XA8-CG-MHn"/>
+                <outlet property="typeImageView" destination="V2t-oR-NR9" id="xST-3k-qKv"/>
             </connections>
         </tableViewCell>
     </objects>

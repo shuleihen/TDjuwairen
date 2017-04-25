@@ -338,7 +338,7 @@
         
         if (stock_id.length) {
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = stock_id;
+            vc.stockCode = stock_id;
             vc.hidesBottomBarWhenPushed = YES;
             
             self.tabBarController.selectedIndex = 0;

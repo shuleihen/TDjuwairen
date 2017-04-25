@@ -36,9 +36,9 @@
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = @{@"code": self.stockId};
+    NSDictionary *para = @{@"code": self.stockCode};
     if (US.isLogIn) {
-        para = @{@"code": self.stockId,
+        para = @{@"code": self.stockCode,
                  @"user_id" : US.userId};
     }
     

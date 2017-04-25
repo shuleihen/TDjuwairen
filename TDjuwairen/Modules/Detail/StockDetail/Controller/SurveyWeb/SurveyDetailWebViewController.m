@@ -50,11 +50,11 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
     
-    if (self.tag == 0) {
+    if ([self.tag isEqualToString:@"0"]) {
         self.title = [self.stockName stringByAppendingString:@" 实地篇"];
-    } else if (self.tag == 1) {
+    } else if ([self.tag isEqualToString:@"1"]) {
         self.title = [self.stockName stringByAppendingString:@" 对话篇"];
-    } else if (self.tag == 3) {
+    } else if ([self.tag isEqualToString:@"3"]) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
     }
     
@@ -82,11 +82,11 @@
     
     NSString *urlString;
     if (US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%ld&user_id=%@",API_HOST,API_SurveyDetailContent,self.contentId,(long)self.tag,US.userId];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@&user_id=%@",API_HOST,API_SurveyDetailContent,self.contentId,self.tag,US.userId];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%ld",API_HOST,API_SurveyDetailContent,self.contentId,(long)self.tag];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@",API_HOST,API_SurveyDetailContent,self.contentId,self.tag];
     }
 
     DDLogInfo(@"Survey detail web load url = %@", urlString);
@@ -107,7 +107,7 @@
         return;
     }
     
-    NSString *code = self.stockId;
+    NSString *code = self.stockCode;
     NSString *emojiCovert = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
     NSDictionary *para = @{@"code":       code,
@@ -132,7 +132,7 @@
 
 #pragma mark - StockShareDelegate
 - (void)sharePressed {
-    NSString *urlString = [NSString stringWithFormat:@"https://www.juwairen.net/Survey/%@",self.stockId];
+    NSString *urlString = [NSString stringWithFormat:@"https://www.juwairen.net/Survey/%@",self.stockCode];
     [ShareHandler shareWithTitle:self.stockName
                            image:self.cover
                              url:[NSURL URLWithString:urlString]];

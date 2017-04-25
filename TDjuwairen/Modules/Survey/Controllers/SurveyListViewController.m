@@ -555,7 +555,7 @@
         NSString *code = [arr lastObject];
 
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-        vc.stockId = code;
+        vc.stockCode = code;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }

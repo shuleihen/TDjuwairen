@@ -12,5 +12,5 @@
 
 @interface StockDetailViewController : UITableViewController
 
-@property (nonatomic, strong) NSString *stockId;
+@property (nonatomic, strong) NSString *stockCode;
 @end

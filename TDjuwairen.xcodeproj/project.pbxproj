@@ -342,16 +342,21 @@
 		19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */; };
 		19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */; };
 		19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */; };
+		19ECB9A61EAF1D670009F625 /* StockAnnounceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A51EAF1D670009F625 /* StockAnnounceModel.m */; };
+		19ECB9AA1EAF1E700009F625 /* SurveyAnnounceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A91EAF1E700009F625 /* SurveyAnnounceViewController.m */; };
+		19ECB9AE1EAF30DC0009F625 /* AskAndAnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9AC1EAF30DC0009F625 /* AskAndAnsTableViewCell.m */; };
+		19ECB9AF1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9AD1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib */; };
+		19ECB9B21EAF34EF0009F625 /* SurveyAnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B11EAF34EF0009F625 /* SurveyAnsView.m */; };
+		19ECB9B91EAF3EF60009F625 /* AnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B41EAF3EF60009F625 /* AnsTableViewCell.m */; };
+		19ECB9BA1EAF3EF60009F625 /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */; };
+		19ECB9BB1EAF3EF60009F625 /* AskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */; };
+		19ECB9BC1EAF3EF60009F625 /* AskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */; };
 		19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F006F81E31B005000A5F98 /* LoginViewController.xib */; };
 		19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007371E31E4EF000A5F98 /* AnsModel.m */; };
 		19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007391E31E4EF000A5F98 /* AskModel.m */; };
 		19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007411E31E5AE000A5F98 /* RechargeChooseViewController.m */; };
 		19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007431E31E5AE000A5F98 /* RechargeViewController.m */; };
 		19F0074E1E31E5AE000A5F98 /* StockUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */; };
-		19F00D081E2EFFD9009270D5 /* AnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CCD1E2EFFD9009270D5 /* AnsTableViewCell.m */; };
-		19F00D091E2EFFD9009270D5 /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00CCE1E2EFFD9009270D5 /* AnsTableViewCell.xib */; };
-		19F00D0A1E2EFFD9009270D5 /* AskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CD01E2EFFD9009270D5 /* AskTableViewCell.m */; };
-		19F00D0B1E2EFFD9009270D5 /* AskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00CD11E2EFFD9009270D5 /* AskTableViewCell.xib */; };
 		19F00D0C1E2EFFD9009270D5 /* NiuxiongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CD31E2EFFD9009270D5 /* NiuxiongTableViewCell.m */; };
 		19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00CD41E2EFFD9009270D5 /* NiuxiongTableViewCell.xib */; };
 		19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CD61E2EFFD9009270D5 /* SpotTableViewCell.m */; };
@@ -1199,6 +1204,21 @@
 		19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommReplyView.m; sourceTree = "<group>"; };
 		19ECB9A11EAB30040009F625 /* GradeReplyToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeReplyToolView.h; sourceTree = "<group>"; };
 		19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeReplyToolView.m; sourceTree = "<group>"; };
+		19ECB9A41EAF1D670009F625 /* StockAnnounceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAnnounceModel.h; sourceTree = "<group>"; };
+		19ECB9A51EAF1D670009F625 /* StockAnnounceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAnnounceModel.m; sourceTree = "<group>"; };
+		19ECB9A81EAF1E700009F625 /* SurveyAnnounceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyAnnounceViewController.h; sourceTree = "<group>"; };
+		19ECB9A91EAF1E700009F625 /* SurveyAnnounceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyAnnounceViewController.m; sourceTree = "<group>"; };
+		19ECB9AB1EAF30DC0009F625 /* AskAndAnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskAndAnsTableViewCell.h; sourceTree = "<group>"; };
+		19ECB9AC1EAF30DC0009F625 /* AskAndAnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskAndAnsTableViewCell.m; sourceTree = "<group>"; };
+		19ECB9AD1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskAndAnsTableViewCell.xib; sourceTree = "<group>"; };
+		19ECB9B01EAF34EF0009F625 /* SurveyAnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyAnsView.h; sourceTree = "<group>"; };
+		19ECB9B11EAF34EF0009F625 /* SurveyAnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyAnsView.m; sourceTree = "<group>"; };
+		19ECB9B31EAF3EF60009F625 /* AnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsTableViewCell.h; sourceTree = "<group>"; };
+		19ECB9B41EAF3EF60009F625 /* AnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsTableViewCell.m; sourceTree = "<group>"; };
+		19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnsTableViewCell.xib; sourceTree = "<group>"; };
+		19ECB9B61EAF3EF60009F625 /* AskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskTableViewCell.h; sourceTree = "<group>"; };
+		19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskTableViewCell.m; sourceTree = "<group>"; };
+		19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskTableViewCell.xib; sourceTree = "<group>"; };
 		19F006F81E31B005000A5F98 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		19F007361E31E4EF000A5F98 /* AnsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsModel.h; sourceTree = "<group>"; };
 		19F007371E31E4EF000A5F98 /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
@@ -1210,12 +1230,6 @@
 		19F007431E31E5AE000A5F98 /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		19F007441E31E5AE000A5F98 /* StockUnlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockViewController.h; sourceTree = "<group>"; };
 		19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockViewController.m; sourceTree = "<group>"; };
-		19F00CCC1E2EFFD9009270D5 /* AnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsTableViewCell.h; sourceTree = "<group>"; };
-		19F00CCD1E2EFFD9009270D5 /* AnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsTableViewCell.m; sourceTree = "<group>"; };
-		19F00CCE1E2EFFD9009270D5 /* AnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnsTableViewCell.xib; sourceTree = "<group>"; };
-		19F00CCF1E2EFFD9009270D5 /* AskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskTableViewCell.h; sourceTree = "<group>"; };
-		19F00CD01E2EFFD9009270D5 /* AskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskTableViewCell.m; sourceTree = "<group>"; };
-		19F00CD11E2EFFD9009270D5 /* AskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskTableViewCell.xib; sourceTree = "<group>"; };
 		19F00CD21E2EFFD9009270D5 /* NiuxiongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiuxiongTableViewCell.h; sourceTree = "<group>"; };
 		19F00CD31E2EFFD9009270D5 /* NiuxiongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiuxiongTableViewCell.m; sourceTree = "<group>"; };
 		19F00CD41E2EFFD9009270D5 /* NiuxiongTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NiuxiongTableViewCell.xib; sourceTree = "<group>"; };
@@ -3812,6 +3826,15 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		19ECB9A71EAF1E570009F625 /* SurveyAnnounce */ = {
+			isa = PBXGroup;
+			children = (
+				19ECB9A81EAF1E700009F625 /* SurveyAnnounceViewController.h */,
+				19ECB9A91EAF1E700009F625 /* SurveyAnnounceViewController.m */,
+			);
+			path = SurveyAnnounce;
+			sourceTree = "<group>";
+		};
 		19F0073C1E31E5AE000A5F98 /* Recharge */ = {
 			isa = PBXGroup;
 			children = (
@@ -3862,12 +3885,12 @@
 		19F00CCB1E2EFFD9009270D5 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				19F00CCC1E2EFFD9009270D5 /* AnsTableViewCell.h */,
-				19F00CCD1E2EFFD9009270D5 /* AnsTableViewCell.m */,
-				19F00CCE1E2EFFD9009270D5 /* AnsTableViewCell.xib */,
-				19F00CCF1E2EFFD9009270D5 /* AskTableViewCell.h */,
-				19F00CD01E2EFFD9009270D5 /* AskTableViewCell.m */,
-				19F00CD11E2EFFD9009270D5 /* AskTableViewCell.xib */,
+				19ECB9B31EAF3EF60009F625 /* AnsTableViewCell.h */,
+				19ECB9B41EAF3EF60009F625 /* AnsTableViewCell.m */,
+				19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */,
+				19ECB9B61EAF3EF60009F625 /* AskTableViewCell.h */,
+				19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */,
+				19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */,
 				19F00CD21E2EFFD9009270D5 /* NiuxiongTableViewCell.h */,
 				19F00CD31E2EFFD9009270D5 /* NiuxiongTableViewCell.m */,
 				19F00CD41E2EFFD9009270D5 /* NiuxiongTableViewCell.xib */,
@@ -3877,6 +3900,9 @@
 				19F00D291E2F0B0C009270D5 /* HotTableViewCell.h */,
 				19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */,
 				19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */,
+				19ECB9AB1EAF30DC0009F625 /* AskAndAnsTableViewCell.h */,
+				19ECB9AC1EAF30DC0009F625 /* AskAndAnsTableViewCell.m */,
+				19ECB9AD1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -3886,6 +3912,7 @@
 			children = (
 				19F00CDF1E2EFFD9009270D5 /* StockDetailViewController.h */,
 				19F00CE01E2EFFD9009270D5 /* StockDetailViewController.m */,
+				19ECB9A71EAF1E570009F625 /* SurveyAnnounce */,
 				19F00CD91E2EFFD9009270D5 /* Dialogue */,
 				19F00CDC1E2EFFD9009270D5 /* Spot */,
 				19F00D251E2F08FD009270D5 /* Hot */,
@@ -3997,6 +4024,8 @@
 				19F00CFE1E2EFFD9009270D5 /* StockInfoModel.m */,
 				19F00D221E2F0704009270D5 /* StockHotModel.h */,
 				19F00D231E2F0704009270D5 /* StockHotModel.m */,
+				19ECB9A41EAF1D670009F625 /* StockAnnounceModel.h */,
+				19ECB9A51EAF1D670009F625 /* StockAnnounceModel.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4016,6 +4045,8 @@
 				19F00D351E3089B4009270D5 /* StockShareView.m */,
 				19F00D3E1E309366009270D5 /* StockAskView.h */,
 				19F00D3F1E309366009270D5 /* StockAskView.m */,
+				19ECB9B01EAF34EF0009F625 /* SurveyAnsView.h */,
+				19ECB9B11EAF34EF0009F625 /* SurveyAnsView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -4607,23 +4638,23 @@
 				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
-				19F00D091E2EFFD9009270D5 /* AnsTableViewCell.xib in Resources */,
 				190F65BF1E349D8100B83ADF /* TextHtml.html in Resources */,
 				19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */,
 				1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */,
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
 				19959B8E1E2C909000AB26DF /* GradeDetailCell.xib in Resources */,
 				84E333F71CE2BA3D00E5DCEE /* Assets.xcassets in Resources */,
-				19F00D0B1E2EFFD9009270D5 /* AskTableViewCell.xib in Resources */,
 				9E2233C31E8A713200B1FAC4 /* PlayGuessViewController.xib in Resources */,
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
+				19ECB9BC1EAF3EF60009F625 /* AskTableViewCell.xib in Resources */,
 				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
 				9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
+				19ECB9AF1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
@@ -4669,6 +4700,7 @@
 				9E614E4F1EAC85710014DC0B /* OpenAnAccountController.xib in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				193419E61E78DF2B00F22788 /* bloom.caf in Resources */,
+				19ECB9BA1EAF3EF60009F625 /* AnsTableViewCell.xib in Resources */,
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
@@ -4732,6 +4764,7 @@
 				19F00D1A1E2EFFD9009270D5 /* SurveyDetailWebViewController.m in Sources */,
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
+				19ECB9AE1EAF30DC0009F625 /* AskAndAnsTableViewCell.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
 				9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */,
 				19F00D201E2EFFD9009270D5 /* SurveyBottomToolView.m in Sources */,
@@ -4789,7 +4822,6 @@
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
-				19F00D0A1E2EFFD9009270D5 /* AskTableViewCell.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
 				19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
@@ -4861,6 +4893,7 @@
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
 				19959B861E2C5F4200AB26DF /* GradeView.m in Sources */,
+				19ECB9AA1EAF1E700009F625 /* SurveyAnnounceViewController.m in Sources */,
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
@@ -4923,11 +4956,13 @@
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
+				19ECB9A61EAF1D670009F625 /* StockAnnounceModel.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
 				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
+				19ECB9BB1EAF3EF60009F625 /* AskTableViewCell.m in Sources */,
 				196894771E9C800B009F1741 /* UserInfoViewController.m in Sources */,
 				1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */,
 				19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */,
@@ -4970,6 +5005,7 @@
 				19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */,
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
+				19ECB9B91EAF3EF60009F625 /* AnsTableViewCell.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
 				19194D051E7FDED000641085 /* SurveyListModel.m in Sources */,
 				196894751E9C800B009F1741 /* MyAttentionViewController.m in Sources */,
@@ -5003,7 +5039,6 @@
 				19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
-				19F00D081E2EFFD9009270D5 /* AnsTableViewCell.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
 				196F5EE01E553ADB00928B60 /* AppContext.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
@@ -5063,6 +5098,7 @@
 				194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
 				19F00D0C1E2EFFD9009270D5 /* NiuxiongTableViewCell.m in Sources */,
+				19ECB9B21EAF34EF0009F625 /* SurveyAnsView.m in Sources */,
 				193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,
 				19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */,

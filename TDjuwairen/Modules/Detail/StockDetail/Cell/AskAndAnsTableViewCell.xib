@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="141" id="KGk-i7-Jjw" customClass="AskAndAnsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="395" height="141"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="395" height="140.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="sEv-a9-Tga">
+                        <rect key="frame" x="12" y="14" width="40" height="40"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="hmr-Nt-IA5"/>
+                            <constraint firstAttribute="height" constant="40" id="yhf-Oa-Yck"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ylG-q8-dJ7">
+                        <rect key="frame" x="62" y="16" width="35.5" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Q0B-kW-Rxh">
+                        <rect key="frame" x="62" y="45" width="321" height="18"/>
+                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                        <size key="shadowOffset" width="0.0" height="0.0"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wXi-AB-pOf" customClass="SurveyAnsView">
+                        <rect key="frame" x="62" y="73" width="321" height="30"/>
+                        <color key="backgroundColor" red="0.95283776521682739" green="0.95300072431564331" blue="0.95282751321792603" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="yzg-nj-Fxh"/>
+                        </constraints>
+                    </view>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uHf-HE-aRq">
+                        <rect key="frame" x="353" y="110.5" width="30" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="20" id="oQE-sO-cPz"/>
+                            <constraint firstAttribute="width" constant="30" id="uRO-jr-Rxp"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="5" maxY="0.0"/>
+                        <state key="normal" title="0" image="btn_dianzan_normal">
+                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <state key="selected" image="btn_dianzan_pre"/>
+                        <state key="highlighted" image="btn_dianzan_pre"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q8u-C5-A5P">
+                        <rect key="frame" x="62" y="113.5" width="31" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Q0B-kW-Rxh" firstAttribute="leading" secondItem="ylG-q8-dJ7" secondAttribute="leading" id="81z-xO-bt6"/>
+                    <constraint firstAttribute="trailing" secondItem="Q0B-kW-Rxh" secondAttribute="trailing" constant="12" id="B9r-mF-9S7"/>
+                    <constraint firstItem="wXi-AB-pOf" firstAttribute="leading" secondItem="Q0B-kW-Rxh" secondAttribute="leading" id="Bvh-6O-LhA"/>
+                    <constraint firstAttribute="bottom" secondItem="uHf-HE-aRq" secondAttribute="bottom" constant="10" id="Kas-14-JSa"/>
+                    <constraint firstItem="ylG-q8-dJ7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="PFD-3f-L61"/>
+                    <constraint firstItem="q8u-C5-A5P" firstAttribute="leading" secondItem="ylG-q8-dJ7" secondAttribute="leading" id="Qfx-Nr-oRj"/>
+                    <constraint firstItem="sEv-a9-Tga" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="14" id="XjS-0Q-HbV"/>
+                    <constraint firstItem="uHf-HE-aRq" firstAttribute="centerY" secondItem="q8u-C5-A5P" secondAttribute="centerY" id="blf-la-7Ov"/>
+                    <constraint firstItem="ylG-q8-dJ7" firstAttribute="leading" secondItem="sEv-a9-Tga" secondAttribute="trailing" constant="10" id="hqy-Q0-9r7"/>
+                    <constraint firstAttribute="trailing" secondItem="uHf-HE-aRq" secondAttribute="trailing" constant="12" id="qE9-Ep-Ush"/>
+                    <constraint firstItem="Q0B-kW-Rxh" firstAttribute="top" secondItem="ylG-q8-dJ7" secondAttribute="bottom" constant="12" id="rrS-Qy-Sdy"/>
+                    <constraint firstItem="sEv-a9-Tga" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="sdW-gO-aVn"/>
+                    <constraint firstItem="wXi-AB-pOf" firstAttribute="width" secondItem="Q0B-kW-Rxh" secondAttribute="width" id="wBJ-qT-NOU"/>
+                    <constraint firstItem="wXi-AB-pOf" firstAttribute="top" secondItem="Q0B-kW-Rxh" secondAttribute="bottom" constant="10" id="wBh-Ph-lSZ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="addTimeLabel" destination="q8u-C5-A5P" id="KbX-eB-uqS"/>
+                <outlet property="ansView" destination="wXi-AB-pOf" id="ijg-BU-n4G"/>
+                <outlet property="ansViewHeight" destination="yzg-nj-Fxh" id="wUq-ky-odf"/>
+                <outlet property="askAvatar" destination="sEv-a9-Tga" id="olf-LO-SVc"/>
+                <outlet property="askCommentLable" destination="Q0B-kW-Rxh" id="rMP-8A-Q59"/>
+                <outlet property="askUserNameLabel" destination="ylG-q8-dJ7" id="1rA-Fb-ajO"/>
+                <outlet property="likeBtn" destination="uHf-HE-aRq" id="oEm-Kd-Wk9"/>
+            </connections>
+            <point key="canvasLocation" x="108.5" y="169.5"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="btn_dianzan_normal" width="15" height="15"/>
+        <image name="btn_dianzan_pre" width="15" height="15"/>
+    </resources>
+</document>

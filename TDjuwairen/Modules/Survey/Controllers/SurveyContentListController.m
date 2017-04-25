@@ -223,7 +223,7 @@
     SurveyModel *survey = self.surveyList[indexPath.section];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockId = survey.companyCode;
+    vc.stockCode = survey.companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }

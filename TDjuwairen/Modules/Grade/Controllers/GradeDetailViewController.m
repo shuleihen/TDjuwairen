@@ -59,9 +59,9 @@
 
 - (void)queryGradeTetail {
     __weak GradeDetailViewController *wself = self;
-    NSDictionary *dict = @{@"code" : self.stockId};
+    NSDictionary *dict = @{@"code" : self.stockCode};
     if (US.isLogIn) {
-        dict = @{@"code" : self.stockId, @"user_id": US.userId};
+        dict = @{@"code" : self.stockCode, @"user_id": US.userId};
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -78,9 +78,9 @@
 
 - (void)queryCompanyReview {
     __weak GradeDetailViewController *wself = self;
-    NSDictionary *dict = @{@"code" : self.stockId};
+    NSDictionary *dict = @{@"code" : self.stockCode};
     if (US.isLogIn) {
-        dict = @{@"code" : self.stockId, @"user_id": US.userId};
+        dict = @{@"code" : self.stockCode, @"user_id": US.userId};
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -110,7 +110,7 @@
     
     GradeAddViewController *vc = [[GradeAddViewController alloc] init];
     vc.stockName = self.stockName;
-    vc.stockId = self.stockId;
+    vc.stockCode = self.stockCode;
     vc.gradeDetail = self.gradeDetail;
     [self.navigationController pushViewController:vc animated:YES];
 }

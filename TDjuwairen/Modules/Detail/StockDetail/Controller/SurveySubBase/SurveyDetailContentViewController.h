@@ -17,8 +17,11 @@
 @end
 
 @interface SurveyDetailContentViewController : UIViewController
-@property (nonatomic, copy) NSString *stockId;
+
+// 股票名称
 @property (nonatomic, copy) NSString *stockName;
+// 股票代码
+@property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, copy) NSString *stockCover;
 @property (nonatomic, copy) NSString *tag;
 @property (nonatomic, weak) UIViewController *rootController;

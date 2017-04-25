@@ -93,7 +93,7 @@
     
     SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
     vc.contentId = model.hotId;
-    vc.stockId = self.stockId;
+    vc.stockCode = self.stockCode;
     vc.stockName = self.stockName;
     vc.cover = self.stockCover;
     vc.tag = self.tag;

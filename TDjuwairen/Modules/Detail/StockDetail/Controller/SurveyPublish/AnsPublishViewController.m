@@ -46,7 +46,7 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSString *emojiCovert = [content stringByReplacingEmojiUnicodeWithCheatCodes];
     
-    NSDictionary *para = @{@"ask_id":   self.ask.surveyask_id,
+    NSDictionary *para = @{@"ask_id":   self.ask.askId,
                            @"content":  emojiCovert,
                            @"user_id":  US.userId};
     
@@ -70,7 +70,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         AskModel *ask = self.ask;
-        return [AskTableViewCell heightWithContent:ask.surveyask_content];
+        return [AskTableViewCell heightWithContent:ask.askContent];
     } else {
         return 120;
     }

@@ -78,8 +78,10 @@
 
 #define API_SurveyDetailHeader  @"Survey/survey_show_header2_2"
 #define API_SurveyDetail        @"Survey/survey_show_tag2_3"
+#define API_SurveyDetailResearch    @"Survey/survey_show_research"
+#define API_SurveyDetailAnnounce    @"Survey/survey_show_announce"
 #define API_SurveyDetailHot     @"Survey/survey_show_topline"
-#define API_SurveyDetailAsk     @"Survey/survery_show_qa"
+#define API_SurveyDetailAsk     @"Survey/survey_show_qa3_1"
 #define API_SurveyDetailComment @"Survey/survey_show_comment2_2"
 #define API_SurveyDetailContent @"Survey/url_get_content2_2"
 #define API_SurveyAddComment    @"Survey/addComment"

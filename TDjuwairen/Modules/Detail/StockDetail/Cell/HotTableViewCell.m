@@ -26,4 +26,10 @@
     self.dateTimeLabel.text = model.dateTime;
     self.sourceLabel.text = model.source;
 }
+
+- (void)setupAnnounceModel:(StockAnnounceModel *)model {
+    self.titleLabel.text = model.title;
+    self.dateTimeLabel.text = model.dateTime;
+    self.sourceLabel.text = @"";
+}
 @end

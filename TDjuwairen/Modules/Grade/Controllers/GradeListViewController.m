@@ -133,7 +133,7 @@
     GradeListModel *model = self.items[indexPath.row];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockId = model.stockId;
+    vc.stockCode = model.stockId;
     [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
 }
 @end

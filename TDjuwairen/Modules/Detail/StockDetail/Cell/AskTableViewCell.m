@@ -35,11 +35,11 @@
 }
 
 - (void)setupAsk:(AskModel *)ask {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:ask.userinfo_facemin] placeholderImage:TDDefaultUserAvatar];
-    self.userNameLabel.text = ask.user_nickname;
-    self.contentLabel.text = ask.surveyask_content;
-    self.dateTimeLabel.text = ask.surveyask_addtime;
-    self.askBtn.hidden = ask.is_author;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:ask.askUserAvatar] placeholderImage:TDDefaultUserAvatar];
+    self.userNameLabel.text = ask.askUserName;
+    self.contentLabel.text = ask.askContent;
+    self.dateTimeLabel.text = ask.askAddTime;
+//    self.askBtn.hidden = ask.;
 }
 
 - (IBAction)askPressed:(id)sender {

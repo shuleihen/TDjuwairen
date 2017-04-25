@@ -46,7 +46,7 @@
     UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
     self.headerImageView.image = [image resize:CGSizeMake(kScreenWidth, 210)];
     
-    self.avatarBtn.layer.cornerRadius = 40.0f;
+    self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
     self.avatarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.avatarBtn.layer.borderWidth = 1.0f;

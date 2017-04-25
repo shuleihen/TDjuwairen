@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StockHotModel.h"
+#import "StockAnnounceModel.h"
 
 @interface HotTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -15,4 +16,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *sourceLabel;
 
 - (void)setupSpotModel:(StockHotModel *)model;
+- (void)setupAnnounceModel:(StockAnnounceModel *)model;
 @end

@@ -319,7 +319,7 @@
         NSString *stockName = [model.title stringByReplacingOccurrencesOfString:[NSString stringWithFormat:@"(%@)",model.resultId] withString:@""];
         ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
         vc.hidesBottomBarWhenPushed = YES;
-        vc.stockId = model.resultId;
+        vc.stockCode = model.resultId;
         vc.stockName = stockName;
         [self.navigationController pushViewController:vc animated:YES];
     } else {
@@ -483,12 +483,12 @@
         SearchResultModel *result = sectionData.items[indexPath.row];
         if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = result.resultId;
+            vc.stockCode = result.resultId;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         } else if ([sectionData.sectionTitle isEqualToString:@"调研"]) {
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = result.resultId;
+            vc.stockCode = result.resultId;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         } else if ([sectionData.sectionTitle isEqualToString:@"观点"]) {

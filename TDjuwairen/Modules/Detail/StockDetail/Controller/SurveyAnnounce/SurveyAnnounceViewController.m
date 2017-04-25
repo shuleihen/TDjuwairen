@@ -1,37 +1,39 @@
 //
-//  DialogueViewController.m
+//  SurveyAnnounceViewController.m
 //  TDjuwairen
 //
-//  Created by zdy on 2017/1/13.
+//  Created by zdy on 2017/4/25.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "DialogueViewController.h"
-#import "SpotTableViewCell.h"
-#import "StockSurveyModel.h"
+#import "SurveyAnnounceViewController.h"
+#import "StockAnnounceModel.h"
 #import "NetworkManager.h"
-#import "DetailPageViewController.h"
+#import "HotTableViewCell.h"
 
-@interface DialogueViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SurveyAnnounceViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, assign) NSInteger page;
 @end
 
-@implementation DialogueViewController
+@implementation SurveyAnnounceViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tableView];
+    self.page = 1;
     
     [self reloadData];
 }
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParm];
+    NSDictionary *para = @{@"code": self.stockCode,
+                           @"page": @(self.page)};
     
-    [ma GET:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
+    [ma GET:API_SurveyDetailAnnounce parameters:para completion:^(id data, NSError *error){
         if (!error && data && [data isKindOfClass:[NSArray class]]) {
             [self reloadTableViewWithData:data];
         } else {
@@ -45,7 +47,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[askList count]];
     
     for (NSDictionary *dic in askList) {
-        StockSurveyModel *model = [[StockSurveyModel alloc] initWithDict:dic];
+        StockAnnounceModel *model = [[StockAnnounceModel alloc] initWithDict:dic];
         [array addObject:model];
     }
     
@@ -68,6 +70,7 @@
     return CGRectGetHeight(self.tableView.bounds);
 }
 
+
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -78,10 +81,10 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SpotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SpotTableViewCellID"];
+    HotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"HotTableViewCellID"];
     
-    StockSurveyModel *model = self.items[indexPath.row];
-    [cell setupSpotModel:model];
+    StockAnnounceModel *model = self.items[indexPath.row];
+    [cell setupAnnounceModel:model];
     
     return cell;
 }
@@ -89,26 +92,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(canRead)]) {
-        if ([self.delegate canRead]) {
-            StockSurveyModel *model = self.items[indexPath.row];
-            
-            if (model.surveyType == kSurveyTypeVido) {
-                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-                vc.sharp_id = model.surveyId;
-                vc.pageMode = @"sharp";
-                [self.rootController.navigationController pushViewController:vc animated:YES];
-            } else {
-                SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-                vc.contentId = model.surveyId;
-                vc.stockCode = self.stockCode;
-                vc.stockName = self.stockName;
-                vc.cover = self.stockCover;
-                vc.tag = self.tag;
-                [self.rootController.navigationController pushViewController:vc animated:YES];
-            }
-        }
-    }
+    StockAnnounceModel *model = self.items[indexPath.row];
+    
+//    SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+//    vc.contentId = model.hotId;
+//    vc.stockId = self.stockId;
+//    vc.stockName = self.stockName;
+//    vc.cover = self.stockCover;
+//    vc.tag = self.tag;
+//    [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 
 - (UITableView *)tableView {
@@ -123,11 +115,10 @@
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.separatorColor = TDSeparatorColor;
         
-        UINib *nib = [UINib nibWithNibName:@"SpotTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"SpotTableViewCellID"];
+        UINib *nib = [UINib nibWithNibName:@"HotTableViewCell" bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:@"HotTableViewCellID"];
     }
     
     return _tableView;
 }
-
 @end

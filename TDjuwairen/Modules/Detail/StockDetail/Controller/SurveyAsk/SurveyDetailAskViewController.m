@@ -11,10 +11,9 @@
 #import "LoginState.h"
 #import "AskModel.h"
 #import "AnsModel.h"
-#import "AskTableViewCell.h"
-#import "AnsTableViewCell.h"
 #import "AnsPublishViewController.h"
 #import "AskPublishViewController.h"
+#import "AskAndAnsTableViewCell.h"
 
 @interface SurveyDetailAskViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -48,7 +47,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:[askList count]];
     
     for (NSDictionary *dic in askList) {
-        AskModel *model = [AskModel getInstanceWithDictionary:dic];
+        AskModel *model = [[AskModel alloc] initWithDict:dic];
         [array addObject:model];
     }
     
@@ -70,22 +69,7 @@
     
     CGFloat height = 0.f;
     for (AskModel *ask in self.askList) {
-        
-        CGFloat sectionHeight = 0.0f;
-        CGFloat askHeight = [AskTableViewCell heightWithContent:ask.surveyask_content];
-        CGFloat ansHeight = 0.0f;
-        
-        for (AnsModel *ans in ask.ans_list) {
-            ansHeight += [AnsTableViewCell heightWithContent:ans.surveyanswer_content isFirst:NO];
-        }
-        
-        if ([ask.ans_list count]) {
-            sectionHeight = askHeight + 30 + ansHeight;
-        } else {
-            sectionHeight = askHeight;
-        }
-        
-        height += sectionHeight;
+        height += [AskAndAnsTableViewCell cellHeightWithSurveyAskModel:ask];
     }
     
     return height;
@@ -109,7 +93,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     AskModel *ask = self.askList[section];
-    return [ask.ans_list count]+1;
+    return [ask.ansList count];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -117,51 +101,22 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 5;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor clearColor];
-    return view;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView estimatedHeightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return 60.0f;
+    return 0.0001f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        AskModel *ask = self.askList[indexPath.section];
-        
-        return [AskTableViewCell heightWithContent:ask.surveyask_content];
-    } else {
-        AskModel *ask = self.askList[indexPath.section];
-        AnsModel *ans = ask.ans_list[indexPath.row-1];
-
-        BOOL isFirst = (indexPath.row == 2);
-        return [AnsTableViewCell heightWithContent:ans.surveyanswer_content isFirst:isFirst];
-    }
+    AskModel *ask = self.askList[indexPath.section];
+    return [AskAndAnsTableViewCell cellHeightWithSurveyAskModel:ask];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        AskModel *ask = self.askList[indexPath.section];
-        AskTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AskCellID"];
-        [cell setupAsk:ask];
-        
-        __weak SurveyDetailAskViewController *wself = self;
-        cell.askBlcok = ^{
-            [wself askWithIndexPath:indexPath];
-        };
-        return cell;
-    } else {
-        AskModel *ask = self.askList[indexPath.section];
-        AnsModel *ans = ask.ans_list[indexPath.row-1];
-        AnsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AnsCellID"];
-        [cell setupAns:ans];
-        return cell;
-    }
+    
+    AskAndAnsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AskCellID"];
+    
+    AskModel *ask = self.askList[indexPath.section];
+    [cell setupAskModel:ask];
+    
+    return cell;
 }
 
 - (UITableView *)tableView {
@@ -173,12 +128,11 @@
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.bounces = NO;
         _tableView.scrollEnabled = NO;
-        _tableView.separatorInset = UIEdgeInsetsMake(0, 10, 0, 10);
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.separatorColor = TDSeparatorColor;
         
-        UINib *ask = [UINib nibWithNibName:@"AskTableViewCell" bundle:nil];
-        UINib *ans = [UINib nibWithNibName:@"AnsTableViewCell" bundle:nil];
+        UINib *ask = [UINib nibWithNibName:@"AskAndAnsTableViewCell" bundle:nil];
         [_tableView registerNib:ask forCellReuseIdentifier:@"AskCellID"];
-        [_tableView registerNib:ans forCellReuseIdentifier:@"AnsCellID"];
     }
     
     return _tableView;

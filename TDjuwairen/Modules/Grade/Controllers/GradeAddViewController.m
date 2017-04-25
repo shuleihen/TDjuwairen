@@ -278,7 +278,7 @@
     
     NSString *emojiComment = [comment stringByReplacingEmojiUnicodeWithCheatCodes];
     NSDictionary *dict = @{@"user_id" : US.userId,
-                           @"code" : self.stockId,
+                           @"code" : self.stockCode,
                            @"grades" : jsonString,
                            @"review_text" : emojiComment};
     

@@ -11,11 +11,13 @@
 @implementation StockSurveyModel
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
-        _imageUrl = dict[@"survey_cover"];
-        _title = dict[@"survey_title"];
-        _surveyId = dict[@"survey_id"];
-        _dateTime = dict[@"survey_addtime"];
-        self.surveyTag = [dict[@"survey_tag"] integerValue];
+        self.imageUrl = dict[@"survey_cover"];
+        self.title = dict[@"survey_title"];
+        self.surveyId = dict[@"survey_id"];
+        self.dateTime = dict[@"survey_addtime"];
+        self.companyName = dict[@"company_name"];
+        self.companyCode = dict[@"company_code"];
+        self.surveyType = [dict[@"survey_type"] integerValue];
     }
     return self;
 }

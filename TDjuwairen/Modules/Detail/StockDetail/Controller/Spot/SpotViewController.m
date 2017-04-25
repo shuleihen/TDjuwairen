@@ -15,6 +15,7 @@
 @interface SpotViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, assign) NSInteger page;
 @end
 
 @implementation SpotViewController
@@ -23,15 +24,17 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tableView];
+    self.page = 1;
     
     [self reloadData];
 }
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParm];
+    NSDictionary *para = @{@"code": self.stockCode,
+                           @"page": @(self.page)};
     
-    [ma GET:API_SurveyDetail parameters:para completion:^(id data, NSError *error){
+    [ma GET:API_SurveyDetailResearch parameters:para completion:^(id data, NSError *error){
         if (!error && data && [data isKindOfClass:[NSArray class]]) {
             [self reloadTableViewWithData:data];
         } else {
@@ -93,7 +96,7 @@
         if ([self.delegate canRead]) {
             StockSurveyModel *model = self.items[indexPath.row];
             
-            if (model.surveyTag == kSurveyTagVido) {
+            if (model.surveyType == kSurveyTypeVido) {
                 DetailPageViewController *vc = [[DetailPageViewController alloc] init];
                 vc.sharp_id = model.surveyId;
                 vc.pageMode = @"sharp";
@@ -101,7 +104,7 @@
             } else {
                 SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
                 vc.contentId = model.surveyId;
-                vc.stockId = self.stockId;
+                vc.stockCode = self.stockCode;
                 vc.stockName = self.stockName;
                 vc.cover = self.stockCover;
                 vc.tag = self.tag;

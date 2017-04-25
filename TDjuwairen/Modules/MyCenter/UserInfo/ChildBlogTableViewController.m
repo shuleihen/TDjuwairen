@@ -368,7 +368,7 @@
             UserSurveyModel *model = self.surveyListDataArray[indexPath.row];
             
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = model.company_code;
+            vc.stockCode = model.company_code;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
@@ -390,7 +390,7 @@
             CommentManagerModel *model = self.userCommentArray[indexPath.row];
 
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockId = model.company_code;
+            vc.stockCode = model.company_code;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }

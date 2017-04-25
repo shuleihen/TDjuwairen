@@ -11,6 +11,6 @@
 
 @interface GradeAddViewController : UIViewController
 @property (nonatomic, strong) NSString *stockName;
-@property (nonatomic, strong) NSString *stockId;
+@property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) GradeDetailModel *gradeDetail;
 @end

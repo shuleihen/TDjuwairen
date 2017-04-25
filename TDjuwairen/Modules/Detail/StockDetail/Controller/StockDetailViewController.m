@@ -153,7 +153,7 @@
 - (void)querySurveySimpleDetail {
     // 查询解锁
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = @{@"code": self.stockId?:@""};
+    NSDictionary *para = @{@"code": self.stockCode?:@""};
     
     __weak StockDetailViewController *wself = self;
     [ma GET:API_SurveyDetailHeader parameters:para completion:^(id data, NSError *error){
@@ -186,7 +186,7 @@
 }
 
 - (void)queryTencentStock {
-    NSString *queryStockId = [self.stockId queryStockCode];
+    NSString *queryStockId = [self.stockCode queryStockCode];
     [self.tencentStockManager queryStock:queryStockId completion:^(StockInfo *stock,NSError *error){
         if (stock) {
             [self.stockHeaderView setupStockInfo:stock];
@@ -204,7 +204,7 @@
     }
     
     StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-    vc.stockCode = self.stockId;
+    vc.stockCode = self.stockCode;
     vc.stockName = self.stockModel.stockName;
     vc.needKey = self.stockModel.keyNum;
     vc.delegate = self;
@@ -219,13 +219,13 @@
     __weak StockDetailViewController *wself = self;
     UIAlertAction *niu = [UIAlertAction actionWithTitle:@"发布牛评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
-        vc.comanyCode = wself.stockId;
+        vc.comanyCode = wself.stockCode;
         vc.type = kPublishNiu;
         [wself.navigationController pushViewController:vc animated:YES];
     }];
     UIAlertAction *xiong = [UIAlertAction actionWithTitle:@"发布熊评" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
         AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
-        vc.comanyCode = wself.stockId;
+        vc.comanyCode = wself.stockCode;
         vc.type = kPublishXiong;
         [wself.navigationController pushViewController:vc animated:YES];
     }];
@@ -240,7 +240,7 @@
 
 - (void)askPublish {
     AskPublishViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"AskPublishViewController"];
-    vc.comanyCode = self.stockId;
+    vc.comanyCode = self.stockCode;
     vc.type = kPublishAsk;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -315,7 +315,7 @@
 
 - (void)unlockPressed:(id)sender {
     NSDictionary *para = @{@"user_id":  US.userId,
-                           @"code":     self.stockId};
+                           @"code":     self.stockCode};
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
     indicator.hidesWhenStopped = YES;
@@ -349,14 +349,14 @@
 - (void)gradePressed:(id)sender {
     GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
     vc.stockName = self.stockModel.stockName;
-    vc.stockId = self.stockId;
+    vc.stockCode = self.stockCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)addStockPressed:(id)sender {
     if (US.isLogIn) {
-        NSDictionary *para = @{@"code": self.stockId,
+        NSDictionary *para = @{@"code": self.stockCode,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
@@ -388,7 +388,7 @@
 
 - (void)removeStockPressed:(id)sender {
     if (US.isLogIn) {
-        NSDictionary *para = @{@"code": self.stockId,
+        NSDictionary *para = @{@"code": self.stockCode,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         
@@ -420,14 +420,14 @@
 
 - (void)invitePressed:(id)sender {
     ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
-    vc.stockId = self.stockId;
+    vc.stockCode = self.stockCode;
     vc.stockName = self.stockModel.stockName;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
-    NSString *queryStockId = [self.stockId queryStockCode];
+    NSString *queryStockId = [self.stockCode queryStockCode];
     StockInfo *stock = [stocks objectForKey:queryStockId];
     
     [self.stockHeaderView setupStockInfo:stock];
@@ -441,7 +441,7 @@
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
         [shareParams SSDKSetupShareParamsByText:nil
                                          images:@[self.stockModel.cover]
-                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",self.stockId]]
+                                            url:[NSURL URLWithString:[NSString stringWithFormat:@"http://www.juwairen.net/Survey/%@",self.stockCode]]
                                           title:self.stockModel.stockName
                                            type:SSDKContentTypeAuto];
         //2、分享（可以弹出我们的分享菜单和编辑界面）
@@ -677,7 +677,7 @@
         _segment.delegate = self;
         _segment.backgroundColor = TDViewBackgrouondColor;
         
-        SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"实地"
+        SurveyDetailSegmentItem *shidi = [[SurveyDetailSegmentItem alloc] initWithTitle:@"调研"
                                                                                   image:[UIImage imageNamed:@"ico_spot.png"]
                                                                 selectedBackgroundColor:[UIColor hx_colorWithHexRGBAString:@"#69ae1d"]];
         SurveyDetailSegmentItem *duihua = [[SurveyDetailSegmentItem alloc] initWithTitle:@"公告"
@@ -710,15 +710,16 @@
     if (!_contentControllers) {
         _contentControllers = [NSMutableArray arrayWithCapacity:4];
                 
-        NSArray *classeArray = @[@"SpotViewController",@"DialogueViewController",@"HotViewController",@"SurveyDetailAskViewController"];
+        NSArray *classeArray = @[@"SpotViewController",@"SurveyAnnounceViewController",@"HotViewController",@"SurveyDetailAskViewController"];
         NSArray *tags = @[@"0",@"1",@"3",@"5"];
+        NSString *stockCode = [self.stockCode stockCode];
         
         int i =0;
         for (NSString *string in classeArray) {
             Class class = NSClassFromString(string);
             SurveyDetailContentViewController *obj = [[class alloc] init];
             obj.rootController = self;
-            obj.stockId = self.stockId;
+            obj.stockCode = self.stockCode;
             obj.stockName = self.stockModel.stockName;
             obj.stockCover = self.stockModel.cover;
             obj.tag = tags[i++];

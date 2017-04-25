@@ -10,28 +10,13 @@
 
 @interface AskModel : NSObject
 
-@property (nonatomic,strong) NSMutableArray *ans_list;
+@property (nonatomic, copy) NSString *askId;
+@property (nonatomic, copy) NSString *askContent;
+@property (nonatomic, copy) NSString *askUserName;
+@property (nonatomic, copy) NSString *askUserAvatar;
+@property (nonatomic, copy) NSString *askAddTime;
+@property (nonatomic, strong) NSArray *ansList;
 
-@property (nonatomic,assign) BOOL is_author;
 
-@property (nonatomic,copy) NSString *surveyask_content;
-
-@property (nonatomic,copy) NSString *surveyask_isdel;
-
-@property (nonatomic,copy) NSString *surveyask_id;
-
-@property (nonatomic,copy) NSString *surveyask_userid;
-
-@property (nonatomic,copy) NSString *surveyask_addtime;
-
-@property (nonatomic,copy) NSString *surveyask_code;
-
-@property (nonatomic,copy) NSString *user_nickname;
-
-@property (nonatomic,copy) NSString *userinfo_facemin;
-
-@property (nonatomic,copy) NSString *surveyask_isanswer;
-
-+ (AskModel *)getInstanceWithDictionary:(NSDictionary *)dic;
-
+- (id)initWithDict:(NSDictionary *)dict;
 @end

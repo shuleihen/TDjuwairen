@@ -27,7 +27,7 @@
 }
 
 - (NSDictionary *)contentParm {
-    NSDictionary *para = @{@"code": self.stockId,
+    NSDictionary *para = @{@"code": self.stockCode,
                            @"tag":  self.tag};
 
     return para;
@@ -38,7 +38,7 @@
 }
 
 - (NSString *)contenWebUrlWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag{
-    NSString *code = [self.stockId substringFromIndex:2];
+    NSString *code = [self.stockCode substringFromIndex:2];
     
     NSString *model = @"0";
 

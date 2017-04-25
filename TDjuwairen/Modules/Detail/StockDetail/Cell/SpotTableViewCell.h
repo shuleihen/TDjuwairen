@@ -13,6 +13,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *spotImageView;
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateTimeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *typeImageView;
 
 - (void)setupSpotModel:(StockSurveyModel *)model;
 @end

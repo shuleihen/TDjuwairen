@@ -39,9 +39,9 @@
 }
 
 - (void)setupAns:(AnsModel *)ans {
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:ans.userinfo_facemin]];
-    self.userNameLabel.text = ans.user_nickname;
-    self.dateTimeLabel.text = ans.surveyanswer_addtime;
-    self.contentLabel.text = ans.surveyanswer_content;
+    [self.avatar sd_setImageWithURL:[NSURL URLWithString:ans.ansUserAvatar]];
+    self.userNameLabel.text = ans.ansUserName;
+//    self.dateTimeLabel.text = ans.;
+    self.contentLabel.text = ans.ansContent;
 }
 @end

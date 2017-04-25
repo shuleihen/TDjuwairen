@@ -67,7 +67,7 @@
     
     self.checkBox.checked = YES;
     
-    self.stockNumberTextField.text = self.stockId;
+    self.stockNumberTextField.text = self.stockCode;
     self.companyTextField.text = self.stockName;
     
     self.tableView.backgroundColor = TDViewBackgrouondColor;
@@ -315,7 +315,7 @@
 
 
 - (void)textFieldDidChange:(UITextField *)textField {
-    self.stockId = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    self.stockCode = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (textField == self.stockNumberTextField) {
         if (textField.text.length > 6) {
             textField.text = [textField.text substringToIndex:6];
