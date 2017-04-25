@@ -10,4 +10,5 @@
 
 @interface PhoneNumViewController : UIViewController
 @property (nonatomic, strong) NSArray *sourceArr;
+- (CGFloat)getSelfHight;
 @end

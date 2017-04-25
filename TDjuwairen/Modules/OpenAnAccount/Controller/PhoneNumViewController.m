@@ -24,6 +24,11 @@
     // Do any additional setup after loading the view from its nib.
 }
 
+- (void)setSourceArr:(NSArray *)sourceArr
+{
+    _sourceArr = sourceArr;
+    [_mTabelView reloadData];
+}
 - (IBAction)cancleClick:(id)sender {
     [self.popupController dismiss];
 }
@@ -35,7 +40,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return _sourceArr.count;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -45,15 +50,19 @@
     }
 //    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
-    cell.textLabel.text = @"0371-6353822";
+    cell.textLabel.text = _sourceArr[indexPath.row];
     cell.textLabel.textColor = TDThemeColor;
     AddLineAtBottom(cell);
     return cell;
 }
 
+- (CGFloat)getSelfHight
+{
+    return (_sourceArr.count+1)*49;
+}
 -  (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSString *num = [[NSString alloc]initWithFormat:@"telprompt://%@",@"13162050121"];
+    NSString *num = [[NSString alloc]initWithFormat:@"telprompt://%@",_sourceArr[indexPath.row]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:num]]; //拨号
 }
 

@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FirmPlatListModel.h"
 @interface OpenAnAccountController : UIViewController
 
+@property (nonatomic, strong) FirmPlatListModel *model;
 @end

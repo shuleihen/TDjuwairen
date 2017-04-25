@@ -8,6 +8,7 @@
 
 #import "ActualQuotationCell.h"
 #import "UIButton+Align.h"
+#import "UIImageView+WebCache.h"
 @interface ActualQuotationCell ()
 {
     __weak IBOutlet UIImageView *iconImgV;
@@ -37,6 +38,28 @@
 
 }
 
+- (void)setFirmModel:(FirmPlatListModel *)firmModel{
+    _firmModel = firmModel;
+    [iconImgV sd_setImageWithURL:[NSURL URLWithString:firmModel.plat_logo] placeholderImage:TDDefaultUserAvatar];
+    label_title.text = firmModel.plat_name;
+    label_desc.text = firmModel.plat_info;
+    [label_Award setTitle:[NSString stringWithFormat:@"X%@",firmModel.plat_keynum] forState:UIControlStateNormal];
+    //** 当前用户开户状态，0表示没有开户，1表示正在审核，2表示开户成功，3表示开户失败*/
+    [_openAnAccountBtn setTitle:[self getTitleWithTag:firmModel.account_status] forState:UIControlStateNormal];
+}
+- (NSString *)getTitleWithTag:(NSNumber *)num
+{
+    if ([num isEqual:@0]) {
+        return @"立即开户";
+    }else if ([num isEqual:@1]){
+        return @"正在审核";
+    }else if ([num isEqual:@2]){
+        return @"开户成功";
+    }else if ([num isEqual:@3]){
+        return @"开户失败";
+    }
+    return @"";
+}
 + (instancetype)loadActualQuotationCellWithTableView:(UITableView *)tableView {
 
     ActualQuotationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActualQuotationCell"];
@@ -47,13 +70,16 @@
 }
 - (IBAction)doneBtnClick:(UIButton *)sender {
     
+//    if (![_firmModel.account_status isEqual:@0]) {
+//        return;
+//    }
     if ([self.delegate respondsToSelector:@selector(openAnAccountButtonClickDone:)]) {
-        [self.delegate openAnAccountButtonClickDone:@"kaihu"];
+        [self.delegate openAnAccountButtonClickDone:_firmModel];
     }
 }
 - (IBAction)callNumClick:(id)sender {
     if ([self.delegate respondsToSelector:@selector(callnNumButtonClickDone:)]) {
-        [self.delegate callnNumButtonClickDone:@"111"];
+        [self.delegate callnNumButtonClickDone:_firmModel];
     }
 }
 

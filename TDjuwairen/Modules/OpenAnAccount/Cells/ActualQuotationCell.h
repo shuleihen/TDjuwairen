@@ -7,17 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "FirmPlatListModel.h"
 
 @protocol ActualQuotationCellDelegate <NSObject>
 
-- (void)openAnAccountButtonClickDone:(id)model;
-- (void)callnNumButtonClickDone:(id)model;
+- (void)openAnAccountButtonClickDone:(FirmPlatListModel *)model;
+- (void)callnNumButtonClickDone:(FirmPlatListModel *)model;
 
 @end
 
 @interface ActualQuotationCell : UITableViewCell
 @property (weak,nonatomic)id<ActualQuotationCellDelegate> delegate;
+@property (nonatomic, strong) FirmPlatListModel *firmModel;
 + (instancetype)loadActualQuotationCellWithTableView:(UITableView *)tableView;
 
 @end
