@@ -23,7 +23,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight);
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
         _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
