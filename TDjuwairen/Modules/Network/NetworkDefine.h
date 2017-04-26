@@ -63,9 +63,9 @@
 #define API_DeleteUserKeyRecord @"User/delKeyRecord"
 #define API_GetUserOrder        @"User/getUserOrder"
 #define API_DeleteUserOrder     @"User/delUserOrder"
-#define API_FirmAccount_firmPlatList     @"FirmAccount/firmPlatList"
-#define API_ShowFirmAccountInfo     @"FirmAccount/showFirmAccountInfo"
-#define API_FirmAccount_AddFirmAccount     @"FirmAccount/addFirmAccount"
+#define API_FirmAccount_firmPlatList    @"FirmAccount/firmPlatList"
+#define API_ShowFirmAccountInfo         @"FirmAccount/showFirmAccountInfo"
+#define API_FirmAccount_AddFirmAccount  @"FirmAccount/addFirmAccount"
 
 #define API_UploadContentPic    @"index.php/View/upViewContenPic1_2"
 #define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"
@@ -136,8 +136,6 @@
 
 
 #define API_GameMyIndividualGuess    @"Game/myGuessList2_1"
-
-
 
 #define API_SubscriptionInfo    @"Subscribe/subscribeInfo"
 #define API_SubscriptionAdd     @"Subscribe/addCompanySubscribe"
