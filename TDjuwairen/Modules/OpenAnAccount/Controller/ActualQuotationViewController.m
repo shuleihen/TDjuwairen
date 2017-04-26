@@ -75,7 +75,6 @@
     [self getFirmAccountListWithPage:_currentPage];
 }
 
-
 - (void)getFirmAccountListWithPage:(NSInteger)pageNum
 {
     if (pageNum == 1) {
@@ -98,6 +97,7 @@
         [weakSelf.tableView.mj_footer endRefreshing];
     }];
 }
+
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {

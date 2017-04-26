@@ -20,8 +20,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     _mTabelView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    
-    // Do any additional setup after loading the view from its nib.
+   
 }
 
 - (void)setSourceArr:(NSArray *)sourceArr
@@ -35,7 +34,7 @@
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+   
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
