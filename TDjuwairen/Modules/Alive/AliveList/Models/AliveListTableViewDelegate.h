@@ -15,6 +15,11 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 @property (nonatomic, weak) UITableView *tableView;
 @property (nonatomic, assign) BOOL avatarPressedEnabled;
 
+// 个人直播间动态可以删除
+@property (nonatomic, assign) BOOL isMyRoom;
+
+@property (nonatomic, copy) void (^reloadView)(void);
+
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;
 
 - (void)insertAtHeaderWithArray:(NSArray *)array;
