@@ -19,11 +19,12 @@
 #import "LoginState.h"
 #import "UIView+Border.h"
 
-@interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate> 
+@interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *showLabel1;
 
 @property (weak, nonatomic) IBOutlet UILabel *showLabel2;
+@property (weak, nonatomic) IBOutlet UIView *textFiledBGView;
 
 @property (weak, nonatomic) IBOutlet UIView *openAnAccountView;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
@@ -39,7 +40,6 @@
 @property (weak, nonatomic) IBOutlet UIButton *oNextStepButton;
 @property (weak, nonatomic) IBOutlet UIButton *vLastStepButton;
 @property (weak, nonatomic) IBOutlet UIButton *vDoneButton;
-
 @property (assign, nonatomic) BOOL needRefesh;
 
 @end
@@ -53,11 +53,11 @@
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyBoard)];
     [self.contentScrollView addGestureRecognizer:tap];
     
-    [self.oNextStepButton addBorder:1 borderColor:TDThemeColor];
-    [self.vLastStepButton addBorder:1 borderColor:TDThemeColor];
-    [self.oNextStepButton cutCircular:3];
-    [self.vLastStepButton cutCircular:3];
     [self.vDoneButton cutCircular:3];
+    
+    [self.oNextStepButton cutCircularRadius:3 addBorder:1 borderColor:TDThemeColor];
+    [self.vLastStepButton cutCircularRadius:3 addBorder:1 borderColor:TDThemeColor];
+    [self.textFiledBGView cutCircularRadius:2 addBorder:1 borderColor:TDLineColor];
     
     
     self.contentScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
@@ -85,7 +85,7 @@
 }
 
 - (void)showCurrentView:(BOOL)btnClick {
-
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     self.openAnAccountView.hidden = YES;
@@ -99,12 +99,12 @@
                 if (btnClick == YES) {
                     [self.view makeToast:@"请先去开户" duration:0.8 position:CSToastPositionCenter];
                     return ;
-                   
+                    
                 }
                 self.openAnAccountView.hidden = NO;
-                    [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-
-            
+                [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+                
+                
             }else if ([data[@"verify_status"] integerValue] == 3){
                 self.openAnAccountView.hidden = NO;
                 self.failReasonLabel.text = data[@"msg"];
@@ -129,7 +129,7 @@
                     self.showLabel2.text = @"工作人员已将钥匙奖励直接放入您的钱包";
                 }
                 [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-              
+                
             }
             
         }

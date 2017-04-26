@@ -25,7 +25,7 @@
 
 #define TDBrickRedColor        [UIColor hx_colorWithHexRGBAString:@"#DF402E"]
 
-
+#define TDLineColor        [UIColor hx_colorWithHexRGBAString:@"#ececec"]
 
 #define TDThemeColor [UIColor hx_colorWithHexRGBAString:@"#3371E2"]
 

@@ -40,4 +40,22 @@
     self.layer.cornerRadius = cornerRadius;
     self.layer.masksToBounds = YES;
 }
+/// 切角，加边框
+- (void)cutCircularRadius:(NSInteger)cornerRadius addBorder:(CGFloat)borderWidth borderColor:(UIColor *)borderColor {
+    self.layer.cornerRadius = cornerRadius;
+    self.layer.masksToBounds = YES;
+    self.layer.borderWidth = borderWidth;
+    self.layer.borderColor = borderColor.CGColor;
+    
+}
+/// 切角，加边框(rgb颜色)
+- (void)cutCircularRadius:(NSInteger)cornerRadius addBorder:(CGFloat)borderWidth borderRGBColorString:(NSString *)colorStr {
+
+    self.layer.cornerRadius = cornerRadius;
+    self.layer.masksToBounds = YES;
+    self.layer.borderWidth = borderWidth;
+    self.layer.borderColor = [UIColor hx_colorWithHexRGBAString:colorStr].CGColor;
+}
+
+
 @end

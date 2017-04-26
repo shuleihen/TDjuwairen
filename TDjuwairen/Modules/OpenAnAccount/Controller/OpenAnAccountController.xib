@@ -24,6 +24,7 @@
                 <outlet property="sendCodeButton" destination="lVE-rF-QCB" id="AQG-Ek-Q1W"/>
                 <outlet property="showLabel1" destination="qTQ-oD-33p" id="Lqv-ZW-PDK"/>
                 <outlet property="showLabel2" destination="N7R-Ug-eG3" id="qis-Ra-Da7"/>
+                <outlet property="textFiledBGView" destination="PoV-jY-xC1" id="82N-1F-eaL"/>
                 <outlet property="vDoneButton" destination="uxO-Oy-Hrj" id="YbY-Pi-Lhk"/>
                 <outlet property="vLastStepButton" destination="AHW-pH-h8V" id="SKO-5H-O37"/>
                 <outlet property="verifyView" destination="wed-wI-OR8" id="cCv-zS-IXQ"/>
@@ -55,7 +56,7 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请将开户手机号输入到下方，点击【确定】" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-fA-VY8">
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  请将开户手机号输入到下方，点击【确定】" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jAu-fA-VY8">
                     <rect key="frame" x="15" y="147" width="345" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" red="1" green="0.42352941176470588" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>

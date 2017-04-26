@@ -22,4 +22,9 @@
 
 /// 切圆角
 - (void)cutCircular:(NSInteger)cornerRadius;
+
+/// 切角，加边框
+- (void)cutCircularRadius:(NSInteger)cornerRadius addBorder:(CGFloat)borderWidth borderColor:(UIColor *)borderColor;
+/// 切角，加边框(rgb颜色)
+- (void)cutCircularRadius:(NSInteger)cornerRadius addBorder:(CGFloat)borderWidth borderRGBColorString:(NSString *)colorStr;
 @end
