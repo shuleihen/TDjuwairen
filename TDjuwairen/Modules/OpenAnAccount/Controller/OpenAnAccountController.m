@@ -49,13 +49,11 @@
         if (!error) {
 //          self.isChecking = NO;
         }
-
     }];
 
     self.isChecking = [_model.account_status boolValue];
     self.openAnAccountView.hidden = self.isChecking;
-    
-    
+
     if (self.isChecking == YES) {
         self.checkView.hidden = NO;
         self.verifyView.hidden = YES;
@@ -66,7 +64,6 @@
         self.verifyView.hidden = YES;
         self.triangleleft.hidden = NO;
         self.triangleRight.hidden = YES;
-        
     }
 }
 
@@ -136,11 +133,10 @@
 - (void)doneClick
 {
     [self.view endEditing:YES];
-    
-    NSString *phone = self.input_phoneNum.text;
+
     NSString *code = self.input_phoneCode.text;
     NSString *msg_unique_id = self.sendCodeButton.msg_unique_id;
-    
+    NSString *phone = self.input_phoneNum.text;
     if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
@@ -163,32 +159,65 @@
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
-                          @"msg_code": code,
-                          @"plat_id":_model.plat_id
-                          };
-    /**
-     
-     名称	类型	说明	是否必填	示例	默认值
-     msg_unique_id	string	手机发送验证码返回的标识	是
-     user_phone	string	验证的手机号	是
-     plat_id	int	平台ID	是
-    */
-    [manager POST:API_FirmAccount_AddFirmAccount parameters:dic completion:^(id data, NSError *error){
-        if (!error) {
-            self.isChecking = YES;
-        }else{
+                          @"msg_code": code};
+
+    [manager POST:API_LoginCheckPhoneCode parameters:dic completion:^(id data, NSError *error){
+        if (data) {
+            BOOL is_expire = [data[@"is_expire"] boolValue];
+            BOOL is_verify = [data[@"is_verify"] boolValue];
             
+            if (is_verify) {
+                [self requestChangePhone];
+            } else {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [hud hide:YES afterDelay:0.4];
+            }
+        } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.userInfo[@"NSLocalizedDescription"];
-            [hud hide:YES afterDelay:0.8];
+            hud.labelText = @"验证码错误，请重新输入";
+            [hud hide:YES afterDelay:0.4];
         }
-       
     }];
+
+
+}
+
+- (void)requestChangePhone{
+    NSString *phone = self.input_phoneNum.text;
+    NSString *msg_unique_id = self.sendCodeButton.msg_unique_id;
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *dict = @{@"msg_unique_id":msg_unique_id,
+                           @"user_phone": phone,
+                           @"plat_id":_model.plat_id
+                           };
+        [manager POST:API_FirmAccount_AddFirmAccount parameters:dict completion:^(id data, NSError *error){
+            if (!error) {
+                self.isChecking = YES;
+                if (self.isChecking == YES) {
+                    self.checkView.hidden = NO;
+                    self.verifyView.hidden = YES;
+                    self.triangleleft.hidden = YES;
+                    self.triangleRight.hidden = NO;
+                }else {
+                    self.checkView.hidden = YES;
+                    self.verifyView.hidden = YES;
+                    self.triangleleft.hidden = NO;
+                    self.triangleRight.hidden = YES;
+                }
+            }else{
+    
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = error.userInfo[@"NSLocalizedDescription"];
+                [hud hide:YES afterDelay:0.8];
+            }
+        }];
 }
 #pragma mark -YXSecurityCodeButtonDelegate
 - (BOOL)canRequest {
-//    NSString *phone = [_input_phoneNum.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
     if (_input_phoneNum.text.length == 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;

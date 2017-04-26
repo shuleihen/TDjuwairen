@@ -113,9 +113,7 @@
     PhoneCodeType type = [self.delegate codeType];
     
     phone = [phone stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    
-    
-    
+
     if (!phone.length) {
         [self reset];
         
