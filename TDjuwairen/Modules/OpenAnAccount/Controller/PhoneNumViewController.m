@@ -48,7 +48,7 @@
     if (!cell) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
     }
-//    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textAlignment = NSTextAlignmentCenter;
     cell.textLabel.text = _sourceArr[indexPath.row];
     cell.textLabel.textColor = TDThemeColor;
@@ -62,6 +62,7 @@
 }
 -  (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSString *num = [[NSString alloc]initWithFormat:@"telprompt://%@",_sourceArr[indexPath.row]];
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:num]]; //拨号
 }
@@ -70,14 +71,6 @@
 {
     return 49;
 }
-/*
-#pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

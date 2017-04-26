@@ -33,8 +33,8 @@
     self.openAnAccountBtn.layer.cornerRadius = 3;
     self.openAnAccountBtn.layer.masksToBounds = YES;
     [callButton setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -15)];
-//    iconImgV.layer.borderColor =[UIColor hx_colorWithHexRGBAString:@"EDEDED"].CGColor;
-//    iconImgV.layer.borderWidth = 0.5;
+    iconImgV.layer.borderColor =[UIColor hx_colorWithHexRGBAString:@"EDEDED"].CGColor;
+    iconImgV.layer.borderWidth = 0.5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -44,32 +44,31 @@
 
 - (void)setFirmModel:(FirmPlatListModel *)firmModel{
     _firmModel = firmModel;
+     //** 当前用户开户状态，0表示没有开户，1表示正在审核，2表示开户成功，3表示开户失败*/
     [iconImgV sd_setImageWithURL:[NSURL URLWithString:firmModel.plat_logo] placeholderImage:TDDefaultUserAvatar];
     label_title.text = firmModel.plat_name;
     label_desc.text = firmModel.plat_info;
+    [_openAnAccountBtn setTitle:firmModel.account_statusStr forState:UIControlStateNormal];
+    
     if ([firmModel.account_status isEqual:@2]) {
+        [self.openAnAccountBtn setTitleColor:TDAssistTextColor forState:UIControlStateNormal];
+        self.openAnAccountBtn.layer.borderColor = [UIColor clearColor].CGColor;
+        
+        [label_Award setTitle:[NSString stringWithFormat:@" X %@已发放",firmModel.plat_keynum] forState:UIControlStateNormal];
+        label_width.constant = 0;
+    }else if ([firmModel.account_status isEqual:@3]) {
+        [self.openAnAccountBtn setTitleColor:TDBrickRedColor forState:UIControlStateNormal];
+        self.openAnAccountBtn.layer.borderColor = TDBrickRedColor.CGColor;
         [label_Award setTitle:[NSString stringWithFormat:@" X %@已发放",firmModel.plat_keynum] forState:UIControlStateNormal];
         label_width.constant = 0;
     }else{
+        [self.openAnAccountBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
+        self.openAnAccountBtn.layer.borderColor = TDThemeColor.CGColor;
         [label_Award setTitle:[NSString stringWithFormat:@" X %@",firmModel.plat_keynum] forState:UIControlStateNormal];
     }
-    
-    //** 当前用户开户状态，0表示没有开户，1表示正在审核，2表示开户成功，3表示开户失败*/
-    [_openAnAccountBtn setTitle:[self getTitleWithTag:firmModel.account_status] forState:UIControlStateNormal];
+  
 }
-- (NSString *)getTitleWithTag:(NSNumber *)num
-{
-    if ([num isEqual:@0]) {
-        return @"立即开户";
-    }else if ([num isEqual:@1]){
-        return @"正在审核";
-    }else if ([num isEqual:@2]){
-        return @"开户成功";
-    }else if ([num isEqual:@3]){
-        return @"开户失败";
-    }
-    return @"";
-}
+
 + (instancetype)loadActualQuotationCellWithTableView:(UITableView *)tableView {
 
     ActualQuotationCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ActualQuotationCell"];
@@ -80,9 +79,9 @@
 }
 - (IBAction)doneBtnClick:(UIButton *)sender {
     
-//    if (![_firmModel.account_status isEqual:@0]) {
-//        return;
-//    }
+    if ([_firmModel.account_status isEqual:@2]) {
+        return;
+    }
     if ([self.delegate respondsToSelector:@selector(openAnAccountButtonClickDone:)]) {
         [self.delegate openAnAccountButtonClickDone:_firmModel];
     }

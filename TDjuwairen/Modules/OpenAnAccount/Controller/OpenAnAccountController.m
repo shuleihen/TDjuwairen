@@ -14,25 +14,23 @@
 #import "YXSecurityCodeButton.h"
 #import "MBProgressHUD.h"
 #import "NSString+Util.h"
+#import "TDWebViewController.h"
 
-@interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate>
+@interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate>
+@property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *showLabel1;
 
 @property (weak, nonatomic) IBOutlet UILabel *showLabel2;
-@property (weak, nonatomic) IBOutlet UIImageView *triangleleft;
-@property (weak, nonatomic) IBOutlet UIImageView *triangleRight;
 
 @property (weak, nonatomic) IBOutlet UIView *openAnAccountView;
-@property (weak, nonatomic) IBOutlet UIView *verifyView;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
+@property (weak, nonatomic) IBOutlet UIView *verifyView;
 @property (nonatomic, assign) BOOL isChecking;
 
 @property (weak, nonatomic) IBOutlet UITextField *input_phoneNum;
 @property (weak, nonatomic) IBOutlet UITextField *input_phoneCode;
 @property (nonatomic, copy) NSString *msg_unique_id;
 @property (weak, nonatomic) IBOutlet YXSecurityCodeButton *sendCodeButton;
-
-
 
 @end
 
@@ -43,6 +41,20 @@
     self.showLabel1.text = @"请点击【去开户】进入爱建证券APP进行开户\n开户成功后回到此页点击下一步";
     self.showLabel2.text = @"请耐心等待 ，\n工作人员核对后会把钥匙奖励直接放入您的钱包";
     _sendCodeButton.delegate = self;
+    
+    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyBoard)];
+    [self.contentScrollView addGestureRecognizer:tap];
+    
+    self.contentScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
+    
+    self.openAnAccountView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+    [self.contentScrollView addSubview:self.openAnAccountView];
+    self.checkView.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight-64);
+    [self.contentScrollView addSubview:self.checkView];
+    self.verifyView.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, kScreenHeight-64);
+    [self.contentScrollView addSubview:self.verifyView];
+    
     __weak typeof(self)weakSelf = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:API_ShowFirmAccountInfo parameters:@{@"plat_id":_model.plat_id} completion:^(id data, NSError *error) {
@@ -50,21 +62,17 @@
 //          self.isChecking = NO;
         }
     }];
-
+    
     self.isChecking = [_model.account_status boolValue];
-    self.openAnAccountView.hidden = self.isChecking;
-
+   
     if (self.isChecking == YES) {
-        self.checkView.hidden = NO;
-        self.verifyView.hidden = YES;
-        self.triangleleft.hidden = YES;
-        self.triangleRight.hidden = NO;
+        [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+       
     }else {
-        self.checkView.hidden = YES;
-        self.verifyView.hidden = YES;
-        self.triangleleft.hidden = NO;
-        self.triangleRight.hidden = YES;
+    
+        [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
     }
+  
 }
 
 - (void)setModel:(FirmPlatListModel *)model
@@ -76,53 +84,50 @@
     [super didReceiveMemoryWarning];
     
 }
+
+#pragma mark - 按钮点击事件
 - (IBAction)stepButtonClick:(UIButton *)sender {
     
     switch (sender.tag - 1000) {
         case 0:
             // 开户中的的下一步按钮
-            self.openAnAccountView.hidden = YES;
-            
             
             if (self.isChecking == YES) {
-                self.checkView.hidden = NO;
-                self.verifyView.hidden = YES;
-            }else {
-                self.checkView.hidden = YES;
-                self.verifyView.hidden = NO;
                 
+               
+                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+            }else {
+                
+                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth*2, 0) animated:NO];
             }
-            self.triangleleft.hidden = YES;
-            self.triangleRight.hidden = NO;
-            
             break;
         case 1:
             // 验证页面中的的上一步按钮
-            self.openAnAccountView.hidden = NO;
-            self.checkView.hidden = YES;
-            self.verifyView.hidden = YES;
-            self.triangleleft.hidden = NO;
-            self.triangleRight.hidden = YES;
+           
+            [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
             break;
         case 2:
             // 审核页面中的上一步按钮
-            self.openAnAccountView.hidden = NO;
-            self.checkView.hidden = YES;
-            self.verifyView.hidden = YES;
-            self.triangleleft.hidden = NO;
-            self.triangleRight.hidden = YES;
+            [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
             break;
         case 3:
             // 更改手机号
-            
-            self.openAnAccountView.hidden = YES;
-            self.checkView.hidden = YES;
-            self.verifyView.hidden = NO;
+           
+            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth*2, 0) animated:NO];
             break;
             
         case 4:
             // 确定
             [self doneClick];
+            break;
+        case 5:
+            // 去开户
+        {
+            NSURL *url = [NSURL URLWithString:self.model.plat_url];
+            TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+            
             break;
             
         default:
@@ -193,29 +198,30 @@
                            @"user_phone": phone,
                            @"plat_id":_model.plat_id
                            };
-        [manager POST:API_FirmAccount_AddFirmAccount parameters:dict completion:^(id data, NSError *error){
-            if (!error) {
-                self.isChecking = YES;
-                if (self.isChecking == YES) {
-                    self.checkView.hidden = NO;
-                    self.verifyView.hidden = YES;
-                    self.triangleleft.hidden = YES;
-                    self.triangleRight.hidden = NO;
-                }else {
-                    self.checkView.hidden = YES;
-                    self.verifyView.hidden = YES;
-                    self.triangleleft.hidden = NO;
-                    self.triangleRight.hidden = YES;
-                }
-            }else{
-    
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = error.userInfo[@"NSLocalizedDescription"];
-                [hud hide:YES afterDelay:0.8];
+    [manager POST:API_FirmAccount_AddFirmAccount parameters:dict completion:^(id data, NSError *error){
+        if (!error) {
+            self.isChecking = YES;
+            if (self.isChecking == YES) {
+                
+                
+                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+            }else {
+                
+                [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
             }
-        }];
+        }else{
+            
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = error.userInfo[@"NSLocalizedDescription"];
+            [hud hide:YES afterDelay:0.8];
+        }
+    }];
 }
+
+
+
+
 #pragma mark -YXSecurityCodeButtonDelegate
 - (BOOL)canRequest {
     if (_input_phoneNum.text.length == 0) {
@@ -248,9 +254,10 @@
     [popupController presentInViewController:self];
 }
 
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event
-{
-    [self.view endEditing:YES];
+- (void)hiddenKeyBoard {
+[self.view endEditing:YES];
+
 }
+
 
 @end

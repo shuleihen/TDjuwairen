@@ -76,7 +76,7 @@
 }
 
 - (void)loadMoreActions {
-    _currentPage++;
+    
     [self getFirmAccountListWithPage:_currentPage];
 }
 
@@ -98,6 +98,7 @@
                 [weakSelf.listArr addObject:model];
             }];
             [weakSelf.tableView reloadData];
+            _currentPage++;
         }
 
         [weakSelf.tableView.mj_header endRefreshing];
@@ -171,7 +172,6 @@
 
 - (void)callnNumButtonClickDone:(FirmPlatListModel *)model
 {
-    //
     PhoneNumViewController *vc = [[PhoneNumViewController alloc] init];
     vc.sourceArr = model.plat_phone;
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];

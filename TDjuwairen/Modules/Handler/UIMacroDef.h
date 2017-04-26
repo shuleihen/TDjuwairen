@@ -23,6 +23,10 @@
 // 辅助文字
 #define TDAssistTextColor        [UIColor hx_colorWithHexRGBAString:@"#cccccc"]
 
+#define TDBrickRedColor        [UIColor hx_colorWithHexRGBAString:@"#DF402E"]
+
+
+
 #define TDThemeColor [UIColor hx_colorWithHexRGBAString:@"#3371E2"]
 
 #define TDDefaultUserAvatar     [UIImage imageNamed:@"icon_avatar.png"]
