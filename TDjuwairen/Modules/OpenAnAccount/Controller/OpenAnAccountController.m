@@ -17,8 +17,9 @@
 #import "TDWebViewController.h"
 #import "UIView+Toast.h"
 #import "LoginState.h"
+#import "UIView+Border.h"
 
-@interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate>
+@interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate> 
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
 @property (weak, nonatomic) IBOutlet UILabel *showLabel1;
 
@@ -36,6 +37,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
 @property (weak, nonatomic) IBOutlet UILabel *failReasonLabel;
 @property (weak, nonatomic) IBOutlet UIButton *oNextStepButton;
+@property (weak, nonatomic) IBOutlet UIButton *vLastStepButton;
+@property (weak, nonatomic) IBOutlet UIButton *vDoneButton;
 
 @property (assign, nonatomic) BOOL needRefesh;
 
@@ -49,7 +52,14 @@
     _sendCodeButton.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyBoard)];
     [self.contentScrollView addGestureRecognizer:tap];
-
+    
+    [self.oNextStepButton addBorder:1 borderColor:TDThemeColor];
+    [self.vLastStepButton addBorder:1 borderColor:TDThemeColor];
+    [self.oNextStepButton cutCircular:3];
+    [self.vLastStepButton cutCircular:3];
+    [self.vDoneButton cutCircular:3];
+    
+    
     self.contentScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
     self.openAnAccountView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
     [self.contentScrollView addSubview:self.openAnAccountView];
@@ -269,4 +279,8 @@
 - (void)hiddenKeyBoard {
     [self.view endEditing:YES];
     
-}@end
+}
+
+
+
+@end

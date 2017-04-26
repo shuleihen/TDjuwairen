@@ -24,6 +24,8 @@
                 <outlet property="sendCodeButton" destination="lVE-rF-QCB" id="AQG-Ek-Q1W"/>
                 <outlet property="showLabel1" destination="qTQ-oD-33p" id="Lqv-ZW-PDK"/>
                 <outlet property="showLabel2" destination="N7R-Ug-eG3" id="qis-Ra-Da7"/>
+                <outlet property="vDoneButton" destination="uxO-Oy-Hrj" id="YbY-Pi-Lhk"/>
+                <outlet property="vLastStepButton" destination="AHW-pH-h8V" id="SKO-5H-O37"/>
                 <outlet property="verifyView" destination="wed-wI-OR8" id="cCv-zS-IXQ"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -134,9 +136,9 @@
                     </connections>
                 </button>
                 <button opaque="NO" tag="1001" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AHW-pH-h8V">
-                    <rect key="frame" x="158" y="358" width="60" height="30"/>
+                    <rect key="frame" x="153" y="358" width="70" height="30"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="60" id="Ckn-zc-YCr"/>
+                        <constraint firstAttribute="width" constant="70" id="Ckn-zc-YCr"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="上一步">
@@ -335,7 +337,7 @@
                 <constraint firstAttribute="trailing" secondItem="N7R-Ug-eG3" secondAttribute="trailing" constant="30" id="xYe-1N-vLX"/>
                 <constraint firstItem="9Mp-Z6-rvt" firstAttribute="leading" secondItem="WjT-e0-IYs" secondAttribute="trailing" constant="12" id="zHe-zg-Iru"/>
             </constraints>
-            <point key="canvasLocation" x="-1320" y="-217"/>
+            <point key="canvasLocation" x="-1273" y="-938"/>
         </view>
         <view contentMode="scaleToFill" id="r5a-CW-pr7" userLabel="openAccountView">
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
@@ -351,14 +353,17 @@
                         <action selector="stepButtonClick:" destination="-1" eventType="touchUpInside" id="bV8-bE-teu"/>
                     </connections>
                 </button>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="请点击【去开户】进入爱建证券APP进行开户       开户成功后回到此页点击下一步" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTQ-oD-33p">
-                    <rect key="frame" x="30" y="360" width="315" height="33.5"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="请点击【去开户】进入爱建证券APP进行开户       开户成功后回到此页点击下一步" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qTQ-oD-33p">
+                    <rect key="frame" x="30" y="363" width="315" height="33.5"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
                 <button opaque="NO" tag="1000" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cot-Za-Avl">
-                    <rect key="frame" x="165" y="422.5" width="46" height="30"/>
+                    <rect key="frame" x="153" y="422.5" width="70" height="30"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="70" id="xPw-Ha-B7F"/>
+                    </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <state key="normal" title="下一步">
                         <color key="titleColor" red="0.050302591170000001" green="0.32487359640000002" blue="0.83932173249999997" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
@@ -449,7 +454,7 @@
                 <constraint firstItem="FMV-9Z-PMo" firstAttribute="centerX" secondItem="r5a-CW-pr7" secondAttribute="centerX" id="wVW-s2-ANw"/>
                 <constraint firstItem="cot-Za-Avl" firstAttribute="top" secondItem="qTQ-oD-33p" secondAttribute="bottom" constant="26" id="xO3-tB-CGj"/>
             </constraints>
-            <point key="canvasLocation" x="-1358" y="-224"/>
+            <point key="canvasLocation" x="-1131" y="-170"/>
         </view>
     </objects>
     <resources>

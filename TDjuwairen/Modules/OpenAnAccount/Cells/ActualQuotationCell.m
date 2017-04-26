@@ -10,6 +10,7 @@
 #import "UIButton+Align.h"
 #import "UIImageView+WebCache.h"
 #import "HexColors.h"
+#import "UIView+Border.h"
 @interface ActualQuotationCell ()
 {
     __weak IBOutlet UIImageView *iconImgV;
@@ -28,13 +29,11 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.openAnAccountBtn.layer.borderWidth = 1;
-    self.openAnAccountBtn.layer.borderColor = TDThemeColor.CGColor;
-    self.openAnAccountBtn.layer.cornerRadius = 3;
-    self.openAnAccountBtn.layer.masksToBounds = YES;
+    [self.openAnAccountBtn addBorder:1 borderColor:TDThemeColor];
+    [self.openAnAccountBtn cutCircular:3];
+    
     [callButton setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -10, -10, -15)];
-    iconImgV.layer.borderColor =[UIColor hx_colorWithHexRGBAString:@"EDEDED"].CGColor;
-    iconImgV.layer.borderWidth = 0.5;
+    [iconImgV addBorder:0.5 borderRGBColorString:@"EDEDED"];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -52,17 +51,18 @@
     
     if ([firmModel.account_status isEqual:@2]) {
         [self.openAnAccountBtn setTitleColor:TDAssistTextColor forState:UIControlStateNormal];
-        self.openAnAccountBtn.layer.borderColor = [UIColor clearColor].CGColor;
+       
+        [self.openAnAccountBtn configBorderColor:[UIColor clearColor]];
         [label_Award setTitle:[NSString stringWithFormat:@" X %@已发放",firmModel.plat_keynum] forState:UIControlStateNormal];
         label_width.constant = 0;
     }else if ([firmModel.account_status isEqual:@3]) {
         [self.openAnAccountBtn setTitleColor:TDBrickRedColor forState:UIControlStateNormal];
-        self.openAnAccountBtn.layer.borderColor = TDBrickRedColor.CGColor;
+        [self.openAnAccountBtn configBorderColor:TDBrickRedColor];
         [label_Award setTitle:[NSString stringWithFormat:@" X %@已发放",firmModel.plat_keynum] forState:UIControlStateNormal];
         label_width.constant = 72;
     }else{
         [self.openAnAccountBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
-        self.openAnAccountBtn.layer.borderColor = TDThemeColor.CGColor;
+        [self.openAnAccountBtn configBorderColor:TDThemeColor];
         [label_Award setTitle:[NSString stringWithFormat:@" X %@",firmModel.plat_keynum] forState:UIControlStateNormal];
         label_width.constant = 72;
     }

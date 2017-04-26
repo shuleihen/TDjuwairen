@@ -411,6 +411,7 @@
 		4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */; };
 		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
 		4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */; };
+		4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DCEEEBA1EB0988900B1820F /* UIView+Border.m */; };
 		4DD179E51E77C00B00FBE66D /* MYAnimationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */; };
 		4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D61E77C00B00FBE66D /* MYBottomMenuCell.m */; };
 		4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179D81E77C00B00FBE66D /* MYBottomMenuTool.m */; };
@@ -1322,6 +1323,8 @@
 		4DA177FB1E8A51DE00C438BE /* PlayIndividualContentCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayIndividualContentCell.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.h; sourceTree = SOURCE_ROOT; };
 		4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PlayIndividualContentCell.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.m; sourceTree = SOURCE_ROOT; };
 		4DA177FD1E8A51DE00C438BE /* PlayIndividualContentCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PlayIndividualContentCell.xib; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayIndividualContentCell.xib; sourceTree = SOURCE_ROOT; };
+		4DCEEEB91EB0988900B1820F /* UIView+Border.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Border.h"; sourceTree = "<group>"; };
+		4DCEEEBA1EB0988900B1820F /* UIView+Border.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Border.m"; sourceTree = "<group>"; };
 		4DD179D21E77C00B00FBE66D /* MYAnimationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYAnimationHelper.h; sourceTree = "<group>"; };
 		4DD179D31E77C00B00FBE66D /* MYAnimationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYAnimationHelper.m; sourceTree = "<group>"; };
 		4DD179D51E77C00B00FBE66D /* MYBottomMenuCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MYBottomMenuCell.h; sourceTree = "<group>"; };
@@ -4248,6 +4251,8 @@
 				84823CB41DD1AC36004440A9 /* TopBotButton.m */,
 				84B8F0761DF9308600703A21 /* AlertHintView.h */,
 				84B8F0771DF9308600703A21 /* AlertHintView.m */,
+				4DCEEEB91EB0988900B1820F /* UIView+Border.h */,
+				4DCEEEBA1EB0988900B1820F /* UIView+Border.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -4824,6 +4829,7 @@
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
+				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
 				19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
