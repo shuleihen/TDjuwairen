@@ -64,20 +64,18 @@
 #define API_GetUserOrder        @"User/getUserOrder"
 #define API_DeleteUserOrder     @"User/delUserOrder"
 #define API_FirmAccount_firmPlatList     @"FirmAccount/firmPlatList"
-#define API_ShowFirmAccountInfo     @"showFirmAccountInfo"
+#define API_ShowFirmAccountInfo     @"FirmAccount/showFirmAccountInfo"
 #define API_FirmAccount_AddFirmAccount     @"FirmAccount/addFirmAccount"
 
-
-
-#define API_UploadContentPic    @"index.php/View/upViewContenPic1_2" //
-#define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"//
+#define API_UploadContentPic    @"index.php/View/upViewContenPic1_2"
+#define API_PushViewDo1_2       @"index.php/View/publishViewDo1_2"
 #define API_AddGoodComment1_2   @"index.php/View/AddCommentAssessGood1_2"
 #define API_Search              @"Search/search2_2"
 #define API_ViewSearchCompnay   @"View/getCompanyCode"
 
 #define API_AddSharpComment     @"index.php/Sharp/addSharpComnment"
 #define API_GetSurveryList      @"index.php/Sharp/surveyList/page"
-#define API_GetVideoList        @"index.php/Sharp/VideoList/page"//
+#define API_GetVideoList        @"index.php/Sharp/VideoList/page"
 #define API_GetViewComment      @"index.php/View/GetViewComment1_2"
 #define API_GetBanner           @"Index/indexBanner"
 

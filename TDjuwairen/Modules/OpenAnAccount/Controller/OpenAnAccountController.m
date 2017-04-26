@@ -15,6 +15,8 @@
 #import "MBProgressHUD.h"
 #import "NSString+Util.h"
 #import "TDWebViewController.h"
+#import "UIView+Toast.h"
+#import "LoginState.h"
 
 @interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet UIScrollView *contentScrollView;
@@ -30,6 +32,12 @@
 @property (weak, nonatomic) IBOutlet UITextField *input_phoneCode;
 @property (nonatomic, copy) NSString *msg_unique_id;
 @property (weak, nonatomic) IBOutlet YXSecurityCodeButton *sendCodeButton;
+@property (weak, nonatomic) IBOutlet UILabel *checkStatusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *phoneLabel;
+@property (weak, nonatomic) IBOutlet UILabel *failReasonLabel;
+@property (weak, nonatomic) IBOutlet UIButton *oNextStepButton;
+
+@property (assign, nonatomic) BOOL needRefesh;
 
 @end
 
@@ -38,66 +46,94 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.showLabel1.text = @"请点击【去开户】进入爱建证券APP进行开户\n开户成功后回到此页点击下一步";
-    self.showLabel2.text = @"请耐心等待 ，\n工作人员核对后会把钥匙奖励直接放入您的钱包";
     _sendCodeButton.delegate = self;
-    
-    
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyBoard)];
     [self.contentScrollView addGestureRecognizer:tap];
-    
+
     self.contentScrollView.contentSize = CGSizeMake(kScreenWidth*3, 0);
-    
     self.openAnAccountView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
     [self.contentScrollView addSubview:self.openAnAccountView];
     self.checkView.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, kScreenHeight-64);
     [self.contentScrollView addSubview:self.checkView];
     self.verifyView.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, kScreenHeight-64);
     [self.contentScrollView addSubview:self.verifyView];
+    self.needRefesh = YES;
     
-    __weak typeof(self)weakSelf = self;
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_ShowFirmAccountInfo parameters:@{@"plat_id":_model.plat_id} completion:^(id data, NSError *error) {
-        if (!error) {
-
-        }
-    }];
-    
-    if ([_model.account_status boolValue] == YES) {
-        [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-       
-    }else {
-    
-        [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-    }
-  
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    if (self.needRefesh == YES) {
+        [self showCurrentView:NO];
+        self.needRefesh = NO;
+    }
+}
+
+- (void)showCurrentView:(BOOL)btnClick {
+
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    self.openAnAccountView.hidden = YES;
+    self.checkView.hidden = YES;
+    [ma GET:API_ShowFirmAccountInfo parameters:@{@"plat_id":_model.plat_id} completion:^(id data, NSError *error) {
+        if (!error) {
+            ///verify_status: 0表示没有开户记录，1表示正在审核，2表示审核通过，3表示审核失败
+            self.failReasonLabel.text = @"";
+            
+            if ([data[@"verify_status"] integerValue] == 0) {
+                if (btnClick == YES) {
+                    [self.view makeToast:@"请先去开户" duration:0.8 position:CSToastPositionCenter];
+                    return ;
+                   
+                }
+                self.openAnAccountView.hidden = NO;
+                    [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+
+            
+            }else if ([data[@"verify_status"] integerValue] == 3){
+                self.openAnAccountView.hidden = NO;
+                self.failReasonLabel.text = data[@"msg"];
+                self.oNextStepButton.enabled = NO;
+                [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+                
+            }else  {
+                self.checkView.hidden = NO;
+                
+                NSMutableString *strM = [NSMutableString stringWithString:US.userPhone];
+                if (US.userPhone.length > 8) {
+                    
+                    [strM replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
+                }
+                
+                self.phoneLabel.text = strM;
+                self.checkStatusLabel.text = [NSString stringWithFormat:@"%@...",data[@"msg"]];;
+                if ([data[@"verify_status"] integerValue] == 1){
+                    self.showLabel2.text = @"请耐心等待 ，\n工作人员核对后会把钥匙奖励直接放入您的钱包";
+                    
+                }else if ([data[@"verify_status"] integerValue] == 2){
+                    self.showLabel2.text = @"工作人员已将钥匙奖励直接放入您的钱包";
+                }
+                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+              
+            }
+            
+        }
+    }];
     
 }
+
 
 #pragma mark - 按钮点击事件
 - (IBAction)stepButtonClick:(UIButton *)sender {
     
     switch (sender.tag - 1000) {
-        case 0:
-            // 开户中的的下一步按钮
-            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-           
-            break;
-        case 1:
-            // 验证页面中的的上一步按钮
-           
-            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-            break;
-        case 2:
-            // 审核页面中的上一步按钮
-            [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-            break;
         case 3:
             // 更改手机号
-           
             [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth*2, 0) animated:NO];
             break;
             
@@ -108,14 +144,15 @@
         case 5:
             // 去开户
         {
+            self.needRefesh = YES;
             NSURL *url = [NSURL URLWithString:self.model.plat_url];
             TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
             [self.navigationController pushViewController:vc animated:YES];
         }
-            
             break;
             
         default:
+            [self showCurrentView:YES];
             break;
     }
 }
@@ -123,7 +160,7 @@
 - (void)doneClick
 {
     [self.view endEditing:YES];
-
+    
     NSString *code = self.input_phoneCode.text;
     NSString *msg_unique_id = self.sendCodeButton.msg_unique_id;
     NSString *phone = self.input_phoneNum.text;
@@ -150,7 +187,7 @@
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
                           @"msg_code": code};
-
+    
     [manager POST:API_LoginCheckPhoneCode parameters:dic completion:^(id data, NSError *error){
         if (data) {
             BOOL is_expire = [data[@"is_expire"] boolValue];
@@ -171,8 +208,8 @@
             [hud hide:YES afterDelay:0.4];
         }
     }];
-
-
+    
+    
 }
 
 - (void)requestChangePhone{
@@ -185,8 +222,8 @@
                            };
     [manager POST:API_FirmAccount_AddFirmAccount parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            
-            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+            US.userPhone = phone;
+            [self showCurrentView:YES];
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
@@ -195,6 +232,7 @@
         }
     }];
 }
+
 
 #pragma mark -YXSecurityCodeButtonDelegate
 - (BOOL)canRequest {
@@ -229,9 +267,6 @@
 }
 
 - (void)hiddenKeyBoard {
-[self.view endEditing:YES];
-
-}
-
-
-@end
+    [self.view endEditing:YES];
+    
+}@end
