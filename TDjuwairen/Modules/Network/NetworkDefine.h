@@ -63,9 +63,9 @@
 #define API_DeleteUserKeyRecord @"User/delKeyRecord"
 #define API_GetUserOrder        @"User/getUserOrder"
 #define API_DeleteUserOrder     @"User/delUserOrder"
-#define API_FirmAccount_firmPlatList     @"FirmAccount/firmPlatList"
-#define API_ShowFirmAccountInfo     @"showFirmAccountInfo"
-#define API_FirmAccount_AddFirmAccount     @"FirmAccount/addFirmAccount"
+#define API_FirmAccount_firmPlatList    @"FirmAccount/firmPlatList"
+#define API_ShowFirmAccountInfo         @"FirmAccount/showFirmAccountInfo"
+#define API_FirmAccount_AddFirmAccount  @"FirmAccount/addFirmAccount"
 
 
 

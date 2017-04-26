@@ -27,11 +27,10 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.tableFooterView = [UIView new];
         _tableView.delegate = self;
         _tableView.dataSource = self;
         
@@ -51,10 +50,6 @@
     
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    
-}
 
 - (void)initValue
 {
@@ -81,8 +76,6 @@
 }
 
 
-
-
 - (void)getFirmAccountListWithPage:(NSInteger)pageNum
 {
     if (pageNum == 1) {
@@ -105,6 +98,7 @@
         [weakSelf.tableView.mj_footer endRefreshing];
     }];
 }
+
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     
