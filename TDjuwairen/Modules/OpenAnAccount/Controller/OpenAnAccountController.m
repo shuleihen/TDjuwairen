@@ -25,7 +25,6 @@
 @property (weak, nonatomic) IBOutlet UIView *openAnAccountView;
 @property (weak, nonatomic) IBOutlet UIView *checkView;
 @property (weak, nonatomic) IBOutlet UIView *verifyView;
-@property (nonatomic, assign) BOOL isChecking;
 
 @property (weak, nonatomic) IBOutlet UITextField *input_phoneNum;
 @property (weak, nonatomic) IBOutlet UITextField *input_phoneCode;
@@ -59,13 +58,11 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:API_ShowFirmAccountInfo parameters:@{@"plat_id":_model.plat_id} completion:^(id data, NSError *error) {
         if (!error) {
-//          self.isChecking = NO;
+
         }
     }];
     
-    self.isChecking = [_model.account_status boolValue];
-   
-    if (self.isChecking == YES) {
+    if ([_model.account_status boolValue] == YES) {
         [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
        
     }else {
@@ -75,11 +72,6 @@
   
 }
 
-- (void)setModel:(FirmPlatListModel *)model
-{
-    _model = model;
-   
-}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     
@@ -91,20 +83,13 @@
     switch (sender.tag - 1000) {
         case 0:
             // 开户中的的下一步按钮
-            
-            if (self.isChecking == YES) {
-                
-               
-                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-            }else {
-                
-                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth*2, 0) animated:NO];
-            }
+            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+           
             break;
         case 1:
             // 验证页面中的的上一步按钮
            
-            [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
             break;
         case 2:
             // 审核页面中的上一步按钮
@@ -200,17 +185,9 @@
                            };
     [manager POST:API_FirmAccount_AddFirmAccount parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            self.isChecking = YES;
-            if (self.isChecking == YES) {
-                
-                
-                [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-            }else {
-                
-                [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-            }
-        }else{
             
+            [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
+        }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.labelText = error.userInfo[@"NSLocalizedDescription"];
@@ -218,9 +195,6 @@
         }
     }];
 }
-
-
-
 
 #pragma mark -YXSecurityCodeButtonDelegate
 - (BOOL)canRequest {
