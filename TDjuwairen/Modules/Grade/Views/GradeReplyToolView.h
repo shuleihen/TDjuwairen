@@ -8,8 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
-@interface GradeReplyToolView : UIView<UITextViewDelegate>
+@protocol GradeReplyToolViewDelegate <NSObject>
 
+- (void)sendReplyWithContent:(NSString *)content withReviewId:(NSString *)reviewId;
+
+@end
+
+@interface GradeReplyToolView : UIView<UITextViewDelegate>
+@property (nonatomic, weak) id<GradeReplyToolViewDelegate> delegate;
+
+@property (nonatomic, strong) NSString *reviewId;
 @property (nonatomic, strong) UITextView *textView;
 @property (nonatomic, strong) UIButton *sendBtn;
 

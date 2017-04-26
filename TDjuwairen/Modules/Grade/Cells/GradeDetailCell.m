@@ -24,14 +24,6 @@
     // Configure the view for the selected state
 }
 
-+ (CGFloat)heightWithContent:(NSString *)content {
-    CGFloat height = 0;
-    
-    height = [content boundingRectWithSize:CGSizeMake(kScreenWidth-62-12, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f]} context:nil].size.height + 39+31+12;
-
-    return height;
-}
-
 + (CGFloat)heightWithCommentModel:(GradeCommentModel *)model {
     CGFloat height = 0;
     
@@ -40,9 +32,9 @@
     CGFloat replyViewHeight = [GradeCommReplyView heightWithReplyList:model.replyList withWidth:kScreenWidth-62-12];
     
     if (model.replyList.count) {
-        height = 63 + contentHeight + 10 +replyViewHeight+ 36;
+        height = 58 + contentHeight + 10 +replyViewHeight+ 36;
     } else {
-        height = 63 + contentHeight + 36;
+        height = 58 + contentHeight + 36;
     }
     
     return height;
@@ -58,6 +50,12 @@
     
     self.replyViewHeight.constant = [GradeCommReplyView heightWithReplyList:model.replyList withWidth:kScreenWidth-62-12];
     self.replyView.replyList = model.replyList;
+}
+
+- (IBAction)replyPressed:(id)sender {
+    if (self.replyBlock) {
+        self.replyBlock();
+    }
 }
 
 @end

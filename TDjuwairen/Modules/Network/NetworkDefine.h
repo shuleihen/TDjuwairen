@@ -105,6 +105,8 @@
 #define API_SurveyCompanyGrade  @"Survey/companyGrade"
 #define API_SurveyCompanyReview @"Survey/companyReview3_1"
 #define API_SurveyCompanyGradeAdd    @"Survey/addCompanyGrade"
+#define API_SurveyCompanyGrade  @"Survey/companyGrade"
+#define API_SurveyCompanyReplyReview @"Survey/replyCompanyReview"
 #define API_SurveyAddSurvey     @"Survey/addSurveyOrder"
 #define API_SurveyAddStock      @"Survey/addMyStock"
 #define API_SurveyDeleteStock   @"Survey/delMyStockCode"
