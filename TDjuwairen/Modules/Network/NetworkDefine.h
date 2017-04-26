@@ -171,5 +171,6 @@
 #define API_AliveGetRoomNotify      @"Room/getRoomNotify"
 #define API_AliveClearRoomNotify    @"Room/clearRoomNotify"
 #define API_AliveUpdateRoomCover    @"Room/uploadRoomCover"
+#define API_AliveDeleteRoomAlive    @"Room/deleteAlive"
 
 #endif /* NetworkDefine_h */

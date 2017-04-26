@@ -18,11 +18,16 @@
 #import "UIButton+LikeAnimation.h"
 #import "AliveListCellData.h"
 #import "AlivePublishViewController.h"
+#import "AliveListSectionHeaderView.h"
+#import "MBProgressHUD.h"
 
 #define kAliveListCellToolHeight 37
+#define kAliveListSectionHeaderHeight   30
 
 @interface AliveListTableViewDelegate ()
-<UITableViewDelegate, UITableViewDataSource, AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
+<UITableViewDelegate, UITableViewDataSource,
+AliveListTableCellDelegate, AliveListBottomTableCellDelegate,
+AliveListSectionHeaderDelegate>
 
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, strong) NSArray *itemList;
@@ -77,37 +82,20 @@
     self.itemList = cellArray;
 }
 
-/*
-- (void)reloadWithArray:(NSArray *)array {
-    
-    __weak AliveListTableViewDelegate *wself = self;
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
-        for (AliveListModel *model in array) {
-            AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
-            cellData.isShowDetail = NO;
-            cellData.isShowForwardImg = NO;
-            [cellData setup];
-            [cellArray addObject:cellData];
-        }
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            wself.itemList = cellArray;
-            [wself.tableView reloadData];
-        });
-    });
-}
- */
-
 - (CGFloat)contentHeight {
     CGFloat height = 0;
     
     for (AliveListCellData *model in self.itemList) {
-        height += (model.cellHeight + kAliveListCellToolHeight + 10);
+        if (self.isMyRoom) {
+            height += (model.cellHeight + kAliveListCellToolHeight + kAliveListSectionHeaderHeight + 10);
+        } else {
+            height += (model.cellHeight + kAliveListCellToolHeight + 10);
+        }
     }
     
     return height;
 }
+
 #pragma mark - AliveListTableCellDelegate
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
@@ -264,6 +252,54 @@
    
 }
 
+#pragma mark - AliveListSectionHeaderDelegate
+- (void)alivelistSectionHeaderView:(AliveListSectionHeaderView *)headerView deletePressed:(id)sender {
+    if (headerView.section > self.itemList.count) {
+        return;
+    }
+    
+    AliveListCellData *cellData = self.itemList[headerView.section];
+    AliveListModel *aliveModel = cellData.aliveModel;
+    
+    NSDictionary *dict = @{@"alive_id": aliveModel.aliveId,@"alive_type" :@(aliveModel.aliveType)};
+    
+    __weak AliveListTableViewDelegate *wself = self;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除该条动态吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.navigationController.view animated:YES];
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                [hud hide:YES];
+                
+                NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
+                [array removeObject:cellData];
+                
+                wself.itemList = array;
+                
+                [self.tableView beginUpdates];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
+                
+                if (wself.reloadView) {
+                    wself.reloadView();
+                }
+                [self.tableView endUpdates];
+            }else{
+                hud.labelText = @"删除失败";
+                [hud hide:YES afterDelay:0.7];
+            }
+        }];
+    }];
+    
+    [alert addAction:done];
+    [alert addAction:cancel];
+    [self.viewController presentViewController:alert animated:YES completion:nil];
+}
 
 
 #pragma mark - Table view data source
@@ -285,13 +321,6 @@
     }
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.001f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 10.0f;
-}
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
@@ -335,5 +364,27 @@
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    if (self.isMyRoom) {
+        return 30.0f;
+    }
+    return 0.001f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    if (self.isMyRoom) {
+        AliveListSectionHeaderView *header = [[AliveListSectionHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
+        header.delegate = self;
+        header.section = section;
+        return header;
+    }
+    
+    return nil;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 10.0f;
+}
+
 
 @end

@@ -47,8 +47,14 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
     
+    __weak AliveRoomLiveViewController *wself = self;
+    
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
+    self.tableViewDelegate.isMyRoom = YES;
     self.tableViewDelegate.avatarPressedEnabled = NO;
+    self.tableViewDelegate.reloadView = ^{
+        [wself reloadTableView];
+    };
     
     self.currentPage = 1;    
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
@@ -107,6 +113,7 @@
                 [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    
                     [wself.tableView reloadData];
                     
                     [wself reloadTableView];

@@ -79,8 +79,6 @@
 		1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325791E4DAF7200E3D500 /* PushSwitchViewController.m */; };
 		193325801E4DAF7200E3D500 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */; };
 		193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325821E4DC9A400E3D500 /* FeedbackViewController.m */; };
-		193419A41E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419901E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m */; };
-		193419A51E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419911E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib */; };
 		193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */; };
 		193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */; };
 		193419AC1E76B4DB00F22788 /* AliveRoomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */; };
@@ -351,6 +349,7 @@
 		19ECB9BA1EAF3EF60009F625 /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */; };
 		19ECB9BB1EAF3EF60009F625 /* AskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */; };
 		19ECB9BC1EAF3EF60009F625 /* AskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */; };
+		19ECB9BF1EB074590009F625 /* AliveListSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9BE1EB074590009F625 /* AliveListSectionHeaderView.m */; };
 		19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F006F81E31B005000A5F98 /* LoginViewController.xib */; };
 		19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007371E31E4EF000A5F98 /* AnsModel.m */; };
 		19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007391E31E4EF000A5F98 /* AskModel.m */; };
@@ -705,9 +704,6 @@
 		1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
 		193325811E4DC9A400E3D500 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		193325821E4DC9A400E3D500 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
-		1934198F1E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomHeaderViewCellTableViewCell.h; sourceTree = "<group>"; };
-		193419901E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomHeaderViewCellTableViewCell.m; sourceTree = "<group>"; };
-		193419911E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveRoomHeaderViewCellTableViewCell.xib; sourceTree = "<group>"; };
 		193419961E76B4DB00F22788 /* AliveRoomMasterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomMasterModel.h; sourceTree = "<group>"; };
 		193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomMasterModel.m; sourceTree = "<group>"; };
 		1934199E1E76B4DB00F22788 /* AliveRoomHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomHeaderView.h; sourceTree = "<group>"; };
@@ -1219,6 +1215,8 @@
 		19ECB9B61EAF3EF60009F625 /* AskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskTableViewCell.h; sourceTree = "<group>"; };
 		19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskTableViewCell.m; sourceTree = "<group>"; };
 		19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskTableViewCell.xib; sourceTree = "<group>"; };
+		19ECB9BD1EB074590009F625 /* AliveListSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListSectionHeaderView.h; sourceTree = "<group>"; };
+		19ECB9BE1EB074590009F625 /* AliveListSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListSectionHeaderView.m; sourceTree = "<group>"; };
 		19F006F81E31B005000A5F98 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		19F007361E31E4EF000A5F98 /* AnsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsModel.h; sourceTree = "<group>"; };
 		19F007371E31E4EF000A5F98 /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
@@ -2002,9 +2000,6 @@
 		1934198E1E76B4DB00F22788 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				1934198F1E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.h */,
-				193419901E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m */,
-				193419911E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2695,6 +2690,8 @@
 				19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */,
 				19475C531EA4661F00F749E6 /* AliveListTagsView.h */,
 				19475C541EA4661F00F749E6 /* AliveListTagsView.m */,
+				19ECB9BD1EB074590009F625 /* AliveListSectionHeaderView.h */,
+				19ECB9BE1EB074590009F625 /* AliveListSectionHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4686,7 +4683,6 @@
 				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
 				19AF98491E2720290097A585 /* Survey.storyboard in Resources */,
-				193419A51E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.xib in Resources */,
 				4D6E67D41E976BAA009A9FB0 /* license in Resources */,
 				19386EFA1E73A0EB00D4426E /* PersonalCenter.storyboard in Resources */,
 				19252C101D51E830003E5D18 /* Info.plist in Resources */,
@@ -4783,7 +4779,6 @@
 				19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */,
 				19386EE81E72432B00D4426E /* AliveListTableViewDelegate.m in Sources */,
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
-				193419A41E76B4DB00F22788 /* AliveRoomHeaderViewCellTableViewCell.m in Sources */,
 				19F00D211E2EFFD9009270D5 /* SurveyDetailSegmentView.m in Sources */,
 				19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */,
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
@@ -5057,6 +5052,7 @@
 				9E22E96A1EAEFE540029F18D /* FirmPlatListModel.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
+				19ECB9BF1EB074590009F625 /* AliveListSectionHeaderView.m in Sources */,
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,
