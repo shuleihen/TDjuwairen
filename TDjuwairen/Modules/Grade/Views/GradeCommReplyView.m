@@ -52,7 +52,7 @@
                     withAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371e2"]}];
     
         NSDictionary *dict = @{NSFontAttributeName: [UIFont systemFontOfSize:15.0f],
-                               NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
+                               NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]};
         
         CGSize size = [reply.replyContent boundingRectWithSize:CGSizeMake(rect.size.width-offx*2, MAXFLOAT)
                                                        options:NSStringDrawingUsesLineFragmentOrigin

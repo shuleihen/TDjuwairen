@@ -19,8 +19,8 @@
 @property (weak, nonatomic) IBOutlet UILabel *gradeLabel;
 @property (weak, nonatomic) IBOutlet GradeCommReplyView *replyView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *replyViewHeight;
+@property (nonatomic, copy) void (^replyBlock)(void);
 
-+ (CGFloat)heightWithContent:(NSString *)content;
 + (CGFloat)heightWithCommentModel:(GradeCommentModel *)model;
 - (void)setupCommentModel:(GradeCommentModel *)model;
 @end

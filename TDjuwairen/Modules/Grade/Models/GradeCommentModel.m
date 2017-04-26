@@ -17,6 +17,7 @@
         _content = [dict[@"review_content"] stringByReplacingEmojiCheatCodesWithUnicode];
         _createTime = dict[@"review_time"];
         _grade = dict[@"user_score"];
+        self.reviewId = dict[@"review_id"];
         self.guessRate = dict[@"guess_rate"];
         
         NSArray *array = dict[@"reply_list"];

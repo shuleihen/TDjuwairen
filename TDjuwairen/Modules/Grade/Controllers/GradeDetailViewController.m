@@ -17,14 +17,17 @@
 #import "LoginState.h"
 #import "LoginViewController.h"
 #import "NotificationDef.h"
+#import "GradeReplyToolView.h"
+#import "MBProgressHUD.h"
 
-@interface GradeDetailViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface GradeDetailViewController ()<UITableViewDelegate, UITableViewDataSource,GradeReplyToolViewDelegate>
 @property (nonatomic, strong) UIView *toolView;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) GradeHeaderView *headerView;
 
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) GradeDetailModel *gradeDetail;
+@property (nonatomic, strong) GradeReplyToolView *replyToolView;
 
 @end
 
@@ -45,6 +48,16 @@
     [self reloadView];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadView) name:kAddStockGradeSuccessed object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
 }
 
 - (void)setupToolView {
@@ -113,6 +126,73 @@
     vc.stockCode = self.stockCode;
     vc.gradeDetail = self.gradeDetail;
     [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)replyWithIndexPath:(NSIndexPath *)indexPath {
+    GradeCommentModel *model = self.items[indexPath.row];
+    
+    if (!self.replyToolView.superview) {
+        [self.view addSubview:self.replyToolView];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeybord)];
+        [self.view addGestureRecognizer:tap];
+    }
+    
+    self.replyToolView.reviewId = model.reviewId;
+    [self.replyToolView.textView becomeFirstResponder];
+}
+
+
+- (void)hideKeybord {
+    self.replyToolView.reviewId = nil;
+    [self.replyToolView.textView resignFirstResponder];
+}
+
+-(void)keyboardWillShow:(NSNotification *)note{
+    // get keyboard size and loctaion
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+
+    
+    CGRect rect = self.replyToolView.frame;
+    self.replyToolView.frame = CGRectMake(0, CGRectGetHeight(self.view.frame)-keyboardBounds.size.height- rect.size.height, kScreenWidth, rect.size.height);
+}
+
+-(void)keyboardWillHide:(NSNotification *)note{
+    [self.replyToolView removeFromSuperview];
+    [self.view removeGestureRecognizer:self.view.gestureRecognizers.firstObject];
+}
+
+- (void)sendReplyWithContent:(NSString *)content withReviewId:(NSString *)reviewId {
+    if (!content.length || !reviewId.length) {
+        return;
+    }
+    
+    [self.replyToolView removeFromSuperview];
+    [self.replyToolView.textView resignFirstResponder];
+    
+    __weak GradeDetailViewController *wself = self;
+    NSDictionary *dict = dict = @{@"content" : content, @"review_id": reviewId};
+    
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    [self.view addSubview:hud];
+    [hud startAnimating];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_SurveyCompanyReplyReview parameters:dict completion:^(id data, NSError *error){
+        [hud stopAnimating];
+        
+        if (!error) {
+            
+            [wself queryCompanyReview];
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            hud.labelText = @"回复失败";
+            [hud hide:YES afterDelay:0.8];
+        }
+        
+    }];
 }
 
 #pragma mark - UITableView
@@ -185,6 +265,11 @@
         GradeCommentModel *model = self.items[indexPath.row];
         [cell setupCommentModel:model];
         
+        __weak GradeDetailViewController *wself = self;
+        cell.replyBlock = ^{
+            [wself replyWithIndexPath:indexPath];
+        };
+        
         return cell;
     }
 }
@@ -237,6 +322,15 @@
         btn.backgroundColor = [self colorWithGrade:[self.score integerValue]];
     }
     return _toolView;
+}
+
+- (GradeReplyToolView *)replyToolView {
+    if (!_replyToolView) {
+        _replyToolView = [[GradeReplyToolView alloc] initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.frame)-44, kScreenWidth, 44)];
+        _replyToolView.delegate = self;
+    }
+    
+    return _replyToolView;
 }
 
 - (UIColor *)colorWithGrade:(NSInteger)grade {
