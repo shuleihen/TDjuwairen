@@ -16,5 +16,5 @@
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, strong) NSString *cover;
 @property (nonatomic, assign) NSString *tag;
-@property (nonatomic, strong) NSString *url;
+//@property (nonatomic, strong) NSString *url;
 @end

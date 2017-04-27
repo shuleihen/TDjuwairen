@@ -366,11 +366,12 @@
 
 - (void)setupShareSDK
 {
-    [ShareSDK registerApp:@"133251c67bb26"
+    [ShareSDK registerApp:@"146618e9f6467"
      
           activePlatforms:@[@(SSDKPlatformSubTypeWechatSession),
                             @(SSDKPlatformSubTypeWechatTimeline),
-                            @(SSDKPlatformTypeQQ)]
+                            @(SSDKPlatformTypeQQ),
+                            @(SSDKPlatformTypeSinaWeibo)]
                  onImport:^(SSDKPlatformType platformType)
      {
          switch (platformType)

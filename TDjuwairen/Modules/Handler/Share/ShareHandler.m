@@ -83,28 +83,48 @@
             imageArray = images;
         }
         
-        NSString *shareTitle = title;
+        NSString *shareTitle = @"";
+        NSString *shareText = @"";
+        
         if (type == SSDKPlatformSubTypeQQFriend ||
             type == SSDKPlatformSubTypeQZone) {
-            // title 现在30字符
-            if (shareTitle.length > 30) {
-                shareTitle = [shareTitle substringToIndex:30];
+            /* url: 1、必须用域名网址 ； 2、url 不能含有中文；
+             title：最多200个字符；
+             text：最多600个字符；
+            */
+            if (title.length > 200) {
+                shareTitle = [title substringToIndex:200];
             }
         } else if (type == SSDKPlatformTypeSinaWeibo) {
-            // 140个汉字
-            if (shareTitle.length > 140) {
-                shareTitle = [shareTitle substringToIndex:140];
+            // text：不能超过140个汉字
+            NSInteger limit = 140 - url.length;
+            
+            if (title.length > limit) {
+                shareText = [title substringToIndex:limit];
+            } else {
+                shareText = title;
             }
+            
+            // 微博分享需要将url 拼接到title后面
+            shareText = [shareText stringByAppendingString:url];
         } else if (type == SSDKPlatformSubTypeWechatTimeline ||
                    type == SSDKPlatformSubTypeWechatSession) {
-            // 512Bytes以内
-            if (shareTitle.length > 512) {
-                shareTitle = [shareTitle substringToIndex:512];
+            /*  title：512Bytes以内
+                description：1KB以内
+             */
+            if (title.length > 512) {
+                shareTitle = [title substringToIndex:512];
             }
         }
         
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-        [shareParams SSDKSetupShareParamsByText:nil
+        if (type == SSDKPlatformTypeSinaWeibo) {
+            [shareParams SSDKEnableAdvancedInterfaceShare];
+        }
+        
+        [shareParams SSDKEnableUseClientShare];
+        
+        [shareParams SSDKSetupShareParamsByText:shareText
                                          images:imageArray
                                             url:[NSURL URLWithString:SafeValue(url)]
                                           title:shareTitle
