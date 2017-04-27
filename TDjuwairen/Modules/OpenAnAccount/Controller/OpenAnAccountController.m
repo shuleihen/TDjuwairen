@@ -49,6 +49,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.showLabel1.text = @"请点击【去开户】进入爱建证券APP进行开户\n开户成功后回到此页点击下一步";
+    self.showLabel2.text = @"请耐心等待";
     _sendCodeButton.delegate = self;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenKeyBoard)];
     [self.contentScrollView addGestureRecognizer:tap];
@@ -68,7 +69,7 @@
     self.verifyView.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, kScreenHeight-64);
     [self.contentScrollView addSubview:self.verifyView];
     self.needRefesh = YES;
-    
+   
 }
 
 - (void)didReceiveMemoryWarning {
@@ -84,6 +85,8 @@
     }
 }
 
+
+
 - (void)showCurrentView:(BOOL)btnClick {
     
     NetworkManager *ma = [[NetworkManager alloc] init];
@@ -96,21 +99,25 @@
             self.failReasonLabel.text = @"";
             
             if ([data[@"verify_status"] integerValue] == 0) {
-                if (btnClick == YES) {
-                    [self.view makeToast:@"请先去开户" duration:0.8 position:CSToastPositionCenter];
-                    return ;
-                    
-                }
                 self.openAnAccountView.hidden = NO;
-                [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
                 
+                
+                [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
+                self.oNextStepButton.enabled = NO;
+                [self.oNextStepButton addBorder:1 borderColor:[UIColor lightGrayColor]];
+//                if (btnClick == YES) {
+//                    [self.view makeToast:@"请先去开户" duration:0.8 position:CSToastPositionCenter];
+//                    return ;
+//                    
+//                }
                 
             }else if ([data[@"verify_status"] integerValue] == 3){
                 self.openAnAccountView.hidden = NO;
                 self.failReasonLabel.text = data[@"msg"];
                 self.oNextStepButton.enabled = NO;
+                [self.oNextStepButton addBorder:1 borderColor:[UIColor lightGrayColor]];
                 [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-                
+            
             }else  {
                 self.checkView.hidden = NO;
                 
@@ -119,7 +126,7 @@
                     
                     [strM replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
                 }
-                
+            NSLog(@"_____%@",US.userPhone);
                 self.phoneLabel.text = strM;
                 self.checkStatusLabel.text = [NSString stringWithFormat:@"%@...",data[@"msg"]];;
                 if ([data[@"verify_status"] integerValue] == 1){
@@ -129,9 +136,9 @@
                     self.showLabel2.text = @"工作人员已将钥匙奖励直接放入您的钱包";
                 }
                 [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth, 0) animated:NO];
-                
+
             }
-            
+        
         }
     }];
     
