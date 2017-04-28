@@ -16,6 +16,7 @@
 #import "CenterItemView.h"
 #import "AliveRoomViewController.h"
 #import "UIImage+Resize.h"
+#import "TDWebViewController.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -168,7 +169,13 @@
 }
 
 - (IBAction)memberCenterPressed:(id)sender {
+    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
+    NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
+    
+    TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
+    [self.navigationController pushViewController:vc animated:YES];
 }
+
 #pragma mark - UIScrollDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offy = scrollView.contentOffset.y;
