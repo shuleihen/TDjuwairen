@@ -57,6 +57,7 @@
             self.imageLimit = 9;
             break;
         case kAlivePublishForward:
+        case kAlivePublishShare:
             self.title = @"转发直播";
             self.textFieldPlaceholder = @"写点分享心得吧...";
             rightButtonTitle = @"发布";
@@ -217,7 +218,8 @@
         height = CGRectGetMaxY(rect);
     }];
     
-    if (self.publishType == kAlivePublishForward) {
+    if (self.publishType == kAlivePublishForward ||
+        self.publishType == kAlivePublishShare) {
         self.forwardView.frame = CGRectMake(15, height+15, kScreenWidth-30, 80);
         [footerView addSubview:self.forwardView];
         height = CGRectGetMaxY(self.forwardView.frame);
@@ -237,7 +239,8 @@
         NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
         self.navigationItem.rightBarButtonItem.enabled = ((stockId.length==6)&&(self.imageArray.count>0));
-    } else if (self.publishType == kAlivePublishForward) {
+    } else if (self.publishType == kAlivePublishForward ||
+               self.publishType == kAlivePublishShare) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
@@ -290,7 +293,8 @@
             !self.imageArray.count) {
             return;
         }
-    } else if (self.publishType == kAlivePublishForward) {
+    } else if (self.publishType == kAlivePublishForward ||
+               self.publishType == kAlivePublishShare) {
         // 转发，描述可以为空
     }
     
@@ -316,7 +320,12 @@
                      @"forward_type": @(self.aliveListModel.aliveType),
                      @"forward_id": self.aliveListModel.aliveId};
             break;
-            
+        case kAlivePublishShare:
+            dict = @{@"alive_type": @"4",
+                     @"content": reasonString?:@"",
+                     @"forward_type": @(self.aliveListModel.aliveType),
+                     @"forward_id": self.aliveListModel.aliveId};
+            break;
         default:
             NSAssert(NO, @"不支持的类型发布动态");
             break;
@@ -355,7 +364,8 @@
 
 #pragma mark - MBProgressHUDDelegate
 - (void)hudWasHidden:(MBProgressHUD *)hud {
-    if (self.publishType == kAlivePublishForward) {
+    if (self.publishType == kAlivePublishForward ||
+        self.publishType == kAlivePublishShare) {
         if (self.shareBlock) {
             self.shareBlock(YES);
         }

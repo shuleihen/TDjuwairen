@@ -14,7 +14,7 @@
 @property (nonatomic, strong) NSString *contentId;
 @property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) NSString *stockName;
-@property (nonatomic, strong) NSString *cover;
-@property (nonatomic, assign) NSString *tag;
-//@property (nonatomic, strong) NSString *url;
+
+@property (nonatomic, assign) NSInteger tag;
+@property (nonatomic, strong) NSString *url;
 @end

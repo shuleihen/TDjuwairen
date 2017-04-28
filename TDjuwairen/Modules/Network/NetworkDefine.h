@@ -91,6 +91,7 @@
 #define API_SurveyAddFavour     @"Survey/addCommentGoodAccess"
 #define API_SurveyAddQuestion         @"Survey/addQuestion"
 #define API_SurveyAnswerQuestion      @"Survey/answerQuestion"
+#define API_SurveyGetShareInfo  @"Survey/getSurveyInfo"
 #define API_SurveyAskLike       @"Survey/addUpvoteCompanyAnswer"
 #define API_SurveyAskUnLike     @"Survey/cancelUpvoteCompanyAnswer"
 

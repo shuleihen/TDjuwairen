@@ -20,6 +20,7 @@
 #import "ShareHandler.h"
 #import "UIButton+LikeAnimation.h"
 #import "AlivePublishViewController.h"
+#import "SurveyDetailWebViewController.h"
 
 @interface AliveDetailViewController ()<UIScrollViewDelegate,UITableViewDelegate,UITableViewDataSource,AliveListBottomTableCellDelegate, AliveListTableCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -197,11 +198,6 @@
     _toolView.backgroundColor = [UIColor whiteColor];
     _toolView.delegate = self;
     [self.view addSubview:_toolView];
-    
-    
-    
-    
-    
 }
 
 - (void)setSelectedPage:(NSInteger)selectedPage {
@@ -396,6 +392,11 @@
         return;
     }
     
+    if (cellData.aliveModel.forwardModel.aliveType == kAliveHot ||
+        cellData.aliveModel.forwardModel.aliveType == kAliveSurvey) {
+        return;
+    }
+    
     AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.forwardModel.masterId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
@@ -406,15 +407,24 @@
     AliveListCellData *cellData = cell.cellData;
     AliveListForwardModel *model = cellData.aliveModel.forwardModel;
     
-    if (model.aliveId.length <= 0) {
-        return;
+    if (model.aliveType == kAliveNormal ||
+        model.aliveType == kAlivePosts) {
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.alive_ID = model.aliveId;
+        vc.alive_type = (model.aliveType==1)?@"1":@"2";
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveSurvey ||
+               model.aliveType == kAliveHot) {
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.aliveId;
+        vc.stockCode = model.stockCode;
+        vc.stockName = model.aliveTags.firstObject;
+        vc.tag = model.aliveType;
+        vc.url = model.forwardUrl;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
-    
-    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-    vc.alive_ID = model.aliveId;
-    vc.alive_type = (model.aliveType==1)?@"1":@"2";
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - AliveListBottomTableCellDelegate

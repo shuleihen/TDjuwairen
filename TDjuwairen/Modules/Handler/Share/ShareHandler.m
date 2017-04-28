@@ -71,7 +71,7 @@
     [popupController presentInViewController:root];
     
     
-    void (^ShareWithType)(SSDKPlatformType type) = ^(SSDKPlatformType type){
+    void (^shareWithType)(SSDKPlatformType type) = ^(SSDKPlatformType type){
         if (type == SSDKPlatformTypeUnknown) {
             return;
         }
@@ -152,7 +152,11 @@
                  hud.removeFromSuperViewOnHide = YES;
                  [hud hide:YES afterDelay:0.6];
              }
-             stateBlock(state == SSDKResponseStateSuccess);
+             
+             if (stateBlock) {
+                 stateBlock(state == SSDKResponseStateSuccess);
+             }
+             
          }];
     };
     
@@ -183,8 +187,14 @@
                 break;
         }
         
-        selectedBlock(type);
-        ShareWithType(type);
+        if (selectedBlock) {
+            selectedBlock(type);
+        }
+        
+        if (shareWithType) {
+            shareWithType(type);
+        }
+        
     };
 }
 @end

@@ -23,6 +23,8 @@
 #import "StockAskView.h"
 #import "NSString+Emoji.h"
 #import "MBProgressHUD.h"
+#import "AlivePublishViewController.h"
+#import "AliveListModel.h"
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,StockShareDelegate,StockAskDelegate>
 @property (nonatomic, strong) WKWebView *webView;
@@ -50,11 +52,11 @@
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
     self.navigationItem.rightBarButtonItem= rightItem;
     
-    if ([self.tag isEqualToString:@"0"]) {
+    if (self.tag== 0) {
         self.title = [self.stockName stringByAppendingString:@" 实地篇"];
-    } else if ([self.tag isEqualToString:@"1"]) {
+    } else if (self.tag== 1) {
         self.title = [self.stockName stringByAppendingString:@" 对话篇"];
-    } else if ([self.tag isEqualToString:@"3"]) {
+    } else if (self.tag== 3) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
     }
     
@@ -80,15 +82,8 @@
 
 - (void)reloadData {
     
-    NSString *urlString;
-    if (US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@&user_id=%@",API_HOST,API_SurveyDetailContent,self.contentId,self.tag,US.userId];
-    }
-    else
-    {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@",API_HOST,API_SurveyDetailContent,self.contentId,self.tag];
-    }
-
+    NSString *urlString = self.url;
+    
     DDLogInfo(@"Survey detail web load url = %@", urlString);
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     
@@ -132,10 +127,65 @@
 
 #pragma mark - StockShareDelegate
 - (void)sharePressed {
-    NSString *urlString = [NSString stringWithFormat:@"https://www.juwairen.net/Survey/%@",self.stockCode];
-    [ShareHandler shareWithTitle:self.stockName
-                           image:self.cover
-                             url:[NSURL URLWithString:urlString]];
+    
+    NSDictionary *para = @{@"content_id": self.contentId,
+                           @"survey_tag": @(self.tag)};
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_SurveyGetShareInfo parameters:para completion:^(id data, NSError *error) {
+        if (!error) {
+            [self shareWithDict:data];
+        }
+    }];
+    
+    
+}
+
+- (void)shareWithDict:(NSDictionary *)dict {
+    
+    NSString *title = dict[@"survey_title"];
+    NSString *author = dict[@"survey_author"];
+    NSString *cover = dict[@"survey_cover"];
+    NSString *url = dict[@"share_url"];
+    
+    NSArray *images;
+    if (cover.length) {
+        images = @[cover];
+    }
+    
+    __weak SurveyDetailWebViewController *wself = self;
+    AliveListModel *model = [[AliveListModel alloc] init];
+    model.aliveTitle = title;
+    model.aliveImgs = images;
+    model.shareUrl = url;
+    model.aliveId = self.contentId;
+    model.aliveType = self.tag;
+    model.masterNickName = author;
+    
+    void (^shareBlock)(BOOL state) = ^(BOOL state) {
+        if (state) {
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.animationType = MBProgressHUDAnimationZoomIn;
+            hud.labelText = @"分享成功";
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hide:YES afterDelay:0.6];
+        }
+    };
+
+    
+    [ShareHandler shareWithTitle:self.stockName image:images url:url selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.aliveListModel = model;
+            vc.publishType = kAlivePublishShare;
+            vc.shareBlock = shareBlock;
+            [wself.navigationController pushViewController:vc animated:YES];
+        }
+    } shareState:nil];
 }
 
 - (void)feedbackPressed {

@@ -18,6 +18,8 @@
         self.masterId = dict[@"alive_master_id"];
         self.masterNickName = dict[@"user_nickname"];
         self.aliveTags = dict[@"alive_com_tag"];
+        self.stockCode = dict[@"company_code"];
+        self.forwardUrl = dict[@"forward_url"];
     }
     return self;
 }

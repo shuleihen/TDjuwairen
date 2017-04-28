@@ -17,6 +17,8 @@
 @property (nonatomic, copy) NSString *masterNickName;
 @property (nonatomic, copy) NSString *aliveTitle;
 @property (nonatomic, strong) NSArray *aliveTags;
+@property (nonatomic, copy) NSString *stockCode;
+@property (nonatomic, copy) NSString *forwardUrl;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

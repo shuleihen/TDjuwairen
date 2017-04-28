@@ -16,11 +16,12 @@ typedef enum : NSUInteger {
     AliveALL        =2, // 全部
 } AliveListType;
 
-// 直播发布页面类型，1：图文，2：跟单，3：转发
+// 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享
 typedef enum : NSInteger {
     kAlivePublishNormal     =1,
     kAlivePublishPosts      =2,
-    kAlivePublishForward    =3
+    kAlivePublishForward    =3,
+    kAlivePublishShare      =4,
 } AlivePublishType;
 
 // 直播间列表类型，0：全部，1：跟单
@@ -29,10 +30,12 @@ typedef enum : NSInteger {
     kAliveRoomListPosts    =1
 } AliveRoomListType;
 
-// 直播动态类型，1：图文，2：贴单
+// 直播动态类型，1表示图文、2表示贴单、3表示调研、4表示热点
 typedef enum : NSInteger {
     kAliveNormal    =1,
-    kAlivePosts     =2
+    kAlivePosts     =2,
+    kAliveSurvey    =3,
+    kAliveHot       =4,
 } AliveType;
 
 // 直播内容类型，0：文本，1：图片

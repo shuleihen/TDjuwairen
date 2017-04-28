@@ -95,8 +95,8 @@
     vc.contentId = model.hotId;
     vc.stockCode = self.stockCode;
     vc.stockName = self.stockName;
-    vc.cover = self.stockCover;
-    vc.tag = self.tag;
+    vc.tag = [self.tag integerValue];
+    vc.url = [self contenWebUrlWithContentId:model.hotId];
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 

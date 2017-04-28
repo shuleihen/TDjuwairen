@@ -94,13 +94,13 @@
     
     StockAnnounceModel *model = self.items[indexPath.row];
     
-//    SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-//    vc.contentId = model.hotId;
-//    vc.stockId = self.stockId;
-//    vc.stockName = self.stockName;
-//    vc.cover = self.stockCover;
-//    vc.tag = self.tag;
-//    [self.rootController.navigationController pushViewController:vc animated:YES];
+    SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+    vc.contentId = model.announceId;
+    vc.stockCode = self.stockCode;
+    vc.stockName = self.stockName;
+    vc.tag = [self.tag integerValue];
+    vc.url = [self contenWebUrlWithContentId:model.announceId];
+    [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 
 - (UITableView *)tableView {

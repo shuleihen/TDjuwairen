@@ -20,6 +20,7 @@
 #import "AlivePublishViewController.h"
 #import "AliveListSectionHeaderView.h"
 #import "MBProgressHUD.h"
+#import "SurveyDetailWebViewController.h"
 
 #define kAliveListCellToolHeight 37
 #define kAliveListSectionHeaderHeight   30
@@ -120,7 +121,8 @@ AliveListSectionHeaderDelegate>
     
     AliveListCellData *cellData = cell.cellData;
     
-    if (!cellData.aliveModel.forwardModel.masterId.length) {
+    if (cellData.aliveModel.forwardModel.aliveType == kAliveHot ||
+         cellData.aliveModel.forwardModel.aliveType == kAliveSurvey) {
         return;
     }
     
@@ -136,16 +138,27 @@ AliveListSectionHeaderDelegate>
     
     AliveListCellData *cellData = cell.cellData;
     AliveListForwardModel *model = cellData.aliveModel.forwardModel;
+
     
-    if (model.aliveId.length <= 0) {
-        return;
+    if (model.aliveType == kAliveNormal ||
+        model.aliveType == kAlivePosts) {
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.alive_ID = model.aliveId;
+        vc.alive_type = (model.aliveType==1)?@"1":@"2";
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveSurvey ||
+               model.aliveType == kAliveHot) {
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.aliveId;
+        vc.stockCode = model.stockCode;
+        vc.stockName = model.aliveTags.firstObject;
+        vc.tag = model.aliveType;
+        vc.url = model.forwardUrl;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
     }
     
-    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-    vc.alive_ID = model.aliveId;
-    vc.alive_type = (model.aliveType==1)?@"1":@"2";
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.viewController.navigationController pushViewController:vc animated:YES];
 }
 
 

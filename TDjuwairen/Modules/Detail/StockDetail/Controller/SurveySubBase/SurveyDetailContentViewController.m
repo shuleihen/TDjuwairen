@@ -8,6 +8,7 @@
 
 #import "SurveyDetailContentViewController.h"
 #import "LoginState.h"
+#import "NetworkDefine.h"
 
 @interface SurveyDetailContentViewController ()
 
@@ -37,18 +38,14 @@
     
 }
 
-- (NSString *)contenWebUrlWithBaseUrl:(NSString *)baseUrl witTag:(NSInteger)tag{
-    NSString *code = [self.stockCode substringFromIndex:2];
-    
-    NSString *model = @"0";
-
-    NSString *urlString = nil;
-    if (!US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/mode/%@",baseUrl,code,(long)tag,model];
+- (NSString *)contenWebUrlWithContentId:(NSString *)contentId {
+    NSString *urlString;
+    if (US.isLogIn) {
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@&user_id=%@",API_HOST,API_SurveyDetailContent,contentId,self.tag,US.userId];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@/code/%@/tag/%ld/userid/%@/mode/%@",baseUrl,code,(long)tag,US.userId,model];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@",API_HOST,API_SurveyDetailContent,contentId,self.tag];
     }
     return urlString;
 }

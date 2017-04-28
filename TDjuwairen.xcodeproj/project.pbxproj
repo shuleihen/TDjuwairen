@@ -97,6 +97,7 @@
 		19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E501E0E3E5200E651B5 /* StockGuessListCell.xib */; };
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
 		19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */; };
+		1936AF211EB1D92D00408D6F /* TDShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1936AF201EB1D92D00408D6F /* TDShareModel.m */; };
 		19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EC21E71883F00D4426E /* AliveMasterListViewController.m */; };
 		19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EC61E71887500D4426E /* AliveMasterListTableViewCell.m */; };
 		19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19386EC71E71887500D4426E /* AliveMasterListTableViewCell.xib */; };
@@ -735,6 +736,8 @@
 		19347E5A1E0E45D200E651B5 /* MyGuessCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MyGuessCell.h; sourceTree = "<group>"; };
 		19347E5B1E0E45D200E651B5 /* MyGuessCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MyGuessCell.m; sourceTree = "<group>"; };
 		19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuessCell.xib; sourceTree = "<group>"; };
+		1936AF1F1EB1D92D00408D6F /* TDShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDShareModel.h; sourceTree = "<group>"; };
+		1936AF201EB1D92D00408D6F /* TDShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDShareModel.m; sourceTree = "<group>"; };
 		19386EC11E71883F00D4426E /* AliveMasterListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListViewController.h; sourceTree = "<group>"; };
 		19386EC21E71883F00D4426E /* AliveMasterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListViewController.m; sourceTree = "<group>"; };
 		19386EC51E71887500D4426E /* AliveMasterListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListTableViewCell.h; sourceTree = "<group>"; };
@@ -4064,6 +4067,8 @@
 		19F00D301E307FEF009270D5 /* Share */ = {
 			isa = PBXGroup;
 			children = (
+				1936AF1F1EB1D92D00408D6F /* TDShareModel.h */,
+				1936AF201EB1D92D00408D6F /* TDShareModel.m */,
 				19F00D311E307FFC009270D5 /* ShareHandler.h */,
 				19F00D321E307FFC009270D5 /* ShareHandler.m */,
 				1966A64A1E8B8995007DDA14 /* ShareViewController.h */,
@@ -4753,6 +4758,7 @@
 				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
 				1955B4731D644D9800DC102E /* CommentsViewController.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
+				1936AF211EB1D92D00408D6F /* TDShareModel.m in Sources */,
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
