@@ -21,7 +21,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
 }
 
 - (void)setupIndexGuessModel:(IndexStockRecordModel *)guess {
@@ -29,8 +29,8 @@
     self.realTitleLabel.text = @"收盘指数";
     self.guessNameLabel.text = guess.stockName;
     self.dateLabel.text = guess.addTime;
-
-
+    
+    
     self.sessionLabel.text = [NSString stringWithFormat:@"%@%@", guess.guessDate,guess.seasonString];
     
     self.guessIndexLabel.text = [NSString stringWithFormat:@"%.02f",guess.buyPri];
@@ -47,59 +47,59 @@
     
     switch (guess.status) {
         case 0:
-            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            [self.statusButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ff0000"] forState:UIControlStateNormal];
             break;
         case 1:
         case 2:
-            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            [self.statusButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ff0000"] forState:UIControlStateNormal];
             break;
         case 3:
         case 4:
         case 5:
-            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+            [self.statusButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
             break;
         default:
             break;
     }
     
-    self.statusLabel.text = guess.statusString;
+    [self.statusButton setTitle:guess.statusString forState:UIControlStateNormal];
     /*
-    if (guess.status == 0) {
-        // 待结算
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:@" 待开奖"
-                                                                                   attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
-                                                                                                NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#ff0000"]}];
-        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-        attatch.bounds = CGRectMake(0, -3, 17, 17);
-        attatch.image = [UIImage imageNamed:@"icon_waiting.png"];
-        
-        NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
-        [strAtt insertAttributedString:wait atIndex:0];
-        self.statusLabel.attributedText = strAtt;
-        
-    } else if (guess.status == 1 ||
-               guess.status == 2) {
-        // 获胜钥匙
-        NSString *str = [NSString stringWithFormat:@"恭喜您，赢取%ld把",(long)(guess.odds*guess.buyKeyNum)];
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
-                                                                                   attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
-                                                                                                NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#ff0000"]}];
-        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-        attatch.bounds = CGRectMake(0, -5, 19, 22);
-        attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
-        
-        NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
-        [strAtt appendAttributedString:wait];
-        self.statusLabel.attributedText = strAtt;
-        
-    } else if (guess.status == 3 ||
-               guess.status == 4 || guess.status == 5) {
-        // 3表示失败 4表示平局
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:guess.statusString
-                                                                                   attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
-                                                                                                NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}];
-        self.statusLabel.attributedText = strAtt;
-    }
+     if (guess.status == 0) {
+     // 待结算
+     NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:@" 待开奖"
+     attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
+     NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#ff0000"]}];
+     NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+     attatch.bounds = CGRectMake(0, -3, 17, 17);
+     attatch.image = [UIImage imageNamed:@"icon_waiting.png"];
+     
+     NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
+     [strAtt insertAttributedString:wait atIndex:0];
+     self.statusLabel.attributedText = strAtt;
+     
+     } else if (guess.status == 1 ||
+     guess.status == 2) {
+     // 获胜钥匙
+     NSString *str = [NSString stringWithFormat:@"恭喜您，赢取%ld把",(long)(guess.odds*guess.buyKeyNum)];
+     NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
+     attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
+     NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#ff0000"]}];
+     NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+     attatch.bounds = CGRectMake(0, -5, 19, 22);
+     attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
+     
+     NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
+     [strAtt appendAttributedString:wait];
+     self.statusLabel.attributedText = strAtt;
+     
+     } else if (guess.status == 3 ||
+     guess.status == 4 || guess.status == 5) {
+     // 3表示失败 4表示平局
+     NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:guess.statusString
+     attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14],
+     NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}];
+     self.statusLabel.attributedText = strAtt;
+     }
      */
 }
 
@@ -115,31 +115,31 @@
     [self.betBtn setTitle:key forState:UIControlStateHighlighted];
     
     self.guessIndexLabel.text = guess.guessPoint;
-    
-    if (guess.endPrice.length) {
-        self.realIndexLabel.text = guess.endPrice;
-    } else {
-        self.realIndexLabel.text = @"--";
-    }
-    
+    self.realIndexLabel.text = guess.endPrice;
+    [self.statusButton setImage:[UIImage new] forState:UIControlStateNormal];
     switch (guess.status) {
         case 0:
-            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+
+            [self.statusButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ff0000"] forState:UIControlStateNormal];
+            [self.statusButton setImage:[UIImage imageNamed:@"icon_waiting"] forState:UIControlStateNormal];
+            self.realIndexLabel.text = @"--";
             break;
         case 1:
         case 2:
-            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+
+            [self.statusButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ff0000"] forState:UIControlStateNormal];
             break;
         case 3:
         case 4:
         case 5:
-            self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+
+            [self.statusButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
             break;
         default:
             break;
     }
     
-    self.statusLabel.text = guess.guessReword;
+    [self.statusButton setTitle:[NSString stringWithFormat:@" %@",guess.guessReword] forState:UIControlStateNormal];
 }
 
 @end

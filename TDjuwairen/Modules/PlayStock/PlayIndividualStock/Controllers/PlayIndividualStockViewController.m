@@ -28,6 +28,7 @@
 #import "StockManager.h"
 #import "MJRefresh.h"
 #import "PlayEnjoyPeopleViewController.h"
+#import "AliveDetailViewController.h"
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
@@ -513,8 +514,8 @@
     
     PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-    [cell setupStock:sInfo];
-    cell.model = model;
+//    [cell setupStock:sInfo];
+//    cell.model = model;
     
     cell.guessBlock = ^(UIButton *btn){
         PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
@@ -565,6 +566,21 @@
     [header addSubview:self.seasonSegmentControl];
     
     return header;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    PlayListModel *model = self.items[indexPath.row];
+    if ([model.artile_info[@"article_type"] isEqual:@4]) {
+        
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.alive_ID = model.artile_info[@"article_id"];
+        vc.alive_type = @"2";
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+
 }
 
 

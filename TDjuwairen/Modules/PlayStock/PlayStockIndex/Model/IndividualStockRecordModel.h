@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, copy) NSString *guessDate;
 // 0表示没有结束，1表示完全猜中，2表示获胜，3表示失败，4表示平局，5表示无效
+/// 个股竞猜：竞猜状态， 0表示未结算，1表示完全猜中，2表示获胜钥匙，3表示失败 4表示平局
 @property (nonatomic, assign) int status;
 @property (nonatomic, assign) int season;
 @property (nonatomic, copy) NSString *seasonString;

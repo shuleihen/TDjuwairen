@@ -97,8 +97,9 @@
         if (!error) {
             ///verify_status: 0表示没有开户记录，1表示正在审核，2表示审核通过，3表示审核失败
             self.failReasonLabel.text = @"";
-            
-            if ([data[@"verify_status"] integerValue] == 0) {
+            NSNumber *verifyCode = data[@"verify_status"];
+//            verifyCode = @1;
+            if ([verifyCode integerValue] == 0) {
                 self.openAnAccountView.hidden = NO;
                 
                 
@@ -111,7 +112,7 @@
 //                    
 //                }
                 
-            }else if ([data[@"verify_status"] integerValue] == 3){
+            }else if ([verifyCode integerValue] == 3){
                 self.openAnAccountView.hidden = NO;
                 self.failReasonLabel.text = data[@"msg"];
                 self.oNextStepButton.enabled = NO;
@@ -126,7 +127,6 @@
                     
                     [strM replaceCharactersInRange:NSMakeRange(3, 4) withString:@"****"];
                 }
-            NSLog(@"_____%@",US.userPhone);
                 self.phoneLabel.text = strM;
                 self.checkStatusLabel.text = [NSString stringWithFormat:@"%@...",data[@"msg"]];;
                 if ([data[@"verify_status"] integerValue] == 1){
