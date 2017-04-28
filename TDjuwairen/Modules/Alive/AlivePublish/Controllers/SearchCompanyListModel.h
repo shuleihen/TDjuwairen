@@ -8,12 +8,20 @@
 
 #import <Foundation/Foundation.h>
 
-@interface SearchCompanyListModel : NSObject
+@interface SearchCompanyListModel : NSObject<NSCopying>
 /// 公司股票
 @property (copy, nonatomic) NSString *company_code;
 /// 公司名称
 @property (copy, nonatomic) NSString *company_name;
 /// 公司简称
 @property (copy, nonatomic) NSString *company_short;
+
 - (id)initWithDictionary:(NSDictionary *)dict;
+
+
++ (void)saveLocalHistoryModelArr:(NSArray *)arr;
+
++ (NSArray *)loadLocalHistoryModel;
+
+
 @end

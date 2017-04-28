@@ -421,6 +421,8 @@
 		4DD179EB1E77C00B00FBE66D /* MYRollScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179E01E77C00B00FBE66D /* MYRollScrollView.m */; };
 		4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179E21E77C00B00FBE66D /* MYZoomScrollView.m */; };
 		4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179E41E77C00B00FBE66D /* UIImage+imageSize.m */; };
+		4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */; };
+		4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
 		841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CA1DF537140047DA7E /* UMMobClick.framework */; };
@@ -1344,6 +1346,9 @@
 		4DD179E21E77C00B00FBE66D /* MYZoomScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MYZoomScrollView.m; sourceTree = "<group>"; };
 		4DD179E31E77C00B00FBE66D /* UIImage+imageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+imageSize.h"; sourceTree = "<group>"; };
 		4DD179E41E77C00B00FBE66D /* UIImage+imageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+imageSize.m"; sourceTree = "<group>"; };
+		4DDA5C3B1EB31F25005BC8D7 /* PublishSelectedStockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishSelectedStockCell.h; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.h; sourceTree = SOURCE_ROOT; };
+		4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishSelectedStockCell.m; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.m; sourceTree = SOURCE_ROOT; };
+		4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PublishSelectedStockCell.xib; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.xib; sourceTree = SOURCE_ROOT; };
 		84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMineViewController.h; sourceTree = "<group>"; };
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		8416DA811D6800E90098A412 /* CommentManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentManagerModel.h; sourceTree = "<group>"; };
@@ -2228,6 +2233,9 @@
 				4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */,
 				4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */,
 				4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */,
+				4DDA5C3B1EB31F25005BC8D7 /* PublishSelectedStockCell.h */,
+				4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */,
+				4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4663,6 +4671,7 @@
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
+				4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */,
 				19ECB9AF1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
@@ -4887,6 +4896,7 @@
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
 				4D023BCA1E8E327500AB463E /* PlayIndividualUserModel.m in Sources */,
+				4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */,
 				19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
 				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,

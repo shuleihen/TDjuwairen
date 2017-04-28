@@ -91,8 +91,8 @@
         }
     }else {
     
-        if (self.choiceCode) {
-            self.choiceCode(model.company_code);
+        if (self.choiceModel) {
+            self.choiceModel(model);
         }
         
     }
