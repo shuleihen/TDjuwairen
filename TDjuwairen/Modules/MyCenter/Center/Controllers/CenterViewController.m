@@ -16,6 +16,7 @@
 #import "CenterItemView.h"
 #import "AliveRoomViewController.h"
 #import "UIImage+Resize.h"
+#import "TDWebViewController.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -167,7 +168,19 @@
     }
 }
 
+// 会员中心
 - (IBAction)memberCenterPressed:(id)sender {
+    if (US.isLogIn == NO) {
+        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.navigationController pushViewController:login animated:YES];
+        
+    }else {
+        NSString *unique_str = [[NSUserDefaults standardUserDefaults] objectForKey:@"unique_str"];
+        NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"https://appapi.juwairen.net/index.php/User/vipCenter?unique_str=%@",unique_str]];
+        TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+        [self.navigationController pushViewController:vc animated:YES];
+    
+    }
 }
 #pragma mark - UIScrollDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -180,7 +193,7 @@
         self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame)*f, 210*f)];
     } else {
         self.headerBgImageheight.constant = 210;
-        self.headerImageView.image = image;
+        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame), 210)];
     }
 }
 
