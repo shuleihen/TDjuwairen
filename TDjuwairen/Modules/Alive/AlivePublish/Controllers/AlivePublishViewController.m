@@ -19,6 +19,7 @@
 #import "SearchCompanyListModel.h"
 #import "AliveListForwardView.h"
 #import "PublishSelectedStockCell.h"
+#import "UIView+Border.h"
 
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate,PublishSelectedStockCellDelegate>
 
@@ -95,7 +96,7 @@
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.separatorInset = UIEdgeInsetsZero;
-    self.tableView.scrollEnabled = NO;
+//    self.tableView.scrollEnabled = NO;
     
     [self.tableView addSubview:self.companyListTableView];
     
@@ -535,7 +536,7 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (self.publishType == kAlivePublishPosts && self.historySelectedStockArrM.count>0) {
     
-        return 44;
+        return 54;
     }else {
         return FLT_MIN;
     }
@@ -548,13 +549,34 @@
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section; {
     
     if (self.publishType == kAlivePublishPosts && self.historySelectedStockArrM.count>0) {
-        
-        UIView *vi = [[UIView alloc] init];
-        UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 50, 44)];
+        UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 54)];
+        headerV.backgroundColor = TDViewBackgrouondColor;
+        UIView *vi = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+        vi.backgroundColor = [UIColor whiteColor];
+        UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 70, 44)];
         tLabel.text = @"猜你选择";
-//        tLabel
-        vi.backgroundColor = [UIColor redColor];
-        return vi;
+        tLabel.font = [UIFont systemFontOfSize:15.0];
+        tLabel.textColor = TDTitleTextColor;
+        [vi addSubview:tLabel];
+        CGFloat btnX = 90;
+        for (int i=0; i<self.historySelectedStockArrM.count; i++) {
+            SearchCompanyListModel *model = self.historySelectedStockArrM[i];
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitle:[NSString stringWithFormat:@"%@(%@)",model.company_name,model.company_code] forState:UIControlStateNormal];
+            CGFloat btnW = [self calculateWidthWithStr:btn.currentTitle];
+            [btn addBorder:0.5 borderColor:TDDetailTextColor];
+            btn.frame = CGRectMake(btnX, 10, btnW, 24);
+            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            [btn setTitleColor:TDDetailTextColor forState:UIControlStateNormal];
+            btn.tag = i;
+            [btn addTarget:self action:@selector(historySeletedClick:) forControlEvents:UIControlEventTouchUpInside];
+            [vi addSubview:btn];
+            btnX += btnW+8;
+        }
+        
+        [headerV addSubview:vi];
+        
+        return headerV;
     }else {
         
         return nil;
@@ -566,6 +588,23 @@
     [self.selectedStockArrM removeObject:model];
     [self.tableView reloadData];
 }
+
+
+#pragma mark - 猜你选择
+- (void)historySeletedClick:(UIButton *)sender {
+
+    [self.selectedStockArrM addObject:self.historySelectedStockArrM[sender.tag]];
+    [self.tableView reloadData];
+    
+}
+
+
+#pragma mark --- 计算字符长度
+- (CGFloat)calculateWidthWithStr:(NSString *)textStr {
+    
+    return [textStr boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 24) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil].size.width;
+}
+
 
 
 @end
