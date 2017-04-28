@@ -87,6 +87,7 @@
             NSArray *arr = data; 
             [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 FirmPlatListModel *model = [[FirmPlatListModel alloc] initWithDictionary:obj];
+//                model.account_status = @2;
                 [weakSelf.listArr addObject:model];
             }];
             [weakSelf.tableView reloadData];
@@ -115,6 +116,7 @@
     
     ActualQuotationCell *cell = [ActualQuotationCell loadActualQuotationCellWithTableView:tableView];
     cell.delegate = self;
+    cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.firmModel = _listArr[indexPath.row];
     return cell;
 }
@@ -125,6 +127,9 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     FirmPlatListModel *model = _listArr[indexPath.row];
+    if ([model.account_status isEqual:@2]) {
+        return;
+    }
     OpenAnAccountController *vc = [[OpenAnAccountController alloc] init];
     vc.model = model;
     vc.title = model.plat_name;

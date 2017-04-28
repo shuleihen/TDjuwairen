@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +15,7 @@
             <rect key="frame" x="0.0" y="0.0" width="320" height="132"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="320" height="131.5"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="131"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2016.12.1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nwA-tF-Ph8">
@@ -49,7 +49,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="下注" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="by2-lj-q9c">
-                        <rect key="frame" x="234" y="54" width="25" height="15"/>
+                        <rect key="frame" x="234" y="53" width="25" height="15"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -73,19 +73,17 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4ay-7T-Nx4">
-                        <rect key="frame" x="263" y="51" width="45" height="22"/>
+                        <rect key="frame" x="263" y="50.5" width="45" height="22"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <inset key="titleEdgeInsets" minX="8" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="x 5" image="icon_key_small">
                             <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Label" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AT4-j4-udE">
-                        <rect key="frame" x="143" y="102" width="165" height="17"/>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3XN-to-CGm">
+                        <rect key="frame" x="143" y="90.5" width="165" height="29"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <nil key="textColor"/>
-                        <nil key="highlightedColor"/>
-                    </label>
+                    </button>
                 </subviews>
                 <constraints>
                     <constraint firstItem="Aul-y1-9pc" firstAttribute="leading" secondItem="vKo-SV-MSS" secondAttribute="trailing" constant="15" id="6cM-U8-z9L"/>
@@ -96,7 +94,7 @@
                     <constraint firstItem="nwA-tF-Ph8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="I8X-dv-kPz"/>
                     <constraint firstItem="vKo-SV-MSS" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="PUj-8j-WsW"/>
                     <constraint firstItem="4ay-7T-Nx4" firstAttribute="leading" secondItem="by2-lj-q9c" secondAttribute="trailing" constant="4" id="PxJ-5Q-hyd"/>
-                    <constraint firstItem="AT4-j4-udE" firstAttribute="leading" secondItem="Aul-y1-9pc" secondAttribute="trailing" constant="10" id="Rl6-E8-fYH"/>
+                    <constraint firstAttribute="bottom" secondItem="3XN-to-CGm" secondAttribute="bottom" constant="12" id="SUq-Nq-GNg"/>
                     <constraint firstItem="4ay-7T-Nx4" firstAttribute="baseline" secondItem="by2-lj-q9c" secondAttribute="baseline" id="Sea-kD-jIL"/>
                     <constraint firstItem="4gl-mx-rqY" firstAttribute="top" secondItem="BfV-Is-ZzE" secondAttribute="bottom" constant="14" id="Unt-4c-4js"/>
                     <constraint firstItem="BfV-Is-ZzE" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Xmy-Ll-7Bg"/>
@@ -107,11 +105,11 @@
                     <constraint firstItem="nwA-tF-Ph8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="iDJ-Ov-R3N"/>
                     <constraint firstItem="vKo-SV-MSS" firstAttribute="top" secondItem="2Gd-bi-fLT" secondAttribute="bottom" constant="6" id="iYF-hG-RhK"/>
                     <constraint firstItem="4ay-7T-Nx4" firstAttribute="baseline" secondItem="4gl-mx-rqY" secondAttribute="baseline" id="jlk-M0-T9h"/>
-                    <constraint firstAttribute="bottom" secondItem="AT4-j4-udE" secondAttribute="bottom" constant="12" id="lka-f5-ZtB"/>
                     <constraint firstItem="Aul-y1-9pc" firstAttribute="centerY" secondItem="vKo-SV-MSS" secondAttribute="centerY" id="mRk-fB-AMv"/>
+                    <constraint firstItem="3XN-to-CGm" firstAttribute="leading" secondItem="Aul-y1-9pc" secondAttribute="trailing" constant="10" id="o4F-iJ-APv"/>
+                    <constraint firstAttribute="trailing" secondItem="3XN-to-CGm" secondAttribute="trailing" constant="12" id="pY7-Bf-KLx"/>
                     <constraint firstAttribute="trailing" secondItem="4ay-7T-Nx4" secondAttribute="trailing" constant="12" id="sS3-Ah-vhQ"/>
                     <constraint firstItem="iB7-v6-Ivv" firstAttribute="baseline" secondItem="4gl-mx-rqY" secondAttribute="baseline" id="udD-Cv-HGM"/>
-                    <constraint firstAttribute="trailing" secondItem="AT4-j4-udE" secondAttribute="trailing" constant="12" id="viz-RY-oWQ"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
@@ -123,9 +121,9 @@
                 <outlet property="realIndexLabel" destination="Aul-y1-9pc" id="cK9-hq-bOR"/>
                 <outlet property="realTitleLabel" destination="vKo-SV-MSS" id="ISY-gg-Gha"/>
                 <outlet property="sessionLabel" destination="iB7-v6-Ivv" id="LRX-SZ-nSl"/>
-                <outlet property="statusLabel" destination="AT4-j4-udE" id="o8m-oe-aLs"/>
+                <outlet property="statusButton" destination="3XN-to-CGm" id="0tC-rf-Two"/>
             </connections>
-            <point key="canvasLocation" x="-44" y="-17"/>
+            <point key="canvasLocation" x="-598" y="-147"/>
         </tableViewCell>
     </objects>
     <resources>

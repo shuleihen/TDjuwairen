@@ -19,7 +19,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *realTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *realIndexLabel;
 @property (weak, nonatomic) IBOutlet UIButton *betBtn;
-@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+//@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+
+@property (weak, nonatomic) IBOutlet UIButton *statusButton;
 
 - (void)setupIndexGuessModel:(IndexStockRecordModel *)guess;
 - (void)setupIndividualGuessModel:(IndividualStockRecordModel *)guess;

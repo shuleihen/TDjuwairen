@@ -117,11 +117,10 @@
     
     [self.stepper.decrementButton setBackgroundImage:decrease forState:UIControlStateNormal];
     [self.stepper.decrementButton setBackgroundImage:heightlight forState:UIControlStateHighlighted];
-    //    self.stepper.decrementButton.frame = CGRectMake(0, 0, 44, 44);
+    
     [self.stepper.incrementButton setBackgroundImage:increase forState:UIControlStateNormal];
     [self.stepper.incrementButton setBackgroundImage:heightlight forState:UIControlStateHighlighted];
-    //    self.stepper.incrementButton.frame = CGRectMake(0, 0, 44, 44);
-    
+
     [self.stepper.decrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.decrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [self.stepper.incrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];

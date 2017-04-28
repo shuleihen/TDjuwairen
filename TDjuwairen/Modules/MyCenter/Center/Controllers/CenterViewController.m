@@ -168,12 +168,21 @@
     }
 }
 
+// 会员中心
 - (IBAction)memberCenterPressed:(id)sender {
-    NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
-    NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
     
-    TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
-    [self.navigationController pushViewController:vc animated:YES];
+    if (US.isLogIn == NO) {
+        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.navigationController pushViewController:login animated:YES];
+        
+    }else {
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
+        NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
+        
+        TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
+        [self.navigationController pushViewController:vc animated:YES];
+    
+    }
 }
 
 #pragma mark - UIScrollDelegate
@@ -187,7 +196,7 @@
         self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame)*f, 210*f)];
     } else {
         self.headerBgImageheight.constant = 210;
-        self.headerImageView.image = image;
+        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame), 210)];
     }
 }
 
