@@ -27,6 +27,7 @@
 @property (nonatomic, copy) NSString *shareUrl;
 @property (nonatomic, strong) NSArray *aliveTags;   // 标签数组
 @property (nonatomic, strong) AliveListForwardModel *forwardModel;
+@property (nonatomic, assign) BOOL isOfficial;  // 是否官方认证
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

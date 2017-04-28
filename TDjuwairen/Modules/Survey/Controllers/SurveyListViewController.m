@@ -39,6 +39,7 @@
 #import "UIImage+Resize.h"
 #import "SelectedSurveySubjectViewController.h"
 #import "ActualQuotationViewController.h"
+#import "TDWebViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -91,9 +92,9 @@
     buttonContain.backgroundColor = [UIColor whiteColor];
     [view addSubview:buttonContain];
     
-    NSArray *titles = @[@"周刊订阅",@"特约调研",@"评级排行",@"实盘开户"];
-    NSArray *images = @[@"fun_weekly.png",@"fun_investigation.png",@"fun_ranking.png",@"fun_account.png"];
-    NSArray *selectors = @[@"subscribePressed:",@"surveyPressed:",@"gradePressed:",@"morePressed:"];
+    NSArray *titles = @[@"特约调研",@"评级排行",@"实盘开户",@"黄金会员"];
+    NSArray *images = @[@"fun_investigation.png",@"fun_ranking.png",@"fun_account.png",@"fun_vip.png"];
+    NSArray *selectors = @[@"surveyPressed:",@"gradePressed:",@"morePressed:",@"vipCenterPressed:"];
     
     int i=0;
     CGFloat w = kScreenWidth/4;
@@ -381,6 +382,21 @@
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
     
+}
+
+- (void)vipCenterPressed:(id)sender {
+    if (US.isLogIn == NO) {
+        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        [self.navigationController pushViewController:login animated:YES];
+        
+    }else {
+        NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
+        NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
+        
+        TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (void)segmentPressed:(HMSegmentedControl *)sender {

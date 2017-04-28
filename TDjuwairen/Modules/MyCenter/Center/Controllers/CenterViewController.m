@@ -27,6 +27,7 @@
 @property (nonatomic, strong) IBOutlet CenterItemView *dynamicView;
 @property (nonatomic, strong) IBOutlet CenterItemView *attentionView;
 @property (nonatomic, strong) IBOutlet CenterItemView *fansView;
+@property (weak, nonatomic) IBOutlet UIImageView *levelImageView;
 @end
 
 @implementation CenterViewController
@@ -104,14 +105,24 @@
 }
 
 - (void)setupAliveInfoWithDictionary:(NSDictionary *)dict {
+    // 1表示黄金会员，0表示普通会员
     if (dict) {
         NSInteger dy = [dict[@"alive_num"] integerValue];
         NSInteger at = [dict[@"atten_num"] integerValue];
         NSInteger fan = [dict[@"fans_num"] integerValue];
+        NSInteger level = [dict[@"user_level"] integerValue];
         
         [self.dynamicView setupNumber:dy];
         [self.attentionView setupNumber:at];
         [self.fansView setupNumber:fan];
+        
+        if (level == 0) {
+            self.levelImageView.image = [UIImage imageNamed:@"level_nomal.png"];
+        } else if (level == 1) {
+            self.levelImageView.image = [UIImage imageNamed:@"level_huangjin.png"];
+        } else {
+            self.levelImageView.image = nil;
+        }
     }
 }
 

@@ -98,6 +98,8 @@
 		19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19347E5B1E0E45D200E651B5 /* MyGuessCell.m */; };
 		19347E5E1E0E45D200E651B5 /* MyGuessCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */; };
 		1936AF211EB1D92D00408D6F /* TDShareModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1936AF201EB1D92D00408D6F /* TDShareModel.m */; };
+		1936AF2F1EB3212600408D6F /* NJKWebViewProgress.m in Sources */ = {isa = PBXBuildFile; fileRef = 1936AF2C1EB3212600408D6F /* NJKWebViewProgress.m */; };
+		1936AF301EB3212600408D6F /* NJKWebViewProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1936AF2E1EB3212600408D6F /* NJKWebViewProgressView.m */; };
 		19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EC21E71883F00D4426E /* AliveMasterListViewController.m */; };
 		19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EC61E71887500D4426E /* AliveMasterListTableViewCell.m */; };
 		19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19386EC71E71887500D4426E /* AliveMasterListTableViewCell.xib */; };
@@ -740,6 +742,10 @@
 		19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MyGuessCell.xib; sourceTree = "<group>"; };
 		1936AF1F1EB1D92D00408D6F /* TDShareModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDShareModel.h; sourceTree = "<group>"; };
 		1936AF201EB1D92D00408D6F /* TDShareModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDShareModel.m; sourceTree = "<group>"; };
+		1936AF2B1EB3212600408D6F /* NJKWebViewProgress.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgress.h; sourceTree = "<group>"; };
+		1936AF2C1EB3212600408D6F /* NJKWebViewProgress.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgress.m; sourceTree = "<group>"; };
+		1936AF2D1EB3212600408D6F /* NJKWebViewProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NJKWebViewProgressView.h; sourceTree = "<group>"; };
+		1936AF2E1EB3212600408D6F /* NJKWebViewProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NJKWebViewProgressView.m; sourceTree = "<group>"; };
 		19386EC11E71883F00D4426E /* AliveMasterListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListViewController.h; sourceTree = "<group>"; };
 		19386EC21E71883F00D4426E /* AliveMasterListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListViewController.m; sourceTree = "<group>"; };
 		19386EC51E71887500D4426E /* AliveMasterListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListTableViewCell.h; sourceTree = "<group>"; };
@@ -1518,6 +1524,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
 				1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */,
 				19386EF51E728C9900D4426E /* AVFoundation.framework in Frameworks */,
 				195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */,
@@ -1553,7 +1560,6 @@
 				84E334D71CE329CB00E5DCEE /* MessageUI.framework in Frameworks */,
 				84E334D51CE329B200E5DCEE /* libsqlite3.tbd in Frameworks */,
 				84E334D31CE329A900E5DCEE /* ImageIO.framework in Frameworks */,
-				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
 				84E334CF1CE3299500E5DCEE /* libstdc++.tbd in Frameworks */,
 				84E334CB1CE3297A00E5DCEE /* libicucore.tbd in Frameworks */,
 			);
@@ -2105,6 +2111,17 @@
 				19347E5C1E0E45D200E651B5 /* MyGuessCell.xib */,
 			);
 			path = Cell;
+			sourceTree = "<group>";
+		};
+		1936AF2A1EB3212600408D6F /* NJKWebViewProgress */ = {
+			isa = PBXGroup;
+			children = (
+				1936AF2B1EB3212600408D6F /* NJKWebViewProgress.h */,
+				1936AF2C1EB3212600408D6F /* NJKWebViewProgress.m */,
+				1936AF2D1EB3212600408D6F /* NJKWebViewProgressView.h */,
+				1936AF2E1EB3212600408D6F /* NJKWebViewProgressView.m */,
+			);
+			path = NJKWebViewProgress;
 			sourceTree = "<group>";
 		};
 		19386EC41E71885600D4426E /* Cells */ = {
@@ -4351,6 +4368,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1936AF2A1EB3212600408D6F /* NJKWebViewProgress */,
 				4D6E67CD1E976BAA009A9FB0 /* Toast */,
 				19194D1E1E80D08900641085 /* Refresh */,
 				19194D171E80CC5200641085 /* YPTool */,
@@ -5006,6 +5024,7 @@
 				19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
+				1936AF301EB3212600408D6F /* NJKWebViewProgressView.m in Sources */,
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
@@ -5016,6 +5035,7 @@
 				1955B48C1D644D9800DC102E /* ShowTableViewCell.m in Sources */,
 				1966A66B1E8CA30E007DDA14 /* AliveListForwardModel.m in Sources */,
 				19C348711D3F76DB008ABD16 /* MJRefreshStateHeader.m in Sources */,
+				1936AF2F1EB3212600408D6F /* NJKWebViewProgress.m in Sources */,
 				1966A6591E8BBEDF007DDA14 /* UIViewController+Loading.m in Sources */,
 				19D6A3031E0D0126008368F4 /* STPopupControllerTransitioningFade.m in Sources */,
 				19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */,

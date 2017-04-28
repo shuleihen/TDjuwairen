@@ -8,10 +8,14 @@
 
 #import "TDWebViewController.h"
 #import <WebKit/WebKit.h>
+#import "NJKWebViewProgress.h"
+#import "NJKWebViewProgressView.h"
 
-@interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate>
+@interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate, WKScriptMessageHandler>
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) WKWebView *webView;
+@property (nonatomic, strong) NJKWebViewProgressView *progressView;
+@property (nonatomic, strong) NJKWebViewProgress *progressProxy;
 @end
 
 @implementation TDWebViewController
@@ -49,10 +53,15 @@
 
 - (void)setupWebView
 {
-    self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds];
+    WKWebViewConfiguration *configuration = [[WKWebViewConfiguration alloc] init];
+    configuration.userContentController = [WKUserContentController new];
+    
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.bounds configuration:configuration];
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     [self.view addSubview:self.webView];
+    
+    [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_upgrade"];
 }
 
 - (void)loadWebViewData
@@ -71,6 +80,17 @@
         [self.webView goBack];
     } else {
         [self.navigationController popViewControllerAnimated:YES];
+    }
+}
+
+#pragma mark - WKScriptMessageHandler
+
+- (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
+    
+    NSLog(@"body:%@", message.body);
+    
+    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"]) {
+        NSLog(@"升级黄金会员");
     }
 }
 
