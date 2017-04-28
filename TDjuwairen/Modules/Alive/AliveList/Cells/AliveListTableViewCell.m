@@ -44,6 +44,11 @@
         UITapGestureRecognizer *nickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
         [_nickNameLabel addGestureRecognizer:nickTap];
         
+        
+        _officialImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_official.png"]];
+        _officialImageView.hidden = YES;
+        [self.contentView addSubview:_officialImageView];
+        
         _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth-92, 15, 80, 12)];
         _timeLabel.font = [UIFont systemFontOfSize:12.0f];
         _timeLabel.textAlignment = NSTextAlignmentRight;
@@ -115,7 +120,19 @@
     AliveListModel *aliveModel = cellData.aliveModel;
     
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:TDDefaultUserAvatar];
+    
+    // 昵称
     self.nickNameLabel.text = aliveModel.masterNickName;
+    
+    // 官方认证标示
+    if (aliveModel.isOfficial) {
+        CGSize nickNameSize = [aliveModel.masterNickName boundingRectWithSize:CGSizeMake(kScreenWidth-12-64, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0f]} context:nil].size;
+        self.officialImageView.frame = CGRectMake(CGRectGetMinX(self.nickNameLabel.frame)+nickNameSize.width+5, 15, 16, 16);
+        self.officialImageView.hidden = NO;
+    } else {
+        self.officialImageView.hidden = YES;
+    }
+    
     self.timeLabel.text = aliveModel.aliveTime;
     
     self.messageLabel.attributedText = cellData.message;

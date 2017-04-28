@@ -22,13 +22,14 @@
 @end
 
 @interface AliveListTableViewCell : UITableViewCell<TTTAttributedLabelDelegate>
-@property (strong, nonatomic) IBOutlet UIImageView *avatar;
-@property (strong, nonatomic) IBOutlet UILabel *nickNameLabel;
-@property (strong, nonatomic) IBOutlet UILabel *timeLabel;
-@property (strong, nonatomic) IBOutlet TTTAttributedLabel *messageLabel;
-@property (strong, nonatomic) IBOutlet NSLayoutConstraint *imagesHeight;
-@property (strong, nonatomic) IBOutlet AliveListImagesView *imagesView;
-@property (strong, nonatomic) IBOutlet UILabel *tiedanLabel;
+@property (strong, nonatomic) UIImageView *avatar;
+@property (strong, nonatomic) UILabel *nickNameLabel;
+@property (strong, nonatomic) UIImageView *officialImageView;
+@property (strong, nonatomic) UILabel *timeLabel;
+@property (strong, nonatomic) TTTAttributedLabel *messageLabel;
+@property (strong, nonatomic) NSLayoutConstraint *imagesHeight;
+@property (strong, nonatomic) AliveListImagesView *imagesView;
+@property (strong, nonatomic) UILabel *tiedanLabel;
 @property (strong, nonatomic) AliveListForwardView *forwardView;
 @property (strong, nonatomic) AliveListTagsView *tagsView;
 @property (strong, nonatomic) AliveListCellData *cellData;
