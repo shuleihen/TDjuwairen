@@ -13,6 +13,8 @@
     if (self = [super init]) {
         self.subjectId = [NSString stringWithFormat:@"%d",[dic[@"subject_id"] intValue]];
         self.subjectTitle = dic[@"subject_title"];
+        self.isCanCancel = [dic[@"is_cancel"] boolValue];
+        self.isAtten = [dic[@"has_atten"] boolValue];
     }
     return self;
 }

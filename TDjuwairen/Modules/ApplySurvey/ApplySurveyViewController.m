@@ -344,7 +344,7 @@
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 
     if (scrollView == self.tableView) {
-         [self.view endEditing:YES];
+        [self.stockNumberTextField resignFirstResponder];
     }
 }
 

@@ -75,13 +75,11 @@
     CGFloat offy = 22;
     
     for (SurveySubjectModel *sub in self.totalArray) {
-        sub.enabled = [self isEnabledWithSubjectId:sub.subjectId];
         
         UIButton *button = [self buttonWithSubject:sub];
-        button.enabled = sub.enabled;
+        button.enabled = sub.isCanCancel;
         if (button.enabled) {
-            sub.isSelected = [self isSelectedWithSubjectId:sub.subjectId];
-            button.selected = sub.isSelected;
+            button.selected = sub.isAtten;
         }
         
         button.frame = CGRectMake(12+i*(10+w), offy, w, h);
@@ -98,7 +96,7 @@
         i = j%4;
     }
 }
-
+/*
 - (BOOL)isEnabledWithSubjectId:(NSString *)subjectId {
     NSArray *array = @[@"154",@"155",@"156"];
     return ![array containsObject:subjectId];
@@ -116,6 +114,7 @@
     
     return selected;
 }
+*/
 
 - (UIButton *)buttonWithSubject:(SurveySubjectModel *)subject {
     UIButton *button = [[UIButton alloc] init];
@@ -156,7 +155,7 @@
     btn.selected = !btn.selected;
     
     SurveySubjectModel *subject = self.totalArray[btn.tag];
-    subject.isSelected = btn.selected;
+    subject.isAtten = btn.selected;
 }
 
 - (void)donePressed:(id)sender {
@@ -164,18 +163,10 @@
     NSMutableArray *subjects = [NSMutableArray arrayWithCapacity:10];
     
     for (SurveySubjectModel *sub in self.totalArray) {
-        if (!sub.enabled) {
-            [subjects addObject:sub];
-        }
-        
-        if (sub.isSelected) {
+        if (sub.isAtten) {
             [array addObject:sub.subjectId];
             [subjects addObject:sub];
         }
-    }
-    
-    if (!array.count) {
-        return;
     }
     
     NSString *subIds = [NSString stringWithFormat:@"[%@]",[array componentsJoinedByString:@","]];
