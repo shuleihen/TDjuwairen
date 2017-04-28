@@ -42,11 +42,11 @@
             break;
         case 2:
             // 热点
-            image = [UIImage imageNamed:@"tye_talk.png"];
+            image = [UIImage imageNamed:@"type_talk.png"];
             break;
         case 5:
             // 深度
-            image = [UIImage imageNamed:@"tye_deep.png"];
+            image = [UIImage imageNamed:@"type_deep.png"];
             break;
         case 6:
             // 评论
@@ -54,7 +54,7 @@
             break;
         case 11:
             // 热点
-            image = [UIImage imageNamed:@"tye_video.png"];
+            image = [UIImage imageNamed:@"type_video.png"];
             break;
         default:
             break;

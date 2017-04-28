@@ -164,6 +164,13 @@
 }
 
 - (void)sendReplyWithContent:(NSString *)content withReviewId:(NSString *)reviewId {
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     if (!content.length || !reviewId.length) {
         return;
     }

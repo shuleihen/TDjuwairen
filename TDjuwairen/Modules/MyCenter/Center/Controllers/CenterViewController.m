@@ -86,7 +86,7 @@
             [wself setupAliveInfoWithDictionary:data];
             
         } else {
-            
+            [wself setupAliveInfoWithDictionary:nil];
         }
         
     }];
@@ -101,6 +101,7 @@
     } else {
         [self.avatarBtn setImage:TDCenterUserAvatar forState:UIControlStateNormal];
         self.nickNameLabel.text = @"登陆注册";
+        self.levelImageView.image = nil;
     }
 }
 

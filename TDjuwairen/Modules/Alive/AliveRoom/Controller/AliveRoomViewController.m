@@ -508,10 +508,7 @@
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender {
     AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
     vc.titleString = @"股神指数规则";
-    vc.content = @"1.用户起始指数为50，指数上不封顶\n\
-    2.比谁准中指数竞猜获得大奖（猜中）+20，5倍+10，2倍+1，lose-1\n\
-    3.个股竞猜中，赢一场+4，输一场-0.5\n\
-    4.pc猜红绿赢一场+2，输一场-2";
+    vc.content = @"1.用户起始指数为50，指数上不封顶\n2.比谁准中指数竞猜获得大奖（猜中）+20，5倍+10，2倍+1，lose-1\n3.个股竞猜中，赢一场+4，输一场-0.5\n4.pc猜红绿赢一场+2，输一场-2";
     vc.contentSizeInPopup = CGSizeMake(220, 300);
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
