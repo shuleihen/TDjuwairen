@@ -19,6 +19,7 @@
 @property (nonatomic, strong) NSArray *aliveTags;
 @property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, copy) NSString *forwardUrl;
+@property (nonatomic, assign) BOOL isLocked;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

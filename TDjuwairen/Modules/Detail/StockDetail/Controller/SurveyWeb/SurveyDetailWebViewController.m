@@ -55,7 +55,7 @@
     if (self.tag== 0) {
         self.title = [self.stockName stringByAppendingString:@" 实地篇"];
     } else if (self.tag== 1) {
-        self.title = [self.stockName stringByAppendingString:@" 对话篇"];
+        self.title = [self.stockName stringByAppendingString:@" 公告篇"];
     } else if (self.tag== 3) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
     }

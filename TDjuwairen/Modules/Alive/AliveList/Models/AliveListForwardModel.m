@@ -20,6 +20,7 @@
         self.aliveTags = dict[@"alive_com_tag"];
         self.stockCode = dict[@"company_code"];
         self.forwardUrl = dict[@"forward_url"];
+        self.isLocked = [dict[@"is_lock"] boolValue];
     }
     return self;
 }

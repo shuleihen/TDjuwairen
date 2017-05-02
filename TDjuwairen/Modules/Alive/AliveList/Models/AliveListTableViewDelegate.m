@@ -21,6 +21,7 @@
 #import "AliveListSectionHeaderView.h"
 #import "MBProgressHUD.h"
 #import "SurveyDetailWebViewController.h"
+#import "StockDetailViewController.h"
 
 #define kAliveListCellToolHeight 37
 #define kAliveListSectionHeaderHeight   30
@@ -149,14 +150,28 @@ AliveListSectionHeaderDelegate>
         [self.viewController.navigationController pushViewController:vc animated:YES];
     } else if (model.aliveType == kAliveSurvey ||
                model.aliveType == kAliveHot) {
-        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-        vc.contentId = model.aliveId;
-        vc.stockCode = model.stockCode;
-        vc.stockName = model.aliveTags.firstObject;
-        vc.tag = model.aliveType;
-        vc.url = model.forwardUrl;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
+        if (model.isLocked) {
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockCode = model.stockCode;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        } else {
+            NSInteger tag = 0;
+            if (model.aliveType == kAliveSurvey) {
+                tag = 0;
+            } else if(model.aliveType == kAliveSurvey) {
+                tag = 3;
+            }
+            
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = model.aliveId;
+            vc.stockCode = model.stockCode;
+            vc.stockName = model.aliveTags.firstObject;
+            vc.tag = tag;
+            vc.url = model.forwardUrl;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        }
     }
     
 }

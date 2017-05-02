@@ -545,7 +545,7 @@
     
     if (article_type == 1) {
         // 调研
-        StockDetailViewController *vc = [[StockDetailViewController alloc] init];
+        StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
         vc.stockCode = article_id;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (article_type == 2){

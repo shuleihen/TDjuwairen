@@ -99,7 +99,7 @@
     vc.stockCode = self.stockCode;
     vc.stockName = self.stockName;
     vc.tag = [self.tag integerValue];
-    vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.announceId withTag:self.tag];
+    vc.url = model.source;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 
