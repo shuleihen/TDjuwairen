@@ -22,6 +22,7 @@
 + (void)saveLocalHistoryModelArr:(NSArray *)arr;
 
 + (NSArray *)loadLocalHistoryModel;
++ (void)clearnLocalHistoryStock;
 
 
 @end

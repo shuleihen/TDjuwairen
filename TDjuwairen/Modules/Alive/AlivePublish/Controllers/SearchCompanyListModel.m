@@ -57,7 +57,7 @@
         [fileM createFileAtPath:filePath contents:nil attributes:nil];
     }
     
-    // 先取
+    // 先取 本地保存数据
     NSArray *array = [NSKeyedUnarchiver unarchiveObjectWithFile:filePath];
     
     if (array.count<=0) {
@@ -66,10 +66,8 @@
         return;
     }
     
-    
-    NSMutableArray *tempArrM = [NSMutableArray arrayWithArray:arr];
+    NSMutableArray *tempArrM = [NSMutableArray arrayWithArray:array];
     [tempArrM addObjectsFromArray:arr];
-    
     NSMutableArray *tArrM = [NSMutableArray array];
     
     
@@ -91,14 +89,18 @@
     }
     
     tempArrM = [NSMutableArray array];
-    
-    
-    if (tArrM.count>=1) {
+  
+    if (tArrM.count>=2) {
+      
+        
+        [tempArrM addObject:tArrM[tArrM.count-2]];
         [tempArrM addObject:[tArrM lastObject]];
-        if (tArrM.count>=2) {
-            [tempArrM addObject:tArrM[tArrM.count-2]];
-        }
+       
+    }else if (tArrM.count>=1) {
+    [tempArrM addObject:[tArrM lastObject]];
+        
     }
+    
     
     if (tempArrM.count>0) {
         // 存
@@ -134,6 +136,17 @@
         }
         
         return [tempArrM mutableCopy];
+    }
+}
++ (void)clearnLocalHistoryStock {
+
+    //    获取路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"localSearchStockHistory.plist"];
+    NSFileManager *fileM = [NSFileManager defaultManager];
+    //    判断文件是否存在，存在则删除
+    if ([fileM fileExistsAtPath:filePath]) {
+        [fileM removeItemAtPath:filePath error:nil];
     }
 }
 

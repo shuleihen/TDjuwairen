@@ -50,6 +50,9 @@
     
     NSString *rightButtonTitle = @"";
     
+    self.tableView.alwaysBounceVertical = YES;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    
     switch (self.publishType) {
         case kAlivePublishNormal:
             self.title = @"发布动态";
@@ -96,37 +99,23 @@
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.separatorInset = UIEdgeInsetsZero;
-//    self.tableView.scrollEnabled = NO;
-    
     [self.tableView addSubview:self.companyListTableView];
     
     [self setupFooterView];
     [self checkRightBarItemEnabled];
     
-    
-    
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification
-                                               object:nil];
 }
 
 - (SearchCompanyListTableView *)companyListTableView {
     if (!_companyListTableView) {
         _companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectZero];
+        CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+        _companyListTableView.frame = CGRectMake(85, p.y+20, kScreenWidth-97, 0);
         
         __weak typeof(self)weakSelf = self;
         _companyListTableView.choiceModel = ^(SearchCompanyListModel *model){
             weakSelf.stockIdTextField.text = @"";
-            [weakSelf.selectedStockArrM addObject:model];
-            [weakSelf checkRightBarItemEnabled];
-            [weakSelf.tableView reloadData];
+            [weakSelf addSelectedStockObjectWithModel:model];
         };
     }
     return _companyListTableView;
@@ -167,21 +156,6 @@
     return _forwardView;
 }
 
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    
-    CGFloat listHeight = CGRectGetHeight(self.view.frame)-44-height;
-    self.companyListTableView.frame = CGRectMake(85, 44, kScreenWidth-97, listHeight);
-}
-
-- (void)keyboardDidHide:(NSNotification *)aNotification {
-    self.companyListTableView.hidden = YES;
-}
 
 - (void)setupFooterView {
     UIView *footerView = [[UIView alloc] init];
@@ -257,10 +231,13 @@
     if (self.publishType == kAlivePublishNormal) {
         self.navigationItem.rightBarButtonItem.enabled = self.reason.length;
     } else if (self.publishType == kAlivePublishPosts){
-//        NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-//        
-//        self.navigationItem.rightBarButtonItem.enabled = ((stockId.length==6)&&(self.imageArray.count>0));
-        self.navigationItem.rightBarButtonItem.enabled =  self.selectedStockArrM.count>0?YES:NO;
+        
+        if (self.imageArray.count && self.selectedStockArrM.count) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }else {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            
+        }
         
     } else if (self.publishType == kAlivePublishForward ||
                self.publishType == kAlivePublishShare) {
@@ -300,7 +277,7 @@
 
 - (void)publishPressed:(id)sender {
     
-    NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *stockId = @"";
     NSString *reasonString = self.reason;
     
     if (self.publishType == kAlivePublishNormal) {
@@ -311,25 +288,22 @@
     } else if (self.publishType == kAlivePublishPosts) {
         // 贴单发布，股票代码和图片不能为空
         self.companyListTableView.hidden = YES;
+       
         
-        NSMutableString *strM = [NSMutableString string];
+        NSMutableArray *arrM = [NSMutableArray array];
         for (SearchCompanyListModel *model in self.selectedStockArrM) {
-            [strM appendString:model.company_code];
-            [strM appendString:@","];
+            [arrM addObject:model.company_code];
         }
         
-        if (strM.length>0) {
-            stockId = [strM substringToIndex:strM.length-1];
-        }else {
-        
-            stockId = @"";
-        }
-        
-        
-        if (!stockId.length ||
+        if (arrM.count<=0 ||
             !self.imageArray.count) {
             return;
         }
+        
+        stockId = [NSString stringWithFormat:@"[%@]",[arrM componentsJoinedByString:@","]];
+        
+        
+       
     } else if (self.publishType == kAlivePublishForward ||
                self.publishType == kAlivePublishShare) {
         // 转发，描述可以为空
@@ -350,7 +324,7 @@
         {
             dict = @{@"alive_type": @"2",
                      @"content": reasonString?:@"",
-                     @"stock": [NSString stringWithFormat:@"[%@]",stockId]?:@""};
+                     @"stock": stockId?:@""};
             [SearchCompanyListModel saveLocalHistoryModelArr:self.selectedStockArrM];
         }
             break;
@@ -399,7 +373,7 @@
             [hud hide:YES afterDelay:1];
         }
     }];
-
+    
 }
 
 #pragma mark - MBProgressHUDDelegate
@@ -426,9 +400,12 @@
 
 #pragma mark - loadCompanyList
 - (void)loadCompanyListData:(NSString *)textStr {
-
+    
     NSDictionary *dict = @{@"keyword":textStr};
     NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+    
     [manager POST:API_ViewSearchCompnay parameters:dict completion:^(id data, NSError *error) {
         if (!error) {
             NSArray *dataArray = data;
@@ -438,10 +415,10 @@
                 [resultModelArrM addObject:model];
             }
             
-            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:44];
+            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:p.y+20];
         }else{
             
-            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:44];
+            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:p.y+20];
             
         }
     }];
@@ -465,6 +442,11 @@
     return YES;
 }
 
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+}
 
 - (void)textFieldDidChange:(UITextField *)textField {
     
@@ -494,7 +476,8 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-
+    
+    
     if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
         self.companyListTableView.hidden = YES;
     }
@@ -535,7 +518,7 @@
 #pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (self.publishType == kAlivePublishPosts && self.historySelectedStockArrM.count>0) {
-    
+        
         return 54;
     }else {
         return FLT_MIN;
@@ -587,15 +570,14 @@
 - (void)deletePublishSelectedCell:(id)model {
     [self.selectedStockArrM removeObject:model];
     [self.tableView reloadData];
+    CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+    [self.companyListTableView changeTableViewHeightWithRectY:p.y-24];
 }
 
 
 #pragma mark - 猜你选择
 - (void)historySeletedClick:(UIButton *)sender {
-
-    [self.selectedStockArrM addObject:self.historySelectedStockArrM[sender.tag]];
-    [self.tableView reloadData];
-    
+    [self addSelectedStockObjectWithModel:self.historySelectedStockArrM[sender.tag]];
 }
 
 
@@ -603,6 +585,47 @@
 - (CGFloat)calculateWidthWithStr:(NSString *)textStr {
     
     return [textStr boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 24) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil].size.width;
+}
+
+
+#pragma mark - UISCroolView
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    if(!decelerate)
+    {   //OK,真正停止了，do something}
+        [self scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+    [self.companyListTableView changeTableViewHeightWithRectY:p.y+20];
+    
+}
+
+/// 添加自选项，删除重复数据
+- (void)addSelectedStockObjectWithModel:(SearchCompanyListModel *)model {
+    
+    if (self.selectedStockArrM.count <= 0) {
+        [self.selectedStockArrM addObject:model];
+    }else {
+        
+        for (SearchCompanyListModel *m in self.selectedStockArrM
+             ) {
+            if ([m.company_code isEqualToString:model.company_code]) {
+                return;
+            }else {
+                
+                [self.selectedStockArrM addObject:model];
+                
+                break;
+            }
+        }
+    }
+    
+    
+    [self checkRightBarItemEnabled];
+    [self.tableView reloadData];
 }
 
 

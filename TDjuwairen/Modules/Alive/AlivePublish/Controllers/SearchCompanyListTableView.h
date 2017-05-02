@@ -21,6 +21,10 @@ typedef void(^ChoiceCompanyCodeNameBlock)(NSString *code,NSString *name);
 - (instancetype)initWithSearchCompanyListTableViewWithFrame:(CGRect)rect;
 
 - (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY;
+- (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY andBottomH:(CGFloat)bottomH;
+
+/// 更改tableview高度
+- (void)changeTableViewHeightWithRectY:(CGFloat)orginY;
 
 
 
