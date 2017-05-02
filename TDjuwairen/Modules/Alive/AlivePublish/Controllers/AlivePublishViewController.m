@@ -18,8 +18,10 @@
 #import "SearchCompanyListTableView.h"
 #import "SearchCompanyListModel.h"
 #import "AliveListForwardView.h"
+#import "PublishSelectedStockCell.h"
+#import "UIView+Border.h"
 
-@interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate>
+@interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate,PublishSelectedStockCellDelegate>
 
 @property (nonatomic, strong) UITextField *stockIdTextField;
 @property (nonatomic, strong) NSMutableArray *imageArray;
@@ -29,6 +31,11 @@
 @property (strong, nonatomic) SearchCompanyListTableView *companyListTableView;
 @property (nonatomic, strong) AliveListForwardView *forwardView;
 @property (nonatomic, assign) NSInteger imageLimit;
+@property (strong, nonatomic) NSMutableArray *selectedStockArrM;
+/// 历史选择记录
+@property (strong, nonatomic) NSMutableArray *historySelectedStockArrM;
+
+
 @end
 
 @implementation AlivePublishViewController
@@ -42,6 +49,9 @@
     [super viewDidLoad];
     
     NSString *rightButtonTitle = @"";
+    
+    self.tableView.alwaysBounceVertical = YES;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     
     switch (self.publishType) {
         case kAlivePublishNormal:
@@ -76,36 +86,36 @@
     
     self.imageArray = [NSMutableArray arrayWithCapacity:9];
     
+    self.selectedStockArrM = [NSMutableArray array];
+    
+#pragma mark - 获取本地存储的历史搜索记录
+    NSArray *localArr = [SearchCompanyListModel loadLocalHistoryModel];
+    if (localArr == nil) {
+        self.historySelectedStockArrM = [NSMutableArray array];
+    }else {
+        self.historySelectedStockArrM = [NSMutableArray arrayWithArray:localArr];
+    }
+    
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.separatorInset = UIEdgeInsetsZero;
-    self.tableView.scrollEnabled = NO;
-    
     [self.tableView addSubview:self.companyListTableView];
     
     [self setupFooterView];
     [self checkRightBarItemEnabled];
     
-
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardWillShow:)
-                                                 name:UIKeyboardWillShowNotification
-                                               object:nil];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(keyboardDidHide:)
-                                                 name:UIKeyboardDidHideNotification
-                                               object:nil];
 }
 
 - (SearchCompanyListTableView *)companyListTableView {
     if (!_companyListTableView) {
         _companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectZero];
+        CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+        _companyListTableView.frame = CGRectMake(85, p.y+20, kScreenWidth-97, 0);
         
         __weak typeof(self)weakSelf = self;
-        _companyListTableView.choiceCode = ^(NSString *str){
-            weakSelf.stockIdTextField.text = str;
-            [weakSelf checkRightBarItemEnabled];
+        _companyListTableView.choiceModel = ^(SearchCompanyListModel *model){
+            weakSelf.stockIdTextField.text = @"";
+            [weakSelf addSelectedStockObjectWithModel:model];
         };
     }
     return _companyListTableView;
@@ -116,7 +126,7 @@
         _stockIdTextField = [[UITextField alloc] init];
         _stockIdTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _stockIdTextField.font = [UIFont systemFontOfSize:15.0f];
-        _stockIdTextField.placeholder = @"请输入股票代码";
+        _stockIdTextField.placeholder = @"请写股票代码，可多选";
         _stockIdTextField.keyboardType = UIKeyboardTypeNumberPad;
         _stockIdTextField.delegate = self;
         [_stockIdTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
@@ -146,21 +156,6 @@
     return _forwardView;
 }
 
-- (void)keyboardWillShow:(NSNotification *)aNotification
-{
-    //获取键盘的高度
-    NSDictionary *userInfo = [aNotification userInfo];
-    NSValue *aValue = [userInfo objectForKey:UIKeyboardFrameEndUserInfoKey];
-    CGRect keyboardRect = [aValue CGRectValue];
-    int height = keyboardRect.size.height;
-    
-    CGFloat listHeight = CGRectGetHeight(self.view.frame)-44-height;
-    self.companyListTableView.frame = CGRectMake(85, 44, kScreenWidth-97, listHeight);
-}
-
-- (void)keyboardDidHide:(NSNotification *)aNotification {
-    self.companyListTableView.hidden = YES;
-}
 
 - (void)setupFooterView {
     UIView *footerView = [[UIView alloc] init];
@@ -236,9 +231,14 @@
     if (self.publishType == kAlivePublishNormal) {
         self.navigationItem.rightBarButtonItem.enabled = self.reason.length;
     } else if (self.publishType == kAlivePublishPosts){
-        NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         
-        self.navigationItem.rightBarButtonItem.enabled = ((stockId.length==6)&&(self.imageArray.count>0));
+        if (self.imageArray.count && self.selectedStockArrM.count) {
+            self.navigationItem.rightBarButtonItem.enabled = YES;
+        }else {
+            self.navigationItem.rightBarButtonItem.enabled = NO;
+            
+        }
+        
     } else if (self.publishType == kAlivePublishForward ||
                self.publishType == kAlivePublishShare) {
         self.navigationItem.rightBarButtonItem.enabled = YES;
@@ -277,7 +277,7 @@
 
 - (void)publishPressed:(id)sender {
     
-    NSString *stockId = [self.stockIdTextField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    NSString *stockId = @"";
     NSString *reasonString = self.reason;
     
     if (self.publishType == kAlivePublishNormal) {
@@ -288,11 +288,22 @@
     } else if (self.publishType == kAlivePublishPosts) {
         // 贴单发布，股票代码和图片不能为空
         self.companyListTableView.hidden = YES;
+       
         
-        if (!stockId.length ||
+        NSMutableArray *arrM = [NSMutableArray array];
+        for (SearchCompanyListModel *model in self.selectedStockArrM) {
+            [arrM addObject:model.company_code];
+        }
+        
+        if (arrM.count<=0 ||
             !self.imageArray.count) {
             return;
         }
+        
+        stockId = [NSString stringWithFormat:@"[%@]",[arrM componentsJoinedByString:@","]];
+        
+        
+       
     } else if (self.publishType == kAlivePublishForward ||
                self.publishType == kAlivePublishShare) {
         // 转发，描述可以为空
@@ -310,9 +321,12 @@
             
             break;
         case kAlivePublishPosts:
+        {
             dict = @{@"alive_type": @"2",
                      @"content": reasonString?:@"",
                      @"stock": stockId?:@""};
+            [SearchCompanyListModel saveLocalHistoryModelArr:self.selectedStockArrM];
+        }
             break;
         case kAlivePublishForward:
             dict = @{@"alive_type": @"3",
@@ -359,7 +373,7 @@
             [hud hide:YES afterDelay:1];
         }
     }];
-
+    
 }
 
 #pragma mark - MBProgressHUDDelegate
@@ -386,9 +400,12 @@
 
 #pragma mark - loadCompanyList
 - (void)loadCompanyListData:(NSString *)textStr {
-
+    
     NSDictionary *dict = @{@"keyword":textStr};
     NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+    
     [manager POST:API_ViewSearchCompnay parameters:dict completion:^(id data, NSError *error) {
         if (!error) {
             NSArray *dataArray = data;
@@ -398,10 +415,10 @@
                 [resultModelArrM addObject:model];
             }
             
-            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:44];
+            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:p.y+20];
         }else{
             
-            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:44];
+            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:p.y+20];
             
         }
     }];
@@ -425,6 +442,11 @@
     return YES;
 }
 
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+}
 
 - (void)textFieldDidChange:(UITextField *)textField {
     
@@ -454,7 +476,8 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-
+    
+    
     if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
         self.companyListTableView.hidden = YES;
     }
@@ -463,40 +486,147 @@
 
 
 
-#pragma mark - TableView
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return (self.publishType == kAlivePublishPosts)?1:0;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    return (self.publishType == kAlivePublishPosts)?(1+self.selectedStockArrM.count):0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    if (indexPath.row == self.selectedStockArrM.count) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveStockCellID"];
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveStockCellID"];
+            self.stockIdTextField.frame = CGRectMake(15, 12, kScreenWidth-27, 20);
+            [cell.contentView addSubview:self.stockIdTextField];
+        }
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    }else {
+        PublishSelectedStockCell *selectedCell = [PublishSelectedStockCell loadPublishSelectedStockCellWithTableView:tableView];
+        selectedCell.delegate = self;
+        selectedCell.stockModel = self.selectedStockArrM[indexPath.row];
+        return selectedCell;
+    }
+    
+}
+
+#pragma mark - UITableViewDelegate
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return FLT_MIN;
+    if (self.publishType == kAlivePublishPosts && self.historySelectedStockArrM.count>0) {
+        
+        return 54;
+    }else {
+        return FLT_MIN;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return FLT_MIN;
 }
 
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (self.publishType == kAlivePublishPosts)?1:0;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return (self.publishType == kAlivePublishPosts)?1:0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveStockCellID"];
-    if (!cell) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveStockCellID"];
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
-        cell.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
-        cell.textLabel.frame = CGRectMake(15, 12, 70, 20);
-        cell.textLabel.text = @"股票代码";
-        
-        self.stockIdTextField.frame = CGRectMake(85, 12, kScreenWidth-97, 20);
-        [cell.contentView addSubview:self.stockIdTextField];
-    }
-    cell.selectionStyle = UITableViewCellSelectionStyleNone;
+- (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section; {
     
-    return cell;
+    if (self.publishType == kAlivePublishPosts && self.historySelectedStockArrM.count>0) {
+        UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 54)];
+        headerV.backgroundColor = TDViewBackgrouondColor;
+        UIView *vi = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+        vi.backgroundColor = [UIColor whiteColor];
+        UILabel *tLabel = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, 70, 44)];
+        tLabel.text = @"猜你选择";
+        tLabel.font = [UIFont systemFontOfSize:15.0];
+        tLabel.textColor = TDTitleTextColor;
+        [vi addSubview:tLabel];
+        CGFloat btnX = 90;
+        for (int i=0; i<self.historySelectedStockArrM.count; i++) {
+            SearchCompanyListModel *model = self.historySelectedStockArrM[i];
+            UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
+            [btn setTitle:[NSString stringWithFormat:@"%@(%@)",model.company_name,model.company_code] forState:UIControlStateNormal];
+            CGFloat btnW = [self calculateWidthWithStr:btn.currentTitle];
+            [btn addBorder:0.5 borderColor:TDDetailTextColor];
+            btn.frame = CGRectMake(btnX, 10, btnW, 24);
+            btn.titleLabel.font = [UIFont systemFontOfSize:12.0];
+            [btn setTitleColor:TDDetailTextColor forState:UIControlStateNormal];
+            btn.tag = i;
+            [btn addTarget:self action:@selector(historySeletedClick:) forControlEvents:UIControlEventTouchUpInside];
+            [vi addSubview:btn];
+            btnX += btnW+8;
+        }
+        
+        [headerV addSubview:vi];
+        
+        return headerV;
+    }else {
+        
+        return nil;
+    }
 }
 
+#pragma mark - PublishSelectedStockCellDelegate
+- (void)deletePublishSelectedCell:(id)model {
+    [self.selectedStockArrM removeObject:model];
+    [self.tableView reloadData];
+    CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+    [self.companyListTableView changeTableViewHeightWithRectY:p.y-24];
+}
+
+
+#pragma mark - 猜你选择
+- (void)historySeletedClick:(UIButton *)sender {
+    [self addSelectedStockObjectWithModel:self.historySelectedStockArrM[sender.tag]];
+}
+
+
+#pragma mark --- 计算字符长度
+- (CGFloat)calculateWidthWithStr:(NSString *)textStr {
+    
+    return [textStr boundingRectWithSize:CGSizeMake(CGFLOAT_MAX, 24) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0]} context:nil].size.width;
+}
+
+
+#pragma mark - UISCroolView
+- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate {
+    
+    if(!decelerate)
+    {   //OK,真正停止了，do something}
+        [self scrollViewDidEndDecelerating:scrollView];
+    }
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+    CGPoint p = [self.stockIdTextField convertPoint:self.stockIdTextField.frame.origin toView:self.view];
+    [self.companyListTableView changeTableViewHeightWithRectY:p.y+20];
+    
+}
+
+/// 添加自选项，删除重复数据
+- (void)addSelectedStockObjectWithModel:(SearchCompanyListModel *)model {
+    
+    if (self.selectedStockArrM.count <= 0) {
+        [self.selectedStockArrM addObject:model];
+    }else {
+        
+        for (SearchCompanyListModel *m in self.selectedStockArrM
+             ) {
+            if ([m.company_code isEqualToString:model.company_code]) {
+                return;
+            }else {
+                
+                [self.selectedStockArrM addObject:model];
+                
+                break;
+            }
+        }
+    }
+    
+    
+    [self checkRightBarItemEnabled];
+    [self.tableView reloadData];
+}
 
 
 

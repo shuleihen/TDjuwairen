@@ -25,6 +25,8 @@
         self.separatorStyle = UITableViewCellSeparatorStyleNone;
         self.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#EFEFEF"];
         self.hidden = YES;
+        self.alwaysBounceVertical = YES;
+        self.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     }
     return self;
 }
@@ -38,7 +40,12 @@
 }
 
 - (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY {
+    [self configResultDataArr:arr andRectY:orginY andBottomH:0];
     
+}
+
+
+- (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY andBottomH:(CGFloat)bottomH {
     self.delegate = self;
     self.dataSource = self;
     if (arr.count <= 0) {
@@ -48,12 +55,12 @@
         self.hidden = NO;
     }
     
-//    CGFloat tableViewH = MIN(arr.count*24, kScreenHeight-CGRectGetMinY(self.frame));
-//    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
+    CGFloat tableViewH = MIN(arr.count*24, kScreenHeight-orginY-64-bottomH);
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
     self.resultDataArr = arr;
     [self reloadData];
+    
 }
-
 
 
 #pragma mark - UITableViewDataSource
@@ -90,9 +97,9 @@
             self.backBlock(model.company_code,model.company_name);
         }
     }else {
-    
-        if (self.choiceCode) {
-            self.choiceCode(model.company_code);
+        
+        if (self.choiceModel) {
+            self.choiceModel(model);
         }
         
     }
@@ -106,6 +113,14 @@
     return 24;
 }
 
+/// 更改tableview高度
+- (void)changeTableViewHeightWithRectY:(CGFloat)orginY {
+    
+    CGFloat tableViewH = MIN(self.resultDataArr.count*24, kScreenHeight-orginY-64);
+    self.frame = CGRectMake(CGRectGetMinX(self.frame), orginY, CGRectGetWidth(self.frame), tableViewH);
+    [self reloadData];
+    
+}
 
 
 @end

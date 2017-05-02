@@ -24,7 +24,7 @@
 #import "SearchCompanyListModel.h"
 
 
-@interface ApplySurveyViewController ()<MBProgressHUDDelegate,UITextFieldDelegate>
+@interface ApplySurveyViewController ()<MBProgressHUDDelegate,UITextFieldDelegate,UITextViewDelegate>
 @property (weak, nonatomic) IBOutlet UITextField *stockNumberTextField;
 @property (weak, nonatomic) IBOutlet UITextField *companyTextField;
 @property (weak, nonatomic) IBOutlet UITextField *HoldingNumberTextField;
@@ -70,10 +70,16 @@
     self.stockNumberTextField.text = self.stockCode;
     self.companyTextField.text = self.stockName;
     
+    self.tableView.alwaysBounceVertical = YES;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.tableView.backgroundColor = TDViewBackgrouondColor;
+    
+//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenCompanyTableView)];
+//    [self.view addGestureRecognizer:tap];
+    
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);
-
+    
     [self.stockNumberTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     [self.companyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
@@ -130,8 +136,8 @@
     
     NSString *stockCode = self.stockNumberTextField.text;
     NSString *companyName = self.companyTextField.text;
-//    NSString *count = self.HoldingNumberTextField.text;
-//    NSString *attent = self.attentionTextField.text;
+    //    NSString *count = self.HoldingNumberTextField.text;
+    //    NSString *attent = self.attentionTextField.text;
     NSString *phone = self.phoneTextField.text;
     NSString *email = self.emailTextField.text;
     
@@ -227,10 +233,10 @@
                 [resultModelArrM addObject:model];
             }
             
-            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:CGRectGetMaxY(rect)];
+            [self.companyListTableView configResultDataArr:[resultModelArrM mutableCopy] andRectY:CGRectGetMaxY(rect) andBottomH:55];
             
         }else{
-            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:CGRectGetMaxY(rect)];
+            [self.companyListTableView configResultDataArr:[NSArray array] andRectY:CGRectGetMaxY(rect) andBottomH:55];
         }
     }];
 }
@@ -301,7 +307,6 @@
 #pragma mark - UITextFieldDelegate
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     
-    
     if (textField == self.stockNumberTextField) {
         if (string.length == 0) return YES;
         
@@ -316,8 +321,17 @@
     return YES;
 }
 
+- (void)textFieldDidBeginEditing:(UITextField *)textField {
+    [self hiddenCompanyTableView];
+}
+
 
 - (void)textFieldDidChange:(UITextField *)textField {
+    
+    if (textField != self.stockNumberTextField && textField != self.companyTextField) {
+        return;
+    }
+    
     self.stockCode = [textField.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     if (textField == self.stockNumberTextField) {
         if (textField.text.length > 6) {
@@ -337,30 +351,23 @@
     }else {
         
         CGRect rect = [self.tableView convertRect:textField.frame toView:self.view];
-        [self.companyListTableView configResultDataArr:[NSMutableArray array] andRectY:CGRectGetMaxY(rect)];
-    }
-    
-    
-    
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-
-    if (scrollView == self.tableView) {
-        [self.stockNumberTextField resignFirstResponder];
+        [self.companyListTableView configResultDataArr:[NSMutableArray array] andRectY:CGRectGetMaxY(rect) andBottomH:55];
     }
 }
 
+#pragma mark - UITextViewDelegate 
+- (void)textViewDidBeginEditing:(UITextView *)textView {
 
-- (void)textFieldDidEndEditing:(UITextField *)textField {
-
-    if (textField == self.stockNumberTextField || textField == self.companyTextField) {
-        if (self.companyListTableView.hidden == NO) {
-            self.companyListTableView.hidden = YES;
-        }
-    }
+    [self hiddenCompanyTableView];
 }
 
+
+#pragma makr - 隐藏hiddenCompanyTableView
+- (void)hiddenCompanyTableView {
+    if (self.companyListTableView.hidden == NO) {
+        self.companyListTableView.hidden = YES;
+    }
+}
 
 
 @end

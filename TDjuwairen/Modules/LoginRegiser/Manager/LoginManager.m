@@ -52,6 +52,7 @@
         [Defaults setValue:@"" forKey:@"unionid"];
         [Defaults setValue:@"" forKey:@"unique_str"];
         [Defaults synchronize];
+        [self clearnLocalHistoryStock];
         
         [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
     }]];
@@ -223,4 +224,18 @@
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     [accountDefaults removeObjectForKey:@"loginStyle"];
 }
+
+
+
++ (void)clearnLocalHistoryStock {
+    //    获取路径
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"localSearchStockHistory.plist"];
+    NSFileManager *fileM = [NSFileManager defaultManager];
+    //    判断文件是否存在，存在则删除
+    if ([fileM fileExistsAtPath:filePath]) {
+        [fileM removeItemAtPath:filePath error:nil];
+    }
+}
+
 @end

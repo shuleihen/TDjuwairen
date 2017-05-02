@@ -7,21 +7,24 @@
 //
 
 #import <UIKit/UIKit.h>
-
-
-typedef void(^ChoiceCompanyCodeBlock)(NSString *code);
+@class SearchCompanyListModel;
+typedef void(^ChoiceCompanyCodeBlock)(SearchCompanyListModel *model);
 typedef void(^ChoiceCompanyCodeNameBlock)(NSString *code,NSString *name);
 
 
 
 @interface SearchCompanyListTableView : UITableView
-@property (copy, nonatomic) ChoiceCompanyCodeBlock  choiceCode;
+@property (copy, nonatomic) ChoiceCompanyCodeBlock  choiceModel;
 @property (copy, nonatomic) ChoiceCompanyCodeNameBlock  backBlock;
 
 @property (copy, nonatomic) NSString *vcType;
 - (instancetype)initWithSearchCompanyListTableViewWithFrame:(CGRect)rect;
 
 - (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY;
+- (void)configResultDataArr:(NSArray *)arr andRectY:(CGFloat)orginY andBottomH:(CGFloat)bottomH;
+
+/// 更改tableview高度
+- (void)changeTableViewHeightWithRectY:(CGFloat)orginY;
 
 
 
