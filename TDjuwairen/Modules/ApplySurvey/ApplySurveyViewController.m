@@ -74,8 +74,6 @@
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     
-//    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenCompanyTableView)];
-//    [self.view addGestureRecognizer:tap];
     
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);
@@ -95,8 +93,6 @@
     };
     [self.view addSubview:self.companyListTableView];
     
-    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
-    [self.tableView addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
