@@ -17,4 +17,6 @@
 
 @property (nonatomic, assign) NSInteger tag;
 @property (nonatomic, strong) NSString *url;
+
+
 @end

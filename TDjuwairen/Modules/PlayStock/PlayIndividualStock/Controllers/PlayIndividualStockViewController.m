@@ -29,8 +29,12 @@
 #import "MJRefresh.h"
 #import "PlayEnjoyPeopleViewController.h"
 #import "AliveDetailViewController.h"
+#import "StockDetailViewController.h"
+#import "DetailPageViewController.h"
+#import "SurveyDetailWebViewController.h"
+#import "SurveyDetailContentViewController.h"
 
-@interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate>
+@interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
@@ -171,7 +175,9 @@
     self.tableView.rowHeight = 141;
     self.tableView.tableFooterView = [UIView new];
     
-    [self.tableView registerClass:[PlayIndividualContentCell class] forCellReuseIdentifier:@"PlayIndividualContentCellID"];
+    UINib *nib = [UINib nibWithNibName:@"PlayIndividualContentCell" bundle:nil];
+    [self.tableView registerNib:nib forCellReuseIdentifier:@"PlayIndividualContentCellID"];
+    
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshData)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreData)];
 }
@@ -497,6 +503,79 @@
 }
 
 
+#pragma mark - PlayIndividualContentCellDelegate
+
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender {
+    PlayListModel *model = cell.model;
+    StockInfo *sInfo = [self.stockDict objectForKey:model.stock];
+    
+    PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+    vc.season = [model.guess_season integerValue];
+    vc.isJoin = YES;
+    vc.delegate = self;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self];
+    
+    [vc setupDefaultStock:sInfo withStockCode:model.com_code];
+}
+
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell enjoyListPressed:(id)sender {
+    PlayListModel *model = cell.model;
+    
+    PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
+    
+    vc.guessID = [NSString stringWithFormat:@"%@",model.guess_id];
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.containerView.layer.cornerRadius = 4;
+    popupController.navigationBarHidden = YES;
+    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-80, 220);
+    popupController.style = STPopupTransitionStyleSlideVertical;
+    [popupController presentInViewController:self];
+}
+
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell surveyPressed:(id)sender {
+    PlayListModel *model = cell.model;
+    
+    NSString *article_id = model.artile_info[@"article_id"];
+    NSInteger article_type = [model.artile_info[@"article_type"] integerValue];
+    
+    if (article_type == 1) {
+        // 调研
+        StockDetailViewController *vc = [[StockDetailViewController alloc] init];
+        vc.stockCode = article_id;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (article_type == 2){
+        // 热点
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = article_id;
+        vc.stockCode = model.com_code;
+        vc.stockName = model.guess_company;
+        vc.tag = 3;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:article_id withTag:@"3"];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (article_type == 3) {
+        // 观点
+        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+        detail.pageMode = @"view";
+        detail.view_id = article_id;
+        [self.navigationController pushViewController:detail animated:YES];
+    }else if (article_type == 4) {
+        // 直播
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.alive_ID = model.artile_info[@"article_id"];
+        vc.alive_type = @"2";
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
+
+    }
+}
+
+
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -512,43 +591,12 @@
     PlayListModel *model = self.items[indexPath.row];
     StockInfo *sInfo = [self.stockDict objectForKey:model.stock];
     
-    PlayIndividualContentCell *cell = [PlayIndividualContentCell loadCell];
+    PlayIndividualContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlayIndividualContentCellID"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//    [cell setupStock:sInfo];
-//    cell.model = model;
     
-    cell.guessBlock = ^(UIButton *btn){
-        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-        vc.season = [model.guess_season integerValue];
-        vc.isJoin = YES;
-        vc.delegate = self;
-        
-        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-        popupController.navigationBarHidden = YES;
-//        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
-        popupController.style = STPopupStyleBottomSheet;
-        [popupController presentInViewController:self];
-        
-        [vc setupDefaultStock:sInfo withStockCode:model.com_code];
-    };
-    
-    cell.enjoyBlock = ^(){
-        PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
-        
-        vc.guessID = [NSString stringWithFormat:@"%@",model.guess_id];
-        
-        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-        popupController.containerView.layer.cornerRadius = 4;
-        popupController.navigationBarHidden = YES;
-        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-80, 220);
-        popupController.style = STPopupTransitionStyleSlideVertical;
-        [popupController presentInViewController:self];
-        
-    };
-    
-    cell.moneyBlock = ^(){
-        
-    };
+    [cell setupStock:sInfo];
+    cell.model = model;
+    cell.delegate = self;
     
     return cell;
 }
@@ -571,16 +619,6 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    PlayListModel *model = self.items[indexPath.row];
-    if ([model.artile_info[@"article_type"] isEqual:@4]) {
-        
-        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.alive_ID = model.artile_info[@"article_id"];
-        vc.alive_type = @"2";
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-
 }
 
 

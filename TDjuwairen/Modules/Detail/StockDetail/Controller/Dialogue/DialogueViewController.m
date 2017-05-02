@@ -104,7 +104,7 @@
                 vc.stockCode = self.stockCode;
                 vc.stockName = self.stockName;
                 vc.tag = [self.tag integerValue];
-                vc.url = [self contenWebUrlWithContentId:model.surveyId];
+                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:self.tag];
                 [self.rootController.navigationController pushViewController:vc animated:YES];
             }
         }

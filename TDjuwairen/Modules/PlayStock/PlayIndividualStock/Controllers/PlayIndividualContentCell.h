@@ -8,19 +8,33 @@
 
 #import <UIKit/UIKit.h>
 #import "PlayListModel.h"
+#import "StockManager.h"
 
-@class StockInfo;
+@class PlayIndividualContentCell;
+@protocol PlayIndividualContentCellDelegate <NSObject>
 
-typedef void(^guessButtonBlock)(UIButton *btn);
-typedef void(^guessEnjoyBlock)();
-typedef void(^guessMoneyBlock)();
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender;
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell enjoyListPressed:(id)sender;
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell surveyPressed:(id)sender;
+
+@end
+
 @interface PlayIndividualContentCell : UITableViewCell
+@property (nonatomic, weak) IBOutlet UILabel *label_title;
+@property (nonatomic, weak) IBOutlet UILabel *label_left;
+@property (nonatomic, weak) IBOutlet UILabel *label_mid;
+@property (nonatomic, weak) IBOutlet UILabel *label_right;
+@property (nonatomic, weak) IBOutlet UILabel *label_enjoy;
+@property (nonatomic, weak) IBOutlet UILabel *label_detailTitle;
+@property (nonatomic, weak) IBOutlet UILabel *label_detailDesc;
+@property (nonatomic, weak) IBOutlet UILabel *label_money;
+@property (nonatomic, weak) IBOutlet UIButton *button_guess;
+@property (nonatomic, weak) IBOutlet UIButton *enjoyBtn;
 
-+ (instancetype)loadCell;
-- (void)setupStock:(StockInfo *)stock;
 
-@property (nonatomic, copy) guessButtonBlock guessBlock;
-@property (nonatomic, copy) guessEnjoyBlock enjoyBlock;
-@property (nonatomic, copy) guessMoneyBlock moneyBlock;
+@property (nonatomic, weak) id<PlayIndividualContentCellDelegate> delegate;
+
 @property (nonatomic, strong) PlayListModel *model;
+
+- (void)setupStock:(StockInfo *)stock;
 @end

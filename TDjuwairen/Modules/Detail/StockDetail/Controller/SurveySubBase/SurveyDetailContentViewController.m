@@ -38,14 +38,14 @@
     
 }
 
-- (NSString *)contenWebUrlWithContentId:(NSString *)contentId {
++ (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSString *)tag{
     NSString *urlString;
     if (US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@&user_id=%@",API_HOST,API_SurveyDetailContent,contentId,self.tag,US.userId];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@&user_id=%@",API_HOST,API_SurveyDetailContent,contentId,tag,US.userId];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@",API_HOST,API_SurveyDetailContent,contentId,self.tag];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@",API_HOST,API_SurveyDetailContent,contentId,tag];
     }
     return urlString;
 }

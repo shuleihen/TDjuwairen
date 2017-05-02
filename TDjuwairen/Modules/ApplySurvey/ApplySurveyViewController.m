@@ -89,7 +89,8 @@
     };
     [self.view addSubview:self.companyListTableView];
     
-    
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboardPressed:)];
+    [self.tableView addGestureRecognizer:tap];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -284,7 +285,9 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-
+- (void)hideKeyboardPressed:(id)sender {
+    [self.view endEditing:YES];
+}
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return (section==0)?0.001:10;

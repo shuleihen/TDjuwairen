@@ -33,5 +33,6 @@
 - (NSDictionary *)contentParm;
 
 - (void)reloadData;
-- (NSString *)contenWebUrlWithContentId:(NSString *)contentId;
+
++ (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSString *)tag;
 @end

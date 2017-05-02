@@ -10,6 +10,7 @@
 #import <WebKit/WebKit.h>
 #import "NJKWebViewProgress.h"
 #import "NJKWebViewProgressView.h"
+#import "TDRechargeViewController.h"
 
 @interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate, WKScriptMessageHandler>
 @property (nonatomic, strong) NSURL *url;
@@ -90,7 +91,9 @@
     NSLog(@"body:%@", message.body);
     
     if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"]) {
-        NSLog(@"升级黄金会员");
+        TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+        [self.navigationController pushViewController:vc animated:YES];
+//        NSLog(@"升级黄金会员");
     }
 }
 
