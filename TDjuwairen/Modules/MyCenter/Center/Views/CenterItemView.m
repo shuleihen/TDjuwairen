@@ -28,7 +28,7 @@
 
 
 - (void)setupNumber:(NSInteger)number{
-    NSString *numberString = [NSString stringWithFormat:@"%ld",number];
+    NSString *numberString = [NSString stringWithFormat:@"%ld",(long)number];
     
     NSString *title = [self.titleLabel.text substringFromIndex:self.titleLabel.text.length-2];
     

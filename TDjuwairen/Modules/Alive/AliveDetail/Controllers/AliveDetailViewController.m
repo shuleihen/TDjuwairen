@@ -111,8 +111,8 @@
         _pinglunVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
         _pinglunVC.dataBlock = ^(NSInteger dataCount){
-            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"评论 %ld",dataCount] forKey:@"pinglun"];
-            [weakSelf.toolView.commentBtn setTitle:[NSString stringWithFormat:@"%ld", dataCount] forState:UIControlStateNormal];
+            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"评论 %ld",(long)dataCount] forKey:@"pinglun"];
+            [weakSelf.toolView.commentBtn setTitle:[NSString stringWithFormat:@"%ld", (long)dataCount] forState:UIControlStateNormal];
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             weakSelf.pinglunVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.pinglunVC.tableView.contentSize.height);
             [weakSelf.tableView reloadSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationNone];
@@ -133,8 +133,8 @@
         __weak typeof(self)weakSelf = self;
         _dianZanVC.dataBlock = ^(NSInteger dataCount){
             
-            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"点赞 %ld",dataCount] forKey:@"dianzan"];
-            [weakSelf.toolView.likeBtn setTitle:[NSString stringWithFormat:@"%ld", dataCount] forState:UIControlStateNormal];
+            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"点赞 %ld",(long)dataCount] forKey:@"dianzan"];
+            [weakSelf.toolView.likeBtn setTitle:[NSString stringWithFormat:@"%ld", (long)dataCount] forState:UIControlStateNormal];
             
             weakSelf.dianZanVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.dianZanVC.tableView.contentSize.height);
@@ -156,8 +156,8 @@
         __weak typeof(self)weakSelf = self;
         _shareVC.dataBlock = ^(NSInteger dataCount){
             weakSelf.shareCount = dataCount;
-            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"分享 %ld",dataCount] forKey:@"fenxiang"];
-            [weakSelf.toolView.shareBtn setTitle:[NSString stringWithFormat:@"%ld",dataCount] forState:UIControlStateNormal];
+            [weakSelf.headerDictM setObject:[NSString stringWithFormat:@"分享 %ld",(long)dataCount] forKey:@"fenxiang"];
+            [weakSelf.toolView.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)dataCount] forState:UIControlStateNormal];
             
             weakSelf.pageScrollView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);
             weakSelf.shareVC.tableView.frame = CGRectMake(0,0,kScreenWidth, weakSelf.shareVC.tableView.contentSize.height);

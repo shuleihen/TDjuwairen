@@ -106,9 +106,6 @@ NSString *SafeValueTwoZero(NSString *value);
 
 + (BOOL)stringContainsEmoji:(NSString *)string;
 
-
-#pragma mark -- 位数限制
-+(NSString *)JumpInpuyNumAndLength:(UITextField*)textField Length:(int )NumLength;
 #pragma mark -- 将字符串中的某一点字符串替换掉
 /**
  *
@@ -122,8 +119,6 @@ NSString *SafeValueTwoZero(NSString *value);
 +(NSString*)ReplaceStrOtherStr:(NSString*)NowStr
                  andReplaceStr:(NSString*)str
            andReplaceTargetStr:(NSString*)tagetStr;
-#pragma mark 数字转换成中文
-+(NSString *)ChineseWithInteger:(NSInteger)integer;
 
 #pragma mark 判断有没有汉子
 +(BOOL)IsChinese:(NSString *)str;

@@ -81,7 +81,7 @@
     }
     
     _label_placeHolder.hidden = textView.text.length;
-    _label_residue_count.text = [NSString stringWithFormat:@"还能输入%ld字",MAX_Count-textView.text.length];
+    _label_residue_count.text = [NSString stringWithFormat:@"还能输入%u",(int)(MAX_Count-textView.text.length)];
     [Tool mtextviewDidChangeLimitLetter:textView andLimitLength:MAX_Count];
     _commentText = textView.text;
     
