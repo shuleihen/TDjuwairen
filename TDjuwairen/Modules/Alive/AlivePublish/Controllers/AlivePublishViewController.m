@@ -425,6 +425,16 @@
     
     
     if (textField == self.stockIdTextField) {
+        
+        if (self.selectedStockArrM.count>=5) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"股票最多选择五个哦！";
+            hud.mode = MBProgressHUDModeText;
+            [hud hide:NO afterDelay:1.5];
+            [textField resignFirstResponder];
+            return NO;
+        }
+        
         if (string.length == 0) return YES;
         
         NSInteger existedLength = textField.text.length;
@@ -440,7 +450,15 @@
 
 
 - (void)textFieldDidBeginEditing:(UITextField *)textField {
-    [self.tableView setContentOffset:CGPointMake(0, 0) animated:YES];
+    
+    if (self.selectedStockArrM.count>=5) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = @"股票最多选择五个哦！";
+        [hud hide:NO afterDelay:1.5];
+        [textField resignFirstResponder];
+        return;
+    }
     
 }
 
@@ -600,6 +618,14 @@
     if (self.selectedStockArrM.count <= 0) {
         [self.selectedStockArrM addObject:model];
     }else {
+        
+        if (self.selectedStockArrM.count>=5) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"股票最多选择五个哦！";
+            [hud hide:YES afterDelay:1.5];
+            return;
+        }
         
         for (SearchCompanyListModel *m in self.selectedStockArrM
              ) {

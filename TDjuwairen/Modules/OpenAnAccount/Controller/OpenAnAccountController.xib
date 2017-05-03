@@ -372,6 +372,9 @@
                     <state key="disabled" title="下一步">
                         <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     </state>
+                    <state key="selected" title="下一步">
+                        <color key="titleColor" red="0.33333333333333331" green="0.33333333333333331" blue="0.33333333333333331" alpha="1" colorSpace="calibratedRGB"/>
+                    </state>
                     <connections>
                         <action selector="stepButtonClick:" destination="-1" eventType="touchUpInside" id="DF1-g4-XFV"/>
                     </connections>
@@ -455,7 +458,7 @@
                 <constraint firstItem="FMV-9Z-PMo" firstAttribute="centerX" secondItem="r5a-CW-pr7" secondAttribute="centerX" id="wVW-s2-ANw"/>
                 <constraint firstItem="cot-Za-Avl" firstAttribute="top" secondItem="qTQ-oD-33p" secondAttribute="bottom" constant="26" id="xO3-tB-CGj"/>
             </constraints>
-            <point key="canvasLocation" x="-1131" y="-170"/>
+            <point key="canvasLocation" x="-1274" y="-209"/>
         </view>
     </objects>
     <resources>
