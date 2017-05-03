@@ -323,6 +323,7 @@
     [indicator stopAnimating];
     [self.navigationController.view addSubview:indicator];
     
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
         [indicator stopAnimating];
@@ -330,6 +331,10 @@
         if (!error) {
             self.segment.isLock = NO;
             self.stockModel.isLocked = NO;
+            self.stockModel.isAdd = YES;
+            
+            [self.stockHeaderView setupStockModel:self.stockModel];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
