@@ -546,7 +546,7 @@
     if (article_type == 1) {
         // 调研
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-        vc.stockCode = article_id;
+        vc.stockCode = model.com_code;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (article_type == 2){
         // 热点

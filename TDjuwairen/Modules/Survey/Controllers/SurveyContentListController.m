@@ -222,17 +222,21 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
     [indicator stopAnimating];
     [self.rootController.view addSubview:indicator];
     
+    __weak SurveyContentListController *wself = self;
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
         [indicator stopAnimating];
         
         if (!error) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.rootController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.rootController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.labelText = @"解锁成功";
             [hud hide:YES afterDelay:0.6];
+            
+            [wself reloadUnlockWithStockCode:stockCode];
         } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.rootController.view animated:YES];
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.rootController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.labelText = error.localizedDescription;
             [hud hide:YES afterDelay:0.4];

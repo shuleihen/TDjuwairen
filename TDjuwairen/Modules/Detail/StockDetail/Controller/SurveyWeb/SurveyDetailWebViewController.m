@@ -31,6 +31,7 @@
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) StockShareView *shareView;
 @property (nonatomic, strong) StockAskView *askView;
+
 @end
 
 @implementation SurveyDetailWebViewController
@@ -56,6 +57,7 @@
         self.title = [self.stockName stringByAppendingString:@" 实地篇"];
     } else if (self.tag== 1) {
         self.title = [self.stockName stringByAppendingString:@" 公告篇"];
+        self.navigationItem.rightBarButtonItem = nil;
     } else if (self.tag== 3) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
     }
@@ -65,6 +67,11 @@
 }
 
 - (void)AddQuestionButton {
+    if (self.tag == 1) {
+        // 公告
+        return;
+    }
+    
     UIImage *image = [UIImage imageNamed:@"ico_questions.png"];
     UIButton *questionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [questionBtn setBackgroundImage:image forState:UIControlStateNormal];
