@@ -104,7 +104,7 @@
                 
                 
                 [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
-                self.oNextStepButton.enabled = NO;
+                self.oNextStepButton.selected = YES;
                 [self.oNextStepButton addBorder:1 borderColor:[UIColor lightGrayColor]];
 //                if (btnClick == YES) {
 //                    [self.view makeToast:@"请先去开户" duration:0.8 position:CSToastPositionCenter];
@@ -115,7 +115,7 @@
             }else if ([verifyCode integerValue] == 3){
                 self.openAnAccountView.hidden = NO;
                 self.failReasonLabel.text = data[@"msg"];
-                self.oNextStepButton.enabled = NO;
+                self.oNextStepButton.selected = YES;
                 [self.oNextStepButton addBorder:1 borderColor:[UIColor lightGrayColor]];
                 [self.contentScrollView setContentOffset:CGPointMake(0, 0) animated:NO];
             
@@ -149,6 +149,16 @@
 - (IBAction)stepButtonClick:(UIButton *)sender {
     
     switch (sender.tag - 1000) {
+        case 0:
+            if (sender.selected == YES) {
+                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+                hud.mode = MBProgressHUDModeText;
+                hud.labelText = @"请先去开户哦！";
+                [hud hide:YES afterDelay:1];
+            }else {
+                [self showCurrentView:YES];
+            }
+            break;
         case 3:
             // 更改手机号
             [self.contentScrollView setContentOffset:CGPointMake(kScreenWidth*2, 0) animated:NO];
