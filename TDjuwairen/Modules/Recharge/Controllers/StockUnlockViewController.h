@@ -10,7 +10,7 @@
 
 
 @protocol StockUnlockDelegate <NSObject>
-- (void)unlockPressed:(id)sender;
+- (void)unlockWithStockCode:(NSString *)stockCode;
 - (void)rechargePressed:(id)sender;
 
 @end

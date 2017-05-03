@@ -11,7 +11,6 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+GetDevice.h"
 #import "NSString+Util.h"
-#import "UIdaynightModel.h"
 
 @implementation SurveryStockListCell
 
@@ -31,6 +30,10 @@
         _stockNameLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_stockNameLabel];
         
+        UITapGestureRecognizer *stockNameTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stockNamePressed:)];
+        _stockNameLabel.userInteractionEnabled = YES;
+        [_stockNameLabel addGestureRecognizer:stockNameTap];
+        
         // 当前交易价格
         _stockNowPriLabel = [[UILabel alloc] init];
         [self.contentView addSubview:_stockNowPriLabel];
@@ -42,6 +45,10 @@
         _surveyTitleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _surveyTitleLabel.numberOfLines = 2;
         [self.contentView addSubview:_surveyTitleLabel];
+        
+        UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titlePressed:)];
+        _surveyTitleLabel.userInteractionEnabled = YES;
+        [_surveyTitleLabel addGestureRecognizer:titleTap];
         
         // 时间
         _dateLabel = [[UILabel alloc] init];
@@ -58,10 +65,16 @@
     return self;
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
+- (void)stockNamePressed:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(surveyStockListCell:stockNamePressed:)]) {
+        [self.delegate surveyStockListCell:self stockNamePressed:sender];
+    }
+}
 
-    // Configure the view for the selected state
+- (void)titlePressed:(id)sender {
+    if ([self.delegate respondsToSelector:@selector(surveyStockListCell:titlePressed:)]) {
+        [self.delegate surveyStockListCell:self titlePressed:sender];
+    }
 }
 
 + (CGFloat)rowHeight {
@@ -80,6 +93,7 @@
 }
 
 - (void)setupSurvey:(SurveyModel *)survey {
+    self.model = survey;
     
     CGFloat w = [UIScreen mainScreen].bounds.size.width;
     
@@ -164,7 +178,7 @@
             image = [UIImage imageNamed:@"type_discuss.png"];
             break;
         case 11:
-            // 热点
+            // 视频
             image = [UIImage imageNamed:@"type_video.png"];
             break;
         default:

@@ -10,7 +10,12 @@
 #import "StockManager.h"
 #import "SurveyModel.h"
 
-#import "UIdaynightModel.h"
+@class SurveryStockListCell;
+@protocol SurveyStockListCellDelegate <NSObject>
+
+- (void)surveyStockListCell:(SurveryStockListCell *)cell stockNamePressed:(id)sender;
+- (void)surveyStockListCell:(SurveryStockListCell *)cell titlePressed:(id)sender;
+@end
 
 @interface SurveryStockListCell : UITableViewCell
 @property (nonatomic, strong) UIImageView *surveyImageView;
@@ -20,6 +25,9 @@
 @property (nonatomic, strong) UILabel *surveyTitleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIImageView *typeImageView;
+@property (nonatomic, strong) SurveyModel *model;
+
+@property (nonatomic, weak) id<SurveyStockListCellDelegate> delegate;
 
 + (CGFloat)rowHeight;
 

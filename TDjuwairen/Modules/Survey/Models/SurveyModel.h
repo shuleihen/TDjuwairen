@@ -18,6 +18,8 @@
 @property (nonatomic, copy) NSString *surveyCover;
 @property (nonatomic, copy) NSString *surveyUrl;
 @property (nonatomic, copy) NSString *addTime;
+@property (nonatomic, assign) BOOL isLocked;
+@property (nonatomic, assign) NSInteger unlockKeyNum;
 
 + (SurveyModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 @end

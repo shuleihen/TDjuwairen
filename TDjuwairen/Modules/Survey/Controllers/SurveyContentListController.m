@@ -14,8 +14,16 @@
 #import "HexColors.h"
 #import "SearchViewController.h"
 #import "NSString+Util.h"
+#import "StockUnlockViewController.h"
+#import "MBProgressHUD.h"
+#import "TDRechargeViewController.h"
+#import "STPopupController.h"
+#import "SurveyDetailWebViewController.h"
 
-@interface SurveyContentListController ()<StockManagerDelegate, UITableViewDelegate, UITableViewDataSource>
+@interface SurveyContentListController ()
+<StockManagerDelegate, UITableViewDelegate, UITableViewDataSource,
+SurveyStockListCellDelegate, StockUnlockDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *surveyList;
 @property (nonatomic, assign) NSInteger page;
@@ -186,10 +194,103 @@
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
 }
 
+- (void)reloadUnlockWithStockCode:(NSString *)stockCode {
+    for (SurveyModel *model in self.surveyList) {
+        if ([model.companyCode isEqualToString:stockCode]) {
+            model.isLocked = NO;
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
     self.stockDict = stocks;
     [self.tableView reloadData];
+}
+
+#pragma mark - StockUnlockDelegate
+
+- (void)unlockWithStockCode:(NSString *)stockCode {
+    NSDictionary *para = @{@"user_id":  US.userId,
+                           @"code":     stockCode};
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    indicator.hidesWhenStopped = YES;
+    [indicator stopAnimating];
+    [self.rootController.view addSubview:indicator];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
+        [indicator stopAnimating];
+        
+        if (!error) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.rootController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = @"解锁成功";
+            [hud hide:YES afterDelay:0.6];
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.rootController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.labelText = error.localizedDescription;
+            [hud hide:YES afterDelay:0.4];
+        }
+        
+    }];
+}
+
+- (void)rechargePressed:(id)sender {
+    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.rootController.navigationController pushViewController:vc animated:YES];
+}
+
+#pragma mark - SurveyStockListCellDelegate
+- (void)surveyStockListCell:(SurveryStockListCell *)cell titlePressed:(id)sender {
+    
+    SurveyModel *model = cell.model;
+    
+    if (!model.isLocked) {
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.surveyId;
+        vc.stockCode = model.companyCode;
+        vc.stockName = model.companyName;
+        vc.tag = 0;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:@"0"];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.rootController.navigationController pushViewController:vc animated:YES];
+    } else {
+        if (!US.isLogIn) {
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;
+            [self.rootController.navigationController pushViewController:login animated:YES];
+            return;
+        }
+        
+        
+        StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
+        vc.stockCode = model.companyCode;
+        vc.stockName = model.companyName;
+        vc.needKey = model.unlockKeyNum;
+        vc.delegate = self;
+        
+        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.navigationBarHidden = YES;
+        popupController.containerView.layer.cornerRadius = 4;
+        [popupController presentInViewController:self.rootController];
+    }
+
+}
+
+- (void)surveyStockListCell:(SurveryStockListCell *)cell stockNamePressed:(id)sender {
+    SurveyModel *survey = cell.model;
+    
+    StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+    vc.stockCode = survey.companyCode;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Table view data source
@@ -204,6 +305,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
+    cell.delegate = self;
     
     return cell;
 }

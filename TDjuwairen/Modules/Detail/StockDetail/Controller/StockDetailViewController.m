@@ -313,9 +313,10 @@
 
 #pragma mark - StockUnlockDelegate
 
-- (void)unlockPressed:(id)sender {
+- (void)unlockWithStockCode:(NSString *)stockCode {
     NSDictionary *para = @{@"user_id":  US.userId,
-                           @"code":     self.stockCode};
+                           @"code":     stockCode};
+    
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
     indicator.hidesWhenStopped = YES;

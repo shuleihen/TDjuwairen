@@ -69,8 +69,8 @@
         return;
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockPressed:)]) {
-        [self.delegate unlockPressed:sender];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
+        [self.delegate unlockWithStockCode:self.stockCode];
     }
     
     [self dismissViewControllerAnimated:NO completion:nil];

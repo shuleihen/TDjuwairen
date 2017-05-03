@@ -20,6 +20,8 @@
     model.surveyTitle = dic[@"survey_title"];
     model.stockCode = dic[@"stock_code"];
     model.addTime = dic[@"survey_addtime"];
+    model.isLocked = ![dic[@"is_unlock"] boolValue];
+    model.unlockKeyNum = [dic[@"unlock_keynum"] integerValue];
     
     return model;
 }
