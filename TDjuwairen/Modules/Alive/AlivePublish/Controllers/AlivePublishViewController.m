@@ -288,8 +288,6 @@
     } else if (self.publishType == kAlivePublishPosts) {
         // 贴单发布，股票代码和图片不能为空
         self.companyListTableView.hidden = YES;
-       
-        
         NSMutableArray *arrM = [NSMutableArray array];
         for (SearchCompanyListModel *model in self.selectedStockArrM) {
             [arrM addObject:model.company_code];
@@ -300,9 +298,7 @@
             return;
         }
         
-        stockId = [NSString stringWithFormat:@"[%@]",[arrM componentsJoinedByString:@","]];
-        
-        
+        stockId = [self arrayToJSONString:arrM];
        
     } else if (self.publishType == kAlivePublishForward ||
                self.publishType == kAlivePublishShare) {
@@ -476,15 +472,10 @@
 }
 
 - (void)textViewDidBeginEditing:(UITextView *)textView {
-    
-    
     if ((self.publishType == kAlivePublishPosts) && self.companyListTableView.hidden == NO) {
         self.companyListTableView.hidden = YES;
     }
 }
-
-
-
 
 #pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -622,12 +613,23 @@
             }
         }
     }
-    
-    
     [self checkRightBarItemEnabled];
     [self.tableView reloadData];
 }
 
-
+- (NSString *)arrayToJSONString:(NSArray *)array
+{
+    NSError *error = nil;
+    //    NSMutableArray *muArray = [NSMutableArray array];
+    //    for (NSString *userId in array) {
+    //        [muArray addObject:[NSString stringWithFormat:@"\"%@\"", userId]];
+    //    }
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
+    NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    //    NSString *jsonTemp = [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    //    NSString *jsonResult = [jsonTemp stringByReplacingOccurrencesOfString:@" " withString:@""];
+        NSLog(@"json string is: %@", jsonString);
+    return jsonString;
+}
 
 @end
