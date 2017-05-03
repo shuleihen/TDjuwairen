@@ -90,7 +90,7 @@
     CGRect rect = CGRectZero;
     
     for (NSString *tag in tags) {
-        CGSize size = [tag boundingRectWithSize:CGSizeMake(MAXFLOAT, 15.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f]} context:nil].size;
+        CGSize size = [tag boundingRectWithSize:CGSizeMake(MAXFLOAT, 15.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil].size;
         
         if ((offx + size.width+6) > limitWidth) {
             offx =0;
@@ -98,6 +98,8 @@
         }
         
         rect = CGRectMake(offx, offy, size.width+6, 15);
+        
+        offx += (size.width+6 + 5);
     }
     
     height = CGRectGetMaxY(rect);

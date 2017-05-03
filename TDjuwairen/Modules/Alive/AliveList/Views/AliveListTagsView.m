@@ -41,6 +41,8 @@
         }
         
         label.frame = CGRectMake(offx, offy, size.width+6, 15);
+        
+        offx += (CGRectGetWidth(label.frame) + 5);
     }
 }
 
