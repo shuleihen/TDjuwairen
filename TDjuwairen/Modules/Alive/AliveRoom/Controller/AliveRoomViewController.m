@@ -294,7 +294,7 @@
 }
 
 - (void)refreshSubListAction {
-
+    
 }
 
 - (void)loadMoreAction {
@@ -399,7 +399,7 @@
         [self.navigationController pushViewController:login animated:YES];
         return;
     }
-
+    
     
     if (!self.roomMasterModel) {
         return;
@@ -497,8 +497,8 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender {
-
-
+    
+    
     if (self.saveGuessRateInfoStr.length <= 0) {
         
         [self loadGuessRateInfoOrAttentionInfo:YES];
@@ -517,36 +517,35 @@
     
 }
 
-
-
 - (void)showGuessRateInfoOrShowAttentionInfo:(BOOL)isGuessRate {
     AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
     
     if (isGuessRate == YES) {
         vc.titleString = @"等级规则";
+        vc.content = self.saveGuessRateInfoStr;
     }else {
-    vc.titleString = @"股神指数规则";
+        vc.titleString = @"股神指数规则";
+        vc.content = self.saveAttenInfo;
         
     }
     
     vc.contentSizeInPopup = CGSizeMake(220, 300);
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.containerView.layer.cornerRadius = 4;
-    vc.content = self.saveGuessRateInfoStr;
+    
     popupController.navigationBarHidden = YES;
     [popupController presentInViewController:self];
 }
 
 - (void)loadGuessRateInfoOrAttentionInfo:(BOOL)isGuessRate {
-
+    
     NSString *urlStr = nil;
     if (isGuessRate == YES) {
         urlStr = API_AliveGetGuessRateInfo;
     }else {
-    
+        
         urlStr = API_AliveGetAttenInfo;
     }
-    
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -555,8 +554,16 @@
         if (!error) {
             data = [data stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
             
-            weakSelf.saveGuessRateInfoStr = data;
-            [weakSelf showGuessRateInfoOrShowAttentionInfo:isGuessRate];
+            if (isGuessRate == YES) {
+                
+                weakSelf.saveGuessRateInfoStr = data;
+            }else {
+                
+                weakSelf.saveAttenInfo = data;
+            }
+            if (data.length > 0) {
+                [weakSelf showGuessRateInfoOrShowAttentionInfo:isGuessRate];
+            }
             [hud hide:YES];
             
         } else {
