@@ -43,6 +43,10 @@
 @property (nonatomic, strong) AliveRoomMasterModel *roomMasterModel;
 
 @property (nonatomic, strong) DCPathButton *publishBtn;
+
+
+@property (copy, nonatomic) NSString *saveGuessRateInfoStr;
+@property (copy, nonatomic) NSString *saveAttenInfo;
 @end
 
 @implementation AliveRoomViewController
@@ -493,28 +497,74 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender {
-    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
-    vc.titleString = @"等级规则";
-    vc.content = @"根据关注数1级 0-20人；2级 21-40人；100以内，每增加20个关注度，增加一级；500以内，每增加50个关注度，增加一级";
-    vc.contentSizeInPopup = CGSizeMake(220, 230);
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.containerView.layer.cornerRadius = 4;
-    popupController.navigationBarHidden = YES;
-    [popupController presentInViewController:self];
 
+
+    if (self.saveGuessRateInfoStr.length <= 0) {
+        
+        [self loadGuessRateInfoOrAttentionInfo:YES];
+    }else {
+        [self showGuessRateInfoOrShowAttentionInfo:YES];
+    }
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender {
-    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
-    vc.titleString = @"股神指数规则";
-    vc.content = @"1.用户起始指数为50，指数上不封顶\n2.比谁准中指数竞猜获得大奖（猜中）+20，5倍+10，2倍+1，lose-1\n3.个股竞猜中，赢一场+4，输一场-0.5\n4.pc猜红绿赢一场+2，输一场-2";
-    vc.contentSizeInPopup = CGSizeMake(220, 300);
+    if (self.saveAttenInfo.length <= 0) {
+        
+        [self loadGuessRateInfoOrAttentionInfo:NO];
+    }else {
+        [self showGuessRateInfoOrShowAttentionInfo:NO];
+    }
     
+}
+
+
+
+- (void)showGuessRateInfoOrShowAttentionInfo:(BOOL)isGuessRate {
+    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
+    
+    if (isGuessRate == YES) {
+        vc.titleString = @"等级规则";
+    }else {
+    vc.titleString = @"股神指数规则";
+        
+    }
+    
+    vc.contentSizeInPopup = CGSizeMake(220, 300);
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.containerView.layer.cornerRadius = 4;
+    vc.content = self.saveGuessRateInfoStr;
     popupController.navigationBarHidden = YES;
     [popupController presentInViewController:self];
+}
+
+- (void)loadGuessRateInfoOrAttentionInfo:(BOOL)isGuessRate {
+
+    NSString *urlStr = nil;
+    if (isGuessRate == YES) {
+        urlStr = API_AliveGetGuessRateInfo;
+    }else {
+    
+        urlStr = API_AliveGetAttenInfo;
+    }
+    
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    __weak typeof(self)weakSelf = self;
+    [manager GET:urlStr parameters:nil completion:^(NSString *data, NSError *error){
+        if (!error) {
+            data = [data stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
+            
+            weakSelf.saveGuessRateInfoStr = data;
+            [weakSelf showGuessRateInfoOrShowAttentionInfo:isGuessRate];
+            [hud hide:YES];
+            
+        } else {
+            
+            [hud hide:YES afterDelay:0.8];
+        }
+    }];
+    
 }
 
 #pragma mark - UITableViewDelegate

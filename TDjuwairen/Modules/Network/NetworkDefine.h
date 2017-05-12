@@ -164,6 +164,10 @@
 #define API_AliveAddRoomPublish     @"Room/publish"
 #define API_AliveGetRoomInfo        @"Room/getRoomInfo"
 #define API_AliveGetRoomLiveList    @"Room/roomLiveList"
+/// 股神指数说明文字
+#define API_AliveGetGuessRateInfo    @"Room/getGuessRateInfo"
+/// 关注数 说明文字
+#define API_AliveGetAttenInfo    @"Room/getAttenInfo"
 #define API_AliveUpdateUserSex      @"Room/updateUserSex"
 #define API_AliveUpdateUserCity     @"Room/updateUserAddress"
 #define API_AliveUpdateRoomInfo     @"Room/updateRoomInfo"
