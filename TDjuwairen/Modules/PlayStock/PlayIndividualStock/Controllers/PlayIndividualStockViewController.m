@@ -33,6 +33,8 @@
 #import "DetailPageViewController.h"
 #import "SurveyDetailWebViewController.h"
 #import "SurveyDetailContentViewController.h"
+#import "BVUnderlineButton.h"
+
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
@@ -162,6 +164,30 @@
     self.seasonIndex = ([self seasonWithCurrentTime]==1)?1:2;
     self.seasonSegmentControl.selectedSegmentIndex = self.seasonIndex-1;
     
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-90, 0, 81, 44)];
+    
+    BVUnderlineButton *recordBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [recordBtn setTitle:@"记录" forState:UIControlStateNormal];
+    [recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    recordBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [recordBtn addTarget:self action:@selector(myGuessPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightView addSubview:recordBtn];
+    
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(40, 10, 1, 24)];
+    lineView.backgroundColor = TDLineColor;
+    [rightView addSubview:lineView];
+    
+    BVUnderlineButton *ruleBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(41, 0, 40, 44)];
+    [ruleBtn setTitle:@"规则" forState:UIControlStateNormal];
+    [ruleBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    ruleBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+     [ruleBtn addTarget:self action:@selector(rulePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightView addSubview:ruleBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    
+    
+    
     [self setupTableView];
     
     [self loadGuessUserInfo];
@@ -209,7 +235,7 @@
     
 }
 
-- (IBAction)myGuessPressed:(id)sender {
+- (void)myGuessPressed:(id)sender {
     
     if (!US.isLogIn) {
         [self pushLoginViewController];
@@ -256,7 +282,7 @@
     }];
 }
 
-- (IBAction)rulePressed:(id)sender {
+- (void)rulePressed:(id)sender {
     NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/index.php/Game/guessRule?guess_name=individual&device=ios"];
     TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
     [self.navigationController pushViewController:vc animated:YES];

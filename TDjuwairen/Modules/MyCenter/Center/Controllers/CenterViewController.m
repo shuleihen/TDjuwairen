@@ -41,6 +41,7 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
+    
     self.tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     
@@ -62,6 +63,7 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self.navigationController setNavigationBarHidden:YES];
         
     [self queryUserInfo];
     [self setupUserInfo];
@@ -69,6 +71,7 @@
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
+    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -128,9 +131,9 @@
 }
 
 #pragma mark - Action
-- (IBAction)cancelPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
-}
+//- (IBAction)cancelPressed:(id)sender {
+//    [self dismissViewControllerAnimated:YES completion:nil];
+//}
 
 - (IBAction)avatarPressed:(id)sender {
     if (US.isLogIn == NO) {

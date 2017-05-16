@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -278,7 +278,7 @@
                                         <rect key="frame" x="0.0" y="35" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="CFp-4M-ix9" id="NKe-Ml-3ch">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="奖品名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nuo-sj-VCS">
@@ -309,7 +309,7 @@
                                         <rect key="frame" x="0.0" y="79" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="YQ3-w6-HfR" id="QtK-uN-TJO">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="领奖人" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xop-u0-wS7">
@@ -344,7 +344,7 @@
                                         <rect key="frame" x="0.0" y="123" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FHn-ke-SVe" id="YVz-Fb-dBU">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="手机号" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Eq-f8-FRg">
@@ -379,7 +379,7 @@
                                         <rect key="frame" x="0.0" y="167" width="375" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="w8n-j1-IFK" id="PUt-3G-1z2">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="邮寄地区" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x0X-KD-jdj">
@@ -418,7 +418,7 @@
                                         <rect key="frame" x="0.0" y="222" width="375" height="34"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="ABM-Md-z9t" id="RYc-hA-rtW">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="33.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="33"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="详细地址" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dlZ-HZ-J6l">
@@ -441,7 +441,7 @@
                                         <rect key="frame" x="0.0" y="256" width="375" height="100"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="N9a-4N-iBv" id="GVs-Q0-olx">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="99"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" placeholder="填写详细地址" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="wsq-H6-5U9">
@@ -984,41 +984,6 @@
                                                 <constraint firstAttribute="width" constant="100" id="zVW-Hz-eDz"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="right" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="woA-jH-cTc" customClass="BVUnderlineButton">
-                                            <rect key="frame" x="320" y="12" width="40" height="29"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="40" id="c3T-iK-3JA"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <state key="normal" title="规则">
-                                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="rulePressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="xAo-Yh-CGx"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="egl-dC-IjB">
-                                            <rect key="frame" x="309" y="18" width="10" height="17"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="10" id="1yk-ae-yex"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ork-ck-Bpm" customClass="BVUnderlineButton">
-                                            <rect key="frame" x="240" y="12" width="60" height="29"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="60" id="XBa-8Z-ygV"/>
-                                            </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <state key="normal" title="我的竞猜">
-                                                <color key="titleColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
-                                            </state>
-                                            <connections>
-                                                <action selector="myGuessPressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="P4T-7J-HR6"/>
-                                            </connections>
-                                        </button>
                                         <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_big" translatesAutoresizingMaskIntoConstraints="NO" id="Ysv-PJ-oGB">
                                             <rect key="frame" x="15" y="7" width="33" height="39"/>
                                             <constraints>
@@ -1045,7 +1010,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <button opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFP-Rf-O6H">
-                                            <rect key="frame" x="251" y="49" width="112" height="36"/>
+                                            <rect key="frame" x="251" y="8.5" width="112" height="36"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="36" id="eWU-bX-alt"/>
                                                 <constraint firstAttribute="width" constant="112" id="ymz-Ef-9bi"/>
@@ -1063,22 +1028,16 @@
                                     <color key="backgroundColor" red="0.097848750649999996" green="0.10158800329999999" blue="0.12233037500000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     <constraints>
                                         <constraint firstItem="nWK-vg-1aE" firstAttribute="leading" secondItem="Ysv-PJ-oGB" secondAttribute="trailing" constant="8" id="24L-Z1-7sW"/>
-                                        <constraint firstItem="fFP-Rf-O6H" firstAttribute="centerY" secondItem="Nj3-dz-Po5" secondAttribute="centerY" id="4Ag-gj-x64"/>
+                                        <constraint firstItem="5cI-48-Jd0" firstAttribute="top" secondItem="EpL-VX-FAq" secondAttribute="top" constant="13" id="51W-cs-FCy"/>
                                         <constraint firstItem="Nj3-dz-Po5" firstAttribute="leading" secondItem="EpL-VX-FAq" secondAttribute="leading" constant="12" id="5hV-Cj-O5S"/>
                                         <constraint firstItem="Ysv-PJ-oGB" firstAttribute="leading" secondItem="EpL-VX-FAq" secondAttribute="leading" constant="15" id="8fU-oH-jFZ"/>
-                                        <constraint firstAttribute="bottom" secondItem="fFP-Rf-O6H" secondAttribute="bottom" constant="15" id="MPg-mL-FNA"/>
-                                        <constraint firstAttribute="trailing" secondItem="woA-jH-cTc" secondAttribute="trailing" constant="15" id="Ob6-bH-x2f"/>
-                                        <constraint firstItem="woA-jH-cTc" firstAttribute="leading" secondItem="egl-dC-IjB" secondAttribute="trailing" constant="1" id="T7S-3X-qQp"/>
+                                        <constraint firstAttribute="bottom" secondItem="Nj3-dz-Po5" secondAttribute="bottom" constant="24" id="IHz-2h-Bvd"/>
                                         <constraint firstAttribute="height" constant="100" id="W9l-yK-s5e"/>
-                                        <constraint firstItem="Ork-ck-Bpm" firstAttribute="centerY" secondItem="5cI-48-Jd0" secondAttribute="centerY" id="aeD-TN-nKE"/>
-                                        <constraint firstItem="egl-dC-IjB" firstAttribute="centerY" secondItem="Ork-ck-Bpm" secondAttribute="centerY" id="b44-GJ-HaQ"/>
                                         <constraint firstItem="5cI-48-Jd0" firstAttribute="leading" secondItem="EpL-VX-FAq" secondAttribute="leading" id="dAo-AP-079"/>
+                                        <constraint firstItem="fFP-Rf-O6H" firstAttribute="centerY" secondItem="5cI-48-Jd0" secondAttribute="centerY" id="frN-vr-mPE"/>
                                         <constraint firstAttribute="trailing" secondItem="fFP-Rf-O6H" secondAttribute="trailing" constant="12" id="gph-qk-ZBY"/>
                                         <constraint firstItem="Ysv-PJ-oGB" firstAttribute="centerY" secondItem="5cI-48-Jd0" secondAttribute="centerY" id="m7P-hz-pPO"/>
                                         <constraint firstItem="nWK-vg-1aE" firstAttribute="centerY" secondItem="Ysv-PJ-oGB" secondAttribute="centerY" id="mHS-Y1-xFp"/>
-                                        <constraint firstItem="egl-dC-IjB" firstAttribute="leading" secondItem="Ork-ck-Bpm" secondAttribute="trailing" constant="9" id="syj-rh-Edv"/>
-                                        <constraint firstItem="woA-jH-cTc" firstAttribute="centerY" secondItem="Ork-ck-Bpm" secondAttribute="centerY" id="xBi-9o-VMi"/>
-                                        <constraint firstItem="egl-dC-IjB" firstAttribute="top" secondItem="EpL-VX-FAq" secondAttribute="top" constant="18" id="zTh-h3-vqE"/>
                                     </constraints>
                                 </view>
                                 <connections>
@@ -1122,7 +1081,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tS3-nc-aDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-951" y="-380"/>
+            <point key="canvasLocation" x="-1180" y="-420"/>
         </scene>
     </scenes>
     <resources>

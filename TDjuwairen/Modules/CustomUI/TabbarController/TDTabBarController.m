@@ -17,7 +17,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.tabBar.translucent = NO;
     self.tabBar.barTintColor = [UIColor whiteColor];
     self.tabBar.tintColor = TDThemeColor;
@@ -27,7 +26,6 @@
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
-
 }
 
 - (void)showTabBarAnimation {
@@ -40,10 +38,10 @@
             
             for (UIView *barItem in tabBarItem.subviews) {
                 if ([barItem isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")]) {
-                    if (i == 1) {
+                    if (i == 2) {
                         // 玩票
                         playImageView = (UIImageView *)barItem;
-                    } else if (i == 2) {
+                    } else if (i == 0) {
                         // 直播
                         aliveImageView = (UIImageView *)barItem;
                     }
@@ -81,12 +79,12 @@
 - (NSArray *)animationImagesWithTag:(NSInteger)tag {
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:50];
     
-    if (tag == 1) {
+    if (tag == 2) {
         // 玩票
         for (int i=1; i<=49; i++) {
             [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"play_%d.png",i]]];
         }
-    } else if (tag == 2) {
+    } else if (tag == 0) {
         // 直播
         for (int i=1; i<=25; i++) {
             [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"aliv_%d.png",i]]];
