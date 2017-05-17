@@ -63,15 +63,13 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
-    [self.navigationController setNavigationBarHidden:YES];
-        
+    
     [self queryUserInfo];
     [self setupUserInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
-    [self.navigationController setNavigationBarHidden:NO];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -196,7 +194,7 @@
         
         TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
         [self.navigationController pushViewController:vc animated:YES];
-    
+        
     }
 }
 
@@ -215,7 +213,7 @@
     }
 }
 
-#pragma mark - UITableView 
+#pragma mark - UITableView
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 0.001f;
 }
@@ -242,6 +240,7 @@
         [self.navigationController pushViewController:login animated:YES];
     } else {
         UIViewController *vc = [[NSClassFromString(className) alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }

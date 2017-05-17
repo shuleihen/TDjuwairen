@@ -38,12 +38,12 @@
             
             for (UIView *barItem in tabBarItem.subviews) {
                 if ([barItem isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")]) {
-                    if (i == 2) {
-                        // 玩票
-                        playImageView = (UIImageView *)barItem;
-                    } else if (i == 0) {
+                    if (i == 0) {
                         // 直播
                         aliveImageView = (UIImageView *)barItem;
+                    } else if (i == 2) {
+                        // 玩票
+                        playImageView = (UIImageView *)barItem;
                     }
                 }
             }
@@ -53,7 +53,7 @@
     }
     
 
-    playImageView.animationImages = [self animationImagesWithTag:1];
+    playImageView.animationImages = [self animationImagesWithTag:2];
     playImageView.animationDuration = 2.0f;
     [playImageView startAnimating];
     
@@ -63,7 +63,7 @@
         
         dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.5*NSEC_PER_SEC);
         dispatch_after(time, dispatch_get_main_queue(), ^{
-            aliveImageView.animationImages = [self animationImagesWithTag:2];
+            aliveImageView.animationImages = [self animationImagesWithTag:0];
             aliveImageView.animationDuration = 1.0f;
             [aliveImageView startAnimating];
             
@@ -79,18 +79,17 @@
 - (NSArray *)animationImagesWithTag:(NSInteger)tag {
     NSMutableArray *images = [NSMutableArray arrayWithCapacity:50];
     
-    if (tag == 2) {
-        // 玩票
-        for (int i=1; i<=49; i++) {
-            [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"play_%d.png",i]]];
-        }
-    } else if (tag == 0) {
+    if (tag == 0) {
         // 直播
         for (int i=1; i<=25; i++) {
             [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"aliv_%d.png",i]]];
         }
+    } else if (tag == 2) {
+        // 玩票
+        for (int i=1; i<=49; i++) {
+            [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"play_%d.png",i]]];
+        }
     }
-    
     return images;
 }
 

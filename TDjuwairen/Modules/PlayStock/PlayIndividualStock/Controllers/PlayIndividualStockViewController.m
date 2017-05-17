@@ -164,8 +164,7 @@
     self.seasonIndex = ([self seasonWithCurrentTime]==1)?1:2;
     self.seasonSegmentControl.selectedSegmentIndex = self.seasonIndex-1;
     
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth-90, 0, 81, 44)];
-    
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 81, 44)];
     BVUnderlineButton *recordBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
     [recordBtn setTitle:@"记录" forState:UIControlStateNormal];
     [recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];

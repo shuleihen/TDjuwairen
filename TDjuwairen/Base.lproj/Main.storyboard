@@ -27,7 +27,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="FnA-FJ-TP3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4907" y="-1861"/>
+            <point key="canvasLocation" x="-4550" y="-1879"/>
         </scene>
         <!--调研-->
         <scene sceneID="CGi-th-78t">
@@ -84,7 +84,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fQ5-Ue-AmF" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5137" y="-267"/>
+            <point key="canvasLocation" x="-5111" y="-294"/>
         </scene>
         <!--玩票-->
         <scene sceneID="D8J-O9-1d0">
@@ -103,7 +103,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Tc-Hd-QPv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-4102" y="-292"/>
+            <point key="canvasLocation" x="-4380" y="-315"/>
         </scene>
         <!--观点-->
         <scene sceneID="pYs-3V-bMJ">
@@ -217,7 +217,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZBZ-31-eos" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-5958" y="-266"/>
+            <point key="canvasLocation" x="-5847" y="-260"/>
         </scene>
         <!--Center View Controller-->
         <scene sceneID="E9W-X7-fxh">
@@ -612,12 +612,11 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30c-ti-p3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3223" y="-293"/>
+            <point key="canvasLocation" x="-3596" y="-295"/>
         </scene>
         <!--我的-->
         <scene sceneID="KbZ-OI-JKi">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="t4y-gD-kVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kkT-Cg-RLR" customClass="TDNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" tag="3" title="我的" image="tab_research" id="cSe-up-dU7"/>
                     <toolbarItems/>
@@ -630,6 +629,7 @@
                         <segue destination="1c6-oe-0ol" kind="relationship" relationship="rootViewController" id="5OJ-Hw-roZ"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="t4y-gD-kVr" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-3596" y="-1039"/>
         </scene>

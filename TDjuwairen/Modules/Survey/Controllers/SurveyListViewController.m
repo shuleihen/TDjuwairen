@@ -34,7 +34,6 @@
 #import "SubscriptionViewController.h"
 #import "SurveySubjectModel.h"
 #import "NotificationDef.h"
-#import "LoginManager.h"
 #import "UIViewController+Refresh.h"
 #import "UIImage+Resize.h"
 #import "SelectedSurveySubjectViewController.h"
@@ -189,19 +188,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChangedNotifi:) name:kLoginStateChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
+
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionalStockChangedNotifi:) name:kAddOptionalStockSuccessed object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChangedNotifi:) name:kSubjectChangedNotification object:nil];
-    
     
     [self setupNavigationBar];
     [self setupTableView];
     [self refreshAction];
-
-    [LoginManager getAuthKey];
-    [LoginManager checkLogin];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
