@@ -136,9 +136,11 @@
 - (IBAction)avatarPressed:(id)sender {
     if (US.isLogIn == NO) {
         LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+         login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
     } else {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
+         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -150,6 +152,7 @@
         [self.navigationController pushViewController:login animated:YES];
     } else {
         AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:US.userId];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -163,6 +166,7 @@
         AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
         aliveMasterListVC.masterId = US.userId;
         aliveMasterListVC.listType = AliveAttentionList;
+        aliveMasterListVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aliveMasterListVC animated:YES];
     }
     
@@ -177,6 +181,7 @@
         AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
         aliveMasterListVC.masterId = US.userId;
         aliveMasterListVC.listType = AliveFansList;
+        aliveMasterListVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aliveMasterListVC animated:YES];
     }
 }
@@ -186,6 +191,7 @@
     
     if (US.isLogIn == NO) {
         LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
         
     }else {
@@ -193,6 +199,7 @@
         NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
         
         TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
         
     }
