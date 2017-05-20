@@ -15,6 +15,13 @@
 #import "LoginState.h"
 #import "LoginViewController.h"
 #import "NotificationDef.h"
+#import "LoginState.h"
+#import "LoginManager.h"
+#import "YXSearchButton.h"
+#import "SearchViewController.h"
+#import "ViewPointViewController.h"
+#import "VideoViewController.h"
+#import "PublishViewViewController.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
@@ -34,11 +41,11 @@
 
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
-
-
+        
+        
         NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
-        forKey: UIPageViewControllerOptionSpineLocationKey];
-
+                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
+        
         _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
         _pageViewController.dataSource = self;
         _pageViewController.delegate = self;
@@ -56,10 +63,15 @@
         AliveListViewController *two = [[AliveListViewController alloc] init];
         two.listType = AliveAttention;
         
-        AliveListViewController *three = [[AliveListViewController alloc] init];
-        three.listType = AliveALL;
+        //        AliveListViewController *three = [[AliveListViewController alloc] init];
+        //        three.listType = AliveALL;
         
-        _contentControllers = @[one,two,three];
+        ViewPointViewController *pointVC = [[ViewPointViewController alloc] init];
+        
+        VideoViewController *videoVC = [[VideoViewController alloc] init];
+        
+        
+        _contentControllers = @[one,two,pointVC,videoVC];
     }
     
     return _contentControllers;
@@ -73,6 +85,11 @@
         
         // Configure item buttons
         //
+        
+        DCPathItemButton *itemButton_0 = [[DCPathItemButton alloc] initWithTitle:@"观点"
+                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
+                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
+        
         DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"贴单"
                                                                  backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
                                                       backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
@@ -83,7 +100,8 @@
         
         // Add the item button into the center button
         //
-        [dcPathButton addPathItems:@[itemButton_1,
+        [dcPathButton addPathItems:@[itemButton_0,
+                                     itemButton_1,
                                      itemButton_2
                                      ]];
         
@@ -115,6 +133,7 @@
     [super viewDidLoad];
     
     [self setupNavigationBar];
+    self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
     [self.view addSubview:self.pageViewController.view];
     
     self.listType = AliveRecommend;
@@ -125,6 +144,10 @@
     [self.view addSubview:self.publishBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
+    
+    [LoginManager getAuthKey];
+    [LoginManager checkLogin];
+    
 }
 
 - (void)setupNavigationBar {
@@ -132,7 +155,7 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:TDThemeColor];
     
-    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注"]];
+    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注",@"观点",@"视频"]];
     segmented.layer.cornerRadius = 0.0f;
     segmented.layer.borderWidth = 1.0f;
     segmented.layer.borderColor = TDThemeColor.CGColor;
@@ -145,24 +168,49 @@
     [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor whiteColor]}
                              forState:UIControlStateSelected];
     
-    segmented.frame = CGRectMake(0, 0, 135, 28);
+    segmented.frame = CGRectMake(0, 0, kScreenWidth, 44);
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    self.navigationItem.titleView = segmented;
+    [self.view addSubview:segmented];
     self.segmentControl = segmented;
     
-    UIButton *rightBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
-    rightBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [rightBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
-    [rightBtn setTitle:@"播主" forState:UIControlStateNormal];
-    [rightBtn addTarget:self action:@selector(anchorPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    
+    
+    // 搜索
+    YXSearchButton *search = [[YXSearchButton alloc] init];
+    [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
+    self.navigationItem.titleView = search;
+    search.frame = CGRectMake(0, 7, [UIScreen mainScreen].bounds.size.width, 30);
+    
+    
+    
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 81, 44)];
+    UIButton *aliveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 2, 40, 40)];
+    aliveBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [aliveBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
+    [aliveBtn setTitle:@"播主" forState:UIControlStateNormal];
+    [aliveBtn addTarget:self action:@selector(anchorPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightView addSubview:aliveBtn];
+    
+    
+    
+    UIButton *messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(41, 0, 40, 44)];
+    [messageBtn setTitle:@"消息" forState:UIControlStateNormal];
+    [messageBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
+    messageBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    [messageBtn addTarget:self action:@selector(messagePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightView addSubview:messageBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    
+    
+    
+    
 }
 
 - (void)segmentValueChanged:(UISegmentedControl *)segment {
     NSInteger index = segment.selectedSegmentIndex;
-
+    
     if (index>=0 && index<self.contentControllers.count) {
         AliveListViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
@@ -178,6 +226,16 @@
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }
 
+/// 消息列表
+- (void)messagePressed:(id)sender {
+    UIViewController *messageListVC = [[UIViewController alloc] init];
+    messageListVC.title = @"消息列表";
+    messageListVC.view.backgroundColor = [UIColor whiteColor];
+    [messageListVC setHidesBottomBarWhenPushed:YES];
+    [self.navigationController pushViewController:messageListVC animated:YES];
+}
+
+
 - (void)loginStatusChanged:(id)sender {
     
     NSInteger index = self.segmentControl.selectedSegmentIndex;
@@ -187,16 +245,16 @@
     }
     
     /*
-    if (self.contentControllers.count) {
-        AliveListViewController *vc = self.contentControllers.firstObject;
-        [vc refreshActions];
-    }
-    
-    if (!US.isLogIn && (self.listType == AliveAttention)) {
-        self.listType = AliveRecommend;
-        self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
-        [self segmentValueChanged:self.segmentControl];
-    }
+     if (self.contentControllers.count) {
+     AliveListViewController *vc = self.contentControllers.firstObject;
+     [vc refreshActions];
+     }
+     
+     if (!US.isLogIn && (self.listType == AliveAttention)) {
+     self.listType = AliveRecommend;
+     self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
+     [self segmentValueChanged:self.segmentControl];
+     }
      */
 }
 
@@ -210,11 +268,21 @@
         return;
     }
     
-    AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    vc.hidesBottomBarWhenPushed = YES;
     
-    vc.publishType = (itemButtonIndex == 0)?kAlivePublishPosts:kAlivePublishNormal;
-    [self.navigationController pushViewController:vc animated:YES];
+    if (itemButtonIndex == 0) {
+        //跳转到发布页面
+        PublishViewViewController *publishview = [[PublishViewViewController alloc] init];
+        publishview.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:publishview animated:YES];
+    }else {
+        
+        AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.publishType = (itemButtonIndex == 0)?kAlivePublishPosts:kAlivePublishNormal;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    
 }
 
 #pragma mark - UIPageViewControllerDataSource
@@ -261,5 +329,14 @@
         self.segmentControl.selectedSegmentIndex = index;
     }
 }
+
+#pragma mark - 搜索点击事件
+- (void)searchPressed:(id)sender {
+    SearchViewController *searchView = [[SearchViewController alloc] init];
+    searchView.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchView animated:YES];
+}
+
+
 
 @end

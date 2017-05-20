@@ -34,7 +34,6 @@
 #import "SubscriptionViewController.h"
 #import "SurveySubjectModel.h"
 #import "NotificationDef.h"
-#import "LoginManager.h"
 #import "UIViewController+Refresh.h"
 #import "UIImage+Resize.h"
 #import "SelectedSurveySubjectViewController.h"
@@ -189,19 +188,14 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChangedNotifi:) name:kLoginStateChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
+
+//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionalStockChangedNotifi:) name:kAddOptionalStockSuccessed object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChangedNotifi:) name:kSubjectChangedNotification object:nil];
-    
     
     [self setupNavigationBar];
     [self setupTableView];
     [self refreshAction];
-
-    [LoginManager getAuthKey];
-    [LoginManager checkLogin];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -233,22 +227,22 @@
 
 #pragma mark - Setup
 - (void)setupNavigationBar {
-    UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-    avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
-    avatarBtn.imageView.layer.cornerRadius = 15.0f;
-    avatarBtn.imageView.clipsToBounds = YES;
-//    avatarBtn.backgroundColor = [UIColor redColor];
-    avatarBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-    avatarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_avatar.png"]];
-    [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
-    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
-    self.navigationItem.leftBarButtonItem = left;
+//    UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
+//    avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
+//    avatarBtn.imageView.layer.cornerRadius = 15.0f;
+//    avatarBtn.imageView.clipsToBounds = YES;
+////    avatarBtn.backgroundColor = [UIColor redColor];
+//    avatarBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
+//    avatarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
+//    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_avatar.png"]];
+//    [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
+//    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
+//    self.navigationItem.leftBarButtonItem = left;
     
     // 通知
-    UIImage *rightImage = [[UIImage imageNamed:@"news_read.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
-    self.navigationItem.rightBarButtonItem = right;
+//    UIImage *rightImage = [[UIImage imageNamed:@"news_read.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+//    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
+//    self.navigationItem.rightBarButtonItem = right;
 
     
     // 搜索
@@ -332,23 +326,23 @@
     [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
 }
 
-- (void)avatarPressed:(id)sender {
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateInitialViewController];
-    TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
-    [self presentViewController:nav animated:YES completion:nil];
-}
+//- (void)avatarPressed:(id)sender {
+//    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateInitialViewController];
+//    TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
+//    [self presentViewController:nav animated:YES completion:nil];
+//}
 
-- (void)notificationPressed:(id)sender {
-    if (US.isLogIn==NO) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        login.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:login animated:YES];
-    } else {
-        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
-        messagePush.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:messagePush animated:YES];
-    }
-}
+//- (void)notificationPressed:(id)sender {
+//    if (US.isLogIn==NO) {
+//        LoginViewController *login = [[LoginViewController alloc] init];
+//        login.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:login animated:YES];
+//    } else {
+//        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
+//        messagePush.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:messagePush animated:YES];
+//    }
+//}
 
 - (void)searchPressed:(id)sender {
     SearchViewController *searchView = [[SearchViewController alloc] init];

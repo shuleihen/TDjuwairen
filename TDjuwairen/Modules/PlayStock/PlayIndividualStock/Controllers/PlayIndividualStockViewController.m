@@ -33,6 +33,9 @@
 #import "DetailPageViewController.h"
 #import "SurveyDetailWebViewController.h"
 #import "SurveyDetailContentViewController.h"
+#import "BVUnderlineButton.h"
+#import "Masonry.h"
+
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
@@ -47,7 +50,7 @@
 @property (nonatomic, strong) NSMutableArray *listModelArr;
 
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
-@property (nonatomic, strong) UISegmentedControl *seasonSegmentControl;
+@property (strong, nonatomic) UILabel *seasonTimeLabel;
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -98,36 +101,127 @@
     return _segmentControl;
 }
 
-- (UISegmentedControl *)seasonSegmentControl
-{
-    if (!_seasonSegmentControl) {
-        NSInteger seasion = [self seasonWithCurrentTime];
-        NSArray *items;
-        if (seasion == 1) {
-            // 上午场
-            items = @[@"上午场"];
-        } else {
-            items = @[@"上午场",@"下午场"];
-        }
+
+- (UILabel *)seasonTimeLabel {
+
+    if (_seasonTimeLabel == nil) {
+        _seasonTimeLabel = [[UILabel alloc] init];
+        _seasonTimeLabel.textColor = [UIColor whiteColor];
+        _seasonTimeLabel.font = [UIFont systemFontOfSize:13.0];
         
-        _seasonSegmentControl = [[UISegmentedControl alloc] initWithItems:items];
-        _seasonSegmentControl.frame = CGRectMake(kScreenWidth-12- 55*items.count, 6.5, 55*items.count, 28);
-        _seasonSegmentControl.tintColor = [UIColor hx_colorWithHexRGBAString:@"#191a1f"];
-        _seasonSegmentControl.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
-        
-        NSDictionary *dic = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor hx_colorWithHexRGBAString:@"#101114"], NSForegroundColorAttributeName,[UIFont systemFontOfSize:12],NSFontAttributeName,nil];
-        [_seasonSegmentControl setTitleTextAttributes:dic forState:UIControlStateNormal];
-        
-        NSDictionary *dic2 = [NSDictionary dictionaryWithObjectsAndKeys:[UIColor whiteColor], NSForegroundColorAttributeName,[UIFont systemFontOfSize:12],NSFontAttributeName,nil];
-        [_seasonSegmentControl setTitleTextAttributes:dic2 forState:UIControlStateSelected];
-        
-        [_seasonSegmentControl addTarget:self action:@selector(switchingViewAction:) forControlEvents:UIControlEventValueChanged];
-        
-        _seasonSegmentControl.layer.borderWidth = 2;
-        _seasonSegmentControl.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"].CGColor;
     }
-    return _seasonSegmentControl;
+
+    return _seasonTimeLabel;
 }
+
+- (void)refeshReasionView {
+
+    /*
+     ● 00：00~09：30，显示“距上午场开始 XX:XX:XX”，可竞猜本日上午场
+     ● 09：30~10：30，显示“距上午场结束 XX:XX:XX”，可竞猜本日下午场
+     ●10：30~14：00，显示“距下午场结束 XX:XX:XX”，可竞猜本日下午场
+     ●14：00~24：00，显示“距明日上午场开始 XX:XX:XX”，可竞猜次日上午场
+     */
+    NSArray *arr = @[@{@"fromHour":@0,@"fromMin":@0,@"toHour":@9,@"toMin":@30,@"desc":@"距上午场开始",@"reasionType":@"1"},
+                     @{@"fromHour":@9,@"fromMin":@30,@"toHour":@10,@"toMin":@30,@"desc":@"距上午场结束",@"reasionType":@"2"},
+                     @{@"fromHour":@10,@"fromMin":@30,@"toHour":@14,@"toMin":@0,@"desc":@"距下午场结束",@"reasionType":@"2"},
+                     @{@"fromHour":@14,@"fromMin":@0,@"toHour":@24,@"toMin":@0,@"desc":@"距明日上午场开始",@"reasionType":@"1"}
+                     ];
+    for (NSDictionary *dict in arr) {
+        NSTimeInterval time = [self isBetweenFromHour:[dict[@"fromHour"] integerValue] FromMinute:[dict[@"fromMin"] integerValue] toHour:[dict[@"toHour"] integerValue] toMinute:[dict[@"toMin"] integerValue]];
+        NSString *str = dict[@"desc"];
+        
+        if (time >= 0) {
+            self.seasonIndex = [dict[@"reasionType"] integerValue];
+            [self startWithTime:time block:^(NSString *day) {
+                @autoreleasepool {
+                    NSMutableAttributedString *attiStr=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",str,day]];
+                    [attiStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(1, str.length-3)];
+                    _seasonTimeLabel.attributedText=attiStr;
+                }
+                
+            }];
+            break;
+        }
+    }
+
+}
+
+- (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
+    
+    __block NSInteger timeOut = timeLine;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    //每秒执行一次
+    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
+    dispatch_source_set_event_handler(_timer, ^{
+        //倒计时结束，关闭
+        if (timeOut <= 0) {
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+//                timeBlock(@"00:00:00");
+                [self refeshReasionView];
+            });
+        } else {
+            int allTime = (int)timeLine + 1;
+            int seconds = timeOut % allTime;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSInteger h=seconds/3600;
+                NSInteger m=(seconds-h*3600)/60;
+                NSInteger s=(seconds-h*3600)%60;
+                timeBlock([NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)h,(long)m,(long)s]);
+            });
+            timeOut--;
+        }
+    });
+    dispatch_resume(_timer);
+}
+
+- (NSTimeInterval)isBetweenFromHour:(NSInteger)fromHour FromMinute:(NSInteger)fromMin toHour:(NSInteger)toHour toMinute:(NSInteger)toMin
+{
+    NSDate *dateFrome = [self getCustomDateWithHour:fromHour andMinute:fromMin];
+    NSDate *dateTo = [self getCustomDateWithHour:toHour andMinute:toMin];
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
+    NSLog(@"%@----------%@",[df stringFromDate:dateFrome],[df stringFromDate:dateTo]);
+    //    NSString *fS = [];
+    if ([currentDate compare:dateFrome]==NSOrderedDescending && [currentDate compare:dateTo]==NSOrderedAscending)
+    {
+//        NSLog(@"该时间在 %d:%d-%d:%d 之间！", fromHour, fromMin, toHour, toMin);
+        
+        NSTimeInterval currentT = [currentDate timeIntervalSince1970];
+        NSTimeInterval toT = [dateTo timeIntervalSince1970];
+        
+        
+        return toT-currentT;
+    }
+    return -1;
+}
+
+- (NSDate *)getCustomDateWithHour:(NSInteger)hour andMinute:(NSInteger)minute
+{
+    //获取当前时间
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
+    
+    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    
+    currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    
+    //设置当天的某个点
+    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
+    [resultComps setYear:[currentComps year]];
+    [resultComps setMonth:[currentComps month]];
+    [resultComps setDay:[currentComps day]];
+    [resultComps setHour:hour];
+    [resultComps setMinute:minute];
+    
+    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    return [resultCalendar dateFromComponents:resultComps];
+}
+
 
 - (UIView *)emptyView {
     if (!_emptyView) {
@@ -159,8 +253,29 @@
     
     self.tagIndex = 0;
     self.pageIndex = 1;
-    self.seasonIndex = ([self seasonWithCurrentTime]==1)?1:2;
-    self.seasonSegmentControl.selectedSegmentIndex = self.seasonIndex-1;
+    [self refeshReasionView];
+    
+    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 81, 44)];
+    BVUnderlineButton *recordBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
+    [recordBtn setTitle:@"记录" forState:UIControlStateNormal];
+    [recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    recordBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+    [recordBtn addTarget:self action:@selector(myGuessPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightView addSubview:recordBtn];
+    
+    
+    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(40, 10, 1, 24)];
+    lineView.backgroundColor = TDLineColor;
+    [rightView addSubview:lineView];
+    
+    BVUnderlineButton *ruleBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(41, 0, 40, 44)];
+    [ruleBtn setTitle:@"规则" forState:UIControlStateNormal];
+    [ruleBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
+    ruleBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
+     [ruleBtn addTarget:self action:@selector(rulePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [rightView addSubview:ruleBtn];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    
     
     [self setupTableView];
     
@@ -209,7 +324,7 @@
     
 }
 
-- (IBAction)myGuessPressed:(id)sender {
+- (void)myGuessPressed:(id)sender {
     
     if (!US.isLogIn) {
         [self pushLoginViewController];
@@ -228,10 +343,10 @@
         return;
     }
     
-    NSInteger season = [self seasonWithCurrentTime];
+//    NSInteger season = ;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(season)} completion:^(id data, NSError *error) {
+    [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(self.seasonIndex)} completion:^(id data, NSError *error) {
         if (!error) {
             NSDictionary *dict = data;
             
@@ -241,7 +356,7 @@
             }else {
                 
                 PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-                vc.season = season;
+                vc.season = self.seasonIndex;
                 vc.isJoin = NO;
                 vc.delegate = self;
                 
@@ -256,7 +371,7 @@
     }];
 }
 
-- (IBAction)rulePressed:(id)sender {
+- (void)rulePressed:(id)sender {
     NSURL *url = [NSURL URLWithString:@"https://appapi.juwairen.net/index.php/Game/guessRule?guess_name=individual&device=ios"];
     TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
     [self.navigationController pushViewController:vc animated:YES];
@@ -271,13 +386,6 @@
 - (void)segmentPressed:(HMSegmentedControl *)sender {
     self.pageIndex = 1;
     self.tagIndex = sender.selectedSegmentIndex;
-    
-    [self reloadGuessListData];
-}
-
-- (void)switchingViewAction:(HMSegmentedControl *)segControl {
-    self.pageIndex = 1;
-    self.seasonIndex = segControl.selectedSegmentIndex+1;
     
     [self reloadGuessListData];
 }
@@ -611,7 +719,14 @@
     header.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"];
     
     [header addSubview:self.segmentControl];
-    [header addSubview:self.seasonSegmentControl];
+    [header addSubview:self.seasonTimeLabel];
+    
+    [self.seasonTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.equalTo(header).offset(2);
+        make.right.equalTo(header).offset(-10);
+        make.bottom.equalTo(header).offset(2);
+        
+    }];
     
     return header;
 }
@@ -622,27 +737,27 @@
 }
 
 
-- (NSInteger)seasonWithCurrentTime {
-    
-    // 10:30 之前为上午场，11：30--14：00为下午场
-    
-    // 11：30之前显示上午场，之后显示，上午场和下午场
-
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDate *now = [NSDate date];
-    
-    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:now];
-    dateComponents.hour = 11;
-    dateComponents.minute = 30;
-    dateComponents.second =0;
-    dateComponents.nanosecond =0;
-    
-    NSDate *date1 = [calendar dateFromComponents:dateComponents];
-    
-    if ([[now earlierDate:date1] isEqualToDate:now]) {
-        return 1;
-    } else {
-        return 2;
-    }
-}
+//- (NSInteger)seasonWithCurrentTime {
+//    
+//    // 10:30 之前为上午场，11：30--14：00为下午场
+//    
+//    // 11：30之前显示上午场，之后显示，上午场和下午场
+//
+//    NSCalendar *calendar = [NSCalendar currentCalendar];
+//    NSDate *now = [NSDate date];
+//    
+//    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:now];
+//    dateComponents.hour = 11;
+//    dateComponents.minute = 30;
+//    dateComponents.second =0;
+//    dateComponents.nanosecond =0;
+//    
+//    NSDate *date1 = [calendar dateFromComponents:dateComponents];
+//    
+//    if ([[now earlierDate:date1] isEqualToDate:now]) {
+//        return 1;
+//    } else {
+//        return 2;
+//    }
+//}
 @end

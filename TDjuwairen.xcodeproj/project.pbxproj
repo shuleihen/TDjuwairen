@@ -110,7 +110,6 @@
 		19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 19386EF01E7289D100D4426E /* playStockBg.mp3 */; };
 		19386EF51E728C9900D4426E /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19386EF41E728C9900D4426E /* AVFoundation.framework */; };
 		19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386EF71E72A2BC00D4426E /* ContactViewController.m */; };
-		19386EFA1E73A0EB00D4426E /* PersonalCenter.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19386EF91E73A0EB00D4426E /* PersonalCenter.storyboard */; };
 		19386F021E73A31400D4426E /* CenterItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386F011E73A31400D4426E /* CenterItemView.m */; };
 		19386F081E73A88800D4426E /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386F071E73A88800D4426E /* CenterViewController.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
@@ -763,7 +762,6 @@
 		19386EF41E728C9900D4426E /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		19386EF61E72A2BC00D4426E /* ContactViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContactViewController.h; sourceTree = "<group>"; };
 		19386EF71E72A2BC00D4426E /* ContactViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContactViewController.m; sourceTree = "<group>"; };
-		19386EF91E73A0EB00D4426E /* PersonalCenter.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PersonalCenter.storyboard; sourceTree = "<group>"; };
 		19386F001E73A31400D4426E /* CenterItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterItemView.h; sourceTree = "<group>"; };
 		19386F011E73A31400D4426E /* CenterItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterItemView.m; sourceTree = "<group>"; };
 		19386F061E73A88800D4426E /* CenterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterViewController.h; sourceTree = "<group>"; };
@@ -4325,7 +4323,6 @@
 				194186E51DF90672000C5197 /* Register.storyboard */,
 				19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */,
 				19D6B9F81E508E3C00475AA1 /* AccountManager.storyboard */,
-				19386EF91E73A0EB00D4426E /* PersonalCenter.storyboard */,
 				84E333F61CE2BA3D00E5DCEE /* Assets.xcassets */,
 				84E333F81CE2BA3D00E5DCEE /* LaunchScreen.storyboard */,
 				1966A64F1E8B89CB007DDA14 /* Popup.storyboard */,
@@ -4721,7 +4718,6 @@
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
 				19AF98491E2720290097A585 /* Survey.storyboard in Resources */,
 				4D6E67D41E976BAA009A9FB0 /* license in Resources */,
-				19386EFA1E73A0EB00D4426E /* PersonalCenter.storyboard in Resources */,
 				19252C101D51E830003E5D18 /* Info.plist in Resources */,
 				4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */,
 				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
