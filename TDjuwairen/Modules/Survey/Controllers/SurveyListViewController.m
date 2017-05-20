@@ -436,11 +436,7 @@
     
     [self setupUserAvatar];
     
-    // 如果当前页面是自选
-    SurveyContentListController *vc = [self currentContentViewController];
-    if ([vc.subjectId isEqualToString:kUserAttenSegmentTag]) {
-        [vc refreshData];
-    }
+    [self refreshAction];
 }
 
 - (void)optionalStockChangedNotifi:(NSNotification *)notifi {
