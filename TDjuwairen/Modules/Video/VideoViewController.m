@@ -86,6 +86,8 @@
     [self requestDataWithVideoList];
 }
 
+
+/// 搜索
 - (void)searchPressed:(UIButton *)sender {
     SearchViewController *searchView = [[SearchViewController alloc] init];
     searchView.hidesBottomBarWhenPushed = YES;

@@ -19,7 +19,6 @@
 #import "TDWebViewController.h"
 #import "STPopupController.h"
 #import "TDRechargeViewController.h"
-
 #import "SearchCompanyListTableView.h"
 #import "SearchCompanyListModel.h"
 
@@ -73,7 +72,6 @@
     self.tableView.alwaysBounceVertical = YES;
     self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     self.tableView.backgroundColor = TDViewBackgrouondColor;
-    
     
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.contentInset = UIEdgeInsetsMake(0, 0, 55, 0);

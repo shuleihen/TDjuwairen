@@ -25,6 +25,9 @@
 #import "MBProgressHUD.h"
 #import "AlivePublishViewController.h"
 #import "AliveListModel.h"
+#import "SurveyDownLoadHintViewController.h"
+#import "STPopup.h"
+#import "UIViewController+STPopup.h"
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,StockShareDelegate,StockAskDelegate>
 @property (nonatomic, strong) WKWebView *webView;
@@ -51,15 +54,25 @@
     [rightButton setImage:[UIImage imageNamed:@"nav_more.png"] forState:UIControlStateNormal];
     [rightButton addTarget:self action:@selector(morePressed:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *rightItem = [[UIBarButtonItem alloc]initWithCustomView:rightButton];
-    self.navigationItem.rightBarButtonItem= rightItem;
     
+    
+    UIButton *downLoadButton = [[UIButton alloc]initWithFrame:CGRectMake(0,0,45,30)];
+    [downLoadButton setTitle:@"下载" forState:UIControlStateNormal];
+    downLoadButton.titleLabel.font = [UIFont systemFontOfSize:15.0f];
+    [downLoadButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateNormal];
+    [downLoadButton addTarget:self action:@selector(downLoadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    UIBarButtonItem *downLoadButtonItem = [[UIBarButtonItem alloc]initWithCustomView:downLoadButton];
+
     if (self.tag== 0) {
         self.title = [self.stockName stringByAppendingString:@" 实地篇"];
+        self.navigationItem.rightBarButtonItem= rightItem;
     } else if (self.tag== 1) {
         self.title = [self.stockName stringByAppendingString:@" 公告篇"];
-        self.navigationItem.rightBarButtonItem = nil;
+//        self.navigationItem.rightBarButtonItem = nil;
+         self.navigationItem.rightBarButtonItem= downLoadButtonItem;
     } else if (self.tag== 3) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
+        self.navigationItem.rightBarButtonItem= rightItem;
     }
     
     // 加载内容
@@ -77,7 +90,7 @@
     [questionBtn setBackgroundImage:image forState:UIControlStateNormal];
     [questionBtn setTitle:@"提问" forState:UIControlStateNormal];
     questionBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [questionBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateNormal];
+    [questionBtn setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
     questionBtn.frame = CGRectMake(kScreenWidth-12-image.size.width, kScreenHeight-64-100-image.size.height, image.size.width, image.size.height);
     [questionBtn addTarget:self action:@selector(questionPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:questionBtn];
@@ -85,6 +98,15 @@
 
 - (void)morePressed:(id)sender {
     [self.shareView showInContainView:self.view];
+}
+
+- (void)downLoadButtonClick:(UIButton *)hintBtn {
+    SurveyDownLoadHintViewController *hintVC = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateViewControllerWithIdentifier:@"SurveyDownLoadHintViewController"];
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:hintVC];
+    popupController.containerView.layer.cornerRadius = 4;
+    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-120, 200);
+    popupController.navigationBarHidden = YES;
+    [popupController presentInViewController:self];
 }
 
 - (void)reloadData {
