@@ -228,19 +228,19 @@
                 [sections addObject:sectionData];
             }
             
-            NSArray *viewList = dic[@"viewList"];
-            if (viewList) {
-                SearchSectionData *sectionData = [[SearchSectionData alloc] init];
-                sectionData.sectionTitle = @"观点";
-                NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[viewList count]];
-                
-                for (NSDictionary *dict in viewList) {
-                    SearchResultModel *result = [[SearchResultModel alloc] initWithViewpointDict:dict];
-                    [marray addObject:result];
-                }
-                sectionData.items = marray;
-                [sections addObject:sectionData];
-            }
+//            NSArray *viewList = dic[@"viewList"];
+//            if (viewList) {
+//                SearchSectionData *sectionData = [[SearchSectionData alloc] init];
+//                sectionData.sectionTitle = @"观点";
+//                NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[viewList count]];
+//                
+//                for (NSDictionary *dict in viewList) {
+//                    SearchResultModel *result = [[SearchResultModel alloc] initWithViewpointDict:dict];
+//                    [marray addObject:result];
+//                }
+//                sectionData.items = marray;
+//                [sections addObject:sectionData];
+//            }
             /*
              NSArray *videoList = dic[@"videoList"];
              if (videoList) {
@@ -491,13 +491,14 @@
             vc.stockCode = result.resultId;
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
-        } else if ([sectionData.sectionTitle isEqualToString:@"观点"]) {
-
-            DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
-            DetailView.view_id = result.resultId;
-            DetailView.pageMode = @"view";
-            [self.navigationController pushViewController:DetailView animated:YES];
         }
+//        else if ([sectionData.sectionTitle isEqualToString:@"观点"]) {
+//
+//            DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
+//            DetailView.view_id = result.resultId;
+//            DetailView.pageMode = @"view";
+//            [self.navigationController pushViewController:DetailView animated:YES];
+//        }
     }
 }
 
