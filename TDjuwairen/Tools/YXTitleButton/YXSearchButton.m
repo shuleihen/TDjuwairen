@@ -15,7 +15,6 @@
     [super layoutSubviews];
     
     self.layer.cornerRadius = 3.0f;
-    self.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
     self.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
     self.imageEdgeInsets = UIEdgeInsetsMake(0, 11, 0, 0);
     self.titleEdgeInsets = UIEdgeInsetsMake(0, 14, 0, 0);

@@ -22,6 +22,8 @@
 #import "ViewPointViewController.h"
 #import "VideoViewController.h"
 #import "PublishViewViewController.h"
+#import "YXTitleCustomView.h"
+#import "HexColors.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
@@ -133,10 +135,12 @@
     [super viewDidLoad];
     
     [self setupNavigationBar];
-    self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
-    [self.view addSubview:self.pageViewController.view];
+    [self setupSegmentControl];
     
     self.listType = AliveRecommend;
+    
+    self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
+    [self.view addSubview:self.pageViewController.view];
     
     self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
     [self segmentValueChanged:self.segmentControl];
@@ -150,62 +154,86 @@
     
 }
 
-- (void)setupNavigationBar {
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
-    UIImage *normal = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:[UIColor whiteColor]];
-    UIImage *pressed = [UIImage imageWithSize:CGSizeMake(45, 28) withColor:TDThemeColor];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
+    
+    UIImage *image = [UIImage imageWithColor:[UIColor clearColor]];
+    [self.navigationController.navigationBar setShadowImage:image];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [self.navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setShadowImage:nil];
+}
+
+- (void)setupSegmentControl {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    view.backgroundColor = [UIColor whiteColor];
+    
+    
+    
+    UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
+    UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     
     UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注",@"观点",@"视频"]];
+    segmented.tintColor = [UIColor whiteColor];
     segmented.layer.cornerRadius = 0.0f;
     segmented.layer.borderWidth = 1.0f;
-    segmented.layer.borderColor = TDThemeColor.CGColor;
+    segmented.layer.borderColor = [UIColor whiteColor].CGColor;
     
     [segmented addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: TDThemeColor}
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]}
                              forState:UIControlStateNormal];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor whiteColor]}
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateHighlighted];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor whiteColor]}
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateSelected];
     
-    segmented.frame = CGRectMake(0, 0, kScreenWidth, 44);
+    segmented.frame = CGRectMake(0, 0, 240, 44-TDPixel);
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    [self.view addSubview:segmented];
+    
+    
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 44-TDPixel, kScreenWidth, TDPixel)];
+    sep.backgroundColor = TDSeparatorColor;
+    [view addSubview:sep];
+    
+    [view addSubview:segmented];
+    
+    [self.view addSubview:view];
+
     self.segmentControl = segmented;
+}
+
+- (void)setupNavigationBar {
     
-    
+    YXTitleCustomView *customView = [[YXTitleCustomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
     
     // 搜索
     YXSearchButton *search = [[YXSearchButton alloc] init];
+    search.backgroundColor = [UIColor whiteColor];
+    [search setTitle:@"搜索关键字" forState:UIControlStateNormal];
     [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = search;
-    search.frame = CGRectMake(0, 7, [UIScreen mainScreen].bounds.size.width, 30);
+    search.frame = CGRectMake(12, 7, kScreenWidth-12-88, 30);
+    [customView addSubview:search];
     
-    
-    
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 81, 44)];
-    UIButton *aliveBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 2, 40, 40)];
-    aliveBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    [aliveBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
-    [aliveBtn setTitle:@"播主" forState:UIControlStateNormal];
+    UIButton *aliveBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-78, 7, 30, 30)];
+    [aliveBtn setImage:[UIImage imageNamed:@"nav_anchor.png"] forState:UIControlStateNormal];
     [aliveBtn addTarget:self action:@selector(anchorPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [rightView addSubview:aliveBtn];
+    [customView addSubview:aliveBtn];
     
-    
-    
-    UIButton *messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(41, 0, 40, 44)];
-    [messageBtn setTitle:@"消息" forState:UIControlStateNormal];
-    [messageBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
-    messageBtn.titleLabel.font = [UIFont systemFontOfSize:15.0];
+    UIButton *messageBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-30-12, 7, 30, 30)];
+    [messageBtn setImage:[UIImage imageNamed:@"nav_message.png"] forState:UIControlStateNormal];
     [messageBtn addTarget:self action:@selector(messagePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [rightView addSubview:messageBtn];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    [customView addSubview:messageBtn];
     
-    
-    
-    
+    self.navigationItem.titleView = customView;
 }
 
 - (void)segmentValueChanged:(UISegmentedControl *)segment {

@@ -39,6 +39,7 @@
 #import "SelectedSurveySubjectViewController.h"
 #import "ActualQuotationViewController.h"
 #import "TDWebViewController.h"
+#import "YXTitleCustomView.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -245,12 +246,16 @@
 //    self.navigationItem.rightBarButtonItem = right;
 
     
-    // 搜索
-    YXSearchButton *search = [[YXSearchButton alloc] init];
-    [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
-    self.navigationItem.titleView = search;
+    YXTitleCustomView *customView = [[YXTitleCustomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
     
-    search.frame = CGRectMake(0, 7, [UIScreen mainScreen].bounds.size.width, 30);
+    YXSearchButton *search = [[YXSearchButton alloc] init];
+    search.frame = CGRectMake(12, 7, kScreenWidth-24, 30);
+    search.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
+    [search addTarget:self action:@selector(searchPressed:) forControlEvents:UIControlEventTouchUpInside];
+    
+    [customView addSubview:search];
+    
+    self.navigationItem.titleView = customView;
 }
 
 - (void)setupTableView {
