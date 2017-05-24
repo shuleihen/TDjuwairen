@@ -12,22 +12,37 @@
 
 @interface AliveListModel : NSObject
 @property (nonatomic, assign) BOOL isForward;
+/// 动态ID
 @property (nonatomic, copy) NSString *aliveId;
+/// 动态类型，1表示图文，2表示裸单,3表示调研 4表示热点
 @property (nonatomic, assign) AliveType aliveType;
+/// 动态文本内容
 @property (nonatomic, copy) NSString *aliveTitle;
+/// 动态图片列表
 @property (nonatomic, strong) NSArray *aliveImgs;
+/// 动态时间
 @property (nonatomic, copy) NSString *aliveTime;
+/// 播主ID
 @property (nonatomic, copy) NSString *masterId;
+/// 播主昵称
 @property (nonatomic, copy) NSString *masterNickName;
+/// 播主头像
 @property (nonatomic, copy) NSString *masterAvatar;
+/// 动态评论数
 @property (nonatomic, assign) NSInteger commentNum;
+/// 当前用户是否点赞
 @property (nonatomic, assign) BOOL isLike;
+/// 点赞数
 @property (nonatomic, assign) NSInteger likeNum;
+/// 分享数
 @property (nonatomic, assign) NSInteger shareNum;
+/// 分享地址URL
 @property (nonatomic, copy) NSString *shareUrl;
-@property (nonatomic, strong) NSArray *aliveTags;   // 标签数组
+/// 贴单标签(数组)
+@property (nonatomic, strong) NSArray *aliveTags;
 @property (nonatomic, strong) AliveListForwardModel *forwardModel;
-@property (nonatomic, assign) BOOL isOfficial;  // 是否官方认证
+///  是否官方认证
+@property (nonatomic, assign) BOOL isOfficial;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

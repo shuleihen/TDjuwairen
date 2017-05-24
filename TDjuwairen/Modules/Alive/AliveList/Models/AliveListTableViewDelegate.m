@@ -132,6 +132,41 @@ AliveListSectionHeaderDelegate>
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell arrowPressed:(id)sender {
+    AliveListCellData *cellData = cell.cellData;
+    AliveListModel *listModel = cellData.aliveModel;
+    /**
+     
+     10、用户本人点击【∨】从下向上弹出按钮【删除】和【取消】，点击【删除】删除动态，点击【取消】取消操作
+     11、用户点击非本人动态的【∨】从下向上弹出按钮【关注（取消关注）】，点击【关注】关注该用户，点击【取消关注】取消关注
+     */
+    
+    NSString *str = @"";
+    if ([listModel.masterId isEqualToString:US.userId]) {
+        // 是用户分人的动态
+        str = @"删除";
+        [self deleteDynamicWithAliveListModel:cellData andCellTag:cell.tag];
+    }else {
+    
+// 判断用户是否关注过该主播
+        str = @"关注";
+        UIAlertController *alertVC = [[UIAlertController alloc] init];
+        UIAlertAction *actionDone = [UIAlertAction actionWithTitle:str style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            NSLog(@"AliveList-Models-AliveListTableViewDelegate.m");
+        }];
+        [alertVC addAction:actionDone];
+        
+        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            
+        }];
+        [alertVC addAction:actionCancel];
+        
+        [self.viewController presentViewController:alertVC animated:YES completion:^{}];
+    }
+    
+}
+
+
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
     if (!self.avatarPressedEnabled) {
         return;
@@ -285,48 +320,8 @@ AliveListSectionHeaderDelegate>
     if (headerView.section > self.itemList.count) {
         return;
     }
-    
-    AliveListCellData *cellData = self.itemList[headerView.section];
-    AliveListModel *aliveModel = cellData.aliveModel;
-    
-    NSDictionary *dict = @{@"alive_id": aliveModel.aliveId,@"alive_type" :@(aliveModel.aliveType)};
-    
-    __weak AliveListTableViewDelegate *wself = self;
-    
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除该条动态吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *done = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.navigationController.view animated:YES];
-        
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
-            
-            if (!error) {
-                [hud hide:YES];
-                
-                NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
-                [array removeObject:cellData];
-                
-                wself.itemList = array;
-                
-                [self.tableView beginUpdates];
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:headerView.section] withRowAnimation:UITableViewRowAnimationNone];
-                
-                if (wself.reloadView) {
-                    wself.reloadView();
-                }
-                [self.tableView endUpdates];
-            }else{
-                hud.labelText = @"删除失败";
-                [hud hide:YES afterDelay:0.7];
-            }
-        }];
-    }];
-    
-    [alert addAction:done];
-    [alert addAction:cancel];
-    [self.viewController presentViewController:alert animated:YES completion:nil];
+        AliveListCellData *cellData = self.itemList[headerView.section];
+    [self deleteDynamicWithAliveListModel:cellData andCellTag:headerView.section];
 }
 
 
@@ -353,6 +348,7 @@ AliveListSectionHeaderDelegate>
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.row == 0) {
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
+        cell.tag = indexPath.section;
         cell.delegate = self;
         
         return cell;
@@ -412,6 +408,53 @@ AliveListSectionHeaderDelegate>
 }
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10.0f;
+}
+
+
+
+#pragma mark - 删除动态
+- (void)deleteDynamicWithAliveListModel:(AliveListCellData *)cellData andCellTag:(NSInteger)cellSection  {
+    AliveListModel *aliveModel = cellData.aliveModel;
+    
+    NSDictionary *dict = @{@"alive_id": aliveModel.aliveId,@"alive_type" :@(aliveModel.aliveType)};
+    
+    __weak AliveListTableViewDelegate *wself = self;
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除该条动态吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
+        
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.navigationController.view animated:YES];
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
+            
+            if (!error) {
+                [hud hide:YES];
+                
+                NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
+                [array removeObject:cellData];
+                
+                wself.itemList = array;
+                
+                [self.tableView beginUpdates];
+                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:cellSection] withRowAnimation:UITableViewRowAnimationNone];
+                
+                if (wself.reloadView) {
+                    wself.reloadView();
+                }
+                [self.tableView endUpdates];
+            }else{
+                hud.labelText = @"删除失败";
+                [hud hide:YES afterDelay:0.7];
+            }
+        }];
+    }];
+    
+    [alert addAction:done];
+    [alert addAction:cancel];
+    [self.viewController presentViewController:alert animated:YES completion:nil];
+
 }
 
 
