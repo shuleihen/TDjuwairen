@@ -125,10 +125,10 @@
         _article_typeLabel.hidden = NO;
         _article_titleLabel.hidden = NO;
         [_stockNowPriLabel sizeToFit];
-        _stockNowPriLabel.frame = CGRectMake(131, CGRectGetMaxY(_surveyTitleLabel.frame)+12, w-CGRectGetMaxX(_surveyImageView.frame)-24, CGRectGetHeight(_stockNowPriLabel.frame)+5);
         _surveyTitleLabel.text = [NSString stringWithFormat:@"%@(%@)",survey.companyName,survey.companyCode];
         CGSize titleSize = [_surveyTitleLabel sizeThatFits:CGSizeMake(w-130, MAXFLOAT)];
         _surveyTitleLabel.frame = CGRectMake(127, 14, w-130, titleSize.height);
+        _stockNowPriLabel.frame = CGRectMake(131, CGRectGetMaxY(_surveyTitleLabel.frame)+12, w-CGRectGetMaxX(_surveyImageView.frame)-24, CGRectGetHeight(_stockNowPriLabel.frame)+5);
         _article_typeLabel.text = [self articleType:survey.surveyType];
         _article_titleLabel.text = survey.surveyTitle;
     }else {

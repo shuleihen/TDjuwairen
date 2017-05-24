@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -82,26 +82,42 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gs-v8-drG">
-                                        <rect key="frame" x="60" y="111.5" width="90" height="36"/>
+                                        <rect key="frame" x="105" y="111.5" width="80" height="36"/>
                                         <color key="backgroundColor" red="0.19909331202507019" green="0.44265499711036682" blue="0.88729697465896606" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="90" id="FGu-FS-npd"/>
+                                            <constraint firstAttribute="width" constant="80" id="FGu-FS-npd"/>
                                             <constraint firstAttribute="height" constant="36" id="ZMa-A3-m6d"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                        <state key="normal" title="解锁">
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="立即解锁">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="所有实地对话内容均永久解锁" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8n-yt-Fi3">
-                                        <rect key="frame" x="32" y="152.5" width="146.5" height="13.5"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="解锁后，所有调研内容均永久解锁" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X8n-yt-Fi3">
+                                        <rect key="frame" x="21" y="152.5" width="169" height="13.5"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="11"/>
                                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btz-4O-Moz">
+                                        <rect key="frame" x="17" y="111" width="80" height="36"/>
+                                        <color key="backgroundColor" red="1" green="0.42745098039215684" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="80" id="Dkd-CT-dY8"/>
+                                            <constraint firstAttribute="height" constant="36" id="oEC-Vv-F2k"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" title="98成为会员">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="becomeMemberButtonClick:" destination="vXE-KS-bMj" eventType="touchUpInside" id="zNU-h9-bDk"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="7gs-v8-drG" firstAttribute="leading" secondItem="Btz-4O-Moz" secondAttribute="trailing" constant="8" id="3iO-2c-VFY"/>
                                     <constraint firstAttribute="trailing" secondItem="eif-Gk-cBl" secondAttribute="trailing" constant="15" id="4Nd-ij-X66"/>
                                     <constraint firstAttribute="trailing" secondItem="fS2-MT-SrO" secondAttribute="trailing" constant="15" id="CVb-C7-F7S"/>
                                     <constraint firstItem="X8n-yt-Fi3" firstAttribute="centerX" secondItem="Tlk-TA-25a" secondAttribute="centerX" id="Gcf-2j-uT8"/>
@@ -109,11 +125,12 @@
                                     <constraint firstItem="e7W-QT-h2O" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="MlT-vj-SRZ"/>
                                     <constraint firstItem="7gs-v8-drG" firstAttribute="top" secondItem="e7W-QT-h2O" secondAttribute="bottom" constant="10" id="NEf-Cv-LwK"/>
                                     <constraint firstAttribute="trailing" secondItem="e7W-QT-h2O" secondAttribute="trailing" constant="15" id="Otg-vw-BPx"/>
+                                    <constraint firstItem="7gs-v8-drG" firstAttribute="centerY" secondItem="Btz-4O-Moz" secondAttribute="centerY" id="QqH-Em-PZc"/>
                                     <constraint firstItem="YI4-1M-7Ju" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="ZgZ-np-2Um"/>
                                     <constraint firstItem="eif-Gk-cBl" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="afa-H3-a4C"/>
                                     <constraint firstItem="e7W-QT-h2O" firstAttribute="top" secondItem="eif-Gk-cBl" secondAttribute="bottom" constant="12" id="cD8-iv-edG"/>
                                     <constraint firstItem="YI4-1M-7Ju" firstAttribute="top" secondItem="Tlk-TA-25a" secondAttribute="top" constant="15" id="cZb-05-nPg"/>
-                                    <constraint firstItem="7gs-v8-drG" firstAttribute="centerX" secondItem="Tlk-TA-25a" secondAttribute="centerX" id="ciJ-iI-5ik"/>
+                                    <constraint firstItem="7gs-v8-drG" firstAttribute="centerX" secondItem="Tlk-TA-25a" secondAttribute="centerX" constant="40" id="ciJ-iI-5ik"/>
                                     <constraint firstItem="fS2-MT-SrO" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="hpX-Jw-hBI"/>
                                     <constraint firstAttribute="trailing" secondItem="YI4-1M-7Ju" secondAttribute="trailing" constant="15" id="hwg-eX-z95"/>
                                     <constraint firstItem="eif-Gk-cBl" firstAttribute="top" secondItem="YI4-1M-7Ju" secondAttribute="bottom" constant="13" id="j5z-Xm-IGv"/>
@@ -154,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="u7b-O8-ddH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-262.39999999999998" y="82.758620689655174"/>
+            <point key="canvasLocation" x="50" y="44"/>
         </scene>
         <!--充值-->
         <scene sceneID="SDU-4c-jB6">
@@ -399,7 +416,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="306" y="59"/>
+            <point key="canvasLocation" x="488" y="33"/>
         </scene>
         <!--充值方式-->
         <scene sceneID="DHy-xb-kw9">

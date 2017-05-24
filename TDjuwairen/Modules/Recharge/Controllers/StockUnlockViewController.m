@@ -48,32 +48,38 @@
 }
 
 - (void)setupDataWithKeyNumber:(long)keyNumber {
-    self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",keyNumber];
+    
     if (keyNumber >= self.needKey) {
-        [self.doneBtn setTitle:@"解锁" forState:UIControlStateNormal];
-        [self.doneBtn setTitle:@"解锁" forState:UIControlStateHighlighted];
+        self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",keyNumber];
+        [self.doneBtn setTitle:@"立即解锁" forState:UIControlStateNormal];
+        [self.doneBtn setTitle:@"立即解锁" forState:UIControlStateHighlighted];
         [self.doneBtn addTarget:self action:@selector(unlockPressed:) forControlEvents:UIControlEventTouchUpInside];
     } else {
-        [self.doneBtn setTitle:@"充值" forState:UIControlStateNormal];
-        [self.doneBtn setTitle:@"充值" forState:UIControlStateHighlighted];
+        self.balanceLabel.text = @"账户余额不足";
+        [self.doneBtn setTitle:@"购买钥匙" forState:UIControlStateNormal];
+        [self.doneBtn setTitle:@"购买钥匙" forState:UIControlStateHighlighted];
         [self.doneBtn addTarget:self action:@selector(rechargePressed:) forControlEvents:UIControlEventTouchUpInside];
     }
 }
 
 - (void)unlockPressed:(id)sender {
+    
     if (self.needKey > self.balanceKey) {
         UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"账户余额不足！" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:done];
         [self.popupController presentInViewController:alert completion:nil];
         return;
+    }else {
+    
+        
+        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
+            [self.delegate unlockWithStockCode:self.stockCode];
+        }
+        
+        [self dismissViewControllerAnimated:NO completion:nil];
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
-        [self.delegate unlockWithStockCode:self.stockCode];
-    }
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)rechargePressed:(id)sender {
@@ -86,5 +92,9 @@
 
 - (IBAction)closePressed:(id)sender {
     [self.popupController dismiss];
+}
+
+
+- (IBAction)becomeMemberButtonClick:(UIButton *)sender {
 }
 @end
