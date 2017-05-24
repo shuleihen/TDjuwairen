@@ -12,6 +12,8 @@
 
 - (void)sharePressed;
 - (void)feedbackPressed;
+/// 收藏
+- (void)collectionPressed;
 @end
 
 @interface StockShareView : UIView

@@ -31,22 +31,35 @@
         _panelView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 81)];
         _panelView.backgroundColor = [UIColor whiteColor];
         
+        CGFloat margin = (kScreenWidth-46*3)/4;
         UIButton *share = [UIButton buttonWithType:UIButtonTypeCustom];
         share.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [share setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
         [share setImage:[UIImage imageNamed:@"icon_share.png"] forState:UIControlStateNormal];
         [share setTitle:@"分享" forState:UIControlStateNormal];
-        share.frame = CGRectMake((kScreenWidth-(52*2+70))/2, 15, 46, 52);
+        share.frame = CGRectMake(margin, 15, 46, 52);
         [share addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
         [share align:BAVerticalImage withSpacing:5];
         [_panelView addSubview:share];
+        
+        
+        UIButton *collection = [UIButton buttonWithType:UIButtonTypeCustom];
+        collection.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+        [collection setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
+        [collection setImage:[UIImage imageNamed:@"btn_col.png"] forState:UIControlStateNormal];
+        [collection setTitle:@"收藏" forState:UIControlStateNormal];
+        collection.frame = CGRectMake(CGRectGetMaxX(share.frame)+margin, 15, 46, 52);
+        [collection addTarget:self action:@selector(collectionPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [collection align:BAVerticalImage withSpacing:5];
+        [_panelView addSubview:collection];
+        
         
         UIButton *feedback = [UIButton buttonWithType:UIButtonTypeCustom];
         feedback.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [feedback setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
         [feedback setImage:[UIImage imageNamed:@"icon_feedback.png"] forState:UIControlStateNormal];
         [feedback setTitle:@"反馈" forState:UIControlStateNormal];
-        feedback.frame = CGRectMake(CGRectGetMaxX(share.frame)+70, 15, 46, 52);
+        feedback.frame = CGRectMake(CGRectGetMaxX(collection.frame)+margin, 15, 46, 52);
         [feedback addTarget:self action:@selector(feedbackPressed:) forControlEvents:UIControlEventTouchUpInside];
         [feedback align:BAVerticalImage withSpacing:5];
         [_panelView addSubview:feedback];
@@ -82,6 +95,15 @@
     if (self.delegate && [self.delegate respondsToSelector:@selector(sharePressed)]) {
         [self.delegate sharePressed];
     }
+}
+
+- (void)collectionPressed:(id)sender {
+    [self hide];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(sharePressed)]) {
+        [self.delegate collectionPressed];
+    }
+    
 }
 
 - (void)feedbackPressed:(id)sender {

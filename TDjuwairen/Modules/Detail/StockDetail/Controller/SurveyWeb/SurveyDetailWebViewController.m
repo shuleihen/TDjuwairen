@@ -8,7 +8,6 @@
 
 #import "SurveyDetailWebViewController.h"
 #import "FeedbackViewController.h"
-#import "SurveyMoreViewController.h"
 #import "LoginViewController.h"
 #import "LoginState.h"
 #import "CocoaLumberjack.h"
@@ -68,7 +67,6 @@
         self.navigationItem.rightBarButtonItem= rightItem;
     } else if (self.tag== 1) {
         self.title = [self.stockName stringByAppendingString:@" 公告篇"];
-//        self.navigationItem.rightBarButtonItem = nil;
          self.navigationItem.rightBarButtonItem= downLoadButtonItem;
     } else if (self.tag== 3) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
@@ -227,6 +225,13 @@
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
     }
+}
+
+
+/// 收藏
+- (void)collectionPressed {
+
+    
 }
 
 #pragma mark - WKNavigationDelegate
