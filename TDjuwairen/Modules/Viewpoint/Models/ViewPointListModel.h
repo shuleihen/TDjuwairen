@@ -20,7 +20,7 @@
 
 @property (nonatomic,copy) NSString *user_facemin;         //发表人头像
 @property (nonatomic,copy) NSString *user_nickname;        //发表人昵称
-@property (nonatomic,copy) NSString *view_visitnum;     //访问数
+@property (nonatomic,copy) NSString *view_visitnum;        //访问数
 
 @property (nonatomic,copy) NSString *view_isoriginal;//是否原创
 

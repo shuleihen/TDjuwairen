@@ -17,7 +17,6 @@
 #import "LoginViewController.h"
 #import "LoginState.h"
 #import "SearchViewController.h"
-
 #import "NSString+Ext.h"
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
@@ -41,7 +40,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupWithNavigation];
     [self setupTabelView];
     
     [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, CGRectGetHeight(self.tableView.bounds)/2)];
@@ -50,7 +48,7 @@
 }
 
 - (void)setupTabelView {
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50) style:UITableViewStylePlain];
+    UITableView *tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50) style:UITableViewStylePlain];
     tableview.backgroundColor = TDViewBackgrouondColor;
     tableview.separatorColor = TDSeparatorColor;
     tableview.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
@@ -63,24 +61,13 @@
     self.tableView = tableview;
     
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
 }
 
-- (void)setupWithNavigation{
-    self.title = @"观点";
-
-//    UIButton *publish = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-//    [publish setImage:[UIImage imageNamed:@"nav_publish.png"] forState:UIControlStateNormal];
-//    [publish addTarget:self action:@selector(GoPublish:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *rightItem1 = [[UIBarButtonItem alloc]initWithCustomView:publish];
-//    
-//    UIButton*search = [[UIButton alloc]initWithFrame:CGRectMake(0,0,30,30)];
-//    [search setImage:[UIImage imageNamed:@"nav_search.png"] forState:UIControlStateNormal];
-//    [search addTarget:self action:@selector(GoSearch:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *rightItem2 = [[UIBarButtonItem alloc]initWithCustomView:search];
-//    
-//    self.navigationItem.rightBarButtonItems = @[rightItem1,rightItem2];
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.tableView.frame = self.view.bounds;
 }
 
 - (void)refreshActions{
@@ -130,18 +117,20 @@
 
 
 #pragma mark - TableView
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
-{
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
-{
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return self.viewNewArr.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    ViewPointListModel *model = self.viewNewArr[indexPath.row];
+    return [ViewPointTableViewCell heightWithViewpointModel:model];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     NSString *identifier = @"cell";
     ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
     if (cell == nil) {
@@ -149,29 +138,9 @@
     }
     
     ViewPointListModel *model = self.viewNewArr[indexPath.row];
-    [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-    NSString *isoriginal;
-    if ([model.view_isoriginal isEqualToString:@"0"]) {
-        isoriginal = @"";
-    }else
-    {
-        isoriginal = @"原创";
-    }
-    cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",model.user_nickname,model.view_wtime,isoriginal];
-    
-    UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-    cell.titleLabel.font = font;
-    cell.titleLabel.numberOfLines = 0;
-    titlesize = CGSizeMake(kScreenWidth-30, 500.0);
-    titlesize = [model.view_title calculateSize:titlesize font:font];
-    cell.titleLabel.text = model.view_title;
-    [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-    return cell;
-}
+    [cell setupViewPointModel:model];
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    return 15+25+10+titlesize.height+15;
+    return cell;
 }
 
 #pragma mark - 点击cell

@@ -112,7 +112,7 @@
         // Change the bloom radius, default is 105.0f
         //
         dcPathButton.bloomRadius = 90.0f;
-        dcPathButton.bloomAngel = 60.0f;
+        dcPathButton.bloomAngel = 90.0f;
         
         // Change the DCButton's center
         //

@@ -16,7 +16,7 @@
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
                 
-        _avatar = [[UIImageView alloc] initWithFrame:CGRectMake(12, 15, 40, 40)];
+        _avatar = [[UIImageView alloc] initWithFrame:CGRectMake(12, 12, 40, 40)];
         _avatar.layer.cornerRadius = 20.0f;
         _avatar.clipsToBounds = YES;
         _avatar.userInteractionEnabled = YES;
@@ -25,16 +25,16 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
         [_avatar addGestureRecognizer:tap];
         
-        _tiedanLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 60, 40, 12)];
-        _tiedanLabel.font = [UIFont systemFontOfSize:12.0f];
-        _tiedanLabel.textAlignment = NSTextAlignmentCenter;
-        _tiedanLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
-        _tiedanLabel.text = @"贴单";
-        _tiedanLabel.layer.borderWidth = 0.5f;
-        _tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"].CGColor;
-        [self.contentView addSubview:_tiedanLabel];
+//        _tiedanLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 60, 40, 12)];
+//        _tiedanLabel.font = [UIFont systemFontOfSize:12.0f];
+//        _tiedanLabel.textAlignment = NSTextAlignmentCenter;
+//        _tiedanLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+//        _tiedanLabel.text = @"贴单";
+//        _tiedanLabel.layer.borderWidth = 0.5f;
+//        _tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"].CGColor;
+//        [self.contentView addSubview:_tiedanLabel];
         
-        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 15, kScreenWidth-92-64, 18)];
+        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(62, 14, kScreenWidth-92-64, 18)];
         _nickNameLabel.font = [UIFont systemFontOfSize:16.0f];
         _nickNameLabel.textAlignment = NSTextAlignmentLeft;
         _nickNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
@@ -44,19 +44,24 @@
         UITapGestureRecognizer *nickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
         [_nickNameLabel addGestureRecognizer:nickTap];
         
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(62, 36, 80, 12)];
+        _timeLabel.font = [UIFont systemFontOfSize:12.0f];
+        _timeLabel.textAlignment = NSTextAlignmentLeft;
+        _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+        [self.contentView addSubview:_timeLabel];
         
         _officialImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_official.png"]];
         _officialImageView.hidden = YES;
         [self.contentView addSubview:_officialImageView];
         
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(kScreenWidth-92, 15, 80, 12)];
-        _timeLabel.font = [UIFont systemFontOfSize:12.0f];
-        _timeLabel.textAlignment = NSTextAlignmentRight;
-        _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
-        [self.contentView addSubview:_timeLabel];
         
+        UIButton *arrow = [[UIButton alloc] init];
+        [arrow setImage:[UIImage imageNamed:@"icon_arrow_down.png"] forState:UIControlStateNormal];
+        arrow.frame = CGRectMake(kScreenWidth-42, 12, 30, 30);
+        [arrow addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:arrow];
         
-        _messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectMake(64, 42, kScreenWidth-12-64, 0)];
+        _messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _messageLabel.font = [UIFont systemFontOfSize:16.0f];
         _messageLabel.textAlignment = NSTextAlignmentLeft;
         _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
@@ -67,11 +72,11 @@
         _imagesView = [[AliveListImagesView alloc] initWithFrame:CGRectZero];
         [self.contentView addSubview:_imagesView];
         
-        _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-64-12, 80)];
+        _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectZero];
         _tagsView.hidden = YES;
         [self.contentView addSubview:_tagsView];
         
-        self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-64-12, 80)];
+        self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectZero];
         self.forwardView.hidden = YES;
         [self.contentView addSubview:self.forwardView];
         
@@ -93,13 +98,6 @@
 
     // Configure the view for the selected state
 }
-
-- (IBAction)avatarPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:avatarPressed:)]) {
-        [self.delegate aliveListTableCell:self avatarPressed:sender];
-    }
-}
-
 
 - (void)setupAliveListCellData:(AliveListCellData *)cellData {
     self.cellData = cellData;
@@ -179,6 +177,18 @@
 - (void)forwardAvatarPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardAvatarPressed:)]) {
         [self.delegate aliveListTableCell:self forwardAvatarPressed:sender];
+    }
+}
+
+- (IBAction)avatarPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:avatarPressed:)]) {
+        [self.delegate aliveListTableCell:self avatarPressed:sender];
+    }
+}
+
+- (void)arrowPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:arrowPressed:)]) {
+        [self.delegate aliveListTableCell:self arrowPressed:sender];
     }
 }
 @end

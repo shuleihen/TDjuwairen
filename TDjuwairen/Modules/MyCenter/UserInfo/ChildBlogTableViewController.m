@@ -267,31 +267,9 @@
                 cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
             }
             ViewPointListModel *model = self.viewListDataArray[indexPath.row];
-            [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:model.user_facemin]];
-            NSString *isoriginal;
-            if ([model.view_isoriginal isEqualToString:@"0"]) {
-                isoriginal = @"";
-            }else
-            {
-                isoriginal = @"原创";
-            }
-            cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@",model.view_wtime,isoriginal];
             
+            [cell setupViewPointModel:model];
             
-            UIFont *font = [UIFont fontWithName:@"Helvetica-Bold" size:18];
-            cell.titleLabel.font = font;
-            cell.titleLabel.numberOfLines = 0;
-            self.titlesize = CGSizeMake(kScreenWidth-30, 500.0);
-            self.titlesize = [model.view_title calculateSize:self.titlesize font:font];
-            cell.titleLabel.text = model.view_title;
-            [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, self.titlesize.height)];
-            [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+self.titlesize.height+14, kScreenWidth, 1)];
-            
-            
-            cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
-            cell.titleLabel.textColor = self.daynightmodel.textColor;
-            cell.backgroundColor = self.daynightmodel.navigationColor;
-            cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
             return cell;
         }
         else

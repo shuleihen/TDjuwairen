@@ -175,30 +175,8 @@
             cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
         ViewPointListModel *model = self.listArr[indexPath.row];
-        [cell.headImgView sd_setImageWithURL:[NSURL URLWithString:self.loginState.headImage]];
-        NSString *isoriginal;
-        if ([model.view_isoriginal isEqualToString:@"0"]) {
-            isoriginal = @"转载";
-        }else
-        {
-            isoriginal = @"原创";
-        }
-        cell.nicknameLabel.text = [NSString stringWithFormat:@"%@  %@  %@",self.loginState.nickName,model.view_wtime,isoriginal];
+        [cell setupViewPointModel:model];
         
-        
-        UIFont *font = [UIFont systemFontOfSize:16];
-        cell.titleLabel.font = font;
-        cell.titleLabel.numberOfLines = 0;
-        titlesize = CGSizeMake(kScreenWidth-30, 500.0);
-        titlesize = [model.view_title calculateSize:titlesize font:font];
-        cell.titleLabel.text = model.view_title;
-        [cell.titleLabel setFrame:CGRectMake(15, 15+25+10, kScreenWidth-30, titlesize.height)];
-        [cell.lineLabel setFrame:CGRectMake(0, 15+25+10+titlesize.height+14, kScreenWidth, 1)];
-        
-        cell.nicknameLabel.textColor = self.daynightmodel.titleColor;
-        cell.titleLabel.textColor = self.daynightmodel.textColor;
-        cell.backgroundColor = self.daynightmodel.navigationColor;
-        cell.lineLabel.layer.borderColor = self.daynightmodel.lineColor.CGColor;
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         return cell;
     }

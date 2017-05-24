@@ -32,7 +32,7 @@
 
 - (void)setup {
     
-    CGFloat left = 64.0f;
+    CGFloat left = 12.0f;
     CGFloat height = 0;
     
     self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
@@ -44,16 +44,16 @@
                                      withConstraints:CGSizeMake(kScreenWidth-left-12, MAXFLOAT)
                               limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 42, kScreenWidth-left-12, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 62, kScreenWidth-left-12, messageSize.height);
     
     if (self.aliveModel.isForward) {
         self.imgsViewFrame = CGRectZero;
         
         if (self.message.string.length == 0) {
             // 转发分享，没有标题内容
-            self.forwardFrame = CGRectMake(64, 42, kScreenWidth-left-12, 80);
+            self.forwardFrame = CGRectMake(left, 62, kScreenWidth-left-12, 80);
         } else {
-            self.forwardFrame = CGRectMake(64, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, 80);
+            self.forwardFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, 80);
         }
         
         height = CGRectGetMaxY(self.forwardFrame) + 11.0f;
