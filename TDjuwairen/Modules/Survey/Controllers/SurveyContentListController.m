@@ -55,7 +55,7 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.bounces = NO;
         _tableView.scrollEnabled = NO;
-        _tableView.rowHeight = [SurveryStockListCell rowHeight];
+//        _tableView.rowHeight = [SurveryStockListCell rowHeight];
         
         [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
     }
@@ -140,6 +140,13 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SurveyContentListController *wself = self;
+    
+    if ([self.subjectTitle isEqualToString:@"自选"]) {
+        _tableView.rowHeight = 118;
+    }else {
+    
+        _tableView.rowHeight = 97;
+    }
     
     NSDictionary *dict = @{@"sub_id" : self.subjectId,@"page" : @(pageA)};
     
@@ -309,10 +316,19 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
+    cell.subjectTitle = self.subjectTitle;
     cell.delegate = self;
     
     return cell;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    if (self.subjectTitle iseq) {
+//        <#statements#>
+//    }
+//}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *scell = (SurveryStockListCell *)cell;
