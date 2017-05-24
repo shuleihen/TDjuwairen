@@ -49,6 +49,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
+//    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    
     [self.view addSubview:self.tableView];
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
@@ -58,6 +60,12 @@
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
     
     [self refreshActions];
+}
+
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    
+    self.tableView.frame = self.view.bounds;
 }
 
 #pragma mark - Action

@@ -17,6 +17,7 @@
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell arrowPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender;
 @end

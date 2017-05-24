@@ -7,17 +7,26 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ViewPointListModel.h"
+
+@class ViewPointTableViewCell;
+@protocol ViewpointListTableCellDelegate <NSObject>
+- (void)viewpointListTableCell:(ViewPointTableViewCell *)cell avatarPressed:(id)sender;
+- (void)viewpointListTableCell:(ViewPointTableViewCell *)cell arrowPressed:(id)sender;
+@end
 
 @interface ViewPointTableViewCell : UITableViewCell
 
-@property (nonatomic,strong) UIImageView *headImgView;// 头像
+@property (strong, nonatomic) UIImageView *avatar;
+@property (strong, nonatomic) UILabel *nickNameLabel;
+@property (strong, nonatomic) UIImageView *officialImageView;
+@property (strong, nonatomic) UILabel *timeLabel;
+@property (strong, nonatomic) UILabel *messageLabel;
+@property (strong, nonatomic) UIImageView *coverImageView;
 
-@property (nonatomic,strong) UILabel *nicknameLabel;//包含时间
+@property (weak, nonatomic) id<ViewpointListTableCellDelegate> delegate;
 
-@property (nonatomic,strong) UILabel *nature;//官方非官方
++ (CGFloat)heightWithViewpointModel:(ViewPointListModel *)model;
 
-@property (nonatomic,strong) UILabel *titleLabel;//标题
-
-@property (nonatomic,strong) UILabel *lineLabel;
-
+- (void)setupViewPointModel:(ViewPointListModel *)model;
 @end

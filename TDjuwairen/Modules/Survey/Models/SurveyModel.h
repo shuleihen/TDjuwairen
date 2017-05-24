@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface SurveyModel : NSObject
+// 1为实地、2为对话、5为深度、6为评论，11表示视频
 @property (nonatomic, assign) NSInteger surveyType;
 @property (nonatomic, copy) NSString *surveyId;
 @property (nonatomic, copy) NSString *surveyTitle;
