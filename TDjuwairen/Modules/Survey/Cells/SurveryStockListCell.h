@@ -25,7 +25,15 @@
 @property (nonatomic, strong) UILabel *surveyTitleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIImageView *typeImageView;
+/// 文章类型
+@property (strong, nonatomic) UILabel *article_typeLabel;
+/// 文章描述
+@property (strong, nonatomic) UILabel *article_titleLabel;
+
+
 @property (nonatomic, strong) SurveyModel *model;
+/// 模块类型 :自选 推荐 。。。
+@property (copy, nonatomic) NSString *subjectTitle;
 
 @property (nonatomic, weak) id<SurveyStockListCellDelegate> delegate;
 

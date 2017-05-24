@@ -31,6 +31,7 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) UIView *noDataView;
+@property (assign, nonatomic) CGFloat cellHeight;
 @end
 
 @implementation SurveyContentListController
@@ -55,8 +56,7 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
         _tableView.showsVerticalScrollIndicator = NO;
         _tableView.bounces = NO;
         _tableView.scrollEnabled = NO;
-        _tableView.rowHeight = [SurveryStockListCell rowHeight];
-        
+        _tableView.tableFooterView = [UIView new];
         [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
     }
     
@@ -124,8 +124,7 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 
 - (CGFloat)contentHeight {
     CGFloat height = 0.0f;
-    
-    height = [SurveryStockListCell rowHeight]*[self.surveyList count];
+    height = self.cellHeight*[self.surveyList count];
     return height;
 }
 
@@ -140,6 +139,13 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SurveyContentListController *wself = self;
+    
+    if ([self.subjectTitle isEqualToString:@"自选"]) {
+        self.cellHeight = 118;
+    }else {
+        self.cellHeight = 97;
+    }
+    _tableView.rowHeight = self.cellHeight;
     
     NSDictionary *dict = @{@"sub_id" : self.subjectId,@"page" : @(pageA)};
     
@@ -309,10 +315,19 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
+    cell.subjectTitle = self.subjectTitle;
     cell.delegate = self;
     
     return cell;
 }
+
+//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+//
+//    if (self.subjectTitle iseq) {
+//        <#statements#>
+//    }
+//}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *scell = (SurveryStockListCell *)cell;
