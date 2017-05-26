@@ -57,7 +57,7 @@
     self.classesArray = @[@[],
                           @[@"MyWalletViewController",@"CollectionViewController"],
                           @[@"AboutMineViewController"],
-                          @[@"SettingUpViewController"]];
+                          @[@"SettingViewController"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {

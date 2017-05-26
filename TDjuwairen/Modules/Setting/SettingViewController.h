@@ -1,5 +1,5 @@
 //
-//  SettingUpViewController.h
+//  SettingViewController.h
 //  TDjuwairen
 //
 //  Created by 团大 on 16/8/23.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SettingUpViewController : UIViewController
+@interface SettingViewController : UIViewController
 
 @end
