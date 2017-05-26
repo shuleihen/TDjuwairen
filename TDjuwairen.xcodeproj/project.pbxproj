@@ -415,6 +415,10 @@
 		4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */; };
 		4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */; };
 		4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */; };
+		4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A61ED7D107004E3267 /* AliveSearchUserCell.m */; };
+		4DEFF1A91ED7D107004E3267 /* AliveSearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A71ED7D107004E3267 /* AliveSearchUserCell.xib */; };
+		4DEFF1AD1ED7DAE3004E3267 /* AliveSearchStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1AB1ED7DAE3004E3267 /* AliveSearchStockCell.m */; };
+		4DEFF1AE1ED7DAE3004E3267 /* AliveSearchStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFF1AC1ED7DAE3004E3267 /* AliveSearchStockCell.xib */; };
 		4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */; };
 		4DF52C5C1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
@@ -1328,6 +1332,12 @@
 		4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
 		4DEFF19C1ED7CE89004E3267 /* SearchSectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSectionData.h; sourceTree = "<group>"; };
 		4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSectionData.m; sourceTree = "<group>"; };
+		4DEFF1A51ED7D107004E3267 /* AliveSearchUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchUserCell.h; sourceTree = "<group>"; };
+		4DEFF1A61ED7D107004E3267 /* AliveSearchUserCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchUserCell.m; sourceTree = "<group>"; };
+		4DEFF1A71ED7D107004E3267 /* AliveSearchUserCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchUserCell.xib; sourceTree = "<group>"; };
+		4DEFF1AA1ED7DAE3004E3267 /* AliveSearchStockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchStockCell.h; sourceTree = "<group>"; };
+		4DEFF1AB1ED7DAE3004E3267 /* AliveSearchStockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchStockCell.m; sourceTree = "<group>"; };
+		4DEFF1AC1ED7DAE3004E3267 /* AliveSearchStockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchStockCell.xib; sourceTree = "<group>"; };
 		4DF52C561ED6D630001D342D /* AliveSearchAllTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchAllTypeViewController.h; sourceTree = "<group>"; };
 		4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchAllTypeViewController.m; sourceTree = "<group>"; };
 		4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchAllTypeViewController.xib; sourceTree = "<group>"; };
@@ -4151,6 +4161,12 @@
 		4DEFF19F1ED7D010004E3267 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4DEFF1A51ED7D107004E3267 /* AliveSearchUserCell.h */,
+				4DEFF1A61ED7D107004E3267 /* AliveSearchUserCell.m */,
+				4DEFF1A71ED7D107004E3267 /* AliveSearchUserCell.xib */,
+				4DEFF1AA1ED7DAE3004E3267 /* AliveSearchStockCell.h */,
+				4DEFF1AB1ED7DAE3004E3267 /* AliveSearchStockCell.m */,
+				4DEFF1AC1ED7DAE3004E3267 /* AliveSearchStockCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4688,6 +4704,7 @@
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
 				193419AC1E76B4DB00F22788 /* AliveRoomHeaderView.xib in Resources */,
 				19F00D0F1E2EFFD9009270D5 /* SpotTableViewCell.xib in Resources */,
+				4DEFF1AE1ED7DAE3004E3267 /* AliveSearchStockCell.xib in Resources */,
 				19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */,
 				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
 				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
@@ -4714,6 +4731,7 @@
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
 				190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */,
+				4DEFF1A91ED7D107004E3267 /* AliveSearchUserCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4798,6 +4816,7 @@
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
 				1968947A1E9CB307009F1741 /* IndividualStockRecordModel.m in Sources */,
 				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
+				4DEFF1AD1ED7DAE3004E3267 /* AliveSearchStockCell.m in Sources */,
 				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
@@ -5126,6 +5145,7 @@
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
+				4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,
 			);
