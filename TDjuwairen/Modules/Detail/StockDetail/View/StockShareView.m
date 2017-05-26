@@ -46,7 +46,7 @@
         UIButton *collection = [UIButton buttonWithType:UIButtonTypeCustom];
         collection.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [collection setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
-        [collection setImage:[UIImage imageNamed:@"btn_col.png"] forState:UIControlStateNormal];
+        [collection setImage:[UIImage imageNamed:@"stock_collection.png"] forState:UIControlStateNormal];
         [collection setTitle:@"收藏" forState:UIControlStateNormal];
         collection.frame = CGRectMake(CGRectGetMaxX(share.frame)+margin, 15, 46, 52);
         [collection addTarget:self action:@selector(collectionPressed:) forControlEvents:UIControlEventTouchUpInside];
