@@ -83,6 +83,7 @@
     
     CGFloat height = MAX(CGRectGetMaxY(previousFrame) + BOTTOM_MARGIN, kScreenHeight-64);
     self.frame = CGRectMake(0, 0, kScreenHeight, height);
+    self.realViewHeight = CGRectGetMaxY(previousFrame) + BOTTOM_MARGIN;
 }
 
 

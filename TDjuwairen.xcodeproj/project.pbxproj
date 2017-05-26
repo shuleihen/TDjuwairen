@@ -426,6 +426,7 @@
 		4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */; };
 		4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */; };
 		4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */; };
+		4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */; };
 		4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */; };
 		4DF52C5C1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
@@ -1361,6 +1362,8 @@
 		4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PublishSelectedStockCell.xib; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.xib; sourceTree = SOURCE_ROOT; };
 		4DE89CD31ED4298D00DB2520 /* SurveyDownLoadHintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDownLoadHintViewController.h; sourceTree = "<group>"; };
 		4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
+		4DEFF19C1ED7CE89004E3267 /* SearchSectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSectionData.h; sourceTree = "<group>"; };
+		4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSectionData.m; sourceTree = "<group>"; };
 		4DF52C561ED6D630001D342D /* AliveSearchAllTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchAllTypeViewController.h; sourceTree = "<group>"; };
 		4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchAllTypeViewController.m; sourceTree = "<group>"; };
 		4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchAllTypeViewController.xib; sourceTree = "<group>"; };
@@ -3419,6 +3422,8 @@
 			children = (
 				19AF982E1E2609950097A585 /* SearchResultModel.h */,
 				19AF982F1E2609950097A585 /* SearchResultModel.m */,
+				4DEFF19C1ED7CE89004E3267 /* SearchSectionData.h */,
+				4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4238,9 +4243,17 @@
 			path = MYBottomMenu;
 			sourceTree = "<group>";
 		};
+		4DEFF19F1ED7D010004E3267 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
 		4DF52C521ED6D5D2001D342D /* AliveSearch */ = {
 			isa = PBXGroup;
 			children = (
+				4DEFF19F1ED7D010004E3267 /* Cells */,
 				4DF52C531ED6D5D2001D342D /* Controllers */,
 				4DF52C541ED6D5D2001D342D /* Models */,
 				4DF52C551ED6D5D2001D342D /* Views */,
@@ -5030,6 +5043,7 @@
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,
 				9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */,
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
+				4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				196894731E9C800B009F1741 /* ChildBlogTableViewController.m in Sources */,
 				190F65EE1E36E73000B83ADF /* AwardImfomationTableViewCell.m in Sources */,

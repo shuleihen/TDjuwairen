@@ -23,15 +23,7 @@
 #import "NoResultView.h"
 #import "ApplySurveyViewController.h"
 #import "NotificationDef.h"
-
-@interface SearchSectionData : NSObject
-@property (nonatomic, strong) NSString *sectionTitle;
-@property (nonatomic, strong) NSArray *items;
-@end
-
-@implementation SearchSectionData
-
-@end
+#import "SearchSectionData.h"
 
 
 @interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate, SearchResultCellDelegate>

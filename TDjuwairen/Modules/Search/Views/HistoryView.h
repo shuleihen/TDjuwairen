@@ -19,4 +19,6 @@ typedef void(^ClickTagsBlock)(UIButton *);
 
 @property (nonatomic,copy) ClickTagsBlock clickblock;
 @property (nonatomic, copy) void (^clearBlock)(UIButton *);
+@property (assign, nonatomic) CGFloat realViewHeight;
+
 @end
