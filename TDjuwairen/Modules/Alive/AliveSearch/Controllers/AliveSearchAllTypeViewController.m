@@ -17,6 +17,8 @@
 #import "AliveSearchUserCell.h"
 #import "AliveSearchStockCell.h"
 #import "ApplySurveyViewController.h"
+#import "AliveSearchSubTypeController.h"
+#import "StockDetailViewController.h"
 
 
 @interface AliveSearchAllTypeViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,AliveSearchStockCellDelegate>
@@ -28,7 +30,6 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *historyViewLayoutH;
 @property (nonatomic,strong) UISearchBar *customSearchBar;
-@property (strong, nonatomic) NSMutableArray *searchResultsArrM;
 @property (nonatomic, strong) NSArray *resultSections;
 
 @property (nonatomic, strong) NSMutableArray *searchQueue;
@@ -45,7 +46,7 @@
     [self configTableViewUI];
     [self setupWithSearchBar];
     [self setupHistory];
-    self.searchResultsArrM = [NSMutableArray array];
+    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -329,16 +330,10 @@
         }
         
         UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 12, 120, 20)];
-        nameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+        nameLabel.textColor = TDTitleTextColor;
         nameLabel.font = [UIFont systemFontOfSize:14.0f];
         nameLabel.text = sectionData.sectionTitle;
         [moreCell.contentView addSubview:nameLabel];
-        
-        UIButton *searchMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        searchMoreBtn.frame = CGRectMake(0, 0, kScreenWidth, 30);
-        [searchMoreBtn addTarget:self action:@selector(searchMoreButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-        searchMoreBtn.tag = indexPath.section;
-        [moreCell.contentView addSubview:searchMoreBtn];
         
         UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth-21, 14, 9, 16)];
         arrowImageView.image = [UIImage imageNamed:@"icon_arrow.png"];
@@ -350,7 +345,6 @@
         if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
             nameLabel.text = @"查看更多用户";
         }else {
-        
             nameLabel.text = @"查看更多股票";
         }
         
@@ -378,6 +372,23 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    SearchSectionData *sectionData = self.resultSections[indexPath.section];
+    SearchResultModel *result = sectionData.items[indexPath.row];
+    
+    if (indexPath.row == 2) {
+        UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        tempButton.tag = indexPath.section;
+        [self searchMoreButtonClick:tempButton];
+        
+    }else {
+        if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockCode = result.resultId;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+    
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -419,11 +430,11 @@
     [headerV addSubview:lineView];
     
     if ([sectionData.sectionTitle isEqualToString:@"用户"] || [sectionData.sectionTitle isEqualToString:@"股票"]) {
-        searchMoreBtn.userInteractionEnabled = YES;
+        searchMoreBtn.userInteractionEnabled = NO;
         arrowImageView.hidden = YES;
     }else {
     
-        searchMoreBtn.userInteractionEnabled = NO;
+        searchMoreBtn.userInteractionEnabled = YES;
         arrowImageView.hidden = NO;
     }
     
@@ -474,6 +485,67 @@
 }
 
 #pragma mark - AliveSearchStockCellDelegate
+/// 加自选
+- (void)addChoiceStockWithSearchResultModel:(SearchResultModel *)model {
+
+    if (US.isLogIn) {
+        NSDictionary *para = @{@"code":model.resultId,
+                               @"user_id":US.userId};
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        
+        NSString *str = @"";
+        
+        if (model.isMyStock == YES) {
+            hud.labelText = @"取消关注";
+            str = API_SurveyDeleteStock;
+        }else {
+            str = API_SurveyAddStock;
+            
+        }
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        [manager POST:str parameters:para completion:^(id data, NSError *error) {
+            if (!error) {
+                if (model.isMyStock == YES) {
+                     hud.labelText = @"取消成功";
+                    model.isMyStock = NO;
+                }else {
+                    hud.labelText = @"添加成功";
+                    model.isMyStock = YES;
+                
+                }
+                [hud hide:YES afterDelay:0.5];
+                
+                
+                [self.tableView reloadData];
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
+            }
+            else
+            {
+               
+                if (model.isMyStock == YES) {
+                   hud.labelText = @"取消失败";
+                }else {
+                     hud.labelText = @"添加失败";
+                    
+                }
+                
+                [hud hide:YES afterDelay:0.5];
+                
+            }
+        }];
+    } else {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+    }
+
+  
+}
+
+
+
+
+/// 特约
 - (void)surveyButtonClickWithSearchResultModel:(SearchResultModel *)model{
 
     if (US.isLogIn) {
@@ -492,29 +564,11 @@
 
 #pragma mark - 按钮点击事件
 - (IBAction)searchButtonClick:(UIButton *)sender {
-    switch (sender.tag - 100) {
-        case 1:
-            // 用户
-            break;
-        case 2:
-            //股票
-            break;
-        case 3:
-            //调研
-            break;
-        case 4:
-            //话题
-            break;
-        case 5:
-            //贴单
-            break;
-        case 6:
-            //观点
-            break;
-            
-        default:
-            break;
-    }
+    AliveSearchSubTypeController *subSearchVC = [[AliveSearchSubTypeController alloc] init];
+
+    subSearchVC.searchType = sender.tag-1001;
+
+    [self.navigationController pushViewController:subSearchVC animated:YES];
     
 }
 
@@ -535,10 +589,37 @@
 }
 
 
-
 /// 搜索更多信息
 - (void)searchMoreButtonClick:(UIButton *)sender {
+    SearchSectionData *sectionData = self.resultSections[sender.tag];
+    AliveSearchSubTypeController *subSearchVC = [[AliveSearchSubTypeController alloc] init];
+    if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
+        
+        subSearchVC.searchType = AliveSearchSubUserType;
+        
+    }else if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
+        
+        subSearchVC.searchType = AliveSearchSubStockType;
+        
+    }else if ([sectionData.sectionTitle isEqualToString:@"调研"]) {
+        
+        subSearchVC.searchType = AliveSearchSubSurveyType;
+        
+    }else if ([sectionData.sectionTitle isEqualToString:@"话题"]) {
+        
+        subSearchVC.searchType = AliveSearchSubTopicType;
+        
+    }else if ([sectionData.sectionTitle isEqualToString:@"贴单"]) {
+        
+        subSearchVC.searchType = AliveSearchSubPasteType;
+    }else {
+        subSearchVC.searchType = AliveSearchSubViewPointType;
+    }
+    
+    subSearchVC.searchTextStr = self.customSearchBar.text;
+    subSearchVC.transmitSearchSectionData = sectionData;
 
+    [self.navigationController pushViewController:subSearchVC animated:YES];
     
 }
 

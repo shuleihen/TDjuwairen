@@ -46,12 +46,22 @@
 
     _stockModel = stockModel;
     self.sNameLabel.text = stockModel.title;
+    if (stockModel.isMyStock == YES) {
+        [self.addChoiceButton setTitle:@"取消自选" forState:UIControlStateNormal];
+        [self.addChoiceButton setTitleColor:TDDetailTextColor forState:UIControlStateNormal];
+    } else {
+        [self.addChoiceButton setTitle:@"加自选" forState:UIControlStateNormal];
+        [self.addChoiceButton setTitleColor:TDThemeColor forState:UIControlStateNormal];
+        
+    }
     
 }
 
 /// 加自选
 - (IBAction)addChoiceButtonClick:(UIButton *)sender {
-    
+    if ([self.delegate respondsToSelector:@selector(addChoiceStockWithSearchResultModel:)]) {
+        [self.delegate addChoiceStockWithSearchResultModel:self.stockModel];
+    }
 }
 
 /// 调研

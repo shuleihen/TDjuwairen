@@ -10,6 +10,8 @@
 
 @class SearchResultModel;
 @protocol AliveSearchStockCellDelegate <NSObject>
+/// 添加自选
+- (void)addChoiceStockWithSearchResultModel:(SearchResultModel *)model;
 /// 调研
 - (void)surveyButtonClickWithSearchResultModel:(SearchResultModel *)model;
 

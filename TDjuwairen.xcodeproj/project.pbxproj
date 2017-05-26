@@ -419,6 +419,8 @@
 		4DEFF1A91ED7D107004E3267 /* AliveSearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A71ED7D107004E3267 /* AliveSearchUserCell.xib */; };
 		4DEFF1AD1ED7DAE3004E3267 /* AliveSearchStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1AB1ED7DAE3004E3267 /* AliveSearchStockCell.m */; };
 		4DEFF1AE1ED7DAE3004E3267 /* AliveSearchStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFF1AC1ED7DAE3004E3267 /* AliveSearchStockCell.xib */; };
+		4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1B01ED81AF0004E3267 /* AliveSearchSubTypeController.m */; };
+		4DEFF1B31ED81AF0004E3267 /* AliveSearchSubTypeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFF1B11ED81AF0004E3267 /* AliveSearchSubTypeController.xib */; };
 		4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */; };
 		4DF52C5C1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
@@ -1338,6 +1340,9 @@
 		4DEFF1AA1ED7DAE3004E3267 /* AliveSearchStockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchStockCell.h; sourceTree = "<group>"; };
 		4DEFF1AB1ED7DAE3004E3267 /* AliveSearchStockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchStockCell.m; sourceTree = "<group>"; };
 		4DEFF1AC1ED7DAE3004E3267 /* AliveSearchStockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchStockCell.xib; sourceTree = "<group>"; };
+		4DEFF1AF1ED81AF0004E3267 /* AliveSearchSubTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchSubTypeController.h; sourceTree = "<group>"; };
+		4DEFF1B01ED81AF0004E3267 /* AliveSearchSubTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchSubTypeController.m; sourceTree = "<group>"; };
+		4DEFF1B11ED81AF0004E3267 /* AliveSearchSubTypeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchSubTypeController.xib; sourceTree = "<group>"; };
 		4DF52C561ED6D630001D342D /* AliveSearchAllTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchAllTypeViewController.h; sourceTree = "<group>"; };
 		4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchAllTypeViewController.m; sourceTree = "<group>"; };
 		4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchAllTypeViewController.xib; sourceTree = "<group>"; };
@@ -4188,6 +4193,9 @@
 				4DF52C561ED6D630001D342D /* AliveSearchAllTypeViewController.h */,
 				4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */,
 				4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */,
+				4DEFF1AF1ED81AF0004E3267 /* AliveSearchSubTypeController.h */,
+				4DEFF1B01ED81AF0004E3267 /* AliveSearchSubTypeController.m */,
+				4DEFF1B11ED81AF0004E3267 /* AliveSearchSubTypeController.xib */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4729,6 +4737,7 @@
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
+				4DEFF1B31ED81AF0004E3267 /* AliveSearchSubTypeController.xib in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
 				190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */,
 				4DEFF1A91ED7D107004E3267 /* AliveSearchUserCell.xib in Resources */,
@@ -4833,6 +4842,7 @@
 				19D6A3051E0D0126008368F4 /* STPopupLeftBarItem.m in Sources */,
 				4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
+				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
 				19F00D361E3089B4009270D5 /* StockShareView.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
