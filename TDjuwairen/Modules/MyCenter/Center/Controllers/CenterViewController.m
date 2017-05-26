@@ -56,7 +56,6 @@
     
     self.classesArray = @[@[],
                           @[@"MyWalletViewController",@"CollectionViewController"],
-                          @[@"PushMessageViewController",@"CommentsViewController"],
                           @[@"AboutMineViewController"],
                           @[@"SettingUpViewController"]];
 }

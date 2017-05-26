@@ -76,7 +76,7 @@
         _tagsView.hidden = YES;
         [self.contentView addSubview:_tagsView];
         
-        self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectZero];
+        self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-24, 80)];
         self.forwardView.hidden = YES;
         [self.contentView addSubview:self.forwardView];
         

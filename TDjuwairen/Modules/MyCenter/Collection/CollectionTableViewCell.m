@@ -20,6 +20,10 @@
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.line.layer.borderColor = self.daynightmodel.backColor.CGColor;
     self.line.layer.borderWidth = 0.5;
+    
+    self.headImageView.layer.cornerRadius=self.frame.size.width/2;
+    self.headImageView.layer.masksToBounds=YES;
+    
     // Initialization code
 }
 
