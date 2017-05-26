@@ -18,12 +18,12 @@
 #import "LoginState.h"
 #import "LoginManager.h"
 #import "YXSearchButton.h"
-#import "SearchViewController.h"
 #import "ViewPointViewController.h"
 #import "VideoViewController.h"
 #import "PublishViewViewController.h"
 #import "YXTitleCustomView.h"
 #import "HexColors.h"
+#import "AliveSearchAllTypeViewController.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
@@ -360,9 +360,9 @@
 
 #pragma mark - 搜索点击事件
 - (void)searchPressed:(id)sender {
-    SearchViewController *searchView = [[SearchViewController alloc] init];
-    searchView.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:searchView animated:YES];
+    AliveSearchAllTypeViewController *searchVC = [[AliveSearchAllTypeViewController alloc] init];
+    searchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchVC animated:YES];
 }
 
 

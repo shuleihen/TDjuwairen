@@ -426,6 +426,8 @@
 		4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */; };
 		4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */; };
 		4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */; };
+		4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */; };
+		4DF52C5C1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */; };
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
 		8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8416DA821D6800E90098A412 /* CommentManagerModel.m */; };
 		841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CA1DF537140047DA7E /* UMMobClick.framework */; };
@@ -1359,6 +1361,9 @@
 		4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PublishSelectedStockCell.xib; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.xib; sourceTree = SOURCE_ROOT; };
 		4DE89CD31ED4298D00DB2520 /* SurveyDownLoadHintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDownLoadHintViewController.h; sourceTree = "<group>"; };
 		4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
+		4DF52C561ED6D630001D342D /* AliveSearchAllTypeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchAllTypeViewController.h; sourceTree = "<group>"; };
+		4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchAllTypeViewController.m; sourceTree = "<group>"; };
+		4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchAllTypeViewController.xib; sourceTree = "<group>"; };
 		84053B541D6BE9C50020A1F0 /* AboutMineViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AboutMineViewController.h; sourceTree = "<group>"; };
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		8416DA811D6800E90098A412 /* CommentManagerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommentManagerModel.h; sourceTree = "<group>"; };
@@ -2654,6 +2659,7 @@
 		1953CAED1E7172DB00A64B3C /* Alive */ = {
 			isa = PBXGroup;
 			children = (
+				4DF52C521ED6D5D2001D342D /* AliveSearch */,
 				195057C51E7B7F2B0097C57A /* AliveHandler */,
 				19C2580E1E76498100433D0D /* AliveMessage */,
 				19386EDC1E72401E00D4426E /* AliveEditMaster */,
@@ -4232,6 +4238,40 @@
 			path = MYBottomMenu;
 			sourceTree = "<group>";
 		};
+		4DF52C521ED6D5D2001D342D /* AliveSearch */ = {
+			isa = PBXGroup;
+			children = (
+				4DF52C531ED6D5D2001D342D /* Controllers */,
+				4DF52C541ED6D5D2001D342D /* Models */,
+				4DF52C551ED6D5D2001D342D /* Views */,
+			);
+			path = AliveSearch;
+			sourceTree = "<group>";
+		};
+		4DF52C531ED6D5D2001D342D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4DF52C561ED6D630001D342D /* AliveSearchAllTypeViewController.h */,
+				4DF52C571ED6D630001D342D /* AliveSearchAllTypeViewController.m */,
+				4DF52C5B1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4DF52C541ED6D5D2001D342D /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4DF52C551ED6D5D2001D342D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
 		84053B531D6BE9AF0020A1F0 /* AboutMine */ = {
 			isa = PBXGroup;
 			children = (
@@ -4741,6 +4781,7 @@
 				4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */,
 				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
+				4DF52C5C1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib in Resources */,
 				19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */,
 				19C2581A1E7649C200433D0D /* AliveMessageListCell.xib in Resources */,
 				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
@@ -4949,6 +4990,7 @@
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
+				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
 				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
