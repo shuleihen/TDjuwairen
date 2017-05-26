@@ -16,15 +16,11 @@
 #import "LoginViewController.h"
 #import "FeedbackViewController.h"
 #import "SearchViewController.h"
-#import "UserInfoViewController.h"
-
 #import "SharpModel.h"
 #import "ViewModel.h"
 #import "CommentsModel.h"
-
 #import "LoginState.h"
 #import "UIdaynightModel.h"
-
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "UIImageView+WebCache.h"
@@ -32,7 +28,7 @@
 #import "HexColors.h"
 #import "YXFont.h"
 #import "MJRefresh.h"
-
+#import "AliveRoomViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKUI/ShareSDK+SSUI.h>
 
@@ -619,19 +615,16 @@
 
 - (void)gotoUserInfo:(UITapGestureRecognizer *)tap{
     if (US.isLogIn) {
-        UserInfoViewController *userinfoView = [[UserInfoViewController alloc]init];
+        NSString *masterId = @"";
         if ([self.pageMode isEqualToString:@"sharp"]) {
-            NSLog(@"%@",self.sharpInfo.sharpUserId);
-            userinfoView.user_id = self.sharpInfo.sharpUserId;
-            [self.navigationController pushViewController:userinfoView animated:YES];
             
+            masterId = self.sharpInfo.sharpUserId;
+        } else {
+            masterId = self.viewInfo.view_userid;
         }
-        else
-        {
-            NSLog(@"%@",self.viewInfo.view_userid);
-            userinfoView.user_id = self.viewInfo.view_userid;
-            [self.navigationController pushViewController:userinfoView animated:YES];
-        }
+        
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:masterId];
+        [self.navigationController pushViewController:vc animated:YES];
     }
     else
     {

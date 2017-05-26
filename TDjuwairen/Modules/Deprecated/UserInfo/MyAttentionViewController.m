@@ -7,10 +7,9 @@
 //
 
 #import "MyAttentionViewController.h"
-#import "UserInfoViewController.h"
 #import "MyAttentionTableViewCell.h"
 #import "NothingTableViewCell.h"
-
+#import "AliveRoomViewController.h"
 #import "LoginState.h"
 #import "UIdaynightModel.h"
 #import "UIImageView+WebCache.h"
@@ -178,10 +177,10 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     NSDictionary *userInfoDic = self.attArr[indexPath.row];
-    UserInfoViewController *userinfoView = [[UserInfoViewController alloc]init];
-    userinfoView.user_id = userInfoDic[@"user_id"];
-    [self.navigationController pushViewController:userinfoView animated:YES];
+    NSString *masterId = userInfoDic[@"user_id"];
     
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:masterId];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)didReceiveMemoryWarning {
