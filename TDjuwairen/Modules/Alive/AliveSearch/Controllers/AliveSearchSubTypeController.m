@@ -17,6 +17,7 @@
 #import "AliveSearchStockCell.h"
 #import "ApplySurveyViewController.h"
 #import "StockDetailViewController.h"
+#import "ViewPointTableViewCell.h"
 
 @interface AliveSearchSubTypeController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,AliveSearchStockCellDelegate>
 @property (weak, nonatomic) IBOutlet UIView *noDataView;
@@ -24,6 +25,7 @@
 @property (nonatomic,strong) UISearchBar *customSearchBar;
 @property (strong, nonatomic) SearchSectionData *searchResultData;
 @property (nonatomic, strong) NSMutableArray *searchQueue;
+@property (assign, nonatomic) BOOL filterBtnSelected;
 @end
 
 @implementation AliveSearchSubTypeController
@@ -38,6 +40,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.filterBtnSelected = NO;
     self.searchQueue = [NSMutableArray arrayWithCapacity:10];
     [self configTableViewUI];
     [self setupWithSearchBar];
@@ -295,6 +298,18 @@
         stockCell.delegate = self;
         stockCell.stockModel = result;
         return stockCell;
+    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
+        
+        NSString *identifier = @"viewPointCell";
+        ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+        }
+        
+//        ViewPointListModel *model = self.viewNewArr[indexPath.row];
+//        [cell setupViewPointModel:model];
+        
+        return cell;
     }else {
         UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
         return cell;
@@ -332,6 +347,18 @@
     nameLabel.text = self.searchResultData.sectionTitle;
     [headerV addSubview:nameLabel];
     
+    
+    UIButton *filterButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    filterButton.frame = CGRectMake(kScreenWidth-122, 5, 110, 20);
+    filterButton.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [filterButton setTitle:@" 只看我关注的" forState:UIControlStateNormal];
+    [filterButton setTitleColor:TDLightGrayColor forState:UIControlStateNormal];
+    [filterButton setImage:[UIImage imageNamed:@"unselect"] forState:UIControlStateNormal];
+    [filterButton setImage:[UIImage imageNamed:@"select"] forState:UIControlStateSelected];
+    [filterButton addTarget:self action:@selector(filterButtonClick:) forControlEvents:UIControlEventTouchUpInside];
+    filterButton.selected = self.filterBtnSelected;
+    [headerV addSubview:filterButton];
+    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, kScreenWidth, 0.5)];
     lineView.backgroundColor = TDLineColor;
     [headerV addSubview:lineView];
@@ -348,11 +375,13 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row > 1) {
-        return 44;
-    }else {
-        
+
+    if ([self.searchResultData.sectionTitle isEqualToString:@"用户"] || [self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
         return 49;
+    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
+        return 284;
+    }else {
+        return CGFLOAT_MIN;
     }
 }
 
@@ -457,6 +486,13 @@
     [self.navigationController setViewControllers:[arrM mutableCopy] animated:YES];
   
 }
+
+// 筛选列表
+- (void)filterButtonClick:(UIButton *)sender {
+    self.filterBtnSelected = !self.filterBtnSelected;
+    [self.tableView reloadData];
+}
+
 
 - (NSString *)setSearchBarText {
     NSString *str = @"";

@@ -413,6 +413,7 @@
 		4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DD179E41E77C00B00FBE66D /* UIImage+imageSize.m */; };
 		4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */; };
 		4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */; };
+		4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE260F61ED94CB0002025C6 /* RemoteSettingController.m */; };
 		4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */; };
 		4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */; };
 		4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A61ED7D107004E3267 /* AliveSearchUserCell.m */; };
@@ -1330,6 +1331,9 @@
 		4DDA5C3B1EB31F25005BC8D7 /* PublishSelectedStockCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PublishSelectedStockCell.h; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.h; sourceTree = SOURCE_ROOT; };
 		4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PublishSelectedStockCell.m; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.m; sourceTree = SOURCE_ROOT; };
 		4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PublishSelectedStockCell.xib; path = TDjuwairen/Tools/Utility/PublishSelectedStockCell.xib; sourceTree = SOURCE_ROOT; };
+		4DE260F51ED94CB0002025C6 /* RemoteSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteSettingController.h; sourceTree = "<group>"; };
+		4DE260F61ED94CB0002025C6 /* RemoteSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteSettingController.m; sourceTree = "<group>"; };
+		4DE260FB1ED9569F002025C6 /* LocalSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalSetting.h; sourceTree = "<group>"; };
 		4DE89CD31ED4298D00DB2520 /* SurveyDownLoadHintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDownLoadHintViewController.h; sourceTree = "<group>"; };
 		4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
 		4DEFF19C1ED7CE89004E3267 /* SearchSectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSectionData.h; sourceTree = "<group>"; };
@@ -1672,6 +1676,7 @@
 				191027AE1DE52B1B006A2275 /* NotificationDef.h */,
 				19D6A2CF1E0CED53008368F4 /* PlistFileDef.h */,
 				190F65C01E34A85200B83ADF /* UIMacroDef.h */,
+				4DE260FB1ED9569F002025C6 /* LocalSetting.h */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -1990,6 +1995,8 @@
 				193325791E4DAF7200E3D500 /* PushSwitchViewController.m */,
 				1933257A1E4DAF7200E3D500 /* SettingUpViewController.h */,
 				1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */,
+				4DE260F51ED94CB0002025C6 /* RemoteSettingController.h */,
+				4DE260F61ED94CB0002025C6 /* RemoteSettingController.m */,
 			);
 			path = Setting;
 			sourceTree = "<group>";
@@ -4805,6 +4812,7 @@
 				19F00D201E2EFFD9009270D5 /* SurveyBottomToolView.m in Sources */,
 				19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
+				4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
 				19194CE41E7FDDA800641085 /* SurveryStockListCell.m in Sources */,
 				9E2233CE1E8AB81B00B1FAC4 /* PlayListModel.m in Sources */,

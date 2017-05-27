@@ -91,6 +91,154 @@
     }];
 }
 
+/// 打开响铃
++ (void)openRemoteBell {
+
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteBell];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+/// 关闭响铃
++ (void)closeRemoteBell {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteBell];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+/// 打开震动
++ (void)openRemoteShake {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteShake];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+/// 关闭震动
++ (void)closeRemoteShake {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteShake];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+
+/// 打开自选股的调研通知
++ (void)openRemotePersionStock {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemotePersionStock];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+/// 关闭自选股的调研通知
++ (void)closeRemotePersionStock {
+
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemotePersionStock];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+/// 打开关注板块调研通知
++ (void)openRemoteAttentPlateSurvey {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteAttentPlateSurvey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+/// 关闭关注板块调研通知
++ (void)closeRemoteAttentPlateSurvey {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteAttentPlateSurvey];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+/// 打开调研报告的提问被回答通知
++ (void)openRemoteSurveyReportAnswer {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteSurveyAnswer];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+/// 关闭调研报告的提问被回答通知
++ (void)closeRemoteSurveyReportAnswer {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteSurveyAnswer];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+/// 打开评分模块的评论与回复通知
++ (void)openRemoteScoreModule {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteScoreModule];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+/// 关闭评分模块的评论与回复通知
++ (void)closeRemoteScoreModule {
+
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteScoreModule];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+}
+
+/// 打开直播－评论、回复通知
++ (void)openRemoteAliveCommon {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteAliveCommon];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+/// 关闭直播－评论、回复通知
++ (void)closeRemoteAliveCommon {
+    
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteAliveCommon];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+/// 打开直播－点赞通知
++ (void)openRemoteAliveDianZan {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteAliveDianZan];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+/// 关闭直播－点赞通知
++ (void)closeRemoteAliveDianZan {
+
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteAliveDianZan];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+/// 打开直播－转发通知
++ (void)openRemoteAliveForwarding {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteAliveForwarding];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+/// 关闭直播－转发通知
++ (void)closeRemoteAliveForwarding {
+
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteAliveForwarding];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+
+/// 打开关注的人动态通知
++ (void)openRemoteAttentionPersionTrends {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteAttentionPersionTrends];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+/// 关闭关注的人动态通知
++ (void)closeRemoteAttentionPersionTrends {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteAttentionPersionTrends];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+
+/// 打开新粉丝通知
++ (void)openRemoteNewFans {
+    [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kRemoteNewFans];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+/// 关闭新粉丝通知
++ (void)closeRemoteNewFans {
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteNewFans];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+}
+
+
+
 + (NSString *)machineInfoJsonString {
     UIDevice *device = [UIDevice currentDevice];
     NSString *uuid = [device uniqueDeviceIdentifier];

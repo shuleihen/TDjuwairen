@@ -203,7 +203,11 @@
                     [marray addObject:result];
                 }
                 sectionData.items = marray;
-                [sections addObject:sectionData];
+                
+                if (marray.count > 0) {
+                    
+                    [sections addObject:sectionData];
+                }
             }
             
             NSArray *surveyList = dic[@"surveyList"];
@@ -217,7 +221,10 @@
                     [marray addObject:result];
                 }
                 sectionData.items = marray;
-                [sections addObject:sectionData];
+                if (marray.count > 0) {
+                    
+                    [sections addObject:sectionData];
+                }
             }
             
 //            NSArray *viewList = dic[@"viewList"];

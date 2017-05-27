@@ -280,6 +280,10 @@
 }
 
 - (void)searchBarTextDidEndEditing:(UISearchBar *)searchBar {
+    
+    if (searchBar.text.length <= 0) {
+        return;
+    }
     NSString *str = [NSString stringWithFormat:@"%@",searchBar.text];
     [self addHistoryWithString:str];
 }
@@ -288,9 +292,8 @@
 {
     [self.view endEditing:YES];
     
-    NSString *str = [NSString stringWithFormat:@"%@",searchBar.text];
-    [self addHistoryWithString:str];
 }
+
 
 
 #pragma mark -UITableViewDataSource
