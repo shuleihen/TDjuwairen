@@ -8,99 +8,126 @@
 
 #import "CollectionViewController.h"
 #import "CollectionTableViewCell.h"
-#import "NothingTableViewCell.h"
 #import "ViewPointTableViewCell.h"
 #import "ViewPointListModel.h"
 #import "LoginState.h"
 #import "EditView.h"
 #import "DetailPageViewController.h"
-#import "CategoryView.h"
-
 #import "NSString+Ext.h"
 #import "NSString+TimeInfo.h"
 #import "UIImageView+WebCache.h"
 #import "NetworkManager.h"
 #import "UIdaynightModel.h"
+#import "UIImage+Color.h"
+#import "AliveListTableViewCell.h"
+#import "AliveListBottomTableViewCell.h"
 
-@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource,CategoryDeletate>
+
+@interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
     CGSize titlesize;
     BOOL edit;
-    BOOL haveSelect;
 }
 @property (nonatomic,strong) UITableView *tableview;
-@property(nonatomic,strong) EditView *editView;
-@property (nonatomic,strong) CategoryView *cateview;
 @property (nonatomic,strong) NSArray *categoryArr;
 
-@property (nonatomic,strong) UIBarButtonItem *editItem;
-@property (nonatomic, strong) UIBarButtonItem *cancelItem;
 
 @property (nonatomic,strong) NSMutableArray *CollectionArray;
 @property (nonatomic,strong) NSMutableArray *ViewCollectArray;
 @property (nonatomic,strong) NSMutableArray *delArray;
 @property (nonatomic,strong) UIdaynightModel *daynightmodel;
+@property (strong, nonatomic) UIView *noMoreView;
+@property (nonatomic,assign) NSInteger typeID;
+@property (strong, nonatomic) NSMutableDictionary *collectionDictM;
 
-@property (nonatomic,assign) int typeID;
+
 @end
 
 @implementation CollectionViewController
 - (NSArray *)categoryArr
 {
     if (!_categoryArr) {
-        _categoryArr = @[@"视频",@"观点"];
+        //        _categoryArr = @[@"视频",@"观点"];
+        _categoryArr = @[@"观点",@"调研",@"热点"];
+        
     }
     return _categoryArr;
 }
 
+- (UIView *)noMoreView {
+    
+    if (!_noMoreView) {
+        _noMoreView = [[UIView alloc] init];
+        CGRect rect = CGRectMake(0, 44-TDPixel, kScreenWidth, kScreenHeight-44-TDPixel);
+        _noMoreView.backgroundColor = [UIColor whiteColor];
+        UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"noRecord"]];
+        imageView.frame = CGRectMake((kScreenWidth-50)/2, (CGRectGetHeight(rect)-50-20)/2, 50, 50);
+        [_noMoreView addSubview:imageView];
+        
+        UILabel *nameLabel = [[UILabel alloc] init];
+        nameLabel.frame = CGRectMake(12, CGRectGetMaxY(imageView.frame)+15, kScreenWidth-24, 20);
+        nameLabel.text = @"暂无收藏";
+        nameLabel.textAlignment = NSTextAlignmentCenter;
+        nameLabel.font = [UIFont systemFontOfSize:15.0f];
+        nameLabel.textColor = TDDetailTextColor;
+        [_noMoreView addSubview:nameLabel];
+        
+        
+    }
+    return _noMoreView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    haveSelect = NO;
-    self.typeID = 0;
+    self.view.backgroundColor = TDViewBackgrouondColor;
+    self.title = @"我的收藏";
+    [self.view addSubview:self.noMoreView];
+    self.typeID = 1;
+    self.collectionDictM = [NSMutableDictionary dictionary];
     self.daynightmodel = [UIdaynightModel sharedInstance];
     self.CollectionArray = [[NSMutableArray alloc]init];
     self.ViewCollectArray = [[NSMutableArray alloc]init];
-
     [self requestCollection];
     [self requestAuthentication];
-    
-    [self setNavigation];
-    
-    [self setupWithSelectBtn];
-    
+    [self setupWithCollectionFilterBtn];
     [self setupWithTableView];
     
-    [self setupEditToolView];
-    
 }
 
--(void)setNavigation
-{
 
-    self.title = @"收藏管理";
-
-    //编辑button
-    self.editItem = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"nav_delete"] style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
-    self.cancelItem = [[UIBarButtonItem alloc] initWithTitle:@"取消" style:UIBarButtonItemStylePlain target:self action:@selector(editClick)];
-    
-    self.navigationItem.rightBarButtonItem = self.editItem;
-    edit=NO;
+- (void)didReceiveMemoryWarning {
+    [super didReceiveMemoryWarning];
 }
 
-- (void)setupWithSelectBtn{
-    self.cateview = [[CategoryView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, 40) andTitleArr:self.categoryArr];
-    self.cateview.delegate = self;
-    self.cateview.backgroundColor = self.daynightmodel.navigationColor;
-    self.cateview.scrollview.backgroundColor = self.daynightmodel.navigationColor;
-    self.cateview.line1.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
-    self.cateview.line2.layer.backgroundColor = self.daynightmodel.lineColor.CGColor;
+- (void)setupWithCollectionFilterBtn{
     
-    [self.view addSubview:self.cateview];
+    UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
+    UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
+    
+    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"观点",@"调研",@"热点"]];
+    segmented.tintColor = [UIColor whiteColor];
+    segmented.layer.cornerRadius = 0.0f;
+    segmented.layer.borderWidth = 1.0f;
+    segmented.layer.borderColor = [UIColor whiteColor].CGColor;
+    
+    [segmented addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]}
+                             forState:UIControlStateNormal];
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
+                             forState:UIControlStateHighlighted];
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
+                             forState:UIControlStateSelected];
+    segmented.frame = CGRectMake(0, 0, kScreenWidth, 44-TDPixel);
+    [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
+    [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
+    [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
+    [segmented setSelectedSegmentIndex:0];
+    [self.view addSubview:segmented];
+    
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 40, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
+    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 44-TDPixel+0.5, kScreenWidth, kScreenHeight-44+TDPixel-0.5) style:UITableViewStylePlain];
     self.tableview.dataSource=self;
     self.tableview.delegate=self;
     self.tableview.allowsMultipleSelectionDuringEditing = YES;
@@ -108,76 +135,16 @@
     self.tableview.separatorInset = UIEdgeInsetsZero;
     self.tableview.tableFooterView = [[UIView alloc] init];
     
-
     [self.view addSubview:self.tableview];
-    
     [self.tableview registerNib:[UINib nibWithNibName:@"CollectionTableViewCell" bundle:nil] forCellReuseIdentifier:@"CollectionCell"];
-    [self.tableview registerNib:[UINib nibWithNibName:@"NothingTableViewCell" bundle:nil] forCellReuseIdentifier:@"NothingCell"];
     self.tableview.backgroundColor = self.daynightmodel.navigationColor;
-}
-
-- (void)setupEditToolView
-{
-    self.editView = [[EditView alloc]initWithFrame:CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50)];
-    [self.editView.selectBtn addTarget:self action:@selector(allSelect:) forControlEvents:UIControlEventTouchUpInside];
-    [self.editView.deleteBtn addTarget:self action:@selector(Delete:) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:self.editView];
-}
-
-
-//编辑button点击事件
--(void)editClick
-{
     
-    if (edit == NO) {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds)-50, CGRectGetWidth(self.view.bounds), 50);
-        } completion:^(BOOL finished) {
-            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds)-50);
-        }];
-        
-        edit = YES;
-        self.navigationItem.rightBarButtonItem = self.cancelItem;
-        [self.tableview setEditing:YES animated:YES];
-    }
-    else
-    {
-        [UIView animateWithDuration:0.3 animations:^{
-            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
-            self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50);
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-        [self.editView.selectBtn setTitle:@"全选" forState:UIControlStateNormal];
-        
-        edit = NO;
-        haveSelect = NO;
-        self.navigationItem.rightBarButtonItem = self.editItem;
-        [self.tableview setEditing:NO animated:YES];
-    }
+    [self.tableview registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
+    UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
+    [self.tableview registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
+    
 }
 
--(void)allSelect:(UIButton*)sender
-{
-    if (haveSelect==NO) {
-        for (int i=0; i<self.CollectionArray.count; i++) {
-            NSIndexPath*indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-            [self.tableview selectRowAtIndexPath:indexPath animated:YES scrollPosition:UITableViewScrollPositionNone];
-        }
-        
-        [self.editView.selectBtn setTitle:@"取消全选" forState:UIControlStateNormal];
-        haveSelect=YES;
-    } else {
-        for (int i=0; i<self.CollectionArray.count; i++) {
-            NSIndexPath*indexPath = [NSIndexPath indexPathForItem:i inSection:0];
-            [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
-        }
-        
-        [self.editView.selectBtn setTitle:@"全选" forState:UIControlStateNormal];
-        haveSelect=NO;
-    }
-}
 
 -(void)Delete:(UIButton*)sender
 {
@@ -207,13 +174,11 @@
         
         [UIView animateWithDuration:0.3 animations:^{
             self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
-            self.editView.frame = CGRectMake(0, CGRectGetHeight(self.view.bounds), CGRectGetWidth(self.view.bounds), 50);
         } completion:^(BOOL finished) {
             
         }];
         
         edit = NO;
-        self.navigationItem.rightBarButtonItem = self.editItem;
         [self.tableview setEditing:NO animated:YES];
     }
 }
@@ -243,129 +208,100 @@
     [manager POST:API_GetCollectionList parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             NSArray *array = data;
-            NSDictionary *sharpDic = array[1];
-            NSDictionary *viewDic = array[2];
-            NSArray *sharpArr = sharpDic[@"List"];
-            NSArray *viewArr = viewDic[@"List"];
-
-            if (sharpArr.count > 0) {
-                for (NSDictionary *dic in sharpArr) {
-                    [self.CollectionArray addObject:dic];
+            NSDictionary *VideoDic = array[1];
+            NSDictionary *viewPointDic = array[2];
+            
+            NSArray *videoArr = VideoDic[@"List"];
+            NSArray *viewArr = viewPointDic[@"List"];
+            
+            if (videoArr.count > 0) {
+                NSMutableArray *tempArrM = [NSMutableArray array];
+                for (NSDictionary *dic in videoArr) {
+                    [tempArrM addObject:dic];
                 }
+                [self.collectionDictM setObject:tempArrM forKey:@(4)];
             }
+            
+            /// 观点
             if (viewArr.count > 0) {
+                NSMutableArray *tempArrM = [NSMutableArray array];
                 for (NSDictionary *dic in viewArr) {
                     ViewPointListModel *model = [ViewPointListModel getInstanceWithDictionary:dic];
-                    [self.ViewCollectArray addObject:model];
+                    [tempArrM addObject:model];
                 }
+                [self.collectionDictM setObject:tempArrM forKey:@(1)];
+            }
+            
+            NSMutableArray *arrM = [NSMutableArray arrayWithArray:[self.collectionDictM objectForKey:@(self.typeID)]];
+            
+            if (arrM.count <= 0) {
+                self.tableview.hidden = YES;
+            }else {
+                
+                self.tableview.hidden = NO;
             }
             
             [self.tableview reloadData];
         } else {
-            if (error.code == 300) {
-            }
-            
             [self.tableview reloadData];
+            self.tableview.hidden = NO;
         }
     }];
 }
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
+#pragma mark - UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return 1;
+//    return [[self.collectionDictM objectForKey:@(self.typeID)] count];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if (self.typeID == 0) {
-        if (self.CollectionArray.count > 0) {
-            return self.CollectionArray.count;
-        }
-        else
-        {
-            return 1;
-        }
-    }
-    else
-    {
-        if (self.ViewCollectArray.count > 0) {
-            return self.ViewCollectArray.count;
-        }
-        else
-        {
-            return 1;
-        }
-    }
+//    return 2;
+    return [[self.collectionDictM objectForKey:@(self.typeID)] count];
 }
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.typeID == 0) {
-        if (self.CollectionArray.count > 0) {
-            NSDictionary *dic = self.CollectionArray[indexPath.row];
-            
-            CollectionTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CollectionCell"];
-            [cell setCellWithDic:dic];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
+//    if (self.typeID == 1) {
+//        if (indexPath.row == 0) {
+//            AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
+//            cell.tag = indexPath.section;
+////            cell.delegate = self;
+//            
+//            return cell;
+//        } else {
+//            AliveListBottomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListBottomTableViewCellID"];
+////            cell.delegate = self;
+//            
+//            return cell;
+//        }
+//    }else {
+    
+        NSString *identifier = @"cell";
+        ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
+        if (cell == nil) {
+            cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
         }
-        else
-        {
-            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
-            cell.backgroundColor = self.daynightmodel.backColor;
-            cell.label.text = @"暂无收藏";
-            cell.label.textColor = self.daynightmodel.textColor;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        }
-    }
-    else
-    {
+        NSMutableArray *arrM = [self.collectionDictM objectForKey:@(self.typeID)];
+        ViewPointListModel *model = arrM[indexPath.row];
         
-        if (self.ViewCollectArray.count > 0) {
-            NSString *identifier = @"cell";
-            ViewPointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
-            if (cell == nil) {
-                cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
-            }
-            ViewPointListModel *model = self.ViewCollectArray[indexPath.row];
-            
-            [cell setupViewPointModel:model];
-            
-            return cell;
-        }
-        else
-        {
-            NothingTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NothingCell"];
-            cell.backgroundColor = self.daynightmodel.backColor;
-            cell.label.text = @"暂无收藏";
-            cell.label.textColor = self.daynightmodel.textColor;
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            return cell;
-        }
-    }
+        [cell setupViewPointModel:model];
+        
+        return cell;
+//    }
 }
 
--(CGFloat)tableView:(UITableView *)ttableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
+
+
+#pragma mark - UITableViewDelegate
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (self.typeID == 0) {
-        if (self.CollectionArray.count > 0) {
-            return 90;
-        }
-        else
-        {
-            return kScreenHeight-64;
-        }
-    }
-    else
-    {
-        if (self.ViewCollectArray.count > 0) {
-            return 15+25+10+titlesize.height+15;
-        }
-        else
-        {
-            return kScreenHeight-64;
-        }
-    }
+    NSMutableArray *arrM = [self.collectionDictM objectForKey:@(self.typeID)];
+    ViewPointListModel *model = arrM[indexPath.row];
+    return [ViewPointTableViewCell heightWithViewpointModel:model];
+
+    
 }
 
 -(BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
@@ -433,21 +369,7 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (edit == NO) {
-        if (self.typeID == 0) {
-            if (self.CollectionArray.count > 0) {
-                NSDictionary *dic = self.CollectionArray[indexPath.row];
-                DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
-                sharp.sharp_id = dic[@"sharp_id"];
-                sharp.pageMode = @"sharp";
-                [self.navigationController pushViewController:sharp animated:YES];
-            }
-            else
-            {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
-        }
-        else
-        {
+        if (self.typeID == 0){
             if (self.ViewCollectArray.count > 0) {
                 ViewPointListModel *model = self.ViewCollectArray[indexPath.row];
                 DetailPageViewController *view = [[DetailPageViewController alloc] init];
@@ -460,25 +382,35 @@
                 [self.navigationController popViewControllerAnimated:YES];
             }
         }
+        else {
+            if (self.CollectionArray.count > 0) {
+                NSDictionary *dic = self.CollectionArray[indexPath.row];
+                DetailPageViewController *sharp = [[DetailPageViewController alloc] init];
+                sharp.sharp_id = dic[@"sharp_id"];
+                sharp.pageMode = @"sharp";
+                [self.navigationController pushViewController:sharp animated:YES];
+            }
+            else
+            {
+                [self.navigationController popViewControllerAnimated:YES];
+            }
+        }
+        
     }
 }
 
-- (void)ClickBtn:(UIButton *)sender
-{
-    self.cateview.selectBtn.selected = NO;
-    sender.selected = YES;
-    self.cateview.selectBtn = sender;
-    self.cateview.selectLab.frame = CGRectMake(sender.frame.origin.x, 38, 70, 2);
-    
-    if ([sender.titleLabel.text isEqualToString:@"视频"]) {
-        self.typeID = 0;
-        [self.tableview reloadData];
+#pragma mark - 按钮点击事件
+- (void)segmentValueChanged:(UISegmentedControl *)segment {
+    NSInteger index = segment.selectedSegmentIndex+1;
+    self.typeID = index;
+    NSMutableArray *arrM = [NSMutableArray arrayWithArray:[self.collectionDictM objectForKey:@(index)]];
+    if (arrM.count <= 0) {
+        self.tableview.hidden = YES;
+    }else {
+        
+        self.tableview.hidden = NO;
     }
-    else
-    {
-        self.typeID = 1;
-        [self.tableview reloadData];
-    }
+    [self.tableview reloadData];
 }
 
 @end
