@@ -234,6 +234,82 @@
     
 }
 
+
+#pragma mark - 点击收藏取消收藏
+- (void)addCollection{
+//    if (US.isLogIn) {
+//        
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//        hud.labelText = @"添加收藏";
+//        
+//        NetworkManager *manager = [[NetworkManager alloc] init];
+//        NSDictionary *dic ;
+//        if ([self.pageMode isEqualToString:@"sharp"]) {
+//            dic = @{@"userid":US.userId,
+//                    @"module_id":@2,
+//                    @"item_id":self.sharp_id};
+//        }
+//        else
+//        {
+//            dic = @{@"userid":US.userId,
+//                    @"module_id":@3,
+//                    @"item_id":self.view_id};
+//        }
+//        
+//        
+//        [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
+//            if (!error) {
+//                hud.labelText = @"收藏成功";
+//                [hud hide:YES afterDelay:0.2];
+//                
+//            } else {
+//                hud.labelText = @"收藏失败";
+//                [hud hide:YES afterDelay:0.2];
+//            }
+//        }];
+//    }
+}
+
+- (void)clearCollection{
+//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hud.labelText = @"取消收藏";
+//    
+//    
+//    NSMutableArray *IDArr = [NSMutableArray array];
+//    
+//    
+//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
+//    NSDictionary *para ;
+//    if ([self.pageMode isEqualToString:@"sharp"]) {
+//        [IDArr addObject:self.sharp_id];
+//        para = @{@"authenticationStr":US.userId,
+//                 @"encryptedStr":self.encryptedStr,
+//                 @"delete_ids":IDArr,
+//                 @"module_id":@"2",
+//                 @"userid":US.userId};
+//    }
+//    else
+//    {
+//        [IDArr addObject:self.view_id];
+//        para = @{@"authenticationStr":US.userId,
+//                 @"encryptedStr":self.encryptedStr,
+//                 @"delete_ids":IDArr,
+//                 @"module_id":@"3",
+//                 @"userid":US.userId};
+//        
+//    }
+//    [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
+//        if (!error) {
+//            hud.labelText = @"取消成功";
+//            [hud hide:YES afterDelay:0.2];
+//        } else {
+//            hud.labelText = @"取消失败";
+//            [hud hide:YES afterDelay:0.2];
+//        }
+//    }];
+}
+
+
 #pragma mark - WKNavigationDelegate
 - (void)webView:(WKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
     DDLogInfo(@"Survey detail web start load");

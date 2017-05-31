@@ -18,7 +18,6 @@
 #import "LoginState.h"
 #import "LoginManager.h"
 #import "YXSearchButton.h"
-#import "ViewPointViewController.h"
 #import "VideoViewController.h"
 #import "PublishViewViewController.h"
 #import "YXTitleCustomView.h"
@@ -43,11 +42,7 @@
 
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
-        
-        
-        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]
-                                                           forKey: UIPageViewControllerOptionSpineLocationKey];
-        
+        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]  forKey: UIPageViewControllerOptionSpineLocationKey];
         _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
         _pageViewController.dataSource = self;
         _pageViewController.delegate = self;
@@ -67,9 +62,6 @@
         
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = kAliveListViewpoint;
-        
-        ViewPointViewController *pointVC = [[ViewPointViewController alloc] init];
-        
         VideoViewController *videoVC = [[VideoViewController alloc] init];
         
         
@@ -207,7 +199,7 @@
     [view addSubview:segmented];
     
     [self.view addSubview:view];
-
+    
     self.segmentControl = segmented;
 }
 
