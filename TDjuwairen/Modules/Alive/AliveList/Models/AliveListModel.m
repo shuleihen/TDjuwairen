@@ -26,7 +26,8 @@
         self.shareUrl = SafeValue(dict[@"alive_share_url"]);
         self.aliveTags = dict[@"alive_com_tag"];
         self.isOfficial = [dict[@"is_official"] boolValue];
-        
+        self.isAttend = [dict[@"is_attend"] boolValue];
+        self.isSelf = [dict[@"is_self"] boolValue];
         BOOL isforward = [dict[@"is_forward"] boolValue];
         self.isForward = isforward;
         
