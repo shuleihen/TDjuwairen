@@ -10,7 +10,6 @@
 
 @interface AliveDetailViewController : UIViewController
 @property (copy, nonatomic) NSString *alive_ID;
-/// 1表示图文，2表示贴单
 @property (copy, nonatomic) NSString *alive_type;
 
 @end

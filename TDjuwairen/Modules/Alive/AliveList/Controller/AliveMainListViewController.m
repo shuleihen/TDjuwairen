@@ -60,7 +60,7 @@
 - (NSArray *)contentControllers {
     if (!_contentControllers) {
         AliveListViewController *one = [[AliveListViewController alloc] init];
-        one.listType = AliveRecommend;
+        one.listType = kAliveListRecommend;
         
         AliveListViewController *two = [[AliveListViewController alloc] init];
         two.listType = AliveAttention;
@@ -73,7 +73,7 @@
         VideoViewController *videoVC = [[VideoViewController alloc] init];
         
         
-        _contentControllers = @[one,two,pointVC,videoVC];
+        _contentControllers = @[one,two,three,videoVC];
     }
     
     return _contentControllers;
@@ -137,12 +137,12 @@
     [self setupNavigationBar];
     [self setupSegmentControl];
     
-    self.listType = AliveRecommend;
+    self.listType = kAliveListRecommend;
     
     self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
     [self.view addSubview:self.pageViewController.view];
     
-    self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
+    self.segmentControl.selectedSegmentIndex = (self.listType == kAliveListRecommend)?0:1;
     [self segmentValueChanged:self.segmentControl];
     
     [self.view addSubview:self.publishBtn];
@@ -198,7 +198,7 @@
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-    
+    [segmented setBackgroundImage:normal forState:UIControlStateSelected|UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 44-TDPixel, kScreenWidth, TDPixel)];
     sep.backgroundColor = TDSeparatorColor;
@@ -278,9 +278,9 @@
      [vc refreshActions];
      }
      
-     if (!US.isLogIn && (self.listType == AliveAttention)) {
-     self.listType = AliveRecommend;
-     self.segmentControl.selectedSegmentIndex = (self.listType == AliveRecommend)?0:1;
+     if (!US.isLogIn && (self.listType == kAliveListAttention)) {
+     self.listType = kAliveListRecommend;
+     self.segmentControl.selectedSegmentIndex = (self.listType == kAliveListRecommend)?0:1;
      [self segmentValueChanged:self.segmentControl];
      }
      */

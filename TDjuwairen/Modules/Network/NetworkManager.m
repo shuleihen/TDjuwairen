@@ -156,7 +156,7 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
                                                                                       
                                        } else {
                                            NSString *msg = responseObject[@"msg"];
-                                           NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg}];
+                                           NSError *error = [[NSError alloc] initWithDomain:NetworkErrorDomain code:code userInfo:@{NSLocalizedDescriptionKey:msg?:@""}];
                                            
                                            dispatch_async(dispatch_get_main_queue(), ^{
                                                completion(nil, error);

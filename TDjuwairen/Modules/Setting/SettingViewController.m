@@ -1,12 +1,12 @@
 //
-//  SettingUpViewController.m
+//  SettingViewController.m
 //  TDjuwairen
 //
 //  Created by 团大 on 16/8/23.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "SettingUpViewController.h"
+#import "SettingViewController.h"
 #import "PushSwitchViewController.h"
 #import "FeedbackViewController.h"
 #import "LoginState.h"
@@ -16,7 +16,7 @@
 #import "UIMacroDef.h"
 #import "AccouontManagerViewController.h"
 
-@interface SettingUpViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface SettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property (nonatomic,strong) UITableView *tableview;
 @property (nonatomic,strong) NSArray *imgArr;
@@ -25,7 +25,7 @@
 @property (nonatomic, strong) NSString *clearString;
 @end
 
-@implementation SettingUpViewController
+@implementation SettingViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];

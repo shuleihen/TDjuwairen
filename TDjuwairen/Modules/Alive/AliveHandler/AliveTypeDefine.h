@@ -11,9 +11,10 @@
 
 // 直播列表类型
 typedef enum : NSUInteger {
-    AliveAttention  =0, // 关注
-    AliveRecommend  =1, // 推荐
-    AliveALL        =2, // 全部
+    kAliveListAttention  =0, // 关注
+    kAliveListRecommend  =1, // 推荐
+    kAliveListViewpoint  =2, // 观点
+    kAliveListVideo      =3, // 视频
 } AliveListType;
 
 // 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享
@@ -30,12 +31,13 @@ typedef enum : NSInteger {
     kAliveRoomListPosts    =1
 } AliveRoomListType;
 
-// 直播动态类型，1表示图文、2表示贴单、3表示调研、4表示热点
+// 直播动态类型，1表示图文、2表示贴单、3表示调研、4表示热点、5观点
 typedef enum : NSInteger {
     kAliveNormal    =1,
     kAlivePosts     =2,
     kAliveSurvey    =3,
     kAliveHot       =4,
+    kkAliveListViewpoint =5,
 } AliveType;
 
 // 直播内容类型，0：文本，1：图片

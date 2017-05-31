@@ -75,9 +75,12 @@
 #define API_Search              @"Search/search2_2"
 #define API_ViewSearchCompnay   @"View/getCompanyCode"
 
+
 #define API_AddSharpComment     @"index.php/Sharp/addSharpComnment"
 #define API_GetSurveryList      @"index.php/Sharp/surveyList/page"
 #define API_GetVideoList        @"index.php/Sharp/VideoList/page"
+
+
 #define API_GetViewComment      @"index.php/View/GetViewComment1_2"
 #define API_GetBanner           @"Index/indexBanner"
 
@@ -146,6 +149,9 @@
 
 #define API_PayIsShow           @"Pay/isPayShow"
 
+#define API_AliveVideoList          @"Sharp/videoList3_1"
+#define API_AliveViewpointList      @"View/getViewList3_1"
+
 #define API_AliveGetRoomList        @"Room/lists"
 #define API_AliveGetAliveInfo       @"Room/showLiveInfo"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"
@@ -164,10 +170,8 @@
 #define API_AliveAddRoomPublish     @"Room/publish"
 #define API_AliveGetRoomInfo        @"Room/getRoomInfo"
 #define API_AliveGetRoomLiveList    @"Room/roomLiveList"
-/// 股神指数说明文字
-#define API_AliveGetGuessRateInfo    @"Room/getGuessRateInfo"
-/// 关注数 说明文字
-#define API_AliveGetAttenInfo    @"Room/getAttenInfo"
+#define API_AliveGetGuessRateInfo   @"Room/getGuessRateInfo"
+#define API_AliveGetAttenInfo       @"Room/getAttenInfo"
 #define API_AliveUpdateUserSex      @"Room/updateUserSex"
 #define API_AliveUpdateUserCity     @"Room/updateUserAddress"
 #define API_AliveUpdateRoomInfo     @"Room/updateRoomInfo"

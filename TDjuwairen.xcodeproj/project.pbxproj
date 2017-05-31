@@ -77,7 +77,7 @@
 		1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325751E4DAF7200E3D500 /* ReplyRemindTableViewCell.m */; };
 		1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325771E4DAF7200E3D500 /* PushMessageViewController.m */; };
 		1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325791E4DAF7200E3D500 /* PushSwitchViewController.m */; };
-		193325801E4DAF7200E3D500 /* SettingUpViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */; };
+		193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1933257B1E4DAF7200E3D500 /* SettingViewController.m */; };
 		193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325821E4DC9A400E3D500 /* FeedbackViewController.m */; };
 		193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */; };
 		193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */; };
@@ -705,8 +705,8 @@
 		193325771E4DAF7200E3D500 /* PushMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushMessageViewController.m; sourceTree = "<group>"; };
 		193325781E4DAF7200E3D500 /* PushSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSwitchViewController.h; sourceTree = "<group>"; };
 		193325791E4DAF7200E3D500 /* PushSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSwitchViewController.m; sourceTree = "<group>"; };
-		1933257A1E4DAF7200E3D500 /* SettingUpViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingUpViewController.h; sourceTree = "<group>"; };
-		1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingUpViewController.m; sourceTree = "<group>"; };
+		1933257A1E4DAF7200E3D500 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
+		1933257B1E4DAF7200E3D500 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		193325811E4DC9A400E3D500 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
 		193325821E4DC9A400E3D500 /* FeedbackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedbackViewController.m; sourceTree = "<group>"; };
 		193419961E76B4DB00F22788 /* AliveRoomMasterModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomMasterModel.h; sourceTree = "<group>"; };
@@ -1996,6 +1996,8 @@
 				193325771E4DAF7200E3D500 /* PushMessageViewController.m */,
 				193325781E4DAF7200E3D500 /* PushSwitchViewController.h */,
 				193325791E4DAF7200E3D500 /* PushSwitchViewController.m */,
+				1933257A1E4DAF7200E3D500 /* SettingViewController.h */,
+				1933257B1E4DAF7200E3D500 /* SettingViewController.m */,
 				1933257A1E4DAF7200E3D500 /* SettingUpViewController.h */,
 				1933257B1E4DAF7200E3D500 /* SettingUpViewController.m */,
 				4DE260F51ED94CB0002025C6 /* RemoteSettingController.h */,
@@ -4882,7 +4884,7 @@
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
 				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
-				193325801E4DAF7200E3D500 /* SettingUpViewController.m in Sources */,
+				193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,

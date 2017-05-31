@@ -22,6 +22,7 @@
 #import "MBProgressHUD.h"
 #import "SurveyDetailWebViewController.h"
 #import "StockDetailViewController.h"
+#import "DetailPageViewController.h"
 #import "AliveAlertOperateViewController.h"
 #import "STPopupController.h"
 #import "UIViewController+STPopup.h"
@@ -461,11 +462,21 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
     if (model.aliveId.length <= 0) {
         return;
     }
-    AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-    vc.alive_ID = model.aliveId;
-    vc.alive_type = (model.aliveType==1)?@"1":@"2";
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.viewController.navigationController pushViewController:vc animated:YES];
+    
+    if (model.aliveType == kkAliveListViewpoint) {
+        // 观点
+        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+        detail.view_id = model.aliveId;
+        detail.pageMode = @"view";
+        [detail setHidesBottomBarWhenPushed:YES];
+        [self.viewController.navigationController pushViewController:detail animated:YES];
+    } else {
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.alive_ID = model.aliveId;
+        vc.alive_type = (model.aliveType==1)?@"1":@"2";
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
