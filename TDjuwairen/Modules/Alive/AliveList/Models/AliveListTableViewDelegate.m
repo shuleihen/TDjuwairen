@@ -180,10 +180,16 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
 #pragma mark - AliveAlertOperateViewControllerDelegate
 - (void)alertSelectedWithIndex:(NSInteger)index andTitle:(NSString *)titleStr {
     NSString *str = @"";
+    NSString *errorStr = @"";
+    NSString *notiStr = @"";
     if ([titleStr isEqualToString:@"关注"]) {
         str = API_AliveAddAttention;
+        errorStr = @"添加关注失败";
+        notiStr = @"1";
     }else if ([titleStr isEqualToString:@"取消关注"]) {
         str = API_AliveDelAttention;
+         errorStr = @"取消关注失败";
+        notiStr = @"0";
     }else {
         
         
@@ -196,22 +202,44 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
     NetworkManager *manager = [[NetworkManager alloc] init];
     AliveListCellData *cellData = self.tempCell.cellData;
     AliveListModel *listModel = cellData.aliveModel;
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.viewController.navigationController.view animated:YES];
     [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
         
         if (!error) {
-            
+            [hud hide:YES];
             if (data && [data[@"status"] integerValue] == 1) {
                 
-                listModel.isAttend = !listModel.isAttend;
-                [self.tableView beginUpdates];
-                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.tempCell.tag] withRowAnimation:UITableViewRowAnimationNone];
+                if (self.listType == AliveRecommend) {
+                    /// 推荐列表
+                    
+                    for (AliveListCellData *tempCellData in self.itemList) {
+                        AliveListModel *tempModel= tempCellData.aliveModel;
+                        if ([tempModel.masterId isEqualToString:listModel.masterId]) {
+                            tempModel.isAttend = !tempModel.isAttend;
+                        }
+                    }
+                }else if (self.listType == AliveAttention) {
+//                    NSMutableArray *tempArrM = [NSMutableArray array];
+//                    for (AliveListCellData *tempCellData in self.itemList) {
+//                        AliveListModel *tempModel= tempCellData.aliveModel;
+//                        if (![tempModel.masterId isEqualToString:listModel.masterId]) {
+//                            [tempArrM addObject:tempCellData];
+//                        }
+//                    }
+//                    
+//                    self.itemList = tempArrM;
+                }
+                
+                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddAttend object:nil userInfo:@{@"masterID":listModel.masterId,@"listType":@(self.listType),@"addAttend":notiStr}];
+                
+                [self.tableView reloadData];
                 if (self.reloadView) {
                     self.reloadView();
                 }
-                [self.tableView endUpdates];
-                
             }
         } else {
+            hud.labelText = errorStr;
+            [hud hide:YES afterDelay:0.7];
         }
         
     }];

@@ -54,12 +54,14 @@
     [self.view addSubview:self.tableView];
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
+    self.tableViewDelegate.listType = self.listType;
     
     [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
     
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
     
     [self refreshActions];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attendChange:) name:KnotifierGoAddAttend object:nil];
 }
 
 - (void)viewDidLayoutSubviews {
@@ -161,5 +163,53 @@
     }];
 }
 
+#pragma mark - 关注状态改变通知
+- (void)attendChange:(NSNotification *)noti {
+    NSString *masterId = noti.userInfo[@"masterID"];
+    AliveType listType = [noti.userInfo[@"listType"] integerValue];
+    NSString *addAttend = noti.userInfo[@"addAttend"];
+    
+    if (listType == self.listType && self.listType == AliveRecommend) {
+        return;
+    }
+    
+    if (self.listType == AliveAttention && [addAttend isEqualToString:@"1"]) {
+        //
+        [self refreshActions];
+    }else if (self.listType == AliveAttention && [addAttend isEqualToString:@"0"]) {
+        // 关注列表
+        
+        NSMutableArray *tempArrM = [NSMutableArray array];
+        for (AliveListModel *listModel in self.aliveList) {
+            
+            if (![listModel.masterId isEqualToString:masterId]) {
+                [tempArrM addObject:listModel];
+            }
+        }
+        
+        if (tempArrM.count <= 0) {
+             [self refreshActions];
+        }else {
+        
+            self.aliveList = tempArrM;
+        }
+        
+    }else if (self.listType == AliveRecommend) {
+    
+        for (AliveListModel *listModel in self.aliveList) {
+            if ([listModel.masterId isEqualToString:masterId]) {
+                listModel.isAttend = !listModel.isAttend;
+            }
+        }
+    }
+    
+    [self.tableViewDelegate setupAliveListArray:self.aliveList];
+    [self.tableView reloadData];
+}
+
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 @end

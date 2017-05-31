@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "AliveTypeDefine.h"
 typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 
 
@@ -17,6 +17,7 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 
 // 个人直播间动态可以删除
 @property (nonatomic, assign) BOOL isMyRoom;
+@property (nonatomic, assign) AliveListType listType;
 
 @property (nonatomic, copy) void (^reloadView)(void);
 

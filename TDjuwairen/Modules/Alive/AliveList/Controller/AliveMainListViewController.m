@@ -64,9 +64,9 @@
         
         AliveListViewController *two = [[AliveListViewController alloc] init];
         two.listType = AliveAttention;
-        
         //        AliveListViewController *three = [[AliveListViewController alloc] init];
         //        three.listType = AliveALL;
+        
         
         ViewPointViewController *pointVC = [[ViewPointViewController alloc] init];
         

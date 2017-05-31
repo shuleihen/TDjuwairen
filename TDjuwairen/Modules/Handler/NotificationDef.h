@@ -29,5 +29,7 @@
 #define KnotifierGoPingLun              @"KnotifierGoPingLun"
 #define KnotifierGoAddLike              @"KnotifierGoAddLike"
 #define kAlivePublishNotification       @"AlivePublishNotification"
+#define KnotifierGoAddAttend            @"KnotifierGoAddAttend"
+
 
 #endif /* NotificationDef_h */
