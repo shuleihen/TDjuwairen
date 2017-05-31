@@ -212,7 +212,7 @@
             self.aliveList = tempArrM;
         }
         
-    }else if (self.listType == kAliveListRecommend) {
+    }else if (self.listType == kAliveListRecommend || self.listType == kAliveListViewpoint) {
     
         for (AliveListModel *listModel in self.aliveList) {
             if ([listModel.masterId isEqualToString:masterId]) {

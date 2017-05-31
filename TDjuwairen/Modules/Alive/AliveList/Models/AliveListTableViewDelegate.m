@@ -210,8 +210,8 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
             [hud hide:YES];
             if (data && [data[@"status"] integerValue] == 1) {
                 
-                if (self.listType == kAliveListRecommend) {
-                    /// 推荐列表
+                if (self.listType == kAliveListRecommend || self.listType == kAliveListViewpoint) {
+                    /// 推荐列表 观点列表
                     
                     for (AliveListCellData *tempCellData in self.itemList) {
                         AliveListModel *tempModel= tempCellData.aliveModel;
@@ -219,16 +219,6 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
                             tempModel.isAttend = !tempModel.isAttend;
                         }
                     }
-                }else if (self.listType == kAliveListAttention) {
-//                    NSMutableArray *tempArrM = [NSMutableArray array];
-//                    for (AliveListCellData *tempCellData in self.itemList) {
-//                        AliveListModel *tempModel= tempCellData.aliveModel;
-//                        if (![tempModel.masterId isEqualToString:listModel.masterId]) {
-//                            [tempArrM addObject:tempCellData];
-//                        }
-//                    }
-//                    
-//                    self.itemList = tempArrM;
                 }
                 
                  [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddAttend object:nil userInfo:@{@"masterID":listModel.masterId,@"listType":@(self.listType),@"addAttend":notiStr}];
