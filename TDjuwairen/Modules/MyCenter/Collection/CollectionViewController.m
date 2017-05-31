@@ -21,7 +21,9 @@
 #import "UIImage+Color.h"
 #import "AliveListTableViewCell.h"
 #import "AliveListBottomTableViewCell.h"
-
+#import "DeleteCollectionPopController.h"
+#import "STPopupController.h"
+#import "UIViewController+STPopup.h"
 
 @interface CollectionViewController ()<UITableViewDelegate,UITableViewDataSource>
 {
@@ -147,43 +149,43 @@
     
 }
 
-
--(void)Delete:(UIButton*)sender
-{
-    NSMutableArray *sharpId = [NSMutableArray array];
-    NSArray *selectArray = self.tableview.indexPathsForSelectedRows;
-    
-    if (selectArray.count) {
-        self.delArray = [NSMutableArray array];
-        for (NSIndexPath *indexPath in selectArray) {
-            NSDictionary *dic = [self.CollectionArray objectAtIndex:indexPath.row];
-            [self.delArray addObject:dic];
-            [sharpId addObject:dic[@"sharp_id"]];
-        }
-        
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary*para=@{@"authenticationStr":US.userId,
-                            @"encryptedStr":self.str,
-                            @"delete_ids":sharpId,
-                            @"module_id":@"2",
-                            @"userid":US.userId};
-        
-        [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
-        
-        [self.CollectionArray removeObjectsInArray:self.delArray];
-        
-        [self.tableview deleteRowsAtIndexPaths:selectArray withRowAnimation:YES];
-        
-        [UIView animateWithDuration:0.3 animations:^{
-            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
-        } completion:^(BOOL finished) {
-            
-        }];
-        
-        edit = NO;
-        [self.tableview setEditing:NO animated:YES];
-    }
-}
+//
+//-(void)Delete:(UIButton*)sender
+//{
+//    NSMutableArray *sharpId = [NSMutableArray array];
+//    NSArray *selectArray = self.tableview.indexPathsForSelectedRows;
+//    
+//    if (selectArray.count) {
+//        self.delArray = [NSMutableArray array];
+//        for (NSIndexPath *indexPath in selectArray) {
+//            NSDictionary *dic = [self.CollectionArray objectAtIndex:indexPath.row];
+//            [self.delArray addObject:dic];
+//            [sharpId addObject:dic[@"sharp_id"]];
+//        }
+//        
+//        NetworkManager *manager = [[NetworkManager alloc] init];
+//        NSDictionary*para=@{@"authenticationStr":US.userId,
+//                            @"encryptedStr":self.str,
+//                            @"delete_ids":sharpId,
+//                            @"module_id":@"2",
+//                            @"userid":US.userId};
+//        
+//        [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
+//        
+//        [self.CollectionArray removeObjectsInArray:self.delArray];
+//        
+//        [self.tableview deleteRowsAtIndexPaths:selectArray withRowAnimation:YES];
+//        
+//        [UIView animateWithDuration:0.3 animations:^{
+//            self.tableview.frame = CGRectMake(0, 0, CGRectGetWidth(self.view.bounds), CGRectGetHeight(self.view.bounds));
+//        } completion:^(BOOL finished) {
+//            
+//        }];
+//        
+//        edit = NO;
+//        [self.tableview setEditing:NO animated:YES];
+//    }
+//}
 
 //身份验证
 -(void)requestAuthentication
@@ -313,48 +315,64 @@
 
 -(void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     if (editingStyle==UITableViewCellEditingStyleDelete) {
-        if (self.typeID == 0) {
-            NSDictionary *dic = [self.CollectionArray objectAtIndex:indexPath.row];
-            NSMutableArray *delarr = [NSMutableArray array];
-            [delarr addObject:dic[@"sharp_id"]];
+        
+        DeleteCollectionPopController *vc = [[UIStoryboard storyboardWithName:@"Popup" bundle:nil] instantiateViewControllerWithIdentifier:@"DeleteCollectionPopController"];
+        vc.deleteBlock = ^(){
+//            if (self.typeID == 0) {
+//                NSDictionary *dic = [self.CollectionArray objectAtIndex:indexPath.row];
+//                NSMutableArray *delarr = [NSMutableArray array];
+//                [delarr addObject:dic[@"sharp_id"]];
+//                
+//                NetworkManager *manager = [[NetworkManager alloc] init];
+//                NSDictionary*para = @{@"authenticationStr":US.userId,
+//                                      @"encryptedStr":self.str,
+//                                      @"delete_ids":delarr,
+//                                      @"module_id":@"2",
+//                                      @"userid":US.userId};
+//                
+//                [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
+//                
+//                NSMutableArray *arr = [NSMutableArray arrayWithArray:self.CollectionArray];
+//                [arr removeObjectAtIndex:indexPath.row];
+//                self.CollectionArray = [NSMutableArray arrayWithArray:arr];
+//                
+//                [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+//            }
+//            else
+//            {
+//                NSDictionary *dic = [self.ViewCollectArray objectAtIndex:indexPath.row];
+//                NSMutableArray *delarr = [NSMutableArray array];
+//                [delarr addObject:dic[@"view_id"]];
+//                
+//                NetworkManager *manager = [[NetworkManager alloc] init];
+//                NSDictionary*para = @{@"authenticationStr":US.userId,
+//                                      @"encryptedStr":self.str,
+//                                      @"delete_ids":delarr,
+//                                      @"module_id":@"3",
+//                                      @"userid":US.userId};
+//                
+//                [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
+//                
+//                NSMutableArray *arr = [NSMutableArray arrayWithArray:self.ViewCollectArray];
+//                [arr removeObjectAtIndex:indexPath.row];
+//                self.ViewCollectArray = [NSMutableArray arrayWithArray:arr];
+//                
+//                [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
+//            }
+        
             
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary*para = @{@"authenticationStr":US.userId,
-                                  @"encryptedStr":self.str,
-                                  @"delete_ids":delarr,
-                                  @"module_id":@"2",
-                                  @"userid":US.userId};
-            
-            [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
-            
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.CollectionArray];
-            [arr removeObjectAtIndex:indexPath.row];
-            self.CollectionArray = [NSMutableArray arrayWithArray:arr];
-            
-            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
-        }
-        else
-        {
-            NSDictionary *dic = [self.ViewCollectArray objectAtIndex:indexPath.row];
-            NSMutableArray *delarr = [NSMutableArray array];
-            [delarr addObject:dic[@"view_id"]];
-            
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary*para = @{@"authenticationStr":US.userId,
-                                  @"encryptedStr":self.str,
-                                  @"delete_ids":delarr,
-                                  @"module_id":@"3",
-                                  @"userid":US.userId};
-            
-            [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){}];
-            
-            NSMutableArray *arr = [NSMutableArray arrayWithArray:self.ViewCollectArray];
-            [arr removeObjectAtIndex:indexPath.row];
-            self.ViewCollectArray = [NSMutableArray arrayWithArray:arr];
-            
-            [tableView deleteRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:indexPath.row inSection:indexPath.section]] withRowAnimation:UITableViewRowAnimationFade];
-        }
+        };
+
+        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.containerView.layer.cornerRadius = 4;
+        popupController.navigationBarHidden = YES;
+        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth-105, 160);
+        popupController.style = STPopupStyleFormSheet;
+        [popupController presentInViewController:self];
+        
+      
         
     }
 }

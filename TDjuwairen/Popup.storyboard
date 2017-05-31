@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -158,7 +158,97 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="F44-Fb-qUw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-119.2" y="79.160419790104953"/>
+            <point key="canvasLocation" x="-431" y="79"/>
+        </scene>
+        <!--Delete Collection Pop Controller-->
+        <scene sceneID="tU0-hW-42g">
+            <objects>
+                <viewController storyboardIdentifier="DeleteCollectionPopController" id="Rcu-ZQ-BYt" customClass="DeleteCollectionPopController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="noP-94-TJ8"/>
+                        <viewControllerLayoutGuide type="bottom" id="FZg-zQ-V99"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="fEt-jA-FWw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="160"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="是否取消收藏" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xTe-vi-k61">
+                                <rect key="frame" x="135" y="23" width="104" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="取消收藏，将不再列表中显示" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1Jk-Xk-ahh">
+                                <rect key="frame" x="12" y="71.5" width="351" height="16"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ofE-cz-Ghe">
+                                <rect key="frame" x="0.0" y="116.5" width="375" height="0.5"/>
+                                <color key="backgroundColor" red="0.92549019607843142" green="0.92549019607843142" blue="0.92549019607843142" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="0.5" id="OGh-3V-2vR"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="mx9-mk-tHI">
+                                <rect key="frame" x="187.5" y="117" width="0.5" height="43"/>
+                                <color key="backgroundColor" red="0.92549019610000005" green="0.92549019610000005" blue="0.92549019610000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="0.5" id="aSu-VO-e3m"/>
+                                </constraints>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nno-Mt-Qmk">
+                                <rect key="frame" x="0.0" y="117" width="187.5" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="取消">
+                                    <color key="titleColor" red="0.0" green="0.46274509803921571" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelButtonClick" destination="Rcu-ZQ-BYt" eventType="touchUpInside" id="ysa-pe-XpP"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6ro-TP-zeE">
+                                <rect key="frame" x="188" y="117" width="187" height="43"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" title="确定">
+                                    <color key="titleColor" red="0.0" green="0.46274509800000002" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="doneButtonClick:" destination="Rcu-ZQ-BYt" eventType="touchUpInside" id="Yao-sk-Ix8"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="1Jk-Xk-ahh" secondAttribute="trailing" constant="12" id="2tJ-gW-Kxx"/>
+                            <constraint firstItem="mx9-mk-tHI" firstAttribute="leading" secondItem="nno-Mt-Qmk" secondAttribute="trailing" id="E8B-p2-uGm"/>
+                            <constraint firstAttribute="trailing" secondItem="6ro-TP-zeE" secondAttribute="trailing" id="Jzh-Bu-smY"/>
+                            <constraint firstItem="6ro-TP-zeE" firstAttribute="top" secondItem="ofE-cz-Ghe" secondAttribute="bottom" id="LE0-mS-FHS"/>
+                            <constraint firstItem="FZg-zQ-V99" firstAttribute="top" secondItem="ofE-cz-Ghe" secondAttribute="bottom" constant="43" id="O9V-AV-FKQ"/>
+                            <constraint firstItem="xTe-vi-k61" firstAttribute="top" secondItem="noP-94-TJ8" secondAttribute="bottom" constant="23" id="QT2-zM-6be"/>
+                            <constraint firstItem="1Jk-Xk-ahh" firstAttribute="top" secondItem="xTe-vi-k61" secondAttribute="bottom" constant="27.5" id="Rye-yP-Yva"/>
+                            <constraint firstItem="mx9-mk-tHI" firstAttribute="top" secondItem="ofE-cz-Ghe" secondAttribute="bottom" id="UKD-oh-fcj"/>
+                            <constraint firstItem="nno-Mt-Qmk" firstAttribute="top" secondItem="ofE-cz-Ghe" secondAttribute="bottom" id="aRy-XX-mlw"/>
+                            <constraint firstItem="xTe-vi-k61" firstAttribute="centerX" secondItem="fEt-jA-FWw" secondAttribute="centerX" id="c7K-Wl-O3v"/>
+                            <constraint firstItem="1Jk-Xk-ahh" firstAttribute="leading" secondItem="fEt-jA-FWw" secondAttribute="leading" constant="12" id="dsD-e7-oY4"/>
+                            <constraint firstItem="FZg-zQ-V99" firstAttribute="top" secondItem="mx9-mk-tHI" secondAttribute="bottom" id="hfh-Tv-i9M"/>
+                            <constraint firstItem="6ro-TP-zeE" firstAttribute="leading" secondItem="mx9-mk-tHI" secondAttribute="trailing" id="iSo-ed-Xu9"/>
+                            <constraint firstItem="ofE-cz-Ghe" firstAttribute="leading" secondItem="fEt-jA-FWw" secondAttribute="leading" id="kIu-ZH-4Dz"/>
+                            <constraint firstAttribute="trailing" secondItem="ofE-cz-Ghe" secondAttribute="trailing" id="lqC-su-HbU"/>
+                            <constraint firstItem="FZg-zQ-V99" firstAttribute="top" secondItem="nno-Mt-Qmk" secondAttribute="bottom" id="oJS-YW-SFS"/>
+                            <constraint firstItem="nno-Mt-Qmk" firstAttribute="leading" secondItem="fEt-jA-FWw" secondAttribute="leading" id="s4z-5n-11E"/>
+                            <constraint firstItem="FZg-zQ-V99" firstAttribute="top" secondItem="6ro-TP-zeE" secondAttribute="bottom" id="xxj-GY-jBO"/>
+                            <constraint firstItem="mx9-mk-tHI" firstAttribute="centerX" secondItem="fEt-jA-FWw" secondAttribute="centerX" id="zd6-SX-np5"/>
+                        </constraints>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="160"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Avx-jO-Jkq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-431.19999999999999" y="492.05397301349331"/>
         </scene>
     </scenes>
     <resources>

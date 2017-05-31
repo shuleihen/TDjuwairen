@@ -12,9 +12,22 @@
 
 @interface StockShareView ()
 @property (nonatomic, strong) UIView *panelView;
+@property (weak, nonatomic) UIButton *collection;
 @end
 
 @implementation StockShareView
+- (void)setIsCollection:(BOOL)isCollection {
+
+    _isCollection = isCollection;
+    if (isCollection == YES) {
+        [self.collection setImage:[UIImage imageNamed:@"stock_collection_in.png"] forState:UIControlStateNormal];
+    }else {
+    [self.collection setImage:[UIImage imageNamed:@"stock_collection.png"] forState:UIControlStateNormal];
+        
+    }
+}
+
+
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hide)];
@@ -52,6 +65,7 @@
         [collection addTarget:self action:@selector(collectionPressed:) forControlEvents:UIControlEventTouchUpInside];
         [collection align:BAVerticalImage withSpacing:5];
         [_panelView addSubview:collection];
+        _collection = collection;
         
         
         UIButton *feedback = [UIButton buttonWithType:UIButtonTypeCustom];

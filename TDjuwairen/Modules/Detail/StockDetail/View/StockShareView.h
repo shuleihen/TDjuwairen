@@ -18,6 +18,7 @@
 
 @interface StockShareView : UIView
 @property (nonatomic, weak) id<StockShareDelegate> delegate;
+@property (assign, nonatomic) BOOL isCollection;
 
 - (void)showInContainView:(UIView *)containView;
 

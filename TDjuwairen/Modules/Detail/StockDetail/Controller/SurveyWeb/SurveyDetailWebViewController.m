@@ -28,11 +28,14 @@
 #import "STPopup.h"
 #import "UIViewController+STPopup.h"
 
+
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,StockShareDelegate,StockAskDelegate>
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) StockShareView *shareView;
 @property (nonatomic, strong) StockAskView *askView;
+@property (strong, nonatomic) NSMutableDictionary *surveyInfoDictM;
+
 
 @end
 
@@ -45,7 +48,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.webView];
     
@@ -61,18 +63,18 @@
     [downLoadButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#333333"] forState:UIControlStateNormal];
     [downLoadButton addTarget:self action:@selector(downLoadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *downLoadButtonItem = [[UIBarButtonItem alloc]initWithCustomView:downLoadButton];
-
+    
     if (self.tag== 0) {
         self.title = [self.stockName stringByAppendingString:@" 实地篇"];
         self.navigationItem.rightBarButtonItem= rightItem;
     } else if (self.tag== 1) {
         self.title = [self.stockName stringByAppendingString:@" 公告篇"];
-         self.navigationItem.rightBarButtonItem= downLoadButtonItem;
+        self.navigationItem.rightBarButtonItem= downLoadButtonItem;
     } else if (self.tag== 3) {
         self.title = [self.stockName stringByAppendingString:@" 热点篇"];
         self.navigationItem.rightBarButtonItem= rightItem;
     }
-    
+    [self loadSurveyInfoData];
     // 加载内容
     [self reloadData];
 }
@@ -114,8 +116,8 @@
     DDLogInfo(@"Survey detail web load url = %@", urlString);
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     
-//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"TextHtml" withExtension:@"html"];
-//    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
+    //    NSURL *url = [[NSBundle mainBundle] URLForResource:@"TextHtml" withExtension:@"html"];
+    //    [self.webView loadRequest:[NSURLRequest requestWithURL:url]];
     
 }
 
@@ -152,28 +154,28 @@
     }];
 }
 
-#pragma mark - StockShareDelegate
-- (void)sharePressed {
-    
+#pragma mark - loadSurveyInfoData
+- (void)loadSurveyInfoData {
     NSDictionary *para = @{@"content_id": self.contentId,
                            @"survey_tag": @(self.tag)};
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_SurveyGetShareInfo parameters:para completion:^(id data, NSError *error) {
         if (!error) {
-            [self shareWithDict:data];
+            self.surveyInfoDictM = [NSMutableDictionary dictionaryWithDictionary:data];
+            self.shareView.isCollection = [data[@"is_collected"] boolValue];
         }
     }];
     
-    
 }
 
-- (void)shareWithDict:(NSDictionary *)dict {
+#pragma mark - StockShareDelegate
+- (void)sharePressed {
     
-    NSString *title = dict[@"survey_title"];
-    NSString *author = dict[@"survey_author"];
-    NSString *cover = dict[@"survey_cover"];
-    NSString *url = dict[@"share_url"];
+    NSString *title = self.surveyInfoDictM[@"survey_title"];
+    NSString *author = self.surveyInfoDictM[@"survey_author"];
+    NSString *cover = self.surveyInfoDictM[@"survey_cover"];
+    NSString *url = self.surveyInfoDictM[@"share_url"];
     
     NSArray *images;
     if (cover.length) {
@@ -200,7 +202,7 @@
             [hud hide:YES afterDelay:0.6];
         }
     };
-
+    
     
     [ShareHandler shareWithTitle:self.stockName image:images url:url selectedBlock:^(NSInteger index){
         if (index == 0) {
@@ -213,7 +215,11 @@
             [wself.navigationController pushViewController:vc animated:YES];
         }
     } shareState:nil];
+    
+    
+    
 }
+
 
 - (void)feedbackPressed {
     if (US.isLogIn) {
@@ -230,83 +236,54 @@
 
 /// 收藏
 - (void)collectionPressed {
-
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    NSDictionary *showDict = nil;
+    NSDictionary *dic ;
+    NSInteger moduleType = 0;
+    if (self.tag == 0) {
+        moduleType = 1;
+    }else if (self.tag== 3) {
+        
+        moduleType = 3;
+    }else {
+        
+        return;
+    }
     
-}
-
-
-#pragma mark - 点击收藏取消收藏
-- (void)addCollection{
-//    if (US.isLogIn) {
-//        
-//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//        hud.labelText = @"添加收藏";
-//        
-//        NetworkManager *manager = [[NetworkManager alloc] init];
-//        NSDictionary *dic ;
-//        if ([self.pageMode isEqualToString:@"sharp"]) {
-//            dic = @{@"userid":US.userId,
-//                    @"module_id":@2,
-//                    @"item_id":self.sharp_id};
-//        }
-//        else
-//        {
-//            dic = @{@"userid":US.userId,
-//                    @"module_id":@3,
-//                    @"item_id":self.view_id};
-//        }
-//        
-//        
-//        [manager POST:API_AddCollection parameters:dic completion:^(id data, NSError *error){
-//            if (!error) {
-//                hud.labelText = @"收藏成功";
-//                [hud hide:YES afterDelay:0.2];
-//                
-//            } else {
-//                hud.labelText = @"收藏失败";
-//                [hud hide:YES afterDelay:0.2];
-//            }
-//        }];
-//    }
-}
-
-- (void)clearCollection{
-//    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-//    hud.labelText = @"取消收藏";
-//    
-//    
-//    NSMutableArray *IDArr = [NSMutableArray array];
-//    
-//    
-//    NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-//    NSDictionary *para ;
-//    if ([self.pageMode isEqualToString:@"sharp"]) {
-//        [IDArr addObject:self.sharp_id];
-//        para = @{@"authenticationStr":US.userId,
-//                 @"encryptedStr":self.encryptedStr,
-//                 @"delete_ids":IDArr,
-//                 @"module_id":@"2",
-//                 @"userid":US.userId};
-//    }
-//    else
-//    {
-//        [IDArr addObject:self.view_id];
-//        para = @{@"authenticationStr":US.userId,
-//                 @"encryptedStr":self.encryptedStr,
-//                 @"delete_ids":IDArr,
-//                 @"module_id":@"3",
-//                 @"userid":US.userId};
-//        
-//    }
-//    [manager POST:API_DelCollection parameters:para completion:^(id data, NSError *error){
-//        if (!error) {
-//            hud.labelText = @"取消成功";
-//            [hud hide:YES afterDelay:0.2];
-//        } else {
-//            hud.labelText = @"取消失败";
-//            [hud hide:YES afterDelay:0.2];
-//        }
-//    }];
+    
+    if ([self.surveyInfoDictM[@"is_collected"] boolValue] == YES) {
+        showDict = @{@"showMess1":@"取消收藏",@"showMess2":@"取消成功",@"showMess3":@"取消失败",@"apiStr":API_DelCollection,@"changeValue":@0};
+        dic = @{@"module_id":@(5),
+                @"module_type":@(moduleType),
+                @"delete_ids":self.contentId};
+    }else {
+        showDict = @{@"showMess1":@"添加收藏",@"showMess2":@"收藏成功",@"showMess3":@"收藏失败",@"apiStr":API_AddCollection,@"changeValue":@1};
+        dic = @{@"module_id":@(5),
+                @"module_type":@(moduleType),
+                @"item_id":self.contentId};
+    }
+    
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = showDict[@"showMess1"];
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
+        if (!error) {
+            hud.labelText =showDict[@"showMess2"];
+            [hud hide:YES afterDelay:0.2];
+            self.surveyInfoDictM[@"is_collected"] = showDict[@"changeValue"];
+            self.shareView.isCollection = [showDict[@"changeValue"] boolValue];
+        } else {
+            hud.labelText = showDict[@"showMess3"];
+            [hud hide:YES afterDelay:0.2];
+        }
+    }];
+    
 }
 
 
@@ -323,11 +300,11 @@
     
     [self AddQuestionButton];
     /*
-    __weak SurveyDetailWebViewController *wself = self;
-    [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-        
-        
-    }];
+     __weak SurveyDetailWebViewController *wself = self;
+     [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {
+     
+     
+     }];
      */
 }
 
