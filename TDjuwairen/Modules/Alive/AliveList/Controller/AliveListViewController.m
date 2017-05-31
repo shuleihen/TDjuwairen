@@ -83,10 +83,28 @@
     __weak AliveListViewController *wself = self;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *dict = @{@"tag" :@(listType),@"page" :@(page)};
+    NSString *api = @"";
+    NSDictionary *dict = @{};
     
+    switch (self.listType) {
+        case kAliveListAttention:
+        case kAliveListRecommend:
+            api = API_AliveGetRoomList;
+            dict = @{@"tag" :@(listType),@"page" :@(page)};
+            break;
+        case kAliveListViewpoint:
+            api = API_AliveViewpointList;
+            dict = @{@"page" :@(page)};
+            break;
+        case kAliveListVideo:
+            api = API_AliveVideoList;
+            dict = @{@"page" :@(page)};
+            break;
+        default:
+            break;
+    }
     
-    [manager GET:API_AliveGetRoomList parameters:dict completion:^(id data, NSError *error){
+    [manager GET:api parameters:dict completion:^(id data, NSError *error){
     
         if (!error) {
             

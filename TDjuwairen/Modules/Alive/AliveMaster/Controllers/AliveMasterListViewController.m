@@ -64,7 +64,7 @@
         case AliveMasterList:
             self.title = @"播主";
             break;
-        case AliveAttentionList:
+        case kAliveListAttentionList:
             self.title = @"关注";
             break;
         case  AliveFansList:
@@ -117,7 +117,7 @@
             dict = @{@"page":@(aPage)};
             url = API_AliveGetMasterList;
             break;
-        case AliveAttentionList:
+        case kAliveListAttentionList:
             dict = @{@"master_id": self.masterId,@"page":@(aPage)};
             url = API_AliveGetAttenList;
             break;

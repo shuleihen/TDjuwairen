@@ -464,7 +464,7 @@
     }
     
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-    aliveMasterListVC.listType = AliveAttentionList;
+    aliveMasterListVC.listType = kAliveListAttentionList;
     aliveMasterListVC.masterId = self.masterId;
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }

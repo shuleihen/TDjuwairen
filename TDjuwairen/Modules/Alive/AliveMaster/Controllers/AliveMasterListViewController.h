@@ -10,7 +10,7 @@
 
 typedef enum : NSUInteger {
     AliveMasterList     =0, // 播主列表
-    AliveAttentionList  =1, // 关注列表
+    kAliveListAttentionList  =1, // 关注列表
     AliveFansList       =2, // 粉丝列表
     AliveDianZanList    =3, // 点赞列表
     AliveShareList      =4  // 分享列表

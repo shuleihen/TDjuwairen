@@ -164,7 +164,7 @@
     } else {
         AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
         aliveMasterListVC.masterId = US.userId;
-        aliveMasterListVC.listType = AliveAttentionList;
+        aliveMasterListVC.listType = kAliveListAttentionList;
         aliveMasterListVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aliveMasterListVC animated:YES];
     }
