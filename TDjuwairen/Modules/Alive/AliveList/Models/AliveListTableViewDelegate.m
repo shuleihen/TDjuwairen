@@ -210,7 +210,7 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
             [hud hide:YES];
             if (data && [data[@"status"] integerValue] == 1) {
                 
-                if (self.listType == AliveRecommend) {
+                if (self.listType == kAliveListRecommend) {
                     /// 推荐列表
                     
                     for (AliveListCellData *tempCellData in self.itemList) {
@@ -219,7 +219,7 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
                             tempModel.isAttend = !tempModel.isAttend;
                         }
                     }
-                }else if (self.listType == AliveAttention) {
+                }else if (self.listType == kAliveListAttention) {
 //                    NSMutableArray *tempArrM = [NSMutableArray array];
 //                    for (AliveListCellData *tempCellData in self.itemList) {
 //                        AliveListModel *tempModel= tempCellData.aliveModel;

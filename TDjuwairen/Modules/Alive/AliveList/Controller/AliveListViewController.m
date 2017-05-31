@@ -187,14 +187,14 @@
     AliveType listType = [noti.userInfo[@"listType"] integerValue];
     NSString *addAttend = noti.userInfo[@"addAttend"];
     
-    if (listType == self.listType && self.listType == AliveRecommend) {
+    if (listType == self.listType && self.listType == kAliveListRecommend) {
         return;
     }
     
-    if (self.listType == AliveAttention && [addAttend isEqualToString:@"1"]) {
+    if (self.listType == kAliveListAttention && [addAttend isEqualToString:@"1"]) {
         //
         [self refreshActions];
-    }else if (self.listType == AliveAttention && [addAttend isEqualToString:@"0"]) {
+    }else if (self.listType == kAliveListAttention && [addAttend isEqualToString:@"0"]) {
         // 关注列表
         
         NSMutableArray *tempArrM = [NSMutableArray array];
@@ -212,7 +212,7 @@
             self.aliveList = tempArrM;
         }
         
-    }else if (self.listType == AliveRecommend) {
+    }else if (self.listType == kAliveListRecommend) {
     
         for (AliveListModel *listModel in self.aliveList) {
             if ([listModel.masterId isEqualToString:masterId]) {
