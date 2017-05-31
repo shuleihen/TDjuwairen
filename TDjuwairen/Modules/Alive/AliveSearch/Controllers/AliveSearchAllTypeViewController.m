@@ -128,19 +128,11 @@
 - (void)loadSearchData {
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *dic = nil;
-    if (US.isLogIn) {
-        dic = @{@"keywords":self.customSearchBar.text,
-                @"user_id":US.userId};
-    }
-    else
-    {
-        dic = @{@"keywords":self.customSearchBar.text};
-    }
-    
+    NSDictionary *dic = @{@"keywords":self.customSearchBar.text,@"type":@(0),@"filter":@"",@"page":@(1)};
+   
     __weak AliveSearchAllTypeViewController *wself = self;
     
-    [manager POST:API_Search parameters:dic completion:^(id data, NSError *error){
+    [manager POST:API_AliveSearch parameters:dic completion:^(id data, NSError *error){
         
         if (![wself needResponseWithNetManager:manager]) {
             return;

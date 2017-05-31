@@ -399,6 +399,7 @@
 		4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */; };
 		4D2D29E71EDE578900545314 /* AliveAlertOperateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29E61EDE578900545314 /* AliveAlertOperateViewController.m */; };
 		4D2D29ED1EDEAF3800545314 /* DeleteCollectionPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */; };
+		4D2D29F01EDEC5BA00545314 /* AliveSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */; };
 		4D6E67D41E976BAA009A9FB0 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4D6E67CE1E976BAA009A9FB0 /* license */; };
 		4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */; };
 		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
@@ -1308,6 +1309,8 @@
 		4D2D29E61EDE578900545314 /* AliveAlertOperateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveAlertOperateViewController.m; sourceTree = "<group>"; };
 		4D2D29EB1EDEAF3800545314 /* DeleteCollectionPopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteCollectionPopController.h; sourceTree = "<group>"; };
 		4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteCollectionPopController.m; sourceTree = "<group>"; };
+		4D2D29EE1EDEC5BA00545314 /* AliveSearchResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchResultModel.h; sourceTree = "<group>"; };
+		4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchResultModel.m; sourceTree = "<group>"; };
 		4D6E67CE1E976BAA009A9FB0 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 		4D6E67D21E976BAA009A9FB0 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
@@ -4220,6 +4223,8 @@
 		4DF52C541ED6D5D2001D342D /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				4D2D29EE1EDEC5BA00545314 /* AliveSearchResultModel.h */,
+				4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5097,6 +5102,7 @@
 				196F5EE01E553ADB00928B60 /* AppContext.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
 				4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */,
+				4D2D29F01EDEC5BA00545314 /* AliveSearchResultModel.m in Sources */,
 				4DD179EB1E77C00B00FBE66D /* MYRollScrollView.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				19F00D171E2EFFD9009270D5 /* AnsPublishViewController.m in Sources */,

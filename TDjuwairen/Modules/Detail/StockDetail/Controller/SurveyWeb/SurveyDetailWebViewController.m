@@ -253,8 +253,6 @@
         
         return;
     }
-    
-    
     if ([self.surveyInfoDictM[@"is_collected"] boolValue] == YES) {
         showDict = @{@"showMess1":@"取消收藏",@"showMess2":@"取消成功",@"showMess3":@"取消失败",@"apiStr":API_DelCollection,@"changeValue":@0};
         dic = @{@"module_id":@(5),
@@ -277,7 +275,7 @@
             hud.labelText =showDict[@"showMess2"];
             [hud hide:YES afterDelay:0.2];
             self.surveyInfoDictM[@"is_collected"] = showDict[@"changeValue"];
-            self.shareView.isCollection = [showDict[@"changeValue"] boolValue];
+            self.shareView.isCollection = [data[@"is_collected"] boolValue];
         } else {
             hud.labelText = showDict[@"showMess3"];
             [hud hide:YES afterDelay:0.2];

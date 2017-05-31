@@ -180,4 +180,6 @@
 #define API_AliveUpdateRoomCover    @"Room/uploadRoomCover"
 #define API_AliveDeleteRoomAlive    @"Room/deleteAlive"
 
+#define API_AliveSearch    @"Search/search3_1"
+
 #endif /* NetworkDefine_h */
