@@ -46,7 +46,7 @@
 
 
 @property (copy, nonatomic) NSString *saveGuessRateInfoStr;
-@property (copy, nonatomic) NSString *saveAttenInfo;
+@property (copy, nonatomic) NSString *saveLevelInfo;
 @end
 
 @implementation AliveRoomViewController
@@ -499,20 +499,20 @@
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender {
     
     
+    if (self.saveLevelInfo.length <= 0) {
+        
+        [self loadGuessRateInfoOrAttentionInfo:NO];
+    }else {
+        [self showGuessRateInfoOrShowAttentionInfo:NO];
+    }
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender {
     if (self.saveGuessRateInfoStr.length <= 0) {
         
         [self loadGuessRateInfoOrAttentionInfo:YES];
     }else {
         [self showGuessRateInfoOrShowAttentionInfo:YES];
-    }
-}
-
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender {
-    if (self.saveAttenInfo.length <= 0) {
-        
-        [self loadGuessRateInfoOrAttentionInfo:NO];
-    }else {
-        [self showGuessRateInfoOrShowAttentionInfo:NO];
     }
     
 }
@@ -521,11 +521,11 @@
     AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
     
     if (isGuessRate == YES) {
-        vc.titleString = @"等级规则";
+        vc.titleString = @"股神指数规则";
         vc.content = self.saveGuessRateInfoStr;
     }else {
-        vc.titleString = @"股神指数规则";
-        vc.content = self.saveAttenInfo;
+        vc.titleString = @"等级规则";
+        vc.content = self.saveLevelInfo;
         
     }
     
@@ -559,7 +559,7 @@
                 weakSelf.saveGuessRateInfoStr = data;
             }else {
                 
-                weakSelf.saveAttenInfo = data;
+                weakSelf.saveLevelInfo = data;
             }
             if (data.length > 0) {
                 [weakSelf showGuessRateInfoOrShowAttentionInfo:isGuessRate];

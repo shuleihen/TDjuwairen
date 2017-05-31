@@ -16,4 +16,6 @@
 #import "NotificationDef.h"
 #import "LoginViewController.h"
 #import "LoginState.h"
+#import "LocalSetting.h"
+
 #endif /* PrefixHeader_pch */

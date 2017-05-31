@@ -23,15 +23,7 @@
 #import "NoResultView.h"
 #import "ApplySurveyViewController.h"
 #import "NotificationDef.h"
-
-@interface SearchSectionData : NSObject
-@property (nonatomic, strong) NSString *sectionTitle;
-@property (nonatomic, strong) NSArray *items;
-@end
-
-@implementation SearchSectionData
-
-@end
+#import "SearchSectionData.h"
 
 
 @interface SearchViewController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,UIGestureRecognizerDelegate, SearchResultCellDelegate>
@@ -211,7 +203,11 @@
                     [marray addObject:result];
                 }
                 sectionData.items = marray;
-                [sections addObject:sectionData];
+                
+                if (marray.count > 0) {
+                    
+                    [sections addObject:sectionData];
+                }
             }
             
             NSArray *surveyList = dic[@"surveyList"];
@@ -225,7 +221,10 @@
                     [marray addObject:result];
                 }
                 sectionData.items = marray;
-                [sections addObject:sectionData];
+                if (marray.count > 0) {
+                    
+                    [sections addObject:sectionData];
+                }
             }
             
 //            NSArray *viewList = dic[@"viewList"];

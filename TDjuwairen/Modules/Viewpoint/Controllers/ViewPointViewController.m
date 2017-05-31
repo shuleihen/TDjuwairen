@@ -25,7 +25,12 @@
 #import "UIViewController+Refresh.h"
 #import "UIViewController+Loading.h"
 
-@interface ViewPointViewController ()<UITableViewDelegate,UITableViewDataSource>
+//#import "AliveAlertOperateViewController.h"
+//#import "STPopupController.h"
+//#import "UIViewController+STPopup.h"
+
+
+@interface ViewPointViewController ()<UITableViewDelegate,UITableViewDataSource,ViewpointListTableCellDelegate>
 {
     CGSize titlesize;
 }
@@ -136,12 +141,95 @@
     if (cell == nil) {
         cell = [[ViewPointTableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
     }
+    cell.delegate = self;
     
     ViewPointListModel *model = self.viewNewArr[indexPath.row];
     [cell setupViewPointModel:model];
 
     return cell;
 }
+
+
+#pragma mark - ViewpointListTableCellDelegate 
+- (void)viewpointListTableCell:(ViewPointTableViewCell *)cell arrowPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+//    AliveListCellData *cellData = cell.cellData;
+//    AliveListModel *listModel = cellData.aliveModel;
+//    self.tempCell = cell;
+//    /**
+//     10、用户本人点击【∨】从下向上弹出按钮【删除】和【取消】，点击【删除】删除动态，点击【取消】取消操作
+//     11、用户点击非本人动态的【∨】从下向上弹出按钮【关注（取消关注）】，点击【关注】关注该用户，点击【取消关注】取消关注
+//     */
+//    if (listModel.isSelf == YES) {
+//        // 是用户本人的动态
+//        [self deleteDynamicWithAliveListModel:cellData andCellTag:cell.tag];
+//    }else if (listModel.isAttend == YES) {
+//        // 关注过该用户 --- 取消关注
+//        [self userAddAttendWithSelectedArr:@[@"取消关注"]];
+//    }else {
+//        // 添加关注
+//        [self userAddAttendWithSelectedArr:@[@"关注"]];
+//    }
+}
+
+//- (void)userAddAttendWithSelectedArr:(NSArray *)arr {
+//    
+//    AliveAlertOperateViewController *vc = [[AliveAlertOperateViewController alloc] init];
+//    vc.sourceArr = arr;
+//    vc.delegate = self;
+//    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+//    popupController.navigationBarHidden = YES;
+//    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, [vc tableViewHeight]);
+//    popupController.style = STPopupStyleBottomSheet;
+//    [popupController presentInViewController:self];
+//}
+//
+//#pragma mark - AliveAlertOperateViewControllerDelegate
+//- (void)alertSelectedWithIndex:(NSInteger)index andTitle:(NSString *)titleStr {
+//    NSString *str = @"";
+//    if ([titleStr isEqualToString:@"关注"]) {
+//        str = API_AliveAddAttention;
+//    }else if ([titleStr isEqualToString:@"取消关注"]) {
+//        str = API_AliveDelAttention;
+//    }else {
+//        
+//        
+//    }
+//    
+//    if (str.length <= 0) {
+//        return;
+//    }
+
+//    NetworkManager *manager = [[NetworkManager alloc] init];
+//    AliveListCellData *cellData = self.tempCell.cellData;
+//    AliveListModel *listModel = cellData.aliveModel;
+//    [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
+//        
+//        if (!error) {
+//            
+//            if (data && [data[@"status"] integerValue] == 1) {
+//                
+//                listModel.isAttend = !listModel.isAttend;
+//                [self.tableView beginUpdates];
+//                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.tempCell.tag] withRowAnimation:UITableViewRowAnimationNone];
+//                if (self.reloadView) {
+//                    self.reloadView();
+//                }
+//                [self.tableView endUpdates];
+//                
+//            }
+//        } else {
+//        }
+//        
+//    }];
+    
+//}
+
 
 #pragma mark - 点击cell
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath

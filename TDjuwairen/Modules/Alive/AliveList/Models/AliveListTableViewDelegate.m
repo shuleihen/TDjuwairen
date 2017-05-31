@@ -23,6 +23,10 @@
 #import "SurveyDetailWebViewController.h"
 #import "StockDetailViewController.h"
 #import "DetailPageViewController.h"
+#import "AliveAlertOperateViewController.h"
+#import "STPopupController.h"
+#import "UIViewController+STPopup.h"
+
 
 #define kAliveListCellToolHeight 37
 #define kAliveListSectionHeaderHeight   30
@@ -30,10 +34,12 @@
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource,
 AliveListTableCellDelegate, AliveListBottomTableCellDelegate,
-AliveListSectionHeaderDelegate>
+AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
 
 @property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, strong) NSArray *itemList;
+@property (strong, nonatomic) AliveListTableViewCell *tempCell;
+
 
 @end
 
@@ -134,39 +140,84 @@ AliveListSectionHeaderDelegate>
 }
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell arrowPressed:(id)sender {
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.viewController.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     AliveListCellData *cellData = cell.cellData;
     AliveListModel *listModel = cellData.aliveModel;
+    self.tempCell = cell;
     /**
-     
      10、用户本人点击【∨】从下向上弹出按钮【删除】和【取消】，点击【删除】删除动态，点击【取消】取消操作
      11、用户点击非本人动态的【∨】从下向上弹出按钮【关注（取消关注）】，点击【关注】关注该用户，点击【取消关注】取消关注
      */
-    
-    NSString *str = @"";
-    if ([listModel.masterId isEqualToString:US.userId]) {
-        // 是用户分人的动态
-        str = @"删除";
+    if (listModel.isSelf == YES) {
+        // 是用户本人的动态
         [self deleteDynamicWithAliveListModel:cellData andCellTag:cell.tag];
+    }else if (listModel.isAttend == YES) {
+        // 关注过该用户 --- 取消关注
+        [self userAddAttendWithSelectedArr:@[@"取消关注"]];
     }else {
-    
-// 判断用户是否关注过该主播
-        str = @"关注";
-        UIAlertController *alertVC = [[UIAlertController alloc] init];
-        UIAlertAction *actionDone = [UIAlertAction actionWithTitle:str style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            NSLog(@"AliveList-Models-AliveListTableViewDelegate.m");
-        }];
-        [alertVC addAction:actionDone];
-        
-        UIAlertAction *actionCancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            
-        }];
-        [alertVC addAction:actionCancel];
-        
-        [self.viewController presentViewController:alertVC animated:YES completion:^{}];
+        // 添加关注
+        [self userAddAttendWithSelectedArr:@[@"关注"]];
     }
-    
 }
 
+- (void)userAddAttendWithSelectedArr:(NSArray *)arr {
+    
+    AliveAlertOperateViewController *vc = [[AliveAlertOperateViewController alloc] init];
+    vc.sourceArr = arr;
+    vc.delegate = self;
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.navigationBarHidden = YES;
+    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, [vc tableViewHeight]);
+    popupController.style = STPopupStyleBottomSheet;
+    [popupController presentInViewController:self.viewController];
+}
+
+#pragma mark - AliveAlertOperateViewControllerDelegate
+- (void)alertSelectedWithIndex:(NSInteger)index andTitle:(NSString *)titleStr {
+    NSString *str = @"";
+    if ([titleStr isEqualToString:@"关注"]) {
+        str = API_AliveAddAttention;
+    }else if ([titleStr isEqualToString:@"取消关注"]) {
+        str = API_AliveDelAttention;
+    }else {
+        
+        
+    }
+    
+    if (str.length <= 0) {
+        return;
+    }
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    AliveListCellData *cellData = self.tempCell.cellData;
+    AliveListModel *listModel = cellData.aliveModel;
+    [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
+        
+        if (!error) {
+            
+            if (data && [data[@"status"] integerValue] == 1) {
+                
+                listModel.isAttend = !listModel.isAttend;
+                [self.tableView beginUpdates];
+                [self.tableView reloadSections:[NSIndexSet indexSetWithIndex:self.tempCell.tag] withRowAnimation:UITableViewRowAnimationNone];
+                if (self.reloadView) {
+                    self.reloadView();
+                }
+                [self.tableView endUpdates];
+                
+            }
+        } else {
+        }
+        
+    }];
+    
+}
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
     if (!self.avatarPressedEnabled) {
@@ -467,6 +518,9 @@ AliveListSectionHeaderDelegate>
     [self.viewController presentViewController:alert animated:YES completion:nil];
 
 }
+
+
+
 
 
 @end

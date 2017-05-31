@@ -31,7 +31,7 @@
     [super viewDidLoad];
     
     self.imgArr = @[@[@"icon_push.png",@"icon_push.png",@"icon_clear.png"],@[@"btn_fankui.png"]];
-    self.titleArr = @[@[@"账号绑定",@"消息推送",@"清除缓存"],@[@"问题反馈"],@[@"退出"]];
+    self.titleArr = @[@[@"账号绑定",@"消息通知",@"清除缓存"],@[@"问题反馈"],@[@"退出"]];
     self.cachePathArr = [NSMutableArray array];
     
     [self setupWithNavigation];

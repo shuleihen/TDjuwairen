@@ -16,7 +16,9 @@ typedef void(^ClickTagsBlock)(UIButton *);
 }
 
 - (void)setTagWithTagArray:(NSArray *)arr;
-
+@property (assign, nonatomic) CGFloat historyViewOriginY;
 @property (nonatomic,copy) ClickTagsBlock clickblock;
 @property (nonatomic, copy) void (^clearBlock)(UIButton *);
+@property (assign, nonatomic) CGFloat realViewHeight;
+
 @end

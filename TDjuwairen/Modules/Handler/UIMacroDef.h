@@ -20,6 +20,7 @@
 
 #define TDTitleTextColor         [UIColor hx_colorWithHexRGBAString:@"#333333"]
 #define TDDetailTextColor        [UIColor hx_colorWithHexRGBAString:@"#999999"]
+#define TDLightGrayColor        [UIColor hx_colorWithHexRGBAString:@"#666666"]
 // 辅助文字
 #define TDAssistTextColor        [UIColor hx_colorWithHexRGBAString:@"#cccccc"]
 

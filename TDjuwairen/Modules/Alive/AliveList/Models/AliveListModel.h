@@ -43,6 +43,10 @@
 @property (nonatomic, strong) AliveListForwardModel *forwardModel;
 ///  是否官方认证
 @property (nonatomic, assign) BOOL isOfficial;
+/// 是否关注了该用户
+@property (assign, nonatomic) BOOL isAttend;
+/// 该动态是否为当前用户
+@property (assign, nonatomic) BOOL isSelf;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end
