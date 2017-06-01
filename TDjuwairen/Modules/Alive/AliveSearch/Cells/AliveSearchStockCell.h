@@ -8,18 +8,18 @@
 
 #import <UIKit/UIKit.h>
 
-@class SearchResultModel;
+@class AliveSearchResultModel;
 @protocol AliveSearchStockCellDelegate <NSObject>
 /// 添加自选
-- (void)addChoiceStockWithSearchResultModel:(SearchResultModel *)model;
+- (void)addChoiceStockWithSearchResultModel:(AliveSearchResultModel *)model andCellIndex:(NSInteger)index;
 /// 调研
-- (void)surveyButtonClickWithSearchResultModel:(SearchResultModel *)model;
+- (void)surveyButtonClickWithSearchResultModel:(AliveSearchResultModel *)model;
 
 @end
 
 @interface AliveSearchStockCell : UITableViewCell
 @property (weak, nonatomic) id<AliveSearchStockCellDelegate> delegate;
-@property (strong, nonatomic) SearchResultModel *stockModel;
+@property (strong, nonatomic) AliveSearchResultModel *stockModel;
 
 + (instancetype)loadAliveSearchStockCellWithTableView:(UITableView *)tableView;
 @end

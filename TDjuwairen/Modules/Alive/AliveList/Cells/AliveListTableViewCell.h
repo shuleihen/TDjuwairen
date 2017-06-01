@@ -27,6 +27,8 @@
 @property (strong, nonatomic) UILabel *nickNameLabel;
 @property (strong, nonatomic) UIImageView *officialImageView;
 @property (strong, nonatomic) UILabel *timeLabel;
+@property (strong, nonatomic) UIButton *arrowButton;
+
 @property (strong, nonatomic) TTTAttributedLabel *messageLabel;
 @property (strong, nonatomic) NSLayoutConstraint *imagesHeight;
 @property (strong, nonatomic) AliveListImagesView *imagesView;

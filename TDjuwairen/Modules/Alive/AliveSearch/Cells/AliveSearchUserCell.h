@@ -7,7 +7,15 @@
 //
 
 #import <UIKit/UIKit.h>
+@class AliveSearchResultModel;
+
+@protocol AliveSearchUserCellDelegate <NSObject>
+- (void)addAttendWithAliveSearchResultModel:(AliveSearchResultModel *)userModel andCellIndex:(NSInteger)index;
+@end
 
 @interface AliveSearchUserCell : UITableViewCell
+@property (strong, nonatomic) AliveSearchResultModel *userModel;
+@property (weak, nonatomic) id<AliveSearchUserCellDelegate> delegate;
+
 + (instancetype)loadAliveSearchUserCellWithTableView:(UITableView *)tableView;
 @end
