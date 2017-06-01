@@ -9,5 +9,11 @@
 #import "SearchSectionData.h"
 
 @implementation SearchSectionData
-
+- (id)init {
+    if (self = [super init]) {
+        self.isFixed = NO;
+        self.isShowMore = NO;
+    }
+    return self;
+}
 @end

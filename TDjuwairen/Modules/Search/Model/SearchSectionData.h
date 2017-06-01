@@ -10,5 +10,8 @@
 
 @interface SearchSectionData : NSObject
 @property (nonatomic, strong) NSString *sectionTitle;
+@property (nonatomic, assign) BOOL isShowMore;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, assign) BOOL isFixed;
+@property (nonatomic, assign) NSInteger searchType;
 @end

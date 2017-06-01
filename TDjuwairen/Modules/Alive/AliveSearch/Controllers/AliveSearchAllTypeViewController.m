@@ -143,10 +143,12 @@
             NSDictionary *dic = data;
             
             NSMutableArray *sections = [NSMutableArray array];
+            
             NSArray *userList = dic[@"userList"];
             if (userList) {
                 SearchSectionData *sectionData = [[SearchSectionData alloc] init];
                 sectionData.sectionTitle = @"用户";
+                sectionData.searchType = AliveSearchSubUserType;
                 NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[userList count]];
                 
                 for (NSDictionary *dict in userList) {
@@ -157,8 +159,9 @@
                 if (marray.count > 0) {
                     sectionData.items = marray;
                     [sections addObject:sectionData];
-                    
                 }
+                
+                sectionData.isShowMore = (marray.count>=2);
             }
             
             
@@ -166,6 +169,7 @@
             if (stockList) {
                 SearchSectionData *sectionData = [[SearchSectionData alloc] init];
                 sectionData.sectionTitle = @"股票";
+                sectionData.searchType = AliveSearchSubStockType;
                 NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[stockList count]];
                 
                 for (NSDictionary *dict in stockList) {
@@ -176,22 +180,27 @@
                 if (marray.count > 0) {
                     sectionData.items = marray;
                     [sections addObject:sectionData];
-                    
                 }
+                
+                sectionData.isShowMore = (marray.count>=2);
             }
             
-          
             
             if (sections.count <= 0) {
                 self.tableView.hidden = YES;
                 self.noDataView.hidden = NO;
             }else {
-                
                 NSArray *arr = @[@"搜索调研",@"搜索观点",@"搜索贴单",@"搜索话题"];
+                NSArray *types = @[@(AliveSearchSubSurveyType),@(AliveSearchSubViewPointType),@(AliveSearchSubPasteType),@(AliveSearchSubTopicType)];
+                int i =0;
+                
                 for (NSString *titleSr in arr) {
                     SearchSectionData *model = [[SearchSectionData alloc] init];
                     model.sectionTitle = titleSr;
+                    model.isShowMore = NO;
+                    model.isFixed = YES;
                     model.items = [NSArray array];
+                    model.searchType = [types[i++] integerValue];
                     [sections addObject:model];
                 }
                 
@@ -211,8 +220,6 @@
     }];
     
     [self.searchQueue addObject:manager];
-    
-    
 }
 
 
@@ -264,7 +271,6 @@
 -(void)searchBarSearchButtonClicked:(UISearchBar *)searchBar
 {
     [self.view endEditing:YES];
-    
 }
 
 
@@ -278,205 +284,153 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
     SearchSectionData *sectionData = self.resultSections[section];
-    if ([sectionData.items count] <= 0) {
-        return 0;
-    }else if ([sectionData.items count] > 1) {
-        
-        return 3;
-    }else {
-        
-        return [sectionData.items count];
+    if (sectionData.isFixed) {
+        return 1;
+    } else {
+        if (sectionData.isShowMore) {
+            return (sectionData.items.count + 1);
+        } else {
+            return [sectionData.items count];
+        }
     }
-    
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     SearchSectionData *sectionData = self.resultSections[indexPath.section];
-    
-    if (indexPath.row == 2) {
-        UITableViewCell *moreCell = [tableView dequeueReusableCellWithIdentifier:@"showMoreCell"];
-        if (moreCell == nil) {
+    if (sectionData.isFixed) {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchFiexdCellID"];
+        if (cell == nil) {
             
-            moreCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"showMoreCell"];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SearchFiexdCellID"];
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+            cell.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         }
         
-        UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 12, 120, 20)];
-        nameLabel.textColor = TDTitleTextColor;
-        nameLabel.font = [UIFont systemFontOfSize:14.0f];
-        nameLabel.text = sectionData.sectionTitle;
-        [moreCell.contentView addSubview:nameLabel];
-        
-        UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth-21, 14, 9, 16)];
-        arrowImageView.image = [UIImage imageNamed:@"icon_arrow.png"];
-        [moreCell.contentView addSubview:arrowImageView];
-        
-        UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 43.5, kScreenWidth, 0.5)];
-        lineView.backgroundColor = TDLineColor;
-        [moreCell.contentView addSubview:lineView];
-        if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
-            nameLabel.text = @"查看更多用户";
-        }else {
-            nameLabel.text = @"查看更多股票";
-        }
-        
-        return moreCell;
-    }else {
-        AliveSearchResultModel *result = sectionData.items[indexPath.row];
-        if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
+        cell.textLabel.text = sectionData.sectionTitle;
+        return cell;
+    } else {
+        if (indexPath.row < sectionData.items.count) {
+            AliveSearchResultModel *result = sectionData.items[indexPath.row];
+            if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
+                
+                AliveSearchUserCell *userCell = [AliveSearchUserCell loadAliveSearchUserCellWithTableView:tableView];
+                userCell.delegate = self;
+                userCell.tag = indexPath.section*100+indexPath.row;
+                userCell.userModel = result;
+                return userCell;
+            }else if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
+                
+                AliveSearchStockCell *stockCell = [AliveSearchStockCell loadAliveSearchStockCellWithTableView:tableView];
+                stockCell.tag = indexPath.section*100+indexPath.row;
+                stockCell.delegate = self;
+                stockCell.stockModel = result;
+                return stockCell;
+            }
+        } else if (indexPath.row == sectionData.items.count){
+            UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SearchMoreCellID"];
+            if (cell == nil) {
+                
+                cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SearchMoreCellID"];
+                cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+                cell.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+                cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            }
             
-            AliveSearchUserCell *userCell = [AliveSearchUserCell loadAliveSearchUserCellWithTableView:tableView];
-            userCell.delegate = self;
-            userCell.tag = indexPath.section*100+indexPath.row;
-            userCell.userModel = result;
-            return userCell;
-        }else if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
-            
-            AliveSearchStockCell *stockCell = [AliveSearchStockCell loadAliveSearchStockCellWithTableView:tableView];
-            stockCell.tag = indexPath.section*100+indexPath.row;
-            stockCell.delegate = self;
-            stockCell.stockModel = result;
-            return stockCell;
-        }else {
-            UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"emptyCell"];
+            cell.textLabel.text = [NSString stringWithFormat:@"查看更多%@",sectionData.sectionTitle];
             return cell;
         }
+        
+        return nil;
     }
-    
 }
 
 
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
     SearchSectionData *sectionData = self.resultSections[indexPath.section];
-    if (indexPath.row == 2) {
-        UIButton *tempButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        tempButton.tag = indexPath.section;
-        [self searchMoreButtonClick:tempButton];
+    
+    if (sectionData.isFixed) {
+        AliveSearchSubTypeController *subSearchVC = [[AliveSearchSubTypeController alloc] init];
         
-    }else {
-        AliveSearchResultModel *result = sectionData.items[indexPath.row];
-        if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
-            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockCode = result.company_code;
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }else  if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
-            if (result.userID.length<= 0) {
-                return;
+        subSearchVC.searchType = sectionData.searchType;
+        [self.navigationController pushViewController:subSearchVC animated:YES];
+    } else {
+        if (indexPath.row < sectionData.items.count) {
+            AliveSearchResultModel *result = sectionData.items[indexPath.row];
+            
+            if (sectionData.searchType == AliveSearchSubUserType) {
+                AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:result.userID];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            } else if (sectionData.searchType == AliveSearchSubStockType) {
+                StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                vc.stockCode = result.company_code;
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
             }
-            AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:result.userID];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
+        } else if (indexPath.row == sectionData.items.count) {
+            AliveSearchSubTypeController *subSearchVC = [[AliveSearchSubTypeController alloc] init];
+            subSearchVC.searchType = sectionData.searchType;
+            subSearchVC.searchTextStr = self.customSearchBar.text;
+            subSearchVC.transmitSearchSectionData = sectionData;
+            
+            [self.navigationController pushViewController:subSearchVC animated:YES];
         }
     }
-    
-    
-    
+
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (self.customSearchBar.text.length == 0 ||
-        [self.resultSections count] == 0) {
-        return nil;
-    }
     SearchSectionData *sectionData = self.resultSections[section];
     
-    CGFloat viewH = 30;
-    if ([sectionData.sectionTitle isEqualToString:@"用户"] || [sectionData.sectionTitle isEqualToString:@"股票"]) {
-        viewH = 30;
-    }else {
-        
-        viewH = 44;
+    if (sectionData.isFixed) {
+        return nil;
     }
     
-    
-    UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, viewH)];
+    UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     headerV.backgroundColor = [UIColor whiteColor];
-    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, (viewH-20)*0.5, 60, 20)];
+    UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 5, 60, 20)];
     nameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
     nameLabel.font = [UIFont systemFontOfSize:14.0f];
     nameLabel.text = sectionData.sectionTitle;
     [headerV addSubview:nameLabel];
     
-    UIButton *searchMoreBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    searchMoreBtn.frame = CGRectMake(0, 0, kScreenWidth, 30);
-    [searchMoreBtn addTarget:self action:@selector(searchButtonClick:) forControlEvents:UIControlEventTouchUpInside];
-    if ([sectionData.sectionTitle isEqualToString:@"搜索调研"]) {
-        searchMoreBtn.tag = 1003;
-    }else if ([sectionData.sectionTitle isEqualToString:@"搜索观点"]) {
-        searchMoreBtn.tag = 1006;
-    }else if ([sectionData.sectionTitle isEqualToString:@"搜索贴单"]) {
-        searchMoreBtn.tag = 1005;
-    }else if ([sectionData.sectionTitle isEqualToString:@"搜索话题"]) {
-        searchMoreBtn.tag = 1004;
-    }else {
-        searchMoreBtn.tag = 0;
-        
-    }
-    
-    [headerV addSubview:searchMoreBtn];
-    
-    UIImageView *arrowImageView = [[UIImageView alloc] initWithFrame:CGRectMake(kScreenWidth-21, (viewH-16)*0.5, 9, 16)];
-    arrowImageView.image = [UIImage imageNamed:@"icon_arrow.png"];
-    [headerV addSubview:arrowImageView];
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, viewH-0.5, kScreenWidth, 0.5)];
-    lineView.backgroundColor = TDLineColor;
-    [headerV addSubview:lineView];
-    
-    if ([sectionData.sectionTitle isEqualToString:@"用户"] || [sectionData.sectionTitle isEqualToString:@"股票"]) {
-        searchMoreBtn.userInteractionEnabled = NO;
-        arrowImageView.hidden = YES;
-    }else {
-        
-        searchMoreBtn.userInteractionEnabled = YES;
-        arrowImageView.hidden = NO;
-    }
-    
     return headerV;
 }
 
 
-- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *footV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 10)];
-    footV.backgroundColor = [UIColor clearColor];
-    return footV;
-}
-
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row > 1) {
+    SearchSectionData *sectionData = self.resultSections[indexPath.section];
+    if (sectionData.isFixed) {
         return 44;
-    }else {
-        
-        return 49;
+    } else {
+        if (indexPath.row == sectionData.items.count) {
+            return 44;
+        } else {
+            return 49;
+        }
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    
-    if (self.customSearchBar.text.length == 0 ||
-        [self.resultSections count] == 0) {
-        return CGFLOAT_MIN;
-    }else {
-        SearchSectionData *sectionData = self.resultSections[section];
-        if ([sectionData.sectionTitle isEqualToString:@"用户"] || [sectionData.sectionTitle isEqualToString:@"股票"]) {
-            return 30;
-        }else {
-            
-            return 44;
-        }
+    SearchSectionData *sectionData = self.resultSections[section];
+    if (sectionData.isFixed) {
+        return 0.001;
+    } else {
+        return 30.0f;
     }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     SearchSectionData *sectionData = self.resultSections[section];
-    if ([sectionData.sectionTitle isEqualToString:@"用户"] || [sectionData.sectionTitle isEqualToString:@"股票"]) {
-        return 10;
-    }else {
-        
-        return CGFLOAT_MIN;
+    if (sectionData.isFixed) {
+        return 0.001;
+    } else {
+        return 10.0f;
     }
 }
 
@@ -640,27 +594,6 @@
     [self configHistoryViewHidden:YES];
 }
 
-
-/// 搜索更多信息
-- (void)searchMoreButtonClick:(UIButton *)sender {
-    SearchSectionData *sectionData = self.resultSections[sender.tag];
-    AliveSearchSubTypeController *subSearchVC = [[AliveSearchSubTypeController alloc] init];
-    if ([sectionData.sectionTitle isEqualToString:@"用户"]) {
-        
-        subSearchVC.searchType = AliveSearchSubUserType;
-        
-    }else if ([sectionData.sectionTitle isEqualToString:@"股票"]) {
-        
-        subSearchVC.searchType = AliveSearchSubStockType;
-        
-    }
-    
-    subSearchVC.searchTextStr = self.customSearchBar.text;
-    subSearchVC.transmitSearchSectionData = sectionData;
-    
-    [self.navigationController pushViewController:subSearchVC animated:YES];
-    
-}
 
 #pragma mark - 设置本地搜索缓存
 - (void)addHistoryWithString:(NSString *)string {

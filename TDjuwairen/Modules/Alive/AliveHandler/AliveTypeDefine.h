@@ -56,4 +56,13 @@ typedef enum : NSInteger {
     kMessageTypeAlivePostsShare     =6
 } AliveMessageType;
 
+typedef enum : NSUInteger {
+    AliveSearchSubUserType      =0, // 用户搜索
+    AliveSearchSubStockType     =1, // 股票搜索
+    AliveSearchSubSurveyType    =2, // 调研搜索
+    AliveSearchSubTopicType     =3, // 话题搜索
+    AliveSearchSubPasteType     =4, // 贴单搜索
+    AliveSearchSubViewPointType =5  // 观点搜索
+} AliveSearchSubType;
+
 #endif /* AliveTypeDefine_h */

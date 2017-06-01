@@ -7,16 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class SearchSectionData;
+#import "AliveTypeDefine.h"
 
-typedef enum : NSUInteger {
-    AliveSearchSubUserType     =0, // 用户搜索
-    AliveSearchSubStockType  =1, // 股票搜索
-    AliveSearchSubSurveyType       =2, // 调研搜索
-    AliveSearchSubTopicType    =3, // 话题搜索
-    AliveSearchSubPasteType      =4,  // 贴单搜索
-    AliveSearchSubViewPointType      =5  // 观点搜索
-} AliveSearchSubType;
+@class SearchSectionData;
 
 @interface AliveSearchSubTypeController : UIViewController
 @property (assign, nonatomic) AliveSearchSubType searchType;

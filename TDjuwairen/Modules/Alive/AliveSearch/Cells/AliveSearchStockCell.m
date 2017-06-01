@@ -45,7 +45,8 @@
 - (void)setStockModel:(AliveSearchResultModel *)stockModel {
 
     _stockModel = stockModel;
-    self.sNameLabel.text = stockModel.company_name;
+    self.sNameLabel.text = [NSString stringWithFormat:@"%@(%@)",stockModel.company_name,stockModel.company_code];
+    
     if (stockModel.isMyStock == YES) {
         [self.addChoiceButton setTitle:@"取消自选" forState:UIControlStateNormal];
         [self.addChoiceButton setTitleColor:TDDetailTextColor forState:UIControlStateNormal];
