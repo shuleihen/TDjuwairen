@@ -6,13 +6,14 @@
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "DYTableViewDelegate.h"
 #import "AliveTypeDefine.h"
+
 typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 
 
-@interface AliveListTableViewDelegate : NSObject<UITableViewDataSource, UITableViewDelegate>
-@property (nonatomic, weak) UITableView *tableView;
+@interface AliveListTableViewDelegate : DYTableViewDelegate<UITableViewDataSource, UITableViewDelegate>
+
 @property (nonatomic, assign) BOOL avatarPressedEnabled;
 
 // 个人直播间动态可以删除
@@ -24,8 +25,4 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;
 
 - (void)insertAtHeaderWithArray:(NSArray *)array;
-
-- (void)setupAliveListArray:(NSArray *)array;
-
-- (CGFloat)contentHeight;
 @end

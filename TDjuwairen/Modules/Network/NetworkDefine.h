@@ -78,7 +78,7 @@
 
 #define API_AddSharpComment     @"index.php/Sharp/addSharpComnment"
 #define API_GetSurveryList      @"index.php/Sharp/surveyList/page"
-#define API_GetVideoList        @"index.php/Sharp/VideoList/page"
+#define API_GetVideoList        @"Sharp/videoList3_1"
 
 
 #define API_GetViewComment      @"index.php/View/GetViewComment1_2"

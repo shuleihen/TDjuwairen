@@ -36,8 +36,6 @@
 AliveListTableCellDelegate, AliveListBottomTableCellDelegate,
 AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
 
-@property (nonatomic, weak) UIViewController *viewController;
-@property (nonatomic, strong) NSArray *itemList;
 @property (strong, nonatomic) AliveListTableViewCell *tempCell;
 
 
@@ -45,13 +43,11 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
 
 @implementation AliveListTableViewDelegate
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController {
-    if (self = [super init]) {
+    if (self = [super initWithTableView:tableView withViewController:viewController]) {
         tableView.delegate = self;
         tableView.dataSource = self;
         
         self.avatarPressedEnabled = YES;
-        self.tableView = tableView;
-        self.viewController = viewController;
         
         [self.tableView registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
         

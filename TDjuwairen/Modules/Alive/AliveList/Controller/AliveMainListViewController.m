@@ -62,10 +62,12 @@
         
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = kAliveListViewpoint;
-        VideoViewController *videoVC = [[VideoViewController alloc] init];
         
+//        VideoViewController *videoVC = [[VideoViewController alloc] init];
+        AliveListViewController *four = [[AliveListViewController alloc] init];
+        four.listType = kAliveListVideo;
         
-        _contentControllers = @[one,two,three,videoVC];
+        _contentControllers = @[one,two,three,four];
     }
     
     return _contentControllers;
@@ -230,6 +232,9 @@
 
 - (void)segmentValueChanged:(UISegmentedControl *)segment {
     NSInteger index = segment.selectedSegmentIndex;
+    
+    // 视频模块不显示 + 按钮
+    self.publishBtn.hidden = (index == kAliveListVideo);
     
     if (index>=0 && index<self.contentControllers.count) {
         AliveListViewController *vc = self.contentControllers[index];

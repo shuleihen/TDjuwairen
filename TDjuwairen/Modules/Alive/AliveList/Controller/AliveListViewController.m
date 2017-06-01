@@ -21,12 +21,13 @@
 #import "UIViewController+Loading.h"
 #import "DYRefresh.h"
 #import "UIViewController+Refresh.h"
+#import "AliveVideoTableViewDelagate.h"
 
 @interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
-@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
+@property (nonatomic, strong) DYTableViewDelegate *tableViewDelegate;
 @end
 
 @implementation AliveListViewController
@@ -53,8 +54,16 @@
     
     [self.view addSubview:self.tableView];
     
-    self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
-    self.tableViewDelegate.listType = self.listType;
+    if (self.listType == kAliveListVideo) {
+        AliveVideoTableViewDelagate *delegate = [[AliveVideoTableViewDelagate alloc] initWithTableView:self.tableView withViewController:self];
+        self.tableViewDelegate = delegate;
+    } else {
+        
+        AliveListTableViewDelegate *delegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
+        delegate.listType = self.listType;
+        self.tableViewDelegate = delegate;
+    }
+    
     
     [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
     

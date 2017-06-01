@@ -96,11 +96,11 @@
 
 #pragma mark - 请求数据
 -(void)requestDataWithVideoList{
-    NSString *string = [NSString stringWithFormat:@"%@/%ld",API_GetVideoList,(long)self.page];
+
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     
     __weak VideoViewController *wself = self;
-    [manager GET:string parameters:nil completion:^(id data, NSError *error){
+    [manager GET:API_GetVideoList parameters:@{@"page": @(self.page)} completion:^(id data, NSError *error){
         
         if ([wself.tableview.mj_footer isRefreshing]) {
             [wself.tableview.mj_footer endRefreshing];

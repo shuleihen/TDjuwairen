@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AliveTypeDefine.h"
 #import "AliveListForwardModel.h"
+#import "AliveListExtra.h"
 
 @interface AliveListModel : NSObject
 @property (nonatomic, assign) BOOL isForward;
@@ -47,6 +48,8 @@
 @property (assign, nonatomic) BOOL isAttend;
 /// 该动态是否为当前用户
 @property (assign, nonatomic) BOOL isSelf;
+// 调研股票信息
+@property (nonatomic, strong) AliveListExtra *extra;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

@@ -35,6 +35,11 @@
             NSDictionary *d = dict[@"forward_info"];
             self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:d];
         }
+        
+        NSDictionary *extraDict = dict[@"alive_extra"];
+        if (extraDict.count) {
+            self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
+        }
     }
     return self;
 }

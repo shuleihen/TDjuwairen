@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="318" id="KGk-i7-Jjw" customClass="AliveVideoListTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="318"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="317.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="clT-mc-Njn">
+                        <rect key="frame" x="12" y="50" width="296" height="210"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="210" id="gPF-cM-Kgf"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dwy-dZ-Jyt">
+                        <rect key="frame" x="12" y="12" width="296" height="30"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="30" id="8el-g6-rf2"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kHB-1Q-5g9">
+                        <rect key="frame" x="12" y="270" width="200" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="200" id="TcO-QN-qRg"/>
+                            <constraint firstAttribute="height" constant="24" id="VGB-eh-YYA"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yu1-QG-lZ0">
+                        <rect key="frame" x="277" y="275.5" width="31" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="button_play" translatesAutoresizingMaskIntoConstraints="NO" id="tNW-WV-x9U">
+                        <rect key="frame" x="131" y="130" width="58" height="58"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="58" id="33x-Q1-pcH"/>
+                            <constraint firstAttribute="width" constant="58" id="mDW-77-fDu"/>
+                        </constraints>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" secondItem="dwy-dZ-Jyt" secondAttribute="trailing" constant="12" id="3fS-q1-ztO"/>
+                    <constraint firstItem="tNW-WV-x9U" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="4dg-9T-DGs"/>
+                    <constraint firstItem="kHB-1Q-5g9" firstAttribute="top" secondItem="clT-mc-Njn" secondAttribute="bottom" constant="10" id="KNN-dd-9Dp"/>
+                    <constraint firstItem="dwy-dZ-Jyt" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Oai-Hb-K6d"/>
+                    <constraint firstItem="dwy-dZ-Jyt" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Y8O-Jg-Fj4"/>
+                    <constraint firstAttribute="trailing" secondItem="yu1-QG-lZ0" secondAttribute="trailing" constant="12" id="aAv-PT-M1a"/>
+                    <constraint firstAttribute="trailing" secondItem="clT-mc-Njn" secondAttribute="trailing" constant="12" id="aWL-A6-IA5"/>
+                    <constraint firstItem="yu1-QG-lZ0" firstAttribute="centerY" secondItem="kHB-1Q-5g9" secondAttribute="centerY" id="cIW-EK-hi4"/>
+                    <constraint firstItem="clT-mc-Njn" firstAttribute="top" secondItem="dwy-dZ-Jyt" secondAttribute="bottom" constant="8" id="dae-5n-jIx"/>
+                    <constraint firstItem="kHB-1Q-5g9" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="fv5-ny-fzP"/>
+                    <constraint firstItem="tNW-WV-x9U" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="lDQ-9L-wSr"/>
+                    <constraint firstItem="clT-mc-Njn" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="wXl-x9-xPG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateTimeLabel" destination="yu1-QG-lZ0" id="yWb-wt-N4q"/>
+                <outlet property="stockNameLabel" destination="kHB-1Q-5g9" id="Cgx-IT-sHa"/>
+                <outlet property="stockNameWidth" destination="TcO-QN-qRg" id="bgw-8Y-nTa"/>
+                <outlet property="titleHeight" destination="8el-g6-rf2" id="eoR-bb-IhT"/>
+                <outlet property="titleLabel" destination="dwy-dZ-Jyt" id="liI-LM-ynG"/>
+                <outlet property="videoImageView" destination="clT-mc-Njn" id="OzF-8Y-c5m"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="71"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="button_play" width="58" height="58"/>
+    </resources>
+</document>
