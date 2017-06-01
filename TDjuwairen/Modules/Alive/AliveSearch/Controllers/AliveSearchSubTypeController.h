@@ -18,11 +18,8 @@ typedef enum : NSUInteger {
     AliveSearchSubViewPointType      =5  // 观点搜索
 } AliveSearchSubType;
 
-
-
 @interface AliveSearchSubTypeController : UIViewController
 @property (assign, nonatomic) AliveSearchSubType searchType;
 @property (strong, nonatomic) SearchSectionData *transmitSearchSectionData;
 @property (copy, nonatomic) NSString *searchTextStr;
-- (instancetype)initWithSearchType:(AliveSearchSubType)searchType;
 @end

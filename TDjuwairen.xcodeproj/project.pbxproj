@@ -422,6 +422,9 @@
 		4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3C1EB31F25005BC8D7 /* PublishSelectedStockCell.m */; };
 		4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DDA5C3D1EB31F25005BC8D7 /* PublishSelectedStockCell.xib */; };
 		4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE260F61ED94CB0002025C6 /* RemoteSettingController.m */; };
+		4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE306A71EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m */; };
+		4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE306AD1EDFE75000A0D88C /* AliveSearchSurveyCell.m */; };
+		4DE306B01EDFE75000A0D88C /* AliveSearchSurveyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DE306AE1EDFE75000A0D88C /* AliveSearchSurveyCell.xib */; };
 		4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */; };
 		4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */; };
 		4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A61ED7D107004E3267 /* AliveSearchUserCell.m */; };
@@ -1357,6 +1360,11 @@
 		4DE260F51ED94CB0002025C6 /* RemoteSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RemoteSettingController.h; sourceTree = "<group>"; };
 		4DE260F61ED94CB0002025C6 /* RemoteSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RemoteSettingController.m; sourceTree = "<group>"; };
 		4DE260FB1ED9569F002025C6 /* LocalSetting.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LocalSetting.h; sourceTree = "<group>"; };
+		4DE306A61EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchResultForwardInfoModel.h; sourceTree = "<group>"; };
+		4DE306A71EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchResultForwardInfoModel.m; sourceTree = "<group>"; };
+		4DE306AC1EDFE75000A0D88C /* AliveSearchSurveyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchSurveyCell.h; sourceTree = "<group>"; };
+		4DE306AD1EDFE75000A0D88C /* AliveSearchSurveyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchSurveyCell.m; sourceTree = "<group>"; };
+		4DE306AE1EDFE75000A0D88C /* AliveSearchSurveyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchSurveyCell.xib; sourceTree = "<group>"; };
 		4DE89CD31ED4298D00DB2520 /* SurveyDownLoadHintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDownLoadHintViewController.h; sourceTree = "<group>"; };
 		4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
 		4DEFF19C1ED7CE89004E3267 /* SearchSectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSectionData.h; sourceTree = "<group>"; };
@@ -4215,6 +4223,9 @@
 				4DEFF1AA1ED7DAE3004E3267 /* AliveSearchStockCell.h */,
 				4DEFF1AB1ED7DAE3004E3267 /* AliveSearchStockCell.m */,
 				4DEFF1AC1ED7DAE3004E3267 /* AliveSearchStockCell.xib */,
+				4DE306AC1EDFE75000A0D88C /* AliveSearchSurveyCell.h */,
+				4DE306AD1EDFE75000A0D88C /* AliveSearchSurveyCell.m */,
+				4DE306AE1EDFE75000A0D88C /* AliveSearchSurveyCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4248,6 +4259,8 @@
 			children = (
 				4D2D29EE1EDEC5BA00545314 /* AliveSearchResultModel.h */,
 				4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */,
+				4DE306A61EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.h */,
+				4DE306A71EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4779,6 +4792,7 @@
 				9E614E4F1EAC85710014DC0B /* OpenAnAccountController.xib in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				193419E61E78DF2B00F22788 /* bloom.caf in Resources */,
+				4DE306B01EDFE75000A0D88C /* AliveSearchSurveyCell.xib in Resources */,
 				19ECB9BA1EAF3EF60009F625 /* AnsTableViewCell.xib in Resources */,
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
@@ -4979,6 +4993,7 @@
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
+				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
@@ -5116,6 +5131,7 @@
 				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
 				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
 				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,
+				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				19194CC91E7FAC3700641085 /* PlayIndividualStockViewController.m in Sources */,
 				4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */,

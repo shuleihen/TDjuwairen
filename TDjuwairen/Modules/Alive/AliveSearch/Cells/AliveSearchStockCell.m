@@ -7,7 +7,7 @@
 //
 
 #import "AliveSearchStockCell.h"
-#import "SearchResultModel.h"
+#import "AliveSearchResultModel.h"
 
 @interface AliveSearchStockCell ()
 @property (weak, nonatomic) IBOutlet UILabel *sNameLabel;
@@ -42,10 +42,10 @@
     return cell;
 }
 
-- (void)setStockModel:(SearchResultModel *)stockModel {
+- (void)setStockModel:(AliveSearchResultModel *)stockModel {
 
     _stockModel = stockModel;
-    self.sNameLabel.text = stockModel.title;
+    self.sNameLabel.text = stockModel.company_name;
     if (stockModel.isMyStock == YES) {
         [self.addChoiceButton setTitle:@"取消自选" forState:UIControlStateNormal];
         [self.addChoiceButton setTitleColor:TDDetailTextColor forState:UIControlStateNormal];
@@ -59,8 +59,8 @@
 
 /// 加自选
 - (IBAction)addChoiceButtonClick:(UIButton *)sender {
-    if ([self.delegate respondsToSelector:@selector(addChoiceStockWithSearchResultModel:)]) {
-        [self.delegate addChoiceStockWithSearchResultModel:self.stockModel];
+    if ([self.delegate respondsToSelector:@selector(addChoiceStockWithSearchResultModel: andCellIndex:)]) {
+        [self.delegate addChoiceStockWithSearchResultModel:self.stockModel andCellIndex:self.tag];
     }
 }
 

@@ -55,11 +55,11 @@
         [self.contentView addSubview:_officialImageView];
         
         
-        UIButton *arrow = [[UIButton alloc] init];
-        [arrow setImage:[UIImage imageNamed:@"icon_arrow_down.png"] forState:UIControlStateNormal];
-        arrow.frame = CGRectMake(kScreenWidth-42, 12, 30, 30);
-        [arrow addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:arrow];
+        _arrowButton = [[UIButton alloc] init];
+        [_arrowButton setImage:[UIImage imageNamed:@"icon_arrow_down.png"] forState:UIControlStateNormal];
+        _arrowButton.frame = CGRectMake(kScreenWidth-42, 12, 30, 30);
+        [_arrowButton addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_arrowButton];
         
         _messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
         _messageLabel.font = [UIFont systemFontOfSize:16.0f];

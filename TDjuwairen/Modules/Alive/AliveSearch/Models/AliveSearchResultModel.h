@@ -7,9 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "AliveSearchResultForwardInfoModel.h"
 
 @interface AliveSearchResultModel : NSObject
 /** 用户字段 */
+
 /// 用户ID
 @property (copy, nonatomic) NSString *userID;
 /// 用户头像
@@ -42,11 +44,46 @@
 @property (assign, nonatomic) BOOL isUnlock;
 
 
+/** 话题 贴单字段 */
+///
+@property (copy, nonatomic) NSString *aliveTime;
+///
+@property (strong, nonatomic) NSArray *aliveImg;
+///
+@property (copy, nonatomic) NSString *aliveType;
+///
+@property (copy, nonatomic) NSString *aliveId;
+///
+@property (copy, nonatomic) NSString *aliveTitle;
+///
+@property (copy, nonatomic) NSString *aliveMasterId;
+///
+@property (copy, nonatomic) NSString *aliveShareUrl;
+///
+@property (copy, nonatomic) NSString *aliveComTag;
+///
+@property (assign, nonatomic) BOOL isForward;
+///
+@property (strong, nonatomic) AliveSearchResultForwardInfoModel *forward_info;
+///
+@property (assign, nonatomic) BOOL isOfficial;
+///
+@property (assign, nonatomic) BOOL isSelf;
+
+
+
+
+
+
 /// 用户列表
 - (id)initWithUserListDict:(NSDictionary *)dict;
 /// 股票列表
 - (id)initWithStockListDict:(NSDictionary *)dict;
 /// 调研列表
 - (id)initWithSurveyListDict:(NSDictionary *)dict;
+/// 话题 贴单列表
+- (id)initWithTopicListDict:(NSDictionary *)dict;
+/// 观点列表
+- (id)initWithViewPointListDict:(NSDictionary *)dict;
 
 @end
