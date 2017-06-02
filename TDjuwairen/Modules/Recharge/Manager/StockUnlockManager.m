@@ -51,7 +51,7 @@
             model.userKeyNum = userKeyNum;
             model.unlockKeyNum = unlockKeyNum;
             
-            if (!isUnlock) {
+            if (isUnlock) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
                 hud.labelText = @"已经解锁";
