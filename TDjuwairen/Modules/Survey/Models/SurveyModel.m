@@ -22,6 +22,7 @@
     model.addTime = dic[@"survey_addtime"];
     model.isLocked = ![dic[@"is_unlock"] boolValue];
     model.unlockKeyNum = [dic[@"unlock_keynum"] integerValue];
+    model.isVisited = [dic[@"is_visited"] boolValue];
     
     return model;
 }

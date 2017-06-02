@@ -15,6 +15,7 @@
         _title = dict[@"hot_title"];
         _hotId = dict[@"hot_id"];
         _dateTime = dict[@"hot_addtime"];
+        _isVisited = [dict[@"is_visited"] boolValue];
     }
     return self;
 }

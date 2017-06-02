@@ -22,5 +22,8 @@
 @property (nonatomic, assign) BOOL isLocked;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
 
+// 是否访问过
+@property (nonatomic, assign) BOOL isVisited;
+
 + (SurveyModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 @end
