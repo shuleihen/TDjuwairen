@@ -19,7 +19,6 @@
 #import "StockCommentModel.h"
 #import "StockManager.h"
 #import "UIImage+Color.h"
-#import "StockUnlockViewController.h"
 #import "SurveyMoreViewController.h"
 #import "FeedbackViewController.h"
 #import "LoginViewController.h"
@@ -41,13 +40,13 @@
 #import "StockInfoModel.h"
 #import "HotViewController.h"
 #import "NSString+Util.h"
-#import "TDRechargeViewController.h"
 #import "TencentStockManager.h"
+#import "StockUnlockManager.h"
 
 #define kHeaderViewHeight 163
 #define kSegmentHeight 45
 
-@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate, StockUnlockDelegate>
+@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate, StockUnlockManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
@@ -59,6 +58,7 @@
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) TencentStockManager *tencentStockManager;
 @property (nonatomic, strong) StockInfoModel *stockModel;
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation StockDetailViewController
@@ -81,6 +81,9 @@
     
     self.tencentStockManager = [[TencentStockManager alloc] init];
     [self queryTencentStock];
+    
+    self.unlockManager = [[StockUnlockManager alloc] init];
+    self.unlockManager.delegate = self;
     
     // 查询
     [self querySurveySimpleDetail];
@@ -203,16 +206,7 @@
         return;
     }
     
-    StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-    vc.stockCode = self.stockCode;
-    vc.stockName = self.stockModel.stockName;
-    vc.needKey = self.stockModel.keyNum;
-    vc.delegate = self;
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.navigationBarHidden = YES;
-    popupController.containerView.layer.cornerRadius = 4;
-    [popupController presentInViewController:self];
+    [self.unlockManager unlockStock:self.stockCode withStockName:self.stockModel.stockName withController:self];
 }
 
 - (void)niuxiongPublish {
@@ -311,43 +305,15 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - StockUnlockDelegate
+#pragma mark - StockUnlockManagerDelegate
 
-- (void)unlockWithStockCode:(NSString *)stockCode {
-    NSDictionary *para = @{@"user_id":  US.userId,
-                           @"code":     stockCode};
+- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
+    self.segment.isLock = NO;
+    self.stockModel.isLocked = NO;
+    self.stockModel.isAdd = YES;
     
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
-    indicator.hidesWhenStopped = YES;
-    [indicator stopAnimating];
-    [self.navigationController.view addSubview:indicator];
-    
-    
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
-        [indicator stopAnimating];
-        
-        if (!error) {
-            self.segment.isLock = NO;
-            self.stockModel.isLocked = NO;
-            self.stockModel.isAdd = YES;
-            
-            [self.stockHeaderView setupStockModel:self.stockModel];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
-        } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
-        }
-        
-    }];
-}
-
-- (void)rechargePressed:(id)sender {
-    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
-    [self.navigationController pushViewController:vc animated:YES];
+    [self.stockHeaderView setupStockModel:self.stockModel];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
 }
 
 

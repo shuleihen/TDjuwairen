@@ -19,7 +19,7 @@
 @property (nonatomic, copy) NSString *surveyCover;
 @property (nonatomic, copy) NSString *surveyUrl;
 @property (nonatomic, copy) NSString *addTime;
-@property (nonatomic, assign) BOOL isLocked;
+@property (nonatomic, assign) BOOL isUnlocked;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
 
 // 是否访问过

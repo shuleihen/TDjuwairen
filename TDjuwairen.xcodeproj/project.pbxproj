@@ -222,6 +222,8 @@
 		1978E0661EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0641EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m */; };
 		1978E0671EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */; };
 		1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0691EDFF1350065CEE0 /* AliveListExtra.m */; };
+		1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */; };
+		1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0711EE166D70065CEE0 /* StockUnlockModel.m */; };
 		19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
 		19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B751E2C5D4300AB26DF /* GradeListCell.xib */; };
@@ -988,6 +990,10 @@
 		1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveVideoListTableViewCell.xib; sourceTree = "<group>"; };
 		1978E0681EDFF1350065CEE0 /* AliveListExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListExtra.h; sourceTree = "<group>"; };
 		1978E0691EDFF1350065CEE0 /* AliveListExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListExtra.m; sourceTree = "<group>"; };
+		1978E06D1EE1665E0065CEE0 /* StockUnlockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockManager.h; sourceTree = "<group>"; };
+		1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockManager.m; sourceTree = "<group>"; };
+		1978E0701EE166D70065CEE0 /* StockUnlockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockModel.h; sourceTree = "<group>"; };
+		1978E0711EE166D70065CEE0 /* StockUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockModel.m; sourceTree = "<group>"; };
 		19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeViewController.h; sourceTree = "<group>"; };
 		19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeViewController.m; sourceTree = "<group>"; };
 		19959B731E2C5D4300AB26DF /* GradeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListCell.h; sourceTree = "<group>"; };
@@ -2670,6 +2676,8 @@
 		1953CA421E6BE75000A64B3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1978E0701EE166D70065CEE0 /* StockUnlockModel.h */,
+				1978E0711EE166D70065CEE0 /* StockUnlockModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3244,6 +3252,15 @@
 			children = (
 			);
 			path = View;
+			sourceTree = "<group>";
+		};
+		1978E06C1EE1664B0065CEE0 /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+				1978E06D1EE1665E0065CEE0 /* StockUnlockManager.h */,
+				1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */,
+			);
+			path = Manager;
 			sourceTree = "<group>";
 		};
 		19959B711E2C5D4300AB26DF /* Grade */ = {
@@ -3863,6 +3880,7 @@
 		19F0073C1E31E5AE000A5F98 /* Recharge */ = {
 			isa = PBXGroup;
 			children = (
+				1978E06C1EE1664B0065CEE0 /* Manager */,
 				1953CA421E6BE75000A64B3C /* Models */,
 				19F0073D1E31E5AE000A5F98 /* Controllers */,
 				19F007461E31E5AE000A5F98 /* Views */,
@@ -4931,6 +4949,7 @@
 				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */,
+				1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
@@ -5015,6 +5034,7 @@
 				190F65ED1E36E73000B83ADF /* AwardAdressTableViewCell.m in Sources */,
 				4D2D29E71EDE578900545314 /* AliveAlertOperateViewController.m in Sources */,
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
+				1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */,
 				19194D1D1E80CC5200641085 /* Tool.m in Sources */,
 				19959B831E2C5D4300AB26DF /* GradeListModel.m in Sources */,
 				1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */,

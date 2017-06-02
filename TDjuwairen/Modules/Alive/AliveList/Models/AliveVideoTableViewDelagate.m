@@ -10,15 +10,13 @@
 #import "AliveVideoListTableViewCell.h"
 #import "AliveListModel.h"
 #import "SurveyDetailWebViewController.h"
-#import "StockUnlockViewController.h"
-#import "TDRechargeViewController.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
-#import "STPopupController.h"
 #import "DetailPageViewController.h"
+#import "StockUnlockManager.h"
 
-@interface AliveVideoTableViewDelagate ()<StockUnlockDelegate>
-
+@interface AliveVideoTableViewDelagate ()<StockUnlockManagerDelegate>
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation AliveVideoTableViewDelagate
@@ -30,6 +28,9 @@
         
         UINib *nib = [UINib nibWithNibName:@"AliveVideoListTableViewCell" bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveVideoListTableViewCellID"];
+        
+        self.unlockManager = [[StockUnlockManager alloc] init];
+        self.unlockManager.delegate = self;
     }
     
     return self;
@@ -39,7 +40,9 @@
     self.itemList = array;
 }
 
-- (void)reloadUnlockWithStockCode:(NSString *)stockCode {
+
+#pragma mark - StockUnlockManagerDelegate
+- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
     for (AliveListModel *model in self.itemList) {
         if ([model.extra.companyCode isEqualToString:stockCode]) {
             model.extra.isUnlock = YES;
@@ -49,46 +52,6 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - StockUnlockDelegate
-
-- (void)unlockWithStockCode:(NSString *)stockCode {
-    NSDictionary *para = @{@"user_id":  US.userId,
-                           @"code":     stockCode};
-    
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
-    indicator.hidesWhenStopped = YES;
-    [indicator stopAnimating];
-    [self.viewController.view addSubview:indicator];
-    
-    __weak AliveVideoTableViewDelagate *wself = self;
-    
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
-        [indicator stopAnimating];
-        
-        if (!error) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"解锁成功";
-            [hud hide:YES afterDelay:0.6];
-            
-            [wself reloadUnlockWithStockCode:stockCode];
-        } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
-        }
-        
-    }];
-}
-
-- (void)rechargePressed:(id)sender {
-    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.viewController.navigationController pushViewController:vc animated:YES];
-}
 
 #pragma mark - Table view data source
 
@@ -143,17 +106,7 @@
             return;
         }
         
-        
-        StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-        vc.stockCode = model.extra.companyCode;
-        vc.stockName = model.extra.companyName;
-        vc.needKey = model.extra.unlockKeyNum;
-        vc.delegate = self;
-        
-        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-        popupController.navigationBarHidden = YES;
-        popupController.containerView.layer.cornerRadius = 4;
-        [popupController presentInViewController:self.viewController];
+        [self.unlockManager unlockStock:model.extra.companyCode withStockName:model.extra.companyName withController:self.viewController];
     }
 }
 

@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *keyNumberBtn;
 @property (weak, nonatomic) IBOutlet UILabel *balanceLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneBtn;
+@property (weak, nonatomic) IBOutlet UIButton *vipBtn;
 @property (assign, nonatomic) NSInteger balanceKey;
 @end
 
@@ -28,29 +29,18 @@
     // Do any additional setup after loading the view.
     self.contentSizeInPopup = CGSizeMake(210, 220);
     
-    self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.stockName,self.stockCode];
-    [self.keyNumberBtn setTitle:[NSString stringWithFormat:@"%ld",(long)self.needKey] forState:UIControlStateNormal];
-    
-    if (US.isLogIn) {
-        NSDictionary *para = @{@"user_id":US.userId};
-        NetworkManager *ma = [[NetworkManager alloc] init];
-        [ma POST:API_QueryKeyNumber parameters:para completion:^(id data, NSError *error){
-            if (!error) {
-                long keyNumber = [data[@"keyNum"] longValue];
-                self.balanceKey = keyNumber;
-                [self setupDataWithKeyNumber:keyNumber];
-            } else {
-                //
-                [self setupDataWithKeyNumber:0];
-            }
-        }];
+    if (!US.isLogIn) {
+        return;
     }
-}
-
-- (void)setupDataWithKeyNumber:(long)keyNumber {
     
-    if (keyNumber >= self.needKey) {
-        self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",keyNumber];
+    self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)",self.model.stockName,self.model.stockCode];
+    [self.keyNumberBtn setTitle:[NSString stringWithFormat:@"%ld",self.model.unlockKeyNum] forState:UIControlStateNormal];
+    
+    [self.vipBtn setTitle:self.model.vipDesc forState:UIControlStateNormal];
+    [self.vipBtn setTitle:self.model.vipDesc forState:UIControlStateHighlighted];
+    
+    if (self.model.userKeyNum >= self.model.unlockKeyNum) {
+        self.balanceLabel.text = [NSString stringWithFormat:@"账户余额  %ld",self.model.userKeyNum];
         [self.doneBtn setTitle:@"立即解锁" forState:UIControlStateNormal];
         [self.doneBtn setTitle:@"立即解锁" forState:UIControlStateHighlighted];
         [self.doneBtn addTarget:self action:@selector(unlockPressed:) forControlEvents:UIControlEventTouchUpInside];
@@ -64,22 +54,11 @@
 
 - (void)unlockPressed:(id)sender {
     
-    if (self.needKey > self.balanceKey) {
-        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"账户余额不足！" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:done];
-        [self.popupController presentInViewController:alert completion:nil];
-        return;
-    }else {
-    
-        
-        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
-            [self.delegate unlockWithStockCode:self.stockCode];
-        }
-        
-        [self dismissViewControllerAnimated:NO completion:nil];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
+        [self.delegate unlockWithStockCode:self.model.stockCode];
     }
     
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 
 - (void)rechargePressed:(id)sender {
@@ -96,5 +75,10 @@
 
 
 - (IBAction)becomeMemberButtonClick:(UIButton *)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(vipPressed:)]) {
+        [self.delegate vipPressed:sender];
+    }
+    
+    [self dismissViewControllerAnimated:NO completion:nil];
 }
 @end

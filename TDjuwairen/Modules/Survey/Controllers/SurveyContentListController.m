@@ -14,15 +14,13 @@
 #import "HexColors.h"
 #import "SearchViewController.h"
 #import "NSString+Util.h"
-#import "StockUnlockViewController.h"
 #import "MBProgressHUD.h"
-#import "TDRechargeViewController.h"
-#import "STPopupController.h"
 #import "SurveyDetailWebViewController.h"
+#import "StockUnlockManager.h"
 
 @interface SurveyContentListController ()
 <StockManagerDelegate, UITableViewDelegate, UITableViewDataSource,
-SurveyStockListCellDelegate, StockUnlockDelegate>
+SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *surveyList;
@@ -32,6 +30,7 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) UIView *noDataView;
 @property (assign, nonatomic) CGFloat cellHeight;
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation SurveyContentListController
@@ -114,6 +113,9 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
     
     self.stockArr = [NSMutableArray array];
     [self refreshData];
+    
+    self.unlockManager = [[StockUnlockManager alloc] init];
+    self.unlockManager.delegate = self;
 }
 
 - (void)addStockPressed:(id)sender {
@@ -200,69 +202,32 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
 }
 
-- (void)reloadUnlockWithStockCode:(NSString *)stockCode {
-    for (SurveyModel *model in self.surveyList) {
-        if ([model.companyCode isEqualToString:stockCode]) {
-            model.isLocked = NO;
-        }
-    }
-    
-    [self.tableView reloadData];
-}
-
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
     self.stockDict = stocks;
     [self.tableView reloadData];
 }
 
-#pragma mark - StockUnlockDelegate
+#pragma mark - StockUnlockManagerDelegate
 
-- (void)unlockWithStockCode:(NSString *)stockCode {
-    NSDictionary *para = @{@"user_id":  US.userId,
-                           @"code":     stockCode};
+- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
     
-    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
-    indicator.hidesWhenStopped = YES;
-    [indicator stopAnimating];
-    [self.rootController.view addSubview:indicator];
-    
-    __weak SurveyContentListController *wself = self;
-    
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
-        [indicator stopAnimating];
-        
-        if (!error) {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.rootController.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"解锁成功";
-            [hud hide:YES afterDelay:0.6];
-            
-            [wself reloadUnlockWithStockCode:stockCode];
-        } else {
-            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.rootController.view animated:YES];
-            hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+    for (SurveyModel *model in self.surveyList) {
+        if ([model.companyCode isEqualToString:stockCode]) {
+            model.isUnlocked = YES;
         }
-        
-    }];
+    }
+    
+    [self.tableView reloadData];
 }
 
-- (void)rechargePressed:(id)sender {
-    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.rootController.navigationController pushViewController:vc animated:YES];
-}
 
 #pragma mark - SurveyStockListCellDelegate
 - (void)surveyStockListCell:(SurveryStockListCell *)cell titlePressed:(id)sender {
     
     SurveyModel *model = cell.model;
     
-    if (!model.isLocked) {
+    if (model.isUnlocked) {
         SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
         vc.contentId = model.surveyId;
         vc.stockCode = model.companyCode;
@@ -279,17 +244,7 @@ SurveyStockListCellDelegate, StockUnlockDelegate>
             return;
         }
         
-        
-        StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-        vc.stockCode = model.companyCode;
-        vc.stockName = model.companyName;
-        vc.needKey = model.unlockKeyNum;
-        vc.delegate = self;
-        
-        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-        popupController.navigationBarHidden = YES;
-        popupController.containerView.layer.cornerRadius = 4;
-        [popupController presentInViewController:self.rootController];
+        [self.unlockManager unlockStock:model.companyCode withStockName:model.companyName withController:self.rootController];
     }
 
 }

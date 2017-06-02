@@ -7,18 +7,16 @@
 //
 
 #import <UIKit/UIKit.h>
-
+#import "StockUnlockModel.h"
 
 @protocol StockUnlockDelegate <NSObject>
 - (void)unlockWithStockCode:(NSString *)stockCode;
 - (void)rechargePressed:(id)sender;
-
+- (void)vipPressed:(id)sender;
 @end
 
 @interface StockUnlockViewController : UIViewController
-@property (nonatomic, strong) NSString *stockCode;
-@property (nonatomic, strong) NSString *stockName;
-@property (nonatomic, assign) NSInteger needKey;
+@property (nonatomic, strong) StockUnlockModel *model;
 
 @property (nonatomic, weak) id<StockUnlockDelegate> delegate;
 @end

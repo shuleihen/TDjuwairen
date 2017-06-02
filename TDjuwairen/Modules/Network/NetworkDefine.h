@@ -101,6 +101,7 @@
 #define API_SurveyAskUnLike     @"Survey/cancelUpvoteCompanyAnswer"
 
 #define API_SurveyUnlock        @"Survey/unlockCompany"
+#define API_SurveyIsUnlock      @"Survey/isUserUnlockCompany"
 #define API_SurveySubject       @"Survey/surveySubject3_1"
 #define API_SurveyAddSubject    @"Survey/addAttenSurveySubject"
 #define API_SurveyAttenSubject  @"Survey/getAttenSurveySubject"
