@@ -67,7 +67,7 @@
             </objects>
             <point key="canvasLocation" x="-4380" y="-1051"/>
         </scene>
-        <!--Survey List View Controller-->
+        <!--调研-->
         <scene sceneID="eoo-8f-oOd">
             <objects>
                 <viewController id="h8o-Tf-y5g" customClass="SurveyListViewController" sceneMemberID="viewController">
@@ -82,6 +82,10 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="utX-XL-dC8">
                                 <rect key="frame" x="0.0" y="64" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <connections>
+                                    <outlet property="dataSource" destination="h8o-Tf-y5g" id="q5o-km-inL"/>
+                                    <outlet property="delegate" destination="h8o-Tf-y5g" id="H78-Nx-xEC"/>
+                                </connections>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -92,7 +96,7 @@
                             <constraint firstItem="utX-XL-dC8" firstAttribute="leading" secondItem="Uja-EU-08b" secondAttribute="leading" id="O0R-TK-RBu"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="UCV-HX-6zl"/>
+                    <navigationItem key="navigationItem" title="调研" id="UCV-HX-6zl"/>
                     <connections>
                         <outlet property="tableView" destination="utX-XL-dC8" id="r4y-0C-ZYs"/>
                     </connections>

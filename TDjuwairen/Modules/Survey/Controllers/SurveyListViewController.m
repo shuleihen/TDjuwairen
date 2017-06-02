@@ -200,13 +200,6 @@
     [self refreshAction];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    [super viewWillAppear:animated];
-}
-
-- (void)viewWillDisappear:(BOOL)animated {
-    [super viewWillDisappear:animated];
-}
 
 #pragma mark - UIScroll
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -229,23 +222,6 @@
 
 #pragma mark - Setup
 - (void)setupNavigationBar {
-//    UIButton *avatarBtn = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
-//    avatarBtn.imageView.contentMode = UIViewContentModeScaleAspectFill;
-//    avatarBtn.imageView.layer.cornerRadius = 15.0f;
-//    avatarBtn.imageView.clipsToBounds = YES;
-////    avatarBtn.backgroundColor = [UIColor redColor];
-//    avatarBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentLeft;
-//    avatarBtn.imageEdgeInsets = UIEdgeInsetsMake(0, 0, 0, 0);
-//    [avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:[UIImage imageNamed:@"nav_avatar.png"]];
-//    [avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
-//    UIBarButtonItem *left = [[UIBarButtonItem alloc] initWithCustomView:avatarBtn];
-//    self.navigationItem.leftBarButtonItem = left;
-    
-    // 通知
-//    UIImage *rightImage = [[UIImage imageNamed:@"news_read.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-//    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(notificationPressed:)];
-//    self.navigationItem.rightBarButtonItem = right;
-
     
     YXTitleCustomView *customView = [[YXTitleCustomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
     
@@ -262,7 +238,6 @@
 - (void)setupTableView {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.backgroundColor = TDViewBackgrouondColor;
-//    self.tableView.separatorColor = TDSeparatorColor;
     
     // 表头
     self.tableView.tableHeaderView = [self tableViewHeaderView];
@@ -277,7 +252,6 @@
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-//    self.tableView.backgroundColor = TDViewBackgrouondColor;
     
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshAction)];
 //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
