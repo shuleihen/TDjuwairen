@@ -7,6 +7,7 @@
 //
 
 #import "TDNavigationController.h"
+#import "UIImage+Color.h"
 
 @interface NavgiationDelegate : NSObject<UINavigationControllerDelegate, UIGestureRecognizerDelegate>
 @property (nonatomic, weak) UINavigationController *navController;
@@ -31,6 +32,8 @@
     NSString *classString = NSStringFromClass([viewController class]);
     BOOL hidden = [self isHiddenNavigationBarWithViewController:classString];
     [navigationController setNavigationBarHidden:hidden animated:animated];
+    
+    [self setupNavigationControllerBackground:navigationController willShowViewController:viewController];
     
     if ([navigationController.viewControllers count] > 1) {
         if (!viewController.navigationItem.leftBarButtonItem) {
@@ -68,7 +71,21 @@
     
     return hidden;
 }
+
+- (void)setupNavigationControllerBackground:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController {
+    if ([viewController isKindOfClass:NSClassFromString(@"AliveMainListViewController")]) {
+        // 直播主页面导航条背景修改
+        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
+        
+        UIImage *image = [UIImage imageWithColor:[UIColor clearColor]];
+        [navigationController.navigationBar setShadowImage:image];
+    } else {
+        [navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
+        [navigationController.navigationBar setShadowImage:nil];
+    }
+}
 @end
+
 
 
 @interface TDNavigationController ()
