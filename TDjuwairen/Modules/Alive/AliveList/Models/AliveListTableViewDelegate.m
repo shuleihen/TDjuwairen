@@ -348,22 +348,13 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
         return;
     }
     
-    AliveListModel *cellModel = cell.cellModel;
     NetworkManager *manager = [[NetworkManager alloc] init];
     UIButton *btn = sender;
-    NSString *api;
-    NSDictionary *dict = @{};
+    NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
     
     if (btn.selected) {
-        if (cellModel.aliveType == kAliveViewpoint) {
-            api = API_ViewCancelLike;
-            dict = @{@"view_id":cell.cellModel.aliveId};
-        } else {
-            api = API_AliveCancelLike;
-            dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
-        }
         
-        [manager POST:api parameters:dict completion:^(id data, NSError *error) {
+        [manager POST:API_AliveCancelLike parameters:dict completion:^(id data, NSError *error) {
             
             if (!error) {
                 cell.cellModel.likeNum--;
@@ -375,15 +366,8 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
             }
         }];
     }else{
-        if (cellModel.aliveType == kAliveViewpoint) {
-            api = API_ViewAddLike;
-            dict = @{@"view_id":cell.cellModel.aliveId};
-        } else {
-            api = API_AliveAddLike;
-            dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
-        }
         
-        [manager POST:api parameters:dict completion:^(id data, NSError *error) {
+        [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
             
             if (!error) {
                 cell.cellModel.likeNum++;
