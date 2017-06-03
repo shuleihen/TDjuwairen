@@ -224,6 +224,7 @@
 		1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0691EDFF1350065CEE0 /* AliveListExtra.m */; };
 		1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */; };
 		1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0711EE166D70065CEE0 /* StockUnlockModel.m */; };
+		1978E0761EE285CE0065CEE0 /* AliveListViewpointImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */; };
 		19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
 		19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B751E2C5D4300AB26DF /* GradeListCell.xib */; };
@@ -994,6 +995,8 @@
 		1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockManager.m; sourceTree = "<group>"; };
 		1978E0701EE166D70065CEE0 /* StockUnlockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockModel.h; sourceTree = "<group>"; };
 		1978E0711EE166D70065CEE0 /* StockUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockModel.m; sourceTree = "<group>"; };
+		1978E0741EE285CE0065CEE0 /* AliveListViewpointImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListViewpointImageView.h; sourceTree = "<group>"; };
+		1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewpointImageView.m; sourceTree = "<group>"; };
 		19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeViewController.h; sourceTree = "<group>"; };
 		19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeViewController.m; sourceTree = "<group>"; };
 		19959B731E2C5D4300AB26DF /* GradeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListCell.h; sourceTree = "<group>"; };
@@ -2780,6 +2783,8 @@
 				19475C541EA4661F00F749E6 /* AliveListTagsView.m */,
 				19ECB9BD1EB074590009F625 /* AliveListSectionHeaderView.h */,
 				19ECB9BE1EB074590009F625 /* AliveListSectionHeaderView.m */,
+				1978E0741EE285CE0065CEE0 /* AliveListViewpointImageView.h */,
+				1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4845,6 +4850,7 @@
 			files = (
 				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
+				1978E0761EE285CE0065CEE0 /* AliveListViewpointImageView.m in Sources */,
 				1955B49A1D644D9800DC102E /* ViewPointViewController.m in Sources */,
 				4D023BC71E8E2C8000AB463E /* PlayIndividualUserListModel.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,

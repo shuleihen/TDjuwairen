@@ -25,15 +25,6 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
         [_avatar addGestureRecognizer:tap];
         
-//        _tiedanLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 60, 40, 12)];
-//        _tiedanLabel.font = [UIFont systemFontOfSize:12.0f];
-//        _tiedanLabel.textAlignment = NSTextAlignmentCenter;
-//        _tiedanLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
-//        _tiedanLabel.text = @"贴单";
-//        _tiedanLabel.layer.borderWidth = 0.5f;
-//        _tiedanLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"].CGColor;
-//        [self.contentView addSubview:_tiedanLabel];
-        
         _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(62, 14, kScreenWidth-92-64, 18)];
         _nickNameLabel.font = [UIFont systemFontOfSize:16.0f];
         _nickNameLabel.textAlignment = NSTextAlignmentLeft;
@@ -76,9 +67,13 @@
         _tagsView.hidden = YES;
         [self.contentView addSubview:_tagsView];
         
-        self.forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-24, 80)];
-        self.forwardView.hidden = YES;
-        [self.contentView addSubview:self.forwardView];
+        _forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-24, 80)];
+        _forwardView.hidden = YES;
+        [self.contentView addSubview:_forwardView];
+        
+        _viewpointImageView = [[AliveListViewpointImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-24, 178)];
+        _viewpointImageView.hidden = YES;
+        [self.contentView addSubview:_viewpointImageView];
         
         UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardAvatarPressed:)];
         [self.forwardView.nameLabel addGestureRecognizer:tap1];
@@ -100,26 +95,12 @@
 }
 
 - (void)setupAliveListCellData:(AliveListCellData *)cellData {
+    
     self.cellData = cellData;
-    
-    self.messageLabel.frame = cellData.messageLabelFrame;
-    
-    self.imagesView.frame = cellData.imgsViewFrame;
-    self.imagesView.hidden = !cellData.isShowImgView;
-    
-    self.tagsView.hidden = !cellData.isShowTags;
-    self.tagsView.frame = cellData.tagsFrame;
-    
-    self.forwardView.hidden = !cellData.aliveModel.isForward;
-    self.forwardView.frame = cellData.forwardFrame;
-    
-    self.tiedanLabel.hidden = cellData.isShowTiedan;
-    
     AliveListModel *aliveModel = cellData.aliveModel;
     
+    // 头像、昵称
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:TDDefaultUserAvatar];
-    
-    // 昵称
     self.nickNameLabel.text = aliveModel.masterNickName;
     
     // 官方认证标示
@@ -131,8 +112,12 @@
         self.officialImageView.hidden = YES;
     }
     
+    // 直播动态时间
     self.timeLabel.text = aliveModel.aliveTime;
     
+    
+    // 直播消息
+    self.messageLabel.frame = cellData.messageLabelFrame;
     self.messageLabel.attributedText = cellData.message;
 
     if ([cellData.message.string hasSuffix:@"查看图片"]) {
@@ -145,12 +130,39 @@
         [self.messageLabel setActiveLinkAttributes:nil];
     }
     
-    self.imagesView.images = aliveModel.aliveImgs;
+    
+    // 直播图片
+    self.imagesView.frame = cellData.imgsViewFrame;
+    self.imagesView.hidden = !cellData.isShowImgView;
+    
+    if (cellData.isShowImgView) {
+        self.imagesView.images = aliveModel.aliveImgs;
+    }
+    
 
-    self.tagsView.tags = aliveModel.aliveTags;
+    // 直播标签
+    self.tagsView.hidden = !cellData.isShowTags;
+    self.tagsView.frame = cellData.tagsFrame;
+    
+    if (cellData.isShowTags) {
+        self.tagsView.tags = aliveModel.aliveTags;
+    }
+    
+    
+    // 直播转发
+    self.forwardView.hidden = !cellData.aliveModel.isForward;
+    self.forwardView.frame = cellData.forwardFrame;
     
     if (cellData.aliveModel.isForward) {
         [self.forwardView setupAliveForward:aliveModel.forwardModel];
+    }
+    
+    // 直播观点
+    self.viewpointImageView.hidden = !cellData.isShowViewpointImageView;
+    self.viewpointImageView.frame = cellData.viewpointImageViewFrame;
+    
+    if (cellData.isShowViewpointImageView) {
+        [self.viewpointImageView setupViewpointUrl:aliveModel.aliveImgs.firstObject];
     }
     
 }

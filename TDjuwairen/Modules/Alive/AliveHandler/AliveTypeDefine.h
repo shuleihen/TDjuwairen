@@ -37,7 +37,7 @@ typedef enum : NSInteger {
     kAlivePosts     =2,
     kAliveSurvey    =3,
     kAliveHot       =4,
-    kkAliveListViewpoint =5,
+    kAliveViewpoint =5,
 } AliveType;
 
 // 直播内容类型，0：文本，1：图片

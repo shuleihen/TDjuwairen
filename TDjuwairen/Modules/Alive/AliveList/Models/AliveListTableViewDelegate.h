@@ -14,15 +14,16 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 
 @interface AliveListTableViewDelegate : DYTableViewDelegate<UITableViewDataSource, UITableViewDelegate>
 
+// 用户头像是否能点击，默认为YES
 @property (nonatomic, assign) BOOL avatarPressedEnabled;
 
 // 个人直播间动态可以删除
 @property (nonatomic, assign) BOOL isMyRoom;
+
+// 直播列表类型
 @property (nonatomic, assign) AliveListType listType;
 
 @property (nonatomic, copy) void (^reloadView)(void);
-
-- (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;
 
 - (void)insertAtHeaderWithArray:(NSArray *)array;
 @end

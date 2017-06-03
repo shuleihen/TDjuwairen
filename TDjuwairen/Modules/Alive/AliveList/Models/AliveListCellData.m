@@ -14,11 +14,17 @@
 - (id)initWithAliveModel:(AliveListModel *)aliveModel {
     if (self = [super init]) {
         self.aliveModel = aliveModel;
-        self.isShowTiedan = (aliveModel.aliveType ==kAlivePosts)?NO:YES;
+        self.isShowTiedan = (aliveModel.aliveType == kAlivePosts)?NO:YES;
+        self.isShowViewpointImageView = (aliveModel.aliveType == kAliveViewpoint);
         
         if (!aliveModel.isForward) {
             self.isShowReviewImageButton = NO;
-            self.isShowImgView = aliveModel.aliveImgs.count?YES:NO;
+            
+            if (self.isShowViewpointImageView) {
+                self.isShowImgView = NO;
+            } else {
+                self.isShowImgView = aliveModel.aliveImgs.count?YES:NO;
+            }
         } else {
             // 转发有图片才提示“查看图片”，不显示图片
             self.isShowReviewImageButton = (aliveModel.aliveImgs.count>0)?YES:NO;
@@ -33,48 +39,63 @@
 - (void)setup {
     
     CGFloat left = 12.0f;
+    CGFloat right = 12.0f;
+    CGFloat contentWidht = kScreenWidth-left-right;
     CGFloat height = 0;
     
     self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
-                                       withSize:CGSizeMake(kScreenWidth-left-12, MAXFLOAT)
+                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
                              isAppendingShowAll:self.isShowDetail
                              isAppendingShowImg:self.isShowReviewImageButton];
     
     CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
-                                     withConstraints:CGSizeMake(kScreenWidth-left-12, MAXFLOAT)
+                                     withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                               limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 62, kScreenWidth-left-12, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 62, contentWidht, messageSize.height);
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
     
     if (self.aliveModel.isForward) {
         self.imgsViewFrame = CGRectZero;
         
         if (self.message.string.length == 0) {
             // 转发分享，没有标题内容
-            self.forwardFrame = CGRectMake(left, 62, kScreenWidth-left-12, 80);
+            self.forwardFrame = CGRectMake(left, 62, contentWidht, 80);
         } else {
-            self.forwardFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, 80);
+            self.forwardFrame = CGRectMake(left, height+10, contentWidht, 80);
         }
         
         height = CGRectGetMaxY(self.forwardFrame) + 11.0f;
         
     } else {
         
-        BOOL isHaveImage = (self.aliveModel.aliveImgs.count>0);
-        
-        if (isHaveImage) {
-            CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
-            self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame)+10, kScreenWidth-left-12, imagesViewHeight);
+        if (self.isShowViewpointImageView) {
+            // 直播观点图片显示
+            self.viewpointImageViewFrame = CGRectMake(left, height+10, contentWidht, 178);
+            
+            height = CGRectGetMaxY(self.viewpointImageViewFrame);
         } else {
-            self.imgsViewFrame = CGRectMake(left, CGRectGetMaxY(self.messageLabelFrame), 0, 0);
+            // 直播图文和贴单图片显示
+            BOOL isHaveImage = (self.aliveModel.aliveImgs.count>0);
+            
+            if (isHaveImage) {
+                CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
+                self.imgsViewFrame = CGRectMake(left, height+10, contentWidht, imagesViewHeight);
+            } else {
+                self.imgsViewFrame = CGRectMake(left, height, 0, 0);
+            }
+            
+            height = CGRectGetMaxY(self.imgsViewFrame);
         }
+        
         
         // 标签
         if (self.isShowTags) {
-            CGFloat tagsViewHeight = [self tagsViewHeightWithTags:self.aliveModel.aliveTags withLimitWidth:(kScreenWidth-left-12)];
-            self.tagsFrame = CGRectMake(left, CGRectGetMaxY(self.imgsViewFrame)+10, kScreenWidth-left-12, tagsViewHeight);
+            CGFloat tagsViewHeight = [self tagsViewHeightWithTags:self.aliveModel.aliveTags withLimitWidth:contentWidht];
+            self.tagsFrame = CGRectMake(left, height+10, contentWidht, tagsViewHeight);
         } else {
-            self.tagsFrame = CGRectMake(left, CGRectGetMaxY(self.imgsViewFrame), 0, 0);
+            self.tagsFrame = CGRectMake(left, height, 0, 0);
         }
         
         height = CGRectGetMaxY(self.tagsFrame)+11;

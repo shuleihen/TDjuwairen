@@ -29,6 +29,10 @@
 
 @property (nonatomic, strong) NSAttributedString *message;
 
+// 是否显示直播观点图片
+@property (nonatomic, assign) BOOL isShowViewpointImageView;
+@property (nonatomic, assign) CGRect viewpointImageViewFrame;
+
 - (id)initWithAliveModel:(AliveListModel *)aliveModel;
 - (void)setup;
 @end

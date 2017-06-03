@@ -104,7 +104,7 @@
             dict = @{@"tag" :@(listType),@"page" :@(page)};
             break;
         case kAliveListViewpoint:
-            api = API_AliveViewpointList;
+            api = API_ViewGetList;
             dict = @{@"page" :@(page)};
             break;
         case kAliveListVideo:
