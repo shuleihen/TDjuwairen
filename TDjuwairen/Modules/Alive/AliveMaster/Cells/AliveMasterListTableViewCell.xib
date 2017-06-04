@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -16,7 +16,7 @@
             <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <rect key="frame" x="0.0" y="0.0" width="394" height="100"/>
+                <rect key="frame" x="0.0" y="0.0" width="394" height="99.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="9Iy-ZO-a46">
@@ -27,8 +27,8 @@
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="大团结" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="euy-Qe-y7s">
-                        <rect key="frame" x="72" y="12" width="238" height="18"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                        <rect key="frame" x="72" y="12" width="234" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -39,29 +39,32 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OKt-Nz-FOb">
-                        <rect key="frame" x="322" y="12" width="60" height="25"/>
+                        <rect key="frame" x="318" y="12" width="64" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="60" id="nap-ao-5bS"/>
-                            <constraint firstAttribute="height" constant="25" id="rli-2a-4yr"/>
+                            <constraint firstAttribute="width" constant="64" id="nap-ao-5bS"/>
+                            <constraint firstAttribute="height" constant="24" id="rli-2a-4yr"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <state key="normal" title="加关注">
-                            <color key="titleColor" red="0.12549019607843137" green="0.27843137254901962" blue="0.67450980392156867" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="titleColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                         <connections>
                             <action selector="attentionButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="87q-nL-o2m"/>
                         </connections>
                     </button>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="46539粉丝" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mfE-Pm-R2X">
-                        <rect key="frame" x="319" y="47" width="63" height="15"/>
+                        <rect key="frame" x="300.5" y="47" width="100" height="15"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="100" id="XO8-Kd-vad"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
-                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aZ0-nc-c1o">
                         <rect key="frame" x="12" y="70" width="370" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -70,6 +73,7 @@
                     <constraint firstItem="aZ0-nc-c1o" firstAttribute="top" secondItem="9Iy-ZO-a46" secondAttribute="bottom" constant="8" id="2xt-AU-dDo"/>
                     <constraint firstItem="D9v-Hu-JWe" firstAttribute="leading" secondItem="euy-Qe-y7s" secondAttribute="leading" id="BOc-Js-Md6"/>
                     <constraint firstItem="mfE-Pm-R2X" firstAttribute="centerY" secondItem="D9v-Hu-JWe" secondAttribute="centerY" id="GD6-2x-Zg7"/>
+                    <constraint firstItem="mfE-Pm-R2X" firstAttribute="centerX" secondItem="OKt-Nz-FOb" secondAttribute="centerX" id="Hjn-jw-TRW"/>
                     <constraint firstItem="OKt-Nz-FOb" firstAttribute="top" secondItem="9Iy-ZO-a46" secondAttribute="top" id="PwT-Bk-5DH"/>
                     <constraint firstItem="aZ0-nc-c1o" firstAttribute="leading" secondItem="9Iy-ZO-a46" secondAttribute="leading" id="Sfh-39-Z06"/>
                     <constraint firstAttribute="trailing" secondItem="aZ0-nc-c1o" secondAttribute="trailing" constant="12" id="Stc-jz-yZy"/>
@@ -78,7 +82,6 @@
                     <constraint firstItem="9Iy-ZO-a46" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="dP1-kE-96O"/>
                     <constraint firstItem="euy-Qe-y7s" firstAttribute="top" secondItem="9Iy-ZO-a46" secondAttribute="top" id="g6T-Yy-cb6"/>
                     <constraint firstAttribute="trailing" secondItem="OKt-Nz-FOb" secondAttribute="trailing" constant="12" id="kMZ-8D-161"/>
-                    <constraint firstItem="mfE-Pm-R2X" firstAttribute="trailing" secondItem="OKt-Nz-FOb" secondAttribute="trailing" id="sPo-fi-Ltc"/>
                     <constraint firstItem="D9v-Hu-JWe" firstAttribute="bottom" secondItem="9Iy-ZO-a46" secondAttribute="bottom" id="uP4-TD-uod"/>
                 </constraints>
             </tableViewCellContentView>
