@@ -34,7 +34,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.aImageView.layer.cornerRadius = 25;
+    self.aImageView.layer.cornerRadius = 30;
     self.aImageView.layer.masksToBounds = YES;
     
     self.addAttenBtn.hidden = YES;
@@ -56,8 +56,12 @@
     [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",master.guessRate] forState:UIControlStateNormal];
     
     [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar];
-    self.aNickNameLabel.text = master.masterNickName;
-    self.aAddressLabel.text = master.city;
+    
+    NSString *string = [NSString stringWithFormat:@"%@ %@",master.masterNickName,master.city];
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:string];
+    [attri addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0f] range:NSMakeRange(0, master.masterNickName.length)];
+    [attri addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(master.masterNickName.length+1, master.city.length)];
+    self.aNickNameLabel.attributedText = attri;
     
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateHighlighted];
@@ -92,8 +96,12 @@
     
     if (master.isAtten) {
         [self.addAttenBtn setTitle:@"已关注" forState:UIControlStateNormal];
+        [self.addAttenBtn setImage:nil forState:UIControlStateNormal];
+        self.addAttenBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
     } else {
-        [self.addAttenBtn setTitle:@"加关注" forState:UIControlStateNormal];
+        [self.addAttenBtn setTitle:@"" forState:UIControlStateNormal];
+        [self.addAttenBtn setImage:[UIImage imageNamed:@"alive_addfriend.png"] forState:UIControlStateNormal];
+        self.addAttenBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
     }
 }
 

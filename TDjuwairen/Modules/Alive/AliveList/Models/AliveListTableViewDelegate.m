@@ -467,22 +467,10 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    if (self.isMyRoom) {
-        return 30.0f;
-    }
+
     return 0.001f;
 }
 
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    if (self.isMyRoom) {
-        AliveListSectionHeaderView *header = [[AliveListSectionHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
-        header.delegate = self;
-        header.section = section;
-        return header;
-    }
-    
-    return nil;
-}
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10.0f;
 }

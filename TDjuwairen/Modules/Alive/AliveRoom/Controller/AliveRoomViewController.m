@@ -66,7 +66,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStyleGrouped];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.delegate = self;
@@ -498,7 +498,6 @@
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender {
     
-    
     if (self.saveLevelInfo.length <= 0) {
         
         [self loadGuessRateInfoOrAttentionInfo:NO];
@@ -529,7 +528,9 @@
         
     }
     
-    vc.contentSizeInPopup = CGSizeMake(220, 300);
+    CGSize size = [vc.content boundingRectWithSize:CGSizeMake(220-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f]} context:nil].size;
+    
+    vc.contentSizeInPopup = CGSizeMake(220, size.height+140);
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.containerView.layer.cornerRadius = 4;
     
@@ -547,10 +548,17 @@
         urlStr = API_AliveGetAttenInfo;
     }
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    [indicator startAnimating];
+    [self.view addSubview:indicator];
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
     __weak typeof(self)weakSelf = self;
     [manager GET:urlStr parameters:nil completion:^(NSString *data, NSError *error){
+        
+        [indicator stopAnimating];
+        
         if (!error) {
             data = [data stringByReplacingOccurrencesOfString:@"\\n" withString:@"\n"];
             
@@ -564,11 +572,9 @@
             if (data.length > 0) {
                 [weakSelf showGuessRateInfoOrShowAttentionInfo:isGuessRate];
             }
-            [hud hide:YES];
             
         } else {
             
-            [hud hide:YES afterDelay:0.8];
         }
     }];
     
