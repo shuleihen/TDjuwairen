@@ -374,8 +374,8 @@
     if (self.searchType == AliveSearchSubUserType || self.searchType == AliveSearchSubStockType) {
         return 1;
     }else {
-    
-      return [self.searchResultData.items count];
+        
+        return [self.searchResultData.items count];
     }
     
 }
@@ -391,9 +391,6 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    
-    
     if ([self.searchResultData.sectionTitle isEqualToString:@"用户"]) {
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.row];
         
@@ -410,7 +407,7 @@
         stockCell.stockModel = result;
         return stockCell;
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"调研"]) {
-      AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
+        AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
         AliveSearchSurveyCell *surveyCell = [AliveSearchSurveyCell loadAliveSearchSurveyCellWithTableView:tableView];
         surveyCell.surveyModel = result;
         return surveyCell;
@@ -467,8 +464,6 @@
         return nil;
     }
     
-    
-    
     UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 30)];
     headerV.backgroundColor = [UIColor whiteColor];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 5, 60, 20)];
@@ -495,7 +490,7 @@
         
         filterButton.hidden = YES;
     }
-
+    
     UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(0, 29.5, kScreenWidth, 0.5)];
     lineView.backgroundColor = TDLineColor;
     [headerV addSubview:lineView];
@@ -504,7 +499,7 @@
         
         return headerV;
     }else {
-    
+        
         return nil;
     }
 }
@@ -522,16 +517,9 @@
     if ([self.searchResultData.sectionTitle isEqualToString:@"用户"] || [self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
         return 49;
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"调研"]) {
-      
-         AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
-        CGFloat cellH = MAX([result.survey_title calculateSize:CGSizeMake(kScreenWidth-24, CGFLOAT_MAX) font:[UIFont systemFontOfSize:17.0f]].height, 21);
-        CGFloat cellW = [result.survey_title calculateSize:CGSizeMake(CGFLOAT_MAX, 17) font:[UIFont systemFontOfSize:17.0f]].width;
-        NSInteger row = cellW/(kScreenWidth-24);
-        CGFloat orginX = cellW-row*(kScreenWidth-24);
-        if (orginX+17+24>(kScreenWidth-24)) {
-            cellH += 17+8;
-        }
-        return cellH+47;
+        
+        AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
+        return [AliveSearchSurveyCell heightWithAliveModel:result];
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
         AliveListCellData *cellData = self.searchResultData.items[indexPath.section];
         return cellData.cellHeight;
