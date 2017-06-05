@@ -50,20 +50,11 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-//    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
-    
     [self.view addSubview:self.tableView];
     
-    if (self.listType == kAliveListVideo) {
-        AliveVideoTableViewDelagate *delegate = [[AliveVideoTableViewDelagate alloc] initWithTableView:self.tableView withViewController:self];
-        self.tableViewDelegate = delegate;
-    } else {
-        
-        AliveListTableViewDelegate *delegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
-        delegate.listType = self.listType;
-        self.tableViewDelegate = delegate;
-    }
-    
+    AliveListTableViewDelegate *delegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
+    delegate.listType = self.listType;
+    self.tableViewDelegate = delegate;
     
     [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
     

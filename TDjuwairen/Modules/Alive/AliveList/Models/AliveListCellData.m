@@ -38,6 +38,13 @@
 
 - (void)setup {
     
+    if (self.aliveModel.aliveType == kAliveHot ||
+        self.aliveModel.aliveType == kAliveSurvey ||
+        self.aliveModel.aliveType == kAliveVideo) {
+        self.cellHeight = [self surveyHeightWithAliveModel:self.aliveModel];
+        return;
+    }
+    
     CGFloat left = 12.0f;
     CGFloat right = 12.0f;
     CGFloat contentWidht = kScreenWidth-left-right;
@@ -286,5 +293,21 @@
     }
     
     return height;
+}
+
+- (CGFloat)surveyHeightWithAliveModel:(AliveListModel *)model {
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(2, -2, 17, 17);
+    attatch.image = [UIImage imageNamed:@"type_video.png"];
+    
+    NSAttributedString *video = [NSAttributedString attributedStringWithAttachment:attatch];
+    [attri appendAttributedString:video];
+    
+    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    return size.height + 280;
 }
 @end
