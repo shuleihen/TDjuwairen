@@ -18,14 +18,11 @@
 #import "UIButton+LikeAnimation.h"
 #import "AliveListCellData.h"
 #import "AlivePublishViewController.h"
-#import "AliveListSectionHeaderView.h"
 #import "MBProgressHUD.h"
 #import "SurveyDetailWebViewController.h"
 #import "StockDetailViewController.h"
 #import "DetailPageViewController.h"
-#import "AliveAlertOperateViewController.h"
-#import "STPopupController.h"
-#import "UIViewController+STPopup.h"
+#import "ACActionSheet.h"
 
 
 #define kAliveListCellToolHeight 37
@@ -33,11 +30,7 @@
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource,
-AliveListTableCellDelegate, AliveListBottomTableCellDelegate,
-AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
-
-@property (strong, nonatomic) AliveListTableViewCell *tempCell;
-
+AliveListTableCellDelegate, AliveListBottomTableCellDelegate>
 
 @end
 
@@ -101,6 +94,7 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
     return height;
 }
 
+
 #pragma mark - AliveListTableCellDelegate
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
@@ -145,93 +139,35 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
     
     AliveListCellData *cellData = cell.cellData;
     AliveListModel *listModel = cellData.aliveModel;
-    self.tempCell = cell;
-    /**
-     10、用户本人点击【∨】从下向上弹出按钮【删除】和【取消】，点击【删除】删除动态，点击【取消】取消操作
-     11、用户点击非本人动态的【∨】从下向上弹出按钮【关注（取消关注）】，点击【关注】关注该用户，点击【取消关注】取消关注
-     */
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    
     if (listModel.isSelf == YES) {
-        // 是用户本人的动态
-        [self deleteDynamicWithAliveListModel:cellData andCellTag:cell.tag];
-    }else if (listModel.isAttend == YES) {
-        // 关注过该用户 --- 取消关注
-        [self userAddAttendWithSelectedArr:@[@"取消关注"]];
-    }else {
-        // 添加关注
-        [self userAddAttendWithSelectedArr:@[@"关注"]];
-    }
-}
-
-- (void)userAddAttendWithSelectedArr:(NSArray *)arr {
-    
-    AliveAlertOperateViewController *vc = [[AliveAlertOperateViewController alloc] init];
-    vc.sourceArr = arr;
-    vc.delegate = self;
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.navigationBarHidden = YES;
-    popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, [vc tableViewHeight]);
-    popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self.viewController];
-}
-
-#pragma mark - AliveAlertOperateViewControllerDelegate
-- (void)alertSelectedWithIndex:(NSInteger)index andTitle:(NSString *)titleStr {
-    NSString *str = @"";
-    NSString *errorStr = @"";
-    NSString *notiStr = @"";
-    if ([titleStr isEqualToString:@"关注"]) {
-        str = API_AliveAddAttention;
-        errorStr = @"添加关注失败";
-        notiStr = @"1";
-    }else if ([titleStr isEqualToString:@"取消关注"]) {
-        str = API_AliveDelAttention;
-         errorStr = @"取消关注失败";
-        notiStr = @"0";
-    }else {
-        
-        
-    }
-    
-    if (str.length <= 0) {
-        return;
-    }
-    
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    AliveListCellData *cellData = self.tempCell.cellData;
-    AliveListModel *listModel = cellData.aliveModel;
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.viewController.navigationController.view animated:YES];
-    [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
-        
-        if (!error) {
-            [hud hide:YES];
-            if (data && [data[@"status"] integerValue] == 1) {
-                
-                if (self.listType == kAliveListRecommend || self.listType == kAliveListViewpoint) {
-                    /// 推荐列表 观点列表
-                    
-                    for (AliveListCellData *tempCellData in self.itemList) {
-                        AliveListModel *tempModel= tempCellData.aliveModel;
-                        if ([tempModel.masterId isEqualToString:listModel.masterId]) {
-                            tempModel.isAttend = !tempModel.isAttend;
-                        }
-                    }
-                }
-                
-                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddAttend object:nil userInfo:@{@"masterID":listModel.masterId,@"listType":@(self.listType),@"addAttend":notiStr}];
-                
-                [self.tableView reloadData];
-                if (self.reloadView) {
-                    self.reloadView();
-                }
+        ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"删除" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
+            if (index == 0) {
+                [self deleteDynamicWithAliveListModel:cellData withIndexPath:indexPath];
             }
-        } else {
-            hud.labelText = errorStr;
-            [hud hide:YES afterDelay:0.7];
-        }
+        }];
+        [sheet show];
         
-    }];
+    }else if (listModel.isAttend == YES) {
+        ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"取消关注" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
+            if (index == 0) {
+                [self attenOrCancelWithAliveListModel:cellData withIndexPath:indexPath];
+            }
+        }];
+        [sheet show];
+        
+    }else if (listModel.isAttend == NO){
+        ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"添加关注" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
+            if (index == 0) {
+                [self attenOrCancelWithAliveListModel:cellData withIndexPath:indexPath];
+            }
+        }];
+        [sheet show];
+    }
     
 }
+
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
     if (!self.avatarPressedEnabled) {
@@ -321,6 +257,7 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
         }
     }];
 }
+
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {
     if (!US.isLogIn) {
@@ -382,14 +319,6 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
    
 }
 
-#pragma mark - AliveListSectionHeaderDelegate
-- (void)alivelistSectionHeaderView:(AliveListSectionHeaderView *)headerView deletePressed:(id)sender {
-    if (headerView.section > self.itemList.count) {
-        return;
-    }
-        AliveListCellData *cellData = self.itemList[headerView.section];
-    [self deleteDynamicWithAliveListModel:cellData andCellTag:headerView.section];
-}
 
 
 #pragma mark - Table view data source
@@ -477,52 +406,98 @@ AliveListSectionHeaderDelegate,AliveAlertOperateViewControllerDelegate>
 
 
 
-#pragma mark - 删除动态
-- (void)deleteDynamicWithAliveListModel:(AliveListCellData *)cellData andCellTag:(NSInteger)cellSection  {
+#pragma mark - Action
+
+- (void)deleteDynamicWithAliveListModel:(AliveListCellData *)cellData withIndexPath:(NSIndexPath *)indexPath {
     AliveListModel *aliveModel = cellData.aliveModel;
     
     NSDictionary *dict = @{@"alive_id": aliveModel.aliveId,@"alive_type" :@(aliveModel.aliveType)};
     
     __weak AliveListTableViewDelegate *wself = self;
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"确定删除该条动态吗？" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
-    UIAlertAction *done = [UIAlertAction actionWithTitle:@"删除" style:UIAlertActionStyleDestructive handler:^(UIAlertAction *action){
-        
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.navigationController.view animated:YES];
-        
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
-            
-            if (!error) {
-                [hud hide:YES];
-                
-                NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
-                [array removeObject:cellData];
-                
-                wself.itemList = array;
-                
-                [self.tableView beginUpdates];
-                [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:cellSection] withRowAnimation:UITableViewRowAnimationNone];
-                
-                if (wself.reloadView) {
-                    wself.reloadView();
-                }
-                [self.tableView endUpdates];
-            }else{
-                hud.labelText = @"删除失败";
-                [hud hide:YES afterDelay:0.7];
-            }
-        }];
-    }];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.navigationController.view animated:YES];
     
-    [alert addAction:done];
-    [alert addAction:cancel];
-    [self.viewController presentViewController:alert animated:YES completion:nil];
-
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            [hud hide:YES];
+            
+            NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
+            [array removeObject:cellData];
+            
+            wself.itemList = array;
+            
+            [wself.tableView beginUpdates];
+            if (indexPath) {
+                [wself.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationNone];
+            }
+            
+            
+            if (wself.reloadView) {
+                wself.reloadView();
+            }
+            [wself.tableView endUpdates];
+        }else{
+            hud.labelText = @"删除失败";
+            [hud hide:YES afterDelay:0.7];
+        }
+    }];
 }
 
 
+- (void)attenOrCancelWithAliveListModel:(AliveListCellData *)cellData withIndexPath:(NSIndexPath *)indexPath {
+    
+    NSString *str = @"";
+    NSString *errorStr = @"";
+    NSString *notiStr = @"";
+    AliveListModel *listModel = cellData.aliveModel;
+    
+    if (!listModel.isAttend) {
+        str = API_AliveAddAttention;
+        errorStr = @"添加关注失败";
+        notiStr = @"1";
+    }else {
+        str = API_AliveDelAttention;
+        errorStr = @"取消关注失败";
+        notiStr = @"0";
+    }
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.viewController.navigationController.view animated:YES];
+    
+    [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
+        
+        if (!error) {
+            [hud hide:YES];
+            if (data && [data[@"status"] integerValue] == 1) {
+                
+                if (self.listType == kAliveListRecommend || self.listType == kAliveListViewpoint) {
+                    /// 推荐列表 观点列表
+                    
+                    for (AliveListCellData *tempCellData in self.itemList) {
+                        AliveListModel *tempModel= tempCellData.aliveModel;
+                        if ([tempModel.masterId isEqualToString:listModel.masterId]) {
+                            tempModel.isAttend = !tempModel.isAttend;
+                        }
+                    }
+                }
+                
+                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddAttend object:nil userInfo:@{@"masterID":listModel.masterId,@"listType":@(self.listType),@"addAttend":notiStr}];
+                
+                [self.tableView reloadData];
+                if (self.reloadView) {
+                    self.reloadView();
+                }
+            }
+        } else {
+            hud.labelText = errorStr;
+            [hud hide:YES afterDelay:0.7];
+        }
+        
+    }];
+    
+}
 
 
 
