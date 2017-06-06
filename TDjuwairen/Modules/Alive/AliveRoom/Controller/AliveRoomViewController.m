@@ -24,16 +24,18 @@
 #import "NotificationDef.h"
 #import "AliveRoomPopupViewController.h"
 #import "STPopup.h"
+#import "AliveRoomNavigationBar.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
 
-@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate>
+@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate>
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
 
+@property (nonatomic, strong) AliveRoomNavigationBar *roomNavigationBar;
 @property (nonatomic, strong) AliveRoomHeaderView *roomHeaderView;
 @property (nonatomic, strong) UIScrollView *segmentContentScrollView;
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
@@ -75,6 +77,15 @@
     return _tableView;
 }
 
+- (AliveRoomNavigationBar *)roomNavigationBar {
+    if (!_roomNavigationBar) {
+        _roomNavigationBar = [AliveRoomNavigationBar loadAliveRoomeNavigationBar];
+        _roomNavigationBar.delegate = self;
+    }
+    
+    return _roomNavigationBar;
+}
+
 - (AliveRoomHeaderView *)roomHeaderView {
     if (!_roomHeaderView) {
         _roomHeaderView = [AliveRoomHeaderView loadAliveRoomeHeaderView];
@@ -95,6 +106,7 @@
         
         _segmentContentScrollView = view;
     }
+    
     return _segmentContentScrollView;
 }
 
@@ -110,7 +122,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         _segmentControl.sectionTitles = @[@"全部动态",@"贴单"];
-        
+        _segmentControl.frame = CGRectMake(0, 0, 160, kAliveSegmentHeight);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -205,6 +217,9 @@
     self.segmentControl.selectedSegmentIndex = 0;
     [self segmentPressed:self.segmentControl];
     
+    self.roomNavigationBar.frame = CGRectMake(0, 0, kScreenWidth, 64);
+    [self.view addSubview:self.roomNavigationBar];
+    
     self.publishBtn.hidden = YES;
     [self.view addSubview:self.publishBtn];
     
@@ -248,6 +263,7 @@
 - (void)setRoomMasterModel:(AliveRoomMasterModel *)roomMasterModel {
     _roomMasterModel = roomMasterModel;
     
+    [self.roomNavigationBar setupRoomMasterModel:roomMasterModel];
     [self.roomHeaderView setupRoomMasterModel:roomMasterModel];
     
     BOOL isMaster = [roomMasterModel.masterId isEqualToString:US.userId];
@@ -390,9 +406,9 @@
     [self reloadTableView];
 }
 
-#pragma mark - AliveRoomHeaderViewDelegate
+#pragma mark - AliveRoomNavigationBarDelegate
 
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender {
+- (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar attenPressed:(id)sender {
     
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -425,6 +441,7 @@
                 NSNumber *fansNumber = [NSNumber numberWithInteger:(fans-1)];
                 wself.roomMasterModel.fansNum = fansNumber;
                 
+                [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
                 [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
             } else {
                 hud.labelText = @"取消失败";
@@ -449,6 +466,7 @@
                 NSNumber *fansNumber = [NSNumber numberWithInteger:(fans+1)];
                 wself.roomMasterModel.fansNum = fansNumber;
                 
+                [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
                 [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
             } else {
                 hud.labelText = @"关注失败";
@@ -457,6 +475,24 @@
         }];
     }
 }
+
+- (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar editPressed:(id)sender {
+    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
+    vc.masterId = self.masterId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar messagePressed:(id)sender {
+    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar backPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
+
+#pragma mark - AliveRoomHeaderViewDelegate
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender {
     if (!self.roomMasterModel) {
@@ -480,21 +516,6 @@
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }
 
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender {
-    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
-    vc.masterId = self.masterId;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView messagePressed:(id)sender {
-    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    [self.navigationController pushViewController:vc animated:YES];
-}
-
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender {
-    [self.navigationController popViewControllerAnimated:YES];
-}
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender {
     
@@ -661,16 +682,19 @@
     if ([keyPath isEqualToString:@"contentOffset"])
     {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
-        if (offset.y > (headerHeight-20)) {
-            
-            CGRect newFrame = CGRectMake(0, offset.y, self.view.frame.size.width, kAliveSegmentHeight+20);
+        
+        if (offset.y > (kAliveHeaderHeight - 64)) {
+            [self.roomNavigationBar showNavigationBar:YES withTitle:self.roomMasterModel.masterNickName];
+        } else {
+            [self.roomNavigationBar showNavigationBar:NO withTitle:@""];
+        }
+        
+        if (offset.y > (headerHeight - 64)) {
+            CGRect newFrame = CGRectMake(0, offset.y+64, self.view.frame.size.width, kAliveSegmentHeight);
             self.segmentContentScrollView.frame = newFrame;
-            self.segmentControl.frame = CGRectMake(0, 20, 160, 34);
-            
         } else {
             CGRect newFrame = CGRectMake(0, headerHeight, self.view.frame.size.width, kAliveSegmentHeight);
             self.segmentContentScrollView.frame = newFrame;
-            self.segmentControl.frame = CGRectMake(0, 0, 160, 34);
         }
     }
 }

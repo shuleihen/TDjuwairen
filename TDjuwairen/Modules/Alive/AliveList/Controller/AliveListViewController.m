@@ -21,13 +21,12 @@
 #import "UIViewController+Loading.h"
 #import "DYRefresh.h"
 #import "UIViewController+Refresh.h"
-#import "AliveVideoTableViewDelagate.h"
 
 @interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
-@property (nonatomic, strong) DYTableViewDelegate *tableViewDelegate;
+@property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
 @end
 
 @implementation AliveListViewController

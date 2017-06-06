@@ -7,10 +7,11 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "SurveyTypeDefine.h"
 
 @interface SurveyModel : NSObject
-// 1为实地、2为对话、5为深度、6为评论，11表示视频
-@property (nonatomic, assign) NSInteger surveyType;
+//1为实地、2为对话、3为产品、4为热点、5为深度、6为评论，11为视频
+@property (nonatomic, assign) SurveyType surveyType;
 @property (nonatomic, copy) NSString *surveyId;
 @property (nonatomic, copy) NSString *surveyTitle;
 @property (nonatomic, copy) NSString *companyName;

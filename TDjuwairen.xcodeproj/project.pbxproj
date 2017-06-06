@@ -149,6 +149,8 @@
 		195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 195057C21E7AAA650097C57A /* AliveRoomPopupViewController.m */; };
 		19517F241EE56FA5009E24D1 /* ACActionSheet.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 19517F211EE56FA5009E24D1 /* ACActionSheet.bundle */; };
 		19517F251EE56FA5009E24D1 /* ACActionSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 19517F231EE56FA5009E24D1 /* ACActionSheet.m */; };
+		19517F2A1EE64B39009E24D1 /* AliveRoomNavigationBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 19517F291EE64B39009E24D1 /* AliveRoomNavigationBar.m */; };
+		19517F2C1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19517F2B1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib */; };
 		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
 		1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */; };
 		1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1953CAEB1E716FCC00A64B3C /* Alive.storyboard */; };
@@ -219,8 +221,6 @@
 		196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 196F5ED71E5485B700928B60 /* SAMKeychain.bundle */; };
 		196F5EE01E553ADB00928B60 /* AppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5EDF1E553ADB00928B60 /* AppContext.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
-		1978E05F1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E05E1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.m */; };
-		1978E0621EDFE8A70065CEE0 /* DYTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0611EDFE8A70065CEE0 /* DYTableViewDelegate.m */; };
 		1978E0661EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0641EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m */; };
 		1978E0671EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */; };
 		1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0691EDFF1350065CEE0 /* AliveListExtra.m */; };
@@ -852,6 +852,10 @@
 		19517F211EE56FA5009E24D1 /* ACActionSheet.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = ACActionSheet.bundle; sourceTree = "<group>"; };
 		19517F221EE56FA5009E24D1 /* ACActionSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ACActionSheet.h; sourceTree = "<group>"; };
 		19517F231EE56FA5009E24D1 /* ACActionSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ACActionSheet.m; sourceTree = "<group>"; };
+		19517F271EE64447009E24D1 /* SurveyTypeDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SurveyTypeDefine.h; sourceTree = "<group>"; };
+		19517F281EE64B39009E24D1 /* AliveRoomNavigationBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomNavigationBar.h; sourceTree = "<group>"; };
+		19517F291EE64B39009E24D1 /* AliveRoomNavigationBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomNavigationBar.m; sourceTree = "<group>"; };
+		19517F2B1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveRoomNavigationBar.xib; sourceTree = "<group>"; };
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
@@ -985,10 +989,6 @@
 		196F5EDE1E553ADB00928B60 /* AppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppContext.h; sourceTree = "<group>"; };
 		196F5EDF1E553ADB00928B60 /* AppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppContext.m; sourceTree = "<group>"; };
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
-		1978E05D1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveVideoTableViewDelagate.h; sourceTree = "<group>"; };
-		1978E05E1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveVideoTableViewDelagate.m; sourceTree = "<group>"; };
-		1978E0601EDFE8A70065CEE0 /* DYTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYTableViewDelegate.h; sourceTree = "<group>"; };
-		1978E0611EDFE8A70065CEE0 /* DYTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYTableViewDelegate.m; sourceTree = "<group>"; };
 		1978E0631EDFEAD10065CEE0 /* AliveVideoListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveVideoListTableViewCell.h; sourceTree = "<group>"; };
 		1978E0641EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveVideoListTableViewCell.m; sourceTree = "<group>"; };
 		1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveVideoListTableViewCell.xib; sourceTree = "<group>"; };
@@ -1834,6 +1834,7 @@
 		19194CD41E7FDDA700641085 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
+				19517F261EE64431009E24D1 /* Handler */,
 				19194D001E7FDED000641085 /* Models */,
 				19194CD51E7FDDA800641085 /* Cells */,
 				19194CDC1E7FDDA800641085 /* Controllers */,
@@ -2084,6 +2085,9 @@
 				1934199E1E76B4DB00F22788 /* AliveRoomHeaderView.h */,
 				1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */,
 				193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */,
+				19517F281EE64B39009E24D1 /* AliveRoomNavigationBar.h */,
+				19517F291EE64B39009E24D1 /* AliveRoomNavigationBar.m */,
+				19517F2B1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -2685,6 +2689,14 @@
 			path = ACActionSheet;
 			sourceTree = "<group>";
 		};
+		19517F261EE64431009E24D1 /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+				19517F271EE64447009E24D1 /* SurveyTypeDefine.h */,
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
 		1953CA421E6BE75000A64B3C /* Models */ = {
 			isa = PBXGroup;
 			children = (
@@ -2771,10 +2783,6 @@
 				1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */,
 				193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */,
 				19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */,
-				1978E05D1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.h */,
-				1978E05E1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.m */,
-				1978E0601EDFE8A70065CEE0 /* DYTableViewDelegate.h */,
-				1978E0611EDFE8A70065CEE0 /* DYTableViewDelegate.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4787,6 +4795,7 @@
 				19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */,
 				19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */,
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
+				19517F2C1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
 				193419E81E78DF2B00F22788 /* selected.caf in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
@@ -4889,6 +4898,7 @@
 				19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */,
 				19F00D1A1E2EFFD9009270D5 /* SurveyDetailWebViewController.m in Sources */,
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
+				19517F2A1EE64B39009E24D1 /* AliveRoomNavigationBar.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
 				19ECB9AE1EAF30DC0009F625 /* AskAndAnsTableViewCell.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
@@ -5085,7 +5095,6 @@
 				193419E51E78DF2B00F22788 /* DCPathItemButton.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
-				1978E05F1EDFE8860065CEE0 /* AliveVideoTableViewDelagate.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
 				19ECB9A61EAF1D670009F625 /* StockAnnounceModel.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
@@ -5199,7 +5208,6 @@
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
 				9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */,
-				1978E0621EDFE8A70065CEE0 /* DYTableViewDelegate.m in Sources */,
 				19F00D131E2EFFD9009270D5 /* SurveyDetailAskViewController.m in Sources */,
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,

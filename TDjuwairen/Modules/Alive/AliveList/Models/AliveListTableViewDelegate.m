@@ -37,9 +37,12 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
 
 @implementation AliveListTableViewDelegate
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController {
-    if (self = [super initWithTableView:tableView withViewController:viewController]) {
-        tableView.delegate = self;
-        tableView.dataSource = self;
+    if (self = [super init]) {
+        self.tableView = tableView;
+        self.viewController = viewController;
+        
+        self.tableView.delegate = self;
+        self.tableView.dataSource = self;
         
         self.avatarPressedEnabled = YES;
         
@@ -91,11 +94,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     CGFloat height = 0;
     
     for (AliveListCellData *model in self.itemList) {
-        if (self.isMyRoom) {
-            height += (model.cellHeight + kAliveListCellToolHeight + kAliveListSectionHeaderHeight + 10);
-        } else {
-            height += (model.cellHeight + kAliveListCellToolHeight + 10);
-        }
+        height += (model.cellHeight + kAliveListCellToolHeight + 10);
     }
     
     return height;
@@ -167,7 +166,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         }];
         [sheet show];
         
-    }else if (listModel.isAttend == YES) {
+    } else if (listModel.isAttend == YES) {
         ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"取消关注" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
             if (index == 0) {
                 [self attenOrCancelWithAliveListModel:cellData withIndexPath:indexPath];
@@ -175,7 +174,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         }];
         [sheet show];
         
-    }else if (listModel.isAttend == NO){
+    } else if (listModel.isAttend == NO){
         ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"添加关注" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
             if (index == 0) {
                 [self attenOrCancelWithAliveListModel:cellData withIndexPath:indexPath];
@@ -438,10 +437,22 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
                model.aliveType == kAliveVideo) {
         if (model.extra.isUnlock) {
             
-//            DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-//            vc.sharp_id = model.aliveId;
-//            vc.pageMode = @"sharp";
-//            [self.viewController.navigationController pushViewController:vc animated:YES];
+            if (model.aliveType == kAliveVideo) {
+                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
+                vc.sharp_id = model.aliveId;
+                vc.pageMode = @"sharp";
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.viewController.navigationController pushViewController:vc animated:YES];
+            } else {
+                SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+                vc.contentId = model.aliveId;
+                vc.stockCode = model.extra.companyCode;
+                vc.stockName = model.extra.companyName;
+                vc.tag = 0;
+                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:0];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.viewController.navigationController pushViewController:vc animated:YES];
+            }
         } else {
             if (!US.isLogIn) {
                 LoginViewController *login = [[LoginViewController alloc] init];
