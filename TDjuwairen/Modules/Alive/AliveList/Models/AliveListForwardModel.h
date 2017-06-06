@@ -13,7 +13,7 @@
 /// 转发动态ID或调研热点分享的ID
 @property (nonatomic, copy) NSString *aliveId;
 /// 直播转发或调研、热点分享封面
-@property (nonatomic, strong) NSArray *aliveImg;
+@property (nonatomic, copy) NSString *aliveImg;
 /// 1表示图文、2表示贴单、3表示调研、4表示热点
 @property (nonatomic, assign) AliveType aliveType;
 ///
