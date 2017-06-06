@@ -18,7 +18,6 @@
 #import "LoginState.h"
 #import "LoginManager.h"
 #import "YXSearchButton.h"
-#import "VideoViewController.h"
 #import "PublishViewViewController.h"
 #import "YXTitleCustomView.h"
 #import "HexColors.h"
@@ -63,7 +62,6 @@
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = kAliveListViewpoint;
         
-//        VideoViewController *videoVC = [[VideoViewController alloc] init];
         AliveListViewController *four = [[AliveListViewController alloc] init];
         four.listType = kAliveListVideo;
         

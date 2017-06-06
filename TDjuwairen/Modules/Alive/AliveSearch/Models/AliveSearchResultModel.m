@@ -47,48 +47,48 @@
     return self;
 }
 
-/// 话题 贴单列表
-- (id)initWithTopicListDict:(NSDictionary *)dict {
-    if (self = [super init]) {
-        _userNickName = dict[@"user_nickname"];
-        _userIcon = dict[@"userinfo_facemin"];
-        _aliveTime = dict[@"alive_time"];
-        _aliveImg = dict[@"alive_img"];
-        _aliveType = dict[@"alive_type"];
-        _aliveId = dict[@"alive_id"];
-        _aliveTitle = dict[@"alive_title"];
-        _aliveMasterId = dict[@"alive_master_id"];
-        _aliveShareUrl = SafeValue(dict[@"alive_share_url"]);
-        _aliveComTag = dict[@"alive_com_tag"];
-         _isForward = [dict[@"is_forward"] boolValue];
-        _isOfficial = [dict[@"is_official"] boolValue];
-        _isSelf = [dict[@"is_self"] boolValue];
-        _isAttend = [dict[@"is_attend"] boolValue];
-        _forward_info = [[AliveSearchResultForwardInfoModel alloc] initWithTopicForwardInfoDict:dict[@"forward_info"]];
-    }
-    return self;
-    
-}
+///// 话题 贴单列表
+//- (id)initWithTopicListDict:(NSDictionary *)dict {
+//    if (self = [super init]) {
+//        _userNickName = dict[@"user_nickname"];
+//        _userIcon = dict[@"userinfo_facemin"];
+//        _aliveTime = dict[@"alive_time"];
+//        _aliveImg = dict[@"alive_img"];
+//        _aliveType = dict[@"alive_type"];
+//        _aliveId = dict[@"alive_id"];
+//        _aliveTitle = dict[@"alive_title"];
+//        _aliveMasterId = dict[@"alive_master_id"];
+//        _aliveShareUrl = SafeValue(dict[@"alive_share_url"]);
+//        _aliveComTag = dict[@"alive_com_tag"];
+//         _isForward = [dict[@"is_forward"] boolValue];
+//        _isOfficial = [dict[@"is_official"] boolValue];
+//        _isSelf = [dict[@"is_self"] boolValue];
+//        _isAttend = [dict[@"is_attend"] boolValue];
+//        _forward_info = [[AliveSearchResultForwardInfoModel alloc] initWithTopicForwardInfoDict:dict[@"forward_info"]];
+//    }
+//    return self;
+//    
+//}
 
 
-/// 观点列表
-- (id)initWithViewPointListDict:(NSDictionary *)dict {
-    if (self = [super init]) {
-        _userNickName = dict[@"user_nickname"];
-        _userIcon = dict[@"userinfo_facemin"];
-        _isSelf = [dict[@"is_self"] boolValue];
-        _isOfficial = [dict[@"is_official"] boolValue];
-        _aliveTime = dict[@"alive_time"];
-        _aliveImg = dict[@"alive_img"];
-        _aliveType = dict[@"alive_type"];
-        _aliveId = dict[@"alive_id"];
-        _aliveTitle = dict[@"alive_title"];
-        _aliveMasterId = dict[@"alive_master_id"];
-        _aliveComTag = dict[@"alive_com_tag"];
-        
-    }
-    return self;
-    
-}
+///// 观点列表
+//- (id)initWithViewPointListDict:(NSDictionary *)dict {
+//    if (self = [super init]) {
+//        _userNickName = dict[@"user_nickname"];
+//        _userIcon = dict[@"userinfo_facemin"];
+//        _isSelf = [dict[@"is_self"] boolValue];
+//        _isOfficial = [dict[@"is_official"] boolValue];
+//        _aliveTime = dict[@"alive_time"];
+//        _aliveImg = dict[@"alive_img"];
+//        _aliveType = dict[@"alive_type"];
+//        _aliveId = dict[@"alive_id"];
+//        _aliveTitle = dict[@"alive_title"];
+//        _aliveMasterId = dict[@"alive_master_id"];
+//        _aliveComTag = dict[@"alive_com_tag"];
+//        
+//    }
+//    return self;
+//    
+//}
 
 @end

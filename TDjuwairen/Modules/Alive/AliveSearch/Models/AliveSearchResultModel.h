@@ -72,18 +72,15 @@
 
 
 
-
-
-
 /// 用户列表
 - (id)initWithUserListDict:(NSDictionary *)dict;
 /// 股票列表
 - (id)initWithStockListDict:(NSDictionary *)dict;
 /// 调研列表
 - (id)initWithSurveyListDict:(NSDictionary *)dict;
-/// 话题 贴单列表
-- (id)initWithTopicListDict:(NSDictionary *)dict;
-/// 观点列表
-- (id)initWithViewPointListDict:(NSDictionary *)dict;
+///// 话题 贴单列表
+//- (id)initWithTopicListDict:(NSDictionary *)dict;
+///// 观点列表
+//- (id)initWithViewPointListDict:(NSDictionary *)dict;
 
 @end
