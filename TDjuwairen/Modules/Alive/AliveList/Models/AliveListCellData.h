@@ -10,8 +10,11 @@
 #import "AliveListModel.h"
 
 @interface AliveListCellData : NSObject
-@property (nonatomic, strong) AliveListModel *aliveModel;
+// 直播动态高度
 @property (nonatomic, assign) CGFloat cellHeight;
+// 直播动态
+@property (nonatomic, strong) AliveListModel *aliveModel;
+
 @property (nonatomic, assign) CGRect messageLabelFrame;
 @property (nonatomic, assign) CGRect imgsViewFrame;
 @property (nonatomic, assign) CGRect contentTagFrame;

@@ -168,6 +168,7 @@
 
 
 // 直播
+#define API_AliveGetRecList         @"Room/getRecAliveList"
 #define API_AliveGetRoomList        @"Room/lists"
 #define API_AliveGetAliveInfo       @"Room/showLiveInfo"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"

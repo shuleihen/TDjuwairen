@@ -78,7 +78,8 @@
                 <outlet property="stockNameWidth" destination="TcO-QN-qRg" id="bgw-8Y-nTa"/>
                 <outlet property="titleHeight" destination="8el-g6-rf2" id="eoR-bb-IhT"/>
                 <outlet property="titleLabel" destination="dwy-dZ-Jyt" id="liI-LM-ynG"/>
-                <outlet property="videoImageView" destination="clT-mc-Njn" id="OzF-8Y-c5m"/>
+                <outlet property="urlImageView" destination="clT-mc-Njn" id="GDO-sT-yl5"/>
+                <outlet property="videoImageView" destination="tNW-WV-x9U" id="Tgj-gw-aXb"/>
             </connections>
             <point key="canvasLocation" x="25" y="71"/>
         </tableViewCell>

@@ -48,10 +48,9 @@
     [self.view addSubview:self.tableView];
     
     __weak AliveRoomLiveViewController *wself = self;
-    BOOL isMaster = [self.masterId isEqualToString:US.userId];
+//    BOOL isMaster = [self.masterId isEqualToString:US.userId];
     
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
-    self.tableViewDelegate.isMyRoom = isMaster;
     self.tableViewDelegate.avatarPressedEnabled = NO;
     self.tableViewDelegate.reloadView = ^{
         [wself reloadTableView];
