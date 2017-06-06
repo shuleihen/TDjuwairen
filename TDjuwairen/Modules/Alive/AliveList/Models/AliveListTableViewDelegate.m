@@ -187,10 +187,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
 
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
-    if (!self.avatarPressedEnabled) {
-        return;
-    }
-    
+
     AliveListCellData *cellData = cell.cellData;
     AliveListForwardModel *model = cellData.aliveModel.forwardModel;
 

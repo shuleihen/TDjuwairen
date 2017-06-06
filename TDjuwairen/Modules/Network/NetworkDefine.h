@@ -186,7 +186,7 @@
 #define API_AliveDelAttention       @"Blog/cancelAttention"
 #define API_AliveAddRoomPublish     @"Room/publish"
 #define API_AliveGetRoomInfo        @"Room/getRoomInfo"
-#define API_AliveGetRoomLiveList    @"Room/roomLiveList"
+#define API_AliveGetRoomLiveList    @"Room/roomLiveList3_1"
 #define API_AliveGetGuessRateInfo   @"Room/getGuessRateInfo"
 #define API_AliveGetAttenInfo       @"Room/getAttenInfo"
 #define API_AliveUpdateUserSex      @"Room/updateUserSex"
