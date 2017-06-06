@@ -41,13 +41,7 @@
 		19193B311E03CE6D000A6AD2 /* UIImage+Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B301E03CE6D000A6AD2 /* UIImage+Color.m */; };
 		19194CC91E7FAC3700641085 /* PlayIndividualStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CC81E7FAC3700641085 /* PlayIndividualStockViewController.m */; };
 		19194CCC1E7FACC400641085 /* UIViewController+Login.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CCB1E7FACC400641085 /* UIViewController+Login.m */; };
-		19194CE41E7FDDA800641085 /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CD71E7FDDA800641085 /* SurveryStockListCell.m */; };
-		19194CE71E7FDDA800641085 /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CDE1E7FDDA800641085 /* SurveyContentListController.m */; };
-		19194CE81E7FDDA800641085 /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CE01E7FDDA800641085 /* SurveyListViewController.m */; };
 		19194CE91E7FDDA800641085 /* StockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194CE31E7FDDA800641085 /* StockManager.m */; };
-		19194D051E7FDED000641085 /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D021E7FDED000641085 /* SurveyListModel.m */; };
-		19194D061E7FDED000641085 /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D041E7FDED000641085 /* SurveyModel.m */; };
-		19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D081E7FDF0500641085 /* SurveySubjectModel.m */; };
 		19194D131E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D0C1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m */; };
 		19194D141E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D0E1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.m */; };
 		19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19194D101E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m */; };
@@ -227,6 +221,56 @@
 		1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */; };
 		1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0711EE166D70065CEE0 /* StockUnlockModel.m */; };
 		1978E0761EE285CE0065CEE0 /* AliveListViewpointImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */; };
+		1987B2701EE688F700BD852E /* AnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2071EE688F700BD852E /* AnsTableViewCell.m */; };
+		1987B2711EE688F700BD852E /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2081EE688F700BD852E /* AnsTableViewCell.xib */; };
+		1987B2721EE688F700BD852E /* AskAndAnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B20A1EE688F700BD852E /* AskAndAnsTableViewCell.m */; };
+		1987B2731EE688F700BD852E /* AskAndAnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B20B1EE688F700BD852E /* AskAndAnsTableViewCell.xib */; };
+		1987B2741EE688F700BD852E /* AskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B20D1EE688F700BD852E /* AskTableViewCell.m */; };
+		1987B2751EE688F700BD852E /* AskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B20E1EE688F700BD852E /* AskTableViewCell.xib */; };
+		1987B2761EE688F700BD852E /* HotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2101EE688F700BD852E /* HotTableViewCell.m */; };
+		1987B2771EE688F700BD852E /* HotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2111EE688F700BD852E /* HotTableViewCell.xib */; };
+		1987B2781EE688F700BD852E /* NiuxiongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2131EE688F700BD852E /* NiuxiongTableViewCell.m */; };
+		1987B2791EE688F700BD852E /* NiuxiongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2141EE688F700BD852E /* NiuxiongTableViewCell.xib */; };
+		1987B27A1EE688F700BD852E /* SpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2161EE688F700BD852E /* SpotTableViewCell.m */; };
+		1987B27B1EE688F700BD852E /* SpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2171EE688F700BD852E /* SpotTableViewCell.xib */; };
+		1987B27C1EE688F700BD852E /* DialogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B21B1EE688F700BD852E /* DialogueViewController.m */; };
+		1987B27D1EE688F700BD852E /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B21E1EE688F700BD852E /* HotViewController.m */; };
+		1987B27E1EE688F700BD852E /* SpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2211EE688F700BD852E /* SpotViewController.m */; };
+		1987B27F1EE688F700BD852E /* StockDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2231EE688F700BD852E /* StockDetailViewController.m */; };
+		1987B2801EE688F700BD852E /* SurveyAnnounceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2261EE688F700BD852E /* SurveyAnnounceViewController.m */; };
+		1987B2811EE688F700BD852E /* SurveyDetailAskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2291EE688F700BD852E /* SurveyDetailAskViewController.m */; };
+		1987B2821EE688F700BD852E /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B22C1EE688F700BD852E /* SurveyDownLoadHintViewController.m */; };
+		1987B2831EE688F700BD852E /* SurveyFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B22E1EE688F700BD852E /* SurveyFontViewController.m */; };
+		1987B2841EE688F700BD852E /* SurveyMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2301EE688F700BD852E /* SurveyMoreViewController.m */; };
+		1987B2851EE688F700BD852E /* SurveyDetailStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2331EE688F700BD852E /* SurveyDetailStockCommentViewController.m */; };
+		1987B2861EE688F700BD852E /* AnsPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2361EE688F700BD852E /* AnsPublishViewController.m */; };
+		1987B2871EE688F700BD852E /* AskPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2381EE688F700BD852E /* AskPublishViewController.m */; };
+		1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B23B1EE688F700BD852E /* SurveyDetailContentViewController.m */; };
+		1987B2891EE688F700BD852E /* SurveyDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B23E1EE688F700BD852E /* SurveyDetailWebViewController.m */; };
+		1987B28A1EE688F700BD852E /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2421EE688F700BD852E /* AnsModel.m */; };
+		1987B28B1EE688F700BD852E /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2441EE688F700BD852E /* AskModel.m */; };
+		1987B28C1EE688F700BD852E /* StockAnnounceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2461EE688F700BD852E /* StockAnnounceModel.m */; };
+		1987B28D1EE688F700BD852E /* StockCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2481EE688F700BD852E /* StockCommentModel.m */; };
+		1987B28E1EE688F700BD852E /* StockHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B24A1EE688F700BD852E /* StockHotModel.m */; };
+		1987B28F1EE688F700BD852E /* StockInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B24C1EE688F700BD852E /* StockInfoModel.m */; };
+		1987B2901EE688F700BD852E /* StockSurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B24E1EE688F700BD852E /* StockSurveyModel.m */; };
+		1987B2911EE688F700BD852E /* NiuxiongSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2511EE688F700BD852E /* NiuxiongSectionHeaderView.m */; };
+		1987B2921EE688F700BD852E /* StockAskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2531EE688F700BD852E /* StockAskView.m */; };
+		1987B2931EE688F700BD852E /* StockHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2551EE688F700BD852E /* StockHeaderView.m */; };
+		1987B2941EE688F700BD852E /* StockShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2571EE688F700BD852E /* StockShareView.m */; };
+		1987B2951EE688F700BD852E /* SurveyAnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2591EE688F700BD852E /* SurveyAnsView.m */; };
+		1987B2961EE688F700BD852E /* SurveyBottomToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B25B1EE688F700BD852E /* SurveyBottomToolView.m */; };
+		1987B2971EE688F700BD852E /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B25D1EE688F700BD852E /* SurveyDetailSegmentView.m */; };
+		1987B2981EE688F700BD852E /* SurveryStockListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2611EE688F700BD852E /* SurveryStockListCell.m */; };
+		1987B2991EE688F700BD852E /* SelectedSurveySubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2641EE688F700BD852E /* SelectedSurveySubjectViewController.m */; };
+		1987B29A1EE688F700BD852E /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2661EE688F700BD852E /* SurveyContentListController.m */; };
+		1987B29B1EE688F700BD852E /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2681EE688F700BD852E /* SurveyListViewController.m */; };
+		1987B29C1EE688F700BD852E /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26B1EE688F700BD852E /* SurveyListModel.m */; };
+		1987B29D1EE688F700BD852E /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26D1EE688F700BD852E /* SurveyModel.m */; };
+		1987B29E1EE688F700BD852E /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26F1EE688F700BD852E /* SurveySubjectModel.m */; };
+		1987B2A91EE6894300BD852E /* VideoTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2A21EE6894300BD852E /* VideoTitleTableViewCell.m */; };
+		1987B2AA1EE6894300BD852E /* VideoTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2A31EE6894300BD852E /* VideoTitleTableViewCell.xib */; };
+		1987B2AB1EE6894300BD852E /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2A61EE6894300BD852E /* VideoDetailViewController.m */; };
 		19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
 		19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B751E2C5D4300AB26DF /* GradeListCell.xib */; };
@@ -337,57 +381,14 @@
 		19E5F2A81E13653200984DBC /* SQTopicCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2A11E13653200984DBC /* SQTopicCellViewModel.m */; };
 		19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */; };
 		19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */; };
-		19ECB9731EA84B070009F625 /* SelectedSurveySubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */; };
 		19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */; };
 		19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */; };
 		19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */; };
-		19ECB9A61EAF1D670009F625 /* StockAnnounceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A51EAF1D670009F625 /* StockAnnounceModel.m */; };
-		19ECB9AA1EAF1E700009F625 /* SurveyAnnounceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A91EAF1E700009F625 /* SurveyAnnounceViewController.m */; };
-		19ECB9AE1EAF30DC0009F625 /* AskAndAnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9AC1EAF30DC0009F625 /* AskAndAnsTableViewCell.m */; };
-		19ECB9AF1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9AD1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib */; };
-		19ECB9B21EAF34EF0009F625 /* SurveyAnsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B11EAF34EF0009F625 /* SurveyAnsView.m */; };
-		19ECB9B91EAF3EF60009F625 /* AnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B41EAF3EF60009F625 /* AnsTableViewCell.m */; };
-		19ECB9BA1EAF3EF60009F625 /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */; };
-		19ECB9BB1EAF3EF60009F625 /* AskTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */; };
-		19ECB9BC1EAF3EF60009F625 /* AskTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */; };
 		19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F006F81E31B005000A5F98 /* LoginViewController.xib */; };
-		19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007371E31E4EF000A5F98 /* AnsModel.m */; };
-		19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007391E31E4EF000A5F98 /* AskModel.m */; };
 		19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007411E31E5AE000A5F98 /* RechargeChooseViewController.m */; };
 		19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007431E31E5AE000A5F98 /* RechargeViewController.m */; };
 		19F0074E1E31E5AE000A5F98 /* StockUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */; };
-		19F00D0C1E2EFFD9009270D5 /* NiuxiongTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CD31E2EFFD9009270D5 /* NiuxiongTableViewCell.m */; };
-		19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00CD41E2EFFD9009270D5 /* NiuxiongTableViewCell.xib */; };
-		19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CD61E2EFFD9009270D5 /* SpotTableViewCell.m */; };
-		19F00D0F1E2EFFD9009270D5 /* SpotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00CD71E2EFFD9009270D5 /* SpotTableViewCell.xib */; };
-		19F00D101E2EFFD9009270D5 /* DialogueViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CDB1E2EFFD9009270D5 /* DialogueViewController.m */; };
-		19F00D111E2EFFD9009270D5 /* SpotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CDE1E2EFFD9009270D5 /* SpotViewController.m */; };
-		19F00D121E2EFFD9009270D5 /* StockDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CE01E2EFFD9009270D5 /* StockDetailViewController.m */; };
-		19F00D131E2EFFD9009270D5 /* SurveyDetailAskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CE31E2EFFD9009270D5 /* SurveyDetailAskViewController.m */; };
-		19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CE61E2EFFD9009270D5 /* SurveyFontViewController.m */; };
-		19F00D151E2EFFD9009270D5 /* SurveyMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CE81E2EFFD9009270D5 /* SurveyMoreViewController.m */; };
-		19F00D161E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CEB1E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.m */; };
-		19F00D171E2EFFD9009270D5 /* AnsPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CEE1E2EFFD9009270D5 /* AnsPublishViewController.m */; };
-		19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CF01E2EFFD9009270D5 /* AskPublishViewController.m */; };
-		19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CF31E2EFFD9009270D5 /* SurveyDetailContentViewController.m */; };
-		19F00D1A1E2EFFD9009270D5 /* SurveyDetailWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CF61E2EFFD9009270D5 /* SurveyDetailWebViewController.m */; };
-		19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFA1E2EFFD9009270D5 /* StockSurveyModel.m */; };
-		19F00D1C1E2EFFD9009270D5 /* StockCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFC1E2EFFD9009270D5 /* StockCommentModel.m */; };
-		19F00D1D1E2EFFD9009270D5 /* StockInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00CFE1E2EFFD9009270D5 /* StockInfoModel.m */; };
-		19F00D1E1E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D011E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m */; };
-		19F00D1F1E2EFFD9009270D5 /* StockHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D031E2EFFD9009270D5 /* StockHeaderView.m */; };
-		19F00D201E2EFFD9009270D5 /* SurveyBottomToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D051E2EFFD9009270D5 /* SurveyBottomToolView.m */; };
-		19F00D211E2EFFD9009270D5 /* SurveyDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */; };
-		19F00D241E2F0704009270D5 /* StockHotModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D231E2F0704009270D5 /* StockHotModel.m */; };
-		19F00D281E2F0935009270D5 /* HotViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D271E2F0935009270D5 /* HotViewController.m */; };
-		19F00D2C1E2F0B0C009270D5 /* HotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */; };
-		19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */; };
 		19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D321E307FFC009270D5 /* ShareHandler.m */; };
-		19F00D361E3089B4009270D5 /* StockShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D351E3089B4009270D5 /* StockShareView.m */; };
-		19F00D401E309366009270D5 /* StockAskView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F00D3F1E309366009270D5 /* StockAskView.m */; };
-		19F43C251E232C98001B72CD /* VideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C241E232C98001B72CD /* VideoViewController.m */; };
-		19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C281E232FB2001B72CD /* VideoListCell.m */; };
-		19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C291E232FB2001B72CD /* VideoListCell.xib */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -428,7 +429,6 @@
 		4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE306A71EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m */; };
 		4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE306AD1EDFE75000A0D88C /* AliveSearchSurveyCell.m */; };
 		4DE306B01EDFE75000A0D88C /* AliveSearchSurveyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DE306AE1EDFE75000A0D88C /* AliveSearchSurveyCell.xib */; };
-		4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */; };
 		4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */; };
 		4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A61ED7D107004E3267 /* AliveSearchUserCell.m */; };
 		4DEFF1A91ED7D107004E3267 /* AliveSearchUserCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4DEFF1A71ED7D107004E3267 /* AliveSearchUserCell.xib */; };
@@ -641,20 +641,8 @@
 		19194CC81E7FAC3700641085 /* PlayIndividualStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayIndividualStockViewController.m; sourceTree = "<group>"; };
 		19194CCA1E7FACC400641085 /* UIViewController+Login.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+Login.h"; sourceTree = "<group>"; };
 		19194CCB1E7FACC400641085 /* UIViewController+Login.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+Login.m"; sourceTree = "<group>"; };
-		19194CD61E7FDDA800641085 /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
-		19194CD71E7FDDA800641085 /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
-		19194CDD1E7FDDA800641085 /* SurveyContentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyContentListController.h; sourceTree = "<group>"; };
-		19194CDE1E7FDDA800641085 /* SurveyContentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyContentListController.m; sourceTree = "<group>"; };
-		19194CDF1E7FDDA800641085 /* SurveyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListViewController.h; sourceTree = "<group>"; };
-		19194CE01E7FDDA800641085 /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
 		19194CE21E7FDDA800641085 /* StockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockManager.h; sourceTree = "<group>"; };
 		19194CE31E7FDDA800641085 /* StockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockManager.m; sourceTree = "<group>"; };
-		19194D011E7FDED000641085 /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
-		19194D021E7FDED000641085 /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
-		19194D031E7FDED000641085 /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
-		19194D041E7FDED000641085 /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
-		19194D071E7FDF0500641085 /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveySubjectModel.h; sourceTree = "<group>"; };
-		19194D081E7FDF0500641085 /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveySubjectModel.m; sourceTree = "<group>"; };
 		19194D0B1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCDoubleBounceActivityIndicatorView.h; sourceTree = "<group>"; };
 		19194D0C1E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ZFCDoubleBounceActivityIndicatorView.m; sourceTree = "<group>"; };
 		19194D0D1E80CBE900641085 /* ZFCRotatingPlaneActivityIndicatorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ZFCRotatingPlaneActivityIndicatorView.h; sourceTree = "<group>"; };
@@ -1000,6 +988,99 @@
 		1978E0711EE166D70065CEE0 /* StockUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockModel.m; sourceTree = "<group>"; };
 		1978E0741EE285CE0065CEE0 /* AliveListViewpointImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListViewpointImageView.h; sourceTree = "<group>"; };
 		1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewpointImageView.m; sourceTree = "<group>"; };
+		1987B2061EE688F700BD852E /* AnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsTableViewCell.h; sourceTree = "<group>"; };
+		1987B2071EE688F700BD852E /* AnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsTableViewCell.m; sourceTree = "<group>"; };
+		1987B2081EE688F700BD852E /* AnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnsTableViewCell.xib; sourceTree = "<group>"; };
+		1987B2091EE688F700BD852E /* AskAndAnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskAndAnsTableViewCell.h; sourceTree = "<group>"; };
+		1987B20A1EE688F700BD852E /* AskAndAnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskAndAnsTableViewCell.m; sourceTree = "<group>"; };
+		1987B20B1EE688F700BD852E /* AskAndAnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskAndAnsTableViewCell.xib; sourceTree = "<group>"; };
+		1987B20C1EE688F700BD852E /* AskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskTableViewCell.h; sourceTree = "<group>"; };
+		1987B20D1EE688F700BD852E /* AskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskTableViewCell.m; sourceTree = "<group>"; };
+		1987B20E1EE688F700BD852E /* AskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskTableViewCell.xib; sourceTree = "<group>"; };
+		1987B20F1EE688F700BD852E /* HotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotTableViewCell.h; sourceTree = "<group>"; };
+		1987B2101EE688F700BD852E /* HotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotTableViewCell.m; sourceTree = "<group>"; };
+		1987B2111EE688F700BD852E /* HotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotTableViewCell.xib; sourceTree = "<group>"; };
+		1987B2121EE688F700BD852E /* NiuxiongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiuxiongTableViewCell.h; sourceTree = "<group>"; };
+		1987B2131EE688F700BD852E /* NiuxiongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiuxiongTableViewCell.m; sourceTree = "<group>"; };
+		1987B2141EE688F700BD852E /* NiuxiongTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NiuxiongTableViewCell.xib; sourceTree = "<group>"; };
+		1987B2151EE688F700BD852E /* SpotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotTableViewCell.h; sourceTree = "<group>"; };
+		1987B2161EE688F700BD852E /* SpotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotTableViewCell.m; sourceTree = "<group>"; };
+		1987B2171EE688F700BD852E /* SpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpotTableViewCell.xib; sourceTree = "<group>"; };
+		1987B21A1EE688F700BD852E /* DialogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogueViewController.h; sourceTree = "<group>"; };
+		1987B21B1EE688F700BD852E /* DialogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogueViewController.m; sourceTree = "<group>"; };
+		1987B21D1EE688F700BD852E /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
+		1987B21E1EE688F700BD852E /* HotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotViewController.m; sourceTree = "<group>"; };
+		1987B2201EE688F700BD852E /* SpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotViewController.h; sourceTree = "<group>"; };
+		1987B2211EE688F700BD852E /* SpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotViewController.m; sourceTree = "<group>"; };
+		1987B2221EE688F700BD852E /* StockDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockDetailViewController.h; sourceTree = "<group>"; };
+		1987B2231EE688F700BD852E /* StockDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockDetailViewController.m; sourceTree = "<group>"; };
+		1987B2251EE688F700BD852E /* SurveyAnnounceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyAnnounceViewController.h; sourceTree = "<group>"; };
+		1987B2261EE688F700BD852E /* SurveyAnnounceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyAnnounceViewController.m; sourceTree = "<group>"; };
+		1987B2281EE688F700BD852E /* SurveyDetailAskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailAskViewController.h; sourceTree = "<group>"; };
+		1987B2291EE688F700BD852E /* SurveyDetailAskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailAskViewController.m; sourceTree = "<group>"; };
+		1987B22B1EE688F700BD852E /* SurveyDownLoadHintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDownLoadHintViewController.h; sourceTree = "<group>"; };
+		1987B22C1EE688F700BD852E /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
+		1987B22D1EE688F700BD852E /* SurveyFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyFontViewController.h; sourceTree = "<group>"; };
+		1987B22E1EE688F700BD852E /* SurveyFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyFontViewController.m; sourceTree = "<group>"; };
+		1987B22F1EE688F700BD852E /* SurveyMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyMoreViewController.h; sourceTree = "<group>"; };
+		1987B2301EE688F700BD852E /* SurveyMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyMoreViewController.m; sourceTree = "<group>"; };
+		1987B2321EE688F700BD852E /* SurveyDetailStockCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailStockCommentViewController.h; sourceTree = "<group>"; };
+		1987B2331EE688F700BD852E /* SurveyDetailStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailStockCommentViewController.m; sourceTree = "<group>"; };
+		1987B2351EE688F700BD852E /* AnsPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsPublishViewController.h; sourceTree = "<group>"; };
+		1987B2361EE688F700BD852E /* AnsPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsPublishViewController.m; sourceTree = "<group>"; };
+		1987B2371EE688F700BD852E /* AskPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskPublishViewController.h; sourceTree = "<group>"; };
+		1987B2381EE688F700BD852E /* AskPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskPublishViewController.m; sourceTree = "<group>"; };
+		1987B23A1EE688F700BD852E /* SurveyDetailContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailContentViewController.h; sourceTree = "<group>"; };
+		1987B23B1EE688F700BD852E /* SurveyDetailContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailContentViewController.m; sourceTree = "<group>"; };
+		1987B23D1EE688F700BD852E /* SurveyDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailWebViewController.h; sourceTree = "<group>"; };
+		1987B23E1EE688F700BD852E /* SurveyDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailWebViewController.m; sourceTree = "<group>"; };
+		1987B2411EE688F700BD852E /* AnsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsModel.h; sourceTree = "<group>"; };
+		1987B2421EE688F700BD852E /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
+		1987B2431EE688F700BD852E /* AskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskModel.h; sourceTree = "<group>"; };
+		1987B2441EE688F700BD852E /* AskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskModel.m; sourceTree = "<group>"; };
+		1987B2451EE688F700BD852E /* StockAnnounceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAnnounceModel.h; sourceTree = "<group>"; };
+		1987B2461EE688F700BD852E /* StockAnnounceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAnnounceModel.m; sourceTree = "<group>"; };
+		1987B2471EE688F700BD852E /* StockCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCommentModel.h; sourceTree = "<group>"; };
+		1987B2481EE688F700BD852E /* StockCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCommentModel.m; sourceTree = "<group>"; };
+		1987B2491EE688F700BD852E /* StockHotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHotModel.h; sourceTree = "<group>"; };
+		1987B24A1EE688F700BD852E /* StockHotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHotModel.m; sourceTree = "<group>"; };
+		1987B24B1EE688F700BD852E /* StockInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockInfoModel.h; sourceTree = "<group>"; };
+		1987B24C1EE688F700BD852E /* StockInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockInfoModel.m; sourceTree = "<group>"; };
+		1987B24D1EE688F700BD852E /* StockSurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockSurveyModel.h; sourceTree = "<group>"; };
+		1987B24E1EE688F700BD852E /* StockSurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockSurveyModel.m; sourceTree = "<group>"; };
+		1987B2501EE688F700BD852E /* NiuxiongSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiuxiongSectionHeaderView.h; sourceTree = "<group>"; };
+		1987B2511EE688F700BD852E /* NiuxiongSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiuxiongSectionHeaderView.m; sourceTree = "<group>"; };
+		1987B2521EE688F700BD852E /* StockAskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAskView.h; sourceTree = "<group>"; };
+		1987B2531EE688F700BD852E /* StockAskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAskView.m; sourceTree = "<group>"; };
+		1987B2541EE688F700BD852E /* StockHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHeaderView.h; sourceTree = "<group>"; };
+		1987B2551EE688F700BD852E /* StockHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHeaderView.m; sourceTree = "<group>"; };
+		1987B2561EE688F700BD852E /* StockShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockShareView.h; sourceTree = "<group>"; };
+		1987B2571EE688F700BD852E /* StockShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockShareView.m; sourceTree = "<group>"; };
+		1987B2581EE688F700BD852E /* SurveyAnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyAnsView.h; sourceTree = "<group>"; };
+		1987B2591EE688F700BD852E /* SurveyAnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyAnsView.m; sourceTree = "<group>"; };
+		1987B25A1EE688F700BD852E /* SurveyBottomToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyBottomToolView.h; sourceTree = "<group>"; };
+		1987B25B1EE688F700BD852E /* SurveyBottomToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyBottomToolView.m; sourceTree = "<group>"; };
+		1987B25C1EE688F700BD852E /* SurveyDetailSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailSegmentView.h; sourceTree = "<group>"; };
+		1987B25D1EE688F700BD852E /* SurveyDetailSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailSegmentView.m; sourceTree = "<group>"; };
+		1987B2601EE688F700BD852E /* SurveryStockListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveryStockListCell.h; sourceTree = "<group>"; };
+		1987B2611EE688F700BD852E /* SurveryStockListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveryStockListCell.m; sourceTree = "<group>"; };
+		1987B2631EE688F700BD852E /* SelectedSurveySubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedSurveySubjectViewController.h; sourceTree = "<group>"; };
+		1987B2641EE688F700BD852E /* SelectedSurveySubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedSurveySubjectViewController.m; sourceTree = "<group>"; };
+		1987B2651EE688F700BD852E /* SurveyContentListController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyContentListController.h; sourceTree = "<group>"; };
+		1987B2661EE688F700BD852E /* SurveyContentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyContentListController.m; sourceTree = "<group>"; };
+		1987B2671EE688F700BD852E /* SurveyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListViewController.h; sourceTree = "<group>"; };
+		1987B2681EE688F700BD852E /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
+		1987B26A1EE688F700BD852E /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
+		1987B26B1EE688F700BD852E /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
+		1987B26C1EE688F700BD852E /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
+		1987B26D1EE688F700BD852E /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
+		1987B26E1EE688F700BD852E /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveySubjectModel.h; sourceTree = "<group>"; };
+		1987B26F1EE688F700BD852E /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveySubjectModel.m; sourceTree = "<group>"; };
+		1987B2A11EE6894300BD852E /* VideoTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTitleTableViewCell.h; sourceTree = "<group>"; };
+		1987B2A21EE6894300BD852E /* VideoTitleTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoTitleTableViewCell.m; sourceTree = "<group>"; };
+		1987B2A31EE6894300BD852E /* VideoTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoTitleTableViewCell.xib; sourceTree = "<group>"; };
+		1987B2A51EE6894300BD852E /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetailViewController.h; sourceTree = "<group>"; };
+		1987B2A61EE6894300BD852E /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetailViewController.m; sourceTree = "<group>"; };
 		19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeViewController.h; sourceTree = "<group>"; };
 		19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeViewController.m; sourceTree = "<group>"; };
 		19959B731E2C5D4300AB26DF /* GradeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListCell.h; sourceTree = "<group>"; };
@@ -1212,100 +1293,21 @@
 		19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockCommentViewController.m; sourceTree = "<group>"; };
 		19E5F2AD1E138FC300984DBC /* GuessCommentPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentPublishViewController.h; sourceTree = "<group>"; };
 		19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentPublishViewController.m; sourceTree = "<group>"; };
-		19ECB9711EA84B070009F625 /* SelectedSurveySubjectViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectedSurveySubjectViewController.h; sourceTree = "<group>"; };
-		19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectedSurveySubjectViewController.m; sourceTree = "<group>"; };
 		19ECB99B1EAAEF160009F625 /* GradeCommentReplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommentReplyModel.h; sourceTree = "<group>"; };
 		19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommentReplyModel.m; sourceTree = "<group>"; };
 		19ECB99E1EAAF4440009F625 /* GradeCommReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommReplyView.h; sourceTree = "<group>"; };
 		19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommReplyView.m; sourceTree = "<group>"; };
 		19ECB9A11EAB30040009F625 /* GradeReplyToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeReplyToolView.h; sourceTree = "<group>"; };
 		19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeReplyToolView.m; sourceTree = "<group>"; };
-		19ECB9A41EAF1D670009F625 /* StockAnnounceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAnnounceModel.h; sourceTree = "<group>"; };
-		19ECB9A51EAF1D670009F625 /* StockAnnounceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAnnounceModel.m; sourceTree = "<group>"; };
-		19ECB9A81EAF1E700009F625 /* SurveyAnnounceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyAnnounceViewController.h; sourceTree = "<group>"; };
-		19ECB9A91EAF1E700009F625 /* SurveyAnnounceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyAnnounceViewController.m; sourceTree = "<group>"; };
-		19ECB9AB1EAF30DC0009F625 /* AskAndAnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskAndAnsTableViewCell.h; sourceTree = "<group>"; };
-		19ECB9AC1EAF30DC0009F625 /* AskAndAnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskAndAnsTableViewCell.m; sourceTree = "<group>"; };
-		19ECB9AD1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskAndAnsTableViewCell.xib; sourceTree = "<group>"; };
-		19ECB9B01EAF34EF0009F625 /* SurveyAnsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyAnsView.h; sourceTree = "<group>"; };
-		19ECB9B11EAF34EF0009F625 /* SurveyAnsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyAnsView.m; sourceTree = "<group>"; };
-		19ECB9B31EAF3EF60009F625 /* AnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsTableViewCell.h; sourceTree = "<group>"; };
-		19ECB9B41EAF3EF60009F625 /* AnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsTableViewCell.m; sourceTree = "<group>"; };
-		19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnsTableViewCell.xib; sourceTree = "<group>"; };
-		19ECB9B61EAF3EF60009F625 /* AskTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskTableViewCell.h; sourceTree = "<group>"; };
-		19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskTableViewCell.m; sourceTree = "<group>"; };
-		19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AskTableViewCell.xib; sourceTree = "<group>"; };
 		19F006F81E31B005000A5F98 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
-		19F007361E31E4EF000A5F98 /* AnsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsModel.h; sourceTree = "<group>"; };
-		19F007371E31E4EF000A5F98 /* AnsModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsModel.m; sourceTree = "<group>"; };
-		19F007381E31E4EF000A5F98 /* AskModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskModel.h; sourceTree = "<group>"; };
-		19F007391E31E4EF000A5F98 /* AskModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskModel.m; sourceTree = "<group>"; };
 		19F007401E31E5AE000A5F98 /* RechargeChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeChooseViewController.h; sourceTree = "<group>"; };
 		19F007411E31E5AE000A5F98 /* RechargeChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeChooseViewController.m; sourceTree = "<group>"; };
 		19F007421E31E5AE000A5F98 /* RechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeViewController.h; sourceTree = "<group>"; };
 		19F007431E31E5AE000A5F98 /* RechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeViewController.m; sourceTree = "<group>"; };
 		19F007441E31E5AE000A5F98 /* StockUnlockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockViewController.h; sourceTree = "<group>"; };
 		19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockViewController.m; sourceTree = "<group>"; };
-		19F00CD21E2EFFD9009270D5 /* NiuxiongTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiuxiongTableViewCell.h; sourceTree = "<group>"; };
-		19F00CD31E2EFFD9009270D5 /* NiuxiongTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiuxiongTableViewCell.m; sourceTree = "<group>"; };
-		19F00CD41E2EFFD9009270D5 /* NiuxiongTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NiuxiongTableViewCell.xib; sourceTree = "<group>"; };
-		19F00CD51E2EFFD9009270D5 /* SpotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotTableViewCell.h; sourceTree = "<group>"; };
-		19F00CD61E2EFFD9009270D5 /* SpotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotTableViewCell.m; sourceTree = "<group>"; };
-		19F00CD71E2EFFD9009270D5 /* SpotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SpotTableViewCell.xib; sourceTree = "<group>"; };
-		19F00CDA1E2EFFD9009270D5 /* DialogueViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DialogueViewController.h; sourceTree = "<group>"; };
-		19F00CDB1E2EFFD9009270D5 /* DialogueViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DialogueViewController.m; sourceTree = "<group>"; };
-		19F00CDD1E2EFFD9009270D5 /* SpotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SpotViewController.h; sourceTree = "<group>"; };
-		19F00CDE1E2EFFD9009270D5 /* SpotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SpotViewController.m; sourceTree = "<group>"; };
-		19F00CDF1E2EFFD9009270D5 /* StockDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockDetailViewController.h; sourceTree = "<group>"; };
-		19F00CE01E2EFFD9009270D5 /* StockDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockDetailViewController.m; sourceTree = "<group>"; };
-		19F00CE21E2EFFD9009270D5 /* SurveyDetailAskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailAskViewController.h; sourceTree = "<group>"; };
-		19F00CE31E2EFFD9009270D5 /* SurveyDetailAskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailAskViewController.m; sourceTree = "<group>"; };
-		19F00CE51E2EFFD9009270D5 /* SurveyFontViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyFontViewController.h; sourceTree = "<group>"; };
-		19F00CE61E2EFFD9009270D5 /* SurveyFontViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyFontViewController.m; sourceTree = "<group>"; };
-		19F00CE71E2EFFD9009270D5 /* SurveyMoreViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyMoreViewController.h; sourceTree = "<group>"; };
-		19F00CE81E2EFFD9009270D5 /* SurveyMoreViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyMoreViewController.m; sourceTree = "<group>"; };
-		19F00CEA1E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailStockCommentViewController.h; sourceTree = "<group>"; };
-		19F00CEB1E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailStockCommentViewController.m; sourceTree = "<group>"; };
-		19F00CED1E2EFFD9009270D5 /* AnsPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsPublishViewController.h; sourceTree = "<group>"; };
-		19F00CEE1E2EFFD9009270D5 /* AnsPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsPublishViewController.m; sourceTree = "<group>"; };
-		19F00CEF1E2EFFD9009270D5 /* AskPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AskPublishViewController.h; sourceTree = "<group>"; };
-		19F00CF01E2EFFD9009270D5 /* AskPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AskPublishViewController.m; sourceTree = "<group>"; };
-		19F00CF21E2EFFD9009270D5 /* SurveyDetailContentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailContentViewController.h; sourceTree = "<group>"; };
-		19F00CF31E2EFFD9009270D5 /* SurveyDetailContentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailContentViewController.m; sourceTree = "<group>"; };
-		19F00CF51E2EFFD9009270D5 /* SurveyDetailWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailWebViewController.h; sourceTree = "<group>"; };
-		19F00CF61E2EFFD9009270D5 /* SurveyDetailWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailWebViewController.m; sourceTree = "<group>"; };
-		19F00CF91E2EFFD9009270D5 /* StockSurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockSurveyModel.h; sourceTree = "<group>"; };
-		19F00CFA1E2EFFD9009270D5 /* StockSurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockSurveyModel.m; sourceTree = "<group>"; };
-		19F00CFB1E2EFFD9009270D5 /* StockCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCommentModel.h; sourceTree = "<group>"; };
-		19F00CFC1E2EFFD9009270D5 /* StockCommentModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCommentModel.m; sourceTree = "<group>"; };
-		19F00CFD1E2EFFD9009270D5 /* StockInfoModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockInfoModel.h; sourceTree = "<group>"; };
-		19F00CFE1E2EFFD9009270D5 /* StockInfoModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockInfoModel.m; sourceTree = "<group>"; };
-		19F00D001E2EFFD9009270D5 /* NiuxiongSectionHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NiuxiongSectionHeaderView.h; sourceTree = "<group>"; };
-		19F00D011E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NiuxiongSectionHeaderView.m; sourceTree = "<group>"; };
-		19F00D021E2EFFD9009270D5 /* StockHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHeaderView.h; sourceTree = "<group>"; };
-		19F00D031E2EFFD9009270D5 /* StockHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHeaderView.m; sourceTree = "<group>"; };
-		19F00D041E2EFFD9009270D5 /* SurveyBottomToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyBottomToolView.h; sourceTree = "<group>"; };
-		19F00D051E2EFFD9009270D5 /* SurveyBottomToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyBottomToolView.m; sourceTree = "<group>"; };
-		19F00D061E2EFFD9009270D5 /* SurveyDetailSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDetailSegmentView.h; sourceTree = "<group>"; };
-		19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDetailSegmentView.m; sourceTree = "<group>"; };
-		19F00D221E2F0704009270D5 /* StockHotModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHotModel.h; sourceTree = "<group>"; };
-		19F00D231E2F0704009270D5 /* StockHotModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHotModel.m; sourceTree = "<group>"; };
-		19F00D261E2F0935009270D5 /* HotViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotViewController.h; sourceTree = "<group>"; };
-		19F00D271E2F0935009270D5 /* HotViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotViewController.m; sourceTree = "<group>"; };
-		19F00D291E2F0B0C009270D5 /* HotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HotTableViewCell.h; sourceTree = "<group>"; };
-		19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HotTableViewCell.m; sourceTree = "<group>"; };
-		19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HotTableViewCell.xib; sourceTree = "<group>"; };
 		19F00D311E307FFC009270D5 /* ShareHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareHandler.h; sourceTree = "<group>"; };
 		19F00D321E307FFC009270D5 /* ShareHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ShareHandler.m; sourceTree = "<group>"; };
-		19F00D341E3089B4009270D5 /* StockShareView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockShareView.h; sourceTree = "<group>"; };
-		19F00D351E3089B4009270D5 /* StockShareView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockShareView.m; sourceTree = "<group>"; };
-		19F00D3E1E309366009270D5 /* StockAskView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockAskView.h; sourceTree = "<group>"; };
-		19F00D3F1E309366009270D5 /* StockAskView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockAskView.m; sourceTree = "<group>"; };
-		19F43C231E232C98001B72CD /* VideoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoViewController.h; sourceTree = "<group>"; };
-		19F43C241E232C98001B72CD /* VideoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoViewController.m; sourceTree = "<group>"; };
-		19F43C271E232FB2001B72CD /* VideoListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoListCell.h; sourceTree = "<group>"; };
-		19F43C281E232FB2001B72CD /* VideoListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoListCell.m; sourceTree = "<group>"; };
-		19F43C291E232FB2001B72CD /* VideoListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoListCell.xib; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -1373,8 +1375,6 @@
 		4DE306AC1EDFE75000A0D88C /* AliveSearchSurveyCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchSurveyCell.h; sourceTree = "<group>"; };
 		4DE306AD1EDFE75000A0D88C /* AliveSearchSurveyCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchSurveyCell.m; sourceTree = "<group>"; };
 		4DE306AE1EDFE75000A0D88C /* AliveSearchSurveyCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveSearchSurveyCell.xib; sourceTree = "<group>"; };
-		4DE89CD31ED4298D00DB2520 /* SurveyDownLoadHintViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDownLoadHintViewController.h; sourceTree = "<group>"; };
-		4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDownLoadHintViewController.m; sourceTree = "<group>"; };
 		4DEFF19C1ED7CE89004E3267 /* SearchSectionData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SearchSectionData.h; sourceTree = "<group>"; };
 		4DEFF19D1ED7CE89004E3267 /* SearchSectionData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SearchSectionData.m; sourceTree = "<group>"; };
 		4DEFF1A51ED7D107004E3267 /* AliveSearchUserCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchUserCell.h; sourceTree = "<group>"; };
@@ -1834,35 +1834,12 @@
 		19194CD41E7FDDA700641085 /* Survey */ = {
 			isa = PBXGroup;
 			children = (
+				1987B2041EE688F700BD852E /* SurveyDetail */,
+				1987B25E1EE688F700BD852E /* SurveyList */,
 				19517F261EE64431009E24D1 /* Handler */,
-				19194D001E7FDED000641085 /* Models */,
-				19194CD51E7FDDA800641085 /* Cells */,
-				19194CDC1E7FDDA800641085 /* Controllers */,
 				19194CE11E7FDDA800641085 /* Manager */,
 			);
 			path = Survey;
-			sourceTree = "<group>";
-		};
-		19194CD51E7FDDA800641085 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				19194CD61E7FDDA800641085 /* SurveryStockListCell.h */,
-				19194CD71E7FDDA800641085 /* SurveryStockListCell.m */,
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		19194CDC1E7FDDA800641085 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-				19194CDD1E7FDDA800641085 /* SurveyContentListController.h */,
-				19194CDE1E7FDDA800641085 /* SurveyContentListController.m */,
-				19194CDF1E7FDDA800641085 /* SurveyListViewController.h */,
-				19194CE01E7FDDA800641085 /* SurveyListViewController.m */,
-				19ECB9711EA84B070009F625 /* SelectedSurveySubjectViewController.h */,
-				19ECB9721EA84B070009F625 /* SelectedSurveySubjectViewController.m */,
-			);
-			path = Controllers;
 			sourceTree = "<group>";
 		};
 		19194CE11E7FDDA800641085 /* Manager */ = {
@@ -1874,19 +1851,6 @@
 				19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */,
 			);
 			path = Manager;
-			sourceTree = "<group>";
-		};
-		19194D001E7FDED000641085 /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				19194D071E7FDF0500641085 /* SurveySubjectModel.h */,
-				19194D081E7FDF0500641085 /* SurveySubjectModel.m */,
-				19194D011E7FDED000641085 /* SurveyListModel.h */,
-				19194D021E7FDED000641085 /* SurveyListModel.m */,
-				19194D031E7FDED000641085 /* SurveyModel.h */,
-				19194D041E7FDED000641085 /* SurveyModel.m */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		19194D0A1E80CBE900641085 /* ZFCActivityIndicator */ = {
@@ -3210,68 +3174,6 @@
 			path = AppContext;
 			sourceTree = "<group>";
 		};
-		197595201DED29FE006441BE /* VideoDetail */ = {
-			isa = PBXGroup;
-			children = (
-				197595211DED29FE006441BE /* Controller */,
-				197595221DED29FE006441BE /* Manager */,
-				197595231DED29FE006441BE /* View */,
-			);
-			path = VideoDetail;
-			sourceTree = "<group>";
-		};
-		197595211DED29FE006441BE /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		197595221DED29FE006441BE /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		197595231DED29FE006441BE /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		197595241DED29FE006441BE /* ViewpointDetail */ = {
-			isa = PBXGroup;
-			children = (
-				197595251DED29FE006441BE /* Controller */,
-				197595261DED29FE006441BE /* Manager */,
-				197595271DED29FE006441BE /* View */,
-			);
-			path = ViewpointDetail;
-			sourceTree = "<group>";
-		};
-		197595251DED29FE006441BE /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		197595261DED29FE006441BE /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		197595271DED29FE006441BE /* View */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
 		1978E06C1EE1664B0065CEE0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3279,6 +3181,296 @@
 				1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		1987B2041EE688F700BD852E /* SurveyDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2051EE688F700BD852E /* Cell */,
+				1987B2181EE688F700BD852E /* Controller */,
+				1987B23F1EE688F700BD852E /* Manager */,
+				1987B2401EE688F700BD852E /* Model */,
+				1987B24F1EE688F700BD852E /* View */,
+			);
+			path = SurveyDetail;
+			sourceTree = "<group>";
+		};
+		1987B2051EE688F700BD852E /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2061EE688F700BD852E /* AnsTableViewCell.h */,
+				1987B2071EE688F700BD852E /* AnsTableViewCell.m */,
+				1987B2081EE688F700BD852E /* AnsTableViewCell.xib */,
+				1987B2091EE688F700BD852E /* AskAndAnsTableViewCell.h */,
+				1987B20A1EE688F700BD852E /* AskAndAnsTableViewCell.m */,
+				1987B20B1EE688F700BD852E /* AskAndAnsTableViewCell.xib */,
+				1987B20C1EE688F700BD852E /* AskTableViewCell.h */,
+				1987B20D1EE688F700BD852E /* AskTableViewCell.m */,
+				1987B20E1EE688F700BD852E /* AskTableViewCell.xib */,
+				1987B20F1EE688F700BD852E /* HotTableViewCell.h */,
+				1987B2101EE688F700BD852E /* HotTableViewCell.m */,
+				1987B2111EE688F700BD852E /* HotTableViewCell.xib */,
+				1987B2121EE688F700BD852E /* NiuxiongTableViewCell.h */,
+				1987B2131EE688F700BD852E /* NiuxiongTableViewCell.m */,
+				1987B2141EE688F700BD852E /* NiuxiongTableViewCell.xib */,
+				1987B2151EE688F700BD852E /* SpotTableViewCell.h */,
+				1987B2161EE688F700BD852E /* SpotTableViewCell.m */,
+				1987B2171EE688F700BD852E /* SpotTableViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		1987B2181EE688F700BD852E /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2191EE688F700BD852E /* Dialogue */,
+				1987B21C1EE688F700BD852E /* Hot */,
+				1987B21F1EE688F700BD852E /* Spot */,
+				1987B2221EE688F700BD852E /* StockDetailViewController.h */,
+				1987B2231EE688F700BD852E /* StockDetailViewController.m */,
+				1987B2241EE688F700BD852E /* SurveyAnnounce */,
+				1987B2271EE688F700BD852E /* SurveyAsk */,
+				1987B22A1EE688F700BD852E /* SurveyMore */,
+				1987B2311EE688F700BD852E /* SurveyNiuXiong */,
+				1987B2341EE688F700BD852E /* SurveyPublish */,
+				1987B2391EE688F700BD852E /* SurveySubBase */,
+				1987B23C1EE688F700BD852E /* SurveyWeb */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		1987B2191EE688F700BD852E /* Dialogue */ = {
+			isa = PBXGroup;
+			children = (
+				1987B21A1EE688F700BD852E /* DialogueViewController.h */,
+				1987B21B1EE688F700BD852E /* DialogueViewController.m */,
+			);
+			path = Dialogue;
+			sourceTree = "<group>";
+		};
+		1987B21C1EE688F700BD852E /* Hot */ = {
+			isa = PBXGroup;
+			children = (
+				1987B21D1EE688F700BD852E /* HotViewController.h */,
+				1987B21E1EE688F700BD852E /* HotViewController.m */,
+			);
+			path = Hot;
+			sourceTree = "<group>";
+		};
+		1987B21F1EE688F700BD852E /* Spot */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2201EE688F700BD852E /* SpotViewController.h */,
+				1987B2211EE688F700BD852E /* SpotViewController.m */,
+			);
+			path = Spot;
+			sourceTree = "<group>";
+		};
+		1987B2241EE688F700BD852E /* SurveyAnnounce */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2251EE688F700BD852E /* SurveyAnnounceViewController.h */,
+				1987B2261EE688F700BD852E /* SurveyAnnounceViewController.m */,
+			);
+			path = SurveyAnnounce;
+			sourceTree = "<group>";
+		};
+		1987B2271EE688F700BD852E /* SurveyAsk */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2281EE688F700BD852E /* SurveyDetailAskViewController.h */,
+				1987B2291EE688F700BD852E /* SurveyDetailAskViewController.m */,
+			);
+			path = SurveyAsk;
+			sourceTree = "<group>";
+		};
+		1987B22A1EE688F700BD852E /* SurveyMore */ = {
+			isa = PBXGroup;
+			children = (
+				1987B22B1EE688F700BD852E /* SurveyDownLoadHintViewController.h */,
+				1987B22C1EE688F700BD852E /* SurveyDownLoadHintViewController.m */,
+				1987B22D1EE688F700BD852E /* SurveyFontViewController.h */,
+				1987B22E1EE688F700BD852E /* SurveyFontViewController.m */,
+				1987B22F1EE688F700BD852E /* SurveyMoreViewController.h */,
+				1987B2301EE688F700BD852E /* SurveyMoreViewController.m */,
+			);
+			path = SurveyMore;
+			sourceTree = "<group>";
+		};
+		1987B2311EE688F700BD852E /* SurveyNiuXiong */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2321EE688F700BD852E /* SurveyDetailStockCommentViewController.h */,
+				1987B2331EE688F700BD852E /* SurveyDetailStockCommentViewController.m */,
+			);
+			path = SurveyNiuXiong;
+			sourceTree = "<group>";
+		};
+		1987B2341EE688F700BD852E /* SurveyPublish */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2351EE688F700BD852E /* AnsPublishViewController.h */,
+				1987B2361EE688F700BD852E /* AnsPublishViewController.m */,
+				1987B2371EE688F700BD852E /* AskPublishViewController.h */,
+				1987B2381EE688F700BD852E /* AskPublishViewController.m */,
+			);
+			path = SurveyPublish;
+			sourceTree = "<group>";
+		};
+		1987B2391EE688F700BD852E /* SurveySubBase */ = {
+			isa = PBXGroup;
+			children = (
+				1987B23A1EE688F700BD852E /* SurveyDetailContentViewController.h */,
+				1987B23B1EE688F700BD852E /* SurveyDetailContentViewController.m */,
+			);
+			path = SurveySubBase;
+			sourceTree = "<group>";
+		};
+		1987B23C1EE688F700BD852E /* SurveyWeb */ = {
+			isa = PBXGroup;
+			children = (
+				1987B23D1EE688F700BD852E /* SurveyDetailWebViewController.h */,
+				1987B23E1EE688F700BD852E /* SurveyDetailWebViewController.m */,
+			);
+			path = SurveyWeb;
+			sourceTree = "<group>";
+		};
+		1987B23F1EE688F700BD852E /* Manager */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Manager;
+			sourceTree = "<group>";
+		};
+		1987B2401EE688F700BD852E /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2411EE688F700BD852E /* AnsModel.h */,
+				1987B2421EE688F700BD852E /* AnsModel.m */,
+				1987B2431EE688F700BD852E /* AskModel.h */,
+				1987B2441EE688F700BD852E /* AskModel.m */,
+				1987B2451EE688F700BD852E /* StockAnnounceModel.h */,
+				1987B2461EE688F700BD852E /* StockAnnounceModel.m */,
+				1987B2471EE688F700BD852E /* StockCommentModel.h */,
+				1987B2481EE688F700BD852E /* StockCommentModel.m */,
+				1987B2491EE688F700BD852E /* StockHotModel.h */,
+				1987B24A1EE688F700BD852E /* StockHotModel.m */,
+				1987B24B1EE688F700BD852E /* StockInfoModel.h */,
+				1987B24C1EE688F700BD852E /* StockInfoModel.m */,
+				1987B24D1EE688F700BD852E /* StockSurveyModel.h */,
+				1987B24E1EE688F700BD852E /* StockSurveyModel.m */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		1987B24F1EE688F700BD852E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2501EE688F700BD852E /* NiuxiongSectionHeaderView.h */,
+				1987B2511EE688F700BD852E /* NiuxiongSectionHeaderView.m */,
+				1987B2521EE688F700BD852E /* StockAskView.h */,
+				1987B2531EE688F700BD852E /* StockAskView.m */,
+				1987B2541EE688F700BD852E /* StockHeaderView.h */,
+				1987B2551EE688F700BD852E /* StockHeaderView.m */,
+				1987B2561EE688F700BD852E /* StockShareView.h */,
+				1987B2571EE688F700BD852E /* StockShareView.m */,
+				1987B2581EE688F700BD852E /* SurveyAnsView.h */,
+				1987B2591EE688F700BD852E /* SurveyAnsView.m */,
+				1987B25A1EE688F700BD852E /* SurveyBottomToolView.h */,
+				1987B25B1EE688F700BD852E /* SurveyBottomToolView.m */,
+				1987B25C1EE688F700BD852E /* SurveyDetailSegmentView.h */,
+				1987B25D1EE688F700BD852E /* SurveyDetailSegmentView.m */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		1987B25E1EE688F700BD852E /* SurveyList */ = {
+			isa = PBXGroup;
+			children = (
+				1987B25F1EE688F700BD852E /* Cells */,
+				1987B2621EE688F700BD852E /* Controllers */,
+				1987B2691EE688F700BD852E /* Models */,
+			);
+			path = SurveyList;
+			sourceTree = "<group>";
+		};
+		1987B25F1EE688F700BD852E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2601EE688F700BD852E /* SurveryStockListCell.h */,
+				1987B2611EE688F700BD852E /* SurveryStockListCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1987B2621EE688F700BD852E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2631EE688F700BD852E /* SelectedSurveySubjectViewController.h */,
+				1987B2641EE688F700BD852E /* SelectedSurveySubjectViewController.m */,
+				1987B2651EE688F700BD852E /* SurveyContentListController.h */,
+				1987B2661EE688F700BD852E /* SurveyContentListController.m */,
+				1987B2671EE688F700BD852E /* SurveyListViewController.h */,
+				1987B2681EE688F700BD852E /* SurveyListViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1987B2691EE688F700BD852E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				1987B26A1EE688F700BD852E /* SurveyListModel.h */,
+				1987B26B1EE688F700BD852E /* SurveyListModel.m */,
+				1987B26C1EE688F700BD852E /* SurveyModel.h */,
+				1987B26D1EE688F700BD852E /* SurveyModel.m */,
+				1987B26E1EE688F700BD852E /* SurveySubjectModel.h */,
+				1987B26F1EE688F700BD852E /* SurveySubjectModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1987B29F1EE6894300BD852E /* VideoDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2A01EE6894300BD852E /* Cells */,
+				1987B2A41EE6894300BD852E /* Controllers */,
+				1987B2A71EE6894300BD852E /* Models */,
+				1987B2A81EE6894300BD852E /* Views */,
+			);
+			path = VideoDetail;
+			sourceTree = "<group>";
+		};
+		1987B2A01EE6894300BD852E /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2A11EE6894300BD852E /* VideoTitleTableViewCell.h */,
+				1987B2A21EE6894300BD852E /* VideoTitleTableViewCell.m */,
+				1987B2A31EE6894300BD852E /* VideoTitleTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1987B2A41EE6894300BD852E /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1987B2A51EE6894300BD852E /* VideoDetailViewController.h */,
+				1987B2A61EE6894300BD852E /* VideoDetailViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1987B2A71EE6894300BD852E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		1987B2A81EE6894300BD852E /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		19959B711E2C5D4300AB26DF /* Grade */ = {
@@ -3386,17 +3578,6 @@
 			);
 			path = MBProgressHUD;
 			sourceTree = "<group>";
-		};
-		19AA61EA1DAA24A300FB7E83 /* Detail */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CCA1E2EFFD9009270D5 /* StockDetail */,
-				197595201DED29FE006441BE /* VideoDetail */,
-				197595241DED29FE006441BE /* ViewpointDetail */,
-			);
-			name = Detail;
-			path = TDjuwairen/Modules/Detail;
-			sourceTree = SOURCE_ROOT;
 		};
 		19AF98161E24A7880097A585 /* LocationPicker */ = {
 			isa = PBXGroup;
@@ -3669,7 +3850,6 @@
 				193325701E4DAF7200E3D500 /* Setting */,
 				1955B3BA1D644D9800DC102E /* MyCenter */,
 				1955B4051D644D9800DC102E /* Search */,
-				19AA61EA1DAA24A300FB7E83 /* Detail */,
 				19F43C221E232C98001B72CD /* Video */,
 				1955B4121D644D9800DC102E /* SharpDesc */,
 				1955B42A1D644D9800DC102E /* Viewpoint */,
@@ -3886,15 +4066,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		19ECB9A71EAF1E570009F625 /* SurveyAnnounce */ = {
-			isa = PBXGroup;
-			children = (
-				19ECB9A81EAF1E700009F625 /* SurveyAnnounceViewController.h */,
-				19ECB9A91EAF1E700009F625 /* SurveyAnnounceViewController.m */,
-			);
-			path = SurveyAnnounce;
-			sourceTree = "<group>";
-		};
 		19F0073C1E31E5AE000A5F98 /* Recharge */ = {
 			isa = PBXGroup;
 			children = (
@@ -3931,198 +4102,6 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
-		19F00CCA1E2EFFD9009270D5 /* StockDetail */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CF81E2EFFD9009270D5 /* Model */,
-				19F00CFF1E2EFFD9009270D5 /* View */,
-				19F00CCB1E2EFFD9009270D5 /* Cell */,
-				19F00CF71E2EFFD9009270D5 /* Manager */,
-				19F00CD81E2EFFD9009270D5 /* Controller */,
-			);
-			path = StockDetail;
-			sourceTree = "<group>";
-		};
-		19F00CCB1E2EFFD9009270D5 /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				19ECB9B31EAF3EF60009F625 /* AnsTableViewCell.h */,
-				19ECB9B41EAF3EF60009F625 /* AnsTableViewCell.m */,
-				19ECB9B51EAF3EF60009F625 /* AnsTableViewCell.xib */,
-				19ECB9B61EAF3EF60009F625 /* AskTableViewCell.h */,
-				19ECB9B71EAF3EF60009F625 /* AskTableViewCell.m */,
-				19ECB9B81EAF3EF60009F625 /* AskTableViewCell.xib */,
-				19F00CD21E2EFFD9009270D5 /* NiuxiongTableViewCell.h */,
-				19F00CD31E2EFFD9009270D5 /* NiuxiongTableViewCell.m */,
-				19F00CD41E2EFFD9009270D5 /* NiuxiongTableViewCell.xib */,
-				19F00CD51E2EFFD9009270D5 /* SpotTableViewCell.h */,
-				19F00CD61E2EFFD9009270D5 /* SpotTableViewCell.m */,
-				19F00CD71E2EFFD9009270D5 /* SpotTableViewCell.xib */,
-				19F00D291E2F0B0C009270D5 /* HotTableViewCell.h */,
-				19F00D2A1E2F0B0C009270D5 /* HotTableViewCell.m */,
-				19F00D2B1E2F0B0C009270D5 /* HotTableViewCell.xib */,
-				19ECB9AB1EAF30DC0009F625 /* AskAndAnsTableViewCell.h */,
-				19ECB9AC1EAF30DC0009F625 /* AskAndAnsTableViewCell.m */,
-				19ECB9AD1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib */,
-			);
-			path = Cell;
-			sourceTree = "<group>";
-		};
-		19F00CD81E2EFFD9009270D5 /* Controller */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CDF1E2EFFD9009270D5 /* StockDetailViewController.h */,
-				19F00CE01E2EFFD9009270D5 /* StockDetailViewController.m */,
-				19ECB9A71EAF1E570009F625 /* SurveyAnnounce */,
-				19F00CD91E2EFFD9009270D5 /* Dialogue */,
-				19F00CDC1E2EFFD9009270D5 /* Spot */,
-				19F00D251E2F08FD009270D5 /* Hot */,
-				19F00CE11E2EFFD9009270D5 /* SurveyAsk */,
-				19F00CE41E2EFFD9009270D5 /* SurveyMore */,
-				19F00CE91E2EFFD9009270D5 /* SurveyNiuXiong */,
-				19F00CEC1E2EFFD9009270D5 /* SurveyPublish */,
-				19F00CF11E2EFFD9009270D5 /* SurveySubBase */,
-				19F00CF41E2EFFD9009270D5 /* SurveyWeb */,
-			);
-			path = Controller;
-			sourceTree = "<group>";
-		};
-		19F00CD91E2EFFD9009270D5 /* Dialogue */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CDA1E2EFFD9009270D5 /* DialogueViewController.h */,
-				19F00CDB1E2EFFD9009270D5 /* DialogueViewController.m */,
-			);
-			path = Dialogue;
-			sourceTree = "<group>";
-		};
-		19F00CDC1E2EFFD9009270D5 /* Spot */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CDD1E2EFFD9009270D5 /* SpotViewController.h */,
-				19F00CDE1E2EFFD9009270D5 /* SpotViewController.m */,
-			);
-			path = Spot;
-			sourceTree = "<group>";
-		};
-		19F00CE11E2EFFD9009270D5 /* SurveyAsk */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CE21E2EFFD9009270D5 /* SurveyDetailAskViewController.h */,
-				19F00CE31E2EFFD9009270D5 /* SurveyDetailAskViewController.m */,
-			);
-			path = SurveyAsk;
-			sourceTree = "<group>";
-		};
-		19F00CE41E2EFFD9009270D5 /* SurveyMore */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CE51E2EFFD9009270D5 /* SurveyFontViewController.h */,
-				19F00CE61E2EFFD9009270D5 /* SurveyFontViewController.m */,
-				19F00CE71E2EFFD9009270D5 /* SurveyMoreViewController.h */,
-				19F00CE81E2EFFD9009270D5 /* SurveyMoreViewController.m */,
-				4DE89CD31ED4298D00DB2520 /* SurveyDownLoadHintViewController.h */,
-				4DE89CD41ED4298D00DB2520 /* SurveyDownLoadHintViewController.m */,
-			);
-			path = SurveyMore;
-			sourceTree = "<group>";
-		};
-		19F00CE91E2EFFD9009270D5 /* SurveyNiuXiong */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CEA1E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.h */,
-				19F00CEB1E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.m */,
-			);
-			path = SurveyNiuXiong;
-			sourceTree = "<group>";
-		};
-		19F00CEC1E2EFFD9009270D5 /* SurveyPublish */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CED1E2EFFD9009270D5 /* AnsPublishViewController.h */,
-				19F00CEE1E2EFFD9009270D5 /* AnsPublishViewController.m */,
-				19F00CEF1E2EFFD9009270D5 /* AskPublishViewController.h */,
-				19F00CF01E2EFFD9009270D5 /* AskPublishViewController.m */,
-			);
-			path = SurveyPublish;
-			sourceTree = "<group>";
-		};
-		19F00CF11E2EFFD9009270D5 /* SurveySubBase */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CF21E2EFFD9009270D5 /* SurveyDetailContentViewController.h */,
-				19F00CF31E2EFFD9009270D5 /* SurveyDetailContentViewController.m */,
-			);
-			path = SurveySubBase;
-			sourceTree = "<group>";
-		};
-		19F00CF41E2EFFD9009270D5 /* SurveyWeb */ = {
-			isa = PBXGroup;
-			children = (
-				19F00CF51E2EFFD9009270D5 /* SurveyDetailWebViewController.h */,
-				19F00CF61E2EFFD9009270D5 /* SurveyDetailWebViewController.m */,
-			);
-			path = SurveyWeb;
-			sourceTree = "<group>";
-		};
-		19F00CF71E2EFFD9009270D5 /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
-		19F00CF81E2EFFD9009270D5 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				19F007361E31E4EF000A5F98 /* AnsModel.h */,
-				19F007371E31E4EF000A5F98 /* AnsModel.m */,
-				19F007381E31E4EF000A5F98 /* AskModel.h */,
-				19F007391E31E4EF000A5F98 /* AskModel.m */,
-				19F00CF91E2EFFD9009270D5 /* StockSurveyModel.h */,
-				19F00CFA1E2EFFD9009270D5 /* StockSurveyModel.m */,
-				19F00CFB1E2EFFD9009270D5 /* StockCommentModel.h */,
-				19F00CFC1E2EFFD9009270D5 /* StockCommentModel.m */,
-				19F00CFD1E2EFFD9009270D5 /* StockInfoModel.h */,
-				19F00CFE1E2EFFD9009270D5 /* StockInfoModel.m */,
-				19F00D221E2F0704009270D5 /* StockHotModel.h */,
-				19F00D231E2F0704009270D5 /* StockHotModel.m */,
-				19ECB9A41EAF1D670009F625 /* StockAnnounceModel.h */,
-				19ECB9A51EAF1D670009F625 /* StockAnnounceModel.m */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		19F00CFF1E2EFFD9009270D5 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				19F00D001E2EFFD9009270D5 /* NiuxiongSectionHeaderView.h */,
-				19F00D011E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m */,
-				19F00D021E2EFFD9009270D5 /* StockHeaderView.h */,
-				19F00D031E2EFFD9009270D5 /* StockHeaderView.m */,
-				19F00D041E2EFFD9009270D5 /* SurveyBottomToolView.h */,
-				19F00D051E2EFFD9009270D5 /* SurveyBottomToolView.m */,
-				19F00D061E2EFFD9009270D5 /* SurveyDetailSegmentView.h */,
-				19F00D071E2EFFD9009270D5 /* SurveyDetailSegmentView.m */,
-				19F00D341E3089B4009270D5 /* StockShareView.h */,
-				19F00D351E3089B4009270D5 /* StockShareView.m */,
-				19F00D3E1E309366009270D5 /* StockAskView.h */,
-				19F00D3F1E309366009270D5 /* StockAskView.m */,
-				19ECB9B01EAF34EF0009F625 /* SurveyAnsView.h */,
-				19ECB9B11EAF34EF0009F625 /* SurveyAnsView.m */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		19F00D251E2F08FD009270D5 /* Hot */ = {
-			isa = PBXGroup;
-			children = (
-				19F00D261E2F0935009270D5 /* HotViewController.h */,
-				19F00D271E2F0935009270D5 /* HotViewController.m */,
-			);
-			path = Hot;
-			sourceTree = "<group>";
-		};
 		19F00D301E307FEF009270D5 /* Share */ = {
 			isa = PBXGroup;
 			children = (
@@ -4139,21 +4118,9 @@
 		19F43C221E232C98001B72CD /* Video */ = {
 			isa = PBXGroup;
 			children = (
-				19F43C261E232FB2001B72CD /* Cell */,
-				19F43C231E232C98001B72CD /* VideoViewController.h */,
-				19F43C241E232C98001B72CD /* VideoViewController.m */,
+				1987B29F1EE6894300BD852E /* VideoDetail */,
 			);
 			path = Video;
-			sourceTree = "<group>";
-		};
-		19F43C261E232FB2001B72CD /* Cell */ = {
-			isa = PBXGroup;
-			children = (
-				19F43C271E232FB2001B72CD /* VideoListCell.h */,
-				19F43C281E232FB2001B72CD /* VideoListCell.m */,
-				19F43C291E232FB2001B72CD /* VideoListCell.xib */,
-			);
-			path = Cell;
 			sourceTree = "<group>";
 		};
 		19F43C5B1E235788001B72CD /* UIButton+Align */ = {
@@ -4776,14 +4743,12 @@
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
-				19ECB9BC1EAF3EF60009F625 /* AskTableViewCell.xib in Resources */,
 				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
 				9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
 				4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */,
-				19ECB9AF1EAF30DC0009F625 /* AskAndAnsTableViewCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
@@ -4792,14 +4757,14 @@
 				196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
-				19F00D2D1E2F0B0C009270D5 /* HotTableViewCell.xib in Resources */,
-				19F00D0D1E2EFFD9009270D5 /* NiuxiongTableViewCell.xib in Resources */,
 				19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */,
+				1987B27B1EE688F700BD852E /* SpotTableViewCell.xib in Resources */,
 				19517F2C1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib in Resources */,
 				19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */,
 				193419E81E78DF2B00F22788 /* selected.caf in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
 				9E614E541EACADAB0014DC0B /* PhoneNumViewController.xib in Resources */,
+				1987B2AA1EE6894300BD852E /* VideoTitleTableViewCell.xib in Resources */,
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
 				1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */,
@@ -4807,9 +4772,10 @@
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* StockGuessListCell.xib in Resources */,
 				193419AC1E76B4DB00F22788 /* AliveRoomHeaderView.xib in Resources */,
-				19F00D0F1E2EFFD9009270D5 /* SpotTableViewCell.xib in Resources */,
 				4DEFF1AE1ED7DAE3004E3267 /* AliveSearchStockCell.xib in Resources */,
 				19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */,
+				1987B2771EE688F700BD852E /* HotTableViewCell.xib in Resources */,
+				1987B2751EE688F700BD852E /* AskTableViewCell.xib in Resources */,
 				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
 				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
@@ -4819,10 +4785,10 @@
 				4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */,
 				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
 				193EF0781D392CB40043F3EB /* simkai.ttf in Resources */,
+				1987B2711EE688F700BD852E /* AnsTableViewCell.xib in Resources */,
 				4DF52C5C1ED6E0D6001D342D /* AliveSearchAllTypeViewController.xib in Resources */,
 				19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */,
 				19C2581A1E7649C200433D0D /* AliveMessageListCell.xib in Resources */,
-				19F43C2B1E232FB2001B72CD /* VideoListCell.xib in Resources */,
 				19D6B9F91E508E3C00475AA1 /* AccountManager.storyboard in Resources */,
 				194186E61DF90672000C5197 /* Register.storyboard in Resources */,
 				1978E0671EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib in Resources */,
@@ -4831,7 +4797,8 @@
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				193419E61E78DF2B00F22788 /* bloom.caf in Resources */,
 				4DE306B01EDFE75000A0D88C /* AliveSearchSurveyCell.xib in Resources */,
-				19ECB9BA1EAF3EF60009F625 /* AnsTableViewCell.xib in Resources */,
+				1987B2731EE688F700BD852E /* AskAndAnsTableViewCell.xib in Resources */,
+				1987B2791EE688F700BD852E /* NiuxiongTableViewCell.xib in Resources */,
 				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
@@ -4873,13 +4840,13 @@
 				190F65F41E36E73000B83ADF /* ChildOrderTableViewController.m in Sources */,
 				19C348741D3F76DB008ABD16 /* NSBundle+MJRefresh.m in Sources */,
 				9E2233D11E8B576F00B1FAC4 /* PlayGuessIndividua.m in Sources */,
+				1987B2941EE688F700BD852E /* StockShareView.m in Sources */,
 				19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */,
-				19F00D1C1E2EFFD9009270D5 /* StockCommentModel.m in Sources */,
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
 				195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
-				19F00D151E2EFFD9009270D5 /* SurveyMoreViewController.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
+				1987B2761EE688F700BD852E /* HotTableViewCell.m in Sources */,
 				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
 				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
@@ -4891,24 +4858,19 @@
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
 				19386ECC1E7188AD00D4426E /* AliveMasterModel.m in Sources */,
 				196F5EC91E54847700928B60 /* Base64.m in Sources */,
-				19F00D1E1E2EFFD9009270D5 /* NiuxiongSectionHeaderView.m in Sources */,
 				19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */,
 				4DD179EA1E77C00B00FBE66D /* MYPhotoBrowser.m in Sources */,
 				19B11CAC1D655B9E00BB4DF4 /* DDTTYLogger.m in Sources */,
 				19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */,
-				19F00D1A1E2EFFD9009270D5 /* SurveyDetailWebViewController.m in Sources */,
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
 				19517F2A1EE64B39009E24D1 /* AliveRoomNavigationBar.m in Sources */,
 				1955B4911D644D9800DC102E /* SharpModel.m in Sources */,
-				19ECB9AE1EAF30DC0009F625 /* AskAndAnsTableViewCell.m in Sources */,
 				8416DA831D6800E90098A412 /* CommentManagerModel.m in Sources */,
 				9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */,
-				19F00D201E2EFFD9009270D5 /* SurveyBottomToolView.m in Sources */,
 				19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
-				19194CE41E7FDDA800641085 /* SurveryStockListCell.m in Sources */,
 				9E2233CE1E8AB81B00B1FAC4 /* PlayListModel.m in Sources */,
 				19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */,
 				9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */,
@@ -4918,13 +4880,12 @@
 				19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */,
 				19386EE81E72432B00D4426E /* AliveListTableViewDelegate.m in Sources */,
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
-				19F00D211E2EFFD9009270D5 /* SurveyDetailSegmentView.m in Sources */,
 				19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */,
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
-				19F00D401E309366009270D5 /* StockAskView.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
+				1987B2801EE688F700BD852E /* SurveyAnnounceViewController.m in Sources */,
 				1968947A1E9CB307009F1741 /* IndividualStockRecordModel.m in Sources */,
 				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
 				19517F251EE56FA5009E24D1 /* ACActionSheet.m in Sources */,
@@ -4933,7 +4894,6 @@
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
-				19F00D181E2EFFD9009270D5 /* AskPublishViewController.m in Sources */,
 				19C2581D1E7649D200433D0D /* AliveMessageModel.m in Sources */,
 				193419B61E76B84B00F22788 /* AliveRoomViewController.m in Sources */,
 				190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */,
@@ -4947,9 +4907,7 @@
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
-				19F00D361E3089B4009270D5 /* StockShareView.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
-				19ECB9731EA84B070009F625 /* SelectedSurveySubjectViewController.m in Sources */,
 				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
@@ -4961,22 +4919,24 @@
 				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
+				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
-				19F0073B1E31E4EF000A5F98 /* AskModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
+				1987B29C1EE688F700BD852E /* SurveyListModel.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */,
-				19F00D121E2EFFD9009270D5 /* StockDetailViewController.m in Sources */,
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
 				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
 				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */,
 				1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
+				1987B2981EE688F700BD852E /* SurveryStockListCell.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
+				1987B2721EE688F700BD852E /* AskAndAnsTableViewCell.m in Sources */,
 				193419E41E78DF2B00F22788 /* DCPathButton.m in Sources */,
 				190F65FA1E36E73000B83ADF /* ExchangeModel.m in Sources */,
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
@@ -4985,15 +4945,16 @@
 				9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
 				84EE2AF71D929E48005D5C8C /* DetailPageViewController.m in Sources */,
+				1987B29E1EE688F700BD852E /* SurveySubjectModel.m in Sources */,
 				19E5F2861E1364CF00984DBC /* StockGuessModel.m in Sources */,
 				19AF98301E2609950097A585 /* SearchResultModel.m in Sources */,
 				8497E0651CEF0B2800D7D105 /* TAAnimatedDotView.m in Sources */,
 				190F65FB1E36E73000B83ADF /* OrderModel.m in Sources */,
 				84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
+				1987B2971EE688F700BD852E /* SurveyDetailSegmentView.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				1955B4961D644D9800DC102E /* ViewSpecialTableViewCell.m in Sources */,
-				19F00D1D1E2EFFD9009270D5 /* StockInfoModel.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */,
@@ -5003,10 +4964,12 @@
 				19B11CAB1D655B9E00BB4DF4 /* DDLog.m in Sources */,
 				19E5F2A51E13653200984DBC /* SQCommentTableViewCell.m in Sources */,
 				4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */,
+				1987B2811EE688F700BD852E /* SurveyDetailAskViewController.m in Sources */,
+				1987B2831EE688F700BD852E /* SurveyFontViewController.m in Sources */,
 				19E5F2A41E13653200984DBC /* SQTopicModel.m in Sources */,
 				194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */,
 				19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */,
-				19F00D2C1E2F0B0C009270D5 /* HotTableViewCell.m in Sources */,
+				1987B28D1EE688F700BD852E /* StockCommentModel.m in Sources */,
 				19E5F2A61E13653200984DBC /* SQTopicTableViewCell.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
 				19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */,
@@ -5017,7 +4980,6 @@
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
 				4D023BCA1E8E327500AB463E /* PlayIndividualUserModel.m in Sources */,
 				4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */,
-				19F00D141E2EFFD9009270D5 /* SurveyFontViewController.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
 				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,
 				9E2233C61E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m in Sources */,
@@ -5031,7 +4993,6 @@
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
 				84F9FDBF1CF80E0A00683791 /* ELCAsset.m in Sources */,
 				19959B861E2C5F4200AB26DF /* GradeView.m in Sources */,
-				19ECB9AA1EAF1E700009F625 /* SurveyAnnounceViewController.m in Sources */,
 				4D2D29ED1EDEAF3800545314 /* DeleteCollectionPopController.m in Sources */,
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
@@ -5040,21 +5001,19 @@
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
+				1987B27C1EE688F700BD852E /* DialogueViewController.m in Sources */,
 				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
 				190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */,
 				19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
-				19F0073A1E31E4EF000A5F98 /* AnsModel.m in Sources */,
-				19F43C251E232C98001B72CD /* VideoViewController.m in Sources */,
 				19193B311E03CE6D000A6AD2 /* UIImage+Color.m in Sources */,
 				19D6B9FD1E50902C00475AA1 /* AccouontManagerViewController.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
 				194186D81DF81284000C5197 /* SettingCompanyViewController.m in Sources */,
 				190F65F81E36E73000B83ADF /* MyWalletViewController.m in Sources */,
 				190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */,
-				19F00D281E2F0935009270D5 /* HotViewController.m in Sources */,
 				190F65ED1E36E73000B83ADF /* AwardAdressTableViewCell.m in Sources */,
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
 				1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */,
@@ -5063,15 +5022,16 @@
 				1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */,
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
 				1955B49C1D644D9800DC102E /* PhotoTextAttachment.m in Sources */,
-				19F00D101E2EFFD9009270D5 /* DialogueViewController.m in Sources */,
 				19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */,
-				19F43C2A1E232FB2001B72CD /* VideoListCell.m in Sources */,
 				9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */,
 				1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
+				1987B2841EE688F700BD852E /* SurveyMoreViewController.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
+				1987B28A1EE688F700BD852E /* AnsModel.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
 				19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */,
+				1987B2741EE688F700BD852E /* AskTableViewCell.m in Sources */,
 				194186C61DF81235000C5197 /* ViewManagerViewController.m in Sources */,
 				19194D161E80CBE900641085 /* ZFCWaveActivityIndicatorView.m in Sources */,
 				19C348681D3F76DB008ABD16 /* MJRefreshHeader.m in Sources */,
@@ -5096,16 +5056,15 @@
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
-				19ECB9A61EAF1D670009F625 /* StockAnnounceModel.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
 				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
-				19ECB9BB1EAF3EF60009F625 /* AskTableViewCell.m in Sources */,
+				1987B2901EE688F700BD852E /* StockSurveyModel.m in Sources */,
 				1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */,
+				1987B2951EE688F700BD852E /* SurveyAnsView.m in Sources */,
 				19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */,
-				19F00D1F1E2EFFD9009270D5 /* StockHeaderView.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */,
@@ -5113,8 +5072,10 @@
 				19194CCC1E7FACC400641085 /* UIViewController+Login.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
 				19959B891E2C694A00AB26DF /* GradeHeaderView.m in Sources */,
+				1987B2861EE688F700BD852E /* AnsPublishViewController.m in Sources */,
 				190F65F61E36E73000B83ADF /* KeysRecordViewController.m in Sources */,
 				1955B4901D644D9800DC102E /* CommentsModel.m in Sources */,
+				1987B2A91EE6894300BD852E /* VideoTitleTableViewCell.m in Sources */,
 				19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */,
 				1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */,
 				4DD179E81E77C00B00FBE66D /* UIImage+blankImage.m in Sources */,
@@ -5125,13 +5086,13 @@
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
 				19AF98241E24AB270097A585 /* MyGuessViewController.m in Sources */,
 				19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */,
+				1987B2931EE688F700BD852E /* StockHeaderView.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
 				1936AF301EB3212600408D6F /* NJKWebViewProgressView.m in Sources */,
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
-				19194CE71E7FDDA800641085 /* SurveyContentListController.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
 				19B11CAE1D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m in Sources */,
 				194186DA1DF81284000C5197 /* SettingNickNameViewController.m in Sources */,
@@ -5143,25 +5104,26 @@
 				19D6A3031E0D0126008368F4 /* STPopupControllerTransitioningFade.m in Sources */,
 				19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */,
 				1955B48F1D644D9800DC102E /* SharpTags.m in Sources */,
-				19F00D191E2EFFD9009270D5 /* SurveyDetailContentViewController.m in Sources */,
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				1955B4A01D644D9800DC102E /* ViewPointListModel.m in Sources */,
-				19ECB9B91EAF3EF60009F625 /* AnsTableViewCell.m in Sources */,
+				1987B2961EE688F700BD852E /* SurveyBottomToolView.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
-				19194D051E7FDED000641085 /* SurveyListModel.m in Sources */,
 				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
+				1987B29B1EE688F700BD852E /* SurveyListViewController.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
 				1966A6551E8BB81C007DDA14 /* DYRefresh.m in Sources */,
-				19F00D111E2EFFD9009270D5 /* SpotViewController.m in Sources */,
 				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,
 				19F0074E1E31E5AE000A5F98 /* StockUnlockViewController.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				84EE2AFE1D93636B005D5C8C /* TitleforDetailView.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,
+				1987B27E1EE688F700BD852E /* SpotViewController.m in Sources */,
 				19C3486D1D3F76DB008ABD16 /* MJRefreshBackNormalFooter.m in Sources */,
+				1987B28E1EE688F700BD852E /* StockHotModel.m in Sources */,
 				19C258021E753DA300433D0D /* AliveEditMasterViewController.m in Sources */,
+				1987B2891EE688F700BD852E /* SurveyDetailWebViewController.m in Sources */,
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
-				19194CE81E7FDDA800641085 /* SurveyListViewController.m in Sources */,
+				1987B2991EE688F700BD852E /* SelectedSurveySubjectViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */,
 				4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */,
@@ -5170,15 +5132,15 @@
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				1933257C1E4DAF7200E3D500 /* MessageChildTableViewController.m in Sources */,
 				19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */,
-				19F00D1B1E2EFFD9009270D5 /* StockSurveyModel.m in Sources */,
 				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
-				19F00D0E1E2EFFD9009270D5 /* SpotTableViewCell.m in Sources */,
 				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
+				1987B28B1EE688F700BD852E /* AskModel.m in Sources */,
+				1987B2921EE688F700BD852E /* StockAskView.m in Sources */,
 				19194CC91E7FAC3700641085 /* PlayIndividualStockViewController.m in Sources */,
-				4DE89CD51ED4298D00DB2520 /* SurveyDownLoadHintViewController.m in Sources */,
 				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
 				19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */,
+				1987B27A1EE688F700BD852E /* SpotTableViewCell.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
 				1924DFEB1D62B49C00FEC383 /* AFURLResponseSerialization.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
@@ -5187,18 +5149,21 @@
 				4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */,
 				4D2D29F01EDEC5BA00545314 /* AliveSearchResultModel.m in Sources */,
 				4DD179EB1E77C00B00FBE66D /* MYRollScrollView.m in Sources */,
+				1987B28F1EE688F700BD852E /* StockInfoModel.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
-				19F00D171E2EFFD9009270D5 /* AnsPublishViewController.m in Sources */,
-				19F00D241E2F0704009270D5 /* StockHotModel.m in Sources */,
+				1987B2911EE688F700BD852E /* NiuxiongSectionHeaderView.m in Sources */,
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,
 				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
 				193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */,
+				1987B28C1EE688F700BD852E /* StockAnnounceModel.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
-				19194D061E7FDED000641085 /* SurveyModel.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
 				9E22E96A1EAEFE540029F18D /* FirmPlatListModel.m in Sources */,
+				1987B27F1EE688F700BD852E /* StockDetailViewController.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
+				1987B2AB1EE6894300BD852E /* VideoDetailViewController.m in Sources */,
+				1987B29D1EE688F700BD852E /* SurveyModel.m in Sources */,
 				193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */,
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,
@@ -5208,7 +5173,6 @@
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
 				9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */,
-				19F00D131E2EFFD9009270D5 /* SurveyDetailAskViewController.m in Sources */,
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
@@ -5221,36 +5185,38 @@
 				1955B49D1D644D9800DC102E /* SpecialModel.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
+				1987B2781EE688F700BD852E /* NiuxiongTableViewCell.m in Sources */,
 				190F65F11E36E73000B83ADF /* NoOrderTableViewCell.m in Sources */,
 				19C3486F1D3F76DB008ABD16 /* MJRefreshGifHeader.m in Sources */,
 				19D6A3081E0D0126008368F4 /* UIViewController+STPopup.m in Sources */,
 				19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */,
 				84E3346D1CE3123700E5DCEE /* UIImage+GIF.m in Sources */,
 				196B8C031DFA4EC500084894 /* MBProgressHUD+Custom.m in Sources */,
+				1987B2851EE688F700BD852E /* SurveyDetailStockCommentViewController.m in Sources */,
 				1955B4921D644D9800DC102E /* BackCommentView.m in Sources */,
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
-				19F00D161E2EFFD9009270D5 /* SurveyDetailStockCommentViewController.m in Sources */,
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
 				190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */,
 				1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */,
+				1987B2701EE688F700BD852E /* AnsTableViewCell.m in Sources */,
+				1987B29A1EE688F700BD852E /* SurveyContentListController.m in Sources */,
 				1953CB0C1E7172DB00A64B3C /* AliveListImagesView.m in Sources */,
 				190F65F21E36E73000B83ADF /* OrderDetailTableViewCell.m in Sources */,
+				1987B2821EE688F700BD852E /* SurveyDownLoadHintViewController.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
 				19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */,
 				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,
 				194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */,
 				19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */,
-				19F00D0C1E2EFFD9009270D5 /* NiuxiongTableViewCell.m in Sources */,
-				19ECB9B21EAF34EF0009F625 /* SurveyAnsView.m in Sources */,
 				193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */,
 				84E333EC1CE2BA3D00E5DCEE /* main.m in Sources */,
-				19194D091E7FDF0500641085 /* SurveySubjectModel.m in Sources */,
 				1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */,
 				190F65F71E36E73000B83ADF /* MyOrderViewController.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
 				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
+				1987B27D1EE688F700BD852E /* HotViewController.m in Sources */,
 				1978E0661EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m in Sources */,
 				19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
@@ -5265,6 +5231,7 @@
 				19347E511E0E3E5200E651B5 /* StockGuessListCell.m in Sources */,
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
+				1987B2871EE688F700BD852E /* AskPublishViewController.m in Sources */,
 				4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,
