@@ -12,14 +12,16 @@
 @class AliveRoomHeaderView;
 @protocol AliveRoomHeaderViewDelegate <NSObject>
 
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView fansListPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender;
+
+@optional
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView messagePressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender;
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender;
-- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView guestRulePressed:(id)sender;
 @end
 
 @interface AliveRoomHeaderView : UIView
