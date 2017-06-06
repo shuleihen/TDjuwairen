@@ -17,7 +17,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *stockLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 
-@property (nonatomic, strong) UIImageView *typeImageView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *stockLabelLayoutW;
 
 @end
 
@@ -26,8 +26,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     [self.stockLabel addBorder:1 borderColor:TDThemeColor];
-    _typeImageView = [[UIImageView alloc] init];
-    [self.contentView addSubview:_typeImageView];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -35,27 +33,39 @@
 
 }
 
-- (void)setSurveyModel:(AliveSearchResultModel *)surveyModel {
-    _surveyModel = surveyModel;
-    self.surveyTitleLabel.text = surveyModel.survey_title;
-    self.stockLabel.text = [NSString stringWithFormat:@"%@(%@)",surveyModel.company_name,surveyModel.company_code];
-    self.stockLabel.frame = CGRectMake(12, CGRectGetMidY(self.stockLabel.frame), CGRectGetWidth(self.stockLabel.frame)+8, CGRectGetHeight(self.stockLabel.frame)+4);
-    self.dateLabel.text = surveyModel.surveyAddtime;
-    _typeImageView.image = [self imageWithSurveyType:[surveyModel.survey_type integerValue]];
+
++ (CGFloat)heightWithAliveModel:(AliveSearchResultModel *)model {
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.survey_title attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(2, -2, 17, 17);
+    attatch.image = [UIImage imageNamed:@"type_shi.png"];
+    NSAttributedString *video = [NSAttributedString attributedStringWithAttachment:attatch];
+    [attri appendAttributedString:video];
+    
+    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    return size.height + 52;
 }
 
-- (void)layoutSubviews {
-    CGFloat cellW = [self.surveyTitleLabel.text calculateSize:CGSizeMake(CGFLOAT_MAX, 17) font:[UIFont systemFontOfSize:17.0f]].width;
-    CGFloat cellH = [self.surveyTitleLabel.text calculateSize:CGSizeMake(kScreenWidth-24, CGFLOAT_MAX) font:[UIFont systemFontOfSize:17.0f]].height;
-    NSInteger row = cellW/(kScreenWidth-24);
-    CGFloat orginX = cellW-row*(kScreenWidth-24);
-    if (orginX+17+12>(kScreenWidth-24)) {
-       _typeImageView.frame = CGRectMake(12, 12+cellH+8, 17, 17);
-    }else {
-        _typeImageView.frame = CGRectMake(orginX+24, 12+cellH-18, 17, 17);
-    }
+
+- (void)setSurveyModel:(AliveSearchResultModel *)surveyModel {
+    _surveyModel = surveyModel;
     
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:surveyModel.survey_title attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(2, -2, 17, 17);
+    attatch.image = [self imageWithSurveyType:[surveyModel.survey_type integerValue]];
+    
+    NSAttributedString *surveyTitleAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
+    [attri appendAttributedString:surveyTitleAttriStr];
+    self.surveyTitleLabel.attributedText = attri;
+    self.stockLabel.text = [NSString stringWithFormat:@"%@(%@)",surveyModel.company_name,surveyModel.company_code];
+    self.dateLabel.text = surveyModel.surveyAddtime;
+    self.stockLabelLayoutW.constant = [self.stockLabel.text calculateSize:CGSizeMake(CGFLOAT_MAX, 20) font:[UIFont systemFontOfSize:12.0]].width+8;
 }
+
 
 
 + (instancetype)loadAliveSearchSurveyCellWithTableView:(UITableView *)tableView {

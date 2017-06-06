@@ -25,7 +25,11 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="恒泰艾普（300157）" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="byg-ZL-It4">
-                        <rect key="frame" x="12" y="73" width="117" height="15"/>
+                        <rect key="frame" x="12" y="68" width="117" height="20"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="117" id="lwi-9N-sUg"/>
+                            <constraint firstAttribute="height" constant="20" id="pV5-SW-X34"/>
+                        </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -50,9 +54,10 @@
             <connections>
                 <outlet property="dateLabel" destination="vkh-eh-HFa" id="zvv-r1-7jG"/>
                 <outlet property="stockLabel" destination="byg-ZL-It4" id="43m-Ep-rt0"/>
+                <outlet property="stockLabelLayoutW" destination="lwi-9N-sUg" id="PBX-3x-gCK"/>
                 <outlet property="surveyTitleLabel" destination="xEI-hp-UeH" id="Pgg-K6-QM7"/>
             </connections>
-            <point key="canvasLocation" x="-359" y="1"/>
+            <point key="canvasLocation" x="-262" y="-58"/>
         </tableViewCell>
     </objects>
 </document>

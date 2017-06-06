@@ -11,5 +11,6 @@
 @interface AliveSearchSurveyCell : UITableViewCell
 @property (strong, nonatomic) AliveSearchResultModel *surveyModel;
 + (instancetype)loadAliveSearchSurveyCellWithTableView:(UITableView *)tableView;
++ (CGFloat)heightWithAliveModel:(AliveSearchResultModel *)model;
 
 @end
