@@ -26,6 +26,8 @@
 #import "DetailPageViewController.h"
 #import "AliveSearchSurveyCell.h"
 #import "NSString+Ext.h"
+#import "AliveDetailViewController.h"
+#import "SurveyDetailWebViewController.h"
 
 
 @interface AliveSearchSubTypeController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,AliveSearchStockCellDelegate,AliveSearchUserCellDelegate>
@@ -38,6 +40,7 @@
 @property (assign, nonatomic) NSInteger currentPage;
 @property (copy, nonatomic) NSString *filterStr;
 @property (strong, nonatomic) NSArray *saveResultArr;
+@property (assign, nonatomic) BOOL isLoadMore;
 
 @end
 
@@ -56,6 +59,7 @@
     self.filterBtnSelected = NO;
     self.currentPage = 1;
     self.filterStr = @"";
+    self.isLoadMore = NO;
     self.searchQueue = [NSMutableArray arrayWithCapacity:10];
     [self configTableViewUI];
     [self setupWithSearchBar];
@@ -69,6 +73,12 @@
 {
     [super viewWillAppear:animated];
     [self.customSearchBar becomeFirstResponder];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+
+    [super viewWillDisappear:animated];
+    [self.customSearchBar resignFirstResponder];
 }
 
 - (void)configTableViewUI {
@@ -113,11 +123,12 @@
 #pragma mark - loadSearchData
 - (void)refreshActions {
     self.currentPage = 1;
+    self.isLoadMore = NO;
     [self loadSearchData];
 }
 
 - (void)loadMoreActions {
-    
+    self.isLoadMore = YES;
     [self loadSearchData];
 }
 
@@ -188,7 +199,7 @@
                 }
                     break;
                 case AliveSearchSubSurveyType:
-                    //
+                    
                 {
                     if (arrM) {
                         wself.searchResultData.sectionTitle = @"调研";
@@ -208,27 +219,34 @@
                 }
                     break;
                 case AliveSearchSubTopicType:
-                    //
+                    
                 {
+                    
                     if (arrM) {
                         wself.searchResultData.sectionTitle = @"话题";
                         
                         NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[arrM count]];
                         
                         for (NSDictionary *dict in arrM) {
-                            AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithTopicListDict:dict];
+                            AliveListModel *result = [[AliveListModel alloc] initWithDictionary:dict];
                             [marray addObject:result];
                         }
                         
                         if (marray.count > 0) {
-                            [tempArrM addObjectsFromArray:marray];
+                            NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:marray.count];
+                            for (AliveListModel *model in marray) {
+                                AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+                                cellData.isShowDetail = NO;
+                                [cellData setup];
+                                [cellArray addObject:cellData];
+                            }
                             
+                            [tempArrM addObjectsFromArray:cellArray];
                         }
                     }
                 }
                     break;
                 case AliveSearchSubPasteType:
-                    //
                 {
                     if (arrM) {
                         wself.searchResultData.sectionTitle = @"贴单";
@@ -236,13 +254,20 @@
                         NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[arrM count]];
                         
                         for (NSDictionary *dict in arrM) {
-                            AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithTopicListDict:dict];
+                            AliveListModel *result = [[AliveListModel alloc] initWithDictionary:dict];
                             [marray addObject:result];
                         }
                         
                         if (marray.count > 0) {
-                            [tempArrM addObjectsFromArray:marray];
+                            NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:marray.count];
+                            for (AliveListModel *model in marray) {
+                                AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
+                                cellData.isShowDetail = NO;
+                                [cellData setup];
+                                [cellArray addObject:cellData];
+                            }
                             
+                            [tempArrM addObjectsFromArray:cellArray];
                         }
                     }
                 }
@@ -285,17 +310,17 @@
             NSMutableArray *filterArrM = [NSMutableArray array];
             if (self.filterBtnSelected == YES) {
                 // 只看关注
-                for (AliveSearchResultModel *model in self.saveResultArr) {
+                for (AliveListCellData *cellModel in self.saveResultArr) {
+                    AliveListModel *model = cellModel.aliveModel;
                     if (model.isAttend == YES) {
                         [filterArrM addObject:model];
                     }
                 }
-                self.searchResultData.items = [filterArrM mutableCopy];
+                               self.searchResultData.items = [filterArrM mutableCopy];
             }else {
                 self.searchResultData.items = [self.saveResultArr mutableCopy];
                 
             }
-            
             
             [wself.tableView reloadData];
             
@@ -308,13 +333,17 @@
             }
             self.currentPage++;
             
-        } else {
+        }
+        else {
+            
+            if (self.isLoadMore == NO) {
+                wself.searchResultData = nil;
+                [wself.tableView reloadData];
+                self.tableView.hidden = YES;
+                self.noDataView.hidden = NO;
+            }
             [wself.tableView.mj_header endRefreshing];
             [wself.tableView.mj_footer endRefreshing];
-            wself.searchResultData = nil;
-            [wself.tableView reloadData];
-            self.tableView.hidden = YES;
-            self.noDataView.hidden = NO;
         }
     }];
     
@@ -355,8 +384,7 @@
     }
     else
     {
-        self.currentPage = 1;
-        [self loadSearchData];
+        [self refreshActions];
         
     }
 }
@@ -374,8 +402,15 @@
     if (self.searchType == AliveSearchSubUserType || self.searchType == AliveSearchSubStockType) {
         return 1;
     }else {
+        if (self.searchType == AliveSearchSubTopicType || self.searchType == AliveSearchSubPasteType) {
+            
+            return MAX([self.searchResultData.items count], 1);
+            
+        }else {
+            
+            return [self.searchResultData.items count];
+        }
         
-        return [self.searchResultData.items count];
     }
     
 }
@@ -384,25 +419,26 @@
     if (self.searchType == AliveSearchSubUserType || self.searchType == AliveSearchSubStockType) {
         return [self.searchResultData.items count];
     }else {
-        return 1;
+        return [self.searchResultData.items count]<=0?0:1;
         
     }
     
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
     if ([self.searchResultData.sectionTitle isEqualToString:@"用户"]) {
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.row];
         
         AliveSearchUserCell *userCell = [AliveSearchUserCell loadAliveSearchUserCellWithTableView:tableView];
         userCell.delegate = self;
-        userCell.tag = indexPath.section*100+indexPath.row;
+        userCell.tag = indexPath.row;
         userCell.userModel = result;
         return userCell;
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.row];
         AliveSearchStockCell *stockCell = [AliveSearchStockCell loadAliveSearchStockCellWithTableView:tableView];
-        stockCell.tag = indexPath.section*100+indexPath.row;
+        stockCell.tag = indexPath.row;
         stockCell.delegate = self;
         stockCell.stockModel = result;
         return stockCell;
@@ -411,7 +447,7 @@
         AliveSearchSurveyCell *surveyCell = [AliveSearchSurveyCell loadAliveSearchSurveyCellWithTableView:tableView];
         surveyCell.surveyModel = result;
         return surveyCell;
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
+    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"] || [self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
         AliveListCellData *model = self.searchResultData.items[indexPath.section];
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
         cell.arrowButton.hidden = YES;
@@ -433,14 +469,12 @@
     if ([self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
         vc.stockCode = result.company_code;
-        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else  if ([self.searchResultData.sectionTitle isEqualToString:@"用户"]) {
         if (result.userID.length<= 0) {
             return;
         }
         AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:result.userID];
-        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else  if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
         AliveListCellData *cellModel = self.searchResultData.items[indexPath.section];
@@ -452,8 +486,29 @@
         DetailPageViewController *detail = [[DetailPageViewController alloc]init];
         detail.view_id = model.aliveId;
         detail.pageMode = @"view";
-        [detail setHidesBottomBarWhenPushed:YES];
         [self.navigationController pushViewController:detail animated:YES];
+    }else if ([self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
+        AliveListCellData *cellModel = self.searchResultData.items[indexPath.section];
+        AliveListModel *model = cellModel.aliveModel;
+        if (model.aliveId.length<= 0) {
+            return;
+        }
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.alive_ID = model.aliveId;
+        vc.alive_type = [self.searchResultData.sectionTitle isEqualToString:@"贴单"]?@"2":@"1";
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }else {
+    // 调研
+        AliveSearchResultModel *model = self.searchResultData.items[indexPath.section];
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.survey_id;
+        vc.stockCode = model.company_code;
+        vc.stockName = model.company_name;
+        vc.tag = 0;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.survey_id withTag:@"0"];
+        [self.navigationController pushViewController:vc animated:YES];
+        
     }
     
 }
@@ -484,10 +539,9 @@
     filterButton.selected = self.filterBtnSelected;
     [headerV addSubview:filterButton];
     
-    if (self.searchType == AliveSearchSubUserType || self.searchType == AliveSearchSubTopicType || self.searchType == AliveSearchSubPasteType) {
+    if (self.searchType == AliveSearchSubTopicType || self.searchType == AliveSearchSubPasteType || self.searchType == AliveSearchSubViewPointType) {
         filterButton.hidden = NO;
     }else {
-        
         filterButton.hidden = YES;
     }
     
@@ -520,9 +574,13 @@
         
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
         return [AliveSearchSurveyCell heightWithAliveModel:result];
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
-        AliveListCellData *cellData = self.searchResultData.items[indexPath.section];
-        return cellData.cellHeight;
+    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"] || [self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
+        if ([self.searchResultData.items count] <= 0) {
+            return CGFLOAT_MIN;
+        }else {
+            AliveListCellData *cellData = self.searchResultData.items[indexPath.section];
+            return cellData.cellHeight;
+        }
     }else {
         return CGFLOAT_MIN;
     }
@@ -642,8 +700,6 @@
     if (userModel.userID.length <= 0) {
         return ;
     }
-    NSInteger section = index/100;
-    NSInteger row = index%100;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     
     NSString *str = API_AliveAddAttention;
@@ -669,7 +725,17 @@
                 }
                 [hud hide:YES afterDelay:0.5];
                 userModel.isAttend = !userModel.isAttend;
-                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
+                
+                for (AliveSearchResultModel *model in self.saveResultArr) {
+                    if ([userModel.userID isEqualToString:model.userID]) {
+                        model.isAttend = userModel.isAttend;
+                    }
+                }
+                
+                
+                [self.tableView beginUpdates];
+                [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
+                [self.tableView endUpdates];
                 
             }
         } else {
@@ -706,11 +772,22 @@
     if (self.filterBtnSelected == YES) {
         self.filterStr = @"attend";
         // 只看关注
-        for (AliveSearchResultModel *model in self.saveResultArr) {
+        
+        //        if (self.searchType ==AliveSearchSubPasteType || self.searchType ==AliveSearchSubTopicType || self.searchType ==AliveSearchSubViewPointType) {
+        for (AliveListCellData *cellModel in self.saveResultArr) {
+            AliveListModel *model = cellModel.aliveModel;
             if (model.isAttend == YES) {
                 [arrM addObject:model];
             }
         }
+        //        }else {
+        //
+        //            for (AliveSearchResultModel *model in self.saveResultArr) {
+        //                if (model.isAttend == YES) {
+        //                    [arrM addObject:model];
+        //                }
+        //            }
+        //        }
         self.searchResultData.items = [arrM mutableCopy];
     }else {
         self.filterStr = @"";
@@ -756,7 +833,6 @@
         }
             
             break;
-            
             
         default:
             break;
