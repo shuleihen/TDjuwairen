@@ -76,7 +76,7 @@
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
-
+    
     [super viewWillDisappear:animated];
     [self.customSearchBar resignFirstResponder];
 }
@@ -313,10 +313,10 @@
                 for (AliveListCellData *cellModel in self.saveResultArr) {
                     AliveListModel *model = cellModel.aliveModel;
                     if (model.isAttend == YES) {
-                        [filterArrM addObject:model];
+                        [filterArrM addObject:cellModel];
                     }
                 }
-                               self.searchResultData.items = [filterArrM mutableCopy];
+                self.searchResultData.items = [filterArrM mutableCopy];
             }else {
                 self.searchResultData.items = [self.saveResultArr mutableCopy];
                 
@@ -499,7 +499,7 @@
         [self.navigationController pushViewController:vc animated:YES];
         
     }else {
-    // 调研
+        // 调研
         AliveSearchResultModel *model = self.searchResultData.items[indexPath.section];
         SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
         vc.contentId = model.survey_id;
@@ -767,27 +767,16 @@
 // 筛选列表
 - (void)filterButtonClick:(UIButton *)sender {
     self.filterBtnSelected = !self.filterBtnSelected;
-    
     NSMutableArray *arrM = [NSMutableArray array];
     if (self.filterBtnSelected == YES) {
         self.filterStr = @"attend";
         // 只看关注
-        
-        //        if (self.searchType ==AliveSearchSubPasteType || self.searchType ==AliveSearchSubTopicType || self.searchType ==AliveSearchSubViewPointType) {
         for (AliveListCellData *cellModel in self.saveResultArr) {
             AliveListModel *model = cellModel.aliveModel;
             if (model.isAttend == YES) {
-                [arrM addObject:model];
+                [arrM addObject:cellModel];
             }
         }
-        //        }else {
-        //
-        //            for (AliveSearchResultModel *model in self.saveResultArr) {
-        //                if (model.isAttend == YES) {
-        //                    [arrM addObject:model];
-        //                }
-        //            }
-        //        }
         self.searchResultData.items = [arrM mutableCopy];
     }else {
         self.filterStr = @"";
