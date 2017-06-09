@@ -9,109 +9,65 @@
 #import "AliveListCellData.h"
 #import "TTTAttributedLabel.h"
 
+#define kAliveListMessageLineLimit 5
+
+@interface AliveListCellData ()
+
+- (NSAttributedString *)stringWithAliveMessage:(NSString *)message withSize:(CGSize)size isAppendingShowAll:(BOOL)isShowAll isAppendingShowImg:(BOOL)isShowImg;
+
+- (CGFloat)imagesViewHeightWithImages:(NSArray *)images;
+
+- (CGFloat)tagsViewHeightWithTags:(NSArray *)tags withLimitWidth:(CGFloat)limitWidth;
+
+@end
+
 @implementation AliveListCellData
+
++ (AliveListCellData *)cellDataWithAliveModel:(AliveListModel *)model {
+    
+    AliveListCellData *cellData = nil;
+    
+    if (model.isForward) {
+        cellData = [[AliveListForwardCellData alloc] initWithAliveModel:model];
+    } else {
+        switch (model.aliveType) {
+            case kAliveNormal:
+            case kAlivePosts:
+            {
+                cellData = [[AliveListPostCellData alloc] initWithAliveModel:model];
+            }
+                break;
+            case kAliveViewpoint: {
+                cellData = [[AliveListViewpointCellData alloc] initWithAliveModel:model];
+            }
+                break;
+            case kAliveHot:
+            case kAliveSurvey:
+            case kAliveVideo:{
+                cellData = [[AliveListSurveyCellData alloc] initWithAliveModel:model];
+            }
+                break;
+            default:
+                NSAssert(NO, @"直播类型不支持");
+                break;
+        }
+    }
+    
+    return cellData;
+}
 
 - (id)initWithAliveModel:(AliveListModel *)aliveModel {
     if (self = [super init]) {
-        self.aliveModel = aliveModel;
-        self.isShowTiedan = (aliveModel.aliveType == kAlivePosts)?NO:YES;
-        self.isShowViewpointImageView = (aliveModel.aliveType == kAliveViewpoint);
-        
-        if (!aliveModel.isForward) {
-            self.isShowReviewImageButton = NO;
-            
-            if (self.isShowViewpointImageView) {
-                self.isShowImgView = NO;
-            } else {
-                self.isShowImgView = aliveModel.aliveImgs.count?YES:NO;
-            }
-        } else {
-            // 转发有图片才提示“查看图片”，不显示图片
-            self.isShowReviewImageButton = (aliveModel.aliveImgs.count>0)?YES:NO;
-            self.isShowImgView = NO;
-        }
-        
-        self.isShowTags = (aliveModel.aliveTags.count>0);
+        _aliveModel = aliveModel;
     }
     return self;
 }
 
 - (void)setup {
     
-    if (self.aliveModel.aliveType == kAliveHot ||
-        self.aliveModel.aliveType == kAliveSurvey ||
-        self.aliveModel.aliveType == kAliveVideo) {
-        self.cellHeight = [self surveyHeightWithAliveModel:self.aliveModel];
-        return;
-    }
-    
-    CGFloat left = 12.0f;
-    CGFloat right = 12.0f;
-    CGFloat contentWidht = kScreenWidth-left-right;
-    CGFloat height = 0;
-    
-    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
-                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
-                             isAppendingShowAll:self.isShowDetail
-                             isAppendingShowImg:self.isShowReviewImageButton];
-    
-    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
-                                     withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
-                              limitedToNumberOfLines:0];
-    
-    self.messageLabelFrame = CGRectMake(left, 62, contentWidht, messageSize.height);
-    
-    height = CGRectGetMaxY(self.messageLabelFrame);
-    
-    if (self.aliveModel.isForward) {
-        self.imgsViewFrame = CGRectZero;
-        
-        if (self.message.string.length == 0) {
-            // 转发分享，没有标题内容
-            self.forwardFrame = CGRectMake(left, 62, contentWidht, 80);
-        } else {
-            self.forwardFrame = CGRectMake(left, height+10, contentWidht, 80);
-        }
-        
-        height = CGRectGetMaxY(self.forwardFrame) + 11.0f;
-        
-    } else {
-        
-        if (self.isShowViewpointImageView) {
-            // 直播观点图片显示
-            self.viewpointImageViewFrame = CGRectMake(left, height+10, contentWidht, 178);
-            
-            height = CGRectGetMaxY(self.viewpointImageViewFrame);
-        } else {
-            // 直播图文和贴单图片显示
-            BOOL isHaveImage = (self.aliveModel.aliveImgs.count>0);
-            
-            if (isHaveImage) {
-                CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
-                self.imgsViewFrame = CGRectMake(left, height+10, contentWidht, imagesViewHeight);
-            } else {
-                self.imgsViewFrame = CGRectMake(left, height, 0, 0);
-            }
-            
-            height = CGRectGetMaxY(self.imgsViewFrame);
-        }
-        
-        
-        // 标签
-        if (self.isShowTags) {
-            CGFloat tagsViewHeight = [self tagsViewHeightWithTags:self.aliveModel.aliveTags withLimitWidth:contentWidht];
-            self.tagsFrame = CGRectMake(left, height+10, contentWidht, tagsViewHeight);
-        } else {
-            self.tagsFrame = CGRectMake(left, height, 0, 0);
-        }
-        
-        height = CGRectGetMaxY(self.tagsFrame)+11;
-    }
-    
-    self.cellHeight = height;
 }
 
-- (CGFloat)tagsViewHeightWithTags:(NSArray *)tags withLimitWidth:(CGFloat)limitWidth{
+- (CGFloat)tagsViewHeightWithTags:(NSArray *)tags withLimitWidth:(CGFloat)limitWidth {
     CGFloat height = 0;
     
     CGFloat offx=0,offy=0;
@@ -174,8 +130,8 @@
         
         CGSize textSize = [msg boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
         
-        if (textSize.height/oneLineSize.height <= 3) {
-            // 3行以内
+        if (textSize.height/oneLineSize.height <= kAliveListMessageLineLimit) {
+            // 5行以内
             NSMutableAttributedString *attri = [[NSMutableAttributedString alloc]
                                                 initWithString:msg
                                                 attributes:sizeDict];
@@ -197,23 +153,6 @@
         NSInteger index = [self rangeIndexOfString:message appendingString:appendingString withSize:size index:message.length/2 length:message.length/2 oneLineHeight:oneLineSize.height];
         
         NSString *planText = [message substringToIndex:index];
-        /*
-        __block NSString *planText;
-        
-        [message enumerateSubstringsInRange:NSMakeRange(0, message.length) options:NSStringEnumerationByComposedCharacterSequences usingBlock:^(NSString * _Nullable substring, NSRange substringRange, NSRange enclosingRange, BOOL *stop){
-            NSString *mstr = [message substringToIndex:substringRange.location];
-            NSString *pstr = [mstr stringByAppendingString:appendingString];
-            
-            CGSize textSize = [pstr boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
-            
-            if (textSize.height/oneLineSize.height >= 3) {
-                // 3行以内
-                *stop = YES;
-            } else {
-                planText = mstr;
-            }
-        }];
-        */
         
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:planText attributes:sizeDict];
         
@@ -241,7 +180,7 @@
     
     CGSize textSize = [pstr boundingRectWithSize:size options:NSStringDrawingUsesLineFragmentOrigin attributes:sizeDict context:nil].size;
     
-    if (textSize.height/oneLineHeight >= 3) {
+    if (textSize.height/oneLineHeight >= kAliveListMessageLineLimit) {
         NSInteger nextIndex;
         NSInteger len = length/2;
         
@@ -309,5 +248,168 @@
     CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
     return size.height + 280;
+}
+@end
+
+
+#pragma mark - AliveL
+
+@implementation AliveListSurveyCellData
+
+- (void)setup {
+    AliveListModel *model = self.aliveModel;
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(2, -2, 17, 17);
+    attatch.image = [UIImage imageNamed:@"type_video.png"];
+    
+    NSAttributedString *video = [NSAttributedString attributedStringWithAttachment:attatch];
+    [attri appendAttributedString:video];
+    
+    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    self.cellHeight = size.height + 280;
+}
+
+@end
+
+#pragma mark - AliveListPostCellData
+
+@implementation AliveListPostCellData
+
+
+- (void)setup {
+    CGFloat contentWidht = kScreenWidth-24;
+    CGFloat left = 12.0f;
+    CGFloat height = 0.0f;
+    
+    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
+                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
+                             isAppendingShowAll:self.isShowDetailMessage
+                             isAppendingShowImg:NO];
+    
+    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
+                                                          withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
+                                                   limitedToNumberOfLines:0];
+    
+    self.messageLabelFrame = CGRectMake(left, 0, contentWidht, messageSize.height);
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
+    
+    // 图片
+    BOOL isHaveImage = (self.aliveModel.aliveImgs.count>0);
+    if (isHaveImage) {
+        CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
+        self.imagesViewFrame = CGRectMake(left, height+10, contentWidht, imagesViewHeight);
+    } else {
+        self.imagesViewFrame = CGRectMake(left, height, 0, 0);
+    }
+    
+    height = CGRectGetMaxY(self.imagesViewFrame);
+    
+    // 标签
+    if (self.aliveModel.aliveTags.count) {
+        CGFloat tagsViewHeight = [self tagsViewHeightWithTags:self.aliveModel.aliveTags withLimitWidth:contentWidht];
+        self.tagsViewFrame = CGRectMake(left, height+10, contentWidht, tagsViewHeight);
+    } else {
+        self.tagsViewFrame = CGRectMake(left, height, 0, 0);
+    }
+    
+    height = CGRectGetMaxY(self.tagsViewFrame)+11;
+    
+    self.viewHeight = height;
+    self.cellHeight = self.viewHeight + 64;
+}
+
+@end
+
+#pragma mark - AliveListViewpointCellData
+
+@implementation AliveListViewpointCellData
+
+- (void)setup {
+    CGFloat contentWidht = kScreenWidth-24;
+    CGFloat left = 12.0f;
+    CGFloat height = 0.0f;
+    
+    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
+                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
+                             isAppendingShowAll:self.isShowDetailMessage
+                             isAppendingShowImg:NO];
+    
+    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
+                                                          withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
+                                                   limitedToNumberOfLines:0];
+    
+    self.messageLabelFrame = CGRectMake(left, 0, contentWidht, messageSize.height);
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
+    
+    self.imageViewFrame = CGRectMake(left, height+10, contentWidht, 178);
+    height = CGRectGetMaxY(self.imageViewFrame);
+    
+    self.viewHeight = height;
+    self.cellHeight = self.viewHeight + 64;
+}
+@end
+
+#pragma mark - AliveListForwardCellData
+
+@implementation AliveListForwardCellData
+
+- (void)setup {
+ 
+    CGFloat contentWidht = kScreenWidth-24;
+    CGFloat left = 12.0f;
+    CGFloat height = 0.0f;
+    BOOL isShowReviewImageButton = (self.aliveModel.aliveImgs.count>0);
+    
+    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
+                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
+                             isAppendingShowAll:self.isShowDetailMessage
+                             isAppendingShowImg:isShowReviewImageButton];
+    
+
+    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
+                                                          withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
+                                                   limitedToNumberOfLines:0];
+    
+    self.messageLabelFrame = CGRectMake(left, 0, contentWidht, messageSize.height);
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
+    
+    AliveListForwardModel *forward = self.aliveModel.forwardModel;
+    
+    switch (forward.aliveType) {
+        case kAliveNormal:
+        case kAlivePosts: {
+            AliveListModel *model = [[AliveListModel alloc] init];
+            model.aliveType = forward.aliveType;
+            model.aliveTitle = forward.aliveTitle;
+            model.aliveImgs = forward.aliveImgs;
+            model.aliveTags = forward.aliveTags;
+            
+            AliveListPostCellData *pCellData = [[AliveListPostCellData alloc] initWithAliveModel:model];
+            pCellData.isShowDetailMessage = NO;
+            [pCellData setup];
+            
+            self.forwardCellData = pCellData;
+            self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, pCellData.viewHeight);
+        }
+            break;
+        case kAliveSurvey:
+        case kAliveHot: {
+            self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, 91);
+        }
+            break;
+        default:
+            self.forwardViewFrame = CGRectMake(0, height, kScreenWidth, 0);
+            break;
+    }
+    
+    self.viewHeight = CGRectGetMaxY(self.forwardViewFrame) + 15;
+    self.cellHeight = self.viewHeight + 64;
 }
 @end

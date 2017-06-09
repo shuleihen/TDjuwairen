@@ -10,32 +10,46 @@
 #import "AliveListModel.h"
 
 @interface AliveListCellData : NSObject
-// 直播动态高度
+
+// 直播动态Cell高度
 @property (nonatomic, assign) CGFloat cellHeight;
+
+// 直播内容高度，不包含顶部用户信息
+@property (nonatomic, assign) CGFloat viewHeight;
+
 // 直播动态
 @property (nonatomic, strong) AliveListModel *aliveModel;
 
+// 标题frame
 @property (nonatomic, assign) CGRect messageLabelFrame;
-@property (nonatomic, assign) CGRect imgsViewFrame;
-@property (nonatomic, assign) CGRect contentTagFrame;
-@property (nonatomic, assign) CGRect forwardFrame;
-@property (nonatomic, assign) CGRect tagsFrame;
 
-
-@property (nonatomic, assign) BOOL isShowTags;
-@property (nonatomic, assign) BOOL isShowDetail;
-@property (nonatomic, assign) BOOL isShowTiedan;
-// 显示查看图片
-@property (nonatomic, assign) BOOL isShowReviewImageButton;
-// 是否显示图片
-@property (nonatomic, assign) BOOL isShowImgView;
-
+// 标题
 @property (nonatomic, strong) NSAttributedString *message;
 
-// 是否显示直播观点图片
-@property (nonatomic, assign) BOOL isShowViewpointImageView;
-@property (nonatomic, assign) CGRect viewpointImageViewFrame;
+// 是否全部显示标题，默认显示5行以为
+@property (nonatomic, assign) BOOL isShowDetailMessage;
 
 - (id)initWithAliveModel:(AliveListModel *)aliveModel;
 - (void)setup;
+
++ (AliveListCellData *)cellDataWithAliveModel:(AliveListModel *)model;
+@end
+
+@interface AliveListSurveyCellData : AliveListCellData
+
+@end
+
+@interface AliveListPostCellData : AliveListCellData
+
+@property (nonatomic, assign) CGRect imagesViewFrame;
+@property (nonatomic, assign) CGRect tagsViewFrame;
+@end
+
+@interface AliveListViewpointCellData : AliveListCellData
+@property (nonatomic, assign) CGRect imageViewFrame;
+@end
+
+@interface AliveListForwardCellData : AliveListCellData
+@property (nonatomic, assign) CGRect forwardViewFrame;
+@property (nonatomic, strong) AliveListCellData *forwardCellData;
 @end

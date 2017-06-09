@@ -271,6 +271,11 @@
 		1987B2A91EE6894300BD852E /* VideoTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2A21EE6894300BD852E /* VideoTitleTableViewCell.m */; };
 		1987B2AA1EE6894300BD852E /* VideoTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2A31EE6894300BD852E /* VideoTitleTableViewCell.xib */; };
 		1987B2AB1EE6894300BD852E /* VideoDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2A61EE6894300BD852E /* VideoDetailViewController.m */; };
+		1987B2AE1EE6CE2D00BD852E /* AliveListContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2AD1EE6CE2D00BD852E /* AliveListContentView.m */; };
+		1987B2B11EE6CE8900BD852E /* AliveListViewpointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B01EE6CE8900BD852E /* AliveListViewpointView.m */; };
+		1987B2B41EE6D1FE00BD852E /* AliveListPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B31EE6D1FE00BD852E /* AliveListPostView.m */; };
+		1987B2B71EE78EC800BD852E /* AliveListForwardView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */; };
+		1987B2BA1EEA3AD800BD852E /* AliveListForwardSurveyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */; };
 		19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
 		19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959B751E2C5D4300AB26DF /* GradeListCell.xib */; };
@@ -1081,6 +1086,16 @@
 		1987B2A31EE6894300BD852E /* VideoTitleTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = VideoTitleTableViewCell.xib; sourceTree = "<group>"; };
 		1987B2A51EE6894300BD852E /* VideoDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoDetailViewController.h; sourceTree = "<group>"; };
 		1987B2A61EE6894300BD852E /* VideoDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VideoDetailViewController.m; sourceTree = "<group>"; };
+		1987B2AC1EE6CE2D00BD852E /* AliveListContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListContentView.h; sourceTree = "<group>"; };
+		1987B2AD1EE6CE2D00BD852E /* AliveListContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListContentView.m; sourceTree = "<group>"; };
+		1987B2AF1EE6CE8900BD852E /* AliveListViewpointView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListViewpointView.h; sourceTree = "<group>"; };
+		1987B2B01EE6CE8900BD852E /* AliveListViewpointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewpointView.m; sourceTree = "<group>"; };
+		1987B2B21EE6D1FE00BD852E /* AliveListPostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPostView.h; sourceTree = "<group>"; };
+		1987B2B31EE6D1FE00BD852E /* AliveListPostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPostView.m; sourceTree = "<group>"; };
+		1987B2B51EE78EC800BD852E /* AliveListForwardView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView2.h; sourceTree = "<group>"; };
+		1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView2.m; sourceTree = "<group>"; };
+		1987B2B81EEA3AD800BD852E /* AliveListForwardSurveyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardSurveyView.h; sourceTree = "<group>"; };
+		1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardSurveyView.m; sourceTree = "<group>"; };
 		19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeViewController.h; sourceTree = "<group>"; };
 		19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeViewController.m; sourceTree = "<group>"; };
 		19959B731E2C5D4300AB26DF /* GradeListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeListCell.h; sourceTree = "<group>"; };
@@ -2762,6 +2777,16 @@
 				19475C541EA4661F00F749E6 /* AliveListTagsView.m */,
 				1978E0741EE285CE0065CEE0 /* AliveListViewpointImageView.h */,
 				1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */,
+				1987B2AC1EE6CE2D00BD852E /* AliveListContentView.h */,
+				1987B2AD1EE6CE2D00BD852E /* AliveListContentView.m */,
+				1987B2AF1EE6CE8900BD852E /* AliveListViewpointView.h */,
+				1987B2B01EE6CE8900BD852E /* AliveListViewpointView.m */,
+				1987B2B21EE6D1FE00BD852E /* AliveListPostView.h */,
+				1987B2B31EE6D1FE00BD852E /* AliveListPostView.m */,
+				1987B2B51EE78EC800BD852E /* AliveListForwardView2.h */,
+				1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */,
+				1987B2B81EEA3AD800BD852E /* AliveListForwardSurveyView.h */,
+				1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4843,6 +4868,7 @@
 				1987B2941EE688F700BD852E /* StockShareView.m in Sources */,
 				19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */,
 				19252C151D51E830003E5D18 /* MASViewAttribute.m in Sources */,
+				1987B2B41EE6D1FE00BD852E /* AliveListPostView.m in Sources */,
 				195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
@@ -4911,6 +4937,7 @@
 				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
+				1987B2B71EE78EC800BD852E /* AliveListForwardView2.m in Sources */,
 				19E5F26E1E12614200984DBC /* BorderButton.m in Sources */,
 				19D6BA011E50948D00475AA1 /* ChangePhoneViewController.m in Sources */,
 				19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */,
@@ -4987,6 +5014,7 @@
 				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
+				1987B2B11EE6CE8900BD852E /* AliveListViewpointView.m in Sources */,
 				196F5EDB1E5485B700928B60 /* SAMKeychainQuery.m in Sources */,
 				1966A6681E8BD8C5007DDA14 /* UIButton+LikeAnimation.m in Sources */,
 				84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */,
@@ -5122,6 +5150,7 @@
 				1987B28E1EE688F700BD852E /* StockHotModel.m in Sources */,
 				19C258021E753DA300433D0D /* AliveEditMasterViewController.m in Sources */,
 				1987B2891EE688F700BD852E /* SurveyDetailWebViewController.m in Sources */,
+				1987B2AE1EE6CE2D00BD852E /* AliveListContentView.m in Sources */,
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
 				1987B2991EE688F700BD852E /* SelectedSurveySubjectViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
@@ -5197,6 +5226,7 @@
 				845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */,
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
+				1987B2BA1EEA3AD800BD852E /* AliveListForwardSurveyView.m in Sources */,
 				190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */,
 				1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */,
 				1987B2701EE688F700BD852E /* AnsTableViewCell.m in Sources */,

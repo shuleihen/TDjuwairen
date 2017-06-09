@@ -62,27 +62,13 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     return self;
 }
 
-- (void)insertAtHeaderWithArray:(NSArray *)array {
-    NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:(array.count+self.itemList.count)];
-    for (AliveListModel *model in array) {
-        AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
-        cellData.isShowDetail = NO;
-        [cellData setup];
-        [cellArray addObject:cellData];
-    }
-    
-    [cellArray addObjectsFromArray:self.itemList];
-    [self.tableView beginUpdates];
-    self.itemList = cellArray;
-    [self.tableView reloadData];
-    [self.tableView endUpdates];
-}
 
 - (void)setupAliveListArray:(NSArray *)array {
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
     for (AliveListModel *model in array) {
-        AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
-        cellData.isShowDetail = NO;
+        
+        AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
+        cellData.isShowDetailMessage = NO;
         [cellData setup];
         [cellArray addObject:cellData];
     }

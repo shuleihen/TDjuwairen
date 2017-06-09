@@ -14,7 +14,9 @@
         self.aliveId = dict[@"alive_id"];
         self.aliveType = [dict[@"alive_type"] integerValue];
         self.aliveImg = dict[@"alive_img"];
+        self.aliveImgs = dict[@"alive_images"];
         self.aliveTitle = dict[@"alive_title"];
+        self.aliveTime = dict[@"alive_time"];
         self.masterId = dict[@"alive_master_id"];
         self.masterNickName = dict[@"user_nickname"];
         self.aliveTags = dict[@"alive_com_tag"];

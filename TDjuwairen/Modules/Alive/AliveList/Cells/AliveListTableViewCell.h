@@ -14,6 +14,7 @@
 #import "TTTAttributedLabel.h"
 #import "AliveListTagsView.h"
 #import "AliveListViewpointImageView.h"
+#import "AliveListContentView.h"
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
@@ -38,6 +39,8 @@
 @property (strong, nonatomic) AliveListViewpointImageView *viewpointImageView;
 
 @property (strong, nonatomic) AliveListCellData *cellData;
+
+@property (nonatomic, strong) AliveListContentView *aliveContentView;
 
 @property (weak, nonatomic) id<AliveListTableCellDelegate> delegate;
 

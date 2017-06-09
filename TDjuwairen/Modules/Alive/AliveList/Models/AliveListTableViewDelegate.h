@@ -33,6 +33,4 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 - (void)setupAliveListArray:(NSArray *)array;
 
 - (CGFloat)contentHeight;
-
-- (void)insertAtHeaderWithArray:(NSArray *)array;
 @end
