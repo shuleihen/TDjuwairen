@@ -285,7 +285,7 @@
         
         AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
         vc.hidesBottomBarWhenPushed = YES;
-        vc.publishType = (itemButtonIndex == 0)?kAlivePublishPosts:kAlivePublishNormal;
+        vc.publishType = (itemButtonIndex == 1)?kAlivePublishPosts:kAlivePublishNormal;
         [self.navigationController pushViewController:vc animated:YES];
     }
     

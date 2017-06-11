@@ -73,7 +73,7 @@
     
     NSString *stock = [NSString stringWithFormat:@"%@(%@)",model.extra.companyName,model.extra.companyCode];
     CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
-    self.stockNameWidth.constant = stockSize.width+2;
+    self.stockNameWidth.constant = stockSize.width+6;
     self.stockNameLabel.text = stock;
     
     self.dateTimeLabel.text = model.aliveTime;

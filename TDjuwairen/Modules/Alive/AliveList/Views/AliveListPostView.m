@@ -16,7 +16,6 @@
         [self addSubview:_imagesView];
         
         _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectZero];
-        _tagsView.hidden = YES;
         [self addSubview:_tagsView];
 
     }

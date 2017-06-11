@@ -50,7 +50,7 @@
             break;
     }
     
-    self.forwardView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
+    self.forwardView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f1f1f1"];
 }
 
 @end

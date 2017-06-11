@@ -18,6 +18,7 @@
         _messageLabel.textAlignment = NSTextAlignmentLeft;
         _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _messageLabel.numberOfLines = 0;
+        _messageLabel.lineBreakMode   = NSLineBreakByWordWrapping;
         _messageLabel.delegate = self;
         [self addSubview:_messageLabel];
     }
@@ -30,7 +31,7 @@
     
     self.messageLabel.frame = cellData.messageLabelFrame;
     self.messageLabel.attributedText = cellData.message;
-    
+        
     if ([cellData.message.string hasSuffix:@"查看图片"]) {
         [self.messageLabel setLinkAttributes:@{NSUnderlineStyleAttributeName: @(0)}];
         [self.messageLabel setActiveLinkAttributes:@{NSUnderlineStyleAttributeName: @(0),

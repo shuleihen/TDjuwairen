@@ -14,9 +14,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    self.avatarImageView.layer.cornerRadius = 20;
-    self.avatarImageView.clipsToBounds = YES;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -31,19 +31,11 @@
 @property (strong, nonatomic) UILabel *timeLabel;
 @property (strong, nonatomic) UIButton *arrowButton;
 
-@property (strong, nonatomic) TTTAttributedLabel *messageLabel;
-@property (strong, nonatomic) NSLayoutConstraint *imagesHeight;
-@property (strong, nonatomic) AliveListImagesView *imagesView;
-@property (strong, nonatomic) AliveListForwardView *forwardView;
-@property (strong, nonatomic) AliveListTagsView *tagsView;
-@property (strong, nonatomic) AliveListViewpointImageView *viewpointImageView;
+@property (nonatomic, strong) AliveListContentView *aliveContentView;
 
 @property (strong, nonatomic) AliveListCellData *cellData;
 
-@property (nonatomic, strong) AliveListContentView *aliveContentView;
-
 @property (weak, nonatomic) id<AliveListTableCellDelegate> delegate;
-
 
 - (void)setupAliveListCellData:(AliveListCellData *)cellData;
 

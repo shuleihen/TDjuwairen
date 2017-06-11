@@ -25,6 +25,7 @@
 #import "ACActionSheet.h"
 #import "AliveVideoListTableViewCell.h"
 #import "StockUnlockManager.h"
+#import "ViewpointDetailViewController.h"
 
 #define kAliveListCellToolHeight 37
 #define kAliveListSectionHeaderHeight   30
@@ -410,11 +411,14 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     
     if (model.aliveType == kAliveViewpoint) {
         // 观点
-        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-        detail.view_id = model.aliveId;
-        detail.pageMode = @"view";
-        [detail setHidesBottomBarWhenPushed:YES];
-        [self.viewController.navigationController pushViewController:detail animated:YES];
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithViewpointId:model.aliveId];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+//        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
+//        detail.view_id = model.aliveId;
+//        detail.pageMode = @"view";
+//        [detail setHidesBottomBarWhenPushed:YES];
+//        [self.viewController.navigationController pushViewController:detail animated:YES];
     } else if (model.aliveType == kAliveSurvey ||
                model.aliveType == kAliveHot ||
                model.aliveType == kAliveVideo) {

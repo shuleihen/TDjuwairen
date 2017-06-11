@@ -28,21 +28,21 @@
         
         UILabel *label = [[UILabel alloc] init];
         label.font = [UIFont systemFontOfSize:12.0f];
-        label.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+        label.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         label.textAlignment = NSTextAlignmentCenter;
         label.text = tag;
-        label.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#666666"].CGColor;
-        label.layer.borderWidth = 1.0/[UIScreen mainScreen].scale;
+        label.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"].CGColor;
+        label.layer.borderWidth = 1.0;
         [self addSubview:label];
         
-        if ((offx + size.width+6) > rect.size.width) {
+        if ((offx + size.width+8) > rect.size.width) {
             offx =0;
-            offy += 25;
+            offy += 32;
         }
         
-        label.frame = CGRectMake(offx, offy, size.width+6, 15);
+        label.frame = CGRectMake(offx, offy, size.width+8, 22);
         
-        offx += (CGRectGetWidth(label.frame) + 5);
+        offx += (CGRectGetWidth(label.frame) + 8);
     }
 }
 

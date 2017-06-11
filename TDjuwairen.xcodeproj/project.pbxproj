@@ -215,6 +215,12 @@
 		196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 196F5ED71E5485B700928B60 /* SAMKeychain.bundle */; };
 		196F5EE01E553ADB00928B60 /* AppContext.m in Sources */ = {isa = PBXBuildFile; fileRef = 196F5EDF1E553ADB00928B60 /* AppContext.m */; };
 		197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 197595331DED5E39006441BE /* SurveyDetail.storyboard */; };
+		1975D3531EEA8A6900191E1D /* ViewpointDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975D3521EEA8A6900191E1D /* ViewpointDetailViewController.m */; };
+		1975D3571EED05E600191E1D /* ViewpointHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975D3551EED05E600191E1D /* ViewpointHeaderTableViewCell.m */; };
+		1975D3581EED05E600191E1D /* ViewpointHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1975D3561EED05E600191E1D /* ViewpointHeaderTableViewCell.xib */; };
+		1975D35C1EED08E300191E1D /* ViewpointWebTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975D35A1EED08E300191E1D /* ViewpointWebTableViewCell.m */; };
+		1975D35D1EED08E300191E1D /* ViewpointWebTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1975D35B1EED08E300191E1D /* ViewpointWebTableViewCell.xib */; };
+		1975D3611EED198F00191E1D /* TDAvatar.m in Sources */ = {isa = PBXBuildFile; fileRef = 1975D3601EED198F00191E1D /* TDAvatar.m */; };
 		1978E0661EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0641EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m */; };
 		1978E0671EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */; };
 		1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0691EDFF1350065CEE0 /* AliveListExtra.m */; };
@@ -982,6 +988,16 @@
 		196F5EDE1E553ADB00928B60 /* AppContext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppContext.h; sourceTree = "<group>"; };
 		196F5EDF1E553ADB00928B60 /* AppContext.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppContext.m; sourceTree = "<group>"; };
 		197595331DED5E39006441BE /* SurveyDetail.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SurveyDetail.storyboard; sourceTree = "<group>"; };
+		1975D3511EEA8A6900191E1D /* ViewpointDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointDetailViewController.h; sourceTree = "<group>"; };
+		1975D3521EEA8A6900191E1D /* ViewpointDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewpointDetailViewController.m; sourceTree = "<group>"; };
+		1975D3541EED05E600191E1D /* ViewpointHeaderTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointHeaderTableViewCell.h; sourceTree = "<group>"; };
+		1975D3551EED05E600191E1D /* ViewpointHeaderTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewpointHeaderTableViewCell.m; sourceTree = "<group>"; };
+		1975D3561EED05E600191E1D /* ViewpointHeaderTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewpointHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		1975D3591EED08E300191E1D /* ViewpointWebTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointWebTableViewCell.h; sourceTree = "<group>"; };
+		1975D35A1EED08E300191E1D /* ViewpointWebTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewpointWebTableViewCell.m; sourceTree = "<group>"; };
+		1975D35B1EED08E300191E1D /* ViewpointWebTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ViewpointWebTableViewCell.xib; sourceTree = "<group>"; };
+		1975D35F1EED198F00191E1D /* TDAvatar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAvatar.h; sourceTree = "<group>"; };
+		1975D3601EED198F00191E1D /* TDAvatar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAvatar.m; sourceTree = "<group>"; };
 		1978E0631EDFEAD10065CEE0 /* AliveVideoListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveVideoListTableViewCell.h; sourceTree = "<group>"; };
 		1978E0641EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveVideoListTableViewCell.m; sourceTree = "<group>"; };
 		1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveVideoListTableViewCell.xib; sourceTree = "<group>"; };
@@ -3199,6 +3215,54 @@
 			path = AppContext;
 			sourceTree = "<group>";
 		};
+		1975D34D1EEA8A4300191E1D /* ViewpointDetail */ = {
+			isa = PBXGroup;
+			children = (
+				1975D34E1EEA8A4300191E1D /* Cells */,
+				1975D34F1EEA8A4300191E1D /* Controllers */,
+				1975D3501EEA8A4300191E1D /* Views */,
+			);
+			path = ViewpointDetail;
+			sourceTree = "<group>";
+		};
+		1975D34E1EEA8A4300191E1D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				1975D3541EED05E600191E1D /* ViewpointHeaderTableViewCell.h */,
+				1975D3551EED05E600191E1D /* ViewpointHeaderTableViewCell.m */,
+				1975D3561EED05E600191E1D /* ViewpointHeaderTableViewCell.xib */,
+				1975D3591EED08E300191E1D /* ViewpointWebTableViewCell.h */,
+				1975D35A1EED08E300191E1D /* ViewpointWebTableViewCell.m */,
+				1975D35B1EED08E300191E1D /* ViewpointWebTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		1975D34F1EEA8A4300191E1D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				1975D3511EEA8A6900191E1D /* ViewpointDetailViewController.h */,
+				1975D3521EEA8A6900191E1D /* ViewpointDetailViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		1975D3501EEA8A4300191E1D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		1975D35E1EED196500191E1D /* DYCircle */ = {
+			isa = PBXGroup;
+			children = (
+				1975D35F1EED198F00191E1D /* TDAvatar.h */,
+				1975D3601EED198F00191E1D /* TDAvatar.m */,
+			);
+			path = DYCircle;
+			sourceTree = "<group>";
+		};
 		1978E06C1EE1664B0065CEE0 /* Manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -3878,6 +3942,7 @@
 				19F43C221E232C98001B72CD /* Video */,
 				1955B4121D644D9800DC102E /* SharpDesc */,
 				1955B42A1D644D9800DC102E /* Viewpoint */,
+				1975D34D1EEA8A4300191E1D /* ViewpointDetail */,
 				19E519381D509C3F00CFF149 /* CustomUI */,
 				19C526251D49EDEE0039F85D /* WebView */,
 				19959B711E2C5D4300AB26DF /* Grade */,
@@ -4451,6 +4516,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1975D35E1EED196500191E1D /* DYCircle */,
 				19517F201EE56FA5009E24D1 /* ACActionSheet */,
 				1936AF2A1EB3212600408D6F /* NJKWebViewProgress */,
 				4D6E67CD1E976BAA009A9FB0 /* Toast */,
@@ -4772,6 +4838,7 @@
 				9E6026F71E76DE6B004D1BFC /* AlivePingLunViewController.xib in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
+				1975D35D1EED08E300191E1D /* ViewpointWebTableViewCell.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
 				4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
@@ -4789,6 +4856,7 @@
 				193419E81E78DF2B00F22788 /* selected.caf in Resources */,
 				19D6BA031E514B6700475AA1 /* ChangePhoneViewController.xib in Resources */,
 				9E614E541EACADAB0014DC0B /* PhoneNumViewController.xib in Resources */,
+				1975D3581EED05E600191E1D /* ViewpointHeaderTableViewCell.xib in Resources */,
 				1987B2AA1EE6894300BD852E /* VideoTitleTableViewCell.xib in Resources */,
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
@@ -4947,6 +5015,7 @@
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
 				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
+				1975D3531EEA8A6900191E1D /* ViewpointDetailViewController.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
 				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
@@ -5058,6 +5127,7 @@
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
 				1987B28A1EE688F700BD852E /* AnsModel.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
+				1975D3571EED05E600191E1D /* ViewpointHeaderTableViewCell.m in Sources */,
 				19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */,
 				1987B2741EE688F700BD852E /* AskTableViewCell.m in Sources */,
 				194186C61DF81235000C5197 /* ViewManagerViewController.m in Sources */,
@@ -5074,6 +5144,7 @@
 				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
+				1975D35C1EED08E300191E1D /* ViewpointWebTableViewCell.m in Sources */,
 				19C258191E7649C200433D0D /* AliveMessageListCell.m in Sources */,
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
@@ -5138,6 +5209,7 @@
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
 				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
 				1987B29B1EE688F700BD852E /* SurveyListViewController.m in Sources */,
+				1975D3611EED198F00191E1D /* TDAvatar.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
 				1966A6551E8BB81C007DDA14 /* DYRefresh.m in Sources */,
 				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,

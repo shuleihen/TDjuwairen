@@ -30,7 +30,7 @@
     model.view_id = dic[@"view_id"];
     model.view_isoriginal = dic[@"view_isoriginal"];
     model.view_title = dic[@"view_title"];
-    model.viewIsCollect = [dic[@"is_collection"] boolValue];
+    model.view_isCollected = [dic[@"is_collection"] boolValue];
     return model;
 }
 

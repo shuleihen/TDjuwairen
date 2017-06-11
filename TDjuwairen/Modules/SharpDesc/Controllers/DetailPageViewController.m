@@ -83,7 +83,7 @@
         }
         else
         {
-            if (self.viewInfo.viewIsCollect == YES) {
+            if (self.viewInfo.view_isCollected == YES) {
                 str = @"yes";
             }
             else

@@ -76,14 +76,14 @@
     for (NSString *tag in tags) {
         CGSize size = [tag boundingRectWithSize:CGSizeMake(MAXFLOAT, 15.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil].size;
         
-        if ((offx + size.width+6) > limitWidth) {
+        if ((offx + size.width+8) > limitWidth) {
             offx =0;
-            offy += 25;
+            offy += 32;
         }
         
-        rect = CGRectMake(offx, offy, size.width+6, 15);
+        rect = CGRectMake(offx, offy, size.width+8, 22);
         
-        offx += (size.width+6 + 5);
+        offx += (size.width+8 + 5);
     }
     
     height = CGRectGetMaxY(rect);
@@ -147,7 +147,6 @@
         if (isShowImg) {
             appendingString = [appendingString stringByAppendingString:@"  查看图片"];
         }
-        
         
         
         NSInteger index = [self rangeIndexOfString:message appendingString:appendingString withSize:size index:message.length/2 length:message.length/2 oneLineHeight:oneLineSize.height];
@@ -252,7 +251,7 @@
 @end
 
 
-#pragma mark - AliveL
+#pragma mark - AliveListSurveyCellData
 
 @implementation AliveListSurveyCellData
 
@@ -294,13 +293,14 @@
                                                           withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                                                    limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 0, contentWidht, messageSize.height);
+//    messageSize = [self.message boundingRectWithSize:CGSizeMake(contentWidht, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    self.messageLabelFrame = CGRectMake(left, 5, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
     // 图片
-    BOOL isHaveImage = (self.aliveModel.aliveImgs.count>0);
-    if (isHaveImage) {
+    if (self.aliveModel.aliveImgs.count) {
         CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
         self.imagesViewFrame = CGRectMake(left, height+10, contentWidht, imagesViewHeight);
     } else {
@@ -320,7 +320,7 @@
     height = CGRectGetMaxY(self.tagsViewFrame)+11;
     
     self.viewHeight = height;
-    self.cellHeight = self.viewHeight + 64;
+    self.cellHeight = self.viewHeight + 62;
 }
 
 @end
@@ -343,7 +343,7 @@
                                                           withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                                                    limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 0, contentWidht, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 2, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
@@ -351,7 +351,7 @@
     height = CGRectGetMaxY(self.imageViewFrame);
     
     self.viewHeight = height;
-    self.cellHeight = self.viewHeight + 64;
+    self.cellHeight = self.viewHeight + 62;
 }
 @end
 
@@ -376,7 +376,7 @@
                                                           withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                                                    limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 0, contentWidht, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 2, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
@@ -410,6 +410,6 @@
     }
     
     self.viewHeight = CGRectGetMaxY(self.forwardViewFrame) + 15;
-    self.cellHeight = self.viewHeight + 64;
+    self.cellHeight = self.viewHeight + 62;
 }
 @end
