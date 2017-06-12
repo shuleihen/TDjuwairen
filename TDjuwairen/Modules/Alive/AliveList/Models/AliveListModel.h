@@ -51,5 +51,7 @@
 // 调研股票信息
 @property (nonatomic, strong) AliveListExtra *extra;
 
+@property (copy, nonatomic) NSString *searchTextStr;
+
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

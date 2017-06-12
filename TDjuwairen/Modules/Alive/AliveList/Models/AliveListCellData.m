@@ -55,6 +55,7 @@
                              isAppendingShowAll:self.isShowDetail
                              isAppendingShowImg:self.isShowReviewImageButton];
     
+    
     CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
                                      withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                               limitedToNumberOfLines:0];

@@ -30,7 +30,7 @@
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-
+    
 }
 
 
@@ -54,6 +54,14 @@
     _surveyModel = surveyModel;
     
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:surveyModel.survey_title attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    if (surveyModel.searchTextStr.length > 0) {
+        NSMutableArray *arrM = [self getRangeStr:surveyModel.survey_title findText:surveyModel.searchTextStr];
+        for (NSNumber *num in arrM) {
+            NSRange rang = NSMakeRange([num integerValue], surveyModel.searchTextStr.length);
+            [attri addAttribute:NSForegroundColorAttributeName value:[UIColor hx_colorWithHexRGBAString:@"#FF6C00"] range:rang];
+        }
+        
+    }
     NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     attatch.bounds = CGRectMake(2, -2, 17, 17);
     attatch.image = [self imageWithSurveyType:[surveyModel.survey_type integerValue]];
@@ -69,7 +77,7 @@
 
 
 + (instancetype)loadAliveSearchSurveyCellWithTableView:(UITableView *)tableView {
-
+    
     AliveSearchSurveyCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveSearchSurveyCell"];
     if (cell == nil)
     {
@@ -109,6 +117,80 @@
     }
     
     return image;
+}
+
+- (NSMutableArray *)getRangeStr:(NSString *)text findText:(NSString *)findText
+{
+    
+    NSMutableArray *arrayRanges = [NSMutableArray arrayWithCapacity:3];
+    
+    if (findText == nil && [findText isEqualToString:@""])
+    {
+        
+        return nil;
+        
+    }
+    
+    NSRange rang = [text rangeOfString:findText]; //获取第一次出现的range
+    
+    if (rang.location != NSNotFound && rang.length != 0)
+    {
+        
+        [arrayRanges addObject:[NSNumber numberWithInteger:rang.location]];//将第一次的加入到数组中
+        
+        NSRange rang1 = {0,0};
+        
+        NSInteger location = 0;
+        
+        NSInteger length = 0;
+        
+        for (int i = 0;; i++)
+        {
+            
+            if (0 == i)
+            {
+                
+                //去掉这个abc字符串
+                location = rang.location + rang.length;
+                
+                length = text.length - rang.location - rang.length;
+                
+                rang1 = NSMakeRange(location, length);
+                
+            }
+            else
+            {
+                
+                location = rang1.location + rang1.length;
+                
+                length = text.length - rang1.location - rang1.length;
+                
+                rang1 = NSMakeRange(location, length);
+                
+            }
+            
+            //在一个range范围内查找另一个字符串的range
+            
+            rang1 = [text rangeOfString:findText options:NSCaseInsensitiveSearch range:rang1];
+            
+            if (rang1.location == NSNotFound && rang1.length == 0)
+            {
+                
+                break;
+                
+            }
+            else//添加符合条件的location进数组
+                
+                [arrayRanges addObject:[NSNumber numberWithInteger:rang1.location]];
+            
+        }
+        
+        return arrayRanges;
+        
+    }
+    
+    return nil;
+    
 }
 
 

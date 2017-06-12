@@ -153,6 +153,7 @@
                 
                 for (NSDictionary *dict in userList) {
                     AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithUserListDict:dict];
+                    result.searchTextStr = self.customSearchBar.text;
                     [marray addObject:result];
                 }
                 
@@ -174,6 +175,7 @@
                 
                 for (NSDictionary *dict in stockList) {
                     AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithStockListDict:dict];
+                    result.searchTextStr = self.customSearchBar.text;
                     [marray addObject:result];
                 }
                 
@@ -355,8 +357,10 @@
     
     if (sectionData.isFixed) {
         AliveSearchSubTypeController *subSearchVC = [[AliveSearchSubTypeController alloc] init];
-        
         subSearchVC.searchType = sectionData.searchType;
+        subSearchVC.view.backgroundColor = [UIColor whiteColor];
+        subSearchVC.searchTextStr = self.customSearchBar.text;
+        subSearchVC.needLoadData = YES;
         [self.navigationController pushViewController:subSearchVC animated:YES];
     } else {
         if (indexPath.row < sectionData.items.count) {
