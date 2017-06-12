@@ -80,9 +80,9 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-nd-2XF">
-                        <rect key="frame" x="67.5" y="265" width="43" height="29"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                        <state key="normal" title="Button">
+                        <rect key="frame" x="67.5" y="273.5" width="20" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <state key="normal" title="0" image="ico_reading">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
                     </button>
@@ -117,6 +117,7 @@
         </tableViewCell>
     </objects>
     <resources>
+        <image name="ico_reading" width="13" height="8"/>
         <image name="icon_arrow_down" width="16" height="9"/>
     </resources>
 </document>
