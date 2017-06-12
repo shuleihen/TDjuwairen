@@ -58,6 +58,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         self.unlockManager = [[StockUnlockManager alloc] init];
         self.unlockManager.delegate = self;
 
+        self.canEdit = NO;
     }
     
     return self;
@@ -322,7 +323,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
 
 
 
-#pragma mark - Table view data source
+#pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return [self.itemList count];
@@ -340,14 +341,6 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     return 2;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        AliveListCellData *cellData = self.itemList[indexPath.section];
-        return cellData.cellHeight;
-    } else {
-        return kAliveListCellToolHeight;
-    }
-}
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -398,6 +391,8 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         [scell setupAliveModel:model];
     }
 }
+
+#pragma mark - UITableView Delegate
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
@@ -459,6 +454,15 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     }
 }
 
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row == 0) {
+        AliveListCellData *cellData = self.itemList[indexPath.section];
+        return cellData.cellHeight;
+    } else {
+        return kAliveListCellToolHeight;
+    }
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
 
     return 0.001f;
@@ -469,6 +473,72 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
 }
 
 
+- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (indexPath.row != 0) {
+        return NO;
+    }
+    return self.canEdit;
+}
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return UITableViewCellEditingStyleDelete;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return @"删除";
+}
+
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否取消收藏" message:@"\n取消收藏，将不在列表中显示\n" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self cancelEditWithIndexPath:indexPath];
+    }];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self deleteWithIndexPath:indexPath];
+    }];
+    [alert addAction:cancel];
+    [alert addAction:done];
+    [self.viewController presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)cancelEditWithIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView beginUpdates];
+    
+    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+    [self.tableView endUpdates];
+}
+
+- (void)deleteWithIndexPath:(NSIndexPath *)indexPath {
+    
+    AliveListCellData *model = self.itemList[indexPath.section];
+    NSDictionary *dict = @{@"collect_id": model.aliveModel.collectedId};
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
+    hud.labelText = @"取消收藏";
+    [manager POST:API_CancelCollection parameters:dict completion:^(id data, NSError *error){
+        if (!error) {
+            [hud hide:YES];
+            [self deleteSuccessedWithIndexPath:indexPath];
+        } else {
+            hud.labelText = @"取消收藏失败";
+            [hud hide:YES afterDelay:0.8];
+        }
+        
+    }];
+}
+
+- (void)deleteSuccessedWithIndexPath:(NSIndexPath *)indexPath {
+    [self.tableView beginUpdates];
+    
+    NSMutableArray *array = [NSMutableArray arrayWithArray:self.itemList];
+    [array removeObjectAtIndex:indexPath.section];
+    self.itemList = array;
+    
+    [self.tableView deleteSections:[NSIndexSet indexSetWithIndex:indexPath.section] withRowAnimation:UITableViewRowAnimationLeft];
+    [self.tableView endUpdates];
+}
 
 #pragma mark - Action
 

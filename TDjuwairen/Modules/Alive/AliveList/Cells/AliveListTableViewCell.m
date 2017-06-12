@@ -96,6 +96,10 @@
     // 直播动态时间
     self.timeLabel.text = aliveModel.aliveTime;
     
+    // 收藏不显示下拉按钮
+    self.arrowButton.hidden = aliveModel.isCollection;
+    
+    // 动态内容
     if (aliveModel.isForward) {
         AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, cellData.viewHeight)];
         self.aliveContentView = view;
@@ -121,8 +125,6 @@
                 break;
         }
     }
-    
-//    self.aliveContentView.backgroundColor = [UIColor blueColor];
 }
 
 #pragma mark - 

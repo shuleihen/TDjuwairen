@@ -26,6 +26,9 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 // 直播列表类型
 @property (nonatomic, assign) AliveListType listType;
 
+// 是否可以编辑删除
+@property (nonatomic, assign) BOOL canEdit;
+
 @property (nonatomic, copy) void (^reloadView)(void);
 
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;

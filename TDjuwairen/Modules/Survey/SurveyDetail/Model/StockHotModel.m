@@ -19,4 +19,12 @@
     }
     return self;
 }
+
+- (id)initWithCollectionDict:(NSDictionary *)dict {
+    self = [self initWithDict:dict];
+    
+    self.collectedId = dict[@"collect_id"];
+    
+    return self;
+}
 @end

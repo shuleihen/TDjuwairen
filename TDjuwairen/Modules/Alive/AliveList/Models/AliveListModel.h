@@ -12,6 +12,7 @@
 #import "AliveListExtra.h"
 
 @interface AliveListModel : NSObject
+// 是否为转发动态
 @property (nonatomic, assign) BOOL isForward;
 /// 动态ID
 @property (nonatomic, copy) NSString *aliveId;
@@ -50,6 +51,11 @@
 @property (assign, nonatomic) BOOL isSelf;
 // 调研股票信息
 @property (nonatomic, strong) AliveListExtra *extra;
+
+// 收藏ID
+@property (nonatomic, copy) NSString *collectedId;
+
+@property (nonatomic, assign) BOOL isCollection;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

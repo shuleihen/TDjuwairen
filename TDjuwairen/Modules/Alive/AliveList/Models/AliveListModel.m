@@ -40,7 +40,13 @@
         if (extraDict.count) {
             self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
         }
+        
+        self.collectedId = dict[@"collect_id"];
     }
     return self;
+}
+
+- (BOOL)isCollection {
+    return (self.collectedId.length>0)?YES:NO;
 }
 @end

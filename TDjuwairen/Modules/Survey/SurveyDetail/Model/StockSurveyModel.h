@@ -18,6 +18,8 @@
 @property (nonatomic, strong) NSString *companyName;
 @property (nonatomic, strong) NSString *companyCode;
 
+@property (nonatomic, strong) NSString *collectedId;
 
 - (id)initWithDict:(NSDictionary *)dict;
+- (id)initWithCollectionDict:(NSDictionary *)dict;
 @end

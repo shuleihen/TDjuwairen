@@ -15,7 +15,6 @@
 #import "AliveListTableViewDelegate.h"
 #import "AlivePublishViewController.h"
 #import "AliveEditMasterViewController.h"
-#import "AliveMessageListViewController.h"
 #import "LoginState.h"
 #import "ZFCWaveActivityIndicatorView.h"
 #import "UIViewController+Loading.h"

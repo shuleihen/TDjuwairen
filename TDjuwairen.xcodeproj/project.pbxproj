@@ -135,6 +135,11 @@
 		19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19475C541EA4661F00F749E6 /* AliveListTagsView.m */; };
 		19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */ = {isa = PBXBuildFile; fileRef = 19475C581EA497B500F749E6 /* SKProduct+LocalizedPrice.m */; };
 		194B0A341D3E21DE0023F1C3 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 194B0A331D3E21DE0023F1C3 /* Podfile */; };
+		194E0CFD1EEE3C28009C7AC6 /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194E0CFC1EEE3C28009C7AC6 /* CollectionViewController.m */; };
+		194E0D001EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194E0CFF1EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.m */; };
+		194E0D031EEE3E36009C7AC6 /* StockCollectionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194E0D021EEE3E36009C7AC6 /* StockCollectionTableViewController.m */; };
+		194E0D061EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 194E0D051EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.m */; };
+		194E0D091EEE7678009C7AC6 /* StockHotListTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 194E0D081EEE7678009C7AC6 /* StockHotListTableViewDelegate.m */; };
 		194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05931E2746D600C8CB8A /* SubscriptionViewController.m */; };
 		194F05971E27496600C8CB8A /* PaySubscriptionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194F05961E27496600C8CB8A /* PaySubscriptionViewController.m */; };
 		195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 195057731E7A22470097C57A /* AlicloudUtils.framework */; };
@@ -161,7 +166,6 @@
 		1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */; };
 		1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */; };
 		1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */; };
-		1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3D41D644D9800DC102E /* CollectionViewController.m */; };
 		1955B47A1D644D9800DC102E /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3EB1D644D9800DC102E /* EditView.m */; };
 		1955B47B1D644D9800DC102E /* EditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3EC1D644D9800DC102E /* EditView.xib */; };
 		1955B4851D644D9800DC102E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4041D644D9800DC102E /* NetworkManager.m */; };
@@ -834,6 +838,16 @@
 		19475C571EA497B500F749E6 /* SKProduct+LocalizedPrice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKProduct+LocalizedPrice.h"; sourceTree = "<group>"; };
 		19475C581EA497B500F749E6 /* SKProduct+LocalizedPrice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKProduct+LocalizedPrice.m"; sourceTree = "<group>"; };
 		194B0A331D3E21DE0023F1C3 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		194E0CFB1EEE3C28009C7AC6 /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
+		194E0CFC1EEE3C28009C7AC6 /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
+		194E0CFE1EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewpointCollectionTableViewController.h; sourceTree = "<group>"; };
+		194E0CFF1EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ViewpointCollectionTableViewController.m; sourceTree = "<group>"; };
+		194E0D011EEE3E36009C7AC6 /* StockCollectionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockCollectionTableViewController.h; sourceTree = "<group>"; };
+		194E0D021EEE3E36009C7AC6 /* StockCollectionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockCollectionTableViewController.m; sourceTree = "<group>"; };
+		194E0D041EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockSurveyListTableViewDelegate.h; sourceTree = "<group>"; };
+		194E0D051EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockSurveyListTableViewDelegate.m; sourceTree = "<group>"; };
+		194E0D071EEE7678009C7AC6 /* StockHotListTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockHotListTableViewDelegate.h; sourceTree = "<group>"; };
+		194E0D081EEE7678009C7AC6 /* StockHotListTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockHotListTableViewDelegate.m; sourceTree = "<group>"; };
 		194F05921E2746D600C8CB8A /* SubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionViewController.h; sourceTree = "<group>"; };
 		194F05931E2746D600C8CB8A /* SubscriptionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionViewController.m; sourceTree = "<group>"; };
 		194F05951E27496600C8CB8A /* PaySubscriptionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySubscriptionViewController.h; sourceTree = "<group>"; };
@@ -883,8 +897,6 @@
 		1955B3D01D644D9800DC102E /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionTableViewCell.h; sourceTree = "<group>"; };
 		1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionTableViewCell.m; sourceTree = "<group>"; };
 		1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionTableViewCell.xib; sourceTree = "<group>"; };
-		1955B3D31D644D9800DC102E /* CollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionViewController.h; sourceTree = "<group>"; };
-		1955B3D41D644D9800DC102E /* CollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionViewController.m; sourceTree = "<group>"; };
 		1955B3EA1D644D9800DC102E /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
 		1955B3EB1D644D9800DC102E /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
 		1955B3EC1D644D9800DC102E /* EditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditView.xib; sourceTree = "<group>"; };
@@ -2587,6 +2599,19 @@
 			path = "SKProduct+LocalizedPrice";
 			sourceTree = "<group>";
 		};
+		194E0CFA1EEE3C28009C7AC6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				194E0CFB1EEE3C28009C7AC6 /* CollectionViewController.h */,
+				194E0CFC1EEE3C28009C7AC6 /* CollectionViewController.m */,
+				194E0CFE1EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.h */,
+				194E0CFF1EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.m */,
+				194E0D011EEE3E36009C7AC6 /* StockCollectionTableViewController.h */,
+				194E0D021EEE3E36009C7AC6 /* StockCollectionTableViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		194F058E1E27425400C8CB8A /* Subscription */ = {
 			isa = PBXGroup;
 			children = (
@@ -2904,11 +2929,10 @@
 		1955B3CF1D644D9800DC102E /* Collection */ = {
 			isa = PBXGroup;
 			children = (
+				194E0CFA1EEE3C28009C7AC6 /* Controllers */,
 				1955B3D01D644D9800DC102E /* CollectionTableViewCell.h */,
 				1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */,
 				1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */,
-				1955B3D31D644D9800DC102E /* CollectionViewController.h */,
-				1955B3D41D644D9800DC102E /* CollectionViewController.m */,
 				4D2D29EB1EDEAF3800545314 /* DeleteCollectionPopController.h */,
 				4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */,
 			);
@@ -3427,6 +3451,10 @@
 		1987B23F1EE688F700BD852E /* Manager */ = {
 			isa = PBXGroup;
 			children = (
+				194E0D041EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.h */,
+				194E0D051EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.m */,
+				194E0D071EEE7678009C7AC6 /* StockHotListTableViewDelegate.h */,
+				194E0D081EEE7678009C7AC6 /* StockHotListTableViewDelegate.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -4977,6 +5005,7 @@
 				19347E5D1E0E45D200E651B5 /* MyGuessCell.m in Sources */,
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
+				194E0D031EEE3E36009C7AC6 /* StockCollectionTableViewController.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				1933257D1E4DAF7200E3D500 /* ReplyRemindTableViewCell.m in Sources */,
 				1987B2801EE688F700BD852E /* SurveyAnnounceViewController.m in Sources */,
@@ -5002,6 +5031,7 @@
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
+				194E0CFD1EEE3C28009C7AC6 /* CollectionViewController.m in Sources */,
 				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
@@ -5017,7 +5047,6 @@
 				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
 				1975D3531EEA8A6900191E1D /* ViewpointDetailViewController.m in Sources */,
 				84EE2B011D936384005D5C8C /* ViewModel.m in Sources */,
-				1955B46E1D644D9800DC102E /* CollectionViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
 				1987B29C1EE688F700BD852E /* SurveyListModel.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
@@ -5032,6 +5061,7 @@
 				1987B2981EE688F700BD852E /* SurveryStockListCell.m in Sources */,
 				19B11CA71D655B9E00BB4DF4 /* DDAbstractDatabaseLogger.m in Sources */,
 				1924DFE61D62B49C00FEC383 /* AFHTTPSessionManager.m in Sources */,
+				194E0D061EEE765F009C7AC6 /* StockSurveyListTableViewDelegate.m in Sources */,
 				1987B2721EE688F700BD852E /* AskAndAnsTableViewCell.m in Sources */,
 				193419E41E78DF2B00F22788 /* DCPathButton.m in Sources */,
 				190F65FA1E36E73000B83ADF /* ExchangeModel.m in Sources */,
@@ -5285,6 +5315,7 @@
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				1955B49D1D644D9800DC102E /* SpecialModel.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
+				194E0D001EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.m in Sources */,
 				194186C51DF81235000C5197 /* ChildTableViewController.m in Sources */,
 				1987B2781EE688F700BD852E /* NiuxiongTableViewCell.m in Sources */,
 				190F65F11E36E73000B83ADF /* NoOrderTableViewCell.m in Sources */,
@@ -5334,6 +5365,7 @@
 				8497E06A1CEF0B2800D7D105 /* UIView+SDExtension.m in Sources */,
 				1946EE381E0E9E3C00D8FB3A /* WXApiManager.m in Sources */,
 				1987B2871EE688F700BD852E /* AskPublishViewController.m in Sources */,
+				194E0D091EEE7678009C7AC6 /* StockHotListTableViewDelegate.m in Sources */,
 				4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,
