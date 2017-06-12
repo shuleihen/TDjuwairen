@@ -281,8 +281,7 @@
         self.titleView.titleLabel.textColor = self.daynightmodel.textColor;
         self.titleView.backgroundColor = self.daynightmodel.navigationColor;
         
-        NSString *is_attention_author = [NSString stringWithFormat:@"%@",self.viewInfo.is_attention_author];
-        if ([is_attention_author isEqualToString:@"0"]) {
+        if (!self.viewInfo.view_isAtten) {
             self.titleView.isAttention.selected = NO;
         }
         else

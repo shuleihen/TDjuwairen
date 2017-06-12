@@ -26,6 +26,8 @@
 
 - (void)setupViewModel:(ViewModel *)model {
     
+    [self.headerImageView sd_setImageWithURL:[NSURL URLWithString:model.view_thumb] placeholderImage:nil];
+    
     [self.authorAvatar sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facesmall] placeholderImage:TDDefaultUserAvatar];
     
     self.authorNameLabel.text = model.view_author;
@@ -34,6 +36,6 @@
     
     self.dateLabel.text = model.view_addtime;
     
-    
+    [self.readNumBtn setTitle:[NSString stringWithFormat:@"%@",model.view_visintnum] forState:UIControlStateNormal];
 }
 @end

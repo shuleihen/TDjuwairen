@@ -10,9 +10,10 @@
 
 @interface ViewModel : NSObject
 
-@property (nonatomic,copy) NSString *is_attention_author;
+@property (nonatomic,copy) NSString *view_id;
+@property (nonatomic,copy) NSString *view_title;
 
-@property (nonatomic,assign) BOOL view_isCollected; // 是否收藏
+@property (nonatomic, copy) NSString *view_thumb;
 
 @property (nonatomic,strong) NSArray *tags;
 
@@ -26,13 +27,14 @@
 
 @property (nonatomic,copy) NSString *view_content_url;
 
-@property (nonatomic,copy) NSString *view_id;
-
-@property (nonatomic,copy) NSString *view_isoriginal;
-
-@property (nonatomic,copy) NSString *view_title;
-
 @property (nonatomic, assign) BOOL view_isAtten;
+@property (nonatomic, assign) BOOL view_isCollected;
+@property (nonatomic, assign) BOOL view_isOriginal;
+
+@property (nonatomic, copy) NSNumber *view_visintnum;
+@property (nonatomic, assign) NSInteger view_share_num;
+@property (nonatomic, assign) NSInteger view_assess_num;
+
 + (id)shareWithDictionary:(NSDictionary *)dic;
 
 @end
