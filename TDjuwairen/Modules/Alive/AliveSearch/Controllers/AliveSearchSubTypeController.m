@@ -467,8 +467,8 @@
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"] || [self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
         AliveListCellData *model = self.searchResultData.items[indexPath.section];
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
-        cell.arrowButton.hidden = YES;
         [cell setupAliveListCellData:model];
+        cell.arrowButton.hidden = YES;
         cell.tag = indexPath.section;
         return cell;
     }else {
