@@ -47,4 +47,10 @@
     [self.likeBtn setTitle:[NSString stringWithFormat:@"%ld", (long)aliveModel.likeNum] forState:UIControlStateNormal];
     self.likeBtn.selected = aliveModel.isLike;
 }
+
+- (void)setupForDetail {
+    [self.shareBtn setTitle:@"转发" forState:UIControlStateNormal];
+    [self.commentBtn setTitle:@"评论" forState:UIControlStateNormal];
+    [self.likeBtn setTitle:@"点赞" forState:UIControlStateNormal];
+}
 @end

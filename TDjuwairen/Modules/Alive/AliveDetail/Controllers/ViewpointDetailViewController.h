@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AliveDetailBaseViewController.h"
 
-@interface ViewpointDetailViewController : UIViewController
-- (id)initWithViewpointId:(NSString *)viewpointId;
+@interface ViewpointDetailViewController : AliveDetailBaseViewController
+
 @end

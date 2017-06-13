@@ -10,4 +10,10 @@
 
 @interface TDTopicModel : NSObject
 
+@property (nonatomic, copy) NSString *topicId;
+@property (nonatomic, copy) NSString *topicTitle;
+@property (nonatomic, copy) NSString *topicTime;
+@property (nonatomic, copy) NSString *userAvatar;
+@property (nonatomic, copy) NSString *userNickName;
+
 @end

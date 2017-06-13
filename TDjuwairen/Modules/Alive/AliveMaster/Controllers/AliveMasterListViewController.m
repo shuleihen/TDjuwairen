@@ -20,23 +20,12 @@
 
 @property (nonatomic, assign) NSInteger page;
 @property (strong, nonatomic) NSMutableArray *aliveArr;
-@property (strong, nonatomic) UIViewController *vc;
+//@property (strong, nonatomic) UIViewController *vc;
 
 @end
 
 
 @implementation AliveMasterListViewController
-
-- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId  aliveType:(AliveType)aliveType viewControllerType:(AliveMasterListType)listType {
-    
-    if (self = [super init]) {
-        self.vc = vc;
-        self.listType = listType;
-        self.masterId = aliveId;
-        self.aliveType = aliveType;
-    }
-    return self;
-}
 
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -90,10 +79,7 @@
     
         [self requestDataWithPage:1];
     }
-   
 }
-
-
 
 - (void)refreshActions{
     self.page = 1;
@@ -108,6 +94,11 @@
     
     __weak typeof(self)weakSelf = self;
     NetworkManager *ma = [[NetworkManager alloc] init];
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(kScreenWidth/2, (kScreenHeight-64)/2);
+    [self.view addSubview:indicator];
+    [indicator startAnimating];
     
     NSDictionary *dict = nil;
     NSString *url = nil;
@@ -128,14 +119,14 @@
         case kAliveDianZanList:
         {
             self.page = 1;
-            dict = @{@"alive_id": self.masterId,@"alive_type":@(self.aliveType)};
+            dict = @{@"alive_id": self.aliveId,@"alive_type":@(self.aliveType)};
             url = API_AliveGetRoomLike;
         }
             break;
         case kAliveShareList:
         {
             self.page = 1;
-            dict = @{@"alive_id": self.masterId,@"alive_type":@(self.aliveType)};
+            dict = @{@"alive_id": self.aliveId,@"alive_type":@(self.aliveType)};
             url = API_AlvieGetRoomShare;
         }
             break;
@@ -145,9 +136,11 @@
     
     
     [ma GET:url  parameters:dict completion:^(id data, NSError *error){
+        
+        [indicator stopAnimating];
+        
         if (!error) {
             NSArray *dataArray = data;
-            
             
             NSMutableArray *list = nil;
             
@@ -185,7 +178,6 @@
             [weakSelf.tableView reloadData];
         }
     }];
-    
 }
 
 #pragma mark - UITableViewDataSource
@@ -264,25 +256,16 @@
     }
     
     AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.masterId];
-    
-    if (self.listType == kAliveDianZanList || self.listType == kAliveShareList) {
-        [self.vc.navigationController pushViewController:vc animated:YES];
-    }else {
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.listType == kAliveDianZanList) {
-        
         return 74;
     }else {
-        
         return 100;
     }
-    
 }
 
 

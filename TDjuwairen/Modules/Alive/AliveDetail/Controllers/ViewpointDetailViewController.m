@@ -17,40 +17,13 @@
 #import "FeedbackViewController.h"
 
 @interface ViewpointDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, strong) NSString *viewpointId;
+
 @property (nonatomic, strong) ViewModel *viewModel;
 @property (nonatomic, assign) CGFloat headerCellHeight;
 @property (nonatomic, assign) CGFloat webCellHeight;
 @end
 
 @implementation ViewpointDetailViewController
-
-- (UITableView *)tableView {
-    if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
-        _tableView.separatorColor = TDSeparatorColor;
-        _tableView.separatorInset = UIEdgeInsetsZero;
-        _tableView.delegate = self;
-        _tableView.dataSource = self;
-        _tableView.estimatedRowHeight = 100;//很重要保障滑动流畅性
-        
-        UINib *nib1 = [UINib nibWithNibName:@"ViewpointHeaderTableViewCell" bundle:nil];
-        [_tableView registerNib:nib1 forCellReuseIdentifier:@"ViewpointHeaderTableViewCellID"];
-        
-        UINib *nib2 = [UINib nibWithNibName:@"ViewpointWebTableViewCell" bundle:nil];
-        [_tableView registerNib:nib2 forCellReuseIdentifier:@"ViewpointWebTableViewCellID"];
-    }
-    
-    return _tableView;
-}
-
-- (id)initWithViewpointId:(NSString *)viewpointId {
-    if (self = [super init]) {
-        _viewpointId = viewpointId;
-    }
-    return self;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -65,6 +38,14 @@
     self.navigationItem.rightBarButtonItem= rightItem;
     self.navigationItem.rightBarButtonItem.enabled = NO;
     
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    UINib *nib1 = [UINib nibWithNibName:@"ViewpointHeaderTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib1 forCellReuseIdentifier:@"ViewpointHeaderTableViewCellID"];
+    
+    UINib *nib2 = [UINib nibWithNibName:@"ViewpointWebTableViewCell" bundle:nil];
+    [self.tableView registerNib:nib2 forCellReuseIdentifier:@"ViewpointWebTableViewCellID"];
+    
     [self loadViewpointInfo];
 }
 
@@ -77,7 +58,7 @@
     [indicator startAnimating];
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_ViewGetDetail parameters:@{@"id": self.viewpointId} completion:^(id data, NSError *error){
+    [ma GET:API_ViewGetDetail parameters:@{@"id": self.aliveID} completion:^(id data, NSError *error){
         
         [indicator stopAnimating];
         
@@ -93,12 +74,22 @@
 - (void)reloadViewWithViewModel:(ViewModel *)model {
     self.viewModel = model;
     
+    TDShareModel *shareModel = [[TDShareModel alloc] init];
+    shareModel.title = model.view_title;
+    shareModel.images = @[model.view_thumb];
+    shareModel.url = model.view_share_url;
+    self.shareModel = shareModel;
+    
     CGSize size = [model.view_title boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:20]} context:nil].size;
     self.headerCellHeight = 250+size.height+28;
     
-    [self.view addSubview:self.tableView];
+    self.masterID = model.view_userid;
+    
+    [self loadTabelView];
     
     self.navigationItem.rightBarButtonItem.enabled = YES;
+    
+    [self setupIsLike:model.view_isLike withAnimation:NO];
     
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         

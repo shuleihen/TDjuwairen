@@ -15,8 +15,15 @@
 
 @implementation ShareHandler
 
++ (void)shareWithModel:(TDShareModel *)model {
+    [ShareHandler shareWithTitle:model.title image:model.image url:model.url];
+}
 
-+ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSURL *)url {
++ (void)shareWithModel:(TDShareModel *)model selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock {
+    [ShareHandler shareWithTitle:model.title image:model.images url:model.url selectedBlock:selectedBlock shareState:stateBlock];
+}
+
++ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSString *)url {
     NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
     NSArray *images;
     if (image) {
@@ -30,7 +37,7 @@
         imageArray = images;
     }
     
-    [shareParams SSDKSetupShareParamsByText:nil images:imageArray url:url title:title type:SSDKContentTypeAuto];
+    [shareParams SSDKSetupShareParamsByText:nil images:imageArray url:[NSURL URLWithString:SafeValue(url)] title:title type:SSDKContentTypeAuto];
     
     [ShareSDK showShareActionSheet:nil
                              items:nil

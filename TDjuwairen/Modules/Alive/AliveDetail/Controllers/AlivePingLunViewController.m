@@ -26,7 +26,7 @@
 #import "NotificationDef.h"
 #import "NSString+Emoji.h"
 
-@interface AlivePingLunViewController ()<SQTopicTableViewCellDelegate, GuessCommentPublishDelegate>
+@interface AlivePingLunViewController ()<SQTopicTableViewCellDelegate, GuessCommentPublishDelegate, UITableViewDelegate, UITableViewDataSource>
 
 @property (copy, nonatomic) NSArray *items;
 @property (nonatomic, strong) NSMutableArray *dataArray;
@@ -35,31 +35,36 @@
 
 @implementation AlivePingLunViewController
 
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.separatorColor = TDSeparatorColor;
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.showsVerticalScrollIndicator = NO;
+        _tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        _tableView.estimatedRowHeight = 120;
+        _tableView.rowHeight = UITableViewAutomaticDimension ;
+        [_tableView registerClass:[SQTopicTableViewCell class] forCellReuseIdentifier:@"GuessCommentCellID"];
+    }
+    
+    return _tableView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.tableView registerClass:[SQTopicTableViewCell class] forCellReuseIdentifier:@"GuessCommentCellID"];
-    self.tableView.backgroundColor = TDViewBackgrouondColor;
-    self.tableView.tableFooterView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 1)];
-    self.tableView.estimatedRowHeight = 120;
-    self.tableView.rowHeight = UITableViewAutomaticDimension ;
-    
+    [self.view addSubview:self.tableView];
     
     self.page = 1;
+    [self queryGuessComment];
     
-    [self initValue];
-    [self initViews];
-}
-
-- (void)initValue
-{
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPingLunSource) name:KnotifierGoPingLun object:nil];
 }
 
-- (void)initViews
-{
-    
-}
 - (void)refreshAction {
     self.page = 1;
     [self queryGuessComment];
@@ -75,17 +80,12 @@
     [self queryGuessComment];
 }
 
-- (void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-//    [[NSNotificationCenter defaultCenter]removeObserver:self];
-}
 
 - (void)queryGuessComment {
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *dict = nil;
-    dict = @{@"alive_id":SafeValue(_detail_id), @"alive_type": SafeValue(self.detail_type)};
+    dict = @{@"alive_id": self.aliveID, @"alive_type": @(self.aliveType)};
     
     __weak AlivePingLunViewController *wself = self;
     [ma GET:API_AliveGetRoomComment parameters:dict completion:^(id data, NSError *error){
@@ -118,14 +118,7 @@
     }];
 }
 
-- (void)viewWillLayoutSubviews
-{
-}
 
-- (void)reloadWithCommentList:(NSArray *)array {
-    
-}
-//
 - (IBAction)addCommentPressed:(id)sender {
     if (US.isLogIn) {
         [self showPublishControllerWithType:kGuessPublishAdd withReplyCommentId:nil];

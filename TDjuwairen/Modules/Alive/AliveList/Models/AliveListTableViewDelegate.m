@@ -59,6 +59,8 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         self.unlockManager.delegate = self;
 
         self.canEdit = NO;
+        self.isShowToolBar = YES;
+        self.isAliveDetail = NO;
     }
     
     return self;
@@ -70,7 +72,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     for (AliveListModel *model in array) {
         
         AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
-        cellData.isShowDetailMessage = NO;
+        cellData.isShowDetailMessage = self.isAliveDetail;
         [cellData setup];
         [cellArray addObject:cellData];
     }
@@ -338,7 +340,11 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         return 1;
     }
     
-    return 2;
+    if (self.isShowToolBar) {
+        return 2;
+    }
+    
+    return 1;
 }
 
 
@@ -397,6 +403,11 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    if (self.isAliveDetail) {
+        // 直播详情页面，不响应
+        return;
+    }
+    
     AliveListCellData *cellData = self.itemList[indexPath.section];
     AliveListModel *model = cellData.aliveModel;
     
@@ -406,14 +417,9 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     
     if (model.aliveType == kAliveViewpoint) {
         // 观点
-        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithViewpointId:model.aliveId];
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
-//        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-//        detail.view_id = model.aliveId;
-//        detail.pageMode = @"view";
-//        [detail setHidesBottomBarWhenPushed:YES];
-//        [self.viewController.navigationController pushViewController:detail animated:YES];
     } else if (model.aliveType == kAliveSurvey ||
                model.aliveType == kAliveHot ||
                model.aliveType == kAliveVideo) {
@@ -446,9 +452,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
             [self.unlockManager unlockStock:model.extra.companyCode withStockName:model.extra.companyName withController:self.viewController];
         }
     } else {
-        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.aliveID = model.aliveId;
-        vc.aliveType = model.aliveType;
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }

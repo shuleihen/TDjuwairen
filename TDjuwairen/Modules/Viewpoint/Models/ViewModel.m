@@ -34,7 +34,9 @@
     model.view_isCollected = [dic[@"is_collection"] boolValue];
     model.view_isAtten = [dic[@"is_attention_author"] boolValue];
     model.view_isOriginal = [dic[@"view_isoriginal"] boolValue];
+    model.view_isLike = [dic[@"view_has_assess"] boolValue];
     model.view_visintnum = dic[@"view_visitnum"];
+    model.view_share_url = dic[@"view_share_url"];
     return model;
 }
 

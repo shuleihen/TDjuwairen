@@ -26,10 +26,12 @@
 @property (nonatomic,copy) NSString *view_author;
 
 @property (nonatomic,copy) NSString *view_content_url;
+@property (nonatomic, copy) NSString *view_share_url;
 
 @property (nonatomic, assign) BOOL view_isAtten;
 @property (nonatomic, assign) BOOL view_isCollected;
 @property (nonatomic, assign) BOOL view_isOriginal;
+@property (nonatomic, assign) BOOL view_isLike;
 
 @property (nonatomic, copy) NSNumber *view_visintnum;
 @property (nonatomic, assign) NSInteger view_share_num;

@@ -25,4 +25,5 @@
 @property (nonatomic, strong) AliveListModel *cellModel;
 
 - (void)setupAliveModel:(AliveListModel *)aliveModel;
+- (void)setupForDetail;
 @end

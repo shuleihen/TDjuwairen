@@ -13,21 +13,25 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 
 
 @interface AliveListTableViewDelegate : NSObject<UITableViewDataSource, UITableViewDelegate>
-
+@property (nonatomic, weak) UIViewController *viewController;
 @property (nonatomic, weak) UITableView *tableView;
 
-@property (nonatomic, weak) UIViewController *viewController;
-
 @property (nonatomic, strong) NSArray *itemList;
-
-// 用户头像是否能点击，默认为YES
-@property (nonatomic, assign) BOOL avatarPressedEnabled;
 
 // 直播列表类型
 @property (nonatomic, assign) AliveListType listType;
 
-// 是否可以编辑删除
+// 用户头像是否能点击，默认为YES
+@property (nonatomic, assign) BOOL avatarPressedEnabled;
+
+// 是否可以编辑删除，默认NO
 @property (nonatomic, assign) BOOL canEdit;
+
+// 是否显示动态下面的工具条，默认YES
+@property (nonatomic, assign) BOOL isShowToolBar;
+
+// 是否为直播详情页面
+@property (nonatomic, assign) BOOL isAliveDetail;
 
 @property (nonatomic, copy) void (^reloadView)(void);
 

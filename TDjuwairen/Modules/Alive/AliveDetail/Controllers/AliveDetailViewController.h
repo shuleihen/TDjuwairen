@@ -7,10 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AliveTypeDefine.h"
+#import "AliveDetailBaseViewController.h"
 
-@interface AliveDetailViewController : UIViewController
-@property (copy, nonatomic) NSString *aliveID;
-@property (nonatomic, assign) AliveType aliveType;
+@interface AliveDetailViewController : AliveDetailBaseViewController
 
 @end

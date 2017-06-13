@@ -14,10 +14,10 @@ typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 @interface AliveMasterListViewController : UIViewController
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, assign) AliveMasterListType listType;
+@property (nonatomic, strong) NSString *aliveId;
 @property (assign, nonatomic) AliveType aliveType;
 
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
 @property (nonatomic, strong) UITableView *tableView;
 
-- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId  aliveType:(AliveType)aliveType viewControllerType:(AliveMasterListType)listType;
 @end

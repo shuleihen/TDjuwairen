@@ -53,6 +53,8 @@
 
 @implementation AliveRoomViewController
 - (void)dealloc {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
     [self.tableView removeObserver:self forKeyPath:@"contentOffset"];
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
