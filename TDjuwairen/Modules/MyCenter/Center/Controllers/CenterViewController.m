@@ -164,7 +164,7 @@
     } else {
         AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
         aliveMasterListVC.masterId = US.userId;
-        aliveMasterListVC.listType = kAliveListAttentionList;
+        aliveMasterListVC.listType = kAliveAttentionList;
         aliveMasterListVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aliveMasterListVC animated:YES];
     }
@@ -179,7 +179,7 @@
     } else {
         AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
         aliveMasterListVC.masterId = US.userId;
-        aliveMasterListVC.listType = AliveFansList;
+        aliveMasterListVC.listType = kAliveFansList;
         aliveMasterListVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:aliveMasterListVC animated:YES];
     }

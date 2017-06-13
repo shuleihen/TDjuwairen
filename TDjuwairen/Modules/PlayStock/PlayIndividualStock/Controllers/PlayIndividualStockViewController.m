@@ -203,10 +203,10 @@
 {
     //获取当前时间
     NSDate *currentDate = [NSDate date];
-    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     NSDateComponents *currentComps = [[NSDateComponents alloc] init];
     
-    NSInteger unitFlags = NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit | NSWeekdayCalendarUnit | NSHourCalendarUnit | NSMinuteCalendarUnit | NSSecondCalendarUnit;
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
     
     currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
     
@@ -218,7 +218,7 @@
     [resultComps setHour:hour];
     [resultComps setMinute:minute];
     
-    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
     return [resultCalendar dateFromComponents:resultComps];
 }
 
@@ -674,8 +674,8 @@
     }else if (article_type == 4) {
         // 直播
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.alive_ID = model.artile_info[@"article_id"];
-        vc.alive_type = @"2";
+        vc.aliveID = model.artile_info[@"article_id"];
+        vc.aliveType = kAlivePosts;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }else{

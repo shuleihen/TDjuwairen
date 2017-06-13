@@ -14,6 +14,7 @@
 #import "ACActionSheet.h"
 #import "AliveRoomViewController.h"
 #import "MBProgressHUD.h"
+#import "FeedbackViewController.h"
 
 @interface ViewpointDetailViewController ()<UITableViewDelegate, UITableViewDataSource, UIWebViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -145,6 +146,17 @@
             self.viewModel.view_isCollected = [showDict[@"changeValue"] boolValue];
         }
     }];
+}
+
+- (void)feedbackPressed {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    FeedbackViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedbackViewController"];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)morePressed:(id)sender {

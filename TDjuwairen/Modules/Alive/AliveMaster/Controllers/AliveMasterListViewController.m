@@ -27,13 +27,13 @@
 
 @implementation AliveMasterListViewController
 
-- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId aliveType:(NSString *)aliveType viewControllerType:(AliveMasterListType)listType {
+- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId  aliveType:(AliveType)aliveType viewControllerType:(AliveMasterListType)listType {
     
     if (self = [super init]) {
         self.vc = vc;
         self.listType = listType;
         self.masterId = aliveId;
-        self.alive_type = aliveType;
+        self.aliveType = aliveType;
     }
     return self;
 }
@@ -61,13 +61,13 @@
     self.edgesForExtendedLayout = UIRectEdgeNone;
     
     switch (self.listType) {
-        case AliveMasterList:
+        case kAliveMasterList:
             self.title = @"播主";
             break;
-        case kAliveListAttentionList:
+        case kAliveAttentionList:
             self.title = @"关注";
             break;
-        case  AliveFansList:
+        case kAliveFansList:
             self.title = @"粉丝";
             break;
         default:
@@ -84,9 +84,9 @@
 
 - (void)refreshAddLick:(NSNotification *)noti{
     
-    if ([noti.userInfo[@"notiType"] isEqualToString:@"dianzan"] && self.listType == AliveDianZanList) {
+    if ([noti.userInfo[@"notiType"] isEqualToString:@"dianzan"] && self.listType == kAliveDianZanList) {
          [self requestDataWithPage:1];
-    }else if ([noti.userInfo[@"notiType"] isEqualToString:@"fenxiang"] && self.listType == AliveShareList) {
+    }else if ([noti.userInfo[@"notiType"] isEqualToString:@"fenxiang"] && self.listType == kAliveShareList) {
     
         [self requestDataWithPage:1];
     }
@@ -113,29 +113,29 @@
     NSString *url = nil;
     
     switch (self.listType) {
-        case AliveMasterList:
+        case kAliveMasterList:
             dict = @{@"page":@(aPage)};
             url = API_AliveGetMasterList;
             break;
-        case kAliveListAttentionList:
+        case kAliveAttentionList:
             dict = @{@"master_id": self.masterId,@"page":@(aPage)};
             url = API_AliveGetAttenList;
             break;
-        case  AliveFansList:
+        case  kAliveFansList:
             dict = @{@"master_id": self.masterId,@"page":@(aPage)};
             url = API_AliveGetFansList;
             break;
-        case  AliveDianZanList:
+        case kAliveDianZanList:
         {
             self.page = 1;
-            dict = @{@"alive_id": self.masterId,@"alive_type":self.alive_type==nil?@"":self.alive_type};
+            dict = @{@"alive_id": self.masterId,@"alive_type":@(self.aliveType)};
             url = API_AliveGetRoomLike;
         }
             break;
-        case  AliveShareList:
+        case kAliveShareList:
         {
             self.page = 1;
-            dict = @{@"alive_id": self.masterId,@"alive_type":self.alive_type==nil?@"":self.alive_type};
+            dict = @{@"alive_id": self.masterId,@"alive_type":@(self.aliveType)};
             url = API_AlvieGetRoomShare;
         }
             break;
@@ -172,7 +172,7 @@
             weakSelf.page++;
             [weakSelf.tableView reloadData];
             
-            if (weakSelf.listType == AliveDianZanList || weakSelf.listType == AliveShareList) {
+            if (weakSelf.listType == kAliveDianZanList || weakSelf.listType == kAliveShareList) {
                 if (weakSelf.dataBlock) {
                     weakSelf.dataBlock(weakSelf.aliveArr.count);
                 }
@@ -207,7 +207,7 @@
     AliveMasterModel *model = self.aliveArr[indexPath.row];
     cell.aliveModel = model;
     
-    if (self.listType == AliveDianZanList) {
+    if (self.listType == kAliveDianZanList) {
         cell.introLabel.hidden = YES;
     }else {
         cell.introLabel.hidden = NO;
@@ -265,7 +265,7 @@
     
     AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.masterId];
     
-    if (self.listType == AliveDianZanList || self.listType == AliveShareList) {
+    if (self.listType == kAliveDianZanList || self.listType == kAliveShareList) {
         [self.vc.navigationController pushViewController:vc animated:YES];
     }else {
         [self.navigationController pushViewController:vc animated:YES];
@@ -275,7 +275,7 @@
 
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (self.listType == AliveDianZanList) {
+    if (self.listType == kAliveDianZanList) {
         
         return 74;
     }else {

@@ -183,8 +183,8 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts) {
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.alive_ID = model.aliveId;
-        vc.alive_type = (model.aliveType==1)?@"1":@"2";
+        vc.aliveID = model.aliveId;
+        vc.aliveType = model.aliveType;
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     } else if (model.aliveType == kAliveSurvey ||
@@ -447,8 +447,8 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         }
     } else {
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.alive_ID = model.aliveId;
-        vc.alive_type = (model.aliveType==1)?@"1":@"2";
+        vc.aliveID = model.aliveId;
+        vc.aliveType = model.aliveType;
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     }

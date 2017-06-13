@@ -16,7 +16,6 @@
 #import "AliveSearchStockCell.h"
 #import "ApplySurveyViewController.h"
 #import "StockDetailViewController.h"
-#import "ViewPointTableViewCell.h"
 #import "AliveSearchResultModel.h"
 #import "AliveRoomViewController.h"
 #import "MJRefresh.h"
@@ -494,8 +493,8 @@
             return;
         }
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.alive_ID = model.aliveId;
-        vc.alive_type = [self.searchResultData.sectionTitle isEqualToString:@"贴单"]?@"2":@"1";
+        vc.aliveID = model.aliveId;
+        vc.aliveType = [self.searchResultData.sectionTitle isEqualToString:@"贴单"]?kAlivePosts:kAliveNormal;
         [self.navigationController pushViewController:vc animated:YES];
         
     }else {

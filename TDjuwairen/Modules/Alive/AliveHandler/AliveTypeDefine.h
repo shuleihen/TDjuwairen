@@ -57,6 +57,7 @@ typedef enum : NSInteger {
     kMessageTypeAlivePostsShare     =6
 } AliveMessageType;
 
+// 直播搜索类型
 typedef enum : NSUInteger {
     AliveSearchSubUserType      =0, // 用户搜索
     AliveSearchSubStockType     =1, // 股票搜索
@@ -65,5 +66,14 @@ typedef enum : NSUInteger {
     AliveSearchSubPasteType     =4, // 贴单搜索
     AliveSearchSubViewPointType =5  // 观点搜索
 } AliveSearchSubType;
+
+// 主播列表类型
+typedef enum : NSUInteger {
+    kAliveMasterList     =0, // 播主列表
+    kAliveAttentionList  =1, // 关注列表
+    kAliveFansList       =2, // 粉丝列表
+    kAliveDianZanList    =3, // 点赞列表
+    kAliveShareList      =4  // 分享列表
+} AliveMasterListType;
 
 #endif /* AliveTypeDefine_h */

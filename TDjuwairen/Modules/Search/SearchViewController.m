@@ -9,7 +9,6 @@
 #import "SearchViewController.h"
 #import "HistoryView.h"
 #import "SurveyListModel.h"
-#import "ViewPointListModel.h"
 #import "SearchResultTableViewCell.h"
 #import "DetailPageViewController.h"
 #import "LoginViewController.h"

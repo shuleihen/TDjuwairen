@@ -32,7 +32,7 @@
                                 <action selector="backPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="bFW-BI-chi"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwf-b0-BFo">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwf-b0-BFo">
                             <rect key="frame" x="339" y="2" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="30" id="4Qt-h3-t1E"/>
@@ -43,7 +43,7 @@
                                 <action selector="messagePressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="7Qm-8f-u4w"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IvM-m4-Uox">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IvM-m4-Uox">
                             <rect key="frame" x="299" y="2" width="30" height="40"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="40" id="Q7R-Ef-YdG"/>
@@ -54,7 +54,7 @@
                                 <action selector="editPressed:" destination="iN0-l3-epB" eventType="touchUpInside" id="gQ1-p5-Am6"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-bV-i3P">
+                        <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uRj-bV-i3P">
                             <rect key="frame" x="303" y="7.5" width="60" height="30"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="30" id="51t-QU-UHI"/>

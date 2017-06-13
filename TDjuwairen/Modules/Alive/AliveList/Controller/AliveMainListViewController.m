@@ -229,7 +229,7 @@
 - (void)anchorPressed:(id)sender {
     
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-    aliveMasterListVC.listType = AliveMasterList;
+    aliveMasterListVC.listType = kAliveMasterList;
     [aliveMasterListVC setHidesBottomBarWhenPushed:YES];
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }

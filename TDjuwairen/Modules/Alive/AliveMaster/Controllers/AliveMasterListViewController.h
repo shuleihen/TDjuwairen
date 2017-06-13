@@ -7,23 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum : NSUInteger {
-    AliveMasterList     =0, // 播主列表
-    kAliveListAttentionList  =1, // 关注列表
-    AliveFansList       =2, // 粉丝列表
-    AliveDianZanList    =3, // 点赞列表
-    AliveShareList      =4  // 分享列表
-} AliveMasterListType;
+#import "AliveTypeDefine.h"
 
 typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 
-
 @interface AliveMasterListViewController : UIViewController
-@property (nonatomic, assign) AliveMasterListType listType;
 @property (nonatomic, strong) NSString *masterId;
-@property (copy, nonatomic) NSString *alive_type;
+@property (nonatomic, assign) AliveMasterListType listType;
+@property (assign, nonatomic) AliveType aliveType;
+
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
 @property (nonatomic, strong) UITableView *tableView;
-- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId  aliveType:(NSString *)aliveType viewControllerType:(AliveMasterListType)listType;
+
+- (instancetype)initWithDianZanVC:(UIViewController *)vc aliveId:(NSString *)aliveId  aliveType:(AliveType)aliveType viewControllerType:(AliveMasterListType)listType;
 @end

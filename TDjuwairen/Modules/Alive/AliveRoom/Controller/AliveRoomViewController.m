@@ -501,7 +501,7 @@
     }
     
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-    aliveMasterListVC.listType = kAliveListAttentionList;
+    aliveMasterListVC.listType = kAliveAttentionList;
     aliveMasterListVC.masterId = self.masterId;
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }
@@ -512,7 +512,7 @@
     }
     
     AliveMasterListViewController *aliveMasterListVC = [[AliveMasterListViewController alloc] init];
-    aliveMasterListVC.listType = AliveFansList;
+    aliveMasterListVC.listType = kAliveFansList;
     aliveMasterListVC.masterId = self.masterId;
     [self.navigationController pushViewController:aliveMasterListVC animated:YES];
 }

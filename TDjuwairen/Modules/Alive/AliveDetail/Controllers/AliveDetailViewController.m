@@ -105,8 +105,8 @@
     if (!_pinglunVC) {
         _pinglunVC = [[AlivePingLunViewController alloc] init];
         _pinglunVC.superVC = self;
-        _pinglunVC.detail_id = self.alive_ID;
-        _pinglunVC.detail_type = self.alive_type;
+        _pinglunVC.detail_id = self.aliveID;
+        _pinglunVC.detail_type = [NSString stringWithFormat:@"%d",(int)self.aliveType];
         _pinglunVC.view.frame = CGRectMake(0, 0, kScreenWidth, self.pinglunVC.tableView.frame.size.height-44);
         _pinglunVC.tableView.scrollEnabled = NO;
         __weak typeof(self)weakSelf = self;
@@ -126,7 +126,7 @@
 - (AliveMasterListViewController *)dianZanVC {
     
     if (!_dianZanVC) {
-        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveDianZanList];
+        _dianZanVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.aliveID aliveType:self.aliveType viewControllerType:kAliveDianZanList];
         _dianZanVC.view.frame = CGRectMake(kScreenWidth, 0, kScreenWidth, self.pageScrollView.frame.size.height);
         
         _dianZanVC.tableView.scrollEnabled = NO;
@@ -149,7 +149,7 @@
 - (AliveMasterListViewController *)shareVC {
     
     if (!_shareVC) {
-        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.alive_ID aliveType:self.alive_type viewControllerType:AliveShareList];
+        _shareVC = [[AliveMasterListViewController alloc] initWithDianZanVC:self aliveId:self.aliveID aliveType:self.aliveType viewControllerType:kAliveShareList];
         
         _shareVC.view.frame = CGRectMake(kScreenWidth*2, 0, kScreenWidth, self.pageScrollView.frame.size.height);
         _shareVC.tableView.scrollEnabled = NO;
@@ -249,7 +249,7 @@
 - (void)loadDynamicDetailData {
     NetworkManager *manager = [[NetworkManager alloc] init];
     
-    NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
+    NSDictionary *dict = @{@"alive_id":self.aliveID,@"alive_type" : @(self.aliveType)};
     
     __weak AliveDetailViewController *wself = self;
     [manager GET:API_AliveGetAliveInfo parameters:dict completion:^(id data, NSError *error){
@@ -411,8 +411,8 @@
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts) {
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.alive_ID = model.aliveId;
-        vc.alive_type = (model.aliveType==1)?@"1":@"2";
+        vc.aliveID = model.aliveId;
+        vc.aliveType = (model.aliveType==1)?1:2;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (model.aliveType == kAliveSurvey ||
@@ -478,7 +478,7 @@
        }  shareState:^(BOOL state) {
            if (state) {
                NetworkManager *manager = [[NetworkManager alloc] init];
-               NSDictionary *dict = @{@"item_id":weakSelf.alive_ID,@"type" :weakSelf.alive_type};
+               NSDictionary *dict = @{@"item_id":weakSelf.aliveID,@"type":@(weakSelf.aliveType)};
                
                [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
                    if (!error) {
@@ -489,6 +489,7 @@
            }
        }];
 }
+
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
 {
     if (!US.isLogIn) {
@@ -498,8 +499,8 @@
     }
     
     AliveCommentViewController *commVC = [AliveCommentViewController new];
-    commVC.alive_ID = _alive_ID;
-    commVC.alive_type = _alive_type;
+    commVC.alive_ID = self.aliveID;
+    commVC.alive_type = [NSString stringWithFormat:@"%d",(int)self.aliveType];
     [self.navigationController pushViewController:commVC animated:YES];
     
 }
@@ -514,7 +515,7 @@
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary *dict = @{@"alive_id":self.alive_ID,@"alive_type" :self.alive_type};
+    NSDictionary *dict = @{@"alive_id":self.aliveID,@"alive_type":@(self.aliveType)};
     __weak typeof(self)wself = self;
     
     if (cell.cellModel.isLike) {
