@@ -3243,6 +3243,7 @@
 		1975D34D1EEA8A4300191E1D /* ViewpointDetail */ = {
 			isa = PBXGroup;
 			children = (
+				19C526251D49EDEE0039F85D /* WebView */,
 				1975D34E1EEA8A4300191E1D /* Cells */,
 				1975D34F1EEA8A4300191E1D /* Controllers */,
 				1975D3501EEA8A4300191E1D /* Views */,
@@ -3976,7 +3977,6 @@
 				1955B42A1D644D9800DC102E /* Viewpoint */,
 				1975D34D1EEA8A4300191E1D /* ViewpointDetail */,
 				19E519381D509C3F00CFF149 /* CustomUI */,
-				19C526251D49EDEE0039F85D /* WebView */,
 				19959B711E2C5D4300AB26DF /* Grade */,
 				19AF98441E271FFB0097A585 /* ApplySurvey */,
 				194F058E1E27425400C8CB8A /* Subscription */,
@@ -3993,7 +3993,8 @@
 				19C526261D49EE090039F85D /* TDWebViewController.h */,
 				19C526271D49EE090039F85D /* TDWebViewController.m */,
 			);
-			path = WebView;
+			name = WebView;
+			path = ../WebView;
 			sourceTree = "<group>";
 		};
 		19D6A2F01E0D0126008368F4 /* STPopup */ = {

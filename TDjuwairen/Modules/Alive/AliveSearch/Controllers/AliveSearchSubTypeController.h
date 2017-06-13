@@ -15,4 +15,5 @@
 @property (assign, nonatomic) AliveSearchSubType searchType;
 @property (strong, nonatomic) SearchSectionData *transmitSearchSectionData;
 @property (copy, nonatomic) NSString *searchTextStr;
+@property (assign, nonatomic) BOOL needLoadData;
 @end

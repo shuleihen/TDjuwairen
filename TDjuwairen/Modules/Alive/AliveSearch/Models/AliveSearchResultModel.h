@@ -72,6 +72,11 @@
 
 
 
+/// common
+@property (copy, nonatomic) NSString *searchTextStr;
+
+
+
 /// 用户列表
 - (id)initWithUserListDict:(NSDictionary *)dict;
 /// 股票列表
@@ -82,5 +87,8 @@
 //- (id)initWithTopicListDict:(NSDictionary *)dict;
 ///// 观点列表
 //- (id)initWithViewPointListDict:(NSDictionary *)dict;
+
+
+
 
 @end

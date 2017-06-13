@@ -53,6 +53,17 @@
     
 }
 
+- (void)setNeedLoadData:(BOOL)needLoadData {
+
+    _needLoadData = needLoadData;
+    self.customSearchBar.text = self.searchTextStr;
+    if (needLoadData == YES) {
+        
+        [self refreshActions];
+    }
+    
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.filterBtnSelected = NO;
@@ -166,6 +177,7 @@
                         
                         for (NSDictionary *dict in arrM) {
                             AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithUserListDict:dict];
+                            result.searchTextStr = self.customSearchBar.text;
                             [marray addObject:result];
                         }
                         
@@ -186,6 +198,7 @@
                         
                         for (NSDictionary *dict in arrM) {
                             AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithStockListDict:dict];
+                            result.searchTextStr = self.customSearchBar.text;
                             [marray addObject:result];
                         }
                         
@@ -207,6 +220,7 @@
                         
                         for (NSDictionary *dict in arrM) {
                             AliveSearchResultModel *result = [[AliveSearchResultModel alloc] initWithSurveyListDict:dict];
+                            result.searchTextStr = self.customSearchBar.text;
                             [marray addObject:result];
                         }
                         
@@ -228,6 +242,7 @@
                         
                         for (NSDictionary *dict in arrM) {
                             AliveListModel *result = [[AliveListModel alloc] initWithDictionary:dict];
+                           result.searchTextStr = self.customSearchBar.text;
                             [marray addObject:result];
                         }
                         
@@ -254,6 +269,7 @@
                         
                         for (NSDictionary *dict in arrM) {
                             AliveListModel *result = [[AliveListModel alloc] initWithDictionary:dict];
+                            result.searchTextStr = self.customSearchBar.text;
                             [marray addObject:result];
                         }
                         
@@ -281,6 +297,7 @@
                         
                         for (NSDictionary *dict in arrM) {
                             AliveListModel *result = [[AliveListModel alloc] initWithDictionary:dict];
+                            result.searchTextStr = self.customSearchBar.text;
                             [marray addObject:result];
                         }
                         
@@ -449,8 +466,8 @@
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"] || [self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
         AliveListCellData *model = self.searchResultData.items[indexPath.section];
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
-        cell.arrowButton.hidden = YES;
         [cell setupAliveListCellData:model];
+        cell.arrowButton.hidden = YES;
         cell.tag = indexPath.section;
         return cell;
     }else {

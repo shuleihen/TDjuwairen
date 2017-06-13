@@ -54,6 +54,7 @@
 
 // 收藏ID
 @property (nonatomic, copy) NSString *collectedId;
+@property (copy, nonatomic) NSString *searchTextStr;
 
 @property (nonatomic, assign) BOOL isCollection;
 
