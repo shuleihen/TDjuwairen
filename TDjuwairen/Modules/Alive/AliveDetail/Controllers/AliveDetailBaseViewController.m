@@ -69,6 +69,8 @@
         _footerViewController.masterId = self.masterID;
         _footerViewController.aliveID = self.aliveID;
         _footerViewController.aliveType = self.aliveType;
+        
+        
     }
     return _footerViewController;
 }
@@ -92,6 +94,8 @@
 - (void)loadTabelView {
     [self.view addSubview:self.tableView];
     [self.view addSubview:self.toolView];
+    
+    [self addChildViewController:self.footerViewController];
     
     self.tableView.tableFooterView = self.footerViewController.view;
 }

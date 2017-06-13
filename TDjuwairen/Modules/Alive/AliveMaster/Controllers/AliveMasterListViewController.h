@@ -19,5 +19,4 @@ typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
 @property (nonatomic, strong) UITableView *tableView;
-
 @end

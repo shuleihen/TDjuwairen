@@ -76,8 +76,6 @@
 		193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */; };
 		193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */; };
 		193419AC1E76B4DB00F22788 /* AliveRoomHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */; };
-		193419B21E76B54600F22788 /* AliveContentHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B01E76B54600F22788 /* AliveContentHeaderView.m */; };
-		193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 193419B11E76B54600F22788 /* AliveContentHeaderView.xib */; };
 		193419B61E76B84B00F22788 /* AliveRoomViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419B51E76B84B00F22788 /* AliveRoomViewController.m */; };
 		193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419C21E77945B00F22788 /* AliveRoomLiveViewController.m */; };
 		193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419D31E77F58F00F22788 /* UINavigationBar+Awesome.m */; };
@@ -727,9 +725,6 @@
 		1934199E1E76B4DB00F22788 /* AliveRoomHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomHeaderView.h; sourceTree = "<group>"; };
 		1934199F1E76B4DB00F22788 /* AliveRoomHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomHeaderView.m; sourceTree = "<group>"; };
 		193419A01E76B4DB00F22788 /* AliveRoomHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveRoomHeaderView.xib; sourceTree = "<group>"; };
-		193419AF1E76B54600F22788 /* AliveContentHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveContentHeaderView.h; sourceTree = "<group>"; };
-		193419B01E76B54600F22788 /* AliveContentHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveContentHeaderView.m; sourceTree = "<group>"; };
-		193419B11E76B54600F22788 /* AliveContentHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveContentHeaderView.xib; sourceTree = "<group>"; };
 		193419B41E76B84A00F22788 /* AliveRoomViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomViewController.h; sourceTree = "<group>"; };
 		193419B51E76B84B00F22788 /* AliveRoomViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomViewController.m; sourceTree = "<group>"; };
 		193419C11E77945B00F22788 /* AliveRoomLiveViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomLiveViewController.h; sourceTree = "<group>"; };
@@ -2215,9 +2210,6 @@
 		19386ED01E71A2AE00D4426E /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				193419AF1E76B54600F22788 /* AliveContentHeaderView.h */,
-				193419B01E76B54600F22788 /* AliveContentHeaderView.m */,
-				193419B11E76B54600F22788 /* AliveContentHeaderView.xib */,
 				19C398D81EF00D7C001C34B0 /* AliveDetailSegmentView.h */,
 				19C398D91EF00D7C001C34B0 /* AliveDetailSegmentView.m */,
 			);
@@ -4898,7 +4890,6 @@
 				4DE306B01EDFE75000A0D88C /* AliveSearchSurveyCell.xib in Resources */,
 				1987B2731EE688F700BD852E /* AskAndAnsTableViewCell.xib in Resources */,
 				1987B2791EE688F700BD852E /* NiuxiongTableViewCell.xib in Resources */,
-				193419B31E76B54600F22788 /* AliveContentHeaderView.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
 				4DEFF1B31ED81AF0004E3267 /* AliveSearchSubTypeController.xib in Resources */,
@@ -5154,7 +5145,6 @@
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
-				193419B21E76B54600F22788 /* AliveContentHeaderView.m in Sources */,
 				1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */,
 				193419E51E78DF2B00F22788 /* DCPathItemButton.m in Sources */,
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,

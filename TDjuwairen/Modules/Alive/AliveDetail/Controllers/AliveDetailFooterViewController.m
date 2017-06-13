@@ -33,6 +33,7 @@
         AlivePingLunViewController *one = [[AlivePingLunViewController alloc] init];
         one.aliveID = self.aliveID;
         one.aliveType = self.aliveType;
+        one.superVC = self;
         
         AliveMasterListViewController *two = [[AliveMasterListViewController alloc] init];
         two.masterId = self.masterId;
@@ -77,8 +78,8 @@
     [self.view addSubview:self.segmentView];
     
     self.tabBarController.view.frame = CGRectMake(0, 44, kScreenWidth, CGRectGetHeight(self.view.bounds)-44);
-    [self.view addSubview:self.tabBarController.view];
     [self addChildViewController:self.tabBarController];
+    [self.view addSubview:self.tabBarController.view];
 }
 
 

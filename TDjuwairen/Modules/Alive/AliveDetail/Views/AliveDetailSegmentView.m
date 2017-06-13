@@ -66,6 +66,14 @@
 - (void)buttonPressed:(UIButton *)sender {
     NSInteger index = sender.tag - 100;
     
+    UIButton *one = [self viewWithTag:100];
+    UIButton *two = [self viewWithTag:101];
+    UIButton *three = [self viewWithTag:102];
+    
+    one.selected = (index==0);
+    two.selected = (index==1);
+    three.selected = (index==2);
+    
     if (index == 0) {
         [UIView animateWithDuration:0.4 animations:^{
             self.arrow.frame = CGRectMake(12, CGRectGetHeight(self.frame)-3, kAliveDetailSegmentWidth, 3);
