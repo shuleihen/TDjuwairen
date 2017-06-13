@@ -15,7 +15,7 @@
         self.aliveType = [dict[@"alive_type"] integerValue];
         self.aliveImgs = dict[@"alive_img"];
         self.aliveTime = dict[@"alive_time"];
-        self.aliveTitle = dict[@"alive_title"];
+        self.aliveTitle = [dict[@"alive_title"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
         self.masterId = dict[@"alive_master_id"];
         self.masterNickName = dict[@"user_nickname"];
         self.masterAvatar = dict[@"userinfo_facemin"];
@@ -40,7 +40,13 @@
         if (extraDict.count) {
             self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
         }
+        
+        self.collectedId = dict[@"collect_id"];
     }
     return self;
+}
+
+- (BOOL)isCollection {
+    return (self.collectedId.length>0)?YES:NO;
 }
 @end

@@ -256,8 +256,8 @@
         
         if (!error) {
             wself.aliveInfoModel = [[AliveListModel alloc] initWithDictionary:data];
-            wself.aliveCellData = [[AliveListCellData alloc] initWithAliveModel:wself.aliveInfoModel];
-            wself.aliveCellData.isShowDetail = YES;
+            wself.aliveCellData = [AliveListCellData cellDataWithAliveModel:wself.aliveInfoModel];
+            wself.aliveCellData.isShowDetailMessage = YES;
             [wself.aliveCellData setup];
             
             [wself.tableView reloadData];

@@ -250,8 +250,8 @@
                         if (marray.count > 0) {
                             NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:marray.count];
                             for (AliveListModel *model in marray) {
-                                AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
-                                cellData.isShowDetail = NO;
+                                AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
+                                cellData.isShowDetailMessage = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -277,8 +277,8 @@
                         if (marray.count > 0) {
                             NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:marray.count];
                             for (AliveListModel *model in marray) {
-                                AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
-                                cellData.isShowDetail = NO;
+                                AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
+                                cellData.isShowDetailMessage = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -305,8 +305,8 @@
                         if (marray.count > 0) {
                             NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:marray.count];
                             for (AliveListModel *model in marray) {
-                                AliveListCellData *cellData = [[AliveListCellData alloc] initWithAliveModel:model];
-                                cellData.isShowDetail = NO;
+                                AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
+                                cellData.isShowDetailMessage = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }

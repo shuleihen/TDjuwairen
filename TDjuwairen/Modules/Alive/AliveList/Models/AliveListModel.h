@@ -12,6 +12,7 @@
 #import "AliveListExtra.h"
 
 @interface AliveListModel : NSObject
+// 是否为转发动态
 @property (nonatomic, assign) BOOL isForward;
 /// 动态ID
 @property (nonatomic, copy) NSString *aliveId;

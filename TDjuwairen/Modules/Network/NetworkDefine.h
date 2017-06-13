@@ -19,9 +19,10 @@
 #define API_GetBrowseHistory    @"Public/getBrowseHistory"
 #define API_DelBrowseHistory    @"Public/delBrowseHistory"
 #define API_GetApiValidate      @"Public/getapivalidate/"
-#define API_GetCollectionList   @"Collection/getCollectionlist"
+#define API_GetCollectionList   @"Collection/getCollectList3_1"
 #define API_DelCollection       @"Collection/delCollect"
 #define API_AddCollection       @"Collection/addCollect"
+#define API_CancelCollection    @"Collection/cancelCollectById"
 #define API_GetUserFeedbackList @"Feedback/getUserFeedbackList1_2"
 
 #define API_Login               @"Login/loginDo2_3"

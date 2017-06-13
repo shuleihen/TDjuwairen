@@ -22,6 +22,7 @@
 #import "YXTitleCustomView.h"
 #import "HexColors.h"
 #import "AliveSearchAllTypeViewController.h"
+#import "AliveMessageListViewController.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
@@ -235,11 +236,9 @@
 
 /// 消息列表
 - (void)messagePressed:(id)sender {
-    UIViewController *messageListVC = [[UIViewController alloc] init];
-    messageListVC.title = @"消息列表";
-    messageListVC.view.backgroundColor = [UIColor whiteColor];
-    [messageListVC setHidesBottomBarWhenPushed:YES];
-    [self.navigationController pushViewController:messageListVC animated:YES];
+    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 
@@ -285,7 +284,7 @@
         
         AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
         vc.hidesBottomBarWhenPushed = YES;
-        vc.publishType = (itemButtonIndex == 0)?kAlivePublishPosts:kAlivePublishNormal;
+        vc.publishType = (itemButtonIndex == 1)?kAlivePublishPosts:kAlivePublishNormal;
         [self.navigationController pushViewController:vc animated:YES];
     }
     

@@ -49,14 +49,14 @@
     [self refreshActions];
 }
 
-- (void)clearPressed:(UIButton *)sender {
-    __weak typeof(self)weakSelf = self;
-    
-    UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"清空后不可在查看，确定清空吗？" preferredStyle:UIAlertControllerStyleActionSheet];
-    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [weakSelf sendClearRequest];
-    }]];
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+- (void)clearPressed:(UIButton *)sender {    
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否清空列表" message:@"\n清空列表消息将永久删除，确认清空？\n" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){}];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self sendClearRequest];
+    }];
+    [alert addAction:cancel];
+    [alert addAction:done];
     [self presentViewController:alert animated:YES completion:nil];
 }
 

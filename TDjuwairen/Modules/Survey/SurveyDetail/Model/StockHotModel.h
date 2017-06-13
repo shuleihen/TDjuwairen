@@ -15,5 +15,8 @@
 @property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, assign) BOOL isVisited;
 
+@property (nonatomic, strong) NSString *collectedId;
+
 - (id)initWithDict:(NSDictionary *)dict;
+- (id)initWithCollectionDict:(NSDictionary *)dict;
 @end

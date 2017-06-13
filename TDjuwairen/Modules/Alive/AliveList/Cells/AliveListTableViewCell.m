@@ -10,6 +10,9 @@
 #import "UIImageView+WebCache.h"
 #import "HexColors.h"
 #import "MYPhotoBrowser.h"
+#import "AliveListPostView.h"
+#import "AliveListViewpointView.h"
+#import "AliveListForwardView2.h"
 
 @implementation AliveListTableViewCell
 
@@ -52,41 +55,19 @@
         [_arrowButton addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_arrowButton];
         
-        _messageLabel = [[TTTAttributedLabel alloc] initWithFrame:CGRectZero];
-        _messageLabel.font = [UIFont systemFontOfSize:16.0f];
-        _messageLabel.textAlignment = NSTextAlignmentLeft;
-        _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
-        _messageLabel.numberOfLines = 0;
-        _messageLabel.delegate = self;
-        [self.contentView addSubview:_messageLabel];
-        
-        _imagesView = [[AliveListImagesView alloc] initWithFrame:CGRectZero];
-        [self.contentView addSubview:_imagesView];
-        
-        _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectZero];
-        _tagsView.hidden = YES;
-        [self.contentView addSubview:_tagsView];
-        
-        _forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-24, 80)];
-        _forwardView.hidden = YES;
-        [self.contentView addSubview:_forwardView];
-        
-        _viewpointImageView = [[AliveListViewpointImageView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-24, 178)];
-        _viewpointImageView.hidden = YES;
-        [self.contentView addSubview:_viewpointImageView];
-        
-        UITapGestureRecognizer *tap1 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardAvatarPressed:)];
-        [self.forwardView.nameLabel addGestureRecognizer:tap1];
-        
-        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
-        [self.forwardView addGestureRecognizer:tap2];
-        
         self.selectionStyle = UITableViewCellSelectionStyleNone;
     }
     return self;
 }
 
-
+- (void)setAliveContentView:(AliveListContentView *)aliveContentView {
+    if (_aliveContentView || _aliveContentView.superview) {
+        [_aliveContentView removeFromSuperview];
+    }
+    
+    _aliveContentView = aliveContentView;
+    [self.contentView addSubview:aliveContentView];
+}
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
@@ -115,56 +96,35 @@
     // 直播动态时间
     self.timeLabel.text = aliveModel.aliveTime;
     
+    // 收藏不显示下拉按钮
+    self.arrowButton.hidden = aliveModel.isCollection;
     
-    // 直播消息
-    self.messageLabel.frame = cellData.messageLabelFrame;
-    self.messageLabel.attributedText = cellData.message;
-
-    if ([cellData.message.string hasSuffix:@"查看图片"]) {
-        [self.messageLabel setLinkAttributes:@{NSUnderlineStyleAttributeName: @(0)}];
-        [self.messageLabel setActiveLinkAttributes:@{NSUnderlineStyleAttributeName: @(0),
-                                                     NSUnderlineColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}];
-        [self.messageLabel addLinkToURL:[NSURL URLWithString:@"jwr://show_alive_list_img"] withRange:NSMakeRange(cellData.message.string.length-4, 4)];
+    // 动态内容
+    if (aliveModel.isForward) {
+        AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, cellData.viewHeight)];
+        self.aliveContentView = view;
+        [view setCellData:cellData];
+        
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
+        [view.forwardView addGestureRecognizer:tap2];
     } else {
-        [self.messageLabel setLinkAttributes:nil];
-        [self.messageLabel setActiveLinkAttributes:nil];
+        switch (aliveModel.aliveType) {
+            case kAliveNormal:
+            case kAlivePosts: {
+                AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:CGRectMake(0, 62, kScreenWidth, cellData.viewHeight)];
+                self.aliveContentView = view;
+                [view setCellData:cellData];
+            }
+                break;
+            case kAliveViewpoint: {
+                AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:CGRectMake(0, 62, kScreenWidth, cellData.viewHeight)];
+                self.aliveContentView = view;
+                [view setCellData:cellData];
+            }
+            default:
+                break;
+        }
     }
-    
-    
-    // 直播图片
-    self.imagesView.frame = cellData.imgsViewFrame;
-    self.imagesView.hidden = !cellData.isShowImgView;
-    
-    if (cellData.isShowImgView) {
-        self.imagesView.images = aliveModel.aliveImgs;
-    }
-    
-
-    // 直播标签
-    self.tagsView.hidden = !cellData.isShowTags;
-    self.tagsView.frame = cellData.tagsFrame;
-    
-    if (cellData.isShowTags) {
-        self.tagsView.tags = aliveModel.aliveTags;
-    }
-    
-    
-    // 直播转发
-    self.forwardView.hidden = !cellData.aliveModel.isForward;
-    self.forwardView.frame = cellData.forwardFrame;
-    
-    if (cellData.aliveModel.isForward) {
-        [self.forwardView setupAliveForward:aliveModel.forwardModel];
-    }
-    
-    // 直播观点
-    self.viewpointImageView.hidden = !cellData.isShowViewpointImageView;
-    self.viewpointImageView.frame = cellData.viewpointImageViewFrame;
-    
-    if (cellData.isShowViewpointImageView) {
-        [self.viewpointImageView setupViewpointUrl:aliveModel.aliveImgs.firstObject];
-    }
-    
 }
 
 #pragma mark - 
