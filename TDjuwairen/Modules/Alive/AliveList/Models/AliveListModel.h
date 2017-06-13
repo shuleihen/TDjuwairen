@@ -52,7 +52,11 @@
 // 调研股票信息
 @property (nonatomic, strong) AliveListExtra *extra;
 
+// 收藏ID
+@property (nonatomic, copy) NSString *collectedId;
 @property (copy, nonatomic) NSString *searchTextStr;
+
+@property (nonatomic, assign) BOOL isCollection;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end
