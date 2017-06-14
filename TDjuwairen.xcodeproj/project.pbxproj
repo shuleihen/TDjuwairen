@@ -359,6 +359,7 @@
 		19C348761D3F76DB008ABD16 /* UIScrollView+MJRefresh.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348611D3F76DB008ABD16 /* UIScrollView+MJRefresh.m */; };
 		19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */; };
 		19C398DA1EF00D7C001C34B0 /* AliveDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C398D91EF00D7C001C34B0 /* AliveDetailSegmentView.m */; };
+		19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C398DD1EF13416001C34B0 /* SurveyListTableViewCell.m */; };
 		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
 		19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */; };
 		19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2F41E0D0126008368F4 /* STPopupController.m */; };
@@ -1258,6 +1259,8 @@
 		19C348631D3F76DB008ABD16 /* UIView+MJExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+MJExtension.m"; sourceTree = "<group>"; };
 		19C398D81EF00D7C001C34B0 /* AliveDetailSegmentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveDetailSegmentView.h; sourceTree = "<group>"; };
 		19C398D91EF00D7C001C34B0 /* AliveDetailSegmentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveDetailSegmentView.m; sourceTree = "<group>"; };
+		19C398DC1EF13416001C34B0 /* SurveyListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListTableViewCell.h; sourceTree = "<group>"; };
+		19C398DD1EF13416001C34B0 /* SurveyListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListTableViewCell.m; sourceTree = "<group>"; };
 		19C526261D49EE090039F85D /* TDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewController.h; sourceTree = "<group>"; };
 		19C526271D49EE090039F85D /* TDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewController.m; sourceTree = "<group>"; };
 		19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyInfoSetting.storyboard; sourceTree = "<group>"; };
@@ -3479,6 +3482,8 @@
 			children = (
 				1987B2601EE688F700BD852E /* SurveryStockListCell.h */,
 				1987B2611EE688F700BD852E /* SurveryStockListCell.m */,
+				19C398DC1EF13416001C34B0 /* SurveyListTableViewCell.h */,
+				19C398DD1EF13416001C34B0 /* SurveyListTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5139,6 +5144,7 @@
 				1933257E1E4DAF7200E3D500 /* PushMessageViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
+				19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */,
 				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,

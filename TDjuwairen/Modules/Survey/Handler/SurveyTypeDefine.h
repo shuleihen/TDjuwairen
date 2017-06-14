@@ -21,4 +21,13 @@ typedef enum : NSUInteger {
 } SurveyType;
 
 
+#define kSurveyListOptional     @"154"
+
+@class SurveyListModel;
+@protocol SurveyStockListCellDelegate <NSObject>
+
+- (void)surveyStockListStockNamePressedWithSurveyListModel:(SurveyListModel *)model;
+- (void)surveyStockListTitlePressedWithSurveyListModel:(SurveyListModel *)model;
+@end
+
 #endif /* SurveyTypeDefine_h */

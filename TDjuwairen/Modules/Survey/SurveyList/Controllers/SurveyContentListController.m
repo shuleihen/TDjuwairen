@@ -17,6 +17,7 @@
 #import "MBProgressHUD.h"
 #import "SurveyDetailWebViewController.h"
 #import "StockUnlockManager.h"
+#import "SurveyListTableViewCell.h"
 
 @interface SurveyContentListController ()
 <StockManagerDelegate, UITableViewDelegate, UITableViewDataSource,
@@ -31,6 +32,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 @property (nonatomic, strong) UIView *noDataView;
 @property (assign, nonatomic) CGFloat cellHeight;
 @property (nonatomic, strong) StockUnlockManager *unlockManager;
+@property (nonatomic, assign) BOOL isOptional;
 @end
 
 @implementation SurveyContentListController
@@ -56,7 +58,8 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         _tableView.bounces = NO;
         _tableView.scrollEnabled = NO;
         _tableView.tableFooterView = [UIView new];
-        [self.tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
+        [_tableView registerClass:[SurveryStockListCell class] forCellReuseIdentifier:@"SurveryStockListCellID"];
+        [_tableView registerClass:[SurveyListTableViewCell class] forCellReuseIdentifier:@"SurveyListTableViewCellID"];
     }
     
     return _tableView;
@@ -72,7 +75,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         CGPoint center = CGPointMake(kScreenWidth/2, minHeight/2);
         
         UIImage *image;
-        if ([self.subjectTitle isEqualToString:@"自选"]) {
+        if (self.isOptional) {
             image = [UIImage imageNamed:@"add_specialno.png"];
         } else {
             image = [UIImage imageNamed:@"no_result.png"];
@@ -84,7 +87,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         btn.center = CGPointMake(center.x, center.y-image.size.height/2-5);
         [_noDataView addSubview:btn];
         
-        if ([self.subjectTitle isEqualToString:@"自选"]) {
+        if (self.isOptional) {
             [btn addTarget:self action:@selector(addStockPressed:) forControlEvents:UIControlEventTouchUpInside];
         }
         
@@ -95,7 +98,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         label.font = [UIFont systemFontOfSize:14.0f];
         label.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         
-        if ([self.subjectTitle isEqualToString:@"自选"]) {
+        if (self.isOptional) {
             label.text = @"还没有增加自选股票~";
         } else {
             label.text = [NSString stringWithFormat:@"还没有%@股票~",self.subjectTitle];
@@ -111,11 +114,19 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
     [self.view addSubview:self.tableView];
     self.view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
     
-    self.stockArr = [NSMutableArray array];
-    [self refreshData];
+    self.isOptional = [self.subjectId isEqualToString:kSurveyListOptional];
+    if (self.isOptional) {
+        self.cellHeight = 118;
+    }else {
+        self.cellHeight = 97;
+    }
+    self.tableView.rowHeight = self.cellHeight;
     
     self.unlockManager = [[StockUnlockManager alloc] init];
     self.unlockManager.delegate = self;
+    
+    self.stockArr = [NSMutableArray array];
+    [self refreshData];
 }
 
 - (void)addStockPressed:(id)sender {
@@ -142,13 +153,6 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 - (void)getSurveyWithPage:(NSInteger)pageA {
     __weak SurveyContentListController *wself = self;
     
-    if ([self.subjectTitle isEqualToString:@"自选"]) {
-        self.cellHeight = 118;
-    }else {
-        self.cellHeight = 97;
-    }
-    _tableView.rowHeight = self.cellHeight;
-    
     NSDictionary *dict = @{@"sub_id" : self.subjectId,@"page" : @(pageA)};
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -172,7 +176,10 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
                 }
                 wself.surveyList = [NSArray arrayWithArray:list];
                 
-                [wself.stockManager addStocks:self.stockArr];
+                if (self.isOptional) {
+                    [wself.stockManager addStocks:self.stockArr];
+                }
+                
                 wself.page++;
             } else {
                 if (pageA == 1) {
@@ -223,9 +230,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 
 
 #pragma mark - SurveyStockListCellDelegate
-- (void)surveyStockListCell:(SurveryStockListCell *)cell titlePressed:(id)sender {
-    
-    SurveyListModel *model = cell.model;
+- (void)surveyStockListTitlePressedWithSurveyListModel:(SurveyListModel *)model {
     
     if (model.isUnlocked) {
         SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
@@ -249,11 +254,12 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 
 }
 
-- (void)surveyStockListCell:(SurveryStockListCell *)cell stockNamePressed:(id)sender {
-    SurveyListModel *survey = cell.model;
+
+
+- (void)surveyStockListStockNamePressedWithSurveyListModel:(SurveyListModel *)model {
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-    vc.stockCode = survey.companyCode;
+    vc.stockCode = model.companyCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }
@@ -269,28 +275,24 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
-    cell.subjectTitle = self.subjectTitle;
-    cell.delegate = self;
-    
-    return cell;
-}
-
-//- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//
-//    if (self.subjectTitle iseq) {
-//        <#statements#>
-//    }
-//}
-
-
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    SurveryStockListCell *scell = (SurveryStockListCell *)cell;
     SurveyListModel *survey = self.surveyList[indexPath.section];
-    [scell setupSurvey:survey];
     
-    StockInfo *stock = [self.stockDict objectForKey:survey.stockCode];
-    [scell setupStock:stock];
+    if (self.isOptional) {
+        SurveyListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveyListTableViewCellID"];
+        cell.delegate = self;
+        [cell setupSurvey:survey];
+        
+        StockInfo *stock = [self.stockDict objectForKey:survey.stockCode];
+        [cell setupStock:stock];
+        
+        return cell;
+    } else {
+        SurveryStockListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SurveryStockListCellID"];
+        cell.delegate = self;
+        [cell setupSurvey:survey];
+        
+        return cell;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
