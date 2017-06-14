@@ -90,10 +90,10 @@
     
     NSLog(@"body:%@", message.body);
     
-    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"]) {
+    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"] ||
+        [message.name isEqualToString:@"com_jwr_rechargevip"]) {
         TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
-//        NSLog(@"升级黄金会员");
     }
 }
 

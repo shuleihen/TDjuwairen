@@ -13,6 +13,7 @@
 #import "NetworkManager.h"
 #import "CocoaLumberjack.h"
 #import "SKProduct+LocalizedPrice.h"
+#import "LoginState.h"
 
 @interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UITableViewDelegate, UITableViewDataSource, MBProgressHUDDelegate>
 @property (nonatomic, strong) NSArray *productId;
@@ -128,6 +129,14 @@
 
 
 - (void)donePressed:(id)sender {
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     if (!indexPath) {
         return;

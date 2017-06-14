@@ -20,6 +20,7 @@
 @property (nonatomic, copy) NSString *company;
 @property (nonatomic, copy) NSString *post;
 @property (nonatomic, copy) NSString *personal;
+@property (nonatomic, assign) NSInteger userLevel;
 
 @property (nonatomic,assign) int user_balance;
 

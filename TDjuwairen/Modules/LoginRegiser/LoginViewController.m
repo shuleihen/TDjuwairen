@@ -114,7 +114,7 @@
             [LoginHandler saveLoginAccountId:account password:pwd];
             [LoginHandler checkOpenRemotePush];
             
-            [wself.navigationController popToRootViewControllerAnimated:YES];
+            [wself.navigationController popViewControllerAnimated:YES];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {

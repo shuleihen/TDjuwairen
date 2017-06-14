@@ -124,6 +124,8 @@
         } else {
             self.levelImageView.image = nil;
         }
+        
+        US.userLevel = level;
     }
 }
 

@@ -40,6 +40,7 @@
 #import "ActualQuotationViewController.h"
 #import "TDWebViewController.h"
 #import "YXTitleCustomView.h"
+#import "NSString+Util.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -544,8 +545,7 @@
         vc.stockCode = code;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-    }
-    else if ([arr[0] isEqualToString:@"Sharp"]){
+    } else if ([arr[0] isEqualToString:@"Sharp"]){
         DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
         DetailView.sharp_id = [arr lastObject];
         DetailView.pageMode = @"sharp";
@@ -567,6 +567,17 @@
         }
         
         [self.navigationController pushViewController:DetailView animated:YES];
+    } else {
+        NSString *nickName = [US.nickName URLEncode];
+        NSString *avatar = [US.headImage URLEncode];
+        
+        s = [s stringByAppendingFormat:@"&user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+        NSURL *url = [NSURL URLWithString:s];
+        if (url) {
+            TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
 }
 
