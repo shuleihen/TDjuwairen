@@ -495,6 +495,20 @@
         case kAliveHot: {
             self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, 91);
         }
+        case kAliveViewpoint:{
+            AliveListModel *model = [[AliveListModel alloc] init];
+            model.aliveType = forward.aliveType;
+            model.aliveTitle = forward.aliveTitle;
+            model.aliveImgs = forward.aliveImgs;
+            model.aliveTags = forward.aliveTags;
+            
+            AliveListViewpointCellData *pCellData = [[AliveListViewpointCellData alloc] initWithAliveModel:model];
+            pCellData.isShowDetailMessage = NO;
+            [pCellData setup];
+            
+            self.forwardCellData = pCellData;
+            self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, pCellData.viewHeight);
+        }
             break;
         default:
             self.forwardViewFrame = CGRectMake(0, height, kScreenWidth, 0);

@@ -9,6 +9,7 @@
 #import "AliveListForwardView2.h"
 #import "AliveListForwardSurveyView.h"
 #import "AliveListPostView.h"
+#import "AliveListViewpointView.h"
 
 @implementation AliveListForwardView2
 
@@ -44,6 +45,12 @@
             AliveListForwardSurveyView *view = [[AliveListForwardSurveyView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
             [view setForwardModel:model];
+        }
+        case kAliveViewpoint:
+        {
+            AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
         }
             break;
         default:

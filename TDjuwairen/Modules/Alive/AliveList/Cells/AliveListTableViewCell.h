@@ -13,7 +13,6 @@
 #import "AliveListForwardView.h"
 #import "TTTAttributedLabel.h"
 #import "AliveListTagsView.h"
-#import "AliveListViewpointImageView.h"
 #import "AliveListContentView.h"
 
 @class AliveListTableViewCell;

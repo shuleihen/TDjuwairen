@@ -70,4 +70,7 @@
     [self setupIsLike:model.isLike withAnimation:NO];
 }
 
+- (AliveListModel *)shareAliveListModel {
+    return self.aliveModel;
+}
 @end

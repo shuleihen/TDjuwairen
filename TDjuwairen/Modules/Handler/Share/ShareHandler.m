@@ -101,6 +101,8 @@
             */
             if (title.length > 200) {
                 shareTitle = [title substringToIndex:200];
+            } else {
+                shareTitle = title;
             }
         } else if (type == SSDKPlatformTypeSinaWeibo) {
             // text：不能超过140个汉字
@@ -121,6 +123,8 @@
              */
             if (title.length > 512) {
                 shareTitle = [title substringToIndex:512];
+            } else {
+                shareTitle = title;
             }
         }
         

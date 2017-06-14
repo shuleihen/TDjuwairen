@@ -107,7 +107,7 @@
                                             <constraint firstAttribute="height" constant="36" id="oEC-Vv-F2k"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                        <state key="normal" title="98成为会员">
+                                        <state key="normal" title="成为会员">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>

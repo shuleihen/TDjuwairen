@@ -226,7 +226,6 @@
 		1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0691EDFF1350065CEE0 /* AliveListExtra.m */; };
 		1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */; };
 		1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0711EE166D70065CEE0 /* StockUnlockModel.m */; };
-		1978E0761EE285CE0065CEE0 /* AliveListViewpointImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */; };
 		1987B2701EE688F700BD852E /* AnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2071EE688F700BD852E /* AnsTableViewCell.m */; };
 		1987B2711EE688F700BD852E /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2081EE688F700BD852E /* AnsTableViewCell.xib */; };
 		1987B2721EE688F700BD852E /* AskAndAnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B20A1EE688F700BD852E /* AskAndAnsTableViewCell.m */; };
@@ -1006,8 +1005,6 @@
 		1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockManager.m; sourceTree = "<group>"; };
 		1978E0701EE166D70065CEE0 /* StockUnlockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockModel.h; sourceTree = "<group>"; };
 		1978E0711EE166D70065CEE0 /* StockUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockModel.m; sourceTree = "<group>"; };
-		1978E0741EE285CE0065CEE0 /* AliveListViewpointImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListViewpointImageView.h; sourceTree = "<group>"; };
-		1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewpointImageView.m; sourceTree = "<group>"; };
 		1987B2061EE688F700BD852E /* AnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsTableViewCell.h; sourceTree = "<group>"; };
 		1987B2071EE688F700BD852E /* AnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsTableViewCell.m; sourceTree = "<group>"; };
 		1987B2081EE688F700BD852E /* AnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnsTableViewCell.xib; sourceTree = "<group>"; };
@@ -2836,8 +2833,6 @@
 				19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */,
 				19475C531EA4661F00F749E6 /* AliveListTagsView.h */,
 				19475C541EA4661F00F749E6 /* AliveListTagsView.m */,
-				1978E0741EE285CE0065CEE0 /* AliveListViewpointImageView.h */,
-				1978E0751EE285CE0065CEE0 /* AliveListViewpointImageView.m */,
 				1987B2AC1EE6CE2D00BD852E /* AliveListContentView.h */,
 				1987B2AD1EE6CE2D00BD852E /* AliveListContentView.m */,
 				1987B2AF1EE6CE8900BD852E /* AliveListViewpointView.h */,
@@ -4918,7 +4913,6 @@
 			files = (
 				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				84EE2AF81D929E48005D5C8C /* DetailTableViewController.m in Sources */,
-				1978E0761EE285CE0065CEE0 /* AliveListViewpointImageView.m in Sources */,
 				4D023BC71E8E2C8000AB463E /* PlayIndividualUserListModel.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,
 				190F65F41E36E73000B83ADF /* ChildOrderTableViewController.m in Sources */,

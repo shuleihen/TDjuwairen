@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "AliveTypeDefine.h"
 #import "TDShareModel.h"
+#import "AliveListModel.h"
 
 @interface AliveDetailBaseViewController : UIViewController
 @property (nonatomic, strong) NSString *masterID;
@@ -20,4 +21,5 @@
 - (id)initWithAliveId:(NSString *)aliveId aliveType:(AliveType)aliveType;
 - (void)loadTabelView;
 - (void)setupIsLike:(BOOL)isLike withAnimation:(BOOL)animation;
+- (AliveListModel *)shareAliveListModel;
 @end

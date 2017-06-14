@@ -102,6 +102,21 @@
     
 }
 
+- (AliveListModel *)shareAliveListModel {
+    
+    AliveListModel *model = [[AliveListModel alloc] init];
+    model.aliveId = self.aliveID;
+    model.aliveType = self.aliveType;
+    model.aliveTitle = self.viewModel.view_title;
+    model.masterId = self.viewModel.view_userid;
+    model.masterNickName = self.viewModel.view_author;
+    model.masterAvatar = self.viewModel.userinfo_facesmall;
+    model.aliveImgs = self.viewModel.view_thumb.length?@[self.viewModel.view_thumb]:@[];
+    model.shareUrl = self.viewModel.view_share_url;
+
+    return model;
+}
+
 - (void)collectionPressed {
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];

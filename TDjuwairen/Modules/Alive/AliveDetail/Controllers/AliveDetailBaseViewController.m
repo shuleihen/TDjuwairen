@@ -100,6 +100,10 @@
     self.tableView.tableFooterView = self.footerViewController.view;
 }
 
+- (AliveListModel *)shareAliveListModel {
+    return nil;
+}
+
 #pragma mark - AliveListBottomTableCellDelegate
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender {
@@ -110,7 +114,9 @@
         return;
     }
     
-    if (!self.shareModel) {
+    
+    AliveListModel *aliveModel = [self shareAliveListModel];
+    if (!aliveModel) {
         return;
     }
     
@@ -123,14 +129,14 @@
         }
     };
     
-     [ShareHandler shareWithModel:self.shareModel selectedBlock:^(NSInteger index){
+     [ShareHandler shareWithTitle:aliveModel.aliveTitle image:aliveModel.aliveImgs url:aliveModel.shareUrl selectedBlock:^(NSInteger index){
          if (index == 0) {
              // 转发
              AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
              vc.hidesBottomBarWhenPushed = YES;
              
              vc.publishType = kAlivePublishForward;
-             vc.aliveListModel = cell.cellModel;
+             vc.aliveListModel = aliveModel;
              vc.shareBlock = shareBlock;
              [weakSelf.navigationController pushViewController:vc animated:YES];
          }
