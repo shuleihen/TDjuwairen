@@ -91,6 +91,7 @@
 }
 
 - (void)setupSurvey:(SurveyListModel *)survey {
+    self.model = survey;
     
     CGFloat w = [UIScreen mainScreen].bounds.size.width;
     
