@@ -271,8 +271,7 @@
 		1987B2991EE688F700BD852E /* SelectedSurveySubjectViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2641EE688F700BD852E /* SelectedSurveySubjectViewController.m */; };
 		1987B29A1EE688F700BD852E /* SurveyContentListController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2661EE688F700BD852E /* SurveyContentListController.m */; };
 		1987B29B1EE688F700BD852E /* SurveyListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2681EE688F700BD852E /* SurveyListViewController.m */; };
-		1987B29C1EE688F700BD852E /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26B1EE688F700BD852E /* SurveyListModel.m */; };
-		1987B29D1EE688F700BD852E /* SurveyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26D1EE688F700BD852E /* SurveyModel.m */; };
+		1987B29D1EE688F700BD852E /* SurveyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26D1EE688F700BD852E /* SurveyListModel.m */; };
 		1987B29E1EE688F700BD852E /* SurveySubjectModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B26F1EE688F700BD852E /* SurveySubjectModel.m */; };
 		1987B2A91EE6894300BD852E /* VideoTitleTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2A21EE6894300BD852E /* VideoTitleTableViewCell.m */; };
 		1987B2AA1EE6894300BD852E /* VideoTitleTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2A31EE6894300BD852E /* VideoTitleTableViewCell.xib */; };
@@ -1091,10 +1090,8 @@
 		1987B2661EE688F700BD852E /* SurveyContentListController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyContentListController.m; sourceTree = "<group>"; };
 		1987B2671EE688F700BD852E /* SurveyListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListViewController.h; sourceTree = "<group>"; };
 		1987B2681EE688F700BD852E /* SurveyListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListViewController.m; sourceTree = "<group>"; };
-		1987B26A1EE688F700BD852E /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
-		1987B26B1EE688F700BD852E /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
-		1987B26C1EE688F700BD852E /* SurveyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyModel.h; sourceTree = "<group>"; };
-		1987B26D1EE688F700BD852E /* SurveyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyModel.m; sourceTree = "<group>"; };
+		1987B26C1EE688F700BD852E /* SurveyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyListModel.h; sourceTree = "<group>"; };
+		1987B26D1EE688F700BD852E /* SurveyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListModel.m; sourceTree = "<group>"; };
 		1987B26E1EE688F700BD852E /* SurveySubjectModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveySubjectModel.h; sourceTree = "<group>"; };
 		1987B26F1EE688F700BD852E /* SurveySubjectModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveySubjectModel.m; sourceTree = "<group>"; };
 		1987B2A11EE6894300BD852E /* VideoTitleTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VideoTitleTableViewCell.h; sourceTree = "<group>"; };
@@ -3507,10 +3504,8 @@
 		1987B2691EE688F700BD852E /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				1987B26A1EE688F700BD852E /* SurveyListModel.h */,
-				1987B26B1EE688F700BD852E /* SurveyListModel.m */,
-				1987B26C1EE688F700BD852E /* SurveyModel.h */,
-				1987B26D1EE688F700BD852E /* SurveyModel.m */,
+				1987B26C1EE688F700BD852E /* SurveyListModel.h */,
+				1987B26D1EE688F700BD852E /* SurveyListModel.m */,
 				1987B26E1EE688F700BD852E /* SurveySubjectModel.h */,
 				1987B26F1EE688F700BD852E /* SurveySubjectModel.m */,
 			);
@@ -5016,7 +5011,6 @@
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
 				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
-				1987B29C1EE688F700BD852E /* SurveyListModel.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
 				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */,
@@ -5262,7 +5256,7 @@
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
 				1987B2AB1EE6894300BD852E /* VideoDetailViewController.m in Sources */,
-				1987B29D1EE688F700BD852E /* SurveyModel.m in Sources */,
+				1987B29D1EE688F700BD852E /* SurveyListModel.m in Sources */,
 				193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */,
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,

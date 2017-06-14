@@ -30,8 +30,8 @@
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1天前" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-XM-fz4">
-                        <rect key="frame" x="128" y="60" width="31" height="14.5"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-XM-fz4">
+                        <rect key="frame" x="128" y="60" width="7" height="14.5"/>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
                         <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -43,6 +43,12 @@
                             <constraint firstAttribute="height" constant="18" id="bRH-A2-KMF"/>
                         </constraints>
                     </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Pyk-cr-oGs">
+                        <rect key="frame" x="308" y="67.5" width="0.0" height="0.0"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="hBz-5y-a7E" secondAttribute="bottom" constant="15" id="00R-fh-mFu"/>
@@ -50,8 +56,10 @@
                     <constraint firstItem="hBz-5y-a7E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4fz-cg-UVK"/>
                     <constraint firstItem="BO7-bi-bOU" firstAttribute="top" secondItem="hBz-5y-a7E" secondAttribute="top" id="Crd-8i-LXs"/>
                     <constraint firstItem="hBz-5y-a7E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Du1-Tz-3T2"/>
+                    <constraint firstAttribute="trailing" secondItem="Pyk-cr-oGs" secondAttribute="trailing" constant="12" id="HIc-Jb-6ye"/>
                     <constraint firstItem="ye3-XM-fz4" firstAttribute="bottom" secondItem="hBz-5y-a7E" secondAttribute="bottom" id="NBI-TG-Ngs"/>
                     <constraint firstItem="V2t-oR-NR9" firstAttribute="top" secondItem="hBz-5y-a7E" secondAttribute="top" id="SXJ-8x-UHm"/>
+                    <constraint firstItem="Pyk-cr-oGs" firstAttribute="centerY" secondItem="ye3-XM-fz4" secondAttribute="centerY" id="WBW-NB-OoF"/>
                     <constraint firstItem="BO7-bi-bOU" firstAttribute="leading" secondItem="hBz-5y-a7E" secondAttribute="trailing" constant="12" id="Zp2-rX-sKB"/>
                     <constraint firstAttribute="trailing" secondItem="V2t-oR-NR9" secondAttribute="trailing" constant="12" id="kdD-YW-rb1"/>
                     <constraint firstItem="V2t-oR-NR9" firstAttribute="leading" secondItem="BO7-bi-bOU" secondAttribute="trailing" constant="5" id="qkW-1y-uRQ"/>
@@ -59,6 +67,7 @@
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateTimeLabel" destination="ye3-XM-fz4" id="bl3-xv-nsk"/>
+                <outlet property="rightLabel" destination="Pyk-cr-oGs" id="klh-Nn-hqB"/>
                 <outlet property="spotImageView" destination="hBz-5y-a7E" id="dDx-Pl-fhZ"/>
                 <outlet property="titleLabel" destination="BO7-bi-bOU" id="XA8-CG-MHn"/>
                 <outlet property="typeImageView" destination="V2t-oR-NR9" id="xST-3k-qKv"/>

@@ -29,4 +29,8 @@
     
     return self;
 }
+
+- (BOOL)isCollection {
+    return (self.collectedId.length>0);
+}
 @end

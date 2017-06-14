@@ -10,7 +10,7 @@
 #import "SurveryStockListCell.h"
 #import "NetworkManager.h"
 #import "StockManager.h"
-#import "SurveyModel.h"
+#import "SurveyListModel.h"
 #import "LoginState.h"
 #import "UIButton+WebCache.h"
 #import "UIImageView+WebCache.h"

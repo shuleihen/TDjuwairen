@@ -23,8 +23,18 @@
 
 - (void)setupSpotModel:(StockHotModel *)model {
     self.titleLabel.text = model.title;
-    self.dateTimeLabel.text = model.dateTime;
-    self.sourceLabel.text = model.source;
+    
+    if (model.isCollection) {
+        self.dateTimeLabel.text = [NSString stringWithFormat:@"%@(%@)",model.companyName,model.companyCode];
+        self.sourceLabel.text = [NSString stringWithFormat:@"%@ %@",model.source,model.dateTime];
+        self.dateTimeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+        self.sourceLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+    } else {
+        self.dateTimeLabel.text = model.dateTime;
+        self.sourceLabel.text = model.source;
+        self.dateTimeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+        self.sourceLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+    }
 }
 
 - (void)setupAnnounceModel:(StockAnnounceModel *)model {

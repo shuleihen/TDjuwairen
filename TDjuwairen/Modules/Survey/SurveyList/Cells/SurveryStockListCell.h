@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StockManager.h"
-#import "SurveyModel.h"
+#import "SurveyListModel.h"
 
 @class SurveryStockListCell;
 @protocol SurveyStockListCellDelegate <NSObject>
@@ -31,7 +31,7 @@
 @property (strong, nonatomic) UILabel *article_titleLabel;
 
 
-@property (nonatomic, strong) SurveyModel *model;
+@property (nonatomic, strong) SurveyListModel *model;
 /// 模块类型 :自选 推荐 。。。
 @property (copy, nonatomic) NSString *subjectTitle;
 
@@ -39,6 +39,6 @@
 
 + (CGFloat)rowHeight;
 
-- (void)setupSurvey:(SurveyModel *)survey;
+- (void)setupSurvey:(SurveyListModel *)survey;
 - (void)setupStock:(StockInfo *)stock;
 @end

@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "StockManager.h"
-#import "SurveyModel.h"
+#import "SurveyListModel.h"
 
 @interface StockDetailViewController : UITableViewController
 

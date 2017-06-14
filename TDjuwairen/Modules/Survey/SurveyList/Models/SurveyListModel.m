@@ -2,42 +2,39 @@
 //  SurveyListModel.m
 //  TDjuwairen
 //
-//  Created by 团大 on 16/5/16.
+//  Created by zdy on 2016/11/22.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
 #import "SurveyListModel.h"
 
 @implementation SurveyListModel
-
-+(SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic
-{
-    SurveyListModel *model = [[SurveyListModel alloc]init];
-    model.sharp_id = dic[@"sharp_id"];
-    model.sharp_title = dic[@"sharp_title"];
-    model.sharp_desc = dic[@"sharp_desc"];
-    model.sharp_imgurl = dic[@"sharp_pic280"];
-    model.sharp_wtime = dic[@"sharp_wtime"];
-    model.user_facemin = dic[@"userinfo_facesmall"];
-    model.user_nickname = dic[@"user_nickname"];
-    model.sharp_goodNumber = dic[@"sharp_goodnumbers"];
-    model.sharp_commentNumber = [dic[@"sharpcommentNumbers"] intValue];
++ (SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic {
+    SurveyListModel *model = [[SurveyListModel alloc] init];
+    model.surveyType = [dic[@"survey_type"] integerValue];
+    model.surveyCover = dic[@"survey_cover"];
+    model.surveyUrl = dic[@"survey_url"];
+    model.companyCode = dic[@"company_code"];
+    model.companyName = dic[@"company_name"];
+    model.surveyId = dic[@"survey_id"];
+    model.surveyTitle = dic[@"survey_title"];
+    model.stockCode = dic[@"stock_code"];
+    model.addTime = dic[@"survey_addtime"];
+    model.isUnlocked = [dic[@"is_unlock"] boolValue];
+    model.unlockKeyNum = [dic[@"unlock_keynum"] integerValue];
+    model.isVisited = [dic[@"is_visited"] boolValue];
     
-    model.survey_title = dic[@"survey_title"];
-    model.company_name = dic[@"company_name"];
-    model.survey_conpanycode = dic[@"survey_companycode"];
-    model.is_mystock = [dic[@"is_mystock"] boolValue];
     return model;
 }
 
-- (NSComparisonResult)compare:(SurveyListModel *)other
-{
-    if (self.sharp_wtime.integerValue > other.sharp_wtime.integerValue) {
-        return NSOrderedDescending;
-    } else if (self.sharp_wtime.integerValue < other.sharp_wtime.integerValue) {
-        return NSOrderedAscending;
-    } else {
-        return NSOrderedSame;
-    }
-}
+//- (NSComparisonResult)compare:(SurveyListModel *)other
+//{
+//    if (self..integerValue > other.order_ptime.integerValue) {
+//        return NSOrderedDescending;
+//    } else if (self.order_ptime.integerValue < other.order_ptime.integerValue) {
+//        return NSOrderedAscending;
+//    } else {
+//        return NSOrderedSame;
+//    }
+//}
 @end

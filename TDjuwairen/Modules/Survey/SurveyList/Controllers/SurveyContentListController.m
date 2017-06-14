@@ -165,7 +165,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
                 }
                 
                 for (NSDictionary *d in dataArray) {
-                    SurveyModel *model = [SurveyModel getInstanceWithDictionary:d];
+                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
                     [list addObject:model];
                     [wself.stockArr addObject:model.stockCode];
                     
@@ -212,7 +212,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 
 - (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
     
-    for (SurveyModel *model in self.surveyList) {
+    for (SurveyListModel *model in self.surveyList) {
         if ([model.companyCode isEqualToString:stockCode]) {
             model.isUnlocked = YES;
         }
@@ -225,7 +225,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 #pragma mark - SurveyStockListCellDelegate
 - (void)surveyStockListCell:(SurveryStockListCell *)cell titlePressed:(id)sender {
     
-    SurveyModel *model = cell.model;
+    SurveyListModel *model = cell.model;
     
     if (model.isUnlocked) {
         SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
@@ -250,7 +250,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 }
 
 - (void)surveyStockListCell:(SurveryStockListCell *)cell stockNamePressed:(id)sender {
-    SurveyModel *survey = cell.model;
+    SurveyListModel *survey = cell.model;
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
     vc.stockCode = survey.companyCode;
@@ -286,7 +286,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     SurveryStockListCell *scell = (SurveryStockListCell *)cell;
-    SurveyModel *survey = self.surveyList[indexPath.section];
+    SurveyListModel *survey = self.surveyList[indexPath.section];
     [scell setupSurvey:survey];
     
     StockInfo *stock = [self.stockDict objectForKey:survey.stockCode];
@@ -296,7 +296,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    SurveyModel *survey = self.surveyList[indexPath.section];
+    SurveyListModel *survey = self.surveyList[indexPath.section];
     
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
     vc.stockCode = survey.companyCode;

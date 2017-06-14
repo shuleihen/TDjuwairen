@@ -27,8 +27,17 @@
 - (void)setupSpotModel:(StockSurveyModel *)model {
     [self.spotImageView sd_setImageWithURL:[NSURL URLWithString:model.imageUrl] placeholderImage:nil];
     self.titleLabel.text = model.title;
-    self.dateTimeLabel.text = model.dateTime;
     self.typeImageView.image = [self imageWithSurveyType:model.surveyType];
+    
+    if (model.isCollection) {
+        self.dateTimeLabel.text = [NSString stringWithFormat:@"%@(%@)",model.companyName,model.companyCode];
+        self.rightLabel.text = model.dateTime;
+        self.dateTimeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+    } else {
+        self.dateTimeLabel.text = model.dateTime;
+        self.rightLabel.text = @"";
+        self.dateTimeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+    }
 }
 
 // 1为实地、2为对话、5为深度、6为评论，11表示视频

@@ -2,38 +2,29 @@
 //  SurveyListModel.h
 //  TDjuwairen
 //
-//  Created by 团大 on 16/5/16.
+//  Created by zdy on 2016/11/22.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
+#import "SurveyTypeDefine.h"
 
 @interface SurveyListModel : NSObject
+//1为实地、2为对话、3为产品、4为热点、5为深度、6为评论，11为视频
+@property (nonatomic, assign) SurveyType surveyType;
+@property (nonatomic, copy) NSString *surveyId;
+@property (nonatomic, copy) NSString *surveyTitle;
+@property (nonatomic, copy) NSString *companyName;
+@property (nonatomic, copy) NSString *companyCode;  // 股票代码不包含前缀
+@property (nonatomic, copy) NSString *stockCode;    // 包含前缀 sz，sh　
+@property (nonatomic, copy) NSString *surveyCover;
+@property (nonatomic, copy) NSString *surveyUrl;
+@property (nonatomic, copy) NSString *addTime;
+@property (nonatomic, assign) BOOL isUnlocked;
+@property (nonatomic, assign) NSInteger unlockKeyNum;
 
-@property (nonatomic,copy) NSString *sharp_id;             //文章id
-@property (nonatomic,copy) NSString *sharp_title;          //文章标题
-@property (nonatomic,copy) NSString *sharp_desc;           //文章简介
-@property (nonatomic,copy) NSString *sharp_imgurl;         //文章图片url
-@property (nonatomic,copy) NSString *sharp_wtime;          //文章发表时间
+// 是否访问过
+@property (nonatomic, assign) BOOL isVisited;
 
-@property (nonatomic,copy) NSString *user_facemin;         //发表人头像
-@property (nonatomic,copy) NSString *user_nickname;        //发表人昵称
-
-@property (nonatomic,copy) NSString *sharp_goodNumber;     //文章点赞数
-@property (nonatomic,assign) int sharp_commentNumber;  //文章评论数
-
-/*
- **新增搜索用 
- */
-@property (nonatomic, strong) NSString *survey_title;   //调研标题
-
-@property (nonatomic, strong) NSString *company_name;   //公司名称
-
-@property (nonatomic, strong) NSString *survey_conpanycode;//股票代码
-
-@property (nonatomic, assign) BOOL is_mystock;          //是否自选
-
-+(SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic;
-
-
++ (SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic;
 @end

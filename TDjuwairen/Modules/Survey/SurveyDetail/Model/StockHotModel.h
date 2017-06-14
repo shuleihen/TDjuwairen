@@ -15,7 +15,10 @@
 @property (nonatomic, strong) NSString *dateTime;
 @property (nonatomic, assign) BOOL isVisited;
 
+@property (nonatomic, assign) BOOL isCollection;
 @property (nonatomic, strong) NSString *collectedId;
+@property (nonatomic, strong) NSString *companyName;
+@property (nonatomic, strong) NSString *companyCode;
 
 - (id)initWithDict:(NSDictionary *)dict;
 - (id)initWithCollectionDict:(NSDictionary *)dict;

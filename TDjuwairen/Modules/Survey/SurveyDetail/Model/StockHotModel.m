@@ -24,7 +24,13 @@
     self = [self initWithDict:dict];
     
     self.collectedId = dict[@"collect_id"];
+    self.companyName = dict[@"company_name"];
+    self.companyCode = dict[@"company_code"];
     
     return self;
+}
+
+- (BOOL)isCollection {
+    return (self.collectedId.length>0);
 }
 @end
