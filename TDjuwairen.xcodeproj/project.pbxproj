@@ -3302,11 +3302,11 @@
 		1987B2181EE688F700BD852E /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				1987B2221EE688F700BD852E /* StockDetailViewController.h */,
+				1987B2231EE688F700BD852E /* StockDetailViewController.m */,
 				1987B2191EE688F700BD852E /* Dialogue */,
 				1987B21C1EE688F700BD852E /* Hot */,
 				1987B21F1EE688F700BD852E /* Spot */,
-				1987B2221EE688F700BD852E /* StockDetailViewController.h */,
-				1987B2231EE688F700BD852E /* StockDetailViewController.m */,
 				1987B2241EE688F700BD852E /* SurveyAnnounce */,
 				1987B2271EE688F700BD852E /* SurveyAsk */,
 				1987B22A1EE688F700BD852E /* SurveyMore */,

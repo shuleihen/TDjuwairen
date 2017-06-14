@@ -27,7 +27,7 @@
 #import "SurveyDownLoadHintViewController.h"
 #import "STPopup.h"
 #import "UIViewController+STPopup.h"
-
+#import <WebKit/WebKit.h>
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,StockShareDelegate,StockAskDelegate>
 @property (nonatomic, strong) WKWebView *webView;

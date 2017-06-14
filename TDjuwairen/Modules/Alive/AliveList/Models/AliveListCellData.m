@@ -492,9 +492,11 @@
         }
             break;
         case kAliveSurvey:
-        case kAliveHot: {
+        case kAliveHot:
+        {
             self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, 91);
         }
+            break;
         case kAliveViewpoint:{
             AliveListModel *model = [[AliveListModel alloc] init];
             model.aliveType = forward.aliveType;

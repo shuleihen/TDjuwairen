@@ -200,7 +200,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
             NSInteger tag = 0;
             if (model.aliveType == kAliveSurvey) {
                 tag = 0;
-            } else if(model.aliveType == kAliveSurvey) {
+            } else if(model.aliveType == kAliveHot) {
                 tag = 3;
             }
             

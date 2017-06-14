@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "SurveyDetailContentViewController.h"
-#import <WebKit/WebKit.h>
+#import "SurveyTypeDefine.h"
 
 @interface SurveyDetailWebViewController : UIViewController
 @property (nonatomic, strong) NSString *contentId;

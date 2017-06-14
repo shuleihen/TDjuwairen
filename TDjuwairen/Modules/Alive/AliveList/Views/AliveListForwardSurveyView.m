@@ -17,7 +17,7 @@
         [self addSubview:_imageView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(122, 14, CGRectGetWidth(frame)-134, 30)];
-        _titleLabel.numberOfLines = 0;
+        _titleLabel.numberOfLines = 2;
         _titleLabel.font = [UIFont systemFontOfSize:14.0f];
         _titleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         [self addSubview:_titleLabel];
@@ -41,11 +41,29 @@
 - (void)setForwardModel:(AliveListForwardModel *)forwardModel {
     _forwardModel = forwardModel;
     
-    [self.imageView sd_setImageWithURL:[NSURL URLWithString:forwardModel.aliveImg] placeholderImage:nil];
+    CGRect frame = self.bounds;
+    
     self.titleLabel.text = forwardModel.aliveTitle;
+    
+    if (forwardModel.aliveType == kAliveHot) {
+        CGSize size = [self.titleLabel sizeThatFits:CGSizeMake(CGRectGetWidth(frame)-24, MAXFLOAT)];
+        self.titleLabel.frame = CGRectMake(12, 14, size.width, size.height);
+        
+        self.imageView.frame = CGRectZero;
+        self.auhorLabel.frame = CGRectMake(12, CGRectGetHeight(frame)-15-20, CGRectGetWidth(frame)-24, 16);
+        self.dateLabel.frame = CGRectMake(CGRectGetWidth(frame)-112, CGRectGetHeight(frame)-15-20, 100, 16);
+    } else {
+        CGSize size = [self.titleLabel sizeThatFits:CGSizeMake(CGRectGetWidth(frame)-134, MAXFLOAT)];
+        self.titleLabel.frame = CGRectMake(122, 14, size.width, size.height);
+        
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:forwardModel.aliveImg] placeholderImage:nil];
+        self.imageView.frame = CGRectMake(12, 15, 100, 60);
+        self.auhorLabel.frame = CGRectMake(122, CGRectGetHeight(frame)-15-20, CGRectGetWidth(frame)-224, 16);
+        self.dateLabel.frame = CGRectMake(CGRectGetWidth(frame)-112, CGRectGetHeight(frame)-15-20, 100, 16);
+    }
+  
     self.auhorLabel.text = [NSString stringWithFormat:@"作者：%@", forwardModel.masterNickName];
     self.dateLabel.text = forwardModel.aliveTime;
-    
 }
 
 @end

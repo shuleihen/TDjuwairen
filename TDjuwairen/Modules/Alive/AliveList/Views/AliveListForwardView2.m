@@ -46,6 +46,7 @@
             self.forwardView = view;
             [view setForwardModel:model];
         }
+            break;
         case kAliveViewpoint:
         {
             AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:fCellData.forwardViewFrame];
