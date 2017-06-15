@@ -62,12 +62,13 @@
 
 #pragma mark - Relogin
 
-+ (void)checkLogin {
++ (bool)checkLogin {
     // normal、fast、qq、weixin
     NSString *loginType = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStyle"];
     
-    if (loginType.length) {
-        [LoginManager showWelcomeWithNickName:@"" avatar:@""];
+    if (!loginType.length) {
+        return NO;
+//        [LoginManager showWelcomeWithNickName:@"" avatar:@""];
     }
     
     if ([loginType isEqualToString:@"normal"]) {
@@ -77,6 +78,8 @@
     } else {
         [LoginManager thirdPartLogin:loginType];
     }
+    
+    return YES;
 }
 
 + (void)normalLogin {

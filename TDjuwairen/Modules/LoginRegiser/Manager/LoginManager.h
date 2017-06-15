@@ -10,6 +10,6 @@
 
 @interface LoginManager : NSObject
 + (void)getAuthKey;
-+ (void)checkLogin;
++ (bool)checkLogin;
 + (void)multiLoginError;
 @end

@@ -130,21 +130,21 @@
     [self setupNavigationBar];
     [self setupSegmentControl];
     
-    self.listType = kAliveListRecommend;
+    [LoginManager getAuthKey];
+
     
     self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
     [self.view addSubview:self.pageViewController.view];
     
-    self.segmentControl.selectedSegmentIndex = (self.listType == kAliveListRecommend)?0:1;
-    [self segmentValueChanged:self.segmentControl];
+    if (![LoginManager checkLogin]) {
+        self.listType = kAliveListRecommend;
+        self.segmentControl.selectedSegmentIndex = 0;
+        [self segmentValueChanged:self.segmentControl];
+    }
     
     [self.view addSubview:self.publishBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
-    
-    [LoginManager getAuthKey];
-    [LoginManager checkLogin];
-    
 }
 
 - (void)setupSegmentControl {
@@ -244,24 +244,11 @@
 
 - (void)loginStatusChanged:(id)sender {
     
-    NSInteger index = self.segmentControl.selectedSegmentIndex;
-    if (index >=0 && index<=self.contentControllers.count) {
-        AliveListViewController *vc = self.contentControllers[index];
-        [vc refreshActions];
-    }
+    self.contentControllers = nil;
     
-    /*
-     if (self.contentControllers.count) {
-     AliveListViewController *vc = self.contentControllers.firstObject;
-     [vc refreshActions];
-     }
-     
-     if (!US.isLogIn && (self.listType == kAliveListAttention)) {
-     self.listType = kAliveListRecommend;
-     self.segmentControl.selectedSegmentIndex = (self.listType == kAliveListRecommend)?0:1;
-     [self segmentValueChanged:self.segmentControl];
-     }
-     */
+    self.listType = kAliveListRecommend;
+    self.segmentControl.selectedSegmentIndex = (self.listType == kAliveListRecommend)?0:1;
+    [self segmentValueChanged:self.segmentControl];
 }
 
 #pragma mark - DCPathButtonDelegate
