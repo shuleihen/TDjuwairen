@@ -28,7 +28,7 @@
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParm];
+    NSDictionary *para = @{@"code": self.stockCode};
     
     [ma GET:API_SurveyDetailHot parameters:para completion:^(id data, NSError *error){
         if (!error && data && [data isKindOfClass:[NSArray class]]) {
@@ -95,8 +95,8 @@
     vc.contentId = model.hotId;
     vc.stockCode = self.stockCode;
     vc.stockName = self.stockName;
-    vc.tag = [self.tag integerValue];
-    vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.hotId withTag:self.tag];
+    vc.surveyType = kSurveyTypeHot;
+    vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.hotId withTag:kSurveyTypeHot];
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }
 

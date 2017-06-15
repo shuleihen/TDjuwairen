@@ -18,6 +18,7 @@
 #import "SurveyDetailWebViewController.h"
 #import "StockUnlockManager.h"
 #import "SurveyListTableViewCell.h"
+#import "DetailPageViewController.h"
 
 @interface SurveyContentListController ()
 <StockManagerDelegate, UITableViewDelegate, UITableViewDataSource,
@@ -233,14 +234,22 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 - (void)surveyStockListTitlePressedWithSurveyListModel:(SurveyListModel *)model {
     
     if (model.isUnlocked) {
-        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-        vc.contentId = model.surveyId;
-        vc.stockCode = model.companyCode;
-        vc.stockName = model.companyName;
-        vc.tag = 0;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:@"0"];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.rootController.navigationController pushViewController:vc animated:YES];
+        if (model.surveyType == kSurveyTypeVido) {
+            DetailPageViewController *vc = [[DetailPageViewController alloc] init];
+            vc.sharp_id = model.surveyId;
+            vc.pageMode = @"sharp";
+            [self.rootController.navigationController pushViewController:vc animated:YES];
+        } else {
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = model.surveyId;
+            vc.stockCode = model.companyCode;
+            vc.stockName = model.companyName;
+            vc.surveyType = model.surveyType;
+            vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:model.surveyType];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.rootController.navigationController pushViewController:vc animated:YES];
+        }
+        
     } else {
         if (!US.isLogIn) {
             LoginViewController *login = [[LoginViewController alloc] init];

@@ -64,23 +64,42 @@
     [downLoadButton addTarget:self action:@selector(downLoadButtonClick:) forControlEvents:UIControlEventTouchUpInside];
     UIBarButtonItem *downLoadButtonItem = [[UIBarButtonItem alloc]initWithCustomView:downLoadButton];
     
-    if (self.tag== 0) {
-        self.title = [self.stockName stringByAppendingString:@" 实地篇"];
-        self.navigationItem.rightBarButtonItem= rightItem;
-    } else if (self.tag== 1) {
-        self.title = [self.stockName stringByAppendingString:@" 公告篇"];
-        self.navigationItem.rightBarButtonItem= downLoadButtonItem;
-    } else if (self.tag== 3) {
-        self.title = [self.stockName stringByAppendingString:@" 热点篇"];
-        self.navigationItem.rightBarButtonItem= rightItem;
+    switch (self.surveyType) {
+        case kSurveyTypeSpot:
+            self.title = [self.stockName stringByAppendingString:@" 实地篇"];
+            self.navigationItem.rightBarButtonItem= rightItem;
+            break;
+        case kSurveyTypeDialogue:
+            self.title = [self.stockName stringByAppendingString:@" 对话篇"];
+            self.navigationItem.rightBarButtonItem= rightItem;
+            break;
+        case kSurveyTypeHot:
+            self.title = [self.stockName stringByAppendingString:@" 热点篇"];
+            self.navigationItem.rightBarButtonItem= rightItem;
+            break;
+        case kSurveyTypeShengdu:
+            self.title = [self.stockName stringByAppendingString:@" 深度篇"];
+            self.navigationItem.rightBarButtonItem= rightItem;
+            break;
+        case kSurveyTypeComment:
+            self.title = [self.stockName stringByAppendingString:@" 评论篇"];
+            self.navigationItem.rightBarButtonItem= rightItem;
+            break;
+        case kSurveyTypeAnnounce:
+            self.title = [self.stockName stringByAppendingString:@" 公告"];
+            self.navigationItem.rightBarButtonItem= downLoadButtonItem;
+            break;
+        default:
+            break;
     }
+    
     [self loadSurveyInfoData];
     // 加载内容
     [self reloadData];
 }
 
 - (void)AddQuestionButton {
-    if (self.tag == 1) {
+    if (self.surveyType == kSurveyTypeAnnounce) {
         // 公告
         return;
     }
@@ -157,7 +176,7 @@
 #pragma mark - loadSurveyInfoData
 - (void)loadSurveyInfoData {
     NSDictionary *para = @{@"content_id": self.contentId,
-                           @"survey_tag": @(self.tag)};
+                           @"survey_tag": @(self.surveyType)};
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_SurveyGetShareInfo parameters:para completion:^(id data, NSError *error) {
@@ -188,7 +207,7 @@
     model.aliveImgs = images;
     model.shareUrl = url;
     model.aliveId = self.contentId;
-    model.aliveType = self.tag;
+    model.aliveType = (NSInteger)self.surveyType;
     model.masterNickName = author;
     
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
@@ -241,27 +260,19 @@
         [self.navigationController pushViewController:login animated:YES];
         return;
     }
+    
     NSDictionary *showDict = nil;
     NSDictionary *dic ;
-    NSInteger moduleType = 0;
-    if (self.tag == 0) {
-        moduleType = 1;
-    }else if (self.tag== 3) {
-        
-        moduleType = 3;
-    }else {
-        
-        return;
-    }
+
     if ([self.surveyInfoDictM[@"is_collected"] boolValue] == YES) {
         showDict = @{@"showMess1":@"取消收藏",@"showMess2":@"取消成功",@"showMess3":@"取消失败",@"apiStr":API_DelCollection,@"changeValue":@0};
         dic = @{@"module_id":@(5),
-                @"module_type":@(moduleType),
+                @"module_type":@(self.surveyType),
                 @"delete_ids":self.contentId};
     }else {
         showDict = @{@"showMess1":@"添加收藏",@"showMess2":@"收藏成功",@"showMess3":@"收藏失败",@"apiStr":API_AddCollection,@"changeValue":@1};
         dic = @{@"module_id":@(5),
-                @"module_type":@(moduleType),
+                @"module_type":@(self.surveyType),
                 @"item_id":self.contentId};
     }
     
@@ -296,7 +307,15 @@
     
     [self.indicatorView stopAnimating];
     
+    __weak SurveyDetailWebViewController *wself = self;
+    [webView evaluateJavaScript:@"document.title" completionHandler:^(NSString *string, NSError *error){
+        if (string.length) {
+            wself.title = string;
+        }
+    }];
+    
     [self AddQuestionButton];
+    
     /*
      __weak SurveyDetailWebViewController *wself = self;
      [webView evaluateJavaScript:@"document.getElementsByTagName('body')[0].offsetHeight;" completionHandler:^(id _Nullable result, NSError * _Nullable error) {

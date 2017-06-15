@@ -15,7 +15,7 @@
 @property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) NSString *stockName;
 
-@property (nonatomic, assign) NSInteger tag;
+@property (nonatomic, assign) SurveyType surveyType;
 @property (nonatomic, strong) NSString *url;
 
 @end

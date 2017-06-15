@@ -32,7 +32,7 @@
 
 - (void)reloadData {
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *para = [self contentParm];
+    NSDictionary *para = @{@"code": self.stockCode};
     
     [ma POST:API_SurveyDetailAsk parameters:para completion:^(id data, NSError *error){
         if (!error && data) {

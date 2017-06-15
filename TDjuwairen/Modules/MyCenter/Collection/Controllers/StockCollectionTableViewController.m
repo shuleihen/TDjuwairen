@@ -183,8 +183,8 @@
         vc.contentId = model.hotId;
 //        vc.stockCode = self.stockCode;
 //        vc.stockName = self.stockName;
-        vc.tag = 3;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.hotId withTag:@"3"];
+        vc.surveyType = kSurveyTypeHot;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.hotId withTag:kSurveyTypeHot];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
         StockSurveyModel *model = self.itemList[indexPath.row];
@@ -199,8 +199,8 @@
             vc.contentId = model.surveyId;
 //            vc.stockCode = self.stockCode;
 //            vc.stockName = self.stockName;
-            vc.tag = 0;
-            vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:@"0"];
+            vc.surveyType = model.surveyType;
+            vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:model.surveyType];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }

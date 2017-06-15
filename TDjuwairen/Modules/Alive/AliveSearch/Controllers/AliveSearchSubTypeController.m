@@ -521,8 +521,8 @@
         vc.contentId = model.survey_id;
         vc.stockCode = model.company_code;
         vc.stockName = model.company_name;
-        vc.tag = 0;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.survey_id withTag:@"0"];
+        vc.surveyType = model.survey_type;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.survey_id withTag:model.survey_type];
         [self.navigationController pushViewController:vc animated:YES];
         
     }

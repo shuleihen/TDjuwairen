@@ -28,8 +28,7 @@
 }
 
 - (NSDictionary *)contentParm {
-    NSDictionary *para = @{@"code": self.stockCode,
-                           @"tag":  self.tag};
+    NSDictionary *para = @{@"code": self.stockCode};
 
     return para;
 }
@@ -38,14 +37,14 @@
     
 }
 
-+ (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSString *)tag{
++ (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSInteger)tag{
     NSString *urlString;
     if (US.isLogIn) {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@&user_id=%@",API_HOST,API_SurveyDetailContent,contentId,tag,US.userId];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%d&user_id=%@",API_HOST,API_SurveyDetailContent,contentId,(int)tag,US.userId];
     }
     else
     {
-        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%@",API_HOST,API_SurveyDetailContent,contentId,tag];
+        urlString = [NSString stringWithFormat:@"%@%@?content_id=%@&survey_tag=%d",API_HOST,API_SurveyDetailContent,contentId,(int)tag];
     }
     return urlString;
 }

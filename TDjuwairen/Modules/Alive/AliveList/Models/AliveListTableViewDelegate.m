@@ -208,7 +208,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
             vc.contentId = model.aliveId;
             vc.stockCode = model.stockCode;
             vc.stockName = model.aliveTags.firstObject;
-            vc.tag = tag;
+            vc.surveyType = (model.aliveType == kAliveHot)?kSurveyTypeHot:kSurveyTypeSpot;
             vc.url = model.forwardUrl;
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
@@ -436,8 +436,8 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
                 vc.contentId = model.aliveId;
                 vc.stockCode = model.extra.companyCode;
                 vc.stockName = model.extra.companyName;
-                vc.tag = 0;
-                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:0];
+                vc.surveyType = (model.aliveType == kAliveHot)?kSurveyTypeHot:kSurveyTypeSpot;
+                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:vc.surveyType];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.viewController.navigationController pushViewController:vc animated:YES];
             }

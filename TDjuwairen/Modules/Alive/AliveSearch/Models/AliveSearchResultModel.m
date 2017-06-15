@@ -40,7 +40,7 @@
         _company_code = dict[@"company_code"];
         _surveyAddtime = dict[@"survey_addtime"];
         _survey_title = dict[@"survey_title"];
-        _survey_type = dict[@"survey_type"];
+        _survey_type = [dict[@"survey_type"] integerValue];
          _unlockKeynum = dict[@"unlock_keynum"];
         _isUnlock = [dict[@"is_unlock"] boolValue];
     }

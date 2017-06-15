@@ -98,7 +98,7 @@
     vc.contentId = model.announceId;
     vc.stockCode = self.stockCode;
     vc.stockName = self.stockName;
-    vc.tag = [self.tag integerValue];
+    vc.surveyType = kSurveyTypeAnnounce;
     vc.url = model.source;
     [self.rootController.navigationController pushViewController:vc animated:YES];
 }

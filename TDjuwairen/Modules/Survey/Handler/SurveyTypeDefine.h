@@ -9,14 +9,14 @@
 #ifndef SurveyTypeDefine_h
 #define SurveyTypeDefine_h
 
-// 调研类型 1为实地、2为对话、3为产品、4为热点、5为深度、6为评论，11为视频
+// 调研类型 1为实地、2为对话、3热点、5为深度、6为评论、7为功能、11为视频
 typedef enum : NSUInteger {
     kSurveyTypeSpot      =1,
     kSurveyTypeDialogue  =2,
-    kSurveyTypeProduct   =3,
-    kSurveyTypeHot       =4,
+    kSurveyTypeHot       =3,
     kSurveyTypeShengdu   =5,
     kSurveyTypeComment   =6,
+    kSurveyTypeAnnounce  =7,
     kSurveyTypeVido      =11
 } SurveyType;
 

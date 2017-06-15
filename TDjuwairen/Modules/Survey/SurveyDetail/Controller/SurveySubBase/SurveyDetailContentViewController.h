@@ -23,7 +23,6 @@
 // 股票代码
 @property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, copy) NSString *stockCover;
-@property (nonatomic, copy) NSString *tag;
 @property (nonatomic, weak) UIViewController *rootController;
 
 @property (nonatomic, weak) id<SurveyDetailContenDelegate> delegate;
@@ -34,5 +33,5 @@
 
 - (void)reloadData;
 
-+ (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSString *)tag;
++ (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSInteger)tag;
 @end

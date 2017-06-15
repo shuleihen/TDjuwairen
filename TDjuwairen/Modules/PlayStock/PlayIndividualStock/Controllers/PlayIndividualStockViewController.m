@@ -35,6 +35,7 @@
 #import "SurveyDetailContentViewController.h"
 #import "BVUnderlineButton.h"
 #import "Masonry.h"
+#import "ViewpointDetailViewController.h"
 
 
 @interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
@@ -662,15 +663,13 @@
         vc.contentId = article_id;
         vc.stockCode = model.com_code;
         vc.stockName = model.guess_company;
-        vc.tag = 3;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:article_id withTag:@"3"];
+        vc.surveyType = kSurveyTypeHot;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:article_id withTag:kSurveyTypeHot];
         [self.navigationController pushViewController:vc animated:YES];
     } else if (article_type == 3) {
         // 观点
-        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-        detail.pageMode = @"view";
-        detail.view_id = article_id;
-        [self.navigationController pushViewController:detail animated:YES];
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:article_id aliveType:kAliveViewpoint];
+        [self.navigationController pushViewController:vc animated:YES];
     }else if (article_type == 4) {
         // 直播
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];

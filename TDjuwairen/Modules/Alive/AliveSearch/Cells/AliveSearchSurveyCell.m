@@ -64,7 +64,7 @@
     }
     NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     attatch.bounds = CGRectMake(2, -2, 17, 17);
-    attatch.image = [self imageWithSurveyType:[surveyModel.survey_type integerValue]];
+    attatch.image = [self imageWithSurveyType:surveyModel.survey_type];
     
     NSAttributedString *surveyTitleAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
     [attri appendAttributedString:surveyTitleAttriStr];

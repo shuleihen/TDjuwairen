@@ -37,7 +37,7 @@
 /// 调研标题
 @property (copy, nonatomic) NSString *survey_title;
 /// 调研类型
-@property (copy, nonatomic) NSString *survey_type;
+@property (assign, nonatomic) NSInteger survey_type;
 /// 调研解锁钥匙数量
 @property (copy, nonatomic) NSString *unlockKeynum;
 /// 调研是否需要解锁

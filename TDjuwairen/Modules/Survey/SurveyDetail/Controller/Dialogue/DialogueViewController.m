@@ -103,8 +103,8 @@
                 vc.contentId = model.surveyId;
                 vc.stockCode = self.stockCode;
                 vc.stockName = self.stockName;
-                vc.tag = [self.tag integerValue];
-                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:self.tag];
+                vc.surveyType = kSurveyTypeDialogue;
+                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:kSurveyTypeDialogue];
                 [self.rootController.navigationController pushViewController:vc animated:YES];
             }
         }

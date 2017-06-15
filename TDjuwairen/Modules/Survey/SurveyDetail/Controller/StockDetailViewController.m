@@ -686,9 +686,7 @@
         _contentControllers = [NSMutableArray arrayWithCapacity:4];
                 
         NSArray *classeArray = @[@"SpotViewController",@"SurveyAnnounceViewController",@"HotViewController",@"SurveyDetailAskViewController"];
-        NSArray *tags = @[@"0",@"1",@"3",@"5"];
         
-        int i =0;
         for (NSString *string in classeArray) {
             Class class = NSClassFromString(string);
             SurveyDetailContentViewController *obj = [[class alloc] init];
@@ -696,7 +694,6 @@
             obj.stockCode = self.stockCode;
             obj.stockName = self.stockModel.stockName;
             obj.stockCover = self.stockModel.cover;
-            obj.tag = tags[i++];
             obj.delegate = self;
             [_contentControllers addObject:obj];
         }
