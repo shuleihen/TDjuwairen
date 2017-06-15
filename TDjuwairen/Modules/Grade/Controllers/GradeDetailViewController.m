@@ -193,6 +193,9 @@
         if (!error) {
             
             [wself queryCompanyReview];
+            
+            // 回复成功以后，情况输入框内容
+            wself.replyToolView.textView.text = @"";
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.labelText = @"回复失败";
