@@ -18,5 +18,4 @@ typedef void(^DataArrMCountBlock)(NSInteger dataCount);
 @property (nonatomic, assign) AliveType aliveType;
 
 @property (copy, nonatomic) DataArrMCountBlock  dataBlock;
-@property (nonatomic, strong) id superVC;
 @end

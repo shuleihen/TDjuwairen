@@ -33,7 +33,7 @@
         AlivePingLunViewController *one = [[AlivePingLunViewController alloc] init];
         one.aliveID = self.aliveID;
         one.aliveType = self.aliveType;
-        one.superVC = self;
+//        one.superVC = self;
         
         AliveMasterListViewController *two = [[AliveMasterListViewController alloc] init];
         two.masterId = self.masterId;

@@ -137,7 +137,7 @@
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.navigationBarHidden = YES;
     popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:_superVC];
+    [popupController presentInViewController:self.navigationController];
 }
 
 - (void)publishCommentType:(GuessPublishType)type withContent:(NSString *)content withReplyCommentId:(NSString *)commentId{
