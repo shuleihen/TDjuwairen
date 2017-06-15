@@ -17,7 +17,7 @@
 @property (nonatomic, strong) UILabel *surveyTitleLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 @property (nonatomic, strong) UIImageView *typeImageView;
-
+@property (nonatomic, strong) UIImageView *lockImageView;
 @property (nonatomic, strong) SurveyListModel *model;
 
 @property (nonatomic, weak) id<SurveyStockListCellDelegate> delegate;

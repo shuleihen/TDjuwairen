@@ -24,8 +24,8 @@
         // 上市公司名称和股票代码
         _stockNameLabel = [[UILabel alloc] init];
         _stockNameLabel.font = [UIFont systemFontOfSize:12.0f];
-        _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"999999"];
-        _stockNameLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"999999"].CGColor;
+        _stockNameLabel.textColor = TDThemeColor;
+        _stockNameLabel.layer.borderColor = TDAssistTextColor.CGColor;
         _stockNameLabel.layer.borderWidth = TDPixel;
         _stockNameLabel.textAlignment = NSTextAlignmentCenter;
         [self.contentView addSubview:_stockNameLabel];
@@ -58,6 +58,10 @@
         _typeImageView = [[UIImageView alloc] init];
         [self.contentView addSubview:_typeImageView];
         
+        _lockImageView = [[UIImageView alloc] init];
+        _lockImageView.image = [UIImage imageNamed:@"ico_chains"];
+        [self.contentView addSubview:_lockImageView];
+        
         self.contentView.backgroundColor = [UIColor whiteColor];
     }
     return self;
@@ -85,6 +89,7 @@
     CGFloat w = [UIScreen mainScreen].bounds.size.width;
     
     _surveyImageView.frame = CGRectMake(15.0f, 15.0f, 100, 60);
+    _lockImageView.frame = CGRectMake(115-9, 75-9, 17, 17);
     _typeImageView.frame = CGRectMake(w-17-12, 15, 17, 17);
     
     _dateLabel.frame = CGRectMake(w-165, 55, 150, 20);
@@ -98,7 +103,7 @@
     NSString *stockName = [NSString stringWithFormat:@"%@(%@)",survey.companyName,[survey.companyCode stockCode]];
     CGSize stockNameSize = [stockName boundingRectWithSize:CGSizeMake(MAXFLOAT, 14) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil].size;
     _stockNameLabel.text = stockName;
-    _stockNameLabel.frame = CGRectMake(127, 55, stockNameSize.width+4, 20);
+    _stockNameLabel.frame = CGRectMake(127, 55, stockNameSize.width+6, 20);
     
     _surveyTitleLabel.text = survey.surveyTitle;
     CGSize titleSize = [_surveyTitleLabel sizeThatFits:CGSizeMake(w-127-36, MAXFLOAT)];
@@ -109,6 +114,8 @@
     [_surveyImageView sd_setImageWithURL:[NSURL URLWithString:survey.surveyCover]];
     
     _typeImageView.image = [self imageWithSurveyType:survey.surveyType];
+    
+    _lockImageView.hidden = survey.isUnlocked;
 }
 
 

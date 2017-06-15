@@ -94,9 +94,9 @@
     buttonContain.backgroundColor = [UIColor whiteColor];
     [view addSubview:buttonContain];
     
-    NSArray *titles = @[@"特约调研",@"评级排行",@"实盘开户",@"黄金会员"];
-    NSArray *images = @[@"fun_investigation.png",@"fun_ranking.png",@"fun_account.png",@"fun_vip.png"];
-    NSArray *selectors = @[@"surveyPressed:",@"gradePressed:",@"morePressed:",@"vipCenterPressed:"];
+    NSArray *titles = @[@"黄金会员",@"评级排行",@"实盘开户",@"特约调研"];
+    NSArray *images = @[@"fun_vip.png",@"fun_ranking.png",@"fun_account.png",@"fun_investigation.png"];
+    NSArray *selectors = @[@"vipCenterPressed:",@"gradePressed:",@"morePressed:",@"surveyPressed:"];
     
     int i=0;
     CGFloat w = kScreenWidth/4;
