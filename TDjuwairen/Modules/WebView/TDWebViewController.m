@@ -63,6 +63,7 @@
     [self.view addSubview:self.webView];
     
     [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_upgrade"];
+    [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_rechargevip"];
 }
 
 - (void)loadWebViewData

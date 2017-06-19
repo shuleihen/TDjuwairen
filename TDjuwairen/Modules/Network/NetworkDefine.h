@@ -198,6 +198,8 @@
 #define API_AliveUpdateRoomCover    @"Room/uploadRoomCover"
 #define API_AliveDeleteRoomAlive    @"Room/deleteAlive"
 
-
-
+#define API_MessageGetUnread        @"Message/getMessageCount"
+#define API_MessageGetList          @"Message/getMessageList"
+#define API_MessageClear            @"Message/clearMessageList"
+#define API_MessageDelete           @"Message/deleteMessage"
 #endif /* NetworkDefine_h */

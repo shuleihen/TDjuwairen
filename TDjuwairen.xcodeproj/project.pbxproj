@@ -378,6 +378,11 @@
 		19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E48FF91E1DDC230012CE6E /* NSString+Emoji.m */; };
 		19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5193B1D509C7000CFF149 /* TDNavigationController.m */; };
 		19E519411D50A18B00CFF149 /* HexColors.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E519401D50A18B00CFF149 /* HexColors.m */; };
+		19E58D701EF3BC6400ADA1B8 /* YXUnread.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D6F1EF3BC6400ADA1B8 /* YXUnread.m */; };
+		19E58D771EF3C27900ADA1B8 /* MessageTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D761EF3C27900ADA1B8 /* MessageTableViewController.m */; };
+		19E58D7B1EF3C2E900ADA1B8 /* MessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D791EF3C2E900ADA1B8 /* MessageListTableViewCell.m */; };
+		19E58D7C1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19E58D7A1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib */; };
+		19E58D7F1EF3C2F400ADA1B8 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D7E1EF3C2F400ADA1B8 /* MessageListModel.m */; };
 		19E5F26E1E12614200984DBC /* BorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F26D1E12614200984DBC /* BorderButton.m */; };
 		19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2791E1364CF00984DBC /* GuessCommentModel.m */; };
 		19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27B1E1364CF00984DBC /* IndexStockRecordModel.m */; };
@@ -1296,6 +1301,15 @@
 		19E5193B1D509C7000CFF149 /* TDNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDNavigationController.m; sourceTree = "<group>"; };
 		19E5193F1D50A18B00CFF149 /* HexColors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HexColors.h; sourceTree = "<group>"; };
 		19E519401D50A18B00CFF149 /* HexColors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HexColors.m; sourceTree = "<group>"; };
+		19E58D6E1EF3BC6400ADA1B8 /* YXUnread.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXUnread.h; sourceTree = "<group>"; };
+		19E58D6F1EF3BC6400ADA1B8 /* YXUnread.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXUnread.m; sourceTree = "<group>"; };
+		19E58D751EF3C27900ADA1B8 /* MessageTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageTableViewController.h; sourceTree = "<group>"; };
+		19E58D761EF3C27900ADA1B8 /* MessageTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageTableViewController.m; sourceTree = "<group>"; };
+		19E58D781EF3C2E900ADA1B8 /* MessageListTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListTableViewCell.h; sourceTree = "<group>"; };
+		19E58D791EF3C2E900ADA1B8 /* MessageListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListTableViewCell.m; sourceTree = "<group>"; };
+		19E58D7A1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListTableViewCell.xib; sourceTree = "<group>"; };
+		19E58D7D1EF3C2F400ADA1B8 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
+		19E58D7E1EF3C2F400ADA1B8 /* MessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListModel.m; sourceTree = "<group>"; };
 		19E5F26C1E12614200984DBC /* BorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorderButton.h; sourceTree = "<group>"; };
 		19E5F26D1E12614200984DBC /* BorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderButton.m; sourceTree = "<group>"; };
 		19E5F2781E1364CF00984DBC /* GuessCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentModel.h; sourceTree = "<group>"; };
@@ -3932,6 +3946,7 @@
 				190F65C41E36E73000B83ADF /* MyWallet */,
 				193325701E4DAF7200E3D500 /* Setting */,
 				1955B3BA1D644D9800DC102E /* MyCenter */,
+				19E58D711EF3C22900ADA1B8 /* Message */,
 				1955B4051D644D9800DC102E /* Search */,
 				194E0D0D1EEF8C96009C7AC6 /* Comment */,
 				19F43C221E232C98001B72CD /* Video */,
@@ -4052,6 +4067,53 @@
 				19E519401D50A18B00CFF149 /* HexColors.m */,
 			);
 			path = HexColor;
+			sourceTree = "<group>";
+		};
+		19E58D6D1EF3BC6400ADA1B8 /* YXUnread */ = {
+			isa = PBXGroup;
+			children = (
+				19E58D6E1EF3BC6400ADA1B8 /* YXUnread.h */,
+				19E58D6F1EF3BC6400ADA1B8 /* YXUnread.m */,
+			);
+			path = YXUnread;
+			sourceTree = "<group>";
+		};
+		19E58D711EF3C22900ADA1B8 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				19E58D721EF3C24000ADA1B8 /* Models */,
+				19E58D731EF3C24000ADA1B8 /* Cells */,
+				19E58D741EF3C24000ADA1B8 /* Controllers */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
+		19E58D721EF3C24000ADA1B8 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19E58D7D1EF3C2F400ADA1B8 /* MessageListModel.h */,
+				19E58D7E1EF3C2F400ADA1B8 /* MessageListModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19E58D731EF3C24000ADA1B8 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				19E58D781EF3C2E900ADA1B8 /* MessageListTableViewCell.h */,
+				19E58D791EF3C2E900ADA1B8 /* MessageListTableViewCell.m */,
+				19E58D7A1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19E58D741EF3C24000ADA1B8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19E58D751EF3C27900ADA1B8 /* MessageTableViewController.h */,
+				19E58D761EF3C27900ADA1B8 /* MessageTableViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		19E5F26B1E12614200984DBC /* BorderButton */ = {
@@ -4510,6 +4572,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19E58D6D1EF3BC6400ADA1B8 /* YXUnread */,
 				1975D35E1EED196500191E1D /* DYCircle */,
 				19517F201EE56FA5009E24D1 /* ACActionSheet */,
 				1936AF2A1EB3212600408D6F /* NJKWebViewProgress */,
@@ -4814,6 +4877,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
+				19E58D7C1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib in Resources */,
 				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
@@ -4957,6 +5021,7 @@
 				4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
 				9E2233CE1E8AB81B00B1FAC4 /* PlayListModel.m in Sources */,
+				19E58D701EF3BC6400ADA1B8 /* YXUnread.m in Sources */,
 				19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */,
 				9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */,
 				1955B48B1D644D9800DC102E /* AddCollectionTableViewCell.m in Sources */,
@@ -5071,6 +5136,7 @@
 				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,
 				9E2233C61E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m in Sources */,
 				19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */,
+				19E58D771EF3C27900ADA1B8 /* MessageTableViewController.m in Sources */,
 				19AF98251E24AB270097A585 /* StockIndexViewController.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
@@ -5136,6 +5202,7 @@
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				19C258191E7649C200433D0D /* AliveMessageListCell.m in Sources */,
 				1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */,
+				19E58D7F1EF3C2F400ADA1B8 /* MessageListModel.m in Sources */,
 				19959B991E2CA11900AB26DF /* HCSStarRatingView.m in Sources */,
 				196B8C001DFA40DD00084894 /* YXSecurityCodeButton.m in Sources */,
 				1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */,
@@ -5259,6 +5326,7 @@
 				1987B29D1EE688F700BD852E /* SurveyListModel.m in Sources */,
 				193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */,
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
+				19E58D7B1EF3C2E900ADA1B8 /* MessageListTableViewCell.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,
 				1955B4A41D644D9800DC102E /* FloorView.m in Sources */,

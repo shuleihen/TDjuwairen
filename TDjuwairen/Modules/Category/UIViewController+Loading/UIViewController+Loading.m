@@ -33,6 +33,9 @@ static char waveActivityIndicatorKey;
 
 - (void)removeLoadingAnimation {
     [self.waveActivityIndicator stopAnimating];
-    [self.waveActivityIndicator removeFromSuperview];
+    
+    if (self.waveActivityIndicator.superview) {
+        [self.waveActivityIndicator removeFromSuperview];
+    }
 }
 @end

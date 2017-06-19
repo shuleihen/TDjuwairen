@@ -567,12 +567,12 @@
         }
         
         [self.navigationController pushViewController:DetailView animated:YES];
-    } else {
+    } else if ([s isEqualToString:@"https://www.juwairen.net/Consume/record"]){
         NSString *nickName = [US.nickName URLEncode];
         NSString *avatar = [US.headImage URLEncode];
         
-        s = [s stringByAppendingFormat:@"&user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
-        NSURL *url = [NSURL URLWithString:s];
+        NSString *urlString= [NSString stringWithFormat:@"https://www.juwairen.net/index.php/WxUser/vipShow?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+        NSURL *url = [NSURL URLWithString:urlString];
         if (url) {
             TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
             vc.hidesBottomBarWhenPushed = YES;

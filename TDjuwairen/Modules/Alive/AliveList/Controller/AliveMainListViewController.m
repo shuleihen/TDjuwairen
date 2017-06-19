@@ -23,13 +23,16 @@
 #import "HexColors.h"
 #import "AliveSearchAllTypeViewController.h"
 #import "AliveMessageListViewController.h"
+#import "YXUnread.h"
+#import "NetworkManager.h"
+#import "MessageTableViewController.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
 @property (nonatomic, assign) AliveListType listType;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;
-
+@property (nonatomic, strong) YXUnread *unread;
 @property (nonatomic, strong) DCPathButton *publishBtn;
 @end
 
@@ -124,6 +127,14 @@
     return _publishBtn;
 }
 
+- (YXUnread *)unread {
+    if (!_unread) {
+        _unread = [[YXUnread alloc] initWithFrame:CGRectMake(0, 0, 12, 12)];
+    }
+    
+    return _unread;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     
@@ -145,6 +156,8 @@
     [self.view addSubview:self.publishBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
+    
+    [self getUnreadMessageCount];
 }
 
 - (void)setupSegmentControl {
@@ -211,6 +224,10 @@
     [customView addSubview:messageBtn];
     
     self.navigationItem.titleView = customView;
+    
+    self.unread.center = CGPointMake(23, 5);
+    self.unread.count = 4;
+    [messageBtn addSubview:self.unread];
 }
 
 - (void)segmentValueChanged:(UISegmentedControl *)segment {
@@ -236,11 +253,16 @@
 
 /// 消息列表
 - (void)messagePressed:(id)sender {
-    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)searchPressed:(id)sender {
+    AliveSearchAllTypeViewController *searchVC = [[AliveSearchAllTypeViewController alloc] init];
+    searchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchVC animated:YES];
+}
 
 - (void)loginStatusChanged:(id)sender {
     
@@ -323,13 +345,19 @@
     }
 }
 
-#pragma mark - 搜索点击事件
-- (void)searchPressed:(id)sender {
-    AliveSearchAllTypeViewController *searchVC = [[AliveSearchAllTypeViewController alloc] init];
-    searchVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:searchVC animated:YES];
+
+#pragma mark -
+- (void)getUnreadMessageCount {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_MessageGetUnread parameters:@{} completion:^(id data, NSError *error) {
+        
+        if (!error && data) {
+            NSInteger count = [data[@"msg_count"] integerValue];
+            self.unread.count = count;
+        } else {
+            
+        }
+    }];
 }
-
-
 
 @end

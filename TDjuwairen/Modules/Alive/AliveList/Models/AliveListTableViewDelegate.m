@@ -213,6 +213,10 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         }
+    } else if (model.aliveType == kAliveViewpoint) {
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
     }
     
 }
