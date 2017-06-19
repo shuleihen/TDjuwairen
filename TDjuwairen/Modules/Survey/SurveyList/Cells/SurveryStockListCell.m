@@ -11,6 +11,7 @@
 #import "UIImageView+WebCache.h"
 #import "NSString+GetDevice.h"
 #import "NSString+Util.h"
+#import "SurveyHandler.h"
 
 @implementation SurveryStockListCell
 
@@ -113,42 +114,9 @@
     
     [_surveyImageView sd_setImageWithURL:[NSURL URLWithString:survey.surveyCover]];
     
-    _typeImageView.image = [self imageWithSurveyType:survey.surveyType];
+    _typeImageView.image = [SurveyHandler imageWithSurveyType:survey.surveyType];
     
     _lockImageView.hidden = survey.isUnlocked;
-}
-
-
-// 1为实地、2为对话、5为深度、6为评论，11表示视频
-- (UIImage *)imageWithSurveyType:(NSInteger)type {
-    UIImage *image;
-    
-    switch (type) {
-        case 1:
-            // 调研
-            image = [UIImage imageNamed:@"type_shi.png"];
-            break;
-        case 2:
-            // 热点
-            image = [UIImage imageNamed:@"type_talk.png"];
-            break;
-        case 5:
-            // 深度
-            image = [UIImage imageNamed:@"type_deep.png"];
-            break;
-        case 6:
-            // 评论
-            image = [UIImage imageNamed:@"type_discuss.png"];
-            break;
-        case 11:
-            // 视频
-            image = [UIImage imageNamed:@"type_video.png"];
-            break;
-        default:
-            break;
-    }
-    
-    return image;
 }
 
 @end

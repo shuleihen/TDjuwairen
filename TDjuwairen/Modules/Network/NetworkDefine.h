@@ -202,4 +202,5 @@
 #define API_MessageGetList          @"Message/getMessageList"
 #define API_MessageClear            @"Message/clearMessageList"
 #define API_MessageDelete           @"Message/deleteMessage"
+#define API_MessageSetRead          @"Message/setMessageReadStatus"
 #endif /* NetworkDefine_h */

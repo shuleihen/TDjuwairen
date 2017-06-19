@@ -9,6 +9,7 @@
 #import "AliveVideoListTableViewCell.h"
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
+#import "SurveyHandler.h"
 
 @implementation AliveVideoListTableViewCell
 
@@ -45,7 +46,7 @@
 - (void)setupAliveModel:(AliveListModel *)model {
     NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
     
-    UIImage *image = [self imageWithAliveType:model.aliveType];
+    UIImage *image = [SurveyHandler imageWithSurveyType:model.extra.surveyType];
     if (image) {
         NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
         attatch.bounds = CGRectMake(2, -2, 17, 17);
@@ -81,34 +82,4 @@
     self.videoImageView.hidden = !(model.aliveType == kAliveVideo);
 }
 
-- (UIImage *)imageWithAliveType:(NSInteger)type {
-    UIImage *image;
-    
-    switch (type) {
-        case kAliveSurvey:
-            // 调研
-            image = [UIImage imageNamed:@"type_shi.png"];
-            break;
-        case kAliveHot:
-            // 热点
-            image = [UIImage imageNamed:@"type_talk.png"];
-            break;
-//        case 5:
-//            // 深度
-//            image = [UIImage imageNamed:@"type_deep.png"];
-//            break;
-//        case 6:
-//            // 评论
-//            image = [UIImage imageNamed:@"type_discuss.png"];
-//            break;
-        case kAliveVideo:
-            // 视频
-            image = [UIImage imageNamed:@"type_video.png"];
-            break;
-        default:
-            break;
-    }
-    
-    return image;
-}
 @end

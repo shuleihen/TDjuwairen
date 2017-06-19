@@ -10,6 +10,7 @@
 #import "AliveSearchResultModel.h"
 #import "UIView+Border.h"
 #import "NSString+Ext.h"
+#import "SurveyHandler.h"
 
 @interface AliveSearchSurveyCell ()
 @property (weak, nonatomic) IBOutlet UILabel *surveyTitleLabel;
@@ -64,7 +65,7 @@
     }
     NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     attatch.bounds = CGRectMake(2, -2, 17, 17);
-    attatch.image = [self imageWithSurveyType:surveyModel.survey_type];
+    attatch.image = [SurveyHandler imageWithSurveyType:surveyModel.survey_type];
     
     NSAttributedString *surveyTitleAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
     [attri appendAttributedString:surveyTitleAttriStr];
@@ -86,37 +87,6 @@
     
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     return cell;
-}
-
-// 1为实地、2为对话、5为深度、6为评论，11表示视频
-- (UIImage *)imageWithSurveyType:(NSInteger)type {
-    UIImage *image;
-    switch (type) {
-        case 1:
-            // 调研
-            image = [UIImage imageNamed:@"type_shi.png"];
-            break;
-        case 2:
-            // 热点
-            image = [UIImage imageNamed:@"type_talk.png"];
-            break;
-        case 5:
-            // 深度
-            image = [UIImage imageNamed:@"type_deep.png"];
-            break;
-        case 6:
-            // 评论
-            image = [UIImage imageNamed:@"type_discuss.png"];
-            break;
-        case 11:
-            // 视频
-            image = [UIImage imageNamed:@"type_video.png"];
-            break;
-        default:
-            break;
-    }
-    
-    return image;
 }
 
 - (NSMutableArray *)getRangeStr:(NSString *)text findText:(NSString *)findText

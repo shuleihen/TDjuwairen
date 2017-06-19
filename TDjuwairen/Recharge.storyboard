@@ -82,10 +82,10 @@
                                         </constraints>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7gs-v8-drG">
-                                        <rect key="frame" x="105" y="111.5" width="80" height="36"/>
+                                        <rect key="frame" x="109" y="111.5" width="86" height="36"/>
                                         <color key="backgroundColor" red="0.19909331202507019" green="0.44265499711036682" blue="0.88729697465896606" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="FGu-FS-npd"/>
+                                            <constraint firstAttribute="width" constant="86" id="FGu-FS-npd"/>
                                             <constraint firstAttribute="height" constant="36" id="ZMa-A3-m6d"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -100,10 +100,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Btz-4O-Moz">
-                                        <rect key="frame" x="17" y="111" width="80" height="36"/>
+                                        <rect key="frame" x="15" y="111" width="86" height="36"/>
                                         <color key="backgroundColor" red="1" green="0.42745098039215684" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="80" id="Dkd-CT-dY8"/>
+                                            <constraint firstAttribute="width" constant="86" id="Dkd-CT-dY8"/>
                                             <constraint firstAttribute="height" constant="36" id="oEC-Vv-F2k"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -119,6 +119,7 @@
                                 <constraints>
                                     <constraint firstItem="7gs-v8-drG" firstAttribute="leading" secondItem="Btz-4O-Moz" secondAttribute="trailing" constant="8" id="3iO-2c-VFY"/>
                                     <constraint firstAttribute="trailing" secondItem="eif-Gk-cBl" secondAttribute="trailing" constant="15" id="4Nd-ij-X66"/>
+                                    <constraint firstItem="Btz-4O-Moz" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="4cP-ut-igd"/>
                                     <constraint firstAttribute="trailing" secondItem="fS2-MT-SrO" secondAttribute="trailing" constant="15" id="CVb-C7-F7S"/>
                                     <constraint firstItem="X8n-yt-Fi3" firstAttribute="centerX" secondItem="Tlk-TA-25a" secondAttribute="centerX" id="Gcf-2j-uT8"/>
                                     <constraint firstItem="fS2-MT-SrO" firstAttribute="top" secondItem="Tlk-TA-25a" secondAttribute="top" id="McM-Jp-ewC"/>
@@ -130,7 +131,6 @@
                                     <constraint firstItem="eif-Gk-cBl" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="afa-H3-a4C"/>
                                     <constraint firstItem="e7W-QT-h2O" firstAttribute="top" secondItem="eif-Gk-cBl" secondAttribute="bottom" constant="12" id="cD8-iv-edG"/>
                                     <constraint firstItem="YI4-1M-7Ju" firstAttribute="top" secondItem="Tlk-TA-25a" secondAttribute="top" constant="15" id="cZb-05-nPg"/>
-                                    <constraint firstItem="7gs-v8-drG" firstAttribute="centerX" secondItem="Tlk-TA-25a" secondAttribute="centerX" constant="40" id="ciJ-iI-5ik"/>
                                     <constraint firstItem="fS2-MT-SrO" firstAttribute="leading" secondItem="Tlk-TA-25a" secondAttribute="leading" constant="15" id="hpX-Jw-hBI"/>
                                     <constraint firstAttribute="trailing" secondItem="YI4-1M-7Ju" secondAttribute="trailing" constant="15" id="hwg-eX-z95"/>
                                     <constraint firstItem="eif-Gk-cBl" firstAttribute="top" secondItem="YI4-1M-7Ju" secondAttribute="bottom" constant="13" id="j5z-Xm-IGv"/>

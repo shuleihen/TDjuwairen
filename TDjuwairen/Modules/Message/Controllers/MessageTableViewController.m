@@ -178,6 +178,8 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
+    [self setupReadWithIndexPath:indexPath];
+    
     MessageListModel *model = self.items[indexPath.row];
     if (!model.rightExtra.count) {
         return;
@@ -270,4 +272,16 @@
     [self.tableView endUpdates];
 }
 
+- (void)setupReadWithIndexPath:(NSIndexPath *)indexPath {
+    MessageListModel *model = self.items[indexPath.row];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *dict = @{@"record_id":model.recordId};
+    
+    [manager POST:API_MessageSetRead parameters:dict completion:^(id data, NSError *error){
+        if (!error) {
+        } else {
+        }
+    }];
+}
 @end

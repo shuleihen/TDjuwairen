@@ -383,6 +383,7 @@
 		19E58D7B1EF3C2E900ADA1B8 /* MessageListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D791EF3C2E900ADA1B8 /* MessageListTableViewCell.m */; };
 		19E58D7C1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19E58D7A1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib */; };
 		19E58D7F1EF3C2F400ADA1B8 /* MessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D7E1EF3C2F400ADA1B8 /* MessageListModel.m */; };
+		19E58D821EF7B81500ADA1B8 /* SurveyHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58D811EF7B81500ADA1B8 /* SurveyHandler.m */; };
 		19E5F26E1E12614200984DBC /* BorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F26D1E12614200984DBC /* BorderButton.m */; };
 		19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2791E1364CF00984DBC /* GuessCommentModel.m */; };
 		19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27B1E1364CF00984DBC /* IndexStockRecordModel.m */; };
@@ -1310,6 +1311,8 @@
 		19E58D7A1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MessageListTableViewCell.xib; sourceTree = "<group>"; };
 		19E58D7D1EF3C2F400ADA1B8 /* MessageListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MessageListModel.h; sourceTree = "<group>"; };
 		19E58D7E1EF3C2F400ADA1B8 /* MessageListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MessageListModel.m; sourceTree = "<group>"; };
+		19E58D801EF7B81500ADA1B8 /* SurveyHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyHandler.h; sourceTree = "<group>"; };
+		19E58D811EF7B81500ADA1B8 /* SurveyHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyHandler.m; sourceTree = "<group>"; };
 		19E5F26C1E12614200984DBC /* BorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorderButton.h; sourceTree = "<group>"; };
 		19E5F26D1E12614200984DBC /* BorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderButton.m; sourceTree = "<group>"; };
 		19E5F2781E1364CF00984DBC /* GuessCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentModel.h; sourceTree = "<group>"; };
@@ -2747,6 +2750,8 @@
 			isa = PBXGroup;
 			children = (
 				19517F271EE64447009E24D1 /* SurveyTypeDefine.h */,
+				19E58D801EF7B81500ADA1B8 /* SurveyHandler.h */,
+				19E58D811EF7B81500ADA1B8 /* SurveyHandler.m */,
 			);
 			path = Handler;
 			sourceTree = "<group>";
@@ -5194,6 +5199,7 @@
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
 				4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
+				19E58D821EF7B81500ADA1B8 /* SurveyHandler.m in Sources */,
 				190F65EE1E36E73000B83ADF /* AwardImfomationTableViewCell.m in Sources */,
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
 				194186E21DF8132A000C5197 /* LoginState.m in Sources */,
