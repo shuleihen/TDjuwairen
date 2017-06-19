@@ -46,6 +46,7 @@
         case kMessageTypePostPublish:
         case kMessageTypeViewpointPublish:
         case kMessageTypeAliveComment:
+        case kMessageTypeAliveReply:
         case kMessageTypeVideoPublish:
         case kMessageTypeViewpointComment:
         case kMessageTypePlayStock:

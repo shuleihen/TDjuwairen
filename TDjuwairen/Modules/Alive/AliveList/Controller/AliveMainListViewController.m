@@ -226,7 +226,6 @@
     self.navigationItem.titleView = customView;
     
     self.unread.center = CGPointMake(23, 5);
-    self.unread.count = 4;
     [messageBtn addSubview:self.unread];
 }
 

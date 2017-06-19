@@ -12,6 +12,10 @@
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"
 #import "UIViewController+Loading.h"
+#import "StockDetailViewController.h"
+#import "PlayGuessViewController.h"
+#import "AliveDetailViewController.h"
+#import "ViewpointDetailViewController.h"
 
 @interface MessageTableViewController ()
 @property (nonatomic, strong) NSArray *items;
@@ -79,7 +83,7 @@
     NSDictionary *dict = @{@"page":@(aPage)};
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_MessageGetList parameters:dict completion:^(id data, NSError *error){
+    [ma POST:API_MessageGetList parameters:dict completion:^(id data, NSError *error){
         
         [self removeLoadingAnimation];
         
@@ -171,6 +175,44 @@
 
 #pragma mark - UITableVeiw Delegate
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    MessageListModel *model = self.items[indexPath.row];
+    if (!model.rightExtra.count) {
+        return;
+    }
+    
+    if (model.msgType == kMessageTypeSurveyPublish ||
+        model.msgType == kMessageTypeVideoPublish) {
+        NSDictionary *extra = model.rightExtra;
+        NSString *code = extra[@"code"];
+        StockDetailViewController *vc = [[StockDetailViewController alloc] init];
+        vc.stockCode = code;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (model.msgType == kMessageTypeTopicPublish ||
+               model.msgType == kMessageTypeTopicLike ||
+               model.msgType == kMessageTypePostPublish ||
+               model.msgType == kMessageTypePostLike ||
+               model.msgType == kMessageTypeAliveReply ||
+               model.msgType == kMessageTypeAliveComment) {
+        NSDictionary *extra = model.rightExtra;
+        NSString *aliveId = extra[@"item_id"];
+        NSInteger type = [extra[@"item_type"] integerValue];
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] initWithAliveId:aliveId aliveType:type];
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (model.msgType == kMessageTypeVideoPublish ||
+               model.msgType == kMessageTypeViewpointReply ||
+               model.msgType == kMessageTypeViewpointLike ||
+               model.msgType == kMessageTypeViewpointComment) {
+        NSDictionary *extra = model.rightExtra;
+        NSString *aliveId = extra[@"item_id"];
+        NSInteger type = [extra[@"item_type"] integerValue];
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:aliveId aliveType:type];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+}
+
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -185,16 +227,7 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否删除消息?" message:@"\n删除消息，将不在列表中显示\n" preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        [self cancelEditWithIndexPath:indexPath];
-    }];
-    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        [self deleteWithIndexPath:indexPath];
-    }];
-    [alert addAction:cancel];
-    [alert addAction:done];
-    [self presentViewController:alert animated:YES completion:nil];
+    [self deleteWithIndexPath:indexPath];
 }
 
 - (void)cancelEditWithIndexPath:(NSIndexPath *)indexPath {
