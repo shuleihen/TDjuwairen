@@ -22,7 +22,6 @@
 #import "YXTitleCustomView.h"
 #import "HexColors.h"
 #import "AliveSearchAllTypeViewController.h"
-#import "AliveMessageListViewController.h"
 #import "YXUnread.h"
 #import "NetworkManager.h"
 #import "MessageTableViewController.h"

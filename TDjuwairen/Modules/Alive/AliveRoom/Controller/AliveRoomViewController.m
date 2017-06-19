@@ -11,7 +11,6 @@
 #import "AliveRoomLiveViewController.h"
 #import "AliveMasterListViewController.h"
 #import "AliveEditMasterViewController.h"
-#import "AliveMessageListViewController.h"
 #import "AliveRoomHeaderView.h"
 #import "HMSegmentedControl.h"
 #import "MJRefresh.h"
@@ -25,6 +24,7 @@
 #import "AliveRoomPopupViewController.h"
 #import "STPopup.h"
 #import "AliveRoomNavigationBar.h"
+#import "MessageTableViewController.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
@@ -487,7 +487,7 @@
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar messagePressed:(id)sender {
-    AliveMessageListViewController *vc = [[AliveMessageListViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
