@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface VideoDetailViewController : UIViewController
-
+- (id)initWithVideoId:(NSString *)videoId;
 @end

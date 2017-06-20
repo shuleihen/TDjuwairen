@@ -26,6 +26,7 @@
 #import "AliveVideoListTableViewCell.h"
 #import "StockUnlockManager.h"
 #import "ViewpointDetailViewController.h"
+#import "VideoDetailViewController.h"
 
 #define kAliveListCellToolHeight 37
 #define kAliveListSectionHeaderHeight   30
@@ -217,6 +218,17 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveVideo) {
+        if (model.isLocked) {
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockCode = model.stockCode;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        } else {
+            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        }
     }
     
 }
@@ -430,11 +442,14 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         if (model.extra.isUnlock) {
             
             if (model.aliveType == kAliveVideo) {
-                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-                vc.sharp_id = model.aliveId;
-                vc.pageMode = @"sharp";
+                VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.viewController.navigationController pushViewController:vc animated:YES];
+//                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
+//                vc.sharp_id = model.aliveId;
+//                vc.pageMode = @"sharp";
+//                vc.hidesBottomBarWhenPushed = YES;
+//                [self.viewController.navigationController pushViewController:vc animated:YES];
             } else {
                 SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
                 vc.contentId = model.aliveId;
@@ -456,6 +471,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
             [self.unlockManager unlockStock:model.extra.companyCode withStockName:model.extra.companyName withController:self.viewController];
         }
     } else {
+        
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];

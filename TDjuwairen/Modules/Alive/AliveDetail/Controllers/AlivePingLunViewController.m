@@ -144,10 +144,6 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     NSMutableDictionary *dict = [NSMutableDictionary dictionary];
-    if (US.isLogIn) {
-//        NSAssert(US.userId, @"用户Id不能为空");
-//        dict[@"user_id"] = US.userId;
-    }
     
     if (type == kGuessPublishReply) {
         NSAssert(commentId, @"回复评论的Id不能为空");
@@ -155,6 +151,7 @@
     }
     
     dict[@"content"] = [content stringByReplacingEmojiUnicodeWithCheatCodes];
+    dict[@"alive_type"] = @(self.aliveType);
     
     __weak AlivePingLunViewController *wself = self;
     [ma POST:API_AliveAddRoomRemark parameters:dict completion:^(id data, NSError *error){

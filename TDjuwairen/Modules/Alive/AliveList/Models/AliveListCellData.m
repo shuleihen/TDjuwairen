@@ -8,6 +8,7 @@
 
 #import "AliveListCellData.h"
 #import "TTTAttributedLabel.h"
+#import "AliveVideoListTableViewCell.h"
 
 #define kAliveListMessageLineLimit 5
 
@@ -497,7 +498,8 @@
             self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, 91);
         }
             break;
-        case kAliveViewpoint:{
+        case kAliveViewpoint:
+        case kAliveVideo:{
             AliveListModel *model = [[AliveListModel alloc] init];
             model.aliveType = forward.aliveType;
             model.aliveTitle = forward.aliveTitle;
@@ -512,6 +514,7 @@
             self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, pCellData.viewHeight);
         }
             break;
+        
         default:
             self.forwardViewFrame = CGRectMake(0, height, kScreenWidth, 0);
             break;

@@ -21,4 +21,17 @@
     // Configure the view for the selected state
 }
 
++ (CGFloat)cellHeightWithTitle:(NSString *)title {
+    CGFloat height;
+    
+    CGSize size = [title boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f]} context:nil].size;
+    height = size.height + 54;
+    return height;
+}
+
+- (void)setupModel:(VideoInfoModel *)model {
+    self.titleLabel.text = model.content;
+    [self.visitBtn setTitle:[NSString stringWithFormat:@"%@",model.visitNum] forState:UIControlStateNormal];
+    [self.shareBtn setTitle:[NSString stringWithFormat:@"%@",model.shareNum] forState:UIControlStateNormal];
+}
 @end

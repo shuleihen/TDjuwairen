@@ -100,7 +100,7 @@
             dict = @{@"page" :@(page)};
             break;
         case kAliveListVideo:
-            api = API_AliveVideoList;
+            api = API_VideoGetList;
             dict = @{@"page" :@(page)};
             break;
         default:

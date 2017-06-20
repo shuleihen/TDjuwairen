@@ -10,6 +10,7 @@
 #import "AliveListForwardSurveyView.h"
 #import "AliveListPostView.h"
 #import "AliveListViewpointView.h"
+#import "AliveVideoListTableViewCell.h"
 
 @implementation AliveListForwardView2
 
@@ -48,7 +49,7 @@
         }
             break;
         case kAliveViewpoint:
-        {
+        case kAliveVideo:{
             AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
             [view setCellData:fCellData.forwardCellData];

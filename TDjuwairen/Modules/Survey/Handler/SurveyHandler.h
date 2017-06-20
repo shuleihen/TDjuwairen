@@ -9,6 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface SurveyHandler : NSObject
-
++ (UIImage *)imageWithAliveType:(NSInteger)type;
 + (UIImage *)imageWithSurveyType:(NSInteger)type;
 @end

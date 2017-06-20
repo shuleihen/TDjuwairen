@@ -1,19 +1,64 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11134" systemVersion="15F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11106"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="VideoTitleTableViewCell">
-            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="88" id="KGk-i7-Jjw" customClass="VideoTitleTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="88"/>
             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
-                <frame key="frameInset" width="320" height="43"/>
+                <rect key="frame" x="0.0" y="0.0" width="320" height="87.5"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rrV-WA-yd3">
+                        <rect key="frame" x="12" y="10" width="296" height="19.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSo-RM-N7e">
+                        <rect key="frame" x="12" y="57" width="34" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="123" image="ico_reading">
+                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gAU-rb-n4e">
+                        <rect key="frame" x="273" y="57" width="35" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="123" image="alive_share">
+                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="qSo-RM-N7e" secondAttribute="bottom" constant="15" id="IBf-Ug-buA"/>
+                    <constraint firstItem="qSo-RM-N7e" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="W14-Rh-Y26"/>
+                    <constraint firstAttribute="bottom" secondItem="gAU-rb-n4e" secondAttribute="bottom" constant="15" id="g3U-jH-yr5"/>
+                    <constraint firstAttribute="trailing" secondItem="rrV-WA-yd3" secondAttribute="trailing" constant="12" id="jpa-dH-aEw"/>
+                    <constraint firstItem="rrV-WA-yd3" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="mPa-4N-gyc"/>
+                    <constraint firstAttribute="trailing" secondItem="gAU-rb-n4e" secondAttribute="trailing" constant="12" id="nvT-H2-yeA"/>
+                    <constraint firstItem="rrV-WA-yd3" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="uc8-HK-HWr"/>
+                </constraints>
             </tableViewCellContentView>
+            <connections>
+                <outlet property="shareBtn" destination="gAU-rb-n4e" id="mqt-xr-br8"/>
+                <outlet property="titleLabel" destination="rrV-WA-yd3" id="ohV-Ss-oBQ"/>
+                <outlet property="visitBtn" destination="qSo-RM-N7e" id="z2i-41-n1K"/>
+            </connections>
+            <point key="canvasLocation" x="25" y="74"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="alive_share" width="14" height="13"/>
+        <image name="ico_reading" width="13" height="8"/>
+    </resources>
 </document>

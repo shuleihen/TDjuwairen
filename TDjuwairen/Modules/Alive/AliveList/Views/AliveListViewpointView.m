@@ -15,6 +15,12 @@
     if (self = [super initWithFrame:frame]) {
         _imageView = [[UIImageView alloc] init];
         [self addSubview:_imageView];
+        
+        _videoImageView = [[UIImageView alloc] init];
+        _videoImageView.image = [UIImage imageNamed:@"button_play.png"];
+        _videoImageView.frame = CGRectMake(0, 0, 60, 60);
+        _videoImageView.hidden = YES;
+        [_imageView addSubview:_videoImageView];
     }
     
     return self;
@@ -27,6 +33,9 @@
     AliveListModel *alive = cellData.aliveModel;
         
     self.imageView.frame = vpCellData.imageViewFrame;
+    self.videoImageView.center = CGPointMake(vpCellData.imageViewFrame.size.width/2, vpCellData.imageViewFrame.size.height/2);
+    self.videoImageView.hidden = !(alive.aliveType == kAliveVideo);
+    
     [self.imageView sd_setImageWithURL:[NSURL URLWithString:alive.aliveImgs.firstObject] placeholderImage:nil];
 }
 @end

@@ -80,9 +80,8 @@
 #define API_GetBanner               @"Index/indexBanner"
 
 #define API_AddSharpComment         @"Sharp/addSharpComnment"
-#define API_GetSurveryList          @"Sharp/surveyList/page"
-#define API_GetVideoList            @"Sharp/videoList3_1"
-#define API_AliveVideoList          @"Sharp/videoList3_1"
+#define API_VideoGetList            @"Sharp/videoList3_1"
+#define API_VideoGetInfo            @"Sharp/getVideoInfo"
 
 // 观点
 #define API_ViewGetList             @"View/getViewList3_1"

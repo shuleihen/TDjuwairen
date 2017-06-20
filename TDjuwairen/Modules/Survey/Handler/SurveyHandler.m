@@ -8,8 +8,28 @@
 
 #import "SurveyHandler.h"
 #import "SurveyTypeDefine.h"
+#import "AliveTypeDefine.h"
 
 @implementation SurveyHandler
++ (UIImage *)imageWithAliveType:(NSInteger)type {
+    UIImage *image;
+    
+    switch (type) {
+        case kAliveSurvey:
+            // 调研
+            image = [UIImage imageNamed:@"type_shi.png"];
+            break;
+        case kAliveVideo:
+            // 视频
+            image = [UIImage imageNamed:@"type_video.png"];
+            break;
+        default:
+            break;
+    }
+    
+    return image;
+}
+
 + (UIImage *)imageWithSurveyType:(NSInteger)type {
     UIImage *image;
     
