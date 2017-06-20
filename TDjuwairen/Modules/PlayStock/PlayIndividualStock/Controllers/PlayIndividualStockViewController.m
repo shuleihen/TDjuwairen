@@ -118,13 +118,11 @@
 - (void)refeshReasionView {
 
     /*
-     ● 00：00~09：30，显示“距上午场开始 XX:XX:XX”，可竞猜本日上午场
-     ● 09：30~10：30，显示“距上午场结束 XX:XX:XX”，可竞猜本日下午场
+     ●00：00~10：30，显示“距上午场开始 XX:XX:XX”，可竞猜本日上午场
      ●10：30~14：00，显示“距下午场结束 XX:XX:XX”，可竞猜本日下午场
      ●14：00~24：00，显示“距明日上午场开始 XX:XX:XX”，可竞猜次日上午场
      */
-    NSArray *arr = @[@{@"fromHour":@0,@"fromMin":@0,@"toHour":@9,@"toMin":@30,@"desc":@"距上午场开始",@"reasionType":@"1"},
-                     @{@"fromHour":@9,@"fromMin":@30,@"toHour":@10,@"toMin":@30,@"desc":@"距上午场结束",@"reasionType":@"2"},
+    NSArray *arr = @[@{@"fromHour":@0,@"fromMin":@0,@"toHour":@10,@"toMin":@30,@"desc":@"距上午场开始",@"reasionType":@"1"},
                      @{@"fromHour":@10,@"fromMin":@30,@"toHour":@14,@"toMin":@0,@"desc":@"距下午场结束",@"reasionType":@"2"},
                      @{@"fromHour":@14,@"fromMin":@0,@"toHour":@24,@"toMin":@0,@"desc":@"距明日上午场开始",@"reasionType":@"1"}
                      ];

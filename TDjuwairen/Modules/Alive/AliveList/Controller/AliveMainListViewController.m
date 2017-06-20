@@ -155,6 +155,10 @@
     [self.view addSubview:self.publishBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
     
     [self getUnreadMessageCount];
 }

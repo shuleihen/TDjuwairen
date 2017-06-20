@@ -17,8 +17,9 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.stockNameLabel.layer.borderWidth = 1.0f;
-    self.stockNameLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"].CGColor;
+    self.stockNameLabel.layer.borderWidth = 1;
+    self.stockNameLabel.textColor = TDThemeColor;
+    self.stockNameLabel.layer.borderColor = TDThemeColor.CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

@@ -169,16 +169,16 @@
     
     NSArray *array;
     if (self.viewModel.view_isCollected) {
-        array = @[@"取消收藏",@"字体大小",@"举报"];
+        array = @[@"取消收藏",@"举报"];
     } else {
-        array = @[@"收藏",@"字体大小",@"举报"];
+        array = @[@"收藏",@"举报"];
     }
     
     ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:array actionSheetBlock:^(NSInteger index){
         if (index == 0) {
             [self collectionPressed];
-        } else {
-            
+        } else if (index == 1) {
+            [self feedbackPressed];
         }
     }];
     [sheet show];
