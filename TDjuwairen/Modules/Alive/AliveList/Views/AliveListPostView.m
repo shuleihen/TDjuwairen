@@ -16,6 +16,7 @@
         [self addSubview:_imagesView];
         
         _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectZero];
+        _tagsView.delegate = self;
         [self addSubview:_tagsView];
 
     }
@@ -34,4 +35,6 @@
     self.tagsView.frame = pCellData.tagsViewFrame;
     self.tagsView.tags = pCellData.aliveModel.aliveTags;
 }
+
+
 @end

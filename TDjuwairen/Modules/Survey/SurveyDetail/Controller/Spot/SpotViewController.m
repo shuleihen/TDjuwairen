@@ -10,7 +10,7 @@
 #import "SpotTableViewCell.h"
 #import "StockSurveyModel.h"
 #import "NetworkManager.h"
-#import "DetailPageViewController.h"
+#import "VideoDetailViewController.h"
 
 @interface SpotViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -97,9 +97,8 @@
             StockSurveyModel *model = self.items[indexPath.row];
             
             if (model.surveyType == kSurveyTypeVido) {
-                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-                vc.sharp_id = model.surveyId;
-                vc.pageMode = @"sharp";
+                VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.surveyId];
+                vc.hidesBottomBarWhenPushed = YES;
                 [self.rootController.navigationController pushViewController:vc animated:YES];
             } else {
                 SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];

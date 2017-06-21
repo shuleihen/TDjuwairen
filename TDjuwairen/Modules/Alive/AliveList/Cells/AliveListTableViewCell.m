@@ -101,7 +101,7 @@
     
     // 动态内容
     if (aliveModel.isForward) {
-        AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, 64, kScreenWidth, cellData.viewHeight)];
+        AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
         self.aliveContentView = view;
         [view setCellData:cellData];
         
@@ -111,13 +111,13 @@
         switch (aliveModel.aliveType) {
             case kAliveNormal:
             case kAlivePosts: {
-                AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:CGRectMake(0, 62, kScreenWidth, cellData.viewHeight)];
+                AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
                 break;
             case kAliveViewpoint: {
-                AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:CGRectMake(0, 62, kScreenWidth, cellData.viewHeight)];
+                AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }

@@ -9,7 +9,6 @@
 #import "SearchViewController.h"
 #import "HistoryView.h"
 #import "SearchResultTableViewCell.h"
-#import "DetailPageViewController.h"
 #import "LoginViewController.h"
 #import "HexColors.h"
 #import "NSString+Ext.h"
@@ -489,13 +488,6 @@
             vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         }
-//        else if ([sectionData.sectionTitle isEqualToString:@"观点"]) {
-//
-//            DetailPageViewController *DetailView = [[DetailPageViewController alloc] init];
-//            DetailView.view_id = result.resultId;
-//            DetailView.pageMode = @"view";
-//            [self.navigationController pushViewController:DetailView animated:YES];
-//        }
     }
 }
 

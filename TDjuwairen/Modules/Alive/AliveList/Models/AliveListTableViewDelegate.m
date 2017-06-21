@@ -21,7 +21,6 @@
 #import "MBProgressHUD.h"
 #import "SurveyDetailWebViewController.h"
 #import "StockDetailViewController.h"
-#import "DetailPageViewController.h"
 #import "ACActionSheet.h"
 #import "AliveVideoListTableViewCell.h"
 #import "StockUnlockManager.h"
@@ -445,11 +444,6 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
                 VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.viewController.navigationController pushViewController:vc animated:YES];
-//                DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-//                vc.sharp_id = model.aliveId;
-//                vc.pageMode = @"sharp";
-//                vc.hidesBottomBarWhenPushed = YES;
-//                [self.viewController.navigationController pushViewController:vc animated:YES];
             } else {
                 SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
                 vc.contentId = model.aliveId;

@@ -11,11 +11,14 @@
 
 @interface AliveListCellData : NSObject
 
+// 顶部头像区域高度
+@property (nonatomic, assign) CGFloat topHeaderHeight;
+
+// 直播内容高度
+@property (nonatomic, assign) CGFloat viewHeight;
+
 // 直播动态Cell高度
 @property (nonatomic, assign) CGFloat cellHeight;
-
-// 直播内容高度，不包含顶部用户信息
-@property (nonatomic, assign) CGFloat viewHeight;
 
 // 直播动态
 @property (nonatomic, strong) AliveListModel *aliveModel;

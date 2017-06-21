@@ -11,6 +11,7 @@
 #import "AliveVideoListTableViewCell.h"
 
 #define kAliveListMessageLineLimit 5
+#define kAliveListHeaderHeight  52
 
 @interface AliveListCellData ()
 
@@ -362,6 +363,7 @@
     
     CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
+    self.topHeaderHeight = 0;
     self.cellHeight = size.height + 280;
 }
 
@@ -388,14 +390,14 @@
     
     //    messageSize = [self.message boundingRectWithSize:CGSizeMake(contentWidht, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
-    self.messageLabelFrame = CGRectMake(left, 5, contentWidht, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 10, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
     // 图片
     if (self.aliveModel.aliveImgs.count) {
         CGFloat imagesViewHeight = [self imagesViewHeightWithImages:self.aliveModel.aliveImgs];
-        self.imagesViewFrame = CGRectMake(left, height+10, contentWidht, imagesViewHeight);
+        self.imagesViewFrame = CGRectMake(left, height+7, contentWidht, imagesViewHeight);
     } else {
         self.imagesViewFrame = CGRectMake(left, height, 0, 0);
     }
@@ -410,10 +412,11 @@
         self.tagsViewFrame = CGRectMake(left, height, 0, 0);
     }
     
-    height = CGRectGetMaxY(self.tagsViewFrame)+11;
+    height = CGRectGetMaxY(self.tagsViewFrame);
     
-    self.viewHeight = height;
-    self.cellHeight = self.viewHeight + 62;
+    self.topHeaderHeight = kAliveListHeaderHeight;
+    self.viewHeight = height+15;
+    self.cellHeight = self.viewHeight + kAliveListHeaderHeight;
 }
 
 
@@ -436,15 +439,16 @@
                                                           withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                                                    limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 2, contentWidht, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 10, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
-    self.imageViewFrame = CGRectMake(left, height+10, contentWidht, 178);
+    self.imageViewFrame = CGRectMake(left, height+8, contentWidht, 178);
     height = CGRectGetMaxY(self.imageViewFrame);
     
-    self.viewHeight = height;
-    self.cellHeight = self.viewHeight + 62;
+    self.topHeaderHeight = kAliveListHeaderHeight;
+    self.viewHeight = height+15;
+    self.cellHeight = self.viewHeight + kAliveListHeaderHeight;
 }
 @end
 
@@ -469,7 +473,7 @@
                                                           withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                                                    limitedToNumberOfLines:0];
     
-    self.messageLabelFrame = CGRectMake(left, 2, contentWidht, messageSize.height);
+    self.messageLabelFrame = CGRectMake(left, 10, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
@@ -489,13 +493,13 @@
             [pCellData setup];
             
             self.forwardCellData = pCellData;
-            self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, pCellData.viewHeight);
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
         }
             break;
         case kAliveSurvey:
         case kAliveHot:
         {
-            self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, 91);
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 91);
         }
             break;
         case kAliveViewpoint:
@@ -511,16 +515,17 @@
             [pCellData setup];
             
             self.forwardCellData = pCellData;
-            self.forwardViewFrame = CGRectMake(0, height+10, kScreenWidth, pCellData.viewHeight);
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
         }
             break;
         
         default:
-            self.forwardViewFrame = CGRectMake(0, height, kScreenWidth, 0);
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 0);
             break;
     }
     
+    self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = CGRectGetMaxY(self.forwardViewFrame) + 15;
-    self.cellHeight = self.viewHeight + 62;
+    self.cellHeight = self.viewHeight + kAliveListHeaderHeight;
 }
 @end

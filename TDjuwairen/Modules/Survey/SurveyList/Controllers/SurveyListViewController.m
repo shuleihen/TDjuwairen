@@ -18,8 +18,7 @@
 #import "NotificationDef.h"
 #import "YXSearchButton.h"
 #import "SearchViewController.h"
-#import "DetailPageViewController.h"
-#import "PushMessageViewController.h"
+#import "VideoDetailViewController.h"
 #import "LoginViewController.h"
 #import "HexColors.h"
 #import "MJRefresh.h"
@@ -307,23 +306,6 @@
     [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
 }
 
-//- (void)avatarPressed:(id)sender {
-//    UIViewController *vc = [[UIStoryboard storyboardWithName:@"PersonalCenter" bundle:nil] instantiateInitialViewController];
-//    TDNavigationController *nav = [[TDNavigationController alloc] initWithRootViewController:vc];
-//    [self presentViewController:nav animated:YES completion:nil];
-//}
-
-//- (void)notificationPressed:(id)sender {
-//    if (US.isLogIn==NO) {
-//        LoginViewController *login = [[LoginViewController alloc] init];
-//        login.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:login animated:YES];
-//    } else {
-//        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
-//        messagePush.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:messagePush animated:YES];
-//    }
-//}
 
 - (void)searchPressed:(id)sender {
     SearchViewController *searchView = [[SearchViewController alloc] init];
@@ -546,10 +528,10 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([arr[0] isEqualToString:@"Sharp"]){
-        DetailPageViewController *DetailView = [[DetailPageViewController alloc]init];
-        DetailView.sharp_id = [arr lastObject];
-        DetailView.pageMode = @"sharp";
-        DetailView.hidesBottomBarWhenPushed = YES;
+        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:[arr lastObject]];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+
         
         if (US.isLogIn) {     //为登录状态
             NetworkManager *manager = [[NetworkManager alloc] init];
@@ -566,7 +548,6 @@
             }];
         }
         
-        [self.navigationController pushViewController:DetailView animated:YES];
     } else if ([s isEqualToString:@"https://www.juwairen.net/Consume/record"]){
         NSString *nickName = [US.nickName URLEncode];
         NSString *avatar = [US.headImage URLEncode];

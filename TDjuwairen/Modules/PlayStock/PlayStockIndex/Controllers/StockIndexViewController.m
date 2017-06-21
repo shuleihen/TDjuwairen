@@ -20,12 +20,12 @@
 #import "MBProgressHUD.h"
 #import "MyWalletViewController.h"
 #import "LoginViewController.h"
-#import "PushMessageViewController.h"
 #import "MyGuessViewController.h"
 #import "NotificationDef.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AVFoundation/AVFoundation.h>
 #import "PlayStockCommentViewController.h"
+#import "MessageTableViewController.h"
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
@@ -211,9 +211,9 @@
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.navigationController pushViewController:login animated:YES];
     } else {
-        PushMessageViewController *messagePush = [[PushMessageViewController alloc]init];
-        messagePush.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:messagePush animated:YES];
+        MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

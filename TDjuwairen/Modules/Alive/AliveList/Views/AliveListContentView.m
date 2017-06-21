@@ -19,6 +19,7 @@
         _messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _messageLabel.numberOfLines = 0;
         _messageLabel.lineBreakMode   = NSLineBreakByWordWrapping;
+//        _messageLabel.backgroundColor = [UIColor redColor];
         _messageLabel.delegate = self;
         [self addSubview:_messageLabel];
     }

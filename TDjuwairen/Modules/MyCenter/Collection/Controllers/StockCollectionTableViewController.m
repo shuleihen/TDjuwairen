@@ -15,7 +15,7 @@
 #import "HotTableViewCell.h"
 #import "SpotTableViewCell.h"
 #import "SurveyDetailWebViewController.h"
-#import "DetailPageViewController.h"
+#import "VideoDetailViewController.h"
 #import "MBProgressHUD.h"
 
 @interface StockCollectionTableViewController ()
@@ -190,9 +190,8 @@
         StockSurveyModel *model = self.itemList[indexPath.row];
         
         if (model.surveyType == kSurveyTypeVido) {
-            DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-            vc.sharp_id = model.surveyId;
-            vc.pageMode = @"sharp";
+            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.surveyId];
+            vc.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:vc animated:YES];
         } else {
             SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];

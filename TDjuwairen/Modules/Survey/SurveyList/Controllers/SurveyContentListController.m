@@ -18,7 +18,7 @@
 #import "SurveyDetailWebViewController.h"
 #import "StockUnlockManager.h"
 #import "SurveyListTableViewCell.h"
-#import "DetailPageViewController.h"
+#import "VideoDetailViewController.h"
 
 @interface SurveyContentListController ()
 <StockManagerDelegate, UITableViewDelegate, UITableViewDataSource,
@@ -235,9 +235,8 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
     
     if (model.isUnlocked) {
         if (model.surveyType == kSurveyTypeVido) {
-            DetailPageViewController *vc = [[DetailPageViewController alloc] init];
-            vc.sharp_id = model.surveyId;
-            vc.pageMode = @"sharp";
+            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.surveyId];
+            vc.hidesBottomBarWhenPushed = YES;
             [self.rootController.navigationController pushViewController:vc animated:YES];
         } else {
             SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];

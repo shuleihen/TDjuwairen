@@ -9,7 +9,7 @@
 #import "AppDelegate.h"
 #import "SDWebImageDownloader.h"
 #import "SDWebImageManager.h"
-#import "DetailPageViewController.h"
+#import "VideoDetailViewController.h"
 #import <ShareSDK/ShareSDK.h>
 #import <ShareSDKConnector/ShareSDKConnector.h>
 
@@ -327,12 +327,10 @@
         NSString *stock_id = userInfo[@"code"];
         
         if (view_id.length) {
-            DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-            detail.view_id = userInfo[@"view_id"];
-            detail.pageMode = @"view";
-            [detail setHidesBottomBarWhenPushed:YES];
+            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:view_id];
+            vc.hidesBottomBarWhenPushed = YES;
             self.tabBarController.selectedIndex = 1;
-            [self.tabBarController.selectedViewController pushViewController:detail animated:YES];
+            [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
             return;
         }
         

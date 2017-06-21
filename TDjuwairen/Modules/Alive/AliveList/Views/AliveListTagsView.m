@@ -23,16 +23,18 @@
     CGRect rect = self.bounds;
     
     CGFloat offx=0,offy=0;
+    int i=0;
     for (NSString *tag in tags) {
         CGSize size = [tag boundingRectWithSize:CGSizeMake(MAXFLOAT, 15.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil].size;
         
-        UILabel *label = [[UILabel alloc] init];
-        label.font = [UIFont systemFontOfSize:12.0f];
-        label.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        label.textAlignment = NSTextAlignmentCenter;
-        label.text = tag;
-        label.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"].CGColor;
+        UIButton *label = [[UIButton alloc] init];
+        label.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+        [label setTitleColor:TDThemeColor forState:UIControlStateNormal];
+        [label setTitle:tag forState:UIControlStateNormal];
+        label.layer.borderColor = TDThemeColor.CGColor;
         label.layer.borderWidth = 1.0;
+        label.tag = i++;
+        [label addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:label];
         
         if ((offx + size.width+8) > rect.size.width) {
@@ -46,4 +48,11 @@
     }
 }
 
+- (void)buttonPressed:(UIButton *)sender {
+    NSInteger tag = sender.tag;
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTagsView:didSelectedWithIndex:)]) {
+        [self.delegate aliveListTagsView:self didSelectedWithIndex:tag];
+    }
+}
 @end

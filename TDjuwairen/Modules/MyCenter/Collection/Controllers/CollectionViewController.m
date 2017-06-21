@@ -8,7 +8,6 @@
 
 #import "CollectionViewController.h"
 #import "LoginState.h"
-#import "DetailPageViewController.h"
 #import "NSString+Ext.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"

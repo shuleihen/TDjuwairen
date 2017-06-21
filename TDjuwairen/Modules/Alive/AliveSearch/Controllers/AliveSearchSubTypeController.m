@@ -22,7 +22,7 @@
 #import "AliveListModel.h"
 #import "AliveListTableViewCell.h"
 #import "AliveListCellData.h"
-#import "DetailPageViewController.h"
+#import "VideoDetailViewController.h"
 #import "AliveSearchSurveyCell.h"
 #import "NSString+Ext.h"
 #import "AliveDetailViewController.h"
@@ -499,10 +499,9 @@
         if (model.aliveId.length<= 0) {
             return;
         }
-        DetailPageViewController *detail = [[DetailPageViewController alloc]init];
-        detail.view_id = model.aliveId;
-        detail.pageMode = @"view";
-        [self.navigationController pushViewController:detail animated:YES];
+        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     }else if ([self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
         AliveListCellData *cellModel = self.searchResultData.items[indexPath.section];
         AliveListModel *model = cellModel.aliveModel;

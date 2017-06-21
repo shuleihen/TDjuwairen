@@ -8,6 +8,13 @@
 
 #import <UIKit/UIKit.h>
 
+@class AliveListTagsView;
+@protocol AliveListTagsViewDelegate <NSObject>
+- (void)aliveListTagsView:(AliveListTagsView *)tagsView didSelectedWithIndex:(NSInteger)index;
+
+@end
+
 @interface AliveListTagsView : UIView
+@property (nonatomic, weak) id<AliveListTagsViewDelegate> delegate;
 @property (nonatomic, strong) NSArray *tags;
 @end
