@@ -17,6 +17,9 @@
 // 直播内容高度
 @property (nonatomic, assign) CGFloat viewHeight;
 
+// 底部工具条高度
+@property (nonatomic, assign) CGFloat bottomHeight;
+
 // 直播动态Cell高度
 @property (nonatomic, assign) CGFloat cellHeight;
 
@@ -31,6 +34,9 @@
 
 // 是否全部显示标题，默认显示5行以为
 @property (nonatomic, assign) BOOL isShowDetailMessage;
+
+// 是否显示底部工具条
+@property (nonatomic, assign) BOOL isShowToolBar;
 
 - (id)initWithAliveModel:(AliveListModel *)aliveModel;
 - (void)setup;

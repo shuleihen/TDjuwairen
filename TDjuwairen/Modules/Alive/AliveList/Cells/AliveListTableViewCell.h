@@ -14,6 +14,7 @@
 #import "TTTAttributedLabel.h"
 #import "AliveListTagsView.h"
 #import "AliveListContentView.h"
+#import "AliveListBottomView.h"
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
@@ -21,6 +22,9 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell arrowPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell commentPressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell likePressed:(id)sender;
 @end
 
 @interface AliveListTableViewCell : UITableViewCell<TTTAttributedLabelDelegate>
@@ -31,6 +35,8 @@
 @property (strong, nonatomic) UIButton *arrowButton;
 
 @property (nonatomic, strong) AliveListContentView *aliveContentView;
+
+@property (nonatomic, strong) AliveListBottomView *aliveBottomView;
 
 @property (strong, nonatomic) AliveListCellData *cellData;
 

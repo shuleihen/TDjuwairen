@@ -55,7 +55,11 @@
         [_arrowButton addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self.contentView addSubview:_arrowButton];
         
-        self.selectionStyle = UITableViewCellSelectionStyleNone;
+        _aliveBottomView = [[AliveListBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 37)];
+        [_aliveBottomView.shareBtn addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_aliveBottomView.commentBtn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_aliveBottomView.likeBtn addTarget:self action:@selector(likePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_aliveBottomView];
     }
     return self;
 }
@@ -125,6 +129,19 @@
                 break;
         }
     }
+    
+    // 底部工具条
+    if (cellData.isShowToolBar) {
+        self.aliveBottomView.hidden = NO;
+        self.aliveBottomView.frame = CGRectMake(0, cellData.topHeaderHeight+cellData.viewHeight, kScreenWidth, cellData.bottomHeight);
+        
+        [self.aliveBottomView.shareBtn setTitle:[NSString stringWithFormat:@"%ld", (long)aliveModel.shareNum] forState:UIControlStateNormal];
+        [self.aliveBottomView.commentBtn setTitle:[NSString stringWithFormat:@"%ld", (long)aliveModel.commentNum] forState:UIControlStateNormal];
+        [self.aliveBottomView.likeBtn setTitle:[NSString stringWithFormat:@"%ld", (long)aliveModel.likeNum] forState:UIControlStateNormal];
+        self.aliveBottomView.likeBtn.selected = aliveModel.isLike;
+    } else {
+        self.aliveBottomView.hidden = YES;
+    }
 }
 
 #pragma mark - 
@@ -161,6 +178,24 @@
 - (void)arrowPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:arrowPressed:)]) {
         [self.delegate aliveListTableCell:self arrowPressed:sender];
+    }
+}
+
+- (void)sharePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:sharePressed:)]) {
+        [self.delegate aliveListTableCell:self sharePressed:sender];
+    }
+}
+
+- (void)commentPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:commentPressed:)]) {
+        [self.delegate aliveListTableCell:self commentPressed:sender];
+    }
+}
+
+- (void)likePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:likePressed:)]) {
+        [self.delegate aliveListTableCell:self likePressed:sender];
     }
 }
 @end

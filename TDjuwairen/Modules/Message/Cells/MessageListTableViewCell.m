@@ -75,10 +75,11 @@
         }
             break;
         case kMessageTypeFans:{
-            
+            self.messageLabel.text = @"";
         }
             break;
         default:
+            self.messageLabel.text = @"";
             break;
     }
     
@@ -117,7 +118,12 @@
             self.typeLabel.text = @"玩票";
         }
             break;
+        case kMessageTypeFans: {
+            self.typeLabel.text = @"直播";
+        }
+            break;
         default:
+            self.typeLabel.text = @"";
             break;
     }
     

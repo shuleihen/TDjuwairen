@@ -12,6 +12,7 @@
 
 #define kAliveListMessageLineLimit 5
 #define kAliveListHeaderHeight  52
+#define kAliveListBottomHeight  37
 
 @interface AliveListCellData ()
 
@@ -61,6 +62,9 @@
 - (id)initWithAliveModel:(AliveListModel *)aliveModel {
     if (self = [super init]) {
         _aliveModel = aliveModel;
+        
+        _isShowToolBar = YES;
+        _isShowDetailMessage = NO;
     }
     return self;
 }
@@ -416,7 +420,12 @@
     
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
-    self.cellHeight = self.viewHeight + kAliveListHeaderHeight;
+    self.bottomHeight =  kAliveListBottomHeight;
+    if (self.isShowToolBar) {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
+    } else {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight;
+    }
 }
 
 
@@ -448,7 +457,12 @@
     
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
-    self.cellHeight = self.viewHeight + kAliveListHeaderHeight;
+    self.bottomHeight =  kAliveListBottomHeight;
+    if (self.isShowToolBar) {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
+    } else {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight;
+    }
 }
 @end
 
@@ -490,6 +504,7 @@
             
             AliveListPostCellData *pCellData = [[AliveListPostCellData alloc] initWithAliveModel:model];
             pCellData.isShowDetailMessage = NO;
+            pCellData.isShowToolBar = NO;
             [pCellData setup];
             
             self.forwardCellData = pCellData;
@@ -512,6 +527,7 @@
             
             AliveListViewpointCellData *pCellData = [[AliveListViewpointCellData alloc] initWithAliveModel:model];
             pCellData.isShowDetailMessage = NO;
+            pCellData.isShowToolBar = NO;
             [pCellData setup];
             
             self.forwardCellData = pCellData;
@@ -526,6 +542,11 @@
     
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = CGRectGetMaxY(self.forwardViewFrame) + 15;
-    self.cellHeight = self.viewHeight + kAliveListHeaderHeight;
+    self.bottomHeight =  kAliveListBottomHeight;
+    if (self.isShowToolBar) {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
+    } else {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight;
+    }
 }
 @end

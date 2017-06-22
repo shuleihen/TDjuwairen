@@ -23,8 +23,6 @@
 - (void)setImages:(NSArray *)images {
     _images = images;
     
-//    self.backgroundColor = [UIColor blueColor];
-    
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     [self.imageViews removeAllObjects];
     
@@ -40,7 +38,7 @@
         one.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
         
         [one sd_setImageWithURL:[NSURL URLWithString:images.firstObject] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
-            one.backgroundColor = [UIColor whiteColor];
+            one.backgroundColor = [UIColor clearColor];
         }];
         [self addSubview:one];
         
@@ -58,7 +56,7 @@
             
             imageView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];
             [imageView sd_setImageWithURL:[NSURL URLWithString:imageUrl] completed:^(UIImage *image, NSError *error, SDImageCacheType cacheType, NSURL *imageURL){
-                imageView.backgroundColor = [UIColor whiteColor];
+                imageView.backgroundColor = [UIColor clearColor];
             }];
             
             [self addSubview:imageView];

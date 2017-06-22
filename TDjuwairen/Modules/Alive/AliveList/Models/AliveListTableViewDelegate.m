@@ -73,6 +73,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         
         AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
         cellData.isShowDetailMessage = self.isAliveDetail;
+        cellData.isShowToolBar = self.isShowToolBar;
         [cellData setup];
         [cellArray addObject:cellData];
     }
@@ -229,13 +230,9 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
             [self.viewController.navigationController pushViewController:vc animated:YES];
         }
     }
-    
 }
 
-
-#pragma mark - AliveListBottomTableCellDelegate 
-
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender;
 {
     
     if (!US.isLogIn) {
@@ -246,29 +243,31 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     
     
     __weak AliveListTableViewDelegate *wself = self;
+    UIButton *shareBtn = (UIButton *)sender;
+    AliveListModel *cellModel = cell.cellData.aliveModel;
     
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
         if (state) {
-            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
+            [shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cellModel.shareNum+1)] forState:UIControlStateNormal];
         }
     };
     
-    [ShareHandler shareWithTitle:SafeValue(cell.cellModel.aliveTitle) image:cell.cellModel.aliveImgs url:SafeValue(cell.cellModel.shareUrl) selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:SafeValue(cellModel.aliveTitle) image:cellModel.aliveImgs url:SafeValue(cellModel.shareUrl) selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
             vc.hidesBottomBarWhenPushed = YES;
             
             vc.publishType = kAlivePublishForward;
-            vc.aliveListModel = cell.cellModel;
+            vc.aliveListModel = cellModel;
             vc.shareBlock = shareBlock;
             [wself.viewController.navigationController pushViewController:vc animated:YES];
         }
     } shareState:^(BOOL state) {
         if (state) {
-            [cell.shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.shareNum+1)] forState:UIControlStateNormal];
+            [shareBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cellModel.shareNum+1)] forState:UIControlStateNormal];
             NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dict = @{@"item_id":SafeValue(cell.cellModel.aliveId),@"type" :@(cell.cellModel.aliveType)};
+            NSDictionary *dict = @{@"item_id":SafeValue(cellModel.aliveId),@"type" :@(cellModel.aliveType)};
             
             [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
                 
@@ -277,7 +276,7 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     }];
 }
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell commentPressed:(id)sender;
 {
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -285,18 +284,21 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         return;
     }
     
+    UIButton *commentBtn = (UIButton *)sender;
+    AliveListModel *cellModel = cell.cellData.aliveModel;
+    
     AliveCommentViewController * commVc = [AliveCommentViewController new];
-    commVc.alive_ID = SafeValue(cell.cellModel.aliveId);
-    commVc.alive_type = [NSString stringWithFormat:@"%ld",(long)cell.cellModel.aliveType];
+    commVc.alive_ID = SafeValue(cellModel.aliveId);
+    commVc.alive_type = [NSString stringWithFormat:@"%ld",(long)cellModel.aliveType];
     commVc.hidesBottomBarWhenPushed = YES;
     
     commVc.commentBlock = ^(){
-        [cell.commentBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cell.cellModel.commentNum+1)] forState:UIControlStateNormal];
+        [commentBtn setTitle:[NSString stringWithFormat:@"%ld",(long)(cellModel.commentNum+1)] forState:UIControlStateNormal];
     };
     [self.viewController.navigationController pushViewController:commVc animated:YES];
 }
 
-- (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell likePressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell likePressed:(id)sender;
 {
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
@@ -305,18 +307,19 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    UIButton *btn = sender;
-    NSDictionary *dict = @{@"alive_id":cell.cellModel.aliveId,@"alive_type" :@(cell.cellModel.aliveType)};
+    UIButton *likeBtn = sender;
+    AliveListModel *cellModel = cell.cellData.aliveModel;
+    NSDictionary *dict = @{@"alive_id":cellModel.aliveId,@"alive_type" :@(cellModel.aliveType)};
     
-    if (btn.selected) {
+    if (likeBtn.selected) {
         
         [manager POST:API_AliveCancelLike parameters:dict completion:^(id data, NSError *error) {
             
             if (!error) {
-                cell.cellModel.likeNum--;
-                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)cell.cellModel.likeNum] forState:UIControlStateNormal];
-                cell.likeBtn.selected = NO;
-                [cell.likeBtn addLikeAnimation];
+                cellModel.likeNum--;
+                [likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)cellModel.likeNum] forState:UIControlStateNormal];
+                likeBtn.selected = NO;
+                [likeBtn addLikeAnimation];
             }else{
                 MBAlert(@"用户已取消点赞")
             }
@@ -326,10 +329,10 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
         [manager POST:API_AliveAddLike parameters:dict completion:^(id data, NSError *error) {
             
             if (!error) {
-                cell.cellModel.likeNum++;
-                [cell.likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)cell.cellModel.likeNum] forState:UIControlStateNormal];
-                cell.likeBtn.selected = YES;
-                [cell.likeBtn addLikeAnimation];
+                cellModel.likeNum++;
+                [likeBtn setTitle:[NSString stringWithFormat:@"%ld",(long)cellModel.likeNum] forState:UIControlStateNormal];
+                likeBtn.selected = YES;
+                [likeBtn addLikeAnimation];
             }else{
                 MBAlert(@"用户已点赞")
             }
@@ -347,18 +350,6 @@ AliveListTableCellDelegate, AliveListBottomTableCellDelegate, StockUnlockManager
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    AliveListCellData *cellData = self.itemList[section];
-    AliveListModel *model = cellData.aliveModel;
-    if (model.aliveType == kAliveSurvey ||
-        model.aliveType == kAliveHot ||
-        model.aliveType == kAliveVideo) {
-        return 1;
-    }
-    
-    if (self.isShowToolBar) {
-        return 2;
-    }
-    
     return 1;
 }
 

@@ -32,7 +32,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uHz-bO-0jK">
-                        <rect key="frame" x="62" y="35" width="188" height="17"/>
+                        <rect key="frame" x="62" y="35" width="178" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
@@ -44,20 +44,20 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GUI-zd-DxP">
-                        <rect key="frame" x="255" y="10" width="50" height="50"/>
+                        <rect key="frame" x="245" y="10" width="60" height="50"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WcC-rF-yVV">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <rect key="frame" x="5" y="0.0" width="50" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="BKX-dX-Iqm"/>
                                     <constraint firstAttribute="width" constant="50" id="Uvd-ga-IWr"/>
                                 </constraints>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUb-ZW-5nC">
-                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WUb-ZW-5nC">
+                                <rect key="frame" x="0.0" y="0.0" width="60" height="50"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="FZ9-nu-NBl"/>
-                                    <constraint firstAttribute="width" constant="50" id="UPb-bw-Xd6"/>
+                                    <constraint firstAttribute="width" constant="60" id="UPb-bw-Xd6"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -67,16 +67,15 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="50" id="58C-s7-kau"/>
-                            <constraint firstItem="WUb-ZW-5nC" firstAttribute="top" secondItem="GUI-zd-DxP" secondAttribute="top" id="G0F-Qr-mVq"/>
-                            <constraint firstItem="WcC-rF-yVV" firstAttribute="top" secondItem="GUI-zd-DxP" secondAttribute="top" id="Jjp-9E-jU1"/>
-                            <constraint firstAttribute="trailing" secondItem="WUb-ZW-5nC" secondAttribute="trailing" id="Wga-2c-O4g"/>
-                            <constraint firstItem="WUb-ZW-5nC" firstAttribute="centerX" secondItem="WcC-rF-yVV" secondAttribute="centerX" id="XLE-wd-Zke"/>
-                            <constraint firstAttribute="trailing" secondItem="WcC-rF-yVV" secondAttribute="trailing" id="bNo-vj-5X7"/>
-                            <constraint firstAttribute="width" constant="50" id="rpP-ft-GNj"/>
+                            <constraint firstItem="WcC-rF-yVV" firstAttribute="centerX" secondItem="GUI-zd-DxP" secondAttribute="centerX" id="63G-TU-w7q"/>
+                            <constraint firstItem="WUb-ZW-5nC" firstAttribute="centerY" secondItem="GUI-zd-DxP" secondAttribute="centerY" id="A7g-yN-z4c"/>
+                            <constraint firstItem="WUb-ZW-5nC" firstAttribute="centerX" secondItem="GUI-zd-DxP" secondAttribute="centerX" id="JKf-VE-baY"/>
+                            <constraint firstItem="WcC-rF-yVV" firstAttribute="centerY" secondItem="GUI-zd-DxP" secondAttribute="centerY" id="cFS-vS-aBw"/>
+                            <constraint firstAttribute="width" constant="60" id="rpP-ft-GNj"/>
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b6e-CU-Aco">
-                        <rect key="frame" x="268" y="68" width="24" height="11"/>
+                        <rect key="frame" x="263" y="68" width="24" height="11"/>
                         <fontDescription key="fontDescription" type="system" pointSize="9"/>
                         <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
