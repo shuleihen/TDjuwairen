@@ -191,7 +191,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(userInfoChangedNotifi:) name:kUserInfoChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(optionalStockChangedNotifi:) name:kAddOptionalStockSuccessed object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subjectChangedNotifi:) name:kSubjectChangedNotification object:nil];
     
@@ -252,9 +251,10 @@
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-    
+    // header 刷新控件
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshAction)];
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+
+    // footer 刷新控件
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
 }
 
@@ -300,12 +300,7 @@
     }
 }
 
-#pragma mark - Action 
-- (void)updateAvatar:(NSNotification *)notif {
-    UIButton *btn = self.navigationItem.leftBarButtonItem.customView;
-    [btn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal];
-}
-
+#pragma mark - Action
 
 - (void)searchPressed:(id)sender {
     SearchViewController *searchView = [[SearchViewController alloc] init];
@@ -384,16 +379,9 @@
     };
 }
 
-- (void)userInfoChangedNotifi:(NSNotification *)notifi {
-    
-    [self setupUserAvatar];
-}
-
 - (void)loginStatusChangedNotifi:(NSNotification *)notifi {
     
-    [self setupUserAvatar];
-    
-    [self refreshAction];
+    [self querySurveySubject];
 }
 
 - (void)optionalStockChangedNotifi:(NSNotification *)notifi {
@@ -498,7 +486,9 @@
     [self.navigationController pushViewController:login animated:YES];
     return NO;
 }
+
 #pragma mark - SurveyContentListDelegate
+
 - (void)contentListLoadComplete {
     if ([self.tableView.mj_footer isRefreshing]) {
         [self.tableView.mj_footer endRefreshing];

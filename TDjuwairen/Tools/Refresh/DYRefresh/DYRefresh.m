@@ -35,7 +35,7 @@ NSString *const DYRefreshKeyPathPanState = @"state";
 }
 
 - (id)initWithScrollView:(UIScrollView *)scrollView {
-    CGRect rect = CGRectMake(0, -kDYRefreshHeaderViewHeight, CGRectGetWidth(scrollView.bounds), kDYRefreshHeaderViewHeight);
+    CGRect rect = CGRectMake(0, -kDYRefreshHeaderViewHeight, kScreenWidth, kDYRefreshHeaderViewHeight);
     
     if (self = [super initWithFrame:rect]) {
 
