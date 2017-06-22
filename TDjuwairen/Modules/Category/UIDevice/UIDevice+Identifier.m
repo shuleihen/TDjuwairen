@@ -39,8 +39,6 @@ static NSString *gKeyOfDeviceUDIDServe = @"gKeyOfDeviceUDIDServe";
         
         NSString *stringToHash = [[NSString stringWithFormat:@"%@%@",uuid,bundleIdentifier] uppercaseString];
         uniqueIdentifier = [[stringToHash md5] uppercaseString];
-        
-        NSLog(@"设备唯一标识号: %@", uniqueIdentifier);
     }
     
     return uniqueIdentifier;

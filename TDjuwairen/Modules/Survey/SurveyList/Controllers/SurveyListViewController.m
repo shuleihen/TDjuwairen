@@ -548,11 +548,17 @@
             }];
         }
         
-    } else if ([s isEqualToString:@"https://www.juwairen.net/Consume/record"]){
+    } else {
         NSString *nickName = [US.nickName URLEncode];
         NSString *avatar = [US.headImage URLEncode];
         
-        NSString *urlString= [NSString stringWithFormat:@"https://www.juwairen.net/index.php/WxUser/vipShow?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+        NSString *urlString = @"";
+        if ([s rangeOfString:@"?"].location == NSNotFound) {
+            urlString= [NSString stringWithFormat:@"%@?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",s,nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+        } else {
+            urlString= [NSString stringWithFormat:@"%@user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",s,nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+        }
+        
         NSURL *url = [NSURL URLWithString:urlString];
         if (url) {
             TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];

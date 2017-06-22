@@ -25,9 +25,10 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell commentPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell likePressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPressedWithStockCode:(NSString *)stockCode;
 @end
 
-@interface AliveListTableViewCell : UITableViewCell<TTTAttributedLabelDelegate>
+@interface AliveListTableViewCell : UITableViewCell<AliveListTagsViewDelegate>
 @property (strong, nonatomic) UIImageView *avatar;
 @property (strong, nonatomic) UILabel *nickNameLabel;
 @property (strong, nonatomic) UIImageView *officialImageView;

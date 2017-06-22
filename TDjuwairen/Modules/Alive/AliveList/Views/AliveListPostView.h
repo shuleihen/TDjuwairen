@@ -10,7 +10,7 @@
 #import "AliveListImagesView.h"
 #import "AliveListTagsView.h"
 
-@interface AliveListPostView : AliveListContentView<AliveListTagsViewDelegate>
+@interface AliveListPostView : AliveListContentView
 @property (strong, nonatomic) AliveListImagesView *imagesView;
 @property (strong, nonatomic) AliveListTagsView *tagsView;
 @end

@@ -28,7 +28,7 @@
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
         [_avatar addGestureRecognizer:tap];
         
-        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(62, 14, kScreenWidth-92-64, 18)];
+        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
         _nickNameLabel.font = [UIFont systemFontOfSize:16.0f];
         _nickNameLabel.textAlignment = NSTextAlignmentLeft;
         _nickNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
@@ -84,14 +84,17 @@
     self.cellData = cellData;
     AliveListModel *aliveModel = cellData.aliveModel;
     
-    // 头像、昵称
+    // 头像
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:TDDefaultUserAvatar];
+    
+    // 昵称
     self.nickNameLabel.text = aliveModel.masterNickName;
+    CGSize nickNameSize = [self.nickNameLabel sizeThatFits:CGSizeMake(kScreenWidth-12-64, 18)];
+    self.nickNameLabel.frame = CGRectMake(62, 14, nickNameSize.width, 18);
     
     // 官方认证标示
     if (aliveModel.isOfficial) {
-        CGSize nickNameSize = [aliveModel.masterNickName boundingRectWithSize:CGSizeMake(kScreenWidth-12-64, 50) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0f]} context:nil].size;
-        self.officialImageView.frame = CGRectMake(CGRectGetMinX(self.nickNameLabel.frame)+nickNameSize.width+5, 15, 16, 16);
+        self.officialImageView.frame = CGRectMake(62+nickNameSize.width+5, 15, 16, 16);
         self.officialImageView.hidden = NO;
     } else {
         self.officialImageView.hidden = YES;
@@ -116,6 +119,7 @@
             case kAliveNormal:
             case kAlivePosts: {
                 AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+                view.delegate = self;
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
@@ -144,18 +148,19 @@
     }
 }
 
-#pragma mark - 
-- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+#pragma mark - AliveListTagsViewDelegate
+- (void)aliveListTagsView:(AliveListTagsView *)tagsView didSelectedWithIndex:(NSInteger)index {
+    if (index < 0 &&
+        index > self.cellData.aliveModel.aliveTags.count) {
+        return;
+    }
     
-    MYPhotoBrowser *photoBrowser = [[MYPhotoBrowser alloc] initWithUrls:self.cellData.aliveModel.aliveImgs
-                                                               imgViews:nil
-                                                            placeholder:nil
-                                                             currentIdx:0
-                                                            handleNames:nil
-                                                               callback:^(UIImage *handleImage,NSString *handleType) {
-    }];
-    [photoBrowser showWithAnimation:YES];
+    NSString *code = self.cellData.aliveModel.aliveTags[index];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:stockPressedWithStockCode:)]) {
+        [self.delegate aliveListTableCell:self stockPressedWithStockCode:code];
+    }
 }
+
 
 - (void)forwardMsgPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardMsgPressed:)]) {
@@ -198,4 +203,14 @@
         [self.delegate aliveListTableCell:self likePressed:sender];
     }
 }
+
+
+- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+    UITouch *one = touches.anyObject;
+    
+    NSLog(@"touch view = %@",one.view);
+    
+    [super touchesBegan:touches withEvent:event];
+}
+
 @end

@@ -62,7 +62,7 @@
         _playerModel                  = [[ZFPlayerModel alloc] init];
         _playerModel.title            = self.videoinfo.title;
         _playerModel.videoURL         = [NSURL URLWithString:self.videoinfo.videoSrc];
-        _playerModel.placeholderImage = [UIImage imageNamed:@"loading_bgView1"];
+        _playerModel.placeholderImageURLString = self.videoinfo.cover;
         _playerModel.fatherView       = self.videoPlayView;
 
     }

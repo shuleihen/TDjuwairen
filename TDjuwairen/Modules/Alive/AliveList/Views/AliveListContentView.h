@@ -7,13 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
-
 #import "AliveListCellData.h"
 #import "TTTAttributedLabel.h"
+#import "AliveListTagsView.h"
 
 @interface AliveListContentView : UIView<TTTAttributedLabelDelegate>
 @property (nonatomic, strong) AliveListCellData *cellData;
-
 @property (strong, nonatomic) TTTAttributedLabel *messageLabel;
-
+@property (nonatomic,  weak) id<AliveListTagsViewDelegate> delegate;
 @end

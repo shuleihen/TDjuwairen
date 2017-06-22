@@ -16,7 +16,7 @@
         [self addSubview:_imagesView];
         
         _tagsView = [[AliveListTagsView alloc] initWithFrame:CGRectZero];
-        _tagsView.delegate = self;
+        _tagsView.delegate = self.delegate;
         [self addSubview:_tagsView];
 
     }

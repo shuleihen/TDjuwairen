@@ -11,6 +11,7 @@
 
 typedef enum : NSUInteger {
     kErrorNoLogin   =300,   // 未登陆
+    kErrorLoginout  =400
 } ErrorCode;
 
 #endif /* ErrorCodeDefine_h */

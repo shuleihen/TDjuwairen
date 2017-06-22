@@ -20,12 +20,14 @@
 #import "UIViewController+Loading.h"
 #import "DYRefresh.h"
 #import "UIViewController+Refresh.h"
+#import "AliveNoAttentionTableViewController.h"
 
 @interface AliveListViewController ()
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;
 @property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
+@property (nonatomic, strong) AliveNoAttentionTableViewController *noAttentionController;
 @end
 
 @implementation AliveListViewController
@@ -152,6 +154,10 @@
                     
                     [wself.tableView reloadData];
                     
+                    if (wself.listType == kAliveListAttention) {
+                        [wself showNoAttetionControllerView:(wself.aliveList.count==0)];
+                    }
+                    
                     if (scrollToTop) {
                         [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];
                     }
@@ -171,6 +177,15 @@
             wself.aliveList = nil;
             [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
             [wself.tableView reloadData];
+        } else if (error.code == kErrorLoginout) {
+            if (wself.tableView.mj_footer.isRefreshing) {
+                [wself.tableView.mj_footer endRefreshing];
+            }
+            
+            [wself endHeaderRefresh];
+            [wself removeLoadingAnimation];
+            
+            [self showNoAttetionControllerView:YES];
         } else {
             if (wself.tableView.mj_footer.isRefreshing) {
                 [wself.tableView.mj_footer endRefreshing];
@@ -180,6 +195,25 @@
             [wself removeLoadingAnimation];
         }
     }];
+}
+
+- (void)showNoAttetionControllerView:(BOOL)show {
+    if (show) {
+        if (!self.noAttentionController) {
+            self.noAttentionController = [[AliveNoAttentionTableViewController alloc] initWithStyle:UITableViewStylePlain];
+            self.tableView.tableHeaderView = self.noAttentionController.view;
+            [self addChildViewController:self.noAttentionController];
+            
+             self.tableView.mj_footer = nil;
+        }        
+    } else {
+        if (self.noAttentionController) {
+            self.tableView.tableHeaderView = nil;
+            self.noAttentionController = nil;
+            
+            self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+        }
+    }
 }
 
 #pragma mark - 关注状态改变通知
