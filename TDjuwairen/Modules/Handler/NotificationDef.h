@@ -26,10 +26,10 @@
 #define kUpdateAliveSexNotification     @"UpdateAliveSexNotification"
 #define kUpdateAliveCityNotification    @"UpdateAliveCityNotification"
 #define kUpdateAliveIntroNotification   @"UpdateAliveIntroNotification"
-#define KnotifierGoPingLun              @"KnotifierGoPingLun"
-#define KnotifierGoAddLike              @"KnotifierGoAddLike"
+#define kAddPingLunNotification         @"kAddPingLunNotification"
+#define kAddLikeNotification            @"kAddLikeNotification"
 #define kAlivePublishNotification       @"AlivePublishNotification"
-#define KnotifierGoAddAttend            @"KnotifierGoAddAttend"
+#define kAddAttenNotification           @"kAddAttenNotification"
 
 
 #endif /* NotificationDef_h */

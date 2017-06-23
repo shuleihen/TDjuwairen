@@ -11,6 +11,8 @@
 #import "AlivePingLunViewController.h"
 #import "AliveDetailSegmentView.h"
 
+#define kAliveDetailSegmentHeight 34
+
 @interface AliveDetailFooterViewController ()<AliveDetailSegmentViewDelegate>
 @property (nonatomic, strong) NSArray *contentControllers;
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -65,7 +67,7 @@
 
 - (AliveDetailSegmentView *)segmentView {
     if (!_segmentView) {
-        _segmentView = [[AliveDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+        _segmentView = [[AliveDetailSegmentView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kAliveDetailSegmentHeight)];
         _segmentView.delegate = self;
     }
     return _segmentView;
@@ -77,7 +79,7 @@
     
     [self.view addSubview:self.segmentView];
     
-    self.tabBarController.view.frame = CGRectMake(0, 44, kScreenWidth, CGRectGetHeight(self.view.bounds)-44);
+    self.tabBarController.view.frame = CGRectMake(0, kAliveDetailSegmentHeight, kScreenWidth, CGRectGetHeight(self.view.bounds)-kAliveDetailSegmentHeight);
     [self addChildViewController:self.tabBarController];
     [self.view addSubview:self.tabBarController.view];
 }

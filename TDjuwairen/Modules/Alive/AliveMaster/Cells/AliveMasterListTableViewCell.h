@@ -7,15 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
+//#import "DeformationButton.h"
 
 @class AliveMasterModel;
+@class AliveMasterListTableViewCell;
+@protocol AliveMasterListCellDelegate <NSObject>
 
-typedef void(^AttentionAliveMasterBlock)();
+- (void)aliveMasterListCell:(AliveMasterListTableViewCell *)cell attentPressed:(id)sender;
+
+@end
 
 @interface AliveMasterListTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
+@property (weak, nonatomic) IBOutlet UIButton *attentBtn;
+
 @property (strong, nonatomic) AliveMasterModel *aliveModel;
-@property (copy, nonatomic) AttentionAliveMasterBlock  attentedBlock;
+@property (nonatomic, weak) id<AliveMasterListCellDelegate> delegate;
 
 + (instancetype)loadAliveMasterListTableViewCell:(UITableView *)tableView;
 

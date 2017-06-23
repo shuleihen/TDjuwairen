@@ -62,7 +62,7 @@
     self.page = 1;
     [self queryGuessComment];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPingLunSource) name:KnotifierGoPingLun object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loadPingLunSource) name:kAddPingLunNotification object:nil];
 }
 
 - (void)refreshAction {

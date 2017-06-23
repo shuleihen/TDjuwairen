@@ -13,7 +13,6 @@
 #import "NetworkManager.h"
 #import "UIImage+Color.h"
 #import "AliveListTableViewCell.h"
-#import "AliveListBottomTableViewCell.h"
 #import "ViewpointCollectionTableViewController.h"
 #import "StockCollectionTableViewController.h"
 

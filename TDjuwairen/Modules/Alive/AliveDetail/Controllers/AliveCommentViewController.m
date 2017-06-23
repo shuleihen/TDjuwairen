@@ -60,7 +60,7 @@
     [manager POST:API_AliveAddRoomComment parameters:dict completion:^(id data, NSError *error) {
         
         if (!error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoPingLun object:nil];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kAddPingLunNotification object:nil];
             
             [wSelf.navigationController popViewControllerAnimated:YES];
             

@@ -61,7 +61,7 @@
     [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
     
     [self refreshActions];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attendChange:) name:KnotifierGoAddAttend object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attendChange:) name:kAddAttenNotification object:nil];
 }
 
 - (void)viewDidLayoutSubviews {

@@ -33,6 +33,9 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 // 是否为直播详情页面
 @property (nonatomic, assign) BOOL isAliveDetail;
 
+// 是否滑动隐藏导航条
+@property (nonatomic, assign) BOOL isHiddenNavigationBar;
+
 @property (nonatomic, copy) void (^reloadView)(void);
 
 - (id)initWithTableView:(UITableView *)tableView withViewController:(UIViewController *)viewController;

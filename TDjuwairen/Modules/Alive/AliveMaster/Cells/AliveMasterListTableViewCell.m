@@ -15,7 +15,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aTitleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aLevelLabel;
-@property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 
 @property (weak, nonatomic) IBOutlet UILabel *aFansCountLabel;
 
@@ -27,10 +26,10 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.aAttentionButton.layer.cornerRadius = 2;
-    self.aAttentionButton.layer.masksToBounds = YES;
-    self.aAttentionButton.layer.borderWidth = 1;
-    self.aAttentionButton.layer.borderColor = TDThemeColor.CGColor;
+    self.attentBtn.layer.cornerRadius = 2;
+    self.attentBtn.layer.masksToBounds = YES;
+    self.attentBtn.layer.borderWidth = 1;
+    self.attentBtn.layer.borderColor = TDThemeColor.CGColor;
     
     self.aImageView.layer.cornerRadius = 25;
     self.aImageView.layer.masksToBounds = YES;
@@ -65,32 +64,30 @@
     self.introLabel.text = (aliveModel.roomIntro.length)?aliveModel.roomIntro:@"暂无介绍";
     
     if (aliveModel.isAtten == YES) {
-        [self.aAttentionButton setTitleColor:TDThemeColor forState:UIControlStateNormal];
-        [self.aAttentionButton setBackgroundColor:[UIColor whiteColor]];
-        [self.aAttentionButton setTitle:@"已关注" forState:UIControlStateNormal];
+        [self.attentBtn setTitleColor:TDThemeColor forState:UIControlStateNormal];
+        [self.attentBtn setBackgroundColor:[UIColor whiteColor]];
+        [self.attentBtn setTitle:@"已关注" forState:UIControlStateNormal];
         
     }else {
         
-        [self.aAttentionButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-        [self.aAttentionButton setBackgroundColor:TDThemeColor];
-        [self.aAttentionButton setTitle:@"加关注" forState:UIControlStateNormal];
+        [self.attentBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+        [self.attentBtn setBackgroundColor:TDThemeColor];
+        [self.attentBtn setTitle:@"加关注" forState:UIControlStateNormal];
     }
     
     // 自己隐藏关注按钮
     if (US.isLogIn && [US.userId isEqualToString:aliveModel.masterId]) {
-        self.aAttentionButton.hidden = YES;
+        self.attentBtn.hidden = YES;
     } else {
-        self.aAttentionButton.hidden = NO;
+        self.attentBtn.hidden = NO;
     }
 }
 
 - (IBAction)attentionButtonClick:(UIButton *)sender {
 
-    if (self.attentedBlock) {
-        self.attentedBlock();
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveMasterListCell:attentPressed:)]) {
+        [self.delegate aliveMasterListCell:self attentPressed:sender];
     }
-    
-    
 }
 
 @end

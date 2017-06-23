@@ -46,6 +46,8 @@
         _arrow = [[UIView alloc] initWithFrame:CGRectMake(12, frame.size.height-3, kAliveDetailSegmentWidth, 3)];
         _arrow.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
         [self addSubview:_arrow];
+        
+        self.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }

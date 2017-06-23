@@ -8,7 +8,6 @@
 
 #import "AliveListTableViewDelegate.h"
 #import "AliveListTableViewCell.h"
-#import "AliveListBottomTableViewCell.h"
 #import "AliveListModel.h"
 #import "AliveRoomViewController.h"
 #import "AliveDetailViewController.h"
@@ -48,9 +47,6 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         self.avatarPressedEnabled = YES;
         
         [self.tableView registerClass:[AliveListTableViewCell class] forCellReuseIdentifier:@"AliveListTableViewCellID"];
-        
-        UINib *nib1 = [UINib nibWithNibName:@"AliveListBottomTableViewCell" bundle:nil];
-        [self.tableView registerNib:nib1 forCellReuseIdentifier:@"AliveListBottomTableViewCellID"];
         
         UINib *nib = [UINib nibWithNibName:@"AliveVideoListTableViewCell" bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveVideoListTableViewCellID"];
@@ -366,23 +362,15 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     AliveListCellData *cellData = self.itemList[indexPath.section];
     AliveListModel *model = cellData.aliveModel;
     
-    if (indexPath.row == 0) {
-        if (model.aliveType == kAliveSurvey ||
-            model.aliveType == kAliveHot ||
-            model.aliveType == kAliveVideo) {
-            AliveVideoListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveVideoListTableViewCellID"];
-            
-            return cell;
-        } else {
-            AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
-            cell.tag = indexPath.section;
-            cell.delegate = self;
-            
-            return cell;
-        }
+    if (model.aliveType == kAliveSurvey ||
+        model.aliveType == kAliveHot ||
+        model.aliveType == kAliveVideo) {
+        AliveVideoListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveVideoListTableViewCellID"];
         
+        return cell;
     } else {
-        AliveListBottomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListBottomTableViewCellID"];
+        AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
+        cell.tag = indexPath.section;
         cell.delegate = self;
         
         return cell;
@@ -393,20 +381,14 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     AliveListCellData *cellData = self.itemList[indexPath.section];
     AliveListModel *model = cellData.aliveModel;
     
-    if (indexPath.row == 0) {
-        if (model.aliveType == kAliveSurvey ||
-            model.aliveType == kAliveHot ||
-            model.aliveType == kAliveVideo) {
-            AliveVideoListTableViewCell *scell = (AliveVideoListTableViewCell *)cell;
-            [scell setupAliveModel:model];
-        } else {
-            AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
-            [scell setupAliveListCellData:cellData];
-        }
-        
-    } else {
-        AliveListBottomTableViewCell *scell = (AliveListBottomTableViewCell *)cell;
+    if (model.aliveType == kAliveSurvey ||
+        model.aliveType == kAliveHot ||
+        model.aliveType == kAliveVideo) {
+        AliveVideoListTableViewCell *scell = (AliveVideoListTableViewCell *)cell;
         [scell setupAliveModel:model];
+    } else {
+        AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
+        [scell setupAliveListCellData:cellData];
     }
 }
 
@@ -632,7 +614,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
                     }
                 }
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddAttend object:nil userInfo:@{@"masterID":listModel.masterId,@"listType":@(self.listType),@"addAttend":notiStr}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddAttenNotification object:nil userInfo:@{@"masterID":listModel.masterId,@"listType":@(self.listType),@"addAttend":notiStr}];
                 
                 [self.tableView reloadData];
                 if (self.reloadView) {

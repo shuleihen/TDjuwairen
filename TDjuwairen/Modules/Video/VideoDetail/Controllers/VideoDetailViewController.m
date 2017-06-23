@@ -185,7 +185,7 @@
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
         if (state) {
             // 转发服务器会将分享数加1
-//            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
         }
     };
     
@@ -206,7 +206,7 @@
             
             [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
                 if (!error) {
-//                    [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+//                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
                 }
             }];
         }

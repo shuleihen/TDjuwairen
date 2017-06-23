@@ -34,7 +34,7 @@
 - (UITableView *)tableView {
     if (!_tableView) {
         CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-44);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
@@ -125,7 +125,7 @@
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
         if (state) {
             // 转发服务器会将分享数加1
-            [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
         }
     };
     
@@ -147,7 +147,7 @@
              
              [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
              if (!error) {
-                 [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"fenxiang"}];
+                 [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
              }
          }];
          }
@@ -186,7 +186,7 @@
             if (!error) {
                 [wself setupIsLike:NO withAnimation:YES];
 
-                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已取消点赞")
             }
@@ -198,7 +198,7 @@
             if (!error) {
                 [wself setupIsLike:YES withAnimation:YES];
                 
-                [[NSNotificationCenter defaultCenter] postNotificationName:KnotifierGoAddLike object:nil userInfo:@{@"notiType":@"dianzan"}];
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"dianzan"}];
             }else{
                 MBAlert(@"用户已点赞")
             }

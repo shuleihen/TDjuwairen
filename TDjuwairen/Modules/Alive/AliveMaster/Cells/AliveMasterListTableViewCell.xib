@@ -86,11 +86,11 @@
                 </constraints>
             </tableViewCellContentView>
             <connections>
-                <outlet property="aAttentionButton" destination="OKt-Nz-FOb" id="mMf-yA-qqR"/>
                 <outlet property="aFansCountLabel" destination="mfE-Pm-R2X" id="MtJ-6Y-9qL"/>
                 <outlet property="aImageView" destination="9Iy-ZO-a46" id="9gK-Pz-rCS"/>
                 <outlet property="aLevelLabel" destination="D9v-Hu-JWe" id="w8M-ku-suY"/>
                 <outlet property="aTitleLabel" destination="euy-Qe-y7s" id="PKJ-Ro-F4R"/>
+                <outlet property="attentBtn" destination="OKt-Nz-FOb" id="Zww-UU-5lL"/>
                 <outlet property="introLabel" destination="aZ0-nc-c1o" id="OBj-cv-DqA"/>
             </connections>
             <point key="canvasLocation" x="-107" y="-245"/>

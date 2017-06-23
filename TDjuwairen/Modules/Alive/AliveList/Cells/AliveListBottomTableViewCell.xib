@@ -18,6 +18,13 @@
                 <rect key="frame" x="0.0" y="0.0" width="320" height="36.5"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RNE-eG-hQH">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="1"/>
+                        <color key="backgroundColor" red="0.93333333333333335" green="0.93333333333333335" blue="0.93333333333333335" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="0.5" id="kwP-ft-zhc"/>
+                        </constraints>
+                    </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yXR-i4-M9Q">
                         <rect key="frame" x="0.0" y="0.0" width="106.5" height="36"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -62,6 +69,7 @@
                 <constraints>
                     <constraint firstItem="IyQ-dl-Aop" firstAttribute="leading" secondItem="Cy6-ZB-nCb" secondAttribute="trailing" id="3jK-V0-IK8"/>
                     <constraint firstItem="Cy6-ZB-nCb" firstAttribute="leading" secondItem="yXR-i4-M9Q" secondAttribute="trailing" id="3kc-Iu-DWu"/>
+                    <constraint firstItem="RNE-eG-hQH" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="6nd-OC-sSy"/>
                     <constraint firstItem="Cy6-ZB-nCb" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="8Lk-8z-dMU"/>
                     <constraint firstAttribute="bottom" secondItem="Cy6-ZB-nCb" secondAttribute="bottom" id="EA2-Zg-z3V"/>
                     <constraint firstItem="IyQ-dl-Aop" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Inf-gX-vxj"/>
@@ -73,6 +81,8 @@
                     <constraint firstItem="yXR-i4-M9Q" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="qnC-oQ-48c"/>
                     <constraint firstItem="IyQ-dl-Aop" firstAttribute="width" secondItem="yXR-i4-M9Q" secondAttribute="width" id="r3U-UR-2m3"/>
                     <constraint firstItem="IyQ-dl-Aop" firstAttribute="leading" secondItem="Cy6-ZB-nCb" secondAttribute="trailing" id="rb0-0u-rGG"/>
+                    <constraint firstItem="RNE-eG-hQH" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="uFV-zJ-qA5"/>
+                    <constraint firstAttribute="trailing" secondItem="RNE-eG-hQH" secondAttribute="trailing" id="w3P-OT-EGC"/>
                     <constraint firstItem="yXR-i4-M9Q" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xz8-aT-WQR"/>
                 </constraints>
             </tableViewCellContentView>

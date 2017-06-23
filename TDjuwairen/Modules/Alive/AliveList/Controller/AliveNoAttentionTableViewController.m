@@ -14,10 +14,12 @@
 #import "LoginState.h"
 #import "MBProgressHUD.h"
 #import "AliveRoomViewController.h"
+#import "AliveMasterListTabelViewDelegate.h"
 
 @interface AliveNoAttentionTableViewController ()
 @property (strong, nonatomic) NSMutableArray *item;
 @property (strong, nonatomic) UIView *headerView;
+@property (nonatomic, strong) AliveMasterListTabelViewDelegate *tableViewDelegate;
 @end
 
 @implementation AliveNoAttentionTableViewController
@@ -53,6 +55,14 @@
     }
     
     return _headerView;
+}
+
+- (AliveMasterListTabelViewDelegate *)tableViewDelegate {
+    if (!_tableViewDelegate) {
+        _tableViewDelegate = [[AliveMasterListTabelViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
+        _tableViewDelegate.listType = kAliveAttentionList;
+    }
+    return _tableViewDelegate;
 }
 
 - (void)viewDidLoad {
@@ -99,7 +109,7 @@
 
             weakSelf.item = list;
             weakSelf.tableView.tableHeaderView = weakSelf.headerView;
-            [weakSelf.tableView reloadData];
+            weakSelf.tableViewDelegate.itemList = weakSelf.item;
         } else {
             weakSelf.tableView.tableHeaderView = weakSelf.headerView;
             [weakSelf.tableView reloadData];
@@ -107,81 +117,4 @@
     }];
 }
 
-
-#pragma mark - Table view data source
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return self.item.count;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 0;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-    AliveMasterListTableViewCell *cell = [AliveMasterListTableViewCell loadAliveMasterListTableViewCell:tableView];
-    cell.selectionStyle = UITableViewCellAccessoryNone;
-    AliveMasterModel *model = self.item[indexPath.row];
-    cell.aliveModel = model;
-    
-    __weak typeof(self)weakSelf = self;
-#pragma mark - 关注／取消关注操作
-    cell.attentedBlock = ^(){
-        if (!US.isLogIn) {
-            LoginViewController *login = [[LoginViewController alloc] init];
-            [self.navigationController pushViewController:login animated:YES];
-            return;
-        }
-        
-        if (model.masterId.length <= 0) {
-            return ;
-        }
-        
-        NSString *str = API_AliveAddAttention;
-        if (model.isAtten == YES) {
-            // 取消关注
-            str = API_AliveDelAttention;
-        }
-        
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        
-        [manager POST:str parameters:@{@"user_id":model.masterId} completion:^(id data, NSError *error){
-            
-            if (!error) {
-                
-                if (data && [data[@"status"] integerValue] == 1) {
-                    
-                    model.isAtten = !model.isAtten;
-                    [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-                    
-                }
-            } else {
-            }
-            
-        }];
-        
-    };
-    return cell;
-}
-
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    AliveMasterModel *model = self.item[indexPath.row];
-    if (model.masterId.length <= 0) {
-        return;
-    }
-    
-    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.masterId];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
-}
 @end
