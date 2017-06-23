@@ -394,6 +394,7 @@
 		19E58DBB1EFA423B00ADA1B8 /* SharpTags.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58DBA1EFA423B00ADA1B8 /* SharpTags.m */; };
 		19E58DC31EFB6E0F00ADA1B8 /* AliveListBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58DC21EFB6E0F00ADA1B8 /* AliveListBottomView.m */; };
 		19E58DC61EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58DC51EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.m */; };
+		19E58DE81EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E58DE71EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m */; };
 		19E5F26E1E12614200984DBC /* BorderButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F26D1E12614200984DBC /* BorderButton.m */; };
 		19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2791E1364CF00984DBC /* GuessCommentModel.m */; };
 		19E5F2851E1364CF00984DBC /* IndexStockRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F27B1E1364CF00984DBC /* IndexStockRecordModel.m */; };
@@ -1340,6 +1341,8 @@
 		19E58DC21EFB6E0F00ADA1B8 /* AliveListBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListBottomView.m; sourceTree = "<group>"; };
 		19E58DC41EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveNoAttentionTableViewController.h; sourceTree = "<group>"; };
 		19E58DC51EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveNoAttentionTableViewController.m; sourceTree = "<group>"; };
+		19E58DE61EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMasterListTabelViewDelegate.h; sourceTree = "<group>"; };
+		19E58DE71EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveMasterListTabelViewDelegate.m; sourceTree = "<group>"; };
 		19E5F26C1E12614200984DBC /* BorderButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BorderButton.h; sourceTree = "<group>"; };
 		19E5F26D1E12614200984DBC /* BorderButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BorderButton.m; sourceTree = "<group>"; };
 		19E5F2781E1364CF00984DBC /* GuessCommentModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentModel.h; sourceTree = "<group>"; };
@@ -2903,6 +2906,8 @@
 			children = (
 				19386ECA1E7188AD00D4426E /* AliveMasterModel.h */,
 				19386ECB1E7188AD00D4426E /* AliveMasterModel.m */,
+				19E58DE61EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.h */,
+				19E58DE71EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5158,6 +5163,7 @@
 				4D2D29ED1EDEAF3800545314 /* DeleteCollectionPopController.m in Sources */,
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
+				19E58DE81EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
