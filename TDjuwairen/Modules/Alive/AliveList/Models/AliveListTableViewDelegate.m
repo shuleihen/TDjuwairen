@@ -342,12 +342,11 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 }
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPressedWithStockCode:(NSString *)stockCode {
-    /*
+    
     StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
     vc.stockCode = stockCode;
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
-     */
 }
 
 #pragma mark - UITableView DataSource

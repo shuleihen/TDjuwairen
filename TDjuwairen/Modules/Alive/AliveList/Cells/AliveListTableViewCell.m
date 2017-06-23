@@ -151,11 +151,11 @@
 #pragma mark - AliveListTagsViewDelegate
 - (void)aliveListTagsView:(AliveListTagsView *)tagsView didSelectedWithIndex:(NSInteger)index {
     if (index < 0 &&
-        index > self.cellData.aliveModel.aliveTags.count) {
+        index > self.cellData.aliveModel.aliveStockTags.count) {
         return;
     }
     
-    NSString *code = self.cellData.aliveModel.aliveTags[index];
+    NSString *code = self.cellData.aliveModel.aliveStockTags[index];
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:stockPressedWithStockCode:)]) {
         [self.delegate aliveListTableCell:self stockPressedWithStockCode:code];
     }
@@ -204,13 +204,13 @@
     }
 }
 
-
-- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-    UITouch *one = touches.anyObject;
-    
-    NSLog(@"touch view = %@",one.view);
-    
-    [super touchesBegan:touches withEvent:event];
-}
+//
+//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
+//    UITouch *one = touches.anyObject;
+//    
+//    NSLog(@"touch view = %@",one.view);
+//    
+//    [super touchesBegan:touches withEvent:event];
+//}
 
 @end

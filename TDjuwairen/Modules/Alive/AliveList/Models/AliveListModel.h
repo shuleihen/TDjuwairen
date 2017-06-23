@@ -42,6 +42,8 @@
 @property (nonatomic, copy) NSString *shareUrl;
 /// 贴单标签(数组)
 @property (nonatomic, strong) NSArray *aliveTags;
+@property (nonatomic, strong) NSArray *aliveStockTags;
+
 @property (nonatomic, strong) AliveListForwardModel *forwardModel;
 ///  是否官方认证
 @property (nonatomic, assign) BOOL isOfficial;

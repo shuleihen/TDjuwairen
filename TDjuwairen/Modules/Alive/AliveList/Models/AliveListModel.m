@@ -25,6 +25,7 @@
         self.shareNum = [dict[@"alive_share_num"] integerValue];
         self.shareUrl = SafeValue(dict[@"alive_share_url"]);
         self.aliveTags = dict[@"alive_com_tag"];
+        self.aliveStockTags = dict[@"alive_com_stock"];
         self.isOfficial = [dict[@"is_official"] boolValue];
         self.isAttend = [dict[@"is_attend"] boolValue];
         self.isSelf = [dict[@"is_self"] boolValue];
