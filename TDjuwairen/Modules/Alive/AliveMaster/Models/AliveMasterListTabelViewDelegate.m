@@ -11,7 +11,6 @@
 #import "AliveMasterListTableViewCell.h"
 #import "AliveMasterModel.h"
 #import "NetworkManager.h"
-#import "UIButton+Loading.h"
 #import "AliveTypeDefine.h"
 
 @interface AliveMasterListTabelViewDelegate ()<AliveMasterListCellDelegate>
