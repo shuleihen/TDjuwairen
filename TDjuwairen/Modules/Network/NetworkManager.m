@@ -120,8 +120,8 @@ NSString *NetworkErrorDomain    = @"network.error.domain";
     // 添加header
     [kAppContext addHttpHeaderWithRequest:request];
     
-    DDLogInfo(@"\nRequest * * * * * * * * * * *\nMethod = %@\nURL = %@\nHeaders = %@\nParameters = %@\n* * * * * * * * * * *\n",
-              method,request.URL,request.allHTTPHeaderFields,parameters);
+    DDLogInfo(@"\nRequest * * * * * * * * * * *\nMethod = %@\nURL = %@\nParameters = %@\n* * * * * * * * * * *\n",
+              method,request.URL,parameters);
     
     __block NSURLSessionDataTask *dataTask = nil;
     dataTask = [self.manager dataTaskWithRequest:request

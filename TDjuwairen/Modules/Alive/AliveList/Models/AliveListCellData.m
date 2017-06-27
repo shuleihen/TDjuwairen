@@ -227,7 +227,7 @@
 
 - (NSDictionary *)messageAttritDictionary {
     NSMutableParagraphStyle *ps = [[NSMutableParagraphStyle alloc] init];
-    ps.lineSpacing = 3.0f;
+    ps.lineSpacing = 6.0f;
     ps.paragraphSpacingBefore = 0.0f;
     ps.paragraphSpacing = 0.0f;
     ps.alignment = NSTextAlignmentLeft;
