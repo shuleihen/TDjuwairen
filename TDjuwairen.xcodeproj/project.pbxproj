@@ -216,6 +216,7 @@
 		1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0691EDFF1350065CEE0 /* AliveListExtra.m */; };
 		1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */; };
 		1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1978E0711EE166D70065CEE0 /* StockUnlockModel.m */; };
+		198035361F1304D400FAD8D3 /* LaunchHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 198035351F1304D300FAD8D3 /* LaunchHandler.m */; };
 		1987B2701EE688F700BD852E /* AnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2071EE688F700BD852E /* AnsTableViewCell.m */; };
 		1987B2711EE688F700BD852E /* AnsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1987B2081EE688F700BD852E /* AnsTableViewCell.xib */; };
 		1987B2721EE688F700BD852E /* AskAndAnsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B20A1EE688F700BD852E /* AskAndAnsTableViewCell.m */; };
@@ -999,6 +1000,8 @@
 		1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockManager.m; sourceTree = "<group>"; };
 		1978E0701EE166D70065CEE0 /* StockUnlockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockUnlockModel.h; sourceTree = "<group>"; };
 		1978E0711EE166D70065CEE0 /* StockUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockUnlockModel.m; sourceTree = "<group>"; };
+		198035341F1304D300FAD8D3 /* LaunchHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LaunchHandler.h; sourceTree = "<group>"; };
+		198035351F1304D300FAD8D3 /* LaunchHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LaunchHandler.m; sourceTree = "<group>"; };
 		1987B2061EE688F700BD852E /* AnsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnsTableViewCell.h; sourceTree = "<group>"; };
 		1987B2071EE688F700BD852E /* AnsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnsTableViewCell.m; sourceTree = "<group>"; };
 		1987B2081EE688F700BD852E /* AnsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AnsTableViewCell.xib; sourceTree = "<group>"; };
@@ -1776,6 +1779,7 @@
 		191027AD1DE52B04006A2275 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				198035331F1304C000FAD8D3 /* Launch */,
 				19C257F71E7524F100433D0D /* ImagePicker */,
 				19F00D301E307FEF009270D5 /* Share */,
 				191027AE1DE52B1B006A2275 /* NotificationDef.h */,
@@ -3234,6 +3238,15 @@
 				1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		198035331F1304C000FAD8D3 /* Launch */ = {
+			isa = PBXGroup;
+			children = (
+				198035341F1304D300FAD8D3 /* LaunchHandler.h */,
+				198035351F1304D300FAD8D3 /* LaunchHandler.m */,
+			);
+			path = Launch;
 			sourceTree = "<group>";
 		};
 		1987B2041EE688F700BD852E /* SurveyDetail */ = {
@@ -5064,6 +5077,7 @@
 				1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */,
 				19D6A3051E0D0126008368F4 /* STPopupLeftBarItem.m in Sources */,
 				4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */,
+				198035361F1304D400FAD8D3 /* LaunchHandler.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,

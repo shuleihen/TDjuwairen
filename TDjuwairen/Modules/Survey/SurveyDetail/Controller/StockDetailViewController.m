@@ -30,7 +30,6 @@
 #import "NotificationDef.h"
 #import "MBProgressHUD.h"
 #import "STPopup.h"
-#import "UIdaynightModel.h"
 #import "SpotViewController.h"
 #import "DialogueViewController.h"
 #import "GradeListViewController.h"

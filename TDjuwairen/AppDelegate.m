@@ -39,6 +39,7 @@
 #import "StockDetailViewController.h"
 
 #import <CloudPushSDK/CloudPushSDK.h>
+#import "LaunchHandler.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -65,7 +66,7 @@
     
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    
+    [self checkIsFistLaunch];
     
      // 测试本地通知
 //    [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
@@ -543,4 +544,7 @@
     [CloudPushSDK sendNotificationAck:launchOptions];
 }
 
+- (void)checkIsFistLaunch {
+    [LaunchHandler checkInstallFormAd];
+}
 @end

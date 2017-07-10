@@ -15,6 +15,9 @@
 
 #define kAPI_songsong @"http://192.168.1.103/"
 
+#define API_GetBanner           @"Index/indexBanner"
+#define API_SaveDeviceInfo      @"Index/saveDeviceInfo"
+
 #define API_AddBrowseHistory    @"Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"Public/getBrowseHistory"
 #define API_DelBrowseHistory    @"Public/delBrowseHistory"
@@ -76,8 +79,6 @@
 
 #define API_PayIsShow               @"Pay/isPayShow"
 #define API_IAPVerify               @"Pay/iapVerify"
-
-#define API_GetBanner               @"Index/indexBanner"
 
 #define API_AddSharpComment         @"Sharp/addSharpComnment"
 #define API_VideoGetList            @"Sharp/videoList3_1"
@@ -196,7 +197,7 @@
 #define API_AliveClearRoomNotify    @"Room/clearRoomNotify"
 #define API_AliveUpdateRoomCover    @"Room/uploadRoomCover"
 #define API_AliveDeleteRoomAlive    @"Room/deleteAlive"
-#define API_AliveGetActivityMaster        @"Room/activeMasterList"
+#define API_AliveGetActivityMaster  @"Room/activeMasterList"
 
 #define API_MessageGetUnread        @"Message/getMessageCount"
 #define API_MessageGetList          @"Message/getMessageList"
