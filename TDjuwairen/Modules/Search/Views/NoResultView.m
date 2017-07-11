@@ -29,7 +29,7 @@
         label.center = CGPointMake((frame.size.width)/2, frame.size.height/2-20);
         [self addSubview:label];
         
-        NSString *string = @"没有搜到您想要的结果哦~试试 特约调研";
+        NSString *string = @"没有搜到您想要的结果哦~试试 深度调研";
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
         [attr addAttributes:@{NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]} range:NSMakeRange(string.length-4, 4)];
         label.attributedText = attr;

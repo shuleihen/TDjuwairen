@@ -93,7 +93,7 @@
     buttonContain.backgroundColor = [UIColor whiteColor];
     [view addSubview:buttonContain];
     
-    NSArray *titles = @[@"黄金会员",@"评级排行",@"实盘开户",@"特约调研"];
+    NSArray *titles = @[@"黄金会员",@"评级排行",@"实盘开户",@"深度调研"];
     NSArray *images = @[@"fun_vip.png",@"fun_ranking.png",@"fun_account.png",@"fun_investigation.png"];
     NSArray *selectors = @[@"vipCenterPressed:",@"gradePressed:",@"morePressed:",@"surveyPressed:"];
     

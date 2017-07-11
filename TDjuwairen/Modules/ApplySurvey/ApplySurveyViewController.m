@@ -80,7 +80,7 @@
     [self.companyTextField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     
     self.companyListTableView = [[SearchCompanyListTableView alloc] initWithSearchCompanyListTableViewWithFrame:CGRectMake(85, 44, kScreenWidth-97, 0)];
-    self.companyListTableView.vcType = @"特约调研";
+    self.companyListTableView.vcType = @"深度调研";
     self.companyListTableView.userInteractionEnabled = YES;
     __weak typeof(self)weakSelf = self;
     self.companyListTableView.backBlock = ^(NSString *code,NSString *name){

@@ -5532,7 +5532,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = TDjuwairen/TDjuwairen.entitlements;
 				CODE_SIGN_IDENTITY = "Mac Developer: 450924349@qq.com (PBD87MW68Z)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: HangZhou TuanDa NetworkTechnology Co., Ltd. (V9B4FLHXSX)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				DEVELOPMENT_TEAM = V9B4FLHXSX;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5561,6 +5561,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = AdHoc;
 		};
@@ -5717,6 +5719,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -5757,6 +5760,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.tuanda.juwairen;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
