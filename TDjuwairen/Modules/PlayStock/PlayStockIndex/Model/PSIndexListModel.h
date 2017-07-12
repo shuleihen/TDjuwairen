@@ -1,5 +1,5 @@
 //
-//  StockGuessModel.h
+//  PSIndexListModel.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/27.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface StockGuessModel : NSObject
+@interface PSIndexListModel : NSObject
 @property (nonatomic, copy) NSString *guessId;
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, assign) NSInteger season;

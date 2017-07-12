@@ -1,14 +1,14 @@
 //
-//  StockGuessModel.m
+//  PSIndexListModel.m
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/27.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "StockGuessModel.h"
+#import "PSIndexListModel.h"
 
-@implementation StockGuessModel
+@implementation PSIndexListModel
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
         self.guessId = dict[@"guess_id"];

@@ -1,5 +1,5 @@
 //
-//  StockGuessListCell.h
+//  PSIndexListCell.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/24.
@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "StockWheelView.h"
-#import "StockGuessModel.h"
+#import "PSIndexListModel.h"
 #import "StockManager.h"
 
-@interface StockGuessListCell : UITableViewCell
+@interface PSIndexListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UIImageView *wheelImageView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *leftContentHeight;
 
@@ -27,10 +27,10 @@
 
 @property (copy, nonatomic) void (^guessBtnBlock)(void);
 
-- (void)setupGuessInfo:(StockGuessModel *)stockGuess;
+- (void)setupGuessInfo:(PSIndexListModel *)stockGuess;
 - (void)setupStock:(StockInfo *)stock;
 
-- (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess;
+- (void)reloadTimeWithGuess:(PSIndexListModel *)stockGuess;
 
 - (CGPoint)pointWithPri:(CGFloat)pri;
 @end

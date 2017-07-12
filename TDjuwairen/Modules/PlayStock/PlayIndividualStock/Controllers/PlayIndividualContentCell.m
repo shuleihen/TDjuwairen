@@ -21,7 +21,7 @@
     [self.label_detailDesc addGestureRecognizer:money_Tap];
 }
 
-- (void)setModel:(PlayListModel *)model
+- (void)setModel:(PSIndividualListModel *)model
 {
     /**
      文章类型，0表示没有，1表示调研，2表示热点，3表示观点，4表示直播

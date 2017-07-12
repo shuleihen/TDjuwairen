@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PlayListModel.h"
+#import "PSIndividualListModel.h"
 #import "StockManager.h"
 
 @class PlayIndividualContentCell;
@@ -34,7 +34,7 @@
 
 @property (nonatomic, weak) id<PlayIndividualContentCellDelegate> delegate;
 
-@property (nonatomic, strong) PlayListModel *model;
+@property (nonatomic, strong) PSIndividualListModel *model;
 
 - (void)setupStock:(StockInfo *)stock;
 @end

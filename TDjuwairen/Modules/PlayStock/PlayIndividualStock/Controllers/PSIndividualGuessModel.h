@@ -1,5 +1,5 @@
 //
-//  PlayGuessIndividua.h
+//  PSIndividualGuessModel.h
 //  TDjuwairen
 //
 //  Created by deng shu on 2017/3/29.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PlayGuessIndividua : NSObject
+@interface PSIndividualGuessModel : NSObject
 
 @property (nonatomic, strong) NSNumber *guess_season;
 @property (nonatomic, strong) NSNumber *guess_comment_count;

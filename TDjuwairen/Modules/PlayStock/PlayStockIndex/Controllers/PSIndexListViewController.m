@@ -1,20 +1,20 @@
 //
-//  StockIndexViewController.m
+//  PSIndexListViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/16.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "StockIndexViewController.h"
+#import "PSIndexListViewController.h"
 #import "TDWebViewController.h"
-#import "StockGuessListCell.h"
+#import "PSIndexListCell.h"
 #import "HexColors.h"
 #import "BVUnderlineButton.h"
 #import "StockManager.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "StockGuessModel.h"
+#import "PSIndexListModel.h"
 #import "STPopup.h"
 #import "GuessAddPourViewController.h"
 #import "MBProgressHUD.h"
@@ -28,7 +28,7 @@
 #import "MessageTableViewController.h"
 #import "NSString+Util.h"
 
-@interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
+@interface PSIndexListViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
 @property (weak, nonatomic) IBOutlet UILabel *sectionTimeLabel;
@@ -46,7 +46,7 @@
 @property (nonatomic, strong) AVAudioPlayer *player;
 @end
 
-@implementation StockIndexViewController
+@implementation PSIndexListViewController
 
 - (void)dealloc {
     if (self.timer) {
@@ -94,7 +94,7 @@
     [item2 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItems = @[item2,item1];
     
-    UINib *nib = [UINib nibWithNibName:@"StockGuessListCell" bundle:nil];
+    UINib *nib = [UINib nibWithNibName:@"PSIndexListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StockGuessListCellID"];
     self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272B34"];
     self.tableView.rowHeight = 235.0f;
@@ -107,7 +107,7 @@
     self.stockManager.delegate = self;
     
     // 开始定时刷新页面，计算倒计时
-    __weak StockIndexViewController *wself = self;
+    __weak PSIndexListViewController *wself = self;
     self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:wself selector:@selector(timerFire:) userInfo:nil repeats:YES];
     
     [self queryGuessStock];
@@ -139,7 +139,7 @@
         dict = @{@"user_id": US.userId};
     }
     
-    __weak StockIndexViewController *wself = self;
+    __weak PSIndexListViewController *wself = self;
     [ma GET:API_GuessIndexList parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             wself.keyNum = [data[@"user_keynum"] integerValue];
@@ -156,7 +156,7 @@
                 NSMutableArray *stockIds = [NSMutableArray arrayWithCapacity:[array count]];
                 
                 for (NSDictionary *dict in array) {
-                    StockGuessModel *model = [[StockGuessModel alloc] initWithDict:dict];
+                    PSIndexListModel *model = [[PSIndexListModel alloc] initWithDict:dict];
                     [guessList addObject:model];
                     [stockIds addObject:model.stockId];
                 }
@@ -209,7 +209,7 @@
 
 - (void)timerFire:(id)timer {
     
-    StockGuessModel *guessInfo = self.guessList.firstObject;
+    PSIndexListModel *guessInfo = self.guessList.firstObject;
     if (guessInfo) {
         NSDate *now = [NSDate new];
         
@@ -301,10 +301,10 @@
     AudioServicesPlaySystemSound(soundID);
 }
 
-- (void)showGuessViewControllerWithGuess:(StockGuessModel *)guess {
+- (void)showGuessViewControllerWithGuess:(PSIndexListModel *)guess {
     
     if (self.keyNum <= 0) {
-        __weak StockIndexViewController *wself = self;
+        __weak PSIndexListViewController *wself = self;
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
         UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
             [wself walletPressed:nil];
@@ -342,7 +342,7 @@
 
 - (void)addGuessPri:(CGFloat)pri withStockId:(NSString *)stockId {
     
-    for (StockGuessModel *guess in self.guessList) {
+    for (PSIndexListModel *guess in self.guessList) {
         
         if ([guess.stockId isEqualToString:stockId]) {
             NSString *point = [NSString stringWithFormat:@"%.02f",pri];
@@ -355,7 +355,7 @@
     }
 }
 
-- (void)addAnimationToCell:(StockGuessListCell *)cell withPri:(CGFloat)pri{
+- (void)addAnimationToCell:(PSIndexListCell *)cell withPri:(CGFloat)pri{
 
     CGPoint point = [cell pointWithPri:pri];
     
@@ -382,7 +382,7 @@
 
 - (void)addAnimationWithGuessId:(NSString *)guessId withPri:(CGFloat)pri{
     for (int i=0;i < [self.guessList count];i++) {
-        StockGuessModel *guess = self.guessList[i];
+        PSIndexListModel *guess = self.guessList[i];
         
         if ([guess.guessId isEqualToString:guessId]) {
             // 添加点数到GuessModel中
@@ -395,7 +395,7 @@
             
             // 添加动画
             NSIndexPath *indexPath = [NSIndexPath indexPathForRow:i inSection:0];
-            StockGuessListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
+            PSIndexListCell *cell = [self.tableView cellForRowAtIndexPath:indexPath];
             
             if (cell) {
                 [self addAnimationToCell:cell withPri:pri];
@@ -416,9 +416,9 @@
 #pragma mark - GuessAddPourDelegate
 - (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
     /*
-    __weak StockIndexViewController *wself = self;
+    __weak PSIndexListViewController *wself = self;
     for (int i=0;i < [self.guessList count];i++) {
-        StockGuessModel *guess = self.guessList[i];
+        PSIndexListModel *guess = self.guessList[i];
         if ([guess.guessId isEqualToString:guessId]) {
             
             [wself addAnimationWithGuessId:guessId withPri:pri];
@@ -443,7 +443,7 @@
     view.hidesWhenStopped = YES;
     [view startAnimating];
     
-    __weak StockIndexViewController *wself = self;
+    __weak PSIndexListViewController *wself = self;
     [ma POST:API_GuessAddJoin parameters:dict completion:^(id data, NSError *error){
         
         [view stopAnimating];
@@ -476,7 +476,7 @@
 - (void)reloadWithStocks:(NSDictionary *)stocks {
     self.stockDict = stocks;
     
-    for (StockGuessListCell *cell in [self.tableView visibleCells]) {
+    for (PSIndexListCell *cell in [self.tableView visibleCells]) {
         cell.isShowImageAnimation = YES;
     }
     
@@ -526,15 +526,15 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockGuessListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockGuessListCellID"];
+    PSIndexListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockGuessListCellID"];
     
-    StockGuessModel *guessInfo = self.guessList[indexPath.row];
+    PSIndexListModel *guessInfo = self.guessList[indexPath.row];
     StockInfo *stockInfo = [self.stockDict objectForKey:guessInfo.stockId];
     
     [cell setupGuessInfo:guessInfo];
     [cell setupStock:stockInfo];
     
-    __weak StockIndexViewController *wself = self;
+    __weak PSIndexListViewController *wself = self;
     cell.guessBtnBlock = ^{
         [wself showGuessViewControllerWithGuess:guessInfo];
     };
@@ -543,7 +543,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    StockGuessListCell *scell = (StockGuessListCell *)cell;
+//    PSIndexListCell *scell = (PSIndexListCell *)cell;
 //    
 //    if (indexPath.row == 0) {
 //        StockInfo *stockInfo = [self.stockDict objectForKey:@"sh000001"];

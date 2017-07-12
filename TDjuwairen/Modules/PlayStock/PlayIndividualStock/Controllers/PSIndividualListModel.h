@@ -1,5 +1,5 @@
 //
-//  PlayListModel.h
+//  PSIndividualListModel.h
 //  TDjuwairen
 //
 //  Created by deng shu on 2017/3/28.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PlayListModel : NSObject
+@interface PSIndividualListModel : NSObject
 
 @property (nonatomic, copy) NSString *guess_company;
 @property (nonatomic, strong) NSNumber *guess_end_price;

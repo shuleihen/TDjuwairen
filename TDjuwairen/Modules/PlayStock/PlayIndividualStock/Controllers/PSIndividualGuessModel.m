@@ -1,5 +1,5 @@
 //
-//  PlayGuessIndividua.m
+//  PSIndividualGuessModel.m
 //  TDjuwairen
 //
 //  Created by deng shu on 2017/3/29.
@@ -21,9 +21,9 @@
  }
  */
 
-#import "PlayGuessIndividua.h"
+#import "PSIndividualGuessModel.h"
 
-@implementation PlayGuessIndividua
+@implementation PSIndividualGuessModel
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {

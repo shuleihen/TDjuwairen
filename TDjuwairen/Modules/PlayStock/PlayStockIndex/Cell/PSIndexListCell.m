@@ -1,15 +1,15 @@
 //
-//  StockGuessListCell.m
+//  PSIndexListCell.m
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/24.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "StockGuessListCell.h"
+#import "PSIndexListCell.h"
 #import "HexColors.h"
 
-@implementation StockGuessListCell
+@implementation PSIndexListCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
@@ -45,7 +45,7 @@
     }
 }
 
-- (void)setupGuessInfo:(StockGuessModel *)stockGuess {
+- (void)setupGuessInfo:(PSIndexListModel *)stockGuess {
     self.stockWheel.type = stockGuess.type;
     self.stockNameLabel.text = stockGuess.stockName;
     self.stockWheel.buyIndexs = stockGuess.guessPoints;
@@ -93,7 +93,7 @@
     }
 }
 
-- (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess {
+- (void)reloadTimeWithGuess:(PSIndexListModel *)stockGuess {
     /*
     NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
     self.timeLabel.text = [NSString stringWithFormat:@"剩余时间 %@",time];

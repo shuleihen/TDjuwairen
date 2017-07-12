@@ -1,12 +1,12 @@
 //
-//  PlayIndividualStockViewController.m
+//  PSIndividualListViewController.m
 //  TDjuwairen
 //
 //  Created by zdy on 2017/3/20.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "PlayIndividualStockViewController.h"
+#import "PSIndividualListViewController.h"
 #import "UIViewController+Login.h"
 #import "LoginState.h"
 #import "MyWalletViewController.h"
@@ -14,8 +14,8 @@
 #import "TDWebViewController.h"
 #import "HMSegmentedControl.h"
 #import "NetworkManager.h"
-#import "PlayGuessIndividua.h"
-#import "PlayListModel.h"
+#import "PSIndividualGuessModel.h"
+#import "PSIndividualListModel.h"
 #import "PlayGuessViewController.h"
 #import "STPopupController.h"
 #import "UIViewController+STPopup.h"
@@ -36,7 +36,7 @@
 #import "ViewpointDetailViewController.h"
 
 
-@interface PlayIndividualStockViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
+@interface PSIndividualListViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 
@@ -44,7 +44,7 @@
 @property (nonatomic, assign) NSInteger tagIndex;
 @property (nonatomic, assign) NSInteger seasonIndex;
 
-@property (nonatomic, strong) PlayGuessIndividua *guessModel;
+@property (nonatomic, strong) PSIndividualGuessModel *guessModel;
 
 @property (nonatomic, strong) NSMutableArray *listModelArr;
 
@@ -61,7 +61,7 @@
 @property (nonatomic, strong) UIView *emptyView;
 @end
 
-@implementation PlayIndividualStockViewController
+@implementation PSIndividualListViewController
 
 - (void)dealloc {
     
@@ -387,10 +387,10 @@
 - (void)loadGuessUserInfo {
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    __weak PlayIndividualStockViewController *wself = self;
+    __weak PSIndividualListViewController *wself = self;
     [ma GET:API_GetGuessIndividual parameters:nil completion:^(id data, NSError *error) {
         if (!error) {
-            wself.guessModel = [[PlayGuessIndividua alloc] initWithDictionary:data];
+            wself.guessModel = [[PSIndividualGuessModel alloc] initWithDictionary:data];
             
             [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
             
@@ -421,7 +421,7 @@
      page	int	当前页码，从1开始	是
      */
     
-    __weak PlayIndividualStockViewController *wself = self;
+    __weak PSIndividualListViewController *wself = self;
     
     UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
@@ -454,7 +454,7 @@
             
             __block NSMutableArray *stockIds = [NSMutableArray new];
             [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-                PlayListModel *model = [[PlayListModel alloc] initWithDictionary:obj];
+                PSIndividualListModel *model = [[PSIndividualListModel alloc] initWithDictionary:obj];
                 [arrM addObject:model];
                 [stockIds addObject:model.stock];
             }];
@@ -484,7 +484,7 @@
     [self loadGuessUserInfo];
     
     __block NSString *guessId;
-    [self.items enumerateObjectsUsingBlock:^(PlayListModel *obj, NSUInteger idx, BOOL *stop){
+    [self.items enumerateObjectsUsingBlock:^(PSIndividualListModel *obj, NSUInteger idx, BOOL *stop){
         if ([obj.com_code isEqualToString:stockCode]) {
             guessId = obj.guess_id;
             *stop = YES;
@@ -495,24 +495,24 @@
         return;
     }
     
-    __weak PlayIndividualStockViewController *wself = self;
+    __weak PSIndividualListViewController *wself = self;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *parmark = @{@"guess_id": guessId};
     
     [ma GET:API_GetGuessInfo parameters:parmark completion:^(id data, NSError *error) {
         if (!error) {
-            PlayListModel *model = [[PlayListModel alloc] initWithDictionary:data];
+            PSIndividualListModel *model = [[PSIndividualListModel alloc] initWithDictionary:data];
             [wself reloadCellWithGuessInfo:model];
         }
     }];
 }
 
-- (void)reloadCellWithGuessInfo:(PlayListModel *)guess {
+- (void)reloadCellWithGuessInfo:(PSIndividualListModel *)guess {
     
     __block NSInteger index;
     
-    [self.items enumerateObjectsUsingBlock:^(PlayListModel *obj, NSUInteger idx, BOOL *stop){
+    [self.items enumerateObjectsUsingBlock:^(PSIndividualListModel *obj, NSUInteger idx, BOOL *stop){
         if ([obj.guess_id isEqualToString:guess.guess_id]) {
             
             index = idx;
@@ -545,7 +545,7 @@
     [self.navigationController.view addSubview:view];
     [view startAnimating];
     
-    __weak PlayIndividualStockViewController *wself = self;
+    __weak PSIndividualListViewController *wself = self;
     
     void (^errorBlock)(NSString *) = ^(NSString *title){
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
@@ -600,7 +600,7 @@
 #pragma mark - PlayIndividualContentCellDelegate
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender {
-    PlayListModel *model = cell.model;
+    PSIndividualListModel *model = cell.model;
     StockInfo *sInfo = [self.stockDict objectForKey:model.stock];
     
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
@@ -617,7 +617,7 @@
 }
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell enjoyListPressed:(id)sender {
-    PlayListModel *model = cell.model;
+    PSIndividualListModel *model = cell.model;
     
     PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
     
@@ -632,7 +632,7 @@
 }
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell surveyPressed:(id)sender {
-    PlayListModel *model = cell.model;
+    PSIndividualListModel *model = cell.model;
     
     NSString *article_id = model.artile_info[@"article_id"];
     NSInteger article_type = [model.artile_info[@"article_type"] integerValue];
@@ -680,7 +680,7 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    PlayListModel *model = self.items[indexPath.row];
+    PSIndividualListModel *model = self.items[indexPath.row];
     StockInfo *sInfo = [self.stockDict objectForKey:model.stock];
     
     PlayIndividualContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlayIndividualContentCellID"];

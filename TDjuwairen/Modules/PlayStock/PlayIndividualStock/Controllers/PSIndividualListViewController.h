@@ -1,5 +1,5 @@
 //
-//  PlayIndividualStockViewController.h
+//  PSIndividualListViewController.h
 //  TDjuwairen
 //
 //  Created by zdy on 2017/3/20.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PlayIndividualStockViewController : UIViewController
+@interface PSIndividualListViewController : UIViewController
 
 @end

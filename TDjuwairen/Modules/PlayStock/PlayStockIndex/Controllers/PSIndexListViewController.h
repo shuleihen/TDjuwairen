@@ -1,5 +1,5 @@
 //
-//  StockIndexViewController.h
+//  PSIndexListViewController.h
 //  TDjuwairen
 //
 //  Created by zdy on 2016/12/16.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StockIndexViewController : UIViewController
+@interface PSIndexListViewController : UIViewController
 
 @end
