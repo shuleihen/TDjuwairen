@@ -29,13 +29,17 @@
     self.title = @"我的竞猜";
     UINib *nib = [UINib nibWithNibName:@"MyGuessCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MyGuessCellID"];
-    self.tableView.rowHeight = 132.0f;
+    
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     
     if (self.guessListType == MyGuessIndividualListType) {
         self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
         self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+        
+        self.tableView.rowHeight = 155.0f;
+    } else {
+        self.tableView.rowHeight = 132.0f;
     }
     
     self.currentPage = 1;
@@ -164,6 +168,8 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     /*
      领取奖励功能屏蔽掉
     IndexStockRecordModel *guess = self.items[indexPath.section];

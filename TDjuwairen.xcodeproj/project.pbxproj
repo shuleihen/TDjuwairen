@@ -287,6 +287,8 @@
 		19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19959BA11E2CE7C000AB26DF /* SearchResultTableViewCell.xib */; };
 		19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */; };
 		19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */; };
+		199D84461F15F7AB00797E37 /* MGCellContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 199D84451F15F7AB00797E37 /* MGCellContentView.m */; };
+		199D84491F15F82700797E37 /* MGCellWinKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 199D84481F15F82700797E37 /* MGCellWinKeyView.m */; };
 		19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A5AC401E0A49AC00FE953A /* Recharge.storyboard */; };
@@ -1132,6 +1134,10 @@
 		19959BA61E2DAF0C00AB26DF /* SubscriptionTypeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionTypeModel.m; sourceTree = "<group>"; };
 		19959BA81E2DE28C00AB26DF /* GradeDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeDetailModel.h; sourceTree = "<group>"; };
 		19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeDetailModel.m; sourceTree = "<group>"; };
+		199D84441F15F7AB00797E37 /* MGCellContentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCellContentView.h; sourceTree = "<group>"; };
+		199D84451F15F7AB00797E37 /* MGCellContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCellContentView.m; sourceTree = "<group>"; };
+		199D84471F15F82700797E37 /* MGCellWinKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCellWinKeyView.h; sourceTree = "<group>"; };
+		199D84481F15F82700797E37 /* MGCellWinKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCellWinKeyView.m; sourceTree = "<group>"; };
 		19A0636B1EA612DB00C94ED8 /* TencentStockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentStockManager.h; sourceTree = "<group>"; };
 		19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentStockManager.m; sourceTree = "<group>"; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
@@ -4167,6 +4173,10 @@
 			children = (
 				19E5F2821E1364CF00984DBC /* StockWheelView.h */,
 				19E5F2831E1364CF00984DBC /* StockWheelView.m */,
+				199D84441F15F7AB00797E37 /* MGCellContentView.h */,
+				199D84451F15F7AB00797E37 /* MGCellContentView.m */,
+				199D84471F15F82700797E37 /* MGCellWinKeyView.h */,
+				199D84481F15F82700797E37 /* MGCellWinKeyView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -5180,6 +5190,7 @@
 				19E58DE81EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
+				199D84461F15F7AB00797E37 /* MGCellContentView.m in Sources */,
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
@@ -5361,6 +5372,7 @@
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
 				19E58D7B1EF3C2E900ADA1B8 /* MessageListTableViewCell.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,
+				199D84491F15F82700797E37 /* MGCellWinKeyView.m in Sources */,
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,
 				1955B4A41D644D9800DC102E /* FloorView.m in Sources */,
 				194186EF1DF90CA4000C5197 /* WelcomeView.m in Sources */,

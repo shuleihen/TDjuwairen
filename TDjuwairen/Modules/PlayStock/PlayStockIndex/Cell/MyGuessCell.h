@@ -9,19 +9,17 @@
 #import <UIKit/UIKit.h>
 #import "IndexStockRecordModel.h"
 #import "IndividualStockRecordModel.h"
+#import "MGCellWinKeyView.h"
+#import "MGCellContentView.h"
 
 @interface MyGuessCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *guessNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *dateLabel;
-@property (weak, nonatomic) IBOutlet UILabel *sessionLabel;
-@property (weak, nonatomic) IBOutlet UILabel *guessTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *guessIndexLabel;
-@property (weak, nonatomic) IBOutlet UILabel *realTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *realIndexLabel;
-@property (weak, nonatomic) IBOutlet UIButton *betBtn;
-//@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet UILabel *statusLabel;
+@property (weak, nonatomic) IBOutlet MGCellWinKeyView *winKeyView;
+@property (weak, nonatomic) IBOutlet MGCellContentView *detailView;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *winkeyViewHeight;
 
-@property (weak, nonatomic) IBOutlet UIButton *statusButton;
 
 - (void)setupIndexGuessModel:(IndexStockRecordModel *)guess;
 - (void)setupIndividualGuessModel:(IndividualStockRecordModel *)guess;

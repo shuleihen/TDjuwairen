@@ -11,7 +11,7 @@
 @interface IndividualStockRecordModel : NSObject
 @property (nonatomic, copy) NSString *guessId;
 @property (nonatomic, copy) NSString *stockName;
-@property (nonatomic, copy) NSString *stockId;
+@property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, copy) NSString *guessDate;
 // 0表示没有结束，1表示完全猜中，2表示获胜，3表示失败，4表示平局，5表示无效
@@ -21,8 +21,13 @@
 @property (nonatomic, copy) NSString *seasonString;
 @property (nonatomic, assign) int keyNumber;
 @property (nonatomic, copy) NSString *endPrice;
-@property (nonatomic, copy) NSString *guessReword;
+//@property (nonatomic, copy) NSString *guessReword;
 @property (nonatomic, copy) NSString *guessPoint;
+@property (nonatomic, assign) NSInteger joinNum;
+@property (nonatomic, assign) NSInteger winnerNum;
+@property (nonatomic, assign) NSInteger winKeyNum;
+@property (nonatomic, assign) NSInteger extraKeyNum;
+@property (nonatomic, assign) BOOL isWin;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end
