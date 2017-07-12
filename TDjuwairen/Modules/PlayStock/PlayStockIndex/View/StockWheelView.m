@@ -58,7 +58,7 @@
         
         NSString *indexString = [NSString stringWithFormat:@"%.02f",self.index+scale.scale];
         [indexString drawAtPoint:point withAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:9.0f],
-                                                        NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"cccccc"]}];
+                                                        NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#9F9FA1"]}];
     }
     
     // 绘制下注

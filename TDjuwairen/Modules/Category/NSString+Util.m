@@ -140,6 +140,7 @@
     NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",regex];
     return [predicate evaluateWithObject:self];
 }
+
 + (NSString *)stringWithTimeInterval:(int64_t)timeInterval
 {
     return [NSString stringWithTimeInterval:timeInterval withFormat:@"YYYY-MM-dd"];
@@ -153,5 +154,16 @@
     [formatter setDateFormat:format];
     
     return [formatter stringFromDate:date];
+}
+
++ (NSString *)intervalNowDateWithDateInterval:(NSTimeInterval)endTime {
+    NSTimeInterval now = [[NSDate date] timeIntervalSince1970];
+    NSTimeInterval cha = ((endTime-now)>0)?(endTime-now):0;
+    
+    NSString *sen = [NSString stringWithFormat:@"%02d", (int)cha%60];
+    NSString *min = [NSString stringWithFormat:@"%02d", (int)cha/60%60];
+    NSString *house = [NSString stringWithFormat:@"%02d", (int)cha/3600];
+    
+    return [NSString stringWithFormat:@"%@:%@:%@",house,min,sen];
 }
 @end

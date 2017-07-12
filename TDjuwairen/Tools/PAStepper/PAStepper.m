@@ -151,7 +151,6 @@
         backgroundImageView.image = normalStateImage;
     }
     
-//    _decrementButton.frame = CGRectMake(0, 0, 30, 30);
     _decrementButton.frame = CGRectMake(0, 0, CGRectGetHeight(self.frame), CGRectGetHeight(self.frame));
     
     [_decrementButton setTitleColor:self.textColor forState:UIControlStateNormal];
@@ -159,7 +158,7 @@
     _incrementButton.frame = CGRectMake(CGRectGetWidth(self.bounds)-CGRectGetHeight(self.frame), 0, CGRectGetHeight(self.frame), CGRectGetHeight(self.bounds));
     [_incrementButton setTitleColor:self.textColor forState:UIControlStateNormal];
     
-    _textField.frame = CGRectMake(30, 0, CGRectGetWidth(self.bounds)-60, CGRectGetHeight(self.bounds));
+    _textField.frame = CGRectMake(CGRectGetHeight(self.frame), 0, CGRectGetWidth(self.bounds)-2*CGRectGetHeight(self.frame), CGRectGetHeight(self.bounds));
     _textField.textColor = self.textColor;
 }
 

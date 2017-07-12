@@ -113,112 +113,6 @@
     return _seasonTimeLabel;
 }
 
-- (void)refeshReasionView {
-
-    /*
-     ●00：00~10：30，显示“距上午场开始 XX:XX:XX”，可竞猜本日上午场
-     ●10：30~14：00，显示“距下午场结束 XX:XX:XX”，可竞猜本日下午场
-     ●14：00~24：00，显示“距明日上午场开始 XX:XX:XX”，可竞猜次日上午场
-     */
-    NSArray *arr = @[@{@"fromHour":@0,@"fromMin":@0,@"toHour":@10,@"toMin":@30,@"desc":@"距上午场开始",@"reasionType":@"1"},
-                     @{@"fromHour":@10,@"fromMin":@30,@"toHour":@14,@"toMin":@0,@"desc":@"距下午场结束",@"reasionType":@"2"},
-                     @{@"fromHour":@14,@"fromMin":@0,@"toHour":@24,@"toMin":@0,@"desc":@"距明日上午场开始",@"reasionType":@"1"}
-                     ];
-    for (NSDictionary *dict in arr) {
-        NSTimeInterval time = [self isBetweenFromHour:[dict[@"fromHour"] integerValue] FromMinute:[dict[@"fromMin"] integerValue] toHour:[dict[@"toHour"] integerValue] toMinute:[dict[@"toMin"] integerValue]];
-        NSString *str = dict[@"desc"];
-        
-        if (time >= 0) {
-            self.seasonIndex = [dict[@"reasionType"] integerValue];
-            [self startWithTime:time block:^(NSString *day) {
-                @autoreleasepool {
-                    NSMutableAttributedString *attiStr=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",str,day]];
-                    [attiStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(1, str.length-3)];
-                    _seasonTimeLabel.attributedText=attiStr;
-                }
-                
-            }];
-            break;
-        }
-    }
-
-}
-
-- (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
-    
-    __block NSInteger timeOut = timeLine;
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    //每秒执行一次
-    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
-    dispatch_source_set_event_handler(_timer, ^{
-        //倒计时结束，关闭
-        if (timeOut <= 0) {
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-//                timeBlock(@"00:00:00");
-                [self refeshReasionView];
-            });
-        } else {
-            int allTime = (int)timeLine + 1;
-            int seconds = timeOut % allTime;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSInteger h=seconds/3600;
-                NSInteger m=(seconds-h*3600)/60;
-                NSInteger s=(seconds-h*3600)%60;
-                timeBlock([NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)h,(long)m,(long)s]);
-            });
-            timeOut--;
-        }
-    });
-    dispatch_resume(_timer);
-}
-
-- (NSTimeInterval)isBetweenFromHour:(NSInteger)fromHour FromMinute:(NSInteger)fromMin toHour:(NSInteger)toHour toMinute:(NSInteger)toMin
-{
-    NSDate *dateFrome = [self getCustomDateWithHour:fromHour andMinute:fromMin];
-    NSDate *dateTo = [self getCustomDateWithHour:toHour andMinute:toMin];
-    NSDate *currentDate = [NSDate date];
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
-    NSLog(@"%@----------%@",[df stringFromDate:dateFrome],[df stringFromDate:dateTo]);
-    //    NSString *fS = [];
-    if ([currentDate compare:dateFrome]==NSOrderedDescending && [currentDate compare:dateTo]==NSOrderedAscending)
-    {
-//        NSLog(@"该时间在 %d:%d-%d:%d 之间！", fromHour, fromMin, toHour, toMin);
-        
-        NSTimeInterval currentT = [currentDate timeIntervalSince1970];
-        NSTimeInterval toT = [dateTo timeIntervalSince1970];
-        
-        
-        return toT-currentT;
-    }
-    return -1;
-}
-
-- (NSDate *)getCustomDateWithHour:(NSInteger)hour andMinute:(NSInteger)minute
-{
-    //获取当前时间
-    NSDate *currentDate = [NSDate date];
-    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
-    
-    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    
-    currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
-    
-    //设置当天的某个点
-    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
-    [resultComps setYear:[currentComps year]];
-    [resultComps setMonth:[currentComps month]];
-    [resultComps setDay:[currentComps day]];
-    [resultComps setHour:hour];
-    [resultComps setMinute:minute];
-    
-    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    return [resultCalendar dateFromComponents:resultComps];
-}
-
 
 - (UIView *)emptyView {
     if (!_emptyView) {
@@ -252,26 +146,12 @@
     self.pageIndex = 1;
     [self refeshReasionView];
     
-    UIView *rightView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 81, 44)];
-    BVUnderlineButton *recordBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(0, 0, 40, 44)];
-    [recordBtn setTitle:@"记录" forState:UIControlStateNormal];
-    [recordBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    recordBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-    [recordBtn addTarget:self action:@selector(myGuessPressed:) forControlEvents:UIControlEventTouchUpInside];
-    [rightView addSubview:recordBtn];
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStylePlain target:self action:@selector(myGuessPressed:)];
+    [item1 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
     
-    
-    UIView *lineView = [[UIView alloc] initWithFrame:CGRectMake(40, 10, 1, 24)];
-    lineView.backgroundColor = TDLineColor;
-    [rightView addSubview:lineView];
-    
-    BVUnderlineButton *ruleBtn = [[BVUnderlineButton alloc] initWithFrame:CGRectMake(41, 0, 40, 44)];
-    [ruleBtn setTitle:@"规则" forState:UIControlStateNormal];
-    [ruleBtn setTitleColor:[UIColor darkGrayColor] forState:UIControlStateNormal];
-    ruleBtn.titleLabel.font = [UIFont systemFontOfSize:13.0];
-     [ruleBtn addTarget:self action:@selector(rulePressed:) forControlEvents:UIControlEventTouchUpInside];
-    [rightView addSubview:ruleBtn];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightView];
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"规则" style:UIBarButtonItemStylePlain target:self action:@selector(rulePressed:)];
+    [item2 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItems = @[item2,item1];
     
     
     [self setupTableView];
@@ -309,7 +189,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChangedNotifi:) name:kGuessCommentChanged object:nil];
 }
 
-#pragma mark - 按钮点击事件
+#pragma mark - Notifi
+
+- (void)commentChangedNotifi:(NSNotification *)notifi {
+    [self loadGuessUserInfo];
+}
+
+#pragma mark - Action
+
 - (IBAction)walletPressed:(id)sender {
     if (!US.isLogIn) {
         [self pushLoginViewController];
@@ -387,67 +274,112 @@
     [self reloadGuessListData];
 }
 
-#pragma mark - Notifi
 
-- (void)commentChangedNotifi:(NSNotification *)notifi {
-    [self loadGuessUserInfo];
+
+- (void)refeshReasionView {
+    
+    /*
+     ●00：00~10：30，显示“距上午场开始 XX:XX:XX”，可竞猜本日上午场
+     ●10：30~14：00，显示“距下午场结束 XX:XX:XX”，可竞猜本日下午场
+     ●14：00~24：00，显示“距明日上午场开始 XX:XX:XX”，可竞猜次日上午场
+     */
+    NSArray *arr = @[@{@"fromHour":@0,@"fromMin":@0,@"toHour":@10,@"toMin":@30,@"desc":@"距上午场开始",@"reasionType":@"1"},
+                     @{@"fromHour":@10,@"fromMin":@30,@"toHour":@14,@"toMin":@0,@"desc":@"距下午场结束",@"reasionType":@"2"},
+                     @{@"fromHour":@14,@"fromMin":@0,@"toHour":@24,@"toMin":@0,@"desc":@"距明日上午场开始",@"reasionType":@"1"}
+                     ];
+    for (NSDictionary *dict in arr) {
+        NSTimeInterval time = [self isBetweenFromHour:[dict[@"fromHour"] integerValue] FromMinute:[dict[@"fromMin"] integerValue] toHour:[dict[@"toHour"] integerValue] toMinute:[dict[@"toMin"] integerValue]];
+        NSString *str = dict[@"desc"];
+        
+        if (time >= 0) {
+            self.seasonIndex = [dict[@"reasionType"] integerValue];
+            [self startWithTime:time block:^(NSString *day) {
+                @autoreleasepool {
+                    NSMutableAttributedString *attiStr=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",str,day]];
+                    [attiStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(1, str.length-3)];
+                    _seasonTimeLabel.attributedText=attiStr;
+                }
+                
+            }];
+            break;
+        }
+    }
+    
 }
 
-
-#pragma mark - PlayGuessViewControllerDelegate
-- (void)addGuessWithStockCode:(NSString *)stockCode pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin
-{
-    NSDictionary *parmark1 = @{@"stock":SafeValue(stockCode),
-                               @"points":@(pri)};
+- (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
     
-    UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
-    view.hidesWhenStopped = YES;
-    view.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
-    [self.navigationController.view addSubview:view];
-    [view startAnimating];
-    
-    __weak PlayIndividualStockViewController *wself = self;
-    
-    void (^errorBlock)(NSString *) = ^(NSString *title){
-        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-        hud.mode = MBProgressHUDModeText;
-        hud.labelText = title;
-        [hud hide:YES afterDelay:0.8];
-    };
-    
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_CheckStockAndPointsValid parameters:parmark1 completion:^(id data, NSError *error) {
-        if (!error) {
-            NSDictionary *parmark = @{@"season":@(season),
-                                      @"stock":SafeValue(stockCode),
-                                      @"points":@(pri),
-                                      };
-            
-            [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
-                [view stopAnimating];
-                
-                if (error) {
-                    errorBlock(error.localizedDescription?:@"竞猜失败");
-                } else {
-                    errorBlock(@"投注成功，等待开奖");
-                    
-                    // 刷新钥匙数量
-                    [wself loadGuessUserInfo];
-                    
-                    if (isJoin) {
-                        [wself reloadCellWithStockCode:stockCode];
-                    } else {
-                        wself.pageIndex = 1;
-                        [wself reloadGuessListData];
-                    }
-                }
-            }];
+    __block NSInteger timeOut = timeLine;
+    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
+    //每秒执行一次
+    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
+    dispatch_source_set_event_handler(_timer, ^{
+        //倒计时结束，关闭
+        if (timeOut <= 0) {
+            dispatch_source_cancel(_timer);
+            dispatch_async(dispatch_get_main_queue(), ^{
+                //                timeBlock(@"00:00:00");
+                [self refeshReasionView];
+            });
         } else {
-            [view stopAnimating];
-            errorBlock(error.localizedDescription?:@"竞猜失败");
+            int allTime = (int)timeLine + 1;
+            int seconds = timeOut % allTime;
+            dispatch_async(dispatch_get_main_queue(), ^{
+                NSInteger h=seconds/3600;
+                NSInteger m=(seconds-h*3600)/60;
+                NSInteger s=(seconds-h*3600)%60;
+                timeBlock([NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)h,(long)m,(long)s]);
+            });
+            timeOut--;
         }
-    }];
+    });
+    dispatch_resume(_timer);
+}
+
+- (NSTimeInterval)isBetweenFromHour:(NSInteger)fromHour FromMinute:(NSInteger)fromMin toHour:(NSInteger)toHour toMinute:(NSInteger)toMin
+{
+    NSDate *dateFrome = [self getCustomDateWithHour:fromHour andMinute:fromMin];
+    NSDate *dateTo = [self getCustomDateWithHour:toHour andMinute:toMin];
+    NSDate *currentDate = [NSDate date];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
+    NSLog(@"%@----------%@",[df stringFromDate:dateFrome],[df stringFromDate:dateTo]);
+    //    NSString *fS = [];
+    if ([currentDate compare:dateFrome]==NSOrderedDescending && [currentDate compare:dateTo]==NSOrderedAscending)
+    {
+        //        NSLog(@"该时间在 %d:%d-%d:%d 之间！", fromHour, fromMin, toHour, toMin);
+        
+        NSTimeInterval currentT = [currentDate timeIntervalSince1970];
+        NSTimeInterval toT = [dateTo timeIntervalSince1970];
+        
+        
+        return toT-currentT;
+    }
+    return -1;
+}
+
+- (NSDate *)getCustomDateWithHour:(NSInteger)hour andMinute:(NSInteger)minute
+{
+    //获取当前时间
+    NSDate *currentDate = [NSDate date];
+    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
     
+    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
+    
+    currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
+    
+    //设置当天的某个点
+    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
+    [resultComps setYear:[currentComps year]];
+    [resultComps setMonth:[currentComps month]];
+    [resultComps setDay:[currentComps day]];
+    [resultComps setHour:hour];
+    [resultComps setMinute:minute];
+    
+    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+    return [resultCalendar dateFromComponents:resultComps];
 }
 
 #pragma mark - Query data
@@ -598,6 +530,63 @@
         [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:index inSection:0]] withRowAnimation:UITableViewRowAnimationNone];
         [self.tableView endUpdates];
     }
+}
+
+
+#pragma mark - PlayGuessViewControllerDelegate
+- (void)addGuessWithStockCode:(NSString *)stockCode pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin
+{
+    NSDictionary *parmark1 = @{@"stock":SafeValue(stockCode),
+                               @"points":@(pri)};
+    
+    UIActivityIndicatorView *view = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    view.hidesWhenStopped = YES;
+    view.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    [self.navigationController.view addSubview:view];
+    [view startAnimating];
+    
+    __weak PlayIndividualStockViewController *wself = self;
+    
+    void (^errorBlock)(NSString *) = ^(NSString *title){
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelText = title;
+        [hud hide:YES afterDelay:0.8];
+    };
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_CheckStockAndPointsValid parameters:parmark1 completion:^(id data, NSError *error) {
+        if (!error) {
+            NSDictionary *parmark = @{@"season":@(season),
+                                      @"stock":SafeValue(stockCode),
+                                      @"points":@(pri),
+                                      };
+            
+            [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
+                [view stopAnimating];
+                
+                if (error) {
+                    errorBlock(error.localizedDescription?:@"竞猜失败");
+                } else {
+                    errorBlock(@"投注成功，等待开奖");
+                    
+                    // 刷新钥匙数量
+                    [wself loadGuessUserInfo];
+                    
+                    if (isJoin) {
+                        [wself reloadCellWithStockCode:stockCode];
+                    } else {
+                        wself.pageIndex = 1;
+                        [wself reloadGuessListData];
+                    }
+                }
+            }];
+        } else {
+            [view stopAnimating];
+            errorBlock(error.localizedDescription?:@"竞猜失败");
+        }
+    }];
+    
 }
 
 #pragma mark - StockManagerDelegate

@@ -58,21 +58,21 @@
     self.stepper.stepValue = 0.01;
     self.stepper.textColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"];
     
-    UIImage *bg = [UIImage imageWithSize:CGSizeMake(200, 30)
+    UIImage *bg = [UIImage imageWithSize:CGSizeMake(200, 44)
                           backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
                              borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                             cornerRadius:4.0f];
     
-    UIImage *decrease = [UIImage imageWithSize:CGSizeMake(30, 30)
+    UIImage *decrease = [UIImage imageWithSize:CGSizeMake(44, 44)
                                 backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
                                    borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                   cornerRadius:4.0f];
     
-    UIImage *increase = [UIImage imageWithSize:CGSizeMake(30, 30)
+    UIImage *increase = [UIImage imageWithSize:CGSizeMake(44, 44)
                                 backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
                                    borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                   cornerRadius:4.0f];
-    UIImage *heightlight = [UIImage imageWithSize:CGSizeMake(30, 30)
+    UIImage *heightlight = [UIImage imageWithSize:CGSizeMake(44, 44)
                                    backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                       borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                      cornerRadius:4.0f];
@@ -90,17 +90,17 @@
     [self.stepper.incrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
-    UIImage *normal = [UIImage imageWithSize:CGSizeMake(50, 30)
+    UIImage *normal = [UIImage imageWithSize:CGSizeMake(50, 50)
                               backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
                                  borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                 cornerRadius:4.0f];
     
-    UIImage *selected = [UIImage imageWithSize:CGSizeMake(50, 30)
+    UIImage *selected = [UIImage imageWithSize:CGSizeMake(50, 50)
                               backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                  borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                 cornerRadius:4.0f];
     
-    UIImage *disable = [UIImage imageWithSize:CGSizeMake(50, 30)
+    UIImage *disable = [UIImage imageWithSize:CGSizeMake(50, 50)
                                 backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#333333"]
                                    borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
                                   cornerRadius:4.0f];

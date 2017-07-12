@@ -49,7 +49,9 @@
     self.stockWheel.type = stockGuess.type;
     self.stockNameLabel.text = stockGuess.stockName;
     self.stockWheel.buyIndexs = stockGuess.guessPoints;
+    self.guessBtn.enabled = !stockGuess.isClosed;
     
+    /*
     BOOL isToday = [self isTodayWithEndTime:stockGuess.endTime];
     
     if (stockGuess.season == 1) {
@@ -60,8 +62,7 @@
     
     NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
     self.timeLabel.text = [NSString stringWithFormat:@"剩余时间 %@",time];
-    
-    self.guessBtn.enabled = !stockGuess.isClosed;
+    */
 }
 
 - (void)setupStock:(StockInfo *)stock {
@@ -93,8 +94,10 @@
 }
 
 - (void)reloadTimeWithGuess:(StockGuessModel *)stockGuess {
+    /*
     NSString *time = [self intervalNowDateWithDateInterval:stockGuess.endTime];
     self.timeLabel.text = [NSString stringWithFormat:@"剩余时间 %@",time];
+     */
 }
 
 - (BOOL)isTodayWithEndTime:(NSTimeInterval)endTime {

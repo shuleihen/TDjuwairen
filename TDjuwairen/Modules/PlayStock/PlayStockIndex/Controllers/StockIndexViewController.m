@@ -26,10 +26,12 @@
 #import <AVFoundation/AVFoundation.h>
 #import "PlayStockCommentViewController.h"
 #import "MessageTableViewController.h"
+#import "NSString+Util.h"
 
 @interface StockIndexViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
+@property (weak, nonatomic) IBOutlet UILabel *sectionTimeLabel;
 
 @property (nonatomic, assign) NSInteger commentNum;
 @property (nonatomic, assign) NSInteger keyNum;
@@ -85,14 +87,19 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     
-    // 通知
-    UIImage *rightImage = [[UIImage imageNamed:@"news_read.png"] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithImage:rightImage style:UIBarButtonItemStylePlain target:self action:@selector(messagePressed:)];
-    self.navigationItem.rightBarButtonItem = right;
+    UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStylePlain target:self action:@selector(myGuessPressed:)];
+    [item1 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
+    
+    UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"规则" style:UIBarButtonItemStylePlain target:self action:@selector(rulePressed:)];
+    [item2 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
+    self.navigationItem.rightBarButtonItems = @[item2,item1];
     
     UINib *nib = [UINib nibWithNibName:@"StockGuessListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StockGuessListCellID"];
+    self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272B34"];
     self.tableView.rowHeight = 235.0f;
+    
+    self.sectionTimeLabel.text = @"";
     
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
@@ -164,13 +171,56 @@
     
 }
 
+- (NSString *)sectionString {
+    
+    /*
+     ● 00：00~10：30，显示“上午场 XX:XX:XX”，可竞猜本日上午场
+     ● 10：30~14：00，显示“下午场 XX:XX:XX”，可竞猜本日下午场
+     ● 14：00~24：00，显示“下个交易日上午场 XX:XX:XX”，可竞猜下个交易日上午场
+     */
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDate *now = [NSDate date];
+    
+    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:now];
+    dateComponents.hour = 10;
+    dateComponents.minute = 30;
+    dateComponents.second =0;
+    dateComponents.nanosecond =0;
+    
+    NSDate *date1 = [calendar dateFromComponents:dateComponents];
+    if ([[now earlierDate:date1] isEqualToDate:now]) {
+        return @"上午场";
+    }
+    
+    NSDateComponents *dateComponents2 = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:now];
+    dateComponents2.hour = 14;
+    dateComponents2.minute = 00;
+    dateComponents2.second =0;
+    dateComponents2.nanosecond =0;
+    
+    NSDate *date2 = [calendar dateFromComponents:dateComponents2];
+    if ([[now earlierDate:date2] isEqualToDate:now]) {
+        return @"下午场";
+    }
+    
+    return @"下个交易日上午场";
+}
+
 - (void)timerFire:(id)timer {
     
-    for (StockGuessListCell *cell in [self.tableView visibleCells]) {
-        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-        StockGuessModel *guessInfo = self.guessList[indexPath.row];
+    StockGuessModel *guessInfo = self.guessList.firstObject;
+    if (guessInfo) {
+        NSDate *now = [NSDate new];
         
-        [cell reloadTimeWithGuess:guessInfo];
+        NSDateFormatter*dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM-dd EE"];
+        [dateFormatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
+        NSString *time = [dateFormatter stringFromDate:now];
+        NSString *section = [self sectionString];
+        NSString *remaining = [NSString intervalNowDateWithDateInterval:guessInfo.endTime];
+        
+        self.sectionTimeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",time,section,remaining];
     }
 }
 
@@ -452,16 +502,14 @@
 
 - (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
     UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101115"];
-    
-    
+    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#18191F"];
     
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     btn.frame = view.bounds;
     btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateHighlighted];
+    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
+    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateHighlighted];
     [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     if (self.commentNum > 0) {

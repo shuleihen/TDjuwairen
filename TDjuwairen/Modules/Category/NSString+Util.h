@@ -30,6 +30,6 @@
 
 + (NSString *)stringWithTimeInterval:(int64_t)timeInterval;
 + (NSString *)stringWithTimeInterval:(int64_t)timeInterval withFormat:(NSString *)format;
-
++ (NSString *)intervalNowDateWithDateInterval:(NSTimeInterval)endTime;
 
 @end
