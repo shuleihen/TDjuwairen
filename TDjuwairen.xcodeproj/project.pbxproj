@@ -416,6 +416,8 @@
 		19ED17501F1644B400EC89DF /* IndividualStockRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ED17451F1644B400EC89DF /* IndividualStockRecordModel.m */; };
 		19ED17511F1644B400EC89DF /* MGCellContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ED17481F1644B400EC89DF /* MGCellContentView.m */; };
 		19ED17521F1644B400EC89DF /* MGCellWinKeyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ED174A1F1644B400EC89DF /* MGCellWinKeyView.m */; };
+		19ED17551F16466900EC89DF /* PSIndividualDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ED17541F16466900EC89DF /* PSIndividualDetailModel.m */; };
+		19ED17591F17759600EC89DF /* CBAutoScrollLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ED17581F17759500EC89DF /* CBAutoScrollLabel.m */; };
 		19F006F91E31B005000A5F98 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F006F81E31B005000A5F98 /* LoginViewController.xib */; };
 		19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007411E31E5AE000A5F98 /* RechargeChooseViewController.m */; };
 		19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F007431E31E5AE000A5F98 /* RechargeViewController.m */; };
@@ -1388,6 +1390,10 @@
 		19ED17481F1644B400EC89DF /* MGCellContentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCellContentView.m; sourceTree = "<group>"; };
 		19ED17491F1644B400EC89DF /* MGCellWinKeyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGCellWinKeyView.h; sourceTree = "<group>"; };
 		19ED174A1F1644B400EC89DF /* MGCellWinKeyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGCellWinKeyView.m; sourceTree = "<group>"; };
+		19ED17531F16466900EC89DF /* PSIndividualDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PSIndividualDetailModel.h; sourceTree = "<group>"; };
+		19ED17541F16466900EC89DF /* PSIndividualDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PSIndividualDetailModel.m; sourceTree = "<group>"; };
+		19ED17571F17759500EC89DF /* CBAutoScrollLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBAutoScrollLabel.h; sourceTree = "<group>"; };
+		19ED17581F17759500EC89DF /* CBAutoScrollLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBAutoScrollLabel.m; sourceTree = "<group>"; };
 		19F006F81E31B005000A5F98 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LoginViewController.xib; sourceTree = "<group>"; };
 		19F007401E31E5AE000A5F98 /* RechargeChooseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeChooseViewController.h; sourceTree = "<group>"; };
 		19F007411E31E5AE000A5F98 /* RechargeChooseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeChooseViewController.m; sourceTree = "<group>"; };
@@ -4265,6 +4271,8 @@
 		19ED17381F1644B400EC89DF /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				19ED17531F16466900EC89DF /* PSIndividualDetailModel.h */,
+				19ED17541F16466900EC89DF /* PSIndividualDetailModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4319,6 +4327,15 @@
 				19ED174A1F1644B400EC89DF /* MGCellWinKeyView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		19ED17561F17759500EC89DF /* CBAutoScrollLabel */ = {
+			isa = PBXGroup;
+			children = (
+				19ED17571F17759500EC89DF /* CBAutoScrollLabel.h */,
+				19ED17581F17759500EC89DF /* CBAutoScrollLabel.m */,
+			);
+			path = CBAutoScrollLabel;
 			sourceTree = "<group>";
 		};
 		19F0073C1E31E5AE000A5F98 /* Recharge */ = {
@@ -4681,6 +4698,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19ED17561F17759500EC89DF /* CBAutoScrollLabel */,
 				19E58D861EF8C55500ADA1B8 /* ZFPlayer */,
 				19E58D6D1EF3BC6400ADA1B8 /* YXUnread */,
 				1975D35E1EED196500191E1D /* DYCircle */,
@@ -5140,6 +5158,7 @@
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
+				19ED17591F17759600EC89DF /* CBAutoScrollLabel.m in Sources */,
 				194E0D031EEE3E36009C7AC6 /* StockCollectionTableViewController.m in Sources */,
 				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				19E58DAE1EF8C55500ADA1B8 /* UIViewController+ZFPlayerRotation.m in Sources */,
@@ -5163,6 +5182,7 @@
 				4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */,
 				19ED174E1F1644B400EC89DF /* MyGuessViewController.m in Sources */,
 				198035361F1304D400FAD8D3 /* LaunchHandler.m in Sources */,
+				19ED17551F16466900EC89DF /* PSIndividualDetailModel.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,

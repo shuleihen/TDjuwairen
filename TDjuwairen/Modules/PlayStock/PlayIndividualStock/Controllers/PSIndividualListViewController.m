@@ -34,11 +34,17 @@
 #import "BVUnderlineButton.h"
 #import "Masonry.h"
 #import "ViewpointDetailViewController.h"
+#import "NSString+Util.h"
+#import "CBAutoScrollLabel.h"
 
 
 @interface PSIndividualListViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet CBAutoScrollLabel *messageLabel;
 
 @property (assign, nonatomic) NSInteger pageIndex;
 @property (nonatomic, assign) NSInteger tagIndex;
@@ -46,24 +52,23 @@
 
 @property (nonatomic, strong) PSIndividualGuessModel *guessModel;
 
-@property (nonatomic, strong) NSMutableArray *listModelArr;
-
 @property (nonatomic, strong) HMSegmentedControl *segmentControl;
-@property (strong, nonatomic) UILabel *seasonTimeLabel;
-
-@property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) UIView *emptyView;
+
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation PSIndividualListViewController
 
 - (void)dealloc {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
     
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
@@ -79,7 +84,6 @@
     return _stockManager;
 }
 
-// 开启股票刷新
 
 - (HMSegmentedControl *)segmentControl {
     if (!_segmentControl) {
@@ -88,37 +92,24 @@
         _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
         _segmentControl.titleTextAttributes =@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
                                                NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#666666"]};
-        _segmentControl.selectedTitleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
-                                                        NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#FD9E0A"]};
+        _segmentControl.selectedTitleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:15.0f],
+                                                        NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#F5A91B"]};
         _segmentControl.selectionIndicatorHeight = 3.0f;
-        _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#FD9E0A"];
-        _segmentControl.sectionTitles = @[@"最新",@"最热"];
-        self.segmentControl.frame = CGRectMake(0, 0, 100, 41);
+        _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#F5A91B"];
+        _segmentControl.sectionTitles = @[@"全部",@"我参与的"];
+        self.segmentControl.frame = CGRectMake(0, 0, 135, 41);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
     return _segmentControl;
 }
 
-
-- (UILabel *)seasonTimeLabel {
-
-    if (_seasonTimeLabel == nil) {
-        _seasonTimeLabel = [[UILabel alloc] init];
-        _seasonTimeLabel.textColor = [UIColor whiteColor];
-        _seasonTimeLabel.font = [UIFont systemFontOfSize:13.0];
-        
-    }
-
-    return _seasonTimeLabel;
-}
-
-
 - (UIView *)emptyView {
     if (!_emptyView) {
         UIImage *image = [UIImage imageNamed:@"icon_guessList_empty.png"];
         
         _emptyView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, image.size.height+40)];
+        _emptyView.backgroundColor = [UIColor clearColor];
         _emptyView.center = CGPointMake(kScreenWidth/2, CGRectGetWidth(self.tableView.frame)/2+65);
         _emptyView.tag = 20000;
         
@@ -141,31 +132,38 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    [self setupNav];
     
     self.tagIndex = 0;
     self.pageIndex = 1;
-    [self refeshReasionView];
     
+    [self setupTableView];
+    
+    [self loadGuessUserInfo];
+    [self loadGuessMessage];
+    [self reloadGuessListData];
+    
+    [self addNotifi];
+    
+    __weak PSIndividualListViewController *wself = self;
+    self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:wself selector:@selector(timerFire:) userInfo:nil repeats:YES];
+}
+
+- (void)setupNav {
     UIBarButtonItem *item1 = [[UIBarButtonItem alloc] initWithTitle:@"记录" style:UIBarButtonItemStylePlain target:self action:@selector(myGuessPressed:)];
     [item1 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
     
     UIBarButtonItem *item2 = [[UIBarButtonItem alloc] initWithTitle:@"规则" style:UIBarButtonItemStylePlain target:self action:@selector(rulePressed:)];
     [item2 setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16],NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]} forState:UIControlStateNormal];
     self.navigationItem.rightBarButtonItems = @[item2,item1];
-    
-    
-    [self setupTableView];
-    
-    [self loadGuessUserInfo];
-    [self reloadGuessListData];
-    
-    [self addNotifi];
 }
 
 - (void)setupTableView {
     
     self.tableView.rowHeight = 141;
     self.tableView.tableFooterView = [UIView new];
+    self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#1D2027"];
     
     UINib *nib = [UINib nibWithNibName:@"PlayIndividualContentCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"PlayIndividualContentCellID"];
@@ -209,7 +207,6 @@
 }
 
 - (void)myGuessPressed:(id)sender {
-    
     if (!US.isLogIn) {
         [self pushLoginViewController];
         return;
@@ -218,7 +215,6 @@
     MyGuessViewController *vc = [[MyGuessViewController alloc] initWithStyle:UITableViewStyleGrouped];
     vc.guessListType = MyGuessIndividualListType;
     [self.navigationController pushViewController:vc animated:YES];
-    
 }
 
 - (IBAction)startGuessPressed:(id)sender {
@@ -226,8 +222,6 @@
         [self pushLoginViewController];
         return;
     }
-    
-//    NSInteger season = ;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(self.seasonIndex)} completion:^(id data, NSError *error) {
@@ -274,112 +268,21 @@
     [self reloadGuessListData];
 }
 
-
-
-- (void)refeshReasionView {
+- (void)timerFire:(id)timer {
     
-    /*
-     ●00：00~10：30，显示“距上午场开始 XX:XX:XX”，可竞猜本日上午场
-     ●10：30~14：00，显示“距下午场结束 XX:XX:XX”，可竞猜本日下午场
-     ●14：00~24：00，显示“距明日上午场开始 XX:XX:XX”，可竞猜次日上午场
-     */
-    NSArray *arr = @[@{@"fromHour":@0,@"fromMin":@0,@"toHour":@10,@"toMin":@30,@"desc":@"距上午场开始",@"reasionType":@"1"},
-                     @{@"fromHour":@10,@"fromMin":@30,@"toHour":@14,@"toMin":@0,@"desc":@"距下午场结束",@"reasionType":@"2"},
-                     @{@"fromHour":@14,@"fromMin":@0,@"toHour":@24,@"toMin":@0,@"desc":@"距明日上午场开始",@"reasionType":@"1"}
-                     ];
-    for (NSDictionary *dict in arr) {
-        NSTimeInterval time = [self isBetweenFromHour:[dict[@"fromHour"] integerValue] FromMinute:[dict[@"fromMin"] integerValue] toHour:[dict[@"toHour"] integerValue] toMinute:[dict[@"toMin"] integerValue]];
-        NSString *str = dict[@"desc"];
+    PSIndividualGuessModel *guessInfo = self.guessModel;
+    if (guessInfo) {
+        NSDate *now = [NSDate new];
         
-        if (time >= 0) {
-            self.seasonIndex = [dict[@"reasionType"] integerValue];
-            [self startWithTime:time block:^(NSString *day) {
-                @autoreleasepool {
-                    NSMutableAttributedString *attiStr=[[NSMutableAttributedString alloc]initWithString:[NSString stringWithFormat:@"%@ %@",str,day]];
-                    [attiStr addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(1, str.length-3)];
-                    _seasonTimeLabel.attributedText=attiStr;
-                }
-                
-            }];
-            break;
-        }
+        NSDateFormatter*dateFormatter = [[NSDateFormatter alloc] init];
+        [dateFormatter setDateFormat:@"MM-dd EE"];
+        [dateFormatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
+        NSString *time = [dateFormatter stringFromDate:now];
+        NSString *season = ([guessInfo.guess_season integerValue]==0)?@"上午场":@"下午场";
+        NSString *remaining = [NSString intervalNowDateWithDateInterval:guessInfo.guess_endTime];
+        
+        self.timeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",time,season,remaining];
     }
-    
-}
-
-- (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
-    
-    __block NSInteger timeOut = timeLine;
-    dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
-    dispatch_source_t _timer = dispatch_source_create(DISPATCH_SOURCE_TYPE_TIMER, 0, 0, queue);
-    //每秒执行一次
-    dispatch_source_set_timer(_timer, dispatch_walltime(NULL, 0), 1.0 * NSEC_PER_SEC, 0);
-    dispatch_source_set_event_handler(_timer, ^{
-        //倒计时结束，关闭
-        if (timeOut <= 0) {
-            dispatch_source_cancel(_timer);
-            dispatch_async(dispatch_get_main_queue(), ^{
-                //                timeBlock(@"00:00:00");
-                [self refeshReasionView];
-            });
-        } else {
-            int allTime = (int)timeLine + 1;
-            int seconds = timeOut % allTime;
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSInteger h=seconds/3600;
-                NSInteger m=(seconds-h*3600)/60;
-                NSInteger s=(seconds-h*3600)%60;
-                timeBlock([NSString stringWithFormat:@"%02ld:%02ld:%02ld",(long)h,(long)m,(long)s]);
-            });
-            timeOut--;
-        }
-    });
-    dispatch_resume(_timer);
-}
-
-- (NSTimeInterval)isBetweenFromHour:(NSInteger)fromHour FromMinute:(NSInteger)fromMin toHour:(NSInteger)toHour toMinute:(NSInteger)toMin
-{
-    NSDate *dateFrome = [self getCustomDateWithHour:fromHour andMinute:fromMin];
-    NSDate *dateTo = [self getCustomDateWithHour:toHour andMinute:toMin];
-    NSDate *currentDate = [NSDate date];
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"yyyy:MM:dd HH:mm:ss"];
-    NSLog(@"%@----------%@",[df stringFromDate:dateFrome],[df stringFromDate:dateTo]);
-    //    NSString *fS = [];
-    if ([currentDate compare:dateFrome]==NSOrderedDescending && [currentDate compare:dateTo]==NSOrderedAscending)
-    {
-        //        NSLog(@"该时间在 %d:%d-%d:%d 之间！", fromHour, fromMin, toHour, toMin);
-        
-        NSTimeInterval currentT = [currentDate timeIntervalSince1970];
-        NSTimeInterval toT = [dateTo timeIntervalSince1970];
-        
-        
-        return toT-currentT;
-    }
-    return -1;
-}
-
-- (NSDate *)getCustomDateWithHour:(NSInteger)hour andMinute:(NSInteger)minute
-{
-    //获取当前时间
-    NSDate *currentDate = [NSDate date];
-    NSCalendar *currentCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    NSDateComponents *currentComps = [[NSDateComponents alloc] init];
-    
-    NSInteger unitFlags = NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay | NSCalendarUnitWeekday | NSCalendarUnitHour | NSCalendarUnitMinute | NSCalendarUnitSecond;
-    
-    currentComps = [currentCalendar components:unitFlags fromDate:currentDate];
-    
-    //设置当天的某个点
-    NSDateComponents *resultComps = [[NSDateComponents alloc] init];
-    [resultComps setYear:[currentComps year]];
-    [resultComps setMonth:[currentComps month]];
-    [resultComps setDay:[currentComps day]];
-    [resultComps setHour:hour];
-    [resultComps setMinute:minute];
-    
-    NSCalendar *resultCalendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-    return [resultCalendar dateFromComponents:resultComps];
 }
 
 #pragma mark - Query data
@@ -394,10 +297,23 @@
             
             [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
             
-            wself.timeLabel.text = SafeValue(wself.guessModel.guess_date);
-            
             [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",wself.guessModel.guess_comment_count] forState:UIControlStateNormal];
             
+            [wself timerFire:wself.timer];
+        }
+    }];
+}
+
+- (void)loadGuessMessage {
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    __weak PSIndividualListViewController *wself = self;
+    [ma GET:API_GetGuessMessage parameters:nil completion:^(id data, NSError *error) {
+        if (!error) {
+            NSString *mesage = [data componentsJoinedByString:@"   "];
+            wself.messageLabel.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101114"];
+            wself.messageLabel.text = mesage;
+            wself.messageLabel.font = [UIFont systemFontOfSize:12.0f];
+            wself.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
         }
     }];
 }
@@ -456,7 +372,7 @@
             [data enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
                 PSIndividualListModel *model = [[PSIndividualListModel alloc] initWithDictionary:obj];
                 [arrM addObject:model];
-                [stockIds addObject:model.stock];
+                [stockIds addObject:model.stockId];
             }];
             
             wself.items = arrM;
@@ -485,8 +401,8 @@
     
     __block NSString *guessId;
     [self.items enumerateObjectsUsingBlock:^(PSIndividualListModel *obj, NSUInteger idx, BOOL *stop){
-        if ([obj.com_code isEqualToString:stockCode]) {
-            guessId = obj.guess_id;
+        if ([obj.stockCode isEqualToString:stockCode]) {
+            guessId = obj.guessId;
             *stop = YES;
         }
     }];
@@ -513,7 +429,7 @@
     __block NSInteger index;
     
     [self.items enumerateObjectsUsingBlock:^(PSIndividualListModel *obj, NSUInteger idx, BOOL *stop){
-        if ([obj.guess_id isEqualToString:guess.guess_id]) {
+        if ([obj.guessId isEqualToString:guess.guessId]) {
             
             index = idx;
             *stop = YES;
@@ -534,7 +450,7 @@
 
 
 #pragma mark - PlayGuessViewControllerDelegate
-- (void)addGuessWithStockCode:(NSString *)stockCode pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin
+- (void)addGuessWithStockCode:(NSString *)stockCode pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin isForward:(BOOL)isForward
 {
     NSDictionary *parmark1 = @{@"stock":SafeValue(stockCode),
                                @"points":@(pri)};
@@ -560,6 +476,7 @@
             NSDictionary *parmark = @{@"season":@(season),
                                       @"stock":SafeValue(stockCode),
                                       @"points":@(pri),
+                                      @"is_forward":@(isForward),
                                       };
             
             [ma POST:API_AddGuessIndividual parameters:parmark completion:^(id data, NSError *error) {
@@ -601,7 +518,7 @@
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender {
     PSIndividualListModel *model = cell.model;
-    StockInfo *sInfo = [self.stockDict objectForKey:model.stock];
+    StockInfo *sInfo = [self.stockDict objectForKey:model.stockId];
     
     PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
     vc.season = [model.guess_season integerValue];
@@ -613,7 +530,7 @@
     popupController.style = STPopupStyleBottomSheet;
     [popupController presentInViewController:self];
     
-    [vc setupDefaultStock:sInfo withStockCode:model.com_code];
+    [vc setupDefaultStock:sInfo withStockCode:model.stockCode];
 }
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell enjoyListPressed:(id)sender {
@@ -621,7 +538,7 @@
     
     PlayEnjoyPeopleViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayEnjoyPeopleViewController"];
     
-    vc.guessID = [NSString stringWithFormat:@"%@",model.guess_id];
+    vc.guessID = [NSString stringWithFormat:@"%@",model.guessId];
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
     popupController.containerView.layer.cornerRadius = 4;
@@ -640,14 +557,14 @@
     if (article_type == 1) {
         // 调研
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-        vc.stockCode = model.com_code;
+        vc.stockCode = model.stockCode;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (article_type == 2){
         // 热点
         SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
         vc.contentId = article_id;
-        vc.stockCode = model.com_code;
-        vc.stockName = model.guess_company;
+        vc.stockCode = model.stockCode;
+        vc.stockName = model.stockName;
         vc.surveyType = kSurveyTypeHot;
         vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:article_id withTag:kSurveyTypeHot];
         [self.navigationController pushViewController:vc animated:YES];
@@ -674,14 +591,13 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    
     return self.items.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     PSIndividualListModel *model = self.items[indexPath.row];
-    StockInfo *sInfo = [self.stockDict objectForKey:model.stock];
+    StockInfo *sInfo = [self.stockDict objectForKey:model.stockId];
     
     PlayIndividualContentCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlayIndividualContentCellID"];
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
@@ -694,23 +610,14 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
- 
     return 41.0f;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 41)];
-    header.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272a31"];
+    header.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#141519"];
     
     [header addSubview:self.segmentControl];
-    [header addSubview:self.seasonTimeLabel];
-    
-    [self.seasonTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.equalTo(header).offset(2);
-        make.right.equalTo(header).offset(-10);
-        make.bottom.equalTo(header).offset(2);
-        
-    }];
     
     return header;
 }
@@ -719,29 +626,4 @@
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
-
-
-//- (NSInteger)seasonWithCurrentTime {
-//    
-//    // 10:30 之前为上午场，11：30--14：00为下午场
-//    
-//    // 11：30之前显示上午场，之后显示，上午场和下午场
-//
-//    NSCalendar *calendar = [NSCalendar currentCalendar];
-//    NSDate *now = [NSDate date];
-//    
-//    NSDateComponents *dateComponents = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay|NSCalendarUnitHour|NSCalendarUnitMinute fromDate:now];
-//    dateComponents.hour = 11;
-//    dateComponents.minute = 30;
-//    dateComponents.second =0;
-//    dateComponents.nanosecond =0;
-//    
-//    NSDate *date1 = [calendar dateFromComponents:dateComponents];
-//    
-//    if ([[now earlierDate:date1] isEqualToDate:now]) {
-//        return 1;
-//    } else {
-//        return 2;
-//    }
-//}
 @end

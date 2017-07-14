@@ -9,66 +9,77 @@
 #import "PlayIndividualContentCell.h"
 #import "StockManager.h"
 #import "UIButton+Align.h"
+
 @implementation PlayIndividualContentCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
-    [self.enjoyBtn setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -20, -10, -20)];
-    
-    self.label_detailDesc.userInteractionEnabled = YES;
-    UITapGestureRecognizer *money_Tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(surveyClick:)];
-    [self.label_detailDesc addGestureRecognizer:money_Tap];
 }
 
-- (void)setModel:(PSIndividualListModel *)model
-{
-    /**
-     文章类型，0表示没有，1表示调研，2表示热点，3表示观点，4表示直播
-     */
+- (void)setModel:(PSIndividualListModel *)model {
     _model = model;
     
-    self.label_title.text = [NSString stringWithFormat:@"%@(%@)",model.guess_company,model.com_code];
-    self.label_enjoy.text = [NSString stringWithFormat:@"%ld",(long)model.guess_item_num];
-    self.label_detailDesc.text = SafeValue(model.artile_info[@"article_title"]);
-    self.label_money.text = [NSString stringWithFormat:@"%@把",model.guess_key_num];
+    self.label_title.text = [NSString stringWithFormat:@"%@(%@)",model.stockName,model.stockCode];
+    self.label_money.text = [NSString stringWithFormat:@"%@把钥匙",model.guess_key_num];
     
+    NSString *join = [NSString stringWithFormat:@"参与人数 %ld",(long)model.guess_item_num];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:join attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    [attr setAttributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]} range:NSMakeRange(0, 4)];
+    self.label_enjoy.attributedText = attr;
+    
+    // 文章类型，0表示没有，1表示调研，2表示热点，3表示观点，4表示直播
+    /*
+    NSString *title = @"";
     if ([model.artile_info[@"article_type"] isEqual:@1]) {
-        self.label_detailTitle.text = @"调研";
+        title = @"调研：";
     }else if ([model.artile_info[@"article_type"] isEqual:@2]) {
-        self.label_detailTitle.text = @"热点";
+        title = @"热点：";
     }else if ([model.artile_info[@"article_type"] isEqual:@3]) {
-        self.label_detailTitle.text = @"观点";
+        title = @"观点：";
     }else if ([model.artile_info[@"article_type"] isEqual:@4]) {
-        self.label_detailTitle.text = @"直播";
+        title = @"直播：";
     }else{
-        self.label_detailTitle.text = @"";
+        title = @"";
     }
-    
+    self.label_detailDesc.text = [title stringByAppendingString:SafeValue(model.artile_info[@"article_title"])];
+    */
     self.button_guess.enabled = [self joinButtonEnabled];
     [self.button_guess setTitle:[self joinButtonTitle] forState:UIControlStateNormal];
+    self.rewardView.hidden = !model.isReward;
 }
 
 - (void)setupStock:(StockInfo *)stock {
-    float value = [stock priValue];            //跌涨额
-    float valueB = [stock priPercentValue];     //跌涨百分比
-    
-    if (value >= 0.00) {
-        self.label_left.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
-        self.label_mid.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
-        self.label_right.textColor = [UIColor hx_colorWithHexRGBAString:@"#e64920"];
+    if (![stock enabled]) {
+        NSString *string = [NSString stringWithFormat:@"--"];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+        [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#999999"]}
+                      range:NSMakeRange(0, string.length)];
         
+        self.label_left.attributedText = attr;
+        self.label_mid.text = @"";
+        self.label_right.text = @"";
     } else {
-        self.label_left.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
-        self.label_mid.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
-        self.label_right.textColor = [UIColor hx_colorWithHexRGBAString:@"#1fcc67"];
+        float value = [stock priValue];            //跌涨额
+        float valueB = [stock priPercentValue];     //跌涨百分比
+        
+        if (value >= 0.00) {
+            self.label_left.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF0000"];
+            self.label_mid.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF0000"];
+            self.label_right.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF0000"];
+            
+        } else {
+            self.label_left.textColor = [UIColor hx_colorWithHexRGBAString:@"#14C76A"];
+            self.label_mid.textColor = [UIColor hx_colorWithHexRGBAString:@"#14C76A"];
+            self.label_right.textColor = [UIColor hx_colorWithHexRGBAString:@"#14C76A"];
+        }
+        
+        NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
+        
+        self.label_left.text = nowPriString;
+        self.label_mid.text = [NSString stringWithFormat:@"%+.2lf",value];
+        self.label_right.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
     }
-    
-    NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
-    
-    self.label_left.text = nowPriString;
-    self.label_mid.text = [NSString stringWithFormat:@"%+.2lf",value];
-    self.label_right.text = [NSString stringWithFormat:@"%+.2lf%%",valueB*100];
 }
 
 - (IBAction)enjoyListClick:(id)sender {
@@ -85,7 +96,7 @@
     }
 }
 
-- (void)surveyClick:(id)sender {
+- (IBAction)surveyClick:(id)sender {
     
     if ([self.delegate respondsToSelector:@selector(playIndividualCell:surveyPressed:)]) {
         [self.delegate playIndividualCell:self surveyPressed:sender];

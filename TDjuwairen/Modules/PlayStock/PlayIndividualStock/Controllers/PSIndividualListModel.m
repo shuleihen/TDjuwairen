@@ -14,18 +14,19 @@
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
-        self.guess_company = dict[@"guess_company"];
+        self.stockName = dict[@"guess_company"];
         self.guess_end_price = dict[@"guess_end_price"];
         self.guess_status = dict[@"guess_status"];
         self.guess_season = dict[@"guess_season"];
         self.guess_key_num = dict[@"guess_key_num"];
-        self.guess_id = dict[@"guess_id"];
-        self.com_code = dict[@"com_code"];
+        self.guessId = dict[@"guess_id"];
+        self.stockCode = dict[@"com_code"];
         self.guess_item_num = [dict[@"guess_item_num"] integerValue];
         self.has_join = [dict[@"has_join"] boolValue];
         self.winner_list = dict[@"winner_list"];
         self.artile_info = dict[@"artile_info"];
-        self.stock = dict[@"stock"];
+        self.stockId = dict[@"stock"];
+        self.isReward = [dict[@"is_backstart"] boolValue];
     }
     
     return self;

@@ -100,6 +100,16 @@
     return [self stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
 }
 
+- (BOOL)isValidateStockCode {
+    if (self.length == 0) {
+        return NO;
+    }
+    
+    NSString *phoneRegex = @"^[0-9]{6}";
+    NSPredicate *phoneTest = [NSPredicate predicateWithFormat:@"SELF MATCHES %@",phoneRegex];
+    return [phoneTest evaluateWithObject:self];
+}
+
 - (BOOL)isValidateMobile
 {
     if (self.length == 0) {

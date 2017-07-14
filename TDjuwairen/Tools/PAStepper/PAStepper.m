@@ -123,9 +123,12 @@
 }
 
 - (NSString *)formatedStringForValue:(double)value{
-    
-    NSString *formatedValueString = [NSString stringWithFormat:@"%.02lf",value];
-    return formatedValueString;
+    if (value == 0.0) {
+        return @"--";
+    } else {
+        NSString *formatedValueString = [NSString stringWithFormat:@"%.02lf",value];
+        return formatedValueString;
+    }
 }
 
 - (void)layoutSubviews {

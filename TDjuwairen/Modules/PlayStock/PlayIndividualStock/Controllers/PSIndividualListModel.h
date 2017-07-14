@@ -9,22 +9,23 @@
 #import <Foundation/Foundation.h>
 
 @interface PSIndividualListModel : NSObject
-
-@property (nonatomic, copy) NSString *guess_company;
+@property (nonatomic, strong) NSString *guessId;
+@property (nonatomic, copy) NSString *stockName;
+@property (nonatomic, copy) NSString *stockCode;
+@property (nonatomic, copy) NSString *stockId;
 @property (nonatomic, strong) NSNumber *guess_end_price;
 /// 0表示正在进行，1表示已封盘，2表示已收盘
 @property (nonatomic, strong) NSNumber *guess_status;
+// 场次
 @property (nonatomic, copy) NSNumber *guess_season;
+// 已下注的钥匙数
 @property (nonatomic, copy) NSString *guess_key_num;
-@property (nonatomic, strong) NSString *guess_id;
-
-@property (nonatomic, copy) NSString *com_code;
+// 参与人数
 @property (nonatomic, assign) NSInteger guess_item_num;
-@property (nonatomic, copy) NSString *stock;
 @property (nonatomic, strong) NSArray *winner_list;
-
 @property (nonatomic, strong) NSDictionary *artile_info;
 @property (nonatomic, assign) BOOL has_join;
+@property (nonatomic, assign) BOOL isReward;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

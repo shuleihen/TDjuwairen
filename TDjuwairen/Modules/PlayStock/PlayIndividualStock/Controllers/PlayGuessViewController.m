@@ -14,17 +14,25 @@
 #import "NetworkManager.h"
 #import "StockManager.h"
 #import "NSString+Util.h"
+#import "YXCheckBox.h"
 
 @interface PlayGuessViewController ()<UITextFieldDelegate, StockManagerDelegate>
+@property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *label_CountDown;
 @property (weak, nonatomic) IBOutlet UILabel *label_NowTime;
-@property (weak, nonatomic) IBOutlet UILabel *label_moneyUse;
 @property (nonatomic, weak) IBOutlet UITextField *inputView;
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
+@property (weak, nonatomic) IBOutlet UILabel *priceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *minPriceLabel;
+@property (weak, nonatomic) IBOutlet UILabel *maxPriceLabel;
+@property (weak, nonatomic) IBOutlet YXCheckBox *forwardBtn;
+@property (weak, nonatomic) IBOutlet UIButton *doneBtn;
 
+@property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) StockManager *stockManager;
-@property (nonatomic, copy) NSString *guess_date;
+//@property (nonatomic, copy) NSString *guess_date;
+
 @end
 
 @implementation PlayGuessViewController
@@ -49,10 +57,16 @@
         self.stepper.maximumValue = stockInfo.yestodEndPriValue*1.1;
         self.stepper.minimumValue = stockInfo.yestodEndPriValue*0.9;
         self.stepper.value = stockInfo.nowPriValue;
+
+        self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)", stockInfo.name,stockCode];
         
-        self.inputView.text = stockCode;
-        self.inputView.enabled = NO;
-    } 
+        self.minPriceLabel.text = [NSString stringWithFormat:@"%.02lf",self.stepper.minimumValue];
+        self.maxPriceLabel.text = [NSString stringWithFormat:@"%.02lf",self.stepper.maximumValue];
+        
+        self.stockCode = stockCode;
+    }
+    
+    [self checkDoneEnable];
 }
 
 - (void)initValue {
@@ -62,16 +76,18 @@
     [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(_season)} completion:^(id data, NSError *error) {
         if (!error) {
             NSDictionary *dict = data;
+            
             NSNumber *guess_endtime = dict[@"guess_endtime"];
             NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
             NSTimeInterval nowDate = [date timeIntervalSince1970];
             NSInteger  regiTime = [guess_endtime integerValue] - nowDate;
             
+            /*
             NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
             formatter.dateFormat = @"yyyy-MM-dd";
             wself.guess_date = [formatter stringFromDate:date];
-            
-            wself.label_NowTime.text = [NSString stringWithFormat:@"%@%@",self.guess_date,self.season == 1?@"上午场":@"下午场"];
+            */
+            wself.label_NowTime.text = [NSString stringWithFormat:@"%@",(self.season == 1)?@"上午场":@"下午场"];
             
             [wself startWithTime:regiTime block:^(NSString *day) {
                 wself.label_CountDown.text = day;
@@ -81,15 +97,32 @@
     
     [_inputView addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
     _inputView.delegate = self;
+    
+    self.priceLabel.text = @"";
+    self.minPriceLabel.text = @"--";
+    self.maxPriceLabel.text = @"--";
+    self.stepper.value = 0;
+    
+    self.forwardBtn.checked = YES;
+    
+    [self checkDoneEnable];
 }
 
 - (void)initViews {
-    [_inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
-    _inputView.layer.cornerRadius = 4;
-    _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
-    _inputView.layer.borderWidth = 1;
+    if (self.isJoin) {
+        self.inputView.hidden = YES;
+        self.stockNameLabel.hidden = NO;
+    } else {
+        self.inputView.hidden = NO;
+        self.stockNameLabel.hidden = YES;
+        
+        [_inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+        _inputView.layer.cornerRadius = 4;
+        _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
+        _inputView.layer.borderWidth = 1;
+    }
     
-    
+
     self.stepper.stepValue = 0.01;
     self.stepper.textColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"];
     
@@ -139,6 +172,8 @@
         self.stepper.maximumValue = 0;
         self.stepper.value = 0;
     }
+    
+    [self checkDoneEnable];
 }
 
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
@@ -189,11 +224,27 @@
     dispatch_resume(_timer);
 }
 
+- (void)checkDoneEnable {
+    NSString *stockCode = @"";
+    if (self.isJoin) {
+        stockCode = self.stockCode;
+    } else {
+        stockCode = self.inputView.text;
+    }
+    
+    self.doneBtn.enabled = [stockCode isValidateStockCode];
+}
+
 #pragma mark - action
+- (IBAction)cancelPressed:(id)sender {
+    [self.popupController dismiss];
+}
+
+
 - (IBAction)determineClick:(id)sender {
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:)]) {
-        [self.delegate addGuessWithStockCode:_inputView.text pri:self.stepper.value season:self.season isJoin:self.isJoin];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:isForward:)]) {
+        [self.delegate addGuessWithStockCode:_inputView.text pri:self.stepper.value season:self.season isJoin:self.isJoin isForward:self.forwardBtn.checked];
     }
     
     [self.popupController dismiss];

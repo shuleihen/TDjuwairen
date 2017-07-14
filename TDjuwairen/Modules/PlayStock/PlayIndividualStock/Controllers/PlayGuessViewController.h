@@ -10,7 +10,7 @@
 #import "StockManager.h"
 
 @protocol PlayGuessViewControllerDelegate <NSObject>
-- (void)addGuessWithStockCode:(NSString *)stockId pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin;
+- (void)addGuessWithStockCode:(NSString *)stockId pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin isForward:(BOOL)isForward;
 @end
 
 @interface PlayGuessViewController : UIViewController

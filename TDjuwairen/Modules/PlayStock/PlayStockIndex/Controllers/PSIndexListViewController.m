@@ -32,6 +32,7 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
 @property (weak, nonatomic) IBOutlet UILabel *sectionTimeLabel;
+@property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 
 @property (nonatomic, assign) NSInteger commentNum;
 @property (nonatomic, assign) NSInteger keyNum;
@@ -115,7 +116,9 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(queryGuessStock) name:kLoginStateChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(commentChanged:) name:kGuessCommentChanged object:nil];
     
-    [self.player prepareToPlay];
+//    if (self.player) {
+//        [self.player prepareToPlay];
+//    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -149,6 +152,8 @@
             [wself.keyNumBtn setTitle:keyNum forState:UIControlStateHighlighted];
             
             wself.commentNum = [data[@"guess_comment_count"] integerValue];
+            
+            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%d)",wself.commentNum] forState:UIControlStateNormal];
             
             NSArray *array = data[@"guessing_list"];
             if ([array count]) {
@@ -275,7 +280,7 @@
 
 - (void)playBgAudio {
     
-    if (self.player) {
+    if ([self.player prepareToPlay]) {
         [self.player play];
     }
 }
@@ -490,39 +495,6 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return [self.guessList count];
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 0.0001f;
-}
-
-- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    return 44.0f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#18191F"];
-    
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-    btn.frame = view.bounds;
-    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateHighlighted];
-    [btn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
-    
-    if (self.commentNum > 0) {
-        NSString *title = [NSString stringWithFormat:@"评论(%ld)",(long)self.commentNum];
-        [btn setTitle:title forState:UIControlStateNormal];
-        [btn setTitle:title forState:UIControlStateHighlighted];
-    } else {
-        [btn setTitle:@"评论" forState:UIControlStateNormal];
-        [btn setTitle:@"评论" forState:UIControlStateHighlighted];
-    }
-    
-    [view addSubview:btn];
-    return view;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {

@@ -25,11 +25,10 @@
 @property (nonatomic, weak) IBOutlet UILabel *label_mid;
 @property (nonatomic, weak) IBOutlet UILabel *label_right;
 @property (nonatomic, weak) IBOutlet UILabel *label_enjoy;
-@property (nonatomic, weak) IBOutlet UILabel *label_detailTitle;
 @property (nonatomic, weak) IBOutlet UILabel *label_detailDesc;
 @property (nonatomic, weak) IBOutlet UILabel *label_money;
 @property (nonatomic, weak) IBOutlet UIButton *button_guess;
-@property (nonatomic, weak) IBOutlet UIButton *enjoyBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *rewardView;
 
 
 @property (nonatomic, weak) id<PlayIndividualContentCellDelegate> delegate;

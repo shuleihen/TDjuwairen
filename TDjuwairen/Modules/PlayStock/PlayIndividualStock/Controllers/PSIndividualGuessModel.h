@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *userinfo_facemin;
 @property (nonatomic, copy) NSString *user_nickname;
 @property (nonatomic, copy) NSString *guess_date;
+@property (nonatomic, assign) long long guess_endTime;
 @property (nonatomic, strong) NSNumber *user_keynum;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
