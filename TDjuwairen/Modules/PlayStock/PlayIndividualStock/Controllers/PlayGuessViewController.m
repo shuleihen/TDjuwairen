@@ -15,6 +15,7 @@
 #import "StockManager.h"
 #import "NSString+Util.h"
 #import "YXCheckBox.h"
+#import "PlayStockHnadler.h"
 
 @interface PlayGuessViewController ()<UITextFieldDelegate, StockManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
@@ -69,30 +70,16 @@
     [self checkDoneEnable];
 }
 
-- (void)initValue {
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    
+- (void)initValue {    
     __weak PlayGuessViewController *wself = self;
-    [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(_season)} completion:^(id data, NSError *error) {
-        if (!error) {
-            NSDictionary *dict = data;
-            
-            NSNumber *guess_endtime = dict[@"guess_endtime"];
-            NSDate* date = [NSDate dateWithTimeIntervalSinceNow:0];
-            NSTimeInterval nowDate = [date timeIntervalSince1970];
-            NSInteger  regiTime = [guess_endtime integerValue] - nowDate;
-            
-            /*
-            NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-            formatter.dateFormat = @"yyyy-MM-dd";
-            wself.guess_date = [formatter stringFromDate:date];
-            */
-            wself.label_NowTime.text = [NSString stringWithFormat:@"%@",(self.season == 1)?@"上午场":@"下午场"];
-            
-            [wself startWithTime:regiTime block:^(NSString *day) {
-                wself.label_CountDown.text = day;
-            }];
-        }
+
+    NSTimeInterval nowDate = [[NSDate new] timeIntervalSince1970];
+    NSInteger  regiTime = self.endtime - nowDate;
+    
+    wself.label_NowTime.text = [PlayStockHnadler seasonString:self.season];
+    
+    [wself startWithTime:regiTime block:^(NSString *day) {
+        wself.label_CountDown.text = day;
     }];
     
     [_inputView addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];

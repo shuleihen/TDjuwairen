@@ -36,6 +36,8 @@
 #import "ViewpointDetailViewController.h"
 #import "NSString+Util.h"
 #import "CBAutoScrollLabel.h"
+#import "PlayStockDetailViewController.h"
+#import "PlayStockHnadler.h"
 
 
 @interface PSIndividualListViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
@@ -97,7 +99,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#F5A91B"];
         _segmentControl.sectionTitles = @[@"全部",@"我参与的"];
-        self.segmentControl.frame = CGRectMake(0, 0, 135, 41);
+        self.segmentControl.frame = CGRectMake(0, 0, 135, 33);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -141,7 +143,6 @@
     [self setupTableView];
     
     [self loadGuessUserInfo];
-    [self loadGuessMessage];
     [self reloadGuessListData];
     
     [self addNotifi];
@@ -223,29 +224,18 @@
         return;
     }
     
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(self.seasonIndex)} completion:^(id data, NSError *error) {
-        if (!error) {
-            NSDictionary *dict = data;
-            
-            if (dict[@"guess_status"]) {
-                // [dict[@"guess_status"] boolValue] == NO
-                [self.view makeToast:@"已封盘" duration:0.8 position:CSToastPositionCenter];
-            }else {
-                
-                PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-                vc.season = self.seasonIndex;
-                vc.isJoin = NO;
-                vc.delegate = self;
-                
-                STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-                popupController.navigationBarHidden = YES;
-                popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
-                popupController.style = STPopupStyleBottomSheet;
-                [popupController presentInViewController:self];
-                
-            }
-        }
+    [self checkIndividualGuessEndTimeWithBlock:^(NSInteger season, NSInteger endTime){
+        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        vc.season = season;
+        vc.endtime = endTime;
+        vc.isJoin = NO;
+        vc.delegate = self;
+        
+        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.navigationBarHidden = YES;
+        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+        popupController.style = STPopupStyleBottomSheet;
+        [popupController presentInViewController:self];
     }];
 }
 
@@ -270,16 +260,10 @@
 
 - (void)timerFire:(id)timer {
     
-    PSIndividualGuessModel *guessInfo = self.guessModel;
-    if (guessInfo) {
-        NSDate *now = [NSDate new];
-        
-        NSDateFormatter*dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM-dd EE"];
-        [dateFormatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
-        NSString *time = [dateFormatter stringFromDate:now];
-        NSString *season = ([guessInfo.guess_season integerValue]==0)?@"上午场":@"下午场";
-        NSString *remaining = [NSString intervalNowDateWithDateInterval:guessInfo.guess_endTime];
+    if (self.guessModel) {
+        NSString *time = self.guessModel.guess_date;
+        NSString *season = [PlayStockHnadler seasonString:self.guessModel.guess_season];
+        NSString *remaining = [NSString intervalNowDateWithDateInterval:self.guessModel.guess_endTime];
         
         self.timeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",time,season,remaining];
     }
@@ -293,29 +277,27 @@
     __weak PSIndividualListViewController *wself = self;
     [ma GET:API_GetGuessIndividual parameters:nil completion:^(id data, NSError *error) {
         if (!error) {
-            wself.guessModel = [[PSIndividualGuessModel alloc] initWithDictionary:data];
-            
-            [wself.keyNum setTitle:[NSString stringWithFormat:@"%@",wself.guessModel.user_keynum] forState:UIControlStateNormal];
-            
-            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",wself.guessModel.guess_comment_count] forState:UIControlStateNormal];
-            
-            [wself timerFire:wself.timer];
+            PSIndividualGuessModel *model = [[PSIndividualGuessModel alloc] initWithDictionary:data];
+            [wself reloadViewWithIndividaulModel:model];
         }
     }];
 }
 
-- (void)loadGuessMessage {
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    __weak PSIndividualListViewController *wself = self;
-    [ma GET:API_GetGuessMessage parameters:nil completion:^(id data, NSError *error) {
-        if (!error) {
-            NSString *mesage = [data componentsJoinedByString:@"   "];
-            wself.messageLabel.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101114"];
-            wself.messageLabel.text = mesage;
-            wself.messageLabel.font = [UIFont systemFontOfSize:12.0f];
-            wself.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
-        }
-    }];
+
+- (void)reloadViewWithIndividaulModel:(PSIndividualGuessModel *)model {
+    self.guessModel = model;
+    
+    [self.keyNum setTitle:[NSString stringWithFormat:@"%@",self.guessModel.user_keynum] forState:UIControlStateNormal];
+    
+    [self.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",self.guessModel.guess_comment_count] forState:UIControlStateNormal];
+    
+    NSString *mesage = [model.guess_message componentsJoinedByString:@"   "];
+    self.messageLabel.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101114"];
+    self.messageLabel.text = mesage;
+    self.messageLabel.font = [UIFont systemFontOfSize:12.0f];
+    self.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
+    
+    [self timerFire:self.timer];
 }
 
 - (void)refreshData {
@@ -448,6 +430,34 @@
     }
 }
 
+#pragma mark - CheckGuessEndTime
+- (void)checkIndividualGuessEndTimeWithBlock:(void (^)(NSInteger season, NSInteger endTime))block {
+    
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    [self.view addSubview:hud];
+    
+    hud.hidesWhenStopped = YES;
+    [hud startAnimating];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_GetGuessIndividualEndtime parameters:@{@"season":@(self.seasonIndex)} completion:^(id data, NSError *error) {
+        
+        [hud stopAnimating];
+        
+        if (!error) {
+            NSDictionary *dict = data;
+            
+            if (dict[@"guess_status"]) {
+                [self.view makeToast:@"已封盘" duration:0.8 position:CSToastPositionCenter];
+            }else {
+                NSInteger season = [dict[@"guess_season"] integerValue];
+                NSInteger endTime = [dict[@"guess_endtime"] integerValue];
+                block(season,endTime);
+            }
+        }
+    }];
+}
 
 #pragma mark - PlayGuessViewControllerDelegate
 - (void)addGuessWithStockCode:(NSString *)stockCode pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin isForward:(BOOL)isForward
@@ -517,20 +527,23 @@
 #pragma mark - PlayIndividualContentCellDelegate
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender {
-    PSIndividualListModel *model = cell.model;
-    StockInfo *sInfo = [self.stockDict objectForKey:model.stockId];
-    
-    PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
-    vc.season = [model.guess_season integerValue];
-    vc.isJoin = YES;
-    vc.delegate = self;
-    
-    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
-    popupController.navigationBarHidden = YES;
-    popupController.style = STPopupStyleBottomSheet;
-    [popupController presentInViewController:self];
-    
-    [vc setupDefaultStock:sInfo withStockCode:model.stockCode];
+    [self checkIndividualGuessEndTimeWithBlock:^(NSInteger season, NSInteger endTime){
+        PSIndividualListModel *model = cell.model;
+        StockInfo *sInfo = [self.stockDict objectForKey:model.stockId];
+        
+        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        vc.season = season;
+        vc.endtime = endTime;
+        vc.isJoin = YES;
+        vc.delegate = self;
+        
+        STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+        popupController.navigationBarHidden = YES;
+        popupController.style = STPopupStyleBottomSheet;
+        [popupController presentInViewController:self];
+        
+        [vc setupDefaultStock:sInfo withStockCode:model.stockCode];
+    }];
 }
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell enjoyListPressed:(id)sender {
@@ -550,7 +563,7 @@
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell surveyPressed:(id)sender {
     PSIndividualListModel *model = cell.model;
-    
+    /*
     NSString *article_id = model.artile_info[@"article_id"];
     NSInteger article_type = [model.artile_info[@"article_type"] integerValue];
     
@@ -582,6 +595,7 @@
     }else{
 
     }
+     */
 }
 
 
@@ -610,11 +624,11 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 41.0f;
+    return 33.0f;
 }
 
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 41)];
+    UIView *header = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 33)];
     header.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#141519"];
     
     [header addSubview:self.segmentControl];
@@ -625,5 +639,11 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
 
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    PSIndividualListModel *model = self.items[indexPath.row];
+    
+    PlayStockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockDetailViewController"];
+    vc.guessId = model.guessId;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end

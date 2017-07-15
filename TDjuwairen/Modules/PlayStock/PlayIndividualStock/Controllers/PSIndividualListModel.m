@@ -7,10 +7,9 @@
 //
 
 #import "PSIndividualListModel.h"
+#import "PSIndividualArticleModel.h"
 
 @implementation PSIndividualListModel
-
-
 
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
@@ -24,9 +23,18 @@
         self.guess_item_num = [dict[@"guess_item_num"] integerValue];
         self.has_join = [dict[@"has_join"] boolValue];
         self.winner_list = dict[@"winner_list"];
-        self.artile_info = dict[@"artile_info"];
         self.stockId = dict[@"stock"];
         self.isReward = [dict[@"is_backstart"] boolValue];
+        
+        id articleList = dict[@"article_info"];
+        if ([articleList isKindOfClass:[NSArray class]]) {
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:[articleList count]];
+            for (NSDictionary *d in articleList) {
+                PSIndividualArticleModel *model = [[PSIndividualArticleModel alloc] initWithDictionary:d];
+                [array addObject:model];
+            }
+            self.artile_list = array;
+        }
     }
     
     return self;

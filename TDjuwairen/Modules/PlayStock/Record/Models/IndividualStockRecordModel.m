@@ -25,12 +25,6 @@
         self.winKeyNum = [dict[@"guess_win_keynum"] integerValue];
         self.winnerNum = [dict[@"guess_winner_count"] integerValue];
         self.extraKeyNum = [dict[@"guess_extra_keynum"] integerValue];
-        
-        if (self.season == 1) {
-            self.seasonString = @"上午场";
-        } else if (self.season == 2) {
-            self.seasonString = @"下午场";
-        }
     }
     return self;
 }

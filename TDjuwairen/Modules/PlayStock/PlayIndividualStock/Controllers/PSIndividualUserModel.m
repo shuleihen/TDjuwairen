@@ -1,15 +1,15 @@
 //
-//  PlayIndividualUserModel.m
+//  PSIndividualUserModel.m
 //  TDjuwairen
 //
 //  Created by ZYP-MAC on 17/3/31.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "PlayIndividualUserModel.h"
-#import "PlayIndividualUserListModel.h"
+#import "PSIndividualUserModel.h"
+#import "PSIndividualUserListModel.h"
 
-@implementation PlayIndividualUserModel
+@implementation PSIndividualUserModel
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
         self.guess_end_price = [NSString stringWithFormat:@"%@",dict[@"guess_end_price"]];
@@ -39,7 +39,7 @@
         NSArray *arr = dict[@"guess_users"];
         NSMutableArray *arrM = [NSMutableArray array];
         [arr enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-            PlayIndividualUserListModel *model = [[PlayIndividualUserListModel alloc] initWithDictionary:obj];
+            PSIndividualUserListModel *model = [[PSIndividualUserListModel alloc] initWithDictionary:obj];
             model.showItemPoints = showItemPoint;
             [arrM addObject:model];
         }];

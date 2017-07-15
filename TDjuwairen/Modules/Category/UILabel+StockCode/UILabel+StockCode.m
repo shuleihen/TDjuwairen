@@ -1,0 +1,55 @@
+//
+//  UILabel+StockCode.m
+//  TDjuwairen
+//
+//  Created by zdy on 2017/7/14.
+//  Copyright © 2017年 团大网络科技. All rights reserved.
+//
+
+#import "UILabel+StockCode.h"
+
+@implementation UILabel (StockCode)
+
+- (void)setupForGuessDetailStockInfo:(StockInfo *)stock {
+    [self setupStockInfo:stock
+             withMaxFont:20
+                 minFont:12
+             normalColor:[UIColor hx_colorWithHexRGBAString:@"#666666"]
+                 upColor:[UIColor hx_colorWithHexRGBAString:@"#ff0000"]
+               downColor:[UIColor hx_colorWithHexRGBAString:@"#14C76A"]];
+}
+
+- (void)setupStockInfo:(StockInfo *)stock
+           withMaxFont:(CGFloat)maxFont
+               minFont:(CGFloat)minFont
+           normalColor:(UIColor *)normalColor
+               upColor:(UIColor *)upColor
+             downColor:(UIColor *)downColor {
+    if (![stock enabled]) {
+        self.font = [UIFont systemFontOfSize:14.0f];
+        self.textColor = normalColor;
+        self.text = @"--";
+    } else {
+        float value = [stock priValue];            //跌涨额
+        float valueB = [stock priPercentValue];     //跌涨百分比
+        NSString *nowPriString = [NSString stringWithFormat:@"%.2lf",stock.nowPriValue];
+        
+        NSString *string = [NSString stringWithFormat:@"%@  %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+        
+        UIFont *font1 = [UIFont systemFontOfSize:maxFont];
+        UIFont *font2 = [UIFont systemFontOfSize:minFont];
+        
+        [attr setAttributes:@{NSFontAttributeName:font1} range:NSMakeRange(0, nowPriString.length)];
+        [attr setAttributes:@{NSFontAttributeName:font2} range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
+        
+        if (value >= 0.00) {
+            self.textColor = upColor;
+        } else {
+            self.textColor = downColor;
+        }
+        self.attributedText = attr;
+    }
+}
+
+@end

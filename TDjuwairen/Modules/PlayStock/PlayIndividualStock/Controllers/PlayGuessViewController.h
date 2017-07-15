@@ -19,7 +19,7 @@
 
 @property (nonatomic, assign) BOOL isJoin;
 @property (nonatomic, assign) NSInteger season;
-
+@property (nonatomic, assign) NSInteger endtime;
 
 - (void)setupDefaultStock:(StockInfo *)stockInfo withStockCode:(NSString *)stockCode;
 @end

@@ -1,5 +1,5 @@
 //
-//  PlayIndividualUserModel.h
+//  PSIndividualUserModel.h
 //  TDjuwairen
 //
 //  Created by ZYP-MAC on 17/3/31.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PlayIndividualUserModel : NSObject
+@interface PSIndividualUserModel : NSObject
 /// 收盘价格
 @property (copy, nonatomic) NSString *guess_end_price;
 /// 竞猜股票代码

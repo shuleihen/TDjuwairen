@@ -24,8 +24,6 @@
 @property (nonatomic, copy) NSString *stockName;
 /// 指数竞猜 竞猜状态， 0表示未结算，1表示完全猜中，2表示获胜钥匙，3表示失败 4表示平局
 @property (nonatomic, assign) NSInteger status;
-//@property (nonatomic, copy) NSString *statusString;
-@property (nonatomic, copy) NSString *seasonString;
 
 
 - (id)initWithDict:(NSDictionary *)dict;

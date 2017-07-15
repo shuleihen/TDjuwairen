@@ -24,14 +24,7 @@
         self.odds = [dict[@"item_odds"] intValue];
         self.stockName = dict[@"guess_name"];
         self.status = [dict[@"guess_status"] integerValue];
-//        self.statusString = dict[@"guess_reword"];
         self.guessDate = dict[@"guess_date"];
-        
-        if (self.season == 1) {
-            self.seasonString = @"上午场";
-        } else if (self.season == 2) {
-            self.seasonString = @"下午场";
-        }
     }
     return self;
 }

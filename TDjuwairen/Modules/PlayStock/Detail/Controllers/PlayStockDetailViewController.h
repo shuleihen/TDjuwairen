@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface PlayStockDetailViewController : UIViewController
-//- (id)initWith
+@property (nonatomic, strong) NSString *guessId;
+
 @end

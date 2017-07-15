@@ -8,7 +8,7 @@
 
 #import "MyGuessCell.h"
 #import "HexColors.h"
-
+#import "PlayStockHnadler.h"
 
 @implementation MyGuessCell
 
@@ -26,7 +26,7 @@
 }
 
 - (void)setupIndexGuessModel:(IndexStockRecordModel *)guess {
-    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, guess.seasonString];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, [PlayStockHnadler seasonString:guess.season]];
     
     switch (guess.status) {
         case 0:
@@ -61,7 +61,7 @@
     self.guessNameLabel.text = guess.stockName;
     
     if (guess.isWin) {
-        NSString *winString = [NSString stringWithFormat:@"获得%d把", guess.buyKeyNum*guess.odds];
+        NSString *winString = [NSString stringWithFormat:@"获得%ld把", guess.buyKeyNum*guess.odds];
         CGSize size = [winString boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13.0f]} context:nil].size;
         self.winkeyViewHeight.constant = size.width+30+6;
         self.winKeyView.statusString = winString;
@@ -74,7 +74,7 @@
 }
 
 - (void)setupIndividualGuessModel:(IndividualStockRecordModel *)guess {
-    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, guess.seasonString];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, [PlayStockHnadler seasonString:guess.season]];
     
     switch (guess.status) {
         case 0:
@@ -109,7 +109,7 @@
     self.guessNameLabel.text = [NSString stringWithFormat:@"%@(%@)",guess.stockName, guess.stockCode];
     
     if (guess.isWin) {
-        NSString *winString = [NSString stringWithFormat:@"获得%d把", (guess.winKeyNum+guess.extraKeyNum)];
+        NSString *winString = [NSString stringWithFormat:@"获得%ld把", (guess.winKeyNum+guess.extraKeyNum)];
         CGSize size = [winString boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13.0f]} context:nil].size;
         self.winkeyViewHeight.constant = size.width+30+6;
         self.winKeyView.statusString = winString;

@@ -10,13 +10,15 @@
 
 @interface PSIndividualGuessModel : NSObject
 
-@property (nonatomic, strong) NSNumber *guess_season;
+@property (nonatomic, assign) NSInteger guess_season;
 @property (nonatomic, strong) NSNumber *guess_comment_count;
 @property (nonatomic, copy) NSString *userinfo_facemin;
 @property (nonatomic, copy) NSString *user_nickname;
 @property (nonatomic, copy) NSString *guess_date;
 @property (nonatomic, assign) long long guess_endTime;
 @property (nonatomic, strong) NSNumber *user_keynum;
+@property (nonatomic, strong) NSArray *guess_message;
+@property (nonatomic, assign) NSInteger next_day;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

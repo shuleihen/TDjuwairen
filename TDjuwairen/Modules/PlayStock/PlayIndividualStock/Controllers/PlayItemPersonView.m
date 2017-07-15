@@ -38,7 +38,7 @@
 }
 
 
-- (void)setUserModel:(PlayIndividualUserListModel *)userModel {
+- (void)setUserModel:(PSIndividualUserListModel *)userModel {
     _userModel = userModel;
     [self.icon sd_setImageWithURL:[NSURL URLWithString:userModel.userinfo_facemin] placeholderImage:TDDefaultUserAvatar];
     self.vipIcon.hidden = !userModel.is_winner;

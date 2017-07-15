@@ -792,7 +792,7 @@
         <!--Play Stock Detail View Controller-->
         <scene sceneID="K2R-gL-rqH">
             <objects>
-                <viewController id="Peo-Pe-kJ6" customClass="PlayStockDetailViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PlayStockDetailViewController" id="Peo-Pe-kJ6" customClass="PlayStockDetailViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="RAw-w8-x8y"/>
                         <viewControllerLayoutGuide type="bottom" id="WwX-Lz-YXX"/>
@@ -809,8 +809,8 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="万润股份(002643)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oOh-C4-EjJ">
-                                            <rect key="frame" x="17" y="24" width="134.5" height="19.5"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <rect key="frame" x="17" y="24" width="137" height="19.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="16"/>
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
@@ -868,10 +868,11 @@
                                                 <constraint firstAttribute="width" constant="80" id="5do-g8-g5N"/>
                                                 <constraint firstAttribute="height" constant="33" id="nkf-8L-0bZ"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                            <state key="normal" title="未获胜">
-                                                <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
+                                            <state key="normal" title="参加竞猜">
+                                                <color key="titleColor" red="0.24313725490196078" green="0.062745098039215685" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
+                                            <state key="disabled" title="未获胜"/>
                                         </button>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ife-py-lnU">
                                             <rect key="frame" x="294.5" y="35" width="60.5" height="30"/>
@@ -908,6 +909,13 @@ Cg
                                             <color key="textColor" red="0.96078431372549022" green="0.66274509803921566" blue="0.10588235294117647" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_reward" translatesAutoresizingMaskIntoConstraints="NO" id="gMg-mk-Un8">
+                                            <rect key="frame" x="166" y="24" width="30" height="19"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="19" id="a9r-No-YfB"/>
+                                                <constraint firstAttribute="width" constant="30" id="g8C-Xl-YPO"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -919,7 +927,9 @@ Cg
                                         <constraint firstItem="9CD-fU-uzN" firstAttribute="top" secondItem="7Zc-di-rTf" secondAttribute="bottom" constant="20" id="ArZ-vQ-k4c"/>
                                         <constraint firstAttribute="trailing" secondItem="ife-py-lnU" secondAttribute="trailing" constant="20" id="Iuz-6T-XSH"/>
                                         <constraint firstItem="oOh-C4-EjJ" firstAttribute="top" secondItem="QmF-0X-Yql" secondAttribute="top" constant="24" id="KAS-i4-hFW"/>
+                                        <constraint firstItem="gMg-mk-Un8" firstAttribute="leading" secondItem="oOh-C4-EjJ" secondAttribute="trailing" constant="12" id="NQi-KS-qcp"/>
                                         <constraint firstItem="ife-py-lnU" firstAttribute="top" secondItem="QmF-0X-Yql" secondAttribute="top" constant="35" id="RCq-v5-W9U"/>
+                                        <constraint firstItem="gMg-mk-Un8" firstAttribute="top" secondItem="oOh-C4-EjJ" secondAttribute="top" id="Rjk-r3-66s"/>
                                         <constraint firstItem="7Zc-di-rTf" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" constant="17" id="TTR-Iu-zTX"/>
                                         <constraint firstItem="7Zc-di-rTf" firstAttribute="top" secondItem="oOh-C4-EjJ" secondAttribute="bottom" constant="15" id="VFE-cv-urW"/>
                                         <constraint firstItem="cKZ-vK-3K6" firstAttribute="top" secondItem="9CD-fU-uzN" secondAttribute="bottom" constant="16" id="Y0k-Rk-yFG"/>
@@ -948,6 +958,7 @@ Cg
                         <outlet property="joinBtn" destination="Mgq-r2-MvE" id="i0P-d8-qLi"/>
                         <outlet property="joinLabel" destination="cKZ-vK-3K6" id="BFO-v4-uDM"/>
                         <outlet property="orderLabel" destination="njf-bu-cVX" id="T5N-Ti-3xw"/>
+                        <outlet property="rewardImageView" destination="gMg-mk-Un8" id="PfW-8Q-A9o"/>
                         <outlet property="sectionLabel" destination="9CD-fU-uzN" id="Nh8-D9-dc9"/>
                         <outlet property="statusLabel" destination="gBS-Uo-MRQ" id="ILa-Ml-4D8"/>
                         <outlet property="stockNameLabel" destination="oOh-C4-EjJ" id="Qhd-o1-j3u"/>
@@ -1168,11 +1179,13 @@ Cg
                                                 <constraint firstAttribute="height" constant="36" id="eWU-bX-alt"/>
                                                 <constraint firstAttribute="width" constant="112" id="ymz-Ef-9bi"/>
                                             </constraints>
-                                            <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="13"/>
                                             <state key="normal" title="发起竞猜" backgroundImage="button_enjoy">
-                                                <color key="titleColor" red="0.1333333333" green="0.1333333333" blue="0.1333333333" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="titleColor" red="0.24313725490196078" green="0.062745098039215685" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                             </state>
-                                            <state key="disabled" backgroundImage="button_notenjoy"/>
+                                            <state key="disabled" backgroundImage="button_notenjoy">
+                                                <color key="titleColor" red="0.76078431372549016" green="0.76078431372549016" blue="0.76078431372549016" alpha="1" colorSpace="calibratedRGB"/>
+                                            </state>
                                             <connections>
                                                 <action selector="startGuessPressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="8BF-hZ-YV9"/>
                                             </connections>
@@ -1258,6 +1271,7 @@ Cg
         <image name="bg_money" width="49" height="27"/>
         <image name="button_enjoy" width="36" height="36"/>
         <image name="button_notenjoy" width="112" height="36"/>
+        <image name="ico_reward" width="30" height="19"/>
         <image name="icon_key_big" width="33" height="39"/>
         <image name="icon_key_small" width="19" height="22"/>
         <image name="slipLine" width="10" height="1"/>

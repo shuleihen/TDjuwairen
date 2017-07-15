@@ -14,8 +14,8 @@
 #import "STPopup.h"
 #import "PlayItemPersonView.h"
 #import "NetworkManager.h"
-#import "PlayIndividualUserListModel.h"
-#import "PlayIndividualUserModel.h"
+#import "PSIndividualUserListModel.h"
+#import "PSIndividualUserModel.h"
 
 @interface PlayEnjoyPeopleViewController ()
 @property (weak, nonatomic) IBOutlet UILabel *label_title;
@@ -72,7 +72,7 @@
     [ma POST:API_GetGuessIndividualUserList parameters:@{@"guess_id":self.guessID} completion:^(id data, NSError *error){
         if (!error && data) {
             
-            PlayIndividualUserModel *userModel = [[PlayIndividualUserModel alloc] initWithDictionary:data];
+            PSIndividualUserModel *userModel = [[PSIndividualUserModel alloc] initWithDictionary:data];
             self.label_title.text = [NSString stringWithFormat:@"%@(%@)",userModel.guess_stock_name,userModel.guess_stock];
             self.label_join.text = userModel.guess_item_count;
             self.label_price.text = userModel.guess_avg_points;
