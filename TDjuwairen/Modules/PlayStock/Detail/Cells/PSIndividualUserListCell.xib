@@ -64,11 +64,34 @@
                             <constraint firstAttribute="width" constant="100" id="DGJ-8M-0gy"/>
                         </constraints>
                     </view>
+                    <button hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" adjustsImageWhenDisabled="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="VAg-bl-SRb" customClass="BorderButton">
+                        <rect key="frame" x="134.5" y="15.5" width="26" height="15"/>
+                        <color key="backgroundColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="15" id="D7O-qg-4hJ"/>
+                            <constraint firstAttribute="width" constant="26" id="UUe-sy-c76"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="9"/>
+                        <state key="normal" title="发起"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="2"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="VAg-bl-SRb" firstAttribute="leading" secondItem="y5c-TA-lIm" secondAttribute="trailing" constant="6" id="0Dv-cp-kkn"/>
                     <constraint firstItem="GgK-JR-X3j" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="69X-GJ-Ie3"/>
                     <constraint firstItem="1iv-oA-HNK" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="15" id="Dwt-jD-cH0"/>
                     <constraint firstItem="g8J-xB-kxo" firstAttribute="leading" secondItem="GgK-JR-X3j" secondAttribute="trailing" constant="10" id="Ji9-vW-mfb"/>
+                    <constraint firstItem="VAg-bl-SRb" firstAttribute="centerY" secondItem="y5c-TA-lIm" secondAttribute="centerY" id="Npa-5c-soJ"/>
                     <constraint firstItem="y5c-TA-lIm" firstAttribute="top" secondItem="Rpe-Wc-JTF" secondAttribute="top" id="OPI-MK-etr"/>
                     <constraint firstItem="ZJi-Zt-1zD" firstAttribute="top" secondItem="Rpe-Wc-JTF" secondAttribute="top" constant="-12" id="WKg-Dv-LzL"/>
                     <constraint firstAttribute="trailing" secondItem="g8J-xB-kxo" secondAttribute="trailing" constant="12" id="WQ8-Si-lOS"/>
@@ -87,6 +110,7 @@
                 <outlet property="nickNameLabel" destination="y5c-TA-lIm" id="dEf-pZ-POB"/>
                 <outlet property="pointLabel" destination="g8J-xB-kxo" id="O0Q-An-Ofh"/>
                 <outlet property="rateLabel" destination="1iv-oA-HNK" id="onf-D6-dKq"/>
+                <outlet property="startBtn" destination="VAg-bl-SRb" id="nYD-bI-sSR"/>
                 <outlet property="timeLabel" destination="fOS-PV-fOI" id="Tcs-Wp-rOd"/>
                 <outlet property="winImageView" destination="ZJi-Zt-1zD" id="AOy-XN-FM7"/>
                 <outlet property="winKeyView" destination="GgK-JR-X3j" id="ZL3-yx-JR5"/>

@@ -4428,6 +4428,14 @@
 			path = Handler;
 			sourceTree = "<group>";
 		};
+		19F07A091F1B095C004449BB /* BorderView */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = BorderView;
+			path = TDjuwairen/Tools/BorderView;
+			sourceTree = SOURCE_ROOT;
+		};
 		19F43C221E232C98001B72CD /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -4756,6 +4764,7 @@
 				19959B951E2CA11900AB26DF /* HCSStarRatingView */,
 				19AF98161E24A7880097A585 /* LocationPicker */,
 				19BA912D1E14DECA00C27124 /* PAStepper */,
+				19F07A091F1B095C004449BB /* BorderView */,
 				19E5F26B1E12614200984DBC /* BorderButton */,
 				19DFE22C1E10EBAE00CC3C3F /* BVUnderlineButton */,
 				19DFE2281E10E3C300CC3C3F /* TTTAttributedLabel */,

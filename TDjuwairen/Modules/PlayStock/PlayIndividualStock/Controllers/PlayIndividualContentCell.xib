@@ -129,7 +129,7 @@
                 <outlet property="label_title" destination="LLi-YL-wne" id="Ks0-tg-PhZ"/>
                 <outlet property="rewardView" destination="52C-rW-bdQ" id="S8C-wZ-q3S"/>
             </connections>
-            <point key="canvasLocation" x="-2806" y="-163"/>
+            <point key="canvasLocation" x="-3059" y="-163"/>
         </tableViewCell>
     </objects>
     <resources>

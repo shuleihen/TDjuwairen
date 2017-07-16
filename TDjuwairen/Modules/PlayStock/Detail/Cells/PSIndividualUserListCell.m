@@ -29,6 +29,8 @@
     self.timeLabel.text = model.addTime;
     self.pointLabel.text = [NSString stringWithFormat:@"%.02f",model.item_points.floatValue];
     
+    self.startBtn.hidden = !model.isStarter;
+    
     if (model.is_winner) {
         NSString *winString = [NSString stringWithFormat:@"获得%ld把", (long)model.winKeyNum];
         CGSize size = [winString boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:13.0f]} context:nil].size;

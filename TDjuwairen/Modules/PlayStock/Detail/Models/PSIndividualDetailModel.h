@@ -26,6 +26,7 @@
 @property (nonatomic, strong) NSNumber *endPrice;
 @property (nonatomic, assign) long long endTime;
 @property (nonatomic, strong) NSArray *joinList;
+@property (nonatomic, assign) NSInteger extra_keyNum;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 - (NSString *)statusString;

@@ -12,16 +12,16 @@
 
 - (void)setupForGuessDetailStockInfo:(StockInfo *)stock {
     [self setupStockInfo:stock
-             withMaxFont:20
-                 minFont:12
+             withMaxFont:[UIFont systemFontOfSize:20 weight:UIFontWeightMedium]
+                 minFont:[UIFont systemFontOfSize:12.0f]
              normalColor:[UIColor hx_colorWithHexRGBAString:@"#666666"]
                  upColor:[UIColor hx_colorWithHexRGBAString:@"#ff0000"]
                downColor:[UIColor hx_colorWithHexRGBAString:@"#14C76A"]];
 }
 
 - (void)setupStockInfo:(StockInfo *)stock
-           withMaxFont:(CGFloat)maxFont
-               minFont:(CGFloat)minFont
+           withMaxFont:(UIFont *)maxFont
+               minFont:(UIFont *)minFont
            normalColor:(UIColor *)normalColor
                upColor:(UIColor *)upColor
              downColor:(UIColor *)downColor {
@@ -37,11 +37,9 @@
         NSString *string = [NSString stringWithFormat:@"%@  %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
         
-        UIFont *font1 = [UIFont systemFontOfSize:maxFont];
-        UIFont *font2 = [UIFont systemFontOfSize:minFont];
         
-        [attr setAttributes:@{NSFontAttributeName:font1} range:NSMakeRange(0, nowPriString.length)];
-        [attr setAttributes:@{NSFontAttributeName:font2} range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
+        [attr setAttributes:@{NSFontAttributeName:maxFont} range:NSMakeRange(0, nowPriString.length)];
+        [attr setAttributes:@{NSFontAttributeName:minFont} range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
         
         if (value >= 0.00) {
             self.textColor = upColor;

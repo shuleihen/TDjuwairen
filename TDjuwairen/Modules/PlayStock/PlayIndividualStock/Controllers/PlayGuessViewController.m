@@ -229,9 +229,15 @@
 
 
 - (IBAction)determineClick:(id)sender {
+    NSString *stockCode = @"";
+    if (self.isJoin) {
+        stockCode = self.stockCode;
+    } else {
+        stockCode = self.inputView.text;
+    }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:isForward:)]) {
-        [self.delegate addGuessWithStockCode:_inputView.text pri:self.stepper.value season:self.season isJoin:self.isJoin isForward:self.forwardBtn.checked];
+        [self.delegate addGuessWithStockCode:stockCode pri:self.stepper.value season:self.season isJoin:self.isJoin isForward:self.forwardBtn.checked];
     }
     
     [self.popupController dismiss];

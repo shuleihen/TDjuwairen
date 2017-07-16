@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MGCellWinKeyView.h"
 #import "PSIndividualUserListModel.h"
+#import "BorderButton.h"
 
 @interface PSIndividualUserListCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *rateLabel;
@@ -19,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *pointLabel;
 @property (weak, nonatomic) IBOutlet MGCellWinKeyView *winKeyView;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *winkeyViewHeight;
+@property (weak, nonatomic) IBOutlet BorderButton *startBtn;
 
 - (void)setupUserModel:(PSIndividualUserListModel *)model;
 @end

@@ -20,11 +20,12 @@
         self.season = [dict[@"guess_season"] integerValue];
         self.guessKeyNum = [dict[@"guess_keynum"] integerValue];
         self.rewardKeyNum = [dict[@"guess_key_num"] integerValue];
-        self.joinNum = [dict[@"guess_item_num"] integerValue];
+        self.joinNum = [dict[@"guess_item_count"] integerValue];
         self.isClosed = [dict[@"guess_isclose"] boolValue];
         self.isReward = [dict[@"is_backstart"] boolValue];
         self.endTime = [dict[@"guess_endtime"] longLongValue];
         self.rate = [dict[@"login_user_rate"] integerValue];
+        self.extra_keyNum = [dict[@"guess_extra_res"] integerValue];
         
         id userList = dict[@"guess_users"];
         if ([userList isKindOfClass:[NSArray class]]) {
@@ -48,10 +49,10 @@
             string = @"进行中";
             break;
         case kPSGuessStop:
-            string = @"封盘";
+            string = @"已结束";
             break;
         case kPSGuessFinish:
-            string = @"收盘";
+            string = @"已结束";
             break;
         default:
             break;
