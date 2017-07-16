@@ -19,6 +19,7 @@
 // true表示竞猜的价格比当天开盘价高
 @property (assign, nonatomic) BOOL is_up;
 
+// 逻辑字段
 @property (assign, nonatomic) BOOL showItemPoints;
 
 @property (nonatomic, assign) NSInteger rank;

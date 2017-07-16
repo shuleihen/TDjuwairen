@@ -27,7 +27,12 @@
     self.rateLabel.text = [NSString stringWithFormat:@"%ld",(long)model.rank];
     self.nickNameLabel.text = model.user_nickname;
     self.timeLabel.text = model.addTime;
-    self.pointLabel.text = [NSString stringWithFormat:@"%.02f",model.item_points.floatValue];
+    
+    if (model.showItemPoints) {
+        self.pointLabel.text = [NSString stringWithFormat:@"%.02f",model.item_points.floatValue];
+    } else {
+        self.pointLabel.text = @"--";
+    }
     
     self.startBtn.hidden = !model.isStarter;
     

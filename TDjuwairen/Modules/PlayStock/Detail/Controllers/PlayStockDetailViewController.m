@@ -38,12 +38,17 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) NSArray *userList;
 @property (nonatomic, strong) StockInfo *stockInfo;
- 
+@property (nonatomic, strong) NSTimer *timer;
 @end
 
 @implementation PlayStockDetailViewController
 
 - (void)dealloc {
+    if (self.timer) {
+        [self.timer invalidate];
+        self.timer = nil;
+    }
+    
     [self.stockManager stopThread];
 }
 
@@ -111,15 +116,16 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     NSString *season = [PlayStockHnadler seasonString:mode.season];
     self.sectionLabel.text = [NSString stringWithFormat:@"竞猜场次：%@",season];
     self.joinLabel.text = [NSString stringWithFormat:@"参与人数：%ld",(long)mode.joinNum];
-    self.statusLabel.text = [NSString stringWithFormat:@"状   态：%@",[mode statusString]];
     
     
     if (mode.status == kPSGuessExecuting) {
         self.endPriceLabel.text = @"收盘价：--";
-        self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#152F00"];
+        self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFire:) userInfo:nil repeats:YES];
+        [self timerFire:self.timer];
     } else {
         self.endPriceLabel.text = [NSString stringWithFormat:@"收盘价：%.02f",mode.endPrice.floatValue];
         self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
+        self.statusLabel.text = [NSString stringWithFormat:@"状   态：%@",[mode statusString]];
     }
     
     // 最佳排名
@@ -189,6 +195,17 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     self.userList = mode.joinList;
     self.tableView.tableFooterView.hidden = mode.joinList.count;
     [self.tableView reloadData];
+}
+
+- (void)timerFire:(NSTimer *)timer {
+    if (self.individualModel) {
+        NSString *remaining = [NSString intervalNowDateWithDateInterval:self.individualModel.endTime];
+        NSString *string = [NSString stringWithFormat:@"状   态：竞猜中...(%@)", remaining];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#666666"]} range:NSMakeRange(0, 6)];
+        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#3371E2"]} range:NSMakeRange(6, string.length-6)];
+        self.statusLabel.attributedText = attr;
+    }
 }
 
 - (void)sharePressed:(id)sender {

@@ -32,6 +32,7 @@
             NSMutableArray *array = [NSMutableArray arrayWithCapacity:[userList count]];
             for (NSDictionary *d in userList) {
                 PSIndividualUserListModel *model = [[PSIndividualUserListModel alloc] initWithDetailDictionary:d];
+                model.showItemPoints = (self.status != kPSGuessExecuting);
                 [array addObject:model];
             }
             self.joinList = array;

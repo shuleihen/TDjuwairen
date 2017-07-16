@@ -840,10 +840,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="状   态：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBS-Uo-MRQ">
-                                            <rect key="frame" x="151" y="95.5" width="134" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="134" id="H60-RH-YML"/>
-                                            </constraints>
+                                            <rect key="frame" x="151" y="95.5" width="212" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -858,10 +855,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收盘价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szY-BY-pZv">
-                                            <rect key="frame" x="151" y="124.5" width="134" height="16"/>
-                                            <constraints>
-                                                <constraint firstAttribute="width" constant="134" id="9f7-TJ-woK"/>
-                                            </constraints>
+                                            <rect key="frame" x="151" y="124.5" width="212" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -921,6 +915,7 @@
                                         <constraint firstItem="oOh-C4-EjJ" firstAttribute="top" secondItem="QmF-0X-Yql" secondAttribute="top" constant="24" id="KAS-i4-hFW"/>
                                         <constraint firstAttribute="trailing" secondItem="tUJ-ZX-wTF" secondAttribute="trailing" constant="20" id="LJN-iq-3Zf"/>
                                         <constraint firstItem="aya-iX-ObS" firstAttribute="width" secondItem="tUJ-ZX-wTF" secondAttribute="width" id="LcA-zE-kIc"/>
+                                        <constraint firstAttribute="trailing" secondItem="gBS-Uo-MRQ" secondAttribute="trailing" constant="12" id="N2H-GR-xbx"/>
                                         <constraint firstItem="gMg-mk-Un8" firstAttribute="leading" secondItem="oOh-C4-EjJ" secondAttribute="trailing" constant="12" id="NQi-KS-qcp"/>
                                         <constraint firstItem="gMg-mk-Un8" firstAttribute="top" secondItem="oOh-C4-EjJ" secondAttribute="top" id="Rjk-r3-66s"/>
                                         <constraint firstItem="9Zv-KI-glP" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" id="SoT-39-wW2"/>
@@ -934,6 +929,7 @@
                                         <constraint firstAttribute="trailing" secondItem="aya-iX-ObS" secondAttribute="trailing" constant="20" id="ffp-vm-XKa"/>
                                         <constraint firstItem="aya-iX-ObS" firstAttribute="top" secondItem="tUJ-ZX-wTF" secondAttribute="bottom" constant="2" id="g4S-h3-QAC"/>
                                         <constraint firstItem="njf-bu-cVX" firstAttribute="leading" secondItem="KHZ-o6-REK" secondAttribute="trailing" constant="15" id="h8j-c0-brj"/>
+                                        <constraint firstAttribute="trailing" secondItem="szY-BY-pZv" secondAttribute="trailing" constant="12" id="knJ-t6-WJC"/>
                                         <constraint firstItem="oOh-C4-EjJ" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" constant="17" id="knT-oc-UWp"/>
                                         <constraint firstItem="njf-bu-cVX" firstAttribute="baseline" secondItem="KHZ-o6-REK" secondAttribute="baseline" id="mnS-lU-qQJ"/>
                                         <constraint firstAttribute="bottom" secondItem="Mgq-r2-MvE" secondAttribute="bottom" constant="15" id="nJB-wx-sBT"/>
