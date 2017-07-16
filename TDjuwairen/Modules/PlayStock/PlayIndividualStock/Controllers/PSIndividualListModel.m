@@ -15,7 +15,7 @@
     if (self = [super init]) {
         self.stockName = dict[@"guess_company"];
         self.guess_end_price = dict[@"guess_end_price"];
-        self.guess_status = dict[@"guess_status"];
+        self.status = [dict[@"guess_status"] integerValue];
         self.guess_season = dict[@"guess_season"];
         self.guess_key_num = dict[@"guess_key_num"];
         self.guessId = dict[@"guess_id"];

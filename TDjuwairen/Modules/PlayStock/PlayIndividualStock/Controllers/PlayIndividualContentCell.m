@@ -96,23 +96,15 @@
 }
 
 - (BOOL)joinButtonEnabled {
-    if (self.model.has_join) {
-        return NO;
-    } else {
-        return ([self.model.guess_status intValue] == 0);
-    }
+    return (self.model.status == kPSGuessExecuting);
 }
 
 - (NSString *)joinButtonTitle {
-    if (self.model.has_join) {
-        return @"已参与";
-    } else {
-        if ([self.model.guess_status isEqual:@0]) {
-            return @"参与竞猜";
-        }else if ([self.model.guess_status isEqual:@1]){
-            return @"已封盘";
-        }return @"已结束";
-    }
+    if (self.model.status == kPSGuessExecuting) {
+        return @"参与竞猜";
+    }else if (self.model.status == kPSGuessStop){
+        return @"已封盘";
+    } else return @"已结束";
 }
 
 @end
