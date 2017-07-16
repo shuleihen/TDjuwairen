@@ -39,4 +39,14 @@
     
     return self;
 }
+
+- (NSArray *)artileTimeArray {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.artile_list.count];
+    for (PSIndividualArticleModel *model in self.artile_list) {
+        NSString *title = [NSString stringWithFormat:@"%@：%@",model.typeString,model.articleTitle];
+        [array addObject:title];
+    }
+    
+    return array;
+}
 @end

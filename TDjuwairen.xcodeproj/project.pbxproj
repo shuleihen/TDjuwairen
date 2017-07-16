@@ -428,6 +428,7 @@
 		19F07A021F19A796004449BB /* PSIndividualUserListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A001F19A796004449BB /* PSIndividualUserListCell.m */; };
 		19F07A031F19A796004449BB /* PSIndividualUserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A011F19A796004449BB /* PSIndividualUserListCell.xib */; };
 		19F07A081F1A2BB7004449BB /* PlayStockHnadler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A071F1A2BB7004449BB /* PlayStockHnadler.m */; };
+		19F07A0D1F1B7BD0004449BB /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -1418,6 +1419,8 @@
 		19F07A051F19E8CA004449BB /* PlayStockDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlayStockDefine.h; sourceTree = "<group>"; };
 		19F07A061F1A2BB7004449BB /* PlayStockHnadler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockHnadler.h; sourceTree = "<group>"; };
 		19F07A071F1A2BB7004449BB /* PlayStockHnadler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockHnadler.m; sourceTree = "<group>"; };
+		19F07A0B1F1B7BD0004449BB /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
+		19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -4436,6 +4439,15 @@
 			path = TDjuwairen/Tools/BorderView;
 			sourceTree = SOURCE_ROOT;
 		};
+		19F07A0A1F1B7BD0004449BB /* SGAdvertScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A0B1F1B7BD0004449BB /* SGAdvertScrollView.h */,
+				19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */,
+			);
+			path = SGAdvertScrollView;
+			sourceTree = "<group>";
+		};
 		19F43C221E232C98001B72CD /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -4747,6 +4759,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19F07A0A1F1B7BD0004449BB /* SGAdvertScrollView */,
 				19ED17561F17759500EC89DF /* CBAutoScrollLabel */,
 				19E58D861EF8C55500ADA1B8 /* ZFPlayer */,
 				19E58D6D1EF3BC6400ADA1B8 /* YXUnread */,
@@ -5410,6 +5423,7 @@
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
 				1987B2901EE688F700BD852E /* StockSurveyModel.m in Sources */,
+				19F07A0D1F1B7BD0004449BB /* SGAdvertScrollView.m in Sources */,
 				19E58DB11EF8C55500ADA1B8 /* ZFBrightnessView.m in Sources */,
 				1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */,
 				1987B2951EE688F700BD852E /* SurveyAnsView.m in Sources */,

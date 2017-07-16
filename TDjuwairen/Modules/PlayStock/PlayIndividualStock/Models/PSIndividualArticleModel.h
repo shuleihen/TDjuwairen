@@ -14,4 +14,5 @@
 @property (nonatomic, assign) NSInteger articleType;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
+- (NSString *)typeString;
 @end

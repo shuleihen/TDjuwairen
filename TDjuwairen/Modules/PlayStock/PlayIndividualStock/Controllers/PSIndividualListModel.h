@@ -25,4 +25,5 @@
 @property (nonatomic, assign) BOOL isReward;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
+- (NSArray *)artileTimeArray;
 @end

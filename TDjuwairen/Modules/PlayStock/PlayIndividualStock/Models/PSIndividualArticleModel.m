@@ -18,4 +18,30 @@
     
     return self;
 }
+
+- (NSString *)typeString {
+    NSString *string = @"";
+    // 表示没有，1表示调研，2表示热点，3表示观点，4表示直播 5表示公告
+    switch (self.articleType) {
+        case 1:
+            string = @"调研";
+            break;
+        case 2:
+            string = @"热点";
+            break;
+        case 3:
+            string = @"观点";
+            break;
+        case 4:
+            string = @"直播";
+            break;
+        case 5:
+            string = @"公告";
+            break;
+        default:
+            break;
+    }
+    
+    return string;
+}
 @end

@@ -15,6 +15,11 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     
+    self.articleView.backgroundColor = [UIColor clearColor];
+    self.articleView.titleColor = [UIColor hx_colorWithHexRGBAString:@"#9F9FA1"];
+    self.articleView.titleFont = [UIFont systemFontOfSize:13.0f];
+    self.articleView.scrollTimeInterval = 5;
+    self.articleView.delegate = self;
 }
 
 - (void)setModel:(PSIndividualListModel *)model {
@@ -29,21 +34,8 @@
     self.label_enjoy.attributedText = attr;
     
     // 文章类型，0表示没有，1表示调研，2表示热点，3表示观点，4表示直播
-    /*
-    NSString *title = @"";
-    if ([model.artile_info[@"article_type"] isEqual:@1]) {
-        title = @"调研：";
-    }else if ([model.artile_info[@"article_type"] isEqual:@2]) {
-        title = @"热点：";
-    }else if ([model.artile_info[@"article_type"] isEqual:@3]) {
-        title = @"观点：";
-    }else if ([model.artile_info[@"article_type"] isEqual:@4]) {
-        title = @"直播：";
-    }else{
-        title = @"";
-    }
-    self.label_detailDesc.text = [title stringByAppendingString:SafeValue(model.artile_info[@"article_title"])];
-    */
+    self.articleView.titles = model.artileTimeArray;
+    
     self.button_guess.enabled = [self joinButtonEnabled];
     [self.button_guess setTitle:[self joinButtonTitle] forState:UIControlStateNormal];
     self.rewardView.hidden = !model.isReward;
@@ -96,10 +88,10 @@
     }
 }
 
-- (IBAction)surveyClick:(id)sender {
-    
-    if ([self.delegate respondsToSelector:@selector(playIndividualCell:surveyPressed:)]) {
-        [self.delegate playIndividualCell:self surveyPressed:sender];
+
+- (void)advertScrollView:(SGAdvertScrollView *)advertScrollView didSelectedItemAtIndex:(NSInteger)index {
+    if ([self.delegate respondsToSelector:@selector(playIndividualCell:articlePressedWithIndex:)]) {
+        [self.delegate playIndividualCell:self articlePressedWithIndex:index];
     }
 }
 

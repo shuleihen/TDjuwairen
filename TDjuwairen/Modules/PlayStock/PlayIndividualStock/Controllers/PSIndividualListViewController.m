@@ -38,6 +38,7 @@
 #import "CBAutoScrollLabel.h"
 #import "PlayStockDetailViewController.h"
 #import "PlayStockHnadler.h"
+#import "PSIndividualArticleModel.h"
 
 
 @interface PSIndividualListViewController ()<UIScrollViewDelegate,PlayGuessViewControllerDelegate, UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, PlayIndividualContentCellDelegate>
@@ -561,11 +562,12 @@
     [popupController presentInViewController:self];
 }
 
-- (void)playIndividualCell:(PlayIndividualContentCell *)cell surveyPressed:(id)sender {
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell articlePressedWithIndex:(NSInteger)index{
     PSIndividualListModel *model = cell.model;
-    /*
-    NSString *article_id = model.artile_info[@"article_id"];
-    NSInteger article_type = [model.artile_info[@"article_type"] integerValue];
+    PSIndividualArticleModel *article = cell.model.artile_list[index];
+
+    NSString *article_id = article.articleId;
+    NSInteger article_type = article.articleType;
     
     if (article_type == 1) {
         // 调研
@@ -588,14 +590,13 @@
     }else if (article_type == 4) {
         // 直播
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.aliveID = model.artile_info[@"article_id"];
+        vc.aliveID = article_id;
         vc.aliveType = kAlivePosts;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-    }else{
-
+    }else if (article_type == 5) {
+        // 公告
     }
-     */
 }
 
 

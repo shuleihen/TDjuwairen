@@ -9,17 +9,18 @@
 #import <UIKit/UIKit.h>
 #import "PSIndividualListModel.h"
 #import "StockManager.h"
+#import "SGAdvertScrollView.h"
 
 @class PlayIndividualContentCell;
 @protocol PlayIndividualContentCellDelegate <NSObject>
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender;
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell enjoyListPressed:(id)sender;
-- (void)playIndividualCell:(PlayIndividualContentCell *)cell surveyPressed:(id)sender;
+- (void)playIndividualCell:(PlayIndividualContentCell *)cell articlePressedWithIndex:(NSInteger)index;
 
 @end
 
-@interface PlayIndividualContentCell : UITableViewCell
+@interface PlayIndividualContentCell : UITableViewCell<SGAdvertScrollViewDelegate>
 @property (nonatomic, weak) IBOutlet UILabel *label_title;
 @property (nonatomic, weak) IBOutlet UILabel *label_left;
 @property (nonatomic, weak) IBOutlet UILabel *label_mid;
@@ -29,6 +30,7 @@
 @property (nonatomic, weak) IBOutlet UILabel *label_money;
 @property (nonatomic, weak) IBOutlet UIButton *button_guess;
 @property (weak, nonatomic) IBOutlet UIImageView *rewardView;
+@property (weak, nonatomic) IBOutlet SGAdvertScrollView *articleView;
 
 
 @property (nonatomic, weak) id<PlayIndividualContentCellDelegate> delegate;
