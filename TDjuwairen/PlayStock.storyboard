@@ -902,6 +902,12 @@
                                             <color key="textColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slipLine" translatesAutoresizingMaskIntoConstraints="NO" id="9Zv-KI-glP">
+                                            <rect key="frame" x="0.0" y="209" width="375" height="1"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="1" id="LZN-hV-xX8"/>
+                                            </constraints>
+                                        </imageView>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -911,11 +917,13 @@
                                         <constraint firstItem="KHZ-o6-REK" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" constant="17" id="7Vx-wa-JF9"/>
                                         <constraint firstItem="gBS-Uo-MRQ" firstAttribute="leading" secondItem="9CD-fU-uzN" secondAttribute="trailing" id="7mq-wu-NkJ"/>
                                         <constraint firstItem="9CD-fU-uzN" firstAttribute="top" secondItem="7Zc-di-rTf" secondAttribute="bottom" constant="17" id="ArZ-vQ-k4c"/>
+                                        <constraint firstAttribute="bottom" secondItem="9Zv-KI-glP" secondAttribute="bottom" id="HVQ-fQ-xRz"/>
                                         <constraint firstItem="oOh-C4-EjJ" firstAttribute="top" secondItem="QmF-0X-Yql" secondAttribute="top" constant="24" id="KAS-i4-hFW"/>
                                         <constraint firstAttribute="trailing" secondItem="tUJ-ZX-wTF" secondAttribute="trailing" constant="20" id="LJN-iq-3Zf"/>
                                         <constraint firstItem="aya-iX-ObS" firstAttribute="width" secondItem="tUJ-ZX-wTF" secondAttribute="width" id="LcA-zE-kIc"/>
                                         <constraint firstItem="gMg-mk-Un8" firstAttribute="leading" secondItem="oOh-C4-EjJ" secondAttribute="trailing" constant="12" id="NQi-KS-qcp"/>
                                         <constraint firstItem="gMg-mk-Un8" firstAttribute="top" secondItem="oOh-C4-EjJ" secondAttribute="top" id="Rjk-r3-66s"/>
+                                        <constraint firstItem="9Zv-KI-glP" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" id="SoT-39-wW2"/>
                                         <constraint firstItem="7Zc-di-rTf" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" constant="17" id="TTR-Iu-zTX"/>
                                         <constraint firstItem="7Zc-di-rTf" firstAttribute="top" secondItem="oOh-C4-EjJ" secondAttribute="bottom" constant="11" id="VFE-cv-urW"/>
                                         <constraint firstItem="tUJ-ZX-wTF" firstAttribute="top" secondItem="QmF-0X-Yql" secondAttribute="top" constant="34" id="Wnx-1X-QfU"/>
@@ -929,7 +937,30 @@
                                         <constraint firstItem="oOh-C4-EjJ" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" constant="17" id="knT-oc-UWp"/>
                                         <constraint firstItem="njf-bu-cVX" firstAttribute="baseline" secondItem="KHZ-o6-REK" secondAttribute="baseline" id="mnS-lU-qQJ"/>
                                         <constraint firstAttribute="bottom" secondItem="Mgq-r2-MvE" secondAttribute="bottom" constant="15" id="nJB-wx-sBT"/>
+                                        <constraint firstAttribute="trailing" secondItem="9Zv-KI-glP" secondAttribute="trailing" id="rMI-Uc-8Y0"/>
                                         <constraint firstItem="cKZ-vK-3K6" firstAttribute="leading" secondItem="QmF-0X-Yql" secondAttribute="leading" constant="17" id="zhf-pq-dGD"/>
+                                    </constraints>
+                                </view>
+                                <view key="tableFooterView" contentMode="scaleToFill" id="cZo-9Q-VBq">
+                                    <rect key="frame" x="0.0" y="210" width="375" height="300"/>
+                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    <subviews>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="view_nothing" translatesAutoresizingMaskIntoConstraints="NO" id="PeC-Wp-ide">
+                                            <rect key="frame" x="159" y="60" width="57" height="73"/>
+                                        </imageView>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="当前还没人参与，快来参与吧！" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="57g-kx-wSL">
+                                            <rect key="frame" x="87.5" y="148" width="200" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
+                                    <constraints>
+                                        <constraint firstItem="57g-kx-wSL" firstAttribute="top" secondItem="PeC-Wp-ide" secondAttribute="bottom" constant="15" id="Ebk-JA-Zjk"/>
+                                        <constraint firstItem="PeC-Wp-ide" firstAttribute="top" secondItem="cZo-9Q-VBq" secondAttribute="top" constant="60" id="FhR-he-DBJ"/>
+                                        <constraint firstItem="57g-kx-wSL" firstAttribute="centerX" secondItem="cZo-9Q-VBq" secondAttribute="centerX" id="ZhX-40-B9d"/>
+                                        <constraint firstItem="PeC-Wp-ide" firstAttribute="centerX" secondItem="cZo-9Q-VBq" secondAttribute="centerX" id="bWr-dn-kCs"/>
                                     </constraints>
                                 </view>
                             </tableView>
@@ -963,7 +994,7 @@
                     </connections>
                 </tapGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-1778" y="766"/>
+            <point key="canvasLocation" x="-1778.4000000000001" y="765.96701649175418"/>
         </scene>
         <!--Play Enjoy People View Controller-->
         <scene sceneID="HXp-Up-bEI">
@@ -1270,5 +1301,6 @@
         <image name="icon_key_small" width="19" height="22"/>
         <image name="slipLine" width="10" height="1"/>
         <image name="unlock_close" width="12" height="12"/>
+        <image name="view_nothing" width="57" height="73"/>
     </resources>
 </document>

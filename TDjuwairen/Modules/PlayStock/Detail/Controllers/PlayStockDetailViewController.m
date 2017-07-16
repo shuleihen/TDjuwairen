@@ -38,6 +38,7 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) NSArray *userList;
 @property (nonatomic, strong) StockInfo *stockInfo;
+ 
 @end
 
 @implementation PlayStockDetailViewController
@@ -62,6 +63,8 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 70.0f;
+    
+    self.tableView.tableFooterView.hidden = YES;
     
     UINib *nib = [UINib nibWithNibName:@"PSIndividualUserListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"PSIndividualUserListCellID"];
@@ -184,6 +187,7 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
 
     
     self.userList = mode.joinList;
+    self.tableView.tableFooterView.hidden = mode.joinList.count;
     [self.tableView reloadData];
 }
 
