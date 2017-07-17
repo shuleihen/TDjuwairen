@@ -21,7 +21,7 @@
     self.tabBar.barTintColor = [UIColor whiteColor];
     self.tabBar.tintColor = TDThemeColor;
     
-    [self performSelector:@selector(showTabBarAnimation) withObject:nil afterDelay:0.2];
+//    [self performSelector:@selector(showTabBarAnimation) withObject:nil afterDelay:0.2];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
