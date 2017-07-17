@@ -22,7 +22,7 @@
         
         // 上市公司名称和股票代码
         _stockNameLabel = [[UILabel alloc] init];
-        _stockNameLabel.font = [UIFont systemFontOfSize:17.0f];
+        _stockNameLabel.font = [UIFont systemFontOfSize:17.0f weight:UIFontWeightMedium];
         _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"333333"];
         _stockNameLabel.textAlignment = NSTextAlignmentLeft;
         [self.contentView addSubview:_stockNameLabel];

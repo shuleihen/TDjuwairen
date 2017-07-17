@@ -38,7 +38,7 @@
         
         // 调用文章标题
         _surveyTitleLabel = [[UILabel alloc] init];
-        _surveyTitleLabel.font = [UIFont boldSystemFontOfSize:16.0f];
+        _surveyTitleLabel.font = [UIFont systemFontOfSize:16.0f weight:UIFontWeightMedium];
         _surveyTitleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         _surveyTitleLabel.numberOfLines = 2;
         _surveyTitleLabel.textAlignment = NSTextAlignmentLeft;

@@ -45,7 +45,7 @@
 @property (nonatomic, strong) UIColor *dotColor;
 
 /**
- *  Spacing between two dot views. Default is 8.
+ *  Spacing between two dot views. Default is 4.
  */
 @property (nonatomic) NSInteger spacingBetweenDots;
 

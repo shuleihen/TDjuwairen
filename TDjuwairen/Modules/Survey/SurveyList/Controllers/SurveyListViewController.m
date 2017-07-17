@@ -78,7 +78,13 @@
         
         UIImage *image = [[UIImage imageNamed:@"bannerPlaceholder.png"] resize:CGSizeMake(kScreenWidth, kBannerHeiht)];
         _cycleScrollView = [SDCycleScrollView cycleScrollViewWithFrame:rect delegate:wself placeholderImage:image];
+        _cycleScrollView.pageControlStyle = SDCycleScrollViewPageContolStyleAnimated;
         _cycleScrollView.pageControlAliment = SDCycleScrollViewPageContolAlimentRight;
+        _cycleScrollView.pageControlDotSize = CGSizeMake(7, 7);
+        _cycleScrollView.currentPageDotColor = [UIColor whiteColor];
+        _cycleScrollView.pageDotColor = [UIColor colorWithWhite:1.0f alpha:0.5];
+        _cycleScrollView.titleLabelTextFont = [UIFont systemFontOfSize:12.0f];
+        _cycleScrollView.titleLabelTextColor = [UIColor whiteColor];
     }
     return _cycleScrollView;
 }
@@ -102,13 +108,13 @@
     for (NSString *title in titles) {
         UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(i*w, 0, w, kButtonViewHeight)];
         
-        btn.titleLabel.font = [UIFont systemFontOfSize:13.0f];
+        btn.titleLabel.font = [UIFont systemFontOfSize:11.0f];
         
         [btn setTitle:title forState:UIControlStateNormal];
         [btn setTitle:title forState:UIControlStateNormal];
         
-        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#222222"] forState:UIControlStateNormal];
-        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#222222"] forState:UIControlStateHighlighted];
+        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#010101"] forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#010101"] forState:UIControlStateHighlighted];
         
         UIImage *image = [UIImage imageNamed:images[i]];
         [btn setImage:image forState:UIControlStateNormal];
@@ -118,7 +124,7 @@
         [btn addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
         [buttonContain addSubview:btn];
         
-        [btn align:BAVerticalImage withSpacing:8.0f];
+        [btn align:BAVerticalImage withSpacing:7.0f];
         i++;
     }
 
@@ -162,12 +168,12 @@
         _segmentControl = [[HMSegmentedControl alloc] init];
         _segmentControl.backgroundColor = [UIColor clearColor];
         _segmentControl.selectionIndicatorLocation = HMSegmentedControlSelectionIndicatorLocationDown;
-        _segmentControl.titleTextAttributes =@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+        _segmentControl.titleTextAttributes =@{NSFontAttributeName : [UIFont systemFontOfSize:14.0f weight:UIFontWeightLight],
                                                NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#666666"]};
-        _segmentControl.selectedTitleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
-                                                        NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
+        _segmentControl.selectedTitleTextAttributes = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f weight:UIFontWeightMedium],
+                                                        NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371E2"]};
         _segmentControl.selectionIndicatorHeight = 3.0f;
-        _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+        _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
 //        _segmentControl.selectionIndicatorEdgeInsets = UIEdgeInsetsMake(0, -5, 0, -5);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
