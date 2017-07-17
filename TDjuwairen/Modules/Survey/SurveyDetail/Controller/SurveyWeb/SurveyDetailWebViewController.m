@@ -28,6 +28,7 @@
 #import "STPopup.h"
 #import "UIViewController+STPopup.h"
 #import <WebKit/WebKit.h>
+#import "GradeDetailViewController.h"
 
 @interface SurveyDetailWebViewController ()<WKNavigationDelegate,StockShareDelegate,StockAskDelegate>
 @property (nonatomic, strong) WKWebView *webView;
@@ -107,7 +108,7 @@
     UIImage *image = [UIImage imageNamed:@"ico_questions.png"];
     UIButton *questionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [questionBtn setBackgroundImage:image forState:UIControlStateNormal];
-    [questionBtn setTitle:@"提问" forState:UIControlStateNormal];
+    [questionBtn setTitle:@"评分" forState:UIControlStateNormal];
     questionBtn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
     [questionBtn setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
     questionBtn.frame = CGRectMake(kScreenWidth-12-image.size.width, kScreenHeight-64-100-image.size.height, image.size.width, image.size.height);
@@ -141,7 +142,12 @@
 }
 
 - (void)questionPressed:(id)sender {
-    [self.askView showInContainView:self.navigationController.view];
+    GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
+    vc.stockName = self.stockName;
+    vc.stockCode = self.stockCode;
+    [self.navigationController pushViewController:vc animated:YES];
+    
+//    [self.askView showInContainView:self.navigationController.view];
 }
 
 #pragma mark - StockAskDelegate

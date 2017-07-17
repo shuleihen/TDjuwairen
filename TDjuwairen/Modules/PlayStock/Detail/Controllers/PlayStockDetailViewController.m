@@ -117,12 +117,15 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     self.sectionLabel.text = [NSString stringWithFormat:@"竞猜场次：%@",season];
     self.joinLabel.text = [NSString stringWithFormat:@"参与人数：%ld",(long)mode.joinNum];
     
-    
+    // 收盘价格
     if (mode.status == kPSGuessExecuting) {
         self.endPriceLabel.text = @"收盘价：--";
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFire:) userInfo:nil repeats:YES];
         [self timerFire:self.timer];
-    } else {
+    } if (mode.status == kPSGuessStop) {
+        self.statusLabel.text = [NSString stringWithFormat:@"状   态：%@",[mode statusString]];
+        self.endPriceLabel.text = @"收盘价：--";
+    }else {
         self.endPriceLabel.text = [NSString stringWithFormat:@"收盘价：%.02f",mode.endPrice.floatValue];
         self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         self.statusLabel.text = [NSString stringWithFormat:@"状   态：%@",[mode statusString]];
@@ -135,39 +138,46 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
         self.orderLabel.text = [NSString stringWithFormat:@"%ld",(long)mode.rate];
     }
     
-    if (mode.isClosed) {
-        // 已经关闭竞猜
+    if (mode.status == kPSGuessExecuting) {
+        // 竞猜中
+        UIImage *normalImage = [UIImage imageWithSize:CGSizeMake(80, 30)
+                                       backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#FFAE00"]
+                                          borderColor:[UIColor hx_colorWithHexRGBAString:@"#FFAE00"]
+                                         cornerRadius:4.0f];
+        
+        [self.joinBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
+        self.joinBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f weight:UIFontWeightMedium];
+        [self.joinBtn setTitle:@"参与竞猜" forState:UIControlStateNormal];
+        [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#3E1000"] forState:UIControlStateNormal];
+        self.joinBtn.enabled = YES;
+    } if (mode.status == kPSGuessStop) {
+        // 封盘
         self.joinBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
-        [self.joinBtn setTitle:@"已结束" forState:UIControlStateNormal];
+        [self.joinBtn setTitle:@"待开奖" forState:UIControlStateNormal];
+        [self.joinBtn setTitle:@"待开奖" forState:UIControlStateDisabled];
         [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
         self.joinBtn.enabled = NO;
-    } else {
+    }else {
+        // 已结束
+        self.joinBtn.enabled = NO;
+        
         switch (mode.result) {
             case kPSWinNoFinish: {
-                UIImage *normalImage = [UIImage imageWithSize:CGSizeMake(80, 30)
-                                               backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#FFAE00"]
-                                                  borderColor:[UIColor hx_colorWithHexRGBAString:@"#FFAE00"]
-                                                 cornerRadius:4.0f];
                 
-                [self.joinBtn setBackgroundImage:normalImage forState:UIControlStateNormal];
-                self.joinBtn.titleLabel.font = [UIFont systemFontOfSize:13.0f weight:UIFontWeightMedium];
-                [self.joinBtn setTitle:@"参与竞猜" forState:UIControlStateNormal];
-                [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#3E1000"] forState:UIControlStateNormal];
-                self.joinBtn.enabled = YES;
             }
                 break;
             case kPSWinNo: {
                 self.joinBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
                 [self.joinBtn setTitle:@"未获胜" forState:UIControlStateNormal];
+                [self.joinBtn setTitle:@"未获胜" forState:UIControlStateDisabled];
                 [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
-                self.joinBtn.enabled = NO;
             }
                 break;
             case kPSWinYes:{
                 self.joinBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
                 [self.joinBtn setTitle:@"获胜" forState:UIControlStateNormal];
+                [self.joinBtn setTitle:@"获胜" forState:UIControlStateDisabled];
                 [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#3371E2"] forState:UIControlStateNormal];
-                self.joinBtn.enabled = NO;
             }
                 break;
             case kPSWinEntirely:{
@@ -183,7 +193,7 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
                 }
 
                 [self.joinBtn setAttributedTitle:attr forState:UIControlStateNormal];
-                self.joinBtn.enabled = NO;
+                [self.joinBtn setAttributedTitle:attr forState:UIControlStateDisabled];
             }
                 break;
             default:

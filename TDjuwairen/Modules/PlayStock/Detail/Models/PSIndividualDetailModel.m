@@ -26,6 +26,7 @@
         self.endTime = [dict[@"guess_endtime"] longLongValue];
         self.rate = [dict[@"login_user_rate"] integerValue];
         self.extra_keyNum = [dict[@"guess_extra_res"] integerValue];
+        self.result = [dict[@"guess_result"] integerValue];
         
         id userList = dict[@"guess_users"];
         if ([userList isKindOfClass:[NSArray class]]) {
@@ -50,7 +51,7 @@
             string = @"进行中";
             break;
         case kPSGuessStop:
-            string = @"已结束";
+            string = @"已封盘";
             break;
         case kPSGuessFinish:
             string = @"已结束";

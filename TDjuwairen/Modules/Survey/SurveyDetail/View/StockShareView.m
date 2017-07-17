@@ -44,13 +44,13 @@
         _panelView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 81)];
         _panelView.backgroundColor = [UIColor whiteColor];
         
-        CGFloat margin = (kScreenWidth-46*3)/4;
+        CGFloat margin = (kScreenWidth-50*2)/3;
         UIButton *share = [UIButton buttonWithType:UIButtonTypeCustom];
         share.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [share setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
         [share setImage:[UIImage imageNamed:@"icon_share.png"] forState:UIControlStateNormal];
         [share setTitle:@"分享" forState:UIControlStateNormal];
-        share.frame = CGRectMake(margin, 15, 46, 52);
+        share.frame = CGRectMake(margin, 15, 50, 52);
         [share addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
         [share align:BAVerticalImage withSpacing:5];
         [_panelView addSubview:share];
@@ -61,13 +61,13 @@
         [collection setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
         [collection setImage:[UIImage imageNamed:@"stock_collection.png"] forState:UIControlStateNormal];
         [collection setTitle:@"收藏" forState:UIControlStateNormal];
-        collection.frame = CGRectMake(CGRectGetMaxX(share.frame)+margin, 15, 46, 52);
+        collection.frame = CGRectMake(CGRectGetMaxX(share.frame)+margin, 15, 50, 52);
         [collection addTarget:self action:@selector(collectionPressed:) forControlEvents:UIControlEventTouchUpInside];
         [collection align:BAVerticalImage withSpacing:5];
         [_panelView addSubview:collection];
         _collection = collection;
         
-        
+        /*
         UIButton *feedback = [UIButton buttonWithType:UIButtonTypeCustom];
         feedback.titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [feedback setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#666666"] forState:UIControlStateNormal];
@@ -77,6 +77,7 @@
         [feedback addTarget:self action:@selector(feedbackPressed:) forControlEvents:UIControlEventTouchUpInside];
         [feedback align:BAVerticalImage withSpacing:5];
         [_panelView addSubview:feedback];
+         */
     }
     return _panelView;
 }

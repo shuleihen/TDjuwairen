@@ -17,11 +17,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.tabBar.translucent = NO;
-    self.tabBar.barTintColor = [UIColor whiteColor];
-    self.tabBar.tintColor = TDThemeColor;
     
-//    [self performSelector:@selector(showTabBarAnimation) withObject:nil afterDelay:0.2];
+    self.tabBar.translucent = NO;
+    self.tabBar.tintColor = TDThemeColor;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
