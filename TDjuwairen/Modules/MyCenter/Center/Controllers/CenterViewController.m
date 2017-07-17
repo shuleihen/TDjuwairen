@@ -55,7 +55,7 @@
     self.avatarBtn.layer.borderWidth = 1.0f;
     
     self.classesArray = @[@[],
-                          @[@"MyWalletViewController",@"CollectionViewController"],
+                          @[@"MyWalletViewController",@"CollectionViewController",@"SystemMessageViewController"],
                           @[@"AboutMineViewController"],
                           @[@"SettingViewController"]];
 }

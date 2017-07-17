@@ -164,12 +164,8 @@
 		1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B21D644D9800DC102E /* ForgetViewController.m */; };
 		1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B41D644D9800DC102E /* LoginViewController.m */; };
 		1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B71D644D9800DC102E /* MobileLoginViewController.m */; };
-		1955B4671D644D9800DC102E /* DaynightCellTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3C61D644D9800DC102E /* DaynightCellTableViewCell.m */; };
-		1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */; };
 		1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */; };
 		1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */; };
-		1955B47A1D644D9800DC102E /* EditView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3EB1D644D9800DC102E /* EditView.m */; };
-		1955B47B1D644D9800DC102E /* EditView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3EC1D644D9800DC102E /* EditView.xib */; };
 		1955B4851D644D9800DC102E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4041D644D9800DC102E /* NetworkManager.m */; };
 		1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40C1D644D9800DC102E /* SearchResultTableViewCell.m */; };
 		1955B4891D644D9800DC102E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40E1D644D9800DC102E /* SearchViewController.m */; };
@@ -429,6 +425,7 @@
 		19F07A031F19A796004449BB /* PSIndividualUserListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A011F19A796004449BB /* PSIndividualUserListCell.xib */; };
 		19F07A081F1A2BB7004449BB /* PlayStockHnadler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A071F1A2BB7004449BB /* PlayStockHnadler.m */; };
 		19F07A0D1F1B7BD0004449BB /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */; };
+		19F07A141F1C5DC6004449BB /* SystemMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A131F1C5DC6004449BB /* SystemMessageViewController.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -481,8 +478,6 @@
 		84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */; };
 		841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CA1DF537140047DA7E /* UMMobClick.framework */; };
 		841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 841848CC1DF537570047DA7E /* libsqlite3.0.tbd */; };
-		8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8426ED691D864CBC00B82ACF /* NothingTableViewCell.m */; };
-		8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8426ED6A1D864CBC00B82ACF /* NothingTableViewCell.xib */; };
 		842D58011D8938FD006385CB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 842D58001D8938FD006385CB /* availableTags.plist */; };
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
@@ -913,16 +908,9 @@
 		1955B3B41D644D9800DC102E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1955B3B61D644D9800DC102E /* MobileLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileLoginViewController.h; sourceTree = "<group>"; };
 		1955B3B71D644D9800DC102E /* MobileLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileLoginViewController.m; sourceTree = "<group>"; };
-		1955B3C51D644D9800DC102E /* DaynightCellTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DaynightCellTableViewCell.h; sourceTree = "<group>"; };
-		1955B3C61D644D9800DC102E /* DaynightCellTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DaynightCellTableViewCell.m; sourceTree = "<group>"; };
-		1955B3CD1D644D9800DC102E /* SetUpTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SetUpTableViewCell.h; sourceTree = "<group>"; };
-		1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SetUpTableViewCell.m; sourceTree = "<group>"; };
 		1955B3D01D644D9800DC102E /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionTableViewCell.h; sourceTree = "<group>"; };
 		1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionTableViewCell.m; sourceTree = "<group>"; };
 		1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionTableViewCell.xib; sourceTree = "<group>"; };
-		1955B3EA1D644D9800DC102E /* EditView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditView.h; sourceTree = "<group>"; };
-		1955B3EB1D644D9800DC102E /* EditView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditView.m; sourceTree = "<group>"; };
-		1955B3EC1D644D9800DC102E /* EditView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditView.xib; sourceTree = "<group>"; };
 		1955B4021D644D9800DC102E /* NetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
 		1955B4031D644D9800DC102E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		1955B4041D644D9800DC102E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
@@ -1421,6 +1409,8 @@
 		19F07A071F1A2BB7004449BB /* PlayStockHnadler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockHnadler.m; sourceTree = "<group>"; };
 		19F07A0B1F1B7BD0004449BB /* SGAdvertScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGAdvertScrollView.h; sourceTree = "<group>"; };
 		19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
+		19F07A121F1C5DC6004449BB /* SystemMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMessageViewController.h; sourceTree = "<group>"; };
+		19F07A131F1C5DC6004449BB /* SystemMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMessageViewController.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -1506,9 +1496,6 @@
 		84053B551D6BE9C50020A1F0 /* AboutMineViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AboutMineViewController.m; sourceTree = "<group>"; };
 		841848CA1DF537140047DA7E /* UMMobClick.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UMMobClick.framework; sourceTree = "<group>"; };
 		841848CC1DF537570047DA7E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
-		8426ED681D864CBC00B82ACF /* NothingTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NothingTableViewCell.h; sourceTree = "<group>"; };
-		8426ED691D864CBC00B82ACF /* NothingTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NothingTableViewCell.m; sourceTree = "<group>"; };
-		8426ED6A1D864CBC00B82ACF /* NothingTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = NothingTableViewCell.xib; sourceTree = "<group>"; };
 		842D58001D8938FD006385CB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		842D58021D893BB3006385CB /* CompanySelTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompanySelTableView.h; sourceTree = "<group>"; };
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
@@ -2988,32 +2975,15 @@
 			isa = PBXGroup;
 			children = (
 				19386EFB1E73A2DB00D4426E /* Center */,
+				19F07A0E1F1C5D5A004449BB /* SystemMessage */,
 				19D6B9FE1E50935000475AA1 /* ChangePhone */,
 				19D6B9FA1E50900E00475AA1 /* AccountManager */,
 				194186C71DF81284000C5197 /* Account */,
-				1955B3C41D644D9800DC102E /* Cells */,
 				1955B3CF1D644D9800DC102E /* Collection */,
 				84053B531D6BE9AF0020A1F0 /* AboutMine */,
 				1955B3ED1D644D9800DC102E /* Feedback */,
-				1955B3EA1D644D9800DC102E /* EditView.h */,
-				1955B3EB1D644D9800DC102E /* EditView.m */,
-				1955B3EC1D644D9800DC102E /* EditView.xib */,
 			);
 			path = MyCenter;
-			sourceTree = "<group>";
-		};
-		1955B3C41D644D9800DC102E /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				1955B3C51D644D9800DC102E /* DaynightCellTableViewCell.h */,
-				1955B3C61D644D9800DC102E /* DaynightCellTableViewCell.m */,
-				1955B3CD1D644D9800DC102E /* SetUpTableViewCell.h */,
-				1955B3CE1D644D9800DC102E /* SetUpTableViewCell.m */,
-				8426ED681D864CBC00B82ACF /* NothingTableViewCell.h */,
-				8426ED691D864CBC00B82ACF /* NothingTableViewCell.m */,
-				8426ED6A1D864CBC00B82ACF /* NothingTableViewCell.xib */,
-			);
-			path = Cells;
 			sourceTree = "<group>";
 		};
 		1955B3CF1D644D9800DC102E /* Collection */ = {
@@ -4448,6 +4418,39 @@
 			path = SGAdvertScrollView;
 			sourceTree = "<group>";
 		};
+		19F07A0E1F1C5D5A004449BB /* SystemMessage */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A0F1F1C5D5A004449BB /* Cells */,
+				19F07A101F1C5D5A004449BB /* Controllers */,
+				19F07A111F1C5D5A004449BB /* Models */,
+			);
+			path = SystemMessage;
+			sourceTree = "<group>";
+		};
+		19F07A0F1F1C5D5A004449BB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19F07A101F1C5D5A004449BB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A121F1C5DC6004449BB /* SystemMessageViewController.h */,
+				19F07A131F1C5DC6004449BB /* SystemMessageViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19F07A111F1C5D5A004449BB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		19F43C221E232C98001B72CD /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -5091,7 +5094,6 @@
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				19ED174D1F1644B400EC89DF /* MyGuessCell.xib in Resources */,
-				1955B47B1D644D9800DC102E /* EditView.xib in Resources */,
 				9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */,
 				196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
@@ -5115,7 +5117,6 @@
 				19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */,
 				1987B2771EE688F700BD852E /* HotTableViewCell.xib in Resources */,
 				1987B2751EE688F700BD852E /* AskTableViewCell.xib in Resources */,
-				8426ED6C1D864CBC00B82ACF /* NothingTableViewCell.xib in Resources */,
 				19E58DB21EF8C55500ADA1B8 /* ZFPlayer.bundle in Resources */,
 				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
@@ -5225,7 +5226,6 @@
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
 				19ED17591F17759600EC89DF /* CBAutoScrollLabel.m in Sources */,
 				194E0D031EEE3E36009C7AC6 /* StockCollectionTableViewController.m in Sources */,
-				1955B46B1D644D9800DC102E /* SetUpTableViewCell.m in Sources */,
 				19E58DAE1EF8C55500ADA1B8 /* UIViewController+ZFPlayerRotation.m in Sources */,
 				1987B2801EE688F700BD852E /* SurveyAnnounceViewController.m in Sources */,
 				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
@@ -5273,7 +5273,6 @@
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
 				194E0D221EEFBDF7009C7AC6 /* AliveDetailFooterViewController.m in Sources */,
 				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
-				1955B47A1D644D9800DC102E /* EditView.m in Sources */,
 				193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */,
 				1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */,
 				19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */,
@@ -5320,7 +5319,6 @@
 				19E5F2A61E13653200984DBC /* SQTopicTableViewCell.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
 				19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */,
-				1955B4671D644D9800DC102E /* DaynightCellTableViewCell.m in Sources */,
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,
 				1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */,
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
@@ -5497,6 +5495,7 @@
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
+				19F07A141F1C5DC6004449BB /* SystemMessageViewController.m in Sources */,
 				19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */,
 				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
 				19E58D851EF8BEDC00ADA1B8 /* VideoInfoModel.m in Sources */,
@@ -5505,7 +5504,6 @@
 				1987B28B1EE688F700BD852E /* AskModel.m in Sources */,
 				1987B2921EE688F700BD852E /* StockAskView.m in Sources */,
 				19194CC91E7FAC3700641085 /* PSIndividualListViewController.m in Sources */,
-				8426ED6B1D864CBC00B82ACF /* NothingTableViewCell.m in Sources */,
 				19386EC31E71883F00D4426E /* AliveMasterListViewController.m in Sources */,
 				1987B27A1EE688F700BD852E /* SpotTableViewCell.m in Sources */,
 				19B11CAF1D655B9E00BB4DF4 /* DDMultiFormatter.m in Sources */,
