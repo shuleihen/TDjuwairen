@@ -15,8 +15,12 @@
 
 #define kAPI_songsong @"http://192.168.1.103/"
 
+// 广告
 #define API_GetBanner           @"Index/indexBanner"
 #define API_SaveDeviceInfo      @"Index/saveDeviceInfo"
+#define API_IndexStartupPage    @"Index/startupPage"
+#define API_IndexSurveyBanner   @"Index/surveyBanner"
+#define API_IndexDeepBanner     @"Index/deepBanner"
 
 #define API_AddBrowseHistory    @"Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"Public/getBrowseHistory"

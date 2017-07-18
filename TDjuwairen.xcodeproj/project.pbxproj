@@ -426,6 +426,19 @@
 		19F07A081F1A2BB7004449BB /* PlayStockHnadler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A071F1A2BB7004449BB /* PlayStockHnadler.m */; };
 		19F07A0D1F1B7BD0004449BB /* SGAdvertScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */; };
 		19F07A141F1C5DC6004449BB /* SystemMessageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A131F1C5DC6004449BB /* SystemMessageViewController.m */; };
+		19F07A2F1F1D9FDD004449BB /* NSString+XHLaunchAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A181F1D9FDD004449BB /* NSString+XHLaunchAd.m */; };
+		19F07A301F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A1A1F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m */; };
+		19F07A311F1D9FDD004449BB /* XHLaunchAd.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A1C1F1D9FDD004449BB /* XHLaunchAd.m */; };
+		19F07A321F1D9FDD004449BB /* XHLaunchAdButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A1E1F1D9FDD004449BB /* XHLaunchAdButton.m */; };
+		19F07A331F1D9FDD004449BB /* XHLaunchAdCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A201F1D9FDD004449BB /* XHLaunchAdCache.m */; };
+		19F07A341F1D9FDD004449BB /* XHLaunchAdConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A221F1D9FDD004449BB /* XHLaunchAdConfiguration.m */; };
+		19F07A351F1D9FDD004449BB /* XHLaunchAdController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A241F1D9FDD004449BB /* XHLaunchAdController.m */; };
+		19F07A361F1D9FDD004449BB /* XHLaunchAdDownloader.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A261F1D9FDD004449BB /* XHLaunchAdDownloader.m */; };
+		19F07A371F1D9FDD004449BB /* XHLaunchAdImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A281F1D9FDD004449BB /* XHLaunchAdImage.m */; };
+		19F07A381F1D9FDD004449BB /* XHLaunchAdImageManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A2A1F1D9FDD004449BB /* XHLaunchAdImageManager.m */; };
+		19F07A391F1D9FDD004449BB /* XHLaunchAdView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A2C1F1D9FDD004449BB /* XHLaunchAdView.m */; };
+		19F07A3A1F1D9FDD004449BB /* XHLaunchImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A2E1F1D9FDD004449BB /* XHLaunchImageView.m */; };
+		19F07A401F1DA100004449BB /* TDAdvertModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A3F1F1DA100004449BB /* TDAdvertModel.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -1411,6 +1424,32 @@
 		19F07A0C1F1B7BD0004449BB /* SGAdvertScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGAdvertScrollView.m; sourceTree = "<group>"; };
 		19F07A121F1C5DC6004449BB /* SystemMessageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemMessageViewController.h; sourceTree = "<group>"; };
 		19F07A131F1C5DC6004449BB /* SystemMessageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemMessageViewController.m; sourceTree = "<group>"; };
+		19F07A171F1D9FDD004449BB /* NSString+XHLaunchAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+XHLaunchAd.h"; sourceTree = "<group>"; };
+		19F07A181F1D9FDD004449BB /* NSString+XHLaunchAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+XHLaunchAd.m"; sourceTree = "<group>"; };
+		19F07A191F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+XHLaunchAdCache.h"; sourceTree = "<group>"; };
+		19F07A1A1F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+XHLaunchAdCache.m"; sourceTree = "<group>"; };
+		19F07A1B1F1D9FDD004449BB /* XHLaunchAd.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAd.h; sourceTree = "<group>"; };
+		19F07A1C1F1D9FDD004449BB /* XHLaunchAd.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAd.m; sourceTree = "<group>"; };
+		19F07A1D1F1D9FDD004449BB /* XHLaunchAdButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdButton.h; sourceTree = "<group>"; };
+		19F07A1E1F1D9FDD004449BB /* XHLaunchAdButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdButton.m; sourceTree = "<group>"; };
+		19F07A1F1F1D9FDD004449BB /* XHLaunchAdCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdCache.h; sourceTree = "<group>"; };
+		19F07A201F1D9FDD004449BB /* XHLaunchAdCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdCache.m; sourceTree = "<group>"; };
+		19F07A211F1D9FDD004449BB /* XHLaunchAdConfiguration.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdConfiguration.h; sourceTree = "<group>"; };
+		19F07A221F1D9FDD004449BB /* XHLaunchAdConfiguration.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdConfiguration.m; sourceTree = "<group>"; };
+		19F07A231F1D9FDD004449BB /* XHLaunchAdController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdController.h; sourceTree = "<group>"; };
+		19F07A241F1D9FDD004449BB /* XHLaunchAdController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdController.m; sourceTree = "<group>"; };
+		19F07A251F1D9FDD004449BB /* XHLaunchAdDownloader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdDownloader.h; sourceTree = "<group>"; };
+		19F07A261F1D9FDD004449BB /* XHLaunchAdDownloader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdDownloader.m; sourceTree = "<group>"; };
+		19F07A271F1D9FDD004449BB /* XHLaunchAdImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdImage.h; sourceTree = "<group>"; };
+		19F07A281F1D9FDD004449BB /* XHLaunchAdImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdImage.m; sourceTree = "<group>"; };
+		19F07A291F1D9FDD004449BB /* XHLaunchAdImageManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdImageManager.h; sourceTree = "<group>"; };
+		19F07A2A1F1D9FDD004449BB /* XHLaunchAdImageManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdImageManager.m; sourceTree = "<group>"; };
+		19F07A2B1F1D9FDD004449BB /* XHLaunchAdView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchAdView.h; sourceTree = "<group>"; };
+		19F07A2C1F1D9FDD004449BB /* XHLaunchAdView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchAdView.m; sourceTree = "<group>"; };
+		19F07A2D1F1D9FDD004449BB /* XHLaunchImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XHLaunchImageView.h; sourceTree = "<group>"; };
+		19F07A2E1F1D9FDD004449BB /* XHLaunchImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XHLaunchImageView.m; sourceTree = "<group>"; };
+		19F07A3E1F1DA100004449BB /* TDAdvertModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDAdvertModel.h; sourceTree = "<group>"; };
+		19F07A3F1F1DA100004449BB /* TDAdvertModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDAdvertModel.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -2738,21 +2777,6 @@
 			path = AliPushSDK;
 			sourceTree = "<group>";
 		};
-		1950577D1E7A35D10097C57A /* Extension */ = {
-			isa = PBXGroup;
-			children = (
-				1950577E1E7A35D10097C57A /* Push */,
-			);
-			path = Extension;
-			sourceTree = "<group>";
-		};
-		1950577E1E7A35D10097C57A /* Push */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Push;
-			sourceTree = "<group>";
-		};
 		195057841E7A364C0097C57A /* PushExtension */ = {
 			isa = PBXGroup;
 			children = (
@@ -3915,7 +3939,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				1950577D1E7A35D10097C57A /* Extension */,
+				19F07A3B1F1DA0C5004449BB /* Advert */,
 				1955B4011D644D9800DC102E /* Network */,
 				19F0073C1E31E5AE000A5F98 /* Recharge */,
 				19193B171E03B3E9000A6AD2 /* PlayStock */,
@@ -4451,6 +4475,62 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		19F07A161F1D9FDD004449BB /* XHLaunchAd */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A171F1D9FDD004449BB /* NSString+XHLaunchAd.h */,
+				19F07A181F1D9FDD004449BB /* NSString+XHLaunchAd.m */,
+				19F07A191F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.h */,
+				19F07A1A1F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m */,
+				19F07A1B1F1D9FDD004449BB /* XHLaunchAd.h */,
+				19F07A1C1F1D9FDD004449BB /* XHLaunchAd.m */,
+				19F07A1D1F1D9FDD004449BB /* XHLaunchAdButton.h */,
+				19F07A1E1F1D9FDD004449BB /* XHLaunchAdButton.m */,
+				19F07A1F1F1D9FDD004449BB /* XHLaunchAdCache.h */,
+				19F07A201F1D9FDD004449BB /* XHLaunchAdCache.m */,
+				19F07A211F1D9FDD004449BB /* XHLaunchAdConfiguration.h */,
+				19F07A221F1D9FDD004449BB /* XHLaunchAdConfiguration.m */,
+				19F07A231F1D9FDD004449BB /* XHLaunchAdController.h */,
+				19F07A241F1D9FDD004449BB /* XHLaunchAdController.m */,
+				19F07A251F1D9FDD004449BB /* XHLaunchAdDownloader.h */,
+				19F07A261F1D9FDD004449BB /* XHLaunchAdDownloader.m */,
+				19F07A271F1D9FDD004449BB /* XHLaunchAdImage.h */,
+				19F07A281F1D9FDD004449BB /* XHLaunchAdImage.m */,
+				19F07A291F1D9FDD004449BB /* XHLaunchAdImageManager.h */,
+				19F07A2A1F1D9FDD004449BB /* XHLaunchAdImageManager.m */,
+				19F07A2B1F1D9FDD004449BB /* XHLaunchAdView.h */,
+				19F07A2C1F1D9FDD004449BB /* XHLaunchAdView.m */,
+				19F07A2D1F1D9FDD004449BB /* XHLaunchImageView.h */,
+				19F07A2E1F1D9FDD004449BB /* XHLaunchImageView.m */,
+			);
+			path = XHLaunchAd;
+			sourceTree = "<group>";
+		};
+		19F07A3B1F1DA0C5004449BB /* Advert */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A3C1F1DA0C5004449BB /* Handler */,
+				19F07A3D1F1DA0C5004449BB /* Models */,
+			);
+			path = Advert;
+			sourceTree = "<group>";
+		};
+		19F07A3C1F1DA0C5004449BB /* Handler */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Handler;
+			sourceTree = "<group>";
+		};
+		19F07A3D1F1DA0C5004449BB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A3E1F1DA100004449BB /* TDAdvertModel.h */,
+				19F07A3F1F1DA100004449BB /* TDAdvertModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		19F43C221E232C98001B72CD /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -4762,6 +4842,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19F07A161F1D9FDD004449BB /* XHLaunchAd */,
 				19F07A0A1F1B7BD0004449BB /* SGAdvertScrollView */,
 				19ED17561F17759500EC89DF /* CBAutoScrollLabel */,
 				19E58D861EF8C55500ADA1B8 /* ZFPlayer */,
@@ -5174,6 +5255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				19F07A361F1D9FDD004449BB /* XHLaunchAdDownloader.m in Sources */,
 				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				4D023BC71E8E2C8000AB463E /* PSIndividualUserListModel.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,
@@ -5188,6 +5270,7 @@
 				19E58DC31EFB6E0F00ADA1B8 /* AliveListBottomView.m in Sources */,
 				195057C31E7AAA650097C57A /* AliveRoomPopupViewController.m in Sources */,
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
+				19F07A391F1D9FDD004449BB /* XHLaunchAdView.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
 				1987B2761EE688F700BD852E /* HotTableViewCell.m in Sources */,
 				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
@@ -5207,9 +5290,11 @@
 				19B11CAC1D655B9E00BB4DF4 /* DDTTYLogger.m in Sources */,
 				19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */,
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
+				19F07A321F1D9FDD004449BB /* XHLaunchAdButton.m in Sources */,
 				19517F2A1EE64B39009E24D1 /* AliveRoomNavigationBar.m in Sources */,
 				9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */,
 				19F07A081F1A2BB7004449BB /* PlayStockHnadler.m in Sources */,
+				19F07A3A1F1D9FDD004449BB /* XHLaunchImageView.m in Sources */,
 				19D6A3041E0D0126008368F4 /* STPopupControllerTransitioningSlideVertical.m in Sources */,
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */,
@@ -5321,6 +5406,7 @@
 				19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */,
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,
 				1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */,
+				19F07A351F1D9FDD004449BB /* XHLaunchAdController.m in Sources */,
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
 				4D023BCA1E8E327500AB463E /* PSIndividualUserModel.m in Sources */,
@@ -5427,6 +5513,7 @@
 				1987B2951EE688F700BD852E /* SurveyAnsView.m in Sources */,
 				19F07A021F19A796004449BB /* PSIndividualUserListCell.m in Sources */,
 				19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */,
+				19F07A341F1D9FDD004449BB /* XHLaunchAdConfiguration.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */,
@@ -5468,9 +5555,11 @@
 				1987B2961EE688F700BD852E /* SurveyBottomToolView.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
 				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
+				19F07A331F1D9FDD004449BB /* XHLaunchAdCache.m in Sources */,
 				1987B29B1EE688F700BD852E /* SurveyListViewController.m in Sources */,
 				1975D3611EED198F00191E1D /* TDAvatar.m in Sources */,
 				194F05941E2746D600C8CB8A /* SubscriptionViewController.m in Sources */,
+				19F07A371F1D9FDD004449BB /* XHLaunchAdImage.m in Sources */,
 				1966A6551E8BB81C007DDA14 /* DYRefresh.m in Sources */,
 				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,
 				19F0074E1E31E5AE000A5F98 /* StockUnlockViewController.m in Sources */,
@@ -5495,6 +5584,7 @@
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
+				19F07A301F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m in Sources */,
 				19F07A141F1C5DC6004449BB /* SystemMessageViewController.m in Sources */,
 				19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */,
 				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
@@ -5535,6 +5625,7 @@
 				193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */,
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
 				19E58D7B1EF3C2E900ADA1B8 /* MessageListTableViewCell.m in Sources */,
+				19F07A311F1D9FDD004449BB /* XHLaunchAd.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,
 				19ED17521F1644B400EC89DF /* MGCellWinKeyView.m in Sources */,
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,
@@ -5545,6 +5636,7 @@
 				9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */,
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
+				19F07A381F1D9FDD004449BB /* XHLaunchAdImageManager.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
 				19194D221E80D08900641085 /* SSColorfulRefresh.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
@@ -5574,7 +5666,9 @@
 				1953CB0C1E7172DB00A64B3C /* AliveListImagesView.m in Sources */,
 				190F65F21E36E73000B83ADF /* OrderDetailTableViewCell.m in Sources */,
 				1987B2821EE688F700BD852E /* SurveyDownLoadHintViewController.m in Sources */,
+				19F07A401F1DA100004449BB /* TDAdvertModel.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,
+				19F07A2F1F1D9FDD004449BB /* NSString+XHLaunchAd.m in Sources */,
 				19DFE22F1E10EBAE00CC3C3F /* BVUnderlineButton.m in Sources */,
 				84053B561D6BE9C50020A1F0 /* AboutMineViewController.m in Sources */,
 				1955B4851D644D9800DC102E /* NetworkManager.m in Sources */,

@@ -40,6 +40,7 @@
 #import "TDWebViewController.h"
 #import "YXTitleCustomView.h"
 #import "NSString+Util.h"
+#import "TDAdvertModel.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -418,20 +419,21 @@
 
 - (void)getBanners {
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
-    NSDictionary *dic = @{@"version":@"2.0"};
-    [manager POST:API_GetBanner parameters:dic completion:^(id data, NSError *error) {
+    [manager GET:API_IndexSurveyBanner parameters:nil completion:^(id data, NSError *error) {
         if (!error) {
-            NSArray *dataArr = data;
-            NSMutableArray *titles = [NSMutableArray arrayWithCapacity:[data count]];
-            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:[data count]];
-            NSMutableArray *links = [NSMutableArray arrayWithCapacity:[data count]];
-            for (NSDictionary *d in dataArr) {
-                [urls addObject:d[@"ad_imgurl"]];
-                [titles addObject:d[@"ad_title"]];
-                [links addObject:d[@"ad_link"]];
+            NSArray *banners = data;
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:banners.count];
+            NSMutableArray *titles = [NSMutableArray arrayWithCapacity:banners.count];
+            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:banners.count];
+            for (NSDictionary *dict in banners) {
+                TDAdvertModel *model = [[TDAdvertModel alloc] initWithDictionary:dict];
+                [array addObject:model];
+                [titles addObject:model.adTitle];
+                [titles addObject:model.adImageUrl];
             }
             
-            self.bannerLinks = links;
+            self.bannerLinks = array;
+            
             self.cycleScrollView.titlesGroup = titles;
             self.cycleScrollView.imageURLStringsGroup = urls;
         } else {
@@ -512,57 +514,40 @@
 #pragma mark - SDCycleScrollViewDelegate
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     //跳转到详情页
-    NSString *s = self.bannerLinks[index];
-    NSArray *arr = [s componentsSeparatedByString:@"/"];
-
-    if ([arr[0] isEqualToString:@"Survey"]) {
-        
-        NSString *code = [arr lastObject];
-
+    TDAdvertModel *model = self.bannerLinks[index];
+    
+    if (model.adType == kADTypeStock) {
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-        vc.stockCode = code;
+        vc.stockCode = model.adUrl;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-    } else if ([arr[0] isEqualToString:@"Sharp"]){
-        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:[arr lastObject]];
+    } else if (model.adType == kADTypeVideo){
+        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.adUrl];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-
         
-        if (US.isLogIn) {     //为登录状态
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dic = @{@"userid":US.userId,
-                                  @"module_id":@2,
-                                  @"item_id":[arr lastObject]};
+    } else if (model.adType == kADTypeH5) {
+        if ([model.adUrl isEqualToString:@"https://www.juwairen.net/Consume/record"]){
+            NSString *nickName = [US.nickName URLEncode]?:@"";
+            NSString *avatar = [US.headImage URLEncode]?:@"";
             
-            [manager POST:API_AddBrowseHistory parameters:dic completion:^(id data, NSError *error){
-                if (!error) {
-                    
-                } else {
-                    
-                }
-            }];
+            NSString *urlString= [NSString stringWithFormat:@"https://www.juwairen.net/index.php/WxUser/vipShow?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+            NSURL *url = [NSURL URLWithString:urlString];
+            if (url) {
+                TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        } else {
+            NSURL *url = [NSURL URLWithString:model.adUrl];
+            if (url) {
+                TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:vc animated:YES];
+            }
         }
+    }else {
         
-    } else if ([s isEqualToString:@"https://www.juwairen.net/Consume/record"]){
-        NSString *nickName = [US.nickName URLEncode]?:@"";
-        NSString *avatar = [US.headImage URLEncode]?:@"";
-        
-        NSString *urlString= [NSString stringWithFormat:@"https://www.juwairen.net/index.php/WxUser/vipShow?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
-        NSURL *url = [NSURL URLWithString:urlString];
-        if (url) {
-            TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
-    } else {
-        
-        NSURL *url = [NSURL URLWithString:s];
-        if (url) {
-            TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
     }
 }
 
