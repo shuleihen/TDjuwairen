@@ -13,6 +13,9 @@
 #import "MJRefresh.h"
 #import "UIViewController+Loading.h"
 #import "MBProgressHUD.h"
+#import "TDWebViewController.h"
+#import "LoginState.h"
+#import "NSString+Util.h"
 
 @interface SystemMessageViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -242,15 +245,32 @@
     return 0.001f;
 }
 
-//- (BOOL)tableView:(UITableView *)tableView shouldShowMenuForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return YES;
-//}
-//
-//- (BOOL)tableView:(UITableView *)tableView canPerformAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-//    return YES;
-//}
-//
-//- (void)tableView:(UITableView *)tableView performAction:(SEL)action forRowAtIndexPath:(NSIndexPath *)indexPath withSender:(id)sender {
-//    
-//}
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    UIMenuController *menuController = [UIMenuController sharedMenuController];
+    if (menuController.menuVisible) {
+        [menuController setMenuVisible:NO animated:YES];
+    }
+    
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    SysMessageListModel *model = self.items[indexPath.section];
+    if ((model.msgType == 1) && (model.msgLinkType == 5)) {
+        NSString *urlString = @"";
+        if ([model.msgLink isEqualToString:@"https://www.juwairen.net/index.php/WxUser/vipShow"]){
+            NSString *nickName = [US.nickName URLEncode]?:@"";
+            NSString *avatar = [US.headImage URLEncode]?:@"";
+            
+            urlString= [NSString stringWithFormat:@"%@?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",model.msgLink,nickName,avatar,@(US.isLogIn),@(US.userLevel)];
+        } else {
+            urlString = model.msgLink;
+        }
+        
+        NSURL *url = [NSURL URLWithString:urlString];
+        if (url) {
+            TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }
+}
 @end

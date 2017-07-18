@@ -12,7 +12,7 @@
 @property (nonatomic, copy) NSString *msgId;
 @property (nonatomic, copy) NSString *msgContent;
 @property (nonatomic, assign) NSInteger msgContentType; // 0表示文本，1表示图片
-@property (nonatomic, assign) NSInteger msgType;    // 1表示活动，2表示钥匙奖励 ，3表示 用户反馈，4表示兑换奖品
+@property (nonatomic, assign) NSInteger msgType;    // 1表示活动，2表示钥匙奖励 ，3表示 用户反馈，4表示兑换奖品, 5表示h5
 @property (nonatomic, copy) NSString *msgTime;
 @property (nonatomic, copy) NSString *msgTitle;
 @property (nonatomic, copy) NSString *msgLink;

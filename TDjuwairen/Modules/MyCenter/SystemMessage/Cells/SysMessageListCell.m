@@ -17,9 +17,9 @@
     self.typeLabel.layer.borderWidth = TDPixel;
     self.typeLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#666666"].CGColor;
     
-    UITapGestureRecognizer *tapGesture =
-    [[UITapGestureRecognizer alloc]initWithTarget:self
-                                           action:@selector(showMenu)];
+    UILongPressGestureRecognizer *tapGesture =
+    [[UILongPressGestureRecognizer alloc]initWithTarget:self
+                                                 action:@selector(showMenu:)];
     [self addGestureRecognizer:tapGesture];
 }
 
@@ -39,19 +39,17 @@
     }
 }
 
--(void)showMenu
-{
-    if(self.isFirstResponder){
-        [self resignFirstResponder];
-    }else{
+-(void)showMenu:(UIGestureRecognizer *)recognizer {
+    if (recognizer.state == UIGestureRecognizerStateBegan) {
         [self becomeFirstResponder];
+        
+        UIMenuItem *deleteItem = [[UIMenuItem alloc]initWithTitle:@"删除" action:@selector(deleteAction:)];
+        UIMenuController *menuController = [UIMenuController sharedMenuController];
+        menuController.menuItems = @[deleteItem];
+        [menuController setTargetRect:self.frame inView:self.superview];
+        [menuController setMenuVisible:YES animated:YES];
     }
     
-    UIMenuItem *deleteItem = [[UIMenuItem alloc]initWithTitle:@"删除" action:@selector(deleteAction:)];
-    UIMenuController *menuController = [UIMenuController sharedMenuController];
-    menuController.menuItems = @[deleteItem];
-    [menuController setTargetRect:self.frame inView:self.superview];
-    [menuController setMenuVisible:YES animated:YES];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
