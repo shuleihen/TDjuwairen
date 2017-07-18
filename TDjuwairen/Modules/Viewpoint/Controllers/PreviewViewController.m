@@ -7,12 +7,9 @@
 //
 
 #import "PreviewViewController.h"
-#import "UIdaynightModel.h"
 
 @import WebKit;
 @interface PreviewViewController ()<WKNavigationDelegate,WKUIDelegate>
-
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) WKWebView *webview;
 
 @end
@@ -22,7 +19,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightmodel = [UIdaynightModel sharedInstance];
     [self setupWithNavigation];
     [self setupWithWkWebview];
     // Do any additional setup after loading the view.
@@ -30,10 +26,6 @@
 
 - (void)setupWithNavigation{    
     self.title = @"预览";
-    
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
 }
 
 - (void)setupWithWkWebview{
@@ -45,20 +37,5 @@
     [self.view addSubview:self.webview];
     
 }
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

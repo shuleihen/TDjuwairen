@@ -66,12 +66,14 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 - (void)setupAliveListArray:(NSArray *)array {
     NSMutableArray *cellArray = [NSMutableArray arrayWithCapacity:array.count];
     for (AliveListModel *model in array) {
-        
         AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
-        cellData.isShowDetailMessage = self.isAliveDetail;
-        cellData.isShowToolBar = self.isShowToolBar;
-        [cellData setup];
-        [cellArray addObject:cellData];
+        
+        if (cellData) {
+            cellData.isShowDetailMessage = self.isAliveDetail;
+            cellData.isShowToolBar = self.isShowToolBar;
+            [cellData setup];
+            [cellArray addObject:cellData];
+        }
     }
     
     self.itemList = cellArray;

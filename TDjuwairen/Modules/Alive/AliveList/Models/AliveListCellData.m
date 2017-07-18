@@ -50,6 +50,10 @@
                 cellData = [[AliveListSurveyCellData alloc] initWithAliveModel:model];
             }
                 break;
+            case kAlivePlayStock:{
+                
+            }
+                break;
             default:
                 NSAssert(NO, @"直播类型不支持");
                 break;

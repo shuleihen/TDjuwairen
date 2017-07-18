@@ -90,11 +90,11 @@
     
     switch (self.listType) {
         case kAliveListAttention:
-            api = API_AliveGetRoomList;
-            dict = @{@"tag" :@(listType),@"page" :@(page)};
+            api = API_AliveGetAttenAliveList;
+            dict = @{@"page" :@(page)};
             break;
         case kAliveListRecommend:
-            api = API_AliveGetRecList;
+            api = API_AliveGetRecAliveList;
             dict = @{@"page" :@(page)};
             break;
         case kAliveListViewpoint:

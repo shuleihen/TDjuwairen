@@ -62,3 +62,5 @@
 @property (nonatomic, assign) CGRect forwardViewFrame;
 @property (nonatomic, strong) AliveListCellData *forwardCellData;
 @end
+
+

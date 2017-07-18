@@ -173,8 +173,11 @@
 #define API_GetGuessRule            @"Game/guessRule"
 
 // 直播
-#define API_AliveGetRecList         @"Room/getRecAliveList"
 #define API_AliveGetRoomList        @"Room/lists"
+
+#define API_AliveGetRecAliveList    @"Room/getRecAliveList3_2"
+#define API_AliveGetAttenAliveList  @"Room/getAttenAliveList3_2"
+
 #define API_AliveGetAliveInfo       @"Room/showLiveInfo"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"
 #define API_AliveGetRoomLike        @"Room/showLiveAssess"
@@ -191,7 +194,7 @@
 #define API_AliveDelAttention       @"Blog/cancelAttention"
 #define API_AliveAddRoomPublish     @"Room/publish"
 #define API_AliveGetRoomInfo        @"Room/getRoomInfo"
-#define API_AliveGetRoomLiveList    @"Room/roomLiveList3_1"
+#define API_AliveGetRoomLiveList    @"Room/roomLiveList3_2"
 #define API_AliveGetGuessRateInfo   @"Room/getGuessRateInfo"
 #define API_AliveGetAttenInfo       @"Room/getAttenInfo"
 #define API_AliveUpdateUserSex      @"Room/updateUserSex"
@@ -208,4 +211,8 @@
 #define API_MessageClear            @"Message/clearMessageList"
 #define API_MessageDelete           @"Message/deleteMessage"
 #define API_MessageSetRead          @"Message/setMessageReadStatus"
+#define API_MessageGetSystemList    @"Message/getSysNotifyList"
+#define API_MessageSystemClear      @"Message/clearSysNotify"
+#define API_MessageSystemDelete     @"Message/deleteSysNotify"
+
 #endif /* NetworkDefine_h */

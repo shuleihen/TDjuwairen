@@ -100,9 +100,6 @@
 
 
 - (void)setupWithNavigation{
-    //设置navigation背景色
-    [self.navigationController.navigationBar setBackgroundColor:self.daynightmodel.navigationColor];
-    [self.navigationController.navigationBar setBarTintColor:self.daynightmodel.navigationColor];
     
     //设置右边发布按钮
     UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStyleDone target:self action:@selector(clickPublish:)];
