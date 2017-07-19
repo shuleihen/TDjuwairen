@@ -9,5 +9,6 @@
 #import <Foundation/Foundation.h>
 
 @interface PlayStockHnadler : NSObject
-+ (NSString *)seasonString:(NSInteger)season;
++ (NSString *)stringWithSeason:(NSInteger)season;
++ (NSString *)stringWithNextDay:(NSInteger)nextDay;
 @end

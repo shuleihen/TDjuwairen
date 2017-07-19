@@ -26,7 +26,7 @@
 }
 
 - (void)setupIndexGuessModel:(IndexStockRecordModel *)guess {
-    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, [PlayStockHnadler seasonString:guess.season]];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, [PlayStockHnadler stringWithSeason:guess.season]];
     
     switch (guess.status) {
         case 0:
@@ -74,7 +74,7 @@
 }
 
 - (void)setupIndividualGuessModel:(IndividualStockRecordModel *)guess {
-    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, [PlayStockHnadler seasonString:guess.season]];
+    self.dateLabel.text = [NSString stringWithFormat:@"%@ %@",guess.addTime, [PlayStockHnadler stringWithSeason:guess.season]];
     
     switch (guess.status) {
         case 0:

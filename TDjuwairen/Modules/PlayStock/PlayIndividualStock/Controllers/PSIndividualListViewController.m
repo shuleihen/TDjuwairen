@@ -263,7 +263,7 @@
     
     if (self.guessModel) {
         NSString *time = self.guessModel.guess_date;
-        NSString *season = [PlayStockHnadler seasonString:self.guessModel.guess_season];
+        NSString *season = [PlayStockHnadler stringWithSeason:self.guessModel.guess_season];
         NSString *remaining = [NSString intervalNowDateWithDateInterval:self.guessModel.guess_endTime];
         
         self.timeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",time,season,remaining];

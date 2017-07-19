@@ -26,7 +26,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"我的竞猜";
+    self.title = @"记录";
     UINib *nib = [UINib nibWithNibName:@"MyGuessCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"MyGuessCellID"];
     

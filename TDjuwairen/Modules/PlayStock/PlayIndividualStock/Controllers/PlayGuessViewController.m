@@ -76,7 +76,7 @@
     NSTimeInterval nowDate = [[NSDate new] timeIntervalSince1970];
     NSInteger  regiTime = self.endtime - nowDate;
     
-    wself.label_NowTime.text = [PlayStockHnadler seasonString:self.season];
+    wself.label_NowTime.text = [PlayStockHnadler stringWithSeason:self.season];
     
     [wself startWithTime:regiTime block:^(NSString *day) {
         wself.label_CountDown.text = day;

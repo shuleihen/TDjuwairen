@@ -27,11 +27,14 @@
 #import "PlayStockCommentViewController.h"
 #import "MessageTableViewController.h"
 #import "NSString+Util.h"
+#import "PlayStockHnadler.h"
 
 @interface PSIndexListViewController ()<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, GuessAddPourDelegate,CAAnimationDelegate>
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet BVUnderlineButton *keyNumBtn;
-@property (weak, nonatomic) IBOutlet UILabel *sectionTimeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *sectionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *dateLabel;
 @property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 
 @property (nonatomic, assign) NSInteger commentNum;
@@ -100,7 +103,9 @@
     self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272B34"];
     self.tableView.rowHeight = 235.0f;
     
-    self.sectionTimeLabel.text = @"";
+    self.sectionLabel.text = @"";
+    self.dateLabel.text = @"";
+    self.timeLabel.text = @"";
     
     // 开启股票刷新
     self.stockManager = [[StockManager alloc] init];
@@ -145,35 +150,47 @@
     __weak PSIndexListViewController *wself = self;
     [ma GET:API_GuessIndexList parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            wself.keyNum = [data[@"user_keynum"] integerValue];
-            NSString *keyNum = [NSString stringWithFormat:@"%ld",(long)wself.keyNum];
-            
-            [wself.keyNumBtn setTitle:keyNum forState:UIControlStateNormal];
-            [wself.keyNumBtn setTitle:keyNum forState:UIControlStateHighlighted];
-            
-            wself.commentNum = [data[@"guess_comment_count"] integerValue];
-            
-            [wself.bottomButton setTitle:[NSString stringWithFormat:@"评论(%d)",wself.commentNum] forState:UIControlStateNormal];
-            
-            NSArray *array = data[@"guessing_list"];
-            if ([array count]) {
-                NSMutableArray *guessList = [NSMutableArray arrayWithCapacity:[array count]];
-                NSMutableArray *stockIds = [NSMutableArray arrayWithCapacity:[array count]];
-                
-                for (NSDictionary *dict in array) {
-                    PSIndexListModel *model = [[PSIndexListModel alloc] initWithDict:dict];
-                    [guessList addObject:model];
-                    [stockIds addObject:model.stockId];
-                }
-                wself.guessList = guessList;
-                
-                [wself.stockManager addStocks:stockIds];
-            }
-            
-            [wself.tableView reloadData];
+            [wself reloadViewWithData:data];
         }
     }];
     
+}
+
+- (void)reloadViewWithData:(NSDictionary *)data {
+    self.keyNum = [data[@"user_keynum"] integerValue];
+    NSString *keyNum = [NSString stringWithFormat:@"%ld",(long)self.keyNum];
+    
+    [self.keyNumBtn setTitle:keyNum forState:UIControlStateNormal];
+    [self.keyNumBtn setTitle:keyNum forState:UIControlStateHighlighted];
+    
+    self.commentNum = [data[@"guess_comment_count"] integerValue];
+    
+    [self.bottomButton setTitle:[NSString stringWithFormat:@"评论(%ld)",(long)self.commentNum] forState:UIControlStateNormal];
+    
+    NSString *dateString = data[@"guess_date"];
+    self.dateLabel.text = dateString;
+    
+    // 0表示当天，1表示明日，2表示下个交易日
+    NSInteger nextDay = [data[@"next_day"] integerValue];
+    NSInteger season = [data[@"guess_season"] integerValue];
+    self.sectionLabel.text = [NSString stringWithFormat:@"%@%@",[PlayStockHnadler stringWithNextDay:nextDay],[PlayStockHnadler stringWithSeason:season]];
+    
+    NSArray *array = data[@"guessing_list"];
+    if ([array count]) {
+        NSMutableArray *guessList = [NSMutableArray arrayWithCapacity:[array count]];
+        NSMutableArray *stockIds = [NSMutableArray arrayWithCapacity:[array count]];
+        
+        for (NSDictionary *dict in array) {
+            PSIndexListModel *model = [[PSIndexListModel alloc] initWithDict:dict];
+            [guessList addObject:model];
+            [stockIds addObject:model.stockId];
+        }
+        self.guessList = guessList;
+        
+        [self.stockManager addStocks:stockIds];
+    }
+    
+    [self.tableView reloadData];
 }
 
 - (NSString *)sectionString {
@@ -216,16 +233,16 @@
     
     PSIndexListModel *guessInfo = self.guessList.firstObject;
     if (guessInfo) {
-        NSDate *now = [NSDate new];
-        
-        NSDateFormatter*dateFormatter = [[NSDateFormatter alloc] init];
-        [dateFormatter setDateFormat:@"MM-dd EE"];
-        [dateFormatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
-        NSString *time = [dateFormatter stringFromDate:now];
-        NSString *section = [self sectionString];
+//        NSDate *now = [NSDate new];
+//        
+//        NSDateFormatter*dateFormatter = [[NSDateFormatter alloc] init];
+//        [dateFormatter setDateFormat:@"MM-dd EE"];
+//        [dateFormatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
+//        NSString *time = [dateFormatter stringFromDate:now];
+//        NSString *section = [self sectionString];
         NSString *remaining = [NSString intervalNowDateWithDateInterval:guessInfo.endTime];
         
-        self.sectionTimeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",time,section,remaining];
+        self.timeLabel.text = remaining;
     }
 }
 

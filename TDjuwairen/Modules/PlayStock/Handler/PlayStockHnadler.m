@@ -11,7 +11,7 @@
 
 @implementation PlayStockHnadler
 
-+ (NSString *)seasonString:(NSInteger)season {
++ (NSString *)stringWithSeason:(NSInteger)season {
     NSString *string = @"";
     switch (season) {
         case kPSSeasonAM:
@@ -27,5 +27,22 @@
     return string;
 }
 
-
++ (NSString *)stringWithNextDay:(NSInteger)nextDay {
+    NSString *string = @"";
+    switch (nextDay) {
+        case 0:
+            string = @"";
+            break;
+        case 1:
+            string = @"明天";
+            break;
+        case 2:
+            string = @"下个交易日";
+            break;
+        default:
+            break;
+    }
+    
+    return string;
+}
 @end

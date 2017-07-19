@@ -113,7 +113,7 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     NSString *winKey = [NSString stringWithFormat:@"%ld把钥匙",(long)mode.guessKeyNum];
     self.winKeyLabel.text = winKey;
     
-    NSString *season = [PlayStockHnadler seasonString:mode.season];
+    NSString *season = [PlayStockHnadler stringWithSeason:mode.season];
     self.sectionLabel.text = [NSString stringWithFormat:@"竞猜场次：%@",season];
     self.joinLabel.text = [NSString stringWithFormat:@"参与人数：%ld",(long)mode.joinNum];
     
