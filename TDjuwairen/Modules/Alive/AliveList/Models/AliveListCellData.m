@@ -9,6 +9,7 @@
 #import "AliveListCellData.h"
 #import "TTTAttributedLabel.h"
 #import "AliveVideoListTableViewCell.h"
+#import "SurveyHandler.h"
 
 #define kAliveListMessageLineLimit 5
 #define kAliveListHeaderHeight  52
@@ -44,14 +45,21 @@
                 cellData = [[AliveListViewpointCellData alloc] initWithAliveModel:model];
             }
                 break;
-            case kAliveHot:
+            case kAliveHot: {
+                cellData = [[AliveListHotCellData alloc] initWithAliveModel:model];
+            }
+                break;
             case kAliveSurvey:
             case kAliveVideo:{
                 cellData = [[AliveListSurveyCellData alloc] initWithAliveModel:model];
             }
                 break;
             case kAlivePlayStock:{
-                
+                cellData = [[AliveListPlayStockCellData alloc] initWithAliveModel:model];
+            }
+                break;
+            case kAliveAd:{
+                cellData = [[AliveListAdCellData alloc] initWithAliveModel:model];
             }
                 break;
             default:
@@ -553,4 +561,102 @@
         self.cellHeight = self.viewHeight + self.topHeaderHeight;
     }
 }
+@end
+
+
+#pragma mark - AliveListPlayStockCellData
+
+@implementation AliveListPlayStockCellData
+
+- (void)setup {
+    CGFloat contentWidht = kScreenWidth-24;
+    CGFloat left = 12.0f;
+    CGFloat height = 0.0f;
+    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
+                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
+                             isAppendingShowAll:self.isShowDetailMessage
+                             isAppendingShowImg:NO];
+    
+    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
+                                                          withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
+                                                   limitedToNumberOfLines:0];
+    
+    self.messageLabelFrame = CGRectMake(left, 10, contentWidht, messageSize.height);
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
+    
+    self.adImageFrame = CGRectMake(left, height+8, contentWidht, 178);
+    height = CGRectGetMaxY(self.adImageFrame);
+    
+    self.stockNameLabelFrame = CGRectMake(left, height+7, contentWidht, 14);
+    height = CGRectGetMaxY(self.stockNameLabelFrame);
+    
+    self.timeLabelFrame = CGRectMake(left, height+4, contentWidht, 14);
+    height = CGRectGetMaxY(self.timeLabelFrame);
+    
+    self.topHeaderHeight = kAliveListHeaderHeight;
+    self.viewHeight = height+15;
+    self.bottomHeight =  kAliveListBottomHeight;
+    if (self.isShowToolBar) {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
+    } else {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight;
+    }
+}
+
+@end
+
+
+
+#pragma mark - AliveListAdCellData
+
+@implementation AliveListAdCellData
+
+- (void)setup {
+    AliveListModel *model = self.aliveModel;
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(2, -2, 17, 17);
+    attatch.image = [UIImage imageNamed:@"type_video.png"];
+    
+    NSAttributedString *video = [NSAttributedString attributedStringWithAttachment:attatch];
+    [attri appendAttributedString:video];
+    
+    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    self.topHeaderHeight = 0;
+    self.cellHeight = size.height + 280;
+}
+
+@end
+
+
+#pragma mark - AliveListHotCellData
+
+@implementation AliveListHotCellData
+
+- (void)setup {
+    AliveListModel *model = self.aliveModel;
+    AliveListExtra *extra = model.extra;
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    
+    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+    attatch.bounds = CGRectMake(2, -2, 17, 17);
+    attatch.image = [SurveyHandler imageWithSurveyType:extra.surveyType];
+    
+    NSAttributedString *video = [NSAttributedString attributedStringWithAttachment:attatch];
+    [attri appendAttributedString:video];
+    
+    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+    
+    CGSize descSize = [extra.surveyDesc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f]} context:nil].size;
+    
+    self.topHeaderHeight = 0;
+    self.bottomHeight = 0;
+    self.cellHeight = size.height + descSize.height + 12 + 8 + 50;
+}
+
 @end

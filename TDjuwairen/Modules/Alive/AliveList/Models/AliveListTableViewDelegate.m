@@ -25,6 +25,10 @@
 #import "StockUnlockManager.h"
 #import "ViewpointDetailViewController.h"
 #import "VideoDetailViewController.h"
+#import "AliveListAdTableViewCell.h"
+#import "AliveListHotTableViewCell.h"
+#import "TDWebViewHandler.h"
+#import "PlayStockDetailViewController.h"
 
 #define kAliveListCellToolHeight 37
 #define kAliveListSectionHeaderHeight   30
@@ -50,6 +54,10 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         
         UINib *nib = [UINib nibWithNibName:@"AliveVideoListTableViewCell" bundle:nil];
         [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveVideoListTableViewCellID"];
+        UINib *nib2 = [UINib nibWithNibName:@"AliveListAdTableViewCell" bundle:nil];
+        [self.tableView registerNib:nib2 forCellReuseIdentifier:@"AliveListAdTableViewCellID"];
+        UINib *nib3 = [UINib nibWithNibName:@"AliveListHotTableViewCell" bundle:nil];
+        [self.tableView registerNib:nib3 forCellReuseIdentifier:@"AliveListHotTableViewCellID"];
         
         self.unlockManager = [[StockUnlockManager alloc] init];
         self.unlockManager.delegate = self;
@@ -93,8 +101,9 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 #pragma mark - StockUnlockManagerDelegate
 - (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
     for (AliveListCellData *model in self.itemList) {
-        if ([model.aliveModel.extra.companyCode isEqualToString:stockCode]) {
-            model.aliveModel.extra.isUnlock = YES;
+        AliveListExtra *extra = model.aliveModel.extra;
+        if ([extra.companyCode isEqualToString:stockCode]) {
+            extra.isUnlock = YES;
         }
     }
     
@@ -357,17 +366,23 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     return 1;
 }
 
-
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     AliveListCellData *cellData = self.itemList[indexPath.section];
     AliveListModel *model = cellData.aliveModel;
     
     if (model.aliveType == kAliveSurvey ||
-        model.aliveType == kAliveHot ||
         model.aliveType == kAliveVideo) {
         AliveVideoListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveVideoListTableViewCellID"];
+        
+        return cell;
+    } else if (model.aliveType == kAliveAd) {
+        // 广告 AliveListAdTableViewCell
+        AliveListAdTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListAdTableViewCellID"];
+        
+        return cell;
+    } else if (model.aliveType == kAliveHot) {
+        AliveListHotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListHotTableViewCellID"];
         
         return cell;
     } else {
@@ -384,11 +399,16 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     AliveListModel *model = cellData.aliveModel;
     
     if (model.aliveType == kAliveSurvey ||
-        model.aliveType == kAliveHot ||
         model.aliveType == kAliveVideo) {
         AliveVideoListTableViewCell *scell = (AliveVideoListTableViewCell *)cell;
         [scell setupAliveModel:model];
-    } else {
+    } else if (model.aliveType == kAliveHot) {
+        AliveListHotTableViewCell *scell = (AliveListHotTableViewCell *)cell;
+        [scell setupAliveModel:model];
+    } else if (model.aliveType == kAliveAd) {
+        AliveListAdTableViewCell *scell = (AliveListAdTableViewCell *)cell;
+        [scell setupAliveModel:model];
+    } else  {
         AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;
         [scell setupAliveListCellData:cellData];
     }
@@ -416,10 +436,23 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveHot) {
+        // 热点
+        AliveListExtra *extra = model.extra;
+        
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.aliveId;
+        vc.stockCode = extra.companyCode;
+        vc.stockName = extra.companyName;
+        vc.surveyType =kAliveHot;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:vc.surveyType];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
     } else if (model.aliveType == kAliveSurvey ||
-               model.aliveType == kAliveHot ||
                model.aliveType == kAliveVideo) {
-        if (model.extra.isUnlock) {
+
+        AliveListExtra *extra = model.extra;
+        if (extra.isUnlock) {
             
             if (model.aliveType == kAliveVideo) {
                 VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
@@ -428,9 +461,9 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
             } else {
                 SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
                 vc.contentId = model.aliveId;
-                vc.stockCode = model.extra.companyCode;
-                vc.stockName = model.extra.companyName;
-                vc.surveyType = (model.aliveType == kAliveHot)?kSurveyTypeHot:kSurveyTypeSpot;
+                vc.stockCode = extra.companyCode;
+                vc.stockName = extra.companyName;
+                vc.surveyType = kSurveyTypeSpot;
                 vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:vc.surveyType];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.viewController.navigationController pushViewController:vc animated:YES];
@@ -443,8 +476,19 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
                 return;
             }
             
-            [self.unlockManager unlockStock:model.extra.companyCode withStockName:model.extra.companyName withController:self.viewController];
+            [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
         }
+    } else if (model.aliveType == kAliveAd) {
+        // 广告
+        AliveListAdExtra *extra = model.extra;
+        [TDWebViewHandler openURL:extra.linkUrl inController:self.viewController];
+    } else if (model.aliveType == kAlivePlayStock) {
+        AliveListPlayStockExtra *extra = model.extra;
+        
+        PlayStockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockDetailViewController"];
+        vc.guessId = extra.guessId;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
     } else {
         
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
@@ -454,12 +498,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        AliveListCellData *cellData = self.itemList[indexPath.section];
-        return cellData.cellHeight;
-    } else {
-        return kAliveListCellToolHeight;
-    }
+    AliveListCellData *cellData = self.itemList[indexPath.section];
+    return cellData.cellHeight;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

@@ -63,4 +63,16 @@
 @property (nonatomic, strong) AliveListCellData *forwardCellData;
 @end
 
+@interface AliveListPlayStockCellData : AliveListCellData
+@property (nonatomic, assign) CGRect adImageFrame;
+@property (nonatomic, assign) CGRect stockNameLabelFrame;
+@property (nonatomic, assign) CGRect timeLabelFrame;
+@end
 
+@interface AliveListAdCellData : AliveListCellData
+
+@end
+
+@interface AliveListHotCellData : AliveListCellData
+
+@end

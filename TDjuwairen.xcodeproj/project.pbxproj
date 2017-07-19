@@ -443,6 +443,14 @@
 		19F07A471F1DD474004449BB /* SysMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A451F1DD474004449BB /* SysMessageListCell.m */; };
 		19F07A481F1DD474004449BB /* SysMessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A461F1DD474004449BB /* SysMessageListCell.xib */; };
 		19F07A4B1F1DDFD9004449BB /* AliveListTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A4A1F1DDFD9004449BB /* AliveListTopView.m */; };
+		19F07A4E1F1EFF35004449BB /* AliveListPlayStockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */; };
+		19F07A511F1F0480004449BB /* AliveListPlayStockExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A501F1F0480004449BB /* AliveListPlayStockExtra.m */; };
+		19F07A541F1F0731004449BB /* AliveListAdExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A531F1F0731004449BB /* AliveListAdExtra.m */; };
+		19F07A581F1F27B8004449BB /* AliveListAdTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A561F1F27B8004449BB /* AliveListAdTableViewCell.m */; };
+		19F07A591F1F27B8004449BB /* AliveListAdTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A571F1F27B8004449BB /* AliveListAdTableViewCell.xib */; };
+		19F07A5D1F1F2D24004449BB /* AliveListHotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A5B1F1F2D24004449BB /* AliveListHotTableViewCell.m */; };
+		19F07A5E1F1F2D24004449BB /* AliveListHotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */; };
+		19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A601F1F39B5004449BB /* TDWebViewHandler.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -1461,6 +1469,20 @@
 		19F07A461F1DD474004449BB /* SysMessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SysMessageListCell.xib; sourceTree = "<group>"; };
 		19F07A491F1DDFD9004449BB /* AliveListTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListTopView.h; sourceTree = "<group>"; };
 		19F07A4A1F1DDFD9004449BB /* AliveListTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListTopView.m; sourceTree = "<group>"; };
+		19F07A4C1F1EFF35004449BB /* AliveListPlayStockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPlayStockView.h; sourceTree = "<group>"; };
+		19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPlayStockView.m; sourceTree = "<group>"; };
+		19F07A4F1F1F0480004449BB /* AliveListPlayStockExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPlayStockExtra.h; sourceTree = "<group>"; };
+		19F07A501F1F0480004449BB /* AliveListPlayStockExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPlayStockExtra.m; sourceTree = "<group>"; };
+		19F07A521F1F0731004449BB /* AliveListAdExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListAdExtra.h; sourceTree = "<group>"; };
+		19F07A531F1F0731004449BB /* AliveListAdExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListAdExtra.m; sourceTree = "<group>"; };
+		19F07A551F1F27B8004449BB /* AliveListAdTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListAdTableViewCell.h; sourceTree = "<group>"; };
+		19F07A561F1F27B8004449BB /* AliveListAdTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListAdTableViewCell.m; sourceTree = "<group>"; };
+		19F07A571F1F27B8004449BB /* AliveListAdTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListAdTableViewCell.xib; sourceTree = "<group>"; };
+		19F07A5A1F1F2D24004449BB /* AliveListHotTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListHotTableViewCell.h; sourceTree = "<group>"; };
+		19F07A5B1F1F2D24004449BB /* AliveListHotTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListHotTableViewCell.m; sourceTree = "<group>"; };
+		19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListHotTableViewCell.xib; sourceTree = "<group>"; };
+		19F07A5F1F1F39B5004449BB /* TDWebViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewHandler.h; sourceTree = "<group>"; };
+		19F07A601F1F39B5004449BB /* TDWebViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewHandler.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -2884,6 +2906,12 @@
 				1978E0631EDFEAD10065CEE0 /* AliveVideoListTableViewCell.h */,
 				1978E0641EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m */,
 				1978E0651EDFEAD10065CEE0 /* AliveVideoListTableViewCell.xib */,
+				19F07A551F1F27B8004449BB /* AliveListAdTableViewCell.h */,
+				19F07A561F1F27B8004449BB /* AliveListAdTableViewCell.m */,
+				19F07A571F1F27B8004449BB /* AliveListAdTableViewCell.xib */,
+				19F07A5A1F1F2D24004449BB /* AliveListHotTableViewCell.h */,
+				19F07A5B1F1F2D24004449BB /* AliveListHotTableViewCell.m */,
+				19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2908,8 +2936,12 @@
 				1953CAFC1E7172DB00A64B3C /* AliveListModel.m */,
 				1966A6691E8CA30E007DDA14 /* AliveListForwardModel.h */,
 				1966A66A1E8CA30E007DDA14 /* AliveListForwardModel.m */,
+				19F07A4F1F1F0480004449BB /* AliveListPlayStockExtra.h */,
+				19F07A501F1F0480004449BB /* AliveListPlayStockExtra.m */,
 				1978E0681EDFF1350065CEE0 /* AliveListExtra.h */,
 				1978E0691EDFF1350065CEE0 /* AliveListExtra.m */,
+				19F07A521F1F0731004449BB /* AliveListAdExtra.h */,
+				19F07A531F1F0731004449BB /* AliveListAdExtra.m */,
 				1966A66C1E8CAAA3007DDA14 /* AliveListCellData.h */,
 				1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */,
 				193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */,
@@ -2941,6 +2973,8 @@
 				19E58DC21EFB6E0F00ADA1B8 /* AliveListBottomView.m */,
 				19F07A491F1DDFD9004449BB /* AliveListTopView.h */,
 				19F07A4A1F1DDFD9004449BB /* AliveListTopView.m */,
+				19F07A4C1F1EFF35004449BB /* AliveListPlayStockView.h */,
+				19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -3986,6 +4020,8 @@
 			children = (
 				19C526261D49EE090039F85D /* TDWebViewController.h */,
 				19C526271D49EE090039F85D /* TDWebViewController.m */,
+				19F07A5F1F1F39B5004449BB /* TDWebViewHandler.h */,
+				19F07A601F1F39B5004449BB /* TDWebViewHandler.m */,
 			);
 			path = WebView;
 			sourceTree = "<group>";
@@ -5189,6 +5225,7 @@
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
+				19F07A5E1F1F2D24004449BB /* AliveListHotTableViewCell.xib in Resources */,
 				4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
@@ -5237,6 +5274,7 @@
 				194E0D2D1EEFBF78009C7AC6 /* ViewpointHeaderTableViewCell.xib in Resources */,
 				190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */,
 				9E614E4F1EAC85710014DC0B /* OpenAnAccountController.xib in Resources */,
+				19F07A591F1F27B8004449BB /* AliveListAdTableViewCell.xib in Resources */,
 				19959B801E2C5D4300AB26DF /* GradeListCell.xib in Resources */,
 				193419E61E78DF2B00F22788 /* bloom.caf in Resources */,
 				4DE306B01EDFE75000A0D88C /* AliveSearchSurveyCell.xib in Resources */,
@@ -5369,6 +5407,7 @@
 				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
+				19F07A511F1F0480004449BB /* AliveListPlayStockExtra.m in Sources */,
 				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
@@ -5453,6 +5492,7 @@
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19E58DE81EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m in Sources */,
+				19F07A541F1F0731004449BB /* AliveListAdExtra.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
@@ -5461,6 +5501,7 @@
 				1987B27C1EE688F700BD852E /* DialogueViewController.m in Sources */,
 				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
 				19E58DAC1EF8C55500ADA1B8 /* UITabBarController+ZFPlayerRotation.m in Sources */,
+				19F07A5D1F1F2D24004449BB /* AliveListHotTableViewCell.m in Sources */,
 				190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */,
@@ -5547,6 +5588,7 @@
 				19959B941E2C9B7C00AB26DF /* GradeAddViewController.m in Sources */,
 				1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */,
 				4DD179E81E77C00B00FBE66D /* UIImage+blankImage.m in Sources */,
+				19F07A4E1F1EFF35004449BB /* AliveListPlayStockView.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
@@ -5602,6 +5644,7 @@
 				19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */,
 				4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
+				19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */,
 				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				19F07A301F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m in Sources */,
@@ -5657,6 +5700,7 @@
 				9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */,
 				19E5F2881E1364CF00984DBC /* StockWheelView.m in Sources */,
 				1955B48A1D644D9800DC102E /* HistoryView.m in Sources */,
+				19F07A581F1F27B8004449BB /* AliveListAdTableViewCell.m in Sources */,
 				19F07A381F1D9FDD004449BB /* XHLaunchAdImageManager.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
 				19F07A471F1DD474004449BB /* SysMessageListCell.m in Sources */,

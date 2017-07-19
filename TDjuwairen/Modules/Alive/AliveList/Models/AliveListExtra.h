@@ -14,6 +14,7 @@
 @property (nonatomic, assign) BOOL isUnlock;
 @property (nonatomic, assign) NSInteger surveyType;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
+@property (nonatomic, copy) NSString *surveyDesc;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

@@ -31,7 +31,7 @@ typedef enum : NSInteger {
     kAliveRoomListPosts    =1
 } AliveRoomListType;
 
-// 直播动态类型，1：图文，2：贴单，3：调研，4：热点，5：观点，6：视频，7：玩票
+// 直播动态类型，1：图文，2：贴单，3：调研，4：热点，5：观点，6：视频，7：玩票，8：广告
 typedef enum : NSInteger {
     kAliveNormal    =1,
     kAlivePosts     =2,
@@ -40,6 +40,7 @@ typedef enum : NSInteger {
     kAliveViewpoint =5,
     kAliveVideo     =6,
     kAlivePlayStock =7,
+    kAliveAd        =8,
 } AliveType;
 
 // 直播内容类型，0：文本，1：图片

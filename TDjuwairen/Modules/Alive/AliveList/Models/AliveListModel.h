@@ -10,6 +10,8 @@
 #import "AliveTypeDefine.h"
 #import "AliveListForwardModel.h"
 #import "AliveListExtra.h"
+#import "AliveListPlayStockExtra.h"
+#import "AliveListAdExtra.h"
 
 @interface AliveListModel : NSObject
 // 是否为转发动态
@@ -51,8 +53,9 @@
 @property (assign, nonatomic) BOOL isAttend;
 /// 该动态是否为当前用户
 @property (assign, nonatomic) BOOL isSelf;
-// 调研股票信息
-@property (nonatomic, strong) AliveListExtra *extra;
+
+// 直播额外信息
+@property (nonatomic, strong) id extra;
 
 // 收藏ID
 @property (nonatomic, copy) NSString *collectedId;

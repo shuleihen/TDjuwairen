@@ -33,12 +33,16 @@
         self.isForward = isforward;
         
         if (isforward) {
-            NSDictionary *d = dict[@"forward_info"];
-            self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:d];
+//            NSDictionary *d = dict[@"forward_info"];
+//            self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:d];
         }
         
         NSDictionary *extraDict = dict[@"alive_extra"];
-        if (extraDict.count) {
+        if (self.aliveType == kAlivePlayStock) {
+            self.extra = [[AliveListPlayStockExtra alloc] initWithDictionary:extraDict];
+        } else if (self.aliveType == kAliveAd) {
+            self.extra = [[AliveListAdExtra alloc] initWithDictionary:extraDict];
+        } else {
             self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
         }
         

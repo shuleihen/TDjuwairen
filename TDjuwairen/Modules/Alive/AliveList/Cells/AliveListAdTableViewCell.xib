@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" rowHeight="316" id="KGk-i7-Jjw" customClass="AliveListAdTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="316"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="315.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IGa-ck-fqO">
+                        <rect key="frame" x="12" y="12" width="296" height="36.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0oK-gc-BAF">
+                        <rect key="frame" x="12" y="56.5" width="296" height="210"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="210" id="ETb-xe-tpk"/>
+                        </constraints>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dB9-fz-0t7" customClass="BorderButton">
+                        <rect key="frame" x="12" y="276.5" width="40" height="24"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="40" id="OKG-o7-8nB"/>
+                            <constraint firstAttribute="height" constant="24" id="YGJ-4X-bT1"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="广告">
+                            <color key="titleColor" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                <real key="value" value="0.0"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="number" keyPath="borderWidth">
+                                <real key="value" value="1"/>
+                            </userDefinedRuntimeAttribute>
+                            <userDefinedRuntimeAttribute type="color" keyPath="borderColor">
+                                <color key="value" red="0.20000000000000001" green="0.44313725490196076" blue="0.88627450980392153" alpha="1" colorSpace="calibratedRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="phW-Rh-zSk">
+                        <rect key="frame" x="268" y="276" width="40" height="24.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="24" id="a8p-yQ-k4g"/>
+                            <constraint firstAttribute="width" constant="40" id="yzj-9N-yA8"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="关闭">
+                            <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        </state>
+                        <connections>
+                            <action selector="closePressed:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="pTc-Of-Wa8"/>
+                        </connections>
+                    </button>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="dB9-fz-0t7" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="627-qa-bY0"/>
+                    <constraint firstAttribute="bottom" secondItem="phW-Rh-zSk" secondAttribute="bottom" constant="15" id="Bhd-mV-uqj"/>
+                    <constraint firstAttribute="trailing" secondItem="IGa-ck-fqO" secondAttribute="trailing" constant="12" id="FMd-Qn-9eJ"/>
+                    <constraint firstAttribute="trailing" secondItem="phW-Rh-zSk" secondAttribute="trailing" constant="12" id="Lfs-hr-lQD"/>
+                    <constraint firstItem="0oK-gc-BAF" firstAttribute="top" secondItem="IGa-ck-fqO" secondAttribute="bottom" constant="8" id="P7v-GY-dCv"/>
+                    <constraint firstItem="IGa-ck-fqO" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="QC2-VN-zWB"/>
+                    <constraint firstItem="dB9-fz-0t7" firstAttribute="top" secondItem="0oK-gc-BAF" secondAttribute="bottom" constant="10" id="Qse-V6-aOg"/>
+                    <constraint firstItem="phW-Rh-zSk" firstAttribute="top" secondItem="0oK-gc-BAF" secondAttribute="bottom" constant="10" id="iTb-nt-cpv"/>
+                    <constraint firstItem="0oK-gc-BAF" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="orH-rx-8WG"/>
+                    <constraint firstAttribute="trailing" secondItem="0oK-gc-BAF" secondAttribute="trailing" constant="12" id="u7M-TA-Oy2"/>
+                    <constraint firstItem="IGa-ck-fqO" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="y5c-tW-92D"/>
+                    <constraint firstAttribute="bottom" secondItem="dB9-fz-0t7" secondAttribute="bottom" constant="15" id="yzo-WR-8yv"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="adImageView" destination="0oK-gc-BAF" id="jnN-Fi-tJm"/>
+                <outlet property="titleLabel" destination="IGa-ck-fqO" id="WRr-sC-heu"/>
+            </connections>
+            <point key="canvasLocation" x="33" y="180"/>
+        </tableViewCell>
+    </objects>
+</document>

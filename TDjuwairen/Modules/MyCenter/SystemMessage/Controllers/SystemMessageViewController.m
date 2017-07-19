@@ -13,9 +13,7 @@
 #import "MJRefresh.h"
 #import "UIViewController+Loading.h"
 #import "MBProgressHUD.h"
-#import "TDWebViewController.h"
-#import "LoginState.h"
-#import "NSString+Util.h"
+#import "TDWebViewHandler.h"
 
 @interface SystemMessageViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -255,22 +253,7 @@
     
     SysMessageListModel *model = self.items[indexPath.section];
     if ((model.msgType == 1) && (model.msgLinkType == 5)) {
-        NSString *urlString = @"";
-        if ([model.msgLink isEqualToString:@"https://www.juwairen.net/index.php/WxUser/vipShow"]){
-            NSString *nickName = [US.nickName URLEncode]?:@"";
-            NSString *avatar = [US.headImage URLEncode]?:@"";
-            
-            urlString= [NSString stringWithFormat:@"%@?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",model.msgLink,nickName,avatar,@(US.isLogIn),@(US.userLevel)];
-        } else {
-            urlString = model.msgLink;
-        }
-        
-        NSURL *url = [NSURL URLWithString:urlString];
-        if (url) {
-            TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:vc animated:YES];
-        }
+        [TDWebViewHandler openURL:model.msgLink inController:self];
     }
 }
 @end

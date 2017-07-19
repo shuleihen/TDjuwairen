@@ -13,6 +13,7 @@
 #import "AliveListPostView.h"
 #import "AliveListViewpointView.h"
 #import "AliveListForwardView2.h"
+#import "AliveListPlayStockView.h"
 
 @implementation AliveListTableViewCell
 
@@ -129,6 +130,12 @@
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
+            case kAlivePlayStock: {
+                AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+                self.aliveContentView = view;
+                [view setCellData:cellData];
+            }
+                break;
             default:
                 break;
         }

@@ -16,6 +16,7 @@
         self.isUnlock = [dict[@"is_unlock"] boolValue];
         self.surveyType = [dict[@"survey_type"] integerValue];
         self.unlockKeyNum = [dict[@"unlock_keynum"] integerValue];
+        self.surveyDesc = dict[@"survey_desc"];
     }
     
     return self;

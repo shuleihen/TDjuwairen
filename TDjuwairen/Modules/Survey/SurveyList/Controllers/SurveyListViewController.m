@@ -37,10 +37,9 @@
 #import "UIImage+Resize.h"
 #import "SelectedSurveySubjectViewController.h"
 #import "ActualQuotationViewController.h"
-#import "TDWebViewController.h"
 #import "YXTitleCustomView.h"
-#import "NSString+Util.h"
 #import "TDAdvertModel.h"
+#import "TDWebViewHandler.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -351,10 +350,7 @@
     }else {
         NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
         NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
-        
-        TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
+        [TDWebViewHandler openURL:url inController:self];
     }
 }
 
@@ -527,25 +523,7 @@
         [self.navigationController pushViewController:vc animated:YES];
         
     } else if (model.adType == kADTypeH5) {
-        if ([model.adUrl isEqualToString:@"https://www.juwairen.net/Consume/record"]){
-            NSString *nickName = [US.nickName URLEncode]?:@"";
-            NSString *avatar = [US.headImage URLEncode]?:@"";
-            
-            NSString *urlString= [NSString stringWithFormat:@"https://www.juwairen.net/index.php/WxUser/vipShow?user_name=%@&user_avatar=%@&user_islogin=%@&user_isvip=%@",nickName,avatar,@(US.isLogIn),@(US.userLevel)];
-            NSURL *url = [NSURL URLWithString:urlString];
-            if (url) {
-                TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-        } else {
-            NSURL *url = [NSURL URLWithString:model.adUrl];
-            if (url) {
-                TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.navigationController pushViewController:vc animated:YES];
-            }
-        }
+        [TDWebViewHandler openURL:model.adUrl inController:self];
     }else {
         
     }
