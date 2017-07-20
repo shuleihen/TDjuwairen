@@ -40,6 +40,7 @@
 #import "YXTitleCustomView.h"
 #import "TDAdvertModel.h"
 #import "TDWebViewHandler.h"
+#import "SurveyDeepTableViewController.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -322,8 +323,8 @@
 }
 
 - (void)surveyPressed:(id)sender {
-    
-    ApplySurveyViewController *vc = [[UIStoryboard storyboardWithName:@"Survey" bundle:nil] instantiateViewControllerWithIdentifier:@"ApplySurveyViewController"];
+
+    SurveyDeepTableViewController *vc = [[SurveyDeepTableViewController alloc] initWithStyle:UITableViewStylePlain];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

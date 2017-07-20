@@ -450,6 +450,10 @@
 		19F07A6B1F204AA4004449BB /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F07A6A1F204AA4004449BB /* UTDID.framework */; };
 		19F07A6E1F2082BE004449BB /* AliveListPostExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */; };
 		19F07A751F20CB25004449BB /* TDLaunchAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A741F20CB25004449BB /* TDLaunchAdManager.m */; };
+		19F07A7D1F20D1A3004449BB /* DeepTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A7B1F20D1A3004449BB /* DeepTableViewCell.m */; };
+		19F07A7E1F20D1A3004449BB /* DeepTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A7C1F20D1A3004449BB /* DeepTableViewCell.xib */; };
+		19F07A811F20D453004449BB /* SurveyDeepTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A801F20D453004449BB /* SurveyDeepTableViewController.m */; };
+		19F07A841F20D4BE004449BB /* SurveyDeepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A831F20D4BE004449BB /* SurveyDeepModel.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -1478,6 +1482,13 @@
 		19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPostExtra.m; sourceTree = "<group>"; };
 		19F07A731F20CB25004449BB /* TDLaunchAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDLaunchAdManager.h; sourceTree = "<group>"; };
 		19F07A741F20CB25004449BB /* TDLaunchAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDLaunchAdManager.m; sourceTree = "<group>"; };
+		19F07A7A1F20D1A3004449BB /* DeepTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeepTableViewCell.h; sourceTree = "<group>"; };
+		19F07A7B1F20D1A3004449BB /* DeepTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeepTableViewCell.m; sourceTree = "<group>"; };
+		19F07A7C1F20D1A3004449BB /* DeepTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DeepTableViewCell.xib; sourceTree = "<group>"; };
+		19F07A7F1F20D453004449BB /* SurveyDeepTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDeepTableViewController.h; sourceTree = "<group>"; };
+		19F07A801F20D453004449BB /* SurveyDeepTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDeepTableViewController.m; sourceTree = "<group>"; };
+		19F07A821F20D4BE004449BB /* SurveyDeepModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SurveyDeepModel.h; sourceTree = "<group>"; };
+		19F07A831F20D4BE004449BB /* SurveyDeepModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyDeepModel.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -3997,6 +4008,7 @@
 				19959B711E2C5D4300AB26DF /* Grade */,
 				19AF98441E271FFB0097A585 /* ApplySurvey */,
 				194F058E1E27425400C8CB8A /* Subscription */,
+				19F07A761F20D07D004449BB /* Deep */,
 				19194CD41E7FDDA700641085 /* Survey */,
 				1953CAED1E7172DB00A64B3C /* Alive */,
 				9EFD75651EAC72230028F18B /* OpenAnAccount */,
@@ -4552,17 +4564,9 @@
 		19F07A3B1F1DA0C5004449BB /* Advert */ = {
 			isa = PBXGroup;
 			children = (
-				19F07A3C1F1DA0C5004449BB /* Handler */,
 				19F07A3D1F1DA0C5004449BB /* Models */,
 			);
 			path = Advert;
-			sourceTree = "<group>";
-		};
-		19F07A3C1F1DA0C5004449BB /* Handler */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Handler;
 			sourceTree = "<group>";
 		};
 		19F07A3D1F1DA0C5004449BB /* Models */ = {
@@ -4581,6 +4585,45 @@
 				19F07A741F20CB25004449BB /* TDLaunchAdManager.m */,
 			);
 			path = Ad;
+			sourceTree = "<group>";
+		};
+		19F07A761F20D07D004449BB /* Deep */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A771F20D07D004449BB /* Cells */,
+				19F07A781F20D07D004449BB /* Controllers */,
+				19F07A791F20D07D004449BB /* Models */,
+			);
+			name = Deep;
+			path = TDjuwairen/Modules/Deep;
+			sourceTree = SOURCE_ROOT;
+		};
+		19F07A771F20D07D004449BB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A7A1F20D1A3004449BB /* DeepTableViewCell.h */,
+				19F07A7B1F20D1A3004449BB /* DeepTableViewCell.m */,
+				19F07A7C1F20D1A3004449BB /* DeepTableViewCell.xib */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19F07A781F20D07D004449BB /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A7F1F20D453004449BB /* SurveyDeepTableViewController.h */,
+				19F07A801F20D453004449BB /* SurveyDeepTableViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19F07A791F20D07D004449BB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A821F20D4BE004449BB /* SurveyDeepModel.h */,
+				19F07A831F20D4BE004449BB /* SurveyDeepModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		19F43C221E232C98001B72CD /* Video */ = {
@@ -5219,6 +5262,7 @@
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				19ED174D1F1644B400EC89DF /* MyGuessCell.xib in Resources */,
+				19F07A7E1F20D1A3004449BB /* DeepTableViewCell.xib in Resources */,
 				9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */,
 				196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
@@ -5316,6 +5360,7 @@
 				84E334701CE3123700E5DCEE /* UIImageView+HighlightedWebCache.m in Sources */,
 				19F07A391F1D9FDD004449BB /* XHLaunchAdView.m in Sources */,
 				194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */,
+				19F07A841F20D4BE004449BB /* SurveyDeepModel.m in Sources */,
 				1987B2761EE688F700BD852E /* HotTableViewCell.m in Sources */,
 				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
@@ -5488,6 +5533,7 @@
 				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
 				19E58DAC1EF8C55500ADA1B8 /* UITabBarController+ZFPlayerRotation.m in Sources */,
 				19F07A5D1F1F2D24004449BB /* AliveListHotTableViewCell.m in Sources */,
+				19F07A7D1F20D1A3004449BB /* DeepTableViewCell.m in Sources */,
 				190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */,
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */,
@@ -5709,6 +5755,7 @@
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
 				1987B2BA1EEA3AD800BD852E /* AliveListForwardSurveyView.m in Sources */,
+				19F07A811F20D453004449BB /* SurveyDeepTableViewController.m in Sources */,
 				190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */,
 				1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */,
 				1987B2701EE688F700BD852E /* AnsTableViewCell.m in Sources */,

@@ -123,7 +123,7 @@
 #define API_SurveyAskLike           @"Survey/addUpvoteCompanyAnswer"
 #define API_SurveyAskUnLike         @"Survey/cancelUpvoteCompanyAnswer"
 
-#define API_SurveyUnlock            @"Survey/unlockCompany"
+#define API_SurveyUnlockCompany     @"Survey/unlockCompany"
 #define API_SurveyIsUnlock          @"Survey/isUserUnlockCompany"
 #define API_SurveySubject           @"Survey/surveySubject3_1"
 #define API_SurveyAddSubject        @"Survey/addAttenSurveySubject"
@@ -142,7 +142,8 @@
 #define API_QueryKeyNumber          @"Survey/getUserKeyNum"
 #define API_AliPay                  @"Survey/alipayKey"
 #define API_WXPay                   @"Survey/wxpayKey"
-
+#define API_SurveyGetDeepList       @"Survey/getDeepList"
+#define API_SurveyUnlockDeep        @"Survey/unlockSurveyDeep"
 
 // 订阅
 #define API_SubscriptionInfo        @"Subscribe/subscribeInfo"

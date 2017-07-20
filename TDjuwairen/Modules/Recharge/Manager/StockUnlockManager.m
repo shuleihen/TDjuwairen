@@ -96,7 +96,7 @@
     __weak StockUnlockManager *wself = self;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_SurveyUnlock parameters:para completion:^(id data, NSError *error){
+    [ma POST:API_SurveyUnlockCompany parameters:para completion:^(id data, NSError *error){
         [indicator stopAnimating];
         
         if (!error) {
