@@ -155,9 +155,14 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
     __weak SurveyContentListController *wself = self;
     
     NSDictionary *dict = @{@"sub_id" : self.subjectId,@"page" : @(pageA)};
+    NSString *api = API_SurveySubjectList;
+    if ([self.subjectId isEqualToString:kSurveyListOptional]) {
+        // 自选
+        api = API_SurveyGetMyStockList;
+    }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    [manager GET:API_SurveySubjectList parameters:dict completion:^(id data, NSError *error){
+    [manager GET:api parameters:dict completion:^(id data, NSError *error){
         if (!error) {
             NSArray *dataArray = data;
             

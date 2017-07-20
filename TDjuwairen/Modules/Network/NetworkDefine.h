@@ -129,6 +129,7 @@
 #define API_SurveyAddSubject        @"Survey/addAttenSurveySubject"
 #define API_SurveyAttenSubject      @"Survey/getAttenSurveySubject"
 #define API_SurveySubjectList       @"Survey/lists3_1"
+#define API_SurveyGetMyStockList    @"Survey/getMyStockList3_1"
 #define API_SurveyGradeList         @"Survey/companyRank"
 #define API_SurveyCompanyGrade      @"Survey/companyGrade"
 #define API_SurveyCompanyReview     @"Survey/companyReview3_1"
