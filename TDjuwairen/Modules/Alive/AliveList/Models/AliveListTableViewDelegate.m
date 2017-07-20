@@ -101,9 +101,11 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 #pragma mark - StockUnlockManagerDelegate
 - (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
     for (AliveListCellData *model in self.itemList) {
-        AliveListExtra *extra = model.aliveModel.extra;
-        if ([extra.companyCode isEqualToString:stockCode]) {
-            extra.isUnlock = YES;
+        if ([model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
+            AliveListExtra *extra = model.aliveModel.extra;
+            if ([extra.companyCode isEqualToString:stockCode]) {
+                extra.isUnlock = YES;
+            }
         }
     }
     
@@ -188,58 +190,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
 
     AliveListModel *model = cell.cellData.aliveModel.forwardModel.forwardList.lastObject;
-    
-    if (model.aliveType == kAliveNormal ||
-        model.aliveType == kAlivePosts) {
-        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
-        vc.aliveID = model.aliveId;
-        vc.aliveType = model.aliveType;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else if (model.aliveType == kAliveHot) {
-        AliveListExtra *extra = model.extra;
-        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-        vc.contentId = model.aliveId;
-        vc.stockCode = extra.companyCode;
-        vc.stockName = extra.companyName;
-        vc.surveyType = kSurveyTypeHot;
-        vc.url = extra.surveyUrl;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else if (model.aliveType == kAliveSurvey) {
-        AliveListExtra *extra = model.extra;
-        if (!extra.isUnlock) {
-            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockCode = extra.companyCode;
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.viewController.navigationController pushViewController:vc animated:YES];
-        } else {
-            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-            vc.contentId = model.aliveId;
-            vc.stockCode = extra.companyCode;
-            vc.stockName = extra.companyName;
-            vc.surveyType = kSurveyTypeSpot;
-            vc.url = extra.surveyUrl;
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.viewController.navigationController pushViewController:vc animated:YES];
-        }
-    } else if (model.aliveType == kAliveViewpoint) {
-        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else if (model.aliveType == kAliveVideo) {
-        AliveListExtra *extra = model.extra;
-        if (!extra.isUnlock) {
-            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockCode = extra.companyCode;
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.viewController.navigationController pushViewController:vc animated:YES];
-        } else {
-            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
-            vc.hidesBottomBarWhenPushed = YES;
-            [self.viewController.navigationController pushViewController:vc animated:YES];
-        }
-    }
+    [self didSelectedWithAliveModel:model withUnlock:NO];
 }
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender;
@@ -430,74 +381,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     AliveListCellData *cellData = self.itemList[indexPath.section];
     AliveListModel *model = cellData.aliveModel;
     
-    if (model.aliveId.length <= 0) {
-        return;
-    }
-    
-    if (model.aliveType == kAliveViewpoint) {
-        // 观点
-        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else if (model.aliveType == kAliveHot) {
-        // 热点
-        AliveListExtra *extra = model.extra;
-        
-        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-        vc.contentId = model.aliveId;
-        vc.stockCode = extra.companyCode;
-        vc.stockName = extra.companyName;
-        vc.surveyType =kAliveHot;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:vc.surveyType];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else if (model.aliveType == kAliveSurvey ||
-               model.aliveType == kAliveVideo) {
-
-        AliveListExtra *extra = model.extra;
-        if (extra.isUnlock) {
-            
-            if (model.aliveType == kAliveVideo) {
-                VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.viewController.navigationController pushViewController:vc animated:YES];
-            } else {
-                SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-                vc.contentId = model.aliveId;
-                vc.stockCode = extra.companyCode;
-                vc.stockName = extra.companyName;
-                vc.surveyType = kSurveyTypeSpot;
-                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.aliveId withTag:vc.surveyType];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.viewController.navigationController pushViewController:vc animated:YES];
-            }
-        } else {
-            if (!US.isLogIn) {
-                LoginViewController *login = [[LoginViewController alloc] init];
-                login.hidesBottomBarWhenPushed = YES;
-                [self.viewController.navigationController pushViewController:login animated:YES];
-                return;
-            }
-            
-            [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
-        }
-    } else if (model.aliveType == kAliveAd) {
-        // 广告
-        AliveListAdExtra *extra = model.extra;
-        [TDWebViewHandler openURL:extra.linkUrl inController:self.viewController];
-    } else if (model.aliveType == kAlivePlayStock) {
-        AliveListPlayStockExtra *extra = model.extra;
-        
-        PlayStockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockDetailViewController"];
-        vc.guessId = extra.guessId;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else {
-        
-        AliveDetailViewController *vc = [[AliveDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    }
+    [self didSelectedWithAliveModel:model withUnlock:YES];
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -583,6 +467,106 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 }
 
 #pragma mark - Action
+
+- (void)didSelectedWithAliveModel:(AliveListModel *)model withUnlock:(BOOL)unlock{
+    if (!model) {
+        NSAssert(NO, @"点击的直播数据为空");
+        return;
+    }
+    
+    if (model.aliveType == kAliveNormal ||
+        model.aliveType == kAlivePosts) {
+        // 图文和贴单
+        AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+        vc.aliveID = model.aliveId;
+        vc.aliveType = model.aliveType;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveHot) {
+        // 热点
+        AliveListExtra *extra = model.extra;
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.aliveId;
+        vc.stockCode = extra.companyCode;
+        vc.stockName = extra.companyName;
+        vc.surveyType = kSurveyTypeHot;
+        vc.url = extra.surveyUrl;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveSurvey) {
+        // 调研
+        AliveListExtra *extra = model.extra;
+        if (!extra.isUnlock) {
+            if (unlock) {
+                if (!US.isLogIn) {
+                    LoginViewController *login = [[LoginViewController alloc] init];
+                    login.hidesBottomBarWhenPushed = YES;
+                    [self.viewController.navigationController pushViewController:login animated:YES];
+                    return;
+                }
+                
+                [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
+            } else {
+                StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                vc.stockCode = extra.companyCode;
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.viewController.navigationController pushViewController:vc animated:YES];
+            }
+        } else {
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = model.aliveId;
+            vc.stockCode = extra.companyCode;
+            vc.stockName = extra.companyName;
+            vc.surveyType = extra.surveyType;
+            vc.url = extra.surveyUrl;
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        }
+    } else if (model.aliveType == kAliveAd) {
+        // 广告
+        AliveListAdExtra *extra = model.extra;
+        [TDWebViewHandler openURL:extra.linkUrl inController:self.viewController];
+    } else if (model.aliveType == kAlivePlayStock) {
+        // 玩票
+        AliveListPlayStockExtra *extra = model.extra;
+        
+        PlayStockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockDetailViewController"];
+        vc.guessId = extra.guessId;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveViewpoint) {
+        // 观点
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveVideo) {
+        // 视频
+        AliveListExtra *extra = model.extra;
+        if (!extra.isUnlock) {
+            if (unlock) {
+                if (!US.isLogIn) {
+                    LoginViewController *login = [[LoginViewController alloc] init];
+                    login.hidesBottomBarWhenPushed = YES;
+                    [self.viewController.navigationController pushViewController:login animated:YES];
+                    return;
+                }
+                
+                [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
+            } else {
+                StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                vc.stockCode = extra.companyCode;
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.viewController.navigationController pushViewController:vc animated:YES];
+            }
+        } else {
+            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        }
+    } else {
+        NSAssert(NO, @"点击的直播类型不支持");
+    }
+}
 
 - (void)deleteDynamicWithAliveListModel:(AliveListCellData *)cellData withIndexPath:(NSIndexPath *)indexPath {
     AliveListModel *aliveModel = cellData.aliveModel;

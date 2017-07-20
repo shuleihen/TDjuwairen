@@ -425,7 +425,7 @@
                 TDAdvertModel *model = [[TDAdvertModel alloc] initWithDictionary:dict];
                 [array addObject:model];
                 [titles addObject:model.adTitle];
-                [titles addObject:model.adImageUrl];
+                [urls addObject:model.adImageUrl];
             }
             
             self.bannerLinks = array;
