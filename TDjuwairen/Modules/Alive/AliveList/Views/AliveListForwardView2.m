@@ -28,8 +28,7 @@
     [super setCellData:cellData];
     
     AliveListForwardCellData *fCellData = (AliveListForwardCellData *)cellData;
-    
-    AliveListForwardModel *model = fCellData.aliveModel.forwardModel;
+    AliveListModel *model = fCellData.aliveModel.forwardModel.forwardList.lastObject;
     
     switch (model.aliveType) {
         case kAliveNormal:
@@ -45,7 +44,7 @@
         {
             AliveListForwardSurveyView *view = [[AliveListForwardSurveyView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
-            [view setForwardModel:model];
+            [view setAliveModel:model];
         }
             break;
         case kAliveViewpoint:

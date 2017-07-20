@@ -15,6 +15,7 @@
 @property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, assign) NSInteger status;
 @property (nonatomic, assign) NSInteger season;
+@property (nonatomic, copy) NSString *date;
 @property (nonatomic, assign) NSInteger guessKeyNum;
 //后台悬赏的钥匙数，用户发起的竞猜则为0
 @property (nonatomic, assign) NSInteger rewardKeyNum;

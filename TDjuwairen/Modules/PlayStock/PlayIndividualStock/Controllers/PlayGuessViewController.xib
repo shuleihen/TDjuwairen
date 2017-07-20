@@ -13,13 +13,13 @@
             <connections>
                 <outlet property="doneBtn" destination="n4v-sC-tQo" id="MkM-aJ-WYo"/>
                 <outlet property="forwardBtn" destination="ccm-sB-RnS" id="Mus-tJ-2BH"/>
-                <outlet property="inputView" destination="dZD-S1-Alh" id="OhQ-n1-bDv"/>
                 <outlet property="label_CountDown" destination="vlj-67-g91" id="wU7-aI-Wfx"/>
                 <outlet property="label_NowTime" destination="lu7-0a-1BG" id="1wr-Cz-u28"/>
                 <outlet property="maxPriceLabel" destination="aj1-So-D9S" id="IVD-br-BhF"/>
                 <outlet property="minPriceLabel" destination="fCJ-Bu-2Xs" id="mX6-Lj-GoP"/>
                 <outlet property="priceLabel" destination="ghd-hV-aTJ" id="TQO-KX-gav"/>
                 <outlet property="stepper" destination="hCk-Eh-wu1" id="em2-e3-Mvl"/>
+                <outlet property="stockCodeTextField" destination="dZD-S1-Alh" id="pfI-Du-hAM"/>
                 <outlet property="stockNameLabel" destination="eO3-Tt-Bgb" id="LU0-1H-8qe"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
@@ -119,9 +119,8 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜价格" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ghd-hV-aTJ">
-                    <rect key="frame" x="80" y="110" width="200" height="20"/>
+                    <rect key="frame" x="80" y="110" width="217" height="20"/>
                     <constraints>
-                        <constraint firstAttribute="width" constant="200" id="fBR-ZJ-d5J"/>
                         <constraint firstAttribute="height" constant="20" id="ftk-ky-d38"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -187,6 +186,7 @@
                 <constraint firstItem="hCk-Eh-wu1" firstAttribute="width" secondItem="dZD-S1-Alh" secondAttribute="width" id="ZN7-9R-Yl8"/>
                 <constraint firstItem="ccm-sB-RnS" firstAttribute="leading" secondItem="lu7-0a-1BG" secondAttribute="leading" id="c8C-no-Fgf"/>
                 <constraint firstItem="rki-1E-DXF" firstAttribute="top" secondItem="hCk-Eh-wu1" secondAttribute="top" constant="3" id="dKM-Ts-C6h"/>
+                <constraint firstItem="hCk-Eh-wu1" firstAttribute="width" secondItem="ghd-hV-aTJ" secondAttribute="width" id="hcj-lv-jQC"/>
                 <constraint firstItem="LgS-YH-SlL" firstAttribute="leading" secondItem="lu7-0a-1BG" secondAttribute="leading" id="hkC-l9-fFF"/>
                 <constraint firstItem="hCk-Eh-wu1" firstAttribute="top" secondItem="ghd-hV-aTJ" secondAttribute="bottom" constant="13" id="jmg-hX-jAY"/>
                 <constraint firstItem="fCJ-Bu-2Xs" firstAttribute="leading" secondItem="IZQ-n9-tts" secondAttribute="leading" id="oJW-tb-GqI"/>

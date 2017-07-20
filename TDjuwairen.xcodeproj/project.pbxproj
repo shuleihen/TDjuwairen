@@ -452,6 +452,7 @@
 		19F07A5E1F1F2D24004449BB /* AliveListHotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */; };
 		19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A601F1F39B5004449BB /* TDWebViewHandler.m */; };
 		19F07A6B1F204AA4004449BB /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F07A6A1F204AA4004449BB /* UTDID.framework */; };
+		19F07A6E1F2082BE004449BB /* AliveListPostExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -1483,6 +1484,8 @@
 		19F07A5F1F1F39B5004449BB /* TDWebViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewHandler.h; sourceTree = "<group>"; };
 		19F07A601F1F39B5004449BB /* TDWebViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewHandler.m; sourceTree = "<group>"; };
 		19F07A6A1F204AA4004449BB /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
+		19F07A6C1F2082BE004449BB /* AliveListPostExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPostExtra.h; sourceTree = "<group>"; };
+		19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPostExtra.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -2945,6 +2948,8 @@
 				1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */,
 				193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */,
 				19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */,
+				19F07A6C1F2082BE004449BB /* AliveListPostExtra.h */,
+				19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5465,6 +5470,7 @@
 				19AF98251E24AB270097A585 /* PSIndexListViewController.m in Sources */,
 				19E58DAA1EF8C55500ADA1B8 /* UIImageView+ZFCache.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
+				19F07A6E1F2082BE004449BB /* AliveListPostExtra.m in Sources */,
 				19ED17511F1644B400EC89DF /* MGCellContentView.m in Sources */,
 				19ED174F1F1644B400EC89DF /* IndexStockRecordModel.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,

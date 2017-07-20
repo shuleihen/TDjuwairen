@@ -404,8 +404,6 @@
                                                           withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
                                                    limitedToNumberOfLines:0];
     
-    //    messageSize = [self.message boundingRectWithSize:CGSizeMake(contentWidht, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
-    
     self.messageLabelFrame = CGRectMake(left, 10, contentWidht, messageSize.height);
     
     height = CGRectGetMaxY(self.messageLabelFrame);
@@ -421,9 +419,14 @@
     height = CGRectGetMaxY(self.imagesViewFrame);
     
     // 标签
-    if (self.aliveModel.aliveTags.count) {
-        CGFloat tagsViewHeight = [self tagsViewHeightWithTags:self.aliveModel.aliveTags withLimitWidth:contentWidht];
-        self.tagsViewFrame = CGRectMake(left, height+10, contentWidht, tagsViewHeight);
+    if (self.aliveModel.aliveType == kAlivePosts) {
+        AliveListPostExtra *extra = self.aliveModel.extra;
+        if (extra.aliveTags.count) {
+            CGFloat tagsViewHeight = [self tagsViewHeightWithTags:extra.aliveTags withLimitWidth:contentWidht];
+            self.tagsViewFrame = CGRectMake(left, height+10, contentWidht, tagsViewHeight);
+        } else {
+            self.tagsViewFrame = CGRectMake(left, height, 0, 0);
+        }
     } else {
         self.tagsViewFrame = CGRectMake(left, height, 0, 0);
     }
@@ -489,7 +492,12 @@
     CGFloat height = 0.0f;
     BOOL isShowReviewImageButton = (self.aliveModel.aliveImgs.count>0);
     
-    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
+    AliveListForwardModel *forward = self.aliveModel.forwardModel;
+    AliveListModel *forwardAlive = forward.forwardList.lastObject;
+    
+    NSString *forwardTitle = [NSString stringWithFormat:@"%@%@", self.aliveModel.aliveTitle,forward.forwardTitle];
+    
+    self.message = [self stringWithAliveMessage:forwardTitle
                                        withSize:CGSizeMake(contentWidht, MAXFLOAT)
                              isAppendingShowAll:self.isShowDetailMessage
                              isAppendingShowImg:isShowReviewImageButton];
@@ -503,18 +511,12 @@
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
-    AliveListForwardModel *forward = self.aliveModel.forwardModel;
     
-    switch (forward.aliveType) {
+    switch (forwardAlive.aliveType) {
         case kAliveNormal:
         case kAlivePosts: {
-            AliveListModel *model = [[AliveListModel alloc] init];
-            model.aliveType = forward.aliveType;
-            model.aliveTitle = forward.aliveTitle;
-            model.aliveImgs = forward.aliveImgs;
-            model.aliveTags = forward.aliveTags;
             
-            AliveListPostCellData *pCellData = [[AliveListPostCellData alloc] initWithAliveModel:model];
+            AliveListPostCellData *pCellData = [[AliveListPostCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
             pCellData.isShowToolBar = NO;
             [pCellData setup];
@@ -526,18 +528,14 @@
         case kAliveSurvey:
         case kAliveHot:
         {
+//            NSAssert(NO, @"调研和热点都不能被转发");
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 91);
         }
             break;
         case kAliveViewpoint:
         case kAliveVideo:{
-            AliveListModel *model = [[AliveListModel alloc] init];
-            model.aliveType = forward.aliveType;
-            model.aliveTitle = forward.aliveTitle;
-            model.aliveImgs = forward.aliveImgs;
-            model.aliveTags = forward.aliveTags;
             
-            AliveListViewpointCellData *pCellData = [[AliveListViewpointCellData alloc] initWithAliveModel:model];
+            AliveListViewpointCellData *pCellData = [[AliveListViewpointCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
             pCellData.isShowToolBar = NO;
             [pCellData setup];

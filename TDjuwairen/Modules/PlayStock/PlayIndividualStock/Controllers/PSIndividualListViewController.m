@@ -46,7 +46,8 @@
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *bottomButton;
 @property (weak, nonatomic) IBOutlet UIButton *keyNum;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *seasonDateLabel;
+@property (strong, nonatomic) UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet CBAutoScrollLabel *messageLabel;
 
 @property (assign, nonatomic) NSInteger pageIndex;
@@ -107,6 +108,17 @@
     return _segmentControl;
 }
 
+- (UILabel *)timeLabel {
+    if (!_timeLabel) {
+        _timeLabel = [[UILabel alloc] init];
+        _timeLabel.font = [UIFont systemFontOfSize:14.0f];
+        _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#F5A91B"];
+        _timeLabel.textAlignment = NSTextAlignmentRight;
+        _timeLabel.frame = CGRectMake(140, 10, kScreenWidth-152, 13);
+    }
+    return _timeLabel;
+}
+
 - (UIView *)emptyView {
     if (!_emptyView) {
         UIImage *image = [UIImage imageNamed:@"icon_guessList_empty.png"];
@@ -140,6 +152,7 @@
     
     self.tagIndex = 0;
     self.pageIndex = 1;
+    self.seasonDateLabel.text = @"";
     
     [self setupTableView];
     
@@ -262,11 +275,12 @@
 - (void)timerFire:(id)timer {
     
     if (self.guessModel) {
-        NSString *time = self.guessModel.guess_date;
+
+        NSString *nextDay = [PlayStockHnadler stringWithNextDay:self.guessModel.next_day];
         NSString *season = [PlayStockHnadler stringWithSeason:self.guessModel.guess_season];
         NSString *remaining = [NSString intervalNowDateWithDateInterval:self.guessModel.guess_endTime];
         
-        self.timeLabel.text = [NSString stringWithFormat:@"%@ %@ %@",time,season,remaining];
+        self.timeLabel.text = [NSString stringWithFormat:@"%@%@ %@",nextDay,season,remaining];
     }
 }
 
@@ -297,6 +311,8 @@
     self.messageLabel.text = mesage;
     self.messageLabel.font = [UIFont systemFontOfSize:12.0f];
     self.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
+    
+    self.seasonDateLabel.text = model.guess_date;
     
     [self timerFire:self.timer];
 }
@@ -633,6 +649,8 @@
     header.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#141519"];
     
     [header addSubview:self.segmentControl];
+
+    [header addSubview:self.timeLabel];
     
     return header;
 }

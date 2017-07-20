@@ -17,6 +17,7 @@
         self.surveyType = [dict[@"survey_type"] integerValue];
         self.unlockKeyNum = [dict[@"unlock_keynum"] integerValue];
         self.surveyDesc = dict[@"survey_desc"];
+        self.surveyUrl = dict[@"forward_url"];
     }
     
     return self;

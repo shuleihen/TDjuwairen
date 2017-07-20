@@ -114,7 +114,7 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     self.winKeyLabel.text = winKey;
     
     NSString *season = [PlayStockHnadler stringWithSeason:mode.season];
-    self.sectionLabel.text = [NSString stringWithFormat:@"竞猜场次：%@",season];
+    self.sectionLabel.text = [NSString stringWithFormat:@"竞猜场次：%@%@",mode.date,season];
     self.joinLabel.text = [NSString stringWithFormat:@"参与人数：%ld",(long)mode.joinNum];
     
     // 收盘价格
@@ -122,10 +122,10 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
         self.endPriceLabel.text = @"收盘价：--";
         self.timer = [NSTimer scheduledTimerWithTimeInterval:1 target:self selector:@selector(timerFire:) userInfo:nil repeats:YES];
         [self timerFire:self.timer];
-    } if (mode.status == kPSGuessStop) {
+    } else if (mode.status == kPSGuessStop) {
         self.statusLabel.text = [NSString stringWithFormat:@"状   态：%@",[mode statusString]];
         self.endPriceLabel.text = @"收盘价：--";
-    }else {
+    } else {
         self.endPriceLabel.text = [NSString stringWithFormat:@"收盘价：%.02f",mode.endPrice.floatValue];
         self.statusLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         self.statusLabel.text = [NSString stringWithFormat:@"状   态：%@",[mode statusString]];
@@ -150,14 +150,14 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
         [self.joinBtn setTitle:@"参与竞猜" forState:UIControlStateNormal];
         [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#3E1000"] forState:UIControlStateNormal];
         self.joinBtn.enabled = YES;
-    } if (mode.status == kPSGuessStop) {
+    } else if (mode.status == kPSGuessStop) {
         // 封盘
         self.joinBtn.titleLabel.font = [UIFont systemFontOfSize:16.0f];
         [self.joinBtn setTitle:@"待开奖" forState:UIControlStateNormal];
         [self.joinBtn setTitle:@"待开奖" forState:UIControlStateDisabled];
         [self.joinBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#999999"] forState:UIControlStateNormal];
         self.joinBtn.enabled = NO;
-    }else {
+    } else {
         // 已结束
         self.joinBtn.enabled = NO;
         

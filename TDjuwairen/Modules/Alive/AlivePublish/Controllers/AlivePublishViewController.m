@@ -146,12 +146,12 @@
     if (!_forwardView) {
         _forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-30, 80)];
         
-        AliveListForwardModel *forward = [[AliveListForwardModel alloc] init];
-        forward.aliveImg = self.aliveListModel.aliveImgs.firstObject;
+        AliveListModel *forward = [[AliveListModel alloc] init];
+        forward.aliveImgs = self.aliveListModel.aliveImgs;
         forward.masterNickName = self.aliveListModel.masterNickName;
         forward.aliveTitle = self.aliveListModel.aliveTitle;
         
-        [_forwardView setupAliveForward:forward];
+        [_forwardView setupAlive:forward];
     }
     return _forwardView;
 }

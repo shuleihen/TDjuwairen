@@ -10,6 +10,7 @@
 #import "AliveListForwardModel.h"
 #import "UIImageView+WebCache.h"
 #import "HexColors.h"
+#import "AliveListModel.h"
 
 @implementation AliveListForwardView
 
@@ -35,15 +36,15 @@
     return self;
 }
 
-- (void)setupAliveForward:(AliveListForwardModel *)foward {
-    if (foward.aliveImg.length > 0) {
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:foward.aliveImg]];
+- (void)setupAlive:(AliveListModel *)model {
+    if (model.aliveImgs.count > 0) {
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.aliveImgs.firstObject]];
     } else {
         self.imageView.image = [UIImage imageNamed:@"app_icon.png"];
     }
     
-    self.nameLabel.text = [NSString stringWithFormat:@"@%@",foward.masterNickName];
-    self.contentLabel.text = foward.aliveTitle;
+    self.nameLabel.text = [NSString stringWithFormat:@"@%@",model.masterNickName];
+    self.contentLabel.text = model.aliveTitle;
     
 }
 @end

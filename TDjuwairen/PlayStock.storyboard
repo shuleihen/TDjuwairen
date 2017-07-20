@@ -846,7 +846,7 @@
                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜场次：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CD-fU-uzN">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收盘价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9CD-fU-uzN">
                                             <rect key="frame" x="17" y="95.5" width="134" height="16"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="134" id="X7L-2i-yIj"/>
@@ -870,7 +870,7 @@
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="收盘价：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szY-BY-pZv">
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="竞猜场次：" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="szY-BY-pZv">
                                             <rect key="frame" x="151" y="124.5" width="212" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
@@ -986,12 +986,12 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="endPriceLabel" destination="szY-BY-pZv" id="EKU-sc-2NR"/>
+                        <outlet property="endPriceLabel" destination="9CD-fU-uzN" id="9Ee-9a-47q"/>
                         <outlet property="joinBtn" destination="Mgq-r2-MvE" id="i0P-d8-qLi"/>
                         <outlet property="joinLabel" destination="cKZ-vK-3K6" id="BFO-v4-uDM"/>
                         <outlet property="orderLabel" destination="njf-bu-cVX" id="T5N-Ti-3xw"/>
                         <outlet property="rewardImageView" destination="gMg-mk-Un8" id="PfW-8Q-A9o"/>
-                        <outlet property="sectionLabel" destination="9CD-fU-uzN" id="Nh8-D9-dc9"/>
+                        <outlet property="sectionLabel" destination="szY-BY-pZv" id="wUi-Ou-QSD"/>
                         <outlet property="statusLabel" destination="gBS-Uo-MRQ" id="ILa-Ml-4D8"/>
                         <outlet property="stockNameLabel" destination="oOh-C4-EjJ" id="Qhd-o1-j3u"/>
                         <outlet property="stockPriceLabel" destination="7Zc-di-rTf" id="7C2-F8-Bi7"/>
@@ -1185,14 +1185,14 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_money" translatesAutoresizingMaskIntoConstraints="NO" id="5cI-48-Jd0">
-                                            <rect key="frame" x="0.0" y="13" width="100" height="27"/>
+                                            <rect key="frame" x="0.0" y="13" width="114" height="27"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="27" id="Cje-B4-WyA"/>
-                                                <constraint firstAttribute="width" constant="100" id="zVW-Hz-eDz"/>
+                                                <constraint firstAttribute="width" constant="114" id="zVW-Hz-eDz"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_big" translatesAutoresizingMaskIntoConstraints="NO" id="Ysv-PJ-oGB">
-                                            <rect key="frame" x="15" y="7" width="33" height="39"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_small" translatesAutoresizingMaskIntoConstraints="NO" id="Ysv-PJ-oGB">
+                                            <rect key="frame" x="15" y="15.5" width="33" height="22"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="33" id="ef4-bE-imU"/>
                                             </constraints>
@@ -1227,8 +1227,8 @@
                                                 <action selector="startGuessPressed:" destination="DTf-2i-A6K" eventType="touchUpInside" id="8BF-hZ-YV9"/>
                                             </connections>
                                         </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06-23 周五 上午场  02:16:58" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-n4-Hc4">
-                                            <rect key="frame" x="177.5" y="18" width="185.5" height="17"/>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="06-23 周五" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Ad-n4-Hc4">
+                                            <rect key="frame" x="289.5" y="18" width="73.5" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                             <color key="textColor" red="0.96078431369999995" green="0.66274509800000003" blue="0.1058823529" alpha="1" colorSpace="calibratedRGB"/>
                                             <nil key="highlightedColor"/>
@@ -1295,8 +1295,8 @@
                         <outlet property="bottomButton" destination="bYu-GE-yX2" id="P6P-nt-tIW"/>
                         <outlet property="keyNum" destination="nWK-vg-1aE" id="GrS-x9-0kJ"/>
                         <outlet property="messageLabel" destination="D1k-Hx-qJI" id="4f2-y4-zA4"/>
+                        <outlet property="seasonDateLabel" destination="3Ad-n4-Hc4" id="ieN-SS-PT2"/>
                         <outlet property="tableView" destination="0c9-gy-c2d" id="dag-x5-Q8u"/>
-                        <outlet property="timeLabel" destination="3Ad-n4-Hc4" id="7uc-3E-4ua"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tS3-nc-aDi" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1309,7 +1309,6 @@
         <image name="button_enjoy" width="36" height="36"/>
         <image name="button_notenjoy" width="112" height="36"/>
         <image name="ico_reward" width="30" height="19"/>
-        <image name="icon_key_big" width="33" height="39"/>
         <image name="icon_key_small" width="19" height="22"/>
         <image name="slipLine" width="10" height="1"/>
         <image name="unlock_close" width="12" height="12"/>

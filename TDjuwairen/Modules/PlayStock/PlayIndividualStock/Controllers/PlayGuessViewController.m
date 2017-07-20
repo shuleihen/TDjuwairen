@@ -22,7 +22,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *label_CountDown;
 @property (weak, nonatomic) IBOutlet UILabel *label_NowTime;
-@property (nonatomic, weak) IBOutlet UITextField *inputView;
+@property (nonatomic, weak) IBOutlet UITextField *stockCodeTextField;
 @property (weak, nonatomic) IBOutlet PAStepper *stepper;
 @property (weak, nonatomic) IBOutlet UILabel *priceLabel;
 @property (weak, nonatomic) IBOutlet UILabel *minPriceLabel;
@@ -32,6 +32,7 @@
 
 @property (nonatomic, strong) NSString *stockCode;
 @property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, strong) StockInfo *stockInfo;
 //@property (nonatomic, copy) NSString *guess_date;
 
 @end
@@ -53,24 +54,28 @@
 }
 
 - (void)setupDefaultStock:(StockInfo *)stockInfo withStockCode:(NSString *)stockCode {
-    if (stockInfo) {
-        // 发起竞猜，因为输入股票代码，没有查询股票的价格信息
-        self.stepper.maximumValue = stockInfo.yestodEndPriValue*1.1;
-        self.stepper.minimumValue = stockInfo.yestodEndPriValue*0.9;
-        self.stepper.value = stockInfo.nowPriValue;
-
-        self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)", stockInfo.name,stockCode];
-        
-        self.minPriceLabel.text = [NSString stringWithFormat:@"%.02lf",self.stepper.minimumValue];
-        self.maxPriceLabel.text = [NSString stringWithFormat:@"%.02lf",self.stepper.maximumValue];
-        
-        self.stockCode = stockCode;
-    }
     
+    self.stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)", stockInfo.name,stockCode];
+    self.stockCode = stockCode;
+    self.stockCodeTextField.hidden = YES;
+    
+    self.stockInfo = stockInfo;
     [self checkDoneEnable];
 }
 
-- (void)initValue {    
+- (void)setStockInfo:(StockInfo *)stockInfo {
+    _stockInfo = stockInfo;
+    
+    self.stepper.maximumValue = stockInfo.yestodEndPriValue*1.1;
+    self.stepper.minimumValue = stockInfo.yestodEndPriValue*0.9;
+    self.stepper.value = stockInfo.nowPriValue;
+    self.stepper.stepValue = 0.01;
+    
+    self.minPriceLabel.text = [NSString stringWithFormat:@"%.02lf",self.stepper.minimumValue];
+    self.maxPriceLabel.text = [NSString stringWithFormat:@"%.02lf",self.stepper.maximumValue];
+}
+
+- (void)initValue {
     __weak PlayGuessViewController *wself = self;
 
     NSTimeInterval nowDate = [[NSDate new] timeIntervalSince1970];
@@ -82,8 +87,8 @@
         wself.label_CountDown.text = day;
     }];
     
-    [_inputView addTarget:self action:@selector(inputChange:) forControlEvents:UIControlEventEditingChanged];
-    _inputView.delegate = self;
+    [self.stockCodeTextField addTarget:self action:@selector(stockCodeFieldDidChanged:) forControlEvents:UIControlEventEditingChanged];
+    self.stockCodeTextField.delegate = self;
     
     self.priceLabel.text = @"";
     self.minPriceLabel.text = @"--";
@@ -103,10 +108,10 @@
         self.inputView.hidden = NO;
         self.stockNameLabel.hidden = YES;
         
-        [_inputView setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
-        _inputView.layer.cornerRadius = 4;
-        _inputView.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
-        _inputView.layer.borderWidth = 1;
+        [self.stockCodeTextField setValue:[UIColor hx_colorWithHexRGBAString:@"#666666"] forKeyPath:@"_placeholderLabel.textColor"];
+        self.stockCodeTextField.layer.cornerRadius = 4;
+        self.stockCodeTextField.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#ec9c1d"].CGColor;
+        self.stockCodeTextField.layer.borderWidth = 1;
     }
     
 
@@ -145,11 +150,13 @@
     [self.stepper.decrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     [self.stepper.incrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    
+    [self.stepper addTarget:self action:@selector(stepperDidChanged:) forControlEvents:UIControlEventValueChanged];
 }
 
-#pragma mark - UITextFieldDelegate
 
-- (void)inputChange:(UITextField *)tf
+
+- (void)stockCodeFieldDidChanged:(UITextField *)tf
 {
     if (tf.text.length == 6) {
         NSString *queryStockId = [tf.text queryStockCode];
@@ -163,6 +170,38 @@
     [self checkDoneEnable];
 }
 
+- (void)stepperDidChanged:(id)sender {
+
+    if (self.stockInfo) {
+        CGFloat y = self.stockInfo.yestodEndPriValue;
+        CGFloat value = self.stepper.value;
+        
+        if (value == 0.0) {
+            // 输入的价格为空
+            self.priceLabel.text = @"";
+        } else {
+            CGFloat pv = value - y;
+            if (pv > 0) {
+                CGFloat bv = (pv/y)*100;
+                NSString *str = [NSString stringWithFormat:@"%+.2f %.2f%%",pv,bv];
+                self.priceLabel.text = str;
+                self.priceLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#ff0000"];
+            } else if (pv < 0){
+                CGFloat bv = (pv/y)*100;
+                NSString *str = [NSString stringWithFormat:@"%+.2f %.2f%%",pv,bv];
+                self.priceLabel.text = str;
+                self.priceLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#14C76A"];
+            } else {
+                self.priceLabel.text = @"";
+            }
+        }
+    }
+    
+    [self checkDoneEnable];
+}
+
+#pragma mark - UITextFieldDelegate
+
 - (BOOL)textField:(UITextField *)textField shouldChangeCharactersInRange:(NSRange)range replacementString:(NSString *)string {
     NSString *text = [textField.text stringByReplacingCharactersInRange:range withString:string];
     
@@ -172,15 +211,8 @@
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
     StockInfo *stock = stocks.allValues.firstObject;
-    
-    if (stock) {
-        self.stepper.maximumValue = stock.yestodEndPriValue*1.1;
-        self.stepper.minimumValue = stock.yestodEndPriValue*0.9;
-        self.stepper.value = stock.nowPriValue;
-        self.stepper.stepValue = 0.01;
-    }
+    self.stockInfo = stock;
 }
-
 
 - (void)startWithTime:(NSInteger)timeLine block:(void(^)(NSString *))timeBlock {
     
@@ -216,10 +248,12 @@
     if (self.isJoin) {
         stockCode = self.stockCode;
     } else {
-        stockCode = self.inputView.text;
+        stockCode = self.stockCodeTextField.text;
     }
+    BOOL validStockCode = [stockCode isValidateStockCode];
+    BOOL validPirce = !(self.stepper.value == 0.0f);
     
-    self.doneBtn.enabled = [stockCode isValidateStockCode];
+    self.doneBtn.enabled = validPirce && validStockCode;
 }
 
 #pragma mark - action
@@ -233,7 +267,7 @@
     if (self.isJoin) {
         stockCode = self.stockCode;
     } else {
-        stockCode = self.inputView.text;
+        stockCode = self.stockCodeTextField.text;
     }
     
     if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:isForward:)]) {

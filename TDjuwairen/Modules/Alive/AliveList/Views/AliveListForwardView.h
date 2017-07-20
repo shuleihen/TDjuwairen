@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class AliveListForwardModel;
+@class AliveListModel;
 @interface AliveListForwardView : UIView
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *nameLabel;
 @property (nonatomic, strong) UILabel *contentLabel;
 
-- (void)setupAliveForward:(AliveListForwardModel *)foward;
+- (void)setupAlive:(AliveListModel *)model;
 @end

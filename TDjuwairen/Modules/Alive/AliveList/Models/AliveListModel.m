@@ -24,29 +24,35 @@
         self.likeNum = [dict[@"alive_assess_num"] integerValue];
         self.shareNum = [dict[@"alive_share_num"] integerValue];
         self.shareUrl = SafeValue(dict[@"alive_share_url"]);
-        self.aliveTags = dict[@"alive_com_tag"];
-        self.aliveStockTags = dict[@"alive_com_stock"];
         self.isOfficial = [dict[@"is_official"] boolValue];
         self.isAttend = [dict[@"is_attend"] boolValue];
         self.isSelf = [dict[@"is_self"] boolValue];
+        self.collectedId = dict[@"collect_id"];
+        
         BOOL isforward = [dict[@"is_forward"] boolValue];
         self.isForward = isforward;
         
+        // 转发
         if (isforward) {
-//            NSDictionary *d = dict[@"forward_info"];
-//            self.forwardModel = [[AliveListForwardModel alloc] initWithDictionary:d];
+            NSArray *array = dict[@"forward_info"];
+            self.forwardModel = [[AliveListForwardModel alloc] initWithArray:array];
         }
         
+        // 额外信息
         NSDictionary *extraDict = dict[@"alive_extra"];
         if (self.aliveType == kAlivePlayStock) {
             self.extra = [[AliveListPlayStockExtra alloc] initWithDictionary:extraDict];
         } else if (self.aliveType == kAliveAd) {
             self.extra = [[AliveListAdExtra alloc] initWithDictionary:extraDict];
-        } else {
-            self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
+        } else if (self.aliveType == kAlivePosts) {
+            self.extra = [[AliveListPostExtra alloc] initWithDictionary:extraDict];
+        }else {
+            if (extraDict.count) {
+                self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
+            }
         }
         
-        self.collectedId = dict[@"collect_id"];
+        
     }
     return self;
 }

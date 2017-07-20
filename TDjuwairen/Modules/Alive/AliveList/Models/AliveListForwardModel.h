@@ -10,6 +10,11 @@
 #import "AliveTypeDefine.h"
 
 @interface AliveListForwardModel : NSObject
+
+@property (nonatomic, strong) NSArray *forwardList;
+
+- (NSString *)forwardTitle;
+/*
 /// 转发动态ID或调研热点分享的ID
 @property (nonatomic, copy) NSString *aliveId;
 /// 直播转发或调研、热点分享封面
@@ -35,6 +40,6 @@
 @property (nonatomic, copy) NSString *forwardUrl;
 /// 当为调研的分享时，该字段表示是否加锁
 @property (nonatomic, assign) BOOL isLocked;
-
-- (id)initWithDictionary:(NSDictionary *)dict;
+*/
+- (id)initWithArray:(NSArray *)array;
 @end

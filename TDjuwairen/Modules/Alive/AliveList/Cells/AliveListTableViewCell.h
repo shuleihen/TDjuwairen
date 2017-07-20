@@ -10,7 +10,6 @@
 #import "AliveListModel.h"
 #import "AliveListImagesView.h"
 #import "AliveListCellData.h"
-#import "AliveListForwardView.h"
 #import "TTTAttributedLabel.h"
 #import "AliveListTagsView.h"
 #import "AliveListContentView.h"

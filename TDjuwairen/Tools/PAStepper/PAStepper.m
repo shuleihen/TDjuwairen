@@ -399,10 +399,11 @@
             val = _maximumValue;
         }
         _value = val;
-        
-        [self sendActionsForControlEvents:UIControlEventValueChanged];
-//        [self setValue:[text doubleValue]];
+    } else {
+        _value = 0.0f;
     }
+    
+    [self sendActionsForControlEvents:UIControlEventValueChanged];
 }
 
 - (void)didEndEditingTextField{

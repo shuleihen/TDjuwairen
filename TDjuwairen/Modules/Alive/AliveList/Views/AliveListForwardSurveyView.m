@@ -38,14 +38,14 @@
     return self;
 }
 
-- (void)setForwardModel:(AliveListForwardModel *)forwardModel {
-    _forwardModel = forwardModel;
+- (void)setAliveModel:(AliveListModel *)aliveModel {
+    _aliveModel = aliveModel;
     
     CGRect frame = self.bounds;
     
-    self.titleLabel.text = forwardModel.aliveTitle;
+    self.titleLabel.text = aliveModel.aliveTitle;
     
-    if (forwardModel.aliveType == kAliveHot) {
+    if (aliveModel.aliveType == kAliveHot) {
         CGSize size = [self.titleLabel sizeThatFits:CGSizeMake(CGRectGetWidth(frame)-24, MAXFLOAT)];
         self.titleLabel.frame = CGRectMake(12, 14, size.width, size.height);
         
@@ -56,14 +56,14 @@
         CGSize size = [self.titleLabel sizeThatFits:CGSizeMake(CGRectGetWidth(frame)-134, MAXFLOAT)];
         self.titleLabel.frame = CGRectMake(122, 14, size.width, size.height);
         
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:forwardModel.aliveImg] placeholderImage:nil];
+        [self.imageView sd_setImageWithURL:[NSURL URLWithString:aliveModel.aliveImgs.firstObject] placeholderImage:nil];
         self.imageView.frame = CGRectMake(12, 15, 100, 60);
         self.auhorLabel.frame = CGRectMake(122, CGRectGetHeight(frame)-15-20, CGRectGetWidth(frame)-224, 16);
         self.dateLabel.frame = CGRectMake(CGRectGetWidth(frame)-112, CGRectGetHeight(frame)-15-20, 100, 16);
     }
   
-    self.auhorLabel.text = [NSString stringWithFormat:@"作者：%@", forwardModel.masterNickName];
-    self.dateLabel.text = forwardModel.aliveTime;
+    self.auhorLabel.text = [NSString stringWithFormat:@"作者：%@", aliveModel.masterNickName];
+    self.dateLabel.text = aliveModel.aliveTime;
 }
 
 @end

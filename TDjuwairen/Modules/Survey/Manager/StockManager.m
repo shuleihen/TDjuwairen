@@ -241,8 +241,9 @@ void executeSource(void *info) {
         }
     });
     
-    // 获取成功后判定是否在查询时间内
-    if (self.isOpenTimer && ![self isInQueryTime]) {
+    // 没有开启定时，或不在查询时间内容
+    if (!self.isOpenTimer ||
+        (self.isOpenTimer && ![self isInQueryTime])) {
         [self performSelector:@selector(removeTimer)];
     }
 }

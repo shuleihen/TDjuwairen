@@ -12,10 +12,10 @@
 #import "AliveListExtra.h"
 #import "AliveListPlayStockExtra.h"
 #import "AliveListAdExtra.h"
+#import "AliveListPostExtra.h"
 
 @interface AliveListModel : NSObject
-// 是否为转发动态
-@property (nonatomic, assign) BOOL isForward;
+
 /// 动态ID
 @property (nonatomic, copy) NSString *aliveId;
 // 直播动态类型，1表示图文、2表示贴单、3表示调研、4表示热点、5观点
@@ -42,17 +42,19 @@
 @property (nonatomic, assign) NSInteger shareNum;
 /// 分享地址URL
 @property (nonatomic, copy) NSString *shareUrl;
-/// 贴单标签(数组)
-@property (nonatomic, strong) NSArray *aliveTags;
-@property (nonatomic, strong) NSArray *aliveStockTags;
 
-@property (nonatomic, strong) AliveListForwardModel *forwardModel;
-///  是否官方认证
+/// 是否官方认证
 @property (nonatomic, assign) BOOL isOfficial;
 /// 是否关注了该用户
 @property (assign, nonatomic) BOOL isAttend;
 /// 该动态是否为当前用户
 @property (assign, nonatomic) BOOL isSelf;
+
+// 是否为转发动态
+@property (nonatomic, assign) BOOL isForward;
+
+// 转发直播内容
+@property (nonatomic, strong) AliveListForwardModel *forwardModel;
 
 // 直播额外信息
 @property (nonatomic, strong) id extra;

@@ -27,6 +27,7 @@
         self.rate = [dict[@"login_user_rate"] integerValue];
         self.extra_keyNum = [dict[@"guess_extra_res"] integerValue];
         self.result = [dict[@"guess_result"] integerValue];
+        self.date = dict[@"guess_date"];
         
         id userList = dict[@"guess_users"];
         if ([userList isKindOfClass:[NSArray class]]) {

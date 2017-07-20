@@ -133,13 +133,14 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     }
     
     AliveListCellData *cellData = cell.cellData;
+    AliveListModel *forwardAlive = cellData.aliveModel.forwardModel.forwardList.lastObject;
     
-    if (cellData.aliveModel.forwardModel.aliveType == kAliveHot ||
-         cellData.aliveModel.forwardModel.aliveType == kAliveSurvey) {
+    if (forwardAlive.aliveType == kAliveHot ||
+         forwardAlive.aliveType == kAliveSurvey) {
         return;
     }
     
-    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.forwardModel.masterId];
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:forwardAlive.masterId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
@@ -186,9 +187,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender {
 
-    AliveListCellData *cellData = cell.cellData;
-    AliveListForwardModel *model = cellData.aliveModel.forwardModel;
-
+    AliveListModel *model = cell.cellData.aliveModel.forwardModel.forwardList.lastObject;
     
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts) {
@@ -197,27 +196,30 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         vc.aliveType = model.aliveType;
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
-    } else if (model.aliveType == kAliveSurvey ||
-               model.aliveType == kAliveHot) {
-        if (model.isLocked) {
+    } else if (model.aliveType == kAliveHot) {
+        AliveListExtra *extra = model.extra;
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.aliveId;
+        vc.stockCode = extra.companyCode;
+        vc.stockName = extra.companyName;
+        vc.surveyType = kSurveyTypeHot;
+        vc.url = extra.surveyUrl;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.viewController.navigationController pushViewController:vc animated:YES];
+    } else if (model.aliveType == kAliveSurvey) {
+        AliveListExtra *extra = model.extra;
+        if (!extra.isUnlock) {
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockCode = model.stockCode;
+            vc.stockCode = extra.companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         } else {
-            NSInteger tag = 0;
-            if (model.aliveType == kAliveSurvey) {
-                tag = 0;
-            } else if(model.aliveType == kAliveHot) {
-                tag = 3;
-            }
-            
             SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
             vc.contentId = model.aliveId;
-            vc.stockCode = model.stockCode;
-            vc.stockName = model.aliveTags.firstObject;
-            vc.surveyType = (model.aliveType == kAliveHot)?kSurveyTypeHot:kSurveyTypeSpot;
-            vc.url = model.forwardUrl;
+            vc.stockCode = extra.companyCode;
+            vc.stockName = extra.companyName;
+            vc.surveyType = kSurveyTypeSpot;
+            vc.url = extra.surveyUrl;
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         }
@@ -226,9 +228,10 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         vc.hidesBottomBarWhenPushed = YES;
         [self.viewController.navigationController pushViewController:vc animated:YES];
     } else if (model.aliveType == kAliveVideo) {
-        if (model.isLocked) {
+        AliveListExtra *extra = model.extra;
+        if (!extra.isUnlock) {
             StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockCode = model.stockCode;
+            vc.stockCode = extra.companyCode;
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         } else {

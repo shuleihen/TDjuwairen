@@ -36,7 +36,10 @@
     self.imagesView.images = pCellData.aliveModel.aliveImgs;
     
     self.tagsView.frame = pCellData.tagsViewFrame;
-    self.tagsView.tags = pCellData.aliveModel.aliveTags;
+    if (pCellData.aliveModel.aliveType == kAlivePosts) {
+        AliveListPostExtra *extra = pCellData.aliveModel.extra;
+        self.tagsView.tags = extra.aliveTags;
+    }
 }
 
 

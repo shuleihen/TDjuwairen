@@ -130,6 +130,7 @@
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
+                break;
             case kAlivePlayStock: {
                 AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 self.aliveContentView = view;
@@ -157,12 +158,13 @@
 
 #pragma mark - AliveListTagsViewDelegate
 - (void)aliveListTagsView:(AliveListTagsView *)tagsView didSelectedWithIndex:(NSInteger)index {
+    AliveListPostExtra *extra = self.cellData.aliveModel.extra;
     if (index < 0 &&
-        index > self.cellData.aliveModel.aliveStockTags.count) {
+        index > extra.aliveStockTags.count) {
         return;
     }
     
-    NSString *code = self.cellData.aliveModel.aliveStockTags[index];
+    NSString *code = extra.aliveStockTags[index];
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:stockPressedWithStockCode:)]) {
         [self.delegate aliveListTableCell:self stockPressedWithStockCode:code];
     }

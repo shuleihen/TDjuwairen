@@ -15,6 +15,7 @@
 @property (nonatomic, assign) NSInteger surveyType;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
 @property (nonatomic, copy) NSString *surveyDesc;
+@property (nonatomic, copy) NSString *surveyUrl;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

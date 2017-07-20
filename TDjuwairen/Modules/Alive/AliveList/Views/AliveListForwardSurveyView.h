@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AliveListForwardModel.h"
+#import "AliveListModel.h"
 
 @interface AliveListForwardSurveyView : UIView
 
@@ -16,6 +16,6 @@
 @property (nonatomic, strong) UILabel *auhorLabel;
 @property (nonatomic, strong) UILabel *dateLabel;
 
-@property (nonatomic, strong) AliveListForwardModel *forwardModel;
+@property (nonatomic, strong) AliveListModel *aliveModel;
 
 @end
