@@ -451,6 +451,7 @@
 		19F07A5D1F1F2D24004449BB /* AliveListHotTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A5B1F1F2D24004449BB /* AliveListHotTableViewCell.m */; };
 		19F07A5E1F1F2D24004449BB /* AliveListHotTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */; };
 		19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A601F1F39B5004449BB /* TDWebViewHandler.m */; };
+		19F07A6B1F204AA4004449BB /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F07A6A1F204AA4004449BB /* UTDID.framework */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -507,8 +508,6 @@
 		842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 842D58031D893BB3006385CB /* CompanySelTableView.m */; };
 		845CCB881D4EDC18005ABD7B /* LeftRightBtn.m in Sources */ = {isa = PBXBuildFile; fileRef = 845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */; };
 		845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 191027B11DE52FFE006A2275 /* YXSearchButton.m */; };
-		8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 8470E9621DDD8405002F727D /* AlipaySDK.bundle */; };
-		8470E9651DDD8405002F727D /* AlipaySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470E9631DDD8405002F727D /* AlipaySDK.framework */; };
 		8470E9671DDD8426002F727D /* CoreMotion.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470E9661DDD8426002F727D /* CoreMotion.framework */; };
 		8470E9691DDD84B6002F727D /* libc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 8470E9681DDD84B6002F727D /* libc++.tbd */; };
 		84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 84823CB41DD1AC36004440A9 /* TopBotButton.m */; };
@@ -1483,6 +1482,7 @@
 		19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListHotTableViewCell.xib; sourceTree = "<group>"; };
 		19F07A5F1F1F39B5004449BB /* TDWebViewHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewHandler.h; sourceTree = "<group>"; };
 		19F07A601F1F39B5004449BB /* TDWebViewHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewHandler.m; sourceTree = "<group>"; };
+		19F07A6A1F204AA4004449BB /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -1573,8 +1573,6 @@
 		842D58031D893BB3006385CB /* CompanySelTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompanySelTableView.m; sourceTree = "<group>"; };
 		845CCB861D4EDC18005ABD7B /* LeftRightBtn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftRightBtn.h; sourceTree = "<group>"; };
 		845CCB871D4EDC18005ABD7B /* LeftRightBtn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LeftRightBtn.m; sourceTree = "<group>"; };
-		8470E9621DDD8405002F727D /* AlipaySDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = AlipaySDK.bundle; sourceTree = "<group>"; };
-		8470E9631DDD8405002F727D /* AlipaySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlipaySDK.framework; sourceTree = "<group>"; };
 		8470E9661DDD8426002F727D /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		8470E9681DDD84B6002F727D /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "usr/lib/libc++.tbd"; sourceTree = SDKROOT; };
 		84823CB31DD1AC36004440A9 /* TopBotButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TopBotButton.h; sourceTree = "<group>"; };
@@ -1734,6 +1732,7 @@
 				1946EE9F1E0EA90200D8FB3A /* libWeiboSDK.a in Frameworks */,
 				1946EEA51E0EA90200D8FB3A /* ShareSDKConnector.framework in Frameworks */,
 				1946EE9A1E0EA90200D8FB3A /* ShareSDKExtension.framework in Frameworks */,
+				19F07A6B1F204AA4004449BB /* UTDID.framework in Frameworks */,
 				84D57BC01D83933900274E9C /* CoreGraphics.framework in Frameworks */,
 				1946EE991E0EA90200D8FB3A /* ShareSDK.framework in Frameworks */,
 				84D57BC41D83934A00274E9C /* UIKit.framework in Frameworks */,
@@ -1743,7 +1742,6 @@
 				2764A26E1D015F6B00916844 /* Security.framework in Frameworks */,
 				84D57BBE1D83931A00274E9C /* CoreFoundation.framework in Frameworks */,
 				195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */,
-				8470E9651DDD8405002F727D /* AlipaySDK.framework in Frameworks */,
 				19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */,
 				1946EE9C1E0EA90200D8FB3A /* ShareSDKUI.framework in Frameworks */,
 				2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */,
@@ -2804,6 +2802,7 @@
 		195057721E7A22470097C57A /* AliPushSDK */ = {
 			isa = PBXGroup;
 			children = (
+				19F07A6A1F204AA4004449BB /* UTDID.framework */,
 				195057731E7A22470097C57A /* AlicloudUtils.framework */,
 				195057741E7A22470097C57A /* CloudPushSDK.framework */,
 			);
@@ -3883,7 +3882,6 @@
 				1946EE761E0EA90200D8FB3A /* ShareSDK */,
 				1946EE311E0E9DF100D8FB3A /* WexinSDK1.7.5 */,
 				841848CA1DF537140047DA7E /* UMMobClick.framework */,
-				8470E9611DDD8405002F727D /* AliSDK */,
 			);
 			path = Lib;
 			sourceTree = "<group>";
@@ -4754,15 +4752,6 @@
 			path = AboutMine;
 			sourceTree = "<group>";
 		};
-		8470E9611DDD8405002F727D /* AliSDK */ = {
-			isa = PBXGroup;
-			children = (
-				8470E9621DDD8405002F727D /* AlipaySDK.bundle */,
-				8470E9631DDD8405002F727D /* AlipaySDK.framework */,
-			);
-			path = AliSDK;
-			sourceTree = "<group>";
-		};
 		8497E0541CEF0B2800D7D105 /* SDCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
@@ -5246,7 +5235,6 @@
 				193419E71E78DF2B00F22788 /* fold.caf in Resources */,
 				4DA177FF1E8A51DE00C438BE /* PlayIndividualContentCell.xib in Resources */,
 				1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */,
-				8470E9641DDD8405002F727D /* AlipaySDK.bundle in Resources */,
 				1946EE9E1E0EA90200D8FB3A /* TencentOpenApi_IOS_Bundle.bundle in Resources */,
 				19347E521E0E3E5200E651B5 /* PSIndexListCell.xib in Resources */,
 				193419AC1E76B4DB00F22788 /* AliveRoomHeaderView.xib in Resources */,

@@ -10,7 +10,6 @@
 #import "NetworkManager.h"
 #import "LoginState.h"
 #import "STPopup.h"
-#import <AlipaySDK/AlipaySDK.h>
 #import "WXApi.h"
 
 @interface RechargeChooseViewController ()
@@ -27,6 +26,7 @@
 }
 
 - (IBAction)zhifbaoPressed:(id)sender {
+    /*
     NSDictionary *dic = @{@"type":    @(self.type),
                           @"number":  @(self.keyNumber),
                           @"version": @"1.0",
@@ -55,6 +55,7 @@
         
         [self.popupController dismiss];
     }];
+     */
 }
 
 - (IBAction)wexinPressed:(id)sender {
