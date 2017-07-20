@@ -11,11 +11,7 @@
 #import "SelOrderBtnView.h"
 #import "ChildOrderTableViewController.h"
 
-#import "UIdaynightModel.h"
-
 @interface MyOrderViewController ()<SelOrderBtnViewDelegate,UIScrollViewDelegate>
-
-@property (nonatomic,strong) UIdaynightModel *daynightModel;
 
 @property (nonatomic,strong) NSArray *categoryArr;
 
@@ -40,10 +36,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.daynightModel = [UIdaynightModel sharedInstance];
-    self.tableviewsArr = [NSMutableArray array];
-    self.view.backgroundColor = self.daynightModel.navigationColor;
+     self.tableviewsArr = [NSMutableArray array];
+    self.view.backgroundColor = TDViewBackgrouondColor;
     
     [self setupWithNavigation];
     [self setupWithSelBtnView];
@@ -61,9 +55,8 @@
 - (void)setupWithSelBtnView{
     self.selOrderView = [[SelOrderBtnView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) withArr:self.categoryArr];
     self.selOrderView.delegate = self;
-    self.selOrderView.line1.layer.borderColor = self.daynightModel.lineColor.CGColor;
-    self.selOrderView.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
-    self.selOrderView.backgroundColor = self.daynightModel.navigationColor;
+    self.selOrderView.line1.layer.borderColor = TDSeparatorColor.CGColor;
+    self.selOrderView.line2.layer.borderColor = TDSeparatorColor.CGColor;
     [self.view addSubview:self.selOrderView];
 }
 
@@ -74,7 +67,6 @@
     self.contentScroll.showsHorizontalScrollIndicator = NO;
     self.contentScroll.showsVerticalScrollIndicator = NO;
     self.contentScroll.pagingEnabled = YES;
-    self.contentScroll.backgroundColor = self.daynightModel.navigationColor;
     
     [self.view addSubview:self.contentScroll];
     self.contentScroll.contentSize = CGSizeMake(kScreenWidth*self.categoryArr.count, kScreenHeight-108);
@@ -84,8 +76,6 @@
     self.tableviewsArr = [NSMutableArray array];
     for (int i = 0; i<self.categoryArr.count; i++) {
         ChildOrderTableViewController *vc  = [[ChildOrderTableViewController alloc] init];
-        
-        vc.view.backgroundColor = self.daynightModel.navigationColor;
         
         [self.tableviewsArr addObject:vc];
         [self addChildViewController:vc];

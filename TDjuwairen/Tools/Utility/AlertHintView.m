@@ -10,7 +10,6 @@
 
 #import "Masonry.h"
 #import "NSString+Ext.h"
-#import "UIdaynightModel.h"
 
 @interface AlertHintView ()
 
@@ -26,32 +25,30 @@
 {
     if (self = [super initWithFrame:frame]) {
         
-        UIdaynightModel *daynightModel = [UIdaynightModel sharedInstance];
-        
         UIView *backView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight)];
         backView.backgroundColor = [UIColor blackColor];
         backView.alpha = 0.5;
         
         UIView *view = [[UIView alloc] init];
-        view.backgroundColor = daynightModel.navigationColor;
+        view.backgroundColor = [UIColor whiteColor];
 
         UILabel *titLab = [[UILabel alloc] init];
         titLab.font = [UIFont systemFontOfSize:18];
-        titLab.textColor = daynightModel.titleColor;
+        titLab.textColor = TDTitleTextColor;
         
         UILabel *alertLab = [[UILabel alloc] init];
         alertLab.text = alert;
         alertLab.font = [UIFont systemFontOfSize:16];
-        alertLab.textColor = daynightModel.titleColor;
+        alertLab.textColor = TDTitleTextColor;
         
         UIButton *clear = [[UIButton alloc] init];
         [clear setTitle:cancel forState:UIControlStateNormal];
-        [clear setTitleColor:daynightModel.titleColor forState:UIControlStateNormal];
+        [clear setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
         [clear addTarget:self action:@selector(clickClear:) forControlEvents:UIControlEventTouchUpInside];
         
         UIButton *delect = [[UIButton alloc] init];
         [delect setTitle:sure forState:UIControlStateNormal];
-        [delect setTitleColor:daynightModel.titleColor forState:UIControlStateNormal];
+        [delect setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
         [delect addTarget:self action:@selector(clickDelect:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:backView];

@@ -10,15 +10,12 @@
 
 #import "FloorInFloorView.h"
 #import "NSString+Ext.h"
-#import "UIdaynightModel.h"
 
 @implementation FloorInFloorView
 
 - (instancetype)initWithArr:(NSArray *)arr
 {
     if (self = [super init]) {
-        UIdaynightModel *daynightModel = [UIdaynightModel sharedInstance];
-        [daynightModel addObserver:self forKeyPath:@"daynight" options:NSKeyValueObservingOptionNew context:nil];
         self.height = 0;
         int n = 0;
         if (arr.count > 4) {
@@ -52,11 +49,11 @@
             view.commentLab.text = comment;
             
             //UIdaynight
-            view.layer.borderColor = daynightModel.titleColor.CGColor;
-            view.backgroundColor = daynightModel.backColor;
-            view.nicknameLab.textColor = daynightModel.titleColor;
-            view.numLab.textColor = daynightModel.titleColor;
-            view.commentLab.textColor = daynightModel.textColor;
+            view.layer.borderColor = TDTitleTextColor.CGColor;
+            view.backgroundColor = [UIColor whiteColor];
+            view.nicknameLab.textColor = TDTitleTextColor;
+            view.numLab.textColor = TDTitleTextColor;
+            view.commentLab.textColor = TDTitleTextColor;
             
             self.height = view.frame.size.height;
             

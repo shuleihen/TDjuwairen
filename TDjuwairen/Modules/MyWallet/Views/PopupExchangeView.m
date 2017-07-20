@@ -11,7 +11,6 @@
 #import "Masonry.h"
 #import "UIImageView+WebCache.h"
 #import "HexColors.h"
-#import "UIdaynightModel.h"
 
 @implementation PopupExchangeView
 

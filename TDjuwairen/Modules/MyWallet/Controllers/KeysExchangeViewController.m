@@ -13,15 +13,10 @@
 #import "PopupExchangeView.h"
 #import "PopUsExchangeSuccessView.h"
 #import "AwardViewController.h"
-
-#import "UIdaynightModel.h"
 #import "LoginState.h"
-
 #import "NetworkManager.h"
 
 @interface KeysExchangeViewController ()<UITableViewDelegate,UITableViewDataSource,ExchangeTableViewCellDelegate,PopupExchangeViewDelegate,PopUsExchangeSuccessViewDelegate>
-
-@property (nonatomic, strong) UIdaynightModel *daynightModel;
 
 @property (nonatomic, strong) UITableView *tableview;
 
@@ -38,7 +33,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightModel = [UIdaynightModel sharedInstance];
     [self setupWithNavigation];
     [self setupWithTableView];
 
@@ -113,9 +107,8 @@
         ExchangeModel *model = self.listArr[indexPath.row];
         ExchangeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell" forIndexPath:indexPath];
         [cell setupWithDiction:model andIndexPath:indexPath];
-        cell.prizeLab.textColor = self.daynightModel.textColor;
-        cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
-        cell.backgroundColor = self.daynightModel.navigationColor;
+        cell.prizeLab.textColor = TDTitleTextColor;
+        cell.line.layer.borderColor = TDSeparatorColor.CGColor;
         cell.delegate = self;
         return cell;
     }

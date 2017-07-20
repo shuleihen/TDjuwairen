@@ -9,16 +9,10 @@
 #import "AwardViewController.h"
 #import "AwardImfomationTableViewCell.h"
 #import "AwardAdressTableViewCell.h"
-
-#import "UIdaynightModel.h"
 #import "LoginState.h"
-
 #import "NetworkManager.h"
 
 @interface AwardViewController ()<UITableViewDelegate,UITableViewDataSource>
-
-@property (nonatomic, strong) UIdaynightModel *daynightModel;
-
 @property (nonatomic, strong) UITableView *tableview;
 
 @property (nonatomic, strong) NSArray *titArr;
@@ -29,8 +23,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.daynightModel = [UIdaynightModel sharedInstance];
     
     [self setupWithNavigation];
     [self setupWithTableView];
@@ -69,7 +61,7 @@
     [self.tableview registerClass:[AwardImfomationTableViewCell class] forCellReuseIdentifier:@"cell"];
     [self.tableview registerClass:[AwardAdressTableViewCell class] forCellReuseIdentifier:@"adress"];
     
-    self.tableview.backgroundColor = self.daynightModel.backColor;
+    self.tableview.backgroundColor = TDViewBackgrouondColor;
     [self.view addSubview:self.tableview];
 }
 
@@ -115,8 +107,8 @@
         
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
         
-        cell.titLab.textColor = self.daynightModel.textColor;
-        cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        cell.titLab.textColor = TDTitleTextColor;
+        cell.line.layer.borderColor = TDSeparatorColor.CGColor;
         return cell;
     }
     else
@@ -127,8 +119,8 @@
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titLab.textColor = self.daynightModel.textColor;
-            cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
+            cell.titLab.textColor = TDTitleTextColor;
+            cell.line.layer.borderColor = TDSeparatorColor.CGColor;
             return cell;
         }
         else {
@@ -137,8 +129,8 @@
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             
-            cell.titLab.textColor = self.daynightModel.textColor;
-            cell.line.layer.borderColor = self.daynightModel.lineColor.CGColor;
+            cell.titLab.textColor = TDTitleTextColor;
+            cell.line.layer.borderColor = TDSeparatorColor.CGColor;
             return cell;
         }
     }

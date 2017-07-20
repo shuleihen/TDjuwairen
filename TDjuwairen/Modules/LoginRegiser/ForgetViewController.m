@@ -10,7 +10,6 @@
 #import "LoginState.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
-#import "UIdaynightModel.h"
 #import "YXSecurityCodeButton.h"
 #import "NSString+Util.h"
 #import "LoginHandler.h"
@@ -18,7 +17,6 @@
 
 @interface ForgetViewController ()<YXSecurityCodeButtonDelegate>
 
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UITextField *accountText;
 @property (nonatomic,strong) UITextField *validationText;
 @property (nonatomic,strong) YXSecurityCodeButton *validationBtn;
@@ -33,8 +31,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightmodel = [UIdaynightModel sharedInstance];
-    self.view.backgroundColor = self.daynightmodel.backColor;
+    self.view.backgroundColor = TDViewBackgrouondColor;
     //收起键盘手势
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(viewTapped:)];
     tap.cancelsTouchesInView = NO;
@@ -108,14 +105,11 @@
     //设置显示模式为永远显示(默认不显示)
     self.surePassword.leftViewMode = UITextFieldViewModeAlways;
     
-    self.accountText.backgroundColor = self.daynightmodel.navigationColor;
-    self.accountText.textColor = self.daynightmodel.textColor;
-    self.validationText.backgroundColor = self.daynightmodel.navigationColor;
-    self.validationText.textColor = self.daynightmodel.textColor;
-    self.passwordText.backgroundColor = self.daynightmodel.navigationColor;
-    self.passwordText.textColor = self.daynightmodel.textColor;
-    self.surePassword.backgroundColor = self.daynightmodel.navigationColor;
-    self.surePassword.textColor = self.daynightmodel.textColor;
+    self.accountText.backgroundColor = [UIColor whiteColor];
+    self.accountText.textColor = TDTitleTextColor;
+    self.validationText.textColor = TDTitleTextColor;
+    self.passwordText.textColor = TDTitleTextColor;
+    self.surePassword.textColor = TDTitleTextColor;
     
     [self.view addSubview:self.accountText];
     [self.view addSubview:self.validationText];

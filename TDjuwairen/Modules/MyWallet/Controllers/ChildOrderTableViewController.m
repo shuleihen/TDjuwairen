@@ -21,12 +21,8 @@
 #import "Masonry.h"
 #import "NetworkManager.h"
 #import "LoginState.h"
-#import "UIdaynightModel.h"
 
 @interface ChildOrderTableViewController ()<OrderDetailCellDelegate>
-
-@property (nonatomic,strong) UIdaynightModel *daynightModel;
-
 @property (nonatomic,strong) NSMutableArray *orderArr;
 
 @property (nonatomic,assign) int tag;
@@ -40,11 +36,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightModel = [UIdaynightModel sharedInstance];
     self.orderArr = [NSMutableArray array];
     self.page = 1;
     
-    self.tableView.backgroundColor = self.daynightModel.navigationColor;
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableView.estimatedRowHeight = 250;
     self.tableView.rowHeight = UITableViewAutomaticDimension;

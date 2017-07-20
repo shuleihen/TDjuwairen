@@ -164,8 +164,6 @@
 		1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B21D644D9800DC102E /* ForgetViewController.m */; };
 		1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B41D644D9800DC102E /* LoginViewController.m */; };
 		1955B4601D644D9800DC102E /* MobileLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3B71D644D9800DC102E /* MobileLoginViewController.m */; };
-		1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */; };
-		1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */; };
 		1955B4851D644D9800DC102E /* NetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4041D644D9800DC102E /* NetworkManager.m */; };
 		1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40C1D644D9800DC102E /* SearchResultTableViewCell.m */; };
 		1955B4891D644D9800DC102E /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B40E1D644D9800DC102E /* SearchViewController.m */; };
@@ -175,13 +173,11 @@
 		1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4381D644D9800DC102E /* PublishViewViewController.m */; };
 		1955B49B1D644D9800DC102E /* EditZiti.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B43D1D644D9800DC102E /* EditZiti.m */; };
 		1955B49C1D644D9800DC102E /* PhotoTextAttachment.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B43F1D644D9800DC102E /* PhotoTextAttachment.m */; };
-		1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4431D644D9800DC102E /* UIdaynightModel.m */; };
 		1955B4A11D644D9800DC102E /* BottomEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B44A1D644D9800DC102E /* BottomEdit.m */; };
 		1955B4A21D644D9800DC102E /* CategoryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B44C1D644D9800DC102E /* CategoryView.m */; };
 		1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B44E1D644D9800DC102E /* FloorInFloorView.m */; };
 		1955B4A41D644D9800DC102E /* FloorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4501D644D9800DC102E /* FloorView.m */; };
 		1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4521D644D9800DC102E /* InsertTagsView.m */; };
-		1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4541D644D9800DC102E /* NaviMoreView.m */; };
 		1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4561D644D9800DC102E /* SecondEdit.m */; };
 		1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4581D644D9800DC102E /* SelectFontView.m */; };
 		1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B45A1D644D9800DC102E /* TimeHotComView.m */; };
@@ -933,9 +929,6 @@
 		1955B3B41D644D9800DC102E /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginViewController.m; sourceTree = "<group>"; };
 		1955B3B61D644D9800DC102E /* MobileLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MobileLoginViewController.h; sourceTree = "<group>"; };
 		1955B3B71D644D9800DC102E /* MobileLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MobileLoginViewController.m; sourceTree = "<group>"; };
-		1955B3D01D644D9800DC102E /* CollectionTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CollectionTableViewCell.h; sourceTree = "<group>"; };
-		1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CollectionTableViewCell.m; sourceTree = "<group>"; };
-		1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CollectionTableViewCell.xib; sourceTree = "<group>"; };
 		1955B4021D644D9800DC102E /* NetworkDefine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkDefine.h; sourceTree = "<group>"; };
 		1955B4031D644D9800DC102E /* NetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkManager.h; sourceTree = "<group>"; };
 		1955B4041D644D9800DC102E /* NetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkManager.m; sourceTree = "<group>"; };
@@ -955,8 +948,6 @@
 		1955B43D1D644D9800DC102E /* EditZiti.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditZiti.m; sourceTree = "<group>"; };
 		1955B43E1D644D9800DC102E /* PhotoTextAttachment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoTextAttachment.h; sourceTree = "<group>"; };
 		1955B43F1D644D9800DC102E /* PhotoTextAttachment.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoTextAttachment.m; sourceTree = "<group>"; };
-		1955B4421D644D9800DC102E /* UIdaynightModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIdaynightModel.h; sourceTree = "<group>"; };
-		1955B4431D644D9800DC102E /* UIdaynightModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIdaynightModel.m; sourceTree = "<group>"; };
 		1955B4491D644D9800DC102E /* BottomEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BottomEdit.h; sourceTree = "<group>"; };
 		1955B44A1D644D9800DC102E /* BottomEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BottomEdit.m; sourceTree = "<group>"; };
 		1955B44B1D644D9800DC102E /* CategoryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CategoryView.h; sourceTree = "<group>"; };
@@ -967,8 +958,6 @@
 		1955B4501D644D9800DC102E /* FloorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FloorView.m; sourceTree = "<group>"; };
 		1955B4511D644D9800DC102E /* InsertTagsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InsertTagsView.h; sourceTree = "<group>"; };
 		1955B4521D644D9800DC102E /* InsertTagsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InsertTagsView.m; sourceTree = "<group>"; };
-		1955B4531D644D9800DC102E /* NaviMoreView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NaviMoreView.h; sourceTree = "<group>"; };
-		1955B4541D644D9800DC102E /* NaviMoreView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NaviMoreView.m; sourceTree = "<group>"; };
 		1955B4551D644D9800DC102E /* SecondEdit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SecondEdit.h; sourceTree = "<group>"; };
 		1955B4561D644D9800DC102E /* SecondEdit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SecondEdit.m; sourceTree = "<group>"; };
 		1955B4571D644D9800DC102E /* SelectFontView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SelectFontView.h; sourceTree = "<group>"; };
@@ -3065,9 +3054,6 @@
 			isa = PBXGroup;
 			children = (
 				194E0CFA1EEE3C28009C7AC6 /* Controllers */,
-				1955B3D01D644D9800DC102E /* CollectionTableViewCell.h */,
-				1955B3D11D644D9800DC102E /* CollectionTableViewCell.m */,
-				1955B3D21D644D9800DC102E /* CollectionTableViewCell.xib */,
 				4D2D29EB1EDEAF3800545314 /* DeleteCollectionPopController.h */,
 				4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */,
 			);
@@ -3167,8 +3153,6 @@
 				1955B43D1D644D9800DC102E /* EditZiti.m */,
 				1955B43E1D644D9800DC102E /* PhotoTextAttachment.h */,
 				1955B43F1D644D9800DC102E /* PhotoTextAttachment.m */,
-				1955B4421D644D9800DC102E /* UIdaynightModel.h */,
-				1955B4431D644D9800DC102E /* UIdaynightModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3188,8 +3172,6 @@
 				19E58DBA1EFA423B00ADA1B8 /* SharpTags.m */,
 				1955B4511D644D9800DC102E /* InsertTagsView.h */,
 				1955B4521D644D9800DC102E /* InsertTagsView.m */,
-				1955B4531D644D9800DC102E /* NaviMoreView.h */,
-				1955B4541D644D9800DC102E /* NaviMoreView.m */,
 				1955B4551D644D9800DC102E /* SecondEdit.h */,
 				1955B4561D644D9800DC102E /* SecondEdit.m */,
 				1955B4571D644D9800DC102E /* SelectFontView.h */,
@@ -5201,7 +5183,6 @@
 			files = (
 				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
 				19E58D7C1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib in Resources */,
-				1955B46D1D644D9800DC102E /* CollectionTableViewCell.xib in Resources */,
 				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
@@ -5387,7 +5368,6 @@
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
 				194E0CFD1EEE3C28009C7AC6 /* CollectionViewController.m in Sources */,
-				1955B46C1D644D9800DC102E /* CollectionTableViewCell.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
 				1987B2B71EE78EC800BD852E /* AliveListForwardView2.m in Sources */,
@@ -5404,7 +5384,6 @@
 				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
-				1955B4A61D644D9800DC102E /* NaviMoreView.m in Sources */,
 				19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */,
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
 				194E0D221EEFBDF7009C7AC6 /* AliveDetailFooterViewController.m in Sources */,
@@ -5667,7 +5646,6 @@
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				1987B2911EE688F700BD852E /* NiuxiongSectionHeaderView.m in Sources */,
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,
-				1955B49E1D644D9800DC102E /* UIdaynightModel.m in Sources */,
 				193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */,
 				1987B28C1EE688F700BD852E /* StockAnnounceModel.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,

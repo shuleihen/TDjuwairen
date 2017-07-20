@@ -10,16 +10,11 @@
 #define yelloTextColor [HXColor hx_colorWithHexRGBAString:@"#F2BA2C"]
 
 #import "OrderDetailTableViewCell.h"
-
-#import "UIdaynightModel.h"
-
 #import "Masonry.h"
 #import "NSString+Ext.h"
 #import "HexColors.h"
 
 @interface OrderDetailTableViewCell ()
-
-@property (nonatomic,strong) UIdaynightModel *daynightModel;
 
 @end
 
@@ -33,39 +28,37 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        self.daynightModel = [UIdaynightModel sharedInstance];
-        self.backgroundColor = self.daynightModel.backColor;
         
         self.backView = [[UIView alloc] init];
-        self.backView.backgroundColor = self.daynightModel.navigationColor;
+        self.backView.backgroundColor = [UIColor whiteColor];
         
         self.IDLab = [[UILabel alloc] init];
         self.IDLab.font = [UIFont boldSystemFontOfSize:12];
-        self.IDLab.textColor = self.daynightModel.titleColor;
+        self.IDLab.textColor = TDTitleTextColor;
         
         self.orderID = [[UILabel alloc] init];
         self.orderID.font = [UIFont boldSystemFontOfSize:12];
-        self.orderID.textColor = self.daynightModel.titleColor;
+        self.orderID.textColor = TDTitleTextColor;
         
         self.orderStatus = [[UILabel alloc] init];
         self.orderStatus.font = [UIFont systemFontOfSize:14];
         self.orderStatus.textAlignment = NSTextAlignmentRight;
         
         self.line1 = [[UILabel alloc] init];
-        self.line1.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        self.line1.layer.borderColor = TDSeparatorColor.CGColor;
         self.line1.layer.borderWidth = 1;
         
         self.orderTitle = [[UILabel alloc] init];
         self.orderTitle.font = [UIFont systemFontOfSize:18];
-        self.orderTitle.textColor = self.daynightModel.textColor;
+        self.orderTitle.textColor = TDTitleTextColor;
         
         self.timeLab = [[UILabel alloc] init];
         self.timeLab.font = [UIFont systemFontOfSize:14];
-        self.timeLab.textColor = self.daynightModel.titleColor;
+        self.timeLab.textColor = TDTitleTextColor;
         
         self.orderTime = [[UILabel alloc] init];
         self.orderTime.font = [UIFont systemFontOfSize:14];
-        self.orderTime.textColor = self.daynightModel.titleColor;
+        self.orderTime.textColor = TDTitleTextColor;
         
         self.moneyImg = [[UIImageView alloc] init];
         
@@ -75,14 +68,14 @@
         self.orderMoney.font = [UIFont systemFontOfSize:14];
         
         self.line2 = [[UILabel alloc] init];
-        self.line2.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        self.line2.layer.borderColor = TDSeparatorColor.CGColor;
         self.line2.layer.borderWidth = 1;
         
         self.cleanBtn = [[UIButton alloc] init];
         self.cleanBtn.layer.borderWidth = 1;
-        self.cleanBtn.layer.borderColor = self.daynightModel.lineColor.CGColor;
+        self.cleanBtn.layer.borderColor = TDSeparatorColor.CGColor;
         self.cleanBtn.titleLabel.font = [UIFont systemFontOfSize:14];
-        [self.cleanBtn setTitleColor:self.daynightModel.titleColor forState:UIControlStateNormal];
+        [self.cleanBtn setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
         [self.cleanBtn addTarget:self action:@selector(clickDeleteOrder:) forControlEvents:UIControlEventTouchUpInside];
         
         [self addSubview:self.backView];

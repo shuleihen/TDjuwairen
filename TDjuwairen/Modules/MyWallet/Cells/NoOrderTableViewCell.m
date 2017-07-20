@@ -8,7 +8,6 @@
 
 #import "NoOrderTableViewCell.h"
 #import "Masonry.h"
-#import "UIdaynightModel.h"
 
 @implementation NoOrderTableViewCell
 
@@ -20,16 +19,13 @@
 - (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier
 {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-        //
-        UIdaynightModel *daynightModel = [UIdaynightModel sharedInstance];
-        self.backgroundColor = daynightModel.backColor;
         self.imgView = [[UIImageView alloc] init];
         self.imgView.contentMode = UIViewContentModeScaleAspectFit;
         
         self.titLab = [[UILabel alloc] init];
         self.titLab.font = [UIFont systemFontOfSize:18];
         self.titLab.textAlignment = NSTextAlignmentCenter;
-        self.titLab.textColor = daynightModel.titleColor;
+        self.titLab.textColor = TDTitleTextColor;
         
         [self addSubview:self.imgView];
         [self addSubview:self.titLab];

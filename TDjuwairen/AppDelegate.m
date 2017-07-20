@@ -20,7 +20,6 @@
 #import "GuideViewController.h"
 #import "HexColors.h"
 #import "YXFont.h"
-#import "UIdaynightModel.h"
 #import "CocoaLumberjack.h"
 #import "NetworkManager.h"
 #import "TDNavigationController.h"
@@ -353,10 +352,7 @@
 
 #pragma mark - Setup
 - (void)setupUICommon {
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    UIdaynightModel *daynightmodel = [UIdaynightModel sharedInstance];
-    [daynightmodel day];
-    [userdefault setObject:@"yes" forKey:@"daynight"];
+    
 }
 
 - (void)setupURLCacheSize

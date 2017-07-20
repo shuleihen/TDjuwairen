@@ -14,7 +14,6 @@
 #import "OrderDetailTableViewCell.h"
 #import "NoOrderTableViewCell.h"
 #import "LoginState.h"
-#import "UIdaynightModel.h"
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
 #import "MJRefresh.h"
@@ -24,8 +23,6 @@
 #import "NetworkManager.h"
 
 @interface KeysRecordViewController ()<UITableViewDataSource,UITableViewDelegate,OrderDetailCellDelegate>
-@property (nonatomic,strong) UIdaynightModel *daynightModel;
-
 @property (nonatomic,strong) UITableView *tableview;
 
 @property (nonatomic,strong) NSMutableArray *keyRecordArr;
@@ -39,7 +36,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.daynightModel = [UIdaynightModel sharedInstance];
     self.keyRecordArr = [NSMutableArray array];
     self.page = 1;
     
@@ -78,7 +74,7 @@
     self.tableview = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
     self.tableview.delegate = self;
     self.tableview.dataSource = self;
-    self.tableview.backgroundColor = self.daynightModel.navigationColor;
+    self.tableview.backgroundColor = TDViewBackgrouondColor;
     self.tableview.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.tableview.estimatedRowHeight = 250;
     self.tableview.rowHeight = UITableViewAutomaticDimension;

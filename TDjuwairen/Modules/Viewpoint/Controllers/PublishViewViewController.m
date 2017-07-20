@@ -7,7 +7,6 @@
 //
 
 #import "PublishViewViewController.h"
-#import "UIdaynightModel.h"
 #import "BottomEdit.h"
 #import "SecondEdit.h"
 #import "EditZiti.h"
@@ -15,7 +14,6 @@
 #import "LoginState.h"
 #import "PreviewViewController.h"
 #import "InsertTagsView.h"
-
 #import "NSString+Ext.h"
 #import "PhotoTextAttachment.h"
 #import "UIImageView+WebCache.h"
@@ -39,7 +37,6 @@
     
 }
 
-@property (nonatomic,strong) UIdaynightModel *daynightmodel;
 @property (nonatomic,strong) UIScrollView *scrollview;
 
 @property (nonatomic,strong) UITextField *titleText;
@@ -76,7 +73,6 @@
     self.upimgArr = [NSMutableArray array];
     self.tagsArr = [NSMutableArray array];
     
-    self.daynightmodel = [UIdaynightModel sharedInstance];
     self.editziti = [EditZiti sharedInstance];
     numm = 0;
     self.editziti.zihao = 16;//默认16号字体
@@ -115,7 +111,6 @@
 - (void)setupWithScrollview{
     self.scrollview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-40)];
     
-    self.scrollview.backgroundColor = self.daynightmodel.navigationColor;
     [self.view addSubview:self.scrollview];
 }
 
@@ -124,18 +119,9 @@
     self.titleText.rightView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 70, 0)];
     //设置显示模式为永远显示(默认不显示)
     self.titleText.rightViewMode = UITextFieldViewModeAlways;
+    self.titleText.backgroundColor = [UIColor whiteColor];
     
-    NSUserDefaults *userdefault = [NSUserDefaults standardUserDefaults];
-    NSString *daynight = [userdefault objectForKey:@"daynight"];
-    if ([daynight isEqualToString:@"yes"]) {
-        self.titleText.backgroundColor = [UIColor whiteColor];
-    }
-    else
-    {
-        self.titleText.backgroundColor = self.daynightmodel.backColor;
-    }
-    
-    UIColor *color = self.daynightmodel.titleColor;
+    UIColor *color = TDTitleTextColor;
     self.titleText.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"标题,24个字以内" attributes:@{NSForegroundColorAttributeName: color}];
     
     self.titleText.leftView = [[UIView alloc]initWithFrame:CGRectMake(0, 0, 8, 0)];
@@ -143,10 +129,10 @@
     self.titleText.leftViewMode = UITextFieldViewModeAlways;
     
     self.titleText.font = [UIFont systemFontOfSize:18];
-    self.titleText.textColor = self.daynightmodel.textColor;
+    self.titleText.textColor = TDTitleTextColor;
     
     self.titleText.layer.borderWidth = 1;
-    self.titleText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+    self.titleText.layer.borderColor = TDSeparatorColor.CGColor;
     
     self.originalBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-80, 5, 40, 30)];
     [self.originalBtn setImage:[UIImage imageNamed:@"btn_select.png"] forState:UIControlStateNormal];
@@ -158,7 +144,7 @@
     UIButton *originalLabel = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-40, 5, 40, 30)];
     originalLabel.titleLabel.font = [UIFont systemFontOfSize:16];
     [originalLabel setTitle:@"原创" forState:UIControlStateNormal];
-    [originalLabel setTitleColor:self.daynightmodel.titleColor forState:UIControlStateNormal];
+    [originalLabel setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
     [originalLabel setBackgroundColor:self.titleText.backgroundColor];
     [originalLabel addTarget:self action:@selector(isOriginal:) forControlEvents:UIControlEventTouchUpInside];
     
@@ -174,7 +160,7 @@
     self.contentText.textContainerInset = UIEdgeInsetsMake(8, 4, 8, 4);
     self.contentText.backgroundColor = self.titleText.backgroundColor;
     self.contentText.font = [UIFont systemFontOfSize:16];
-    self.contentText.textColor = self.daynightmodel.textColor;
+    self.contentText.textColor = TDTitleTextColor;
     self.contentText.delegate = self;
     [self.contentText addObserver:self
                        forKeyPath:@"contentSize"
@@ -183,7 +169,7 @@
     
     self.placeholderLab = [[UILabel alloc]initWithFrame:CGRectMake(8, 8, kScreenWidth/2, 20)];
     self.placeholderLab.text = @"正文，8000个字以内";
-    self.placeholderLab.textColor = self.daynightmodel.titleColor;
+    self.placeholderLab.textColor = TDTitleTextColor;
     self.placeholderLab.font = [UIFont systemFontOfSize:14];
     
     [self.contentText addSubview:self.placeholderLab];
@@ -354,7 +340,6 @@
             [self.companySelView removeFromSuperview];
             //字体设置
             self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40)];
-            self.secondView.backgroundColor = self.daynightmodel.navigationColor;
             self.secondView.delegate = self;
             self.SelSecView = self.secondView;
             
@@ -382,7 +367,6 @@
             NSArray *imgArr = @[@"btn_img.png",@"btn_biaoqian.png"];
             NSArray *textArr = @[@"图片",@"股票"];
             self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
-            self.secondView.backgroundColor = self.daynightmodel.navigationColor;
             self.secondView.delegate = self;
             self.SelSecView = self.secondView;
             
@@ -411,7 +395,6 @@
             NSArray *imgArr = @[@"tab_yulan.png",@"tab_caogao.png"];
             NSArray *textArr = @[@"预览",@"存为草稿"];
             self.secondView = [[SecondEdit alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-40, kScreenWidth, 40) andImgArr:imgArr andTextArr:textArr];
-            self.secondView.backgroundColor = self.daynightmodel.navigationColor;
             self.secondView.delegate = self;
             self.SelSecView = self.secondView;
             
@@ -697,11 +680,10 @@
         
         self.tagsview = [[InsertTagsView alloc]initWithFrame:CGRectMake(0, self.bottomView.frame.origin.y-80, kScreenWidth, 40) andArr:self.tagsArr];
         self.tagsview.delegate = self;
-        self.tagsview.backgroundColor = self.daynightmodel.backColor;
         [self.tagsview.tagsText becomeFirstResponder];
         self.tagsview.tagsText.placeholder = @"请输入股票代码或公司名称";
-        self.tagsview.tagsText.backgroundColor = self.daynightmodel.inputColor;
-        self.tagsview.tagsText.layer.borderColor = self.daynightmodel.lineColor.CGColor;
+        self.tagsview.tagsText.backgroundColor = [UIColor whiteColor];
+        self.tagsview.tagsText.layer.borderColor = TDSeparatorColor.CGColor;
         [self.tagsview.tagsText addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
         
         //弹出公司tab
