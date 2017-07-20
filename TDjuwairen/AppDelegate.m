@@ -50,6 +50,7 @@
 #endif
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.window.backgroundColor = [UIColor whiteColor];
+    
     [self setupUICommon];
     [self setupURLCacheSize];
     [self setupShareSDK];
@@ -57,16 +58,16 @@
     [self checkSwitchToGuide];
     [self setupLog];
     [self setupWithUMMobClick];
-//    [self setupBaiduPushWithLaunchOptions:launchOptions];
     [self setupAliCloudPushWithLaunchOptions:launchOptions];
     
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    
+    // 检测是否从广告链接下载的
     [self checkIsFistLaunch];
     
      // 测试本地通知
 //    [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
-    
     
     return YES;
 }
@@ -546,5 +547,9 @@
 
 - (void)checkIsFistLaunch {
     [LaunchHandler checkInstallFormAd];
+}
+
+- (void)loadAd {
+    
 }
 @end

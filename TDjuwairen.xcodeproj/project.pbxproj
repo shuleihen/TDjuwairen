@@ -449,6 +449,7 @@
 		19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A601F1F39B5004449BB /* TDWebViewHandler.m */; };
 		19F07A6B1F204AA4004449BB /* UTDID.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F07A6A1F204AA4004449BB /* UTDID.framework */; };
 		19F07A6E1F2082BE004449BB /* AliveListPostExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */; };
+		19F07A751F20CB25004449BB /* TDLaunchAdManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A741F20CB25004449BB /* TDLaunchAdManager.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
@@ -1475,6 +1476,8 @@
 		19F07A6A1F204AA4004449BB /* UTDID.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = UTDID.framework; sourceTree = "<group>"; };
 		19F07A6C1F2082BE004449BB /* AliveListPostExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPostExtra.h; sourceTree = "<group>"; };
 		19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPostExtra.m; sourceTree = "<group>"; };
+		19F07A731F20CB25004449BB /* TDLaunchAdManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDLaunchAdManager.h; sourceTree = "<group>"; };
+		19F07A741F20CB25004449BB /* TDLaunchAdManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDLaunchAdManager.m; sourceTree = "<group>"; };
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
@@ -2573,6 +2576,7 @@
 		194186E71DF90CA4000C5197 /* Launch */ = {
 			isa = PBXGroup;
 			children = (
+				19F07A721F20CB25004449BB /* Ad */,
 				194186E81DF90CA4000C5197 /* Guide */,
 				194186EB1DF90CA4000C5197 /* Welcome */,
 			);
@@ -4570,6 +4574,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		19F07A721F20CB25004449BB /* Ad */ = {
+			isa = PBXGroup;
+			children = (
+				19F07A731F20CB25004449BB /* TDLaunchAdManager.h */,
+				19F07A741F20CB25004449BB /* TDLaunchAdManager.m */,
+			);
+			path = Ad;
+			sourceTree = "<group>";
+		};
 		19F43C221E232C98001B72CD /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -5679,6 +5692,7 @@
 				19194D221E80D08900641085 /* SSColorfulRefresh.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
 				4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */,
+				19F07A751F20CB25004449BB /* TDLaunchAdManager.m in Sources */,
 				19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */,
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
