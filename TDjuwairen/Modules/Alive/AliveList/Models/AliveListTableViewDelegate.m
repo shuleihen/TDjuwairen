@@ -525,7 +525,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     } else if (model.aliveType == kAliveAd) {
         // 广告
         AliveListAdExtra *extra = model.extra;
-        [TDWebViewHandler openURL:extra.linkUrl inController:self.viewController];
+        [TDWebViewHandler openURL:extra.linkUrl inNav:self.viewController.navigationController];
     } else if (model.aliveType == kAlivePlayStock) {
         // 玩票
         AliveListPlayStockExtra *extra = model.extra;

@@ -253,7 +253,7 @@
     
     SysMessageListModel *model = self.items[indexPath.section];
     if ((model.msgType == 1) && (model.msgLinkType == 5)) {
-        [TDWebViewHandler openURL:model.msgLink inController:self];
+        [TDWebViewHandler openURL:model.msgLink inNav:self.navigationController];
     }
 }
 @end

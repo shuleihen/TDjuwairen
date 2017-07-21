@@ -9,5 +9,5 @@
 #import <Foundation/Foundation.h>
 
 @interface TDWebViewHandler : NSObject
-+ (void)openURL:(NSString *)aUrl inController:(UIViewController *)controller;
++ (void)openURL:(NSString *)aUrl inNav:(UINavigationController *)nav;
 @end

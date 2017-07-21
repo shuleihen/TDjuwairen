@@ -117,9 +117,9 @@
         [self.attentionView setupNumber:at];
         [self.fansView setupNumber:fan];
         
-        if (level == 0) {
+        if (level == kUserLevelNormal) {
             self.levelImageView.image = [UIImage imageNamed:@"level_nomal.png"];
-        } else if (level == 1) {
+        } else if (level == kUserLevelGold) {
             self.levelImageView.image = [UIImage imageNamed:@"level_huangjin.png"];
         } else {
             self.levelImageView.image = nil;

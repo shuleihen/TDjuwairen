@@ -10,9 +10,11 @@
 #import "XHLaunchAd.h"
 #import "NetworkManager.h"
 #import "TDAdvertModel.h"
+#import "TDRechargeViewController.h"
+#import "TDADHandler.h"
 
 @interface TDLaunchAdManager()<XHLaunchAdDelegate>
-
+@property (nonatomic, strong) TDAdvertModel *adModel;
 @end
 
 @implementation TDLaunchAdManager
@@ -52,16 +54,20 @@
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma GET:API_IndexStartupPage parameters:nil completion:^(id data,NSError *error){
-        NSDictionary *dict = data;
-        if (!error && dict.count) {
+        
+        if (!error) {
+            NSArray *array = data;
+            NSDictionary *dict = array.firstObject;
+            
             TDAdvertModel *model = [[TDAdvertModel alloc] initWithDictionary:dict];
+            self.adModel = model;
             
             //配置广告数据
             XHLaunchImageAdConfiguration *imageAdconfiguration = [XHLaunchImageAdConfiguration new];
             //广告停留时间
             imageAdconfiguration.duration = 3;
             //广告frame
-            imageAdconfiguration.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.width);
+            imageAdconfiguration.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height);
             //广告图片URLString/或本地图片名(.jpg/.gif请带上后缀)
             imageAdconfiguration.imageNameOrURLString = model.adImageUrl;
             //缓存机制(仅对网络图片有效)
@@ -80,35 +86,27 @@
             //后台返回时,是否显示广告
             imageAdconfiguration.showEnterForeground = NO;
             
-            //图片已缓存 - 显示一个 "已预载" 视图 (可选)
-            if([XHLaunchAd checkImageInCacheWithURL:[NSURL URLWithString:model.adImageUrl]])
-            {
-                //设置要添加的自定义视图(可选)
-                imageAdconfiguration.subViews = [self launchAdSubViews_alreadyView];
-                
-            }
             //显示开屏广告
             [XHLaunchAd imageAdWithImageAdConfiguration:imageAdconfiguration delegate:self];
         }
     }];
 }
 
--(NSArray<UIView *> *)launchAdSubViews_alreadyView
-{
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width-140, 30, 60, 30)];
-    label.text  = @"已预载";
-    label.font = [UIFont systemFontOfSize:12];
-    label.textColor = [UIColor whiteColor];
-    label.textAlignment = NSTextAlignmentCenter;
-    label.layer.cornerRadius = 5.0;
-    label.layer.masksToBounds = YES;
-    label.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:0.5];
-    return [NSArray arrayWithObject:label];
-    
-}
+
 
 #pragma mark - XHLaunchAdDelegate
 - (void)xhLaunchAd:(XHLaunchAd *)launchAd clickAndOpenURLString:(NSString *)openURLString {
+    UINavigationController *nav = nil;
+    UIViewController *rootVc = [UIApplication sharedApplication].keyWindow.rootViewController;
+    if ([rootVc isKindOfClass:[UITabBarController class]]) {
+        UITabBarController *tabVc = (UITabBarController *)rootVc;
+        nav = (UINavigationController *)[tabVc selectedViewController];
+    }
     
+    if (!nav || !self.adModel) {
+        return;
+    }
+    
+    [TDADHandler pushWithAdModel:self.adModel inNav:nav];
 }
 @end

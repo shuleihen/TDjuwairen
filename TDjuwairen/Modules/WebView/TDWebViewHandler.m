@@ -12,7 +12,8 @@
 #import "NSString+Util.h"
 
 @implementation TDWebViewHandler
-+ (void)openURL:(NSString *)aUrl inController:(UIViewController *)controller {
++ (void)openURL:(NSString *)aUrl inNav:(UINavigationController *)nav {
+    
     if ([aUrl isEqualToString:@"https://www.juwairen.net/index.php/WxUser/vipShow"]){
         NSString *nickName = [US.nickName URLEncode]?:@"";
         NSString *avatar = [US.headImage URLEncode]?:@"";
@@ -22,14 +23,14 @@
         if (url) {
             TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
             vc.hidesBottomBarWhenPushed = YES;
-            [controller.navigationController pushViewController:vc animated:YES];
+            [nav pushViewController:vc animated:YES];
         }
     } else {
         NSURL *url = [NSURL URLWithString:aUrl];
         if (url) {
             TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];
             vc.hidesBottomBarWhenPushed = YES;
-            [controller.navigationController pushViewController:vc animated:YES];
+            [nav pushViewController:vc animated:YES];
         }
     }
 }

@@ -41,6 +41,7 @@
 #import "TDAdvertModel.h"
 #import "TDWebViewHandler.h"
 #import "SurveyDeepTableViewController.h"
+#import "TDADHandler.h"
 
 // 广告栏高度
 #define kBannerHeiht 160
@@ -351,7 +352,7 @@
     }else {
         NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
         NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
-        [TDWebViewHandler openURL:url inController:self];
+        [TDWebViewHandler openURL:url inNav:self.navigationController];
     }
 }
 
@@ -512,22 +513,7 @@
 - (void)cycleScrollView:(SDCycleScrollView *)cycleScrollView didSelectItemAtIndex:(NSInteger)index {
     //跳转到详情页
     TDAdvertModel *model = self.bannerLinks[index];
-    
-    if (model.adType == kADTypeStock) {
-        StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-        vc.stockCode = model.adUrl;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-    } else if (model.adType == kADTypeVideo){
-        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.adUrl];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-    } else if (model.adType == kADTypeH5) {
-        [TDWebViewHandler openURL:model.adUrl inController:self];
-    }else {
-        
-    }
+    [TDADHandler pushWithAdModel:model inNav:self.navigationController];
 }
 
 #pragma mark - UITableViewDelegate

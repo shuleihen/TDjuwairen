@@ -10,6 +10,11 @@
 
 #define US [LoginState sharedInstance]
 
+typedef enum : NSUInteger {
+    kUserLevelNormal    =0,
+    kUserLevelGold      =1,
+} UserLevelType;
+
 @interface LoginState : NSObject
 
 @property (nonatomic, copy) NSString *userId;

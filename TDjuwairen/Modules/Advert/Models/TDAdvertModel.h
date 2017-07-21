@@ -16,6 +16,7 @@ typedef enum : NSUInteger {
     kADTypeH5       =5, // h5页面
     kADTypeVideoList    =6, // 视频列表
     kADTypeShenduList   =7, // 深度列表
+    kADTypeRecharge     =8, // 充值
 } ADType;
 
 @interface TDAdvertModel : NSObject
