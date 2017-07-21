@@ -13,19 +13,38 @@
 #import "NotificationDef.h"
 #import "CocoaLumberjack.h"
 #import "WelcomeView.h"
+#import "PlistFileDef.h"
+#import "NSString+Util.h"
 
 @implementation LoginManager
-+ (void)getAuthKey {
++ (void)loginHandler {
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         NetworkManager *ma = [[NetworkManager alloc] init];
+        NSString *uniqueStr = [[NSUserDefaults standardUserDefaults] stringForKey:PLLoginAccessToken];
+        NSDictionary *dict = @{@"unique_str": uniqueStr?:@""};
         
-        [ma POST:API_GetAuthKey parameters:nil completion:^(id data, NSError *error){
+        [ma POST:API_GetAuthKey parameters:dict completion:^(id data, NSError *error){
             if (!error) {
+                // 保存加密钥匙key
                 NSString *authKey = data[@"auth_key"];
-                [[NSUserDefaults standardUserDefaults] setValue:authKey forKey:@"auth_key"];
+                [[NSUserDefaults standardUserDefaults] setValue:authKey forKey:PLLoginEncryptAuthKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-            } else {
                 
+                BOOL loginStatus = [data[@"login_status"] boolValue];
+                if (loginStatus) {
+                    // 已经登录
+                    US.isLogIn = YES;
+                    
+                    [LoginHandler saveLoginSuccessedData:data];
+                    [LoginHandler checkOpenRemotePush];
+                    
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
+                } else {
+                    // 未登录
+                    [LoginManager checkLogin];
+                }
+            } else {
+                [LoginManager checkLogin];
             }
         }];
     
@@ -62,14 +81,52 @@
 
 #pragma mark - Relogin
 
-+ (bool)checkLogin {
-    // normal、fast、qq、weixin
-    NSString *loginType = [[NSUserDefaults standardUserDefaults] objectForKey:@"loginStyle"];
-    
-    if (!loginType.length) {
-        return NO;
-//        [LoginManager showWelcomeWithNickName:@"" avatar:@""];
+
++ (BOOL)checkLogin {
+    BOOL canRelogin = [LoginManager canRelogin];
+    if (canRelogin) {
+        [LoginManager doRelogin];
     }
+    
+    return YES;
+}
+
++ (BOOL)canRelogin {
+    NSString *loginType = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginType];
+    if (loginType.length == 0) {
+        return NO;
+    }
+    
+    if ([loginType isEqualToString:@"normal"]) {
+        NSString *account = [[NSUserDefaults standardUserDefaults] stringForKey:PLLoginAccount];
+        NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:PLLoginPassword];
+        
+        if (account.length && password) {
+            return YES;
+        }
+    } else if ([loginType isEqualToString:@"fast"]) {
+        NSString *phone = [[NSUserDefaults standardUserDefaults] stringForKey:PLLoginPhone];
+        if ([phone isValidateMobile]) {
+            return YES;
+        }
+    } else if ([loginType isEqualToString:@"qq"] ||
+               [loginType isEqualToString:@"weixin"]) {
+        NSString *unionid = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginThirdUserId];
+        NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginThirdNickName];
+        NSString *avatar = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginThirdAvatar];
+        
+        if (unionid.length &&
+            nickName.length &&
+            avatar.length) {
+            return YES;
+        }
+    }
+    
+    return NO;
+}
+
++ (void)doRelogin {
+    NSString *loginType = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginType];
     
     if ([loginType isEqualToString:@"normal"]) {
         [LoginManager normalLogin];
@@ -78,17 +135,11 @@
     } else {
         [LoginManager thirdPartLogin:loginType];
     }
-    
-    return YES;
 }
 
 + (void)normalLogin {
     NSString *account = [[NSUserDefaults standardUserDefaults] stringForKey:@"account"];
     NSString *password = [[NSUserDefaults standardUserDefaults] stringForKey:@"password"];
-    
-    if (!account.length || !password) {
-        return;
-    }
     
     NSString *ecriptPwd = [LoginHandler encryptWithPassword:password];
     
@@ -118,11 +169,7 @@
 + (void)fastLogin {
     NSString *phone = [[NSUserDefaults standardUserDefaults] stringForKey:@"fast_phone"];
     NSString *validate = @"tuandawangluokeji";
-    
-    if (!phone.length) {
-        return;
-    }
-    
+
     void (^loginBlock)(NSString *) = ^(NSString *encryptString){
         NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
         NSDictionary *dic = @{@"user_phone": phone,
@@ -163,15 +210,9 @@
 }
 
 + (void)thirdPartLogin:(NSString *)type {
-    NSString *unionid = [[NSUserDefaults standardUserDefaults] objectForKey:@"third_userId"];
-    NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:@"third_nickName"];;
-    NSString *avatar = [[NSUserDefaults standardUserDefaults] objectForKey:@"third_avatar"];;
-    
-    if (!unionid.length ||
-        !nickName.length ||
-        !avatar.length) {
-        return;
-    }
+    NSString *unionid = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginThirdUserId];
+    NSString *nickName = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginThirdNickName];
+    NSString *avatar = [[NSUserDefaults standardUserDefaults] objectForKey:PLLoginThirdAvatar];
     
     NSString *url;
     if ([type isEqualToString:@"qq"]) {

@@ -36,6 +36,7 @@
 
 #import <CloudPushSDK/CloudPushSDK.h>
 #import "LaunchHandler.h"
+#import "LoginManager.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -68,6 +69,8 @@
     
      // 测试本地通知
 //    [self performSelector:@selector(testLocalNotifi) withObject:nil afterDelay:1.0];
+    
+    [LoginManager loginHandler];
     
     return YES;
 }

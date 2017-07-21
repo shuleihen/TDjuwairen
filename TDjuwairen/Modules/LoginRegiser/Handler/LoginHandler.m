@@ -13,6 +13,7 @@
 #import "UIDevice+Identifier.h"
 #import <CloudPushSDK/CloudPushSDK.h>
 #import "CocoaLumberjack.h"
+#import "PlistFileDef.h"
 
 @implementation LoginHandler
 + (void)saveLoginSuccessedData:(NSDictionary *)data {
@@ -257,7 +258,7 @@
 
 + (NSString *)encryptWithPassword:(NSString *)password {
 
-    NSString *auth = [[NSUserDefaults standardUserDefaults] stringForKey:@"auth_key"];
+    NSString *auth = [[NSUserDefaults standardUserDefaults] stringForKey:PLLoginEncryptAuthKey];
     NSString *string = [NSString stringWithFormat:@"%@%@",password,auth];
     
     NSString *encrypt = [string base64EncodedString];

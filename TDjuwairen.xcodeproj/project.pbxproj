@@ -902,9 +902,6 @@
 		195057731E7A22470097C57A /* AlicloudUtils.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AlicloudUtils.framework; sourceTree = "<group>"; };
 		195057741E7A22470097C57A /* CloudPushSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = CloudPushSDK.framework; sourceTree = "<group>"; };
 		195057791E7A22A30097C57A /* libresolv.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libresolv.tbd; path = usr/lib/libresolv.tbd; sourceTree = SDKROOT; };
-		195057851E7A364C0097C57A /* NotificationService.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationService.h; sourceTree = "<group>"; };
-		195057861E7A364C0097C57A /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
-		195057881E7A364C0097C57A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		195057C11E7AAA650097C57A /* AliveRoomPopupViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomPopupViewController.h; sourceTree = "<group>"; };
 		195057C21E7AAA650097C57A /* AliveRoomPopupViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomPopupViewController.m; sourceTree = "<group>"; };
 		195057C61E7B7F3D0097C57A /* AliveTypeDefine.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AliveTypeDefine.h; sourceTree = "<group>"; };
@@ -2820,16 +2817,6 @@
 				195057741E7A22470097C57A /* CloudPushSDK.framework */,
 			);
 			path = AliPushSDK;
-			sourceTree = "<group>";
-		};
-		195057841E7A364C0097C57A /* PushExtension */ = {
-			isa = PBXGroup;
-			children = (
-				195057851E7A364C0097C57A /* NotificationService.h */,
-				195057861E7A364C0097C57A /* NotificationService.m */,
-				195057881E7A364C0097C57A /* Info.plist */,
-			);
-			path = PushExtension;
 			sourceTree = "<group>";
 		};
 		195057C51E7B7F2B0097C57A /* AliveHandler */ = {
@@ -4869,7 +4856,6 @@
 				84E333E91CE2BA3D00E5DCEE /* TDjuwairen */,
 				84E334031CE2BA3E00E5DCEE /* TDjuwairenTests */,
 				84E3340E1CE2BA3E00E5DCEE /* TDjuwairenUITests */,
-				195057841E7A364C0097C57A /* PushExtension */,
 				84E333E81CE2BA3D00E5DCEE /* Products */,
 				F70B9F0ADFA276EBCA9300AD /* Frameworks */,
 			);

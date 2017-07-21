@@ -27,7 +27,6 @@
 #import "MessageTableViewController.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
-@property (nonatomic, assign) AliveListType listType;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;
@@ -139,20 +138,18 @@
     
     [self setupNavigationBar];
     [self setupSegmentControl];
-    
-    [LoginManager getAuthKey];
 
-    
     self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
     [self.view addSubview:self.pageViewController.view];
     
-    if (![LoginManager checkLogin]) {
-        self.listType = kAliveListRecommend;
-        self.segmentControl.selectedSegmentIndex = 0;
-        [self segmentValueChanged:self.segmentControl];
-    }
-    
     [self.view addSubview:self.publishBtn];
+    
+    if (US.isLogIn) {
+        [self reloadView];
+    } else {
+        // 等待LoginManager 执行完成
+        [self performSelector:@selector(reloadView) withObject:nil afterDelay:0.8];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
 }
@@ -162,6 +159,7 @@
     
     [self getUnreadMessageCount];
 }
+
 
 - (void)setupSegmentControl {
     
@@ -267,11 +265,14 @@
 }
 
 - (void)loginStatusChanged:(id)sender {
-    
     self.contentControllers = nil;
     
-    self.listType = kAliveListRecommend;
-    self.segmentControl.selectedSegmentIndex = (self.listType == kAliveListRecommend)?0:1;
+    self.segmentControl.selectedSegmentIndex = 0;
+    [self segmentValueChanged:self.segmentControl];
+}
+
+- (void)reloadView {
+    self.segmentControl.selectedSegmentIndex = 0;
     [self segmentValueChanged:self.segmentControl];
 }
 

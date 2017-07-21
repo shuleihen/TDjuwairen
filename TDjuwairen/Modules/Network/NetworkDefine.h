@@ -25,7 +25,7 @@
 #define API_AddBrowseHistory    @"Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"Public/getBrowseHistory"
 #define API_DelBrowseHistory    @"Public/delBrowseHistory"
-#define API_GetApiValidate      @"Public/getapivalidate/"
+#define API_GetApiValidate      @"Public/getapivalidate"
 #define API_GetCollectionList   @"Collection/getCollectList3_1"
 #define API_DelCollection       @"Collection/delCollect"
 #define API_AddCollection       @"Collection/addCollect"

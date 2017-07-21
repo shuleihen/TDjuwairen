@@ -9,7 +9,8 @@
 #import <Foundation/Foundation.h>
 
 @interface LoginManager : NSObject
-+ (void)getAuthKey;
-+ (bool)checkLogin;
++ (void)loginHandler;
++ (BOOL)checkLogin;
++ (BOOL)canRelogin;
 + (void)multiLoginError;
 @end
