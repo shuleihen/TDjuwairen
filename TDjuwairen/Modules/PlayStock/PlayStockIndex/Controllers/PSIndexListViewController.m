@@ -101,6 +101,7 @@
     UINib *nib = [UINib nibWithNibName:@"PSIndexListCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"StockGuessListCellID"];
     self.tableView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272B34"];
+    self.tableView.backgroundView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#272B34"];
     self.tableView.rowHeight = 235.0f;
     
     self.sectionLabel.text = @"";
@@ -128,26 +129,30 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self playBgAudio];
+//    [self playBgAudio];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
     [super viewWillDisappear:animated];
     
-    [self pauseBgAudio];
+//    [self pauseBgAudio];
 }
 
 
 - (void)queryGuessStock {
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    
-    NSDictionary *dict = @{};
-    if (US.isLogIn) {
-        dict = @{@"user_id": US.userId};
-    }
-    
     __weak PSIndexListViewController *wself = self;
-    [ma GET:API_GuessIndexList parameters:dict completion:^(id data, NSError *error){
+
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    [self.navigationController.view addSubview:hud];
+    
+    hud.hidesWhenStopped = YES;
+    [hud startAnimating];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:API_GuessIndexList parameters:nil completion:^(id data, NSError *error){
+        [hud stopAnimating];
+        
         if (!error) {
             [wself reloadViewWithData:data];
         }
@@ -229,16 +234,8 @@
 }
 
 - (void)timerFire:(id)timer {
-    
     PSIndexListModel *guessInfo = self.guessList.firstObject;
     if (guessInfo) {
-//        NSDate *now = [NSDate new];
-//        
-//        NSDateFormatter*dateFormatter = [[NSDateFormatter alloc] init];
-//        [dateFormatter setDateFormat:@"MM-dd EE"];
-//        [dateFormatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
-//        NSString *time = [dateFormatter stringFromDate:now];
-//        NSString *section = [self sectionString];
         NSString *remaining = [NSString intervalNowDateWithDateInterval:guessInfo.endTime];
         
         self.timeLabel.text = remaining;
@@ -313,6 +310,7 @@
         [self.player pause];
     }
 }
+
 - (void)playAudio {
     NSString *audioFile = [[NSBundle mainBundle] pathForResource:@"playStock" ofType:@"wav"];
     NSURL *fileUrl=[NSURL fileURLWithPath:audioFile];
@@ -421,9 +419,7 @@
             if (cell) {
                 [self addAnimationToCell:cell withPri:pri];
             }
-            
         }
-        
     }
 }
 
@@ -436,22 +432,6 @@
 
 #pragma mark - GuessAddPourDelegate
 - (void)addWithGuessId:(NSString *)guessId pri:(float)pri keyNum:(NSInteger)keyNum {
-    /*
-    __weak PSIndexListViewController *wself = self;
-    for (int i=0;i < [self.guessList count];i++) {
-        PSIndexListModel *guess = self.guessList[i];
-        if ([guess.guessId isEqualToString:guessId]) {
-            
-            [wself addAnimationWithGuessId:guessId withPri:pri];
-            [wself queryGuessStock];
-            [wself playAudio];
-        }
-        
-    }
-    
-    return;
-     
-    */
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSString *point = [NSString stringWithFormat:@"%.2f",pri];
     
@@ -488,8 +468,6 @@
         } else {
             errorBlock(@"竞猜失败");
         }
-        
-        
     }];
 }
 
@@ -529,17 +507,5 @@
     return cell;
 }
 
-- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-//    PSIndexListCell *scell = (PSIndexListCell *)cell;
-//    
-//    if (indexPath.row == 0) {
-//        StockInfo *stockInfo = [self.stockDict objectForKey:@"sh000001"];
-//        scell.stockWheel.index = [stockInfo.nowPri floatValue];
-//    } else if (indexPath.row == 1) {
-//        StockInfo *stockInfo = [self.stockDict objectForKey:@"sz399006"];
-//        scell.stockWheel.index = [stockInfo.nowPri floatValue];
-//    }
-}
 
 @end

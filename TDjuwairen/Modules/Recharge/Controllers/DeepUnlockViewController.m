@@ -48,7 +48,7 @@
             key.enabled = NO;
             key.titleLabel.font = [UIFont systemFontOfSize:24.0f];
             [key setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#FF6C00"] forState:UIControlStateNormal];
-            [key setTitle:[NSString stringWithFormat:@"%ld", deepModel.unlockKeyNum] forState:UIControlStateNormal];
+            [key setTitle:[NSString stringWithFormat:@"%ld", (long)deepModel.unlockKeyNum] forState:UIControlStateNormal];
             [key setImage:[UIImage imageNamed:@"icon_key_small.png"] forState:UIControlStateNormal];
             [self.view addSubview:key];
 
@@ -58,7 +58,24 @@
             [memberBtn setBackgroundImage:image1 forState:UIControlStateNormal];
             [memberBtn setBackgroundImage:image1 forState:UIControlStateHighlighted];
             memberBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
-//            [memberBtn setTitle:@"" forState:<#(UIControlState)#>]
+            [memberBtn setTitle:@"198成为会员" forState:UIControlStateNormal];
+            [memberBtn addTarget:self action:@selector(memberPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
+            UIButton *unlockBtn = [[UIButton alloc] initWithFrame:CGRectMake(offx+195+6, 98, 195, 36)];
+            UIImage *image2 = [UIImage imageWithSize:CGSizeMake(195, 36) withColor:[UIColor hx_colorWithHexRGBAString:@"#3370E2"]];
+            [unlockBtn setBackgroundImage:image2 forState:UIControlStateNormal];
+            [unlockBtn setBackgroundImage:image2 forState:UIControlStateHighlighted];
+            unlockBtn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            [unlockBtn setTitle:@"立即解锁" forState:UIControlStateNormal];
+            [unlockBtn addTarget:self action:@selector(unlockPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
+            // 账号余额
+            UILabel *balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 198, kScreenWidth-24, 20)];
+            balanceLabel.font = [UIFont systemFontOfSize:12.0f];
+            balanceLabel.textColor = TDLightGrayColor;
+            balanceLabel.text = @"账户余额";
+            [self.view addSubview:titleLabel];
+            
         } else if (US.userLevel == kUserLevelGold){
             
         }
@@ -66,6 +83,14 @@
 }
 
 - (void)closePressed:(id)sender {
+    
+}
+
+- (void)memberPressed:(id)sender {
+    
+}
+
+- (void)unlockPressed:(id)sender {
     
 }
 @end
