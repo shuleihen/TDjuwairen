@@ -19,12 +19,15 @@
 #import "MJRefresh.h"
 #import "UIViewController+Refresh.h"
 #import "TDADHandler.h"
+#import "StockUnlockManager.h"
 
-@interface SurveyDeepTableViewController ()<SDCycleScrollViewDelegate>
+@interface SurveyDeepTableViewController ()
+<SDCycleScrollViewDelegate, StockUnlockManagerDelegate>
 @property (nonatomic, strong) SDCycleScrollView *cycleScrollView;
 @property (nonatomic, strong) NSArray *bannerLinks;
 @property (nonatomic, strong) NSArray *surveyList;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation SurveyDeepTableViewController
@@ -67,6 +70,8 @@
     
     // footer 刷新控件
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+    
+    self.unlockManager = [[StockUnlockManager alloc] init];
     
     [self getBanners];
     [self refreshAction];
@@ -164,6 +169,17 @@
     [TDADHandler pushWithAdModel:model inNav:self.navigationController];
 }
 
+#pragma mark - StockUnlockManagerDelegate
+- (void)unlockManager:(StockUnlockManager *)manager withDeepId:(NSString *)deepId {
+    for (SurveyDeepModel *model in self.surveyList) {
+        if ([model.surveyId isEqualToString:deepId]) {
+            model.isUnlock = YES;
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -187,6 +203,11 @@
     
     SurveyDeepModel *model = self.surveyList[indexPath.row];
 
+    if (!model.isUnlock) {
+        [self.unlockManager unlockDeep:model.surveyId withController:self];
+    } else {
+        
+    }
 }
 
 @end

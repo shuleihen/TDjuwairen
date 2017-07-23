@@ -143,6 +143,7 @@
 #define API_AliPay                  @"Survey/alipayKey"
 #define API_WXPay                   @"Survey/wxpayKey"
 #define API_SurveyGetDeepList       @"Survey/getDeepList"
+#define API_SurveyIsUnlockDeep      @"Survey/isUserUnlockDeep"
 #define API_SurveyUnlockDeep        @"Survey/unlockSurveyDeep"
 
 // 订阅

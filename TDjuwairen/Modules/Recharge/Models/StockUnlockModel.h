@@ -15,4 +15,7 @@
 @property (nonatomic, assign) BOOL isUnlock;
 @property (nonatomic, assign) NSInteger userKeyNum;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
+@property (nonatomic, copy) NSString *deepId;
+@property (nonatomic, assign) NSInteger deepPayType;
+@property (nonatomic, copy) NSString *deepPayTip;
 @end
