@@ -17,12 +17,13 @@ typedef enum : NSUInteger {
     kAliveListVideo      =3, // 视频
 } AliveListType;
 
-// 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享
+// 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享，5：玩票分享到直播
 typedef enum : NSInteger {
     kAlivePublishNormal     =1,
     kAlivePublishPosts      =2,
     kAlivePublishForward    =3,
     kAlivePublishShare      =4,
+    kAlivePublishSharePlayStock =5,
 } AlivePublishType;
 
 // 直播间列表类型，0：全部，1：跟单

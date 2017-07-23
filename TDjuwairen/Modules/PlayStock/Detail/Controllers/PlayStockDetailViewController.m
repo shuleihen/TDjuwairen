@@ -19,6 +19,8 @@
 #import "STPopupController.h"
 #import "PlayGuessViewController.h"
 #import "UIView+Toast.h"
+#import "ShareHandler.h"
+#import "AlivePublishViewController.h"
 
 @interface PlayStockDetailViewController ()
 <UITableViewDelegate, UITableViewDataSource,
@@ -219,20 +221,37 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
 }
 
 - (void)sharePressed:(id)sender {
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *parmark = @{@"guess_id": self.guessId};
     
-    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"分享中";
+    if (!self.individualModel) {
+        return;
+    }
     
-    [ma POST:API_AddShareGuessToAlive parameters:parmark completion:^(id data, NSError *error) {
-        if (!error) {
-            hud.labelText = @"分享成功";
-        } else {
-            hud.labelText = @"分享失败";
+    [ShareHandler shareWithTitle:self.individualModel.shareTitle image:@[self.individualModel.shareImg] url:self.individualModel.shareUrl selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 分享到直播
+            NetworkManager *ma = [[NetworkManager alloc] init];
+            NSDictionary *parmark = @{@"guess_id": self.guessId};
+            
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = @"分享中";
+            
+            [ma POST:API_AddShareGuessToAlive parameters:parmark completion:^(id data, NSError *error) {
+                if (!error) {
+                    hud.labelText = @"分享成功";
+                } else {
+                    hud.labelText = @"分享失败";
+                }
+                [hud hide:YES afterDelay:0.7];
+            }];
         }
-        [hud hide:YES afterDelay:0.7];
+    }  shareState:^(BOOL state) {
+        if (state) {
+        }
     }];
+
+    
+    
+    
 }
 
 - (IBAction)stockPressed:(id)sender {

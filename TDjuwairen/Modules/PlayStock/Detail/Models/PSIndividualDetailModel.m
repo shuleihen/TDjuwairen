@@ -28,6 +28,9 @@
         self.extra_keyNum = [dict[@"guess_extra_res"] integerValue];
         self.result = [dict[@"guess_result"] integerValue];
         self.date = dict[@"guess_date"];
+        self.shareTitle = dict[@"share_title"];
+        self.shareUrl = dict[@"share_url"];
+        self.shareImg = dict[@"share_img"];
         
         id userList = dict[@"guess_users"];
         if ([userList isKindOfClass:[NSArray class]]) {
