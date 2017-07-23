@@ -52,7 +52,7 @@
             key.titleLabel.font = [UIFont systemFontOfSize:24.0f];
             [key setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#FF6C00"] forState:UIControlStateNormal];
             [key setTitle:[NSString stringWithFormat:@"%ld", (long)unlockModel.unlockKeyNum] forState:UIControlStateNormal];
-            [key setImage:[UIImage imageNamed:@"icon_key_small.png"] forState:UIControlStateNormal];
+            [key setImage:[UIImage imageNamed:@"icon_key_small.png"] forState:UIControlStateDisabled];
             [self.view addSubview:key];
 
             CGFloat offx = (kScreenWidth - 145*2-6)/2;
@@ -73,7 +73,7 @@
             [self.view addSubview:unlockBtn];
             
             // 账号余额
-            UILabel *balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 148, kScreenWidth-24, 20)];
+            UILabel *balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 148, kScreenWidth-24, 14)];
             balanceLabel.font = [UIFont systemFontOfSize:12.0f];
             balanceLabel.textColor = TDLightGrayColor;
             balanceLabel.textAlignment = NSTextAlignmentCenter;
@@ -94,7 +94,7 @@
             
             if (unlockModel.deepPayTip.length) {
                 // 解锁提示
-                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 176, kScreenWidth-24, 20)];
+                UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 176, kScreenWidth-24, 14)];
                 tipLabel.font = [UIFont systemFontOfSize:12.0f];
                 tipLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF6D00"];
                 tipLabel.text = unlockModel.deepPayTip;
@@ -117,7 +117,7 @@
             imageView.frame = CGRectMake((kScreenWidth-34)/2, 56, 34, 28);
             [self.view addSubview:imageView];
             
-            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 84, kScreenWidth-24, 20)];
+            UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 84, kScreenWidth-24, 16)];
             tipLabel.font = [UIFont systemFontOfSize:14.0f];
             tipLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
             tipLabel.text = unlockModel.deepPayTip;
@@ -145,7 +145,7 @@
         key.titleLabel.font = [UIFont systemFontOfSize:24.0f];
         [key setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#FF6C00"] forState:UIControlStateNormal];
         [key setTitle:[NSString stringWithFormat:@"%ld", (long)unlockModel.unlockKeyNum] forState:UIControlStateNormal];
-        [key setImage:[UIImage imageNamed:@"icon_key_small.png"] forState:UIControlStateNormal];
+        [key setImage:[UIImage imageNamed:@"icon_key_small.png"] forState:UIControlStateDisabled];
         [self.view addSubview:key];
         
         UIButton *unlockBtn = [[UIButton alloc] initWithFrame:CGRectMake((kScreenWidth-145)/2, 98, 145, 36)];
@@ -156,7 +156,7 @@
         [self.view addSubview:unlockBtn];
         
         // 账号余额
-        UILabel *balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 148, kScreenWidth-24, 20)];
+        UILabel *balanceLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 148, kScreenWidth-24, 14)];
         balanceLabel.font = [UIFont systemFontOfSize:12.0f];
         balanceLabel.textColor = TDLightGrayColor;
         balanceLabel.textAlignment = NSTextAlignmentCenter;

@@ -4427,10 +4427,10 @@
 				19F007411E31E5AE000A5F98 /* RechargeChooseViewController.m */,
 				19F007421E31E5AE000A5F98 /* RechargeViewController.h */,
 				19F007431E31E5AE000A5F98 /* RechargeViewController.m */,
-				19F007441E31E5AE000A5F98 /* StockUnlockViewController.h */,
-				19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */,
 				19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */,
 				19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */,
+				19F007441E31E5AE000A5F98 /* StockUnlockViewController.h */,
+				19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */,
 				1998E2AE1F219EA400EE9E54 /* DeepUnlockViewController.h */,
 				1998E2AF1F219EA400EE9E54 /* DeepUnlockViewController.m */,
 			);

@@ -16,7 +16,6 @@
 @end
 
 @interface StockUnlockViewController : UIViewController
-@property (nonatomic, strong) StockUnlockModel *model;
-
+@property (nonatomic, strong) StockUnlockModel *unlockModel;
 @property (nonatomic, weak) id<StockUnlockDelegate> delegate;
 @end

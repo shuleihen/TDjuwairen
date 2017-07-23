@@ -74,11 +74,12 @@
 
 - (void)unlockStockWithModel:(StockUnlockModel *)model withController:(UIViewController *)controller {
     
-    StockUnlockViewController *vc = [[UIStoryboard storyboardWithName:@"Recharge" bundle:nil] instantiateViewControllerWithIdentifier:@"StockUnlockViewController"];
-    vc.model = model;
+    StockUnlockViewController *vc = [[StockUnlockViewController alloc] init];
+    vc.unlockModel = model;
     vc.delegate = self;
     
     STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.style = STPopupStyleBottomSheet;
     popupController.navigationBarHidden = YES;
     popupController.containerView.layer.cornerRadius = 4;
     [popupController presentInViewController:controller];
