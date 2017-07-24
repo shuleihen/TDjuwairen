@@ -12,10 +12,14 @@
 @property (nonatomic, copy) NSString *companyName;
 @property (nonatomic, copy) NSString *companyCode;
 @property (nonatomic, assign) BOOL isUnlock;
-@property (nonatomic, assign) NSInteger surveyType;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
+@property (nonatomic, assign) NSInteger surveyType;
 @property (nonatomic, copy) NSString *surveyDesc;
 @property (nonatomic, copy) NSString *surveyUrl;
+
+// 深度
+@property (nonatomic, copy) NSString *deepPayTip;
+@property (nonatomic, assign) NSInteger deepPayType;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

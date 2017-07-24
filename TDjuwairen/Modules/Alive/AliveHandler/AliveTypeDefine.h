@@ -32,7 +32,7 @@ typedef enum : NSInteger {
     kAliveRoomListPosts    =1
 } AliveRoomListType;
 
-// 直播动态类型，1：图文，2：贴单，3：调研，4：热点，5：观点，6：视频，7：玩票，8：广告
+// 直播动态类型，1：图文，2：贴单，3：调研，4：热点，5：观点，6：视频，7：玩票，8：广告，9：深度调研
 typedef enum : NSInteger {
     kAliveNormal    =1,
     kAlivePosts     =2,
@@ -42,6 +42,7 @@ typedef enum : NSInteger {
     kAliveVideo     =6,
     kAlivePlayStock =7,
     kAliveAd        =8,
+    kAliveDeep      =9,
 } AliveType;
 
 // 直播内容类型，0：文本，1：图片
@@ -62,12 +63,12 @@ typedef enum : NSInteger {
 
 // 直播搜索类型
 typedef enum : NSUInteger {
-    AliveSearchSubUserType      =0, // 用户搜索
-    AliveSearchSubStockType     =1, // 股票搜索
-    AliveSearchSubSurveyType    =2, // 调研搜索
-    AliveSearchSubTopicType     =3, // 话题搜索
-    AliveSearchSubPasteType     =4, // 贴单搜索
-    AliveSearchSubViewPointType =5  // 观点搜索
+    kAliveSearchSubUserType      =0, // 用户搜索
+    kAliveSearchSubStockType     =1, // 股票搜索
+    kAliveSearchSubSurveyType    =2, // 调研搜索
+    kAliveSearchSubTopicType     =3, // 话题搜索
+    kAliveSearchSubPasteType     =4, // 贴单搜索
+    kAliveSearchSubViewPointType =5  // 观点搜索
 } AliveSearchSubType;
 
 // 主播列表类型

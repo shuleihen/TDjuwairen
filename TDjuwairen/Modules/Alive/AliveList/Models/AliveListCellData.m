@@ -50,6 +50,7 @@
             }
                 break;
             case kAliveSurvey:
+            case kAliveDeep:
             case kAliveVideo:{
                 cellData = [[AliveListSurveyCellData alloc] initWithAliveModel:model];
             }

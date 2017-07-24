@@ -18,6 +18,8 @@
         self.unlockKeyNum = [dict[@"unlock_keynum"] integerValue];
         self.surveyDesc = dict[@"survey_desc"];
         self.surveyUrl = dict[@"forward_url"];
+        self.deepPayTip = dict[@"deep_pay_tip"];
+        self.deepPayType = [dict[@"deep_pay_type"] integerValue];
     }
     
     return self;

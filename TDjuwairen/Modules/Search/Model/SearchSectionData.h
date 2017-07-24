@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+
+
 @interface SearchSectionData : NSObject
 @property (nonatomic, strong) NSString *sectionTitle;
 @property (nonatomic, assign) BOOL isShowMore;

@@ -96,10 +96,10 @@
     titleview.backgroundColor = [UIColor whiteColor];
     
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 20, 50, 44)];
-    back.titleLabel.font = [UIFont systemFontOfSize:14];
+    back.titleLabel.font = [UIFont systemFontOfSize:16];
     [back setTitle:@"取消" forState:UIControlStateNormal];
-    [back setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateNormal];
-    [back setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateHighlighted];
+    [back setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
+    [back setTitleColor:TDTitleTextColor forState:UIControlStateHighlighted];
     [back addTarget:self action:@selector(backPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.customSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(6, 20+7, kScreenWidth-6-50, 30)];

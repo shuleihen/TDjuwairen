@@ -22,11 +22,11 @@
 #import "AliveListModel.h"
 #import "AliveListTableViewCell.h"
 #import "AliveListCellData.h"
-#import "VideoDetailViewController.h"
 #import "AliveSearchSurveyCell.h"
 #import "NSString+Ext.h"
 #import "AliveDetailViewController.h"
 #import "SurveyDetailWebViewController.h"
+#import "ViewpointDetailViewController.h"
 
 
 @interface AliveSearchSubTypeController ()<UISearchBarDelegate,UITableViewDelegate,UITableViewDataSource,AliveSearchStockCellDelegate,AliveSearchUserCellDelegate>
@@ -116,10 +116,10 @@
     self.customSearchBar.searchBarStyle = UISearchBarStyleMinimal;
     
     UIButton *cancelBtn = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-95, 0, 50, 44)];
-    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:14];
+    cancelBtn.titleLabel.font = [UIFont systemFontOfSize:16];
     [cancelBtn setTitle:@"取消" forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateNormal];
-    [cancelBtn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateHighlighted];
+    [cancelBtn setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
+    [cancelBtn setTitleColor:TDTitleTextColor forState:UIControlStateHighlighted];
     [cancelBtn addTarget:self action:@selector(cancelBtnPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     UITextField*searchField = [self.customSearchBar valueForKey:@"_searchField"];
@@ -166,9 +166,12 @@
             }else {
                 tempArrM = [NSMutableArray arrayWithArray:[wself.saveResultArr mutableCopy]];
             }
+            
             wself.searchResultData = [[SearchSectionData alloc] init];
-            switch (self.searchType) {
-                case AliveSearchSubUserType:
+            wself.searchResultData.searchType = wself.searchType;
+            
+            switch (wself.searchType) {
+                case kAliveSearchSubUserType:
                 {
                     if (arrM) {
                         wself.searchResultData.sectionTitle = @"用户";
@@ -189,7 +192,7 @@
                     
                 }
                     break;
-                case AliveSearchSubStockType:
+                case kAliveSearchSubStockType:
                 {
                     if (arrM) {
                         wself.searchResultData.sectionTitle = @"股票";
@@ -210,7 +213,7 @@
                     
                 }
                     break;
-                case AliveSearchSubSurveyType:
+                case kAliveSearchSubSurveyType:
                     
                 {
                     if (arrM) {
@@ -231,8 +234,7 @@
                     }
                 }
                     break;
-                case AliveSearchSubTopicType:
-                    
+                case kAliveSearchSubTopicType:
                 {
                     
                     if (arrM) {
@@ -251,6 +253,7 @@
                             for (AliveListModel *model in marray) {
                                 AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
                                 cellData.isShowDetailMessage = NO;
+                                cellData.isShowToolBar = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -260,7 +263,7 @@
                     }
                 }
                     break;
-                case AliveSearchSubPasteType:
+                case kAliveSearchSubPasteType:
                 {
                     if (arrM) {
                         wself.searchResultData.sectionTitle = @"贴单";
@@ -278,6 +281,7 @@
                             for (AliveListModel *model in marray) {
                                 AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
                                 cellData.isShowDetailMessage = NO;
+                                cellData.isShowToolBar = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -287,7 +291,7 @@
                     }
                 }
                     break;
-                case AliveSearchSubViewPointType:
+                case kAliveSearchSubViewPointType:
                     //
                 {
                     if (arrM) {
@@ -306,6 +310,7 @@
                             for (AliveListModel *model in marray) {
                                 AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
                                 cellData.isShowDetailMessage = NO;
+                                cellData.isShowToolBar = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -413,12 +418,12 @@
 }
 
 
-#pragma mark -UITableViewDataSource
+#pragma mark - UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.searchType == AliveSearchSubUserType || self.searchType == AliveSearchSubStockType) {
+    if (self.searchType == kAliveSearchSubUserType || self.searchType == kAliveSearchSubStockType) {
         return 1;
     }else {
-        if (self.searchType == AliveSearchSubTopicType || self.searchType == AliveSearchSubPasteType) {
+        if (self.searchType == kAliveSearchSubTopicType || self.searchType == kAliveSearchSubPasteType) {
             
             return MAX([self.searchResultData.items count], 1);
             
@@ -432,7 +437,7 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    if (self.searchType == AliveSearchSubUserType || self.searchType == AliveSearchSubStockType) {
+    if (self.searchType == kAliveSearchSubUserType || self.searchType == kAliveSearchSubStockType) {
         return [self.searchResultData.items count];
     }else {
         return [self.searchResultData.items count]<=0?0:1;
@@ -443,7 +448,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([self.searchResultData.sectionTitle isEqualToString:@"用户"]) {
+    if (self.searchType == kAliveSearchSubUserType) {
+        // 用户
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.row];
         
         AliveSearchUserCell *userCell = [AliveSearchUserCell loadAliveSearchUserCellWithTableView:tableView];
@@ -451,19 +457,23 @@
         userCell.tag = indexPath.row;
         userCell.userModel = result;
         return userCell;
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
+    } else if (self.searchType == kAliveSearchSubStockType) {
+        // 股票
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.row];
         AliveSearchStockCell *stockCell = [AliveSearchStockCell loadAliveSearchStockCellWithTableView:tableView];
         stockCell.tag = indexPath.row;
         stockCell.delegate = self;
         stockCell.stockModel = result;
         return stockCell;
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"调研"]) {
+    } else if (self.searchType == kAliveSearchSubSurveyType) {
+        // 调研
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
         AliveSearchSurveyCell *surveyCell = [AliveSearchSurveyCell loadAliveSearchSurveyCellWithTableView:tableView];
         surveyCell.surveyModel = result;
         return surveyCell;
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"] || [self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
+    } else if (self.searchType == kAliveSearchSubPasteType ||
+               self.searchType == kAliveSearchSubTopicType ||
+               self.searchType == kAliveSearchSubViewPointType) {
         AliveListCellData *model = self.searchResultData.items[indexPath.section];
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
         [cell setupAliveListCellData:model];
@@ -482,50 +492,50 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     AliveSearchResultModel *result = self.searchResultData.items[indexPath.row];
-    if ([self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
+    if (self.searchType == kAliveSearchSubStockType) {
         StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
         vc.stockCode = result.company_code;
         [self.navigationController pushViewController:vc animated:YES];
-    }else  if ([self.searchResultData.sectionTitle isEqualToString:@"用户"]) {
+    } else if (self.searchType == kAliveSearchSubUserType) {
         if (result.userID.length<= 0) {
             return;
         }
         AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:result.userID];
         [self.navigationController pushViewController:vc animated:YES];
-    }else  if ([self.searchResultData.sectionTitle isEqualToString:@"观点"]) {
+    }else if (self.searchType == kAliveSearchSubViewPointType) {
         AliveListCellData *cellModel = self.searchResultData.items[indexPath.section];
         AliveListModel *model = cellModel.aliveModel;
         
-        if (model.aliveId.length<= 0) {
-            return;
-        }
-        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
+        ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
+    }else if (self.searchType == kAliveSearchSubPasteType ||
+              self.searchType == kAliveSearchSubTopicType) {
         AliveListCellData *cellModel = self.searchResultData.items[indexPath.section];
         AliveListModel *model = cellModel.aliveModel;
-        if (model.aliveId.length<= 0) {
-            return;
-        }
+
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = model.aliveId;
-        vc.aliveType = [self.searchResultData.sectionTitle isEqualToString:@"贴单"]?kAlivePosts:kAliveNormal;
+        vc.aliveType = (self.searchType == kAliveSearchSubPasteType)?kAlivePosts:kAliveNormal;
         [self.navigationController pushViewController:vc animated:YES];
         
-    }else {
+    } else if (self.searchType == kAliveSearchSubSurveyType){
         // 调研
         AliveSearchResultModel *model = self.searchResultData.items[indexPath.section];
-        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-        vc.contentId = model.survey_id;
-        vc.stockCode = model.company_code;
-        vc.stockName = model.company_name;
-        vc.surveyType = model.survey_type;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.survey_id withTag:model.survey_type];
-        [self.navigationController pushViewController:vc animated:YES];
-        
+        if (model.isUnlock) {
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = model.survey_id;
+            vc.stockCode = model.company_code;
+            vc.stockName = model.company_name;
+            vc.surveyType = model.survey_type;
+            vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.survey_id withTag:model.survey_type];
+            [self.navigationController pushViewController:vc animated:YES];
+        } else {
+            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+            vc.stockCode = result.company_code;
+            [self.navigationController pushViewController:vc animated:YES];
+        }
     }
-    
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
@@ -554,7 +564,7 @@
     filterButton.selected = self.filterBtnSelected;
     [headerV addSubview:filterButton];
     
-    if (self.searchType == AliveSearchSubTopicType || self.searchType == AliveSearchSubPasteType || self.searchType == AliveSearchSubViewPointType) {
+    if (self.searchType == kAliveSearchSubTopicType || self.searchType == kAliveSearchSubPasteType || self.searchType == kAliveSearchSubViewPointType) {
         filterButton.hidden = NO;
     }else {
         filterButton.hidden = YES;
@@ -583,20 +593,23 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    if ([self.searchResultData.sectionTitle isEqualToString:@"用户"] || [self.searchResultData.sectionTitle isEqualToString:@"股票"]) {
+    if (self.searchType == kAliveSearchSubUserType ||
+        self.searchType == kAliveSearchSubStockType) {
         return 49;
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"调研"]) {
-        
+    } else if (self.searchType == kAliveSearchSubSurveyType) {
+        // 调研
         AliveSearchResultModel *result = self.searchResultData.items[indexPath.section];
         return [AliveSearchSurveyCell heightWithAliveModel:result];
-    }else if ([self.searchResultData.sectionTitle isEqualToString:@"观点"] || [self.searchResultData.sectionTitle isEqualToString:@"贴单"] || [self.searchResultData.sectionTitle isEqualToString:@"话题"]) {
+    } else if (self.searchType == kAliveSearchSubPasteType ||
+              self.searchType == kAliveSearchSubTopicType ||
+              self.searchType == kAliveSearchSubViewPointType) {
         if ([self.searchResultData.items count] <= 0) {
             return CGFLOAT_MIN;
-        }else {
+        } else {
             AliveListCellData *cellData = self.searchResultData.items[indexPath.section];
             return cellData.cellHeight;
         }
-    }else {
+    } else {
         return CGFLOAT_MIN;
     }
 }
@@ -805,33 +818,33 @@
 - (NSString *)setSearchBarText {
     NSString *str = @"";
     switch (self.searchType) {
-        case AliveSearchSubUserType:
+        case kAliveSearchSubUserType:
         {
             str = @"搜索用户";
         }
             break;
-        case AliveSearchSubStockType:
+        case kAliveSearchSubStockType:
         {
             str = @"搜索股票";
         }
             break;
-        case AliveSearchSubSurveyType:
+        case kAliveSearchSubSurveyType:
         {
             str = @"搜索调研";
         }
             break;
-        case AliveSearchSubTopicType:
+        case kAliveSearchSubTopicType:
         {
             str = @"搜索话题";
         }
             
             break;
-        case AliveSearchSubPasteType:
+        case kAliveSearchSubPasteType:
         {
             str = @"搜索贴单";
         }
             break;
-        case AliveSearchSubViewPointType:
+        case kAliveSearchSubViewPointType:
         {
             str = @"搜索观点";
         }

@@ -16,10 +16,6 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    
-    self.stockNameLabel.layer.borderWidth = 1;
-    self.stockNameLabel.textColor = TDThemeColor;
-    self.stockNameLabel.layer.borderColor = TDThemeColor.CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -74,10 +70,24 @@
     
     [self.urlImageView sd_setImageWithURL:[NSURL URLWithString:model.aliveImgs.firstObject] placeholderImage:nil];
     
-    NSString *stock = [NSString stringWithFormat:@"%@(%@)",extra.companyName,extra.companyCode];
-    CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
-    self.stockNameWidth.constant = stockSize.width+6;
-    self.stockNameLabel.text = stock;
+    if (model.aliveType == kAliveDeep) {
+        // 深度
+        self.stockNameLabel.layer.borderColor = [UIColor clearColor].CGColor;
+        self.stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FE8E3A"];
+        self.stockNameLabel.textAlignment = NSTextAlignmentLeft;
+        
+        self.stockNameLabel.text = extra.deepPayTip;
+    } else {
+        self.stockNameLabel.layer.borderWidth = 1;
+        self.stockNameLabel.textColor = TDThemeColor;
+        self.stockNameLabel.layer.borderColor = TDThemeColor.CGColor;
+        self.stockNameLabel.textAlignment = NSTextAlignmentCenter;
+        
+        NSString *stock = [NSString stringWithFormat:@"%@(%@)",extra.companyName,extra.companyCode];
+        CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
+        self.stockNameWidth.constant = stockSize.width+6;
+        self.stockNameLabel.text = stock;
+    }
     
     self.dateTimeLabel.text = model.aliveTime;
     

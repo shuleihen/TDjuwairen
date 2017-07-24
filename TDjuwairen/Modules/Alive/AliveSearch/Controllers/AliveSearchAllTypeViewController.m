@@ -74,10 +74,10 @@
     titleview.backgroundColor = [UIColor whiteColor];
     
     UIButton *back = [[UIButton alloc]initWithFrame:CGRectMake(kScreenWidth-50, 20, 50, 44)];
-    back.titleLabel.font = [UIFont systemFontOfSize:14];
+    back.titleLabel.font = [UIFont systemFontOfSize:16];
     [back setTitle:@"取消" forState:UIControlStateNormal];
-    [back setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateNormal];
-    [back setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#646464"] forState:UIControlStateHighlighted];
+    [back setTitleColor:TDTitleTextColor forState:UIControlStateNormal];
+    [back setTitleColor:TDTitleTextColor forState:UIControlStateHighlighted];
     [back addTarget:self action:@selector(backPressed:) forControlEvents:UIControlEventTouchUpInside];
     
     self.customSearchBar = [[UISearchBar alloc] initWithFrame:CGRectMake(6, 20+7, kScreenWidth-6-50, 30)];
@@ -94,6 +94,7 @@
     [titleview addSubview:back];
     [titleview addSubview:self.customSearchBar];
 }
+
 - (void)setupHistory {
     __weak AliveSearchAllTypeViewController *wself = self;
     self.historyView.historyViewOriginY = 64;
@@ -148,7 +149,7 @@
             if (userList) {
                 SearchSectionData *sectionData = [[SearchSectionData alloc] init];
                 sectionData.sectionTitle = @"用户";
-                sectionData.searchType = AliveSearchSubUserType;
+                sectionData.searchType = kAliveSearchSubUserType;
                 NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[userList count]];
                 
                 for (NSDictionary *dict in userList) {
@@ -170,7 +171,7 @@
             if (stockList) {
                 SearchSectionData *sectionData = [[SearchSectionData alloc] init];
                 sectionData.sectionTitle = @"股票";
-                sectionData.searchType = AliveSearchSubStockType;
+                sectionData.searchType = kAliveSearchSubStockType;
                 NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[stockList count]];
                 
                 for (NSDictionary *dict in stockList) {
@@ -193,7 +194,7 @@
                 self.noDataView.hidden = NO;
             }else {
                 NSArray *arr = @[@"搜索调研",@"搜索观点",@"搜索贴单",@"搜索话题"];
-                NSArray *types = @[@(AliveSearchSubSurveyType),@(AliveSearchSubViewPointType),@(AliveSearchSubPasteType),@(AliveSearchSubTopicType)];
+                NSArray *types = @[@(kAliveSearchSubSurveyType),@(kAliveSearchSubViewPointType),@(kAliveSearchSubPasteType),@(kAliveSearchSubTopicType)];
                 int i =0;
                 
                 for (NSString *titleSr in arr) {
@@ -366,11 +367,11 @@
         if (indexPath.row < sectionData.items.count) {
             AliveSearchResultModel *result = sectionData.items[indexPath.row];
             
-            if (sectionData.searchType == AliveSearchSubUserType) {
+            if (sectionData.searchType == kAliveSearchSubUserType) {
                 AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:result.userID];
                 vc.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:vc animated:YES];
-            } else if (sectionData.searchType == AliveSearchSubStockType) {
+            } else if (sectionData.searchType == kAliveSearchSubStockType) {
                 StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                 vc.stockCode = result.company_code;
                 vc.hidesBottomBarWhenPushed = YES;
@@ -613,6 +614,11 @@
         if (string.length) {
             [searchHistory insertObject:string atIndex:0];
         }
+    }
+    
+    // 只保存10条
+    if (searchHistory.count > 10) {
+        [searchHistory removeObjectsInRange:NSMakeRange(10, searchHistory.count-10)];
     }
     
     NSArray *array = [NSArray arrayWithArray:searchHistory];

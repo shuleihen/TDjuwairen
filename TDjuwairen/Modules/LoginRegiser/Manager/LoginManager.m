@@ -29,7 +29,7 @@
                 NSString *authKey = data[@"auth_key"];
                 [[NSUserDefaults standardUserDefaults] setValue:authKey forKey:PLLoginEncryptAuthKey];
                 [[NSUserDefaults standardUserDefaults] synchronize];
-                
+                /*
                 BOOL loginStatus = [data[@"login_status"] boolValue];
                 if (loginStatus) {
                     // 已经登录
@@ -43,9 +43,12 @@
                     // 未登录
                     [LoginManager checkLogin];
                 }
+                 */
             } else {
-                [LoginManager checkLogin];
+//                [LoginManager checkLogin];
             }
+            
+            [LoginManager checkLogin];
         }];
     
     });

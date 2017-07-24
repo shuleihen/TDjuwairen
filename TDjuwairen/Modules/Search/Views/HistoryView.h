@@ -9,16 +9,16 @@
 #import <UIKit/UIKit.h>
 
 typedef void(^ClickTagsBlock)(UIButton *);
+typedef void(^ClearTagsBlock)(UIButton *);
 
 @interface HistoryView : UIView
-{
-    CGRect previousFrame;
-}
 
-- (void)setTagWithTagArray:(NSArray *)arr;
+@property (assign, nonatomic) CGRect previousFrame;
 @property (assign, nonatomic) CGFloat historyViewOriginY;
-@property (nonatomic,copy) ClickTagsBlock clickblock;
-@property (nonatomic, copy) void (^clearBlock)(UIButton *);
 @property (assign, nonatomic) CGFloat realViewHeight;
 
+@property (nonatomic, copy) ClickTagsBlock clickblock;
+@property (nonatomic, copy) ClearTagsBlock clearBlock;
+
+- (void)setTagWithTagArray:(NSArray *)arr;
 @end

@@ -326,6 +326,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     AliveListModel *model = cellData.aliveModel;
     
     if (model.aliveType == kAliveSurvey ||
+        model.aliveType == kAliveDeep ||
         model.aliveType == kAliveVideo) {
         AliveVideoListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveVideoListTableViewCellID"];
         
@@ -353,6 +354,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     AliveListModel *model = cellData.aliveModel;
     
     if (model.aliveType == kAliveSurvey ||
+        model.aliveType == kAliveDeep ||
         model.aliveType == kAliveVideo) {
         AliveVideoListTableViewCell *scell = (AliveVideoListTableViewCell *)cell;
         [scell setupAliveModel:model];
@@ -560,6 +562,30 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
             }
         } else {
             VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.aliveId];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.viewController.navigationController pushViewController:vc animated:YES];
+        }
+    } else if (model.aliveType == kAliveDeep) {
+        // 深度
+        AliveListExtra *extra = model.extra;
+        if (!extra.isUnlock) {
+            if (unlock) {
+                if (!US.isLogIn) {
+                    LoginViewController *login = [[LoginViewController alloc] init];
+                    login.hidesBottomBarWhenPushed = YES;
+                    [self.viewController.navigationController pushViewController:login animated:YES];
+                    return;
+                }
+                
+                [self.unlockManager unlockDeep:model.aliveId withController:self.viewController];
+            }
+        } else {
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = model.aliveId;
+            vc.stockCode = extra.companyCode;
+            vc.stockName = extra.companyName;
+            vc.surveyType = extra.surveyType;
+            vc.url = extra.surveyUrl;
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         }

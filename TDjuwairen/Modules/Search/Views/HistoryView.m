@@ -27,7 +27,7 @@
 }
 
 - (void)setTagWithTagArray:(NSArray *)arr{
-    previousFrame = CGRectZero;
+    self.previousFrame = CGRectZero;
     [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
     
     UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, 13, 100, 20)];
@@ -46,7 +46,7 @@
     [clearBtn addTarget:self action:@selector(clearPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:clearBtn];
     
-    previousFrame = CGRectMake(0, 40, 0, 0);
+    self.previousFrame = CGRectMake(0, 40, 0, 0);
     
     __weak HistoryView *wself = self;
     [arr enumerateObjectsUsingBlock:^(NSString*str, NSUInteger idx, BOOL *stop) {
@@ -68,22 +68,22 @@
         Size_str.height += VERTICAL_PADDING*2;
         
         CGRect newRect = CGRectZero;
-        if (previousFrame.origin.x + previousFrame.size.width + Size_str.width + LABEL_MARGIN > (kScreenWidth-24)) {
-            newRect.origin = CGPointMake(12, previousFrame.origin.y + Size_str.height + BOTTOM_MARGIN);
+        if (self.previousFrame.origin.x + self.previousFrame.size.width + Size_str.width + LABEL_MARGIN > (kScreenWidth-24)) {
+            newRect.origin = CGPointMake(12, self.previousFrame.origin.y + Size_str.height + BOTTOM_MARGIN);
         }
         else {
-            newRect.origin = CGPointMake(previousFrame.origin.x + previousFrame.size.width + LABEL_MARGIN, previousFrame.origin.y);
+            newRect.origin = CGPointMake(self.previousFrame.origin.x + self.previousFrame.size.width + LABEL_MARGIN, self.previousFrame.origin.y);
         }
         newRect.size = Size_str;
         
         tag.frame = newRect;
-        previousFrame = newRect;
+        self.previousFrame = newRect;
         [wself addSubview:tag];
     }];
     
-    CGFloat height = MAX(CGRectGetMaxY(previousFrame) + BOTTOM_MARGIN, kScreenHeight-64);
+    CGFloat height = MAX(CGRectGetMaxY(self.previousFrame) + BOTTOM_MARGIN, kScreenHeight-64);
     self.frame = CGRectMake(0, self.historyViewOriginY, kScreenHeight, height);
-    self.realViewHeight = CGRectGetMaxY(previousFrame) + BOTTOM_MARGIN;
+    self.realViewHeight = CGRectGetMaxY(self.previousFrame) + BOTTOM_MARGIN;
 }
 
 
