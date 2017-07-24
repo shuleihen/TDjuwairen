@@ -11,6 +11,7 @@
 #import "UIView+Border.h"
 #import "NSString+Ext.h"
 #import "SurveyHandler.h"
+#import "SurveyTypeDefine.h"
 
 @interface AliveSearchSurveyCell ()
 @property (weak, nonatomic) IBOutlet UILabel *surveyTitleLabel;
@@ -26,7 +27,7 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    [self.stockLabel addBorder:1 borderColor:TDThemeColor];
+    
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -70,9 +71,23 @@
     NSAttributedString *surveyTitleAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
     [attri appendAttributedString:surveyTitleAttriStr];
     self.surveyTitleLabel.attributedText = attri;
-    self.stockLabel.text = [NSString stringWithFormat:@"%@(%@)",surveyModel.company_name,surveyModel.company_code];
+    
     self.dateLabel.text = surveyModel.surveyAddtime;
-    self.stockLabelLayoutW.constant = [self.stockLabel.text calculateSize:CGSizeMake(CGFLOAT_MAX, 20) font:[UIFont systemFontOfSize:12.0]].width+8;
+    if (surveyModel.survey_type == kSurveyTypeShengdu) {
+        [self.stockLabel addBorder:1 borderColor:[UIColor clearColor]];
+        self.stockLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FE8E3A"];
+        self.stockLabel.textAlignment = NSTextAlignmentLeft;
+        self.stockLabel.text = surveyModel.deepPayTip;
+        CGSize stockSize = [surveyModel.deepPayTip boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
+        self.stockLabelLayoutW.constant = stockSize.width+6;
+    } else {
+        [self.stockLabel addBorder:1 borderColor:TDThemeColor];
+        self.stockLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
+        self.stockLabel.textAlignment = NSTextAlignmentCenter;
+        self.stockLabel.text = [NSString stringWithFormat:@"%@(%@)",surveyModel.company_name,surveyModel.company_code];
+        self.stockLabelLayoutW.constant = [self.stockLabel.text calculateSize:CGSizeMake(CGFLOAT_MAX, 20) font:[UIFont systemFontOfSize:12.0]].width+8;
+    }
+    
 }
 
 

@@ -79,7 +79,7 @@
 
 
 #define API_Search                  @"Search/search2_2"
-#define API_AliveSearch             @"Search/search3_1"
+#define API_AliveSearch             @"Search/search3_2"
 
 #define API_PayIsShow               @"Pay/isPayShow"
 #define API_IAPVerify               @"Pay/iapVerify"

@@ -76,6 +76,9 @@
         self.stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FE8E3A"];
         self.stockNameLabel.textAlignment = NSTextAlignmentLeft;
         
+        CGSize stockSize = [extra.deepPayTip boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
+        self.stockNameWidth.constant = stockSize.width+6;
+        
         self.stockNameLabel.text = extra.deepPayTip;
     } else {
         self.stockNameLabel.layer.borderWidth = 1;

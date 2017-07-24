@@ -42,7 +42,9 @@
 @property (copy, nonatomic) NSString *unlockKeynum;
 /// 调研是否需要解锁
 @property (assign, nonatomic) BOOL isUnlock;
-
+// 深度
+@property (nonatomic, copy) NSString *deepPayTip;
+@property (nonatomic, assign) NSInteger deepPayType;
 
 /** 话题 贴单字段 */
 ///

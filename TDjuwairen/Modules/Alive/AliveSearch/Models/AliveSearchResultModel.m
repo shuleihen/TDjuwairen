@@ -43,6 +43,8 @@
         _survey_type = [dict[@"survey_type"] integerValue];
          _unlockKeynum = dict[@"unlock_keynum"];
         _isUnlock = [dict[@"is_unlock"] boolValue];
+        _deepPayTip = dict[@"deep_pay_tip"];
+        _deepPayType = [dict[@"deep_pay_type"] integerValue];
     }
     return self;
 }
