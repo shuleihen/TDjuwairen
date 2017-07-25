@@ -17,7 +17,7 @@
 #import "PlayStockHnadler.h"
 #import "StockDetailViewController.h"
 #import "STPopupController.h"
-#import "PlayGuessViewController.h"
+#import "AddIndividualViewController.h"
 #import "UIView+Toast.h"
 #import "ShareHandler.h"
 #import "AlivePublishViewController.h"
@@ -264,7 +264,7 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
 - (IBAction)joinPressed:(id)sender {
     
     [self checkIndividualGuessEndTimeWithBlock:^(NSInteger season, NSInteger endTime){
-        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        AddIndividualViewController *vc = [[AddIndividualViewController alloc] init];
         vc.season = season;
         vc.endtime = endTime;
         vc.isJoin = YES;

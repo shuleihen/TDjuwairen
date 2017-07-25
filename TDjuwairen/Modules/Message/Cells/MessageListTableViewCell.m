@@ -103,7 +103,7 @@
             break;
         case kMessageTypePostPublish:
         case kMessageTypePostLike:{
-            self.typeLabel.text = @"贴单";
+            self.typeLabel.text = @"推单";
         }
             break;
         case kMessageTypeViewpointPublish:

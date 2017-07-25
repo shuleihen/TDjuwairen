@@ -49,7 +49,7 @@
     return self;
 }
 
-///// 话题 贴单列表
+///// 话题 推单列表
 //- (id)initWithTopicListDict:(NSDictionary *)dict {
 //    if (self = [super init]) {
 //        _userNickName = dict[@"user_nickname"];

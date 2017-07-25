@@ -13,7 +13,7 @@
 #import "MBProgressHUD.h"
 #import "UIViewController+Loading.h"
 #import "StockDetailViewController.h"
-#import "PlayGuessViewController.h"
+#import "AddIndividualViewController.h"
 #import "AliveDetailViewController.h"
 #import "ViewpointDetailViewController.h"
 

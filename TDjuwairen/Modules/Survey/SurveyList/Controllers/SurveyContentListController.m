@@ -184,12 +184,23 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
                     list = [NSMutableArray arrayWithArray:wself.surveyList];
                 }
                 
-                for (NSDictionary *d in dataArray) {
-                    SurveyListModel *model = [SurveyListModel getInstanceWithDictionary:d];
-                    [list addObject:model];
-                    [wself.stockArr addObject:model.stockCode];
-                    
+                if ([self.subjectId isEqualToString:kSurveyListOptional]) {
+                    // 自选列表
+                    for (NSDictionary *dict in dataArray) {
+                        SurveyListModel *model = [[SurveyListModel alloc] initWithOptionalDictionary:dict];
+                        [list addObject:model];
+                        [wself.stockArr addObject:model.stockCode];
+                        
+                    }
+                } else {
+                    for (NSDictionary *dict in dataArray) {
+                        SurveyListModel *model = [[SurveyListModel alloc] initWithDictionary:dict];
+                        [list addObject:model];
+                        [wself.stockArr addObject:model.stockCode];
+                        
+                    }
                 }
+                
                 wself.surveyList = [NSArray arrayWithArray:list];
                 
                 if (self.isOptional) {

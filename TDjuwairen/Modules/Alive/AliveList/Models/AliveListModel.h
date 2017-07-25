@@ -18,7 +18,7 @@
 
 /// 动态ID
 @property (nonatomic, copy) NSString *aliveId;
-// 直播动态类型，1表示图文、2表示贴单、3表示调研、4表示热点、5观点
+// 直播动态类型，1表示图文、2表示推单、3表示调研、4表示热点、5观点
 @property (nonatomic, assign) AliveType aliveType;
 /// 动态文本内容
 @property (nonatomic, copy) NSString *aliveTitle;

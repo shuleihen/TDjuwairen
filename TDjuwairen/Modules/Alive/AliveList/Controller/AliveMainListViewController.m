@@ -89,7 +89,7 @@
                                                                  backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
                                                       backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
         
-        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"贴单"
+        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"推单"
                                                                  backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
                                                       backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
         

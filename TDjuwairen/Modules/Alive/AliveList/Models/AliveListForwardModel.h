@@ -22,7 +22,7 @@
 
 @property (nonatomic, strong) NSArray *aliveImgs;
 
-/// 1表示图文、2表示贴单、3表示调研、4表示热点
+/// 1表示图文、2表示推单、3表示调研、4表示热点
 @property (nonatomic, assign) AliveType aliveType;
 ///
 @property (nonatomic, copy) NSString *masterId;

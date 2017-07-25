@@ -124,7 +124,7 @@
                                                         NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        _segmentControl.sectionTitles = @[@"全部动态",@"贴单"];
+        _segmentControl.sectionTitles = @[@"全部动态",@"推单"];
         _segmentControl.frame = CGRectMake(0, 0, 160, kAliveSegmentHeight);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
@@ -172,7 +172,7 @@
         
         // Configure item buttons
         //
-        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"贴单"
+        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"推单"
                                                                  backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
                                                       backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
         

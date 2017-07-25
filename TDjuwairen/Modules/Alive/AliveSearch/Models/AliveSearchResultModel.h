@@ -46,7 +46,7 @@
 @property (nonatomic, copy) NSString *deepPayTip;
 @property (nonatomic, assign) NSInteger deepPayType;
 
-/** 话题 贴单字段 */
+/** 话题 推单字段 */
 ///
 @property (copy, nonatomic) NSString *aliveTime;
 ///
@@ -85,7 +85,7 @@
 - (id)initWithStockListDict:(NSDictionary *)dict;
 /// 调研列表
 - (id)initWithSurveyListDict:(NSDictionary *)dict;
-///// 话题 贴单列表
+///// 话题 推单列表
 //- (id)initWithTopicListDict:(NSDictionary *)dict;
 ///// 观点列表
 //- (id)initWithViewPointListDict:(NSDictionary *)dict;

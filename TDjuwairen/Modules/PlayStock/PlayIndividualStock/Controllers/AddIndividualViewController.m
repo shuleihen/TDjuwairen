@@ -1,12 +1,12 @@
 //
-//  PlayGuessViewController.m
+//  AddIndividualViewController.m
 //  TDjuwairen
 //
 //  Created by deng shu on 2017/3/28.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "PlayGuessViewController.h"
+#import "AddIndividualViewController.h"
 #import "PAStepper.h"
 #import "HexColors.h"
 #import "UIImage+Create.h"
@@ -17,7 +17,7 @@
 #import "YXCheckBox.h"
 #import "PlayStockHnadler.h"
 
-@interface PlayGuessViewController ()<UITextFieldDelegate, StockManagerDelegate>
+@interface AddIndividualViewController ()<UITextFieldDelegate, StockManagerDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
 
 @property (weak, nonatomic) IBOutlet UILabel *label_CountDown;
@@ -37,12 +37,10 @@
 
 @end
 
-@implementation PlayGuessViewController
+@implementation AddIndividualViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    self.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
     
     [self initViews];
     [self initValue];
@@ -52,6 +50,7 @@
     self.stockManager.delegate = self;
     self.stockManager.isOpenTimer = NO;
 }
+
 
 - (void)setupDefaultStock:(StockInfo *)stockInfo withStockCode:(NSString *)stockCode {
     
@@ -76,7 +75,7 @@
 }
 
 - (void)initValue {
-    __weak PlayGuessViewController *wself = self;
+    __weak AddIndividualViewController *wself = self;
 
     NSTimeInterval nowDate = [[NSDate new] timeIntervalSince1970];
     NSInteger  regiTime = self.endtime - nowDate;
@@ -95,7 +94,17 @@
     self.maxPriceLabel.text = @"--";
     self.stepper.value = 0;
     
-    self.forwardBtn.checked = YES;
+    if (!self.isJoin) {
+        // 发起竞猜没有分享
+        self.forwardBtn.hidden = YES;
+        self.forwardBtn.checked = NO;
+        
+        self.contentSizeInPopup = CGSizeMake(kScreenWidth, 250);
+    } else {
+        self.forwardBtn.checked = YES;
+        
+        self.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
+    }
     
     [self checkDoneEnable];
 }
@@ -270,11 +279,11 @@
         stockCode = self.stockCodeTextField.text;
     }
     
-    if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:isForward:)]) {
-        [self.delegate addGuessWithStockCode:stockCode pri:self.stepper.value season:self.season isJoin:self.isJoin isForward:self.forwardBtn.checked];
-    }
-    
-    [self.popupController dismiss];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(addGuessWithStockCode:pri:season:isJoin:isForward:)]) {
+            [self.delegate addGuessWithStockCode:stockCode pri:self.stepper.value season:self.season isJoin:self.isJoin isForward:self.forwardBtn.checked];
+        }
+    }];
 }
 
 

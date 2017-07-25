@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface AliveListPostExtra : NSObject
-// 贴单标签(数组)
+// 推单标签(数组)
 @property (nonatomic, strong) NSArray *aliveTags;
 @property (nonatomic, strong) NSArray *aliveStockTags;
 

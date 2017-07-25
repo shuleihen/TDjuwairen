@@ -193,7 +193,7 @@
                 self.tableView.hidden = YES;
                 self.noDataView.hidden = NO;
             }else {
-                NSArray *arr = @[@"搜索调研",@"搜索观点",@"搜索贴单",@"搜索话题"];
+                NSArray *arr = @[@"搜索调研",@"搜索观点",@"搜索推单",@"搜索话题"];
                 NSArray *types = @[@(kAliveSearchSubSurveyType),@(kAliveSearchSubViewPointType),@(kAliveSearchSubPasteType),@(kAliveSearchSubTopicType)];
                 int i =0;
                 

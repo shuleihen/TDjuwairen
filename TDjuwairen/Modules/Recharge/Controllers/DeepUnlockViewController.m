@@ -186,26 +186,26 @@
 }
 
 - (void)memberPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(vipPressed:)]) {
-        [self.delegate vipPressed:sender];
-    }
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(vipPressed:)]) {
+            [self.delegate vipPressed:sender];
+        }
+    }];
 }
 
 - (void)unlockPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockDeepWithDeepId:)]) {
-        [self.delegate unlockDeepWithDeepId:self.unlockModel.deepId];
-    }
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockDeepWithDeepId:)]) {
+            [self.delegate unlockDeepWithDeepId:self.unlockModel.deepId];
+        }
+    }];
 }
 
 - (void)rechargePressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(rechargePressed:)]) {
-        [self.delegate rechargePressed:sender];
-    }
-    
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(rechargePressed:)]) {
+            [self.delegate rechargePressed:sender];
+        }
+    }];
 }
 @end

@@ -45,15 +45,20 @@
     label22.text = [NSString stringWithFormat:@"%ld把钥匙",(long)guess.buyKeyNum];
     [self addSubview:label22];
     
-    UILabel *label23 = [self normalLabel];
-    label23.frame = CGRectMake(kScreenWidth/2+20, 24, 58, 15);
-    label23.text = @"奖励倍数";
-    [self addSubview:label23];
+    if (guess.status == 1 ||
+        guess.status == 2) {
+        // 获胜，完全获胜,才显示奖励倍数
+        UILabel *label23 = [self normalLabel];
+        label23.frame = CGRectMake(kScreenWidth/2+20, 24, 58, 15);
+        label23.text = @"奖励倍数";
+        [self addSubview:label23];
+        
+        UILabel *label24 = [self orangeLabel];
+        label24.frame = CGRectMake(kScreenWidth/2+92, 24, 100, 15);
+        label24.text = [NSString stringWithFormat:@"X%d",guess.odds];
+        [self addSubview:label24];
+    }
     
-    UILabel *label24 = [self orangeLabel];
-    label24.frame = CGRectMake(kScreenWidth/2+92, 24, 100, 15);
-    label24.text = [NSString stringWithFormat:@"X%d",guess.odds];
-    [self addSubview:label24];
     
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(kScreenWidth/2-TDPixel, 0, TDPixel, 40)];
     sep.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#eeeeee"];

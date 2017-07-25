@@ -266,7 +266,7 @@
                 case kAliveSearchSubPasteType:
                 {
                     if (arrM) {
-                        wself.searchResultData.sectionTitle = @"贴单";
+                        wself.searchResultData.sectionTitle = @"推单";
                         
                         NSMutableArray *marray = [NSMutableArray arrayWithCapacity:[arrM count]];
                         
@@ -841,7 +841,7 @@
             break;
         case kAliveSearchSubPasteType:
         {
-            str = @"搜索贴单";
+            str = @"搜索推单";
         }
             break;
         case kAliveSearchSubViewPointType:

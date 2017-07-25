@@ -24,8 +24,12 @@
 @property (nonatomic, assign) NSInteger unlockKeyNum;
 @property (nonatomic, copy) NSString *deepPayTip;
 @property (nonatomic, assign) NSInteger deepPayType;
-// 是否访问过
 @property (nonatomic, assign) BOOL isVisited;
 
-+ (SurveyListModel *)getInstanceWithDictionary:(NSDictionary *)dic;
+// 自选列表标题类型：1表示调研；2表示热点，3表示暂无,4表示公告
+@property (nonatomic, assign) NSInteger surveyTitleType;
+@property (nonatomic, assign) BOOL isNewAlive;
+
+- (id)initWithDictionary:(NSDictionary *)dict;
+- (id)initWithOptionalDictionary:(NSDictionary *)dict;
 @end

@@ -492,7 +492,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts) {
-        // 图文和贴单
+        // 图文和推单
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = model.aliveId;
         vc.aliveType = model.aliveType;

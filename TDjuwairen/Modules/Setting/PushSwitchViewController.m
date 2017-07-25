@@ -132,7 +132,7 @@
         nameLabel.text = @"应用内提醒";
     }else {
         
-        nameLabel.text = @"当你使用局外人时，信通知的提醒是否需要响铃或震动";
+        nameLabel.text = @"当你使用局外人时，新通知的提醒是否需要响铃或震动";
     }
     
     

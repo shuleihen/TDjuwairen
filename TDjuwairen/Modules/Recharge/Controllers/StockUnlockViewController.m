@@ -102,20 +102,19 @@
 }
 
 - (void)unlockPressed:(id)sender {
-    
-    if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
-        [self.delegate unlockWithStockCode:self.unlockModel.stockCode];
-    }
-    
-    [self.popupController dismiss];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
+            [self.delegate unlockWithStockCode:self.unlockModel.stockCode];
+        }
+    }];
 }
 
 - (void)rechargePressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(rechargePressed:)]) {
-        [self.delegate rechargePressed:sender];
-    }
-    
-    [self.popupController dismiss];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(rechargePressed:)]) {
+            [self.delegate rechargePressed:sender];
+        }
+    }];
 }
 
 - (IBAction)closePressed:(id)sender {
@@ -124,10 +123,10 @@
 
 
 - (IBAction)memberPressed:(UIButton *)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(vipPressed:)]) {
-        [self.delegate vipPressed:sender];
-    }
-    
-    [self.popupController dismiss];
+    [self.popupController dismissWithCompletion:^{
+        if (self.delegate && [self.delegate respondsToSelector:@selector(vipPressed:)]) {
+            [self.delegate vipPressed:sender];
+        }
+    }];
 }
 @end

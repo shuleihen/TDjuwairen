@@ -270,6 +270,7 @@
     
     NSMutableArray *segmentTitles = [NSMutableArray arrayWithCapacity:[subjectArray count]];
     NSMutableArray *controllers = [NSMutableArray arrayWithCapacity:[subjectArray count]];
+    NSInteger index = 0,i = 0;
     
     for (SurveySubjectModel *model in subjectArray) {
         [segmentTitles addObject:model.subjectTitle];
@@ -280,20 +281,26 @@
         vc.rootController = self;
         vc.delegate = self;
         [controllers addObject:vc];
+        
+        if ([model.subjectId isEqualToString:kSurveyListRecommendTag]) {
+            // 默认选择推荐
+            index = i;
+        }
+        i++;
     }
     
     self.contentControllers = controllers;
-    [self setupSegmentWithTitles:segmentTitles];
+    [self setupSegmentWithTitles:segmentTitles withIndex:index];
 }
 
-- (void)setupSegmentWithTitles:(NSArray *)titles {
+- (void)setupSegmentWithTitles:(NSArray *)titles withIndex:(NSInteger)index{
     CGFloat w = [titles count]*kSegmentItemWidth;
     self.segmentControl.sectionTitles = titles;
     self.segmentControl.frame = CGRectMake(1, 0, w, kSegmentHeight);
     self.segmentContentScrollView.contentSize = CGSizeMake(w, kSegmentHeight);
     
     if ([titles count]) {
-        self.segmentControl.selectedSegmentIndex = 0;
+        self.segmentControl.selectedSegmentIndex = index;
         [self segmentPressed:self.segmentControl];
     }
 }

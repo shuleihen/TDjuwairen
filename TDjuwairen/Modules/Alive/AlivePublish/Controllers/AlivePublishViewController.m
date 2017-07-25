@@ -61,7 +61,7 @@
             self.imageLimit = 9;
             break;
         case kAlivePublishPosts:
-            self.title = @"发布贴单";
+            self.title = @"发布推单";
             self.textFieldPlaceholder = @"填写买入卖出理由或其他";
             rightButtonTitle = @"推单";
             self.imageLimit = 9;
@@ -286,7 +286,7 @@
             return;
         }
     } else if (self.publishType == kAlivePublishPosts) {
-        // 贴单发布，股票代码和图片不能为空
+        // 推单发布，股票代码和图片不能为空
         self.companyListTableView.hidden = YES;
         NSMutableArray *arrM = [NSMutableArray array];
         for (SearchCompanyListModel *model in self.selectedStockArrM) {

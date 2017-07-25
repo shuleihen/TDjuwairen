@@ -16,7 +16,7 @@
 #import "NetworkManager.h"
 #import "PSIndividualGuessModel.h"
 #import "PSIndividualListModel.h"
-#import "PlayGuessViewController.h"
+#import "AddIndividualViewController.h"
 #import "STPopupController.h"
 #import "UIViewController+STPopup.h"
 #import "MBProgressHUD.h"
@@ -239,7 +239,7 @@
     }
     
     [self checkIndividualGuessEndTimeWithBlock:^(NSInteger season, NSInteger endTime){
-        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        AddIndividualViewController *vc = [[AddIndividualViewController alloc] init];
         vc.season = season;
         vc.endtime = endTime;
         vc.isJoin = NO;
@@ -247,7 +247,6 @@
         
         STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
         popupController.navigationBarHidden = YES;
-        popupController.topViewController.contentSizeInPopup = CGSizeMake(kScreenWidth, 275);
         popupController.style = STPopupStyleBottomSheet;
         [popupController presentInViewController:self];
     }];
@@ -548,7 +547,7 @@
         PSIndividualListModel *model = cell.model;
         StockInfo *sInfo = [self.stockDict objectForKey:model.stockId];
         
-        PlayGuessViewController *vc = [[PlayGuessViewController alloc] init];
+        AddIndividualViewController *vc = [[AddIndividualViewController alloc] init];
         vc.season = season;
         vc.endtime = endTime;
         vc.isJoin = YES;

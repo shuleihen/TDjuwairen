@@ -1,5 +1,5 @@
 //
-//  PlayGuessViewController.h
+//  AddIndividualViewController.h
 //  TDjuwairen
 //
 //  Created by deng shu on 2017/3/28.
@@ -13,7 +13,7 @@
 - (void)addGuessWithStockCode:(NSString *)stockId pri:(float)pri season:(NSInteger)season isJoin:(BOOL)isJoin isForward:(BOOL)isForward;
 @end
 
-@interface PlayGuessViewController : UIViewController
+@interface AddIndividualViewController : UIViewController
 
 @property (nonatomic, assign) id<PlayGuessViewControllerDelegate> delegate;
 

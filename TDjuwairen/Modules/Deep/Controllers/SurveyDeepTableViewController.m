@@ -95,7 +95,7 @@
             
             self.bannerLinks = array;
             
-            self.cycleScrollView.titlesGroup = titles;
+//            self.cycleScrollView.titlesGroup = titles;
             self.cycleScrollView.imageURLStringsGroup = urls;
         } else {
             

@@ -568,8 +568,8 @@
 		84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDB61CF80E0A00683791 /* ELCAssetCell.m */; };
 		84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */; };
 		84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */; };
-		9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */; };
-		9E2233C31E8A713200B1FAC4 /* PlayGuessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */; };
+		9E2233C21E8A713200B1FAC4 /* AddIndividualViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C01E8A713200B1FAC4 /* AddIndividualViewController.m */; };
+		9E2233C31E8A713200B1FAC4 /* AddIndividualViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233C11E8A713200B1FAC4 /* AddIndividualViewController.xib */; };
 		9E2233C61E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C51E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m */; };
 		9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9E2233C81E8AA68900B1FAC4 /* PlayItemPersonView.m */; };
 		9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9E2233CA1E8AA6A200B1FAC4 /* PlayItemPersonView.xib */; };
@@ -1684,9 +1684,9 @@
 		84F9FDBA1CF80E0A00683791 /* ELCAssetTablePicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCAssetTablePicker.m; sourceTree = "<group>"; };
 		84F9FDBB1CF80E0A00683791 /* ELCImagePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ELCImagePickerController.h; sourceTree = "<group>"; };
 		84F9FDBC1CF80E0A00683791 /* ELCImagePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ELCImagePickerController.m; sourceTree = "<group>"; };
-		9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayGuessViewController.h; sourceTree = "<group>"; };
-		9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayGuessViewController.m; sourceTree = "<group>"; };
-		9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PlayGuessViewController.xib; sourceTree = "<group>"; };
+		9E2233BF1E8A713200B1FAC4 /* AddIndividualViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddIndividualViewController.h; sourceTree = "<group>"; };
+		9E2233C01E8A713200B1FAC4 /* AddIndividualViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddIndividualViewController.m; sourceTree = "<group>"; };
+		9E2233C11E8A713200B1FAC4 /* AddIndividualViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddIndividualViewController.xib; sourceTree = "<group>"; };
 		9E2233C41E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayEnjoyPeopleViewController.h; sourceTree = "<group>"; };
 		9E2233C51E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayEnjoyPeopleViewController.m; sourceTree = "<group>"; };
 		9E2233C71E8AA68900B1FAC4 /* PlayItemPersonView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PlayItemPersonView.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PlayItemPersonView.h; sourceTree = SOURCE_ROOT; };
@@ -1969,9 +1969,9 @@
 			children = (
 				19194CC71E7FAC3700641085 /* PSIndividualListViewController.h */,
 				19194CC81E7FAC3700641085 /* PSIndividualListViewController.m */,
-				9E2233BF1E8A713200B1FAC4 /* PlayGuessViewController.h */,
-				9E2233C01E8A713200B1FAC4 /* PlayGuessViewController.m */,
-				9E2233C11E8A713200B1FAC4 /* PlayGuessViewController.xib */,
+				9E2233BF1E8A713200B1FAC4 /* AddIndividualViewController.h */,
+				9E2233C01E8A713200B1FAC4 /* AddIndividualViewController.m */,
+				9E2233C11E8A713200B1FAC4 /* AddIndividualViewController.xib */,
 				9E2233C41E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.h */,
 				9E2233C51E8AA20000B1FAC4 /* PlayEnjoyPeopleViewController.m */,
 			);
@@ -5252,7 +5252,7 @@
 				84E333FA1CE2BA3D00E5DCEE /* LaunchScreen.storyboard in Resources */,
 				19959B8E1E2C909000AB26DF /* GradeDetailCell.xib in Resources */,
 				84E333F71CE2BA3D00E5DCEE /* Assets.xcassets in Resources */,
-				9E2233C31E8A713200B1FAC4 /* PlayGuessViewController.xib in Resources */,
+				9E2233C31E8A713200B1FAC4 /* AddIndividualViewController.xib in Resources */,
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
@@ -5688,7 +5688,7 @@
 				19F07A301F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m in Sources */,
 				19F07A141F1C5DC6004449BB /* SystemMessageViewController.m in Sources */,
 				19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */,
-				9E2233C21E8A713200B1FAC4 /* PlayGuessViewController.m in Sources */,
+				9E2233C21E8A713200B1FAC4 /* AddIndividualViewController.m in Sources */,
 				19E58D851EF8BEDC00ADA1B8 /* VideoInfoModel.m in Sources */,
 				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,

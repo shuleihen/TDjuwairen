@@ -42,11 +42,13 @@
         _surveyTitleLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
         [self.contentView addSubview:_surveyTitleLabel];
         
+        /*
         UITapGestureRecognizer *titleTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(titlePressed:)];
         _surveyTitleLabel.userInteractionEnabled = YES;
         [_surveyTitleLabel addGestureRecognizer:titleTap];
+        */
         
-      self.contentView.backgroundColor = [UIColor whiteColor];
+        self.contentView.backgroundColor = [UIColor whiteColor];
     }
     return self;
 }
@@ -88,9 +90,11 @@
     NSString *stockName = [NSString stringWithFormat:@"%@(%@)",survey.companyName,[survey.companyCode stockCode]];
     _stockNameLabel.text = stockName;
     
-    NSString *typeString = [self articleType:survey.surveyType];
+    NSString *typeString = [self articleType:survey.surveyTitleType];
+    UIColor *color = [self articleColorWithType:survey.surveyTitleType];
+    
     if (typeString.length) {
-        NSAttributedString *attri1 = [[NSAttributedString alloc] initWithString:[typeString stringByAppendingString:@" "] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName: TDAssistTextColor}];
+        NSAttributedString *attri1 = [[NSAttributedString alloc] initWithString:[typeString stringByAppendingString:@" "] attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName: color}];
         
         NSAttributedString *attri2 = [[NSAttributedString alloc] initWithString:survey.surveyTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f], NSForegroundColorAttributeName: TDTitleTextColor}];
         
@@ -149,31 +153,50 @@
     }
 }
 
-
+// 自选列表标题类型：1表示调研；2表示热点，3表示暂无,4表示公告
 - (NSString *)articleType:(NSInteger)type {
     
     NSString *str = @"";
     switch (type) {
         case 1:
             str = @"调研";
-            
             break;
         case 2:
             str = @"热点";
             break;
-        case 5:
-            str = @"深度";
+        case 3:
+            str = @"暂无";
             break;
-        case 6:
-            str = @"评论";
-            break;
-        case 11:
-            str = @"视频";
+        case 4:
+            str = @"公告";
             break;
         default:
             break;
     }
     
     return str;
+}
+
+- (UIColor *)articleColorWithType:(NSInteger)type {
+    
+    UIColor *color = TDAssistTextColor;
+    switch (type) {
+        case 1:
+            color = [UIColor hx_colorWithHexRGBAString:@"#386AC6"];
+            break;
+        case 2:
+            color = [UIColor hx_colorWithHexRGBAString:@"#DE5030"];
+            break;
+        case 3:
+            color = TDAssistTextColor;
+            break;
+        case 4:
+            color = [UIColor hx_colorWithHexRGBAString:@"#5E44C1"];
+            break;
+        default:
+            break;
+    }
+    
+    return color;
 }
 @end
