@@ -587,10 +587,10 @@
     self.adImageFrame = CGRectMake(left, height+8, contentWidht, 178);
     height = CGRectGetMaxY(self.adImageFrame);
     
-    self.stockNameLabelFrame = CGRectMake(left, height+7, contentWidht, 14);
-    height = CGRectGetMaxY(self.stockNameLabelFrame);
+    self.stockNameLabelFrame = CGRectMake(left, height+8, contentWidht, 14);
+//    height = CGRectGetMaxY(self.stockNameLabelFrame);
     
-    self.timeLabelFrame = CGRectMake(left, height+4, contentWidht, 14);
+    self.timeLabelFrame = CGRectMake(left, height+8, contentWidht, 14);
     height = CGRectGetMaxY(self.timeLabelFrame);
     
     self.topHeaderHeight = kAliveListHeaderHeight;

@@ -11,10 +11,11 @@
 
 // 直播列表类型
 typedef enum : NSUInteger {
-    kAliveListAttention  =0, // 关注
-    kAliveListRecommend  =1, // 推荐
+    kAliveListRecommend  =0, // 推荐
+    kAliveListAttention  =1, // 关注
     kAliveListViewpoint  =2, // 观点
     kAliveListVideo      =3, // 视频
+    kAlvieListPost       =4, // 推单
 } AliveListType;
 
 // 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享，5：玩票分享到直播

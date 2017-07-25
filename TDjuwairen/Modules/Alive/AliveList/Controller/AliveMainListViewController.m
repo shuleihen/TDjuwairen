@@ -67,7 +67,10 @@
         AliveListViewController *four = [[AliveListViewController alloc] init];
         four.listType = kAliveListVideo;
         
-        _contentControllers = @[one,two,three,four];
+        AliveListViewController *five = [[AliveListViewController alloc] init];
+        five.listType = kAlvieListPost;
+        
+        _contentControllers = @[one,two,three,four,five];
     }
     
     return _contentControllers;
@@ -160,6 +163,9 @@
     [self getUnreadMessageCount];
 }
 
+- (UIStatusBarStyle)preferredStatusBarStyle{
+    return UIStatusBarStyleLightContent;
+}
 
 - (void)setupSegmentControl {
     
@@ -171,7 +177,7 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     
-    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注",@"观点",@"视频"]];
+    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注",@"观点",@"视频",@"推单"]];
     segmented.tintColor = [UIColor whiteColor];
     segmented.layer.cornerRadius = 0.0f;
     segmented.layer.borderWidth = 1.0f;
@@ -185,7 +191,7 @@
     [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateSelected];
     
-    segmented.frame = CGRectMake(0, 0, 240, 44-TDPixel);
+    segmented.frame = CGRectMake(0, 0, 300, 44-TDPixel);
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];

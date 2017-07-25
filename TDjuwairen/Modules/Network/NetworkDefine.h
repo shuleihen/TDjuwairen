@@ -180,7 +180,7 @@
 
 #define API_AliveGetRecAliveList    @"Room/getRecAliveList3_2"
 #define API_AliveGetAttenAliveList  @"Room/getAttenAliveList3_2"
-
+#define API_AliveGetPostAlistList   @"Room/getBareList"
 #define API_AliveGetAliveInfo       @"Room/showLiveInfo3_2"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"
 #define API_AliveGetRoomLike        @"Room/showLiveAssess"

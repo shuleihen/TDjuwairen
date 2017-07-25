@@ -20,11 +20,13 @@
         _stockNameLabel = [[UILabel alloc] init];
         _stockNameLabel.font = [UIFont systemFontOfSize:13.0f];
         _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+        _stockNameLabel.textAlignment = NSTextAlignmentLeft;
         [self addSubview:_stockNameLabel];
      
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.font = [UIFont systemFontOfSize:13.0f];
         _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+        _timeLabel.textAlignment = NSTextAlignmentRight;
         [self addSubview:_timeLabel];
     }
     

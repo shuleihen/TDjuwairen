@@ -107,7 +107,7 @@
         [self.delegate unlockWithStockCode:self.unlockModel.stockCode];
     }
     
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.popupController dismiss];
 }
 
 - (void)rechargePressed:(id)sender {
@@ -115,7 +115,7 @@
         [self.delegate rechargePressed:sender];
     }
     
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.popupController dismiss];
 }
 
 - (IBAction)closePressed:(id)sender {
@@ -128,6 +128,6 @@
         [self.delegate vipPressed:sender];
     }
     
-    [self dismissViewControllerAnimated:NO completion:nil];
+    [self.popupController dismiss];
 }
 @end

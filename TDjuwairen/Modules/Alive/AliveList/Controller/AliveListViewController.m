@@ -105,7 +105,12 @@
             api = API_VideoGetList;
             dict = @{@"page" :@(page)};
             break;
+        case kAlvieListPost:
+            api = API_AliveGetPostAlistList;
+            dict = @{@"page" :@(page)};
+            break;
         default:
+            NSAssert(NO, @"直播列表不支持当前类型");
             break;
     }
     
