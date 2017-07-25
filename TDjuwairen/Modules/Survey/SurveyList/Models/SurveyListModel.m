@@ -23,18 +23,10 @@
     model.isUnlocked = [dic[@"is_unlock"] boolValue];
     model.unlockKeyNum = [dic[@"unlock_keynum"] integerValue];
     model.isVisited = [dic[@"is_visited"] boolValue];
+    model.deepPayTip = dic[@"deep_pay_tip"];
+    model.deepPayType = [dic[@"deep_pay_type"] integerValue];
     
     return model;
 }
 
-//- (NSComparisonResult)compare:(SurveyListModel *)other
-//{
-//    if (self..integerValue > other.order_ptime.integerValue) {
-//        return NSOrderedDescending;
-//    } else if (self.order_ptime.integerValue < other.order_ptime.integerValue) {
-//        return NSOrderedAscending;
-//    } else {
-//        return NSOrderedSame;
-//    }
-//}
 @end

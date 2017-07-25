@@ -112,6 +112,20 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [self.tableView reloadData];
 }
 
+- (void)unlockManager:(StockUnlockManager *)manager withDeepId:(NSString *)deepId {
+    for (AliveListCellData *model in self.itemList) {
+        if ([model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
+            AliveListExtra *extra = model.aliveModel.extra;
+            if ([extra.companyCode isEqualToString:model.aliveModel.aliveId]) {
+                extra.isUnlock = YES;
+                break;
+            }
+        }
+    }
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - AliveListTableCellDelegate
 
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {

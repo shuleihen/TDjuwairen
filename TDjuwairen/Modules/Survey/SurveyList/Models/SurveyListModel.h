@@ -22,7 +22,8 @@
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, assign) BOOL isUnlocked;
 @property (nonatomic, assign) NSInteger unlockKeyNum;
-
+@property (nonatomic, copy) NSString *deepPayTip;
+@property (nonatomic, assign) NSInteger deepPayType;
 // 是否访问过
 @property (nonatomic, assign) BOOL isVisited;
 

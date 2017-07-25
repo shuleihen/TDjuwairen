@@ -161,8 +161,18 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         api = API_SurveyGetMyStockList;
     }
     
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    hud.center = CGPointMake(kScreenWidth/2, 50);
+    [self.view addSubview:hud];
+    
+    hud.hidesWhenStopped = YES;
+    [hud startAnimating];
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:api parameters:dict completion:^(id data, NSError *error){
+        
+        [hud stopAnimating];
+        
         if (!error) {
             NSArray *dataArray = data;
             
@@ -234,6 +244,16 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
     [self.tableView reloadData];
 }
 
+- (void)unlockManager:(StockUnlockManager *)manager withDeepId:(NSString *)deepId {
+    for (SurveyListModel *model in self.surveyList) {
+        if ([model.companyCode isEqualToString:model.surveyId]) {
+            model.isUnlocked = YES;
+            break;
+        }
+    }
+    
+    [self.tableView reloadData];
+}
 
 #pragma mark - SurveyStockListCellDelegate
 - (void)surveyStockListTitlePressedWithSurveyListModel:(SurveyListModel *)model {
@@ -262,7 +282,11 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
             return;
         }
         
-        [self.unlockManager unlockStock:model.companyCode withStockName:model.companyName withController:self.rootController];
+        if (model.surveyType == kSurveyTypeShengdu) {
+            [self.unlockManager unlockDeep:model.surveyId withController:self.rootController];
+        } else {
+            [self.unlockManager unlockStock:model.companyCode withStockName:model.companyName withController:self.rootController];
+        }
     }
 
 }
