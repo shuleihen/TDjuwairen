@@ -545,7 +545,16 @@
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
         }
             break;
-        
+        case kAlivePlayStock:{
+            AliveListPlayStockCellData *pCellData = [[AliveListPlayStockCellData alloc] initWithAliveModel:forwardAlive];
+            pCellData.isShowDetailMessage = NO;
+            pCellData.isShowToolBar = NO;
+            [pCellData setup];
+            
+            self.forwardCellData = pCellData;
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
+        }
+            break;
         default:
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 0);
             break;
