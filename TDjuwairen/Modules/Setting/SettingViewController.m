@@ -168,6 +168,7 @@
                 UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
                 cell.detailTextLabel.text = @"0.00M";
                 hud.labelText = @"清除完成";
+                [self setupClearString];
                 [hud hide:YES afterDelay:1];
                 [self.tableview reloadData];
             }]];
