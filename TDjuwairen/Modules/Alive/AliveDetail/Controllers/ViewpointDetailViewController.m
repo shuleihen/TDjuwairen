@@ -226,6 +226,8 @@
     if (indexPath.section == 0 &&
         indexPath.row == 0) {
         ViewpointHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ViewpointHeaderTableViewCellID"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        
         [cell.moreBtn addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
         [cell.avatarBtn addTarget:self action:@selector(avatarPressed:) forControlEvents:UIControlEventTouchUpInside];
         

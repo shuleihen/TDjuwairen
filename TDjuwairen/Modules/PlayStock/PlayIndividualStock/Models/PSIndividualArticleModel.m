@@ -13,6 +13,7 @@
     if (self = [super init]) {
         self.articleId = dict[@"article_id"];
         self.articleTitle = dict[@"article_title"];
+        self.articleUrl = dict[@"article_url"];
         self.articleType = [dict[@"article_type"] integerValue];
     }
     
@@ -21,7 +22,7 @@
 
 - (NSString *)typeString {
     NSString *string = @"";
-    // 表示没有，1表示调研，2表示热点，3表示观点，4表示直播 5表示公告
+    
     switch (self.articleType) {
         case 1:
             string = @"调研";

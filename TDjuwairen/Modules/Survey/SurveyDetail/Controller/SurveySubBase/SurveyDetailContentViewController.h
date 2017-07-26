@@ -18,20 +18,17 @@
 
 @interface SurveyDetailContentViewController : UIViewController
 
-// 股票名称
 @property (nonatomic, copy) NSString *stockName;
-// 股票代码
 @property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, copy) NSString *stockCover;
 @property (nonatomic, weak) UIViewController *rootController;
 
 @property (nonatomic, weak) id<SurveyDetailContenDelegate> delegate;
 
-
 - (CGFloat)contentHeight;
-- (NSDictionary *)contentParm;
 
 - (void)reloadData;
+- (void)showNoDataView:(BOOL)isShow;
 
 + (NSString *)contenWebUrlWithContentId:(NSString *)contentId withTag:(NSInteger)tag;
 @end

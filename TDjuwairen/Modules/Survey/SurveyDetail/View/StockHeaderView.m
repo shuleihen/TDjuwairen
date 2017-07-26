@@ -92,7 +92,12 @@
     [self.gradeBtn setTitle:score forState:UIControlStateNormal];
     
     self.gradeNumLabel.text = [NSString stringWithFormat:@"已有%@人参与",model.joinGradeNum];
-    self.orderNumLabel.text = [NSString stringWithFormat:@"排名%@/%@",model.orderNum,model.allCompanyNum];
+    if ([model.joinGradeNum integerValue] != 0) {
+        // 没有人参与评分，排名隐藏
+        self.orderNumLabel.text = [NSString stringWithFormat:@"排名%@/%@",model.orderNum,model.allCompanyNum];
+    } else {
+        self.orderNumLabel.text = @"";
+    }
     
     self.isAdd = model.isAdd;
     

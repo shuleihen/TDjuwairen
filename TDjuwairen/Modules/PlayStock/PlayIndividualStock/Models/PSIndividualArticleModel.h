@@ -11,6 +11,8 @@
 @interface PSIndividualArticleModel : NSObject
 @property (nonatomic, copy) NSString *articleId;
 @property (nonatomic, copy) NSString *articleTitle;
+@property (nonatomic, copy) NSString *articleUrl;
+//0表示没有，1表示调研，2表示热点，3表示观点，4表示直播 5表示公告
 @property (nonatomic, assign) NSInteger articleType;
 
 - (id)initWithDictionary:(NSDictionary *)dict;

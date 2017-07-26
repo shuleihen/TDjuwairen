@@ -45,7 +45,7 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UIButton *bottomButton;
-@property (weak, nonatomic) IBOutlet UIButton *keyNum;
+@property (weak, nonatomic) IBOutlet UIButton *keyNumBtn;
 @property (weak, nonatomic) IBOutlet UILabel *seasonDateLabel;
 @property (strong, nonatomic) UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet CBAutoScrollLabel *messageLabel;
@@ -238,6 +238,19 @@
         return;
     }
     
+    if ([self.guessModel.user_keynum integerValue] <= 0) {
+        __weak PSIndividualListViewController *wself = self;
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [wself walletPressed:nil];
+        }];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"筹码不足哦，是否充值？" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
     [self checkIndividualGuessEndTimeWithBlock:^(NSInteger season, NSInteger endTime){
         AddIndividualViewController *vc = [[AddIndividualViewController alloc] init];
         vc.season = season;
@@ -301,7 +314,7 @@
 - (void)reloadViewWithIndividaulModel:(PSIndividualGuessModel *)model {
     self.guessModel = model;
     
-    [self.keyNum setTitle:[NSString stringWithFormat:@"%@",self.guessModel.user_keynum] forState:UIControlStateNormal];
+    [self.keyNumBtn setTitle:[NSString stringWithFormat:@"%@",self.guessModel.user_keynum] forState:UIControlStateNormal];
     
     [self.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",self.guessModel.guess_comment_count] forState:UIControlStateNormal];
     
@@ -543,6 +556,19 @@
 #pragma mark - PlayIndividualContentCellDelegate
 
 - (void)playIndividualCell:(PlayIndividualContentCell *)cell guessPressed:(id)sender {
+    if ([self.guessModel.user_keynum integerValue] <= 0) {
+        __weak PSIndividualListViewController *wself = self;
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction *action){}];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [wself walletPressed:nil];
+        }];
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"筹码不足哦，是否充值？" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
     [self checkIndividualGuessEndTimeWithBlock:^(NSInteger season, NSInteger endTime){
         PSIndividualListModel *model = cell.model;
         StockInfo *sInfo = [self.stockDict objectForKey:model.stockId];
@@ -583,6 +609,7 @@
 
     NSString *article_id = article.articleId;
     NSInteger article_type = article.articleType;
+    NSString *article_url = article.articleUrl;
     
     if (article_type == 1) {
         // 调研
@@ -596,21 +623,28 @@
         vc.stockCode = model.stockCode;
         vc.stockName = model.stockName;
         vc.surveyType = kSurveyTypeHot;
-        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:article_id withTag:kSurveyTypeHot];
+        vc.url = article_url;
         [self.navigationController pushViewController:vc animated:YES];
     } else if (article_type == 3) {
         // 观点
         ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:article_id aliveType:kAliveViewpoint];
         [self.navigationController pushViewController:vc animated:YES];
-    }else if (article_type == 4) {
+    } else if (article_type == 4) {
         // 直播
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = article_id;
         vc.aliveType = kAlivePosts;
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
-    }else if (article_type == 5) {
+    } else if (article_type == 5) {
         // 公告
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = article_id;
+        vc.stockCode = model.stockCode;
+        vc.stockName = model.stockName;
+        vc.surveyType = kSurveyTypeAnnounce;
+        vc.url = article_url;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

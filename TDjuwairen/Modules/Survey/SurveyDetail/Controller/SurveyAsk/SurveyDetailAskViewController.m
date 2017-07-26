@@ -53,6 +53,7 @@
     
     self.askList = array;
     [self.tableView reloadData];
+    [self showNoDataView:(array.count == 0)];
     
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         CGFloat height = [self calculateTabelViewHeight];

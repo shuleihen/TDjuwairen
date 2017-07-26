@@ -9,7 +9,7 @@
 #ifndef SurveyTypeDefine_h
 #define SurveyTypeDefine_h
 
-// 股票详情调研列表数据： 1为实地、2为对话、3热点、5为深度、6为评论、7为功能、11为视频
+// 股票详情调研列表数据： 1为实地、2为对话、3热点、5为深度、6为评论、7为公告、11为视频
 typedef enum : NSUInteger {
     kSurveyTypeSpot      =1,
     kSurveyTypeDialogue  =2,

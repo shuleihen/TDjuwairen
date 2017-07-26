@@ -12,7 +12,7 @@
 @property (nonatomic, strong) NSString *stockId;
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, strong) NSString *score;
-@property (nonatomic, strong) NSString *joinGradeNum;
+@property (nonatomic, strong) NSNumber *joinGradeNum;
 @property (nonatomic, strong) NSString *orderNum;
 @property (nonatomic, strong) NSString *allCompanyNum;
 @property (nonatomic, strong) NSString *cover;

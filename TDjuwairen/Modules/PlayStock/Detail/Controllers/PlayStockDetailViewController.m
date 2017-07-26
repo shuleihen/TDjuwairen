@@ -25,6 +25,7 @@
 @interface PlayStockDetailViewController ()
 <UITableViewDelegate, UITableViewDataSource,
 StockManagerDelegate, PlayGuessViewControllerDelegate>
+@property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UILabel *stockNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *stockPriceLabel;
@@ -100,6 +101,13 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
 
 - (void)reloadViewWithGuessInfo:(PSIndividualDetailModel *)mode {
     self.individualModel = mode;
+    
+    if (mode.status == kPSGuessFinish && mode.result == kPSWinNoFinish) {
+        // 已经结束的未参与的，不显示我的最佳排名
+        self.headerView.frame = CGRectMake(0, 0, kScreenWidth, 160);
+    } else {
+        self.headerView.frame = CGRectMake(0, 0, kScreenWidth, 210);
+    }
     
     // 查询股票
     NSString *stockId = [mode.stockCode queryStockCode];

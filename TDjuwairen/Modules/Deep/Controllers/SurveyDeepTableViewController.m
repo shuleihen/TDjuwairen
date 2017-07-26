@@ -20,6 +20,7 @@
 #import "UIViewController+Refresh.h"
 #import "TDADHandler.h"
 #import "StockUnlockManager.h"
+#import "SurveyDetailWebViewController.h"
 
 @interface SurveyDeepTableViewController ()
 <SDCycleScrollViewDelegate, StockUnlockManagerDelegate>
@@ -206,7 +207,13 @@
     if (!model.isUnlock) {
         [self.unlockManager unlockDeep:model.surveyId withController:self];
     } else {
-        
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.surveyId;
+        vc.stockCode = model.stockCode;
+        vc.stockName = model.stockCode;
+        vc.surveyType = model.surveyType;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:model.surveyType];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 

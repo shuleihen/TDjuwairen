@@ -22,6 +22,7 @@
         self.deepPayType = [dict[@"deep_pay_type"] integerValue];
         self.desc = dict[@"survey_desc"];
         self.stockCode = dict[@"company_code"];
+        self.stockName = dict[@"company_name"];
         self.cover = dict[@"survey_cover"];
     }
     return self;

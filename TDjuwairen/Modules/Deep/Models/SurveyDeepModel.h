@@ -21,6 +21,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *addTime;
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *stockCode;
+@property (nonatomic, copy) NSString *stockName;
 @property (nonatomic, assign) BOOL isUnlock;
 @property (nonatomic, assign) BOOL isVisited;
 @property (nonatomic, assign) NSInteger unlockKeyNum;

@@ -42,6 +42,7 @@
             break;
         case kAliveSurvey:
         case kAliveHot:
+        case kAliveDeep:
         {
             AliveListForwardSurveyView *view = [[AliveListForwardSurveyView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
@@ -49,13 +50,15 @@
         }
             break;
         case kAliveViewpoint:
-        case kAliveVideo:{
+        case kAliveVideo:
+        {
             AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
             [view setCellData:fCellData.forwardCellData];
         }
             break;
-        case kAlivePlayStock:{
+        case kAlivePlayStock:
+        {
             AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
             [view setCellData:fCellData.forwardCellData];

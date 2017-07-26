@@ -528,6 +528,7 @@
         }
             break;
         case kAliveSurvey:
+        case kAliveDeep:
         case kAliveHot: {
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 91);
         }

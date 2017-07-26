@@ -582,16 +582,14 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         // 深度
         AliveListExtra *extra = model.extra;
         if (!extra.isUnlock) {
-            if (unlock) {
-                if (!US.isLogIn) {
-                    LoginViewController *login = [[LoginViewController alloc] init];
-                    login.hidesBottomBarWhenPushed = YES;
-                    [self.viewController.navigationController pushViewController:login animated:YES];
-                    return;
-                }
-                
-                [self.unlockManager unlockDeep:model.aliveId withController:self.viewController];
+            if (!US.isLogIn) {
+                LoginViewController *login = [[LoginViewController alloc] init];
+                login.hidesBottomBarWhenPushed = YES;
+                [self.viewController.navigationController pushViewController:login animated:YES];
+                return;
             }
+            
+            [self.unlockManager unlockDeep:model.aliveId withController:self.viewController];
         } else {
             SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
             vc.contentId = model.aliveId;

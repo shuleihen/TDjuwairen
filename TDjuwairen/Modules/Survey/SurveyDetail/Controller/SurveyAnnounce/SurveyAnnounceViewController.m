@@ -53,6 +53,7 @@
     
     self.items = array;
     [self.tableView reloadData];
+    [self showNoDataView:(array.count == 0)];
     
     [self calculateTabelViewHeight];
 }

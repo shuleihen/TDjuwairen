@@ -46,7 +46,7 @@
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="50" id="PZa-5a-IqE"/>
                                             </constraints>
-                                            <state key="normal" title="0">
+                                            <state key="normal" title="  ">
                                                 <color key="titleColor" red="0.96078431372549022" green="0.66274509803921566" blue="0.10588235294117647" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
@@ -820,7 +820,7 @@
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="44" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="0tK-HW-99b">
                                 <rect key="frame" x="0.0" y="20" width="375" height="647"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                                <view key="tableHeaderView" contentMode="scaleToFill" id="QmF-0X-Yql">
+                                <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="QmF-0X-Yql">
                                     <rect key="frame" x="0.0" y="0.0" width="375" height="210"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
@@ -987,6 +987,7 @@
                     </view>
                     <connections>
                         <outlet property="endPriceLabel" destination="9CD-fU-uzN" id="9Ee-9a-47q"/>
+                        <outlet property="headerView" destination="QmF-0X-Yql" id="7ia-PH-efv"/>
                         <outlet property="joinBtn" destination="Mgq-r2-MvE" id="i0P-d8-qLi"/>
                         <outlet property="joinLabel" destination="cKZ-vK-3K6" id="BFO-v4-uDM"/>
                         <outlet property="orderLabel" destination="njf-bu-cVX" id="T5N-Ti-3xw"/>
@@ -1203,7 +1204,7 @@
                                                 <constraint firstAttribute="width" constant="50" id="jlV-Jy-TET"/>
                                                 <constraint firstAttribute="height" constant="36" id="rz6-AQ-N2r"/>
                                             </constraints>
-                                            <state key="normal" title="0">
+                                            <state key="normal" title="  ">
                                                 <color key="titleColor" red="0.96078431369999995" green="0.66274509800000003" blue="0.1058823529" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </state>
                                             <connections>
@@ -1293,7 +1294,7 @@
                     <navigationItem key="navigationItem" title="个股竞猜" id="whi-0r-wyX"/>
                     <connections>
                         <outlet property="bottomButton" destination="bYu-GE-yX2" id="P6P-nt-tIW"/>
-                        <outlet property="keyNum" destination="nWK-vg-1aE" id="GrS-x9-0kJ"/>
+                        <outlet property="keyNumBtn" destination="nWK-vg-1aE" id="SRj-dL-Cc9"/>
                         <outlet property="messageLabel" destination="D1k-Hx-qJI" id="4f2-y4-zA4"/>
                         <outlet property="seasonDateLabel" destination="3Ad-n4-Hc4" id="ieN-SS-PT2"/>
                         <outlet property="tableView" destination="0c9-gy-c2d" id="dag-x5-Q8u"/>
