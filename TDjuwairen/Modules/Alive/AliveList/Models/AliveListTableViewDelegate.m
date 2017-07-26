@@ -322,6 +322,16 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell playStockPressed:(id)sender {
+    AliveListModel *cellModel = cell.cellData.aliveModel;
+    AliveListPlayStockExtra *extra = cellModel.extra;
+    
+    PlayStockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockDetailViewController"];
+    vc.guessId = extra.guessId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -490,8 +500,9 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     }
     
     if (model.aliveType == kAliveNormal ||
-        model.aliveType == kAlivePosts) {
-        // 图文和推单
+        model.aliveType == kAlivePosts ||
+        model.aliveType == kAlivePlayStock) {
+        // 图文、推单、玩票
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = model.aliveId;
         vc.aliveType = model.aliveType;
@@ -541,14 +552,6 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         // 广告
         AliveListAdExtra *extra = model.extra;
         [TDWebViewHandler openURL:extra.linkUrl inNav:self.viewController.navigationController];
-    } else if (model.aliveType == kAlivePlayStock) {
-        // 玩票
-        AliveListPlayStockExtra *extra = model.extra;
-        
-        PlayStockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockDetailViewController"];
-        vc.guessId = extra.guessId;
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
     } else if (model.aliveType == kAliveViewpoint) {
         // 观点
         ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:model.aliveId aliveType:model.aliveType];

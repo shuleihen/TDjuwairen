@@ -15,6 +15,7 @@
 #import "AliveListContentView.h"
 #import "AliveListBottomView.h"
 #import "AliveListHeaderView.h"
+#import "AliveListPlayStockView.h"
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
@@ -26,10 +27,11 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell commentPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell likePressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPressedWithStockCode:(NSString *)stockCode;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell playStockPressed:(id)sender;
 @end
 
 @interface AliveListTableViewCell : UITableViewCell
-<AliveListTagsViewDelegate, AliveListHeaderViewDelegate>
+<AliveListTagsViewDelegate, AliveListHeaderViewDelegate, AliveListPlayStockViewDelegate>
 
 @property (nonatomic, strong) AliveListHeaderView *aliveHeaderView;
 

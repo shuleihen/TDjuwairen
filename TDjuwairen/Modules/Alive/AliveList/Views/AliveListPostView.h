@@ -13,4 +13,6 @@
 @interface AliveListPostView : AliveListContentView
 @property (strong, nonatomic) AliveListImagesView *imagesView;
 @property (strong, nonatomic) AliveListTagsView *tagsView;
+
+@property (nonatomic,  weak) id<AliveListTagsViewDelegate> delegate;
 @end

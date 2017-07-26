@@ -102,6 +102,7 @@
                 break;
             case kAlivePlayStock: {
                 AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+                view.delegate = self;
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
@@ -149,6 +150,13 @@
 - (void)aliveListHeaderView:(AliveListHeaderView *)headerView arrowPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:arrowPressed:)]) {
         [self.delegate aliveListTableCell:self arrowPressed:sender];
+    }
+}
+
+#pragma mark - AliveListPlayStockViewDelegate
+- (void)playStockPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:playStockPressed:)]) {
+        [self.delegate aliveListTableCell:self playStockPressed:sender];
     }
 }
 

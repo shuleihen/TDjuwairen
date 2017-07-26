@@ -21,8 +21,12 @@
         _stockNameLabel.font = [UIFont systemFontOfSize:13.0f];
         _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
         _stockNameLabel.textAlignment = NSTextAlignmentLeft;
+        _stockNameLabel.userInteractionEnabled = YES;
         [self addSubview:_stockNameLabel];
      
+        UITapGestureRecognizer *nickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stockNamePressed:)];
+        [_stockNameLabel addGestureRecognizer:nickTap];
+        
         _timeLabel = [[UILabel alloc] init];
         _timeLabel.font = [UIFont systemFontOfSize:13.0f];
         _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
@@ -49,5 +53,9 @@
     self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",extra.guessTime,extra.guessSeason];
 }
 
-
+- (void)stockNamePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(playStockPressed:)]) {
+        [self.delegate playStockPressed:sender];
+    }
+}
 @end

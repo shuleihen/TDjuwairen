@@ -83,21 +83,21 @@
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     [manager GET:API_IndexDeepBanner parameters:nil completion:^(id data, NSError *error) {
         if (!error) {
-            NSArray *banners = data;
-            NSMutableArray *array = [NSMutableArray arrayWithCapacity:banners.count];
-            NSMutableArray *titles = [NSMutableArray arrayWithCapacity:banners.count];
-            NSMutableArray *urls = [NSMutableArray arrayWithCapacity:banners.count];
-            for (NSDictionary *dict in banners) {
-                TDAdvertModel *model = [[TDAdvertModel alloc] initWithDictionary:dict];
-                [array addObject:model];
-                [titles addObject:model.adTitle];
-                [urls addObject:model.adImageUrl];
+            if ([data isKindOfClass:[NSArray class]]) {
+                NSArray *banners = data;
+                NSMutableArray *array = [NSMutableArray arrayWithCapacity:banners.count];
+                NSMutableArray *titles = [NSMutableArray arrayWithCapacity:banners.count];
+                NSMutableArray *urls = [NSMutableArray arrayWithCapacity:banners.count];
+                for (NSDictionary *dict in banners) {
+                    TDAdvertModel *model = [[TDAdvertModel alloc] initWithDictionary:dict];
+                    [array addObject:model];
+                    [titles addObject:model.adTitle];
+                    [urls addObject:model.adImageUrl];
+                }
+                
+                self.bannerLinks = array;
+                self.cycleScrollView.imageURLStringsGroup = urls;
             }
-            
-            self.bannerLinks = array;
-            
-//            self.cycleScrollView.titlesGroup = titles;
-            self.cycleScrollView.imageURLStringsGroup = urls;
         } else {
             
         }
