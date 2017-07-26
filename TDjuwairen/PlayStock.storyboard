@@ -739,16 +739,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CJB-W5-vh4">
-                                        <rect key="frame" x="82.5" y="118" width="112" height="36"/>
+                                        <rect key="frame" x="0.0" y="121" width="277" height="36"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="36" id="Zsm-v8-a1j"/>
-                                            <constraint firstAttribute="width" constant="112" id="dnI-i2-XsN"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                        <state key="normal" title="确定竞猜" backgroundImage="button_enjoy">
+                                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="15"/>
+                                        <state key="normal" title="确定竞猜">
                                             <color key="titleColor" red="0.24313725490196078" green="0.062745098039215685" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                         </state>
-                                        <state key="disabled" backgroundImage="button_notenjoy"/>
                                         <connections>
                                             <action selector="guessPressed:" destination="pyp-Et-0AF" eventType="touchUpInside" id="Mwb-5X-ceA"/>
                                         </connections>
@@ -758,6 +756,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="160" id="19v-20-Xur"/>
                                     <constraint firstItem="VaP-uS-kKi" firstAttribute="leading" secondItem="fDN-42-UQW" secondAttribute="trailing" constant="10" id="6ga-ad-TnU"/>
+                                    <constraint firstItem="CJB-W5-vh4" firstAttribute="leading" secondItem="UrG-PJ-KGb" secondAttribute="leading" id="7q0-bG-SfR"/>
                                     <constraint firstItem="VaP-uS-kKi" firstAttribute="centerY" secondItem="fDN-42-UQW" secondAttribute="centerY" id="9S6-0B-X6j"/>
                                     <constraint firstItem="FHs-Mg-9Y3" firstAttribute="centerY" secondItem="5GV-Vw-2Bd" secondAttribute="centerY" id="9pB-8y-CH9"/>
                                     <constraint firstItem="VaP-uS-kKi" firstAttribute="trailing" secondItem="sc1-3m-lvr" secondAttribute="trailing" id="D5b-xO-CGg"/>
@@ -768,10 +767,11 @@
                                     <constraint firstItem="5GV-Vw-2Bd" firstAttribute="leading" secondItem="sc1-3m-lvr" secondAttribute="leading" id="TKz-qw-hlJ"/>
                                     <constraint firstItem="fDN-42-UQW" firstAttribute="leading" secondItem="FHs-Mg-9Y3" secondAttribute="trailing" constant="10" id="TNH-nn-9NG"/>
                                     <constraint firstItem="fDN-42-UQW" firstAttribute="centerY" secondItem="FHs-Mg-9Y3" secondAttribute="centerY" id="VX4-6B-vft"/>
-                                    <constraint firstItem="CJB-W5-vh4" firstAttribute="top" secondItem="FHs-Mg-9Y3" secondAttribute="bottom" constant="12" id="clX-UR-Sdb"/>
+                                    <constraint firstItem="CJB-W5-vh4" firstAttribute="top" secondItem="FHs-Mg-9Y3" secondAttribute="bottom" constant="15" id="clX-UR-Sdb"/>
                                     <constraint firstItem="CJB-W5-vh4" firstAttribute="centerX" secondItem="UrG-PJ-KGb" secondAttribute="centerX" id="fne-4H-IFA"/>
                                     <constraint firstItem="VaP-uS-kKi" firstAttribute="top" secondItem="sc1-3m-lvr" secondAttribute="bottom" constant="12" id="p5t-1R-ur6"/>
                                     <constraint firstAttribute="width" constant="277" id="ppN-Ct-xdN"/>
+                                    <constraint firstAttribute="trailing" secondItem="CJB-W5-vh4" secondAttribute="trailing" id="qrh-L0-p8f"/>
                                     <constraint firstAttribute="trailing" secondItem="sc1-3m-lvr" secondAttribute="trailing" id="rZ3-Sf-pV3"/>
                                     <constraint firstItem="o8f-9c-XO8" firstAttribute="leading" secondItem="UrG-PJ-KGb" secondAttribute="leading" id="t1D-xT-h21"/>
                                 </constraints>

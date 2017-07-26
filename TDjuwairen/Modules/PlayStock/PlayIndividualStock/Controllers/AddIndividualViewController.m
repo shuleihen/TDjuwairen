@@ -155,8 +155,10 @@
     [self.stepper.incrementButton setBackgroundImage:increase forState:UIControlStateNormal];
     [self.stepper.incrementButton setBackgroundImage:heightlight forState:UIControlStateHighlighted];
 
+    self.stepper.decrementButton.titleLabel.font = [UIFont systemFontOfSize:17.0f];
     [self.stepper.decrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.decrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+    self.stepper.incrementButton.titleLabel.font = [UIFont systemFontOfSize:17.0f];
     [self.stepper.incrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     

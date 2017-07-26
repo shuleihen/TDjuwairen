@@ -11,7 +11,7 @@
 @implementation PSIndexListModel
 - (id)initWithDict:(NSDictionary *)dict {
     if (self = [super init]) {
-        self.guessId = dict[@"guess_id"];
+        self.guessId = [NSString stringWithFormat:@"%@",dict[@"guess_id"]];
         self.type = [dict[@"guess_type"] integerValue];
         self.season = [dict[@"guess_season"] integerValue];
         self.isClosed = [dict[@"guess_isclose"] boolValue];

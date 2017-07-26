@@ -85,11 +85,14 @@
     [self.stepper.incrementButton setBackgroundImage:increase forState:UIControlStateNormal];
     [self.stepper.incrementButton setBackgroundImage:heightlight forState:UIControlStateHighlighted];
     
+    self.stepper.decrementButton.titleLabel.font = [UIFont systemFontOfSize:17.0f];
     [self.stepper.decrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.decrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
+     self.stepper.incrementButton.titleLabel.font = [UIFont systemFontOfSize:17.0f];
     [self.stepper.incrementButton setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"] forState:UIControlStateNormal];
     [self.stepper.incrementButton setTitleColor:[UIColor blackColor] forState:UIControlStateHighlighted];
     
+    // 下注选项
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(50, 50)
                               backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#1b1a1f"]
                                  borderColor:[UIColor hx_colorWithHexRGBAString:@"#ec9c1d"]
@@ -112,6 +115,19 @@
         [btn setBackgroundImage:selected forState:UIControlStateSelected];
         [btn setBackgroundImage:disable forState:UIControlStateDisabled];
     }
+    
+    // 竞猜按钮
+    UIImage *normal1 = [UIImage imageWithSize:CGSizeMake(50, 40)
+                              backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#FFAE01"]
+                                 borderColor:[UIColor hx_colorWithHexRGBAString:@"#FFAE01"]
+                                cornerRadius:4.0f];
+    
+    UIImage *disable1 = [UIImage imageWithSize:CGSizeMake(50, 40)
+                               backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#333333"]
+                                  borderColor:[UIColor hx_colorWithHexRGBAString:@"#333333"]
+                                 cornerRadius:4.0f];
+    [self.guessButton setBackgroundImage:[normal1 resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)] forState:UIControlStateNormal];
+    [self.guessButton setBackgroundImage:[disable1 resizableImageWithCapInsets:UIEdgeInsetsMake(10, 20, 10, 20)] forState:UIControlStateDisabled];
 }
 
 - (IBAction)guessPressed:(id)sender {
