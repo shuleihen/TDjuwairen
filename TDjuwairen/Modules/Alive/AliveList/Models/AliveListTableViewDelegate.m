@@ -114,7 +114,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     for (AliveListCellData *model in self.itemList) {
         if ([model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
             AliveListExtra *extra = model.aliveModel.extra;
-            if ([extra.companyCode isEqualToString:model.aliveModel.aliveId]) {
+            if ([deepId isEqualToString:model.aliveModel.aliveId]) {
                 extra.isUnlock = YES;
                 break;
             }
