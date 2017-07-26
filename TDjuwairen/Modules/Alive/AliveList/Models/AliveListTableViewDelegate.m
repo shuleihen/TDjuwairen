@@ -30,8 +30,6 @@
 #import "TDWebViewHandler.h"
 #import "PlayStockDetailViewController.h"
 
-#define kAliveListCellToolHeight 37
-#define kAliveListSectionHeaderHeight   30
 
 @interface AliveListTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource,
@@ -91,7 +89,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     CGFloat height = 0;
     
     for (AliveListCellData *model in self.itemList) {
-        height += (model.cellHeight + kAliveListCellToolHeight + 10);
+        height += (model.cellHeight + 10);
     }
     
     return height;

@@ -2311,6 +2311,8 @@
 		19386ECE1E71A2AE00D4426E /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				194E0D231EEFBE95009C7AC6 /* AliveDetailBaseViewController.h */,
+				194E0D241EEFBE95009C7AC6 /* AliveDetailBaseViewController.m */,
 				19386EE91E72485A00D4426E /* AliveDetailViewController.h */,
 				19386EEA1E72485A00D4426E /* AliveDetailViewController.m */,
 				9E6026F31E76DE6B004D1BFC /* AlivePingLunViewController.h */,
@@ -2320,8 +2322,6 @@
 				9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */,
 				194E0D201EEFBDF7009C7AC6 /* AliveDetailFooterViewController.h */,
 				194E0D211EEFBDF7009C7AC6 /* AliveDetailFooterViewController.m */,
-				194E0D231EEFBE95009C7AC6 /* AliveDetailBaseViewController.h */,
-				194E0D241EEFBE95009C7AC6 /* AliveDetailBaseViewController.m */,
 				194E0D301EEFBF98009C7AC6 /* ViewpointDetailViewController.h */,
 				194E0D311EEFBF98009C7AC6 /* ViewpointDetailViewController.m */,
 			);

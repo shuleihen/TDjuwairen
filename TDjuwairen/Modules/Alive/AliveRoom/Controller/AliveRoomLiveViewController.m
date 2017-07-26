@@ -17,7 +17,7 @@
 #import "AlivePublishViewController.h"
 #import "AliveEditMasterViewController.h"
 #import "LoginState.h"
-
+#import "UIViewController+Loading.h"
 
 @interface AliveRoomLiveViewController ()
 @property (nonatomic, strong) UITableView *tableView;
@@ -78,7 +78,12 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dict = @{@"master_id":self.masterId,@"tag":@(listType),@"page":@(self.currentPage)};
 
+    UIActivityIndicatorView *hud = [self showActivityIndicatorInView:self.view withCenter:CGPointMake(kScreenWidth/2, 40)];
+    [hud stopAnimating];
+    
     [manager GET:API_AliveGetRoomLiveList parameters:dict completion:^(id data, NSError *error){
+        
+        [hud stopAnimating];
         
         if (!error) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{

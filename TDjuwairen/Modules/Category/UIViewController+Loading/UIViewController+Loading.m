@@ -38,4 +38,13 @@ static char waveActivityIndicatorKey;
         [self.waveActivityIndicator removeFromSuperview];
     }
 }
+
+- (UIActivityIndicatorView *)showActivityIndicatorInView:(UIView *)contentView withCenter:(CGPoint)center {
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    hud.center = center;
+    [contentView addSubview:hud];
+    
+    hud.hidesWhenStopped = YES;
+    return hud;
+}
 @end

@@ -11,4 +11,6 @@
 @interface UIViewController (Loading)
 - (void)showLoadingAnimationInCenter:(CGPoint)center;
 - (void)removeLoadingAnimation;
+
+- (UIActivityIndicatorView *)showActivityIndicatorInView:(UIView *)contentView withCenter:(CGPoint)center;
 @end
