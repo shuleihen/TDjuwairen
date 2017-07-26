@@ -75,9 +75,10 @@
 - (id)initWithAliveModel:(AliveListModel *)aliveModel {
     if (self = [super init]) {
         _aliveModel = aliveModel;
-        
-        _isShowToolBar = YES;
+    
         _isShowDetailMessage = NO;
+        _isShowHeaderView = YES;
+        _isShowBottomView = YES;
     }
     return self;
 }
@@ -437,7 +438,7 @@
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
     self.bottomHeight =  kAliveListBottomHeight;
-    if (self.isShowToolBar) {
+    if (self.isShowBottomView) {
         self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
     } else {
         self.cellHeight = self.viewHeight + self.topHeaderHeight;
@@ -474,7 +475,7 @@
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
     self.bottomHeight =  kAliveListBottomHeight;
-    if (self.isShowToolBar) {
+    if (self.isShowBottomView) {
         self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
     } else {
         self.cellHeight = self.viewHeight + self.topHeaderHeight;
@@ -519,7 +520,7 @@
             
             AliveListPostCellData *pCellData = [[AliveListPostCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
-            pCellData.isShowToolBar = NO;
+            pCellData.isShowBottomView = NO;
             [pCellData setup];
             
             self.forwardCellData = pCellData;
@@ -527,9 +528,7 @@
         }
             break;
         case kAliveSurvey:
-        case kAliveHot:
-        {
-//            NSAssert(NO, @"调研和热点都不能被转发");
+        case kAliveHot: {
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 91);
         }
             break;
@@ -538,7 +537,7 @@
             
             AliveListViewpointCellData *pCellData = [[AliveListViewpointCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
-            pCellData.isShowToolBar = NO;
+            pCellData.isShowBottomView = NO;
             [pCellData setup];
             
             self.forwardCellData = pCellData;
@@ -548,7 +547,7 @@
         case kAlivePlayStock:{
             AliveListPlayStockCellData *pCellData = [[AliveListPlayStockCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
-            pCellData.isShowToolBar = NO;
+            pCellData.isShowBottomView = NO;
             [pCellData setup];
             
             self.forwardCellData = pCellData;
@@ -563,7 +562,7 @@
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = CGRectGetMaxY(self.forwardViewFrame) + 15;
     self.bottomHeight =  kAliveListBottomHeight;
-    if (self.isShowToolBar) {
+    if (self.isShowBottomView) {
         self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
     } else {
         self.cellHeight = self.viewHeight + self.topHeaderHeight;
@@ -605,7 +604,8 @@
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
     self.bottomHeight =  kAliveListBottomHeight;
-    if (self.isShowToolBar) {
+    
+    if (self.isShowBottomView) {
         self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
     } else {
         self.cellHeight = self.viewHeight + self.topHeaderHeight;
@@ -635,6 +635,9 @@
     CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
     self.topHeaderHeight = 0;
+    self.bottomHeight = 0;
+    self.isShowHeaderView = NO;
+    self.isShowBottomView = NO;
     self.cellHeight = size.height + 280;
 }
 
@@ -649,8 +652,13 @@
     AliveListModel *model = self.aliveModel;
     AliveListExtra *extra = model.extra;
     
-    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2.5f;
+    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+                           NSParagraphStyleAttributeName: style};
     
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle
+                                                                              attributes:dict];
     NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
     attatch.bounds = CGRectMake(2, -2, 17, 17);
     attatch.image = [SurveyHandler imageWithSurveyType:extra.surveyType];
@@ -660,10 +668,16 @@
     
     CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
-    CGSize descSize = [extra.surveyDesc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f]} context:nil].size;
+    
+    NSDictionary *dict2 = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                            NSParagraphStyleAttributeName: style};
+    NSAttributedString *contentAttra = [[NSAttributedString alloc] initWithString:extra.surveyDesc attributes:dict2];
+    CGSize descSize = [contentAttra boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
     self.topHeaderHeight = 0;
     self.bottomHeight = 0;
+    self.isShowHeaderView = NO;
+    self.isShowBottomView = NO;
     self.cellHeight = size.height + descSize.height + 12 + 8 + 50;
 }
 

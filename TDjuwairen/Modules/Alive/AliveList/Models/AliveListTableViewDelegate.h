@@ -28,7 +28,7 @@ typedef void(^ChangeAliveListHBlock)(CGFloat contentH);
 @property (nonatomic, assign) BOOL canEdit;
 
 // 是否显示动态下面的工具条，默认YES
-@property (nonatomic, assign) BOOL isShowToolBar;
+@property (nonatomic, assign) BOOL isShowBottomView;
 
 // 是否为直播详情页面
 @property (nonatomic, assign) BOOL isAliveDetail;

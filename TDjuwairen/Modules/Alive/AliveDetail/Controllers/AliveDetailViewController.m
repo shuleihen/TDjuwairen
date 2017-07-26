@@ -25,7 +25,7 @@
     [super viewDidLoad];
 
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
-    self.tableViewDelegate.isShowToolBar = NO;
+    self.tableViewDelegate.isShowBottomView = NO;
     self.tableViewDelegate.isAliveDetail = YES;
     
     [self loadAliveDetail];

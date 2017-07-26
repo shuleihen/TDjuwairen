@@ -14,6 +14,7 @@
 #import "AliveListTagsView.h"
 #import "AliveListContentView.h"
 #import "AliveListBottomView.h"
+#import "AliveListHeaderView.h"
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
@@ -27,12 +28,10 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPressedWithStockCode:(NSString *)stockCode;
 @end
 
-@interface AliveListTableViewCell : UITableViewCell<AliveListTagsViewDelegate>
-@property (strong, nonatomic) UIImageView *avatar;
-@property (strong, nonatomic) UILabel *nickNameLabel;
-@property (strong, nonatomic) UIImageView *officialImageView;
-@property (strong, nonatomic) UILabel *timeLabel;
-@property (strong, nonatomic) UIButton *arrowButton;
+@interface AliveListTableViewCell : UITableViewCell
+<AliveListTagsViewDelegate, AliveListHeaderViewDelegate>
+
+@property (nonatomic, strong) AliveListHeaderView *aliveHeaderView;
 
 @property (nonatomic, strong) AliveListContentView *aliveContentView;
 

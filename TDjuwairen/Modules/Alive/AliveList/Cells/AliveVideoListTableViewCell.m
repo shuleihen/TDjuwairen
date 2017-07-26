@@ -77,7 +77,7 @@
         self.stockNameLabel.textAlignment = NSTextAlignmentLeft;
         
         CGSize stockSize = [extra.deepPayTip boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
-        self.stockNameWidth.constant = stockSize.width+6;
+        self.stockNameWidth.constant = stockSize.width+10;
         
         self.stockNameLabel.text = extra.deepPayTip;
     } else {
@@ -88,7 +88,7 @@
         
         NSString *stock = [NSString stringWithFormat:@"%@(%@)",extra.companyName,extra.companyCode];
         CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
-        self.stockNameWidth.constant = stockSize.width+6;
+        self.stockNameWidth.constant = stockSize.width+10;
         self.stockNameLabel.text = stock;
     }
     

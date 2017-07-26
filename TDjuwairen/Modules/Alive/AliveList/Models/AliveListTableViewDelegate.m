@@ -63,7 +63,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         self.unlockManager.delegate = self;
 
         self.canEdit = NO;
-        self.isShowToolBar = YES;
+        self.isShowBottomView = YES;
         self.isAliveDetail = NO;
     }
     
@@ -78,7 +78,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         
         if (cellData) {
             cellData.isShowDetailMessage = self.isAliveDetail;
-            cellData.isShowToolBar = self.isShowToolBar;
+            cellData.isShowBottomView = self.isShowBottomView;
             [cellData setup];
             [cellArray addObject:cellData];
         }
@@ -351,6 +351,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         
         return cell;
     } else if (model.aliveType == kAliveHot) {
+        // 热点
         AliveListHotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListHotTableViewCellID"];
         
         return cell;

@@ -181,6 +181,7 @@
 		1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4561D644D9800DC102E /* SecondEdit.m */; };
 		1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4581D644D9800DC102E /* SelectFontView.m */; };
 		1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B45A1D644D9800DC102E /* TimeHotComView.m */; };
+		1959B9BD1F276603007017F0 /* AliveListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959B9BC1F276603007017F0 /* AliveListHeaderView.m */; };
 		1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 1961DF461DF9573200A08A4B /* NSString+Util.m */; };
 		1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A64B1E8B8995007DDA14 /* ShareViewController.m */; };
 		1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1966A64F1E8B89CB007DDA14 /* Popup.storyboard */; };
@@ -440,7 +441,6 @@
 		19F07A431F1DAA65004449BB /* SysMessageListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A421F1DAA65004449BB /* SysMessageListModel.m */; };
 		19F07A471F1DD474004449BB /* SysMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A451F1DD474004449BB /* SysMessageListCell.m */; };
 		19F07A481F1DD474004449BB /* SysMessageListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19F07A461F1DD474004449BB /* SysMessageListCell.xib */; };
-		19F07A4B1F1DDFD9004449BB /* AliveListTopView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A4A1F1DDFD9004449BB /* AliveListTopView.m */; };
 		19F07A4E1F1EFF35004449BB /* AliveListPlayStockView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */; };
 		19F07A511F1F0480004449BB /* AliveListPlayStockExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A501F1F0480004449BB /* AliveListPlayStockExtra.m */; };
 		19F07A541F1F0731004449BB /* AliveListAdExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A531F1F0731004449BB /* AliveListAdExtra.m */; };
@@ -968,6 +968,8 @@
 		1955B4581D644D9800DC102E /* SelectFontView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SelectFontView.m; sourceTree = "<group>"; };
 		1955B4591D644D9800DC102E /* TimeHotComView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TimeHotComView.h; sourceTree = "<group>"; };
 		1955B45A1D644D9800DC102E /* TimeHotComView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeHotComView.m; sourceTree = "<group>"; };
+		1959B9BB1F276603007017F0 /* AliveListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListHeaderView.h; sourceTree = "<group>"; };
+		1959B9BC1F276603007017F0 /* AliveListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListHeaderView.m; sourceTree = "<group>"; };
 		1961DF451DF9573200A08A4B /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		1961DF461DF9573200A08A4B /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		1966A64A1E8B8995007DDA14 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -1464,8 +1466,6 @@
 		19F07A441F1DD474004449BB /* SysMessageListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SysMessageListCell.h; sourceTree = "<group>"; };
 		19F07A451F1DD474004449BB /* SysMessageListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SysMessageListCell.m; sourceTree = "<group>"; };
 		19F07A461F1DD474004449BB /* SysMessageListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SysMessageListCell.xib; sourceTree = "<group>"; };
-		19F07A491F1DDFD9004449BB /* AliveListTopView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListTopView.h; sourceTree = "<group>"; };
-		19F07A4A1F1DDFD9004449BB /* AliveListTopView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListTopView.m; sourceTree = "<group>"; };
 		19F07A4C1F1EFF35004449BB /* AliveListPlayStockView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPlayStockView.h; sourceTree = "<group>"; };
 		19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPlayStockView.m; sourceTree = "<group>"; };
 		19F07A4F1F1F0480004449BB /* AliveListPlayStockExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPlayStockExtra.h; sourceTree = "<group>"; };
@@ -2972,10 +2972,10 @@
 				1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */,
 				19E58DC11EFB6E0F00ADA1B8 /* AliveListBottomView.h */,
 				19E58DC21EFB6E0F00ADA1B8 /* AliveListBottomView.m */,
-				19F07A491F1DDFD9004449BB /* AliveListTopView.h */,
-				19F07A4A1F1DDFD9004449BB /* AliveListTopView.m */,
 				19F07A4C1F1EFF35004449BB /* AliveListPlayStockView.h */,
 				19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */,
+				1959B9BB1F276603007017F0 /* AliveListHeaderView.h */,
+				1959B9BC1F276603007017F0 /* AliveListHeaderView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5407,6 +5407,7 @@
 				19E58DAE1EF8C55500ADA1B8 /* UIViewController+ZFPlayerRotation.m in Sources */,
 				1987B2801EE688F700BD852E /* SurveyAnnounceViewController.m in Sources */,
 				193419D71E782C9C00F22788 /* AliveMainListViewController.m in Sources */,
+				1959B9BD1F276603007017F0 /* AliveListHeaderView.m in Sources */,
 				19517F251EE56FA5009E24D1 /* ACActionSheet.m in Sources */,
 				4DEFF1AD1ED7DAE3004E3267 /* AliveSearchStockCell.m in Sources */,
 				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
@@ -5616,7 +5617,6 @@
 				9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
 				19194CCC1E7FACC400641085 /* UIViewController+Login.m in Sources */,
-				19F07A4B1F1DDFD9004449BB /* AliveListTopView.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
 				19959B891E2C694A00AB26DF /* GradeHeaderView.m in Sources */,
 				1987B2861EE688F700BD852E /* AnsPublishViewController.m in Sources */,

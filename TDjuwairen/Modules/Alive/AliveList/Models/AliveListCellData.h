@@ -35,8 +35,11 @@
 // 是否全部显示标题，默认显示5行以为
 @property (nonatomic, assign) BOOL isShowDetailMessage;
 
-// 是否显示底部工具条
-@property (nonatomic, assign) BOOL isShowToolBar;
+// 是否显示表头，默认YES
+@property (nonatomic, assign) BOOL isShowHeaderView;
+
+// 是否显示底部工具条，默认YES
+@property (nonatomic, assign) BOOL isShowBottomView;
 
 - (id)initWithAliveModel:(AliveListModel *)aliveModel;
 - (void)setup;

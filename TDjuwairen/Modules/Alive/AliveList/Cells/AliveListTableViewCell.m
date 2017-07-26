@@ -19,48 +19,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
-                
-        _avatar = [[UIImageView alloc] initWithFrame:CGRectMake(12, 12, 40, 40)];
-        _avatar.layer.cornerRadius = 20.0f;
-        _avatar.clipsToBounds = YES;
-        _avatar.userInteractionEnabled = YES;
-        [self.contentView addSubview:_avatar];
-        
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
-        [_avatar addGestureRecognizer:tap];
-        
-        _nickNameLabel = [[UILabel alloc] initWithFrame:CGRectZero];
-        _nickNameLabel.font = [UIFont systemFontOfSize:16.0f];
-        _nickNameLabel.textAlignment = NSTextAlignmentLeft;
-        _nickNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
-        _nickNameLabel.userInteractionEnabled = YES;
-        [self.contentView addSubview:_nickNameLabel];
-        
-        UITapGestureRecognizer *nickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(avatarPressed:)];
-        [_nickNameLabel addGestureRecognizer:nickTap];
-        
-        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(62, 36, 80, 12)];
-        _timeLabel.font = [UIFont systemFontOfSize:12.0f];
-        _timeLabel.textAlignment = NSTextAlignmentLeft;
-        _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
-        [self.contentView addSubview:_timeLabel];
-        
-        _officialImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_official.png"]];
-        _officialImageView.hidden = YES;
-        [self.contentView addSubview:_officialImageView];
-        
-        
-        _arrowButton = [[UIButton alloc] init];
-        [_arrowButton setImage:[UIImage imageNamed:@"icon_arrow_down.png"] forState:UIControlStateNormal];
-        _arrowButton.frame = CGRectMake(kScreenWidth-42, 12, 30, 30);
-        [_arrowButton addTarget:self action:@selector(arrowPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_arrowButton];
-        
-        _aliveBottomView = [[AliveListBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 37)];
-        [_aliveBottomView.shareBtn addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_aliveBottomView.commentBtn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
-        [_aliveBottomView.likeBtn addTarget:self action:@selector(likePressed:) forControlEvents:UIControlEventTouchUpInside];
-        [self.contentView addSubview:_aliveBottomView];
+
     }
     return self;
 }
@@ -71,7 +30,31 @@
     }
     
     _aliveContentView = aliveContentView;
-    [self.contentView addSubview:aliveContentView];
+    
+    if (aliveContentView) {
+        [self.contentView addSubview:aliveContentView];
+    }
+}
+
+- (AliveListHeaderView *)aliveHeaderView {
+    if (!_aliveHeaderView) {
+        _aliveHeaderView = [[AliveListHeaderView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.cellData.topHeaderHeight)];
+        _aliveHeaderView.delegate = self;
+        
+        [self.contentView addSubview:_aliveHeaderView];
+    }
+    return _aliveHeaderView;
+}
+
+- (AliveListBottomView *)aliveBottomView {
+    if (!_aliveBottomView) {
+        _aliveBottomView = [[AliveListBottomView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, self.cellData.bottomHeight)];
+        [_aliveBottomView.shareBtn addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_aliveBottomView.commentBtn addTarget:self action:@selector(commentPressed:) forControlEvents:UIControlEventTouchUpInside];
+        [_aliveBottomView.likeBtn addTarget:self action:@selector(likePressed:) forControlEvents:UIControlEventTouchUpInside];
+        [self.contentView addSubview:_aliveBottomView];
+    }
+    return _aliveBottomView;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -85,27 +68,13 @@
     self.cellData = cellData;
     AliveListModel *aliveModel = cellData.aliveModel;
     
-    // 头像
-    [self.avatar sd_setImageWithURL:[NSURL URLWithString:aliveModel.masterAvatar] placeholderImage:TDDefaultUserAvatar];
-    
-    // 昵称
-    self.nickNameLabel.text = aliveModel.masterNickName;
-    CGSize nickNameSize = [self.nickNameLabel sizeThatFits:CGSizeMake(kScreenWidth-12-64, 18)];
-    self.nickNameLabel.frame = CGRectMake(62, 14, nickNameSize.width, 18);
-    
-    // 官方认证标示
-    if (aliveModel.isOfficial) {
-        self.officialImageView.frame = CGRectMake(62+nickNameSize.width+5, 15, 16, 16);
-        self.officialImageView.hidden = NO;
+    // 表头
+    if (cellData.isShowHeaderView) {
+        self.aliveHeaderView.hidden = NO;
+        self.aliveHeaderView.aliveModel = aliveModel;
     } else {
-        self.officialImageView.hidden = YES;
+        self.aliveHeaderView.hidden = YES;
     }
-    
-    // 直播动态时间
-    self.timeLabel.text = aliveModel.aliveTime;
-    
-    // 收藏不显示下拉按钮
-    self.arrowButton.hidden = aliveModel.isCollection;
     
     // 动态内容
     if (aliveModel.isForward) {
@@ -143,7 +112,7 @@
     }
     
     // 底部工具条
-    if (cellData.isShowToolBar) {
+    if (cellData.isShowBottomView) {
         self.aliveBottomView.hidden = NO;
         self.aliveBottomView.frame = CGRectMake(0, cellData.topHeaderHeight+cellData.viewHeight, kScreenWidth, cellData.bottomHeight);
         
@@ -170,6 +139,18 @@
     }
 }
 
+#pragma mark - AliveListHeaderViewDelegate
+- (void)aliveListHeaderView:(AliveListHeaderView *)headerView avatarPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:avatarPressed:)]) {
+        [self.delegate aliveListTableCell:self avatarPressed:sender];
+    }
+}
+
+- (void)aliveListHeaderView:(AliveListHeaderView *)headerView arrowPressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:arrowPressed:)]) {
+        [self.delegate aliveListTableCell:self arrowPressed:sender];
+    }
+}
 
 - (void)forwardMsgPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardMsgPressed:)]) {

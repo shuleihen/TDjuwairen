@@ -14,6 +14,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.stockNameLabel.layer.borderWidth = 1.0f;
+    self.stockNameLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -24,8 +27,16 @@
 
 
 - (void)setupAliveModel:(AliveListModel *)model {
-    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"]}];
     AliveListExtra *extra = model.extra;
+    
+    NSMutableParagraphStyle *style = [[NSMutableParagraphStyle alloc] init];
+    style.lineSpacing = 2.5f;
+    NSDictionary *dict = @{NSFontAttributeName : [UIFont systemFontOfSize:17.0f],
+                           NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#333333"],
+                           NSParagraphStyleAttributeName: style};
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.aliveTitle
+                                                                              attributes:dict];
     
     UIImage *image = [SurveyHandler imageWithSurveyType:extra.surveyType];
     if (image) {
@@ -46,16 +57,20 @@
         [attri appendAttributedString:lock];
     }
     
-    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
+//    CGSize size = [attri boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin context:nil].size;
     
-    self.titleHeight.constant = size.height+2;
+//    self.titleHeight.constant = size.height+2;
     self.titleLabel.attributedText = attri;
     
-    self.contentLabel.text = extra.surveyDesc;
+    NSDictionary *dict2 = @{NSFontAttributeName : [UIFont systemFontOfSize:14.0f],
+                           NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#999999"],
+                           NSParagraphStyleAttributeName: style};
+    NSAttributedString *contentAttra = [[NSAttributedString alloc] initWithString:extra.surveyDesc attributes:dict2];
+    self.contentLabel.attributedText = contentAttra;
     
     NSString *stock = [NSString stringWithFormat:@"%@(%@)",extra.companyName,extra.companyCode];
     CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
-    self.stockNameWidth.constant = stockSize.width+6;
+    self.stockNameWidth.constant = stockSize.width+10;
     self.stockNameLabel.text = stock;
     
     self.dateTimeLabel.text = model.aliveTime;

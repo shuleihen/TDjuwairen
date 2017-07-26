@@ -253,7 +253,7 @@
                             for (AliveListModel *model in marray) {
                                 AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
                                 cellData.isShowDetailMessage = NO;
-                                cellData.isShowToolBar = NO;
+                                cellData.isShowBottomView = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -281,7 +281,7 @@
                             for (AliveListModel *model in marray) {
                                 AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
                                 cellData.isShowDetailMessage = NO;
-                                cellData.isShowToolBar = NO;
+                                cellData.isShowBottomView = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -310,7 +310,7 @@
                             for (AliveListModel *model in marray) {
                                 AliveListCellData *cellData = [AliveListCellData cellDataWithAliveModel:model];
                                 cellData.isShowDetailMessage = NO;
-                                cellData.isShowToolBar = NO;
+                                cellData.isShowBottomView = NO;
                                 [cellData setup];
                                 [cellArray addObject:cellData];
                             }
@@ -477,7 +477,7 @@
         AliveListCellData *model = self.searchResultData.items[indexPath.section];
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
         [cell setupAliveListCellData:model];
-        cell.arrowButton.hidden = YES;
+        cell.aliveHeaderView.arrowButton.hidden = YES;
         cell.tag = indexPath.section;
         return cell;
     }else {
