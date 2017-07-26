@@ -229,6 +229,7 @@
 
 - (void)vipPressed:(id)sender {
     TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+    vc.isVipRecharge = YES;
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }

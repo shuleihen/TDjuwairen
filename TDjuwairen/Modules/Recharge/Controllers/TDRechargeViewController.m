@@ -111,7 +111,12 @@
     self.tableView.tableFooterView = bottom;
     
     // 默认选择第一个
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    if (self.isVipRecharge) {
+        // vip 是最后一个
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:(array.count-1) inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    } else {
+        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
+    }
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{

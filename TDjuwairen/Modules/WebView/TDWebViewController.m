@@ -94,6 +94,7 @@
     if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"] ||
         [message.name isEqualToString:@"com_jwr_rechargevip"]) {
         TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
+        vc.isVipRecharge = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
