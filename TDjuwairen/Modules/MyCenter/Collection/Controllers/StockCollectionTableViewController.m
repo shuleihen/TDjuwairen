@@ -17,6 +17,7 @@
 #import "SurveyDetailWebViewController.h"
 #import "VideoDetailViewController.h"
 #import "MBProgressHUD.h"
+#import "UIViewController+NoData.h"
 
 @interface StockCollectionTableViewController ()
 @property (nonatomic, assign) NSInteger currentPage;
@@ -34,6 +35,8 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
+    
+    [self setupNoDataImage:[UIImage imageNamed:@"no_result.png"] message:@"您还没有过收藏"];
     
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
     
@@ -114,8 +117,8 @@
                     }
                     
                     [wself removeLoadingAnimation];
-                    
                     [wself.tableView reloadData];
+                    [wself showNoDataView:(wself.itemList.count == 0)];
                     
                     if (scrollToTop) {
                         [wself.tableView scrollRectToVisible:CGRectMake(0, 0, kScreenWidth, 1) animated:YES];

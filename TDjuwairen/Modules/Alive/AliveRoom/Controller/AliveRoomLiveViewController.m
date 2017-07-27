@@ -18,6 +18,7 @@
 #import "AliveEditMasterViewController.h"
 #import "LoginState.h"
 #import "UIViewController+Loading.h"
+#import "UIViewController+NoData.h"
 
 @interface AliveRoomLiveViewController ()
 @property (nonatomic, strong) UITableView *tableView;
@@ -46,9 +47,9 @@
     [super viewDidLoad];
     [self.view addSubview:self.tableView];
     
-    __weak AliveRoomLiveViewController *wself = self;
-//    BOOL isMaster = [self.masterId isEqualToString:US.userId];
+    [self setupNoDataImage:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
     
+    __weak AliveRoomLiveViewController *wself = self;
     self.tableViewDelegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
     self.tableViewDelegate.avatarPressedEnabled = NO;
     self.tableViewDelegate.reloadView = ^{
@@ -79,7 +80,7 @@
     NSDictionary *dict = @{@"master_id":self.masterId,@"tag":@(listType),@"page":@(self.currentPage)};
 
     UIActivityIndicatorView *hud = [self showActivityIndicatorInView:self.view withCenter:CGPointMake(kScreenWidth/2, 40)];
-    [hud stopAnimating];
+    [hud startAnimating];
     
     [manager GET:API_AliveGetRoomLiveList parameters:dict completion:^(id data, NSError *error){
         
@@ -116,9 +117,11 @@
                 
                 [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
                 
+                
                 dispatch_async(dispatch_get_main_queue(), ^{
                     
                     [wself.tableView reloadData];
+                    [wself showNoDataView:(wself.aliveList.count == 0)];
                     
                     [wself reloadTableView];
                     

@@ -329,8 +329,8 @@
     
     self.messageLabel.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101114"];
     self.messageLabel.attributedText = attributeString;
-    self.messageLabel.font = [UIFont systemFontOfSize:12.0f];
-    self.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
+//    self.messageLabel.font = [UIFont systemFontOfSize:12.0f];
+//    self.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
     
     self.seasonDateLabel.text = model.guess_date;
     

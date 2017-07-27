@@ -182,6 +182,8 @@
 		1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B4581D644D9800DC102E /* SelectFontView.m */; };
 		1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1955B45A1D644D9800DC102E /* TimeHotComView.m */; };
 		1959B9BD1F276603007017F0 /* AliveListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959B9BC1F276603007017F0 /* AliveListHeaderView.m */; };
+		1959D45C1F29B8B5002B969A /* YXNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D45B1F29B8B5002B969A /* YXNoDataView.m */; };
+		1959D4601F29BCDE002B969A /* UIViewController+NoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D45F1F29BCDE002B969A /* UIViewController+NoData.m */; };
 		1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 1961DF461DF9573200A08A4B /* NSString+Util.m */; };
 		1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A64B1E8B8995007DDA14 /* ShareViewController.m */; };
 		1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1966A64F1E8B89CB007DDA14 /* Popup.storyboard */; };
@@ -970,6 +972,10 @@
 		1955B45A1D644D9800DC102E /* TimeHotComView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TimeHotComView.m; sourceTree = "<group>"; };
 		1959B9BB1F276603007017F0 /* AliveListHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListHeaderView.h; sourceTree = "<group>"; };
 		1959B9BC1F276603007017F0 /* AliveListHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListHeaderView.m; sourceTree = "<group>"; };
+		1959D45A1F29B8B5002B969A /* YXNoDataView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXNoDataView.h; sourceTree = "<group>"; };
+		1959D45B1F29B8B5002B969A /* YXNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXNoDataView.m; sourceTree = "<group>"; };
+		1959D45E1F29BCDE002B969A /* UIViewController+NoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NoData.h"; sourceTree = "<group>"; };
+		1959D45F1F29BCDE002B969A /* UIViewController+NoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NoData.m"; sourceTree = "<group>"; };
 		1961DF451DF9573200A08A4B /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		1961DF461DF9573200A08A4B /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		1966A64A1E8B8995007DDA14 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -2103,6 +2109,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				1959D45D1F29BCCF002B969A /* UIViewController+NoData */,
 				19F079FB1F18D7D0004449BB /* UILabel+StockCode */,
 				19475C561EA497B500F749E6 /* SKProduct+LocalizedPrice */,
 				1966A6621E8BD898007DDA14 /* UIButton+LikeAnimation */,
@@ -3190,6 +3197,24 @@
 				842D58031D893BB3006385CB /* CompanySelTableView.m */,
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		1959D4591F29B8A3002B969A /* YXNoDataView */ = {
+			isa = PBXGroup;
+			children = (
+				1959D45A1F29B8B5002B969A /* YXNoDataView.h */,
+				1959D45B1F29B8B5002B969A /* YXNoDataView.m */,
+			);
+			path = YXNoDataView;
+			sourceTree = "<group>";
+		};
+		1959D45D1F29BCCF002B969A /* UIViewController+NoData */ = {
+			isa = PBXGroup;
+			children = (
+				1959D45E1F29BCDE002B969A /* UIViewController+NoData.h */,
+				1959D45F1F29BCDE002B969A /* UIViewController+NoData.m */,
+			);
+			path = "UIViewController+NoData";
 			sourceTree = "<group>";
 		};
 		1966A6521E8BB81C007DDA14 /* DYRefresh */ = {
@@ -4932,6 +4957,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				1959D4591F29B8A3002B969A /* YXNoDataView */,
 				19F07A161F1D9FDD004449BB /* XHLaunchAd */,
 				19F07A0A1F1B7BD0004449BB /* SGAdvertScrollView */,
 				19ED17561F17759500EC89DF /* CBAutoScrollLabel */,
@@ -5398,6 +5424,7 @@
 				9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */,
 				19959B911E2C93A800AB26DF /* GradeCommentModel.m in Sources */,
 				19AF98331E26234D0097A585 /* NoResultView.m in Sources */,
+				1959D4601F29BCDE002B969A /* UIViewController+NoData.m in Sources */,
 				19386EE81E72432B00D4426E /* AliveListTableViewDelegate.m in Sources */,
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
@@ -5532,6 +5559,7 @@
 				19F07A541F1F0731004449BB /* AliveListAdExtra.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
+				1959D45C1F29B8B5002B969A /* YXNoDataView.m in Sources */,
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
