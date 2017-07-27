@@ -28,6 +28,8 @@
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell likePressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPressedWithStockCode:(NSString *)stockCode;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell playStockPressed:(id)sender;
+- (void)aliveListTableCellIndexPath:(NSIndexPath *)indexPath closePressed:(id)sender;
+
 @end
 
 @interface AliveListTableViewCell : UITableViewCell

@@ -332,6 +332,10 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
 
+- (void)aliveListTableCellIndexPath:(NSIndexPath *)indexPath closePressed:(id)sender {
+    [self deleteADWithIndexPath:indexPath];
+}
+
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -356,6 +360,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     } else if (model.aliveType == kAliveAd) {
         // 广告 AliveListAdTableViewCell
         AliveListAdTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListAdTableViewCellID"];
+        cell.delegate = self;
+        cell.indexPath = indexPath;
         
         return cell;
     } else if (model.aliveType == kAliveHot) {
@@ -446,7 +452,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         [self cancelEditWithIndexPath:indexPath];
     }];
     UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-        [self deleteWithIndexPath:indexPath];
+        [self deleteCollectionWithIndexPath:indexPath];
     }];
     [alert addAction:cancel];
     [alert addAction:done];
@@ -460,7 +466,20 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [self.tableView endUpdates];
 }
 
-- (void)deleteWithIndexPath:(NSIndexPath *)indexPath {
+#pragma mark - Collection
+- (void)deleteADWithIndexPath:(NSIndexPath *)indexPath {
+    
+    AliveListCellData *model = self.itemList[indexPath.section];
+    NSDictionary *dict = @{@"alive_id": model.aliveModel.aliveId};
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_AliveClosedAD parameters:dict completion:^(id data, NSError *error){
+        [self deleteSuccessedWithIndexPath:indexPath];
+    }];
+}
+
+#pragma mark - Close AD
+- (void)deleteCollectionWithIndexPath:(NSIndexPath *)indexPath {
     
     AliveListCellData *model = self.itemList[indexPath.section];
     NSDictionary *dict = @{@"collect_id": model.aliveModel.collectedId};

@@ -8,10 +8,14 @@
 
 #import <UIKit/UIKit.h>
 #import "AliveListModel.h"
+#import "AliveListTableViewCell.h"
 
 @interface AliveListAdTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *adImageView;
+
+@property (nonatomic, weak) id<AliveListTableCellDelegate> delegate;
+@property (nonatomic, strong) NSIndexPath *indexPath;
 
 - (void)setupAliveModel:(AliveListModel *)model;
 @end

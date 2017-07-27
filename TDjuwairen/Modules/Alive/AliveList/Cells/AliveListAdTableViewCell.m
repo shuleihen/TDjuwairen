@@ -29,5 +29,8 @@
 
 
 - (IBAction)closePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCellIndexPath:closePressed:)]) {
+        [self.delegate aliveListTableCellIndexPath:self.indexPath closePressed:sender];
+    }
 }
 @end

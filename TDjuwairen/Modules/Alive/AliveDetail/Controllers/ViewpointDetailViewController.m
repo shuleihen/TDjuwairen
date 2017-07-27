@@ -190,22 +190,39 @@
 }
 
 - (void)arrowPressed:(id)sender {
-    if (self.viewModel.view_isAtten == YES) {
-        ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"取消关注" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
-            if (index == 0) {
-                
-            }
-        }];
-        [sheet show];
-        
-    } else if (self.viewModel.view_isAtten == NO){
-        ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"添加关注" otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
-            if (index == 0) {
-                
-            }
-        }];
-        [sheet show];
+    
+    NSDictionary *dic,*showDict;
+    
+    if (self.viewModel.view_isAtten) {
+        showDict = @{@"showMess1":@"取消关注",@"showMess2":@"取消成功",@"showMess3":@"取消失败",@"apiStr":API_AliveDelAttention,@"changeValue":@0};
+
+    }else {
+        showDict = @{@"showMess1":@"添加关注",@"showMess2":@"关注成功",@"showMess3":@"关注失败",@"apiStr":API_AliveAddAttention,@"changeValue":@1};
     }
+    dic = @{@"user_id": self.viewModel.view_userid};
+    
+    __weak typeof(self)weakSelf = self;
+    
+    ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:showDict[@"showMess1"] otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
+        if (index == 0) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            hud.labelText = showDict[@"showMess1"];
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            
+            [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
+                if (!error) {
+                    hud.labelText =showDict[@"showMess2"];
+                    [hud hide:YES afterDelay:0.2];
+                    weakSelf.viewModel.view_isAtten = [showDict[@"changeValue"] boolValue];
+                } else {
+                    hud.labelText = showDict[@"showMess3"];
+                    [hud hide:YES afterDelay:0.2];
+                    weakSelf.viewModel.view_isAtten = [showDict[@"changeValue"] boolValue];
+                }
+            }];
+        }
+    }];
+    [sheet show];
 }
 
 #pragma mark - UITableView Data
