@@ -319,8 +319,16 @@
     [self.bottomButton setTitle:[NSString stringWithFormat:@"评论(%@)",self.guessModel.guess_comment_count] forState:UIControlStateNormal];
     
     NSString *mesage = [model.guess_message componentsJoinedByString:@"   "];
+    
+    NSData *data=[mesage dataUsingEncoding:NSUnicodeStringEncoding];
+    NSDictionary *optoins=@{NSDocumentTypeDocumentAttribute:NSHTMLTextDocumentType};
+    NSAttributedString *attributeString=[[NSAttributedString alloc] initWithData:data
+                                                                         options:optoins
+                                                              documentAttributes:nil
+                                                                           error:nil];
+    
     self.messageLabel.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#101114"];
-    self.messageLabel.text = mesage;
+    self.messageLabel.attributedText = attributeString;
     self.messageLabel.font = [UIFont systemFontOfSize:12.0f];
     self.messageLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"3F3F3F"];
     

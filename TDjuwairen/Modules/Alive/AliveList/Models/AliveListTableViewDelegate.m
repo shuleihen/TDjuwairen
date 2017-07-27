@@ -29,6 +29,7 @@
 #import "AliveListHotTableViewCell.h"
 #import "TDWebViewHandler.h"
 #import "PlayStockDetailViewController.h"
+#import "UIViewController+Login.h"
 
 
 @interface AliveListTableViewDelegate ()
@@ -205,15 +206,13 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [self didSelectedWithAliveModel:model withUnlock:NO];
 }
 
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender;
-{
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender {
     
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
         [self.viewController.navigationController pushViewController:login animated:YES];
         return;
     }
-    
     
     __weak AliveListTableViewDelegate *wself = self;
     UIButton *shareBtn = (UIButton *)sender;
@@ -252,8 +251,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell commentPressed:(id)sender;
 {
     if (!US.isLogIn) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        [self.viewController.navigationController pushViewController:login animated:YES];
+        [self.viewController pushLoginViewController];
         return;
     }
     
