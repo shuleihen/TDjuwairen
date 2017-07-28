@@ -16,7 +16,7 @@
 #import "NSString+Util.h"
 #import "TDWebViewController.h"
 #import "UIView+Toast.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "UIView+Border.h"
 
 @interface OpenAnAccountController ()<YXSecurityCodeButtonDelegate,UIScrollViewDelegate>

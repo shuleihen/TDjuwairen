@@ -9,7 +9,7 @@
 #import "MyGuessViewController.h"
 #import "HexColors.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "IndexStockRecordModel.h"
 #import "MyGuessCell.h"
 #import "AddAddressViewController.h"

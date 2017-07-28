@@ -9,7 +9,7 @@
 #import "SurveyDetailStockCommentViewController.h"
 #import "NetworkManager.h"
 #import "StockCommentModel.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NiuxiongTableViewCell.h"
 #import "NiuxiongSectionHeaderView.h"
 #import "LoginViewController.h"

@@ -7,7 +7,7 @@
 //
 
 #import "MobileLoginViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 #import "HexColors.h"
 #import "YXTextFieldPanel.h"

@@ -7,9 +7,9 @@
 //
 
 #import "SettingViewController.h"
-#import "PushSwitchViewController.h"
+#import "PushSettingViewController.h"
 #import "FeedbackViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NotificationDef.h"
 #import "SDImageCache.h"
 #import "MBProgressHUD.h"
@@ -102,13 +102,7 @@
         
         NSArray *array = self.titleArr[indexPath.section];
         NSString *title = array[indexPath.row];
-        
-//        NSArray *images = self.imgArr[indexPath.section];
-//        NSString *imageName = images[indexPath.row];
-        
-//        cell.imageView.image = [UIImage imageNamed:imageName];
         cell.textLabel.text = title;
-        
         
         if (indexPath.row == 2) {
             cell.detailTextLabel.text = self.clearString;
@@ -120,15 +114,15 @@
     }
     else
     {
-        NSString *identifier = @"cell";
+        NSString *identifier = @"ExitCellID";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            
+            cell.textLabel.text = @"退出登录";
+            cell.textLabel.textAlignment = NSTextAlignmentCenter;
+            cell.textLabel.textColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
         }
-        cell.textLabel.text = @"退出登录";
-        cell.textLabel.textAlignment = NSTextAlignmentCenter;
-        
-        cell.textLabel.textColor = [UIColor colorWithRed:33/255.0 green:107/255.0 blue:174/255.0 alpha:1.0];
         
         return cell;
     }
@@ -142,68 +136,75 @@
             AccouontManagerViewController *vc = [[UIStoryboard storyboardWithName:@"AccountManager" bundle:nil] instantiateViewControllerWithIdentifier:@"AccouontManagerViewController"];
             [self.navigationController pushViewController:vc animated:YES];
         } else if (indexPath.row == 1) {
-            PushSwitchViewController *SwitchView = [[PushSwitchViewController alloc]init];
+            PushSettingViewController *SwitchView = [[PushSettingViewController alloc]init];
             [self.navigationController pushViewController:SwitchView animated:YES];
         }
         else
         {
-            UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否清除缓存？" preferredStyle:UIAlertControllerStyleActionSheet];
-            [alert addAction:[UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.labelText = @"正在清除...";
-                for (NSString *path in self.cachePathArr) {
-                    //建立文件管理类
-                    NSFileManager *manager=[NSFileManager defaultManager];
-                    NSString *name;
-                    NSDirectoryEnumerator *directoryEnumerator= [manager enumeratorAtPath:path];
-                    //遍历目录
-                    while (name = [directoryEnumerator nextObject]) {
-                        NSString *newPath = [NSString stringWithFormat:@"%@/%@",path,name];
-                        //执行删除沙盒目录里的图片
-                        [manager removeItemAtPath:newPath error:nil];
-                    }
-                    //清除缓存
-                    [[SDImageCache sharedImageCache] clearDisk];
-                }
-                UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-                cell.detailTextLabel.text = @"0.00M";
-                hud.labelText = @"清除完成";
-                [self setupClearString];
-                [hud hide:YES afterDelay:1];
-                [self.tableview reloadData];
-            }]];
-            [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-            [self presentViewController:alert animated:YES completion:nil];
-            
+            [self clearCache];
         }
     } else if (indexPath.section == 1) {
         FeedbackViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateViewControllerWithIdentifier:@"FeedbackViewController"];
         [self.navigationController pushViewController:vc animated:YES];
     } else {
-        UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录？" preferredStyle:UIAlertControllerStyleActionSheet];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            US.isLogIn=NO;
-            US.userName=nil;
-            US.headImage=nil;
-            US.userId=nil;
-            
-            NSUserDefaults*Defaults=[NSUserDefaults standardUserDefaults];
-            [Defaults setValue:@"" forKey:@"loginStyle"];
-            [Defaults setValue:@"" forKey:@"account"];
-            [Defaults setValue:@"" forKey:@"password"];
-            [Defaults setValue:@"" forKey:@"openid"];
-            [Defaults setValue:@"" forKey:@"unionid"];
-            [Defaults setValue:@"" forKey:@"unique_str"];
-            [Defaults synchronize];
-            [self.navigationController popViewControllerAnimated:YES];
-            
-            [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
-        }]];
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        [self exit];
     }
 }
 
+- (void)clearCache {
+    UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否清除缓存？" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = @"正在清除...";
+        for (NSString *path in self.cachePathArr) {
+            //建立文件管理类
+            NSFileManager *manager=[NSFileManager defaultManager];
+            NSString *name;
+            NSDirectoryEnumerator *directoryEnumerator= [manager enumeratorAtPath:path];
+            //遍历目录
+            while (name = [directoryEnumerator nextObject]) {
+                NSString *newPath = [NSString stringWithFormat:@"%@/%@",path,name];
+                //执行删除沙盒目录里的图片
+                [manager removeItemAtPath:newPath error:nil];
+            }
+            //清除缓存
+            [[SDImageCache sharedImageCache] clearDisk];
+        }
+        
+        UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
+        cell.detailTextLabel.text = @"0.00M";
+        hud.labelText = @"清除完成";
+        [self setupClearString];
+        [hud hide:YES afterDelay:1];
+        [self.tableview reloadData];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+- (void)exit {
+    UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否退出登录？" preferredStyle:UIAlertControllerStyleActionSheet];
+    [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        
+        US.isLogIn=NO;
+        US.userName=nil;
+        US.headImage=nil;
+        US.userId=nil;
+        
+        NSUserDefaults*Defaults=[NSUserDefaults standardUserDefaults];
+        [Defaults setValue:@"" forKey:@"loginStyle"];
+        [Defaults setValue:@"" forKey:@"account"];
+        [Defaults setValue:@"" forKey:@"password"];
+        [Defaults setValue:@"" forKey:@"openid"];
+        [Defaults setValue:@"" forKey:@"unionid"];
+        [Defaults setValue:@"" forKey:@"unique_str"];
+        [Defaults synchronize];
+        [self.navigationController popViewControllerAnimated:YES];
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
+    }]];
+    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 @end

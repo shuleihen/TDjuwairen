@@ -8,7 +8,7 @@
 
 #import "RechargeChooseViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "STPopup.h"
 #import "WXApi.h"
 

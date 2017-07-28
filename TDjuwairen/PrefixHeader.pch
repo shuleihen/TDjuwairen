@@ -15,7 +15,7 @@
 #import "Tool.h"
 #import "NotificationDef.h"
 #import "LoginViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LocalSetting.h"
 
 #endif /* PrefixHeader_pch */

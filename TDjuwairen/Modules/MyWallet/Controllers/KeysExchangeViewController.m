@@ -13,7 +13,7 @@
 #import "PopupExchangeView.h"
 #import "PopUsExchangeSuccessView.h"
 #import "AwardViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 
 @interface KeysExchangeViewController ()<UITableViewDelegate,UITableViewDataSource,ExchangeTableViewCellDelegate,PopupExchangeViewDelegate,PopUsExchangeSuccessViewDelegate>

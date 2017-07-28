@@ -1,24 +1,24 @@
 //
-//  PushSwitchViewController.m
+//  PushSettingViewController.m
 //  TDjuwairen
 //
 //  Created by 团大 on 16/9/13.
 //  Copyright © 2016年 团大网络科技. All rights reserved.
 //
 
-#import "PushSwitchViewController.h"
-#import "LoginState.h"
+#import "PushSettingViewController.h"
+#import "LoginStateManager.h"
 #import "LoginHandler.h"
 #import "RemoteSettingController.h"
 
 
-@interface PushSwitchViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PushSettingViewController ()<UITableViewDelegate,UITableViewDataSource>
 
-@property (nonatomic,strong) UITableView *tableview;
+@property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) NSArray *titleArr;
 @end
 
-@implementation PushSwitchViewController
+@implementation PushSettingViewController
 
 - (NSArray *)titleArr
 {
@@ -31,10 +31,9 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = TDViewBackgrouondColor;
+    
     [self setupWithNavigation];
     [self setupWithTableView];
-    
-    
 }
 
 - (void)setupWithNavigation{
@@ -42,12 +41,12 @@
 }
 
 - (void)setupWithTableView{
-    self.tableview = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStylePlain];
-    self.tableview.backgroundColor = [UIColor clearColor];
-    self.tableview.tableFooterView = [UIView new];
-    self.tableview.delegate = self;
-    self.tableview.dataSource = self;
-    [self.view addSubview:self.tableview];
+    self.tableView = [[UITableView alloc]initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64) style:UITableViewStyleGrouped];
+    self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.tableFooterView = [UIView new];
+    self.tableView.delegate = self;
+    self.tableView.dataSource = self;
+    [self.view addSubview:self.tableView];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -64,45 +63,45 @@
 {
     
     if (indexPath.section == 0) {
-        NSString *identifier = @"PushSettingCell";
+        NSString *identifier = @"PushSettingsCellID";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
             
             UISwitch *myswitch = [[UISwitch alloc]initWithFrame:CGRectZero];
             myswitch.tag = indexPath.row;
             [myswitch addTarget:self action:@selector(switchAction:) forControlEvents:UIControlEventValueChanged];
+            
             BOOL isClosePush = NO;
             if (indexPath.row == 0) {
-                /// 响铃
+                // 响铃
                 isClosePush = [[NSUserDefaults standardUserDefaults] boolForKey:kRemoteBell];
             }else {
-                
-                /// 震动
+                // 震动
                 isClosePush = [[NSUserDefaults standardUserDefaults] boolForKey:kRemoteShake];
             }
-            //            BOOL isClosePush = [[NSUserDefaults standardUserDefaults] boolForKey:@"isClosePush"];
             myswitch.on = !isClosePush;
             
             cell.accessoryView = myswitch;
         }
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+        
         cell.textLabel.text = self.titleArr[indexPath.section][indexPath.row];
         
         return cell;
-    }else {
-        NSString *identifier = @"PushSettingCell1";
+    } else {
+        NSString *identifier = @"PushSettingsCell1ID";
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identifier];
         
         if (cell == nil) {
             cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:identifier];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         }
         
-        cell.selectionStyle = UITableViewCellSelectionStyleNone;
-        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
-        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
         cell.textLabel.text = self.titleArr[indexPath.section][indexPath.row];
         return cell;
         
@@ -111,7 +110,7 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    [self.tableview deselectRowAtIndexPath:indexPath animated:YES];
+    [self.tableView deselectRowAtIndexPath:indexPath animated:YES];
     if (indexPath.section == 1) {
         RemoteSettingController *vc = [[RemoteSettingController alloc] init];
         [self.navigationController pushViewController:vc animated:YES];
@@ -120,21 +119,18 @@
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     
-    
-    
     UIView *headerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 40)];
     headerV.backgroundColor = [UIColor clearColor];
     UILabel *nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(20, 10, kScreenWidth-32, 20)];
     nameLabel.textColor = TDLightGrayColor;
     nameLabel.font = [UIFont systemFontOfSize:13.0f];
     [headerV addSubview:nameLabel];
+    
     if (section == 0) {
         nameLabel.text = @"应用内提醒";
     }else {
-        
         nameLabel.text = @"当你使用局外人时，新通知的提醒是否需要响铃或震动";
     }
-    
     
     return headerV;
 }

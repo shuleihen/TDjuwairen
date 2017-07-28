@@ -13,7 +13,7 @@
 #import "BVUnderlineButton.h"
 #import "StockManager.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "PSIndexListModel.h"
 #import "STPopup.h"
 #import "GuessAddPourViewController.h"

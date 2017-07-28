@@ -7,7 +7,7 @@
 //
 
 #import "CollectionViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NSString+Ext.h"
 #import "NSString+TimeInfo.h"
 #import "NetworkManager.h"

@@ -16,7 +16,7 @@
 #import "AliveListTableViewDelegate.h"
 #import "AlivePublishViewController.h"
 #import "AliveEditMasterViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "UIViewController+Loading.h"
 #import "UIViewController+NoData.h"
 

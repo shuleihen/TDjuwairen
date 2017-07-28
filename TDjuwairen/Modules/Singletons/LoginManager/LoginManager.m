@@ -7,7 +7,7 @@
 //
 
 #import "LoginManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 #import "LoginHandler.h"
 #import "NotificationDef.h"

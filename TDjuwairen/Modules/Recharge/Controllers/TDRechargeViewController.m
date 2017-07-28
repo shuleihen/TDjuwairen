@@ -13,7 +13,7 @@
 #import "NetworkManager.h"
 #import "CocoaLumberjack.h"
 #import "SKProduct+LocalizedPrice.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
 @interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UITableViewDelegate, UITableViewDataSource, MBProgressHUDDelegate>
 @property (nonatomic, strong) NSArray *productId;

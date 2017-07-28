@@ -8,7 +8,7 @@
 
 #import "AccouontManagerViewController.h"
 #import "UIMacroDef.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "HexColors.h"

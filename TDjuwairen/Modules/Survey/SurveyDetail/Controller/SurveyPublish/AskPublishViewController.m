@@ -10,7 +10,7 @@
 #import "UITextView+Placeholder.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NotificationDef.h"
 #import "NSString+Emoji.h"
 

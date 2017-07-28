@@ -10,7 +10,7 @@
 #import "HexColors.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LoginViewController.h"
 
 @interface PaySubscriptionViewController ()<MBProgressHUDDelegate>

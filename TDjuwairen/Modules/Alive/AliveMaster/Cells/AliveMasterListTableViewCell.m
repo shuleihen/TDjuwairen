@@ -9,7 +9,7 @@
 #import "AliveMasterListTableViewCell.h"
 #import "AliveMasterModel.h"
 #import "UIImageView+WebCache.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
 @interface AliveMasterListTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;

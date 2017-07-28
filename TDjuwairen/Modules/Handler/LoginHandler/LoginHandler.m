@@ -8,7 +8,7 @@
 
 #import "LoginHandler.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "Base64.h"
 #import "UIDevice+Identifier.h"
 #import <CloudPushSDK/CloudPushSDK.h>

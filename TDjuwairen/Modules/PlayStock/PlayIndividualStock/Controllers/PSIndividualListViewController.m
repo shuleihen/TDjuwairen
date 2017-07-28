@@ -8,7 +8,7 @@
 
 #import "PSIndividualListViewController.h"
 #import "UIViewController+Login.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "MyWalletViewController.h"
 #import "MyGuessViewController.h"
 #import "TDWebViewController.h"

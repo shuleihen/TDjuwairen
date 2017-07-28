@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "NotificationDef.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "YXTextFieldPanel.h"
 #import "HexColors.h"
 #import "LoginHandler.h"

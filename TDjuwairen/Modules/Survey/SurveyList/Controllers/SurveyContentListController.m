@@ -10,7 +10,7 @@
 #import "StockDetailViewController.h"
 #import "SurveryStockListCell.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "HexColors.h"
 #import "SearchViewController.h"
 #import "NSString+Util.h"

@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "AliveMasterListTableViewCell.h"
 #import "AliveMasterModel.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "MBProgressHUD.h"
 #import "AliveRoomViewController.h"
 #import "AliveMasterListTabelViewDelegate.h"

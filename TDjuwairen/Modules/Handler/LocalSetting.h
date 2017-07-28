@@ -10,9 +10,10 @@
 #define LocalSetting_h
 
 /// 响铃
-#define kRemoteBell  @"isCloseBell"
+#define kRemoteBell         @"isCloseBell"
 /// 震动
-#define kRemoteShake  @"isCloseShake"
+#define kRemoteShake        @"isCloseShake"
+
 /// 自选股
 #define kRemotePersionStock  @"isClosePersionStock"
 /// 关注板块调研

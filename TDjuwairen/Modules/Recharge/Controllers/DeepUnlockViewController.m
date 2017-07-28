@@ -8,7 +8,7 @@
 
 #import "DeepUnlockViewController.h"
 #import "STPopup.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "UIImage+Color.h"
 #import "SurveyDeepModel.h"
 

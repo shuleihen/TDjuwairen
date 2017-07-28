@@ -7,7 +7,7 @@
 //
 
 #import "WelcomeView.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
 

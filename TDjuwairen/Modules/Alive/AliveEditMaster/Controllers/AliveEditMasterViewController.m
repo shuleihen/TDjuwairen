@@ -10,7 +10,7 @@
 #import "AliveRoomMasterModel.h"
 #import "NetworkManager.h"
 #import "UIImageView+WebCache.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NotificationDef.h"
 #import "AliveCitySettingViewController.h"
 #import "AliveIntroSettingViewController.h"

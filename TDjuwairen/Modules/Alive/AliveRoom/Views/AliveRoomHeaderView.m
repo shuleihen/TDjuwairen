@@ -9,7 +9,7 @@
 #import "AliveRoomHeaderView.h"
 #import "AliveRoomMasterModel.h"
 #import "UIImageView+WebCache.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
 @interface AliveRoomHeaderView ()<UIAlertViewDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;

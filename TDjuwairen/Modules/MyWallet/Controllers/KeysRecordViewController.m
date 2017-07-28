@@ -13,7 +13,7 @@
 #import "RecordModel.h"
 #import "OrderDetailTableViewCell.h"
 #import "NoOrderTableViewCell.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "AFNetworking.h"
 #import "NetworkDefine.h"
 #import "MJRefresh.h"

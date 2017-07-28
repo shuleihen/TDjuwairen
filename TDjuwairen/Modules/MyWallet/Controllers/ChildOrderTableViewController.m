@@ -20,7 +20,7 @@
 #import "HexColors.h"
 #import "Masonry.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
 @interface ChildOrderTableViewController ()<OrderDetailCellDelegate>
 @property (nonatomic,strong) NSMutableArray *orderArr;

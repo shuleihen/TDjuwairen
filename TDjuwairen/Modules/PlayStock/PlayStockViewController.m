@@ -10,7 +10,7 @@
 #import "KeysExchangeViewController.h"
 #import "LoginViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "UIButton+WebCache.h"
 
 @interface PlayStockViewController ()

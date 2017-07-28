@@ -8,7 +8,7 @@
 
 #import "ApplySurveyViewController.h"
 #import "HexColors.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LoginViewController.h"
 #import "NetworkDefine.h"
 #import "MBProgressHUD.h"

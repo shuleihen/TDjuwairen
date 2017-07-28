@@ -11,7 +11,7 @@
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "NotificationDef.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NSString+Emoji.h"
 
 @interface AnsPublishViewController ()

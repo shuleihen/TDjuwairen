@@ -9,7 +9,7 @@
 #import "AwardViewController.h"
 #import "AwardImfomationTableViewCell.h"
 #import "AwardAdressTableViewCell.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 
 @interface AwardViewController ()<UITableViewDelegate,UITableViewDataSource>

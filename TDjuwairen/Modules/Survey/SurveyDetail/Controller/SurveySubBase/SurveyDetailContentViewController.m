@@ -7,7 +7,7 @@
 //
 
 #import "SurveyDetailContentViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkDefine.h"
 
 @interface SurveyDetailContentViewController ()

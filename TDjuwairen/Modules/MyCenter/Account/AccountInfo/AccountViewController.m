@@ -8,7 +8,7 @@
 
 #import "AccountViewController.h"
 #import "UIImageView+WebCache.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "ELCImagePickerController.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"

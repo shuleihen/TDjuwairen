@@ -11,7 +11,7 @@
 #import "SubscriptionHistoryListCell.h"
 #import "NetworkManager.h"
 #import "MJRefresh.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
 @interface SubscriptionHistoryViewController ()
 @property (nonatomic, assign) NSInteger page;

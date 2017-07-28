@@ -1,5 +1,5 @@
 //
-//  PushSwitchViewController.h
+//  PushSettingViewController.h
 //  TDjuwairen
 //
 //  Created by 团大 on 16/9/13.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PushSwitchViewController : UIViewController
+@interface PushSettingViewController : UIViewController
 
 @end

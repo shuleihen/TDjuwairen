@@ -9,7 +9,7 @@
 #import "PlayStockCommentViewController.h"
 #import "HexColors.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "GuessCommentModel.h"
 #import "SQTopicTableViewCell.h"
 #import "SQTopicModel.h"

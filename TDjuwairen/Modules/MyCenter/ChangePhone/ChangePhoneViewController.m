@@ -11,7 +11,7 @@
 #import "MBProgressHUD.h"
 #import "NSString+Util.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "YXTextFieldPanel.h"
 
 @interface ChangePhoneViewController ()<MBProgressHUDDelegate, YXSecurityCodeButtonDelegate>

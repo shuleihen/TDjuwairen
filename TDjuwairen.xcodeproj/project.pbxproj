@@ -13,8 +13,6 @@
 		190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37EA1E274E6300A5C1B1 /* SubscriptionModel.m */; };
 		190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65AF1E33418600B83ADF /* FastLoginUpdateInfoViewController.m */; };
 		190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65B21E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m */; };
-		190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65B61E334CD300B83ADF /* LoginHandler.m */; };
-		190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65BA1E335AA500B83ADF /* LoginManager.m */; };
 		190F65BF1E349D8100B83ADF /* TextHtml.html in Resources */ = {isa = PBXBuildFile; fileRef = 190F65BE1E349D8100B83ADF /* TextHtml.html */; };
 		190F65C31E34F19300B83ADF /* Launch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 190F65C21E34F19300B83ADF /* Launch.storyboard */; };
 		190F65ED1E36E73000B83ADF /* AwardAdressTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65C71E36E73000B83ADF /* AwardAdressTableViewCell.m */; };
@@ -67,7 +65,7 @@
 		19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252C0A1D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m */; };
 		19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252C0C1D51E830003E5D18 /* View+MASAdditions.m */; };
 		19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 19252C0F1D51E830003E5D18 /* ViewController+MASAdditions.m */; };
-		1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325791E4DAF7200E3D500 /* PushSwitchViewController.m */; };
+		1933257F1E4DAF7200E3D500 /* PushSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325791E4DAF7200E3D500 /* PushSettingViewController.m */; };
 		193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1933257B1E4DAF7200E3D500 /* SettingViewController.m */; };
 		193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 193325821E4DC9A400E3D500 /* FeedbackViewController.m */; };
 		193419A71E76B4DB00F22788 /* AliveRoomMasterModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 193419971E76B4DB00F22788 /* AliveRoomMasterModel.m */; };
@@ -106,7 +104,6 @@
 		194186D91DF81284000C5197 /* SettingIntroViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186D01DF81284000C5197 /* SettingIntroViewController.m */; };
 		194186DA1DF81284000C5197 /* SettingNickNameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186D31DF81284000C5197 /* SettingNickNameViewController.m */; };
 		194186DB1DF81284000C5197 /* SettingPostViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186D61DF81284000C5197 /* SettingPostViewController.m */; };
-		194186E21DF8132A000C5197 /* LoginState.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186E11DF8132A000C5197 /* LoginState.m */; };
 		194186E61DF90672000C5197 /* Register.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 194186E51DF90672000C5197 /* Register.storyboard */; };
 		194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186EA1DF90CA4000C5197 /* GuideViewController.m */; };
 		194186EF1DF90CA4000C5197 /* WelcomeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186ED1DF90CA4000C5197 /* WelcomeView.m */; };
@@ -184,6 +181,11 @@
 		1959B9BD1F276603007017F0 /* AliveListHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959B9BC1F276603007017F0 /* AliveListHeaderView.m */; };
 		1959D45C1F29B8B5002B969A /* YXNoDataView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D45B1F29B8B5002B969A /* YXNoDataView.m */; };
 		1959D4601F29BCDE002B969A /* UIViewController+NoData.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D45F1F29BCDE002B969A /* UIViewController+NoData.m */; };
+		1959D4641F29E33F002B969A /* SettingHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D4631F29E33F002B969A /* SettingHandler.m */; };
+		1959D4681F29E44F002B969A /* LoginStateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D4671F29E44F002B969A /* LoginStateManager.m */; };
+		1959D46C1F29E477002B969A /* LoginManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D46B1F29E477002B969A /* LoginManager.m */; };
+		1959D4701F29E49A002B969A /* LoginHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D46F1F29E49A002B969A /* LoginHandler.m */; };
+		1959D4741F29E5F5002B969A /* SystemAudioHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1959D4731F29E5F5002B969A /* SystemAudioHandler.m */; };
 		1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 1961DF461DF9573200A08A4B /* NSString+Util.m */; };
 		1966A64C1E8B8995007DDA14 /* ShareViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1966A64B1E8B8995007DDA14 /* ShareViewController.m */; };
 		1966A6501E8B89CB007DDA14 /* Popup.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1966A64F1E8B89CB007DDA14 /* Popup.storyboard */; };
@@ -643,10 +645,6 @@
 		190F65AF1E33418600B83ADF /* FastLoginUpdateInfoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FastLoginUpdateInfoViewController.m; sourceTree = "<group>"; };
 		190F65B11E33419E00B83ADF /* ThirdPartLoginUpdateViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ThirdPartLoginUpdateViewController.h; sourceTree = "<group>"; };
 		190F65B21E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ThirdPartLoginUpdateViewController.m; sourceTree = "<group>"; };
-		190F65B51E334CD300B83ADF /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHandler.h; sourceTree = "<group>"; };
-		190F65B61E334CD300B83ADF /* LoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHandler.m; sourceTree = "<group>"; };
-		190F65B91E335AA500B83ADF /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
-		190F65BA1E335AA500B83ADF /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
 		190F65BE1E349D8100B83ADF /* TextHtml.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; path = TextHtml.html; sourceTree = "<group>"; };
 		190F65C01E34A85200B83ADF /* UIMacroDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UIMacroDef.h; sourceTree = "<group>"; };
 		190F65C21E34F19300B83ADF /* Launch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Launch.storyboard; sourceTree = "<group>"; };
@@ -757,8 +755,8 @@
 		19252C0D1D51E830003E5D18 /* View+MASShorthandAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "View+MASShorthandAdditions.h"; sourceTree = "<group>"; };
 		19252C0E1D51E830003E5D18 /* ViewController+MASAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "ViewController+MASAdditions.h"; sourceTree = "<group>"; };
 		19252C0F1D51E830003E5D18 /* ViewController+MASAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "ViewController+MASAdditions.m"; sourceTree = "<group>"; };
-		193325781E4DAF7200E3D500 /* PushSwitchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSwitchViewController.h; sourceTree = "<group>"; };
-		193325791E4DAF7200E3D500 /* PushSwitchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSwitchViewController.m; sourceTree = "<group>"; };
+		193325781E4DAF7200E3D500 /* PushSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushSettingViewController.h; sourceTree = "<group>"; };
+		193325791E4DAF7200E3D500 /* PushSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushSettingViewController.m; sourceTree = "<group>"; };
 		1933257A1E4DAF7200E3D500 /* SettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingViewController.h; sourceTree = "<group>"; };
 		1933257B1E4DAF7200E3D500 /* SettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingViewController.m; sourceTree = "<group>"; };
 		193325811E4DC9A400E3D500 /* FeedbackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedbackViewController.h; sourceTree = "<group>"; };
@@ -826,8 +824,6 @@
 		194186D31DF81284000C5197 /* SettingNickNameViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingNickNameViewController.m; sourceTree = "<group>"; };
 		194186D51DF81284000C5197 /* SettingPostViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingPostViewController.h; sourceTree = "<group>"; };
 		194186D61DF81284000C5197 /* SettingPostViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingPostViewController.m; sourceTree = "<group>"; };
-		194186E01DF8132A000C5197 /* LoginState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginState.h; sourceTree = "<group>"; };
-		194186E11DF8132A000C5197 /* LoginState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginState.m; sourceTree = "<group>"; };
 		194186E51DF90672000C5197 /* Register.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Register.storyboard; sourceTree = "<group>"; };
 		194186E91DF90CA4000C5197 /* GuideViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuideViewController.h; sourceTree = "<group>"; };
 		194186EA1DF90CA4000C5197 /* GuideViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuideViewController.m; sourceTree = "<group>"; };
@@ -976,6 +972,16 @@
 		1959D45B1F29B8B5002B969A /* YXNoDataView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXNoDataView.m; sourceTree = "<group>"; };
 		1959D45E1F29BCDE002B969A /* UIViewController+NoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+NoData.h"; sourceTree = "<group>"; };
 		1959D45F1F29BCDE002B969A /* UIViewController+NoData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+NoData.m"; sourceTree = "<group>"; };
+		1959D4621F29E33F002B969A /* SettingHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingHandler.h; sourceTree = "<group>"; };
+		1959D4631F29E33F002B969A /* SettingHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingHandler.m; sourceTree = "<group>"; };
+		1959D4661F29E44F002B969A /* LoginStateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginStateManager.h; sourceTree = "<group>"; };
+		1959D4671F29E44F002B969A /* LoginStateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginStateManager.m; sourceTree = "<group>"; };
+		1959D46A1F29E477002B969A /* LoginManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginManager.h; sourceTree = "<group>"; };
+		1959D46B1F29E477002B969A /* LoginManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginManager.m; sourceTree = "<group>"; };
+		1959D46E1F29E49A002B969A /* LoginHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginHandler.h; sourceTree = "<group>"; };
+		1959D46F1F29E49A002B969A /* LoginHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginHandler.m; sourceTree = "<group>"; };
+		1959D4721F29E5F5002B969A /* SystemAudioHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SystemAudioHandler.h; sourceTree = "<group>"; };
+		1959D4731F29E5F5002B969A /* SystemAudioHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SystemAudioHandler.m; sourceTree = "<group>"; };
 		1961DF451DF9573200A08A4B /* NSString+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Util.h"; sourceTree = "<group>"; };
 		1961DF461DF9573200A08A4B /* NSString+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Util.m"; sourceTree = "<group>"; };
 		1966A64A1E8B8995007DDA14 /* ShareViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ShareViewController.h; sourceTree = "<group>"; };
@@ -1788,24 +1794,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		190F65B41E334CC800B83ADF /* Handler */ = {
-			isa = PBXGroup;
-			children = (
-				190F65B51E334CD300B83ADF /* LoginHandler.h */,
-				190F65B61E334CD300B83ADF /* LoginHandler.m */,
-			);
-			path = Handler;
-			sourceTree = "<group>";
-		};
-		190F65B81E335A9900B83ADF /* Manager */ = {
-			isa = PBXGroup;
-			children = (
-				190F65B91E335AA500B83ADF /* LoginManager.h */,
-				190F65BA1E335AA500B83ADF /* LoginManager.m */,
-			);
-			path = Manager;
-			sourceTree = "<group>";
-		};
 		190F65C41E36E73000B83ADF /* MyWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -1884,6 +1872,9 @@
 		191027AD1DE52B04006A2275 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				1959D4711F29E5E7002B969A /* SystemAudio */,
+				1959D46D1F29E49A002B969A /* LoginHandler */,
+				1959D4611F29E32D002B969A /* Setting */,
 				198035331F1304C000FAD8D3 /* Launch */,
 				19C257F71E7524F100433D0D /* ImagePicker */,
 				19F00D301E307FEF009270D5 /* Share */,
@@ -2172,10 +2163,10 @@
 		193325701E4DAF7200E3D500 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				193325781E4DAF7200E3D500 /* PushSwitchViewController.h */,
-				193325791E4DAF7200E3D500 /* PushSwitchViewController.m */,
 				1933257A1E4DAF7200E3D500 /* SettingViewController.h */,
 				1933257B1E4DAF7200E3D500 /* SettingViewController.m */,
+				193325781E4DAF7200E3D500 /* PushSettingViewController.h */,
+				193325791E4DAF7200E3D500 /* PushSettingViewController.m */,
 				4DE260F51ED94CB0002025C6 /* RemoteSettingController.h */,
 				4DE260F61ED94CB0002025C6 /* RemoteSettingController.m */,
 			);
@@ -2587,9 +2578,9 @@
 		194186DF1DF8132A000C5197 /* Singletons */ = {
 			isa = PBXGroup;
 			children = (
+				1959D4691F29E477002B969A /* LoginManager */,
+				1959D4651F29E44F002B969A /* LoginState */,
 				196F5EDD1E553ADB00928B60 /* AppContext */,
-				194186E01DF8132A000C5197 /* LoginState.h */,
-				194186E11DF8132A000C5197 /* LoginState.m */,
 			);
 			path = Singletons;
 			sourceTree = "<group>";
@@ -3028,8 +3019,6 @@
 		1955B3AC1D644D9800DC102E /* LoginRegiser */ = {
 			isa = PBXGroup;
 			children = (
-				190F65B81E335A9900B83ADF /* Manager */,
-				190F65B41E334CC800B83ADF /* Handler */,
 				1955B3B11D644D9800DC102E /* ForgetViewController.h */,
 				1955B3B21D644D9800DC102E /* ForgetViewController.m */,
 				1955B3B31D644D9800DC102E /* LoginViewController.h */,
@@ -3215,6 +3204,51 @@
 				1959D45F1F29BCDE002B969A /* UIViewController+NoData.m */,
 			);
 			path = "UIViewController+NoData";
+			sourceTree = "<group>";
+		};
+		1959D4611F29E32D002B969A /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				1959D4621F29E33F002B969A /* SettingHandler.h */,
+				1959D4631F29E33F002B969A /* SettingHandler.m */,
+			);
+			path = Setting;
+			sourceTree = "<group>";
+		};
+		1959D4651F29E44F002B969A /* LoginState */ = {
+			isa = PBXGroup;
+			children = (
+				1959D4661F29E44F002B969A /* LoginStateManager.h */,
+				1959D4671F29E44F002B969A /* LoginStateManager.m */,
+			);
+			path = LoginState;
+			sourceTree = "<group>";
+		};
+		1959D4691F29E477002B969A /* LoginManager */ = {
+			isa = PBXGroup;
+			children = (
+				1959D46A1F29E477002B969A /* LoginManager.h */,
+				1959D46B1F29E477002B969A /* LoginManager.m */,
+			);
+			path = LoginManager;
+			sourceTree = "<group>";
+		};
+		1959D46D1F29E49A002B969A /* LoginHandler */ = {
+			isa = PBXGroup;
+			children = (
+				1959D46E1F29E49A002B969A /* LoginHandler.h */,
+				1959D46F1F29E49A002B969A /* LoginHandler.m */,
+			);
+			path = LoginHandler;
+			sourceTree = "<group>";
+		};
+		1959D4711F29E5E7002B969A /* SystemAudio */ = {
+			isa = PBXGroup;
+			children = (
+				1959D4721F29E5F5002B969A /* SystemAudioHandler.h */,
+				1959D4731F29E5F5002B969A /* SystemAudioHandler.m */,
+			);
+			path = SystemAudio;
 			sourceTree = "<group>";
 		};
 		1966A6521E8BB81C007DDA14 /* DYRefresh */ = {
@@ -5526,7 +5560,9 @@
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
 				19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */,
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,
+				1959D46C1F29E477002B969A /* LoginManager.m in Sources */,
 				1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */,
+				1959D4641F29E33F002B969A /* SettingHandler.m in Sources */,
 				19F07A351F1D9FDD004449BB /* XHLaunchAdController.m in Sources */,
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
@@ -5564,7 +5600,6 @@
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
 				1987B27C1EE688F700BD852E /* DialogueViewController.m in Sources */,
-				190F65BB1E335AA500B83ADF /* LoginManager.m in Sources */,
 				19E58DAC1EF8C55500ADA1B8 /* UITabBarController+ZFPlayerRotation.m in Sources */,
 				19F07A5D1F1F2D24004449BB /* AliveListHotTableViewCell.m in Sources */,
 				19F07A7D1F20D1A3004449BB /* DeepTableViewCell.m in Sources */,
@@ -5591,7 +5626,7 @@
 				1955B49C1D644D9800DC102E /* PhotoTextAttachment.m in Sources */,
 				19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */,
 				9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */,
-				1933257F1E4DAF7200E3D500 /* PushSwitchViewController.m in Sources */,
+				1933257F1E4DAF7200E3D500 /* PushSettingViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
 				1987B2841EE688F700BD852E /* SurveyMoreViewController.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
@@ -5610,7 +5645,6 @@
 				19E58D821EF7B81500ADA1B8 /* SurveyHandler.m in Sources */,
 				190F65EE1E36E73000B83ADF /* AwardImfomationTableViewCell.m in Sources */,
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
-				194186E21DF8132A000C5197 /* LoginState.m in Sources */,
 				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
@@ -5665,6 +5699,7 @@
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
 				1936AF301EB3212600408D6F /* NJKWebViewProgressView.m in Sources */,
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
+				1959D4741F29E5F5002B969A /* SystemAudioHandler.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E58DA91EF8C55500ADA1B8 /* UIAlertController+ZFPlayerRotation.m in Sources */,
@@ -5681,7 +5716,6 @@
 				84E334691CE3123700E5DCEE /* SDWebImageDownloaderOperation.m in Sources */,
 				1987B2961EE688F700BD852E /* SurveyBottomToolView.m in Sources */,
 				19F0074C1E31E5AE000A5F98 /* RechargeChooseViewController.m in Sources */,
-				190F65B71E334CD300B83ADF /* LoginHandler.m in Sources */,
 				19F07A331F1D9FDD004449BB /* XHLaunchAdCache.m in Sources */,
 				1987B29B1EE688F700BD852E /* SurveyListViewController.m in Sources */,
 				1975D3611EED198F00191E1D /* TDAvatar.m in Sources */,
@@ -5719,6 +5753,7 @@
 				9E2233C21E8A713200B1FAC4 /* AddIndividualViewController.m in Sources */,
 				19E58D851EF8BEDC00ADA1B8 /* VideoInfoModel.m in Sources */,
 				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
+				1959D4701F29E49A002B969A /* LoginHandler.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				1987B28B1EE688F700BD852E /* AskModel.m in Sources */,
 				1987B2921EE688F700BD852E /* StockAskView.m in Sources */,
@@ -5745,6 +5780,7 @@
 				194E0D2E1EEFBF78009C7AC6 /* ViewpointWebTableViewCell.m in Sources */,
 				194E0D161EEF8D17009C7AC6 /* TDCommentModel.m in Sources */,
 				19252C131D51E830003E5D18 /* MASConstraintMaker.m in Sources */,
+				1959D4681F29E44F002B969A /* LoginStateManager.m in Sources */,
 				9E22E96A1EAEFE540029F18D /* FirmPlatListModel.m in Sources */,
 				1987B27F1EE688F700BD852E /* StockDetailViewController.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,

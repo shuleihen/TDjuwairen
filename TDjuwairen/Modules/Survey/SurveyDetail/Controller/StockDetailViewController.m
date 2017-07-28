@@ -11,7 +11,7 @@
 #import "SurveyDetailSegmentView.h"
 #import "SurveyDetailWebViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "HexColors.h"
 #import "CocoaLumberjack.h"
 #import "SurveyDetailAskViewController.h"

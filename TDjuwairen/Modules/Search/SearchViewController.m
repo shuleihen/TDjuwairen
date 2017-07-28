@@ -14,7 +14,7 @@
 #import "NSString+Ext.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "StockDetailViewController.h"
 #import "SearchResultModel.h"
 #import "NoResultView.h"

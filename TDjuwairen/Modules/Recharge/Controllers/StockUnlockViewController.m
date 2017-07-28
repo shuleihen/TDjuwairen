@@ -8,7 +8,7 @@
 
 #import "StockUnlockViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NotificationDef.h"
 #import "STPopup.h"
 #import "UIImage+Color.h"

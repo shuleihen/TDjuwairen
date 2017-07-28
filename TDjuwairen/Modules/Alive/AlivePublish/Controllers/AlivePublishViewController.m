@@ -12,7 +12,7 @@
 #import "ImagePickerHandler.h"
 #import "MBProgressHUD.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NotificationDef.h"
 #import "AliveListModel.h"
 #import "SearchCompanyListTableView.h"

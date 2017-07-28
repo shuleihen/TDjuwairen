@@ -8,7 +8,7 @@
 
 #import "FeedbackViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "MBProgressHUD.h"
 
 @interface FeedbackViewController ()<MBProgressHUDDelegate>

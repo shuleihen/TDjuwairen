@@ -8,7 +8,7 @@
 
 #import "SettingIntroViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "MBProgressHUD.h"
 #import "UITextView+Placeholder.h"
 

@@ -1,21 +1,21 @@
 //
-//  LoginState.m
+//  LoginStateManager.m
 //  juwairen
 //
 //  Created by tuanda on 16/5/19.
 //  Copyright © 2016年 tuanda. All rights reserved.
 //
 
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
-@implementation LoginState
+@implementation LoginStateManager
 
 + (instancetype)sharedInstance
 {
     static dispatch_once_t onceToken;
-    static LoginState *sharedInstance = nil;
+    static LoginStateManager *sharedInstance = nil;
     dispatch_once(&onceToken, ^{
-        sharedInstance = [[LoginState alloc] init];
+        sharedInstance = [[LoginStateManager alloc] init];
     });
     return sharedInstance;
 }

@@ -11,7 +11,7 @@
 #import "MyOrderViewController.h"
 #import "KeysRecordViewController.h"
 #import "KeysExchangeViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 #import "RechargeViewController.h"
 #import "STPopupController.h"

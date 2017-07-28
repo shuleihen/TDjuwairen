@@ -7,7 +7,7 @@
 //
 
 #import "RemoteSettingController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LoginHandler.h"
 
 @interface RemoteSettingController ()<UITableViewDelegate,UITableViewDataSource>

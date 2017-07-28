@@ -8,7 +8,7 @@
 
 #import "LoginViewController.h"
 #import <ShareSDKExtension/SSEThirdPartyLoginHelper.h>
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "MobileLoginViewController.h"
 #import "ForgetViewController.h"
 #import "YXCheckBox.h"

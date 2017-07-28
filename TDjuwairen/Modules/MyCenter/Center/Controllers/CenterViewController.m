@@ -7,7 +7,7 @@
 //
 
 #import "CenterViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LoginViewController.h"
 #import "UIButton+WebCache.h"
 #import "NSString+Util.h"

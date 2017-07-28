@@ -8,7 +8,7 @@
 
 #import "TDWebViewHandler.h"
 #import "TDWebViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NSString+Util.h"
 
 @implementation TDWebViewHandler

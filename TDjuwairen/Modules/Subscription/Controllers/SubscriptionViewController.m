@@ -14,7 +14,7 @@
 #import "SubscriptionTypeModel.h"
 #import <WebKit/WebKit.h>
 #import "YXCheckBox.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LoginViewController.h"
 #import "STPopupController.h"
 #import "TDRechargeViewController.h"

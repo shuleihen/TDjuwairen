@@ -11,7 +11,7 @@
 #import "SecondEdit.h"
 #import "EditZiti.h"
 #import "CompanySelTableView.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "PreviewViewController.h"
 #import "InsertTagsView.h"
 #import "NSString+Ext.h"

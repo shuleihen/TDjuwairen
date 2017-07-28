@@ -37,6 +37,10 @@
 #import <CloudPushSDK/CloudPushSDK.h>
 #import "LaunchHandler.h"
 #import "LoginManager.h"
+#import "SettingHandler.h"
+#import "SystemAudioHandler.h"
+#import "AliveDetailViewController.h"
+#import "ViewpointDetailViewController.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -245,6 +249,14 @@
 #endif
     [CloudPushSDK sendNotificationAck:userInfo];
     
+    if ([SettingHandler isOpenRemoteBell]) {
+        [SystemAudioHandler playRemoteBell];
+    }
+    
+    if ([SettingHandler isRemoteShake]) {
+        [SystemAudioHandler playRemoteShake];
+    }
+    
     if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
         // 应用处于前台的远程推送
         NSString *msg = userInfo[@"aps"][@"alert"];
@@ -276,16 +288,24 @@
 }
 
 
-//iOS10新增：处理前台收到通知的代理方法
+// iOS10新增：处理前台收到通知的代理方法
 -(void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler{
 #ifdef DEBUG
     DDLogInfo(@"iOS10 以上 前台收到通知 UNNotification = %@",notification);
 #endif
     
+    if ([SettingHandler isOpenRemoteBell]) {
+        [SystemAudioHandler playRemoteBell];
+    }
+    
+    if ([SettingHandler isRemoteShake]) {
+        [SystemAudioHandler playRemoteShake];
+    }
     
     NSDictionary * userInfo = notification.request.content.userInfo;
     // 通知打开回执上报
     [CloudPushSDK sendNotificationAck:userInfo];
+    
     
     if([notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         // 应用处于前台时的远程推送接受
@@ -315,6 +335,14 @@
     NSLog(@"iOS10 以上 后台收到通知 UNNotificationResponse =  %@",response);
 #endif
     
+    if ([SettingHandler isOpenRemoteBell]) {
+        [SystemAudioHandler playRemoteBell];
+    }
+    
+    if ([SettingHandler isRemoteShake]) {
+        [SystemAudioHandler playRemoteShake];
+    }
+    
     NSDictionary *userInfo = response.notification.request.content.userInfo;
     // 通知打开回执上报
     [CloudPushSDK sendNotificationAck:userInfo];
@@ -331,26 +359,53 @@
 
 - (void)handlePushNotificationWithUserInfo:(NSDictionary *)userInfo {
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSString *view_id = userInfo[@"view_id"];
-        NSString *stock_id = userInfo[@"code"];
+        // 1表示调研,2表示热点，3表示提问、4表示回答，8表示评分回复，10动态发布，15表示视频
+        NSInteger type = [userInfo[@"type"] integerValue];
         
-        if (view_id.length) {
-            VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:view_id];
-            vc.hidesBottomBarWhenPushed = YES;
-            self.tabBarController.selectedIndex = 1;
-            [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
-            return;
-        }
         
-        if (stock_id.length) {
-            StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
-            vc.stockCode = stock_id;
-            vc.hidesBottomBarWhenPushed = YES;
+        if (type == 1 ||
+            type == 2) {
+            NSString *stock_id = userInfo[@"code"];
             
-            self.tabBarController.selectedIndex = 0;
-            [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
-            return;
+            if (stock_id.length) {
+                StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                vc.stockCode = stock_id;
+                vc.hidesBottomBarWhenPushed = YES;
+                
+                self.tabBarController.selectedIndex = 0;
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+                return;
+            }
+        } else if (type == 15) {
+            NSString *content_id = userInfo[@"content_id"];
+            
+            if (content_id.length) {
+                VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:content_id];
+                vc.hidesBottomBarWhenPushed = YES;
+                self.tabBarController.selectedIndex = 1;
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+                return;
+            }
+        } else if (type == 10) {
+            NSString *content_id = userInfo[@"content_id"];
+            NSInteger aliveType = [userInfo[@"content_type"] integerValue];
+            
+            if (aliveType == kAliveViewpoint) {
+                ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:content_id aliveType:aliveType];
+                vc.hidesBottomBarWhenPushed = YES;
+                self.tabBarController.selectedIndex = 1;
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+            } else {
+                AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
+                vc.aliveID = content_id;
+                vc.aliveType = aliveType;
+                vc.hidesBottomBarWhenPushed = YES;
+                self.tabBarController.selectedIndex = 1;
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+            }
         }
+        
+        
     });
 }
 

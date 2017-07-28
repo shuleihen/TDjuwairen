@@ -8,7 +8,7 @@
 
 #import "SettingPostViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "MBProgressHUD.h"
 
 @interface SettingPostViewController ()

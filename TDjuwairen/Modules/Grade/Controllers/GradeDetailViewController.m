@@ -14,7 +14,7 @@
 #import "GradeAddViewController.h"
 #import "GradeDetailModel.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "LoginViewController.h"
 #import "NotificationDef.h"
 #import "GradeReplyToolView.h"

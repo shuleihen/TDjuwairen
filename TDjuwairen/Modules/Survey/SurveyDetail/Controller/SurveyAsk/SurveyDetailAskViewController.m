@@ -8,7 +8,7 @@
 
 #import "SurveyDetailAskViewController.h"
 #import "NetworkManager.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "AskModel.h"
 #import "AnsModel.h"
 #import "AnsPublishViewController.h"

@@ -1,5 +1,5 @@
 //
-//  LoginState.h
+//  LoginStateManager.h
 //  juwairen
 //
 //  Created by tuanda on 16/5/19.
@@ -8,14 +8,17 @@
 
 #import <Foundation/Foundation.h>
 
-#define US [LoginState sharedInstance]
+#define US [LoginStateManager sharedInstance]
 
+// 下个版本 0表示普通用户，1表示青铜会员，2表示白银会员 3表示黄金会员
 typedef enum : NSUInteger {
     kUserLevelNormal    =0,
+//    kUserLevelBronze    =1,
+//    kUserLevelSilver    =2,
     kUserLevelGold      =1,
 } UserLevelType;
 
-@interface LoginState : NSObject
+@interface LoginStateManager : NSObject
 
 @property (nonatomic, copy) NSString *userId;
 @property (nonatomic, copy) NSString *userName;

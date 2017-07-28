@@ -7,7 +7,7 @@
 //
 
 #import "ForgetViewController.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "YXSecurityCodeButton.h"

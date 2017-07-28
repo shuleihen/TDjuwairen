@@ -11,7 +11,7 @@
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "NSString+Util.h"
-#import "LoginState.h"
+#import "LoginStateManager.h"
 
 @interface AddAddressViewController ()<UITextFieldDelegate,MBProgressHUDDelegate>
 @property (weak, nonatomic) IBOutlet UILabel *prizeLabel;
