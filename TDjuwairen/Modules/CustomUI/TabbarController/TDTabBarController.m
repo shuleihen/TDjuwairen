@@ -108,7 +108,7 @@
     if (item.tag == 3) {
         // 我的
         if (!US.isLogIn) {
-            UINavigationController *nav = self.viewControllers.firstObject;
+            UINavigationController *nav = self.selectedViewController;
             LoginViewController *login = [[LoginViewController alloc] init];
             login.hidesBottomBarWhenPushed = YES;
             [nav pushViewController:login animated:YES];
