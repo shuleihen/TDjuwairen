@@ -32,7 +32,7 @@
     
     self.title = @"我的钱包";
     
-    self.titleArr = [NSArray arrayWithObjects:@"我的订单",@"钥匙使用记录",@"钥匙兑换", nil];
+    self.titleArr = [NSArray arrayWithObjects:@"我的订单",@"钥匙使用记录", nil];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestWithKeysNum) name:@"refreshKeys" object:nil];
     
