@@ -8,8 +8,11 @@
 
 #import "TDTabBarController.h"
 #import "HexColors.h"
+#import "LoginViewController.h"
+#import "TDNavigationController.h"
+#import "CenterViewController.h"
 
-@interface TDTabBarController ()
+@interface TDTabBarController ()<UITabBarControllerDelegate>
 
 @end
 
@@ -20,6 +23,7 @@
     
     self.tabBar.translucent = NO;
     self.tabBar.tintColor = TDThemeColor;
+    self.delegate = self;
 }
 
 - (void)viewDidAppear:(BOOL)animated {
@@ -91,5 +95,24 @@
     return images;
 }
 
+- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
+    TDNavigationController *nav = (TDNavigationController *)viewController;
+    UIViewController *vc = nav.viewControllers.firstObject;
+    if ([vc isKindOfClass:[CenterViewController class]]) {
+        return US.isLogIn;
+    }
+    return YES;
+}
 
+- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
+    if (item.tag == 3) {
+        // 我的
+        if (!US.isLogIn) {
+            UINavigationController *nav = self.viewControllers.firstObject;
+            LoginViewController *login = [[LoginViewController alloc] init];
+            login.hidesBottomBarWhenPushed = YES;
+            [nav pushViewController:login animated:YES];
+        }
+    }
+}
 @end
