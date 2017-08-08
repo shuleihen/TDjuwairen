@@ -285,7 +285,7 @@
     }
 }
 
-- (void)commentPressed:(id)sender {
+- (IBAction)commentPressed:(id)sender {
     PlayStockCommentViewController *vc = [[UIStoryboard storyboardWithName:@"PlayStock" bundle:nil] instantiateViewControllerWithIdentifier:@"PlayStockCommentViewController"];
     vc.playStockType = kPlayStockIndex;
     [self.navigationController pushViewController:vc animated:YES];
