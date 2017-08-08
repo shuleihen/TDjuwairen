@@ -290,6 +290,12 @@
 		19A7EE5A1D423ED200F833A9 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 19A7EE561D423ED200F833A9 /* LICENSE */; };
 		19A7EE5B1D423ED200F833A9 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A7EE581D423ED200F833A9 /* MBProgressHUD.m */; };
 		19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19A9721B1D4226A600A9D521 /* WebKit.framework */; };
+		19AA7DB11F3848CE00716F38 /* TDTabBar.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DB01F3848CE00716F38 /* TDTabBar.m */; };
+		19AA7DB41F38493D00716F38 /* TDTabBarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DB31F38493D00716F38 /* TDTabBarItem.m */; };
+		19AA7DB71F38495000716F38 /* TDTabBarBadge.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DB61F38495000716F38 /* TDTabBarBadge.m */; };
+		19AA7DBA1F39684C00716F38 /* DYRefreshAliveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DB91F39684C00716F38 /* DYRefreshAliveView.m */; };
+		19AA7DBD1F3968DC00716F38 /* DYRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DBC1F3968DC00716F38 /* DYRefreshBaseView.m */; };
+		19AA7DC01F398B0400716F38 /* DYRefreshCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DBF1F398B0400716F38 /* DYRefreshCircleView.m */; };
 		19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */; };
 		19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */; };
 		19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD853E1DADCA80007BC000 /* UIImage+Resize.m */; };
@@ -1173,6 +1179,18 @@
 		19A7EE571D423ED200F833A9 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		19A7EE581D423ED200F833A9 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		19A9721B1D4226A600A9D521 /* WebKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WebKit.framework; path = System/Library/Frameworks/WebKit.framework; sourceTree = SDKROOT; };
+		19AA7DAF1F3848CE00716F38 /* TDTabBar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBar.h; sourceTree = "<group>"; };
+		19AA7DB01F3848CE00716F38 /* TDTabBar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBar.m; sourceTree = "<group>"; };
+		19AA7DB21F38493D00716F38 /* TDTabBarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarItem.h; sourceTree = "<group>"; };
+		19AA7DB31F38493D00716F38 /* TDTabBarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarItem.m; sourceTree = "<group>"; };
+		19AA7DB51F38495000716F38 /* TDTabBarBadge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarBadge.h; sourceTree = "<group>"; };
+		19AA7DB61F38495000716F38 /* TDTabBarBadge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTabBarBadge.m; sourceTree = "<group>"; };
+		19AA7DB81F39684C00716F38 /* DYRefreshAliveView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRefreshAliveView.h; sourceTree = "<group>"; };
+		19AA7DB91F39684C00716F38 /* DYRefreshAliveView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRefreshAliveView.m; sourceTree = "<group>"; };
+		19AA7DBB1F3968DC00716F38 /* DYRefreshBaseView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRefreshBaseView.h; sourceTree = "<group>"; };
+		19AA7DBC1F3968DC00716F38 /* DYRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRefreshBaseView.m; sourceTree = "<group>"; };
+		19AA7DBE1F398B0400716F38 /* DYRefreshCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRefreshCircleView.h; sourceTree = "<group>"; };
+		19AA7DBF1F398B0400716F38 /* DYRefreshCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRefreshCircleView.m; sourceTree = "<group>"; };
 		19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileLoginViewController.xib; sourceTree = "<group>"; };
 		19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView.h; sourceTree = "<group>"; };
 		19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView.m; sourceTree = "<group>"; };
@@ -3256,6 +3274,12 @@
 			children = (
 				1966A6531E8BB81C007DDA14 /* DYRefresh.h */,
 				1966A6541E8BB81C007DDA14 /* DYRefresh.m */,
+				19AA7DBB1F3968DC00716F38 /* DYRefreshBaseView.h */,
+				19AA7DBC1F3968DC00716F38 /* DYRefreshBaseView.m */,
+				19AA7DB81F39684C00716F38 /* DYRefreshAliveView.h */,
+				19AA7DB91F39684C00716F38 /* DYRefreshAliveView.m */,
+				19AA7DBE1F398B0400716F38 /* DYRefreshCircleView.h */,
+				19AA7DBF1F398B0400716F38 /* DYRefreshCircleView.m */,
 			);
 			path = DYRefresh;
 			sourceTree = "<group>";
@@ -3767,6 +3791,12 @@
 			children = (
 				19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */,
 				19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */,
+				19AA7DAF1F3848CE00716F38 /* TDTabBar.h */,
+				19AA7DB01F3848CE00716F38 /* TDTabBar.m */,
+				19AA7DB21F38493D00716F38 /* TDTabBarItem.h */,
+				19AA7DB31F38493D00716F38 /* TDTabBarItem.m */,
+				19AA7DB51F38495000716F38 /* TDTabBarBadge.h */,
+				19AA7DB61F38495000716F38 /* TDTabBarBadge.m */,
 			);
 			path = TabbarController;
 			sourceTree = "<group>";
@@ -5442,6 +5472,7 @@
 				4DD179EA1E77C00B00FBE66D /* MYPhotoBrowser.m in Sources */,
 				19B11CAC1D655B9E00BB4DF4 /* DDTTYLogger.m in Sources */,
 				19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */,
+				19AA7DBA1F39684C00716F38 /* DYRefreshAliveView.m in Sources */,
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
 				19F07A321F1D9FDD004449BB /* XHLaunchAdButton.m in Sources */,
 				19517F2A1EE64B39009E24D1 /* AliveRoomNavigationBar.m in Sources */,
@@ -5699,6 +5730,7 @@
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
 				1936AF301EB3212600408D6F /* NJKWebViewProgressView.m in Sources */,
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
+				19AA7DB11F3848CE00716F38 /* TDTabBar.m in Sources */,
 				1959D4741F29E5F5002B969A /* SystemAudioHandler.m in Sources */,
 				19BA91331E14DF1700C27124 /* UIImage+Create.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
@@ -5738,6 +5770,7 @@
 				19F079FE1F18D7E4004449BB /* UILabel+StockCode.m in Sources */,
 				1987B2AE1EE6CE2D00BD852E /* AliveListContentView.m in Sources */,
 				1955B45D1D644D9800DC102E /* ForgetViewController.m in Sources */,
+				19AA7DB41F38493D00716F38 /* TDTabBarItem.m in Sources */,
 				194E0D1C1EEF8D66009C7AC6 /* TDCommentTableViewDelegate.m in Sources */,
 				1987B2991EE688F700BD852E /* SelectedSurveySubjectViewController.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
@@ -5773,6 +5806,7 @@
 				1987B28F1EE688F700BD852E /* StockInfoModel.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				1987B2911EE688F700BD852E /* NiuxiongSectionHeaderView.m in Sources */,
+				19AA7DB71F38495000716F38 /* TDTabBarBadge.m in Sources */,
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,
 				193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */,
 				1987B28C1EE688F700BD852E /* StockAnnounceModel.m in Sources */,
@@ -5812,6 +5846,7 @@
 				19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */,
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
+				19AA7DC01F398B0400716F38 /* DYRefreshCircleView.m in Sources */,
 				194E0D001EEE3C85009C7AC6 /* ViewpointCollectionTableViewController.m in Sources */,
 				1987B2781EE688F700BD852E /* NiuxiongTableViewCell.m in Sources */,
 				190F65F11E36E73000B83ADF /* NoOrderTableViewCell.m in Sources */,
@@ -5868,6 +5903,7 @@
 				194E0D091EEE7678009C7AC6 /* StockHotListTableViewDelegate.m in Sources */,
 				4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
+				19AA7DBD1F3968DC00716F38 /* DYRefreshBaseView.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -11,9 +11,11 @@
 #import "LoginViewController.h"
 #import "TDNavigationController.h"
 #import "CenterViewController.h"
+#import "TDTabBar.h"
+#import "TDTabBarItem.h"
 
-@interface TDTabBarController ()<UITabBarControllerDelegate>
-
+@interface TDTabBarController ()<TDTabBarDelegate>
+@property (nonatomic, strong) TDTabBar *lcTabBar;
 @end
 
 @implementation TDTabBarController
@@ -21,98 +23,98 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.tabBar.translucent = NO;
-    self.tabBar.tintColor = TDThemeColor;
-    self.delegate = self;
+    TDTabBar *tabBar = [[TDTabBar alloc] init];
+    tabBar.frame     = self.tabBar.bounds;
+    tabBar.delegate  = self;
+    [self.tabBar addSubview:tabBar];
+    self.lcTabBar = tabBar;
+    
+    [self setupViewControllers:self.viewControllers];
+    
+    self.selectedIndex = 0;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
+    [self removeOriginControls];
 }
 
-- (void)showTabBarAnimation {
-    UIImageView *aliveImageView,*playImageView;
-    int i=0;
+- (void)removeOriginControls {
     
-    for (UIView *tabBarItem in self.tabBar.subviews) {
-        if ([tabBarItem isKindOfClass:NSClassFromString(@"UITabBarButton")]) {
-            
-            
-            for (UIView *barItem in tabBarItem.subviews) {
-                if ([barItem isKindOfClass:NSClassFromString(@"UITabBarSwappableImageView")]) {
-                    if (i == 0) {
-                        // 直播
-                        aliveImageView = (UIImageView *)barItem;
-                    } else if (i == 2) {
-                        // 玩票
-                        playImageView = (UIImageView *)barItem;
-                    }
-                }
-            }
-            
-            i++;
-        }
-    }
-    
-
-    playImageView.animationImages = [self animationImagesWithTag:2];
-    playImageView.animationDuration = 2.0f;
-    [playImageView startAnimating];
-    
-    dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 2*NSEC_PER_SEC);
-    dispatch_after(time, dispatch_get_main_queue(), ^{
-        [playImageView stopAnimating];
+    [self.tabBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * obj, NSUInteger idx, BOOL * stop) {
         
-        dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 0.5*NSEC_PER_SEC);
-        dispatch_after(time, dispatch_get_main_queue(), ^{
-            aliveImageView.animationImages = [self animationImagesWithTag:0];
-            aliveImageView.animationDuration = 1.0f;
-            [aliveImageView startAnimating];
+        if ([obj isKindOfClass:[UIControl class]]) {
             
-            dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, 1*NSEC_PER_SEC);
-            dispatch_after(time, dispatch_get_main_queue(), ^{
-                [aliveImageView stopAnimating];
-            });
-        });
-
-    });
+            [obj removeFromSuperview];
+        }
+    }];
 }
 
-- (NSArray *)animationImagesWithTag:(NSInteger)tag {
-    NSMutableArray *images = [NSMutableArray arrayWithCapacity:50];
+- (void)setupViewControllers:(NSArray *)viewControllers {
     
-    if (tag == 0) {
-        // 直播
-        for (int i=1; i<=25; i++) {
-            [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"aliv_%d.png",i]]];
-        }
-    } else if (tag == 2) {
-        // 玩票
-        for (int i=1; i<=49; i++) {
-            [images addObject:[UIImage imageNamed:[NSString stringWithFormat:@"play_%d.png",i]]];
-        }
-    }
-    return images;
+    self.lcTabBar.badgeTitleFont         = [UIFont systemFontOfSize:9];
+    self.lcTabBar.itemTitleFont          = [UIFont systemFontOfSize:11];
+    self.lcTabBar.itemImageRatio         = 1.0;
+    self.lcTabBar.itemTitleColor         = TDLightGrayColor;
+    self.lcTabBar.selectedItemTitleColor = TDThemeColor;
+    
+    self.lcTabBar.tabBarItemCount = viewControllers.count;
+    
+    [viewControllers enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
+        
+        UIViewController *VC = (UIViewController *)obj;
+        
+        UIImage *selectedImage = VC.tabBarItem.selectedImage;
+        VC.tabBarItem.selectedImage = [selectedImage imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal];
+        
+        [self addChildViewController:VC];
+        
+        [self.lcTabBar addTabBarItem:VC.tabBarItem];
+    }];
 }
 
-- (BOOL)tabBarController:(UITabBarController *)tabBarController shouldSelectViewController:(UIViewController *)viewController {
-    TDNavigationController *nav = (TDNavigationController *)viewController;
-    UIViewController *vc = nav.viewControllers.firstObject;
-    if ([vc isKindOfClass:[CenterViewController class]]) {
-        return US.isLogIn;
-    }
-    return YES;
+- (void)setSelectedIndex:(NSUInteger)selectedIndex {
+    
+    [super setSelectedIndex:selectedIndex];
+    
+    self.lcTabBar.selectedItem.selected = NO;
+    self.lcTabBar.selectedItem = self.lcTabBar.tabBarItems[selectedIndex];
+    self.lcTabBar.selectedItem.selected = YES;
 }
 
-- (void)tabBar:(UITabBar *)tabBar didSelectItem:(UITabBarItem *)item {
-    if (item.tag == 3) {
-        // 我的
-        if (!US.isLogIn) {
-            UINavigationController *nav = self.selectedViewController;
-            LoginViewController *login = [[LoginViewController alloc] init];
-            login.hidesBottomBarWhenPushed = YES;
-            [nav pushViewController:login animated:YES];
-        }
+- (void)loginStatusChanged:(id)sender {
+    if (self.selectedIndex == 3) {
+        self.selectedIndex = 0;
     }
 }
+
+#pragma mark - XXTabBarDelegate Method
+
+- (void)tabBar:(TDTabBar *)tabBarView didSelectedCenter:(id)sender {
+    
+}
+
+- (BOOL)tabBar:(TDTabBar *)tabBarView shouldSelectItemIndex:(NSInteger)index {
+    
+    if (index == 3 && !US.isLogIn) {
+        UINavigationController *nav = self.selectedViewController;
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [nav pushViewController:login animated:YES];
+        
+        return NO;
+    } else {
+        return YES;
+    }
+}
+
+- (void)tabBar:(TDTabBar *)tabBarView didSelectedItemFrom:(NSInteger)from to:(NSInteger)to {
+    
+    self.selectedIndex = to;
+}
+
 @end
