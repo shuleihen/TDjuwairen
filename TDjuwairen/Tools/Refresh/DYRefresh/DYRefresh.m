@@ -153,16 +153,16 @@ NSString *const DYRefreshKeyPathPanState = @"state";
     }
     
     if (dataCount == 0) {
-        [self endRefresh];
+        self.contentView.result = @"没有更新";
     } else {
         self.contentView.result = [NSString stringWithFormat:@"更新了%ld条内容",(long)dataCount];
-        
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [UIView animateWithDuration:0.3 animations:^{
-                self.status = kDYRefreshStatusDone;
-            }];
-        });
     }
+    
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [UIView animateWithDuration:0.3 animations:^{
+            self.status = kDYRefreshStatusDone;
+        }];
+    });
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
