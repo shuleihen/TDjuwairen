@@ -51,13 +51,15 @@
         [self addSubview:btn];
     }
     
-    UIView *slide = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 30, 3)];
+    UIView *slide = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 28, 3)];
     slide.tag = 300;
     slide.layer.cornerRadius = 1.5f;
     slide.clipsToBounds = YES;
     slide.backgroundColor = [UIColor whiteColor];
-    slide.center = CGPointMake((w-itemW*self.items.count)/2 + itemW/2, h-6);
+    slide.center = CGPointMake((w-itemW*self.items.count)/2 + itemW/2-1, h-6);
     [self addSubview:slide];
+    
+    self.selectedIndex = 0;
 }
 
 - (void)setupUnread:(BOOL)unread withIndex:(NSInteger)index {
@@ -76,14 +78,26 @@
     NSTimeInterval duration = 0.3 + 0.05*self.items.count;
     
     [UIView animateWithDuration:duration animations:^{
-        slide.center = CGPointMake(offx + itemW/2 + itemW*index, h-6);
+        slide.center = CGPointMake(offx + itemW/2 + itemW*index -1, h-6);
     }];
+}
+
+- (void)setSelectedIndex:(NSInteger)selectedIndex {
+    if (_selectedIndex >= 0 && _selectedIndex < self.items.count) {
+        UIButton *btn = [self viewWithTag:(200+_selectedIndex)];
+        btn.selected = NO;
+    }
+    
+    UIButton *btn = [self viewWithTag:(200+selectedIndex)];
+    btn.selected = YES;
+    
+    _selectedIndex = selectedIndex;
 }
 
 - (void)buttonPressed:(UIButton *)sender {
     NSInteger tag = sender.tag - 200;
     [self setupSlideWithIndex:tag];
-    
+
     self.selectedIndex = tag;
     
     [self sendActionsForControlEvents:UIControlEventValueChanged];
