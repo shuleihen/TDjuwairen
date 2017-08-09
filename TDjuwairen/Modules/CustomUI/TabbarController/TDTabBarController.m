@@ -13,8 +13,12 @@
 #import "CenterViewController.h"
 #import "TDTabBar.h"
 #import "TDTabBarItem.h"
+#import "TDPopupMenuViewController.h"
+#import "UIImage+Caputure.h"
+#import "PublishViewViewController.h"
+#import "AlivePublishViewController.h"
 
-@interface TDTabBarController ()<TDTabBarDelegate>
+@interface TDTabBarController ()<TDTabBarDelegate, TDPopupMenuDelegate>
 @property (nonatomic, strong) TDTabBar *lcTabBar;
 @end
 
@@ -95,7 +99,11 @@
 #pragma mark - XXTabBarDelegate Method
 
 - (void)tabBar:(TDTabBar *)tabBarView didSelectedCenter:(id)sender {
-    
+    TDPopupMenuViewController *vc = [[TDPopupMenuViewController alloc] init];
+    UIImage *image = [UIImage imageWithCaputureView:self.view];
+    vc.backImg = image;
+    vc.delegate = self;
+    [self presentViewController:vc animated:NO completion:nil];
 }
 
 - (BOOL)tabBar:(TDTabBar *)tabBarView shouldSelectItemIndex:(NSInteger)index {
@@ -117,4 +125,35 @@
     self.selectedIndex = to;
 }
 
+#pragma mark - TDPopupMenuDelegate
+- (void)popupMenu:(id)popupMenu withIndex:(NSInteger)selectedIndex {
+    UINavigationController *nav = self.selectedViewController;
+    
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [nav pushViewController:login animated:YES];
+        return;
+    }
+    
+    
+    if (selectedIndex == 0) {
+        //跳转到发布页面
+        PublishViewViewController *publishview = [[PublishViewViewController alloc] init];
+        publishview.hidesBottomBarWhenPushed = YES;
+        [nav pushViewController:publishview animated:YES];
+    } else if (selectedIndex == 1) {
+        // 推单
+        AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.publishType = kAlivePublishPosts;
+        [nav pushViewController:vc animated:YES];
+    } else if (selectedIndex == 2) {
+        // 话题
+        AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.publishType = kAlivePublishNormal;
+        [nav pushViewController:vc animated:YES];
+    }
+}
 @end
