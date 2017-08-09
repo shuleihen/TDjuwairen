@@ -67,10 +67,11 @@
 //    [self.view addSubview:sep];
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-    [closeBtn setImage:[UIImage imageNamed:@"ico_close.png"] forState:UIControlStateNormal];
+    [closeBtn setImage:[UIImage imageNamed:@"button_closed.png"] forState:UIControlStateNormal];
     closeBtn.frame = CGRectMake((kScreenWidth-44)/2, kScreenHeight-44, 44, 44);
     [closeBtn addTarget:self action:@selector(closePressed:) forControlEvents:UIControlEventTouchUpInside];
     closeBtn.tag = 300;
+    closeBtn.transform = CGAffineTransformMakeRotation(-M_PI_4);
     [self.view addSubview:closeBtn];
     
     // 按钮
@@ -103,6 +104,11 @@
 }
 
 - (void)showAnimationMenu {
+    UIButton *closeBtn = [self.view viewWithTag:300];
+    [UIView animateWithDuration:0.2 animations:^{
+        closeBtn.transform = CGAffineTransformIdentity;
+    }];
+    
     [self.itemButtons enumerateObjectsUsingBlock:^(TDPopupMenuButton *btn, NSUInteger idx, BOOL *stop){
         [UIView animateWithDuration:0.8 delay:idx *0.03 usingSpringWithDamping:0.5 initialSpringVelocity:15 options:UIViewAnimationOptionCurveEaseIn animations:^{
             btn.transform = CGAffineTransformIdentity;
