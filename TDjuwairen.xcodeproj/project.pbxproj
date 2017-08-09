@@ -296,6 +296,8 @@
 		19AA7DBA1F39684C00716F38 /* DYRefreshAliveView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DB91F39684C00716F38 /* DYRefreshAliveView.m */; };
 		19AA7DBD1F3968DC00716F38 /* DYRefreshBaseView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DBC1F3968DC00716F38 /* DYRefreshBaseView.m */; };
 		19AA7DC01F398B0400716F38 /* DYRefreshCircleView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DBF1F398B0400716F38 /* DYRefreshCircleView.m */; };
+		19AA7DC31F3AA20100716F38 /* AliveListRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DC21F3AA20100716F38 /* AliveListRootViewController.m */; };
+		19AA7DC71F3AAFCD00716F38 /* TDSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DC61F3AAFCD00716F38 /* TDSegmentedControl.m */; };
 		19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */; };
 		19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */; };
 		19AD853F1DADCA80007BC000 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD853E1DADCA80007BC000 /* UIImage+Resize.m */; };
@@ -1191,6 +1193,10 @@
 		19AA7DBC1F3968DC00716F38 /* DYRefreshBaseView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRefreshBaseView.m; sourceTree = "<group>"; };
 		19AA7DBE1F398B0400716F38 /* DYRefreshCircleView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DYRefreshCircleView.h; sourceTree = "<group>"; };
 		19AA7DBF1F398B0400716F38 /* DYRefreshCircleView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DYRefreshCircleView.m; sourceTree = "<group>"; };
+		19AA7DC11F3AA20100716F38 /* AliveListRootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListRootViewController.h; sourceTree = "<group>"; };
+		19AA7DC21F3AA20100716F38 /* AliveListRootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListRootViewController.m; sourceTree = "<group>"; };
+		19AA7DC51F3AAFCD00716F38 /* TDSegmentedControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDSegmentedControl.h; sourceTree = "<group>"; };
+		19AA7DC61F3AAFCD00716F38 /* TDSegmentedControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDSegmentedControl.m; sourceTree = "<group>"; };
 		19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileLoginViewController.xib; sourceTree = "<group>"; };
 		19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView.h; sourceTree = "<group>"; };
 		19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView.m; sourceTree = "<group>"; };
@@ -2934,6 +2940,8 @@
 		1953CAF71E7172DB00A64B3C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				19AA7DC11F3AA20100716F38 /* AliveListRootViewController.h */,
+				19AA7DC21F3AA20100716F38 /* AliveListRootViewController.m */,
 				193419D51E782C9B00F22788 /* AliveMainListViewController.h */,
 				193419D61E782C9B00F22788 /* AliveMainListViewController.m */,
 				1953CAF81E7172DB00A64B3C /* AliveListViewController.h */,
@@ -3820,6 +3828,15 @@
 				196B8C021DFA4EC500084894 /* MBProgressHUD+Custom.m */,
 			);
 			path = MBProgressHUD;
+			sourceTree = "<group>";
+		};
+		19AA7DC41F3AAFBC00716F38 /* TDSegmentControl */ = {
+			isa = PBXGroup;
+			children = (
+				19AA7DC51F3AAFCD00716F38 /* TDSegmentedControl.h */,
+				19AA7DC61F3AAFCD00716F38 /* TDSegmentedControl.m */,
+			);
+			path = TDSegmentControl;
 			sourceTree = "<group>";
 		};
 		19AF98161E24A7880097A585 /* LocationPicker */ = {
@@ -5021,6 +5038,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19AA7DC41F3AAFBC00716F38 /* TDSegmentControl */,
 				1959D4591F29B8A3002B969A /* YXNoDataView */,
 				19F07A161F1D9FDD004449BB /* XHLaunchAd */,
 				19F07A0A1F1B7BD0004449BB /* SGAdvertScrollView */,
@@ -5568,6 +5586,7 @@
 				190F65FB1E36E73000B83ADF /* OrderModel.m in Sources */,
 				84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
+				19AA7DC71F3AAFCD00716F38 /* TDSegmentedControl.m in Sources */,
 				1987B2971EE688F700BD852E /* SurveyDetailSegmentView.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
@@ -5628,6 +5647,7 @@
 				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
 				1959D45C1F29B8B5002B969A /* YXNoDataView.m in Sources */,
 				4DF52C591ED6D630001D342D /* AliveSearchAllTypeViewController.m in Sources */,
+				19AA7DC31F3AA20100716F38 /* AliveListRootViewController.m in Sources */,
 				19959B811E2C5D4300AB26DF /* GradeListViewController.m in Sources */,
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
 				1987B27C1EE688F700BD852E /* DialogueViewController.m in Sources */,

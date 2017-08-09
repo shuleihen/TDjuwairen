@@ -74,7 +74,7 @@
 }
 
 - (void)setupNavigationControllerBackground:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:NSClassFromString(@"AliveMainListViewController")]) {
+    if ([viewController isKindOfClass:NSClassFromString(@"AliveListRootViewController")]) {
         // 直播主页面导航条背景修改
         [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
         
