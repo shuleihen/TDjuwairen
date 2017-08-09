@@ -4126,13 +4126,14 @@
 			children = (
 				19F07A3B1F1DA0C5004449BB /* Advert */,
 				1955B4011D644D9800DC102E /* Network */,
-				19F0073C1E31E5AE000A5F98 /* Recharge */,
-				19193B171E03B3E9000A6AD2 /* PlayStock */,
 				194186E71DF90CA4000C5197 /* Launch */,
 				1924DFED1D62C3CE00FEC383 /* Category */,
 				191027AD1DE52B04006A2275 /* Handler */,
 				194186DF1DF8132A000C5197 /* Singletons */,
 				1955B3AC1D644D9800DC102E /* LoginRegiser */,
+				19E6383B1F3B32DA00DEEB20 /* StockPool */,
+				19F0073C1E31E5AE000A5F98 /* Recharge */,
+				19193B171E03B3E9000A6AD2 /* PlayStock */,
 				190F65C41E36E73000B83ADF /* MyWallet */,
 				193325701E4DAF7200E3D500 /* Setting */,
 				1955B3BA1D644D9800DC102E /* MyCenter */,
@@ -4444,6 +4445,173 @@
 				19E5F2A11E13653200984DBC /* SQTopicCellViewModel.m */,
 			);
 			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
+			isa = PBXGroup;
+			children = (
+				19E6383C1F3B32DA00DEEB20 /* StockPoolDetail */,
+				19E638401F3B32DA00DEEB20 /* StockPoolEdit */,
+				19E638441F3B32DA00DEEB20 /* StockPoolList */,
+				19E638481F3B32DA00DEEB20 /* StockPoolSetting */,
+				19E6384C1F3B32DA00DEEB20 /* StockPoolSubscibe */,
+			);
+			path = StockPool;
+			sourceTree = "<group>";
+		};
+		19E6383C1F3B32DA00DEEB20 /* StockPoolDetail */ = {
+			isa = PBXGroup;
+			children = (
+				19E6383D1F3B32DA00DEEB20 /* Cells */,
+				19E6383E1F3B32DA00DEEB20 /* Controllers */,
+				19E6383F1F3B32DA00DEEB20 /* Views */,
+			);
+			path = StockPoolDetail;
+			sourceTree = "<group>";
+		};
+		19E6383D1F3B32DA00DEEB20 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19E6383E1F3B32DA00DEEB20 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19E6383F1F3B32DA00DEEB20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19E638401F3B32DA00DEEB20 /* StockPoolEdit */ = {
+			isa = PBXGroup;
+			children = (
+				19E638411F3B32DA00DEEB20 /* Cells */,
+				19E638421F3B32DA00DEEB20 /* Controllers */,
+				19E638431F3B32DA00DEEB20 /* Views */,
+			);
+			path = StockPoolEdit;
+			sourceTree = "<group>";
+		};
+		19E638411F3B32DA00DEEB20 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19E638421F3B32DA00DEEB20 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19E638431F3B32DA00DEEB20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19E638441F3B32DA00DEEB20 /* StockPoolList */ = {
+			isa = PBXGroup;
+			children = (
+				19E638451F3B32DA00DEEB20 /* Cells */,
+				19E638461F3B32DA00DEEB20 /* Controllers */,
+				19E638471F3B32DA00DEEB20 /* Views */,
+			);
+			path = StockPoolList;
+			sourceTree = "<group>";
+		};
+		19E638451F3B32DA00DEEB20 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19E638461F3B32DA00DEEB20 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19E638471F3B32DA00DEEB20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19E638481F3B32DA00DEEB20 /* StockPoolSetting */ = {
+			isa = PBXGroup;
+			children = (
+				19E638491F3B32DA00DEEB20 /* Cells */,
+				19E6384A1F3B32DA00DEEB20 /* Controllers */,
+				19E6384B1F3B32DA00DEEB20 /* Views */,
+			);
+			path = StockPoolSetting;
+			sourceTree = "<group>";
+		};
+		19E638491F3B32DA00DEEB20 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19E6384A1F3B32DA00DEEB20 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19E6384B1F3B32DA00DEEB20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		19E6384C1F3B32DA00DEEB20 /* StockPoolSubscibe */ = {
+			isa = PBXGroup;
+			children = (
+				19E6384D1F3B32DA00DEEB20 /* Cells */,
+				19E6384E1F3B32DA00DEEB20 /* Controllers */,
+				19E6384F1F3B32DA00DEEB20 /* Views */,
+			);
+			path = StockPoolSubscibe;
+			sourceTree = "<group>";
+		};
+		19E6384D1F3B32DA00DEEB20 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19E6384E1F3B32DA00DEEB20 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19E6384F1F3B32DA00DEEB20 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		19ED17331F1644B400EC89DF /* Detail */ = {
