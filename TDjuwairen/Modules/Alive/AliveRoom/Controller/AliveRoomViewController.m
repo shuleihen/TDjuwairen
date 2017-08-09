@@ -50,8 +50,6 @@
 @property (copy, nonatomic) NSString *saveGuessRateInfoStr;
 @property (copy, nonatomic) NSString *saveLevelInfo;
 
-/// 股票池btn
-@property (nonatomic, strong) UIButton *stockPoolRecordBtn;
 
 @end
 
