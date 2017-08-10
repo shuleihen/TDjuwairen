@@ -25,6 +25,7 @@
 #import "STPopup.h"
 #import "AliveRoomNavigationBar.h"
 #import "MessageTableViewController.h"
+#import "StockPoolListViewController.h"
 
 #define kAliveHeaderHeight  210
 #define kAliveSegmentHeight 34
@@ -49,6 +50,10 @@
 
 @property (copy, nonatomic) NSString *saveGuessRateInfoStr;
 @property (copy, nonatomic) NSString *saveLevelInfo;
+
+/// 股票池button
+@property (strong, nonatomic) UIButton *stockPoolBtn;
+
 @end
 
 @implementation AliveRoomViewController
@@ -105,7 +110,7 @@
         view.showsHorizontalScrollIndicator = NO;
         
         [view addSubview:self.segmentControl];
-        
+        [view addSubview:self.stockPoolBtn];
         
         _segmentContentScrollView = view;
     }
@@ -124,8 +129,8 @@
                                                         NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        _segmentControl.sectionTitles = @[@"全部动态",@"推单"];
-        _segmentControl.frame = CGRectMake(0, 0, 160, kAliveSegmentHeight);
+        _segmentControl.sectionTitles = @[@"全部动态",@"推单",@"股票池"];
+        _segmentControl.frame = CGRectMake(0, 0, 250, kAliveSegmentHeight);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -208,6 +213,15 @@
     }
     
     return _publishBtn;
+}
+
+- (UIButton *)stockPoolBtn {
+    if (_stockPoolBtn == nil) {
+        _stockPoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _stockPoolBtn.frame = CGRectMake(160, 0, 90, kAliveSegmentHeight);
+        [_stockPoolBtn addTarget:self action:@selector(stockPoolBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _stockPoolBtn;
 }
 
 - (void)viewDidLoad {
@@ -299,12 +313,27 @@
 #pragma mark - Action
 - (void)segmentPressed:(HMSegmentedControl *)sender {
     NSInteger index = sender.selectedSegmentIndex;
+    if (index >= self.contentControllers.count) {
+        return;
+    }
     __weak AliveRoomViewController *wself = self;
     AliveRoomLiveViewController *vc = self.contentControllers[index];
     
     [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
         [wself reloadTableView];
     }];
+}
+
+- (void)stockPoolBtnClick {
+    if (self.segmentControl.selectedSegmentIndex !=2) {
+        self.segmentControl.selectedSegmentIndex = 2;
+        [self segmentPressed:self.segmentControl];
+    }
+#warning - 需要判断是自己的直播间还是别人的直播间
+    StockPoolListViewController *stockPoolVC = [[StockPoolListViewController alloc] init];
+    [self.navigationController pushViewController:stockPoolVC animated:YES];
+    
+    
 }
 
 - (void)refreshAction {
