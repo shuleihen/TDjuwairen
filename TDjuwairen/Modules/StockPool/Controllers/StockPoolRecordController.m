@@ -12,6 +12,7 @@
 #import "UIViewController+Refresh.h"
 #import "StockPoolRecordNormalCell.h"
 #import "StockPoolRecordRenewCell.h"
+#import "StockPoolRecordBottomView.h"
 
 #define kStockPoolRecordCellNormalID    @"kStockPoolRecordCellNormalID"
 #define kStockPoolRecordCellRenewID    @"kStockPoolRecordCellRenewID"
@@ -20,6 +21,8 @@
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) UIView *settingView;
 @property (assign, nonatomic) NSInteger currentPage;
+/// 底部功能条
+@property (strong, nonatomic) StockPoolRecordBottomView *ownBottomView;
 
 @end
 
@@ -41,14 +44,36 @@
     return _tableView;
 }
 
+- (StockPoolRecordBottomView *)ownBottomView {
+
+    if (_ownBottomView == nil) {
+        _ownBottomView = [[StockPoolRecordBottomView alloc] init];
+    }
+    return _ownBottomView;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"股票池";
     self.view.backgroundColor = TDViewBackgrouondColor;
     [self configNavigationBar];
+    /// 加载底部功能条
+    [self.view addSubview:self.ownBottomView];
+    [self.ownBottomView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.bottom.equalTo(self.view);
+        make.height.mas_equalTo(49);
+    }];
     /// 加载tableView
     [self.view addSubview:self.tableView];
+    [self.tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.top.equalTo(self.view);
+        make.bottom.equalTo(self.ownBottomView.mas_top);
+    }];
+    
+    
+    
+    
     
 }
 
@@ -141,19 +166,26 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-//    StockPoolRecordNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellNormalID];
-//    if (cell == nil) {
-//        cell = [[StockPoolRecordNormalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellNormalID];
-//    }
-//    cell.backgroundColor = [UIColor clearColor];
-//    return cell;
 
-    StockPoolRecordRenewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellRenewID];
-    if (cell == nil) {
-        cell = [[StockPoolRecordRenewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellRenewID];
+    
+    if (indexPath.row == 1) {
+        
+        StockPoolRecordRenewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellRenewID];
+        if (cell == nil) {
+            cell = [[StockPoolRecordRenewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellRenewID];
+        }
+        cell.backgroundColor = [UIColor clearColor];
+        return cell;
+    }else {
+    
+            StockPoolRecordNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellNormalID];
+            if (cell == nil) {
+                cell = [[StockPoolRecordNormalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellNormalID];
+            }
+            cell.backgroundColor = [UIColor clearColor];
+            return cell;
     }
-    cell.backgroundColor = [UIColor clearColor];
-    return cell;
+
 }
 
 
@@ -179,9 +211,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    
-//    return 159;
-    return 40;
+    return  indexPath.row == 1? 40 : 159;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

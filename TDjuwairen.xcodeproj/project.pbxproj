@@ -495,6 +495,7 @@
 		4D5DFE641F3C105A0014F042 /* StockPoolRecordNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE621F3C105A0014F042 /* StockPoolRecordNormalCell.m */; };
 		4D5DFE681F3C25000014F042 /* StockPoolRecordDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE671F3C25000014F042 /* StockPoolRecordDateView.m */; };
 		4D5DFE6C1F3C4BD60014F042 /* StockPoolRecordRenewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE6B1F3C4BD60014F042 /* StockPoolRecordRenewCell.m */; };
+		4D5DFE6F1F3C54B70014F042 /* StockPoolRecordBottomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE6E1F3C54B70014F042 /* StockPoolRecordBottomView.m */; };
 		4D6E67D41E976BAA009A9FB0 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4D6E67CE1E976BAA009A9FB0 /* license */; };
 		4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */; };
 		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
@@ -1579,6 +1580,8 @@
 		4D5DFE671F3C25000014F042 /* StockPoolRecordDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolRecordDateView.m; sourceTree = "<group>"; };
 		4D5DFE6A1F3C4BD60014F042 /* StockPoolRecordRenewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolRecordRenewCell.h; sourceTree = "<group>"; };
 		4D5DFE6B1F3C4BD60014F042 /* StockPoolRecordRenewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolRecordRenewCell.m; sourceTree = "<group>"; };
+		4D5DFE6D1F3C54B70014F042 /* StockPoolRecordBottomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolRecordBottomView.h; sourceTree = "<group>"; };
+		4D5DFE6E1F3C54B70014F042 /* StockPoolRecordBottomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolRecordBottomView.m; sourceTree = "<group>"; };
 		4D6E67CE1E976BAA009A9FB0 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 		4D6E67D21E976BAA009A9FB0 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
@@ -5034,6 +5037,8 @@
 			children = (
 				4D5DFE661F3C25000014F042 /* StockPoolRecordDateView.h */,
 				4D5DFE671F3C25000014F042 /* StockPoolRecordDateView.m */,
+				4D5DFE6D1F3C54B70014F042 /* StockPoolRecordBottomView.h */,
+				4D5DFE6E1F3C54B70014F042 /* StockPoolRecordBottomView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5745,6 +5750,7 @@
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
 				19386ECC1E7188AD00D4426E /* AliveMasterModel.m in Sources */,
+				4D5DFE6F1F3C54B70014F042 /* StockPoolRecordBottomView.m in Sources */,
 				196F5EC91E54847700928B60 /* Base64.m in Sources */,
 				19B11CA91D655B9E00BB4DF4 /* DDASLLogger.m in Sources */,
 				4DD179EA1E77C00B00FBE66D /* MYPhotoBrowser.m in Sources */,
