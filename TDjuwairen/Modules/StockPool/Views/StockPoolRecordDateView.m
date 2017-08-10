@@ -103,7 +103,6 @@
             make.left.equalTo(self).mas_offset(3);
             make.right.equalTo(_weekLabel.mas_right);
             make.top.equalTo(_weekLabel.mas_bottom);
-            make.bottom.equalTo(self).mas_offset(-3);
             
         }];
         
