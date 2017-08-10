@@ -4047,6 +4047,7 @@
 		19C526241D49EDDC0039F85D /* Modules */ = {
 			isa = PBXGroup;
 			children = (
+				4D5DFE591F3BEFA00014F042 /* StockPool */,
 				19F07A3B1F1DA0C5004449BB /* Advert */,
 				1955B4011D644D9800DC102E /* Network */,
 				19F0073C1E31E5AE000A5F98 /* Recharge */,
@@ -4731,6 +4732,45 @@
 				19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */,
 			);
 			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
+		4D5DFE591F3BEFA00014F042 /* StockPool */ = {
+			isa = PBXGroup;
+			children = (
+				4D5DFE5A1F3BEFA00014F042 /* Cells */,
+				4D5DFE5B1F3BEFA00014F042 /* Controllers */,
+				4D5DFE5C1F3BEFA00014F042 /* Models */,
+				4D5DFE5D1F3BEFA00014F042 /* Views */,
+			);
+			path = StockPool;
+			sourceTree = "<group>";
+		};
+		4D5DFE5A1F3BEFA00014F042 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4D5DFE5B1F3BEFA00014F042 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4D5DFE5C1F3BEFA00014F042 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		4D5DFE5D1F3BEFA00014F042 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4D6E67CD1E976BAA009A9FB0 /* Toast */ = {
