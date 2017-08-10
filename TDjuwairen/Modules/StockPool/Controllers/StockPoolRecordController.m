@@ -11,8 +11,10 @@
 #import "Masonry.h"
 #import "UIViewController+Refresh.h"
 #import "StockPoolRecordNormalCell.h"
+#import "StockPoolRecordRenewCell.h"
 
-#define kStockPoolRecordCellID    @"kStockPoolRecordCellID"
+#define kStockPoolRecordCellNormalID    @"kStockPoolRecordCellNormalID"
+#define kStockPoolRecordCellRenewID    @"kStockPoolRecordCellRenewID"
 
 @interface StockPoolRecordController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -139,9 +141,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    StockPoolRecordNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellID];
+//    StockPoolRecordNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellNormalID];
+//    if (cell == nil) {
+//        cell = [[StockPoolRecordNormalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellNormalID];
+//    }
+//    cell.backgroundColor = [UIColor clearColor];
+//    return cell;
+
+    StockPoolRecordRenewCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellRenewID];
     if (cell == nil) {
-        cell = [[StockPoolRecordNormalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellID];
+        cell = [[StockPoolRecordRenewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellRenewID];
     }
     cell.backgroundColor = [UIColor clearColor];
     return cell;
@@ -171,7 +180,8 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    return 159;
+//    return 159;
+    return 40;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {

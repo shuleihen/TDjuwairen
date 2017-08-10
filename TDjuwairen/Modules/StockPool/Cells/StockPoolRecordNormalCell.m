@@ -19,6 +19,8 @@
 @property (strong, nonatomic) UIProgressView *sProgressView;
 @property (strong, nonatomic) UILabel *sDesLabel;
 @property (strong, nonatomic) UILabel *sTimeLabel;
+/// NEW
+@property (strong, nonatomic) UILabel *sNewLabel;
 
 @end
 
@@ -112,6 +114,22 @@
             make.bottom.equalTo(whiteBGView).mas_offset(-12);
             make.left.equalTo(whiteBGView).mas_offset(10);
             
+        }];
+        
+        
+        // NEW
+        _sNewLabel = [[UILabel alloc] init];
+        _sNewLabel.textAlignment = NSTextAlignmentCenter;
+        _sNewLabel.textColor = [UIColor whiteColor];
+        _sNewLabel.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F55956"];
+        _sNewLabel.font = [UIFont systemFontOfSize:9.0];
+        _sNewLabel.text = @"NEW";
+        [whiteBGView addSubview:_sNewLabel];
+        [_sNewLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.bottom.equalTo(whiteBGView);
+            make.right.equalTo(whiteBGView);
+            make.width.mas_equalTo(24);
+            make.height.mas_equalTo(13);
         }];
         
         
