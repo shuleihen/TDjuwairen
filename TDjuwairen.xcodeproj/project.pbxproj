@@ -481,6 +481,8 @@
 		4D2D29ED1EDEAF3800545314 /* DeleteCollectionPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */; };
 		4D2D29F01EDEC5BA00545314 /* AliveSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */; };
 		4D5DFE601F3BF37A0014F042 /* StockPoolRecordController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE5F1F3BF37A0014F042 /* StockPoolRecordController.m */; };
+		4D5DFE641F3C105A0014F042 /* StockPoolRecordNormalCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE621F3C105A0014F042 /* StockPoolRecordNormalCell.m */; };
+		4D5DFE681F3C25000014F042 /* StockPoolRecordDateView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D5DFE671F3C25000014F042 /* StockPoolRecordDateView.m */; };
 		4D6E67D41E976BAA009A9FB0 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4D6E67CE1E976BAA009A9FB0 /* license */; };
 		4D6E67D61E976BAA009A9FB0 /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */; };
 		4DA177FE1E8A51DE00C438BE /* PlayIndividualContentCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4DA177FC1E8A51DE00C438BE /* PlayIndividualContentCell.m */; };
@@ -1537,6 +1539,10 @@
 		4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSearchResultModel.m; sourceTree = "<group>"; };
 		4D5DFE5E1F3BF37A0014F042 /* StockPoolRecordController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolRecordController.h; sourceTree = "<group>"; };
 		4D5DFE5F1F3BF37A0014F042 /* StockPoolRecordController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolRecordController.m; sourceTree = "<group>"; };
+		4D5DFE611F3C105A0014F042 /* StockPoolRecordNormalCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolRecordNormalCell.h; sourceTree = "<group>"; };
+		4D5DFE621F3C105A0014F042 /* StockPoolRecordNormalCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolRecordNormalCell.m; sourceTree = "<group>"; };
+		4D5DFE661F3C25000014F042 /* StockPoolRecordDateView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolRecordDateView.h; sourceTree = "<group>"; };
+		4D5DFE671F3C25000014F042 /* StockPoolRecordDateView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolRecordDateView.m; sourceTree = "<group>"; };
 		4D6E67CE1E976BAA009A9FB0 /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
 		4D6E67D21E976BAA009A9FB0 /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
 		4D6E67D31E976BAA009A9FB0 /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
@@ -4751,6 +4757,8 @@
 		4D5DFE5A1F3BEFA00014F042 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4D5DFE611F3C105A0014F042 /* StockPoolRecordNormalCell.h */,
+				4D5DFE621F3C105A0014F042 /* StockPoolRecordNormalCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4774,6 +4782,8 @@
 		4D5DFE5D1F3BEFA00014F042 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				4D5DFE661F3C25000014F042 /* StockPoolRecordDateView.h */,
+				4D5DFE671F3C25000014F042 /* StockPoolRecordDateView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5636,6 +5646,7 @@
 				4D2D29ED1EDEAF3800545314 /* DeleteCollectionPopController.m in Sources */,
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
+				4D5DFE681F3C25000014F042 /* StockPoolRecordDateView.m in Sources */,
 				19E58DE81EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m in Sources */,
 				19F07A541F1F0731004449BB /* AliveListAdExtra.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
@@ -5688,6 +5699,7 @@
 				4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				19E58D821EF7B81500ADA1B8 /* SurveyHandler.m in Sources */,
+				4D5DFE641F3C105A0014F042 /* StockPoolRecordNormalCell.m in Sources */,
 				190F65EE1E36E73000B83ADF /* AwardImfomationTableViewCell.m in Sources */,
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
 				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,

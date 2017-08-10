@@ -7,18 +7,46 @@
 //
 
 #import "StockPoolRecordController.h"
+#import "MJRefresh.h"
+#import "Masonry.h"
+#import "UIViewController+Refresh.h"
+#import "StockPoolRecordNormalCell.h"
 
-@interface StockPoolRecordController ()
+#define kStockPoolRecordCellID    @"kStockPoolRecordCellID"
+
+@interface StockPoolRecordController ()<UITableViewDataSource,UITableViewDelegate>
+@property (nonatomic, strong) UITableView *tableView;
+@property (strong, nonatomic) UIView *settingView;
+@property (assign, nonatomic) NSInteger currentPage;
 
 @end
 
 @implementation StockPoolRecordController
+- (UITableView *)tableView {
+    if (!_tableView) {
+        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStylePlain];
+        _tableView.backgroundColor = [UIColor clearColor];
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.separatorInset = UIEdgeInsetsZero;
+        _tableView.tableFooterView = [UIView new];
+        _tableView.delegate = self;
+        _tableView.dataSource = self;
+        
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+    }
+    
+    return _tableView;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     self.title = @"股票池";
     self.view.backgroundColor = TDViewBackgrouondColor;
     [self configNavigationBar];
+    /// 加载tableView
+    [self.view addSubview:self.tableView];
     
 }
 
@@ -62,7 +90,7 @@
 
 /** 日历按钮点击事件 */
 - (void)calendarBarBtnClick {
-
+    
     
 }
 
@@ -70,6 +98,89 @@
 - (void)shareBarBtnClick {
     
     
+}
+
+#pragma - 加载数据
+/** 刷新 */
+- (void)onRefresh {
+    self.currentPage = 0;
+    [self loadStockPoolRecordData];
+    
+}
+
+/** 加载更多 */
+- (void)loadMoreActions {
+    [self loadStockPoolRecordData];
+    
+}
+
+/** 网络请求数据 */
+- (void)loadStockPoolRecordData {
+    
+    //    __weak AliveListViewController *wself = self;
+    if (self.tableView.mj_footer.isRefreshing) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+    
+    [self endHeaderRefresh];
+    
+}
+
+#pragma mark -UITableViewDataSource
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    
+    return 1;
+}
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    
+    return 5;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    StockPoolRecordNormalCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolRecordCellID];
+    if (cell == nil) {
+        cell = [[StockPoolRecordNormalCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolRecordCellID];
+    }
+    cell.backgroundColor = [UIColor clearColor];
+    return cell;
+}
+
+
+#pragma mark - UITableViewDelegate
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
+
+
+- (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
+    UIView *footerV = [[UIView alloc] init];
+    UIView *lineView = [[UIView alloc] init];
+    lineView.backgroundColor = TDLineColor;
+    [footerV addSubview:lineView];
+    [lineView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(63.5);
+        make.top.equalTo(footerV.mas_top);
+        make.width.mas_equalTo(1);
+        make.height.equalTo(footerV);
+    }];
+    
+    return footerV;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    return 75;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return CGFLOAT_MIN;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    CGFloat footerH = (tableView.bounds.size.height-tableView.contentSize.height);
+    return footerH < 0 ? 0 : footerH;
 }
 
 @end
