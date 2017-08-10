@@ -14,6 +14,7 @@
 #import "UIImage+Create.h"
 #import "UIImage+Color.h"
 #import "TDSegmentedControl.h"
+#import "StockPoolListViewController.h"
 
 @interface AliveListRootViewController ()
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -110,9 +111,12 @@
 #pragma mark - Action
 
 - (void)messagePressed:(id)sender {
-    MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+    StockPoolListViewController *searchVC = [[StockPoolListViewController alloc] init];
+    searchVC.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:searchVC animated:YES];
+//    MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//    vc.hidesBottomBarWhenPushed = YES;
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)searchPressed:(id)sender {

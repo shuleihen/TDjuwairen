@@ -415,6 +415,12 @@
 		19E5F2A81E13653200984DBC /* SQTopicCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2A11E13653200984DBC /* SQTopicCellViewModel.m */; };
 		19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */; };
 		19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */; };
+		19E638521F3BFF6100DEEB20 /* StockPoolListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */; };
+		19E638561F3C05A300DEEB20 /* StockPoolListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638541F3C05A300DEEB20 /* StockPoolListCell.m */; };
+		19E638571F3C05A300DEEB20 /* StockPoolListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19E638551F3C05A300DEEB20 /* StockPoolListCell.xib */; };
+		19E6385A1F3C27CA00DEEB20 /* UIImage+StockPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638591F3C27CA00DEEB20 /* UIImage+StockPool.m */; };
+		19E6385E1F3C3E1800DEEB20 /* TDGradientProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E6385D1F3C3E1800DEEB20 /* TDGradientProgressView.m */; };
+		19E638611F3C4D2D00DEEB20 /* StockPoolListToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */; };
 		19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */; };
 		19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */; };
 		19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */; };
@@ -1432,6 +1438,17 @@
 		19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockCommentViewController.m; sourceTree = "<group>"; };
 		19E5F2AD1E138FC300984DBC /* GuessCommentPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentPublishViewController.h; sourceTree = "<group>"; };
 		19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentPublishViewController.m; sourceTree = "<group>"; };
+		19E638501F3BFF6100DEEB20 /* StockPoolListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListViewController.h; sourceTree = "<group>"; };
+		19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListViewController.m; sourceTree = "<group>"; };
+		19E638531F3C05A300DEEB20 /* StockPoolListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListCell.h; sourceTree = "<group>"; };
+		19E638541F3C05A300DEEB20 /* StockPoolListCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListCell.m; sourceTree = "<group>"; };
+		19E638551F3C05A300DEEB20 /* StockPoolListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockPoolListCell.xib; sourceTree = "<group>"; };
+		19E638581F3C27CA00DEEB20 /* UIImage+StockPool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+StockPool.h"; sourceTree = "<group>"; };
+		19E638591F3C27CA00DEEB20 /* UIImage+StockPool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+StockPool.m"; sourceTree = "<group>"; };
+		19E6385C1F3C3E1800DEEB20 /* TDGradientProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDGradientProgressView.h; sourceTree = "<group>"; };
+		19E6385D1F3C3E1800DEEB20 /* TDGradientProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDGradientProgressView.m; sourceTree = "<group>"; };
+		19E6385F1F3C4D2D00DEEB20 /* StockPoolListToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListToolView.h; sourceTree = "<group>"; };
+		19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListToolView.m; sourceTree = "<group>"; };
 		19ECB99B1EAAEF160009F625 /* GradeCommentReplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommentReplyModel.h; sourceTree = "<group>"; };
 		19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommentReplyModel.m; sourceTree = "<group>"; };
 		19ECB99E1EAAF4440009F625 /* GradeCommReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommReplyView.h; sourceTree = "<group>"; };
@@ -3865,6 +3882,8 @@
 				19AA7DD81F3AE64400716F38 /* UIImage+Create.m */,
 				19AA7DD91F3AE64400716F38 /* UIImage+Resize.h */,
 				19AA7DDA1F3AE64400716F38 /* UIImage+Resize.m */,
+				19E638581F3C27CA00DEEB20 /* UIImage+StockPool.h */,
+				19E638591F3C27CA00DEEB20 /* UIImage+StockPool.m */,
 			);
 			path = "UIImage+Category";
 			sourceTree = "<group>";
@@ -4534,6 +4553,9 @@
 		19E638451F3B32DA00DEEB20 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				19E638531F3C05A300DEEB20 /* StockPoolListCell.h */,
+				19E638541F3C05A300DEEB20 /* StockPoolListCell.m */,
+				19E638551F3C05A300DEEB20 /* StockPoolListCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -4541,6 +4563,8 @@
 		19E638461F3B32DA00DEEB20 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				19E638501F3BFF6100DEEB20 /* StockPoolListViewController.h */,
+				19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4548,6 +4572,8 @@
 		19E638471F3B32DA00DEEB20 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				19E6385F1F3C4D2D00DEEB20 /* StockPoolListToolView.h */,
+				19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -4612,6 +4638,15 @@
 			children = (
 			);
 			path = Views;
+			sourceTree = "<group>";
+		};
+		19E6385B1F3C3E0400DEEB20 /* TDGradientProgress */ = {
+			isa = PBXGroup;
+			children = (
+				19E6385C1F3C3E1800DEEB20 /* TDGradientProgressView.h */,
+				19E6385D1F3C3E1800DEEB20 /* TDGradientProgressView.m */,
+			);
+			path = TDGradientProgress;
 			sourceTree = "<group>";
 		};
 		19ED17331F1644B400EC89DF /* Detail */ = {
@@ -5236,6 +5271,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19E6385B1F3C3E0400DEEB20 /* TDGradientProgress */,
 				19AA7DC81F3ADC4700716F38 /* TDPopupMenu */,
 				19AA7DC41F3AAFBC00716F38 /* TDSegmentControl */,
 				1959D4591F29B8A3002B969A /* YXNoDataView */,
@@ -5550,6 +5586,7 @@
 			files = (
 				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
 				19E58D7C1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib in Resources */,
+				19E638571F3C05A300DEEB20 /* StockPoolListCell.xib in Resources */,
 				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
@@ -5790,6 +5827,7 @@
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
 				19AA7DC71F3AAFCD00716F38 /* TDSegmentedControl.m in Sources */,
 				1987B2971EE688F700BD852E /* SurveyDetailSegmentView.m in Sources */,
+				19E6385A1F3C27CA00DEEB20 /* UIImage+StockPool.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
 				1998E2B01F219EA400EE9E54 /* DeepUnlockViewController.m in Sources */,
@@ -5844,6 +5882,7 @@
 				19A5AC8C1E0BA2B800FE953A /* UITextView+Placeholder.m in Sources */,
 				19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */,
 				19E58DE81EFCE96E00ADA1B8 /* AliveMasterListTabelViewDelegate.m in Sources */,
+				19E638611F3C4D2D00DEEB20 /* StockPoolListToolView.m in Sources */,
 				19F07A541F1F0731004449BB /* AliveListAdExtra.m in Sources */,
 				19959B821E2C5D4300AB26DF /* GradeDetailViewController.m in Sources */,
 				4DE306A81EDFA33E00A0D88C /* AliveSearchResultForwardInfoModel.m in Sources */,
@@ -5877,6 +5916,7 @@
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
 				1955B49C1D644D9800DC102E /* PhotoTextAttachment.m in Sources */,
 				19E5F2A31E13653200984DBC /* SQCommentModel.m in Sources */,
+				19E6385E1F3C3E1800DEEB20 /* TDGradientProgressView.m in Sources */,
 				9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */,
 				1933257F1E4DAF7200E3D500 /* PushSettingViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
@@ -5913,6 +5953,7 @@
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
+				19E638521F3BFF6100DEEB20 /* StockPoolListViewController.m in Sources */,
 				19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */,
 				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
@@ -6011,6 +6052,7 @@
 				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
 				1959D4701F29E49A002B969A /* LoginHandler.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
+				19E638561F3C05A300DEEB20 /* StockPoolListCell.m in Sources */,
 				1987B28B1EE688F700BD852E /* AskModel.m in Sources */,
 				1987B2921EE688F700BD852E /* StockAskView.m in Sources */,
 				19194CC91E7FAC3700641085 /* PSIndividualListViewController.m in Sources */,
