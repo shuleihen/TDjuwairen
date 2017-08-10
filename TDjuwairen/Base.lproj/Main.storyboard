@@ -184,7 +184,7 @@
         <!--直播-->
         <scene sceneID="vIg-vr-IKn">
             <objects>
-                <viewController id="nc2-I1-D99" customClass="AliveMainListViewController" sceneMemberID="viewController">
+                <viewController id="nc2-I1-D99" customClass="AliveListRootViewController" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="mwk-b9-sq6"/>
                         <viewControllerLayoutGuide type="bottom" id="5ih-Jk-E5c"/>
@@ -574,7 +574,7 @@
         <scene sceneID="KbZ-OI-JKi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kkT-Cg-RLR" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="tab_mine" selectedImage="tab_mine_in" id="cSe-up-dU7">
+                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="tab_mine" badgeValue="2" selectedImage="tab_mine_in" id="cSe-up-dU7">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>

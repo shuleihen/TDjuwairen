@@ -96,6 +96,7 @@
 
 
 - (void)setupWithNavigation{
+    self.title = @"发布观点";
     
     //设置右边发布按钮
     UIBarButtonItem *regist = [[UIBarButtonItem alloc]initWithTitle:@"发布" style:UIBarButtonItemStyleDone target:self action:@selector(clickPublish:)];

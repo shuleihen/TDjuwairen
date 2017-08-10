@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@interface AliveMainListViewController : UIViewController
+typedef enum : NSUInteger {
+    kMainListRecommend,
+    kMainListAttention,
+} MainListType;
 
+@interface AliveMainListViewController : UIViewController
+@property (nonatomic, assign) MainListType mainListType;
 @end

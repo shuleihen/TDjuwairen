@@ -55,7 +55,7 @@
     
     switch (self.publishType) {
         case kAlivePublishNormal:
-            self.title = @"发布动态";
+            self.title = @"发布话题";
             self.textFieldPlaceholder = @"写点什么吧...";
             rightButtonTitle = @"发布";
             self.imageLimit = 9;
@@ -63,7 +63,7 @@
         case kAlivePublishPosts:
             self.title = @"发布推单";
             self.textFieldPlaceholder = @"填写买入卖出理由或其他";
-            rightButtonTitle = @"推单";
+            rightButtonTitle = @"发布";
             self.imageLimit = 9;
             break;
         case kAlivePublishForward:
@@ -74,6 +74,7 @@
             self.imageLimit = 1;
             break;
         default:
+            NSAssert(NO, @"暂不支持的直播发布类型");
             break;
     }
     
@@ -361,11 +362,11 @@
         wself.navigationItem.rightBarButtonItem.enabled = YES;
         
         if (!error) {
-            hud.labelText = @"提交成功";
+            hud.labelText = @"发布成功";
             hud.delegate = self;
             [hud hide:YES afterDelay:1];
         } else {
-            hud.labelText = @"提交失败";
+            hud.labelText = @"发布失败";
             [hud hide:YES afterDelay:1];
         }
     }];

@@ -154,7 +154,7 @@
                         [wself.tableView.mj_footer endRefreshing];
                     }
                     
-                    [wself endHeaderRefresh];
+                    [wself endHeaderRefreshWithDataCount:dataArray.count];
                     [wself removeLoadingAnimation];
                     
                     [wself.tableView reloadData];
