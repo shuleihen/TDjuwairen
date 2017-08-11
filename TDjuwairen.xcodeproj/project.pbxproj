@@ -491,6 +491,7 @@
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		4D023BC71E8E2C8000AB463E /* PSIndividualUserListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC61E8E2C8000AB463E /* PSIndividualUserListModel.m */; };
 		4D023BCA1E8E327500AB463E /* PSIndividualUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC91E8E327500AB463E /* PSIndividualUserModel.m */; };
+		4D1A42C61F3D3B19008F562D /* StockPoolSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */; };
 		4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */; };
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
@@ -1573,6 +1574,8 @@
 		4D023BC61E8E2C8000AB463E /* PSIndividualUserListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSIndividualUserListModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserListModel.m; sourceTree = SOURCE_ROOT; };
 		4D023BC81E8E327500AB463E /* PSIndividualUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSIndividualUserModel.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserModel.h; sourceTree = SOURCE_ROOT; };
 		4D023BC91E8E327500AB463E /* PSIndividualUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSIndividualUserModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserModel.m; sourceTree = SOURCE_ROOT; };
+		4D1A42C41F3D3B19008F562D /* StockPoolSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingController.h; sourceTree = "<group>"; };
+		4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingController.m; sourceTree = "<group>"; };
 		4D29B9BC1E83AE960019DD20 /* SearchCompanyListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListTableView.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.h; sourceTree = SOURCE_ROOT; };
 		4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListTableView.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.m; sourceTree = SOURCE_ROOT; };
 		4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListCell.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.h; sourceTree = SOURCE_ROOT; };
@@ -4909,6 +4912,8 @@
 		4D1A42B61F3D3978008F562D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4D1A42C41F3D3B19008F562D /* StockPoolSettingController.h */,
+				4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5995,6 +6000,7 @@
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
 				19AA7DB11F3848CE00716F38 /* TDTabBar.m in Sources */,
 				1959D4741F29E5F5002B969A /* SystemAudioHandler.m in Sources */,
+				4D1A42C61F3D3B19008F562D /* StockPoolSettingController.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E58DA91EF8C55500ADA1B8 /* UIAlertController+ZFPlayerRotation.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
