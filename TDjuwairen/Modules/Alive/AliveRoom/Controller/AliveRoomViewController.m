@@ -49,6 +49,8 @@
 
 @property (copy, nonatomic) NSString *saveGuessRateInfoStr;
 @property (copy, nonatomic) NSString *saveLevelInfo;
+
+
 @end
 
 @implementation AliveRoomViewController
