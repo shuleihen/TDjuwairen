@@ -111,12 +111,9 @@
 #pragma mark - Action
 
 - (void)messagePressed:(id)sender {
-    StockPoolListViewController *searchVC = [[StockPoolListViewController alloc] init];
-    searchVC.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:searchVC animated:YES];
-//    MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//    vc.hidesBottomBarWhenPushed = YES;
-//    [self.navigationController pushViewController:vc animated:YES];
+    MessageTableViewController *vc = [[MessageTableViewController alloc] initWithStyle:UITableViewStyleGrouped];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)searchPressed:(id)sender {
