@@ -28,6 +28,7 @@
         self.isAttend = [dict[@"is_attend"] boolValue];
         self.isSelf = [dict[@"is_self"] boolValue];
         self.collectedId = dict[@"collect_id"];
+        self.visitNum = [dict[@"alive_visitnum"] integerValue];
         
         BOOL isforward = [dict[@"is_forward"] boolValue];
         self.isForward = isforward;
