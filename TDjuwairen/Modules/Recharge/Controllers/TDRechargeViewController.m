@@ -136,9 +136,9 @@
 - (void)donePressed:(id)sender {
     
     if (!US.isLogIn) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"登录提示" message:@"登录局外人购买黄金会员" preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消购买" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertAction *done = [UIAlertAction actionWithTitle:@"登录购买" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"登录提示" message:@"登录后继续，是否登录？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
             LoginViewController *login = [[LoginViewController alloc] init];
             login.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:login animated:YES];
