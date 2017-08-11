@@ -221,6 +221,14 @@
 
 
 #define API_StockPoolGetList        @"StockPool/getStockPoolList"
+/// 获取股票池简介
+#define API_StockPoolGetDesc        @"StockPool/getStockPoolDesc"
+/// 设置股票池简介
+#define API_StockPoolSetDesc        @"StockPool/setStockPoolDesc"
+/// 获取设置收费提示
+#define API_StockPoolGetPrice        @"StockPool/getStockPoolPrice"
+/// 设置股票池订阅收费
+#define API_StockPoolSetPrice        @"StockPool/setStockPoolPrice"
 
 
 #endif /* NetworkDefine_h */
