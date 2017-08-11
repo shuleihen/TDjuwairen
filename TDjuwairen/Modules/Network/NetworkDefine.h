@@ -219,4 +219,8 @@
 #define API_MessageSystemClear      @"Message/clearSysNotify"
 #define API_MessageSystemDelete     @"Message/deleteSysNotify"
 
+
+#define API_StockPoolGetList        @"StockPool/getStockPoolList"
+
+
 #endif /* NetworkDefine_h */

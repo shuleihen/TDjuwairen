@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19042E331F3D7DB90004D3C6 /* AliveListStockPoolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E321F3D7DB90004D3C6 /* AliveListStockPoolViewController.m */; };
+		19042E361F3D7DFE0004D3C6 /* AliveListBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E351F3D7DFE0004D3C6 /* AliveListBaseViewController.m */; };
+		19042E3A1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E381F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m */; };
+		19042E3B1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E391F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib */; };
+		19042E3E1F3D8C000004D3C6 /* AliveListStockPoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E3D1F3D8C000004D3C6 /* AliveListStockPoolModel.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -651,6 +656,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19042E311F3D7DB90004D3C6 /* AliveListStockPoolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolViewController.h; sourceTree = "<group>"; };
+		19042E321F3D7DB90004D3C6 /* AliveListStockPoolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolViewController.m; sourceTree = "<group>"; };
+		19042E341F3D7DFE0004D3C6 /* AliveListBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListBaseViewController.h; sourceTree = "<group>"; };
+		19042E351F3D7DFE0004D3C6 /* AliveListBaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListBaseViewController.m; sourceTree = "<group>"; };
+		19042E371F3D80890004D3C6 /* AliveListStockPoolTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolTableViewCell.h; sourceTree = "<group>"; };
+		19042E381F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolTableViewCell.m; sourceTree = "<group>"; };
+		19042E391F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListStockPoolTableViewCell.xib; sourceTree = "<group>"; };
+		19042E3C1F3D8C000004D3C6 /* AliveListStockPoolModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolModel.h; sourceTree = "<group>"; };
+		19042E3D1F3D8C000004D3C6 /* AliveListStockPoolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolModel.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2954,6 +2968,9 @@
 				19F07A5A1F1F2D24004449BB /* AliveListHotTableViewCell.h */,
 				19F07A5B1F1F2D24004449BB /* AliveListHotTableViewCell.m */,
 				19F07A5C1F1F2D24004449BB /* AliveListHotTableViewCell.xib */,
+				19042E371F3D80890004D3C6 /* AliveListStockPoolTableViewCell.h */,
+				19042E381F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m */,
+				19042E391F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2969,6 +2986,10 @@
 				1953CAF91E7172DB00A64B3C /* AliveListViewController.m */,
 				19E58DC41EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.h */,
 				19E58DC51EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.m */,
+				19042E311F3D7DB90004D3C6 /* AliveListStockPoolViewController.h */,
+				19042E321F3D7DB90004D3C6 /* AliveListStockPoolViewController.m */,
+				19042E341F3D7DFE0004D3C6 /* AliveListBaseViewController.h */,
+				19042E351F3D7DFE0004D3C6 /* AliveListBaseViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -2992,6 +3013,8 @@
 				19386EE71E72432B00D4426E /* AliveListTableViewDelegate.m */,
 				19F07A6C1F2082BE004449BB /* AliveListPostExtra.h */,
 				19F07A6D1F2082BE004449BB /* AliveListPostExtra.m */,
+				19042E3C1F3D8C000004D3C6 /* AliveListStockPoolModel.h */,
+				19042E3D1F3D8C000004D3C6 /* AliveListStockPoolModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4469,9 +4492,9 @@
 		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
 			isa = PBXGroup;
 			children = (
+				19E638441F3B32DA00DEEB20 /* StockPoolList */,
 				19E6383C1F3B32DA00DEEB20 /* StockPoolDetail */,
 				19E638401F3B32DA00DEEB20 /* StockPoolEdit */,
-				19E638441F3B32DA00DEEB20 /* StockPoolList */,
 				19E638481F3B32DA00DEEB20 /* StockPoolSetting */,
 				19E6384C1F3B32DA00DEEB20 /* StockPoolSubscibe */,
 			);
@@ -5590,6 +5613,7 @@
 				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
 				19959BA31E2CE7C000AB26DF /* SearchResultTableViewCell.xib in Resources */,
 				19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */,
+				19042E3B1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib in Resources */,
 				190F65BF1E349D8100B83ADF /* TextHtml.html in Resources */,
 				1946EEA41E0EA90200D8FB3A /* ShareSDK.bundle in Resources */,
 				19F07A481F1DD474004449BB /* SysMessageListCell.xib in Resources */,
@@ -5714,6 +5738,7 @@
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
 				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
+				19042E331F3D7DB90004D3C6 /* AliveListStockPoolViewController.m in Sources */,
 				19E58DAF1EF8C55500ADA1B8 /* UIWindow+CurrentViewController.m in Sources */,
 				1936AF211EB1D92D00408D6F /* TDShareModel.m in Sources */,
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
@@ -5827,6 +5852,7 @@
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
 				19AA7DC71F3AAFCD00716F38 /* TDSegmentedControl.m in Sources */,
 				1987B2971EE688F700BD852E /* SurveyDetailSegmentView.m in Sources */,
+				19042E3A1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m in Sources */,
 				19E6385A1F3C27CA00DEEB20 /* UIImage+StockPool.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
@@ -5939,6 +5965,7 @@
 				1955B4A91D644D9800DC102E /* TimeHotComView.m in Sources */,
 				19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */,
 				84E334651CE3123700E5DCEE /* SDImageCache.m in Sources */,
+				19042E3E1F3D8C000004D3C6 /* AliveListStockPoolModel.m in Sources */,
 				1924DFEA1D62B49C00FEC383 /* AFURLRequestSerialization.m in Sources */,
 				19E58DA71EF8C55500ADA1B8 /* ASValuePopUpView.m in Sources */,
 				19C258191E7649C200433D0D /* AliveMessageListCell.m in Sources */,
@@ -6041,6 +6068,7 @@
 				4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */,
+				19042E361F3D7DFE0004D3C6 /* AliveListBaseViewController.m in Sources */,
 				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				19AA7DDB1F3AE64400716F38 /* UIImage+Caputure.m in Sources */,

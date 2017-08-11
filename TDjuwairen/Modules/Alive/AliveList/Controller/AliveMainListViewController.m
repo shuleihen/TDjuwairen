@@ -24,6 +24,7 @@
 #import "YXUnread.h"
 #import "NetworkManager.h"
 #import "MessageTableViewController.h"
+#import "AliveListStockPoolViewController.h"
 
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
@@ -68,7 +69,14 @@
         AliveListViewController *five = [[AliveListViewController alloc] init];
         five.listType = kAlvieListPost;
         
-        _contentControllers = @[one,two,three,four,five];
+        AliveListStockPoolViewController *six = [[AliveListStockPoolViewController alloc] init];
+        six.listType = kAliveListStockPool;
+        
+        if (self.mainListType == kMainListRecommend) {
+            _contentControllers = @[one,six,three,four,five];
+        } else {
+            _contentControllers = @[one,six,three,five];
+        }
     }
     
     return _contentControllers;
@@ -121,7 +129,14 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     
-    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注",@"观点",@"视频",@"推单"]];
+    NSArray *tites = @[];
+    if (self.mainListType == kMainListRecommend) {
+        tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单"];
+    } else {
+        tites = @[@"全部",@"股票池",@"观点",@"推单"];
+    }
+    
+    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:tites];
     segmented.tintColor = [UIColor whiteColor];
     segmented.layer.cornerRadius = 0.0f;
     segmented.layer.borderWidth = 1.0f;

@@ -16,6 +16,8 @@ typedef enum : NSUInteger {
     kAliveListViewpoint  =2, // 观点
     kAliveListVideo      =3, // 视频
     kAlvieListPost       =4, // 推单
+    kAliveListStockPool  =5, // 股票池
+    kAlvieListHot        =6, // 热点
 } AliveListType;
 
 // 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享，5：玩票分享到直播
