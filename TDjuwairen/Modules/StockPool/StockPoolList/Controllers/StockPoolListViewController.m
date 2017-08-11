@@ -11,6 +11,7 @@
 #import "StockPoolListCell.h"
 #import "StockPoolListToolView.h"
 #import "LoginStateManager.h"
+#import "StockPoolSettingController.h"
 
 
 @interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate>
@@ -42,6 +43,7 @@
 - (StockPoolListToolView *)toolView {
     if (!_toolView) {
         _toolView = [[StockPoolListToolView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+        _toolView.delegate = self;
     }
     return _toolView;
 }
@@ -114,7 +116,8 @@
 
 #pragma mark - StockPoolListToolViewDelegate
 - (void)settingPressed:(id)sender {
-    
+    StockPoolSettingController *settingVC = [[StockPoolSettingController alloc] init];
+    [self.navigationController pushViewController:settingVC animated:YES];
 }
 
 - (void)draftPressed:(id)sender {

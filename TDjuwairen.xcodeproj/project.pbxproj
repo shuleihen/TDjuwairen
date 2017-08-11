@@ -496,6 +496,8 @@
 		2764A2721D015FC100916844 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2764A2711D015FC100916844 /* AdSupport.framework */; };
 		4D023BC71E8E2C8000AB463E /* PSIndividualUserListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC61E8E2C8000AB463E /* PSIndividualUserListModel.m */; };
 		4D023BCA1E8E327500AB463E /* PSIndividualUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC91E8E327500AB463E /* PSIndividualUserModel.m */; };
+		4D1A42C61F3D3B19008F562D /* StockPoolSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */; };
+		4D1A42C91F3D48E9008F562D /* StockPoolSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A42C81F3D48E9008F562D /* StockPoolSettingCell.m */; };
 		4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */; };
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
@@ -1587,6 +1589,10 @@
 		4D023BC61E8E2C8000AB463E /* PSIndividualUserListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSIndividualUserListModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserListModel.m; sourceTree = SOURCE_ROOT; };
 		4D023BC81E8E327500AB463E /* PSIndividualUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PSIndividualUserModel.h; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserModel.h; sourceTree = SOURCE_ROOT; };
 		4D023BC91E8E327500AB463E /* PSIndividualUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSIndividualUserModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserModel.m; sourceTree = SOURCE_ROOT; };
+		4D1A42C41F3D3B19008F562D /* StockPoolSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingController.h; sourceTree = "<group>"; };
+		4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingController.m; sourceTree = "<group>"; };
+		4D1A42C71F3D48E9008F562D /* StockPoolSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingCell.h; sourceTree = "<group>"; };
+		4D1A42C81F3D48E9008F562D /* StockPoolSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingCell.m; sourceTree = "<group>"; };
 		4D29B9BC1E83AE960019DD20 /* SearchCompanyListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListTableView.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.h; sourceTree = SOURCE_ROOT; };
 		4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListTableView.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.m; sourceTree = SOURCE_ROOT; };
 		4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListCell.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.h; sourceTree = SOURCE_ROOT; };
@@ -4497,70 +4503,13 @@
 				19E638401F3B32DA00DEEB20 /* StockPoolEdit */,
 				19E638481F3B32DA00DEEB20 /* StockPoolSetting */,
 				19E6384C1F3B32DA00DEEB20 /* StockPoolSubscibe */,
+				4D1A42C01F3D39D2008F562D /* StockPoolSubscibe */,
+				4D1A42BC1F3D39BA008F562D /* StockPoolEdit */,
+				4D1A42B81F3D39A1008F562D /* StockPoolDetail */,
+				4D1A42B41F3D3978008F562D /* StockPoolSetting */,
+				19E638441F3B32DA00DEEB20 /* StockPoolList */,
 			);
 			path = StockPool;
-			sourceTree = "<group>";
-		};
-		19E6383C1F3B32DA00DEEB20 /* StockPoolDetail */ = {
-			isa = PBXGroup;
-			children = (
-				19E6383D1F3B32DA00DEEB20 /* Cells */,
-				19E6383E1F3B32DA00DEEB20 /* Controllers */,
-				19E6383F1F3B32DA00DEEB20 /* Views */,
-			);
-			path = StockPoolDetail;
-			sourceTree = "<group>";
-		};
-		19E6383D1F3B32DA00DEEB20 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		19E6383E1F3B32DA00DEEB20 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		19E6383F1F3B32DA00DEEB20 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		19E638401F3B32DA00DEEB20 /* StockPoolEdit */ = {
-			isa = PBXGroup;
-			children = (
-				19E638411F3B32DA00DEEB20 /* Cells */,
-				19E638421F3B32DA00DEEB20 /* Controllers */,
-				19E638431F3B32DA00DEEB20 /* Views */,
-			);
-			path = StockPoolEdit;
-			sourceTree = "<group>";
-		};
-		19E638411F3B32DA00DEEB20 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		19E638421F3B32DA00DEEB20 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		19E638431F3B32DA00DEEB20 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
 			sourceTree = "<group>";
 		};
 		19E638441F3B32DA00DEEB20 /* StockPoolList */ = {
@@ -4597,68 +4546,6 @@
 			children = (
 				19E6385F1F3C4D2D00DEEB20 /* StockPoolListToolView.h */,
 				19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */,
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		19E638481F3B32DA00DEEB20 /* StockPoolSetting */ = {
-			isa = PBXGroup;
-			children = (
-				19E638491F3B32DA00DEEB20 /* Cells */,
-				19E6384A1F3B32DA00DEEB20 /* Controllers */,
-				19E6384B1F3B32DA00DEEB20 /* Views */,
-			);
-			path = StockPoolSetting;
-			sourceTree = "<group>";
-		};
-		19E638491F3B32DA00DEEB20 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		19E6384A1F3B32DA00DEEB20 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		19E6384B1F3B32DA00DEEB20 /* Views */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Views;
-			sourceTree = "<group>";
-		};
-		19E6384C1F3B32DA00DEEB20 /* StockPoolSubscibe */ = {
-			isa = PBXGroup;
-			children = (
-				19E6384D1F3B32DA00DEEB20 /* Cells */,
-				19E6384E1F3B32DA00DEEB20 /* Controllers */,
-				19E6384F1F3B32DA00DEEB20 /* Views */,
-			);
-			path = StockPoolSubscibe;
-			sourceTree = "<group>";
-		};
-		19E6384D1F3B32DA00DEEB20 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Cells;
-			sourceTree = "<group>";
-		};
-		19E6384E1F3B32DA00DEEB20 /* Controllers */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Controllers;
-			sourceTree = "<group>";
-		};
-		19E6384F1F3B32DA00DEEB20 /* Views */ = {
-			isa = PBXGroup;
-			children = (
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5034,6 +4921,134 @@
 				19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */,
 			);
 			path = SMS_SDK;
+			sourceTree = "<group>";
+		};
+		4D1A42B41F3D3978008F562D /* StockPoolSetting */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A42B51F3D3978008F562D /* Cells */,
+				4D1A42B61F3D3978008F562D /* Controllers */,
+				4D1A42B71F3D3978008F562D /* Views */,
+			);
+			path = StockPoolSetting;
+			sourceTree = "<group>";
+		};
+		4D1A42B51F3D3978008F562D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A42C71F3D48E9008F562D /* StockPoolSettingCell.h */,
+				4D1A42C81F3D48E9008F562D /* StockPoolSettingCell.m */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4D1A42B61F3D3978008F562D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A42C41F3D3B19008F562D /* StockPoolSettingController.h */,
+				4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4D1A42B71F3D3978008F562D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4D1A42B81F3D39A1008F562D /* StockPoolDetail */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A42B91F3D39A1008F562D /* Cells */,
+				4D1A42BA1F3D39A1008F562D /* Controllers */,
+				4D1A42BB1F3D39A1008F562D /* Views */,
+			);
+			path = StockPoolDetail;
+			sourceTree = "<group>";
+		};
+		4D1A42B91F3D39A1008F562D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4D1A42BA1F3D39A1008F562D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4D1A42BB1F3D39A1008F562D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4D1A42BC1F3D39BA008F562D /* StockPoolEdit */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A42BD1F3D39BA008F562D /* Cells */,
+				4D1A42BE1F3D39BA008F562D /* Controllers */,
+				4D1A42BF1F3D39BA008F562D /* Views */,
+			);
+			path = StockPoolEdit;
+			sourceTree = "<group>";
+		};
+		4D1A42BD1F3D39BA008F562D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4D1A42BE1F3D39BA008F562D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4D1A42BF1F3D39BA008F562D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		4D1A42C01F3D39D2008F562D /* StockPoolSubscibe */ = {
+			isa = PBXGroup;
+			children = (
+				4D1A42C11F3D39D2008F562D /* Cells */,
+				4D1A42C21F3D39D2008F562D /* Controllers */,
+				4D1A42C31F3D39D2008F562D /* Views */,
+			);
+			path = StockPoolSubscibe;
+			sourceTree = "<group>";
+		};
+		4D1A42C11F3D39D2008F562D /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		4D1A42C21F3D39D2008F562D /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		4D1A42C31F3D39D2008F562D /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		4D6E67CD1E976BAA009A9FB0 /* Toast */ = {
@@ -5890,6 +5905,7 @@
 				19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */,
 				19E58D771EF3C27900ADA1B8 /* MessageTableViewController.m in Sources */,
 				19AF98251E24AB270097A585 /* PSIndexListViewController.m in Sources */,
+				4D1A42C91F3D48E9008F562D /* StockPoolSettingCell.m in Sources */,
 				19E58DAA1EF8C55500ADA1B8 /* UIImageView+ZFCache.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				19F07A6E1F2082BE004449BB /* AliveListPostExtra.m in Sources */,
@@ -6022,6 +6038,7 @@
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
 				19AA7DB11F3848CE00716F38 /* TDTabBar.m in Sources */,
 				1959D4741F29E5F5002B969A /* SystemAudioHandler.m in Sources */,
+				4D1A42C61F3D3B19008F562D /* StockPoolSettingController.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E58DA91EF8C55500ADA1B8 /* UIAlertController+ZFPlayerRotation.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
