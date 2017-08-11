@@ -10,6 +10,7 @@
 #import "MJRefresh.h"
 #import "Masonry.h"
 #import "StockPoolSettingCell.h"
+#import "AliveCommentViewController.h"
 
 #define kStockPoolSettingCellID @"kStockPoolSettingCellID"
 
@@ -120,6 +121,11 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    if (indexPath.section == 0) {
+        AliveCommentViewController *editVC = [[AliveCommentViewController alloc] init];
+        editVC.vcType = CommentVCStockPoolSettingType;
+        [self.navigationController pushViewController:editVC animated:YES];
+    }
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {

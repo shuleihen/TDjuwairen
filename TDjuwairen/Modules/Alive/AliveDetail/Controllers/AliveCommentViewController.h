@@ -8,6 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+typedef enum : NSUInteger {
+    CommentVCNormalType = 0, /// 评论
+    CommentVCStockPoolSettingType = 1, /// 股票池简介设置
+} CommentVCType;
+
 @interface AliveCommentViewController : UIViewController
 
 typedef void(^RefreshCommentBlock)();
@@ -15,5 +20,7 @@ typedef void(^RefreshCommentBlock)();
 @property (nonatomic, copy) NSString *alive_ID;
 @property (nonatomic, copy) NSString *alive_type;
 @property (nonatomic, copy) RefreshCommentBlock commentBlock;
+
+@property (assign, nonatomic) CommentVCType vcType;
 
 @end

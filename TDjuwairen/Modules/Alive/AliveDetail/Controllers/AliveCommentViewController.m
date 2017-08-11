@@ -6,7 +6,7 @@
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#define MAX_Count 140
+//#define MAX_Count 140
 
 #import "AliveCommentViewController.h"
 #import "UIButton+Align.h"
@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView_input;
 @property (strong, nonatomic) UIButton *button_send;
 @property (nonatomic, copy) NSString *commentText;
+@property (assign, nonatomic) NSInteger maxCount;
 
 @end
 
@@ -25,22 +26,36 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.title = @"评论";
+    
     [self initViews];
 }
 
 
 - (void)initViews
 {
+    NSString *str = @"发送";
+    if (self.vcType == CommentVCStockPoolSettingType) {
+        str = @"完成";
+        self.title = @"股票池介绍";
+        self.label_placeHolder.text = @"介绍一下你的股票池吧";
+        self.maxCount = 100;
+       
+    }else {
+        
+        self.title = @"评论";
+        self.maxCount = 140;
+        
+    }
+    
+     self.label_residue_count.text = [NSString stringWithFormat:@"还能输入%ld字",self.maxCount];
     
     _textView_input.delegate = self;
-    
     self.button_send = [UIButton buttonWithType:UIButtonTypeCustom];
     self.button_send.frame = CGRectMake(0, 0, 30, 44);
     [self.button_send setHitTestEdgeInsets:UIEdgeInsetsMake(-10, -20, -10, -20)];
-    [self.button_send setTitle:@"发送" forState:UIControlStateNormal];
+    [self.button_send setTitle:str forState:UIControlStateNormal];
     self.button_send.titleLabel.font = [UIFont systemFontOfSize:14];
-    [self.button_send setTitle:@"发送" forState:UIControlStateDisabled];
+    [self.button_send setTitle:str forState:UIControlStateDisabled];
     [self.button_send setTitleColor:[UIColor lightGrayColor] forState:UIControlStateDisabled];
     [self.button_send setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
     [self.button_send addTarget:self action:@selector(sendCommentClick:) forControlEvents:UIControlEventTouchUpInside];
@@ -50,6 +65,9 @@
 
 
 - (void)sendCommentClick:(id)sender {
+    if (self.vcType == CommentVCStockPoolSettingType) {
+        return;
+    }
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     NSDictionary *dict = @{@"alive_id":SafeValue(self.alive_ID),
@@ -75,14 +93,14 @@
 
 - (void)textViewDidChange:(UITextView *)textView{
     
-    if (textView.text.length>MAX_Count) {
+    if (textView.text.length>self.maxCount) {
         [textView endEditing:YES];
         return;
     }
     
     _label_placeHolder.hidden = textView.text.length;
-    _label_residue_count.text = [NSString stringWithFormat:@"还能输入%u",(int)(MAX_Count-textView.text.length)];
-    [Tool mtextviewDidChangeLimitLetter:textView andLimitLength:MAX_Count];
+    _label_residue_count.text = [NSString stringWithFormat:@"还能输入%u个字",(int)(self.maxCount-textView.text.length)];
+    [Tool mtextviewDidChangeLimitLetter:textView andLimitLength:self.maxCount];
     _commentText = textView.text;
     
     if (textView.text.length > 0) {
@@ -91,7 +109,7 @@
         }
     }else {
         if (self.button_send.enabled == YES) {
-           self.button_send.enabled = NO;
+            self.button_send.enabled = NO;
         }
     }
 }
