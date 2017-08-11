@@ -28,8 +28,11 @@
     [super viewDidLoad];
     
     TDTabBar *tabBar = [[TDTabBar alloc] init];
+    tabBar.backgroundColor = [UIColor whiteColor];
     tabBar.frame     = self.tabBar.bounds;
     tabBar.delegate  = self;
+    
+    self.tabBar.translucent = NO;
     [self.tabBar addSubview:tabBar];
     self.lcTabBar = tabBar;
     
@@ -44,7 +47,7 @@
     
     [super viewWillAppear:animated];
     
-    [self removeOriginControls];
+    [[self tabBar] bringSubviewToFront:self.lcTabBar];
 }
 
 - (void)removeOriginControls {
