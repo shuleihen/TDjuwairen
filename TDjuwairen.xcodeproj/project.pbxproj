@@ -492,6 +492,7 @@
 		4D023BC71E8E2C8000AB463E /* PSIndividualUserListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC61E8E2C8000AB463E /* PSIndividualUserListModel.m */; };
 		4D023BCA1E8E327500AB463E /* PSIndividualUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D023BC91E8E327500AB463E /* PSIndividualUserModel.m */; };
 		4D1A42C61F3D3B19008F562D /* StockPoolSettingController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */; };
+		4D1A42C91F3D48E9008F562D /* StockPoolSettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D1A42C81F3D48E9008F562D /* StockPoolSettingCell.m */; };
 		4D29B9BE1E83AE960019DD20 /* SearchCompanyListTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */; };
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
@@ -1576,6 +1577,8 @@
 		4D023BC91E8E327500AB463E /* PSIndividualUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PSIndividualUserModel.m; path = TDjuwairen/Modules/PlayStock/PlayIndividualStock/Controllers/PSIndividualUserModel.m; sourceTree = SOURCE_ROOT; };
 		4D1A42C41F3D3B19008F562D /* StockPoolSettingController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingController.h; sourceTree = "<group>"; };
 		4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingController.m; sourceTree = "<group>"; };
+		4D1A42C71F3D48E9008F562D /* StockPoolSettingCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingCell.h; sourceTree = "<group>"; };
+		4D1A42C81F3D48E9008F562D /* StockPoolSettingCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingCell.m; sourceTree = "<group>"; };
 		4D29B9BC1E83AE960019DD20 /* SearchCompanyListTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListTableView.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.h; sourceTree = SOURCE_ROOT; };
 		4D29B9BD1E83AE960019DD20 /* SearchCompanyListTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListTableView.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListTableView.m; sourceTree = SOURCE_ROOT; };
 		4D29B9BF1E83B1480019DD20 /* SearchCompanyListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListCell.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.h; sourceTree = SOURCE_ROOT; };
@@ -4905,6 +4908,8 @@
 		4D1A42B51F3D3978008F562D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				4D1A42C71F3D48E9008F562D /* StockPoolSettingCell.h */,
+				4D1A42C81F3D48E9008F562D /* StockPoolSettingCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5869,6 +5874,7 @@
 				19475C551EA4661F00F749E6 /* AliveListTagsView.m in Sources */,
 				19E58D771EF3C27900ADA1B8 /* MessageTableViewController.m in Sources */,
 				19AF98251E24AB270097A585 /* PSIndexListViewController.m in Sources */,
+				4D1A42C91F3D48E9008F562D /* StockPoolSettingCell.m in Sources */,
 				19E58DAA1EF8C55500ADA1B8 /* UIImageView+ZFCache.m in Sources */,
 				19C348771D3F76DB008ABD16 /* UIView+MJExtension.m in Sources */,
 				19F07A6E1F2082BE004449BB /* AliveListPostExtra.m in Sources */,
