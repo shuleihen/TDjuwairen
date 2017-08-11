@@ -43,6 +43,7 @@
 - (StockPoolListToolView *)toolView {
     if (!_toolView) {
         _toolView = [[StockPoolListToolView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 50)];
+        _toolView.delegate = self;
     }
     return _toolView;
 }
