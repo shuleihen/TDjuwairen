@@ -13,6 +13,7 @@
 #import "MJRefresh.h"
 #import "UIViewController+Refresh.h"
 #import "UIViewController+Loading.h"
+#import "StockPoolListViewController.h"
 
 @interface AliveListStockPoolViewController ()<UITableViewDelegate, UITableViewDataSource>
 
@@ -153,5 +154,16 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 0.0001f;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    AliveListStockPoolModel *model = self.aliveList[indexPath.row];
+    
+    StockPoolListViewController *vc = [[StockPoolListViewController alloc] init];
+    vc.userId = model.masterId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 @end
