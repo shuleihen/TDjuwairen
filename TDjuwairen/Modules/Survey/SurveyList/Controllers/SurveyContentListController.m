@@ -286,12 +286,6 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         }
         
     } else {
-        if (!US.isLogIn) {
-            LoginViewController *login = [[LoginViewController alloc] init];
-            login.hidesBottomBarWhenPushed = YES;
-            [self.rootController.navigationController pushViewController:login animated:YES];
-            return;
-        }
         
         if (model.surveyType == kSurveyTypeShengdu) {
             [self.unlockManager unlockDeep:model.surveyId withController:self.rootController];
