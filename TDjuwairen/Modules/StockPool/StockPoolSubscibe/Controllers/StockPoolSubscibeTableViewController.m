@@ -15,6 +15,7 @@
 
 @interface StockPoolSubscibeTableViewController ()
 @property (nonatomic, assign) NSInteger currentPageIndex;
+@property (nonatomic, strong) NSArray *dataArr;
 
 @end
 
@@ -23,12 +24,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor clearColor];
+    
+    self.currentPageIndex = 1;
+    self.dataArr = [NSArray array];
+    
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.rowHeight = 100;
     self.tableView.separatorInset = UIEdgeInsetsZero;
     self.tableView.separatorColor = TDSeparatorColor;
     self.tableView.tableFooterView = [[UIView alloc] init];
-    self.currentPageIndex = 1;
+    
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefesh)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
@@ -55,17 +60,29 @@
 
 
 - (void)loadStockPoolSubscribeData {
-    
-    
-    
+    /**
+     master_id	int	股票池所属用户ID	是
+     type	int	0表示订阅中的用户列表，1表示过期的用户列表	是
+     page	int	当前页码啊，从1开始
+     */
     NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *pDict = @{@"master_id":US.userId,@"type":@(self.type),@"page":[NSString stringWithFormat:@"%ld",self.currentPageIndex]};
     
-    __weak typeof(self)wSelf = self;
-    [manager GET:API_StockPoolGetDesc parameters:nil completion:^(id data, NSError *error) {
+    [manager GET:API_StockPoolGetSubscribeUser parameters:pDict completion:^(id data, NSError *error) {
         
         if (!error) {
             
+            NSMutableArray *arrM = nil;
+            if (self.currentPageIndex == 1) {
+                arrM = [NSMutableArray array];
+            }else {
             
+                arrM = [NSMutableArray arrayWithArray:self.dataArr];
+            }
+            
+            
+            
+            self.currentPageIndex ++;
             if (self.tableView.mj_footer.isRefreshing) {
                 [self.tableView.mj_footer endRefreshing];
             }
@@ -89,7 +106,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     
-    return 4;
+    return self.dataArr.count;
 }
 
 
