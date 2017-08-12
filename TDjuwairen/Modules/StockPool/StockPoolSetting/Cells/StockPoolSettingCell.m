@@ -72,6 +72,7 @@
         
         _sDescTextView = [[UITextView alloc] init];
         _sDescTextView.font = [UIFont systemFontOfSize:15.0];
+        _sDescTextView.editable = NO;
         _sDescTextView.textColor = TDDetailTextColor;
         [self.contentView addSubview:_sDescTextView];
         [_sDescTextView mas_makeConstraints:^(MASConstraintMaker *make) {

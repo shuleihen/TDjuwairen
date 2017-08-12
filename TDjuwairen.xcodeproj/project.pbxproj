@@ -621,6 +621,19 @@
 		9EC715BD1F3F08EF00F3A071 /* StockPoolPriceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */; };
 		9EC715C01F3F2B3F00F3A071 /* UIControl+YMCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715BF1F3F2B3F00F3A071 /* UIControl+YMCustom.m */; };
 		9EC715C31F3F2BAF00F3A071 /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715C21F3F2BAF00F3A071 /* UIButton+Extensions.m */; };
+		9EC715EB1F3F5DEE00F3A071 /* JTCalendarManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715CB1F3F5DED00F3A071 /* JTCalendarManager.m */; };
+		9EC715EC1F3F5DEE00F3A071 /* JTCalendarSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715CD1F3F5DED00F3A071 /* JTCalendarSettings.m */; };
+		9EC715ED1F3F5DEE00F3A071 /* JTDateHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715CF1F3F5DED00F3A071 /* JTDateHelper.m */; };
+		9EC715EE1F3F5DEE00F3A071 /* JTCalendarDelegateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715D21F3F5DED00F3A071 /* JTCalendarDelegateManager.m */; };
+		9EC715EF1F3F5DEE00F3A071 /* JTCalendarScrollManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715D41F3F5DED00F3A071 /* JTCalendarScrollManager.m */; };
+		9EC715F01F3F5DEE00F3A071 /* JTCalendarDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715DE1F3F5DEE00F3A071 /* JTCalendarDayView.m */; };
+		9EC715F11F3F5DEE00F3A071 /* JTCalendarMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715E01F3F5DEE00F3A071 /* JTCalendarMenuView.m */; };
+		9EC715F21F3F5DEE00F3A071 /* JTCalendarPageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715E21F3F5DEE00F3A071 /* JTCalendarPageView.m */; };
+		9EC715F31F3F5DEE00F3A071 /* JTCalendarWeekDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715E41F3F5DEE00F3A071 /* JTCalendarWeekDayView.m */; };
+		9EC715F41F3F5DEE00F3A071 /* JTCalendarWeekView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715E61F3F5DEE00F3A071 /* JTCalendarWeekView.m */; };
+		9EC715F51F3F5DEE00F3A071 /* JTHorizontalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715E81F3F5DEE00F3A071 /* JTHorizontalCalendarView.m */; };
+		9EC715F61F3F5DEE00F3A071 /* JTVerticalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715EA1F3F5DEE00F3A071 /* JTVerticalCalendarView.m */; };
+		9EC715F91F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1820,6 +1833,40 @@
 		9EC715BF1F3F2B3F00F3A071 /* UIControl+YMCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+YMCustom.m"; sourceTree = "<group>"; };
 		9EC715C11F3F2BAF00F3A071 /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extensions.h"; sourceTree = "<group>"; };
 		9EC715C21F3F2BAF00F3A071 /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extensions.m"; sourceTree = "<group>"; };
+		9EC715C81F3F5DED00F3A071 /* JTCalendar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendar.h; sourceTree = "<group>"; };
+		9EC715C91F3F5DED00F3A071 /* JTCalendarDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegate.h; sourceTree = "<group>"; };
+		9EC715CA1F3F5DED00F3A071 /* JTCalendarManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarManager.h; sourceTree = "<group>"; };
+		9EC715CB1F3F5DED00F3A071 /* JTCalendarManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarManager.m; sourceTree = "<group>"; };
+		9EC715CC1F3F5DED00F3A071 /* JTCalendarSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarSettings.h; sourceTree = "<group>"; };
+		9EC715CD1F3F5DED00F3A071 /* JTCalendarSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarSettings.m; sourceTree = "<group>"; };
+		9EC715CE1F3F5DED00F3A071 /* JTDateHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTDateHelper.h; sourceTree = "<group>"; };
+		9EC715CF1F3F5DED00F3A071 /* JTDateHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTDateHelper.m; sourceTree = "<group>"; };
+		9EC715D11F3F5DED00F3A071 /* JTCalendarDelegateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDelegateManager.h; sourceTree = "<group>"; };
+		9EC715D21F3F5DED00F3A071 /* JTCalendarDelegateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarDelegateManager.m; sourceTree = "<group>"; };
+		9EC715D31F3F5DED00F3A071 /* JTCalendarScrollManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarScrollManager.h; sourceTree = "<group>"; };
+		9EC715D41F3F5DED00F3A071 /* JTCalendarScrollManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarScrollManager.m; sourceTree = "<group>"; };
+		9EC715D61F3F5DED00F3A071 /* JTCalendarDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDay.h; sourceTree = "<group>"; };
+		9EC715D71F3F5DED00F3A071 /* JTCalendarPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarPage.h; sourceTree = "<group>"; };
+		9EC715D81F3F5DEE00F3A071 /* JTCalendarWeek.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeek.h; sourceTree = "<group>"; };
+		9EC715D91F3F5DEE00F3A071 /* JTCalendarWeekDay.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekDay.h; sourceTree = "<group>"; };
+		9EC715DA1F3F5DEE00F3A071 /* JTContent.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTContent.h; sourceTree = "<group>"; };
+		9EC715DB1F3F5DEE00F3A071 /* JTMenu.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTMenu.h; sourceTree = "<group>"; };
+		9EC715DD1F3F5DEE00F3A071 /* JTCalendarDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarDayView.h; sourceTree = "<group>"; };
+		9EC715DE1F3F5DEE00F3A071 /* JTCalendarDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarDayView.m; sourceTree = "<group>"; };
+		9EC715DF1F3F5DEE00F3A071 /* JTCalendarMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarMenuView.h; sourceTree = "<group>"; };
+		9EC715E01F3F5DEE00F3A071 /* JTCalendarMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarMenuView.m; sourceTree = "<group>"; };
+		9EC715E11F3F5DEE00F3A071 /* JTCalendarPageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarPageView.h; sourceTree = "<group>"; };
+		9EC715E21F3F5DEE00F3A071 /* JTCalendarPageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarPageView.m; sourceTree = "<group>"; };
+		9EC715E31F3F5DEE00F3A071 /* JTCalendarWeekDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekDayView.h; sourceTree = "<group>"; };
+		9EC715E41F3F5DEE00F3A071 /* JTCalendarWeekDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarWeekDayView.m; sourceTree = "<group>"; };
+		9EC715E51F3F5DEE00F3A071 /* JTCalendarWeekView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTCalendarWeekView.h; sourceTree = "<group>"; };
+		9EC715E61F3F5DEE00F3A071 /* JTCalendarWeekView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTCalendarWeekView.m; sourceTree = "<group>"; };
+		9EC715E71F3F5DEE00F3A071 /* JTHorizontalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTHorizontalCalendarView.h; sourceTree = "<group>"; };
+		9EC715E81F3F5DEE00F3A071 /* JTHorizontalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTHorizontalCalendarView.m; sourceTree = "<group>"; };
+		9EC715E91F3F5DEE00F3A071 /* JTVerticalCalendarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JTVerticalCalendarView.h; sourceTree = "<group>"; };
+		9EC715EA1F3F5DEE00F3A071 /* JTVerticalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTVerticalCalendarView.m; sourceTree = "<group>"; };
+		9EC715F71F3F5E0A00F3A071 /* StockPoolSettingCalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingCalendarController.h; sourceTree = "<group>"; };
+		9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingCalendarController.m; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -4559,6 +4606,8 @@
 			children = (
 				19E638501F3BFF6100DEEB20 /* StockPoolListViewController.h */,
 				19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */,
+				9EC715F71F3F5E0A00F3A071 /* StockPoolSettingCalendarController.h */,
+				9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5347,6 +5396,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				9EC715C71F3F5DED00F3A071 /* JTCalendar */,
 				19E6385B1F3C3E0400DEEB20 /* TDGradientProgress */,
 				19AA7DC81F3ADC4700716F38 /* TDPopupMenu */,
 				19AA7DC41F3AAFBC00716F38 /* TDSegmentControl */,
@@ -5479,6 +5529,69 @@
 				9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		9EC715C71F3F5DED00F3A071 /* JTCalendar */ = {
+			isa = PBXGroup;
+			children = (
+				9EC715C81F3F5DED00F3A071 /* JTCalendar.h */,
+				9EC715C91F3F5DED00F3A071 /* JTCalendarDelegate.h */,
+				9EC715CA1F3F5DED00F3A071 /* JTCalendarManager.h */,
+				9EC715CB1F3F5DED00F3A071 /* JTCalendarManager.m */,
+				9EC715CC1F3F5DED00F3A071 /* JTCalendarSettings.h */,
+				9EC715CD1F3F5DED00F3A071 /* JTCalendarSettings.m */,
+				9EC715CE1F3F5DED00F3A071 /* JTDateHelper.h */,
+				9EC715CF1F3F5DED00F3A071 /* JTDateHelper.m */,
+				9EC715D01F3F5DED00F3A071 /* Managers */,
+				9EC715D51F3F5DED00F3A071 /* Protocols */,
+				9EC715DC1F3F5DEE00F3A071 /* Views */,
+			);
+			path = JTCalendar;
+			sourceTree = "<group>";
+		};
+		9EC715D01F3F5DED00F3A071 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				9EC715D11F3F5DED00F3A071 /* JTCalendarDelegateManager.h */,
+				9EC715D21F3F5DED00F3A071 /* JTCalendarDelegateManager.m */,
+				9EC715D31F3F5DED00F3A071 /* JTCalendarScrollManager.h */,
+				9EC715D41F3F5DED00F3A071 /* JTCalendarScrollManager.m */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		9EC715D51F3F5DED00F3A071 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				9EC715D61F3F5DED00F3A071 /* JTCalendarDay.h */,
+				9EC715D71F3F5DED00F3A071 /* JTCalendarPage.h */,
+				9EC715D81F3F5DEE00F3A071 /* JTCalendarWeek.h */,
+				9EC715D91F3F5DEE00F3A071 /* JTCalendarWeekDay.h */,
+				9EC715DA1F3F5DEE00F3A071 /* JTContent.h */,
+				9EC715DB1F3F5DEE00F3A071 /* JTMenu.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		9EC715DC1F3F5DEE00F3A071 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9EC715DD1F3F5DEE00F3A071 /* JTCalendarDayView.h */,
+				9EC715DE1F3F5DEE00F3A071 /* JTCalendarDayView.m */,
+				9EC715DF1F3F5DEE00F3A071 /* JTCalendarMenuView.h */,
+				9EC715E01F3F5DEE00F3A071 /* JTCalendarMenuView.m */,
+				9EC715E11F3F5DEE00F3A071 /* JTCalendarPageView.h */,
+				9EC715E21F3F5DEE00F3A071 /* JTCalendarPageView.m */,
+				9EC715E31F3F5DEE00F3A071 /* JTCalendarWeekDayView.h */,
+				9EC715E41F3F5DEE00F3A071 /* JTCalendarWeekDayView.m */,
+				9EC715E51F3F5DEE00F3A071 /* JTCalendarWeekView.h */,
+				9EC715E61F3F5DEE00F3A071 /* JTCalendarWeekView.m */,
+				9EC715E71F3F5DEE00F3A071 /* JTHorizontalCalendarView.h */,
+				9EC715E81F3F5DEE00F3A071 /* JTHorizontalCalendarView.m */,
+				9EC715E91F3F5DEE00F3A071 /* JTVerticalCalendarView.h */,
+				9EC715EA1F3F5DEE00F3A071 /* JTVerticalCalendarView.m */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 		9EFD75651EAC72230028F18B /* OpenAnAccount */ = {
@@ -5869,6 +5982,7 @@
 				19AA7DCB1F3ADCA300716F38 /* TDPopupMenuButton.m in Sources */,
 				19ED174E1F1644B400EC89DF /* MyGuessViewController.m in Sources */,
 				198035361F1304D400FAD8D3 /* LaunchHandler.m in Sources */,
+				9EC715EB1F3F5DEE00F3A071 /* JTCalendarManager.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
@@ -5898,6 +6012,7 @@
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
 				19AA7DDD1F3AE64400716F38 /* UIImage+Create.m in Sources */,
 				194E0D221EEFBDF7009C7AC6 /* AliveDetailFooterViewController.m in Sources */,
+				9EC715F91F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m in Sources */,
 				190F65B01E33418600B83ADF /* FastLoginUpdateInfoViewController.m in Sources */,
 				193325801E4DAF7200E3D500 /* SettingViewController.m in Sources */,
 				1978E06F1EE1665E0065CEE0 /* StockUnlockManager.m in Sources */,
@@ -5910,6 +6025,7 @@
 				193419E41E78DF2B00F22788 /* DCPathButton.m in Sources */,
 				190F65FA1E36E73000B83ADF /* ExchangeModel.m in Sources */,
 				1955B4941D644D9800DC102E /* CommentsCell.m in Sources */,
+				9EC715F21F3F5DEE00F3A071 /* JTCalendarPageView.m in Sources */,
 				190F65F31E36E73000B83ADF /* AwardViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19E58DBB1EFA423B00ADA1B8 /* SharpTags.m in Sources */,
@@ -5926,6 +6042,7 @@
 				84823CB51DD1AC36004440A9 /* TopBotButton.m in Sources */,
 				84E334681CE3123700E5DCEE /* SDWebImageDownloader.m in Sources */,
 				19AA7DC71F3AAFCD00716F38 /* TDSegmentedControl.m in Sources */,
+				9EC715EE1F3F5DEE00F3A071 /* JTCalendarDelegateManager.m in Sources */,
 				1987B2971EE688F700BD852E /* SurveyDetailSegmentView.m in Sources */,
 				19042E3A1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m in Sources */,
 				19E6385A1F3C27CA00DEEB20 /* UIImage+StockPool.m in Sources */,
@@ -5975,6 +6092,7 @@
 				1987B2B11EE6CE8900BD852E /* AliveListViewpointView.m in Sources */,
 				196F5EDB1E5485B700928B60 /* SAMKeychainQuery.m in Sources */,
 				1966A6681E8BD8C5007DDA14 /* UIButton+LikeAnimation.m in Sources */,
+				9EC715EC1F3F5DEE00F3A071 /* JTCalendarSettings.m in Sources */,
 				84B8F0781DF9308600703A21 /* AlertHintView.m in Sources */,
 				194E0D131EEF8CF6009C7AC6 /* TDTopicModel.m in Sources */,
 				84CC34881CEAEC2A00193D9C /* NSString+TimeInfo.m in Sources */,
@@ -5995,6 +6113,7 @@
 				4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */,
 				1987B27C1EE688F700BD852E /* DialogueViewController.m in Sources */,
 				19E58DAC1EF8C55500ADA1B8 /* UITabBarController+ZFPlayerRotation.m in Sources */,
+				9EC715F31F3F5DEE00F3A071 /* JTCalendarWeekDayView.m in Sources */,
 				19F07A5D1F1F2D24004449BB /* AliveListHotTableViewCell.m in Sources */,
 				19F07A7D1F20D1A3004449BB /* DeepTableViewCell.m in Sources */,
 				190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */,
@@ -6056,6 +6175,7 @@
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
+				9EC715F01F3F5DEE00F3A071 /* JTCalendarDayView.m in Sources */,
 				19E638521F3BFF6100DEEB20 /* StockPoolListViewController.m in Sources */,
 				19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */,
 				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
@@ -6071,6 +6191,7 @@
 				19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */,
 				19F07A341F1D9FDD004449BB /* XHLaunchAdConfiguration.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
+				9EC715F61F3F5DEE00F3A071 /* JTVerticalCalendarView.m in Sources */,
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
@@ -6093,6 +6214,7 @@
 				19AA7DDE1F3AE64400716F38 /* UIImage+Resize.m in Sources */,
 				19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */,
 				1987B2931EE688F700BD852E /* StockHeaderView.m in Sources */,
+				9EC715ED1F3F5DEE00F3A071 /* JTDateHelper.m in Sources */,
 				19959BA71E2DAF0C00AB26DF /* SubscriptionTypeModel.m in Sources */,
 				190F65B31E33419E00B83ADF /* ThirdPartLoginUpdateViewController.m in Sources */,
 				1936AF301EB3212600408D6F /* NJKWebViewProgressView.m in Sources */,
@@ -6183,6 +6305,7 @@
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,
 				193419D41E77F58F00F22788 /* UINavigationBar+Awesome.m in Sources */,
 				1987B28C1EE688F700BD852E /* StockAnnounceModel.m in Sources */,
+				9EC715F41F3F5DEE00F3A071 /* JTCalendarWeekView.m in Sources */,
 				1961DF471DF9573200A08A4B /* NSString+Util.m in Sources */,
 				194E0D2E1EEFBF78009C7AC6 /* ViewpointWebTableViewCell.m in Sources */,
 				194E0D161EEF8D17009C7AC6 /* TDCommentModel.m in Sources */,
@@ -6256,9 +6379,11 @@
 				1924DFEC1D62B49C00FEC383 /* AFURLSessionManager.m in Sources */,
 				190F65F71E36E73000B83ADF /* MyOrderViewController.m in Sources */,
 				84F9FDBE1CF80E0A00683791 /* ELCAlbumPickerController.m in Sources */,
+				9EC715EF1F3F5DEE00F3A071 /* JTCalendarScrollManager.m in Sources */,
 				19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */,
 				1987B27D1EE688F700BD852E /* HotViewController.m in Sources */,
 				1978E0661EDFEAD10065CEE0 /* AliveVideoListTableViewCell.m in Sources */,
+				9EC715F51F3F5DEE00F3A071 /* JTHorizontalCalendarView.m in Sources */,
 				19386EC81E71887500D4426E /* AliveMasterListTableViewCell.m in Sources */,
 				19252C161D51E830003E5D18 /* MASViewConstraint.m in Sources */,
 				9E614E531EACADAB0014DC0B /* PhoneNumViewController.m in Sources */,
@@ -6275,6 +6400,7 @@
 				1987B2871EE688F700BD852E /* AskPublishViewController.m in Sources */,
 				194E0D091EEE7678009C7AC6 /* StockHotListTableViewDelegate.m in Sources */,
 				4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */,
+				9EC715F11F3F5DEE00F3A071 /* JTCalendarMenuView.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19AA7DBD1F3968DC00716F38 /* DYRefreshBaseView.m in Sources */,
 				9EC715821F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m in Sources */,

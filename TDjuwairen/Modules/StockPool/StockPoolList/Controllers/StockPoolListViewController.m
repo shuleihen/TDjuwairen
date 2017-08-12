@@ -13,6 +13,7 @@
 #import "LoginStateManager.h"
 #import "StockPoolSettingController.h"
 #import "StockPoolSubscibeController.h"
+#import "StockPoolSettingCalendarController.h"
 
 
 @interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate>
@@ -108,6 +109,8 @@
 }
 
 - (void)calendarPressed:(id)sender {
+    StockPoolSettingCalendarController *calendarVC = [[StockPoolSettingCalendarController alloc] init];
+    [self.navigationController pushViewController:calendarVC animated:YES];
     
 }
 
