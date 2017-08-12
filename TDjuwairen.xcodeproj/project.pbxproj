@@ -617,6 +617,7 @@
 		9EC7157F1F3EDB2600F3A071 /* StockPoolSubscibeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7157E1F3EDB2600F3A071 /* StockPoolSubscibeController.m */; };
 		9EC715821F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715811F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m */; };
 		9EC715851F3EE24F00F3A071 /* StockPoolSubscibeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */; };
+		9EC715891F3EF06600F3A071 /* StockPoolSubscibeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1808,6 +1809,8 @@
 		9EC715811F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeTableViewController.m; sourceTree = "<group>"; };
 		9EC715831F3EE24F00F3A071 /* StockPoolSubscibeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSubscibeCell.h; sourceTree = "<group>"; };
 		9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeCell.m; sourceTree = "<group>"; };
+		9EC715871F3EF06600F3A071 /* StockPoolSubscibeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSubscibeModel.h; sourceTree = "<group>"; };
+		9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeModel.m; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -5449,6 +5452,8 @@
 		9EC715861F3EEF8300F3A071 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9EC715871F3EF06600F3A071 /* StockPoolSubscibeModel.h */,
+				9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6094,6 +6099,7 @@
 				19959B8D1E2C909000AB26DF /* GradeDetailCell.m in Sources */,
 				19F0074E1E31E5AE000A5F98 /* StockUnlockViewController.m in Sources */,
 				19252C181D51E830003E5D18 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
+				9EC715891F3EF06600F3A071 /* StockPoolSubscibeModel.m in Sources */,
 				19E58DB81EF9038200ADA1B8 /* VideoDetailBottomToolView.m in Sources */,
 				19AA7DCE1F3ADCB900716F38 /* TDPopupMenuViewController.m in Sources */,
 				84E333EF1CE2BA3D00E5DCEE /* AppDelegate.m in Sources */,

@@ -10,10 +10,12 @@
 #import "StockPoolSubscibeCell.h"
 #import "MJRefresh.h"
 #import "NetworkManager.h"
+#import "StockPoolSubscibeModel.h"
+#import "AliveRoomViewController.h"
 
-#define kStockPoolSubscribeCurrentCellID @"kStockPoolSubscribeCurrentCellID"
+#define kStockPoolSubscribeCellID @"kStockPoolSubscribeCellID"
 
-@interface StockPoolSubscibeTableViewController ()
+@interface StockPoolSubscibeTableViewController ()<StockPoolSubscibeCellDelegate>
 @property (nonatomic, assign) NSInteger currentPageIndex;
 @property (nonatomic, strong) NSArray *dataArr;
 
@@ -37,6 +39,8 @@
     
     self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefesh)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
+    
+    [self loadStockPoolSubscribeData];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -76,10 +80,17 @@
             if (self.currentPageIndex == 1) {
                 arrM = [NSMutableArray array];
             }else {
-            
+                
                 arrM = [NSMutableArray arrayWithArray:self.dataArr];
             }
             
+            NSArray *tempArr = data;
+            if (tempArr.count > 0) {
+                for (NSDictionary *dict in tempArr) {
+                    StockPoolSubscibeModel *model = [[StockPoolSubscibeModel alloc] initWithDict:dict];
+                    [arrM addObject:model];
+                }
+            }
             
             
             self.currentPageIndex ++;
@@ -111,10 +122,13 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolSubscibeCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolSubscribeCurrentCellID];
+    StockPoolSubscibeCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolSubscribeCellID];
     if (cell == nil) {
-        cell = [[StockPoolSubscibeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolSubscribeCurrentCellID];
+        cell = [[StockPoolSubscibeCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolSubscribeCellID];
     }
+    cell.delegate = self;
+    cell.historyCell = self.type == kStockPoolSubscibeVCHistoryType;
+    cell.model = self.dataArr[indexPath.row];
     return cell;
 }
 
@@ -122,6 +136,16 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    
+    StockPoolSubscibeModel *model = self.dataArr[indexPath.row];
+    if (model.user_id.length <= 0) {
+        return;
+    }
+    
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.user_id];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
     
 }
 
@@ -148,5 +172,47 @@
     
 }
 
+
+#pragma mark - StockPoolSubscibeCellDelegate 
+- (void)attentionAction:(StockPoolSubscibeCell *)cell subscibeModel:(StockPoolSubscibeModel *)model {
+
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+   
+    if (model.user_id.length <= 0) {
+        return ;
+    }
+    __weak typeof(self)weakSelf = self;
+    NSString *str = API_AliveAddAttention;
+    if (model.has_atten) {
+        // 取消关注
+        str = API_AliveDelAttention;
+    }
+    
+    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    //    cell.attentBtn.isLoading = YES;
+    
+    [manager POST:str parameters:@{@"user_id":model.user_id} completion:^(id data, NSError *error){
+        
+        if (!error) {
+            
+            if (data && [data[@"status"] integerValue] == 1) {
+                
+                model.has_atten = !model.has_atten;
+                [weakSelf.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+                
+            }
+        } else {
+        }
+        
+    }];
+    
+}
 
 @end

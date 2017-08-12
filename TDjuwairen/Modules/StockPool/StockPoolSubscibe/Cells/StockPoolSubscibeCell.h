@@ -7,7 +7,18 @@
 //
 
 #import <UIKit/UIKit.h>
+@class StockPoolSubscibeModel;
+@class StockPoolSubscibeCell;
+
+@protocol StockPoolSubscibeCellDelegate <NSObject>
+
+- (void)attentionAction:(StockPoolSubscibeCell *)cell subscibeModel:(StockPoolSubscibeModel *)model;
+
+@end
 
 @interface StockPoolSubscibeCell : UITableViewCell
+@property (nonatomic, assign) BOOL historyCell;
+@property (nonatomic, strong) StockPoolSubscibeModel *model;
+@property (nonatomic, weak) id<StockPoolSubscibeCellDelegate> delegate;
 
 @end
