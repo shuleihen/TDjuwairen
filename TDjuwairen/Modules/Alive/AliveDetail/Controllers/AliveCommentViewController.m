@@ -65,21 +65,32 @@
 
 
 - (void)sendCommentClick:(id)sender {
+   
+    
+    NSMutableDictionary *dictM = nil;
+    NSString *apiStr = API_AliveAddRoomComment;
+    
     if (self.vcType == CommentVCStockPoolSettingType) {
-        return;
+        dictM = [NSMutableDictionary dictionaryWithDictionary:@{@"desc":SafeValue(_commentText)}];
+        apiStr = API_StockPoolSetDesc;
+    }else {
+    
+        dictM = [NSMutableDictionary dictionaryWithDictionary:@{@"alive_id":SafeValue(self.alive_ID),
+                                                                @"alive_type" :SafeValue(_alive_type),
+                                                                @"content":SafeValue(_commentText)}];
     }
+    
+    
     NetworkManager *manager = [[NetworkManager alloc] init];
     
-    NSDictionary *dict = @{@"alive_id":SafeValue(self.alive_ID),
-                           @"alive_type" :SafeValue(_alive_type),
-                           @"content":SafeValue(_commentText)};
-    
     __weak typeof(self)wSelf = self;
-    [manager POST:API_AliveAddRoomComment parameters:dict completion:^(id data, NSError *error) {
+    [manager POST:apiStr parameters:[dictM mutableCopy] completion:^(id data, NSError *error) {
         
         if (!error) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kAddPingLunNotification object:nil];
             
+            if (self.vcType != CommentVCStockPoolSettingType) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:kAddPingLunNotification object:nil];
+            }
             [wSelf.navigationController popViewControllerAnimated:YES];
             
             if (wSelf.commentBlock) {

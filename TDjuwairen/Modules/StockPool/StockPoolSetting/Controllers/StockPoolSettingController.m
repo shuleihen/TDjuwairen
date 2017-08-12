@@ -11,6 +11,8 @@
 #import "Masonry.h"
 #import "StockPoolSettingCell.h"
 #import "AliveCommentViewController.h"
+#import "NetworkManager.h"
+
 
 #define kStockPoolSettingCellID @"kStockPoolSettingCellID"
 
@@ -57,6 +59,8 @@
     self.introduceStr = @"";
     self.billingTypeStr = @"";
     self.isBilling = YES;
+    [self loadStockPoolIntroductMessage];
+    [self loadStockPoolPriceType];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -67,7 +71,6 @@
 #pragma - 加载数据
 /** 刷新 */
 - (void)onRefesh {
-    self.introduceStr = @"业家、及慈善家,被称为股神,尊称为“奥玛哈的先知”";
     self.billingTypeStr = @"1把钥匙／3天";
     [self.tableView reloadData];
     if (self.tableView.mj_footer.isRefreshing) {
@@ -81,6 +84,47 @@
 - (void)loadMoreActions {
     
 }
+
+/** 加载股票池简介 */
+- (void)loadStockPoolIntroductMessage {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    __weak typeof(self)wSelf = self;
+    [manager GET:API_StockPoolGetDesc parameters:nil completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            self.introduceStr = data[@"desc"];
+            [self.tableView beginUpdates];
+            NSIndexPath *indexP = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexP] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView endUpdates];
+            
+            
+        }
+        
+    }];
+
+}
+
+
+/** 加载股票池收费方式 */
+- (void)loadStockPoolPriceType {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    [manager GET:API_StockPoolGetPrice parameters:nil completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            self.isBilling = data[@"pool_is_free"];
+            self.billingTypeStr = data[@"pool_set_tip"];
+            [self.tableView reloadData];
+        }
+        
+    }];
+    
+}
+
+
+
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -100,6 +144,7 @@
         cell.sDescTextView.text = self.introduceStr;
     }else if (indexPath.section == 1) {
         cell.sSwitch.hidden = NO;
+        cell.sSwitch.on = !self.isBilling;
     }else if (indexPath.section == 2) {
         cell.billingLabel.text = self.billingTypeStr;
     }else {
@@ -124,6 +169,11 @@
     if (indexPath.section == 0) {
         AliveCommentViewController *editVC = [[AliveCommentViewController alloc] init];
         editVC.vcType = CommentVCStockPoolSettingType;
+        __weak typeof(self)weakSelf = self;
+        editVC.commentBlock = ^(){
+            [weakSelf loadStockPoolIntroductMessage];
+            
+        };
         [self.navigationController pushViewController:editVC animated:YES];
     }
 }
