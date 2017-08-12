@@ -12,6 +12,7 @@
 #import "AliveListViewpointView.h"
 #import "AliveVideoListTableViewCell.h"
 #import "AliveListPlayStockView.h"
+#import "AliveListForwardStockPoolView.h"
 
 @implementation AliveListForwardView2
 
@@ -64,6 +65,13 @@
             [view setCellData:fCellData.forwardCellData];
         }
             break;
+        case kAliveStockPool:
+        case kAliveStockPoolRecord:
+        {
+            AliveListForwardSurveyView *view = [[AliveListForwardSurveyView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setAliveModel:model];
+        }
         default:
             NSAssert(NO, @"当前转发的类型不支持");
             break;

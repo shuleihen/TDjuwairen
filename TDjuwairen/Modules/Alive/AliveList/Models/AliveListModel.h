@@ -13,6 +13,7 @@
 #import "AliveListPlayStockExtra.h"
 #import "AliveListAdExtra.h"
 #import "AliveListPostExtra.h"
+#import "AliveListStockPoolExtra.h"
 
 @interface AliveListModel : NSObject
 
