@@ -10,16 +10,16 @@
 
 @implementation UILabel (TDLabel)
 - (instancetype)initWithTitle:(NSString *)titleStr textColor:(UIColor *)textColor fontSize:(CGFloat)fontSize textAlignment:(NSTextAlignment)textAlignment {
-
+    
     if (self = [super init]) {
         
         if (titleStr.length > 0) {
             self.text = titleStr;
         }
-    
+        
         if (textColor == nil) {
             self.textColor = TDDetailTextColor;
-        
+            
         }else {
             self.textColor = textColor;
         }
@@ -31,4 +31,21 @@
     }
     return self;
 }
+
+- (instancetype)initWithTextColor:(UIColor *)textColor fontSize:(CGFloat)fontSize textLine:(CGFloat)textLine {
+    
+    if (self = [super init]) {
+        if (textColor == nil) {
+            self.textColor = TDDetailTextColor;
+            
+        }else {
+            self.textColor = textColor;
+        }
+        
+        self.font = [UIFont systemFontOfSize:fontSize];
+        self.textAlignment = NSTextAlignmentLeft;
+    }
+    return self;
+}
+
 @end

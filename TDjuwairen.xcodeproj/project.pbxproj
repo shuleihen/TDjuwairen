@@ -615,6 +615,8 @@
 		9EC715781F3EB85100F3A071 /* StockPoolChargeTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715771F3EB85100F3A071 /* StockPoolChargeTypeController.m */; };
 		9EC7157C1F3EC10600F3A071 /* UILabel+TDLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7157B1F3EC10600F3A071 /* UILabel+TDLabel.m */; };
 		9EC7157F1F3EDB2600F3A071 /* StockPoolSubscibeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7157E1F3EDB2600F3A071 /* StockPoolSubscibeController.m */; };
+		9EC715821F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715811F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m */; };
+		9EC715851F3EE24F00F3A071 /* StockPoolSubscibeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1802,6 +1804,10 @@
 		9EC7157B1F3EC10600F3A071 /* UILabel+TDLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TDLabel.m"; sourceTree = "<group>"; };
 		9EC7157D1F3EDB2600F3A071 /* StockPoolSubscibeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSubscibeController.h; sourceTree = "<group>"; };
 		9EC7157E1F3EDB2600F3A071 /* StockPoolSubscibeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeController.m; sourceTree = "<group>"; };
+		9EC715801F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSubscibeTableViewController.h; sourceTree = "<group>"; };
+		9EC715811F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeTableViewController.m; sourceTree = "<group>"; };
+		9EC715831F3EE24F00F3A071 /* StockPoolSubscibeCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSubscibeCell.h; sourceTree = "<group>"; };
+		9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeCell.m; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -5039,6 +5045,8 @@
 		4D1A42C11F3D39D2008F562D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				9EC715831F3EE24F00F3A071 /* StockPoolSubscibeCell.h */,
+				9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5048,6 +5056,8 @@
 			children = (
 				9EC7157D1F3EDB2600F3A071 /* StockPoolSubscibeController.h */,
 				9EC7157E1F3EDB2600F3A071 /* StockPoolSubscibeController.m */,
+				9EC715801F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.h */,
+				9EC715811F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -6142,6 +6152,7 @@
 				1987B27F1EE688F700BD852E /* StockDetailViewController.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
+				9EC715851F3EE24F00F3A071 /* StockPoolSubscibeCell.m in Sources */,
 				1987B2AB1EE6894300BD852E /* VideoDetailViewController.m in Sources */,
 				1987B29D1EE688F700BD852E /* SurveyListModel.m in Sources */,
 				193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */,
@@ -6226,6 +6237,7 @@
 				4DEFF1A81ED7D107004E3267 /* AliveSearchUserCell.m in Sources */,
 				4DD179E91E77C00B00FBE66D /* MYImageInfo.m in Sources */,
 				19AA7DBD1F3968DC00716F38 /* DYRefreshBaseView.m in Sources */,
+				9EC715821F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m in Sources */,
 				19E5F2841E1364CF00984DBC /* GuessCommentModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

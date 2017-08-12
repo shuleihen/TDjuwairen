@@ -229,6 +229,9 @@
 #define API_StockPoolGetPrice        @"StockPool/getStockPoolPrice"
 /// 设置股票池订阅收费
 #define API_StockPoolSetPrice        @"StockPool/setStockPoolPrice"
+/// 设置股票池 获取订阅用户列表
+#define API_StockPoolGetSubscribeUser        @"StockPool/getSubscribeStockPoolUser"
+
 
 
 #endif /* NetworkDefine_h */
