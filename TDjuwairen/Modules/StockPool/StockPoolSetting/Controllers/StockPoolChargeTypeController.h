@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class StockPoolPriceModel;
 
 @interface StockPoolChargeTypeController : UIViewController
+@property (nonatomic, strong) StockPoolPriceModel *priceModel;
 
 @end

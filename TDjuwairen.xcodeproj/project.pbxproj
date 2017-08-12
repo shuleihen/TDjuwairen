@@ -618,6 +618,7 @@
 		9EC715821F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715811F3EDEBC00F3A071 /* StockPoolSubscibeTableViewController.m */; };
 		9EC715851F3EE24F00F3A071 /* StockPoolSubscibeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */; };
 		9EC715891F3EF06600F3A071 /* StockPoolSubscibeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */; };
+		9EC715BD1F3F08EF00F3A071 /* StockPoolPriceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1811,6 +1812,8 @@
 		9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeCell.m; sourceTree = "<group>"; };
 		9EC715871F3EF06600F3A071 /* StockPoolSubscibeModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSubscibeModel.h; sourceTree = "<group>"; };
 		9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeModel.m; sourceTree = "<group>"; };
+		9EC715BB1F3F08EF00F3A071 /* StockPoolPriceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolPriceModel.h; sourceTree = "<group>"; };
+		9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolPriceModel.m; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -4939,6 +4942,7 @@
 		4D1A42B41F3D3978008F562D /* StockPoolSetting */ = {
 			isa = PBXGroup;
 			children = (
+				9EC715BA1F3F08D600F3A071 /* Models */,
 				4D1A42B51F3D3978008F562D /* Cells */,
 				4D1A42B61F3D3978008F562D /* Controllers */,
 				4D1A42B71F3D3978008F562D /* Views */,
@@ -5454,6 +5458,15 @@
 			children = (
 				9EC715871F3EF06600F3A071 /* StockPoolSubscibeModel.h */,
 				9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		9EC715BA1F3F08D600F3A071 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9EC715BB1F3F08EF00F3A071 /* StockPoolPriceModel.h */,
+				9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6064,6 +6077,7 @@
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
+				9EC715BD1F3F08EF00F3A071 /* StockPoolPriceModel.m in Sources */,
 				19AA7DDE1F3AE64400716F38 /* UIImage+Resize.m in Sources */,
 				19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */,
 				1987B2931EE688F700BD852E /* StockHeaderView.m in Sources */,

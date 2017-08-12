@@ -12,6 +12,7 @@
 #import "UIView+Border.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
+#import "StockPoolPriceModel.h"
 
 @interface StockPoolChargeTypeController ()<UITextFieldDelegate>
 @property (nonatomic, strong) UIButton *saveBtn;
@@ -163,7 +164,27 @@
     
 }
 
-
+- (void)changeChargeType {
+    /**
+     key_num	int	订阅钥匙数	是
+     day	int	订阅天数	是
+     is_free	int	1表示免费，0表示收费
+     */
+    __weak typeof (self)weakSelf = self;
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *dict = @{@"key_num":self.keyTextField.text,
+                           @"day":self.dataArr[self.selectedBtn.tag],
+                           @"is_free":@"0"};
+    
+    [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            [self.navigationController popViewControllerAnimated:YES];
+        }
+        
+    }];
+    
+}
 
 #pragma - action
 - (void)saveBtnClick {
@@ -184,34 +205,25 @@
         return;
     }
     
-    UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"收费方式发生改变，新的收费方式将在8月5日生效！是否保存？" message:nil preferredStyle:UIAlertControllerStyleAlert];
-    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
-    [alertVC addAction:cancelAction];
-    
-    UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        /**
-         key_num	int	订阅钥匙数	是
-         day	int	订阅天数	是
-         is_free	int	1表示免费，0表示收费
-         */
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        NSDictionary *dict = @{@"key_num":self.keyTextField.text,
-                               @"day":self.dataArr[self.selectedBtn.tag],
-                               @"is_free":@"0"};
+    if ([[self.priceModel.key_num stringValue] isEqualToString:self.keyTextField.text] && [[self.priceModel.day stringValue] isEqualToString:self.dataArr[self.selectedBtn.tag]]) {
+        [self.navigationController popViewControllerAnimated:YES];
+    }else {
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"收费方式发生改变，新的收费方式将在8月5日生效！是否保存？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
+        [alertVC addAction:cancelAction];
         
-        [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
-            
-            if (!error) {
-                [self.navigationController popViewControllerAnimated:YES];
-            }
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self changeChargeType];
             
         }];
+        [alertVC addAction:doneAction];
         
-    }];
-    [alertVC addAction:doneAction];
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
+        
+    }
     
     
-    [self presentViewController:alertVC animated:YES completion:nil];
     
     
     
