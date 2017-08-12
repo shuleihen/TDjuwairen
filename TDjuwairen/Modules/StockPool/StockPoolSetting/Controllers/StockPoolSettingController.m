@@ -12,6 +12,7 @@
 #import "StockPoolSettingCell.h"
 #import "AliveCommentViewController.h"
 #import "NetworkManager.h"
+#import "StockPoolChargeTypeController.h"
 
 
 #define kStockPoolSettingCellID @"kStockPoolSettingCellID"
@@ -175,6 +176,10 @@
             
         };
         [self.navigationController pushViewController:editVC animated:YES];
+    }else if (indexPath.section == 2) {
+    
+        StockPoolChargeTypeController *chagerVC = [[StockPoolChargeTypeController alloc] init];
+        [self.navigationController pushViewController:chagerVC animated:YES];
     }
 }
 

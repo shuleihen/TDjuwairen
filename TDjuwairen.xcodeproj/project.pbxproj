@@ -612,6 +612,8 @@
 		9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EBF09301E7933BA007B2DC0 /* UIView+Additions.m */; };
 		9EC07EEB1E7806F3006EE97E /* AliveCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */; };
 		9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */; };
+		9EC715781F3EB85100F3A071 /* StockPoolChargeTypeController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715771F3EB85100F3A071 /* StockPoolChargeTypeController.m */; };
+		9EC7157C1F3EC10600F3A071 /* UILabel+TDLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7157B1F3EC10600F3A071 /* UILabel+TDLabel.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1793,6 +1795,10 @@
 		9EC07EE81E7806F3006EE97E /* AliveCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCommentViewController.h; sourceTree = "<group>"; };
 		9EC07EE91E7806F3006EE97E /* AliveCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCommentViewController.m; sourceTree = "<group>"; };
 		9EC07EEA1E7806F3006EE97E /* AliveCommentViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveCommentViewController.xib; sourceTree = "<group>"; };
+		9EC715761F3EB85100F3A071 /* StockPoolChargeTypeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolChargeTypeController.h; sourceTree = "<group>"; };
+		9EC715771F3EB85100F3A071 /* StockPoolChargeTypeController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolChargeTypeController.m; sourceTree = "<group>"; };
+		9EC7157A1F3EC10600F3A071 /* UILabel+TDLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+TDLabel.h"; sourceTree = "<group>"; };
+		9EC7157B1F3EC10600F3A071 /* UILabel+TDLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+TDLabel.m"; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -4498,11 +4504,6 @@
 		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
 			isa = PBXGroup;
 			children = (
-				19E638441F3B32DA00DEEB20 /* StockPoolList */,
-				19E6383C1F3B32DA00DEEB20 /* StockPoolDetail */,
-				19E638401F3B32DA00DEEB20 /* StockPoolEdit */,
-				19E638481F3B32DA00DEEB20 /* StockPoolSetting */,
-				19E6384C1F3B32DA00DEEB20 /* StockPoolSubscibe */,
 				4D1A42C01F3D39D2008F562D /* StockPoolSubscibe */,
 				4D1A42BC1F3D39BA008F562D /* StockPoolEdit */,
 				4D1A42B81F3D39A1008F562D /* StockPoolDetail */,
@@ -4947,6 +4948,8 @@
 			children = (
 				4D1A42C41F3D3B19008F562D /* StockPoolSettingController.h */,
 				4D1A42C51F3D3B19008F562D /* StockPoolSettingController.m */,
+				9EC715761F3EB85100F3A071 /* StockPoolChargeTypeController.h */,
+				9EC715771F3EB85100F3A071 /* StockPoolChargeTypeController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5223,6 +5226,8 @@
 				84B8F0771DF9308600703A21 /* AlertHintView.m */,
 				4DCEEEB91EB0988900B1820F /* UIView+Border.h */,
 				4DCEEEBA1EB0988900B1820F /* UIView+Border.m */,
+				9EC7157A1F3EC10600F3A071 /* UILabel+TDLabel.h */,
+				9EC7157B1F3EC10600F3A071 /* UILabel+TDLabel.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -5832,6 +5837,7 @@
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
 				19F07A511F1F0480004449BB /* AliveListPlayStockExtra.m in Sources */,
+				9EC715781F3EB85100F3A071 /* StockPoolChargeTypeController.m in Sources */,
 				1987B2881EE688F700BD852E /* SurveyDetailContentViewController.m in Sources */,
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
@@ -5854,6 +5860,7 @@
 				190F65F31E36E73000B83ADF /* AwardViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19E58DBB1EFA423B00ADA1B8 /* SharpTags.m in Sources */,
+				9EC7157C1F3EC10600F3A071 /* UILabel+TDLabel.m in Sources */,
 				9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
 				19E58DB31EF8C55500ADA1B8 /* ZFPlayerControlView.m in Sources */,
