@@ -23,10 +23,11 @@
 @property (nonatomic, copy) NSString *userinfo_facemin;
 /// 过期或到期时间
 @property (nonatomic, copy) NSString *expire_day;
-/// 等级
+/// 等级 用户等级：0表示普通用户，1表示黄金会员，2表示青铜会员 ，3表示白银会员
 @property (nonatomic, copy) NSString *user_level;
 
 - (UIImage *)userInfoSexImage;
+- (UIImage *)userLevelImage;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 

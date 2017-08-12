@@ -39,5 +39,20 @@
     return img;
 }
 
+- (UIImage *)userLevelImage {
+    NSString *str = @"";
+    if ([self.userinfo_sex isEqualToString:@"1"]) {
+        str = @"tag_level3";
+    }else if ([self.userinfo_sex isEqualToString:@"2"]) {
+        str = @"tag_level1";
+    }else if ([self.userinfo_sex isEqualToString:@"3"]) {
+        str = @"tag_level2";
+    }else {
+        
+        return nil;
+    }
+    UIImage *img = [UIImage imageNamed:str];
+    return img;
 
+}
 @end

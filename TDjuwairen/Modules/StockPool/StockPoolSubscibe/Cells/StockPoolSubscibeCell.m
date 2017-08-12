@@ -102,8 +102,15 @@
         attatch.bounds = CGRectMake(10, -2, 14, 14);
         attatch.image = [model userInfoSexImage];
         
-        NSAttributedString *nickNameTitleAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
-      [attri appendAttributedString:nickNameTitleAttriStr];
+        NSAttributedString *sexAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
+      [attri appendAttributedString:sexAttriStr];
+    }
+    
+    if ([model userLevelImage] != nil) {
+        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];        attatch.bounds = CGRectMake(24, -3, 27, 16);
+        attatch.image = [model userLevelImage];
+        NSAttributedString *levelAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
+        [attri appendAttributedString:levelAttriStr];
     }
     
     _sNickNameLabel.attributedText = attri;
