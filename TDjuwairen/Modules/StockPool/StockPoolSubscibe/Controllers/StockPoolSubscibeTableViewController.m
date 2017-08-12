@@ -91,7 +91,7 @@
                     [arrM addObject:model];
                 }
             }
-            
+            self.dataArr = [NSArray arrayWithArray:[arrM mutableCopy]];
             
             self.currentPageIndex ++;
             if (self.tableView.mj_footer.isRefreshing) {

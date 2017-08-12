@@ -619,6 +619,8 @@
 		9EC715851F3EE24F00F3A071 /* StockPoolSubscibeCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715841F3EE24F00F3A071 /* StockPoolSubscibeCell.m */; };
 		9EC715891F3EF06600F3A071 /* StockPoolSubscibeModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */; };
 		9EC715BD1F3F08EF00F3A071 /* StockPoolPriceModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */; };
+		9EC715C01F3F2B3F00F3A071 /* UIControl+YMCustom.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715BF1F3F2B3F00F3A071 /* UIControl+YMCustom.m */; };
+		9EC715C31F3F2BAF00F3A071 /* UIButton+Extensions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715C21F3F2BAF00F3A071 /* UIButton+Extensions.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1814,6 +1816,10 @@
 		9EC715881F3EF06600F3A071 /* StockPoolSubscibeModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSubscibeModel.m; sourceTree = "<group>"; };
 		9EC715BB1F3F08EF00F3A071 /* StockPoolPriceModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolPriceModel.h; sourceTree = "<group>"; };
 		9EC715BC1F3F08EF00F3A071 /* StockPoolPriceModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolPriceModel.m; sourceTree = "<group>"; };
+		9EC715BE1F3F2B3F00F3A071 /* UIControl+YMCustom.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIControl+YMCustom.h"; sourceTree = "<group>"; };
+		9EC715BF1F3F2B3F00F3A071 /* UIControl+YMCustom.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIControl+YMCustom.m"; sourceTree = "<group>"; };
+		9EC715C11F3F2BAF00F3A071 /* UIButton+Extensions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Extensions.h"; sourceTree = "<group>"; };
+		9EC715C21F3F2BAF00F3A071 /* UIButton+Extensions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Extensions.m"; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -5251,6 +5257,10 @@
 				4DCEEEBA1EB0988900B1820F /* UIView+Border.m */,
 				9EC7157A1F3EC10600F3A071 /* UILabel+TDLabel.h */,
 				9EC7157B1F3EC10600F3A071 /* UILabel+TDLabel.m */,
+				9EC715BE1F3F2B3F00F3A071 /* UIControl+YMCustom.h */,
+				9EC715BF1F3F2B3F00F3A071 /* UIControl+YMCustom.m */,
+				9EC715C11F3F2BAF00F3A071 /* UIButton+Extensions.h */,
+				9EC715C21F3F2BAF00F3A071 /* UIButton+Extensions.m */,
 			);
 			path = Utility;
 			sourceTree = "<group>";
@@ -5862,6 +5872,7 @@
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
+				9EC715C01F3F2B3F00F3A071 /* UIControl+YMCustom.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
 				19AA7DDC1F3AE64400716F38 /* UIImage+Color.m in Sources */,
 				194E0CFD1EEE3C28009C7AC6 /* CollectionViewController.m in Sources */,
@@ -5883,6 +5894,7 @@
 				19194D1C1E80CC5200641085 /* NSObject+ChangeState.m in Sources */,
 				190F65F51E36E73000B83ADF /* KeysExchangeViewController.m in Sources */,
 				19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */,
+				9EC715C31F3F2BAF00F3A071 /* UIButton+Extensions.m in Sources */,
 				19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */,
 				19AA7DDD1F3AE64400716F38 /* UIImage+Create.m in Sources */,
 				194E0D221EEFBDF7009C7AC6 /* AliveDetailFooterViewController.m in Sources */,

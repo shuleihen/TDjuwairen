@@ -19,10 +19,14 @@
 @property (nonatomic, copy) NSString *userinfo_info;
 /// 昵称
 @property (nonatomic, copy) NSString *user_nickname;
+/// 用户头像
+@property (nonatomic, copy) NSString *userinfo_facemin;
 /// 过期或到期时间
 @property (nonatomic, copy) NSString *expire_day;
 /// 等级
 @property (nonatomic, copy) NSString *user_level;
+
+- (UIImage *)userInfoSexImage;
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
 

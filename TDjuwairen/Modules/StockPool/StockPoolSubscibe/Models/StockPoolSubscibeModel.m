@@ -10,14 +10,34 @@
 
 @implementation StockPoolSubscibeModel
 - (instancetype)initWithDict:(NSDictionary *)dict {
-
+    
     if(self = [super init]) {
-        [self setValuesForKeysWithDictionary:dict];
+        self.userinfo_sex = dict[@"userinfo_sex"];
+        self.has_atten = [dict[@"has_atten"] boolValue];
+        self.user_id = dict[@"user_id"];
+        self.userinfo_info = dict[@"userinfo_info"];
+        self.user_nickname = SafeValue(dict[@"user_nickname"]);
+        self.userinfo_facemin = dict[@"userinfo_facemin"];
+        self.expire_day = dict[@"expire_day"];
+        self.user_level = dict[@"user_level"];
     }
     return self;
 }
 
 
--(void)setValue:(id)value forUndefinedKey:(NSString *)key {}
+- (UIImage *)userInfoSexImage {
+    NSString *str = @"";
+    if ([self.userinfo_sex isEqualToString:@"1"]) {
+        str = @"ico_sex-women";
+    }else if ([self.userinfo_sex isEqualToString:@"0"]) {
+        str = @"ico_sex-man";
+    }else {
+        
+        return nil;
+    }
+    UIImage *img = [UIImage imageNamed:str];
+    return img;
+}
+
 
 @end

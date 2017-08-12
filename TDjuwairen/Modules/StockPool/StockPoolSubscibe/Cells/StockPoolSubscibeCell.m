@@ -12,6 +12,7 @@
 #import "UIView+Border.h"
 #import "StockPoolSubscibeModel.h"
 #import "UIImageView+WebCache.h"
+#import "UIControl+YMCustom.h"
 
 @interface StockPoolSubscibeCell ()
 /// 头像
@@ -46,9 +47,12 @@
         }];
         
         _sAttentionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _sAttentionBtn.custom_acceptEventInterval = 0.5;
         [_sAttentionBtn setBackgroundColor:TDThemeColor];
         _sAttentionBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [_sAttentionBtn addTarget:self action:@selector(attentionBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        [_sAttentionBtn cutCircular:3];
+        [_sAttentionBtn addBorder:1 borderColor:TDThemeColor];
         [self.contentView addSubview:_sAttentionBtn];
         [_sAttentionBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.equalTo(self.contentView).mas_offset(-12);
@@ -58,7 +62,6 @@
         }];
         
         _sNickNameLabel = [[UILabel alloc] initWithTextColor:TDTitleTextColor fontSize:16.0 textLine:1];
-        _sNickNameLabel.text = @"学习范";
         [self.contentView addSubview:_sNickNameLabel];
         [_sNickNameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_sIconImageV.mas_right).mas_offset(10);
@@ -67,7 +70,6 @@
         }];
         
         _sTimeLabel = [[UILabel alloc] initWithTextColor:[UIColor hx_colorWithHexRGBAString:@"#FF6C00"] fontSize:12.0 textLine:1];
-        _sTimeLabel.text = @"剩余13天";
         [self.contentView addSubview:_sTimeLabel];
         [_sTimeLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_sNickNameLabel.mas_left);
@@ -76,11 +78,10 @@
         }];
         
         _sDescLabel = [[UILabel alloc] initWithTextColor:TDLightGrayColor fontSize:14.0 textLine:1];
-        _sDescLabel.text = @"孤独的价值投资人，伪价值投资者注意，孤独...";
         [self.contentView addSubview:_sDescLabel];
         [_sDescLabel mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.equalTo(_sNickNameLabel.mas_left);
-            make.bottom.equalTo(_sTimeLabel.mas_top).mas_offset(-12);
+            make.top.equalTo(_sNickNameLabel.mas_bottom).mas_offset(9);
             make.right.equalTo(_sAttentionBtn.mas_right);
         }];    }
     return self;
@@ -94,7 +95,20 @@
 - (void)setModel:(StockPoolSubscibeModel *)model {
     
     _model = model;
-    _sNickNameLabel.text = model.user_nickname;
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:model.user_nickname attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0f], NSForegroundColorAttributeName : TDTitleTextColor}];
+    
+    if ([model userInfoSexImage] != nil) {
+        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+        attatch.bounds = CGRectMake(10, -2, 14, 14);
+        attatch.image = [model userInfoSexImage];
+        
+        NSAttributedString *nickNameTitleAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
+      [attri appendAttributedString:nickNameTitleAttriStr];
+    }
+    
+    _sNickNameLabel.attributedText = attri;
+    
+    
     _sDescLabel.text = model.userinfo_info;
     _sTimeLabel.text = model.expire_day;
     if (model.has_atten == YES) {
@@ -108,7 +122,7 @@
         [_sAttentionBtn setBackgroundColor:TDThemeColor];
          [_sAttentionBtn setTitle:@"加关注" forState:UIControlStateNormal];
     }
-    //     [_sIconImageV sd_setImageWithURL:[NSURL URLWithString:model.plat_logo] placeholderImage:TDDefaultUserAvatar];
+         [_sIconImageV sd_setImageWithURL:[NSURL URLWithString:model.userinfo_facemin] placeholderImage:TDDefaultUserAvatar];
     
 }
 
