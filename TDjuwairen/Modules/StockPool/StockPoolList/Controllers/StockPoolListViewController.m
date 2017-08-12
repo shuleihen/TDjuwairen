@@ -12,6 +12,7 @@
 #import "StockPoolListToolView.h"
 #import "LoginStateManager.h"
 #import "StockPoolSettingController.h"
+#import "StockPoolSubscibeController.h"
 
 
 @interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate>
@@ -129,7 +130,8 @@
 }
 
 - (void)attentionPressed:(id)sender {
-    
+    StockPoolSubscibeController *subscibeVC = [[StockPoolSubscibeController alloc] init];
+    [self.navigationController pushViewController:subscibeVC animated:YES];
 }
 
 - (void)refreshActions {
