@@ -231,7 +231,12 @@
 #define API_StockPoolSetPrice        @"StockPool/setStockPoolPrice"
 /// 设置股票池 获取订阅用户列表
 #define API_StockPoolGetSubscribeUser        @"StockPool/getSubscribeStockPoolUser"
-
+/// 获取有记录的月份
+#define API_StockPoolGetRecordMonths        @"StockPool/getRecordMonths"
+/// 获取指定日期前的股票池记录
+#define API_StockPoolGetRecordList        @"StockPool/getRecordList"
+/// 获取指定月份下的有记录的日期
+#define API_StockPoolGetRecordDates       @"StockPool/getRecordDates"
 
 
 #endif /* NetworkDefine_h */

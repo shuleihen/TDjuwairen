@@ -36,6 +36,9 @@
     __weak typeof (self)weakSelf = self;
     _datePicker.pickClickBlock = ^(CalenderYearMonthPickerView *picker,NSInteger index,NSString *selectString,BOOL isDone){
         if (isDone == YES) {
+            if ([weakSelf.delegate respondsToSelector:@selector(chooseDateBack:dateStr:)]) {
+                [weakSelf.delegate chooseDateBack:weakSelf dateStr:selectString];
+            }
         }
         [weakSelf closeBtnClick];
     };

@@ -8,6 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CalendarDatePickerController : UIViewController
+@class CalendarDatePickerController;
 
+@protocol CalendarDatePickerControllerDelegate <NSObject>
+
+- (void)chooseDateBack:(CalendarDatePickerController *)vc dateStr:(NSString *)str;
+
+@end
+
+@interface CalendarDatePickerController : UIViewController
+@property (nonatomic, weak) id<CalendarDatePickerControllerDelegate> delegate;
 @end

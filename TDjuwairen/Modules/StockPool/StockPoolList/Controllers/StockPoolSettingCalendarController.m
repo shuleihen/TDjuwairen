@@ -12,9 +12,10 @@
 #import "UIView+Border.h"
 #import "CalendarDatePickerController.h"
 #import "STPopup.h"
+#import "NetworkManager.h"
 
 
-@interface StockPoolSettingCalendarController ()<JTCalendarDelegate>{
+@interface StockPoolSettingCalendarController ()<JTCalendarDelegate,CalendarDatePickerControllerDelegate>{
     NSMutableDictionary *_eventsByDate;
     
     NSDate *_todayDate;
@@ -35,6 +36,8 @@
 /// 日期选择器View
 @property (nonatomic, strong) CalendarDatePickerController *datePickerVC;
 
+@property (nonatomic, strong) NSArray *dateArr;
+
 
 @end
 
@@ -45,6 +48,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.title = @"日历";
+    _dateArr = [NSArray array];
+    
     self.view.backgroundColor = [UIColor whiteColor];
     [self configCommonUI];
     
@@ -57,7 +62,7 @@
     [_calendarManager setContentView:_calendarContentView];
     [self createMinAndMaxDate];
     [_calendarManager setDate:_todayDate];
-    
+    [self loadRecordListWithMonthString:@"201708"];
     
   
 }
@@ -69,8 +74,6 @@
 
 
 - (void)configCommonUI {
-    
-    
     self.calendarMenuView = [[JTCalendarMenuView alloc] init];
     [self.view addSubview:self.calendarMenuView];
     [self.calendarMenuView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,6 +141,8 @@
     
     
     _datePickerVC = [[CalendarDatePickerController alloc] init];
+    _datePickerVC.delegate = self;
+    
     
     
 }
@@ -170,39 +175,87 @@
 }
 
 
+#pragma mark - 加载数据
+/** 获取制定月份下的所有有记录的日期 */
+- (void)loadRecordListWithMonthString:(NSString *)monthStr {
+//@"master_id":US.userId
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    /**
+     month	string	年月	是	201708 月份为两位数字
+     master_id	string	股票池所属用户ID	是
+     */
+    NSDictionary *dict = @{@"month":monthStr,@"master_id":US.userId};
+    [manager GET:API_StockPoolGetRecordDates parameters:dict completion:^(NSArray *data, NSError *error) {
+        if (!error) {
+            NSDateFormatter *format = [[NSDateFormatter alloc] init];
+            format.dateFormat = @"yyyy-MM-dd";
+            
+            NSMutableArray *tempArr = [NSMutableArray array];
+            for (NSString *str in data) {
+                NSDate *d = [format dateFromString:@"2017-08-12"];
+               [tempArr addObject:d];
+            }
+            self.dateArr = [NSArray arrayWithArray:[tempArr mutableCopy]];
+            [self.calendarManager reload];
+            
+        }
+        
+    }];
+    
+}
 
+#pragma mark - CalendarDatePickerControllerDelegate
+- (void)chooseDateBack:(CalendarDatePickerController *)vc dateStr:(NSString *)str {
+
+    [self loadRecordListWithMonthString:str];
+}
 
 #pragma mark - CalendarManager delegate
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
      [dayView addBorder:1 borderColor:[UIColor whiteColor]];
-     dayView.haveDataImageView.hidden = NO;
-    // Today
+   
+    
+    for (NSDate *sourceDate in self.dateArr) {
+        if ([_calendarManager.dateHelper date:sourceDate isTheSameDayThan:dayView.date]) {
+            dayView.haveDataImageView.hidden = NO;
+        }else {
+            
+            dayView.haveDataImageView.hidden = YES;
+        }
+    }
+    
+    
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
+        // Today
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
         [dayView addBorder:1 borderColor:TDThemeColor];
         dayView.textLabel.textColor = TDThemeColor;
         dayView.textLabel.text = [NSString stringWithFormat:@"%@\n今天",dayView.textLabel.text];
     }
-    // Selected date
     else if(_dateSelected && [_calendarManager.dateHelper date:_dateSelected isTheSameDayThan:dayView.date]){
+        // Selected date
         dayView.backgroundColor = TDThemeColor;
         dayView.textLabel.textColor = [UIColor whiteColor];
     }
-    // Other month
     else if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
+        // Other month
        
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#FAFDFE"];
         dayView.textLabel.textColor = TDAssistTextColor;
         dayView.haveDataImageView.hidden = YES;
        
     }
-    // Another day of the current month
     else{
+        // Another day of the current month
     
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
         dayView.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#797979"];
     }
+    
+    
+   
     
 }
 
@@ -210,8 +263,6 @@
 {
     _dateSelected = dayView.date;
     
-    // Animation for the circleView
-  
     [UIView transitionWithView:dayView
                       duration:.3
                        options:0
@@ -227,7 +278,6 @@
     }
     
     // Load the previous or next page if touch a day from another month
-    
     if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
         if([_calendarContentView.date compare:dayView.date] == NSOrderedAscending){
             [_calendarContentView loadNextPageWithAnimation];

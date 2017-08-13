@@ -219,6 +219,11 @@
         default:
             break;
     }
+    
+    ((UIView *)[pickerView.subviews objectAtIndex:1]).backgroundColor = [UIColor clearColor];
+    
+    ((UIView *)[pickerView.subviews objectAtIndex:2]).backgroundColor = [UIColor clearColor];
+    
     return label;
 }
 
@@ -242,7 +247,7 @@
             break;
     }
 
-    _string =[NSString stringWithFormat:@"%ld-%.2ld",selectedYear,selectedMonth];
+    _string =[NSString stringWithFormat:@"%ld%.2ld",selectedYear,selectedMonth];
 
 }
 
