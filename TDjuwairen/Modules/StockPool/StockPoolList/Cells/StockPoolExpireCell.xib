@@ -61,14 +61,14 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4HB-M4-a8M">
-                        <rect key="frame" x="122.5" y="37.5" width="140.5" height="1"/>
+                        <rect key="frame" x="122.5" y="37.5" width="135.5" height="1"/>
                         <color key="backgroundColor" red="0.91764705882352937" green="0.91764705882352937" blue="0.91764705882352937" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="1" id="xBF-qU-oIj"/>
                         </constraints>
                     </view>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Rxs-rD-l5j">
-                        <rect key="frame" x="273" y="24.5" width="60" height="27"/>
+                        <rect key="frame" x="268" y="24.5" width="60" height="27"/>
                         <color key="backgroundColor" red="1" green="0.32156862745098036" blue="0.23137254901960785" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="height" constant="27" id="gQn-BN-H21"/>
@@ -90,7 +90,7 @@
                 <constraints>
                     <constraint firstItem="Rxs-rD-l5j" firstAttribute="centerY" secondItem="2i2-aq-q44" secondAttribute="centerY" id="1wB-Js-Ow4"/>
                     <constraint firstItem="6EU-rP-6AP" firstAttribute="trailing" secondItem="g2f-F6-57A" secondAttribute="trailing" id="5va-vR-MjR"/>
-                    <constraint firstAttribute="trailing" secondItem="Rxs-rD-l5j" secondAttribute="trailing" constant="10" id="BNz-RQ-07g"/>
+                    <constraint firstAttribute="trailing" secondItem="Rxs-rD-l5j" secondAttribute="trailing" constant="15" id="BNz-RQ-07g"/>
                     <constraint firstItem="6EU-rP-6AP" firstAttribute="top" secondItem="g2f-F6-57A" secondAttribute="bottom" constant="2" id="HWy-zd-Day"/>
                     <constraint firstItem="2i2-aq-q44" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="29" id="IL3-ng-T9S"/>
                     <constraint firstItem="g2f-F6-57A" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="J4U-7a-2BD"/>

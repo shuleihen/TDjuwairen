@@ -17,6 +17,8 @@
 #import "StockPoolSettingCalendarController.h"
 #import "StockPoolSettingDataModel.h"
 #import "MJRefresh.h"
+#import "Masonry.h"
+#import "UILabel+TDLabel.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -29,6 +31,7 @@
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, strong) StockPoolSettingDataModel *listDataModel;
 @property (nonatomic, copy) NSString *searchMonthStr;
+@property (nonatomic, strong) UIView *emptyView;
 @end
 
 @implementation StockPoolListViewController
@@ -62,12 +65,15 @@
     return _toolView;
 }
 
+
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = TDViewBackgrouondColor;
     
     [self setupNavigation];
+    
     
     //    if ([US.userId isEqualToString:self.userId]) {
     self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
@@ -77,10 +83,12 @@
     //    } else {
     //        [self.view addSubview:self.tableView];
     //    }
-    
+    [self configEmptyViewUI];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
     self.searchMonthStr = [NSString stringWithFormat:@"%ld%ld%ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
+    
+    [self refreshActions];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -118,6 +126,36 @@
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     spacer.width = 15;
     self.navigationItem.rightBarButtonItems = @[message,spacer,master];
+}
+
+- (void)configEmptyViewUI {
+    
+    self.emptyView = [[UIView alloc] init];
+    self.emptyView.hidden = YES;
+    [self.view addSubview:self.emptyView];
+    [self.emptyView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.left.right.equalTo(self.view);
+        make.bottom.equalTo(self.view).mas_offset(-50);
+    }];
+    
+    
+    UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"view_nothing"]];
+    [self.emptyView addSubview:imgV];
+    [imgV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.equalTo(self.emptyView.mas_centerX);
+        make.centerY.equalTo(self.emptyView.mas_centerY).mas_offset(-30);
+        
+    }];
+    
+    UILabel *label = [[UILabel alloc] initWithTitle:@"展示个人投资风采，开启赚取钥匙之旅" textColor:TDDetailTextColor fontSize:14.0 textAlignment:NSTextAlignmentCenter];
+    label.numberOfLines = 0;
+    [self.emptyView addSubview:label];
+    [label mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(15);
+        make.right.mas_equalTo(-15);
+        make.top.equalTo(imgV.mas_bottom).mas_offset(19);
+    }];
+    
 }
 
 - (void)backPressed:(id)sender {
@@ -219,13 +257,12 @@
                 [arrM addObjectsFromArray:arrM1];
                 
             }
-#warning zyp -测试注销代码
-//            if ([newDateListModel.expire_index isEqual:@(1)]) {
+            if ([newDateListModel.expire_index isEqual:@(1)]) {
                 StockPoolSettingListModel *expireModel = [[StockPoolSettingListModel alloc] init];
                 expireModel.record_time = newDateListModel.expire_time;
                 expireModel.recordExpiredIndexCell = YES;
                 [arrM addObject:expireModel];
-//            }
+            }
             
             if (arrM2.count > 0) {
                 [arrM addObjectsFromArray:arrM2];
@@ -239,6 +276,12 @@
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
+        if (self.listDataModel.list.count > 0) {
+            self.emptyView.hidden = YES;
+        }else {
+            
+            self.emptyView.hidden = NO;
+        }
         
     }];
 }
@@ -254,7 +297,7 @@
 
 #pragma mark - StockPoolExpireCellDelegate 续费
 - (void)addMoney:(StockPoolExpireCell *)vc listModel:(StockPoolSettingListModel *)listModel {
-
+    
     
 }
 
