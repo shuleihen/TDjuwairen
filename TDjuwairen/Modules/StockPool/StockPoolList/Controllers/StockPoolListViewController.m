@@ -214,64 +214,67 @@
                            @"page":@(self.page)};
     [manager GET:API_StockPoolGetRecordList parameters:dict completion:^(NSDictionary *data, NSError *error) {
         if (!error) {
-            
-            NSMutableArray *arrM1 = nil;
-            NSMutableArray *arrM2 = nil;
-            StockPoolSettingDataModel *newDateListModel = [[StockPoolSettingDataModel alloc] initWithDict:data];
-            
-            if (self.page == 1) {
-                arrM1 = [NSMutableArray array];
-                arrM2 = [NSMutableArray array];
-                self.listDataModel = [[StockPoolSettingDataModel alloc] init];
-                self.listDataModel.expire_time = newDateListModel.expire_time;
-                self.listDataModel.expire_index = newDateListModel.expire_index;
+            if (data == nil) {
                 
-            }else {
-                arrM1 = [NSMutableArray arrayWithArray:self.listDataModel.currentArr];
-                arrM2 = [NSMutableArray arrayWithArray:self.listDataModel.expireArr];
-                self.page ++;
-            }
-            
-            
-            
-            for (StockPoolSettingListModel *listModel in newDateListModel.list) {
-                if ([listModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
-                    /// 过期
-                    listModel.recordExpired = YES;
-                    [arrM2 addObject:listModel];
-                }else {
+                
+                NSMutableArray *arrM1 = nil;
+                NSMutableArray *arrM2 = nil;
+                StockPoolSettingDataModel *newDateListModel = [[StockPoolSettingDataModel alloc] initWithDict:data];
+                
+                if (self.page == 1) {
+                    arrM1 = [NSMutableArray array];
+                    arrM2 = [NSMutableArray array];
+                    self.listDataModel = [[StockPoolSettingDataModel alloc] init];
+                    self.listDataModel.expire_time = newDateListModel.expire_time;
+                    self.listDataModel.expire_index = newDateListModel.expire_index;
                     
-                    listModel.recordExpired = NO;
-                    [arrM1 addObject:listModel];
+                }else {
+                    arrM1 = [NSMutableArray arrayWithArray:self.listDataModel.currentArr];
+                    arrM2 = [NSMutableArray arrayWithArray:self.listDataModel.expireArr];
+                    self.page ++;
                 }
-            }
-            
-            
-            self.listDataModel.currentArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
-            self.listDataModel.expireArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
-            
-            
-            NSMutableArray *arrM = [NSMutableArray array];
-            if (arrM1.count > 0) {
                 
-                [arrM addObjectsFromArray:arrM1];
+                
+                
+                for (StockPoolSettingListModel *listModel in newDateListModel.list) {
+                    if ([listModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
+                        /// 过期
+                        listModel.recordExpired = YES;
+                        [arrM2 addObject:listModel];
+                    }else {
+                        
+                        listModel.recordExpired = NO;
+                        [arrM1 addObject:listModel];
+                    }
+                }
+                
+                
+                self.listDataModel.currentArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
+                self.listDataModel.expireArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
+                
+                
+                NSMutableArray *arrM = [NSMutableArray array];
+                if (arrM1.count > 0) {
+                    
+                    [arrM addObjectsFromArray:arrM1];
+                    
+                }
+                if ([newDateListModel.expire_index isEqual:@(1)]) {
+                    StockPoolSettingListModel *expireModel = [[StockPoolSettingListModel alloc] init];
+                    expireModel.record_time = newDateListModel.expire_time;
+                    expireModel.recordExpiredIndexCell = YES;
+                    [arrM addObject:expireModel];
+                }
+                
+                if (arrM2.count > 0) {
+                    [arrM addObjectsFromArray:arrM2];
+                }
+                
+                self.listDataModel.list = [NSArray arrayWithArray:[arrM mutableCopy]];
+                
+                
                 
             }
-            if ([newDateListModel.expire_index isEqual:@(1)]) {
-                StockPoolSettingListModel *expireModel = [[StockPoolSettingListModel alloc] init];
-                expireModel.record_time = newDateListModel.expire_time;
-                expireModel.recordExpiredIndexCell = YES;
-                [arrM addObject:expireModel];
-            }
-            
-            if (arrM2.count > 0) {
-                [arrM addObjectsFromArray:arrM2];
-            }
-            
-            self.listDataModel.list = [NSArray arrayWithArray:[arrM mutableCopy]];
-            
-            
-            
         }
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];

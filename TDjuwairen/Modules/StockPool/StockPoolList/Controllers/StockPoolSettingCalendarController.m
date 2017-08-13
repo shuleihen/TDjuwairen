@@ -217,15 +217,12 @@
 {
     [dayView addBorder:1 borderColor:[UIColor whiteColor]];
     
-    
+    dayView.userInteractionEnabled = NO;
+    dayView.haveDataImageView.hidden = YES;
     for (NSDate *sourceDate in self.dateArr) {
         if ([_calendarManager.dateHelper date:sourceDate isTheSameDayThan:dayView.date]) {
             dayView.haveDataImageView.hidden = NO;
             dayView.userInteractionEnabled = YES;
-        }else {
-            
-            dayView.haveDataImageView.hidden = YES;
-            dayView.userInteractionEnabled = NO;
         }
     }
     
