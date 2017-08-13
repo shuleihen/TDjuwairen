@@ -214,9 +214,7 @@
                            @"page":@(self.page)};
     [manager GET:API_StockPoolGetRecordList parameters:dict completion:^(NSDictionary *data, NSError *error) {
         if (!error) {
-            if (data == nil) {
-                
-                
+            if (data != nil) {
                 NSMutableArray *arrM1 = nil;
                 NSMutableArray *arrM2 = nil;
                 StockPoolSettingDataModel *newDateListModel = [[StockPoolSettingDataModel alloc] initWithDict:data];
