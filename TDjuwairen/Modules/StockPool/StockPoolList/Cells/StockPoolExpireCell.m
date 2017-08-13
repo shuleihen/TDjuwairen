@@ -1,50 +1,36 @@
 //
-//  StockPoolListCell.m
+//  StockPoolExpireCell.m
 //  TDjuwairen
 //
-//  Created by zdy on 2017/8/10.
+//  Created by deng shu on 2017/8/13.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "StockPoolListCell.h"
+#import "StockPoolExpireCell.h"
 #import "UIImage+StockPool.h"
 #import "StockPoolSettingListModel.h"
+#import "UIControl+YMCustom.h"
 
-@interface StockPoolListCell ()
+@interface StockPoolExpireCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *rightBackImageView;
-@property (weak, nonatomic) IBOutlet TDGradientProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UIButton *addMoneyButton;
 @property (weak, nonatomic) IBOutlet UILabel *weekLabel;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
-@property (weak, nonatomic) IBOutlet UILabel *recordTotalRatioLabel;
-@property (weak, nonatomic) IBOutlet UILabel *recordDescLabel;
-@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
-@property (weak, nonatomic) IBOutlet UIImageView *sNewImageView;
 
 @end
 
-@implementation StockPoolListCell
+@implementation StockPoolExpireCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    
     UIImage *leftImage = [UIImage imageWithStockPoolListLeft];
     self.leftImageView.image = [leftImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 0, 10, 0)];
-    
-    UIImage *rightBackImage = [UIImage imageWithStockPoolListRightBackground];
-    self.rightBackImageView.image = [rightBackImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 20, 10, 10)];
-    
-    
-    
+    _addMoneyButton.custom_acceptEventInterval = 0.5;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
-    
-    
 }
-
 
 - (void)setListModel:(StockPoolSettingListModel *)listModel {
     _listModel = listModel;
@@ -66,18 +52,20 @@
     }
     
     self.weekLabel.attributedText = attr;
-    self.recordTotalRatioLabel.text = [NSString stringWithFormat:@"仓位 %@%@",listModel.record_total_ratio,@"%"];
-    self.progressView.progress = [listModel.record_total_ratio integerValue]*0.01f;
-    self.recordDescLabel.text = listModel.record_desc;
-    
-    NSDateComponents *componentsTime = [calendar components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
-    self.timeLabel.text = [NSString stringWithFormat:@"%ld:%ld",componentsTime.hour,componentsTime.minute];
-    self.sNewImageView.hidden = listModel.record_is_new;
-    
     NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
     
     self.monthLabel.text = [NSString stringWithFormat:@"%ld-%ld",componentsMonth.year,componentsMonth.month];;
 }
 
+/** 续费按钮点击事件*/
+- (IBAction)addMoneyButtonClick:(UIButton *)sender {
+    if (self.listModel == nil) {
+        return;
+    }
+    if ([self.delegate respondsToSelector:@selector(addMoney:listModel:)]) {
+        [self.delegate addMoney:self listModel:self.listModel];
+    }
+    
+}
 
 @end

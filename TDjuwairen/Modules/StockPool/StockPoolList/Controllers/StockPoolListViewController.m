@@ -9,6 +9,7 @@
 #import "StockPoolListViewController.h"
 #import "NetworkManager.h"
 #import "StockPoolListCell.h"
+#import "StockPoolExpireCell.h"
 #import "StockPoolListToolView.h"
 #import "LoginStateManager.h"
 #import "StockPoolSettingController.h"
@@ -17,8 +18,11 @@
 #import "StockPoolSettingDataModel.h"
 #import "MJRefresh.h"
 
+#define StockPoolExpireCellID @"StockPoolExpireCellID"
+#define StockPoolListNormalCellID @"StockPoolListNormalCellID"
 
-@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate>
+
+@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate,StockPoolExpireCellDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) StockPoolListToolView *toolView;
 @property (nonatomic, assign) NSInteger page;
@@ -42,7 +46,9 @@
         _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
         
         UINib *nib = [UINib nibWithNibName:@"StockPoolListCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"StockPoolListCellID"];
+        [_tableView registerNib:nib forCellReuseIdentifier:StockPoolListNormalCellID];
+        UINib *nib2 = [UINib nibWithNibName:@"StockPoolExpireCell" bundle:nil];
+        [_tableView registerNib:nib2 forCellReuseIdentifier:StockPoolExpireCellID];
     }
     
     return _tableView;
@@ -181,7 +187,7 @@
                 self.listDataModel = [[StockPoolSettingDataModel alloc] init];
                 self.listDataModel.expire_time = newDateListModel.expire_time;
                 self.listDataModel.expire_index = newDateListModel.expire_index;
-               
+                
             }else {
                 arrM1 = [NSMutableArray arrayWithArray:self.listDataModel.currentArr];
                 arrM2 = [NSMutableArray arrayWithArray:self.listDataModel.expireArr];
@@ -206,25 +212,25 @@
             self.listDataModel.currentArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
             self.listDataModel.expireArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
             
-         
+            
             NSMutableArray *arrM = [NSMutableArray array];
             if (arrM1.count > 0) {
                 
                 [arrM addObjectsFromArray:arrM1];
                 
             }
-            
-            if ([newDateListModel.expire_index isEqual:@(1)]) {
+#warning zyp -测试注销代码
+//            if ([newDateListModel.expire_index isEqual:@(1)]) {
                 StockPoolSettingListModel *expireModel = [[StockPoolSettingListModel alloc] init];
                 expireModel.record_time = newDateListModel.expire_time;
                 expireModel.recordExpiredIndexCell = YES;
                 [arrM addObject:expireModel];
-            }
+//            }
             
             if (arrM2.count > 0) {
                 [arrM addObjectsFromArray:arrM2];
             }
-          
+            
             self.listDataModel.list = [NSArray arrayWithArray:[arrM mutableCopy]];
             
             
@@ -246,6 +252,12 @@
     
 }
 
+#pragma mark - StockPoolExpireCellDelegate 续费
+- (void)addMoney:(StockPoolExpireCell *)vc listModel:(StockPoolSettingListModel *)listModel {
+
+    
+}
+
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -257,15 +269,36 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockPoolListCellID"];
     StockPoolSettingListModel *model = self.listDataModel.list[indexPath.section];
-    cell.listModel = model;
-    return cell;
+    if (model.recordExpiredIndexCell == YES) {
+        StockPoolExpireCell *expireCell = [tableView dequeueReusableCellWithIdentifier:StockPoolExpireCellID];
+        expireCell.delegate = self;
+        expireCell.listModel = model;
+        return expireCell;
+        
+    }else {
+        StockPoolListCell *cell = [tableView dequeueReusableCellWithIdentifier:StockPoolListNormalCellID];
+        cell.listModel = model;
+        return cell;
+    }
+    
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    StockPoolSettingListModel *model = self.listDataModel.list[indexPath.section];
+    if (model.recordExpiredIndexCell == YES) {
+        
+        return 57;
+    }else {
+        
+        return 160;
+    }
     
 }
+
+
 @end

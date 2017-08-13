@@ -638,6 +638,8 @@
 		9EC716021F3FDCC200F3A071 /* CalenderYearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */; };
 		9EC716061F403A9D00F3A071 /* StockPoolSettingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */; };
 		9EC716091F40420B00F3A071 /* StockPoolSettingDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */; };
+		9EC7160D1F40637500F3A071 /* StockPoolExpireCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7160B1F40637500F3A071 /* StockPoolExpireCell.m */; };
+		9EC7160E1F40637500F3A071 /* StockPoolExpireCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC7160C1F40637500F3A071 /* StockPoolExpireCell.xib */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1879,6 +1881,9 @@
 		9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingListModel.m; sourceTree = "<group>"; };
 		9EC716071F40420B00F3A071 /* StockPoolSettingDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingDataModel.h; sourceTree = "<group>"; };
 		9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingDataModel.m; sourceTree = "<group>"; };
+		9EC7160A1F40637500F3A071 /* StockPoolExpireCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolExpireCell.h; sourceTree = "<group>"; };
+		9EC7160B1F40637500F3A071 /* StockPoolExpireCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolExpireCell.m; sourceTree = "<group>"; };
+		9EC7160C1F40637500F3A071 /* StockPoolExpireCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockPoolExpireCell.xib; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -4610,6 +4615,9 @@
 				19E638531F3C05A300DEEB20 /* StockPoolListCell.h */,
 				19E638541F3C05A300DEEB20 /* StockPoolListCell.m */,
 				19E638551F3C05A300DEEB20 /* StockPoolListCell.xib */,
+				9EC7160A1F40637500F3A071 /* StockPoolExpireCell.h */,
+				9EC7160B1F40637500F3A071 /* StockPoolExpireCell.m */,
+				9EC7160C1F40637500F3A071 /* StockPoolExpireCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5848,6 +5856,7 @@
 				19ED174D1F1644B400EC89DF /* MyGuessCell.xib in Resources */,
 				19F07A7E1F20D1A3004449BB /* DeepTableViewCell.xib in Resources */,
 				9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */,
+				9EC7160E1F40637500F3A071 /* StockPoolExpireCell.xib in Resources */,
 				196F5EDC1E5485B700928B60 /* SAMKeychain.bundle in Resources */,
 				19C311021D3CDBCC00218F41 /* sharpDetailJS.txt in Resources */,
 				19E5F28B1E1364E000984DBC /* PlayStockIndexRule.html in Resources */,
@@ -6373,6 +6382,7 @@
 				4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */,
 				19F07A751F20CB25004449BB /* TDLaunchAdManager.m in Sources */,
 				19386EF81E72A2BC00D4426E /* ContactViewController.m in Sources */,
+				9EC7160D1F40637500F3A071 /* StockPoolExpireCell.m in Sources */,
 				1955B4881D644D9800DC102E /* SearchResultTableViewCell.m in Sources */,
 				19C3486E1D3F76DB008ABD16 /* MJRefreshBackStateFooter.m in Sources */,
 				19AA7DC01F398B0400716F38 /* DYRefreshCircleView.m in Sources */,
