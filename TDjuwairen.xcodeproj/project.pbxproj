@@ -634,6 +634,8 @@
 		9EC715F51F3F5DEE00F3A071 /* JTHorizontalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715E81F3F5DEE00F3A071 /* JTHorizontalCalendarView.m */; };
 		9EC715F61F3F5DEE00F3A071 /* JTVerticalCalendarView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715EA1F3F5DEE00F3A071 /* JTVerticalCalendarView.m */; };
 		9EC715F91F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */; };
+		9EC715FF1F3FD07F00F3A071 /* CalendarDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */; };
+		9EC716021F3FDCC200F3A071 /* CalenderYearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1867,6 +1869,10 @@
 		9EC715EA1F3F5DEE00F3A071 /* JTVerticalCalendarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JTVerticalCalendarView.m; sourceTree = "<group>"; };
 		9EC715F71F3F5E0A00F3A071 /* StockPoolSettingCalendarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingCalendarController.h; sourceTree = "<group>"; };
 		9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingCalendarController.m; sourceTree = "<group>"; };
+		9EC715FD1F3FD07F00F3A071 /* CalendarDatePickerController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalendarDatePickerController.h; sourceTree = "<group>"; };
+		9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDatePickerController.m; sourceTree = "<group>"; };
+		9EC716001F3FDCC100F3A071 /* CalenderYearMonthPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderYearMonthPickerView.h; sourceTree = "<group>"; };
+		9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderYearMonthPickerView.m; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -4608,6 +4614,8 @@
 				19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */,
 				9EC715F71F3F5E0A00F3A071 /* StockPoolSettingCalendarController.h */,
 				9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */,
+				9EC715FD1F3FD07F00F3A071 /* CalendarDatePickerController.h */,
+				9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -4617,6 +4625,8 @@
 			children = (
 				19E6385F1F3C4D2D00DEEB20 /* StockPoolListToolView.h */,
 				19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */,
+				9EC716001F3FDCC100F3A071 /* CalenderYearMonthPickerView.h */,
+				9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5905,6 +5915,7 @@
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,
 				190F65F41E36E73000B83ADF /* ChildOrderTableViewController.m in Sources */,
 				19C348741D3F76DB008ABD16 /* NSBundle+MJRefresh.m in Sources */,
+				9EC715FF1F3FD07F00F3A071 /* CalendarDatePickerController.m in Sources */,
 				9E2233D11E8B576F00B1FAC4 /* PSIndividualGuessModel.m in Sources */,
 				1987B2941EE688F700BD852E /* StockShareView.m in Sources */,
 				19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */,
@@ -6300,6 +6311,7 @@
 				4DD179EB1E77C00B00FBE66D /* MYRollScrollView.m in Sources */,
 				1987B28F1EE688F700BD852E /* StockInfoModel.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
+				9EC716021F3FDCC200F3A071 /* CalenderYearMonthPickerView.m in Sources */,
 				1987B2911EE688F700BD852E /* NiuxiongSectionHeaderView.m in Sources */,
 				19AA7DB71F38495000716F38 /* TDTabBarBadge.m in Sources */,
 				190F65F01E36E73000B83ADF /* KeysNumberTableViewCell.m in Sources */,

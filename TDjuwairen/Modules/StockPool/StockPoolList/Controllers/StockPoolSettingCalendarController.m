@@ -10,6 +10,8 @@
 #import "JTCalendar.h"
 #import "Masonry.h"
 #import "UIView+Border.h"
+#import "CalendarDatePickerController.h"
+#import "STPopup.h"
 
 
 @interface StockPoolSettingCalendarController ()<JTCalendarDelegate>{
@@ -29,6 +31,9 @@
 @property (nonatomic, strong) UIButton *leftCalendarBtn;
 @property (nonatomic, strong) UIButton *rightCalendarBtn;
 @property (nonatomic, strong) UIButton *backTodayBtn;
+
+/// 日期选择器View
+@property (nonatomic, strong) CalendarDatePickerController *datePickerVC;
 
 
 @end
@@ -64,6 +69,8 @@
 
 
 - (void)configCommonUI {
+    
+    
     self.calendarMenuView = [[JTCalendarMenuView alloc] init];
     [self.view addSubview:self.calendarMenuView];
     [self.calendarMenuView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -72,6 +79,10 @@
         make.height.mas_equalTo(64);
         make.width.mas_equalTo(140);
     }];
+    
+    
+    UITapGestureRecognizer *pickerTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(pickerDateAction:)];
+    [self.calendarMenuView addGestureRecognizer:pickerTap];
     
     
     _leftCalendarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -88,6 +99,7 @@
     
     _rightCalendarBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [_rightCalendarBtn setImage:[UIImage imageNamed:@"button_next"] forState:UIControlStateNormal];
+    [_rightCalendarBtn addTarget:self action:@selector(nextMonthClick) forControlEvents:UIControlEventTouchUpInside];
     [self.view addSubview:_rightCalendarBtn];
     [_rightCalendarBtn mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.calendarMenuView.mas_right).mas_offset(14);
@@ -98,8 +110,9 @@
     
     
     
-    self.calendarContentView = [[JTHorizontalCalendarView alloc] init];
-    [self.view addSubview:self.calendarContentView];
+    _calendarContentView = [[JTHorizontalCalendarView alloc] init];
+    
+    [self.view addSubview:_calendarContentView];
     [_calendarContentView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.equalTo(self.calendarMenuView.mas_bottom);
         make.left.equalTo(self.view).mas_offset(1);
@@ -122,6 +135,11 @@
         make.height.mas_equalTo(27);
         make.centerX.equalTo(self.view.mas_centerX);
     }];
+    
+    
+    _datePickerVC = [[CalendarDatePickerController alloc] init];
+    
+    
 }
 
 
@@ -132,14 +150,33 @@
 
 /** 上一个月 */
 - (void)prevMonthClick {
-
+    [_calendarContentView loadPreviousPageWithAnimation];
+    [_calendarContentView loadNextPageWithAnimation];
 
 }
+
+/** 下一个月 */
+- (void)nextMonthClick {
+    [_calendarContentView loadNextPageWithAnimation];
+    
+}
+
+- (void)pickerDateAction:(UITapGestureRecognizer *)pickerDateTap {
+    self.datePickerVC.contentSizeInPopup = CGSizeMake(kScreenWidth, 252.5);
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:self.datePickerVC];
+    popupController.style = STPopupStyleBottomSheet;
+    popupController.navigationBarHidden = YES;
+    [popupController presentInViewController:self];
+}
+
+
+
 
 #pragma mark - CalendarManager delegate
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
      [dayView addBorder:1 borderColor:[UIColor whiteColor]];
+     dayView.haveDataImageView.hidden = NO;
     // Today
     if([_calendarManager.dateHelper date:[NSDate date] isTheSameDayThan:dayView.date]){
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
@@ -157,11 +194,12 @@
        
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#FAFDFE"];
         dayView.textLabel.textColor = TDAssistTextColor;
+        dayView.haveDataImageView.hidden = YES;
        
     }
     // Another day of the current month
     else{
-     
+    
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
         dayView.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#797979"];
     }
@@ -227,12 +265,13 @@
 
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
-    //    NSLog(@"Next page loaded");
+ 
+   
 }
 
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar
 {
-    //    NSLog(@"Previous page loaded");
+   
 }
 
 #pragma mark - Fake data
