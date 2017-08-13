@@ -37,6 +37,7 @@
 @property (nonatomic, strong) CalendarDatePickerController *datePickerVC;
 
 @property (nonatomic, strong) NSArray *dateArr;
+@property (nonatomic, strong) NSDateFormatter *localDateFormatter;
 
 
 @end
@@ -49,6 +50,8 @@
     [super viewDidLoad];
     self.title = @"日历";
     _dateArr = [NSArray array];
+    _localDateFormatter = [[NSDateFormatter alloc] init];
+    _localDateFormatter.dateFormat = @"yyyy-MM-dd";
     
     self.view.backgroundColor = [UIColor whiteColor];
     [self configCommonUI];
@@ -64,12 +67,12 @@
     [_calendarManager setDate:_todayDate];
     [self loadRecordListWithMonthString:@"201708"];
     
-  
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
-   
+    
 }
 
 
@@ -157,7 +160,7 @@
 - (void)prevMonthClick {
     [_calendarContentView loadPreviousPageWithAnimation];
     [_calendarContentView loadNextPageWithAnimation];
-
+    
 }
 
 /** 下一个月 */
@@ -178,7 +181,7 @@
 #pragma mark - 加载数据
 /** 获取制定月份下的所有有记录的日期 */
 - (void)loadRecordListWithMonthString:(NSString *)monthStr {
-//@"master_id":US.userId
+    //@"master_id":US.userId
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     /**
@@ -188,13 +191,11 @@
     NSDictionary *dict = @{@"month":monthStr,@"master_id":US.userId};
     [manager GET:API_StockPoolGetRecordDates parameters:dict completion:^(NSArray *data, NSError *error) {
         if (!error) {
-            NSDateFormatter *format = [[NSDateFormatter alloc] init];
-            format.dateFormat = @"yyyy-MM-dd";
-            
             NSMutableArray *tempArr = [NSMutableArray array];
+            _localDateFormatter.dateFormat = @"yyyy-MM-dd";
             for (NSString *str in data) {
-                NSDate *d = [format dateFromString:@"2017-08-12"];
-               [tempArr addObject:d];
+                NSDate *d = [self.localDateFormatter dateFromString:str];
+                [tempArr addObject:d];
             }
             self.dateArr = [NSArray arrayWithArray:[tempArr mutableCopy]];
             [self.calendarManager reload];
@@ -207,22 +208,24 @@
 
 #pragma mark - CalendarDatePickerControllerDelegate
 - (void)chooseDateBack:(CalendarDatePickerController *)vc dateStr:(NSString *)str {
-
+    
     [self loadRecordListWithMonthString:str];
 }
 
 #pragma mark - CalendarManager delegate
 - (void)calendar:(JTCalendarManager *)calendar prepareDayView:(JTCalendarDayView *)dayView
 {
-     [dayView addBorder:1 borderColor:[UIColor whiteColor]];
-   
+    [dayView addBorder:1 borderColor:[UIColor whiteColor]];
+    
     
     for (NSDate *sourceDate in self.dateArr) {
         if ([_calendarManager.dateHelper date:sourceDate isTheSameDayThan:dayView.date]) {
             dayView.haveDataImageView.hidden = NO;
+            dayView.userInteractionEnabled = YES;
         }else {
             
             dayView.haveDataImageView.hidden = YES;
+            dayView.userInteractionEnabled = NO;
         }
     }
     
@@ -241,21 +244,21 @@
     }
     else if(![_calendarManager.dateHelper date:_calendarContentView.date isTheSameMonthThan:dayView.date]){
         // Other month
-       
+        
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#FAFDFE"];
         dayView.textLabel.textColor = TDAssistTextColor;
         dayView.haveDataImageView.hidden = YES;
-       
+        
     }
     else{
         // Another day of the current month
-    
+        
         dayView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
         dayView.textLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#797979"];
     }
     
     
-   
+    
     
 }
 
@@ -267,9 +270,19 @@
                       duration:.3
                        options:0
                     animations:^{
-                       
+                        
                         [_calendarManager reload];
-                    } completion:nil];
+                        
+                    } completion:^(BOOL finished) {
+                        if ([self.delegate respondsToSelector:@selector(chooseDateBack:dateStr:)]) {
+                            _localDateFormatter.dateFormat = @"yyyy-MM";
+                            
+                            NSCalendar *calendar = [NSCalendar currentCalendar];
+                            NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dayView.date];
+                            [self.delegate chooseDateBack:self dateStr:[NSString stringWithFormat:@"%.2ld%.2ld",[components year],[components month]]];
+                            [self.navigationController popViewControllerAnimated:YES];
+                        }
+                    }];
     
     
     // Don't change page in week mode because block the selection of days in first and last weeks of the month
@@ -301,7 +314,7 @@
     }
     menuItemView.font = [UIFont systemFontOfSize:24.0];
     menuItemView.textColor = [UIColor hx_colorWithHexRGBAString:@"#818181"];
-
+    
     menuItemView.text = [dateFormatter stringFromDate:date];
 }
 
@@ -315,13 +328,13 @@
 
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
- 
-   
+    
+    
 }
 
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar
 {
-   
+    
 }
 
 #pragma mark - Fake data
@@ -365,7 +378,7 @@
     _eventsByDate = [NSMutableDictionary new];
     NSDateFormatter *format = [[NSDateFormatter alloc] init];
     format.dateFormat = @"yyyy-MM-dd";
-
+    
 }
 
 

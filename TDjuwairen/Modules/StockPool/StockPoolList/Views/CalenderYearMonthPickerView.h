@@ -25,5 +25,4 @@ typedef void(^pickerBlock)(CalenderYearMonthPickerView *picker,NSInteger current
 @property (nonatomic,copy)NSString *minTimeString;
 
 @property (nonatomic, copy) pickerBlock pickClickBlock;
-- (void)hiddenPickerView;
 @end

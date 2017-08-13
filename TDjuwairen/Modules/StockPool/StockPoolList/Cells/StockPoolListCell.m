@@ -8,6 +8,20 @@
 
 #import "StockPoolListCell.h"
 #import "UIImage+StockPool.h"
+#import "StockPoolSettingListModel.h"
+
+@interface StockPoolListCell ()
+@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *rightBackImageView;
+@property (weak, nonatomic) IBOutlet TDGradientProgressView *progressView;
+@property (weak, nonatomic) IBOutlet UILabel *weekLabel;
+@property (weak, nonatomic) IBOutlet UILabel *monthLabel;
+@property (weak, nonatomic) IBOutlet UILabel *recordTotalRatioLabel;
+@property (weak, nonatomic) IBOutlet UILabel *recordDescLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *sNewImageView;
+
+@end
 
 @implementation StockPoolListCell
 
@@ -21,22 +35,48 @@
     UIImage *rightBackImage = [UIImage imageWithStockPoolListRightBackground];
     self.rightBackImageView.image = [rightBackImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 20, 10, 10)];
     
-    NSString *string = @"14 周五";
-    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
-    [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f weight:UIFontWeightMedium],
-                          NSForegroundColorAttributeName :[UIColor hx_colorWithHexRGBAString:@"#333333"]}
-                  range:NSMakeRange(0, 2)];
-    [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f weight:UIFontWeightMedium],
-                          NSForegroundColorAttributeName :[UIColor hx_colorWithHexRGBAString:@"#666666"]}
-                  range:NSMakeRange(3, 2)];
-    self.weekLabel.attributedText = attr;
+    
     
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
+    
+    
+}
 
-    // Configure the view for the selected state
+
+- (void)setListModel:(StockPoolSettingListModel *)listModel {
+    _listModel = listModel;
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    
+    NSString *dayStr = [NSString stringWithFormat:@"%ld",components.day];
+    NSString *weekStr = [NSString stringWithFormat:@" %@",[listModel getWeekDayStr:components.weekday]];
+    NSString *string = [NSString stringWithFormat:@"%ld%@",components.day,weekStr];
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+    [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f weight:UIFontWeightMedium],
+                          NSForegroundColorAttributeName :[UIColor hx_colorWithHexRGBAString:@"#333333"]}
+                  range:NSMakeRange(0, dayStr.length)];
+    if (dayStr.length+weekStr.length <= string.length) {
+        [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f weight:UIFontWeightMedium],
+                              NSForegroundColorAttributeName :[UIColor hx_colorWithHexRGBAString:@"#666666"]}
+                      range:NSMakeRange(dayStr.length, weekStr.length)];
+    }
+    
+    self.weekLabel.attributedText = attr;
+    self.recordTotalRatioLabel.text = [NSString stringWithFormat:@"仓位 %@%@",listModel.record_total_ratio,@"%"];
+    self.progressView.progress = [listModel.record_total_ratio integerValue]*0.01f;
+    self.recordDescLabel.text = listModel.record_desc;
+    
+    NSDateComponents *componentsTime = [calendar components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    self.timeLabel.text = [NSString stringWithFormat:@"%ld:%ld",componentsTime.hour,componentsTime.minute];
+    self.sNewImageView.hidden = listModel.record_is_new;
+    
+    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    
+    self.monthLabel.text = [NSString stringWithFormat:@"%ld:%ld",componentsMonth.year,componentsMonth.month];;
 }
 
 

@@ -14,13 +14,17 @@
 #import "StockPoolSettingController.h"
 #import "StockPoolSubscibeController.h"
 #import "StockPoolSettingCalendarController.h"
+#import "StockPoolSettingDataModel.h"
+#import "MJRefresh.h"
 
 
-@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate>
+@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) StockPoolListToolView *toolView;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) StockPoolSettingDataModel *listDataModel;
+@property (nonatomic, copy) NSString *searchMonthStr;
 @end
 
 @implementation StockPoolListViewController
@@ -34,6 +38,8 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 160.0f;
+        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshActions)];
+        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
         
         UINib *nib = [UINib nibWithNibName:@"StockPoolListCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"StockPoolListCellID"];
@@ -57,14 +63,18 @@
     
     [self setupNavigation];
     
-//    if ([US.userId isEqualToString:self.userId]) {
-        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
-        [self.view addSubview:self.tableView];
-        self.toolView.frame = CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50);
-        [self.view addSubview:self.toolView];
-//    } else {
-//        [self.view addSubview:self.tableView];
-//    }
+    //    if ([US.userId isEqualToString:self.userId]) {
+    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
+    [self.view addSubview:self.tableView];
+    self.toolView.frame = CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50);
+    [self.view addSubview:self.toolView];
+    //    } else {
+    //        [self.view addSubview:self.tableView];
+    //    }
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
+    self.searchMonthStr = [NSString stringWithFormat:@"%ld%ld%ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -110,6 +120,7 @@
 
 - (void)calendarPressed:(id)sender {
     StockPoolSettingCalendarController *calendarVC = [[StockPoolSettingCalendarController alloc] init];
+    calendarVC.delegate = self;
     [self.navigationController pushViewController:calendarVC animated:YES];
     
 }
@@ -139,22 +150,106 @@
 
 - (void)refreshActions {
     self.page = 1;
-    [self queryStockPoolListWithPage:self.page];
+    [self queryStockPoolList];
 }
 
 - (void)loadMoreActions{
-    [self queryStockPoolListWithPage:self.page];
+    [self queryStockPoolList];
 }
 
-- (void)queryStockPoolListWithPage:(NSInteger)page {
+- (void)queryStockPoolList {
+    /** 获取制定月份下的所有有记录的日期 */
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    /**
+     master_id	int	股票池所属用户ID	是
+     date	string	日期	是	20170805 月份、日期为两位数字
+     page	int	当前页码，从1开始	是
+     */
+    NSDictionary *dict = @{@"master_id":US.userId,
+                           @"date":self.searchMonthStr,
+                           @"page":@(self.page)};
+    [manager GET:API_StockPoolGetRecordList parameters:dict completion:^(NSDictionary *data, NSError *error) {
+        if (!error) {
+            
+            NSMutableArray *arrM1 = nil;
+            NSMutableArray *arrM2 = nil;
+            StockPoolSettingDataModel *newDateListModel = [[StockPoolSettingDataModel alloc] initWithDict:data];
+            
+            if (self.page == 1) {
+                arrM1 = [NSMutableArray array];
+                arrM2 = [NSMutableArray array];
+                self.listDataModel = [[StockPoolSettingDataModel alloc] init];
+                self.listDataModel.expire_time = newDateListModel.expire_time;
+                self.listDataModel.expire_index = newDateListModel.expire_index;
+               
+            }else {
+                arrM1 = [NSMutableArray arrayWithArray:self.listDataModel.currentArr];
+                arrM2 = [NSMutableArray arrayWithArray:self.listDataModel.expireArr];
+                self.page ++;
+            }
+            
+            
+            
+            for (StockPoolSettingListModel *listModel in newDateListModel.list) {
+                if ([listModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
+                    /// 过期
+                    listModel.recordExpired = YES;
+                    [arrM2 addObject:listModel];
+                }else {
+                    
+                    listModel.recordExpired = NO;
+                    [arrM1 addObject:listModel];
+                }
+            }
+            
+            
+            self.listDataModel.currentArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
+            self.listDataModel.expireArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
+            
+         
+            NSMutableArray *arrM = [NSMutableArray array];
+            if (arrM1.count > 0) {
+                
+                [arrM addObjectsFromArray:arrM1];
+                
+            }
+            
+            if ([newDateListModel.expire_index isEqual:@(1)]) {
+                StockPoolSettingListModel *expireModel = [[StockPoolSettingListModel alloc] init];
+                expireModel.record_time = newDateListModel.expire_time;
+                expireModel.recordExpiredIndexCell = YES;
+                [arrM addObject:expireModel];
+            }
+            
+            if (arrM2.count > 0) {
+                [arrM addObjectsFromArray:arrM2];
+            }
+          
+            self.listDataModel.list = [NSArray arrayWithArray:[arrM mutableCopy]];
+            
+            
+            
+        }
+        [self.tableView.mj_header endRefreshing];
+        [self.tableView.mj_footer endRefreshing];
+        [self.tableView reloadData];
+        
+    }];
+}
+
+
+#pragma mark - StockPoolSettingCalendarControllerDelegate
+- (void)chooseDateBack:(StockPoolSettingCalendarController *)vc dateStr:(NSString *)str {
+    self.page = 1;
+    self.searchMonthStr = str;
+    [self queryStockPoolList];
     
 }
-
 
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 3;//[self.items count];
+    return [self.listDataModel.list count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -163,7 +258,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     StockPoolListCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockPoolListCellID"];
-    cell.progressView.progress = 0.7f;
+    StockPoolSettingListModel *model = self.listDataModel.list[indexPath.section];
+    cell.listModel = model;
     return cell;
 }
 

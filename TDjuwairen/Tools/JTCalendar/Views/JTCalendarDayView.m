@@ -53,6 +53,7 @@
     {
     
         _haveDataImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sIco_triangle"]];
+        _haveDataImageView.hidden = YES;
         [self addSubview:_haveDataImageView];
     }
     

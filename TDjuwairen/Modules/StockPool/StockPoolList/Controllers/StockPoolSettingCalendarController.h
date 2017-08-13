@@ -8,6 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface StockPoolSettingCalendarController : UIViewController
+@class StockPoolSettingCalendarController;
+@protocol StockPoolSettingCalendarControllerDelegate <NSObject>
 
+- (void)chooseDateBack:(StockPoolSettingCalendarController *)vc dateStr:(NSString *)str;
+
+@end
+@interface StockPoolSettingCalendarController : UIViewController
+@property (nonatomic, weak) id<StockPoolSettingCalendarControllerDelegate> delegate;
 @end

@@ -636,6 +636,8 @@
 		9EC715F91F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */; };
 		9EC715FF1F3FD07F00F3A071 /* CalendarDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */; };
 		9EC716021F3FDCC200F3A071 /* CalenderYearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */; };
+		9EC716061F403A9D00F3A071 /* StockPoolSettingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */; };
+		9EC716091F40420B00F3A071 /* StockPoolSettingDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
 		9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756D1EAC78B60028F18B /* ActualQuotationCell.m */; };
 		9EFD75701EAC78B60028F18B /* ActualQuotationCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EFD756E1EAC78B60028F18B /* ActualQuotationCell.xib */; };
@@ -1873,6 +1875,10 @@
 		9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDatePickerController.m; sourceTree = "<group>"; };
 		9EC716001F3FDCC100F3A071 /* CalenderYearMonthPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderYearMonthPickerView.h; sourceTree = "<group>"; };
 		9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderYearMonthPickerView.m; sourceTree = "<group>"; };
+		9EC716041F403A9D00F3A071 /* StockPoolSettingListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingListModel.h; sourceTree = "<group>"; };
+		9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingListModel.m; sourceTree = "<group>"; };
+		9EC716071F40420B00F3A071 /* StockPoolSettingDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingDataModel.h; sourceTree = "<group>"; };
+		9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingDataModel.m; sourceTree = "<group>"; };
 		9EFD75691EAC74290028F18B /* ActualQuotationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationViewController.h; sourceTree = "<group>"; };
 		9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ActualQuotationViewController.m; sourceTree = "<group>"; };
 		9EFD756C1EAC78B60028F18B /* ActualQuotationCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ActualQuotationCell.h; sourceTree = "<group>"; };
@@ -4590,6 +4596,7 @@
 		19E638441F3B32DA00DEEB20 /* StockPoolList */ = {
 			isa = PBXGroup;
 			children = (
+				9EC716031F4039F300F3A071 /* Models */,
 				19E638451F3B32DA00DEEB20 /* Cells */,
 				19E638461F3B32DA00DEEB20 /* Controllers */,
 				19E638471F3B32DA00DEEB20 /* Views */,
@@ -5604,6 +5611,17 @@
 			path = Views;
 			sourceTree = "<group>";
 		};
+		9EC716031F4039F300F3A071 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				9EC716071F40420B00F3A071 /* StockPoolSettingDataModel.h */,
+				9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */,
+				9EC716041F403A9D00F3A071 /* StockPoolSettingListModel.h */,
+				9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		9EFD75651EAC72230028F18B /* OpenAnAccount */ = {
 			isa = PBXGroup;
 			children = (
@@ -6082,6 +6100,7 @@
 				1959D46C1F29E477002B969A /* LoginManager.m in Sources */,
 				1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */,
 				1959D4641F29E33F002B969A /* SettingHandler.m in Sources */,
+				9EC716091F40420B00F3A071 /* StockPoolSettingDataModel.m in Sources */,
 				19F07A351F1D9FDD004449BB /* XHLaunchAdController.m in Sources */,
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
@@ -6218,6 +6237,7 @@
 				19F07A4E1F1EFF35004449BB /* AliveListPlayStockView.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
+				9EC716061F403A9D00F3A071 /* StockPoolSettingListModel.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,
