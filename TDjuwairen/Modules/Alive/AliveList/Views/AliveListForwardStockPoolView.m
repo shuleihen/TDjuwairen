@@ -13,10 +13,11 @@
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
         _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 16, 40, 40)];
-        _imageView.image = [UIImage imageNamed:@""];
+        _imageView.image = [UIImage imageNamed:@"ico_gupiaochi.png"];
         [self addSubview:_imageView];
         
         _titleLabel = [[UILabel alloc] initWithFrame:CGRectMake(64, 12, frame.size.width-76, 16)];
+        _titleLabel.textColor = TDTitleTextColor;
         _titleLabel.font = [UIFont systemFontOfSize:14.0f];
         [self addSubview:_titleLabel];
         
@@ -25,6 +26,8 @@
         _detailLabel.textColor = TDDetailTextColor;
         _detailLabel.numberOfLines = 2;
         [self addSubview:_detailLabel];
+        
+        self.backgroundColor = TDViewBackgrouondColor;
     }
     return self;
 }
@@ -36,5 +39,7 @@
     
     self.titleLabel.text = extra.title;
     self.detailLabel.text = extra.desc;
+    CGSize size = [self.detailLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.frame)-76, 42)];
+    self.detailLabel.frame = CGRectMake(64, 35, size.width, size.height);
 }
 @end

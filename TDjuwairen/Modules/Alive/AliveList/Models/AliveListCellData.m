@@ -565,7 +565,16 @@
             break;
         case kAliveStockPool:
         case kAliveStockPoolRecord: {
-            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 85);
+            AliveListStockPoolCellData *pCellData = [[AliveListStockPoolCellData alloc] initWithAliveModel:forwardAlive];
+            pCellData.isShowDetailMessage = NO;
+            pCellData.isShowBottomView = NO;
+            pCellData.isShowHeaderView = NO;
+            [pCellData setup];
+            
+            self.forwardCellData = pCellData;
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
+            
+//            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 85);
         }
             break;
             

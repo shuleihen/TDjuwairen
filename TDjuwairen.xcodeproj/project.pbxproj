@@ -15,6 +15,7 @@
 		19042E411F3E9A5D0004D3C6 /* AliveListStockPoolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E401F3E9A5D0004D3C6 /* AliveListStockPoolView.m */; };
 		19042E441F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E431F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m */; };
 		19042E471F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */; };
+		19042E4A1F3EB5E90004D3C6 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -676,6 +677,7 @@
 		19042E431F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardStockPoolView.m; sourceTree = "<group>"; };
 		19042E451F3E9E2F0004D3C6 /* AliveListStockPoolExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolExtra.h; sourceTree = "<group>"; };
 		19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolExtra.m; sourceTree = "<group>"; };
+		19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -1815,8 +1817,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
+				2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */,
 				1950577A1E7A22A30097C57A /* libresolv.tbd in Frameworks */,
+				84E334D11CE3299E00E5DCEE /* JavaScriptCore.framework in Frameworks */,
 				19386EF51E728C9900D4426E /* AVFoundation.framework in Frameworks */,
 				195057771E7A22470097C57A /* CloudPushSDK.framework in Frameworks */,
 				841848CD1DF537570047DA7E /* libsqlite3.0.tbd in Frameworks */,
@@ -1825,7 +1828,6 @@
 				2764A26A1D015F2900916844 /* CoreTelephony.framework in Frameworks */,
 				841848CB1DF537140047DA7E /* UMMobClick.framework in Frameworks */,
 				8470E9691DDD84B6002F727D /* libc++.tbd in Frameworks */,
-				2764A2661D015EEE00916844 /* SystemConfiguration.framework in Frameworks */,
 				1946EE9D1E0EA90200D8FB3A /* TencentOpenAPI.framework in Frameworks */,
 				2764A2681D015F0A00916844 /* QuartzCore.framework in Frameworks */,
 				2764A2701D015F9600916844 /* CoreText.framework in Frameworks */,
@@ -1840,6 +1842,7 @@
 				84D57BBC1D83930E00274E9C /* CFNetwork.framework in Frameworks */,
 				8470E9671DDD8426002F727D /* CoreMotion.framework in Frameworks */,
 				2764A26E1D015F6B00916844 /* Security.framework in Frameworks */,
+				19042E4A1F3EB5E90004D3C6 /* AliyunOSSiOS.framework in Frameworks */,
 				84D57BBE1D83931A00274E9C /* CoreFoundation.framework in Frameworks */,
 				195057761E7A22470097C57A /* AlicloudUtils.framework in Frameworks */,
 				19A9721C1D4226A600A9D521 /* WebKit.framework in Frameworks */,
@@ -1873,6 +1876,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		19042E481F3EB5E90004D3C6 /* AliyunSDK */ = {
+			isa = PBXGroup;
+			children = (
+				19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */,
+			);
+			path = AliyunSDK;
+			sourceTree = "<group>";
+		};
 		190F65C41E36E73000B83ADF /* MyWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -4080,6 +4091,7 @@
 		19C347BF1D3F5C5D008ABD16 /* Lib */ = {
 			isa = PBXGroup;
 			children = (
+				19042E481F3EB5E90004D3C6 /* AliyunSDK */,
 				195057721E7A22470097C57A /* AliPushSDK */,
 				19FCCA491E5827EE000CEBDC /* SMS_SDK */,
 				1946EE761E0EA90200D8FB3A /* ShareSDK */,
@@ -6342,6 +6354,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliPushSDK",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/AliyunSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -6499,6 +6512,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliPushSDK",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/AliyunSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
@@ -6541,6 +6555,7 @@
 					"$(PROJECT_DIR)/TDjuwairen/Lib/SMS_SDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliSDK",
 					"$(PROJECT_DIR)/TDjuwairen/Lib/AliPushSDK",
+					"$(PROJECT_DIR)/TDjuwairen/Lib/AliyunSDK",
 				);
 				GCC_PREFIX_HEADER = "$(SRCROOT)/$(PROJECT_NAME)/PrefixHeader.pch";
 				INFOPLIST_FILE = TDjuwairen/Info.plist;
