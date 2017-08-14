@@ -65,7 +65,8 @@
     [_calendarManager setContentView:_calendarContentView];
     [self createMinAndMaxDate];
     [_calendarManager setDate:_todayDate];
-    [self loadRecordListWithMonthString:@"201708"];
+    
+    [self refeshCalendarDateWithDate:[NSDate date]];
     
     
 }
@@ -154,12 +155,13 @@
 #pragma mark - actions
 - (void)backTodayBtnClick {
     [_calendarManager setDate:_todayDate];
+    [self refeshCalendarDateWithDate:_todayDate];
+    
 }
 
 /** 上一个月 */
 - (void)prevMonthClick {
     [_calendarContentView loadPreviousPageWithAnimation];
-    [_calendarContentView loadNextPageWithAnimation];
     
 }
 
@@ -188,7 +190,7 @@
      month	string	年月	是	201708 月份为两位数字
      master_id	string	股票池所属用户ID	是
      */
-    NSDictionary *dict = @{@"month":monthStr,@"master_id":US.userId};
+    NSDictionary *dict = @{@"month":SafeValue(monthStr),@"master_id":US.userId};
     [manager GET:API_StockPoolGetRecordDates parameters:dict completion:^(NSArray *data, NSError *error) {
         if (!error) {
             NSMutableArray *tempArr = [NSMutableArray array];
@@ -208,7 +210,10 @@
 
 #pragma mark - CalendarDatePickerControllerDelegate
 - (void)chooseDateBack:(CalendarDatePickerController *)vc dateStr:(NSString *)str {
-    
+    [self.localDateFormatter setDateFormat:@"yyyyMM"];
+    NSDate *d= [self.localDateFormatter dateFromString:str];
+    [self.localDateFormatter setDateFormat:@"yyyy年MM月"];
+    [_calendarManager setDate:d];
     [self loadRecordListWithMonthString:str];
 }
 
@@ -276,7 +281,7 @@
                             
                             NSCalendar *calendar = [NSCalendar currentCalendar];
                             NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dayView.date];
-                            [self.delegate chooseDateBack:self dateStr:[NSString stringWithFormat:@"%.2ld%.2ld",[components year],[components month]]];
+                            [self.delegate chooseDateBack:self dateStr:[NSString stringWithFormat:@"%04ld%02ld",[components year],[components month]]];
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }];
@@ -318,19 +323,29 @@
 
 
 // Used to limit the date for the calendar, optional
-- (BOOL)calendar:(JTCalendarManager *)calendar canDisplayPageWithDate:(NSDate *)date
-{
-    return [_calendarManager.dateHelper date:date isEqualOrAfter:_minDate andEqualOrBefore:_maxDate];
-}
+//- (BOOL)calendar:(JTCalendarManager *)calendar canDisplayPageWithDate:(NSDate *)date
+//{
+//    return [_calendarManager.dateHelper date:date isEqualOrAfter:_minDate andEqualOrBefore:_maxDate];
+//}
 
 - (void)calendarDidLoadNextPage:(JTCalendarManager *)calendar
 {
     
-    
+    [self refeshCalendarDateWithDate:calendar.date];
 }
 
 - (void)calendarDidLoadPreviousPage:(JTCalendarManager *)calendar
 {
+   
+    [self refeshCalendarDateWithDate:calendar.date];
+}
+
+- (void)refeshCalendarDateWithDate:(NSDate *)date {
+    
+    NSCalendar *calendars = [NSCalendar currentCalendar];
+    NSDateComponents *componentsMonth = [calendars components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:date];
+    NSString *searchMonthStr = [NSString stringWithFormat:@"%04ld%02ld",componentsMonth.year,componentsMonth.month];
+    [self loadRecordListWithMonthString:searchMonthStr];
     
 }
 
@@ -340,10 +355,10 @@
     _todayDate = [NSDate date];
     
     // Min date will be 2 month before today
-    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
+//    _minDate = [_calendarManager.dateHelper addToDate:_todayDate months:-2];
     
     // Max date will be 2 month after today
-    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
+//    _maxDate = [_calendarManager.dateHelper addToDate:_todayDate months:2];
 }
 
 // Used only to have a key for _eventsByDate

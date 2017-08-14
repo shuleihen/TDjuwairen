@@ -86,7 +86,7 @@
     [self configEmptyViewUI];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
-    self.searchMonthStr = [NSString stringWithFormat:@"%ld%ld%ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
+    self.searchMonthStr = [NSString stringWithFormat:@"%04ld%01ld%02ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
     
     [self refreshActions];
 }

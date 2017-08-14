@@ -118,6 +118,8 @@
         startYear=[DateMinuter integerValue];
         
         yearRange= [DateMaxYear integerValue]-startYear+1;
+        _string = [NSString stringWithFormat:@"%04ld%02ld",comps.year,comps.month];
+        
         selectedYear=2000;
         selectedMonth=1;
     }
@@ -247,7 +249,7 @@
             break;
     }
 
-    _string =[NSString stringWithFormat:@"%ld%.2ld",selectedYear,selectedMonth];
+    _string =[NSString stringWithFormat:@"%04ld%02ld",selectedYear,selectedMonth];
 
 }
 
