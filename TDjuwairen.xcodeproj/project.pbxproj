@@ -16,6 +16,12 @@
 		19042E441F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E431F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m */; };
 		19042E471F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */; };
 		19042E4A1F3EB5E90004D3C6 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */; };
+		19042E4D1F4177250004D3C6 /* CenterHeaderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E4C1F4177250004D3C6 /* CenterHeaderItemView.m */; };
+		19042E501F4177390004D3C6 /* CenterCellItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E4F1F4177390004D3C6 /* CenterCellItemView.m */; };
+		19042E531F4188EF0004D3C6 /* WalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E521F4188EF0004D3C6 /* WalletViewController.m */; };
+		19042E561F4195840004D3C6 /* WalletRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E551F4195840004D3C6 /* WalletRecordModel.m */; };
+		19042E5A1F41966A0004D3C6 /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E581F41966A0004D3C6 /* WalletTableViewCell.m */; };
+		19042E5B1F41966A0004D3C6 /* WalletTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E591F41966A0004D3C6 /* WalletTableViewCell.xib */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -706,6 +712,17 @@
 		19042E451F3E9E2F0004D3C6 /* AliveListStockPoolExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolExtra.h; sourceTree = "<group>"; };
 		19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolExtra.m; sourceTree = "<group>"; };
 		19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
+		19042E4B1F4177250004D3C6 /* CenterHeaderItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterHeaderItemView.h; sourceTree = "<group>"; };
+		19042E4C1F4177250004D3C6 /* CenterHeaderItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterHeaderItemView.m; sourceTree = "<group>"; };
+		19042E4E1F4177390004D3C6 /* CenterCellItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterCellItemView.h; sourceTree = "<group>"; };
+		19042E4F1F4177390004D3C6 /* CenterCellItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterCellItemView.m; sourceTree = "<group>"; };
+		19042E511F4188EF0004D3C6 /* WalletViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletViewController.h; sourceTree = "<group>"; };
+		19042E521F4188EF0004D3C6 /* WalletViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletViewController.m; sourceTree = "<group>"; };
+		19042E541F4195840004D3C6 /* WalletRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletRecordModel.h; sourceTree = "<group>"; };
+		19042E551F4195840004D3C6 /* WalletRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletRecordModel.m; sourceTree = "<group>"; };
+		19042E571F41966A0004D3C6 /* WalletTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletTableViewCell.h; sourceTree = "<group>"; };
+		19042E581F41966A0004D3C6 /* WalletTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletTableViewCell.m; sourceTree = "<group>"; };
+		19042E591F41966A0004D3C6 /* WalletTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletTableViewCell.xib; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2001,6 +2018,9 @@
 				190F65CF1E36E73000B83ADF /* NoOrderTableViewCell.m */,
 				190F65D01E36E73000B83ADF /* OrderDetailTableViewCell.h */,
 				190F65D11E36E73000B83ADF /* OrderDetailTableViewCell.m */,
+				19042E571F41966A0004D3C6 /* WalletTableViewCell.h */,
+				19042E581F41966A0004D3C6 /* WalletTableViewCell.m */,
+				19042E591F41966A0004D3C6 /* WalletTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -2022,6 +2042,8 @@
 				190F65DE1E36E73000B83ADF /* MyWalletViewController.m */,
 				190F65DF1E36E73000B83ADF /* SelOrderBtnView.h */,
 				190F65E01E36E73000B83ADF /* SelOrderBtnView.m */,
+				19042E511F4188EF0004D3C6 /* WalletViewController.h */,
+				19042E521F4188EF0004D3C6 /* WalletViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -2035,6 +2057,8 @@
 				190F65E51E36E73000B83ADF /* OrderModel.m */,
 				190F65E61E36E73000B83ADF /* RecordModel.h */,
 				190F65E71E36E73000B83ADF /* RecordModel.m */,
+				19042E541F4195840004D3C6 /* WalletRecordModel.h */,
+				19042E551F4195840004D3C6 /* WalletRecordModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -2666,6 +2690,10 @@
 			children = (
 				19386F001E73A31400D4426E /* CenterItemView.h */,
 				19386F011E73A31400D4426E /* CenterItemView.m */,
+				19042E4B1F4177250004D3C6 /* CenterHeaderItemView.h */,
+				19042E4C1F4177250004D3C6 /* CenterHeaderItemView.m */,
+				19042E4E1F4177390004D3C6 /* CenterCellItemView.h */,
+				19042E4F1F4177390004D3C6 /* CenterCellItemView.m */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5872,6 +5900,7 @@
 				19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
 				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
+				19042E5B1F41966A0004D3C6 /* WalletTableViewCell.xib in Resources */,
 				84E333F51CE2BA3D00E5DCEE /* Main.storyboard in Resources */,
 				9EC07EEC1E7806F3006EE97E /* AliveCommentViewController.xib in Resources */,
 				19C348721D3F76DB008ABD16 /* MJRefresh.bundle in Resources */,
@@ -5988,6 +6017,7 @@
 				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
 				19042E331F3D7DB90004D3C6 /* AliveListStockPoolViewController.m in Sources */,
+				19042E561F4195840004D3C6 /* WalletRecordModel.m in Sources */,
 				19E58DAF1EF8C55500ADA1B8 /* UIWindow+CurrentViewController.m in Sources */,
 				1936AF211EB1D92D00408D6F /* TDShareModel.m in Sources */,
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
@@ -6066,6 +6096,7 @@
 				84E3346A1CE3123700E5DCEE /* SDWebImageManager.m in Sources */,
 				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
+				19042E5A1F41966A0004D3C6 /* WalletTableViewCell.m in Sources */,
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
 				19F07A511F1F0480004449BB /* AliveListPlayStockExtra.m in Sources */,
 				9EC715781F3EB85100F3A071 /* StockPoolChargeTypeController.m in Sources */,
@@ -6113,6 +6144,7 @@
 				19E6385A1F3C27CA00DEEB20 /* UIImage+StockPool.m in Sources */,
 				19C348701D3F76DB008ABD16 /* MJRefreshNormalHeader.m in Sources */,
 				19F00D331E307FFC009270D5 /* ShareHandler.m in Sources */,
+				19042E501F4177390004D3C6 /* CenterCellItemView.m in Sources */,
 				1998E2B01F219EA400EE9E54 /* DeepUnlockViewController.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
 				193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */,
@@ -6273,6 +6305,7 @@
 				4DD179E81E77C00B00FBE66D /* UIImage+blankImage.m in Sources */,
 				19F07A4E1F1EFF35004449BB /* AliveListPlayStockView.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
+				19042E531F4188EF0004D3C6 /* WalletViewController.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
 				9EC716061F403A9D00F3A071 /* StockPoolSettingListModel.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
@@ -6385,6 +6418,7 @@
 				1987B27F1EE688F700BD852E /* StockDetailViewController.m in Sources */,
 				19C348661D3F76DB008ABD16 /* MJRefreshComponent.m in Sources */,
 				193419AB1E76B4DB00F22788 /* AliveRoomHeaderView.m in Sources */,
+				19042E4D1F4177250004D3C6 /* CenterHeaderItemView.m in Sources */,
 				9EC715851F3EE24F00F3A071 /* StockPoolSubscibeCell.m in Sources */,
 				1987B2AB1EE6894300BD852E /* VideoDetailViewController.m in Sources */,
 				1987B29D1EE688F700BD852E /* SurveyListModel.m in Sources */,

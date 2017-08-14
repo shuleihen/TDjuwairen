@@ -28,6 +28,9 @@
 @property (nonatomic, strong) IBOutlet CenterItemView *attentionView;
 @property (nonatomic, strong) IBOutlet CenterItemView *fansView;
 @property (weak, nonatomic) IBOutlet UIImageView *levelImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *sexImageView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
 @end
 
 @implementation CenterViewController
@@ -45,19 +48,26 @@
     self.tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     
-    self.headerImageView.contentMode = UIViewContentModeCenter;
-    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
-    self.headerImageView.image = [image resize:CGSizeMake(kScreenWidth, 210)];
+//    self.headerImageView.contentMode = UIViewContentModeCenter;
+//    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
+//    self.headerImageView.image = [image resize:CGSizeMake(kScreenWidth, 210)];
     
     self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
     self.avatarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
     self.avatarBtn.layer.borderWidth = 1.0f;
     
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors = @[(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#2662D0"].CGColor,(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#1BAFE7"].CGColor];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1, 0);
+    gradientLayer.frame = CGRectMake(0, 0, kScreenWidth, 180);
+    self.gradientLayer = gradientLayer;
+    [self.headerView.layer insertSublayer:gradientLayer atIndex:0];
+    
     self.classesArray = @[@[],
-                          @[@"MyWalletViewController",@"CollectionViewController",@"SystemMessageViewController"],
-                          @[@"AboutMineViewController"],
-                          @[@"SettingViewController"]];
+                          @[@"", @"",@"CollectionViewController",],
+                          @[@"SystemMessageViewController",@"AboutMineViewController"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -206,18 +216,19 @@
     }
 }
 
+- (IBAction)walletPressed:(id)sender {
+    [self pushViewControllerWithClassName:@"WalletViewController"];
+}
+
+- (IBAction)settingPressed:(id)sender {
+    [self pushViewControllerWithClassName:@"SettingViewController"];
+}
+
 #pragma mark - UIScrollDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offy = scrollView.contentOffset.y;
-    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
-    
     if (offy < 0) {
-        CGFloat f = 1+fabs(offy)/210;
-        self.headerBgImageheight.constant = 210 + fabs(offy);
-        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame)*f, 210*f)];
-    } else {
-        self.headerBgImageheight.constant = 210;
-        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame), 210)];
+        self.gradientLayer.frame = CGRectMake(0, offy, kScreenWidth, 180-offy);
     }
 }
 
@@ -241,6 +252,9 @@
 }
 
 - (void)pushViewControllerWithClassName:(NSString *)className {
+    if (!className.length) {
+        return;
+    }
     
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];
