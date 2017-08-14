@@ -8,7 +8,7 @@
 
 #import "StockPoolExpireCell.h"
 #import "UIImage+StockPool.h"
-#import "StockPoolSettingListModel.h"
+#import "StockPoolListCellModel.h"
 #import "UIControl+YMCustom.h"
 
 @interface StockPoolExpireCell ()
@@ -32,14 +32,13 @@
     [super setSelected:selected animated:animated];
 }
 
-- (void)setListModel:(StockPoolSettingListModel *)listModel {
-    _listModel = listModel;
-    
+- (void)setCellModel:(StockPoolListCellModel *)cellModel {
+    _cellModel = cellModel;
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     
     NSString *dayStr = [NSString stringWithFormat:@"%ld",components.day];
-    NSString *weekStr = [NSString stringWithFormat:@" %@",[listModel getWeekDayStr:components.weekday]];
+    NSString *weekStr = [NSString stringWithFormat:@" %@",[cellModel getWeekDayStr:components.weekday]];
     NSString *string = [NSString stringWithFormat:@"%ld%@",components.day,weekStr];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f weight:UIFontWeightMedium],
@@ -52,18 +51,20 @@
     }
     
     self.weekLabel.attributedText = attr;
-    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     
-    self.monthLabel.text = [NSString stringWithFormat:@"%ld-%ld",componentsMonth.year,componentsMonth.month];;
+    self.monthLabel.text = [NSString stringWithFormat:@"%ld-%ld",componentsMonth.year,componentsMonth.month];
+    
 }
+
 
 /** 续费按钮点击事件*/
 - (IBAction)addMoneyButtonClick:(UIButton *)sender {
-    if (self.listModel == nil) {
+    if (self.cellModel == nil) {
         return;
     }
-    if ([self.delegate respondsToSelector:@selector(addMoney:listModel:)]) {
-        [self.delegate addMoney:self listModel:self.listModel];
+    if ([self.delegate respondsToSelector:@selector(addMoney:cellModel::)]) {
+        [self.delegate addMoney:self cellModel:self.cellModel];
     }
     
 }

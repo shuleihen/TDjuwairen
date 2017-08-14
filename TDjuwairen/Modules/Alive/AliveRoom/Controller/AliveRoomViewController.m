@@ -329,8 +329,8 @@
         self.segmentControl.selectedSegmentIndex = 2;
         [self segmentPressed:self.segmentControl];
     }
-#warning - 需要判断是自己的直播间还是别人的直播间
     StockPoolListViewController *stockPoolVC = [[StockPoolListViewController alloc] init];
+    stockPoolVC.userId = self.masterId;
     [self.navigationController pushViewController:stockPoolVC animated:YES];
     
     

@@ -506,6 +506,8 @@
 		4D29B9C21E83B1480019DD20 /* SearchCompanyListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C01E83B1480019DD20 /* SearchCompanyListCell.m */; };
 		4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */; };
 		4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */; };
+		4D2AB2CD1F416F4600565483 /* StockPoolListDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AB2CC1F416F4600565483 /* StockPoolListDataModel.m */; };
+		4D2AB2D01F416F7300565483 /* StockPoolListCellModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2AB2CF1F416F7300565483 /* StockPoolListCellModel.m */; };
 		4D2D29ED1EDEAF3800545314 /* DeleteCollectionPopController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */; };
 		4D2D29F01EDEC5BA00545314 /* AliveSearchResultModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 4D2D29EF1EDEC5BA00545314 /* AliveSearchResultModel.m */; };
 		4D6E67D41E976BAA009A9FB0 /* license in Resources */ = {isa = PBXBuildFile; fileRef = 4D6E67CE1E976BAA009A9FB0 /* license */; };
@@ -640,8 +642,6 @@
 		9EC715F91F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715F81F3F5E0A00F3A071 /* StockPoolSettingCalendarController.m */; };
 		9EC715FF1F3FD07F00F3A071 /* CalendarDatePickerController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */; };
 		9EC716021F3FDCC200F3A071 /* CalenderYearMonthPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */; };
-		9EC716061F403A9D00F3A071 /* StockPoolSettingListModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */; };
-		9EC716091F40420B00F3A071 /* StockPoolSettingDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */; };
 		9EC7160D1F40637500F3A071 /* StockPoolExpireCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EC7160B1F40637500F3A071 /* StockPoolExpireCell.m */; };
 		9EC7160E1F40637500F3A071 /* StockPoolExpireCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9EC7160C1F40637500F3A071 /* StockPoolExpireCell.xib */; };
 		9EFD756B1EAC74290028F18B /* ActualQuotationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9EFD756A1EAC74290028F18B /* ActualQuotationViewController.m */; };
@@ -1639,6 +1639,10 @@
 		4D29B9C11E83B1480019DD20 /* SearchCompanyListCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchCompanyListCell.xib; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListCell.xib; sourceTree = SOURCE_ROOT; };
 		4D29B9C41E83B30E0019DD20 /* SearchCompanyListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchCompanyListModel.h; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.h; sourceTree = SOURCE_ROOT; };
 		4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchCompanyListModel.m; path = TDjuwairen/Modules/Alive/AlivePublish/Controllers/SearchCompanyListModel.m; sourceTree = SOURCE_ROOT; };
+		4D2AB2CB1F416F4600565483 /* StockPoolListDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListDataModel.h; sourceTree = "<group>"; };
+		4D2AB2CC1F416F4600565483 /* StockPoolListDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListDataModel.m; sourceTree = "<group>"; };
+		4D2AB2CE1F416F7300565483 /* StockPoolListCellModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListCellModel.h; sourceTree = "<group>"; };
+		4D2AB2CF1F416F7300565483 /* StockPoolListCellModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListCellModel.m; sourceTree = "<group>"; };
 		4D2D29EB1EDEAF3800545314 /* DeleteCollectionPopController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DeleteCollectionPopController.h; sourceTree = "<group>"; };
 		4D2D29EC1EDEAF3800545314 /* DeleteCollectionPopController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeleteCollectionPopController.m; sourceTree = "<group>"; };
 		4D2D29EE1EDEC5BA00545314 /* AliveSearchResultModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSearchResultModel.h; sourceTree = "<group>"; };
@@ -1888,10 +1892,6 @@
 		9EC715FE1F3FD07F00F3A071 /* CalendarDatePickerController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalendarDatePickerController.m; sourceTree = "<group>"; };
 		9EC716001F3FDCC100F3A071 /* CalenderYearMonthPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CalenderYearMonthPickerView.h; sourceTree = "<group>"; };
 		9EC716011F3FDCC200F3A071 /* CalenderYearMonthPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CalenderYearMonthPickerView.m; sourceTree = "<group>"; };
-		9EC716041F403A9D00F3A071 /* StockPoolSettingListModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingListModel.h; sourceTree = "<group>"; };
-		9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingListModel.m; sourceTree = "<group>"; };
-		9EC716071F40420B00F3A071 /* StockPoolSettingDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSettingDataModel.h; sourceTree = "<group>"; };
-		9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSettingDataModel.m; sourceTree = "<group>"; };
 		9EC7160A1F40637500F3A071 /* StockPoolExpireCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolExpireCell.h; sourceTree = "<group>"; };
 		9EC7160B1F40637500F3A071 /* StockPoolExpireCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolExpireCell.m; sourceTree = "<group>"; };
 		9EC7160C1F40637500F3A071 /* StockPoolExpireCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = StockPoolExpireCell.xib; sourceTree = "<group>"; };
@@ -5649,10 +5649,10 @@
 		9EC716031F4039F300F3A071 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9EC716071F40420B00F3A071 /* StockPoolSettingDataModel.h */,
-				9EC716081F40420B00F3A071 /* StockPoolSettingDataModel.m */,
-				9EC716041F403A9D00F3A071 /* StockPoolSettingListModel.h */,
-				9EC716051F403A9D00F3A071 /* StockPoolSettingListModel.m */,
+				4D2AB2CB1F416F4600565483 /* StockPoolListDataModel.h */,
+				4D2AB2CC1F416F4600565483 /* StockPoolListDataModel.m */,
+				4D2AB2CE1F416F7300565483 /* StockPoolListCellModel.h */,
+				4D2AB2CF1F416F7300565483 /* StockPoolListCellModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5963,6 +5963,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4D2AB2CD1F416F4600565483 /* StockPoolListDataModel.m in Sources */,
 				19F07A361F1D9FDD004449BB /* XHLaunchAdDownloader.m in Sources */,
 				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				4D023BC71E8E2C8000AB463E /* PSIndividualUserListModel.m in Sources */,
@@ -6056,6 +6057,7 @@
 				19AA7DDC1F3AE64400716F38 /* UIImage+Color.m in Sources */,
 				194E0CFD1EEE3C28009C7AC6 /* CollectionViewController.m in Sources */,
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
+				4D2AB2D01F416F7300565483 /* StockPoolListCellModel.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
 				1987B2B71EE78EC800BD852E /* AliveListForwardView2.m in Sources */,
 				19E5F26E1E12614200984DBC /* BorderButton.m in Sources */,
@@ -6136,7 +6138,6 @@
 				1959D46C1F29E477002B969A /* LoginManager.m in Sources */,
 				1953CB0A1E7172DB00A64B3C /* AliveListViewController.m in Sources */,
 				1959D4641F29E33F002B969A /* SettingHandler.m in Sources */,
-				9EC716091F40420B00F3A071 /* StockPoolSettingDataModel.m in Sources */,
 				19F07A351F1D9FDD004449BB /* XHLaunchAdController.m in Sources */,
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
@@ -6274,7 +6275,6 @@
 				19F07A4E1F1EFF35004449BB /* AliveListPlayStockView.m in Sources */,
 				842D58041D893BB3006385CB /* CompanySelTableView.m in Sources */,
 				19252C171D51E830003E5D18 /* NSArray+MASAdditions.m in Sources */,
-				9EC716061F403A9D00F3A071 /* StockPoolSettingListModel.m in Sources */,
 				19252C141D51E830003E5D18 /* MASLayoutConstraint.m in Sources */,
 				84E334671CE3123700E5DCEE /* SDWebImageDecoder.m in Sources */,
 				84E3346E1CE3123700E5DCEE /* UIImage+MultiFormat.m in Sources */,

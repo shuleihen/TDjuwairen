@@ -15,5 +15,6 @@
 
 @end
 @interface StockPoolSettingCalendarController : UIViewController
+@property (copy, nonatomic) NSString *userID;
 @property (nonatomic, weak) id<StockPoolSettingCalendarControllerDelegate> delegate;
 @end

@@ -190,7 +190,7 @@
      month	string	年月	是	201708 月份为两位数字
      master_id	string	股票池所属用户ID	是
      */
-    NSDictionary *dict = @{@"month":SafeValue(monthStr),@"master_id":US.userId};
+    NSDictionary *dict = @{@"month":SafeValue(monthStr),@"master_id":SafeValue(self.userID)};
     [manager GET:API_StockPoolGetRecordDates parameters:dict completion:^(NSArray *data, NSError *error) {
         if (!error) {
             NSMutableArray *tempArr = [NSMutableArray array];

@@ -1,18 +1,18 @@
 //
-//  StockPoolSettingListModel.m
+//  StockPoolListCellModel.m
 //  TDjuwairen
 //
-//  Created by deng shu on 2017/8/13.
+//  Created by ZYP-MAC on 2017/8/14.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "StockPoolSettingListModel.h"
+#import "StockPoolListCellModel.h"
 
-@implementation StockPoolSettingListModel
+@implementation StockPoolListCellModel
 - (instancetype)initWithDict:(NSDictionary *)dict {
-
+    
     if (self = [super init]) {
-      
+        
         _record_desc = dict[@"record_desc"];
         _record_id = dict[@"record_id"];
         _record_is_visited = [dict[@"record_is_visited"] boolValue];
@@ -25,7 +25,7 @@
 }
 
 - (NSString *)getWeekDayStr:(NSInteger)week {
-NSString *str = @"";
+    NSString *str = @"";
     switch (week) {
         case 1:
             str = @"周一";
@@ -54,5 +54,6 @@ NSString *str = @"";
     }
     return str;
 }
+
 
 @end

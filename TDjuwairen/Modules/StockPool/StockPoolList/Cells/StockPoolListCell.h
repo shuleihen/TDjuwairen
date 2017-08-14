@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TDGradientProgressView.h"
-@class StockPoolSettingListModel;
+@class StockPoolListCellModel;
 
 @interface StockPoolListCell : UITableViewCell
 
 
-@property (nonatomic, strong) StockPoolSettingListModel *listModel;
+@property (nonatomic, strong) StockPoolListCellModel *cellModel;
 
 @end

@@ -7,14 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-@class StockPoolSettingListModel;
+@class StockPoolListCellModel;
 @class StockPoolExpireCell;
 @protocol StockPoolExpireCellDelegate <NSObject>
 /// 续费
-- (void)addMoney:(StockPoolExpireCell *)vc listModel:( StockPoolSettingListModel *)listModel;
+- (void)addMoney:(StockPoolExpireCell *)cell cellModel:( StockPoolListCellModel *)cellModel;
 
 @end
 @interface StockPoolExpireCell : UITableViewCell
-@property (nonatomic, strong) StockPoolSettingListModel *listModel;
+@property (nonatomic, strong) StockPoolListCellModel *cellModel;
 @property (nonatomic, weak) id<StockPoolExpireCellDelegate> delegate;
 @end
