@@ -79,3 +79,7 @@
 @interface AliveListHotCellData : AliveListCellData
 
 @end
+
+@interface AliveListStockPoolCellData : AliveListCellData
+@property (nonatomic, assign) CGRect stockPoolViewFrame;
+@end

@@ -63,6 +63,11 @@
                 cellData = [[AliveListAdCellData alloc] initWithAliveModel:model];
             }
                 break;
+            case kAliveStockPool:
+            case kAliveStockPoolRecord:{
+                cellData = [[AliveListStockPoolCellData alloc] initWithAliveModel:model];
+            }
+                break;
             default:
                 NSAssert(NO, @"直播类型不支持");
                 break;
@@ -254,17 +259,20 @@
 
 - (CGFloat)imagesViewHeightWithImages:(NSArray *)images {
     CGFloat height = 0.f;
+    CGFloat space = 5.0f;
+    CGFloat border = 12.0f;
+    CGFloat itemW = (kScreenWidth-border*2-space*2)/3;
+    
     if (images.count == 0) {
         height = 0;
     } else if (images.count == 1) {
         height = 180.0f;
-    } else if (images.count > 1) {
-        NSInteger x = images.count/3;
-        NSInteger y = images.count%3;
-        if (y > 0) {
-            x++;
-        }
-        height = 80*x+(((x-1)>0)?((x-1)*10):0);
+    } else if (images.count > 1 && images.count <=3) {
+        height = itemW;
+    } else if (images.count <= 6) {
+        height = itemW*2 + space;
+    } else {
+        height = itemW*3 + space*2;
     }
     
     return height;
@@ -555,6 +563,21 @@
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
         }
             break;
+        case kAliveStockPool:
+        case kAliveStockPoolRecord: {
+            AliveListStockPoolCellData *pCellData = [[AliveListStockPoolCellData alloc] initWithAliveModel:forwardAlive];
+            pCellData.isShowDetailMessage = NO;
+            pCellData.isShowBottomView = NO;
+            pCellData.isShowHeaderView = NO;
+            [pCellData setup];
+            
+            self.forwardCellData = pCellData;
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
+            
+//            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 85);
+        }
+            break;
+            
         default:
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 0);
             break;
@@ -680,6 +703,43 @@
     self.isShowHeaderView = NO;
     self.isShowBottomView = NO;
     self.cellHeight = size.height + descSize.height + 12 + 8 + 50;
+}
+
+@end
+
+
+#pragma mark - AliveListStockPoolCellData
+@implementation AliveListStockPoolCellData
+
+- (void)setup {
+    
+    CGFloat contentWidht = kScreenWidth-24;
+    CGFloat left = 12.0f;
+    CGFloat height = 0.0f;
+    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
+                                       withSize:CGSizeMake(contentWidht, MAXFLOAT)
+                             isAppendingShowAll:self.isShowDetailMessage
+                             isAppendingShowImg:NO];
+    
+    CGSize messageSize = [TTTAttributedLabel sizeThatFitsAttributedString:self.message
+                                                          withConstraints:CGSizeMake(contentWidht, MAXFLOAT)
+                                                   limitedToNumberOfLines:0];
+    
+    self.messageLabelFrame = CGRectMake(left, 10, contentWidht, messageSize.height);
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
+    
+    self.stockPoolViewFrame = CGRectMake(left, height+8, contentWidht, 85);
+    height = CGRectGetMaxY(self.stockPoolViewFrame);
+    
+    self.topHeaderHeight = kAliveListHeaderHeight;
+    self.viewHeight = height+15;
+    self.bottomHeight =  kAliveListBottomHeight;
+    if (self.isShowBottomView) {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
+    } else {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight;
+    }
 }
 
 @end

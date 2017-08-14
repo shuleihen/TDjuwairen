@@ -518,8 +518,10 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts ||
-        model.aliveType == kAlivePlayStock) {
-        // 图文、推单、玩票
+        model.aliveType == kAlivePlayStock ||
+        model.aliveType == kAliveStockPool ||
+        model.aliveType == kAliveStockPoolRecord) {
+        // 图文、推单、玩票、股票池
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = model.aliveId;
         vc.aliveType = model.aliveType;

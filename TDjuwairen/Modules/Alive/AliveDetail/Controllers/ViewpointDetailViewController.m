@@ -40,6 +40,8 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
     UINib *nib1 = [UINib nibWithNibName:@"ViewpointHeaderTableViewCell" bundle:nil];
     [self.tableView registerNib:nib1 forCellReuseIdentifier:@"ViewpointHeaderTableViewCellID"];
     
@@ -81,7 +83,7 @@
     self.shareModel = shareModel;
     
     CGSize size = [model.view_title boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:20]} context:nil].size;
-    self.headerCellHeight = 250+size.height+28;
+    self.headerCellHeight = 250+size.height+20;
     
     self.masterID = model.view_userid;
     

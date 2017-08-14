@@ -20,6 +20,7 @@
 #import "AliveListForwardView.h"
 #import "PublishSelectedStockCell.h"
 #import "UIView+Border.h"
+#import <AliyunOSSiOS/OSSService.h>
 
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate,PublishSelectedStockCellDelegate>
 
@@ -345,6 +346,9 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"提交中";
     
+    
+    
+    
     __weak AlivePublishViewController *wself = self;
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_AliveAddRoomPublish parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
@@ -371,6 +375,14 @@
         }
     }];
     
+}
+
+
+- (void)uploadImage:(NSArray *)image withComplation:(void (^)(void))block{
+    NSString *endpoint = @"https://oss-cn-hangzhou.aliyuncs.com";
+    // 移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的访问控制章节。
+    id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:@"LTAI6G4lpd6NO1VF" secretKeyId:@"a8ekyRRn94OdrxfndOtlMyFKegf94m" securityToken:@"juwairenimg"];
+//    client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
 }
 
 #pragma mark - MBProgressHUDDelegate

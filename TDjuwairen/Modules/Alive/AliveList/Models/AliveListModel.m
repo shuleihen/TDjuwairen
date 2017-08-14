@@ -28,14 +28,22 @@
         self.isAttend = [dict[@"is_attend"] boolValue];
         self.isSelf = [dict[@"is_self"] boolValue];
         self.collectedId = dict[@"collect_id"];
+        self.visitNum = [dict[@"alive_visitnum"] integerValue];
         
         BOOL isforward = [dict[@"is_forward"] boolValue];
         self.isForward = isforward;
         
         // 转发
         if (isforward) {
-            NSArray *array = dict[@"forward_info"];
-            self.forwardModel = [[AliveListForwardModel alloc] initWithArray:array];
+            id forward = dict[@"forward_info"];
+            if ([forward isKindOfClass:[NSArray class]]) {
+                self.forwardModel = [[AliveListForwardModel alloc] initWithArray:forward];
+            } else if ([forward isKindOfClass:[NSDictionary class]]) {
+                AliveListModel *model = [[AliveListModel alloc] initWithDictionary:forward];
+                
+                self.forwardModel = [[AliveListForwardModel alloc] init];
+                self.forwardModel.forwardList = @[model];
+            }
         }
         
         // 额外信息
@@ -46,12 +54,14 @@
             self.extra = [[AliveListAdExtra alloc] initWithDictionary:extraDict];
         } else if (self.aliveType == kAlivePosts) {
             self.extra = [[AliveListPostExtra alloc] initWithDictionary:extraDict];
-        }else {
+        } else if (self.aliveType == kAliveStockPool ||
+                   self.aliveType == kAliveStockPoolRecord) {
+            self.extra = [[AliveListStockPoolExtra alloc] initWithDictionary:extraDict];
+        } else {
             if (extraDict.count) {
                 self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
             }
         }
-        
         
     }
     return self;

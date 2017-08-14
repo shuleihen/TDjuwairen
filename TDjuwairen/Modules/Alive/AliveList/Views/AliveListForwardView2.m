@@ -12,6 +12,7 @@
 #import "AliveListViewpointView.h"
 #import "AliveVideoListTableViewCell.h"
 #import "AliveListPlayStockView.h"
+#import "AliveListStockPoolView.h"
 
 @implementation AliveListForwardView2
 
@@ -60,6 +61,14 @@
         case kAlivePlayStock:
         {
             AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
+        }
+            break;
+        case kAliveStockPool:
+        case kAliveStockPoolRecord:
+        {
+            AliveListStockPoolView *view = [[AliveListStockPoolView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;
             [view setCellData:fCellData.forwardCellData];
         }
