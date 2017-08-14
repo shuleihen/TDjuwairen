@@ -11,15 +11,20 @@
 #import "Masonry.h"
 #import "StockPoolSettingCell.h"
 #import "AliveCommentViewController.h"
+#import "NetworkManager.h"
+#import "StockPoolChargeTypeController.h"
+#import "StockPoolPriceModel.h"
+
 
 #define kStockPoolSettingCellID @"kStockPoolSettingCellID"
+
 
 @interface StockPoolSettingController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (strong, nonatomic) NSArray *titleArr;
 @property (copy, nonatomic) NSString *introduceStr;
-@property (copy, nonatomic) NSString *billingTypeStr;
-@property (assign, nonatomic) BOOL isBilling;
+@property (assign, nonatomic) BOOL isFree;
+@property (nonatomic, strong) StockPoolPriceModel *priceModel;
 
 @end
 
@@ -33,8 +38,6 @@
         _tableView.dataSource = self;
         _tableView.rowHeight = 44.0f;
         _tableView.tableFooterView = [UIView new];
-        _tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(onRefesh)];
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
         
     }
     
@@ -55,8 +58,8 @@
     self.view.backgroundColor = TDViewBackgrouondColor;
     [self.view addSubview:self.tableView];
     self.introduceStr = @"";
-    self.billingTypeStr = @"";
-    self.isBilling = YES;
+    self.isFree = NO;
+    [self loadStockPoolIntroductMessage];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -64,27 +67,88 @@
     
 }
 
-#pragma - 加载数据
-/** 刷新 */
-- (void)onRefesh {
-    self.introduceStr = @"业家、及慈善家,被称为股神,尊称为“奥玛哈的先知”";
-    self.billingTypeStr = @"1把钥匙／3天";
-    [self.tableView reloadData];
-    if (self.tableView.mj_footer.isRefreshing) {
-        [self.tableView.mj_footer endRefreshing];
-    }
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self loadStockPoolPriceType];
     
-    [self.tableView.header endRefreshing];
 }
 
-/** 加载更多 */
-- (void)loadMoreActions {
+#pragma - 加载数据
+
+/** 加载股票池简介 */
+- (void)loadStockPoolIntroductMessage {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    __weak typeof(self)wSelf = self;
+    [manager GET:API_StockPoolGetDesc parameters:nil completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            self.introduceStr = data[@"desc"];
+            [self.tableView beginUpdates];
+            NSIndexPath *indexP = [NSIndexPath indexPathForRow:0 inSection:0];
+            [self.tableView reloadRowsAtIndexPaths:@[indexP] withRowAnimation:UITableViewRowAnimationNone];
+            [self.tableView endUpdates];
+        }
+        
+    }];
+
+}
+
+
+/** 加载股票池收费方式 */
+- (void)loadStockPoolPriceType {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    [manager GET:API_StockPoolGetPrice parameters:nil completion:^(NSDictionary *data, NSError *error) {
+        if (!error) {
+            if (data != nil) {
+                self.priceModel = [[StockPoolPriceModel alloc] initWithDict:data];
+                
+                self.isFree = [self.priceModel.is_free integerValue]==1;
+                [self.tableView reloadData];
+            }
+            
+        }
+        
+    }];
     
 }
+
+
+- (void)configChangeChargeType {
+    /**
+     key_num	int	订阅钥匙数	是
+     day	int	订阅天数	是
+     is_free	int	1表示免费，0表示收费
+     */
+    NSString *freeStr = [self.priceModel.is_free integerValue] == 1?@"0":@"1";
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *dict = @{@"key_num":SafeValue([self.priceModel.key_num stringValue]),
+                           @"day":SafeValue([self.priceModel.day stringValue]),
+                           @"is_free":freeStr};
+    
+    [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
+        
+        if (!error) {
+                /// 设置成功
+                self.priceModel.is_free = freeStr;
+                self.isFree = [self.priceModel.is_free integerValue] != 0;
+                [self.tableView reloadData];
+            
+        }
+        
+    }];
+    
+}
+
+
+
+
+
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.isBilling == YES? 3 : 2;
+    return self.isFree == YES? 2 : 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -100,8 +164,9 @@
         cell.sDescTextView.text = self.introduceStr;
     }else if (indexPath.section == 1) {
         cell.sSwitch.hidden = NO;
-    }else if (indexPath.section == 2) {
-        cell.billingLabel.text = self.billingTypeStr;
+        cell.sSwitch.on = self.isFree;
+    }else if (indexPath.section == 2 && [self.priceModel.day integerValue] > 0){
+        cell.billingLabel.text = [NSString stringWithFormat:@"%@把钥匙/%@天",self.priceModel.key_num,self.priceModel.day];
     }else {
         cell.sDescTextView.text = @"";
         cell.billingLabel.text = @"";
@@ -111,8 +176,7 @@
     cell.sTitleLabel.text = self.titleArr[indexPath.section];
     __weak typeof(self)weakSelf = self;
     cell.changeBillingBlock = ^() {
-        weakSelf.isBilling = !weakSelf.isBilling;
-        [weakSelf.tableView reloadData];
+        [weakSelf configChangeChargeType];
     };
     
     return cell;
@@ -124,7 +188,17 @@
     if (indexPath.section == 0) {
         AliveCommentViewController *editVC = [[AliveCommentViewController alloc] init];
         editVC.vcType = CommentVCStockPoolSettingType;
+        __weak typeof(self)weakSelf = self;
+        editVC.commentBlock = ^(){
+            [weakSelf loadStockPoolIntroductMessage];
+            
+        };
         [self.navigationController pushViewController:editVC animated:YES];
+    }else if (indexPath.section == 2) {
+    
+        StockPoolChargeTypeController *chagerVC = [[StockPoolChargeTypeController alloc] init];
+        chagerVC.priceModel = self.priceModel;
+        [self.navigationController pushViewController:chagerVC animated:YES];
     }
 }
 
@@ -152,7 +226,13 @@
     if (section == 1) {
         desLabel.text = @"不允许其他用户查看我的股票池";
     }else if (section == 2) {
-        desLabel.text = @"他人支付1把钥匙即可查阅我的所有股票池记录\n有效期：3天（不含购买当天）";
+        if ([self.priceModel.day integerValue] > 0) {
+           desLabel.text = [NSString stringWithFormat:@"他人支付%@把钥匙即可查阅我的所有股票池记录\n有效期：%@天（不含购买当天）",self.priceModel.key_num,self.priceModel.day];
+        }else {
+        
+            desLabel.text = @"";
+        }
+        
         
     }else {
         [desLabel removeFromSuperview];

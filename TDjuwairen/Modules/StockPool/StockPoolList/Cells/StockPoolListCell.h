@@ -8,12 +8,11 @@
 
 #import <UIKit/UIKit.h>
 #import "TDGradientProgressView.h"
+@class StockPoolSettingListModel;
 
 @interface StockPoolListCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
-@property (weak, nonatomic) IBOutlet UIImageView *rightBackImageView;
-@property (weak, nonatomic) IBOutlet TDGradientProgressView *progressView;
-@property (weak, nonatomic) IBOutlet UILabel *weekLabel;
-@property (weak, nonatomic) IBOutlet UILabel *monthLabel;
+
+
+@property (nonatomic, strong) StockPoolSettingListModel *listModel;
 
 @end
