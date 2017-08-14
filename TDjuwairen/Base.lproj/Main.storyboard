@@ -496,6 +496,9 @@
                                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fPD-e4-I9t">
                                                             <rect key="frame" x="0.0" y="0.0" width="187.5" height="74.5"/>
                                                             <state key="normal" title="Button"/>
+                                                            <connections>
+                                                                <action selector="integralPressed:" destination="1c6-oe-0ol" eventType="touchUpInside" id="xld-V8-fXW"/>
+                                                            </connections>
                                                         </button>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="我的积分" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6le-nV-NlP">
                                                             <rect key="frame" x="25" y="18" width="58" height="17"/>

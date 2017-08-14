@@ -22,6 +22,9 @@
 		19042E561F4195840004D3C6 /* WalletRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E551F4195840004D3C6 /* WalletRecordModel.m */; };
 		19042E5A1F41966A0004D3C6 /* WalletTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E581F41966A0004D3C6 /* WalletTableViewCell.m */; };
 		19042E5B1F41966A0004D3C6 /* WalletTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E591F41966A0004D3C6 /* WalletTableViewCell.xib */; };
+		19042E621F419F980004D3C6 /* IntegralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E611F419F980004D3C6 /* IntegralViewController.m */; };
+		19042E651F419F9E0004D3C6 /* IntegralRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E641F419F9E0004D3C6 /* IntegralRecordModel.m */; };
+		19042E681F41A4C60004D3C6 /* IntegralRecordSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -723,6 +726,12 @@
 		19042E571F41966A0004D3C6 /* WalletTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WalletTableViewCell.h; sourceTree = "<group>"; };
 		19042E581F41966A0004D3C6 /* WalletTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WalletTableViewCell.m; sourceTree = "<group>"; };
 		19042E591F41966A0004D3C6 /* WalletTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = WalletTableViewCell.xib; sourceTree = "<group>"; };
+		19042E601F419F980004D3C6 /* IntegralViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralViewController.h; sourceTree = "<group>"; };
+		19042E611F419F980004D3C6 /* IntegralViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralViewController.m; sourceTree = "<group>"; };
+		19042E631F419F9E0004D3C6 /* IntegralRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralRecordModel.h; sourceTree = "<group>"; };
+		19042E641F419F9E0004D3C6 /* IntegralRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralRecordModel.m; sourceTree = "<group>"; };
+		19042E661F41A4C60004D3C6 /* IntegralRecordSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralRecordSectionModel.h; sourceTree = "<group>"; };
+		19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralRecordSectionModel.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -1990,6 +1999,43 @@
 				19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */,
 			);
 			path = AliyunSDK;
+			sourceTree = "<group>";
+		};
+		19042E5C1F419F570004D3C6 /* Integral */ = {
+			isa = PBXGroup;
+			children = (
+				19042E5D1F419F570004D3C6 /* Cells */,
+				19042E5E1F419F570004D3C6 /* Controllers */,
+				19042E5F1F419F570004D3C6 /* Models */,
+			);
+			path = Integral;
+			sourceTree = "<group>";
+		};
+		19042E5D1F419F570004D3C6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19042E5E1F419F570004D3C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19042E601F419F980004D3C6 /* IntegralViewController.h */,
+				19042E611F419F980004D3C6 /* IntegralViewController.m */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19042E5F1F419F570004D3C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19042E631F419F9E0004D3C6 /* IntegralRecordModel.h */,
+				19042E641F419F9E0004D3C6 /* IntegralRecordModel.m */,
+				19042E661F41A4C60004D3C6 /* IntegralRecordSectionModel.h */,
+				19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		190F65C41E36E73000B83ADF /* MyWallet */ = {
@@ -3263,6 +3309,7 @@
 		1955B3BA1D644D9800DC102E /* MyCenter */ = {
 			isa = PBXGroup;
 			children = (
+				19042E5C1F419F570004D3C6 /* Integral */,
 				19386EFB1E73A2DB00D4426E /* Center */,
 				19F07A0E1F1C5D5A004449BB /* SystemMessage */,
 				19D6B9FE1E50935000475AA1 /* ChangePhone */,
@@ -6041,6 +6088,7 @@
 				1955B4991D644D9800DC102E /* PublishViewViewController.m in Sources */,
 				4DE260F71ED94CB0002025C6 /* RemoteSettingController.m in Sources */,
 				194186EE1DF90CA4000C5197 /* GuideViewController.m in Sources */,
+				19042E621F419F980004D3C6 /* IntegralViewController.m in Sources */,
 				9E2233CE1E8AB81B00B1FAC4 /* PSIndividualListModel.m in Sources */,
 				19E58D701EF3BC6400ADA1B8 /* YXUnread.m in Sources */,
 				19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */,
@@ -6239,6 +6287,7 @@
 				9E2233C91E8AA68900B1FAC4 /* PlayItemPersonView.m in Sources */,
 				1933257F1E4DAF7200E3D500 /* PushSettingViewController.m in Sources */,
 				84E334721CE3123700E5DCEE /* UIView+WebCacheOperation.m in Sources */,
+				19042E681F41A4C60004D3C6 /* IntegralRecordSectionModel.m in Sources */,
 				1987B2841EE688F700BD852E /* SurveyMoreViewController.m in Sources */,
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
 				1987B28A1EE688F700BD852E /* AnsModel.m in Sources */,
@@ -6426,6 +6475,7 @@
 				4DD179E71E77C00B00FBE66D /* MYBottomMenuTool.m in Sources */,
 				19E58D7B1EF3C2E900ADA1B8 /* MessageListTableViewCell.m in Sources */,
 				19F07A311F1D9FDD004449BB /* XHLaunchAd.m in Sources */,
+				19042E651F419F9E0004D3C6 /* IntegralRecordModel.m in Sources */,
 				4DD179EC1E77C00B00FBE66D /* MYZoomScrollView.m in Sources */,
 				19ED17521F1644B400EC89DF /* MGCellWinKeyView.m in Sources */,
 				84F9FDC21CF80E0A00683791 /* ELCImagePickerController.m in Sources */,

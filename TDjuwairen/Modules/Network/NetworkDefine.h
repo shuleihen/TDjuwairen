@@ -74,6 +74,8 @@
 #define API_DeleteUserOrder     @"User/delUserOrder"
 #define API_UserVipCenter       @"User/vipCenter"
 #define API_UserGetKeyRecordList        @"User/getKeyRecordList3_3"
+#define API_UserGetIntegral     @"User/getUserPoints"
+#define API_UserGetIntegralList @"User/getUserPointsRecord"
 
 #define API_FirmAccount_firmPlatList    @"FirmAccount/firmPlatList"
 #define API_ShowFirmAccountInfo         @"FirmAccount/showFirmAccountInfo"

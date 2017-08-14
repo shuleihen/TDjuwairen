@@ -220,6 +220,10 @@
     [self pushViewControllerWithClassName:@"WalletViewController"];
 }
 
+- (IBAction)integralPressed:(id)sender {
+    [self pushViewControllerWithClassName:@"IntegralViewController"];
+}
+
 - (IBAction)settingPressed:(id)sender {
     [self pushViewControllerWithClassName:@"SettingViewController"];
 }
