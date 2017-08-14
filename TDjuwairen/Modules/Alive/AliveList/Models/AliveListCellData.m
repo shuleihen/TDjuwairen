@@ -504,7 +504,7 @@
     
     AliveListForwardModel *forward = self.aliveModel.forwardModel;
     AliveListModel *forwardAlive = forward.forwardList.lastObject;
-        
+    
     self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
                                        withSize:CGSizeMake(contentWidht, MAXFLOAT)
                              isAppendingShowAll:self.isShowDetailMessage
