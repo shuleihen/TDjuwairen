@@ -1,14 +1,14 @@
 //
-//  StockPoolSettingListModel.h
+//  StockPoolListCellModel.h
 //  TDjuwairen
 //
-//  Created by deng shu on 2017/8/13.
+//  Created by ZYP-MAC on 2017/8/14.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface StockPoolSettingListModel : NSObject
+@interface StockPoolListCellModel : NSObject
 /// 持仓理由
 @property (nonatomic, copy) NSString *record_desc;
 /// 记录ID

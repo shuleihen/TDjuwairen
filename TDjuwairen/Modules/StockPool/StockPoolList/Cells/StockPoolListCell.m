@@ -8,7 +8,7 @@
 
 #import "StockPoolListCell.h"
 #import "UIImage+StockPool.h"
-#import "StockPoolSettingListModel.h"
+#import "StockPoolListCellModel.h"
 
 @interface StockPoolListCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
@@ -27,33 +27,28 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    // Initialization code
-    
     UIImage *leftImage = [UIImage imageWithStockPoolListLeft];
     self.leftImageView.image = [leftImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 0, 10, 0)];
     
     UIImage *rightBackImage = [UIImage imageWithStockPoolListRightBackground];
     self.rightBackImageView.image = [rightBackImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 20, 10, 10)];
-    
-    
-    
+   
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];
     
-    
 }
 
 
-- (void)setListModel:(StockPoolSettingListModel *)listModel {
-    _listModel = listModel;
-    
+- (void)setCellModel:(StockPoolListCellModel *)cellModel {
+
+    _cellModel = cellModel;
     NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *components = [calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    NSDateComponents *components = [calendar components:NSCalendarUnitDay|NSCalendarUnitWeekday fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     
     NSString *dayStr = [NSString stringWithFormat:@"%ld",components.day];
-    NSString *weekStr = [NSString stringWithFormat:@" %@",[listModel getWeekDayStr:components.weekday]];
+    NSString *weekStr = [NSString stringWithFormat:@" %@",[cellModel getWeekDayStr:components.weekday]];
     NSString *string = [NSString stringWithFormat:@"%ld%@",components.day,weekStr];
     NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
     [attr setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:16.0f weight:UIFontWeightMedium],
@@ -66,18 +61,19 @@
     }
     
     self.weekLabel.attributedText = attr;
-    self.recordTotalRatioLabel.text = [NSString stringWithFormat:@"仓位 %@%@",listModel.record_total_ratio,@"%"];
-    self.progressView.progress = [listModel.record_total_ratio integerValue]*0.01f;
-    self.recordDescLabel.text = listModel.record_desc;
+    self.recordTotalRatioLabel.text = [NSString stringWithFormat:@"仓位 %@%@",cellModel.record_total_ratio,@"%"];
+    self.progressView.progress = [cellModel.record_total_ratio integerValue]*0.01f;
+    self.recordDescLabel.text = cellModel.record_desc;
     
-    NSDateComponents *componentsTime = [calendar components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    NSDateComponents *componentsTime = [calendar components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld:%ld",componentsTime.hour,componentsTime.minute];
-    self.sNewImageView.hidden = listModel.record_is_new;
+    self.sNewImageView.hidden = cellModel.record_is_new;
     
-    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[listModel.record_time integerValue]]];
+    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     
     self.monthLabel.text = [NSString stringWithFormat:@"%ld-%ld",componentsMonth.year,componentsMonth.month];;
 }
+
 
 
 @end

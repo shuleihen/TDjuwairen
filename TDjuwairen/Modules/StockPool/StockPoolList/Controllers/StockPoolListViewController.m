@@ -15,7 +15,7 @@
 #import "StockPoolSettingController.h"
 #import "StockPoolSubscibeController.h"
 #import "StockPoolSettingCalendarController.h"
-#import "StockPoolSettingDataModel.h"
+#import "StockPoolListDataModel.h"
 #import "MJRefresh.h"
 #import "Masonry.h"
 #import "UILabel+TDLabel.h"
@@ -29,7 +29,7 @@
 @property (nonatomic, strong) StockPoolListToolView *toolView;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSArray *items;
-@property (nonatomic, strong) StockPoolSettingDataModel *listDataModel;
+@property (nonatomic, strong) StockPoolListDataModel *listDataModel;
 @property (nonatomic, copy) NSString *searchMonthStr;
 @property (nonatomic, strong) UIView *emptyView;
 @end
@@ -69,24 +69,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view.
     self.view.backgroundColor = TDViewBackgrouondColor;
     
     [self setupNavigation];
     
     
-    //    if ([US.userId isEqualToString:self.userId]) {
-    self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
-    [self.view addSubview:self.tableView];
-    self.toolView.frame = CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50);
-    [self.view addSubview:self.toolView];
-    //    } else {
-    //        [self.view addSubview:self.tableView];
-    //    }
+    if ([US.userId isEqualToString:self.userId]) {
+        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
+        [self.view addSubview:self.tableView];
+        self.toolView.frame = CGRectMake(0, kScreenHeight-64-50, kScreenWidth, 50);
+        [self.view addSubview:self.toolView];
+    } else {
+        self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+        [self.view addSubview:self.tableView];
+    }
     [self configEmptyViewUI];
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
-    self.searchMonthStr = [NSString stringWithFormat:@"%ld%ld%ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
+    self.searchMonthStr = [NSString stringWithFormat:@"%04ld%01ld%02ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
     
     [self refreshActions];
 }
@@ -163,7 +163,11 @@
 }
 
 - (void)calendarPressed:(id)sender {
+    if (self.userId.length <= 0) {
+        return;
+    }
     StockPoolSettingCalendarController *calendarVC = [[StockPoolSettingCalendarController alloc] init];
+    calendarVC.userID = self.userId;
     calendarVC.delegate = self;
     [self.navigationController pushViewController:calendarVC animated:YES];
     
@@ -209,7 +213,7 @@
      date	string	日期	是	20170805 月份、日期为两位数字
      page	int	当前页码，从1开始	是
      */
-    NSDictionary *dict = @{@"master_id":US.userId,
+    NSDictionary *dict = @{@"master_id":SafeValue(self.userId),
                            @"date":self.searchMonthStr,
                            @"page":@(self.page)};
     [manager GET:API_StockPoolGetRecordList parameters:dict completion:^(NSDictionary *data, NSError *error) {
@@ -217,12 +221,12 @@
             if (data != nil) {
                 NSMutableArray *arrM1 = nil;
                 NSMutableArray *arrM2 = nil;
-                StockPoolSettingDataModel *newDateListModel = [[StockPoolSettingDataModel alloc] initWithDict:data];
+                StockPoolListDataModel *newDateListModel = [[StockPoolListDataModel alloc] initWithDict:data];
                 
                 if (self.page == 1) {
                     arrM1 = [NSMutableArray array];
                     arrM2 = [NSMutableArray array];
-                    self.listDataModel = [[StockPoolSettingDataModel alloc] init];
+                    self.listDataModel = [[StockPoolListDataModel alloc] init];
                     self.listDataModel.expire_time = newDateListModel.expire_time;
                     self.listDataModel.expire_index = newDateListModel.expire_index;
                     
@@ -234,15 +238,15 @@
                 
                 
                 
-                for (StockPoolSettingListModel *listModel in newDateListModel.list) {
-                    if ([listModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
+                for (StockPoolListCellModel *cellModel in newDateListModel.list) {
+                    if ([cellModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
                         /// 过期
-                        listModel.recordExpired = YES;
-                        [arrM2 addObject:listModel];
+                        cellModel.recordExpired = YES;
+                        [arrM2 addObject:cellModel];
                     }else {
                         
-                        listModel.recordExpired = NO;
-                        [arrM1 addObject:listModel];
+                        cellModel.recordExpired = NO;
+                        [arrM1 addObject:cellModel];
                     }
                 }
                 
@@ -258,7 +262,7 @@
                     
                 }
                 if ([newDateListModel.expire_index isEqual:@(1)]) {
-                    StockPoolSettingListModel *expireModel = [[StockPoolSettingListModel alloc] init];
+                    StockPoolListCellModel *expireModel = [[StockPoolListCellModel alloc] init];
                     expireModel.record_time = newDateListModel.expire_time;
                     expireModel.recordExpiredIndexCell = YES;
                     [arrM addObject:expireModel];
@@ -297,7 +301,7 @@
 }
 
 #pragma mark - StockPoolExpireCellDelegate 续费
-- (void)addMoney:(StockPoolExpireCell *)vc listModel:(StockPoolSettingListModel *)listModel {
+- (void)addMoney:(StockPoolExpireCell *)cell cellModel:(StockPoolListCellModel *)cellModel {
     
     
 }
@@ -313,16 +317,16 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolSettingListModel *model = self.listDataModel.list[indexPath.section];
+    StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
     if (model.recordExpiredIndexCell == YES) {
         StockPoolExpireCell *expireCell = [tableView dequeueReusableCellWithIdentifier:StockPoolExpireCellID];
         expireCell.delegate = self;
-        expireCell.listModel = model;
+        expireCell.cellModel = model;
         return expireCell;
         
     }else {
         StockPoolListCell *cell = [tableView dequeueReusableCellWithIdentifier:StockPoolListNormalCellID];
-        cell.listModel = model;
+        cell.cellModel = model;
         return cell;
     }
     
@@ -333,7 +337,7 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolSettingListModel *model = self.listDataModel.list[indexPath.section];
+    StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
     if (model.recordExpiredIndexCell == YES) {
         
         return 57;

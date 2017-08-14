@@ -1,14 +1,14 @@
 //
-//  StockPoolSettingDataModel.m
+//  StockPoolListDataModel.m
 //  TDjuwairen
 //
-//  Created by deng shu on 2017/8/13.
+//  Created by ZYP-MAC on 2017/8/14.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "StockPoolSettingDataModel.h"
+#import "StockPoolListDataModel.h"
 
-@implementation StockPoolSettingDataModel
+@implementation StockPoolListDataModel
 - (instancetype)initWithDict:(NSDictionary *)dict {
     
     if (self = [super init]) {
@@ -17,8 +17,8 @@
         if (dict[@"list"]) {
             NSMutableArray *tempArrM = [NSMutableArray array];
             for (NSDictionary *listDict in dict[@"list"]) {
-                StockPoolSettingListModel *listModel = [[StockPoolSettingListModel alloc] initWithDict:listDict];
-                [tempArrM addObject:listModel];
+                StockPoolListCellModel *cellModel = [[StockPoolListCellModel alloc] initWithDict:listDict];
+                [tempArrM addObject:cellModel];
             }
             self.list = [tempArrM mutableCopy];
             
