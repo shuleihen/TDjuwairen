@@ -22,6 +22,8 @@
 #define API_IndexSurveyBanner   @"Index/surveyBanner"
 #define API_IndexDeepBanner     @"Index/deepBanner"
 
+#define API_AliyunUpload        @"Upload/getAliyunUploadConfig"
+
 #define API_AddBrowseHistory    @"Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"Public/getBrowseHistory"
 #define API_DelBrowseHistory    @"Public/delBrowseHistory"
@@ -177,7 +179,6 @@
 
 // 直播
 #define API_AliveGetRoomList        @"Room/lists"
-
 #define API_AliveGetRecAliveList    @"RoomV3/getRecAliveList3_3"
 #define API_AliveGetAttenAliveList  @"RoomV3/getAttenAliveList3_3"
 #define API_AliveGetPostAlistList   @"Room/getBareList"

@@ -504,10 +504,8 @@
     
     AliveListForwardModel *forward = self.aliveModel.forwardModel;
     AliveListModel *forwardAlive = forward.forwardList.lastObject;
-    
-    NSString *forwardTitle = [NSString stringWithFormat:@"%@%@", self.aliveModel.aliveTitle,forward.forwardTitle];
-    
-    self.message = [self stringWithAliveMessage:forwardTitle
+        
+    self.message = [self stringWithAliveMessage:self.aliveModel.aliveTitle
                                        withSize:CGSizeMake(contentWidht, MAXFLOAT)
                              isAppendingShowAll:self.isShowDetailMessage
                              isAppendingShowImg:isShowReviewImageButton];

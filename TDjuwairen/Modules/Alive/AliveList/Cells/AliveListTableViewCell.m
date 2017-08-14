@@ -79,13 +79,12 @@
     
     // 动态内容
     if (aliveModel.isForward) {
-#warning zyp - 暂时注释的代码，防止崩溃
-//        AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
-//        self.aliveContentView = view;
-//        [view setCellData:cellData];
-//        
-//        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
-//        [view.forwardView addGestureRecognizer:tap2];
+        AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+        self.aliveContentView = view;
+        [view setCellData:cellData];
+        
+        UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
+        [view.forwardView addGestureRecognizer:tap2];
     } else {
         switch (aliveModel.aliveType) {
             case kAliveNormal:

@@ -21,6 +21,7 @@
 #import "PublishSelectedStockCell.h"
 #import "UIView+Border.h"
 #import <AliyunOSSiOS/OSSService.h>
+#import "CocoaLumberjack.h"
 
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate,PublishSelectedStockCellDelegate>
 
@@ -36,7 +37,8 @@
 /// 历史选择记录
 @property (strong, nonatomic) NSMutableArray *historySelectedStockArrM;
 
-
+@property (nonatomic, strong) OSSClient *client;
+@property (nonatomic, strong) NSString *bucketName;
 @end
 
 @implementation AlivePublishViewController
@@ -90,7 +92,6 @@
     
     self.selectedStockArrM = [NSMutableArray array];
     
-#pragma mark - 获取本地存储的历史搜索记录
     NSArray *localArr = [SearchCompanyListModel loadLocalHistoryModel];
     if (localArr == nil) {
         self.historySelectedStockArrM = [NSMutableArray array];
@@ -106,6 +107,7 @@
     [self setupFooterView];
     [self checkRightBarItemEnabled];
     
+    [self getAliyunUploadSetting];
 }
 
 - (SearchCompanyListTableView *)companyListTableView {
@@ -346,44 +348,66 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = @"提交中";
     
-    
-    
-    
     __weak AlivePublishViewController *wself = self;
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    [manager POST:API_AliveAddRoomPublish parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    
+    if (self.imageArray.count && self.client) {
+        NSArray *files = [self imageFilesWithImages:self.imageArray];
         
-        for(int i=0;i<wself.imageArray.count;i++) {
-            UIImage *image = wself.imageArray[i];
-            NSData *data = UIImageJPEGRepresentation(image, 1);
-            NSString *name = [wself imageNameWithIndex:i];
-            NSString *fileName = [name stringByAppendingString:@".jpg"];
+        NSMutableArray *fileNames = [NSMutableArray arrayWithCapacity:files.count];
+        [files enumerateObjectsUsingBlock:^(NSString *filePath, NSUInteger idx, BOOL *stop){
+            NSString *fileName = [filePath lastPathComponent];
+            [fileNames addObject:fileName];
+        }];
+        
+        NSMutableDictionary *mdict = [[NSMutableDictionary alloc] initWithDictionary:dict];
+        NSString *uploadImageNames = [self arrayToJSONString:fileNames];
+        mdict[@"upload_imgs"] = uploadImageNames;
+        
+        [self uploadImages:self.imageArray imageFiles:files completion:^{
             
-            [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpg"];
-        }
-        
-    } completion:^(id data, NSError *error) {
-        wself.navigationItem.rightBarButtonItem.enabled = YES;
-        
-        if (!error) {
-            hud.labelText = @"发布成功";
-            hud.delegate = self;
-            [hud hide:YES afterDelay:1];
-        } else {
-            hud.labelText = @"发布失败";
-            [hud hide:YES afterDelay:1];
-        }
-    }];
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            [manager POST:API_AliveAddRoomPublish parameters:mdict completion:^(id data, NSError *error) {
+                wself.navigationItem.rightBarButtonItem.enabled = YES;
+                
+                if (!error) {
+                    hud.labelText = @"发布成功";
+                    hud.delegate = self;
+                    [hud hide:YES afterDelay:1];
+                } else {
+                    hud.labelText = @"发布失败";
+                    [hud hide:YES afterDelay:1];
+                }
+            }];
+        }];
+    } else {
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        [manager POST:API_AliveAddRoomPublish parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+            
+            for(int i=0;i<wself.imageArray.count;i++) {
+                UIImage *image = wself.imageArray[i];
+                NSData *data = UIImageJPEGRepresentation(image, 1);
+                NSString *name = [wself imageNameWithIndex:i];
+                NSString *fileName = [name stringByAppendingString:@".jpg"];
+                
+                [formData appendPartWithFileData:data name:name fileName:fileName mimeType:@"image/jpg"];
+            }
+            
+        } completion:^(id data, NSError *error) {
+            wself.navigationItem.rightBarButtonItem.enabled = YES;
+            
+            if (!error) {
+                hud.labelText = @"发布成功";
+                hud.delegate = self;
+                [hud hide:YES afterDelay:1];
+            } else {
+                hud.labelText = @"发布失败";
+                [hud hide:YES afterDelay:1];
+            }
+        }];
+    }
     
 }
 
-
-- (void)uploadImage:(NSArray *)image withComplation:(void (^)(void))block{
-    NSString *endpoint = @"https://oss-cn-hangzhou.aliyuncs.com";
-    // 移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的访问控制章节。
-    id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:@"LTAI6G4lpd6NO1VF" secretKeyId:@"a8ekyRRn94OdrxfndOtlMyFKegf94m" securityToken:@"juwairenimg"];
-//    client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
-}
 
 #pragma mark - MBProgressHUDDelegate
 - (void)hudWasHidden:(MBProgressHUD *)hud {
@@ -596,6 +620,94 @@
     [self.companyListTableView changeTableViewHeightWithRectY:p.y-24];
 }
 
+#pragma mark - Aliyun Upload
+
+- (void)getAliyunUploadSetting {
+    __weak AlivePublishViewController *wself = self;
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_AliyunUpload parameters:@{@"type": @(1)} completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            NSString *AccessKeyId = data[@"AccessKeyId"];
+            NSString *AccessKeySecret = data[@"AccessKeySecret"];
+            NSString *SecurityToken = data[@"SecurityToken"];
+            
+            NSString *endpoint = @"https://oss-cn-hangzhou.aliyuncs.com";
+            // 移动端建议使用STS方式初始化OSSClient。更多鉴权模式请参考后面的访问控制章节。
+            id<OSSCredentialProvider> credential = [[OSSStsTokenCredentialProvider alloc] initWithAccessKeyId:AccessKeyId secretKeyId:AccessKeySecret securityToken:SecurityToken];
+            wself.client = [[OSSClient alloc] initWithEndpoint:endpoint credentialProvider:credential];
+            wself.bucketName = data[@"bucketName"];
+        } else {
+            
+        }
+    }];
+}
+
+- (NSArray *)imageFilesWithImages:(NSArray *)images {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:images.count];
+    
+    NSString *root = @"";
+    if (self.publishType == kAlivePublishPosts) {
+        // 推单 保存的路径为Bare,文件名为bare_u+用户id+_+年月日时分秒+后缀名，即上传的整个路径为Bare/文件名
+        root = @"Bare/bare";
+    } else {
+        // 当为话题或转发时，保存路径为Room，文件名为alive_u+用户id+_+年月日时分秒+后缀名
+        root = @"Room/alive";
+    }
+    
+    NSDate *now = [NSDate new];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString *dateString = [formatter stringFromDate:now];
+    
+    for (int i=0; i<images.count; i++) {
+        int x = arc4random() % 100;
+        
+        NSString *file = [NSString stringWithFormat:@"%@_%@_%@_%ld.jpg",root,US.userId,dateString,(long)x];
+        [array addObject:file];
+    }
+    
+    return array;
+}
+
+- (void)uploadImages:(NSArray<UIImage *> *)images imageFiles:(NSArray *)imageFiles completion:(void(^)(void)) complete{
+    
+    OSSClient *client = self.client;
+    
+    NSOperationQueue *queue = [[NSOperationQueue alloc] init];
+    queue.maxConcurrentOperationCount = images.count;
+    
+    int i = 0;
+    for (UIImage *image in images) {
+        if (image) {
+            NSBlockOperation *operation = [NSBlockOperation blockOperationWithBlock:^{
+                //任务执行
+                OSSPutObjectRequest * put = [OSSPutObjectRequest new];
+                put.bucketName = self.bucketName;
+                put.objectKey = imageFiles[i];
+                NSData *data = UIImageJPEGRepresentation(image, 0.8);
+                put.uploadingData = data;
+                
+                OSSTask * putTask = [client putObject:put];
+                
+                if (!putTask.error) {
+                    DDLogInfo(@"upload file successed");
+                } else {
+                    DDLogError(@"upload object failed, error: %@" , putTask.error);
+                }
+            }];
+            
+            [queue addOperation:operation];
+        }
+        i++;
+    }
+    
+    [queue waitUntilAllOperationsAreFinished];
+    
+    if (complete) {
+        complete();
+    }
+}
 
 #pragma mark - 猜你选择
 - (void)historySeletedClick:(UIButton *)sender {
@@ -659,15 +771,10 @@
 - (NSString *)arrayToJSONString:(NSArray *)array
 {
     NSError *error = nil;
-    //    NSMutableArray *muArray = [NSMutableArray array];
-    //    for (NSString *userId in array) {
-    //        [muArray addObject:[NSString stringWithFormat:@"\"%@\"", userId]];
-    //    }
+
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:array options:NSJSONWritingPrettyPrinted error:&error];
     NSString *jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    //    NSString *jsonTemp = [jsonString stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    //    NSString *jsonResult = [jsonTemp stringByReplacingOccurrencesOfString:@" " withString:@""];
-        NSLog(@"json string is: %@", jsonString);
+ 
     return jsonString;
 }
 
