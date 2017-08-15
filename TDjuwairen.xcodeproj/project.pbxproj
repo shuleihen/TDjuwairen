@@ -25,6 +25,8 @@
 		19042E621F419F980004D3C6 /* IntegralViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E611F419F980004D3C6 /* IntegralViewController.m */; };
 		19042E651F419F9E0004D3C6 /* IntegralRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E641F419F9E0004D3C6 /* IntegralRecordModel.m */; };
 		19042E681F41A4C60004D3C6 /* IntegralRecordSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */; };
+		19042E6C1F429B460004D3C6 /* TDRechargeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E6A1F429B460004D3C6 /* TDRechargeCollectionViewCell.m */; };
+		19042E6D1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E6B1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -732,6 +734,9 @@
 		19042E641F419F9E0004D3C6 /* IntegralRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralRecordModel.m; sourceTree = "<group>"; };
 		19042E661F41A4C60004D3C6 /* IntegralRecordSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IntegralRecordSectionModel.h; sourceTree = "<group>"; };
 		19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IntegralRecordSectionModel.m; sourceTree = "<group>"; };
+		19042E691F429B460004D3C6 /* TDRechargeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeCollectionViewCell.h; sourceTree = "<group>"; };
+		19042E6A1F429B460004D3C6 /* TDRechargeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeCollectionViewCell.m; sourceTree = "<group>"; };
+		19042E6B1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeCollectionViewCell.xib; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -4890,6 +4895,9 @@
 				1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */,
 				1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */,
 				1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */,
+				19042E691F429B460004D3C6 /* TDRechargeCollectionViewCell.h */,
+				19042E6A1F429B460004D3C6 /* TDRechargeCollectionViewCell.m */,
+				19042E6B1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -5986,6 +5994,7 @@
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
 				19AF98491E2720290097A585 /* Survey.storyboard in Resources */,
 				4D6E67D41E976BAA009A9FB0 /* license in Resources */,
+				19042E6D1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib in Resources */,
 				19252C101D51E830003E5D18 /* Info.plist in Resources */,
 				4D29B9C31E83B1480019DD20 /* SearchCompanyListCell.xib in Resources */,
 				19386EF11E7289D100D4426E /* playStockBg.mp3 in Resources */,
@@ -6071,6 +6080,7 @@
 				1953CB0B1E7172DB00A64B3C /* AliveListModel.m in Sources */,
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
+				19042E6C1F429B460004D3C6 /* TDRechargeCollectionViewCell.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
 				19386ECC1E7188AD00D4426E /* AliveMasterModel.m in Sources */,
 				196F5EC91E54847700928B60 /* Base64.m in Sources */,
