@@ -212,14 +212,13 @@
                             <rect key="frame" x="0.0" y="0.0" width="375" height="228"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExZ-UT-zYS">
-                                    <rect key="frame" x="330" y="34" width="30" height="30"/>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ExZ-UT-zYS">
+                                    <rect key="frame" x="333" y="34" width="30" height="30"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="30" id="5Zh-Rk-bKB"/>
                                         <constraint firstAttribute="width" constant="30" id="Ikk-TO-34o"/>
                                     </constraints>
-                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                    <state key="normal" title="设置"/>
+                                    <state key="normal" image="nav_setting"/>
                                     <connections>
                                         <action selector="settingPressed:" destination="1c6-oe-0ol" eventType="touchUpInside" id="Tbz-hS-Xp5"/>
                                     </connections>
@@ -264,20 +263,20 @@
                                                 <constraint firstAttribute="width" constant="14" id="RCH-Ws-Rif"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyt-OV-KgM">
-                                            <rect key="frame" x="99" y="37" width="46" height="20"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyt-OV-KgM">
+                                            <rect key="frame" x="99" y="36" width="10" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="COl-Lj-3OI"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
+                                            <state key="normal" image="ico_gushen"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4m-nx-zqO">
-                                            <rect key="frame" x="330" y="17" width="30" height="30"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4m-nx-zqO">
+                                            <rect key="frame" x="333" y="17" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="0bN-bi-Fs1"/>
                                                 <constraint firstAttribute="height" constant="30" id="CMP-rH-eyH"/>
                                             </constraints>
-                                            <state key="normal" title="Button"/>
+                                            <state key="normal" image="icon_arrow_white"/>
                                         </button>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -294,7 +293,7 @@
                                         <constraint firstAttribute="height" constant="64" id="VlB-mc-wOP"/>
                                         <constraint firstAttribute="trailing" secondItem="PUy-DA-Ya4" secondAttribute="trailing" id="bad-Yq-Nr6"/>
                                         <constraint firstAttribute="bottom" secondItem="PUy-DA-Ya4" secondAttribute="bottom" id="fG9-Ok-y6t"/>
-                                        <constraint firstAttribute="trailing" secondItem="s4m-nx-zqO" secondAttribute="trailing" constant="15" id="iLv-ta-qMg"/>
+                                        <constraint firstAttribute="trailing" secondItem="s4m-nx-zqO" secondAttribute="trailing" constant="12" id="iLv-ta-qMg"/>
                                         <constraint firstItem="PUy-DA-Ya4" firstAttribute="leading" secondItem="gVw-6c-Dzo" secondAttribute="leading" id="j9E-vd-HJz"/>
                                         <constraint firstItem="oww-PL-hN3" firstAttribute="centerY" secondItem="i4B-Yb-OcF" secondAttribute="centerY" id="kbD-vF-4EK"/>
                                         <constraint firstItem="5D8-au-N4i" firstAttribute="leading" secondItem="gVw-6c-Dzo" secondAttribute="leading" constant="22" id="oqD-LU-h0f"/>
@@ -413,7 +412,7 @@
                                 <constraint firstAttribute="trailing" secondItem="gVw-6c-Dzo" secondAttribute="trailing" id="BCg-4M-tyf"/>
                                 <constraint firstAttribute="trailing" secondItem="mIH-47-HCt" secondAttribute="trailing" constant="12" id="SVw-6f-dL1"/>
                                 <constraint firstItem="gVw-6c-Dzo" firstAttribute="leading" secondItem="B6g-90-yEJ" secondAttribute="leading" id="YO4-c3-RAO"/>
-                                <constraint firstAttribute="trailing" secondItem="ExZ-UT-zYS" secondAttribute="trailing" constant="15" id="hKV-tW-elY"/>
+                                <constraint firstAttribute="trailing" secondItem="ExZ-UT-zYS" secondAttribute="trailing" constant="12" id="hKV-tW-elY"/>
                                 <constraint firstItem="gVw-6c-Dzo" firstAttribute="top" secondItem="B6g-90-yEJ" secondAttribute="top" constant="60" id="hxX-oN-Vg0"/>
                                 <constraint firstItem="mIH-47-HCt" firstAttribute="top" secondItem="gVw-6c-Dzo" secondAttribute="bottom" constant="22" id="ppH-tV-05Q"/>
                                 <constraint firstItem="ExZ-UT-zYS" firstAttribute="top" secondItem="B6g-90-yEJ" secondAttribute="top" constant="34" id="sgP-LZ-rHA"/>
@@ -445,7 +444,7 @@
                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_key_small" translatesAutoresizingMaskIntoConstraints="NO" id="3Hh-7i-ONq">
+                                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_key_o" translatesAutoresizingMaskIntoConstraints="NO" id="3Hh-7i-ONq">
                                                             <rect key="frame" x="25" y="40" width="19" height="22"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="19" id="7OT-kC-N4O"/>
@@ -458,7 +457,7 @@
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Czh-Gz-0bT">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_light_grey" translatesAutoresizingMaskIntoConstraints="NO" id="Czh-Gz-0bT">
                                                             <rect key="frame" x="147" y="22.5" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="30" id="PYg-ba-2gw"/>
@@ -512,7 +511,7 @@
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="0ab-Rw-L6F">
+                                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_arrow_light_grey" translatesAutoresizingMaskIntoConstraints="NO" id="0ab-Rw-L6F">
                                                             <rect key="frame" x="147.5" y="22" width="30" height="30"/>
                                                             <constraints>
                                                                 <constraint firstAttribute="width" constant="30" id="2K8-es-mTc"/>
@@ -561,14 +560,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="会员中心" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yTI-Ea-RVb">
-                                                    <rect key="frame" x="47" y="0.0" width="293" height="43.5"/>
+                                                    <rect key="frame" x="49" y="0.0" width="291" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_purse" id="seB-bd-zbN">
-                                                    <rect key="frame" x="15" y="13" width="17" height="17"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_membership" id="seB-bd-zbN">
+                                                    <rect key="frame" x="15" y="11" width="19" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -588,8 +587,8 @@
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_purse" id="fZR-yy-8a9">
-                                                    <rect key="frame" x="15" y="13" width="17" height="17"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_mission" id="fZR-yy-8a9">
+                                                    <rect key="frame" x="15" y="11" width="17" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -603,14 +602,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="我的收藏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gds-2a-STB">
-                                                    <rect key="frame" x="47" y="0.0" width="293" height="43.5"/>
+                                                    <rect key="frame" x="50" y="0.0" width="290" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_collection" id="ITh-yR-Usm">
-                                                    <rect key="frame" x="15" y="13" width="17" height="17"/>
+                                                    <rect key="frame" x="15" y="12" width="20" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -628,14 +627,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="系统消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lDS-Jc-Vb4">
-                                                    <rect key="frame" x="47" y="0.0" width="293" height="43.5"/>
+                                                    <rect key="frame" x="50" y="0.0" width="290" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_remind" id="ijF-qU-vKw">
-                                                    <rect key="frame" x="15" y="13" width="17" height="17"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_system" id="ijF-qU-vKw">
+                                                    <rect key="frame" x="15" y="11" width="20" height="20"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -649,14 +648,14 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="关于我们" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JSn-Pd-2Ok">
-                                                    <rect key="frame" x="47" y="0.0" width="293" height="43.5"/>
+                                                    <rect key="frame" x="50" y="0.0" width="290" height="43.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_us" id="szX-Tx-F9H">
-                                                    <rect key="frame" x="15" y="13" width="17" height="17"/>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_aboutus" id="szX-Tx-F9H">
+                                                    <rect key="frame" x="15" y="12" width="20" height="19"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                 </imageView>
                                             </subviews>
@@ -707,13 +706,17 @@
     </scenes>
     <resources>
         <image name="center_avatar" width="79" height="79"/>
-        <image name="ico_remind" width="17" height="17"/>
+        <image name="ico_aboutus" width="20" height="19"/>
+        <image name="ico_gushen" width="10" height="14"/>
+        <image name="ico_key_o" width="17" height="19"/>
+        <image name="ico_membership" width="19" height="20"/>
+        <image name="ico_mission" width="17" height="20"/>
         <image name="ico_sex-women" width="14" height="14"/>
-        <image name="icon_arrow" width="8" height="15"/>
-        <image name="icon_collection" width="17" height="17"/>
-        <image name="icon_key_small" width="19" height="22"/>
-        <image name="icon_purse" width="17" height="17"/>
-        <image name="icon_us" width="17" height="17"/>
+        <image name="ico_system" width="20" height="20"/>
+        <image name="icon_arrow_light_grey" width="8" height="14"/>
+        <image name="icon_arrow_white" width="8" height="14"/>
+        <image name="icon_collection" width="20" height="19"/>
+        <image name="nav_setting" width="22" height="20"/>
         <image name="tab_alive" width="27" height="27"/>
         <image name="tab_alive_in" width="27" height="27"/>
         <image name="tab_mine" width="27" height="27"/>

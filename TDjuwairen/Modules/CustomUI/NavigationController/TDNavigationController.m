@@ -73,11 +73,20 @@
     return hidden;
 }
 
+- (UIImage *)navBackgroundImageWithController:(NSString *)className {
+    if ([className isEqualToString:@"AliveListRootViewController"] ||
+        [className isEqualToString:@"StockPoolListViewController"] ||
+        [className isEqualToString:@"StockPoolAddAndEditViewController"]) {
+        return [UIImage imageNamed:@"nav_bg.png"];
+    }
+    return nil;
+}
+
 - (void)setupNavigationControllerBackground:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:NSClassFromString(@"AliveListRootViewController")] ||
-        [viewController isKindOfClass:NSClassFromString(@"StockPoolListViewController")]) {
+    UIImage *image = [self navBackgroundImageWithController:NSStringFromClass([viewController class])];
+    if (image) {
         // 直播主页面导航条背景修改
-        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
+        [navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
         
         UIImage *image = [UIImage imageWithColor:[UIColor clearColor]];
         [navigationController.navigationBar setShadowImage:image];

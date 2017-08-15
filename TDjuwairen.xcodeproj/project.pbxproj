@@ -27,6 +27,10 @@
 		19042E681F41A4C60004D3C6 /* IntegralRecordSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */; };
 		19042E6C1F429B460004D3C6 /* TDRechargeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E6A1F429B460004D3C6 /* TDRechargeCollectionViewCell.m */; };
 		19042E6D1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E6B1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib */; };
+		19042E701F42D0280004D3C6 /* StockPoolAddAndEditViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E6F1F42D0280004D3C6 /* StockPoolAddAndEditViewController.m */; };
+		19042E741F42D0510004D3C6 /* SPEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E721F42D0510004D3C6 /* SPEditTableViewCell.m */; };
+		19042E751F42D0510004D3C6 /* SPEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E731F42D0510004D3C6 /* SPEditTableViewCell.xib */; };
+		19042E791F42D4CE0004D3C6 /* SPEditRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E781F42D4CE0004D3C6 /* SPEditRecordModel.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -737,6 +741,13 @@
 		19042E691F429B460004D3C6 /* TDRechargeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeCollectionViewCell.h; sourceTree = "<group>"; };
 		19042E6A1F429B460004D3C6 /* TDRechargeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeCollectionViewCell.m; sourceTree = "<group>"; };
 		19042E6B1F429B460004D3C6 /* TDRechargeCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeCollectionViewCell.xib; sourceTree = "<group>"; };
+		19042E6E1F42D0280004D3C6 /* StockPoolAddAndEditViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolAddAndEditViewController.h; sourceTree = "<group>"; };
+		19042E6F1F42D0280004D3C6 /* StockPoolAddAndEditViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolAddAndEditViewController.m; sourceTree = "<group>"; };
+		19042E711F42D0510004D3C6 /* SPEditTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEditTableViewCell.h; sourceTree = "<group>"; };
+		19042E721F42D0510004D3C6 /* SPEditTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEditTableViewCell.m; sourceTree = "<group>"; };
+		19042E731F42D0510004D3C6 /* SPEditTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPEditTableViewCell.xib; sourceTree = "<group>"; };
+		19042E771F42D4CE0004D3C6 /* SPEditRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEditRecordModel.h; sourceTree = "<group>"; };
+		19042E781F42D4CE0004D3C6 /* SPEditRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEditRecordModel.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2039,6 +2050,15 @@
 				19042E641F419F9E0004D3C6 /* IntegralRecordModel.m */,
 				19042E661F41A4C60004D3C6 /* IntegralRecordSectionModel.h */,
 				19042E671F41A4C60004D3C6 /* IntegralRecordSectionModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19042E761F42D4BB0004D3C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19042E771F42D4CE0004D3C6 /* SPEditRecordModel.h */,
+				19042E781F42D4CE0004D3C6 /* SPEditRecordModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -5201,6 +5221,7 @@
 		4D1A42BC1F3D39BA008F562D /* StockPoolEdit */ = {
 			isa = PBXGroup;
 			children = (
+				19042E761F42D4BB0004D3C6 /* Models */,
 				4D1A42BD1F3D39BA008F562D /* Cells */,
 				4D1A42BE1F3D39BA008F562D /* Controllers */,
 				4D1A42BF1F3D39BA008F562D /* Views */,
@@ -5211,6 +5232,9 @@
 		4D1A42BD1F3D39BA008F562D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				19042E711F42D0510004D3C6 /* SPEditTableViewCell.h */,
+				19042E721F42D0510004D3C6 /* SPEditTableViewCell.m */,
+				19042E731F42D0510004D3C6 /* SPEditTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5218,6 +5242,8 @@
 		4D1A42BE1F3D39BA008F562D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				19042E6E1F42D0280004D3C6 /* StockPoolAddAndEditViewController.h */,
+				19042E6F1F42D0280004D3C6 /* StockPoolAddAndEditViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5989,6 +6015,7 @@
 				19386EC91E71887500D4426E /* AliveMasterListTableViewCell.xib in Resources */,
 				1987B2771EE688F700BD852E /* HotTableViewCell.xib in Resources */,
 				1987B2751EE688F700BD852E /* AskTableViewCell.xib in Resources */,
+				19042E751F42D0510004D3C6 /* SPEditTableViewCell.xib in Resources */,
 				19E58DB21EF8C55500ADA1B8 /* ZFPlayer.bundle in Resources */,
 				197595341DED5E39006441BE /* SurveyDetail.storyboard in Resources */,
 				1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */,
@@ -6053,6 +6080,7 @@
 				845E7D181DE5970B00E620DB /* YXSearchButton.m in Sources */,
 				4D023BC71E8E2C8000AB463E /* PSIndividualUserListModel.m in Sources */,
 				19B11CAA1D655B9E00BB4DF4 /* DDFileLogger.m in Sources */,
+				19042E701F42D0280004D3C6 /* StockPoolAddAndEditViewController.m in Sources */,
 				190F65F41E36E73000B83ADF /* ChildOrderTableViewController.m in Sources */,
 				19C348741D3F76DB008ABD16 /* NSBundle+MJRefresh.m in Sources */,
 				9EC715FF1F3FD07F00F3A071 /* CalendarDatePickerController.m in Sources */,
@@ -6289,6 +6317,7 @@
 				84E3346F1CE3123700E5DCEE /* UIImage+WebP.m in Sources */,
 				1978E0721EE166D70065CEE0 /* StockUnlockModel.m in Sources */,
 				19194D1D1E80CC5200641085 /* Tool.m in Sources */,
+				19042E741F42D0510004D3C6 /* SPEditTableViewCell.m in Sources */,
 				19959B831E2C5D4300AB26DF /* GradeListModel.m in Sources */,
 				1955B4A51D644D9800DC102E /* InsertTagsView.m in Sources */,
 				84F9FDC01CF80E0A00683791 /* ELCAssetCell.m in Sources */,
@@ -6459,6 +6488,7 @@
 				194E0D321EEFBF98009C7AC6 /* ViewpointDetailViewController.m in Sources */,
 				4D2D29F01EDEC5BA00545314 /* AliveSearchResultModel.m in Sources */,
 				4DD179EB1E77C00B00FBE66D /* MYRollScrollView.m in Sources */,
+				19042E791F42D4CE0004D3C6 /* SPEditRecordModel.m in Sources */,
 				1987B28F1EE688F700BD852E /* StockInfoModel.m in Sources */,
 				1955B45E1D644D9800DC102E /* LoginViewController.m in Sources */,
 				9EC716021F3FDCC200F3A071 /* CalenderYearMonthPickerView.m in Sources */,

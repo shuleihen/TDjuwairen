@@ -17,6 +17,7 @@
 #import "UIImage+Caputure.h"
 #import "PublishViewViewController.h"
 #import "AlivePublishViewController.h"
+#import "StockPoolAddAndEditViewController.h"
 
 @interface TDTabBarController ()<TDTabBarDelegate, TDPopupMenuDelegate>
 @property (nonatomic, strong) TDTabBar *lcTabBar;
@@ -157,6 +158,12 @@
         vc.hidesBottomBarWhenPushed = YES;
         vc.publishType = kAlivePublishNormal;
         [nav pushViewController:vc animated:YES];
+    } else if (selectedIndex == 3) {
+        // 股票池记录
+        StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
+        
+        TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
+        [nav presentViewController:editNav animated:YES completion:nil];
     }
 }
 @end

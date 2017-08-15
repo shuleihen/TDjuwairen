@@ -54,8 +54,8 @@
     
     self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
-    self.avatarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.avatarBtn.layer.borderWidth = 1.0f;
+//    self.avatarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
+//    self.avatarBtn.layer.borderWidth = 1.0f;
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.colors = @[(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#2662D0"].CGColor,(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#1BAFE7"].CGColor];
@@ -243,6 +243,15 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
     return 10.0f;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 7, 30)];
+        imageView.contentMode = UIViewContentModeCenter;
+        imageView.image = [UIImage imageNamed:@"icon_arrow_light_grey.png"];
+        cell.accessoryView = imageView;
+    }
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
