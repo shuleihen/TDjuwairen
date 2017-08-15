@@ -251,7 +251,7 @@
     
     SKProduct *product = self.products[indexPath.row];
     cell.titleLabel.text = product.localizedTitle;
-    cell.priceLabel.text = product.localizedPrice;
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",product.price];
     
     return cell;
 }
