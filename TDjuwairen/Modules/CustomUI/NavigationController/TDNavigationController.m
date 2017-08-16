@@ -62,7 +62,8 @@
                            @"UserInfoViewController",
                            @"PersonalCenterViewController",
                            @"AliveSearchAllTypeViewController",
-                           @"VideoDetailViewController"];
+                           @"VideoDetailViewController",
+                           @"StockPoolSearchViewController"];
     [filtArray enumerateObjectsUsingBlock:^(NSString *string, NSUInteger idx, BOOL *stop){
         if ([string isEqualToString:className]) {
             hidden = YES;

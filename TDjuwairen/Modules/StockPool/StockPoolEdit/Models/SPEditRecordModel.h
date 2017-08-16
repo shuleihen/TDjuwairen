@@ -21,6 +21,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, assign) NSInteger type;
 @property (nonatomic, strong) NSString *ratio;
 
+// 页面逻辑数据
 @property (nonatomic, assign) NSInteger cellType;
 
 - (id)initWithDictionary:(NSDictionary *)dict;

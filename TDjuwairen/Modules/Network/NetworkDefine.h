@@ -243,5 +243,6 @@
 /// 获取指定月份下的有记录的日期
 #define API_StockPoolGetRecordDates       @"StockPool/getRecordDates"
 #define API_StockPoolGetRecordPoint     @"StockPool/getRecordPositionInfo"
+#define API_StockPoolPublish            @"StockPool/saveRecord"
 
 #endif /* NetworkDefine_h */

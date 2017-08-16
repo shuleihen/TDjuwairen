@@ -9,6 +9,7 @@
 #import "SPEditRecordModel.h"
 
 @implementation SPEditRecordModel
+
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
         self.stockName = dict[@"item_stock_name"];

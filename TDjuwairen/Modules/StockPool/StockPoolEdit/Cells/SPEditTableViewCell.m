@@ -15,10 +15,10 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.stockNameField.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#76A5BC"].CGColor;
-    self.stockNameField.layer.borderWidth = TDPixel;
-    self.stockNameField.layer.cornerRadius = 3.0f;
-    self.stockNameField.clipsToBounds = YES;
+    self.stockNameBtn.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#76A5BC"].CGColor;
+    self.stockNameBtn.layer.borderWidth = TDPixel;
+    self.stockNameBtn.layer.cornerRadius = 3.0f;
+    self.stockNameBtn.clipsToBounds = YES;
     
     self.percentageField.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#76A5BC"].CGColor;
     self.percentageField.layer.borderWidth = TDPixel;
@@ -35,7 +35,7 @@
 - (void)setEnabled:(BOOL)enabled {
     _enabled = enabled;
     
-    self.stockNameField.enabled = enabled;
+    self.stockNameBtn.enabled = enabled;
     self.percentageField.enabled = enabled;
     
     if (!enabled) {
@@ -51,9 +51,36 @@
     }
 }
 
+- (void)setModel:(SPEditRecordModel *)model {
+    _model = model;
+    
+    NSString *title = [NSString stringWithFormat:@"%@%@",model.stockName?:@"",model.stockCode?:@""];
+    [self.stockNameBtn setTitle:title forState:UIControlStateNormal];
+    
+    self.percentageField.text = model.ratio;
+}
+
+- (IBAction)textDidChanged:(UITextField *)sender {
+    self.model.ratio = sender.text;
+}
+
+
+- (IBAction)stockNamePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(spEditTableViewCell:stockNamePressed:)]) {
+        [self.delegate spEditTableViewCell:self stockNamePressed:sender];
+    }
+}
+
 - (IBAction)optionPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(spEditTableViewCell:optionPressed:)]) {
-        [self.delegate spEditTableViewCell:self optionPressed:sender];
+    
+    if (self.model.cellType == kSPEidtCellNormal) {
+        // 清仓
+        self.model.ratio = @"0";
+        self.percentageField.text = @"0";
+    } else {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(spEditTableViewCell:optionPressed:)]) {
+            [self.delegate spEditTableViewCell:self optionPressed:sender];
+        }
     }
 }
 @end

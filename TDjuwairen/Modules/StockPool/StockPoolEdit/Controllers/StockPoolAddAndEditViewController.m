@@ -11,12 +11,17 @@
 #import "NetworkManager.h"
 #import "SPEditRecordModel.h"
 #import "UITextView+Placeholder.h"
-
+#import "StockPoolSearchViewController.h"
+#import "MBProgressHUD.h"
+#import "NSString+Json.h"
+#import "ACActionSheet.h"
 
 @interface StockPoolAddAndEditViewController ()
-<UITableViewDelegate, UITableViewDataSource, SPEditTableViewCellDelegate>
+<UITableViewDelegate, UITableViewDataSource, SPEditTableViewCellDelegate,
+UITextViewDelegate, MBProgressHUDDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *list;
+@property (nonatomic, strong) NSString *reason;
 @end
 
 @implementation StockPoolAddAndEditViewController
@@ -76,12 +81,59 @@
 }
 
 - (void)backPressed:(id)sender {
-    [self dismissViewControllerAnimated:YES completion:nil];
+    if (![self canSave]) {
+        [self dismissViewControllerAnimated:YES completion:nil];
+        return;
+    }
+    
+    ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"不保存" otherButtonTitles:@[@"保存草稿"] actionSheetBlock:^(NSInteger index){
+        if (index == 0) {
+            [self dismissViewControllerAnimated:YES completion:nil];
+        } else if (index == 1) {
+            [self publishOrSaveDraft:YES];
+        }
+    }];
+    [sheet show];
+    
+    
 }
 
 - (void)publishPressed:(id)sender {
     
+    void (^ShowHud)(NSString *mesage) = ^(NSString *mesage){
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.mode = MBProgressHUDModeText;
+        hud.labelFont = [UIFont systemFontOfSize:14.0f];
+        hud.labelText = mesage;
+        [hud hide:YES afterDelay:0.6];
+    };
+    
+    int i=0;
+    for (SPEditRecordModel *model in self.list) {
+        if (model.cellType == kSPEidtCellEidt ||
+            model.cellType == kSPEidtCellNormal) {
+            if (!model.ratio.length) {
+                ShowHud(@"添加新股的仓位不得为0");
+                return;
+            } else {
+                i += [model.ratio integerValue];
+            }
+        }
+    }
+    
+    if (i> 100) {
+        ShowHud(@"总仓位不得超过100%");
+        return;
+    }
+    
+    if (!self.reason.length) {
+        ShowHud(@"持仓理由不能为空");
+        return;
+    }
+    
+    [self publishOrSaveDraft:NO];
 }
+
 
 - (void)queryRecordList {
     
@@ -141,14 +193,107 @@
     [self.tableView endUpdates];
 }
 
+- (BOOL)canSave {
+    int i=0;
+    for (SPEditRecordModel *model in self.list) {
+        if (model.cellType == kSPEidtCellEidt ||
+            model.cellType == kSPEidtCellNormal) {
+            if (!model.ratio.length) {
+                return NO;
+            } else {
+                i += [model.ratio integerValue];
+            }
+        }
+    }
+    
+    if (i> 100) {
+        return NO;
+    }
+    
+    if (!self.reason.length) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (void)publishOrSaveDraft:(BOOL)isDraft {
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:self.list.count];
+    for (SPEditRecordModel *model in self.list) {
+        if (model.cellType == kSPEidtCellEidt ||
+            model.cellType == kSPEidtCellNormal) {
+            NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:2];
+            dict[@"stock"] = model.stockCode;
+            dict[@"ratio"] = model.ratio;
+            [array addObject:dict];
+        }
+    }
+    
+    NSString *position = [NSString jsonStringWithObject:array];
+    
+    NSDictionary *dict = @{@"desc": self.reason,
+                           @"is_publish": isDraft?@(0):@(1),
+                           @"position_data": position,
+                           @"record_id": @""};
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = isDraft?@"保存中":@"提交中";
+    
+    __weak StockPoolAddAndEditViewController *wself = self;
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_StockPoolPublish parameters:dict completion:^(id data, NSError *error){
+        
+        if (isDraft) {
+            hud.labelText = @"保存成功";
+            hud.delegate = wself;
+            [hud hide:YES afterDelay:1];
+        } else {
+            if (!error) {
+                hud.labelText = @"发布成功";
+                hud.delegate = wself;
+                [hud hide:YES afterDelay:1];
+            } else {
+                hud.labelText = @"发布失败";
+                [hud hide:YES afterDelay:1];
+            }
+        }
+    }];
+}
+#pragma mark - MBProgressHUDDelegate
+- (void)hudWasHidden:(MBProgressHUD *)hud {
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
 #pragma mark - SPEditTableViewCellDelegate
 - (void)spEditTableViewCell:(SPEditTableViewCell *)cell optionPressed:(id)sender {
-    if (cell.enabled) {
+    if (cell.model.cellType == kSPEidtCellEidt) {
         NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
         [self deleteWithIndex:indexPath];
     } else {
         
     }
+}
+
+- (void)spEditTableViewCell:(SPEditTableViewCell *)cell stockNamePressed:(id)sender {
+    StockPoolSearchViewController *vc = [[StockPoolSearchViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
+    
+    vc.selectedBlock = ^(NSString *stockName, NSString *stockCode){
+        NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
+        SPEditRecordModel *model = self.list[indexPath.row];
+        model.stockCode = stockCode;
+        model.stockName = stockName;
+        
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
+    };
+}
+
+#pragma mark - UITextView
+- (void)textViewDidChange:(UITextView *)textView {
+    self.reason = textView.text;
 }
 
 #pragma mark - Table view data source
@@ -169,18 +314,14 @@
     
     if (indexPath.section == 0) {
         SPEditRecordModel *model = self.list[indexPath.row];
-        if (model.cellType == kSPEidtCellNormal) {
+        
+        if (model.cellType == kSPEidtCellNormal ||
+            model.cellType == kSPEidtCellEidt) {
             SPEditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPEditTableViewCellID"];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.delegate = self;
-            cell.enabled = NO;
-            
-            return cell;
-        } else if (model.cellType == kSPEidtCellEidt) {
-            SPEditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPEditTableViewCellID"];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-            cell.delegate = self;
-            cell.enabled = YES;
+            cell.enabled = (model.cellType == kSPEidtCellNormal)?NO:YES;
+            cell.model = model;
             
             return cell;
         } else if (model.cellType == kSPEidtCellAdd) {
@@ -215,6 +356,10 @@
             
             UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 268)];
             textView.backgroundColor = [UIColor whiteColor];
+            textView.font = [UIFont systemFontOfSize:15.0f];
+            textView.textColor = TDTitleTextColor;
+            textView.delegate = self;
+            
             textView.placeholderColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
             textView.placeholderLabel.font = [UIFont systemFontOfSize:14.0f];
             textView.placeholderLabel.frame = CGRectMake(20, 19, 150, 16);

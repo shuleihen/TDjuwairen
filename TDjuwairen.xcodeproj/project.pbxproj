@@ -31,6 +31,8 @@
 		19042E741F42D0510004D3C6 /* SPEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E721F42D0510004D3C6 /* SPEditTableViewCell.m */; };
 		19042E751F42D0510004D3C6 /* SPEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E731F42D0510004D3C6 /* SPEditTableViewCell.xib */; };
 		19042E791F42D4CE0004D3C6 /* SPEditRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E781F42D4CE0004D3C6 /* SPEditRecordModel.m */; };
+		19042E7C1F43DF6E0004D3C6 /* StockPoolSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E7B1F43DF6E0004D3C6 /* StockPoolSearchViewController.m */; };
+		19042E801F43EBBB0004D3C6 /* NSString+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E7F1F43EBBB0004D3C6 /* NSString+Json.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -748,6 +750,10 @@
 		19042E731F42D0510004D3C6 /* SPEditTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPEditTableViewCell.xib; sourceTree = "<group>"; };
 		19042E771F42D4CE0004D3C6 /* SPEditRecordModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPEditRecordModel.h; sourceTree = "<group>"; };
 		19042E781F42D4CE0004D3C6 /* SPEditRecordModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPEditRecordModel.m; sourceTree = "<group>"; };
+		19042E7A1F43DF6E0004D3C6 /* StockPoolSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolSearchViewController.h; sourceTree = "<group>"; };
+		19042E7B1F43DF6E0004D3C6 /* StockPoolSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSearchViewController.m; sourceTree = "<group>"; };
+		19042E7E1F43EBBB0004D3C6 /* NSString+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Json.h"; sourceTree = "<group>"; };
+		19042E7F1F43EBBB0004D3C6 /* NSString+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Json.m"; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2063,6 +2069,15 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		19042E7D1F43EBA50004D3C6 /* NSString+Json */ = {
+			isa = PBXGroup;
+			children = (
+				19042E7E1F43EBBB0004D3C6 /* NSString+Json.h */,
+				19042E7F1F43EBBB0004D3C6 /* NSString+Json.m */,
+			);
+			path = "NSString+Json";
+			sourceTree = "<group>";
+		};
 		190F65C41E36E73000B83ADF /* MyWallet */ = {
 			isa = PBXGroup;
 			children = (
@@ -2376,6 +2391,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				19042E7D1F43EBA50004D3C6 /* NSString+Json */,
 				19AA7DD21F3AE64400716F38 /* UIImage+Category */,
 				1959D45D1F29BCCF002B969A /* UIViewController+NoData */,
 				19F079FB1F18D7D0004449BB /* UILabel+StockCode */,
@@ -5244,6 +5260,8 @@
 			children = (
 				19042E6E1F42D0280004D3C6 /* StockPoolAddAndEditViewController.h */,
 				19042E6F1F42D0280004D3C6 /* StockPoolAddAndEditViewController.m */,
+				19042E7A1F43DF6E0004D3C6 /* StockPoolSearchViewController.h */,
+				19042E7B1F43DF6E0004D3C6 /* StockPoolSearchViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -6260,6 +6278,7 @@
 				190F65F91E36E73000B83ADF /* SelOrderBtnView.m in Sources */,
 				19B11CAD1D655B9E00BB4DF4 /* DDContextFilterLogFormatter.m in Sources */,
 				4D023BCA1E8E327500AB463E /* PSIndividualUserModel.m in Sources */,
+				19042E7C1F43DF6E0004D3C6 /* StockPoolSearchViewController.m in Sources */,
 				4DDA5C3E1EB31F25005BC8D7 /* PublishSelectedStockCell.m in Sources */,
 				19C348651D3F76DB008ABD16 /* MJRefreshBackFooter.m in Sources */,
 				19194D151E80CBE900641085 /* ZFCWanderingCubesActivityIndicatorView.m in Sources */,
@@ -6561,6 +6580,7 @@
 				19ED175C1F186F5800EC89DF /* PSIndividualArticleModel.m in Sources */,
 				1953CB0C1E7172DB00A64B3C /* AliveListImagesView.m in Sources */,
 				190F65F21E36E73000B83ADF /* OrderDetailTableViewCell.m in Sources */,
+				19042E801F43EBBB0004D3C6 /* NSString+Json.m in Sources */,
 				1987B2821EE688F700BD852E /* SurveyDownLoadHintViewController.m in Sources */,
 				19F07A401F1DA100004449BB /* TDAdvertModel.m in Sources */,
 				19C526281D49EE090039F85D /* TDWebViewController.m in Sources */,

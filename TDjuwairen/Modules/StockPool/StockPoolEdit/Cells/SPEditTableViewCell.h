@@ -7,17 +7,19 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "SPEditRecordModel.h"
 
 @class SPEditTableViewCell;
 @protocol SPEditTableViewCellDelegate <NSObject>
-
+- (void)spEditTableViewCell:(SPEditTableViewCell *)cell stockNamePressed:(id)sender;
 - (void)spEditTableViewCell:(SPEditTableViewCell *)cell optionPressed:(id)sender;
 @end
 
 @interface SPEditTableViewCell : UITableViewCell
-@property (weak, nonatomic) IBOutlet UITextField *stockNameField;
+@property (weak, nonatomic) IBOutlet UIButton *stockNameBtn;
 @property (weak, nonatomic) IBOutlet UITextField *percentageField;
 @property (weak, nonatomic) IBOutlet UIButton *optionBtn;
 @property (nonatomic, assign) BOOL enabled;
 @property (nonatomic, weak) id<SPEditTableViewCellDelegate> delegate;
+@property (nonatomic, strong) SPEditRecordModel *model;
 @end
