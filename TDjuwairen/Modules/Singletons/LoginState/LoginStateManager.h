@@ -13,9 +13,9 @@
 // 下个版本 0表示普通用户，1表示青铜会员，2表示白银会员 3表示黄金会员
 typedef enum : NSUInteger {
     kUserLevelNormal    =0,
-//    kUserLevelBronze    =1,
-//    kUserLevelSilver    =2,
-    kUserLevelGold      =1,
+    kUserLevelBronze    =1,
+    kUserLevelSilver    =2,
+    kUserLevelGold      =3,
 } UserLevelType;
 
 @interface LoginStateManager : NSObject
@@ -29,6 +29,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *post;
 @property (nonatomic, copy) NSString *personal;
 @property (nonatomic, assign) NSInteger userLevel;
+@property (nonatomic, assign) NSInteger sex;
 
 @property (nonatomic,assign) int user_balance;
 

@@ -58,7 +58,7 @@
 #define API_UpdateCompanyName   @"User/updateCompanyName"
 #define API_UpdateOccupationName @"User/updateOccupationName"
 #define API_UpdateUserInfo      @"User/updateUserinfo"
-#define API_GetUserInfo         @"User/getUserInfo"
+#define API_GetUserInfo         @"User/getLoginUser"
 #define API_UploadUserface      @"User/userfaceImgUp"
 #define API_UserBindInfo        @"User/userbindInfo"
 #define API_UpdateUserPhone     @"User/updateUserphone"
@@ -76,6 +76,7 @@
 #define API_UserGetKeyRecordList        @"User/getKeyRecordList3_3"
 #define API_UserGetIntegral     @"User/getUserPoints"
 #define API_UserGetIntegralList @"User/getUserPointsRecord"
+#define API_UserGetNotify       @"User/getUserNotify"
 
 #define API_FirmAccount_firmPlatList    @"FirmAccount/firmPlatList"
 #define API_ShowFirmAccountInfo         @"FirmAccount/showFirmAccountInfo"

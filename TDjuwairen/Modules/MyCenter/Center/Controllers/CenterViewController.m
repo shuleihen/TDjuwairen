@@ -17,6 +17,8 @@
 #import "AliveRoomViewController.h"
 #import "UIImage+Resize.h"
 #import "TDWebViewController.h"
+#import "LoginHandler.h"
+#import "CenterHeaderItemView.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -24,9 +26,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (nonatomic, strong) NSArray *classesArray;
-@property (nonatomic, strong) IBOutlet CenterItemView *dynamicView;
-@property (nonatomic, strong) IBOutlet CenterItemView *attentionView;
-@property (nonatomic, strong) IBOutlet CenterItemView *fansView;
+@property (nonatomic, strong) IBOutlet CenterHeaderItemView *subscribeView;
+@property (nonatomic, strong) IBOutlet CenterHeaderItemView *attentionView;
+@property (nonatomic, strong) IBOutlet CenterHeaderItemView *fansView;
 @property (weak, nonatomic) IBOutlet UIImageView *levelImageView;
 @property (weak, nonatomic) IBOutlet UIImageView *sexImageView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
@@ -48,14 +50,9 @@
     self.tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     
-//    self.headerImageView.contentMode = UIViewContentModeCenter;
-//    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
-//    self.headerImageView.image = [image resize:CGSizeMake(kScreenWidth, 210)];
     
     self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
-//    self.avatarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-//    self.avatarBtn.layer.borderWidth = 1.0f;
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.colors = @[(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#2662D0"].CGColor,(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#1BAFE7"].CGColor];
@@ -74,7 +71,7 @@
     [super viewWillAppear:animated];
     
     [self queryUserInfo];
-    [self setupUserInfo];
+    [self queryNotifyInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -102,12 +99,28 @@
     }];
 }
 
-- (void)setupUserInfo {
+- (void)setupAliveInfoWithDictionary:(NSDictionary *)dict {
+    
+    if (dict) {
+        [LoginHandler saveUserInfoData:dict];
+        
+        NSInteger level = US.userLevel;
+        if (level == kUserLevelBronze) {
+            self.levelImageView.image = [UIImage imageNamed:@"tag_level1.png"];
+        } else if (level == kUserLevelSilver) {
+            self.levelImageView.image = [UIImage imageNamed:@"tag_level2.png"];
+        } else if (level == kUserLevelGold) {
+            self.levelImageView.image = [UIImage imageNamed:@"tag_level3.png"];
+        } else {
+            self.levelImageView.image = nil;
+        }
+    }
+    
     if (US.isLogIn == YES) {
-        NSString *bigface = [US.headImage userBigAvatar];
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:bigface] forState:UIControlStateNormal placeholderImage:TDCenterUserAvatar options:SDWebImageRefreshCached];
+        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:TDCenterUserAvatar options:SDWebImageRefreshCached];
         
         self.nickNameLabel.text = US.nickName;
+        self.sexImageView.image = US.sex?[UIImage imageNamed:@"ico_sex-man.png"]:[UIImage imageNamed:@"ico_sex-women.png"];
     } else {
         [self.avatarBtn setImage:TDCenterUserAvatar forState:UIControlStateNormal];
         self.nickNameLabel.text = @"登陆注册";
@@ -115,28 +128,26 @@
     }
 }
 
-- (void)setupAliveInfoWithDictionary:(NSDictionary *)dict {
-    // 1表示黄金会员，0表示普通会员
-    if (dict) {
-        NSInteger dy = [dict[@"alive_num"] integerValue];
-        NSInteger at = [dict[@"atten_num"] integerValue];
-        NSInteger fan = [dict[@"fans_num"] integerValue];
-        NSInteger level = [dict[@"user_level"] integerValue];
+- (void)queryNotifyInfo {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    __weak CenterViewController *wself = self;
+    
+    [manager POST:API_UserGetNotify parameters:nil completion:^(id data, NSError *error){
         
-        [self.dynamicView setupNumber:dy];
-        [self.attentionView setupNumber:at];
-        [self.fansView setupNumber:fan];
-        
-        if (level == kUserLevelNormal) {
-            self.levelImageView.image = [UIImage imageNamed:@"level_nomal.png"];
-        } else if (level == kUserLevelGold) {
-            self.levelImageView.image = [UIImage imageNamed:@"level_huangjin.png"];
+        if (!error) {
+            NSDictionary *dict = data;
+            NSInteger dy = [dict[@"alive_num"] integerValue];
+            NSInteger at = [dict[@"atten_num"] integerValue];
+            NSInteger fan = [dict[@"fans_num"] integerValue];
+
+            [wself.subscribeView setupNumber:dy];
+            [wself.attentionView setupNumber:at];
+            [wself.fansView setupNumber:fan];
         } else {
-            self.levelImageView.image = nil;
+            
         }
         
-        US.userLevel = level;
-    }
+    }];
 }
 
 #pragma mark - Action

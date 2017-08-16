@@ -11,4 +11,5 @@
 @interface CenterHeaderItemView : UIView
 @property (nonatomic, weak) IBOutlet UILabel *numberLabel;
 
+- (void)setupNumber:(NSInteger)number;
 @end

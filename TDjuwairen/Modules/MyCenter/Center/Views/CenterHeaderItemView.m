@@ -10,12 +10,10 @@
 
 @implementation CenterHeaderItemView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
+
+- (void)setupNumber:(NSInteger)number {
+    NSString *numberString = [NSString stringWithFormat:@"%ld",(long)number];
+    self.numberLabel.text = numberString;
 }
-*/
 
 @end

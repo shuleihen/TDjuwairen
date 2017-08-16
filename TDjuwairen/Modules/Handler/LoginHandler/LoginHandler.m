@@ -30,6 +30,19 @@
     [[NSUserDefaults standardUserDefaults] setObject:unique_str forKey:@"unique_str"];
 }
 
++ (void)saveUserInfoData:(NSDictionary *)data {
+    US.userId = data[@"user_id"];
+    US.userName = data[@"user_name"];
+    US.nickName = data[@"user_nickname"];
+    US.headImage = data[@"userinfo_facesmall"];
+    US.userPhone = data[@"userinfo_phone"];
+    US.company = data[@"userinfo_company"];
+    US.post = data[@"userinfo_occupation"];
+    US.personal = data[@"userinfo_info"];
+    US.sex = [data[@"user_sex"] integerValue];
+    US.userLevel = [data[@"user_level"] integerValue];
+}
+
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
     [accountDefaults setObject:@"normal" forKey:@"loginStyle"];

@@ -270,7 +270,7 @@
                                             </constraints>
                                             <state key="normal" image="ico_gushen"/>
                                         </button>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4m-nx-zqO">
+                                        <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4m-nx-zqO">
                                             <rect key="frame" x="333" y="17" width="30" height="30"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" constant="30" id="0bN-bi-Fs1"/>
@@ -306,7 +306,7 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64h-FR-mVB" customClass="CenterHeaderItemView">
                                             <rect key="frame" x="135.5" y="0.0" width="80" height="64"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="167" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8u-ow-q3C">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8u-ow-q3C">
                                                     <rect key="frame" x="0.0" y="10" width="80" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="peu-Fn-ayp"/>
@@ -331,11 +331,14 @@
                                                 <constraint firstAttribute="width" constant="80" id="qdi-ns-u9L"/>
                                                 <constraint firstItem="dOv-NN-pHk" firstAttribute="top" secondItem="G8u-ow-q3C" secondAttribute="bottom" constant="3" id="xsK-eR-oDa"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="numberLabel" destination="G8u-ow-q3C" id="lcO-OB-JfG"/>
+                                            </connections>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4j-RG-ISR" customClass="CenterHeaderItemView">
                                             <rect key="frame" x="12" y="0.0" width="80" height="64"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="52" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4og-Mz-woc">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4og-Mz-woc">
                                                     <rect key="frame" x="0.0" y="10" width="80" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="7O3-bz-9te"/>
@@ -360,11 +363,14 @@
                                                 <constraint firstAttribute="width" constant="80" id="jyN-Ys-quq"/>
                                                 <constraint firstItem="4og-Mz-woc" firstAttribute="leading" secondItem="D4j-RG-ISR" secondAttribute="leading" id="oFV-0i-IPd"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="numberLabel" destination="4og-Mz-woc" id="N9v-E1-i8z"/>
+                                            </connections>
                                         </view>
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1G-b5-hqc" customClass="CenterHeaderItemView">
                                             <rect key="frame" x="259" y="0.0" width="80" height="64"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQc-gV-Myj">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQc-gV-Myj">
                                                     <rect key="frame" x="0.0" y="10" width="80" height="20"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="20" id="vs1-xm-DJF"/>
@@ -389,6 +395,9 @@
                                                 <constraint firstItem="AQc-gV-Myj" firstAttribute="top" secondItem="W1G-b5-hqc" secondAttribute="top" constant="10" id="wCa-1I-X2H"/>
                                                 <constraint firstAttribute="trailing" secondItem="AQc-gV-Myj" secondAttribute="trailing" id="yWi-Aa-HIL"/>
                                             </constraints>
+                                            <connections>
+                                                <outlet property="numberLabel" destination="AQc-gV-Myj" id="dd1-b8-Q5G"/>
+                                            </connections>
                                         </view>
                                     </subviews>
                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -451,8 +460,12 @@
                                                                 <constraint firstAttribute="height" constant="22" id="xGe-gR-w64"/>
                                                             </constraints>
                                                         </imageView>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="83" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtR-Kt-ltF">
-                                                            <rect key="frame" x="46" y="40.5" width="23" height="22"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DtR-Kt-ltF">
+                                                            <rect key="frame" x="46" y="41.5" width="100" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="XAB-9o-w1v"/>
+                                                                <constraint firstAttribute="height" constant="20" id="XAU-1A-0Te"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -505,8 +518,12 @@
                                                             <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
-                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="10,325" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiD-zV-CJb">
-                                                            <rect key="frame" x="25" y="40" width="57" height="22"/>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SiD-zV-CJb">
+                                                            <rect key="frame" x="25" y="40" width="100" height="20"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="width" constant="100" id="DqL-bD-X86"/>
+                                                                <constraint firstAttribute="height" constant="20" id="exA-1c-V8Q"/>
+                                                            </constraints>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                                                             <nil key="highlightedColor"/>
@@ -671,11 +688,14 @@
                     </tableView>
                     <navigationItem key="navigationItem" id="yjt-0i-sEx"/>
                     <connections>
+                        <outlet property="attentionView" destination="D4j-RG-ISR" id="fGD-tW-kTj"/>
                         <outlet property="avatarBtn" destination="5D8-au-N4i" id="t8h-3h-B04"/>
+                        <outlet property="fansView" destination="64h-FR-mVB" id="5Kh-Sc-jGV"/>
                         <outlet property="headerView" destination="B6g-90-yEJ" id="ebi-Dn-9Sh"/>
                         <outlet property="levelImageView" destination="oww-PL-hN3" id="Xzu-7u-EKA"/>
                         <outlet property="nickNameLabel" destination="i4B-Yb-OcF" id="5Gp-B5-2Gh"/>
                         <outlet property="sexImageView" destination="yA1-Zu-8vf" id="SwH-NR-zcQ"/>
+                        <outlet property="subscribeView" destination="W1G-b5-hqc" id="vnE-W4-oUO"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30c-ti-p3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
