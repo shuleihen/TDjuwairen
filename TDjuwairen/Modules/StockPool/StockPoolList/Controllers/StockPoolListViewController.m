@@ -23,12 +23,15 @@
 #import "StockPoolAddAndEditViewController.h"
 #import "TDNavigationController.h"
 #import "StockPoolDraftTableViewController.h"
+#import "StockUnlockManager.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
 
 
-@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate,StockPoolExpireCellDelegate>
+@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate,StockPoolExpireCellDelegate,
+StockUnlockManagerDelegate>
+
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) StockPoolListToolView *toolView;
 @property (nonatomic, assign) NSInteger page;
@@ -36,6 +39,7 @@
 @property (nonatomic, strong) StockPoolListDataModel *listDataModel;
 @property (nonatomic, copy) NSString *searchMonthStr;
 @property (nonatomic, strong) UIView *emptyView;
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation StockPoolListViewController
@@ -77,6 +81,12 @@
     
     [self setupNavigation];
     
+    self.unlockManager = [[StockUnlockManager alloc] init];
+    self.unlockManager.delegate = self;
+    
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMdd";
+    self.searchMonthStr = [formatter stringFromDate:[NSDate new]];
     
     if ([US.userId isEqualToString:self.userId]) {
         self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
@@ -87,10 +97,8 @@
         self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
         [self.view addSubview:self.tableView];
     }
+    
     [self configEmptyViewUI];
-    NSCalendar *calendar = [NSCalendar currentCalendar];
-    NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:[NSDate date]];
-    self.searchMonthStr = [NSString stringWithFormat:@"%04ld%01ld%02ld",componentsMonth.year,componentsMonth.month,componentsMonth.day];
     
     [self refreshActions];
 }
@@ -308,10 +316,15 @@
     
 }
 
+#pragma mark - StockUnlockManagerDelegate
+- (void)unlockManager:(StockUnlockManager *)manager withMasterId:(NSString *)masterId {
+    [self refreshActions];
+}
+
 #pragma mark - StockPoolExpireCellDelegate 续费
 - (void)addMoney:(StockPoolExpireCell *)cell cellModel:(StockPoolListCellModel *)cellModel {
     
-    
+    [self.unlockManager unlockStockPool:self.userId withController:self];
 }
 
 #pragma mark - Table view data source
@@ -348,7 +361,6 @@
         StockPoolDetailViewController *vc = [[StockPoolDetailViewController alloc] init];
         vc.recordId = model.record_id;
         [self.navigationController pushViewController:vc animated:YES];
-        
     }
 }
 

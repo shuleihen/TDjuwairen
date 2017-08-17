@@ -20,6 +20,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *recordDescLabel;
 @property (weak, nonatomic) IBOutlet UILabel *timeLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *sNewImageView;
+@property (weak, nonatomic) IBOutlet UILabel *moneyLabel;
 
 @end
 
@@ -32,6 +33,8 @@
     
     UIImage *rightBackImage = [UIImage imageWithStockPoolListRightBackground];
     self.rightBackImageView.image = [rightBackImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 20, 10, 10)];
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
    
 }
 
@@ -61,13 +64,14 @@
     }
     
     self.weekLabel.attributedText = attr;
-    self.recordTotalRatioLabel.text = [NSString stringWithFormat:@"仓位 %@%@",cellModel.record_total_ratio,@"%"];
+    self.recordTotalRatioLabel.text = [NSString stringWithFormat:@"仓位 %@%%",cellModel.record_total_ratio];
+    self.moneyLabel.text = [NSString stringWithFormat:@"%ld%% 资金",(long)(100-[cellModel.record_total_ratio integerValue])];
     self.progressView.progress = [cellModel.record_total_ratio integerValue]*0.01f;
     self.recordDescLabel.text = cellModel.record_desc;
     
     NSDateComponents *componentsTime = [calendar components:NSCalendarUnitHour|NSCalendarUnitMinute fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     self.timeLabel.text = [NSString stringWithFormat:@"%ld:%ld",componentsTime.hour,componentsTime.minute];
-    self.sNewImageView.hidden = cellModel.record_is_new;
+    self.sNewImageView.hidden = !cellModel.record_is_new;
     
     NSDateComponents *componentsMonth = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:[NSDate dateWithTimeIntervalSince1970:[cellModel.record_time integerValue]]];
     

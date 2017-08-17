@@ -16,57 +16,38 @@
 #import "TDSegmentedControl.h"
 #import "StockPoolListViewController.h"
 
-@interface AliveListRootViewController ()
-@property (nonatomic, strong) UITabBarController *tabBarController;
-@property (nonatomic, strong) UISegmentedControl *segmentControl;
+@interface AliveListRootViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+
+@property (nonatomic, strong) UIPageViewController *pageViewController;
+@property (nonatomic, strong) NSArray *contentControllers;
 @end
 
 @implementation AliveListRootViewController
 
-- (UITabBarController *)tabBarController {
-    if (!_tabBarController) {
-        _tabBarController = [[UITabBarController alloc] init];
-        _tabBarController.tabBar.hidden = YES;
+- (UIPageViewController *)pageViewController {
+    if (!_pageViewController) {
+        NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]  forKey: UIPageViewControllerOptionSpineLocationKey];
+        _pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:options];
+        _pageViewController.dataSource = nil;
+        _pageViewController.delegate = self;
         
+        [self addChildViewController:_pageViewController];
+    }
+    return _pageViewController;
+}
+
+- (NSArray *)contentControllers {
+    if (!_contentControllers) {
         AliveMainListViewController *one = [[AliveMainListViewController alloc] init];
         one.mainListType = kMainListRecommend;
         
         AliveMainListViewController *two = [[AliveMainListViewController alloc] init];
         two.mainListType = kMainListAttention;
-        _tabBarController.viewControllers = @[one,two];
+        
+        _contentControllers = @[one,two];
     }
-    return _tabBarController;
-}
-
-- (UISegmentedControl *)segmentControl {
-    if (!_segmentControl) {
-        UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-        view.backgroundColor = [UIColor whiteColor];
-        
-//        UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
-//        UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
-        
-        _segmentControl = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注"]];
-        _segmentControl.tintColor = [UIColor clearColor];
-        
-        [_segmentControl addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
-        [_segmentControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16 weight:UIFontWeightRegular]}
-                                 forState:UIControlStateNormal];
-        [_segmentControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17 weight:UIFontWeightMedium], NSForegroundColorAttributeName: [UIColor whiteColor]}
-                                 forState:UIControlStateHighlighted];
-        [_segmentControl setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17 weight:UIFontWeightMedium], NSForegroundColorAttributeName: [UIColor whiteColor]}
-                                 forState:UIControlStateSelected];
-        
-        _segmentControl.frame = CGRectMake(0, 0, 120, 44);
-//        [_segmentControl setBackgroundImage:nil forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-//        [_segmentControl setBackgroundImage:nil forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-//        [_segmentControl setBackgroundImage:nil forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
-//        [_segmentControl setBackgroundImage:nil forState:UIControlStateSelected|UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
-        
-        UIImage *dividerImage = [UIImage imageWithSize:CGSizeMake(1, 3) withColor:[UIColor whiteColor] withCornerWidth:1.5];
-        [_segmentControl setDividerImage:dividerImage forLeftSegmentState:UIControlStateSelected rightSegmentState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
-    }
-    return _segmentControl;
+    
+    return _contentControllers;
 }
 
 - (void)viewDidLoad {
@@ -75,9 +56,7 @@
     
     [self setupNavigationBar];
     
-    [self addChildViewController:self.tabBarController];
-    [self.view addSubview:self.tabBarController.view];
-    self.tabBarController.selectedIndex = 0;
+    [self.view addSubview:self.pageViewController.view];
 }
 
 - (void)setupNavigationBar {
@@ -106,6 +85,8 @@
     TDSegmentedControl *segmentControl = [[TDSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, 120, 44) witItems:@[@"推荐",@"关注"]];
     [segmentControl addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
     self.navigationItem.titleView = segmentControl;
+    
+    [self segmentValueChanged:segmentControl];
 }
 
 #pragma mark - Action
@@ -130,6 +111,13 @@
 }
 
 - (void)segmentValueChanged:(TDSegmentedControl *)sender {
-    self.tabBarController.selectedIndex = sender.selectedIndex;
+
+    NSInteger index = sender.selectedIndex;
+    
+    if (index>=0 && index<self.contentControllers.count) {
+        UIViewController *vc = self.contentControllers[index];
+        [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
+        }];
+    }
 }
 @end

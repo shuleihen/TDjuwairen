@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -50,16 +50,8 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0B4-0c-cdU">
-                                <rect key="frame" x="26" y="60" width="197" height="33"/>
-                                <attributedString key="attributedText">
-                                    <fragment content="货比宽松，利好有色金属，今年内或许还有降准降息，所以有色板块">
-                                        <attributes>
-                                            <color key="NSColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="15" name=".PingFangSC-Regular"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" lineSpacing="3" tighteningFactorForTruncation="0.0"/>
-                                        </attributes>
-                                    </fragment>
-                                </attributedString>
+                                <rect key="frame" x="26" y="60" width="197" height="0.0"/>
+                                <attributedString key="attributedText"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="09:51" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1jQ-cE-029">
@@ -100,7 +92,7 @@
                         </constraints>
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dmh-ik-nwy">
-                        <rect key="frame" x="0.0" y="16" width="60" height="21"/>
+                        <rect key="frame" x="0.0" y="18" width="60" height="21"/>
                         <attributedString key="attributedText">
                             <fragment content="14 ">
                                 <attributes>
@@ -118,7 +110,7 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-07" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GXg-uY-2K0">
-                        <rect key="frame" x="0.0" y="39" width="60" height="12"/>
+                        <rect key="frame" x="0.0" y="40" width="60" height="12"/>
                         <fontDescription key="fontDescription" type="system" pointSize="10"/>
                         <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
@@ -128,20 +120,21 @@
                 <constraints>
                     <constraint firstItem="wMP-1o-2ws" firstAttribute="leading" secondItem="Smw-J8-yy5" secondAttribute="trailing" constant="3" id="0lS-GR-eg5"/>
                     <constraint firstItem="Smw-J8-yy5" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="60" id="FHa-t4-a6D"/>
-                    <constraint firstItem="GXg-uY-2K0" firstAttribute="top" secondItem="dmh-ik-nwy" secondAttribute="bottom" constant="2" id="Qyn-AY-FtL"/>
+                    <constraint firstItem="GXg-uY-2K0" firstAttribute="top" secondItem="dmh-ik-nwy" secondAttribute="bottom" constant="1" id="Qyn-AY-FtL"/>
                     <constraint firstItem="Smw-J8-yy5" firstAttribute="leading" secondItem="dmh-ik-nwy" secondAttribute="trailing" id="Rai-Q6-ajg"/>
                     <constraint firstItem="Smw-J8-yy5" firstAttribute="leading" secondItem="GXg-uY-2K0" secondAttribute="trailing" id="Zbt-yC-kxl"/>
                     <constraint firstItem="GXg-uY-2K0" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ZdU-CH-Ca6"/>
                     <constraint firstItem="Smw-J8-yy5" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="Zg2-Dl-aFf"/>
                     <constraint firstAttribute="trailing" secondItem="wMP-1o-2ws" secondAttribute="trailing" constant="15" id="edO-Rl-mPY"/>
                     <constraint firstItem="wMP-1o-2ws" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="mmA-ph-Ecd"/>
-                    <constraint firstItem="dmh-ik-nwy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="nET-nU-xcV"/>
+                    <constraint firstItem="dmh-ik-nwy" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="18" id="nET-nU-xcV"/>
                     <constraint firstAttribute="bottom" secondItem="Smw-J8-yy5" secondAttribute="bottom" id="ts5-zy-Bm3"/>
                     <constraint firstItem="dmh-ik-nwy" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="wFq-t8-567"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="leftImageView" destination="Smw-J8-yy5" id="CSB-gU-bvr"/>
+                <outlet property="moneyLabel" destination="PKN-Jc-WVI" id="ejX-P8-bsU"/>
                 <outlet property="monthLabel" destination="GXg-uY-2K0" id="ZVN-O6-tPa"/>
                 <outlet property="progressView" destination="JIs-5k-DDo" id="Sk8-uW-Ayb"/>
                 <outlet property="recordDescLabel" destination="0B4-0c-cdU" id="aaM-8q-Oya"/>

@@ -247,4 +247,6 @@
 #define API_StockPoolGetDetailInfo      @"StockPool/showRecordInfo"
 #define API_StockPoolGetDraftList       @"StockPool/getRecordDraft"
 #define API_StockPoolDeleteRecord       @"/StockPool/deleteRecord"
+#define API_StockPoolGetSubscribe       @"StockPool/getSubscribeStockPoolInfo"
+#define API_StockPoolSubscribe          @"StockPool/subscribeStockPool"
 #endif /* NetworkDefine_h */

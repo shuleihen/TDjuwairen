@@ -141,7 +141,12 @@ UITextViewDelegate, MBProgressHUDDelegate>
     [indicator startAnimating];
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_StockPoolGetRecordPoint parameters:@{@"record_id":self.recordId?:@""} completion:^(id data, NSError *error){
+    NSDictionary *dict = @{};
+    if (self.recordId.length) {
+        dict = @{@"record_id":self.recordId};
+    }
+    
+    [ma GET:API_StockPoolGetRecordPoint parameters:dict completion:^(id data, NSError *error){
         
         [indicator stopAnimating];
         

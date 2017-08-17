@@ -14,9 +14,10 @@
 #import "UIViewController+Refresh.h"
 #import "UIViewController+Loading.h"
 #import "StockPoolListViewController.h"
+#import "StockUnlockManager.h"
 
-@interface AliveListStockPoolViewController ()<UITableViewDelegate, UITableViewDataSource>
-
+@interface AliveListStockPoolViewController ()<UITableViewDelegate, UITableViewDataSource, StockUnlockManagerDelegate>
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation AliveListStockPoolViewController
@@ -28,6 +29,9 @@
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
     self.tableView.rowHeight = 150.0f;
+    
+    self.unlockManager = [[StockUnlockManager alloc] init];
+    self.unlockManager.delegate = self;
     
     UINib *nib = [UINib nibWithNibName:@"AliveListStockPoolTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveListStockPoolTableViewCellID"];
@@ -131,6 +135,26 @@
     }];
 }
 
+#pragma mark - StockUnlockManagerDelegate
+- (void)unlockManager:(StockUnlockManager *)manager withMasterId:(NSString *)masterId {
+    __block NSUInteger index = 0;
+    
+    [self.aliveList enumerateObjectsUsingBlock:^(AliveListStockPoolModel *model, NSUInteger idx, BOOL *stop){
+        if ([model.masterId isEqualToString:masterId]) {
+            model.isSubscribe = YES;
+            model.isExpire = NO;
+            
+            index = idx;
+            *stop = YES;
+        }
+    }];
+    
+    AliveListStockPoolModel *model = self.aliveList[index];
+    [self pushToStockPoolWithMasterId:model.masterId];
+    
+    [self.tableView reloadData];
+}
+
 #pragma mark - UITableView Data
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 1;
@@ -161,8 +185,17 @@
     
     AliveListStockPoolModel *model = self.aliveList[indexPath.row];
     
+    if (model.isFree ||
+        (model.isSubscribe && !model.isExpire)) {
+        [self pushToStockPoolWithMasterId:model.masterId];
+    } else {
+        [self.unlockManager unlockStockPool:model.masterId withController:self];
+    }
+}
+
+- (void)pushToStockPoolWithMasterId:(NSString *)masterId {
     StockPoolListViewController *vc = [[StockPoolListViewController alloc] init];
-    vc.userId = model.masterId;
+    vc.userId = masterId;
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }

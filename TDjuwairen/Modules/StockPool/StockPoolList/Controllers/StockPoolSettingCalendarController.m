@@ -277,11 +277,10 @@
                         
                     } completion:^(BOOL finished) {
                         if ([self.delegate respondsToSelector:@selector(chooseDateBack:dateStr:)]) {
-                            _localDateFormatter.dateFormat = @"yyyy-MM";
-                            
-                            NSCalendar *calendar = [NSCalendar currentCalendar];
-                            NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay fromDate:dayView.date];
-                            [self.delegate chooseDateBack:self dateStr:[NSString stringWithFormat:@"%04ld%02ld",[components year],[components month]]];
+                            _localDateFormatter.dateFormat = @"yyyyMMdd";
+
+                            NSString *str = [_localDateFormatter stringFromDate:dayView.date];
+                            [self.delegate chooseDateBack:self dateStr:str];
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }];
