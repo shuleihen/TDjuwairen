@@ -33,6 +33,13 @@
 		19042E791F42D4CE0004D3C6 /* SPEditRecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E781F42D4CE0004D3C6 /* SPEditRecordModel.m */; };
 		19042E7C1F43DF6E0004D3C6 /* StockPoolSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E7B1F43DF6E0004D3C6 /* StockPoolSearchViewController.m */; };
 		19042E801F43EBBB0004D3C6 /* NSString+Json.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E7F1F43EBBB0004D3C6 /* NSString+Json.m */; };
+		19042E831F4416E50004D3C6 /* StockPoolDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E821F4416E50004D3C6 /* StockPoolDetailViewController.m */; };
+		19042E871F4417AB0004D3C6 /* SPDetailTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E851F4417AB0004D3C6 /* SPDetailTableViewCell.m */; };
+		19042E881F4417AB0004D3C6 /* SPDetailTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E861F4417AB0004D3C6 /* SPDetailTableViewCell.xib */; };
+		19042E8C1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E8A1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.m */; };
+		19042E8D1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E8B1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.xib */; };
+		19042E911F441D330004D3C6 /* StockPoolDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E901F441D330004D3C6 /* StockPoolDetailModel.m */; };
+		19042E971F4536490004D3C6 /* StockPoolDraftTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E961F4536490004D3C6 /* StockPoolDraftTableViewController.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -754,6 +761,18 @@
 		19042E7B1F43DF6E0004D3C6 /* StockPoolSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolSearchViewController.m; sourceTree = "<group>"; };
 		19042E7E1F43EBBB0004D3C6 /* NSString+Json.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+Json.h"; sourceTree = "<group>"; };
 		19042E7F1F43EBBB0004D3C6 /* NSString+Json.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+Json.m"; sourceTree = "<group>"; };
+		19042E811F4416E50004D3C6 /* StockPoolDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolDetailViewController.h; sourceTree = "<group>"; };
+		19042E821F4416E50004D3C6 /* StockPoolDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolDetailViewController.m; sourceTree = "<group>"; };
+		19042E841F4417AB0004D3C6 /* SPDetailTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDetailTableViewCell.h; sourceTree = "<group>"; };
+		19042E851F4417AB0004D3C6 /* SPDetailTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDetailTableViewCell.m; sourceTree = "<group>"; };
+		19042E861F4417AB0004D3C6 /* SPDetailTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPDetailTableViewCell.xib; sourceTree = "<group>"; };
+		19042E891F441AB30004D3C6 /* SPDetailPositionsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPDetailPositionsTableViewCell.h; sourceTree = "<group>"; };
+		19042E8A1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPDetailPositionsTableViewCell.m; sourceTree = "<group>"; };
+		19042E8B1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SPDetailPositionsTableViewCell.xib; sourceTree = "<group>"; };
+		19042E8F1F441D330004D3C6 /* StockPoolDetailModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolDetailModel.h; sourceTree = "<group>"; };
+		19042E901F441D330004D3C6 /* StockPoolDetailModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolDetailModel.m; sourceTree = "<group>"; };
+		19042E951F4536490004D3C6 /* StockPoolDraftTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolDraftTableViewController.h; sourceTree = "<group>"; };
+		19042E961F4536490004D3C6 /* StockPoolDraftTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolDraftTableViewController.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2076,6 +2095,40 @@
 				19042E7F1F43EBBB0004D3C6 /* NSString+Json.m */,
 			);
 			path = "NSString+Json";
+			sourceTree = "<group>";
+		};
+		19042E8E1F441D240004D3C6 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				19042E8F1F441D330004D3C6 /* StockPoolDetailModel.h */,
+				19042E901F441D330004D3C6 /* StockPoolDetailModel.m */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		19042E921F45362C0004D3C6 /* StockPoolDraft */ = {
+			isa = PBXGroup;
+			children = (
+				19042E931F45362C0004D3C6 /* Cells */,
+				19042E941F45362C0004D3C6 /* Controllers */,
+			);
+			path = StockPoolDraft;
+			sourceTree = "<group>";
+		};
+		19042E931F45362C0004D3C6 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		19042E941F45362C0004D3C6 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19042E951F4536490004D3C6 /* StockPoolDraftTableViewController.h */,
+				19042E961F4536490004D3C6 /* StockPoolDraftTableViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		190F65C41E36E73000B83ADF /* MyWallet */ = {
@@ -4732,6 +4785,7 @@
 		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
 			isa = PBXGroup;
 			children = (
+				19042E921F45362C0004D3C6 /* StockPoolDraft */,
 				4D1A42C01F3D39D2008F562D /* StockPoolSubscibe */,
 				4D1A42BC1F3D39BA008F562D /* StockPoolEdit */,
 				4D1A42B81F3D39A1008F562D /* StockPoolDetail */,
@@ -5206,6 +5260,7 @@
 		4D1A42B81F3D39A1008F562D /* StockPoolDetail */ = {
 			isa = PBXGroup;
 			children = (
+				19042E8E1F441D240004D3C6 /* Models */,
 				4D1A42B91F3D39A1008F562D /* Cells */,
 				4D1A42BA1F3D39A1008F562D /* Controllers */,
 				4D1A42BB1F3D39A1008F562D /* Views */,
@@ -5216,6 +5271,12 @@
 		4D1A42B91F3D39A1008F562D /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				19042E841F4417AB0004D3C6 /* SPDetailTableViewCell.h */,
+				19042E851F4417AB0004D3C6 /* SPDetailTableViewCell.m */,
+				19042E861F4417AB0004D3C6 /* SPDetailTableViewCell.xib */,
+				19042E891F441AB30004D3C6 /* SPDetailPositionsTableViewCell.h */,
+				19042E8A1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.m */,
+				19042E8B1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -5223,6 +5284,8 @@
 		4D1A42BA1F3D39A1008F562D /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				19042E811F4416E50004D3C6 /* StockPoolDetailViewController.h */,
+				19042E821F4416E50004D3C6 /* StockPoolDetailViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -6007,6 +6070,7 @@
 				4DDA5C3F1EB31F25005BC8D7 /* PublishSelectedStockCell.xib in Resources */,
 				1946EE9B1E0EA90200D8FB3A /* ShareSDKUI.bundle in Resources */,
 				1946EEA01E0EA90200D8FB3A /* WeiboSDK.bundle in Resources */,
+				19042E8D1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.xib in Resources */,
 				193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */,
 				19ED174D1F1644B400EC89DF /* MyGuessCell.xib in Resources */,
 				19F07A7E1F20D1A3004449BB /* DeepTableViewCell.xib in Resources */,
@@ -6063,6 +6127,7 @@
 				1987B2791EE688F700BD852E /* NiuxiongTableViewCell.xib in Resources */,
 				1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */,
 				194B0A341D3E21DE0023F1C3 /* Podfile in Resources */,
+				19042E881F4417AB0004D3C6 /* SPDetailTableViewCell.xib in Resources */,
 				4DEFF1B31ED81AF0004E3267 /* AliveSearchSubTypeController.xib in Resources */,
 				19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */,
 				19F07A031F19A796004449BB /* PSIndividualUserListCell.xib in Resources */,
@@ -6158,6 +6223,7 @@
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
 				19ED17591F17759600EC89DF /* CBAutoScrollLabel.m in Sources */,
+				19042E971F4536490004D3C6 /* StockPoolDraftTableViewController.m in Sources */,
 				194E0D031EEE3E36009C7AC6 /* StockCollectionTableViewController.m in Sources */,
 				19E58DAE1EF8C55500ADA1B8 /* UIViewController+ZFPlayerRotation.m in Sources */,
 				1987B2801EE688F700BD852E /* SurveyAnnounceViewController.m in Sources */,
@@ -6185,6 +6251,7 @@
 				9EC715EB1F3F5DEE00F3A071 /* JTCalendarManager.m in Sources */,
 				19252C121D51E830003E5D18 /* MASConstraint.m in Sources */,
 				4DEFF1B21ED81AF0004E3267 /* AliveSearchSubTypeController.m in Sources */,
+				19042E831F4416E50004D3C6 /* StockPoolDetailViewController.m in Sources */,
 				19386F021E73A31400D4426E /* CenterItemView.m in Sources */,
 				9EC715C01F3F2B3F00F3A071 /* UIControl+YMCustom.m in Sources */,
 				19F0074D1E31E5AE000A5F98 /* RechargeViewController.m in Sources */,
@@ -6351,6 +6418,7 @@
 				19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */,
 				1987B28A1EE688F700BD852E /* AnsModel.m in Sources */,
 				19252C191D51E830003E5D18 /* View+MASAdditions.m in Sources */,
+				19042E911F441D330004D3C6 /* StockPoolDetailModel.m in Sources */,
 				19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */,
 				1987B2741EE688F700BD852E /* AskTableViewCell.m in Sources */,
 				19194D161E80CBE900641085 /* ZFCWaveActivityIndicatorView.m in Sources */,
@@ -6429,6 +6497,7 @@
 				196F5ECD1E54858600928B60 /* UIDevice+Identifier.m in Sources */,
 				19AA7DB11F3848CE00716F38 /* TDTabBar.m in Sources */,
 				1959D4741F29E5F5002B969A /* SystemAudioHandler.m in Sources */,
+				19042E8C1F441AB30004D3C6 /* SPDetailPositionsTableViewCell.m in Sources */,
 				4D1A42C61F3D3B19008F562D /* StockPoolSettingController.m in Sources */,
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E58DA91EF8C55500ADA1B8 /* UIAlertController+ZFPlayerRotation.m in Sources */,
@@ -6549,6 +6618,7 @@
 				19F07A381F1D9FDD004449BB /* XHLaunchAdImageManager.m in Sources */,
 				19C348751D3F76DB008ABD16 /* UIScrollView+MJExtension.m in Sources */,
 				19F07A471F1DD474004449BB /* SysMessageListCell.m in Sources */,
+				19042E871F4417AB0004D3C6 /* SPDetailTableViewCell.m in Sources */,
 				19194D221E80D08900641085 /* SSColorfulRefresh.m in Sources */,
 				84E334661CE3123700E5DCEE /* SDWebImageCompat.m in Sources */,
 				4DD179ED1E77C00B00FBE66D /* UIImage+imageSize.m in Sources */,

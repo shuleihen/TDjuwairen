@@ -11,4 +11,5 @@
 
 @interface UILabel (StockCode)
 - (void)setupForGuessDetailStockInfo:(StockInfo *)stock;
+- (void)setupForStockPoolDetailStockInfo:(StockInfo *)stock;
 @end

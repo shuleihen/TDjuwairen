@@ -37,8 +37,6 @@ UITextViewDelegate, MBProgressHUDDelegate>
         
         UINib *nib = [UINib nibWithNibName:@"SPEditTableViewCell" bundle:nil];
         [_tableView registerNib:nib forCellReuseIdentifier:@"SPEditTableViewCellID"];
-        
-//        [_tableView registerClass:[UITableViewCell class] forCellReuseIdentifier:@"SPEditTableViewCellAddID"];
     }
     
     return _tableView;
@@ -143,13 +141,16 @@ UITextViewDelegate, MBProgressHUDDelegate>
     [indicator startAnimating];
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_StockPoolGetRecordPoint parameters:@{@"record_id":@""} completion:^(id data, NSError *error){
+    [ma GET:API_StockPoolGetRecordPoint parameters:@{@"record_id":self.recordId?:@""} completion:^(id data, NSError *error){
         
         [indicator stopAnimating];
         
-        if (!error && data && [data isKindOfClass:[NSArray class]]) {
-            NSMutableArray *array = [NSMutableArray arrayWithCapacity:((NSArray *)data).count];
-            for (NSDictionary *dict in data) {
+        if (!error && data && [data isKindOfClass:[NSDictionary class]]) {
+            self.reason = data[@"record_desc"];
+            NSArray *records = data[@"record_detail_list"];
+            
+            NSMutableArray *array = [NSMutableArray arrayWithCapacity:records.count];
+            for (NSDictionary *dict in records) {
                 SPEditRecordModel *model = [[SPEditRecordModel alloc] initWithDictionary:dict];
                 [array addObject:model];
             }
@@ -234,7 +235,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
     NSDictionary *dict = @{@"desc": self.reason,
                            @"is_publish": isDraft?@(0):@(1),
                            @"position_data": position,
-                           @"record_id": @""};
+                           @"record_id": self.recordId?:@""};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = isDraft?@"保存中":@"提交中";
@@ -364,6 +365,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
             textView.placeholderLabel.font = [UIFont systemFontOfSize:14.0f];
             textView.placeholderLabel.frame = CGRectMake(20, 19, 150, 16);
             textView.placeholder = @"写一下你的持仓理由吧~";
+            textView.text = self.reason;
             [cell.contentView addSubview:textView];
             
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -11,8 +11,10 @@
 @interface TDSegmentedControl : UIControl
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, assign) NSInteger selectedIndex;
+@property (nonatomic, strong) NSDictionary *attributes;
+@property (nonatomic, strong) NSDictionary *selectedAttributes;
 
 - (id)initWithFrame:(CGRect)frame witItems:(NSArray *)items;
 - (void)setupUnread:(BOOL)unread withIndex:(NSInteger)index;
-- (void)setupSlideWithIndex:(NSInteger)index;
+- (void)setupSlideWithIndex:(NSInteger)index animation:(BOOL)animation;
 @end

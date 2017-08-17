@@ -244,5 +244,7 @@
 #define API_StockPoolGetRecordDates       @"StockPool/getRecordDates"
 #define API_StockPoolGetRecordPoint     @"StockPool/getRecordPositionInfo"
 #define API_StockPoolPublish            @"StockPool/saveRecord"
-
+#define API_StockPoolGetDetailInfo      @"StockPool/showRecordInfo"
+#define API_StockPoolGetDraftList       @"StockPool/getRecordDraft"
+#define API_StockPoolDeleteRecord       @"/StockPool/deleteRecord"
 #endif /* NetworkDefine_h */

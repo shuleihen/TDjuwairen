@@ -18,10 +18,11 @@
     return self;
 }
 
+
 - (void)initUI {
     CGFloat w = CGRectGetWidth(self.bounds);
     CGFloat h = CGRectGetHeight(self.bounds);
-    CGFloat itemW = 52.0f;
+    CGFloat itemW = w/self.items.count;
     CGFloat offx = (w-itemW*self.items.count)/2;
     int i=0;
     
@@ -56,10 +57,37 @@
     slide.layer.cornerRadius = 1.5f;
     slide.clipsToBounds = YES;
     slide.backgroundColor = [UIColor whiteColor];
-    slide.center = CGPointMake((w-itemW*self.items.count)/2 + itemW/2-1, h-6);
     [self addSubview:slide];
+    [self setupSlideWithIndex:0 animation:NO];
     
     self.selectedIndex = 0;
+}
+
+
+- (void)setAttributes:(NSDictionary *)attributes {
+    for (int i=0; i<self.items.count; i++) {
+        UIButton *btn = [self viewWithTag:(200+i)];
+        NSString *title = self.items[i];
+        
+        NSAttributedString *attr = [[NSAttributedString alloc] initWithString:title attributes:attributes];
+        [btn setAttributedTitle:attr forState:UIControlStateNormal];
+        [btn setAttributedTitle:attr forState:UIControlStateSelected|UIControlStateHighlighted];
+    }
+}
+
+- (void)setSelectedAttributes:(NSDictionary *)selectedAttributes {
+    for (int i=0; i<self.items.count; i++) {
+        UIButton *btn = [self viewWithTag:(200+i)];
+        NSString *title = self.items[i];
+        
+        NSAttributedString *attr2 = [[NSAttributedString alloc] initWithString:title attributes:selectedAttributes];
+        [btn setAttributedTitle:attr2 forState:UIControlStateHighlighted];
+        [btn setAttributedTitle:attr2 forState:UIControlStateSelected];
+    }
+    
+    UIColor *color = selectedAttributes[NSForegroundColorAttributeName];
+    UIView *slide = [self viewWithTag:300];
+    slide.backgroundColor = color;
 }
 
 - (void)setupUnread:(BOOL)unread withIndex:(NSInteger)index {
@@ -68,18 +96,24 @@
     view.hidden = unread;
 }
 
-- (void)setupSlideWithIndex:(NSInteger)index {
-    CGFloat w = CGRectGetWidth(self.bounds);
+- (void)setupSlideWithIndex:(NSInteger)index animation:(BOOL)animation {
     CGFloat h = CGRectGetHeight(self.bounds);
-    CGFloat itemW = 52.0f;
-    CGFloat offx = (w-itemW*self.items.count)/2;
     
     UIView *slide = [self viewWithTag:300];
-    NSTimeInterval duration = 0.3 + 0.05*self.items.count;
     
-    [UIView animateWithDuration:duration animations:^{
-        slide.center = CGPointMake(offx + itemW/2 + itemW*index -1, h-6);
-    }];
+    UIButton *btn = [self viewWithTag:(200 + index)];
+    
+    CGSize size = [btn.titleLabel sizeThatFits:CGSizeMake(btn.bounds.size.width, btn.bounds.size.height)];
+    slide.bounds = CGRectMake(0, 0, size.width, 3);
+    
+    if (animation) {
+        NSTimeInterval duration = 0.3 + 0.05*self.items.count;
+        [UIView animateWithDuration:duration animations:^{
+            slide.center = CGPointMake(btn.center.x, h-6);
+        }];
+    } else {
+        slide.center = CGPointMake(btn.center.x, h-6);
+    }
 }
 
 - (void)setSelectedIndex:(NSInteger)selectedIndex {
@@ -96,7 +130,7 @@
 
 - (void)buttonPressed:(UIButton *)sender {
     NSInteger tag = sender.tag - 200;
-    [self setupSlideWithIndex:tag];
+    [self setupSlideWithIndex:tag animation:YES];
 
     self.selectedIndex = tag;
     

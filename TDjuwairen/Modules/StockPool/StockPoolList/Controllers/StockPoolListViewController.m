@@ -15,10 +15,14 @@
 #import "StockPoolSettingController.h"
 #import "StockPoolSubscibeController.h"
 #import "StockPoolSettingCalendarController.h"
+#import "StockPoolDetailViewController.h"
 #import "StockPoolListDataModel.h"
 #import "MJRefresh.h"
 #import "Masonry.h"
 #import "UILabel+TDLabel.h"
+#import "StockPoolAddAndEditViewController.h"
+#import "TDNavigationController.h"
+#import "StockPoolDraftTableViewController.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -184,11 +188,15 @@
 }
 
 - (void)draftPressed:(id)sender {
-    
+    StockPoolDraftTableViewController *vc = [[StockPoolDraftTableViewController alloc] init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 - (void)publishPressed:(id)sender {
+    StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
     
+    TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:editNav animated:YES completion:nil];
 }
 
 - (void)attentionPressed:(id)sender {
@@ -334,6 +342,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
+    if (model.recordExpiredIndexCell == NO) {
+        StockPoolDetailViewController *vc = [[StockPoolDetailViewController alloc] init];
+        vc.recordId = model.record_id;
+        [self.navigationController pushViewController:vc animated:YES];
+        
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

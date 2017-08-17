@@ -41,7 +41,7 @@
 @property (nonatomic, strong) NSMutableArray *stockIds;
 @property (nonatomic, weak) id<StockManagerDelegate>delegate;
 
-// 是否开启定时器
+// 是否开启定时器，默认开启
 @property (nonatomic, assign) BOOL isOpenTimer;
 
 // 查询时间间隔，默认15秒

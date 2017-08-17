@@ -14,6 +14,14 @@ typedef enum : NSUInteger {
     kSPEidtCellAdd,
 } SPEidtCellType;
 
+typedef enum : NSUInteger {
+    kSPEidtRecordTypeNormal =0,
+    SPEidtRecordTypeAdd     =1,
+    SPEidtRecordTypeReduce  =2,
+    SPEidtRecordTypeSell    =3,
+    SPEidtRecordTypeBuy     =4,
+} SPEidtRecordType;
+
 @interface SPEditRecordModel : NSObject
 @property (nonatomic, strong) NSString *stockName;
 @property (nonatomic, strong) NSString *stockCode;
