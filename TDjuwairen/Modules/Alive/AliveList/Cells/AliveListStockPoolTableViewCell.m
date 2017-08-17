@@ -30,22 +30,28 @@
     [nickAttri setAttributes:@{NSForegroundColorAttributeName:TDThemeColor} range:NSMakeRange(0, stockPool.userNickName.length)];
     self.nickNameLabel.attributedText = nickAttri;
     
-    self.contentLabel.text = stockPool.poolDesc;
-    
+    self.contentLabel.text = stockPool.poolDesc?:@"暂无简介";
     
     NSString *subscribe = [NSString stringWithFormat:@"%ld人已订阅",(long)stockPool.subscribeNum];
     NSMutableAttributedString *subscribeAttri = [[NSMutableAttributedString alloc] initWithString:subscribe attributes:@{NSForegroundColorAttributeName:TDDetailTextColor}];
     [subscribeAttri setAttributes:@{NSForegroundColorAttributeName:TDThemeColor} range:NSMakeRange(0, subscribe.length-3)];
     self.subscriptionNumLabel.attributedText = subscribeAttri;
     
-    if (stockPool.isSubscribe) {
-        self.subscribeLabel.hidden = NO;
-        self.residueDayLabel.text = stockPool.poolSetTip;
-        self.payInfoLabel.text = @"";
-    } else {
+    if (stockPool.isFree) {
         self.subscribeLabel.hidden = YES;
-        self.residueDayLabel.text = @"";
         self.payInfoLabel.text = stockPool.poolSetTip;
+        self.residueDayLabel.text = @"";
+    } else {
+        if (stockPool.isSubscribe && stockPool.isExpire) {
+            self.subscribeLabel.hidden = NO;
+            self.residueDayLabel.text = stockPool.poolSetTip;
+            self.payInfoLabel.text = @"";
+        } else {
+            self.subscribeLabel.hidden = YES;
+            self.residueDayLabel.text = @"";
+            self.payInfoLabel.text = stockPool.poolSetTip;
+        }
     }
+    
 }
 @end

@@ -45,7 +45,7 @@
 
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:@"normal" forKey:@"loginStyle"];
+    [accountDefaults setObject:@"normal" forKey:PLLoginType];
     [accountDefaults setObject:account forKey:@"account"];
     [accountDefaults setObject:password forKey:@"password"];
     [accountDefaults synchronize];
@@ -53,14 +53,14 @@
 
 + (void)saveFastLoginWithPhone:(NSString *)phone {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:@"fast" forKey:@"loginStyle"];
+    [accountDefaults setObject:@"fast" forKey:PLLoginType];
     [accountDefaults setObject:phone forKey:@"fast_phone"];
     [accountDefaults synchronize];
 }
 
 + (void)saveThirdType:(NSString *)typeString unionid:(NSString *)unionid nickName:(NSString *)nickName avatar:(NSString *)avatar {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:typeString forKey:@"loginStyle"];
+    [accountDefaults setObject:typeString forKey:PLLoginType];
     [accountDefaults setObject:unionid forKey:@"third_userId"];
     [accountDefaults setObject:nickName forKey:@"third_nickName"];
     [accountDefaults setObject:avatar forKey:@"third_avatar"];

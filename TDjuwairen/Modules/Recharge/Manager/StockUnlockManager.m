@@ -234,6 +234,8 @@
     [indicator startAnimating];
     [controller.view addSubview:indicator];
     
+    __weak StockUnlockManager *wself = self;
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_StockPoolGetSubscribe parameters:para completion:^(id data, NSError *error){
         
@@ -244,17 +246,13 @@
             StockPoolUnlockModel *model = [[StockPoolUnlockModel alloc] initWithDictionary:data];
             model.masterId = masterId;
             
-            if (model.isSubscribe) {
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"已经订阅";
-                [hud hide:YES afterDelay:0.7];
-            } else if (model.isFree) {
-                MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
-                hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"当前股票池免费订阅";
-                [hud hide:YES afterDelay:0.7];
-            }else {
+            if (model.isFree ||
+                (model.isSubscribe && model.isSubscribeExpire)) {
+                
+                if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withMasterId:)]) {
+                    [wself.delegate unlockManager:wself withMasterId:masterId];
+                }
+            } else {
                 [self unlockStockPoolWithModel:model withController:controller];
             }
             

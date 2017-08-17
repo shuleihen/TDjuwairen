@@ -269,7 +269,7 @@
 
 + (void)clearLoginStatus {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults removeObjectForKey:@"loginStyle"];
+    [accountDefaults removeObjectForKey:PLLoginType];
 }
 
 

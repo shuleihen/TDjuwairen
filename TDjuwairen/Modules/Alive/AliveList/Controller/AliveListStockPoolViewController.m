@@ -142,7 +142,7 @@
     [self.aliveList enumerateObjectsUsingBlock:^(AliveListStockPoolModel *model, NSUInteger idx, BOOL *stop){
         if ([model.masterId isEqualToString:masterId]) {
             model.isSubscribe = YES;
-            model.isExpire = NO;
+            model.isExpire = YES;
             
             index = idx;
             *stop = YES;
@@ -186,7 +186,7 @@
     AliveListStockPoolModel *model = self.aliveList[indexPath.row];
     
     if (model.isFree ||
-        (model.isSubscribe && !model.isExpire)) {
+        (model.isSubscribe && model.isExpire)) {
         [self pushToStockPoolWithMasterId:model.masterId];
     } else {
         [self.unlockManager unlockStockPool:model.masterId withController:self];

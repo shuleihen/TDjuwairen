@@ -69,7 +69,7 @@
     } else {
         CGSize size = [unlockModel.poolSetDesc boundingRectWithSize:CGSizeMake(kScreenWidth-24, 100) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12.0f]} context:nil].size;
         
-        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 104, kScreenWidth-24, size.height+4)];
+        UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 94, kScreenWidth-24, size.height+4)];
         tipLabel.font = [UIFont systemFontOfSize:12.0f];
         tipLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#666666"];
         tipLabel.text = unlockModel.poolSetDesc;
@@ -77,7 +77,7 @@
         tipLabel.numberOfLines = 0;
         [self.view addSubview:tipLabel];
                 
-        UILabel *tipLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(12, 94+size.width+10, kScreenWidth-24, 14)];
+        UILabel *tipLabel1 = [[UILabel alloc] initWithFrame:CGRectMake(12, 94+size.height+10, kScreenWidth-24, 14)];
         tipLabel1.font = [UIFont systemFontOfSize:12.0f];
         tipLabel1.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF523B"];
         tipLabel1.text = @"钥匙数不足";
