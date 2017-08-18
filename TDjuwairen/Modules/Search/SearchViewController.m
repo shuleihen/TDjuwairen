@@ -288,8 +288,8 @@
         NetworkManager *manager = [[NetworkManager alloc] init];
         [manager POST:API_SurveyAddStock parameters:para completion:^(id data, NSError *error) {
             if (!error) {
-                hud.labelText = @"添加成功";
-                [hud hide:YES afterDelay:0.5];
+                hud.label.text = @"添加成功";
+                [hud hideAnimated:YES afterDelay:0.5];
                 
                 model.isMyStock = YES;
                 [self.tableview reloadData];
@@ -298,8 +298,8 @@
             }
             else
             {
-                hud.labelText = @"添加失败";
-                [hud hide:YES afterDelay:0.5];
+                hud.label.text = @"添加失败";
+                [hud hideAnimated:YES afterDelay:0.5];
                 
             }
         }];

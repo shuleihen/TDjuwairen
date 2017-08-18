@@ -40,6 +40,8 @@
     [indicator startAnimating];
     [controller.view addSubview:indicator];
     
+    __weak StockUnlockManager *wself = self;
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_SurveyIsUnlock parameters:para completion:^(id data, NSError *error){
         
@@ -59,8 +61,14 @@
             if (isUnlock) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"已经解锁";
-                [hud hide:YES afterDelay:0.7];
+                hud.label.text = @"已经解锁";
+                [hud hideAnimated:YES afterDelay:0.7];
+                
+                hud.completionBlock = ^{
+                    if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withStockCode:)]) {
+                        [wself.delegate unlockManager:wself withStockCode:stockCode];
+                    }
+                };
             } else {
                 [self unlockStockWithModel:model withController:controller];
             }
@@ -68,8 +76,8 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"查询解锁信息失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"查询解锁信息失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
@@ -105,8 +113,8 @@
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"解锁成功";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"解锁成功";
+            [hud hideAnimated:YES afterDelay:0.6];
             
             if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withStockCode:)]) {
                 [wself.delegate unlockManager:wself withStockCode:stockCode];
@@ -114,8 +122,8 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
         
     }];
@@ -135,6 +143,8 @@
     indicator.center = CGPointMake(controller.view.bounds.size.width/2, controller.view.bounds.size.height/2);
     [indicator startAnimating];
     [controller.view addSubview:indicator];
+    
+    __weak StockUnlockManager *wself = self;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_SurveyIsUnlockDeep parameters:para completion:^(id data, NSError *error){
@@ -159,8 +169,14 @@
             if (isUnlock) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"已经解锁";
-                [hud hide:YES afterDelay:0.7];
+                hud.label.text = @"已经解锁";
+                [hud hideAnimated:YES afterDelay:0.7];
+                hud.completionBlock = ^{
+                    if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withDeepId:)]) {
+                        [wself.delegate unlockManager:wself withDeepId:deepId];
+                    }
+                };
+                
             } else {
                 [self unlockDeepWithModel:model withController:controller];
             }
@@ -168,8 +184,8 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"查询解锁信息失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"查询解锁信息失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
@@ -206,17 +222,19 @@
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"解锁成功";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"解锁成功";
+            [hud hideAnimated:YES afterDelay:0.6];
+            hud.completionBlock = ^{
+                if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withDeepId:)]) {
+                    [wself.delegate unlockManager:wself withDeepId:deepId];
+                }
+            };
             
-            if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withDeepId:)]) {
-                [wself.delegate unlockManager:wself withDeepId:deepId];
-            }
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
         
     }];
@@ -259,8 +277,8 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"查询股票池信息失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"查询股票池信息失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
@@ -297,8 +315,8 @@
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"订阅成功";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"订阅成功";
+            [hud hideAnimated:YES afterDelay:0.6];
             
             if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withMasterId:)]) {
                 [wself.delegate unlockManager:wself withMasterId:masterId];
@@ -306,8 +324,8 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
         
     }];

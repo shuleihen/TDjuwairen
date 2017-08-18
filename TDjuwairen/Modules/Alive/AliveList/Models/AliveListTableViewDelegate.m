@@ -484,14 +484,14 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-    hud.labelText = @"取消收藏";
+    hud.label.text = @"取消收藏";
     [manager POST:API_CancelCollection parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self deleteSuccessedWithIndexPath:indexPath];
         } else {
-            hud.labelText = @"取消收藏失败";
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = @"取消收藏失败";
+            [hud hideAnimated:YES afterDelay:0.8];
         }
         
     }];
@@ -640,7 +640,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
         
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             
             NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
             [array removeObject:cellData];
@@ -658,8 +658,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
             }
             [wself.tableView endUpdates];
         }else{
-            hud.labelText = @"删除失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"删除失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
@@ -688,7 +688,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
         
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             if (data && [data[@"status"] integerValue] == 1) {
                 
                 if (self.listType == kAliveListRecommend || self.listType == kAliveListViewpoint) {
@@ -710,8 +710,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
                 }
             }
         } else {
-            hud.labelText = errorStr;
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = errorStr;
+            [hud hideAnimated:YES afterDelay:0.7];
         }
         
     }];

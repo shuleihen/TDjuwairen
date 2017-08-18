@@ -198,8 +198,8 @@
             wself.replyToolView.textView.text = @"";
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            hud.labelText = @"回复失败";
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = @"回复失败";
+            [hud hideAnimated:YES afterDelay:0.8];
         }
         
     }];

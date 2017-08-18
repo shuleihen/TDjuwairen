@@ -40,12 +40,11 @@
 #import "HotViewController.h"
 #import "NSString+Util.h"
 #import "TencentStockManager.h"
-#import "StockUnlockManager.h"
 
 #define kHeaderViewHeight 163
 #define kSegmentHeight 45
 
-@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate, StockUnlockManagerDelegate>
+@interface StockDetailViewController ()<SurveyDetailSegmentDelegate, SurveyDetailContenDelegate, UIPageViewControllerDelegate, UIPageViewControllerDataSource, StockManagerDelegate, SurveyMoreDelegate, StockHeaderDelegate>
 
 @property (weak, nonatomic) IBOutlet StockHeaderView *stockHeaderView;
 @property (nonatomic, strong) SurveyDetailSegmentView *segment;
@@ -57,7 +56,6 @@
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) TencentStockManager *tencentStockManager;
 @property (nonatomic, strong) StockInfoModel *stockModel;
-@property (nonatomic, strong) StockUnlockManager *unlockManager;
 @end
 
 @implementation StockDetailViewController
@@ -80,9 +78,6 @@
     
     self.tencentStockManager = [[TencentStockManager alloc] init];
     [self queryTencentStock];
-    
-    self.unlockManager = [[StockUnlockManager alloc] init];
-    self.unlockManager.delegate = self;
     
     // 查询
     [self querySurveySimpleDetail];
@@ -177,14 +172,7 @@
     self.title = [NSString stringWithFormat:@"%@(%@)",self.stockModel.stockName,self.stockModel.stockId];
     [self.stockHeaderView setupStockModel:self.stockModel];
     
-    self.segment.isLock = self.stockModel.isLocked;
     self.segment.selectedIndex = 0;
-    
-//    if (self.stockModel.isLocked) {
-//        self.segment.selectedIndex = 3;
-//    } else {
-//        self.segment.selectedIndex = 0;
-//    }
 }
 
 - (void)queryTencentStock {
@@ -197,16 +185,6 @@
 }
 
 #pragma mark - Action
-
-- (void)unlockStockPressed {
-    if (!US.isLogIn) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        [self.navigationController pushViewController:login animated:YES];
-        return;
-    }
-    
-    [self.unlockManager unlockStock:self.stockCode withStockName:self.stockModel.stockName withController:self];
-}
 
 - (void)niuxiongPublish {
     __weak StockDetailViewController *wself = self;
@@ -304,18 +282,6 @@
     [self.tableView reloadData];
 }
 
-#pragma mark - StockUnlockManagerDelegate
-
-- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
-    self.segment.isLock = NO;
-    self.stockModel.isLocked = NO;
-    self.stockModel.isAdd = YES;
-    
-    [self.stockHeaderView setupStockModel:self.stockModel];
-    [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
-}
-
-
 #pragma mark - StockHeaderDelegate
 - (void)gradePressed:(id)sender {
     GradeDetailViewController *vc = [[GradeDetailViewController alloc] init];
@@ -331,15 +297,15 @@
         NSDictionary *para = @{@"code": self.stockCode,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"添加关注";
+        hud.label.text = @"添加关注";
         
         __weak StockDetailViewController *wself = self;
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         [manager POST:API_SurveyAddStock parameters:para completion:^(id data, NSError *error) {
             if (!error) {
-                hud.labelText = @"添加成功";
-                [hud hide:YES afterDelay:0.5];
+                hud.label.text = @"添加成功";
+                [hud hideAnimated:YES afterDelay:0.5];
                 
                 wself.stockModel.isAdd = YES;
                 [wself.stockHeaderView setupStockModel:wself.stockModel];
@@ -348,8 +314,8 @@
             }
             else
             {
-                hud.labelText = @"添加失败";
-                [hud hide:YES afterDelay:0.5];
+                hud.label.text = @"添加失败";
+                [hud hideAnimated:YES afterDelay:0.5];
                 
             }
         }];
@@ -364,15 +330,15 @@
         NSDictionary *para = @{@"code": self.stockCode,
                                @"user_id":US.userId};
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"取消关注";
+        hud.label.text = @"取消关注";
         
         __weak StockDetailViewController *wself = self;
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         [manager POST:API_SurveyDeleteStock parameters:para completion:^(id data, NSError *error) {
             if (!error) {
-                hud.labelText = @"取消成功";
-                [hud hide:YES afterDelay:0.5];
+                hud.label.text = @"取消成功";
+                [hud hideAnimated:YES afterDelay:0.5];
                 
                 wself.stockModel.isAdd = NO;
                 [wself.stockHeaderView setupStockModel:wself.stockModel];
@@ -381,8 +347,8 @@
             }
             else
             {
-                hud.labelText = @"取消失败";
-                [hud hide:YES afterDelay:0.5];
+                hud.label.text = @"取消失败";
+                [hud hideAnimated:YES afterDelay:0.5];
                 
             }
         }];
@@ -466,31 +432,19 @@
         return;
     }
     
-//    SurveyDetailSegmentItem *item = segmentView.segments[index];
-//    if (item.locked) {
-//        [self unlockStockPressed];
-//    } else {
-    
-        __weak StockDetailViewController *wself = self;
-        SurveyDetailContentViewController *vc = self.contentControllers[index];
-        [self.pageViewController setViewControllers:@[vc]
-                                          direction:UIPageViewControllerNavigationDirectionReverse
-                                           animated:NO
-                                         completion:^(BOOL finish){
+    __weak StockDetailViewController *wself = self;
+    SurveyDetailContentViewController *vc = self.contentControllers[index];
+    [self.pageViewController setViewControllers:@[vc]
+                                      direction:UIPageViewControllerNavigationDirectionReverse
+                                       animated:NO
+                                     completion:^(BOOL finish){
 
-            [wself reloadTableView];
-            
-            if (wself.tableView.contentOffset.y > CGRectGetHeight(wself.stockHeaderView.bounds)) {
-                wself.tableView.contentOffset = CGPointMake(0, wself.stockHeaderView.bounds.size.height);
-            }
-        }];
+        [wself reloadTableView];
         
-//        if (index == 5 || index == 2) {
-//            [self showBottomTool];
-//        } else {
-//            [self hideBottomTool];
-//        }
-//    }
+        if (wself.tableView.contentOffset.y > CGRectGetHeight(wself.stockHeaderView.bounds)) {
+            wself.tableView.contentOffset = CGPointMake(0, wself.stockHeaderView.bounds.size.height);
+        }
+    }];
 }
 
 #pragma mark - SurveyDetailContenDelegate
@@ -498,13 +452,14 @@
     [self reloadTableView];
 }
 
-- (BOOL)canRead {
-    if (self.stockModel.isLocked) {
-        [self unlockStockPressed];
-        return NO;
-    }
+- (void)unlocked {
+    // 解锁后默认添加为自选
+    self.stockModel.isLocked = NO;
+    self.stockModel.isAdd = YES;
     
-    return YES;
+    [self.stockHeaderView setupStockModel:self.stockModel];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kAddOptionalStockSuccessed  object:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kStockUnlockNotification  object:nil];
 }
 
 #pragma mark - UITableViewDelegate

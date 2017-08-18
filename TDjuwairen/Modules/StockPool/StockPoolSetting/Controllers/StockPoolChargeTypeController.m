@@ -194,14 +194,14 @@
         hud.mode = MBProgressHUDModeText;
         if (self.keyTextField.text.length <= 0) {
             
-            hud.labelText = @"请输入钥匙数！";
+            hud.label.text = @"请输入钥匙数！";
         }else {
-            hud.labelText = @"请输入正确的钥匙数！";
+            hud.label.text = @"请输入正确的钥匙数！";
             self.keyTextField.text = @"";
             
         }
         
-        [hud hide:YES afterDelay:0.8];
+        [hud hideAnimated:YES afterDelay:0.8];
         return;
     }
     

@@ -457,15 +457,15 @@
     
     if (self.roomMasterModel.isAtten) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"取消关注";
+        hud.label.text = @"取消关注";
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
         [manager POST:API_AliveDelAttention parameters:dict completion:^(id data, NSError *error){
             
             if (!error) {
-                hud.labelText = @"取消成功";
-                [hud hide:YES];
+                hud.label.text = @"取消成功";
+                [hud hideAnimated:YES];
                 
                 wself.roomMasterModel.isAtten = NO;
                 
@@ -476,21 +476,21 @@
                 [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
                 [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
             } else {
-                hud.labelText = @"取消失败";
-                [hud hide:YES afterDelay:0.8];
+                hud.label.text = @"取消失败";
+                [hud hideAnimated:YES afterDelay:0.8];
             }
         }];
     } else {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"添加关注";
+        hud.label.text = @"添加关注";
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
         [manager POST:API_AliveAddAttention parameters:dict completion:^(id data, NSError *error){
             
             if (!error) {
-                hud.labelText = @"关注成功";
-                [hud hide:YES];
+                hud.label.text = @"关注成功";
+                [hud hideAnimated:YES];
                 
                 wself.roomMasterModel.isAtten = YES;
                 
@@ -501,8 +501,8 @@
                 [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
                 [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
             } else {
-                hud.labelText = @"关注失败";
-                [hud hide:YES afterDelay:0.8];
+                hud.label.text = @"关注失败";
+                [hud hideAnimated:YES afterDelay:0.8];
             }
         }];
     }

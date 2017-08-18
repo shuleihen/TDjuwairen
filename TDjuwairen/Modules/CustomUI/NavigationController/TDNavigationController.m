@@ -86,11 +86,10 @@
 - (void)setupNavigationControllerBackground:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController {
     UIImage *image = [self navBackgroundImageWithController:NSStringFromClass([viewController class])];
     if (image) {
-        // 直播主页面导航条背景修改
         [navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
         
-        UIImage *image = [UIImage imageWithColor:[UIColor clearColor]];
-        [navigationController.navigationBar setShadowImage:image];
+        UIImage *shadow = [UIImage imageWithSize:CGSizeMake(kScreenWidth, TDPixel) withColor:[UIColor clearColor]];
+        [navigationController.navigationBar setShadowImage:shadow];
     } else {
         [navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         [navigationController.navigationBar setShadowImage:nil];

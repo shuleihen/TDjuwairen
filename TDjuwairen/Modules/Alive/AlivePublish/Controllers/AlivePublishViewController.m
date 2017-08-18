@@ -346,7 +346,7 @@
     }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中";
+    hud.label.text = @"提交中";
     
     __weak AlivePublishViewController *wself = self;
     
@@ -370,12 +370,12 @@
                 wself.navigationItem.rightBarButtonItem.enabled = YES;
                 
                 if (!error) {
-                    hud.labelText = @"发布成功";
+                    hud.label.text = @"发布成功";
                     hud.delegate = self;
-                    [hud hide:YES afterDelay:1];
+                    [hud hideAnimated:YES afterDelay:1];
                 } else {
-                    hud.labelText = @"发布失败";
-                    [hud hide:YES afterDelay:1];
+                    hud.label.text = @"发布失败";
+                    [hud hideAnimated:YES afterDelay:1];
                 }
             }];
         }];
@@ -396,12 +396,12 @@
             wself.navigationItem.rightBarButtonItem.enabled = YES;
             
             if (!error) {
-                hud.labelText = @"发布成功";
+                hud.label.text = @"发布成功";
                 hud.delegate = self;
-                [hud hide:YES afterDelay:1];
+                [hud hideAnimated:YES afterDelay:1];
             } else {
-                hud.labelText = @"发布失败";
-                [hud hide:YES afterDelay:1];
+                hud.label.text = @"发布失败";
+                [hud hideAnimated:YES afterDelay:1];
             }
         }];
     }
@@ -465,9 +465,9 @@
         
         if (self.selectedStockArrM.count>=5) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"股票最多选择五个哦！";
+            hud.label.text = @"股票最多选择五个哦！";
             hud.mode = MBProgressHUDModeText;
-            [hud hide:NO afterDelay:1.5];
+            [hud hideAnimated:NO afterDelay:1.5];
             [textField resignFirstResponder];
             return NO;
         }
@@ -491,8 +491,8 @@
     if (self.selectedStockArrM.count>=5) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"股票最多选择五个哦！";
-        [hud hide:NO afterDelay:1.5];
+        hud.label.text = @"股票最多选择五个哦！";
+        [hud hideAnimated:NO afterDelay:1.5];
         [textField resignFirstResponder];
         return;
     }
@@ -747,8 +747,8 @@
         if (self.selectedStockArrM.count>=5) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"股票最多选择五个哦！";
-            [hud hide:YES afterDelay:1.5];
+            hud.label.text = @"股票最多选择五个哦！";
+            [hud hideAnimated:YES afterDelay:1.5];
             return;
         }
         

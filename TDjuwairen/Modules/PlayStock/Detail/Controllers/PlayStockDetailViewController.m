@@ -241,15 +241,15 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
             NSDictionary *parmark = @{@"guess_id": self.guessId};
             
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = @"分享中";
+            hud.label.text = @"分享中";
             
             [ma POST:API_AddShareGuessToAlive parameters:parmark completion:^(id data, NSError *error) {
                 if (!error) {
-                    hud.labelText = @"分享成功";
+                    hud.label.text = @"分享成功";
                 } else {
-                    hud.labelText = @"分享失败";
+                    hud.label.text = @"分享失败";
                 }
-                [hud hide:YES afterDelay:0.7];
+                [hud hideAnimated:YES afterDelay:0.7];
             }];
         }
     }  shareState:^(BOOL state) {
@@ -334,8 +334,8 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
     void (^errorBlock)(NSString *) = ^(NSString *title){
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = title;
-        [hud hide:YES afterDelay:0.8];
+        hud.label.text = title;
+        [hud hideAnimated:YES afterDelay:0.8];
     };
     
     NetworkManager *ma = [[NetworkManager alloc] init];

@@ -77,7 +77,7 @@
     __weak typeof(self)weakSelf = self;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"清空";
+    hud.label.text = @"清空";
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_MessageSystemClear parameters:nil completion:^(id data, NSError *error){
@@ -86,12 +86,12 @@
             weakSelf.items = nil;
             [weakSelf.tableView reloadData];
             
-            hud.labelText = @"清空成功";
-            [hud hide:YES];
+            hud.label.text = @"清空成功";
+            [hud hideAnimated:YES];
         } else {
             [weakSelf.tableView reloadData];
-            hud.labelText = error.localizedDescription?:@"清空失败";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = error.localizedDescription?:@"清空失败";
+            [hud hideAnimated:YES afterDelay:0.6];
         }
     }];
 }
@@ -159,15 +159,15 @@
     NSDictionary *dict = @{@"msg_id":model.msgId,@"msg_type":@(model.msgType)};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.navigationController.view animated:YES];
-    hud.labelText = @"删除消息";
+    hud.label.text = @"删除消息";
     [manager POST:API_MessageSystemDelete parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText = @"删除功能";
-            [hud hide:YES afterDelay:0.3];
+            hud.label.text = @"删除功能";
+            [hud hideAnimated:YES afterDelay:0.3];
             [self deleteSuccessedWithIndexPath:indexPath];
         } else {
-            hud.labelText = @"删除失败";
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = @"删除失败";
+            [hud hideAnimated:YES afterDelay:0.8];
         }
         
     }];

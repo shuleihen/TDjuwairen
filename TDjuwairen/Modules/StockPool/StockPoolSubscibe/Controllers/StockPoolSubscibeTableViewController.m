@@ -98,7 +98,7 @@
                 [self.tableView.mj_footer endRefreshing];
             }
             
-            [self.tableView.header endRefreshing];
+            [self.tableView.mj_header endRefreshing];
             
             [self.tableView reloadData];
         }

@@ -234,8 +234,8 @@
         if (rateView.value <= 0) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"您的评级还未填写完成";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"您的评级还未填写完成";
+            [hud hideAnimated:YES afterDelay:0.4];
             return;
         }
     }
@@ -244,14 +244,14 @@
     if (!comment.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"评价不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"评价不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(comment.length > kTextViewNumberLimit) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"评价最多140字";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"评价最多140字";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
 
@@ -271,8 +271,8 @@
     if (!jsonString.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"您的评级还未填写完成";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"您的评级还未填写完成";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -285,17 +285,17 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
+    hud.label.text = @"提交中...";
     
     __weak GradeAddViewController *wself = self;
     [ma POST:API_SurveyCompanyGradeAdd parameters:dict completion:^(id data,NSError *error){
         if (!error && data && [data[@"status"] boolValue]) {
-            hud.labelText = @"提交成功";
+            hud.label.text = @"提交成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:0.4];
+            [hud hideAnimated:YES afterDelay:0.4];
         } else {
-            hud.labelText = error.localizedDescription?:@"提交失败";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription?:@"提交失败";
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

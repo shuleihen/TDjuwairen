@@ -101,9 +101,9 @@ UITextViewDelegate, MBProgressHUDDelegate>
     void (^ShowHud)(NSString *mesage) = ^(NSString *mesage){
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelFont = [UIFont systemFontOfSize:14.0f];
-        hud.labelText = mesage;
-        [hud hide:YES afterDelay:0.6];
+        hud.label.font = [UIFont systemFontOfSize:14.0f];
+        hud.label.text = mesage;
+        [hud hideAnimated:YES afterDelay:0.6];
     };
     
     int i=0;
@@ -243,7 +243,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
                            @"record_id": self.recordId?:@""};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = isDraft?@"保存中":@"提交中";
+    hud.label.text = isDraft?@"保存中":@"提交中";
     
     __weak StockPoolAddAndEditViewController *wself = self;
     
@@ -251,17 +251,17 @@ UITextViewDelegate, MBProgressHUDDelegate>
     [ma POST:API_StockPoolPublish parameters:dict completion:^(id data, NSError *error){
         
         if (isDraft) {
-            hud.labelText = @"保存成功";
+            hud.label.text = @"保存成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:1];
+            [hud hideAnimated:YES afterDelay:1];
         } else {
             if (!error) {
-                hud.labelText = @"发布成功";
+                hud.label.text = @"发布成功";
                 hud.delegate = wself;
-                [hud hide:YES afterDelay:1];
+                [hud hideAnimated:YES afterDelay:1];
             } else {
-                hud.labelText = @"发布失败";
-                [hud hide:YES afterDelay:1];
+                hud.label.text = @"发布失败";
+                [hud hideAnimated:YES afterDelay:1];
             }
         }
     }];

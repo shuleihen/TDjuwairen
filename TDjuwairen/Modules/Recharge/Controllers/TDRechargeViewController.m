@@ -28,6 +28,8 @@
 @implementation TDRechargeViewController
 - (void)dealloc
 {
+    self.tableView.delegate = nil;
+    self.tableView.dataSource = nil;
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
@@ -72,8 +74,8 @@
         [self.indicatorView stopAnimating];
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"加载失败";
-        [hud hide:YES afterDelay:0.6];
+        hud.label.text = @"加载失败";
+        [hud hideAnimated:YES afterDelay:0.6];
         DDLogError(@"应用内购买商品为空");
         return;
     }
@@ -123,8 +125,8 @@
     [self.indicatorView stopAnimating];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载失败";
-    [hud hide:YES afterDelay:0.6];
+    hud.label.text = @"加载失败";
+    [hud hideAnimated:YES afterDelay:0.6];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
@@ -180,8 +182,8 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.labelText = @"购买失败";
-                [hud hide:YES afterDelay:0.6];
+                hud.label.text = @"购买失败";
+                [hud hideAnimated:YES afterDelay:0.6];
             }
                 break;
             default:
@@ -219,15 +221,15 @@
         
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            hud.labelText = @"购买成功";
+            hud.label.text = @"购买成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:0.5];
+            [hud hideAnimated:YES afterDelay:0.5];
         }
         else
         {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            hud.labelText = @"购买失败";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"购买失败";
+            [hud hideAnimated:YES afterDelay:0.6];
         }
     }];
 }

@@ -140,17 +140,17 @@
     
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = showDict[@"showMess1"];
+    hud.label.text = showDict[@"showMess1"];
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText =showDict[@"showMess2"];
-            [hud hide:YES afterDelay:0.2];
+            hud.label.text =showDict[@"showMess2"];
+            [hud hideAnimated:YES afterDelay:0.2];
             self.viewModel.view_isCollected = [showDict[@"changeValue"] boolValue];
         } else {
-            hud.labelText = showDict[@"showMess3"];
-            [hud hide:YES afterDelay:0.2];
+            hud.label.text = showDict[@"showMess3"];
+            [hud hideAnimated:YES afterDelay:0.2];
             self.viewModel.view_isCollected = [showDict[@"changeValue"] boolValue];
         }
     }];
@@ -208,17 +208,17 @@
     ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:showDict[@"showMess1"] otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
         if (index == 0) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = showDict[@"showMess1"];
+            hud.label.text = showDict[@"showMess1"];
             NetworkManager *manager = [[NetworkManager alloc] init];
             
             [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
                 if (!error) {
-                    hud.labelText =showDict[@"showMess2"];
-                    [hud hide:YES afterDelay:0.2];
+                    hud.label.text =showDict[@"showMess2"];
+                    [hud hideAnimated:YES afterDelay:0.2];
                     weakSelf.viewModel.view_isAtten = [showDict[@"changeValue"] boolValue];
                 } else {
-                    hud.labelText = showDict[@"showMess3"];
-                    [hud hide:YES afterDelay:0.2];
+                    hud.label.text = showDict[@"showMess3"];
+                    [hud hideAnimated:YES afterDelay:0.2];
                     weakSelf.viewModel.view_isAtten = [showDict[@"changeValue"] boolValue];
                 }
             }];

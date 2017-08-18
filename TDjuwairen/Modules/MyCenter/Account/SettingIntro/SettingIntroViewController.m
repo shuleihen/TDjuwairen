@@ -50,16 +50,16 @@
                          @"userid":US.userId,
                          @"Userinfo": intro};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+    hud.label.text = @"加载中...";
     [self.textView resignFirstResponder];
     [manager POST:API_UpdateUserInfo parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             US.personal = intro;
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            hud.labelText = @"修改失败";
-            [hud hide:YES];
+            hud.label.text = @"修改失败";
+            [hud hideAnimated:YES];
         }
     }];
 }

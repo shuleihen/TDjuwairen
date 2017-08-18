@@ -60,7 +60,7 @@
         [self.contentView addSubview:_typeImageView];
         
         _lockImageView = [[UIImageView alloc] init];
-        _lockImageView.image = [UIImage imageNamed:@"ico_chains"];
+        _lockImageView.image = [UIImage imageNamed:@"ico_chains.png"];
         [self.contentView addSubview:_lockImageView];
         
         self.contentView.backgroundColor = [UIColor whiteColor];

@@ -135,15 +135,15 @@
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"删除草稿";
+    hud.label.text = @"删除草稿";
     
     [manager POST:API_StockPoolDeleteRecord parameters:@{@"record_id":recordId} completion:^(id data, NSError *error){
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self deleteSuccessedWithIndexPath:indexPath];
         } else {
-            hud.labelText = @"删除失败";
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = @"删除失败";
+            [hud hideAnimated:YES afterDelay:0.8];
         }
     }];
 }

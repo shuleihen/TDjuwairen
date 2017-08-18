@@ -182,7 +182,7 @@
 -(void)requestUploadHeadImage
 {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"请稍等";
+    hud.label.text = @"请稍等";
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary*paras=@{@"authenticationStr":US.userId,
                          @"encryptedStr":self.str,
@@ -202,8 +202,8 @@
         
     } completion:^(id data, NSError *error) {
         if (!error) {
-            hud.labelText = @"上传成功";
-            [hud hide:YES afterDelay:1];
+            hud.label.text = @"上传成功";
+            [hud hideAnimated:YES afterDelay:1];
             
             // 修改头像
             US.headImage = data[@"userinfo_facesmall"];
@@ -212,8 +212,8 @@
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kUserInfoChangedNotification object:nil];
         } else {
-            hud.labelText = @"网络错误";
-            [hud hide:YES afterDelay:1];
+            hud.label.text = @"网络错误";
+            [hud hideAnimated:YES afterDelay:1];
         }
     }];
 }

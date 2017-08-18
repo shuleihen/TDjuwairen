@@ -632,9 +632,9 @@ NSString *SafeValueTwoZero(NSString *value){
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
     hud.mode = MBProgressHUDModeText;
     hud.animationType = MBProgressHUDAnimationZoomIn;
-    hud.labelText = title;
+    hud.label.text = title;
     hud.removeFromSuperViewOnHide = YES;
-    [hud hide:YES afterDelay:0.4];
+    [hud hideAnimated:YES afterDelay:0.4];
 }
 
 #pragma mark --- 判断时间

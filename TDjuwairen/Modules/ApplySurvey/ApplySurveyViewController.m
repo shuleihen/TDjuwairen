@@ -123,8 +123,8 @@
     if (!self.checkBox.checked) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先同意《局外人调研服务说明》";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先同意《局外人调研服务说明》";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -138,26 +138,26 @@
     if (!stockCode.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"股票不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"股票不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(!companyName.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"公司名称不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"公司名称不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(![email isValidateEmail]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (email.length==0)?@"邮箱不能为空":@"邮箱格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (email.length==0)?@"邮箱不能为空":@"邮箱格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -265,18 +265,18 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
+    hud.label.text = @"提交中...";
     
     __weak ApplySurveyViewController *wself = self;
     
     [ma POST:API_SurveyAddSurvey parameters:dict completion:^(id data,NSError *error){
         if (!error && data && [data[@"status"] boolValue]) {
-            hud.labelText = @"提交成功";
+            hud.label.text = @"提交成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:0.4];
+            [hud hideAnimated:YES afterDelay:0.4];
         } else {
-            hud.labelText = error.localizedDescription?:@"提交失败";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription?:@"提交失败";
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

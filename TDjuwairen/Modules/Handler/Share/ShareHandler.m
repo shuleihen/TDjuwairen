@@ -48,18 +48,18 @@
                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                        hud.mode = MBProgressHUDModeText;
                        hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.labelText = @"分享成功";
+                       hud.label.text = @"分享成功";
                        hud.removeFromSuperViewOnHide = YES;
-                       [hud hide:YES afterDelay:0.4];
+                       [hud hideAnimated:YES afterDelay:0.4];
                        
                    } else if (state == SSDKResponseStateFail) {
                        UIWindow *window = [UIApplication sharedApplication].keyWindow;
                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                        hud.mode = MBProgressHUDModeText;
                        hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.labelText = @"分享失败";
+                       hud.label.text = @"分享失败";
                        hud.removeFromSuperViewOnHide = YES;
-                       [hud hide:YES afterDelay:0.4];
+                       [hud hideAnimated:YES afterDelay:0.4];
                    }
                }];
 }
@@ -150,18 +150,18 @@
                  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                  hud.mode = MBProgressHUDModeText;
                  hud.animationType = MBProgressHUDAnimationZoomIn;
-                 hud.labelText = @"分享成功";
+                 hud.label.text = @"分享成功";
                  hud.removeFromSuperViewOnHide = YES;
-                 [hud hide:YES afterDelay:0.6];
+                 [hud hideAnimated:YES afterDelay:0.6];
                  
              } else if (state == SSDKResponseStateFail) {
                  UIWindow *window = [UIApplication sharedApplication].keyWindow;
                  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                  hud.mode = MBProgressHUDModeText;
                  hud.animationType = MBProgressHUDAnimationZoomIn;
-                 hud.labelText = @"分享失败";
+                 hud.label.text = @"分享失败";
                  hud.removeFromSuperViewOnHide = YES;
-                 [hud hide:YES afterDelay:0.6];
+                 [hud hideAnimated:YES afterDelay:0.6];
              }
              
              if (stateBlock) {

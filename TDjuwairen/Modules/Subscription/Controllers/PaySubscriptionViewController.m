@@ -91,14 +91,14 @@
     if (!name.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"姓名不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"姓名不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!email.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"邮箱不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"邮箱不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -111,17 +111,17 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"订阅中...";
+    hud.label.text = @"订阅中...";
     
     __weak PaySubscriptionViewController *wself = self;
     [ma POST:API_SubscriptionAdd parameters:dict completion:^(id data,NSError *error){
         if (!error && data && [data[@"status"] boolValue]) {
-            hud.labelText = @"恭喜，订阅成功";
+            hud.label.text = @"恭喜，订阅成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:0.4];
+            [hud hideAnimated:YES afterDelay:0.4];
         } else {
-            hud.labelText = error.localizedDescription?:@"订阅失败";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription?:@"订阅失败";
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

@@ -232,7 +232,22 @@ StockUnlockManagerDelegate>
     NSDictionary *dict = @{@"master_id":SafeValue(self.userId),
                            @"date":self.searchMonthStr,
                            @"page":@(self.page)};
+    
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
+    hud.hidesWhenStopped = YES;
+    
+    if (self.page == 1) {
+        [self.view addSubview:hud];
+        [hud startAnimating];
+    }
+    
     [manager GET:API_StockPoolGetRecordList parameters:dict completion:^(NSDictionary *data, NSError *error) {
+        
+        if (self.page == 1) {
+            [hud stopAnimating];
+        }
+        
         if (!error) {
             if (data != nil) {
                 NSMutableArray *arrM1 = nil;

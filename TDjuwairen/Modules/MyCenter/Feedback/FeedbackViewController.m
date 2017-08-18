@@ -63,19 +63,19 @@
                           @"userid":US.userId,
                           @"feedbackContent": intro};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
+    hud.label.text = @"提交中...";
     [self.textView resignFirstResponder];
     
     [manager POST:API_AddUserFeedback parameters:para completion:^(id data, NSError *error){
         if (!error) {
             US.personal = intro;
-            hud.labelText = @"提交成功";
+            hud.label.text = @"提交成功";
             hud.delegate = self;
-            [hud hide:YES afterDelay:0.4];
+            [hud hideAnimated:YES afterDelay:0.4];
             
         } else {
-            hud.labelText = @"提交失败";
-            [hud hide:YES];
+            hud.label.text = @"提交失败";
+            [hud hideAnimated:YES];
         }
     }];
 }

@@ -83,12 +83,12 @@
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         
-        hud.labelText = @"请输入用户名或手机号和密码";
+        hud.label.text = @"请输入用户名或手机号和密码";
         hud.mode = MBProgressHUDModeText;
         [hud showAnimated:YES whileExecutingBlock:^{
             sleep(2);
         } completionBlock:^{
-            [hud hide:YES afterDelay:0.1f];
+            [hud hideAnimated:YES afterDelay:0.1f];
         }];
         return;
     }
@@ -97,7 +97,7 @@
     NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"登录中";
+    hud.label.text = @"登录中";
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *paras = @{@"account": account,
@@ -105,8 +105,8 @@
     
     [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText = @"登录成功";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"登录成功";
+            [hud hideAnimated:YES afterDelay:0.4];
             
             US.isLogIn = YES;
             
@@ -119,8 +119,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 
@@ -163,10 +163,10 @@
                                    @"avatar_url": avatar};
              
              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-             hud.labelText = @"登录中...";
+             hud.label.text = @"登录中...";
              
              [manager POST:API_LoginWithWeixin parameters:dic completion:^(id data, NSError *error){
-                 [hud hide:YES];
+                 [hud hideAnimated:YES];
                  
                  if (!error) {
                      if ([data[@"need_complete"] boolValue] == NO) {
@@ -197,8 +197,8 @@
                      
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
-                     hud.labelText = message;
-                     [hud hide:YES afterDelay:0.4];
+                     hud.label.text = message;
+                     [hud hideAnimated:YES afterDelay:0.4];
                  }
              }];
          }
@@ -224,10 +224,10 @@
                                    @"avatar_url": avatar};
              
              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-             hud.labelText = @"登录中...";
+             hud.label.text = @"登录中...";
              
              [manager POST:API_LoginWithQQ parameters:dic completion:^(id data, NSError *error){
-                 [hud hide:YES];
+                 [hud hideAnimated:YES];
                  
                  if (!error) {
                      if ([data[@"need_complete"] boolValue] == NO) {
@@ -258,8 +258,8 @@
                      
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
-                     hud.labelText = message;
-                     [hud hide:YES afterDelay:0.4];
+                     hud.label.text = message;
+                     [hud hideAnimated:YES afterDelay:0.4];
                  }
              }];
          }

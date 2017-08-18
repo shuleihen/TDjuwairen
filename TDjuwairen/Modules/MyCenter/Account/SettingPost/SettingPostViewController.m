@@ -48,16 +48,16 @@
                          @"userid":US.userId,
                          @"occupationName": post};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+    hud.label.text = @"加载中...";
     [self.textField resignFirstResponder];
     [manager POST:API_UpdateOccupationName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             US.post = post;
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            hud.labelText = @"修改失败";
-            [hud hide:YES];
+            hud.label.text = @"修改失败";
+            [hud hideAnimated:YES];
         }
     }];
 }

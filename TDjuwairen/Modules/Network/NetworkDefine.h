@@ -15,6 +15,8 @@
 
 #define kAPI_songsong @"http://192.168.1.103/"
 
+#define API_JIFenExplain   @"https://appapi.juwairen.net/Page/index/p/PointDesc"
+
 // 广告
 #define API_GetBanner           @"Index/indexBanner"
 #define API_SaveDeviceInfo      @"Index/saveDeviceInfo"

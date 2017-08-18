@@ -170,7 +170,7 @@
     UIWindow *window = [UIApplication sharedApplication].keyWindow;
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
     hud.mode = MBProgressHUDModeText;
-    hud.labelText = error.localizedDescription;
-    [hud hide:YES afterDelay:0.6];
+    hud.label.text = error.localizedDescription;
+    [hud hideAnimated:YES afterDelay:0.6];
 }
 @end

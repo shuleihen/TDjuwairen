@@ -653,7 +653,7 @@
         NSString *str = @"";
         
         if (model.isMyStock == YES) {
-            hud.labelText = @"取消关注";
+            hud.label.text = @"取消关注";
             str = API_SurveyDeleteStock;
         }else {
             str = API_SurveyAddStock;
@@ -663,14 +663,14 @@
         [manager POST:str parameters:para completion:^(id data, NSError *error) {
             if (!error) {
                 if (model.isMyStock == YES) {
-                    hud.labelText = @"取消成功";
+                    hud.label.text = @"取消成功";
                     model.isMyStock = NO;
                 }else {
-                    hud.labelText = @"添加成功";
+                    hud.label.text = @"添加成功";
                     model.isMyStock = YES;
                     
                 }
-                [hud hide:YES afterDelay:0.5];
+                [hud hideAnimated:YES afterDelay:0.5];
                 
                 [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:row inSection:section]] withRowAnimation:UITableViewRowAnimationNone];
                 
@@ -680,13 +680,13 @@
             {
                 
                 if (model.isMyStock == YES) {
-                    hud.labelText = @"取消失败";
+                    hud.label.text = @"取消失败";
                 }else {
-                    hud.labelText = @"添加失败";
+                    hud.label.text = @"添加失败";
                     
                 }
                 
-                [hud hide:YES afterDelay:0.5];
+                [hud hideAnimated:YES afterDelay:0.5];
                 
             }
         }];
@@ -734,7 +734,7 @@
     if (userModel.isAttend == YES) {
         // 取消关注
         str = API_AliveDelAttention;
-        hud.labelText = @"取消关注";
+        hud.label.text = @"取消关注";
     }
     
     NetworkManager *manager = [[NetworkManager alloc] init];
@@ -746,12 +746,12 @@
             if (data && [data[@"status"] integerValue] == 1) {
                 
                 if (userModel.isAttend == YES) {
-                    hud.labelText = @"取消成功";
+                    hud.label.text = @"取消成功";
                 }else {
-                    hud.labelText = @"添加成功";
+                    hud.label.text = @"添加成功";
                     
                 }
-                [hud hide:YES afterDelay:0.5];
+                [hud hideAnimated:YES afterDelay:0.5];
                 userModel.isAttend = !userModel.isAttend;
                 
                 for (AliveSearchResultModel *model in self.saveResultArr) {
@@ -769,12 +769,12 @@
         } else {
             
             if (userModel.isAttend == YES) {
-                hud.labelText = @"取消失败";
+                hud.label.text = @"取消失败";
             }else {
-                hud.labelText = @"添加失败";
+                hud.label.text = @"添加失败";
             }
             
-            [hud hide:YES afterDelay:0.5];
+            [hud hideAnimated:YES afterDelay:0.5];
         }
         
     }];

@@ -31,5 +31,6 @@
 #define kAlivePublishNotification       @"AlivePublishNotification"
 #define kAddAttenNotification           @"kAddAttenNotification"
 
+#define kStockUnlockNotification        @"kStockUnlockNotification"
 
 #endif /* NotificationDef_h */

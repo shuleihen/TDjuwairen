@@ -14,10 +14,10 @@
 + (MBProgressHUD *)showHUDAddedTo:(UIView *)view message:(NSString *)message {
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:view animated:YES];
     hud.mode = MBProgressHUDModeText;
-    hud.labelFont = [UIFont systemFontOfSize:14.0f];
-    hud.labelColor = [UIColor hx_colorWithHexRGBAString:@"#323232"];
-    hud.labelText = message;
-    [hud hide:YES afterDelay:0.4];
+    hud.label.font = [UIFont systemFontOfSize:14.0f];
+    hud.label.textColor = [UIColor hx_colorWithHexRGBAString:@"#323232"];
+    hud.label.text = message;
+    [hud hideAnimated:YES afterDelay:0.4];
     return hud;
 }
 

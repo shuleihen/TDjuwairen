@@ -219,6 +219,24 @@
     return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
 
+- (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
+{
+    NSLog(@"continueUserActiity enter");
+    NSLog(@"\tAction Type : %@", userActivity.activityType);
+    NSLog(@"\tURL         : %@", userActivity.webpageURL);
+    NSLog(@"\tuserinfo :%@",userActivity.userInfo);
+    
+    NSLog(@"continueUserActiity exit");
+    restorationHandler(nil);
+    
+    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
+    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:userActivity.webpageURL];
+    
+    NSLog(@"COOKIE{name: %@", cookies);
+    
+    return YES;
+}
+
 #pragma mark - Push
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     DDLogInfo(@"Register deviceToken = %@",[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding]);

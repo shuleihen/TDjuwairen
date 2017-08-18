@@ -153,8 +153,8 @@
             if (sender.selected == YES) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"请先去开户哦！";
-                [hud hide:YES afterDelay:1];
+                hud.label.text = @"请先去开户哦！";
+                [hud hideAnimated:YES afterDelay:1];
             }else {
                 [self showCurrentView:YES];
             }
@@ -194,20 +194,20 @@
     if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!msg_unique_id.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先获取证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先获取证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!code.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写验证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写验证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -225,14 +225,14 @@
             } else {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
-                [hud hide:YES afterDelay:0.4];
+                hud.label.text = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [hud hideAnimated:YES afterDelay:0.4];
             }
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"验证码错误，请重新输入";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"验证码错误，请重新输入";
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
     
@@ -254,8 +254,8 @@
         }else{
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.userInfo[@"NSLocalizedDescription"];
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = error.userInfo[@"NSLocalizedDescription"];
+            [hud hideAnimated:YES afterDelay:0.8];
         }
     }];
 }
@@ -266,8 +266,8 @@
     if (_input_phoneNum.text.length == 0) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请输入正确的手机号";
-        [hud hide:YES afterDelay:0.8];
+        hud.label.text = @"请输入正确的手机号";
+        [hud hideAnimated:YES afterDelay:0.8];
         return NO;
     }
     return YES;

@@ -158,37 +158,37 @@
     if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!msg_unique_id.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"验证码有误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"验证码有误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!code.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写验证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写验证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!pwd.length || !pwd2.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写密码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写密码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (![pwd isEqualToString:pwd2]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"两次密码输入不一致";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"两次密码输入不一致";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"提交中...";
+    self.hud.label.text = @"提交中...";
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
@@ -202,12 +202,12 @@
             if (is_verify) {
                 [self submitUserinfo];
             } else {
-                self.hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
-                [self.hud hide:YES afterDelay:0.4];
+                self.hud.label.text = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [self.hud hideAnimated:YES afterDelay:0.4];
             }
         } else {
-            self.hud.labelText = @"验证码错误，请重新输入";
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = @"验证码错误，请重新输入";
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }
@@ -222,8 +222,8 @@
             self.str = dic[@"str"];
             [self submit];
         } else {
-            self.hud.labelText = @"提交失败";
-            [self.hud hide:YES afterDelay:0.5];
+            self.hud.label.text = @"提交失败";
+            [self.hud hideAnimated:YES afterDelay:0.5];
         }
     }];
 }
@@ -245,7 +245,7 @@
     
     [manager POST:API_ResetPasswordk parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            [self.hud hide:YES];
+            [self.hud hideAnimated:YES];
             
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"提示" message:@"修改成功" preferredStyle:UIAlertControllerStyleAlert];
             [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
@@ -256,8 +256,8 @@
             
         } else {
             NSString *message = error.localizedDescription?:@"修改密码失败";
-            self.hud.labelText = message;
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = message;
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
     
@@ -271,7 +271,7 @@
     NSString *ecriptPwd = [LoginHandler encryptWithPassword:pwd];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"登录中";
+    hud.label.text = @"登录中";
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     NSDictionary *paras = @{@"account": phone,
@@ -279,8 +279,8 @@
     
     [ma POST:API_Login parameters:paras completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText = @"登录成功";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"登录成功";
+            [hud hideAnimated:YES afterDelay:0.4];
             
             US.isLogIn = YES;
             
@@ -293,8 +293,8 @@
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

@@ -1398,13 +1398,9 @@
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         
-        hud.labelText = @"标题不能为空";
+        hud.label.text = @"标题不能为空";
         hud.mode = MBProgressHUDModeText;
-        [hud showAnimated:YES whileExecutingBlock:^{
-            sleep(2);
-        } completionBlock:^{
-            [hud hide:YES afterDelay:0.1f];
-        }];
+        [hud hideAnimated:YES afterDelay:2];
         return ;
     }
     else if ([self.contentText.text isEqualToString:@""]){
@@ -1412,13 +1408,9 @@
         MBProgressHUD *hud = [[MBProgressHUD alloc] initWithView:self.view];
         [self.view addSubview:hud];
         
-        hud.labelText = @"内容不能为空";
+        hud.label.text = @"内容不能为空";
         hud.mode = MBProgressHUDModeText;
-        [hud showAnimated:YES whileExecutingBlock:^{
-            sleep(2);
-        } completionBlock:^{
-            [hud hide:YES afterDelay:0.1f];
-        }];
+        [hud hideAnimated:YES afterDelay:2];
         return ;
     }
     else
@@ -1430,7 +1422,7 @@
 #pragma mark - 保存草稿
 - (void)saveDrafts{
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"保存中...";
+    hud.label.text = @"保存中...";
     
     NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
     NSUInteger cur = 0;
@@ -1475,11 +1467,11 @@
     
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText = @"保存成功";
-            [hud hide:YES afterDelay:1];
+            hud.label.text = @"保存成功";
+            [hud hideAnimated:YES afterDelay:1];
         } else {
-            hud.labelText = @"保存失败";
-            [hud hide:YES afterDelay:1];
+            hud.label.text = @"保存失败";
+            [hud hideAnimated:YES afterDelay:1];
         }
     }];
 }
@@ -1488,7 +1480,7 @@
 - (void)publishView{
     [self.SelSecView removeFromSuperview];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"发布中...";
+    hud.label.text = @"发布中...";
     
     NSMutableAttributedString *up = [self.contentText.attributedText mutableCopy];
     NSUInteger cur = 0;
@@ -1541,19 +1533,16 @@
     [manager POST:API_PushViewDo1_2 parameters:para completion:^(id data, NSError *error){
         if (!error) {
             
-            hud.labelText = @"发布成功";
+            hud.label.text = @"发布成功";
             hud.mode = MBProgressHUDModeText;
-            [hud showAnimated:YES whileExecutingBlock:^{
-                sleep(2);
-            } completionBlock:^{
-                [hud hide:YES afterDelay:1.0f];
+            [hud hideAnimated:YES afterDelay:2];
+            hud.completionBlock = ^{
                 [self.navigationController popViewControllerAnimated:YES];
-            }];
-            
+            };
             
         } else {
-            hud.labelText = @"发布失败";
-            [hud hide:YES afterDelay:1];
+            hud.label.text = @"发布失败";
+            [hud hideAnimated:YES afterDelay:1];
         }
     }];
     
