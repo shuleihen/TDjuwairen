@@ -41,6 +41,9 @@
 #import "SystemAudioHandler.h"
 #import "AliveDetailViewController.h"
 #import "ViewpointDetailViewController.h"
+#import "NSString+Util.h"
+#import "AliveRoomViewController.h"
+#import "SurveyDeepTableViewController.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -159,6 +162,8 @@
     }
     */
     
+    [self handleSchemaLinkWithUrl:url];
+    
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     
 }
@@ -210,31 +215,65 @@
         return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     }
      */
+    [self handleSchemaLinkWithUrl:url];
+    
     return [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
     
 }
 
+// NOTE: 2.0 - 9.0使用
 - (BOOL)application:(UIApplication *)application handleOpenURL:(NSURL *)url
 {
+    [self handleSchemaLinkWithUrl:url];
     return  [WXApi handleOpenURL:url delegate:[WXApiManager sharedManager]];
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(NSUserActivity *)userActivity restorationHandler:(void (^)(NSArray * _Nullable))restorationHandler
 {
-    NSLog(@"continueUserActiity enter");
-    NSLog(@"\tAction Type : %@", userActivity.activityType);
-    NSLog(@"\tURL         : %@", userActivity.webpageURL);
-    NSLog(@"\tuserinfo :%@",userActivity.userInfo);
-    
-    NSLog(@"continueUserActiity exit");
     restorationHandler(nil);
-    
-    NSHTTPCookieStorage *sharedHTTPCookieStorage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-    NSArray *cookies = [sharedHTTPCookieStorage cookiesForURL:userActivity.webpageURL];
-    
-    NSLog(@"COOKIE{name: %@", cookies);
+
+    NSURL *url = userActivity.webpageURL;
+    [self handleSchemaLinkWithUrl:url];
     
     return YES;
+}
+
+- (void)handleSchemaLinkWithUrl:(NSURL *)url {
+    if (!url) {
+        return;
+    }
+    
+    DDLogInfo(@"Application open links url = %@",url.absoluteString);
+    
+    NSArray *paths = url.pathComponents;
+    
+    if (paths.count >= 3) {
+        NSString *one = paths[1];
+        if ([one isEqualToString:@"survey"]) {
+            
+            NSString *code = paths[2];
+            if ([code isValidateStockCode]) {
+                // 股票主页
+                StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
+                vc.stockCode = code;
+                vc.hidesBottomBarWhenPushed = YES;
+                
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+            } else if ([code isEqualToString:@"deeplist"]) {
+                // 深度列表
+                SurveyDeepTableViewController *vc = [[SurveyDeepTableViewController alloc] initWithStyle:UITableViewStylePlain];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+            }
+        } else if ([one isEqualToString:@"u"]) {
+            // 用户主页
+            NSString *user = paths[2];
+            AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:user];
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
+        }
+    }
 }
 
 #pragma mark - Push
