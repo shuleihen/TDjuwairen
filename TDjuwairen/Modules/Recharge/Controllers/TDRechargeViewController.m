@@ -28,8 +28,6 @@
 @implementation TDRechargeViewController
 - (void)dealloc
 {
-    self.tableView.delegate = nil;
-    self.tableView.dataSource = nil;
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
@@ -39,14 +37,13 @@
     self.title = @"充值";
     self.view.backgroundColor = [UIColor whiteColor];
     
-    
     [self.view addSubview:self.tableView];
     
-    
+    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
+
     self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.indicatorView.center = CGPointMake((kScreenWidth)/2, (kScreenHeight-64)/2);
     
-    [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
     self.productIdentifiers = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.recharge60",@"com.jwr.recharge200"];
     [self requestProductWithIdentifiers:self.productIdentifiers];
 }
@@ -60,9 +57,11 @@
     [self.view addSubview:self.indicatorView];
     [self.indicatorView startAnimating];
     
+    __weak TDRechargeViewController *wself = self;
+    
     NSSet *nsset = [NSSet setWithArray:array];
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
-    request.delegate = self;
+    request.delegate = wself;
     [request start];
 }
 
@@ -161,9 +160,8 @@
         switch (tran.transactionState) {
             case SKPaymentTransactionStatePurchased:{
                 [self.indicatorView stopAnimating];
-                [self verifyPurchaseWithPaymentTransaction];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                
+                [self verifyPurchaseWithPaymentTransaction];
             }
                 break;
             case SKPaymentTransactionStatePurchasing:
