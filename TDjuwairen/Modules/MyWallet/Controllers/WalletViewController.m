@@ -14,7 +14,7 @@
 #import "WalletRecordModel.h"
 #import "WalletTableViewCell.h"
 #import "NetworkManager.h"
-
+#import "NotificationDef.h"
 
 @interface WalletViewController ()<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
@@ -47,6 +47,9 @@
 
 - (void)refreshAction {
     self.page = 1;
+    [self.sections removeAllObjects];
+    [self.sectionTitles removeAllObjects];
+    
     [self getSurveyWithPage:self.page];
 }
 
@@ -69,9 +72,7 @@
     NSDictionary *dict = @{@"page" : @(pageA)};
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager GET:API_UserGetKeyRecordList parameters:dict completion:^(id data, NSError *error){
-        
-        
-        
+
         if (pageA == 1) {
             [hud stopAnimating];
             self.tableView.tableHeaderView.hidden = NO;
@@ -100,7 +101,7 @@
 }
 
 - (void)reloadWithRecordList:(NSArray *)list {
-    
+
     for (WalletRecordModel *model in list) {
         NSMutableArray *section = self.sections.lastObject;
         WalletRecordModel *last = section.lastObject;
@@ -116,7 +117,6 @@
         }
     }
 }
-
 
 
 - (void)requestWithKeysNum{
@@ -151,6 +151,16 @@
     
     [self requestWithKeysNum];
     [self refreshAction];
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(rechargeNotifi:) name:kRechargeNotification object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kRechargeNotification object:nil];
 }
 
 - (void)setupTableHeaderView {
@@ -194,6 +204,11 @@
     
     [view addSubview:content];
     self.tableView.tableHeaderView = view;
+}
+
+- (void)rechargeNotifi:(NSNotification *)notifi {
+    [self requestWithKeysNum];
+    [self refreshAction];
 }
 
 - (void)rechargePressed:(id)sender {

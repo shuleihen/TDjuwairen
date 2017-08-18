@@ -32,5 +32,5 @@
 #define kAddAttenNotification           @"kAddAttenNotification"
 
 #define kStockUnlockNotification        @"kStockUnlockNotification"
-
+#define kRechargeNotification           @"kRechargeNotification"
 #endif /* NotificationDef_h */

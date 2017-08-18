@@ -15,7 +15,7 @@
 #import "SKProduct+LocalizedPrice.h"
 #import "LoginStateManager.h"
 #import "TDRechargeCollectionViewCell.h"
-
+#import "NotificationDef.h"
 
 @interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MBProgressHUDDelegate>
 @property (nonatomic, strong) NSArray *products;
@@ -23,11 +23,13 @@
 @property (nonatomic, strong) UICollectionView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
 @property (nonatomic, strong) UIButton *doneBtn;
+@property (nonatomic, strong) SKProductsRequest *productRequest;
 @end
 
 @implementation TDRechargeViewController
 - (void)dealloc
 {
+    [self.productRequest cancel];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
@@ -63,6 +65,7 @@
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
     request.delegate = wself;
     [request start];
+    self.productRequest = request;
 }
 
 
@@ -200,7 +203,6 @@
     NSData *receiptData=[NSData dataWithContentsOfURL:receiptUrl];
     
     NSString *receiptString=[receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receiptString];
     
     __weak TDRechargeViewController *wself = self;
     
@@ -221,7 +223,7 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.label.text = @"购买成功";
             hud.delegate = wself;
-            [hud hideAnimated:YES afterDelay:0.5];
+            [hud hideAnimated:YES afterDelay:0.6];
         }
         else
         {
@@ -233,6 +235,7 @@
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRechargeNotification object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
