@@ -72,8 +72,12 @@
         AliveListStockPoolViewController *six = [[AliveListStockPoolViewController alloc] init];
         six.listType = kAliveListStockPool;
         
+        AliveListViewController *sen = [[AliveListViewController alloc] init];
+        sen.listType = kAlvieListHot;
+        
+        
         if (self.mainListType == kMainListRecommend) {
-            _contentControllers = @[one,six,three,four,five];
+            _contentControllers = @[one,six,three,four,five,sen];
         } else {
             _contentControllers = @[one,six,three,five];
         }
@@ -131,7 +135,7 @@
     
     NSArray *tites = @[];
     if (self.mainListType == kMainListRecommend) {
-        tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单"];
+        tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单",@"热点"];
     } else {
         tites = @[@"全部",@"股票池",@"观点",@"推单"];
     }
@@ -150,7 +154,7 @@
     [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateSelected];
     
-    segmented.frame = CGRectMake(0, 0, 300, 44-TDPixel);
+    segmented.frame = CGRectMake(0, 0, tites.count * 60, 44-TDPixel);
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];

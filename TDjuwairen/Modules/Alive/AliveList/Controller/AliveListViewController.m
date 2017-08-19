@@ -83,7 +83,11 @@
             dict = @{@"page" :@(page)};
             break;
         case kAlvieListPost:
-            api = API_AliveGetPostAlistList;
+            api = API_AliveGetPostAliveList;
+            dict = @{@"page" :@(page)};
+            break;
+            case kAlvieListHot:
+            api = API_AliveGetHotAliveList;
             dict = @{@"page" :@(page)};
             break;
         default:

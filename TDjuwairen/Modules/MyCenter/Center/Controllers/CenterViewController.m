@@ -208,6 +208,9 @@
     }
 }
 
+- (IBAction)subscribePressed:(id)sender {
+    
+}
 // 会员中心
 - (IBAction)memberCenterPressed:(id)sender {
     

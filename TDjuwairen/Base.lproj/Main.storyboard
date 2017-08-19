@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" tag="1" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" tag="2" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -131,7 +131,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video" selectedImage="tab_video_in" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -169,7 +169,7 @@
                     <tabBarItem key="tabBarItem" title="直播" image="tab_alive" selectedImage="tab_alive_in" id="ZNX-aC-Q9m">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ty4-cg-kNd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ty4-cg-kNd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -200,7 +200,7 @@
             </objects>
             <point key="canvasLocation" x="-5847" y="-260"/>
         </scene>
-        <!--Center View Controller-->
+        <!--我的-->
         <scene sceneID="E9W-X7-fxh">
             <objects>
                 <tableViewController storyboardIdentifier="CenterViewController" id="1c6-oe-0ol" customClass="CenterViewController" sceneMemberID="viewController">
@@ -306,6 +306,12 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="64h-FR-mVB" customClass="CenterHeaderItemView">
                                             <rect key="frame" x="135.5" y="0.0" width="80" height="64"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ggq-Iu-oFd">
+                                                    <rect key="frame" x="-0.5" y="0.0" width="80" height="64"/>
+                                                    <connections>
+                                                        <action selector="fansPressed:" destination="1c6-oe-0ol" eventType="touchUpInside" id="wzZ-bJ-iTt"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G8u-ow-q3C">
                                                     <rect key="frame" x="0.0" y="10" width="80" height="20"/>
                                                     <constraints>
@@ -324,11 +330,15 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="ggq-Iu-oFd" firstAttribute="leading" secondItem="64h-FR-mVB" secondAttribute="leading" id="Ek1-fk-CdJ"/>
                                                 <constraint firstAttribute="trailing" secondItem="G8u-ow-q3C" secondAttribute="trailing" id="GoD-wV-IuJ"/>
                                                 <constraint firstItem="dOv-NN-pHk" firstAttribute="centerX" secondItem="64h-FR-mVB" secondAttribute="centerX" id="Qj2-iI-2xV"/>
                                                 <constraint firstItem="G8u-ow-q3C" firstAttribute="top" secondItem="64h-FR-mVB" secondAttribute="top" constant="10" id="VZ3-85-8rm"/>
+                                                <constraint firstItem="ggq-Iu-oFd" firstAttribute="top" secondItem="64h-FR-mVB" secondAttribute="top" id="aNX-uU-i6P"/>
                                                 <constraint firstItem="G8u-ow-q3C" firstAttribute="leading" secondItem="64h-FR-mVB" secondAttribute="leading" id="lWi-od-MHG"/>
+                                                <constraint firstAttribute="trailing" secondItem="ggq-Iu-oFd" secondAttribute="trailing" id="luu-2K-V41"/>
                                                 <constraint firstAttribute="width" constant="80" id="qdi-ns-u9L"/>
+                                                <constraint firstAttribute="bottom" secondItem="ggq-Iu-oFd" secondAttribute="bottom" id="ubd-pX-fvK"/>
                                                 <constraint firstItem="dOv-NN-pHk" firstAttribute="top" secondItem="G8u-ow-q3C" secondAttribute="bottom" constant="3" id="xsK-eR-oDa"/>
                                             </constraints>
                                             <connections>
@@ -338,6 +348,12 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D4j-RG-ISR" customClass="CenterHeaderItemView">
                                             <rect key="frame" x="12" y="0.0" width="80" height="64"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GHd-Z9-WB0">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="64"/>
+                                                    <connections>
+                                                        <action selector="attentionPressed:" destination="1c6-oe-0ol" eventType="touchUpInside" id="6w5-aq-YpD"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="4og-Mz-woc">
                                                     <rect key="frame" x="0.0" y="10" width="80" height="20"/>
                                                     <constraints>
@@ -356,12 +372,16 @@
                                             </subviews>
                                             <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <constraints>
+                                                <constraint firstItem="GHd-Z9-WB0" firstAttribute="leading" secondItem="D4j-RG-ISR" secondAttribute="leading" id="958-IL-5Z8"/>
+                                                <constraint firstItem="GHd-Z9-WB0" firstAttribute="top" secondItem="D4j-RG-ISR" secondAttribute="top" id="SRh-mC-Sbf"/>
                                                 <constraint firstAttribute="trailing" secondItem="4og-Mz-woc" secondAttribute="trailing" id="Wgq-6Q-1rU"/>
                                                 <constraint firstItem="4og-Mz-woc" firstAttribute="top" secondItem="D4j-RG-ISR" secondAttribute="top" constant="10" id="YjO-ho-rac"/>
                                                 <constraint firstItem="cHc-AX-Woj" firstAttribute="top" secondItem="4og-Mz-woc" secondAttribute="bottom" constant="3" id="ccR-Rb-fTA"/>
                                                 <constraint firstItem="cHc-AX-Woj" firstAttribute="centerX" secondItem="D4j-RG-ISR" secondAttribute="centerX" id="fy4-wc-Fp5"/>
                                                 <constraint firstAttribute="width" constant="80" id="jyN-Ys-quq"/>
                                                 <constraint firstItem="4og-Mz-woc" firstAttribute="leading" secondItem="D4j-RG-ISR" secondAttribute="leading" id="oFV-0i-IPd"/>
+                                                <constraint firstAttribute="bottom" secondItem="GHd-Z9-WB0" secondAttribute="bottom" id="uB7-o3-l4P"/>
+                                                <constraint firstAttribute="trailing" secondItem="GHd-Z9-WB0" secondAttribute="trailing" id="uaV-sf-psw"/>
                                             </constraints>
                                             <connections>
                                                 <outlet property="numberLabel" destination="4og-Mz-woc" id="N9v-E1-i8z"/>
@@ -370,6 +390,12 @@
                                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W1G-b5-hqc" customClass="CenterHeaderItemView">
                                             <rect key="frame" x="259" y="0.0" width="80" height="64"/>
                                             <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oTw-Ff-uUj">
+                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="64"/>
+                                                    <connections>
+                                                        <action selector="subscribePressed:" destination="1c6-oe-0ol" eventType="touchUpInside" id="7ED-ut-sZX"/>
+                                                    </connections>
+                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AQc-gV-Myj">
                                                     <rect key="frame" x="0.0" y="10" width="80" height="20"/>
                                                     <constraints>
@@ -390,8 +416,12 @@
                                             <constraints>
                                                 <constraint firstItem="AQc-gV-Myj" firstAttribute="leading" secondItem="W1G-b5-hqc" secondAttribute="leading" id="3ZM-AD-3IK"/>
                                                 <constraint firstItem="Z3H-xS-Loh" firstAttribute="top" secondItem="AQc-gV-Myj" secondAttribute="bottom" constant="3" id="MGA-d1-L9w"/>
+                                                <constraint firstItem="oTw-Ff-uUj" firstAttribute="top" secondItem="W1G-b5-hqc" secondAttribute="top" id="NFM-ab-N0x"/>
+                                                <constraint firstItem="oTw-Ff-uUj" firstAttribute="leading" secondItem="W1G-b5-hqc" secondAttribute="leading" id="NqF-A5-M4T"/>
+                                                <constraint firstAttribute="bottom" secondItem="oTw-Ff-uUj" secondAttribute="bottom" id="PDZ-q4-ERW"/>
                                                 <constraint firstAttribute="width" constant="80" id="V32-Yb-QCR"/>
                                                 <constraint firstItem="Z3H-xS-Loh" firstAttribute="centerX" secondItem="W1G-b5-hqc" secondAttribute="centerX" id="Vc7-Ho-gRb"/>
+                                                <constraint firstAttribute="trailing" secondItem="oTw-Ff-uUj" secondAttribute="trailing" id="YO3-1p-KfB"/>
                                                 <constraint firstItem="AQc-gV-Myj" firstAttribute="top" secondItem="W1G-b5-hqc" secondAttribute="top" constant="10" id="wCa-1I-X2H"/>
                                                 <constraint firstAttribute="trailing" secondItem="AQc-gV-Myj" secondAttribute="trailing" id="yWi-Aa-HIL"/>
                                             </constraints>
@@ -686,7 +716,7 @@
                             <outlet property="delegate" destination="1c6-oe-0ol" id="RW4-WS-jgn"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="yjt-0i-sEx"/>
+                    <navigationItem key="navigationItem" title="我的" id="yjt-0i-sEx"/>
                     <connections>
                         <outlet property="attentionView" destination="D4j-RG-ISR" id="fGD-tW-kTj"/>
                         <outlet property="avatarBtn" destination="5D8-au-N4i" id="t8h-3h-B04"/>
@@ -710,7 +740,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wKM-aS-UqM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wKM-aS-UqM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
