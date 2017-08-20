@@ -19,6 +19,7 @@
 #import "TDWebViewController.h"
 #import "LoginHandler.h"
 #import "CenterHeaderItemView.h"
+#import "StockPoolSubscribeController.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -139,7 +140,7 @@
             NSInteger dy = [dict[@"alive_num"] integerValue];
             NSInteger at = [dict[@"atten_num"] integerValue];
             NSInteger fan = [dict[@"fans_num"] integerValue];
-
+            
             [wself.subscribeView setupNumber:dy];
             [wself.attentionView setupNumber:at];
             [wself.fansView setupNumber:fan];
@@ -158,11 +159,11 @@
 - (IBAction)avatarPressed:(id)sender {
     if (US.isLogIn == NO) {
         LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-         login.hidesBottomBarWhenPushed = YES;
+        login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
     } else {
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
-         vc.hidesBottomBarWhenPushed = YES;
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -209,7 +210,16 @@
 }
 
 - (IBAction)subscribePressed:(id)sender {
-    
+    if (US.isLogIn == NO) {
+        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+        
+    }else {
+        StockPoolSubscribeController *mySubcriptionVC = [[StockPoolSubscribeController alloc] init];
+        mySubcriptionVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:mySubcriptionVC animated:YES];
+    }
 }
 // 会员中心
 - (IBAction)memberCenterPressed:(id)sender {

@@ -1,12 +1,12 @@
 //
-//  StockPoolSubscibeController.m
+//  SPSubscribedUserListViewController.m
 //  TDjuwairen
 //
-//  Created by deng shu on 2017/8/12.
+//  Created by deng shu on 2017/8/20.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "StockPoolSubscibeController.h"
+#import "SPSubscribedUserListViewController.h"
 #import "LoginStateManager.h"
 #import "NSString+Ext.h"
 #import "NSString+TimeInfo.h"
@@ -18,13 +18,15 @@
 
 #import "StockCollectionTableViewController.h"
 
-@interface StockPoolSubscibeController ()<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
+
+@interface SPSubscribedUserListViewController ()<UIPageViewControllerDelegate, UIPageViewControllerDataSource>
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;
 @end
 
-@implementation StockPoolSubscibeController
+@implementation SPSubscribedUserListViewController
+
 - (UIPageViewController *)pageViewController {
     if (!_pageViewController) {
         NSDictionary *options =[NSDictionary dictionaryWithObject:[NSNumber numberWithInteger:UIPageViewControllerSpineLocationMin]  forKey: UIPageViewControllerOptionSpineLocationKey];

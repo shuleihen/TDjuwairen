@@ -13,7 +13,7 @@
 #import "StockPoolListToolView.h"
 #import "LoginStateManager.h"
 #import "StockPoolSettingController.h"
-#import "StockPoolSubscibeController.h"
+#import "SPSubscribedUserListViewController.h"
 #import "StockPoolSettingCalendarController.h"
 #import "StockPoolDetailViewController.h"
 #import "StockPoolListDataModel.h"
@@ -240,7 +240,7 @@ StockUnlockManagerDelegate>
 }
 
 - (void)attentionPressed:(id)sender {
-    StockPoolSubscibeController *subscibeVC = [[StockPoolSubscibeController alloc] init];
+    SPSubscribedUserListViewController *subscibeVC = [[SPSubscribedUserListViewController alloc] init];
     [self.navigationController pushViewController:subscibeVC animated:YES];
 }
 
