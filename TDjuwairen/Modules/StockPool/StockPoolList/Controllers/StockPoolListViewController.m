@@ -24,6 +24,8 @@
 #import "TDNavigationController.h"
 #import "StockPoolDraftTableViewController.h"
 #import "StockUnlockManager.h"
+#import "ShareHandler.h"
+#import "AlivePublishViewController.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -40,6 +42,10 @@ StockUnlockManagerDelegate>
 @property (nonatomic, copy) NSString *searchMonthStr;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) StockUnlockManager *unlockManager;
+@property (nonatomic, strong) UIBarButtonItem *shareBtn;
+@property (nonatomic, strong) UIBarButtonItem *spacer;
+@property (nonatomic, strong) UIBarButtonItem *calendarBtn;
+@property (nonatomic, copy) NSString *shareURL;
 @end
 
 @implementation StockPoolListViewController
@@ -100,7 +106,7 @@ StockUnlockManagerDelegate>
     
     [self configEmptyViewUI];
     
-    [self refreshActions];
+    [self loadShowStockPoolData];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -128,16 +134,19 @@ StockUnlockManagerDelegate>
     [btn1 addTarget:self action:@selector(calendarPressed:) forControlEvents:UIControlEventTouchUpInside];
     [btn1 sizeToFit];
     UIBarButtonItem *master = [[UIBarButtonItem alloc] initWithCustomView:btn1];
+    self.calendarBtn = master;
+    
     
     UIButton *btn2 = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn2 setImage:[UIImage imageNamed:@"nav_share.png"] forState:UIControlStateNormal];
     [btn2 addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
     [btn2 sizeToFit];
     UIBarButtonItem *message = [[UIBarButtonItem alloc] initWithCustomView:btn2];
+    self.shareBtn = message;
     
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     spacer.width = 15;
-    self.navigationItem.rightBarButtonItems = @[message,spacer,master];
+    self.spacer = spacer;
 }
 
 - (void)configEmptyViewUI {
@@ -160,6 +169,9 @@ StockUnlockManagerDelegate>
     }];
     
     UILabel *label = [[UILabel alloc] initWithTitle:@"展示个人投资风采，开启赚取钥匙之旅" textColor:TDDetailTextColor fontSize:14.0 textAlignment:NSTextAlignmentCenter];
+    if (![US.userId isEqualToString:self.userId]) {
+        label.text = @"该用户很懒，没有发布股票记录";
+    }
     label.numberOfLines = 0;
     [self.emptyView addSubview:label];
     [label mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -186,6 +198,26 @@ StockUnlockManagerDelegate>
 }
 
 - (void)sharePressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+
+    __weak typeof(self)weakSelf = self;
+
+    
+    [ShareHandler shareWithTitle:@"股票池记录" image:nil url:self.shareURL selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+//            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+//            vc.hidesBottomBarWhenPushed = YES;
+//            
+//            vc.publishType = kAlivePublishForward;
+////            vc.aliveListModel = aliveModel;
+//            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+    }  shareState:nil];
     
 }
 
@@ -250,7 +282,9 @@ StockUnlockManagerDelegate>
         
         if (!error) {
             if (data != nil) {
+                /// 过期数组
                 NSMutableArray *arrM1 = nil;
+                /// 未过期数组
                 NSMutableArray *arrM2 = nil;
                 StockPoolListDataModel *newDateListModel = [[StockPoolListDataModel alloc] initWithDict:data];
                 
@@ -287,11 +321,10 @@ StockUnlockManagerDelegate>
                 
                 
                 NSMutableArray *arrM = [NSMutableArray array];
-                if (arrM1.count > 0) {
-                    
-                    [arrM addObjectsFromArray:arrM1];
-                    
+                if (arrM2.count > 0) {
+                    [arrM addObjectsFromArray:arrM2];
                 }
+                
                 if ([newDateListModel.expire_index isEqual:@(1)]) {
                     StockPoolListCellModel *expireModel = [[StockPoolListCellModel alloc] init];
                     expireModel.record_time = newDateListModel.expire_time;
@@ -299,10 +332,13 @@ StockUnlockManagerDelegate>
                     [arrM addObject:expireModel];
                 }
                 
-                if (arrM2.count > 0) {
-                    [arrM addObjectsFromArray:arrM2];
-                }
                 
+                
+                if (arrM1.count > 0) {
+                    
+                    [arrM addObjectsFromArray:arrM1];
+                    
+                }
                 self.listDataModel.list = [NSArray arrayWithArray:[arrM mutableCopy]];
                 
                 
@@ -312,14 +348,67 @@ StockUnlockManagerDelegate>
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
-        if (self.listDataModel.list.count > 0) {
-            self.emptyView.hidden = YES;
-        }else {
-            
-            self.emptyView.hidden = NO;
+        
+        
+        [self setNaviRightButton:NO];
+        
+    }];
+}
+
+- (void)loadShowStockPoolData {
+    /** 获取制定月份下的所有有记录的日期 */
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    /**
+     master_id	int	股票池用户ID	是
+     */
+    NSDictionary *dict = @{@"master_id":SafeValue(self.userId)};
+    
+    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
+    hud.hidesWhenStopped = YES;
+    
+    if (self.page == 1) {
+        [self.view addSubview:hud];
+        [hud startAnimating];
+    }
+    
+    [manager GET:API_StockPoolGetShowStockPool parameters:dict completion:^(NSDictionary *data, NSError *error) {
+        [hud stopAnimating];
+        if (!error) {
+            if (data != nil) {
+                self.shareURL = data[@"share_url"];
+                self.searchMonthStr = data[@"record_first_month"];
+                if (self.searchMonthStr.length <= 0) {
+                    [self setNaviRightButton:YES];
+                }else {
+                    [self refreshActions];
+                    
+                }
+            }
         }
         
     }];
+}
+
+
+
+- (void)setNaviRightButton:(BOOL)hiddenAll {
+    if (hiddenAll == YES) {
+        self.navigationItem.rightBarButtonItems = nil;
+        self.emptyView.hidden = NO;
+        return;
+    }
+    if (self.listDataModel.list.count <= 0) {
+        self.navigationItem.rightBarButtonItems = @[self.calendarBtn];
+        self.emptyView.hidden = NO;
+        
+        
+    }else {
+        
+        self.emptyView.hidden = YES;
+        self.navigationItem.rightBarButtonItems = @[self.shareBtn,self.spacer,self.calendarBtn];
+        
+    }
 }
 
 

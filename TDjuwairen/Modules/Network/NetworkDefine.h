@@ -243,6 +243,8 @@
 #define API_StockPoolGetRecordMonths        @"StockPool/getRecordMonths"
 /// 获取指定日期前的股票池记录
 #define API_StockPoolGetRecordList        @"StockPool/getRecordList"
+/// 股票池记录列表 的头部信息
+#define API_StockPoolGetShowStockPool        @"StockPool/showStockPool"
 /// 获取指定月份下的有记录的日期
 #define API_StockPoolGetRecordDates       @"StockPool/getRecordDates"
 #define API_StockPoolGetRecordPoint     @"StockPool/getRecordPositionInfo"
