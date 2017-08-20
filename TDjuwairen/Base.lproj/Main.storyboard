@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" tag="1" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" tag="2" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -131,7 +131,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video" selectedImage="tab_video_in" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -169,7 +169,7 @@
                     <tabBarItem key="tabBarItem" title="直播" image="tab_alive" selectedImage="tab_alive_in" id="ZNX-aC-Q9m">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ty4-cg-kNd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ty4-cg-kNd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -740,7 +740,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wKM-aS-UqM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wKM-aS-UqM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
