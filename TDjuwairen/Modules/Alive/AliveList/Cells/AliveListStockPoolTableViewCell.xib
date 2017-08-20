@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -72,38 +72,57 @@
                         <color key="textColor" red="0.99607843137254903" green="0.5725490196078431" blue="0.25882352941176467" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gjl-LU-Vag">
+                        <rect key="frame" x="180.5" y="5" width="30" height="34"/>
+                        <state key="selected" image="flag_new"/>
+                    </button>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="剩余2天" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wT8-cb-BvT">
+                        <rect key="frame" x="263.5" y="119.5" width="44.5" height="14.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="trailing" secondItem="rkn-Fq-nFZ" secondAttribute="trailing" id="Ekp-bq-8HI"/>
                     <constraint firstAttribute="trailing" secondItem="5mc-cb-yhX" secondAttribute="trailing" constant="12" id="Jca-wF-eJ9"/>
                     <constraint firstItem="oeB-J1-pAv" firstAttribute="leading" secondItem="AXZ-Nn-xXl" secondAttribute="trailing" constant="12" id="KtD-0J-If4"/>
+                    <constraint firstItem="gjl-LU-Vag" firstAttribute="leading" secondItem="fVU-eh-Q3V" secondAttribute="trailing" constant="2" id="Mew-t2-xqU"/>
                     <constraint firstItem="5mc-cb-yhX" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="Ocy-6U-bbI"/>
                     <constraint firstItem="Tyf-8m-xaU" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="VIs-Sz-M3e"/>
                     <constraint firstItem="AXZ-Nn-xXl" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="Y00-Is-LRA"/>
                     <constraint firstItem="rkn-Fq-nFZ" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="cTX-CO-qQ3"/>
                     <constraint firstItem="fVU-eh-Q3V" firstAttribute="leading" secondItem="AXZ-Nn-xXl" secondAttribute="trailing" constant="12" id="dIO-Rj-PKy"/>
+                    <constraint firstItem="wT8-cb-BvT" firstAttribute="trailing" secondItem="5mc-cb-yhX" secondAttribute="trailing" id="fWF-5a-JUh"/>
                     <constraint firstItem="OEb-wC-dH5" firstAttribute="centerY" secondItem="fVU-eh-Q3V" secondAttribute="centerY" id="g86-K1-blz"/>
                     <constraint firstAttribute="trailing" secondItem="OEb-wC-dH5" secondAttribute="trailing" constant="12" id="gPM-zC-ulk"/>
                     <constraint firstAttribute="bottom" secondItem="Tyf-8m-xaU" secondAttribute="bottom" constant="15" id="if8-QI-c7R"/>
+                    <constraint firstItem="wT8-cb-BvT" firstAttribute="centerY" secondItem="Tyf-8m-xaU" secondAttribute="centerY" id="lTa-K4-ItJ"/>
                     <constraint firstItem="5mc-cb-yhX" firstAttribute="top" secondItem="AXZ-Nn-xXl" secondAttribute="bottom" constant="10" id="mc6-mE-VaY"/>
                     <constraint firstItem="oeB-J1-pAv" firstAttribute="top" secondItem="fVU-eh-Q3V" secondAttribute="bottom" constant="4" id="skq-ab-OXq"/>
                     <constraint firstItem="fVU-eh-Q3V" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="12" id="spk-6v-9dZ"/>
                     <constraint firstItem="AXZ-Nn-xXl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="12" id="wAt-XK-Hmh"/>
                     <constraint firstAttribute="bottom" secondItem="wqd-Au-nNP" secondAttribute="bottom" constant="15" id="wSI-2m-WFA"/>
                     <constraint firstAttribute="trailing" secondItem="wqd-Au-nNP" secondAttribute="trailing" constant="12" id="ylW-Fb-kTK"/>
+                    <constraint firstItem="gjl-LU-Vag" firstAttribute="centerY" secondItem="fVU-eh-Q3V" secondAttribute="centerY" id="zyA-1r-dfo"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="avatar" destination="AXZ-Nn-xXl" id="cjb-nG-Pi7"/>
                 <outlet property="contentLabel" destination="5mc-cb-yhX" id="Gxb-fw-pbu"/>
+                <outlet property="isNewRecordBtn" destination="gjl-LU-Vag" id="3rf-Wl-Gms"/>
                 <outlet property="nickNameLabel" destination="fVU-eh-Q3V" id="3nB-pX-nRU"/>
                 <outlet property="payInfoLabel" destination="OEb-wC-dH5" id="eor-Ep-VyH"/>
                 <outlet property="residueDayLabel" destination="wqd-Au-nNP" id="oXL-da-MbN"/>
+                <outlet property="resuideNumDayLabel" destination="wT8-cb-BvT" id="orG-2M-bG6"/>
                 <outlet property="subscribeLabel" destination="rkn-Fq-nFZ" id="Piu-Hh-Ldj"/>
                 <outlet property="subscriptionNumLabel" destination="Tyf-8m-xaU" id="nA4-E9-8NO"/>
                 <outlet property="timeLabel" destination="oeB-J1-pAv" id="OcS-tS-mCB"/>
             </connections>
-            <point key="canvasLocation" x="20" y="56"/>
+            <point key="canvasLocation" x="-674" y="20"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="flag_new" width="29" height="18"/>
+    </resources>
 </document>

@@ -7,7 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+// 个人中心   我的订阅列表和历史订阅列表
+typedef enum : NSUInteger {
+    kMCSPSubscibeVCCurrentType    =0,
+    kMCSPSubscibeVCHistoryType       =1,
+    
+} MCSPSubscibeVCType;
 
 @interface StockPoolSubscribeController : UIViewController
+@property (nonatomic, assign) MCSPSubscibeVCType vcType;
 
 @end

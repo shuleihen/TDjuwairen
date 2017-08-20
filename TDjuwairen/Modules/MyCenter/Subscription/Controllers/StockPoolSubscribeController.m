@@ -7,13 +7,12 @@
 //
 
 #import "StockPoolSubscribeController.h"
-#import "MJRefresh.h"
 #import "NetworkManager.h"
 #import "AliveListStockPoolTableViewCell.h"
-
+#import "MBProgressHUD.h"
 @interface StockPoolSubscribeController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-
+@property (nonatomic, strong) NSMutableArray *sourceArr;
 @end
 
 @implementation StockPoolSubscribeController
@@ -23,7 +22,6 @@
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
-        //        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 150.0;
@@ -41,6 +39,8 @@
     [self configNavigationUI];
     self.view.backgroundColor = TDViewBackgrouondColor;
     [self.view addSubview:self.tableView];
+    [self loadMCStockPoolSubscribeData];
+    _sourceArr = [NSMutableArray new];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -58,14 +58,47 @@
     [rightBtn sizeToFit];
     [rightBtn addTarget:self action:@selector(historySubcriptionClick:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithCustomView:rightBtn];
+    if (self.vcType == kMCSPSubscibeVCHistoryType) {
+        self.title = @"历史订阅";
+        rightBtn.hidden = YES;
+    }
     
 }
 
 #pragma mark - actions
 - (void)historySubcriptionClick:(UIButton *)sender {
+    StockPoolSubscribeController *historyVC = [[StockPoolSubscribeController alloc] init];
+    historyVC.vcType = kMCSPSubscibeVCHistoryType;
     
+    [self.navigationController pushViewController:historyVC animated:YES];
+}
+
+
+- (void)loadMCStockPoolSubscribeData {
+    /**
+     type	int	0表示我的订阅，1表示历史订阅
+     */
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *pDict = @{@"type":@(self.vcType)};
+    __weak typeof (self)weakSelf = self;
+    [manager GET:API_MyCenterGetUserSubscribeStockPool parameters:pDict completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            
+            NSArray *arr = (NSArray *)data;
+            
+            [arr enumerateObjectsUsingBlock:^(NSDictionary *obj, NSUInteger idx, BOOL * _Nonnull stop) {
+                AliveListStockPoolModel *model = [[AliveListStockPoolModel alloc] initWithDictionary:obj];
+                [weakSelf.sourceArr addObject:model];
+            }];
+            
+            [self.tableView reloadData];
+        }
+        
+    }];
     
 }
+
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -73,12 +106,12 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return 10;
+    return [_sourceArr count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     AliveListStockPoolTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListStockPoolTableViewCellID" forIndexPath:indexPath];
-    
+    [cell setupAliveStockPool:_sourceArr[indexPath.row]];
     return cell;
 }
 
@@ -119,10 +152,6 @@
 
 
 
-
-
-
-
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;
 }
@@ -132,64 +161,78 @@
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForDeleteConfirmationButtonForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return @"取消\n订阅";
+    
+   return self.vcType == kMCSPSubscibeVCHistoryType?@"删除\r\n记录":@"取消\r\n订阅";
+
 }
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    __weak typeof (self)weakSelf = self;
+    AliveListStockPoolModel *model = _sourceArr[indexPath.row];
+    if (self.vcType == kMCSPSubscibeVCHistoryType) {
+        /** 删除记录*/
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = @"";
+         NetworkManager *manager = [[NetworkManager alloc] init];
+         NSDictionary *pDict = @{@"master_id":SafeValue(model.masterId)};
+         [manager GET:API_MyCenterDeleteSubscribeStockPool parameters:pDict completion:^(id data, NSError *error) {
+             if (!error) {
+                 [weakSelf deleteSuccessedWithIndexPath:indexPath];
+             }
+             [hud hideAnimated:YES afterDelay:.5];
+         }];
+        return;
+    }
     
-    //    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"是否取消收藏" message:@"\n取消收藏，将不在列表中显示\n" preferredStyle:UIAlertControllerStyleAlert];
-    //    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-    //        [self cancelEditWithIndexPath:indexPath];
-    //    }];
-    //    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
-    //        [self deleteWithIndexPath:indexPath];
-    //    }];
-    //    [alert addAction:cancel];
-    //    [alert addAction:done];
-    //    [self presentViewController:alert animated:YES completion:nil];
+    if (model.isExpire && !model.isFree) {
+        /** 未过期    2天后才能取消订阅*/
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"2天后才能取消订阅" message:@"是否现在取消订阅？" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"再看看" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self cancelEditWithIndexPath:indexPath];
+        }];
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"我意已决" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *pDict = @{@"master_id":SafeValue(model.masterId)};
+            [manager GET:API_MyCenterCancelSubscribeStockPool parameters:pDict completion:^(id data, NSError *error) {
+                if (!error) {
+                    [weakSelf deleteSuccessedWithIndexPath:indexPath];
+                }
+            }];
+        }];
+        [alert addAction:cancel];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
+       
+        return;
+    }
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text = @"";
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    NSDictionary *pDict = @{@"master_id":SafeValue(model.masterId)};
+    [manager GET:API_MyCenterCancelSubscribeStockPool parameters:pDict completion:^(id data, NSError *error) {
+        if (!error) {
+            
+            [weakSelf deleteSuccessedWithIndexPath:indexPath];
+        }
+        [hud hideAnimated:YES afterDelay:.5];
+        
+    }];
+   
 }
 
 - (void)cancelEditWithIndexPath:(NSIndexPath *)indexPath {
-    //    [self.tableView beginUpdates];
-    //
-    //    [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
-    //    [self.tableView endUpdates];
+        [self.tableView beginUpdates];
+        [self.tableView reloadRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationNone];
+        [self.tableView endUpdates];
 }
 
-- (void)deleteWithIndexPath:(NSIndexPath *)indexPath {
-    //    NSDictionary *dict;
-    //
-    //    if (self.type == kCollectionHot) {
-    //        StockHotModel *model = self.itemList[indexPath.row];
-    //        dict = @{@"collect_id": model.collectedId};
-    //    } else {
-    //        StockSurveyModel *model = self.itemList[indexPath.row];
-    //        dict = @{@"collect_id": model.collectedId};
-    //    }
-    //
-    //    NetworkManager *manager = [[NetworkManager alloc] init];
-    //    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    //    hud.label.text = @"取消收藏";
-    //    [manager POST:API_CancelCollection parameters:dict completion:^(id data, NSError *error){
-    //        if (!error) {
-    //            [hud hideAnimated:YES];
-    //            [self deleteSuccessedWithIndexPath:indexPath];
-    //        } else {
-    //            hud.label.text = @"取消收藏失败";
-    //            [hud hideAnimated:YES afterDelay:0.8];
-    //        }
-    //
-    //    }];
-}
 
 - (void)deleteSuccessedWithIndexPath:(NSIndexPath *)indexPath {
-    //    [self.tableView beginUpdates];
-    //
-    //    NSMutableArray *array = [NSMutableArray arrayWithArray:self.itemList];
-    //    [array removeObjectAtIndex:indexPath.row];
-    //    self.itemList = array;
-    //    
-    //    [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
-    //    [self.tableView endUpdates];
+        [self.tableView beginUpdates];
+        [self.sourceArr removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationLeft];
+        [self.tableView endUpdates];
 }
+
 @end

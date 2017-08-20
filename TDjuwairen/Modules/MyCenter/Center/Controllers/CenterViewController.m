@@ -217,6 +217,7 @@
         
     }else {
         StockPoolSubscribeController *mySubcriptionVC = [[StockPoolSubscribeController alloc] init];
+        mySubcriptionVC.vcType = kMCSPSubscibeVCCurrentType;
         mySubcriptionVC.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:mySubcriptionVC animated:YES];
     }

@@ -53,5 +53,16 @@
         }
     }
     
+    _isNewRecordBtn.selected = [stockPool.hasNewRecord boolValue];
+    if ([stockPool.hasNewRecord boolValue] && stockPool.isFree == NO && stockPool.isExpire) {
+        // 最新
+        self.residueDayLabel.text = stockPool.poolSetTip;
+        self.payInfoLabel.text = @"";
+    }else {
+    
+        self.residueDayLabel.text = @"";
+        self.payInfoLabel.text = stockPool.poolSetTip;
+    }
+    
 }
 @end
