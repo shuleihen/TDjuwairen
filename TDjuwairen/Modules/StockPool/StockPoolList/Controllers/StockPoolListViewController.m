@@ -356,7 +356,7 @@ StockUnlockManagerDelegate>
 }
 
 - (void)loadShowStockPoolData {
-    /** 获取制定月份下的所有有记录的日期 */
+    /** 股票池记录列表 的头部信息 */
     NetworkManager *manager = [[NetworkManager alloc] init];
     /**
      master_id	int	股票池用户ID	是
@@ -377,7 +377,7 @@ StockUnlockManagerDelegate>
         if (!error) {
             if (data != nil) {
                 self.shareURL = data[@"share_url"];
-                self.searchMonthStr = data[@"record_first_month"];
+                self.searchMonthStr = data[@"record_first_day"];
                 if (self.searchMonthStr.length <= 0) {
                     [self setNaviRightButton:YES];
                 }else {
