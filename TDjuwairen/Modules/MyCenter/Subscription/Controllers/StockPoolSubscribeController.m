@@ -10,6 +10,9 @@
 #import "NetworkManager.h"
 #import "AliveListStockPoolTableViewCell.h"
 #import "MBProgressHUD.h"
+#import "StockPoolListViewController.h"
+
+
 @interface StockPoolSubscribeController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *sourceArr;
@@ -118,7 +121,13 @@
 #pragma mark - UITableViewDelegate
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
+    AliveListStockPoolModel *model = self.sourceArr[indexPath.row];
+    if (model.masterId.length <= 0) {
+        return;
+    }
+    StockPoolListViewController *listVC = [[StockPoolListViewController alloc] init];
+    listVC.userId = model.masterId;
+    [self.navigationController pushViewController:listVC animated:YES];
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
