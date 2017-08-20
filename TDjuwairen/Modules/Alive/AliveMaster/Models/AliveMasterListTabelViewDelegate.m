@@ -62,11 +62,11 @@
     NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
     NetworkManager *manager = [[NetworkManager alloc] init];
     
-//    cell.attentBtn.isLoading = YES;
+    //    cell.attentBtn.isLoading = YES;
     
     [manager POST:str parameters:@{@"user_id":model.masterId} completion:^(id data, NSError *error){
         
-//        cell.attentBtn.isLoading = NO;
+        //        cell.attentBtn.isLoading = NO;
         
         if (!error) {
             
@@ -109,6 +109,14 @@
         
     }
     
+    if (self.listType == kAliveAttentionList || self.listType == kAliveFansList) {
+        cell.aLevelLabel.hidden = YES;
+        cell.aFansCountLabel.hidden = YES;
+    }else {
+        cell.aLevelLabel.hidden = NO;
+        cell.aFansCountLabel.hidden = YES;
+        
+    }
     return cell;
 }
 
@@ -130,6 +138,8 @@
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (self.listType == kAliveDianZanList) {
         return 74;
+    }else if (self.listType == kAliveAttentionList || self.listType == kAliveFansList) {
+        return 80;
     }else {
         return 100;
     }
