@@ -257,6 +257,7 @@
 #define API_MyCenterGetUserSubscribeStockPool         @"StockPool/getUserSubscribeStockPool"
 #define API_MyCenterCancelSubscribeStockPool          @"/StockPool/cancelSubscribeStockPool"
 #define API_MyCenterDeleteSubscribeStockPool          @"/StockPool/deleteSubscribeStockPool"
+#define API_StockPoolShare              @"StockPool/shareStockPool"
 
 
 #endif /* NetworkDefine_h */

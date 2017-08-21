@@ -13,10 +13,12 @@
     if (self = [super init]) {
         self.desc = dict[@"record_desc"];
         self.recordId = dict[@"record_id"];
-        self.date = dict[@"record_date"];
+        long long d = [dict[@"record_time"] longLongValue];
+        self.date = [NSDate dateWithTimeIntervalSince1970:d];
         self.ratio = dict[@"record_total_ratio"];
         self.masterId = dict[@"record_master_id"];
         self.isMaster = [dict[@"is_master"] boolValue];
+        self.shareUrl = dict[@"share_url"];
         
         NSArray *list = dict[@"record_position_data"];
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:list.count];

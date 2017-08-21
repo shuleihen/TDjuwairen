@@ -26,6 +26,7 @@
 #import "StockUnlockManager.h"
 #import "ShareHandler.h"
 #import "AlivePublishViewController.h"
+#import "MBProgressHUD+Custom.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -46,6 +47,7 @@ StockUnlockManagerDelegate>
 @property (nonatomic, strong) UIBarButtonItem *spacer;
 @property (nonatomic, strong) UIBarButtonItem *calendarBtn;
 @property (nonatomic, copy) NSString *shareURL;
+@property (nonatomic, copy) NSString *stockPoolIntro;
 @end
 
 @implementation StockPoolListViewController
@@ -206,16 +208,22 @@ StockUnlockManagerDelegate>
 
     __weak typeof(self)weakSelf = self;
 
-    
-    [ShareHandler shareWithTitle:@"股票池记录" image:nil url:self.shareURL selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:[NSString stringWithFormat:@"%@的股票池",US.userName]
+                          detail:self.stockPoolIntro?:@"无简介"
+                           image:nil url:self.shareURL selectedBlock:^(NSInteger index){
         if (index == 0) {
-            // 转发
-//            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-//            vc.hidesBottomBarWhenPushed = YES;
-//            
-//            vc.publishType = kAlivePublishForward;
-////            vc.aliveListModel = aliveModel;
-//            [weakSelf.navigationController pushViewController:vc animated:YES];
+            // 直播分享
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dict = @{@"item_id":SafeValue(self.userId),
+                                   @"item_type": @(0)};
+            
+            [manager POST:API_StockPoolShare parameters:dict completion:^(NSDictionary *data, NSError *error) {
+                if (!error) {
+                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享功能"];
+                } else {
+                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享失败"];
+                }
+            }];
         }
     }  shareState:nil];
     
@@ -378,11 +386,11 @@ StockUnlockManagerDelegate>
             if (data != nil) {
                 self.shareURL = data[@"share_url"];
                 self.searchMonthStr = data[@"record_first_day"];
+                self.stockPoolIntro = data[@"pool_desc"];
                 if (self.searchMonthStr.length <= 0) {
                     [self setNaviRightButton:YES];
                 }else {
                     [self refreshActions];
-                    
                 }
             }
         }

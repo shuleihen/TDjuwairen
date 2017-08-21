@@ -12,11 +12,12 @@
 @interface StockPoolDetailModel : NSObject
 @property (nonatomic, copy) NSString *desc;
 @property (nonatomic, copy) NSString *recordId;
-@property (nonatomic, copy) NSString *date;
+@property (nonatomic, copy) NSDate *date;
 @property (nonatomic, assign) BOOL isMaster;
 @property (nonatomic, copy) NSString *ratio;
 @property (nonatomic, copy) NSString *masterId;
 @property (nonatomic, strong) NSArray *positions;
+@property (nonatomic, strong) NSString *shareUrl;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

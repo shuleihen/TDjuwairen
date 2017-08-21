@@ -17,6 +17,8 @@
 #import "NSString+Util.h"
 #import "StockPoolAddAndEditViewController.h"
 #import "TDNavigationController.h"
+#import "ShareHandler.h"
+#import "MBProgressHUD+Custom.h"
 
 @interface StockPoolDetailViewController ()
 <UITableViewDelegate, UITableViewDataSource, StockManagerDelegate>
@@ -28,6 +30,7 @@
 @property (nonatomic, strong) TDSegmentedControl *segment;
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
+@property (nonatomic, strong) NSDateFormatter *formatter;
 @end
 
 @implementation StockPoolDetailViewController
@@ -65,11 +68,19 @@
     return _tableView;
 }
 
+- (NSDateFormatter *)formatter {
+    if (!_formatter) {
+        _formatter = [[NSDateFormatter alloc] init];
+        [_formatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
+    }
+    return _formatter;
+}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
+    
     [self setupNavigation];
     [self queryDetailInfo];
 }
@@ -108,7 +119,37 @@
 }
 
 - (void)sharePressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
     
+    __weak typeof(self)weakSelf = self;
+    [self.formatter setDateFormat:@"MM月dd日"];
+    NSString *title = [NSString stringWithFormat:@"%@的股票池记录(%@)",US.userName, [self.formatter stringFromDate:self.detailModel.date]];
+    NSString *detail = self.detailModel.desc;
+    
+    [ShareHandler shareWithTitle:title
+                          detail:detail
+                           image:nil
+                             url:self.detailModel.shareUrl
+                   selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 直播分享
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dict = @{@"item_id":SafeValue(weakSelf.detailModel.recordId),
+                                   @"item_type": @(1)};
+            
+            [manager POST:API_StockPoolShare parameters:dict completion:^(NSDictionary *data, NSError *error) {
+                if (!error) {
+                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享功能"];
+                } else {
+                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享失败"];
+                }
+            }];
+        }
+    }  shareState:nil];
 }
 
 - (void)queryDetailInfo {
@@ -200,7 +241,9 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         SPDetailPositionsTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPDetailPositionsTableViewCellID"];
-        cell.dateLabel.text = self.detailModel.date;
+        [self.formatter setDateFormat:@"yyyy-MM-dd EEE HH:mm"];
+        
+        cell.dateLabel.text = [self.formatter stringFromDate:self.detailModel.date];
         cell.ratioLabel.text = [NSString stringWithFormat:@"仓位 %@%%",self.detailModel.ratio];
         cell.moneyLabel.text = [NSString stringWithFormat:@"%ld%% 资金",(long)(100- [self.detailModel.ratio integerValue])];
         cell.progressView.progress = [self.detailModel.ratio integerValue]/100.0f;

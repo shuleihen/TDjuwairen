@@ -185,12 +185,15 @@
     
     AliveListStockPoolModel *model = self.aliveList[indexPath.row];
     
+    [self pushToStockPoolWithMasterId:model.masterId];
+    /*
     if (model.isFree ||
         (model.isSubscribe && model.isExpire)) {
         [self pushToStockPoolWithMasterId:model.masterId];
     } else {
         [self.unlockManager unlockStockPool:model.masterId withController:self];
     }
+     */
 }
 
 - (void)pushToStockPoolWithMasterId:(NSString *)masterId {

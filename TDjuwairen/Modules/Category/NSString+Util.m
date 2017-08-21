@@ -89,6 +89,13 @@
     return [[self substringToIndex:limit - 1] stringByAppendingString:@"..."];
 }
 
+- (NSString *)cutStringWithLimit:(NSInteger)limit {
+    if (self.length <= limit) {
+        return self;
+    }
+    
+    return [self substringToIndex:limit];
+}
 - (NSUInteger)getBytesLength
 {
     NSStringEncoding enc = CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingGB_18030_2000);

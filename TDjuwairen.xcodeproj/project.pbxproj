@@ -3278,14 +3278,14 @@
 				19AA7DC21F3AA20100716F38 /* AliveListRootViewController.m */,
 				193419D51E782C9B00F22788 /* AliveMainListViewController.h */,
 				193419D61E782C9B00F22788 /* AliveMainListViewController.m */,
+				19042E341F3D7DFE0004D3C6 /* AliveListBaseViewController.h */,
+				19042E351F3D7DFE0004D3C6 /* AliveListBaseViewController.m */,
 				1953CAF81E7172DB00A64B3C /* AliveListViewController.h */,
 				1953CAF91E7172DB00A64B3C /* AliveListViewController.m */,
 				19E58DC41EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.h */,
 				19E58DC51EFBE16D00ADA1B8 /* AliveNoAttentionTableViewController.m */,
 				19042E311F3D7DB90004D3C6 /* AliveListStockPoolViewController.h */,
 				19042E321F3D7DB90004D3C6 /* AliveListStockPoolViewController.m */,
-				19042E341F3D7DFE0004D3C6 /* AliveListBaseViewController.h */,
-				19042E351F3D7DFE0004D3C6 /* AliveListBaseViewController.m */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
