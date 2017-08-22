@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		19042EA81F4BFA0E0004D3C6 /* RechargeDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -634,6 +635,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		19042EA61F4BFA0E0004D3C6 /* RechargeDoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeDoneViewController.h; sourceTree = "<group>"; };
+		19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeDoneViewController.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -4494,6 +4497,8 @@
 				19F007451E31E5AE000A5F98 /* StockUnlockViewController.m */,
 				1998E2AE1F219EA400EE9E54 /* DeepUnlockViewController.h */,
 				1998E2AF1F219EA400EE9E54 /* DeepUnlockViewController.m */,
+				19042EA61F4BFA0E0004D3C6 /* RechargeDoneViewController.h */,
+				19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -5681,6 +5686,7 @@
 				19C348671D3F76DB008ABD16 /* MJRefreshFooter.m in Sources */,
 				9EFD756F1EAC78B60028F18B /* ActualQuotationCell.m in Sources */,
 				19C348641D3F76DB008ABD16 /* MJRefreshAutoFooter.m in Sources */,
+				19042EA81F4BFA0E0004D3C6 /* RechargeDoneViewController.m in Sources */,
 				19194CCC1E7FACC400641085 /* UIViewController+Login.m in Sources */,
 				84E334631CE3123700E5DCEE /* MKAnnotationView+WebCache.m in Sources */,
 				19959B891E2C694A00AB26DF /* GradeHeaderView.m in Sources */,

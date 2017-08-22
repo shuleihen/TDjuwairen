@@ -83,6 +83,7 @@
 
 #define API_PayIsShow               @"Pay/isPayShow"
 #define API_IAPVerify               @"Pay/iapVerify"
+#define API_IAPGuesVerify           @"Pay/guestIapVerify"
 
 #define API_AddSharpComment         @"Sharp/addSharpComnment"
 #define API_VideoGetList            @"Sharp/videoList3_1"

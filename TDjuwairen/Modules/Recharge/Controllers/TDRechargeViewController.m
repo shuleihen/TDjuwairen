@@ -14,6 +14,8 @@
 #import "CocoaLumberjack.h"
 #import "SKProduct+LocalizedPrice.h"
 #import "LoginStateManager.h"
+#import "LoginManager.h"
+#import "LoginHandler.h"
 
 @interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UITableViewDelegate, UITableViewDataSource, MBProgressHUDDelegate>
 @property (nonatomic, strong) NSArray *productId;
@@ -135,21 +137,28 @@
 
 - (void)donePressed:(id)sender {
     
-    if (!US.isLogIn) {
-        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"登录提示" message:@"登录后继续，是否登录？" preferredStyle:UIAlertControllerStyleAlert];
+    if (US.isLogIn == NO) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"购买钥匙" preferredStyle:UIAlertControllerStyleActionSheet];
         UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil];
-        UIAlertAction *done = [UIAlertAction actionWithTitle:@"登录" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        UIAlertAction *one = [UIAlertAction actionWithTitle:@"登录在购买" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
             LoginViewController *login = [[LoginViewController alloc] init];
             login.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:login animated:YES];
         }];
-        [alert addAction:cancel];
-        [alert addAction:done];
-        [self presentViewController:alert animated:YES completion:nil];
+        UIAlertAction *two = [UIAlertAction actionWithTitle:@"直接购买" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self buyKey];
+        }];
         
-        return;
+        [alert addAction:one];
+        [alert addAction:two];
+        [alert addAction:cancel];
+        [self presentViewController:alert animated:YES completion:nil];
+    } else {
+        [self buyKey];
     }
-    
+}
+
+- (void)buyKey {
     NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
     if (!indexPath) {
         return;
@@ -223,8 +232,14 @@
                            @"debug": @(isDebug)};
     NetworkManager *ma = [[NetworkManager alloc] init];
 
+    NSString *api = @"";
+    if (US.isLogIn) {
+        api = API_IAPVerify;
+    } else {
+        api = API_IAPGuesVerify;
+    }
     
-    [ma POST:API_IAPVerify parameters:para completion:^(id data, NSError *error){
+    [ma POST:api parameters:para completion:^(id data, NSError *error){
         [MBProgressHUD hideHUDForView:wself.view animated:YES];
         
         if (!error) {
@@ -238,6 +253,14 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.labelText = @"购买失败";
             [hud hide:YES afterDelay:0.6];
+        }
+        
+        if (US.isLogIn == NO) {
+            NSString *accouont = data[@"user_name"];
+            NSString *password = data[@"user_passwd"];
+            
+            [LoginHandler saveLoginAccountId:accouont password:password];
+            [LoginManager checkLogin];
         }
     }];
 }
