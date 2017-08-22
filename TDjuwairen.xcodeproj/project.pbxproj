@@ -43,6 +43,11 @@
 		19042E9A1F4570F80004D3C6 /* StockPoolUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E991F4570F80004D3C6 /* StockPoolUnlockViewController.m */; };
 		19042E9D1F4577B90004D3C6 /* StockPoolUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */; };
 		19042EA51F4BDC920004D3C6 /* StockPoolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */; };
+		19042EAB1F4C0A330004D3C6 /* TDCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */; };
+		19042EAE1F4C0AED0004D3C6 /* StockPoolCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */; };
+		19042EB11F4C0B130004D3C6 /* TDTopicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB01F4C0B130004D3C6 /* TDTopicTableViewCell.m */; };
+		19042EB41F4C0B250004D3C6 /* TDCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB31F4C0B250004D3C6 /* TDCommentTableViewCell.m */; };
+		19042EB71F4C13690004D3C6 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB61F4C13690004D3C6 /* CenterTableViewCell.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -783,6 +788,16 @@
 		19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolUnlockModel.m; sourceTree = "<group>"; };
 		19042EA31F4BDC920004D3C6 /* StockPoolHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolHandler.h; sourceTree = "<group>"; };
 		19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolHandler.m; sourceTree = "<group>"; };
+		19042EA91F4C0A330004D3C6 /* TDCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentViewController.h; sourceTree = "<group>"; };
+		19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCommentViewController.m; sourceTree = "<group>"; };
+		19042EAC1F4C0AED0004D3C6 /* StockPoolCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolCommentViewController.h; sourceTree = "<group>"; };
+		19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolCommentViewController.m; sourceTree = "<group>"; };
+		19042EAF1F4C0B130004D3C6 /* TDTopicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTopicTableViewCell.h; sourceTree = "<group>"; };
+		19042EB01F4C0B130004D3C6 /* TDTopicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTopicTableViewCell.m; sourceTree = "<group>"; };
+		19042EB21F4C0B250004D3C6 /* TDCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentTableViewCell.h; sourceTree = "<group>"; };
+		19042EB31F4C0B250004D3C6 /* TDCommentTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCommentTableViewCell.m; sourceTree = "<group>"; };
+		19042EB51F4C13690004D3C6 /* CenterTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CenterTableViewCell.h; sourceTree = "<group>"; };
+		19042EB61F4C13690004D3C6 /* CenterTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterTableViewCell.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2826,6 +2841,8 @@
 		19386EFC1E73A2DB00D4426E /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				19042EB51F4C13690004D3C6 /* CenterTableViewCell.h */,
+				19042EB61F4C13690004D3C6 /* CenterTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3101,6 +3118,10 @@
 		194E0D0E1EEF8C96009C7AC6 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				19042EAF1F4C0B130004D3C6 /* TDTopicTableViewCell.h */,
+				19042EB01F4C0B130004D3C6 /* TDTopicTableViewCell.m */,
+				19042EB21F4C0B250004D3C6 /* TDCommentTableViewCell.h */,
+				19042EB31F4C0B250004D3C6 /* TDCommentTableViewCell.m */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -3108,6 +3129,10 @@
 		194E0D0F1EEF8C96009C7AC6 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				19042EA91F4C0A330004D3C6 /* TDCommentViewController.h */,
+				19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */,
+				19042EAC1F4C0AED0004D3C6 /* StockPoolCommentViewController.h */,
+				19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -6370,6 +6395,7 @@
 				190F65F31E36E73000B83ADF /* AwardViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19E58DBB1EFA423B00ADA1B8 /* SharpTags.m in Sources */,
+				19042EAE1F4C0AED0004D3C6 /* StockPoolCommentViewController.m in Sources */,
 				9EC7157C1F3EC10600F3A071 /* UILabel+TDLabel.m in Sources */,
 				9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,
@@ -6499,6 +6525,7 @@
 				19E58DA81EF8C55500ADA1B8 /* ASValueTrackingSlider.m in Sources */,
 				9E6026F61E76DE6B004D1BFC /* AlivePingLunViewController.m in Sources */,
 				194E0D191EEF8D48009C7AC6 /* TDTopicCellData.m in Sources */,
+				19042EB41F4C0B250004D3C6 /* TDCommentTableViewCell.m in Sources */,
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
 				4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
@@ -6529,6 +6556,7 @@
 				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
+				19042EAB1F4C0A330004D3C6 /* TDCommentViewController.m in Sources */,
 				1955B4891D644D9800DC102E /* SearchViewController.m in Sources */,
 				1987B2901EE688F700BD852E /* StockSurveyModel.m in Sources */,
 				19F07A0D1F1B7BD0004449BB /* SGAdvertScrollView.m in Sources */,
@@ -6578,6 +6606,7 @@
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
 				19B11CAE1D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m in Sources */,
 				19ED174C1F1644B400EC89DF /* MyGuessCell.m in Sources */,
+				19042EB71F4C13690004D3C6 /* CenterTableViewCell.m in Sources */,
 				194186DA1DF81284000C5197 /* SettingNickNameViewController.m in Sources */,
 				1966A66B1E8CA30E007DDA14 /* AliveListForwardModel.m in Sources */,
 				19C348711D3F76DB008ABD16 /* MJRefreshStateHeader.m in Sources */,
@@ -6630,6 +6659,7 @@
 				19F07A141F1C5DC6004449BB /* SystemMessageViewController.m in Sources */,
 				19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */,
 				9E2233C21E8A713200B1FAC4 /* AddIndividualViewController.m in Sources */,
+				19042EB11F4C0B130004D3C6 /* TDTopicTableViewCell.m in Sources */,
 				19E58D851EF8BEDC00ADA1B8 /* VideoInfoModel.m in Sources */,
 				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
 				1959D4701F29E49A002B969A /* LoginHandler.m in Sources */,

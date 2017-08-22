@@ -20,6 +20,7 @@
 #import "LoginHandler.h"
 #import "CenterHeaderItemView.h"
 #import "StockPoolSubscribeController.h"
+#import "CenterTableViewCell.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -34,6 +35,11 @@
 @property (weak, nonatomic) IBOutlet UIImageView *sexImageView;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
 @property (nonatomic, strong) CAGradientLayer *gradientLayer;
+@property (weak, nonatomic) IBOutlet UIView *headerItemContainView;
+@property (weak, nonatomic) IBOutlet UILabel *userPointsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userKeyLabel;
+@property (nonatomic, assign) NSInteger userLevelExpireDay;
+@property (weak, nonatomic) IBOutlet UIButton *guessRateBtn;
 @end
 
 @implementation CenterViewController
@@ -62,6 +68,10 @@
     gradientLayer.frame = CGRectMake(0, 0, kScreenWidth, 180);
     self.gradientLayer = gradientLayer;
     [self.headerView.layer insertSublayer:gradientLayer atIndex:0];
+    
+    // 投影
+    self.headerItemContainView.layer.shadowColor = [UIColor hx_colorWithHexRGBAString:@"#E8E8E8"].CGColor;
+    self.headerItemContainView.layer.shadowOffset = CGSizeMake(0, 5);
     
     self.classesArray = @[@[],
                           @[@"", @"",@"CollectionViewController",],
@@ -135,20 +145,34 @@
     
     [manager POST:API_UserGetNotify parameters:nil completion:^(id data, NSError *error){
         
-        if (!error) {
-            NSDictionary *dict = data;
-            NSInteger dy = [dict[@"alive_num"] integerValue];
-            NSInteger at = [dict[@"atten_num"] integerValue];
-            NSInteger fan = [dict[@"fans_num"] integerValue];
-            
-            [wself.subscribeView setupNumber:dy];
-            [wself.attentionView setupNumber:at];
-            [wself.fansView setupNumber:fan];
-        } else {
-            
-        }
-        
+        [wself setupNotifiInfoWithDictionary:data];
     }];
+}
+
+- (void)setupNotifiInfoWithDictionary:(NSDictionary *)dict {
+    if (dict == nil) {
+        return;
+    }
+    
+    NSInteger dy = [dict[@"stockpool_sub_num"] integerValue];
+    NSInteger at = [dict[@"atten_num"] integerValue];
+    NSInteger fan = [dict[@"fans_num"] integerValue];
+    NSInteger userinfo_points = [dict[@"userinfo_points"] integerValue];
+    NSInteger user_keynum = [dict[@"user_keynum"] integerValue];
+    NSInteger expireDay = [dict[@"vip_expire_day"] integerValue];
+    NSInteger guess_rate = [dict[@"guess_rate"] integerValue];
+    
+    [self.subscribeView setupNumber:dy];
+    [self.attentionView setupNumber:at];
+    [self.fansView setupNumber:fan];
+    self.userPointsLabel.text = [NSString stringWithFormat:@"%ld",(long)userinfo_points];
+    self.userKeyLabel.text = [NSString stringWithFormat:@"%ld",(long)user_keynum];
+    
+    self.userLevelExpireDay = expireDay;
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+    
+    NSString *string = [NSString stringWithFormat:@"%ld",(long)guess_rate];
+    [self.guessRateBtn setTitle:string forState:UIControlStateNormal];
 }
 
 #pragma mark - Action
@@ -276,6 +300,51 @@
         imageView.contentMode = UIViewContentModeCenter;
         imageView.image = [UIImage imageNamed:@"icon_arrow_light_grey.png"];
         cell.accessoryView = imageView;
+    }
+    
+    CenterTableViewCell *centerCell;
+    if ([cell isKindOfClass:[CenterTableViewCell class]]) {
+        centerCell = (CenterTableViewCell *)cell;
+    }
+    
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        // 会员中心
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_membership.png"];
+        centerCell.titleLabel.text = @"会员中心";
+        
+        if (self.userLevelExpireDay != 0) {
+            centerCell.detailLabel.text = [NSString stringWithFormat:@"过期%ld天", (long)self.userLevelExpireDay];
+            centerCell.detailLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF5D5D"];
+        } else {
+            centerCell.detailLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#CCCCCC"];
+            if (US.userLevel == kUserLevelNormal) {
+                centerCell.detailLabel.text = @"成为会员享受更多特权";
+            } else if (US.userLevel == kUserLevelBronze) {
+                centerCell.detailLabel.text = @"青铜会员";
+            } else if (US.userLevel == kUserLevelSilver) {
+                centerCell.detailLabel.text = @"白银会员";
+            } else if (US.userLevel == kUserLevelGold) {
+                centerCell.detailLabel.text = @"黄金会员";
+            }
+        }
+        
+        
+    } else if (indexPath.section == 1 && indexPath.row == 1) {
+        // 任务中心
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_mission.png"];
+        centerCell.titleLabel.text = @"任务中心";
+    } else if (indexPath.section == 1 && indexPath.row == 2) {
+        // 我的收藏
+        centerCell.iconImageView.image = [UIImage imageNamed:@"icon_collection.png"];
+        centerCell.titleLabel.text = @"我的收藏";
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
+        // 系统消息
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_system.png"];
+        centerCell.titleLabel.text = @"系统消息";
+    } else if (indexPath.section == 2 && indexPath.row == 1) {
+        // 关于我们
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_aboutus.png"];
+        centerCell.titleLabel.text = @"关于我们";
     }
 }
 

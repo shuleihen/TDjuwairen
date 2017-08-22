@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="7lK-lJ-eQn">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" tag="1" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" tag="2" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -131,7 +131,7 @@
                     <tabBarItem key="tabBarItem" title="视频" image="tab_video" selectedImage="tab_video_in" id="BoF-hT-Tyq">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YNw-te-wmI">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -169,7 +169,7 @@
                     <tabBarItem key="tabBarItem" title="直播" image="tab_alive" selectedImage="tab_alive_in" id="ZNX-aC-Q9m">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ty4-cg-kNd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ty4-cg-kNd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -263,11 +263,14 @@
                                                 <constraint firstAttribute="width" constant="14" id="RCH-Ws-Rif"/>
                                             </constraints>
                                         </imageView>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyt-OV-KgM">
-                                            <rect key="frame" x="99" y="36" width="10" height="20"/>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wyt-OV-KgM">
+                                            <rect key="frame" x="99" y="36" width="60" height="20"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="20" id="COl-Lj-3OI"/>
+                                                <constraint firstAttribute="width" constant="60" id="S8F-ja-IyJ"/>
                                             </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                            <inset key="titleEdgeInsets" minX="4" minY="0.0" maxX="0.0" maxY="0.0"/>
                                             <state key="normal" image="ico_gushen"/>
                                         </button>
                                         <button opaque="NO" userInteractionEnabled="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s4m-nx-zqO">
@@ -599,113 +602,48 @@
                             </tableViewSection>
                             <tableViewSection id="RRs-I5-kxA">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="yTI-Ea-RVb" imageView="seB-bd-zbN" style="IBUITableViewCellStyleDefault" id="AdD-SO-Q8a">
-                                        <rect key="frame" x="0.0" y="339" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="AdD-SO-Q8a" customClass="CenterTableViewCell">
+                                        <rect key="frame" x="0.0" y="339" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="AdD-SO-Q8a" id="pz9-AG-EDt">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="会员中心" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yTI-Ea-RVb">
-                                                    <rect key="frame" x="49" y="0.0" width="291" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_membership" id="seB-bd-zbN">
-                                                    <rect key="frame" x="15" y="11" width="19" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="CyL-vI-kJC" imageView="fZR-yy-8a9" style="IBUITableViewCellStyleDefault" id="iz1-Hp-9H7">
-                                        <rect key="frame" x="0.0" y="383" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="iz1-Hp-9H7" customClass="CenterTableViewCell">
+                                        <rect key="frame" x="0.0" y="389" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="iz1-Hp-9H7" id="wX4-eO-pXb">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="任务中心" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="CyL-vI-kJC">
-                                                    <rect key="frame" x="47" y="0.0" width="293" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_mission" id="fZR-yy-8a9">
-                                                    <rect key="frame" x="15" y="11" width="17" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="gds-2a-STB" imageView="ITh-yR-Usm" style="IBUITableViewCellStyleDefault" id="WVW-NQ-57y">
-                                        <rect key="frame" x="0.0" y="427" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="WVW-NQ-57y" customClass="CenterTableViewCell">
+                                        <rect key="frame" x="0.0" y="439" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="WVW-NQ-57y" id="14B-kZ-aUe">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="我的收藏" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="gds-2a-STB">
-                                                    <rect key="frame" x="50" y="0.0" width="290" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="icon_collection" id="ITh-yR-Usm">
-                                                    <rect key="frame" x="15" y="12" width="20" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="lge-gk-MWf">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="lDS-Jc-Vb4" imageView="ijF-qU-vKw" style="IBUITableViewCellStyleDefault" id="gSM-ky-a2M">
-                                        <rect key="frame" x="0.0" y="507" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="gSM-ky-a2M" customClass="CenterTableViewCell">
+                                        <rect key="frame" x="0.0" y="525" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gSM-ky-a2M" id="8Be-1Q-lUf">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="系统消息" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="lDS-Jc-Vb4">
-                                                    <rect key="frame" x="50" y="0.0" width="290" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_system" id="ijF-qU-vKw">
-                                                    <rect key="frame" x="15" y="11" width="20" height="20"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="JSn-Pd-2Ok" imageView="szX-Tx-F9H" style="IBUITableViewCellStyleDefault" id="njB-d1-ZpY">
-                                        <rect key="frame" x="0.0" y="551" width="375" height="44"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" rowHeight="50" id="njB-d1-ZpY" customClass="CenterTableViewCell">
+                                        <rect key="frame" x="0.0" y="575" width="375" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="njB-d1-ZpY" id="8IA-sz-hAJ">
-                                            <rect key="frame" x="0.0" y="0.0" width="342" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="342" height="49.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="关于我们" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="JSn-Pd-2Ok">
-                                                    <rect key="frame" x="50" y="0.0" width="290" height="43.5"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" image="ico_aboutus" id="szX-Tx-F9H">
-                                                    <rect key="frame" x="15" y="12" width="20" height="19"/>
-                                                    <autoresizingMask key="autoresizingMask"/>
-                                                </imageView>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </cells>
@@ -721,11 +659,15 @@
                         <outlet property="attentionView" destination="D4j-RG-ISR" id="fGD-tW-kTj"/>
                         <outlet property="avatarBtn" destination="5D8-au-N4i" id="t8h-3h-B04"/>
                         <outlet property="fansView" destination="64h-FR-mVB" id="5Kh-Sc-jGV"/>
+                        <outlet property="guessRateBtn" destination="wyt-OV-KgM" id="tO0-PY-xsT"/>
+                        <outlet property="headerItemContainView" destination="mIH-47-HCt" id="z2t-3Y-BqY"/>
                         <outlet property="headerView" destination="B6g-90-yEJ" id="ebi-Dn-9Sh"/>
                         <outlet property="levelImageView" destination="oww-PL-hN3" id="Xzu-7u-EKA"/>
                         <outlet property="nickNameLabel" destination="i4B-Yb-OcF" id="5Gp-B5-2Gh"/>
                         <outlet property="sexImageView" destination="yA1-Zu-8vf" id="SwH-NR-zcQ"/>
                         <outlet property="subscribeView" destination="W1G-b5-hqc" id="vnE-W4-oUO"/>
+                        <outlet property="userKeyLabel" destination="DtR-Kt-ltF" id="5UM-kQ-nza"/>
+                        <outlet property="userPointsLabel" destination="SiD-zV-CJb" id="fwr-g7-Y6q"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="30c-ti-p3W" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -740,7 +682,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wKM-aS-UqM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wKM-aS-UqM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -756,16 +698,11 @@
     </scenes>
     <resources>
         <image name="center_avatar" width="79" height="79"/>
-        <image name="ico_aboutus" width="20" height="19"/>
         <image name="ico_gushen" width="10" height="14"/>
         <image name="ico_key_o" width="17" height="19"/>
-        <image name="ico_membership" width="19" height="20"/>
-        <image name="ico_mission" width="17" height="20"/>
         <image name="ico_sex-women" width="14" height="14"/>
-        <image name="ico_system" width="20" height="20"/>
         <image name="icon_arrow_light_grey" width="8" height="14"/>
         <image name="icon_arrow_white" width="8" height="14"/>
-        <image name="icon_collection" width="20" height="19"/>
         <image name="nav_setting" width="22" height="20"/>
         <image name="tab_alive" width="27" height="27"/>
         <image name="tab_alive_in" width="27" height="27"/>
