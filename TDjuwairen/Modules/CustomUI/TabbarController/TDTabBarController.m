@@ -18,6 +18,7 @@
 #import "PublishViewViewController.h"
 #import "AlivePublishViewController.h"
 #import "StockPoolAddAndEditViewController.h"
+#import "SettingHandler.h"
 
 @interface TDTabBarController ()<TDTabBarDelegate, TDPopupMenuDelegate>
 @property (nonatomic, strong) TDTabBar *lcTabBar;
@@ -159,11 +160,18 @@
         vc.publishType = kAlivePublishNormal;
         [nav pushViewController:vc animated:YES];
     } else if (selectedIndex == 3) {
-        // 股票池记录
-        StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
-        
-        TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
-        [nav presentViewController:editNav animated:YES completion:nil];
+        // 股票池记录，每天只能发2条
+        if ([SettingHandler getAddStockPoolRecordCountInOneDay] > 2) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"股票池每天只能发两次哦,等过了凌晨4点再来吧~\n或者您可以删除最新的记录重新发" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
+            [alert addAction:done];
+            [self presentViewController:alert animated:YES completion:nil];
+        } else {
+            StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
+            
+            TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
+            [nav presentViewController:editNav animated:YES completion:nil];
+        }
     }
 }
 @end

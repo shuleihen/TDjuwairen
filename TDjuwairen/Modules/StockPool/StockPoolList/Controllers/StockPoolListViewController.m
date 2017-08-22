@@ -27,6 +27,8 @@
 #import "ShareHandler.h"
 #import "AlivePublishViewController.h"
 #import "MBProgressHUD+Custom.h"
+#import "NotificationDef.h"
+#import "SettingHandler.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -113,6 +115,18 @@ StockUnlockManagerDelegate>
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
     return UIStatusBarStyleLightContent;
+}
+
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addStockPoolRecordNotifi:) name:kAddStockPoolRecordSuccessed object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAddStockPoolRecordSuccessed object:nil];
 }
 
 - (void)setupNavigation {
@@ -229,6 +243,19 @@ StockUnlockManagerDelegate>
     
 }
 
+- (void)addStockPoolRecordNotifi:(NSNotification *)notifi {
+    [self.toolView hidTipImageView];
+    [SettingHandler addStockPoolRecord];
+}
+
+- (BOOL)isOverdueWithStockPoolListCellModel:(StockPoolListCellModel *)cellModel {
+    if (!self.listDataModel || !cellModel) {
+        return YES;
+    }
+    
+    return [cellModel.record_time longLongValue] > [self.listDataModel.expire_time longLongValue];
+}
+
 #pragma mark - StockPoolListToolViewDelegate
 - (void)settingPressed:(id)sender {
     StockPoolSettingController *settingVC = [[StockPoolSettingController alloc] init];
@@ -271,7 +298,8 @@ StockUnlockManagerDelegate>
      */
     NSDictionary *dict = @{@"master_id":SafeValue(self.userId),
                            @"date":self.searchMonthStr,
-                           @"page":@(self.page)};
+                           @"page":@(self.page),
+                           @"direct": @(0)};
     
     UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
@@ -306,10 +334,9 @@ StockUnlockManagerDelegate>
                 }else {
                     arrM1 = [NSMutableArray arrayWithArray:self.listDataModel.currentArr];
                     arrM2 = [NSMutableArray arrayWithArray:self.listDataModel.expireArr];
-                    self.page ++;
                 }
                 
-                
+                self.page ++;
                 
                 for (StockPoolListCellModel *cellModel in newDateListModel.list) {
                     if ([cellModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
@@ -469,10 +496,13 @@ StockUnlockManagerDelegate>
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
-    if (model.recordExpiredIndexCell == NO) {
+    
+    if (![self isOverdueWithStockPoolListCellModel:model]) {
         StockPoolDetailViewController *vc = [[StockPoolDetailViewController alloc] init];
         vc.recordId = model.record_id;
         [self.navigationController pushViewController:vc animated:YES];
+    } else {
+        [self.unlockManager unlockStockPool:self.userId withController:self];
     }
 }
 

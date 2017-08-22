@@ -42,6 +42,7 @@
 		19042E971F4536490004D3C6 /* StockPoolDraftTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E961F4536490004D3C6 /* StockPoolDraftTableViewController.m */; };
 		19042E9A1F4570F80004D3C6 /* StockPoolUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E991F4570F80004D3C6 /* StockPoolUnlockViewController.m */; };
 		19042E9D1F4577B90004D3C6 /* StockPoolUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */; };
+		19042EA51F4BDC920004D3C6 /* StockPoolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */; };
 		190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */; };
 		190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 190B37E51E274E4700A5C1B1 /* SubscriptionHistoryListCell.m */; };
 		190B37E81E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 190B37E61E274E4700A5C1B1 /* SubscriptionHistoryListCell.xib */; };
@@ -780,6 +781,8 @@
 		19042E991F4570F80004D3C6 /* StockPoolUnlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolUnlockViewController.m; sourceTree = "<group>"; };
 		19042E9B1F4577B90004D3C6 /* StockPoolUnlockModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolUnlockModel.h; sourceTree = "<group>"; };
 		19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolUnlockModel.m; sourceTree = "<group>"; };
+		19042EA31F4BDC920004D3C6 /* StockPoolHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolHandler.h; sourceTree = "<group>"; };
+		19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolHandler.m; sourceTree = "<group>"; };
 		190B37E11E274E1500A5C1B1 /* SubscriptionHistoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryViewController.h; sourceTree = "<group>"; };
 		190B37E21E274E1500A5C1B1 /* SubscriptionHistoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubscriptionHistoryViewController.m; sourceTree = "<group>"; };
 		190B37E41E274E4700A5C1B1 /* SubscriptionHistoryListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubscriptionHistoryListCell.h; sourceTree = "<group>"; };
@@ -2138,6 +2141,15 @@
 				19042E961F4536490004D3C6 /* StockPoolDraftTableViewController.m */,
 			);
 			path = Controllers;
+			sourceTree = "<group>";
+		};
+		19042EA21F4BDC870004D3C6 /* StockPoolHandler */ = {
+			isa = PBXGroup;
+			children = (
+				19042EA31F4BDC920004D3C6 /* StockPoolHandler.h */,
+				19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */,
+			);
+			path = StockPoolHandler;
 			sourceTree = "<group>";
 		};
 		190F65C41E36E73000B83ADF /* MyWallet */ = {
@@ -4797,6 +4809,7 @@
 		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
 			isa = PBXGroup;
 			children = (
+				19042EA21F4BDC870004D3C6 /* StockPoolHandler */,
 				19042E921F45362C0004D3C6 /* StockPoolDraft */,
 				4D1A42C01F3D39D2008F562D /* StockPoolSubscibe */,
 				4D1A42BC1F3D39BA008F562D /* StockPoolEdit */,
@@ -6379,6 +6392,7 @@
 				19042E501F4177390004D3C6 /* CenterCellItemView.m in Sources */,
 				1998E2B01F219EA400EE9E54 /* DeepUnlockViewController.m in Sources */,
 				1924DFE71D62B49C00FEC383 /* AFNetworkReachabilityManager.m in Sources */,
+				19042EA51F4BDC920004D3C6 /* StockPoolHandler.m in Sources */,
 				193419C31E77945B00F22788 /* AliveRoomLiveViewController.m in Sources */,
 				19194D131E80CBE900641085 /* ZFCDoubleBounceActivityIndicatorView.m in Sources */,
 				19F079FA1F18D387004449BB /* PSIndividualDetailModel.m in Sources */,

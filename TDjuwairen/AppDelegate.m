@@ -44,6 +44,8 @@
 #import "NSString+Util.h"
 #import "AliveRoomViewController.h"
 #import "SurveyDeepTableViewController.h"
+#import "SettingHandler.h"
+#import "StockPoolHandler.h"
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -67,6 +69,7 @@
     [self setupLog];
     [self setupWithUMMobClick];
     [self setupAliCloudPushWithLaunchOptions:launchOptions];
+    [StockPoolHandler setupStockPoolLocalNotifi];
     
     //角标清0
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
@@ -339,8 +342,8 @@
     DDLogInfo(@"iOS 10 以下 LocalNotification Notification = %@",notification);
 #endif
     
-    if([UIApplication sharedApplication].applicationState == UIApplicationStateActive) {
-        
+    if ([notification.category isEqualToString:@"jwr.stockpool"]) {
+        [SettingHandler clearAddStockPoolRecordCount];
     }
 }
 
@@ -411,6 +414,11 @@
         }
     }else{
         // 应用处于后台时的本地推送接受
+        if ([response.notification.request.trigger isKindOfClass:[UNCalendarNotificationTrigger class]]) {
+            if ([response.actionIdentifier isEqualToString:@"jwr.stockpool"]) {
+                [SettingHandler clearAddStockPoolRecordCount];
+            }
+        }
     }
 }
 

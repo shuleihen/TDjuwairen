@@ -18,4 +18,6 @@
 
 @interface StockPoolListToolView : UIView
 @property (nonatomic, weak) id<StockPoolListToolViewDelegate> delegate;
+@property (nonatomic, strong) UIImageView *tipImageView;
+- (void)hidTipImageView;
 @end

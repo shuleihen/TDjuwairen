@@ -15,6 +15,7 @@
 #import "MBProgressHUD.h"
 #import "NSString+Json.h"
 #import "ACActionSheet.h"
+#import "NotificationDef.h"
 
 @interface StockPoolAddAndEditViewController ()
 <UITableViewDelegate, UITableViewDataSource, SPEditTableViewCellDelegate,
@@ -252,23 +253,24 @@ UITextViewDelegate, MBProgressHUDDelegate>
         
         if (isDraft) {
             hud.label.text = @"保存成功";
-            hud.delegate = wself;
             [hud hideAnimated:YES afterDelay:1];
+            hud.completionBlock = ^{
+                [wself dismissViewControllerAnimated:YES completion:nil];
+            };
         } else {
             if (!error) {
                 hud.label.text = @"发布成功";
-                hud.delegate = wself;
                 [hud hideAnimated:YES afterDelay:1];
+                hud.completionBlock = ^{
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddStockPoolRecordSuccessed object:nil];
+                    [wself dismissViewControllerAnimated:YES completion:nil];
+                };
             } else {
                 hud.label.text = @"发布失败";
                 [hud hideAnimated:YES afterDelay:1];
             }
         }
     }];
-}
-#pragma mark - MBProgressHUDDelegate
-- (void)hudWasHidden:(MBProgressHUD *)hud {
-    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - SPEditTableViewCellDelegate

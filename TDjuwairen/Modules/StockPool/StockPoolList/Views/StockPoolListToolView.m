@@ -7,6 +7,7 @@
 //
 
 #import "StockPoolListToolView.h"
+#import "SettingHandler.h"
 
 @implementation StockPoolListToolView
 
@@ -34,6 +35,16 @@
         [add addTarget:self action:@selector(publishPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:add];
         
+        // 记录股票池，添加提现
+        if (![SettingHandler isAddFistStockPoolRecord]) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 68, 34)];
+            imageView.image = [UIImage imageNamed:@"tag_welfare.png"];
+            imageView.center = CGPointMake(46, -17);
+            [add addSubview:imageView];
+            self.tipImageView = imageView;
+        }
+        
+        
         UIButton *attention = [[UIButton alloc] init];
         [attention setImage:[UIImage imageNamed:@"sp_user.png"] forState:UIControlStateNormal];
         attention.frame = CGRectMake(frame.size.width-45, (frame.size.height-30)/2, 30, 30);
@@ -41,6 +52,14 @@
         [self addSubview:attention];
     }
     return self;
+}
+
+- (void)hidTipImageView {
+    if (![SettingHandler isAddFistStockPoolRecord]) {
+        [self.tipImageView removeFromSuperview];
+        
+        [SettingHandler addFirstStockPoolRecord];
+    }
 }
 
 - (void)settingPressed:(id)sender {

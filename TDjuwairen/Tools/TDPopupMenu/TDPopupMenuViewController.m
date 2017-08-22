@@ -8,6 +8,7 @@
 
 #import "TDPopupMenuViewController.h"
 #import "TDPopupMenuButton.h"
+#import "SettingHandler.h"
 
 @interface TDPopupMenuViewController ()
 @property (nonatomic, strong) NSMutableArray *itemButtons;
@@ -91,6 +92,14 @@
         } else {
             one.frame = CGRectMake((kScreenWidth-60)/2, kScreenHeight -182, 80, 80);
             one.transform = CGAffineTransformMakeTranslation(0, 185);
+            
+            // 记录股票池，添加提现
+            if (![SettingHandler isAddFistStockPoolRecord]) {
+                UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 68, 34)];
+                imageView.image = [UIImage imageNamed:@"tag_welfare.png"];
+                imageView.center = CGPointMake(96, 3);
+                [one addSubview:imageView];
+            }
         }
         
         
