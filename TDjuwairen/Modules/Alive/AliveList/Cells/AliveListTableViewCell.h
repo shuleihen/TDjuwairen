@@ -19,9 +19,8 @@
 
 @class AliveListTableViewCell;
 @protocol AliveListTableCellDelegate <NSObject>
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender;
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell userPressedWithUserId:(NSString *)userId;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell arrowPressed:(id)sender;
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardMsgPressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell sharePressed:(id)sender;
 - (void)aliveListTableCell:(AliveListTableViewCell *)cell commentPressed:(id)sender;
@@ -33,7 +32,8 @@
 @end
 
 @interface AliveListTableViewCell : UITableViewCell
-<AliveListTagsViewDelegate, AliveListHeaderViewDelegate, AliveListPlayStockViewDelegate>
+<AliveListTagsViewDelegate, AliveListHeaderViewDelegate,
+AliveListPlayStockViewDelegate, TTTAttributedLabelDelegate>
 
 @property (nonatomic, strong) AliveListHeaderView *aliveHeaderView;
 

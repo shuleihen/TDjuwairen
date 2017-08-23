@@ -33,6 +33,7 @@
     _aliveContentView = aliveContentView;
     
     if (aliveContentView) {
+        aliveContentView.messageLabel.delegate = self;
         [self.contentView addSubview:aliveContentView];
     }
 }
@@ -150,8 +151,8 @@
 
 #pragma mark - AliveListHeaderViewDelegate
 - (void)aliveListHeaderView:(AliveListHeaderView *)headerView avatarPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:avatarPressed:)]) {
-        [self.delegate aliveListTableCell:self avatarPressed:sender];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:userPressedWithUserId:)]) {
+        [self.delegate aliveListTableCell:self userPressedWithUserId:self.cellData.aliveModel.masterId];
     }
 }
 
@@ -174,15 +175,10 @@
     }
 }
 
-- (void)forwardAvatarPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardAvatarPressed:)]) {
-        [self.delegate aliveListTableCell:self forwardAvatarPressed:sender];
-    }
-}
 
 - (IBAction)avatarPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:avatarPressed:)]) {
-        [self.delegate aliveListTableCell:self avatarPressed:sender];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:userPressedWithUserId:)]) {
+        [self.delegate aliveListTableCell:self userPressedWithUserId:self.cellData.aliveModel.masterId];
     }
 }
 
@@ -210,13 +206,33 @@
     }
 }
 
-//
-//- (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event {
-//    UITouch *one = touches.anyObject;
-//    
-//    NSLog(@"touch view = %@",one.view);
-//    
-//    [super touchesBegan:touches withEvent:event];
-//}
-
+- (void)attributedLabel:(TTTAttributedLabel *)label didSelectLinkWithURL:(NSURL *)url {
+    
+    if ([url.host isEqualToString:@"alive_image"]) {
+        NSInteger tag = [url.lastPathComponent integerValue];
+        
+        if (tag >= 0 && tag <= self.cellData.aliveModel.forwardImgs.count) {
+            NSString *imageName = self.cellData.aliveModel.forwardImgs[tag];
+            MYPhotoBrowser *photoBrowser = [[MYPhotoBrowser alloc] initWithUrls:@[imageName]
+                                                                       imgViews:nil
+                                                                    placeholder:nil
+                                                                     currentIdx:0
+                                                                    handleNames:nil
+                                                                       callback:^(UIImage *handleImage,NSString *handleType) {
+                                                                       }];
+            [photoBrowser showWithAnimation:YES];
+        }
+    } else if ([url.host isEqualToString:@"alive_user"]) {
+        NSInteger tag = [url.lastPathComponent integerValue];
+        
+        if (tag >= 0 && tag <= self.cellData.aliveModel.forwardImgs.count) {
+            NSString *userId = self.cellData.aliveModel.forwardUsers[tag];
+            
+            if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:userPressedWithUserId:)]) {
+                [self.delegate aliveListTableCell:self userPressedWithUserId:userId];
+            }
+        }
+        
+    }
+}
 @end

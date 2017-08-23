@@ -126,36 +126,12 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 }
 
 #pragma mark - AliveListTableCellDelegate
-
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell userPressedWithUserId:(NSString *)userId {
     if (!self.avatarPressedEnabled) {
         return;
     }
     
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath) {
-        AliveListCellData *cellData = self.itemList[indexPath.section];
-        
-        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.masterId];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    }
-}
-
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender {
-    if (!self.avatarPressedEnabled) {
-        return;
-    }
-    
-    AliveListCellData *cellData = cell.cellData;
-    AliveListModel *forwardAlive = cellData.aliveModel.forwardModel.forwardList.lastObject;
-    
-    if (forwardAlive.aliveType == kAliveHot ||
-         forwardAlive.aliveType == kAliveSurvey) {
-        return;
-    }
-    
-    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:forwardAlive.masterId];
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:userId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }

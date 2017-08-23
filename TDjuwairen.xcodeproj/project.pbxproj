@@ -520,6 +520,7 @@
 		19F07A841F20D4BE004449BB /* SurveyDeepModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F07A831F20D4BE004449BB /* SurveyDeepModel.m */; };
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
+		19FB43EB1F4D52050036E5D7 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54481D5D7DF40011BA33 /* YXFont.m */; };
 		19FCCA4C1E5827EE000CEBDC /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */; };
@@ -1704,6 +1705,8 @@
 		19F43C321E233A1C001B72CD /* playStock.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = playStock.wav; sourceTree = "<group>"; };
 		19F43C5C1E235788001B72CD /* UIButton+Align.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+Align.h"; sourceTree = "<group>"; };
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
+		19FB43E91F4D52050036E5D7 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
+		19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		19FB54431D5C81EA0011BA33 /* YXCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXCheckBox.h; sourceTree = "<group>"; };
 		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		19FB54471D5D7DF40011BA33 /* YXFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXFont.h; sourceTree = "<group>"; };
@@ -5245,6 +5248,15 @@
 			path = "UIButton+Align";
 			sourceTree = "<group>";
 		};
+		19FB43E81F4D52050036E5D7 /* RegexKitLite */ = {
+			isa = PBXGroup;
+			children = (
+				19FB43E91F4D52050036E5D7 /* RegexKitLite.h */,
+				19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */,
+			);
+			path = RegexKitLite;
+			sourceTree = "<group>";
+		};
 		19FB54421D5C81EA0011BA33 /* YXCheckBox */ = {
 			isa = PBXGroup;
 			children = (
@@ -5690,6 +5702,7 @@
 		84E334201CE2BB7100E5DCEE /* Tools */ = {
 			isa = PBXGroup;
 			children = (
+				19FB43E81F4D52050036E5D7 /* RegexKitLite */,
 				9EC715C71F3F5DED00F3A071 /* JTCalendar */,
 				19E6385B1F3C3E0400DEEB20 /* TDGradientProgress */,
 				19AA7DC81F3ADC4700716F38 /* TDPopupMenu */,
@@ -6662,6 +6675,7 @@
 				19042EB11F4C0B130004D3C6 /* TDTopicTableViewCell.m in Sources */,
 				19E58D851EF8BEDC00ADA1B8 /* VideoInfoModel.m in Sources */,
 				4DE306AF1EDFE75000A0D88C /* AliveSearchSurveyCell.m in Sources */,
+				19FB43EB1F4D52050036E5D7 /* RegexKitLite.m in Sources */,
 				1959D4701F29E49A002B969A /* LoginHandler.m in Sources */,
 				19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */,
 				19E638561F3C05A300DEEB20 /* StockPoolListCell.m in Sources */,

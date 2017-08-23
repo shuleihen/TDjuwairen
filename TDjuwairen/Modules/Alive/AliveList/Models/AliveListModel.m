@@ -35,6 +35,9 @@
         
         // 转发
         if (isforward) {
+            self.forwardImgs = dict[@"forward_imgs"];
+            self.forwardUsers = dict[@"forward_users"];
+            
             id forward = dict[@"forward_info"];
             if ([forward isKindOfClass:[NSArray class]]) {
                 self.forwardModel = [[AliveListForwardModel alloc] initWithArray:forward];

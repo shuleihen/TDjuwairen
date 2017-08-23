@@ -47,9 +47,6 @@
 + (AliveListCellData *)cellDataWithAliveModel:(AliveListModel *)model;
 @end
 
-@interface AliveListSurveyCellData : AliveListCellData
-
-@end
 
 @interface AliveListPostCellData : AliveListCellData
 
@@ -72,14 +69,18 @@
 @property (nonatomic, assign) CGRect timeLabelFrame;
 @end
 
+@interface AliveListStockPoolCellData : AliveListCellData
+@property (nonatomic, assign) CGRect stockPoolViewFrame;
+@end
+
+@interface AliveListSurveyCellData : AliveListCellData
+
+@end
+
 @interface AliveListAdCellData : AliveListCellData
 
 @end
 
 @interface AliveListHotCellData : AliveListCellData
 
-@end
-
-@interface AliveListStockPoolCellData : AliveListCellData
-@property (nonatomic, assign) CGRect stockPoolViewFrame;
 @end

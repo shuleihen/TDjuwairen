@@ -10,7 +10,7 @@
 #import "AliveListCellData.h"
 #import "TTTAttributedLabel.h"
 
-@interface AliveListContentView : UIView<TTTAttributedLabelDelegate>
+@interface AliveListContentView : UIView
 @property (nonatomic, strong) AliveListCellData *cellData;
 @property (strong, nonatomic) TTTAttributedLabel *messageLabel;
 

@@ -56,6 +56,9 @@
 // 是否为转发动态
 @property (nonatomic, assign) BOOL isForward;
 
+@property (nonatomic, strong) NSArray *forwardImgs;
+@property (nonatomic, strong) NSArray *forwardUsers;
+
 // 转发直播内容
 @property (nonatomic, strong) AliveListForwardModel *forwardModel;
 
