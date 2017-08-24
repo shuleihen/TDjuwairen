@@ -29,6 +29,7 @@
 #import "MBProgressHUD+Custom.h"
 #import "NotificationDef.h"
 #import "SettingHandler.h"
+#import "StockPoolListIntroModel.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -40,7 +41,7 @@ StockUnlockManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) StockPoolListToolView *toolView;
 @property (nonatomic, assign) NSInteger page;
-@property (nonatomic, strong) NSArray *items;
+@property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, strong) StockPoolListDataModel *listDataModel;
 @property (nonatomic, copy) NSString *searchMonthStr;
 @property (nonatomic, strong) UIView *emptyView;
@@ -48,8 +49,9 @@ StockUnlockManagerDelegate>
 @property (nonatomic, strong) UIBarButtonItem *shareBtn;
 @property (nonatomic, strong) UIBarButtonItem *spacer;
 @property (nonatomic, strong) UIBarButtonItem *calendarBtn;
-@property (nonatomic, copy) NSString *shareURL;
-@property (nonatomic, copy) NSString *stockPoolIntro;
+@property (nonatomic, assign) NSInteger searchTimeInterval;
+@property (nonatomic, strong) StockPoolListIntroModel *introlModel;
+
 @end
 
 @implementation StockPoolListViewController
@@ -94,6 +96,10 @@ StockUnlockManagerDelegate>
     self.unlockManager = [[StockUnlockManager alloc] init];
     self.unlockManager.delegate = self;
     
+    self.items = [NSMutableArray arrayWithCapacity:10];
+    
+    self.searchTimeInterval = [[NSDate date] timeIntervalSince1970] + 24*60*60;
+    
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     formatter.dateFormat = @"yyyyMMdd";
     self.searchMonthStr = [formatter stringFromDate:[NSDate new]];
@@ -110,7 +116,7 @@ StockUnlockManagerDelegate>
     
     [self configEmptyViewUI];
     
-    [self loadShowStockPoolData];
+    [self queyStockPoolIntro];
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
@@ -163,6 +169,22 @@ StockUnlockManagerDelegate>
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     spacer.width = 15;
     self.spacer = spacer;
+}
+
+- (void)setupEmpty:(BOOL)empty {
+    self.emptyView.hidden = !empty;
+}
+
+- (void)setupNaviRightButton  {
+    if (self.introlModel == nil) {
+        return;
+    }
+    
+    if (self.introlModel.firstRecordDay.length) {
+        self.navigationItem.rightBarButtonItems = @[self.shareBtn,self.spacer,self.calendarBtn];
+    } else {
+        self.navigationItem.rightBarButtonItems = @[self.shareBtn];
+    }
 }
 
 - (void)configEmptyViewUI {
@@ -223,8 +245,9 @@ StockUnlockManagerDelegate>
     __weak typeof(self)weakSelf = self;
 
     [ShareHandler shareWithTitle:[NSString stringWithFormat:@"%@的股票池",US.userName]
-                          detail:self.stockPoolIntro?:@"无简介"
-                           image:nil url:self.shareURL selectedBlock:^(NSInteger index){
+                          detail:self.introlModel.intro?:@"无简介"
+                           image:nil url:self.introlModel.shareURL
+                   selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 直播分享
             NetworkManager *manager = [[NetworkManager alloc] init];
@@ -248,12 +271,53 @@ StockUnlockManagerDelegate>
     [SettingHandler addStockPoolRecord];
 }
 
-- (BOOL)isOverdueWithStockPoolListCellModel:(StockPoolListCellModel *)cellModel {
-    if (!self.listDataModel || !cellModel) {
+- (BOOL)isNeedUnlockWithStockPoolListCellModel:(StockPoolListCellModel *)cellModel {
+    if (!self.introlModel || !cellModel) {
         return YES;
     }
     
-    return [cellModel.record_time longLongValue] > [self.listDataModel.expire_time longLongValue];
+    NSInteger nowTime = [[NSDate date] timeIntervalSince1970];
+    
+    if (self.introlModel.isFree) {
+        // 免费
+        return NO;
+    } else if (self.introlModel.isSubscribed == NO) {
+        // 收费未订阅
+        return YES;
+    } else if (self.introlModel.isSubscribed && (self.introlModel.expireTime > nowTime)) {
+        // 收费订阅未过期
+        return NO;
+    }
+    
+    return [cellModel.record_time longLongValue] > self.introlModel.expireTime;
+}
+
+- (void)insertExpireTimeCellWithArray:(NSMutableArray *)array {
+    if (!self.introlModel) {
+        return;
+    }
+    
+    // 只有订阅过期的才会插入过期提示
+    NSInteger nowTime = [[NSDate date] timeIntervalSince1970];
+    if (self.introlModel.isSubscribed && (self.introlModel.expireTime < nowTime)) {
+        int i=0;
+        for (StockPoolListCellModel *cellModel in array) {
+            if (cellModel.isExpireCell) {
+                return;
+            } else {
+                if (self.introlModel.expireTime > [cellModel.record_time longLongValue]) {
+
+                    StockPoolListCellModel *model = [[StockPoolListCellModel alloc] init];
+                    model.isExpireCell = YES;
+                    model.record_time = [NSNumber numberWithInteger:self.introlModel.expireTime];
+                    [self.items insertObject:model atIndex:i];
+                    return;
+                }
+            }
+            i++;
+        }
+    }
+    
 }
 
 #pragma mark - StockPoolListToolViewDelegate
@@ -280,187 +344,107 @@ StockUnlockManagerDelegate>
 }
 
 - (void)refreshActions {
-    self.page = 1;
-    [self queryStockPoolList];
+    StockPoolListCellModel *first = self.items.firstObject;
+    self.searchTimeInterval = [first.record_time longLongValue];
+    [self queryStockPoolListWithDirect:YES withTimeInterval:self.searchTimeInterval];
 }
 
 - (void)loadMoreActions{
-    [self queryStockPoolList];
+    StockPoolListCellModel *last = self.items.lastObject;
+    self.searchTimeInterval = [last.record_time longLongValue];
+    [self queryStockPoolListWithDirect:NO withTimeInterval:self.searchTimeInterval];
 }
 
-- (void)queryStockPoolList {
-    /** 获取制定月份下的所有有记录的日期 */
+- (void)queryStockPoolListWithDirect:(BOOL)isUp withTimeInterval:(NSInteger)timeInterval {
+
     NetworkManager *manager = [[NetworkManager alloc] init];
-    /**
-     master_id	int	股票池所属用户ID	是
-     date	string	日期	是	20170805 月份、日期为两位数字
-     page	int	当前页码，从1开始	是
-     */
     NSDictionary *dict = @{@"master_id":SafeValue(self.userId),
-                           @"date":self.searchMonthStr,
-                           @"page":@(self.page),
-                           @"direct": @(0)};
-    
-    UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
-    hud.hidesWhenStopped = YES;
-    
-    if (self.page == 1) {
-        [self.view addSubview:hud];
-        [hud startAnimating];
-    }
+                           @"direct": isUp?@"1":@"0",
+                           @"time": @(timeInterval)};
     
     [manager GET:API_StockPoolGetRecordList parameters:dict completion:^(NSDictionary *data, NSError *error) {
         
-        if (self.page == 1) {
-            [hud stopAnimating];
-        }
         
-        if (!error) {
-            if (data != nil) {
-                /// 过期数组
-                NSMutableArray *arrM1 = nil;
-                /// 未过期数组
-                NSMutableArray *arrM2 = nil;
-                StockPoolListDataModel *newDateListModel = [[StockPoolListDataModel alloc] initWithDict:data];
-                
-                if (self.page == 1) {
-                    arrM1 = [NSMutableArray array];
-                    arrM2 = [NSMutableArray array];
-                    self.listDataModel = [[StockPoolListDataModel alloc] init];
-                    self.listDataModel.expire_time = newDateListModel.expire_time;
-                    self.listDataModel.expire_index = newDateListModel.expire_index;
-                    
-                }else {
-                    arrM1 = [NSMutableArray arrayWithArray:self.listDataModel.currentArr];
-                    arrM2 = [NSMutableArray arrayWithArray:self.listDataModel.expireArr];
-                }
-                
-                self.page ++;
-                
-                for (StockPoolListCellModel *cellModel in newDateListModel.list) {
-                    if ([cellModel.record_time integerValue] <= [newDateListModel.expire_time integerValue]) {
-                        /// 过期
-                        cellModel.recordExpired = YES;
-                        [arrM2 addObject:cellModel];
-                    }else {
-                        
-                        cellModel.recordExpired = NO;
-                        [arrM1 addObject:cellModel];
-                    }
-                }
-                
-                
-                self.listDataModel.currentArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
-                self.listDataModel.expireArr = [NSArray arrayWithArray:[arrM1 mutableCopy]];
-                
-                
-                NSMutableArray *arrM = [NSMutableArray array];
-                if (arrM2.count > 0) {
-                    [arrM addObjectsFromArray:arrM2];
-                }
-                
-                if ([newDateListModel.expire_index isEqual:@(1)]) {
-                    StockPoolListCellModel *expireModel = [[StockPoolListCellModel alloc] init];
-                    expireModel.record_time = newDateListModel.expire_time;
-                    expireModel.recordExpiredIndexCell = YES;
-                    [arrM addObject:expireModel];
-                }
-                
-                
-                
-                if (arrM1.count > 0) {
-                    
-                    [arrM addObjectsFromArray:arrM1];
-                    
-                }
-                self.listDataModel.list = [NSArray arrayWithArray:[arrM mutableCopy]];
-                
-                
-                
+        if (!error && [data isKindOfClass:[NSArray class]]) {
+            
+            NSMutableArray *marray = [NSMutableArray arrayWithCapacity:data.count];
+            for (NSDictionary *dict in data) {
+                StockPoolListCellModel *cellModel = [[StockPoolListCellModel alloc] initWithDict:dict];
+                [marray addObject:cellModel];
+            }
+            
+            if (isUp) {
+                [self.items insertObjects:marray atIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(0, marray.count)]];
+            } else {
+                [self.items addObjectsFromArray:marray];
             }
         }
+        
+        if ( self.items.count && self.introlModel.expireTime) {
+            // 插入过期线
+            [self insertExpireTimeCellWithArray:self.items];
+        }
+        
         [self.tableView.mj_header endRefreshing];
         [self.tableView.mj_footer endRefreshing];
         [self.tableView reloadData];
         
-        
-        [self setNaviRightButton:NO];
-        
+        [self setupEmpty:(self.items.count==0)];
     }];
 }
 
-- (void)loadShowStockPoolData {
-    /** 股票池记录列表 的头部信息 */
+- (void)queyStockPoolIntro {
+
     NetworkManager *manager = [[NetworkManager alloc] init];
-    /**
-     master_id	int	股票池用户ID	是
-     */
     NSDictionary *dict = @{@"master_id":SafeValue(self.userId)};
     
     UIActivityIndicatorView *hud = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     hud.center = CGPointMake(kScreenWidth/2, kScreenHeight/2-64);
     hud.hidesWhenStopped = YES;
     
-    if (self.page == 1) {
-        [self.view addSubview:hud];
-        [hud startAnimating];
-    }
+    [self.view addSubview:hud];
+    [hud startAnimating];
     
     [manager GET:API_StockPoolGetShowStockPool parameters:dict completion:^(NSDictionary *data, NSError *error) {
         [hud stopAnimating];
-        if (!error) {
-            if (data != nil) {
-                self.shareURL = data[@"share_url"];
-                self.searchMonthStr = data[@"record_first_day"];
-                self.stockPoolIntro = data[@"pool_desc"];
-                if (self.searchMonthStr.length <= 0) {
-                    [self setNaviRightButton:YES];
-                }else {
-                    [self refreshActions];
-                }
-            }
+        
+        if (!error && data) {
+            self.introlModel = [[StockPoolListIntroModel alloc] initWithDictionary:data];
+            
+            [self queryStockPoolListWithDirect:NO withTimeInterval:self.searchTimeInterval];
         }
         
+        [self setupNaviRightButton];
     }];
 }
 
 
 
-- (void)setNaviRightButton:(BOOL)hiddenAll {
-    if (hiddenAll == YES) {
-        self.navigationItem.rightBarButtonItems = nil;
-        self.emptyView.hidden = NO;
-        return;
-    }
-    if (self.listDataModel.list.count <= 0) {
-        self.navigationItem.rightBarButtonItems = @[self.calendarBtn];
-        self.emptyView.hidden = NO;
-        
-        
-    }else {
-        
-        self.emptyView.hidden = YES;
-        self.navigationItem.rightBarButtonItems = @[self.shareBtn,self.spacer,self.calendarBtn];
-        
-    }
-}
-
-
 #pragma mark - StockPoolSettingCalendarControllerDelegate
-- (void)chooseDateBack:(StockPoolSettingCalendarController *)vc dateStr:(NSString *)str {
-    self.page = 1;
-    self.searchMonthStr = str;
-    [self queryStockPoolList];
+- (void)chooseDateBack:(StockPoolSettingCalendarController *)vc date:(NSDate *)date {
+    [self.items removeAllObjects];
     
+    NSInteger time = [date timeIntervalSince1970] + 24*60*60;
+    [self queryStockPoolListWithDirect:NO withTimeInterval:time];
 }
 
 #pragma mark - StockUnlockManagerDelegate
 - (void)unlockManager:(StockUnlockManager *)manager withMasterId:(NSString *)masterId {
-    [self refreshActions];
+    // 订阅以后过期时间：订阅的当天的第二天00：00 开始 +设 置的股票池时间，这里只要保证大于列表数据的添加时间就可以
+    
+    self.introlModel.expireTime = [[NSDate new] timeIntervalSince1970] + 24*60*60;
+    
+    for (StockPoolListCellModel *cellModel in self.items) {
+        if (cellModel.isExpireCell) {
+            [self.items removeObject:cellModel];
+            break;
+        }
+    }
+    
+    [self.tableView reloadData];
 }
 
-#pragma mark - StockPoolExpireCellDelegate 续费
+#pragma mark - StockPoolExpireCellDelegate
 - (void)addMoney:(StockPoolExpireCell *)cell cellModel:(StockPoolListCellModel *)cellModel {
     
     [self.unlockManager unlockStockPool:self.userId withController:self];
@@ -469,7 +453,7 @@ StockUnlockManagerDelegate>
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return [self.listDataModel.list count];
+    return [self.items count];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -477,8 +461,9 @@ StockUnlockManagerDelegate>
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
-    if (model.recordExpiredIndexCell == YES) {
+    StockPoolListCellModel *model = self.items[indexPath.section];
+    
+    if (model.isExpireCell) {
         StockPoolExpireCell *expireCell = [tableView dequeueReusableCellWithIdentifier:StockPoolExpireCellID];
         expireCell.delegate = self;
         expireCell.cellModel = model;
@@ -495,9 +480,12 @@ StockUnlockManagerDelegate>
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
+    StockPoolListCellModel *model = self.items[indexPath.section];
+    if (model.isExpireCell) {
+        return;
+    }
     
-    if (![self isOverdueWithStockPoolListCellModel:model]) {
+    if ([self isNeedUnlockWithStockPoolListCellModel:model] == NO) {
         StockPoolDetailViewController *vc = [[StockPoolDetailViewController alloc] init];
         vc.recordId = model.record_id;
         [self.navigationController pushViewController:vc animated:YES];
@@ -507,15 +495,12 @@ StockUnlockManagerDelegate>
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolListCellModel *model = self.listDataModel.list[indexPath.section];
-    if (model.recordExpiredIndexCell == YES) {
-        
+    StockPoolListCellModel *model = self.items[indexPath.section];
+    if (model.isExpireCell) {
         return 57;
     }else {
-        
         return 160;
     }
-    
 }
 
 

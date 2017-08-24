@@ -21,6 +21,7 @@
 @property (nonatomic, assign) BOOL isMaster;
 @property (nonatomic, copy) NSString *poolDesc;
 @property (nonatomic, assign) BOOL isFree;
-@property (nonatomic, copy) NSString *hasNewRecord;
+// 收藏中是否有新记录
+@property (nonatomic, assign) BOOL hasNewRecord;
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

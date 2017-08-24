@@ -26,7 +26,7 @@
 /// 是否过期
 @property (nonatomic, assign) BOOL recordExpired;
 /// 是否是过期限cell
-@property (nonatomic, assign) BOOL recordExpiredIndexCell;
+@property (nonatomic, assign) BOOL isExpireCell;
 
 - (NSString *)getWeekDayStr:(NSInteger)week;
 

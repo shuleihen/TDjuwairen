@@ -19,7 +19,7 @@
 @property (weak, nonatomic) IBOutlet UILabel *residueDayLabel;
 @property (weak, nonatomic) IBOutlet UILabel *payInfoLabel;
 @property (weak, nonatomic) IBOutlet UILabel *subscribeLabel;
-@property (weak, nonatomic) IBOutlet UIButton *isNewRecordBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *isNewRecordImageView;
 @property (weak, nonatomic) IBOutlet UILabel *resuideNumDayLabel;
 
 - (void)setupAliveStockPool:(AliveListStockPoolModel *)stockPool;

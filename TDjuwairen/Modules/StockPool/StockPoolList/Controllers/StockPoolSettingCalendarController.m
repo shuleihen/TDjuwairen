@@ -276,11 +276,9 @@
                         [_calendarManager reload];
                         
                     } completion:^(BOOL finished) {
-                        if ([self.delegate respondsToSelector:@selector(chooseDateBack:dateStr:)]) {
-                            _localDateFormatter.dateFormat = @"yyyyMMdd";
+                        if ([self.delegate respondsToSelector:@selector(chooseDateBack:date:)]) {
 
-                            NSString *str = [_localDateFormatter stringFromDate:dayView.date];
-                            [self.delegate chooseDateBack:self dateStr:str];
+                            [self.delegate chooseDateBack:self date:dayView.date];
                             [self.navigationController popViewControllerAnimated:YES];
                         }
                     }];

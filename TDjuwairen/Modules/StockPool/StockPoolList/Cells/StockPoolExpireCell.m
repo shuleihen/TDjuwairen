@@ -26,6 +26,8 @@
     UIImage *leftImage = [UIImage imageWithStockPoolListLeft];
     self.leftImageView.image = [leftImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 0, 10, 0)];
     _addMoneyButton.custom_acceptEventInterval = 0.5;
+    
+    self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -63,7 +65,8 @@
     if (self.cellModel == nil) {
         return;
     }
-    if ([self.delegate respondsToSelector:@selector(addMoney:cellModel::)]) {
+    
+    if ([self.delegate respondsToSelector:@selector(addMoney:cellModel:)]) {
         [self.delegate addMoney:self cellModel:self.cellModel];
     }
     

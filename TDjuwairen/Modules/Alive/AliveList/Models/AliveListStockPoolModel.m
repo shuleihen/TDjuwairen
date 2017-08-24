@@ -22,7 +22,7 @@
         self.isSubscribe = [dict[@"user_is_subscribe"] boolValue];
         self.poolDesc = dict[@"pool_desc"];
         self.poolLogo = dict[@"pool_logo"];
-        self.hasNewRecord = SafeValue(dict[@"has_new_record"]);
+        self.hasNewRecord = [dict[@"has_new_record"] boolValue];
     }
     
     return self;

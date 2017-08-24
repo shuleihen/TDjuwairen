@@ -521,6 +521,7 @@
 		19F43C331E233A1C001B72CD /* playStock.wav in Resources */ = {isa = PBXBuildFile; fileRef = 19F43C321E233A1C001B72CD /* playStock.wav */; };
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB43EB1F4D52050036E5D7 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		19FB43EE1F4D6E570036E5D7 /* StockPoolListIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43ED1F4D6E570036E5D7 /* StockPoolListIntroModel.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54481D5D7DF40011BA33 /* YXFont.m */; };
 		19FCCA4C1E5827EE000CEBDC /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */; };
@@ -1707,6 +1708,8 @@
 		19F43C5D1E235788001B72CD /* UIButton+Align.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+Align.m"; sourceTree = "<group>"; };
 		19FB43E91F4D52050036E5D7 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
+		19FB43EC1F4D6E570036E5D7 /* StockPoolListIntroModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListIntroModel.h; sourceTree = "<group>"; };
+		19FB43ED1F4D6E570036E5D7 /* StockPoolListIntroModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListIntroModel.m; sourceTree = "<group>"; };
 		19FB54431D5C81EA0011BA33 /* YXCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXCheckBox.h; sourceTree = "<group>"; };
 		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		19FB54471D5D7DF40011BA33 /* YXFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXFont.h; sourceTree = "<group>"; };
@@ -5949,6 +5952,8 @@
 				4D2AB2CC1F416F4600565483 /* StockPoolListDataModel.m */,
 				4D2AB2CE1F416F7300565483 /* StockPoolListCellModel.h */,
 				4D2AB2CF1F416F7300565483 /* StockPoolListCellModel.m */,
+				19FB43EC1F4D6E570036E5D7 /* StockPoolListIntroModel.h */,
+				19FB43ED1F4D6E570036E5D7 /* StockPoolListIntroModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6662,6 +6667,7 @@
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */,
 				4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */,
+				19FB43EE1F4D6E570036E5D7 /* StockPoolListIntroModel.m in Sources */,
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */,
 				19042E361F3D7DFE0004D3C6 /* AliveListBaseViewController.m in Sources */,

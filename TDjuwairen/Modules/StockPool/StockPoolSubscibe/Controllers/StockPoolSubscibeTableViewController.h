@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-// 股票池订阅用户和历史订阅用户
+// 股票池订阅用户，订阅中/已过期
 typedef enum : NSUInteger {
     kStockPoolSubscibeVCCurrentType    =0,
     kStockPoolSubscibeVCHistoryType       =1,

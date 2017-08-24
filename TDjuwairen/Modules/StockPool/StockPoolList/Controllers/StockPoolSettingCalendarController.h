@@ -11,7 +11,7 @@
 @class StockPoolSettingCalendarController;
 @protocol StockPoolSettingCalendarControllerDelegate <NSObject>
 
-- (void)chooseDateBack:(StockPoolSettingCalendarController *)vc dateStr:(NSString *)str;
+- (void)chooseDateBack:(StockPoolSettingCalendarController *)vc date:(NSDate *)date;
 
 @end
 @interface StockPoolSettingCalendarController : UIViewController
