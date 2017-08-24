@@ -14,6 +14,10 @@
 @implementation TDWebViewHandler
 + (void)openURL:(NSString *)aUrl inNav:(UINavigationController *)nav {
     
+    [TDWebViewHandler openURL:aUrl withUserMark:NO inNav:nav];
+}
+
++ (void)openURL:(NSString *)aUrl withUserMark:(BOOL)mark inNav:(UINavigationController *)nav {
     if ([aUrl isEqualToString:@"https://www.juwairen.net/index.php/WxUser/vipShow"]){
         NSString *nickName = [US.nickName URLEncode]?:@"";
         NSString *avatar = [US.headImage URLEncode]?:@"";
@@ -26,6 +30,11 @@
             [nav pushViewController:vc animated:YES];
         }
     } else {
+        if (mark) {
+            NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
+            aUrl = [aUrl stringByAppendingFormat:@"?unique_str=%@",accessToken];
+        }
+        
         NSURL *url = [NSURL URLWithString:aUrl];
         if (url) {
             TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:url];

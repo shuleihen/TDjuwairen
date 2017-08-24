@@ -678,7 +678,7 @@
         <scene sceneID="KbZ-OI-JKi">
             <objects>
                 <navigationController automaticallyAdjustsScrollViewInsets="NO" id="kkT-Cg-RLR" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="tab_mine" badgeValue="2" selectedImage="tab_mine_in" id="cSe-up-dU7">
+                    <tabBarItem key="tabBarItem" tag="3" title="我的" image="tab_mine" selectedImage="tab_mine_in" id="cSe-up-dU7">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>

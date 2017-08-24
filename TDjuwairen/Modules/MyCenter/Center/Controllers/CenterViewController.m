@@ -21,6 +21,7 @@
 #import "CenterHeaderItemView.h"
 #import "StockPoolSubscribeController.h"
 #import "CenterTableViewCell.h"
+#import "TDWebViewHandler.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -266,11 +267,13 @@
 }
 
 - (IBAction)walletPressed:(id)sender {
-    [self pushViewControllerWithClassName:@"WalletViewController"];
+    [TDWebViewHandler openURL:API_H5UserWalletList withUserMark:YES inNav:self.navigationController];
+//    [self pushViewControllerWithClassName:@"WalletViewController"];
 }
 
 - (IBAction)integralPressed:(id)sender {
-    [self pushViewControllerWithClassName:@"IntegralViewController"];
+    [TDWebViewHandler openURL:API_H5UserPointsList withUserMark:YES inNav:self.navigationController];
+//    [self pushViewControllerWithClassName:@"IntegralViewController"];
 }
 
 - (IBAction)settingPressed:(id)sender {
@@ -351,11 +354,19 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSArray *array = self.classesArray[indexPath.section];
-    NSString *className = array[indexPath.row];
-    
-    [self pushViewControllerWithClassName:className];
-    
+    if (indexPath.section == 1 &&
+        indexPath.row == 0) {
+        // 会员中心
+    } else if (indexPath.section == 1 &&
+               indexPath.row == 1) {
+        // 任务中心
+        [TDWebViewHandler openURL:API_H5UserMission withUserMark:YES inNav:self.navigationController];
+    } else {
+        NSArray *array = self.classesArray[indexPath.section];
+        NSString *className = array[indexPath.row];
+        
+        [self pushViewControllerWithClassName:className];
+    }
 }
 
 - (void)pushViewControllerWithClassName:(NSString *)className {

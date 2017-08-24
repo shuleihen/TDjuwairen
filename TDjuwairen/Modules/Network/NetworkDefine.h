@@ -15,8 +15,10 @@
 
 #define kAPI_songsong @"http://192.168.1.103/"
 
-#define API_JIFenExplain   @"https://appapi.juwairen.net/Page/index/p/PointDesc"
-
+#define API_H5UserPointsDesc    @"https://appapi.juwairen.net/Page/index/p/PointDesc"
+#define API_H5UserPointsList    @"https://www.juwairen.net/index.php/UserCenter/showUserPoints"
+#define API_H5UserWalletList    @"https://www.juwairen.net/UserCenter/showUserWallet"
+#define API_H5UserMission       @"https://www.juwairen.net/UserCenter/showUserMission"
 // 广告
 #define API_GetBanner           @"Index/indexBanner"
 #define API_SaveDeviceInfo      @"Index/saveDeviceInfo"
