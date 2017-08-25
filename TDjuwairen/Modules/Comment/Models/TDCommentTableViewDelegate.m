@@ -10,4 +10,25 @@
 
 @implementation TDCommentTableViewDelegate
 
+- (id)initWithTableView:(UITableView *)tableView controller:(UIViewController *)controller {
+    if (self = [super init]) {
+        self.tableView = tableView;
+        self.controller = controller;
+        self.page = 1;
+    }
+    return self;
+}
+
+- (void)refreshData {
+    self.page = 1;
+    [self loadDataWithPage:self.page];
+}
+
+- (void)loadMoreData {
+    [self loadDataWithPage:self.page];
+}
+
+- (void)loadDataWithPage:(NSInteger)page {
+    
+}
 @end

@@ -260,6 +260,8 @@
 #define API_MyCenterCancelSubscribeStockPool          @"/StockPool/cancelSubscribeStockPool"
 #define API_MyCenterDeleteSubscribeStockPool          @"/StockPool/deleteSubscribeStockPool"
 #define API_StockPoolShare              @"StockPool/shareStockPool"
-
+#define API_StockPoolGetCommentList     @"StockPool/getStockPoolComment"
+#define API_StockPoolAddComment         @"StockPool/addStockPoolComment"
+#define API_StockPoolReplyComment       @"StockPool/replyStockPoolComment"
 
 #endif /* NetworkDefine_h */

@@ -522,6 +522,10 @@
 		19F43C5E1E235788001B72CD /* UIButton+Align.m in Sources */ = {isa = PBXBuildFile; fileRef = 19F43C5D1E235788001B72CD /* UIButton+Align.m */; };
 		19FB43EB1F4D52050036E5D7 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		19FB43EE1F4D6E570036E5D7 /* StockPoolListIntroModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43ED1F4D6E570036E5D7 /* StockPoolListIntroModel.m */; };
+		19FB43FA1F4FBAF10036E5D7 /* SPCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43F91F4FBAF10036E5D7 /* SPCommentViewController.m */; };
+		19FB43FD1F4FC9910036E5D7 /* TDCommentCellData.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43FC1F4FC9910036E5D7 /* TDCommentCellData.m */; };
+		19FB44001F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB43FF1F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.m */; };
+		19FB44031F4FE86B0036E5D7 /* TDCommentPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB44021F4FE86B0036E5D7 /* TDCommentPublishViewController.m */; };
 		19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54441D5C81EA0011BA33 /* YXCheckBox.m */; };
 		19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */ = {isa = PBXBuildFile; fileRef = 19FB54481D5D7DF40011BA33 /* YXFont.m */; };
 		19FCCA4C1E5827EE000CEBDC /* MOBFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19FCCA4A1E5827EE000CEBDC /* MOBFoundation.framework */; };
@@ -1710,6 +1714,14 @@
 		19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		19FB43EC1F4D6E570036E5D7 /* StockPoolListIntroModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListIntroModel.h; sourceTree = "<group>"; };
 		19FB43ED1F4D6E570036E5D7 /* StockPoolListIntroModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListIntroModel.m; sourceTree = "<group>"; };
+		19FB43F81F4FBAF10036E5D7 /* SPCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SPCommentViewController.h; sourceTree = "<group>"; };
+		19FB43F91F4FBAF10036E5D7 /* SPCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SPCommentViewController.m; sourceTree = "<group>"; };
+		19FB43FB1F4FC9910036E5D7 /* TDCommentCellData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentCellData.h; sourceTree = "<group>"; };
+		19FB43FC1F4FC9910036E5D7 /* TDCommentCellData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCommentCellData.m; sourceTree = "<group>"; };
+		19FB43FE1F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDStockPoolCommentTableViewDelegate.h; sourceTree = "<group>"; };
+		19FB43FF1F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDStockPoolCommentTableViewDelegate.m; sourceTree = "<group>"; };
+		19FB44011F4FE86B0036E5D7 /* TDCommentPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentPublishViewController.h; sourceTree = "<group>"; };
+		19FB44021F4FE86B0036E5D7 /* TDCommentPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCommentPublishViewController.m; sourceTree = "<group>"; };
 		19FB54431D5C81EA0011BA33 /* YXCheckBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXCheckBox.h; sourceTree = "<group>"; };
 		19FB54441D5C81EA0011BA33 /* YXCheckBox.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXCheckBox.m; sourceTree = "<group>"; };
 		19FB54471D5D7DF40011BA33 /* YXFont.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXFont.h; sourceTree = "<group>"; };
@@ -3139,6 +3151,8 @@
 				19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */,
 				19042EAC1F4C0AED0004D3C6 /* StockPoolCommentViewController.h */,
 				19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */,
+				19FB44011F4FE86B0036E5D7 /* TDCommentPublishViewController.h */,
+				19FB44021F4FE86B0036E5D7 /* TDCommentPublishViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3152,8 +3166,12 @@
 				194E0D151EEF8D17009C7AC6 /* TDCommentModel.m */,
 				194E0D171EEF8D48009C7AC6 /* TDTopicCellData.h */,
 				194E0D181EEF8D48009C7AC6 /* TDTopicCellData.m */,
+				19FB43FB1F4FC9910036E5D7 /* TDCommentCellData.h */,
+				19FB43FC1F4FC9910036E5D7 /* TDCommentCellData.m */,
 				194E0D1A1EEF8D66009C7AC6 /* TDCommentTableViewDelegate.h */,
 				194E0D1B1EEF8D66009C7AC6 /* TDCommentTableViewDelegate.m */,
+				19FB43FE1F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.h */,
+				19FB43FF1F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -4840,6 +4858,7 @@
 		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
 			isa = PBXGroup;
 			children = (
+				19FB43F61F4FBAD20036E5D7 /* StockPoolComment */,
 				19042EA21F4BDC870004D3C6 /* StockPoolHandler */,
 				19042E921F45362C0004D3C6 /* StockPoolDraft */,
 				4D1A42C01F3D39D2008F562D /* StockPoolSubscibe */,
@@ -5258,6 +5277,23 @@
 				19FB43EA1F4D52050036E5D7 /* RegexKitLite.m */,
 			);
 			path = RegexKitLite;
+			sourceTree = "<group>";
+		};
+		19FB43F61F4FBAD20036E5D7 /* StockPoolComment */ = {
+			isa = PBXGroup;
+			children = (
+				19FB43F71F4FBADD0036E5D7 /* Controllers */,
+			);
+			path = StockPoolComment;
+			sourceTree = "<group>";
+		};
+		19FB43F71F4FBADD0036E5D7 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				19FB43F81F4FBAF10036E5D7 /* SPCommentViewController.h */,
+				19FB43F91F4FBAF10036E5D7 /* SPCommentViewController.m */,
+			);
+			path = Controllers;
 			sourceTree = "<group>";
 		};
 		19FB54421D5C81EA0011BA33 /* YXCheckBox */ = {
@@ -6346,6 +6382,7 @@
 				19517F251EE56FA5009E24D1 /* ACActionSheet.m in Sources */,
 				4DEFF1AD1ED7DAE3004E3267 /* AliveSearchStockCell.m in Sources */,
 				19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */,
+				19FB44001F4FCCD40036E5D7 /* TDStockPoolCommentTableViewDelegate.m in Sources */,
 				196F5EDA1E5485B700928B60 /* SAMKeychain.m in Sources */,
 				84CA3A2A1D6EB513003E9B53 /* PhoneNumHold.m in Sources */,
 				19C3486C1D3F76DB008ABD16 /* MJRefreshBackGifFooter.m in Sources */,
@@ -6513,6 +6550,7 @@
 				19D6B9FD1E50902C00475AA1 /* AccouontManagerViewController.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
 				194186D81DF81284000C5197 /* SettingCompanyViewController.m in Sources */,
+				19FB43FD1F4FC9910036E5D7 /* TDCommentCellData.m in Sources */,
 				190F65F81E36E73000B83ADF /* MyWalletViewController.m in Sources */,
 				19E58DB51EF8C55500ADA1B8 /* ZFPlayerView.m in Sources */,
 				190B37E31E274E1500A5C1B1 /* SubscriptionHistoryViewController.m in Sources */,
@@ -6695,6 +6733,7 @@
 				19F07A431F1DAA65004449BB /* SysMessageListModel.m in Sources */,
 				8497E0641CEF0B2800D7D105 /* TAAbstractDotView.m in Sources */,
 				196F5EE01E553ADB00928B60 /* AppContext.m in Sources */,
+				19FB43FA1F4FBAF10036E5D7 /* SPCommentViewController.m in Sources */,
 				84E3346B1CE3123700E5DCEE /* SDWebImagePrefetcher.m in Sources */,
 				4D29B9C61E83B30E0019DD20 /* SearchCompanyListModel.m in Sources */,
 				194E0D321EEFBF98009C7AC6 /* ViewpointDetailViewController.m in Sources */,
@@ -6765,6 +6804,7 @@
 				19C348691D3F76DB008ABD16 /* MJRefreshAutoGifFooter.m in Sources */,
 				84F9FDC11CF80E0A00683791 /* ELCAssetTablePicker.m in Sources */,
 				1987B2BA1EEA3AD800BD852E /* AliveListForwardSurveyView.m in Sources */,
+				19FB44031F4FE86B0036E5D7 /* TDCommentPublishViewController.m in Sources */,
 				19F07A811F20D453004449BB /* SurveyDeepTableViewController.m in Sources */,
 				190B37E71E274E4700A5C1B1 /* SubscriptionHistoryListCell.m in Sources */,
 				1978E06A1EDFF1350065CEE0 /* AliveListExtra.m in Sources */,

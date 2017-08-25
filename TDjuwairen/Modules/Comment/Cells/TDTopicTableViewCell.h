@@ -7,14 +7,22 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "TDTopicModel.h"
+#import "TDTopicCellData.h"
 
-@interface TDTopicTableViewCell : UITableViewCell
+@protocol TDTopicTableViewCellDelegate <NSObject>
+
+- (void)replyWithCommentId:(NSString *)commentId;
+
+@end
+
+@interface TDTopicTableViewCell : UITableViewCell<UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *nickNameLabel;
 @property (nonatomic, strong) UILabel *topicTitleLabel;
 @property (nonatomic, strong) UILabel *topicTimeLabel;
-@property (nonatomic, strong) UIButton *replayBtn;
+@property (nonatomic, strong) UIButton *replyBtn;
+@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, weak) id<TDTopicTableViewCellDelegate> delegate;
 
-@property (nonatomic, strong) TDTopicModel *topicModel;
+@property (nonatomic, strong) TDTopicCellData *topicCellData;
 @end

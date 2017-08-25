@@ -19,9 +19,12 @@
 #import "TDNavigationController.h"
 #import "ShareHandler.h"
 #import "MBProgressHUD+Custom.h"
+#import "StockPoolCommentViewController.h"
+#import "TDCommentPublishViewController.h"
+#import "TDStockPoolCommentTableViewDelegate.h"
 
 @interface StockPoolDetailViewController ()
-<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate>
+<UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, TDCommentPublishDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *list;
 @property (nonatomic, strong) StockPoolDetailModel *detailModel;
@@ -31,6 +34,9 @@
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) NSDateFormatter *formatter;
+@property (nonatomic, strong) StockPoolCommentViewController *commentVC;
+@property (nonatomic, strong) TDStockPoolCommentTableViewDelegate *commentTableViewDelegate;
+
 @end
 
 @implementation StockPoolDetailViewController
@@ -51,7 +57,7 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-44-64) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 44, kScreenWidth, kScreenHeight-44-64) style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.separatorColor = TDSeparatorColor;
@@ -74,6 +80,15 @@
         [_formatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
     }
     return _formatter;
+}
+
+- (StockPoolCommentViewController *)commentVC {
+    if (!_commentVC) {
+        _commentVC = [[StockPoolCommentViewController alloc] init];
+        _commentVC.commentType = kCommentStockPool;
+        _commentVC.masterId = self.detailModel.masterId;
+    }
+    return _commentVC;
 }
 
 - (void)viewDidLoad {
@@ -152,6 +167,18 @@
     }  shareState:nil];
 }
 
+- (void)startCommentPressed:(id)sender {
+    TDCommentPublishViewController *vc = [[TDCommentPublishViewController alloc] init];
+    vc.publishType = kCommentPublishStockPool;
+    vc.delegate = self;
+    vc.masterId = self.detailModel.masterId;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)segmentedPressed:(TDSegmentedControl *)segmented {
+    [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:segmented.selectedIndex] atScrollPosition:UITableViewScrollPositionTop animated:YES];
+}
+
 - (void)queryDetailInfo {
     if (self.recordId.length == 0) {
         return;
@@ -186,7 +213,7 @@
     [self.navigationItem.rightBarButtonItems.firstObject setEnabled:YES];
     [self.navigationItem.rightBarButtonItems.lastObject setEnabled:YES];
     
-    CGSize size = [self.detailModel.desc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f]} context:nil].size;
+    CGSize size = [model.desc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f]} context:nil].size;
     self.descCellHeight = size.height + 30;
     
     NSMutableArray *array = [NSMutableArray arrayWithCapacity:model.positions.count];
@@ -201,6 +228,7 @@
     [view addSubview:sep];
     
     self.segment = [[TDSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) witItems:@[@"持仓明细",@"持仓理由",@"评论区"]];
+    [self.segment addTarget:self action:@selector(segmentedPressed:) forControlEvents:UIControlEventValueChanged];
     [view addSubview:self.segment];
     
     [self.segment setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular],NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"333333"]}];
@@ -210,9 +238,20 @@
     [self.view addSubview:self.tableView];
     [self.tableView reloadData];
     
-    
+    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    tableView.separatorColor = TDSeparatorColor;
+    tableView.separatorInset = UIEdgeInsetsZero;
+    self.commentTableViewDelegate = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:tableView controller:self];
+    self.tableView.tableFooterView = tableView;
+    self.commentTableViewDelegate.masterId = model.masterId;
+    self.commentTableViewDelegate.contentTableView = self.tableView;
+    [self.commentTableViewDelegate refreshData];
 }
 
+#pragma mark - TDCommentPublishDelegate
+- (void)commentPublishSuccessed {
+    [self.commentTableViewDelegate refreshData];
+}
 
 #pragma mark - StockManagerDelegate
 - (void)reloadWithStocks:(NSDictionary *)stocks {
@@ -269,9 +308,21 @@
         }
         return cell;
     } else if (indexPath.section == 3) {
-        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPDetailTextTableViewCellID"];
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPDetailCommentTableViewCellID"];
         if (cell == nil) {
-            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SPDetailTextTableViewCellID"];
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SPDetailCommentTableViewCellID"];
+            UIButton *view = [[UIButton alloc] initWithFrame:CGRectMake(12, 10, kScreenWidth-24, 35)];
+            view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F8F8F8"];
+            view.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#DFDFDF"].CGColor;
+            view.layer.borderWidth = 1;
+            [view addTarget:self action:@selector(startCommentPressed:) forControlEvents:UIControlEventTouchUpInside];
+            
+            UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, 100, 35)];
+            lable.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
+            lable.text = @"发表评论…";
+            lable.font = [UIFont systemFontOfSize:14.0f];
+            [view addSubview:lable];
+            [cell.contentView addSubview:view];
         }
         return cell;
     }
@@ -281,7 +332,7 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     if (section == 0) {
-        return 0;
+        return 0.0001;
     }
     return 34.0f;
 }
@@ -294,7 +345,7 @@
     } else if (indexPath.section == 2) {
         return self.descCellHeight;
     } else if (indexPath.section == 3){
-        return self.commentCellHeight;
+        return 55;
     }
     return 0;
 }
@@ -346,6 +397,10 @@
         view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
     }
     return view;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
+    return 0.0001f;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {

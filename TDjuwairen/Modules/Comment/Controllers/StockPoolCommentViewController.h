@@ -8,6 +8,13 @@
 
 #import "TDCommentViewController.h"
 
-@interface StockPoolCommentViewController : TDCommentViewController
+typedef enum : NSUInteger {
+    kCommentStockPool,
+    kCommentAlive,
+    kCommentPlayStock,
+} CommentType;
 
+@interface StockPoolCommentViewController : TDCommentViewController
+@property (nonatomic, assign) CommentType commentType;
+@property (nonatomic, strong) NSString *masterId;
 @end

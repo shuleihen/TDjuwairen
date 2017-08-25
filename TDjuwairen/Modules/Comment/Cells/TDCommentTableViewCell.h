@@ -7,7 +7,13 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "TDCommentCellData.h"
 
 @interface TDCommentTableViewCell : UITableViewCell
+@property (nonatomic, strong) UILabel *contentLabel;
+@property (nonatomic, strong) UILabel *commentTimeLabel;
+@property (nonatomic, strong) UIButton *replyBtn;
+@property (nonatomic, copy) void (^replyBlock)(NSString *);
 
+@property (nonatomic, strong) TDCommentCellData *commentCellData;
 @end
