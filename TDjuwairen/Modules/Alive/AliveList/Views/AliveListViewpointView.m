@@ -53,6 +53,7 @@
         self.visitLabel.text = visit;
         self.visitLabel.hidden = NO;
     } else {
+        // 转发视频
         self.visitLabel.hidden = YES;
     }
 }

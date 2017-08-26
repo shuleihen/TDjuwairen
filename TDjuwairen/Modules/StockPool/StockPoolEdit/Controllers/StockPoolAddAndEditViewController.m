@@ -23,6 +23,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSMutableArray *list;
 @property (nonatomic, strong) NSString *reason;
+@property (nonatomic, assign) BOOL isEdit;
 @end
 
 @implementation StockPoolAddAndEditViewController
@@ -43,6 +44,14 @@ UITextViewDelegate, MBProgressHUDDelegate>
     return _tableView;
 }
 
+- (void)setRecordId:(NSString *)recordId {
+    _recordId = recordId;
+    
+    if (recordId.length) {
+        _isEdit = YES;
+    }
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -53,6 +62,71 @@ UITextViewDelegate, MBProgressHUDDelegate>
     [self.view addSubview:self.tableView];
     
     [self queryRecordList];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillShow:)
+                                                 name:UIKeyboardWillShowNotification
+                                               object:nil];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self
+                                             selector:@selector(keyboardWillHide:)
+                                                 name:UIKeyboardWillHideNotification
+                                               object:nil];
+}
+
+- (void)viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+-(void)keyboardWillShow:(NSNotification *)note{
+    // get keyboard size and loctaion
+    CGRect keyboardBounds;
+    [[note.userInfo valueForKey:UIKeyboardFrameEndUserInfoKey] getValue: &keyboardBounds];
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // Need to translate the bounds to account for rotation.
+    keyboardBounds = [self.view convertRect:keyboardBounds toView:nil];
+    
+    // get a rect for the textView frame
+    CGRect containerFrame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-keyboardBounds.size.height);
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    // set views with new info
+    self.tableView.frame = containerFrame;
+    
+    // commit animations
+    [UIView commitAnimations];
+}
+
+-(void)keyboardWillHide:(NSNotification *)note{
+    NSNumber *duration = [note.userInfo objectForKey:UIKeyboardAnimationDurationUserInfoKey];
+    NSNumber *curve = [note.userInfo objectForKey:UIKeyboardAnimationCurveUserInfoKey];
+    
+    // get a rect for the textView frame
+    CGRect containerFrame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64);
+    
+    // animations settings
+    [UIView beginAnimations:nil context:NULL];
+    [UIView setAnimationBeginsFromCurrentState:YES];
+    [UIView setAnimationDuration:[duration doubleValue]];
+    [UIView setAnimationCurve:[curve intValue]];
+    
+    // set views with new info
+    self.tableView.frame = containerFrame;
+    
+    // commit animations
+    [UIView commitAnimations];
 }
 
 - (void)setupNav {
@@ -104,14 +178,21 @@ UITextViewDelegate, MBProgressHUDDelegate>
         hud.mode = MBProgressHUDModeText;
         hud.label.font = [UIFont systemFontOfSize:14.0f];
         hud.label.text = mesage;
-        [hud hideAnimated:YES afterDelay:0.6];
+        hud.center = CGPointMake(kScreenWidth/2, 250);
+        [hud hideAnimated:YES afterDelay:1.6];
     };
+    
+    if (self.list.count <= 1) {
+        ShowHud(@"请先添加股票信息");
+        return;
+    }
     
     int i=0;
     for (SPEditRecordModel *model in self.list) {
         if (model.cellType == kSPEidtCellEidt ||
             model.cellType == kSPEidtCellNormal) {
-            if (!model.ratio.length) {
+            if (!model.ratio.length ||
+                ([model.ratio integerValue] == 0)) {
                 ShowHud(@"添加新股的仓位不得为0");
                 return;
             } else {
@@ -175,9 +256,17 @@ UITextViewDelegate, MBProgressHUDDelegate>
     SPEditRecordModel *add = [[SPEditRecordModel alloc] init];
     add.cellType = kSPEidtCellAdd;
     
-    NSMutableArray *marray = [NSMutableArray arrayWithArray:array];
-    [marray addObject:edit];
-    [marray addObject:add];
+    NSMutableArray *marray = [NSMutableArray arrayWithCapacity:array.count];
+    if (array.count) {
+        [marray addObjectsFromArray:array];
+    }
+    
+    if (self.isEdit) {
+        [marray addObject:add];
+    } else {
+        [marray addObject:edit];
+        [marray addObject:add];
+    }
     
     self.list = marray;
     [self.tableView reloadData];
@@ -193,6 +282,20 @@ UITextViewDelegate, MBProgressHUDDelegate>
     [self.tableView endUpdates];
 }
 
+- (void)deleteRecordPressed:(id)sender {
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"删除后不能恢复，是否继续？" preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+    }];
+    UIAlertAction *done = [UIAlertAction actionWithTitle:@"确认" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+        [self sendDeleteRecordRequest];
+    }];
+    [alert addAction:cancel];
+    [alert addAction:done];
+    [self presentViewController:alert animated:YES completion:nil];
+}
+
+
+
 - (void)deleteWithIndex:(NSIndexPath *)indexPath {
     [self.tableView beginUpdates];
     [self.list removeObjectAtIndex:indexPath.row];
@@ -201,6 +304,11 @@ UITextViewDelegate, MBProgressHUDDelegate>
 }
 
 - (BOOL)canSave {
+    
+    if (self.list.count <= 1) {
+        return NO;
+    }
+    
     int i=0;
     for (SPEditRecordModel *model in self.list) {
         if (model.cellType == kSPEidtCellEidt ||
@@ -262,13 +370,43 @@ UITextViewDelegate, MBProgressHUDDelegate>
                 hud.label.text = @"发布成功";
                 [hud hideAnimated:YES afterDelay:1];
                 hud.completionBlock = ^{
-                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddStockPoolRecordSuccessed object:nil];
+                    if (wself.isEdit) {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kStockPoolRecordChangedSuccessed object:@(2)];
+                    } else {
+                        [[NSNotificationCenter defaultCenter] postNotificationName:kStockPoolRecordChangedSuccessed object:@(1)];
+                    }
+                    
                     [wself dismissViewControllerAnimated:YES completion:nil];
                 };
             } else {
                 hud.label.text = @"发布失败";
                 [hud hideAnimated:YES afterDelay:1];
             }
+        }
+    }];
+}
+
+- (void)sendDeleteRecordRequest {
+    NSDictionary *dict = @{@"record_id": self.recordId?:@""};
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.label.text =@"删除中";
+    
+    __weak StockPoolAddAndEditViewController *wself = self;
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_StockPoolDeleteRecord parameters:dict completion:^(id data, NSError *error){
+        
+        if (!error) {
+            hud.label.text = @"删除成功";
+            [hud hideAnimated:YES afterDelay:1];
+            hud.completionBlock = ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kStockPoolRecordChangedSuccessed object:@(3)];
+                [wself dismissViewControllerAnimated:YES completion:nil];
+            };
+        } else {
+            hud.label.text = @"删除失败";
+            [hud hideAnimated:YES afterDelay:1];
         }
     }];
 }
@@ -307,7 +445,11 @@ UITextViewDelegate, MBProgressHUDDelegate>
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return self.list.count?2:0;
+    if (self.isEdit) {
+        return self.list.count?3:0;
+    } else {
+        return self.list.count?2:0;
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -350,8 +492,6 @@ UITextViewDelegate, MBProgressHUDDelegate>
                 btn.backgroundColor = [UIColor whiteColor];
                 [btn addTarget:self action:@selector(addRecordPressed:) forControlEvents:UIControlEventTouchUpInside];
                 [cell.contentView addSubview:btn];
-                
-                cell.selectionStyle = UITableViewCellSelectionStyleNone;
             }
             
             return cell;
@@ -379,13 +519,39 @@ UITextViewDelegate, MBProgressHUDDelegate>
         }
         
         return cell;
+    } else if (indexPath.section == 2) {
+        // 删除
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPEditTableViewCellDeleteID"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SPEditTableViewCellDeleteID"];
+            cell.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
+            UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(15, 5, kScreenWidth-30, 36)];
+            btn.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#76A5BC"].CGColor;
+            btn.layer.borderWidth = TDPixel;
+            btn.layer.cornerRadius = 3.0f;
+            btn.clipsToBounds = YES;
+            [btn setTitle:@"删除该记录" forState:UIControlStateNormal];
+            [btn setTitleColor:[UIColor hx_colorWithHexRGBAString:@"#FF523B"] forState:UIControlStateNormal];
+            btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+            btn.backgroundColor = [UIColor whiteColor];
+            [btn addTarget:self action:@selector(deleteRecordPressed:) forControlEvents:UIControlEventTouchUpInside];
+            [cell.contentView addSubview:btn];
+        }
+        
+        return cell;
     }
     
     return nil;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 40;
+    if (section <= 2) {
+        return 40;
+    }
+    
+    return 0;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
@@ -409,7 +575,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
         label2.textColor = TDDetailTextColor;
         label2.text = @"仓位";
         [view addSubview:label2];
-    } else {
+    } else if (section == 1){
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 14, 100, 16)];
         label.font = [UIFont systemFontOfSize:14.0f];
         label.textColor = TDLightGrayColor;
@@ -424,10 +590,15 @@ UITextViewDelegate, MBProgressHUDDelegate>
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     if (indexPath.section == 0) {
         return 46;
-    } else {
+    } else if (indexPath.section == 1){
         return 268;
+    } else if (indexPath.section == 2) {
+        return 60;
     }
+    
+    return 0;
 }
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }

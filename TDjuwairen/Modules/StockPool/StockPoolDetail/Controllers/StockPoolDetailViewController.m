@@ -22,6 +22,7 @@
 #import "StockPoolCommentViewController.h"
 #import "TDCommentPublishViewController.h"
 #import "TDStockPoolCommentTableViewDelegate.h"
+#import "NSDate+Util.h"
 
 @interface StockPoolDetailViewController ()
 <UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, TDCommentPublishDelegate>
@@ -95,15 +96,42 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor whiteColor];
-    
-    [self setupNavigation];
+    self.title = @"股票池详情";
+    [self setupUI];
     [self queryDetailInfo];
 }
 
 
-- (void)setupNavigation {
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
     
-    self.title = @"股票池详情";
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stockPoolRecordChangedNotifi:) name:kStockPoolRecordChangedSuccessed object:nil];
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kStockPoolRecordChangedSuccessed object:nil];
+}
+
+- (void)setupUI {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 44-TDPixel, kScreenWidth, TDPixel)];
+    sep.backgroundColor = TDSeparatorColor;
+    [view addSubview:sep];
+    
+    self.segment = [[TDSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) witItems:@[@"持仓明细",@"持仓理由",@"评论区"]];
+    [self.segment addTarget:self action:@selector(segmentedPressed:) forControlEvents:UIControlEventValueChanged];
+    [view addSubview:self.segment];
+    
+    [self.segment setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular],NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"333333"]}];
+    [self.segment setSelectedAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f weight:UIFontWeightMedium],NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"3371E2"]}];
+    [self.view addSubview:view];
+    
+    [self.view addSubview:self.tableView];
+}
+
+- (void)setupNavigation {
     
     UIButton *btn1 = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn1 setImage:[UIImage imageNamed:@"sp_edit.png"] forState:UIControlStateNormal];
@@ -119,13 +147,26 @@
     
     UIBarButtonItem *spacer = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
     spacer.width = 15;
-    self.navigationItem.rightBarButtonItems = @[message,spacer,master];
-
-    [self.navigationItem.rightBarButtonItems.firstObject setEnabled:NO];
-    [self.navigationItem.rightBarButtonItems.lastObject setEnabled:NO];
+    
+    // 只有当天的记录显示编辑按钮
+    if ([NSDate isCurrentDayWithDate:self.detailModel.date]) {
+         self.navigationItem.rightBarButtonItems = @[message,spacer,master];
+    } else {
+         self.navigationItem.rightBarButtonItems = @[message];
+    }
 }
 
 - (void)editPressed:(id)sender {
+    if (self.detailModel.isNewRecord == NO) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"股票池最新记录才能编辑，如果您想编辑此记录，您需要删除最新记录" preferredStyle:UIAlertControllerStyleAlert];
+        
+        UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
+        [alert addAction:done];
+        [self presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
+    
     StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
     vc.recordId = self.detailModel.recordId;
     
@@ -134,11 +175,6 @@
 }
 
 - (void)sharePressed:(id)sender {
-    if (!US.isLogIn) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        [self.navigationController pushViewController:login animated:YES];
-        return;
-    }
     
     __weak typeof(self)weakSelf = self;
     [self.formatter setDateFormat:@"MM月dd日"];
@@ -176,6 +212,10 @@
 }
 
 - (void)segmentedPressed:(TDSegmentedControl *)segmented {
+    if (!self.detailModel) {
+        return;
+    }
+    
     [self.tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:segmented.selectedIndex] atScrollPosition:UITableViewScrollPositionTop animated:YES];
 }
 
@@ -210,8 +250,7 @@
         return;
     }
     
-    [self.navigationItem.rightBarButtonItems.firstObject setEnabled:YES];
-    [self.navigationItem.rightBarButtonItems.lastObject setEnabled:YES];
+    [self setupNavigation];
     
     CGSize size = [model.desc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f]} context:nil].size;
     self.descCellHeight = size.height + 30;
@@ -222,20 +261,6 @@
     }
     [self.stockManager addStocks:array];
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 44-TDPixel, kScreenWidth, TDPixel)];
-    sep.backgroundColor = TDSeparatorColor;
-    [view addSubview:sep];
-    
-    self.segment = [[TDSegmentedControl alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44) witItems:@[@"持仓明细",@"持仓理由",@"评论区"]];
-    [self.segment addTarget:self action:@selector(segmentedPressed:) forControlEvents:UIControlEventValueChanged];
-    [view addSubview:self.segment];
-    
-    [self.segment setAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f weight:UIFontWeightRegular],NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"333333"]}];
-    [self.segment setSelectedAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:15.0f weight:UIFontWeightMedium],NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"3371E2"]}];
-    [self.view addSubview:view];
-    
-    [self.view addSubview:self.tableView];
     [self.tableView reloadData];
     
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
@@ -246,6 +271,17 @@
     self.commentTableViewDelegate.masterId = model.masterId;
     self.commentTableViewDelegate.contentTableView = self.tableView;
     [self.commentTableViewDelegate refreshData];
+}
+
+
+#pragma mark - Notifi
+- (void)stockPoolRecordChangedNotifi:(NSNotification *)notifi {
+    NSInteger type = [notifi.object integerValue];
+    if (type == 2) {
+        [self queryDetailInfo];
+    } else if (type == 3) {
+        [self.navigationController popViewControllerAnimated:NO];
+    }
 }
 
 #pragma mark - TDCommentPublishDelegate
@@ -304,8 +340,9 @@
             cell.textLabel.numberOfLines = 0;
             cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
             cell.textLabel.textColor = TDTitleTextColor;
-            cell.textLabel.text = self.detailModel.desc;
         }
+        
+        cell.textLabel.text = self.detailModel.desc;
         return cell;
     } else if (indexPath.section == 3) {
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPDetailCommentTableViewCellID"];

@@ -19,6 +19,7 @@
         self.masterId = dict[@"record_master_id"];
         self.isMaster = [dict[@"is_master"] boolValue];
         self.shareUrl = dict[@"share_url"];
+        self.isNewRecord = [dict[@"record_is_new"] boolValue];
         
         NSArray *list = dict[@"record_position_data"];
         NSMutableArray *array = [NSMutableArray arrayWithCapacity:list.count];

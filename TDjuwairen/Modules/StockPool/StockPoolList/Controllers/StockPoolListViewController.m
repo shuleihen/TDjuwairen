@@ -35,15 +35,13 @@
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
 
 
-@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate,StockPoolExpireCellDelegate,
-StockUnlockManagerDelegate>
+@interface StockPoolListViewController ()<UITableViewDelegate, UITableViewDataSource, StockPoolListToolViewDelegate,StockPoolSettingCalendarControllerDelegate,StockPoolExpireCellDelegate,StockUnlockManagerDelegate>
 
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) StockPoolListToolView *toolView;
 @property (nonatomic, assign) NSInteger page;
 @property (nonatomic, strong) NSMutableArray *items;
 @property (nonatomic, strong) StockPoolListDataModel *listDataModel;
-@property (nonatomic, copy) NSString *searchMonthStr;
 @property (nonatomic, strong) UIView *emptyView;
 @property (nonatomic, strong) StockUnlockManager *unlockManager;
 @property (nonatomic, strong) UIBarButtonItem *shareBtn;
@@ -100,10 +98,6 @@ StockUnlockManagerDelegate>
     
     self.searchTimeInterval = [[NSDate date] timeIntervalSince1970] + 24*60*60;
     
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"yyyyMMdd";
-    self.searchMonthStr = [formatter stringFromDate:[NSDate new]];
-    
     if ([US.userId isEqualToString:self.userId]) {
         self.tableView.frame = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
         [self.view addSubview:self.tableView];
@@ -126,13 +120,13 @@ StockUnlockManagerDelegate>
 - (void)viewDidDisappear:(BOOL)animated {
     [super viewDidDisappear:animated];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(addStockPoolRecordNotifi:) name:kAddStockPoolRecordSuccessed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stockPoolRecordChangedNotifi:) name:kStockPoolRecordChangedSuccessed object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
-    [[NSNotificationCenter defaultCenter] removeObserver:self name:kAddStockPoolRecordSuccessed object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kStockPoolRecordChangedSuccessed object:nil];
 }
 
 - (void)setupNavigation {
@@ -266,10 +260,6 @@ StockUnlockManagerDelegate>
     
 }
 
-- (void)addStockPoolRecordNotifi:(NSNotification *)notifi {
-    [self.toolView hidTipImageView];
-    [SettingHandler addStockPoolRecord];
-}
 
 - (BOOL)isNeedUnlockWithStockPoolListCellModel:(StockPoolListCellModel *)cellModel {
     if (!self.introlModel || !cellModel) {
@@ -277,6 +267,10 @@ StockUnlockManagerDelegate>
     }
     
     NSInteger nowTime = [[NSDate date] timeIntervalSince1970];
+    
+    if (self.introlModel.isMaster) {
+        return NO;
+    }
     
     if (self.introlModel.isFree) {
         // 免费
@@ -293,7 +287,9 @@ StockUnlockManagerDelegate>
 }
 
 - (void)insertExpireTimeCellWithArray:(NSMutableArray *)array {
-    if (!self.introlModel) {
+    if (!self.introlModel ||
+        self.introlModel.isMaster ||
+        self.introlModel.isFree) {
         return;
     }
     
@@ -320,6 +316,20 @@ StockUnlockManagerDelegate>
     
 }
 
+#pragma mark - Notifi
+- (void)stockPoolRecordChangedNotifi:(NSNotification *)notifi {
+    NSInteger type = [notifi.object integerValue];
+    if (type == 1) {
+        [self.toolView hidTipImageView];
+        [SettingHandler addStockPoolRecord];
+    }
+    
+    [self.items removeAllObjects];
+    self.searchTimeInterval = [[NSDate date] timeIntervalSince1970] + 24*60*60;
+    [self queryStockPoolListWithDirect:NO withTimeInterval:self.searchTimeInterval];
+}
+
+
 #pragma mark - StockPoolListToolViewDelegate
 - (void)settingPressed:(id)sender {
     StockPoolSettingController *settingVC = [[StockPoolSettingController alloc] init];
@@ -333,7 +343,6 @@ StockUnlockManagerDelegate>
 
 - (void)publishPressed:(id)sender {
     StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
-    
     TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
     [self presentViewController:editNav animated:YES completion:nil];
 }

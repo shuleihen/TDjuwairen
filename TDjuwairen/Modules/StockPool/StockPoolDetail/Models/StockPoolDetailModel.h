@@ -18,6 +18,7 @@
 @property (nonatomic, copy) NSString *masterId;
 @property (nonatomic, strong) NSArray *positions;
 @property (nonatomic, strong) NSString *shareUrl;
+@property (nonatomic, assign) BOOL isNewRecord;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

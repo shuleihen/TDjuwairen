@@ -49,6 +49,8 @@
     [self.view addSubview:titleview];
     [titleview addSubview:back];
     [titleview addSubview:self.customSearchBar];
+    
+    [self.customSearchBar becomeFirstResponder];
 }
 
 - (void)setupWithTableview{
@@ -68,7 +70,12 @@
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark 0 - UISearch
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    [self.customSearchBar resignFirstResponder];
+}
+
+#pragma mark - UISearch
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText {
     if (!searchText.length) {
         return;

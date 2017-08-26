@@ -36,7 +36,6 @@
     _enabled = enabled;
     
     self.stockNameBtn.enabled = enabled;
-    self.percentageField.enabled = enabled;
     
     if (!enabled) {
         UIImage *image = [UIImage imageWithSize:CGSizeMake(60, 27) backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#67C587"] borderColor:[UIColor hx_colorWithHexRGBAString:@"#67C587"] cornerRadius:13.5];

@@ -323,6 +323,7 @@
 		19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959BA91E2DE28C00AB26DF /* GradeDetailModel.m */; };
 		1998E2B01F219EA400EE9E54 /* DeepUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1998E2AF1F219EA400EE9E54 /* DeepUnlockViewController.m */; };
 		1998E2B41F21D30200EE9E54 /* TDADHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1998E2B31F21D30200EE9E54 /* TDADHandler.m */; };
+		199BE0801F511F190026A328 /* NSDate+Util.m in Sources */ = {isa = PBXBuildFile; fileRef = 199BE07F1F511F190026A328 /* NSDate+Util.m */; };
 		19A0636D1EA612DB00C94ED8 /* TencentStockManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */; };
 		19A0CA3F1E1A1064003C4079 /* TDTabBarController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19A0CA3E1E1A1064003C4079 /* TDTabBarController.m */; };
 		19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19A5AC401E0A49AC00FE953A /* Recharge.storyboard */; };
@@ -1330,6 +1331,8 @@
 		1998E2AF1F219EA400EE9E54 /* DeepUnlockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DeepUnlockViewController.m; sourceTree = "<group>"; };
 		1998E2B21F21D30200EE9E54 /* TDADHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDADHandler.h; sourceTree = "<group>"; };
 		1998E2B31F21D30200EE9E54 /* TDADHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDADHandler.m; sourceTree = "<group>"; };
+		199BE07E1F511F190026A328 /* NSDate+Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Util.h"; sourceTree = "<group>"; };
+		199BE07F1F511F190026A328 /* NSDate+Util.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Util.m"; sourceTree = "<group>"; };
 		19A0636B1EA612DB00C94ED8 /* TencentStockManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TencentStockManager.h; sourceTree = "<group>"; };
 		19A0636C1EA612DB00C94ED8 /* TencentStockManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TencentStockManager.m; sourceTree = "<group>"; };
 		19A0CA3D1E1A1064003C4079 /* TDTabBarController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTabBarController.h; sourceTree = "<group>"; };
@@ -2498,6 +2501,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				199BE07D1F511F0E0026A328 /* NSDate+Util */,
 				19042E7D1F43EBA50004D3C6 /* NSString+Json */,
 				19AA7DD21F3AE64400716F38 /* UIImage+Category */,
 				1959D45D1F29BCCF002B969A /* UIViewController+NoData */,
@@ -4201,6 +4205,15 @@
 				1998E2B31F21D30200EE9E54 /* TDADHandler.m */,
 			);
 			path = Handler;
+			sourceTree = "<group>";
+		};
+		199BE07D1F511F0E0026A328 /* NSDate+Util */ = {
+			isa = PBXGroup;
+			children = (
+				199BE07E1F511F190026A328 /* NSDate+Util.h */,
+				199BE07F1F511F190026A328 /* NSDate+Util.m */,
+			);
+			path = "NSDate+Util";
 			sourceTree = "<group>";
 		};
 		19A0CA3C1E1A1048003C4079 /* TabbarController */ = {
@@ -6421,6 +6434,7 @@
 				9E8FE5781F4963EF001B3A24 /* SPSubscribedUserListViewController.m in Sources */,
 				1966A65D1E8BD083007DDA14 /* UIViewController+Refresh.m in Sources */,
 				19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */,
+				199BE0801F511F190026A328 /* NSDate+Util.m in Sources */,
 				19042E5A1F41966A0004D3C6 /* WalletTableViewCell.m in Sources */,
 				4DCEEEBB1EB0988900B1820F /* UIView+Border.m in Sources */,
 				19F07A511F1F0480004449BB /* AliveListPlayStockExtra.m in Sources */,
