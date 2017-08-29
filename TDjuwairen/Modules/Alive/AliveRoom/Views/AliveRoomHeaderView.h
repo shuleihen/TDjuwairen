@@ -11,7 +11,6 @@
 @class AliveRoomMasterModel;
 @class AliveRoomHeaderView;
 @protocol AliveRoomHeaderViewDelegate <NSObject>
-
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView fansListPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView levelPressed:(id)sender;

@@ -191,11 +191,15 @@ UITextViewDelegate, MBProgressHUDDelegate>
     for (SPEditRecordModel *model in self.list) {
         if (model.cellType == kSPEidtCellEidt ||
             model.cellType == kSPEidtCellNormal) {
-            if (!model.ratio.length ||
-                ([model.ratio integerValue] == 0)) {
+            if (!model.ratio.length) {
                 ShowHud(@"添加新股的仓位不得为0");
                 return;
             } else {
+                if ((self.isEdit == NO) &&
+                    ([model.ratio integerValue] == 0)) {
+                    ShowHud(@"添加新股的仓位不得为0");
+                    return;
+                }
                 i += [model.ratio integerValue];
             }
         }

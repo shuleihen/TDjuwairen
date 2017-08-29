@@ -26,8 +26,11 @@
 #import "AliveRoomNavigationBar.h"
 #import "MessageTableViewController.h"
 #import "StockPoolListViewController.h"
+#import "AliveRoomStockPoolTableViewCell.h"
+#import "StockPoolListViewController.h"
 
-#define kAliveHeaderHeight  210
+#define kAliveHeaderHeight  195
+#define kAliveStockPoolHeight 151
 #define kAliveSegmentHeight 34
 
 @interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate>
@@ -81,6 +84,9 @@
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.alwaysBounceVertical = NO;
+        
+        UINib *nib = [UINib nibWithNibName:@"AliveRoomStockPoolTableViewCell" bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:@"AliveRoomStockPoolTableViewCellID"];
     }
     return _tableView;
 }
@@ -263,7 +269,7 @@
     self.tableView.tableFooterView = self.pageViewController.view;
     
     // 自定义悬浮segment
-    self.segmentContentScrollView.frame = CGRectMake(0, kAliveHeaderHeight+10, kScreenWidth, kAliveSegmentHeight);
+    self.segmentContentScrollView.frame = CGRectMake(0, kAliveHeaderHeight+kAliveStockPoolHeight, kScreenWidth, kAliveSegmentHeight);
     [self.tableView addSubview:self.segmentContentScrollView];
     
     //添加监听，动态观察tableview的contentOffset的改变
@@ -361,7 +367,7 @@
 
 - (void)reloadTableView {
     CGFloat contentHeight = [[self currentContentViewController] contentHeight];
-    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveSegmentHeight-10;
+    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveStockPoolHeight-kAliveSegmentHeight;
     CGFloat height = MAX(contentHeight, minHeight);
     self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
     // iOS10以下需要添加以下
@@ -525,6 +531,9 @@
 }
 
 #pragma mark - AliveRoomHeaderViewDelegate
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender {
     if (!self.roomMasterModel) {
@@ -567,6 +576,80 @@
         [self showGuessRateInfoOrShowAttentionInfo:YES];
     }
     
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender {
+    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
+    vc.masterId = self.masterId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
+    __weak AliveRoomViewController *wself = self;
+    
+    if (self.roomMasterModel.isAtten) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = @"取消关注";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
+        [manager POST:API_AliveDelAttention parameters:dict completion:^(id data, NSError *error){
+            
+            if (!error) {
+                hud.label.text = @"取消成功";
+                [hud hideAnimated:YES];
+                
+                wself.roomMasterModel.isAtten = NO;
+                
+                NSInteger fans = [self.roomMasterModel.fansNum integerValue];
+                NSNumber *fansNumber = [NSNumber numberWithInteger:(fans-1)];
+                wself.roomMasterModel.fansNum = fansNumber;
+                
+                [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
+                [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
+            } else {
+                hud.label.text = @"取消失败";
+                [hud hideAnimated:YES afterDelay:0.8];
+            }
+        }];
+    } else {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = @"添加关注";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
+        [manager POST:API_AliveAddAttention parameters:dict completion:^(id data, NSError *error){
+            
+            if (!error) {
+                hud.label.text = @"关注成功";
+                [hud hideAnimated:YES];
+                
+                wself.roomMasterModel.isAtten = YES;
+                
+                NSInteger fans = [self.roomMasterModel.fansNum integerValue];
+                NSNumber *fansNumber = [NSNumber numberWithInteger:(fans+1)];
+                wself.roomMasterModel.fansNum = fansNumber;
+                
+                [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
+                [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
+            } else {
+                hud.label.text = @"关注失败";
+                [hud hideAnimated:YES afterDelay:0.8];
+            }
+        }];
+    }
 }
 
 - (void)showGuessRateInfoOrShowAttentionInfo:(BOOL)isGuessRate {
@@ -635,7 +718,7 @@
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -643,21 +726,44 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10.0f;
+    return 15.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return kAliveSegmentHeight;
+    if (indexPath.section == 0) {
+        return 121.0f;
+    } else if (indexPath.section == 1) {
+        return kAliveSegmentHeight;
+    }
+    return 0.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomContentCellID"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveRoomContentCellID"];
+    if (indexPath.section == 0) {
+        AliveRoomStockPoolTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomStockPoolTableViewCellID"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomContentCellID"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveRoomContentCellID"];
+        }
+        
+        return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    return cell;
+    if (indexPath.section == 0) {
+        // 股票池
+        StockPoolListViewController *vc = [[StockPoolListViewController alloc] init];
+        vc.userId = self.roomMasterModel.masterId;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - UIPageViewControllerDataSource
@@ -717,7 +823,8 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    CGFloat headerHeight = kAliveHeaderHeight + 10;
+    
+    CGFloat headerHeight = kAliveHeaderHeight + kAliveStockPoolHeight;
     if ([keyPath isEqualToString:@"contentOffset"])
     {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];
