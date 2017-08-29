@@ -8,6 +8,8 @@
 
 #import "AliveSexSettingViewController.h"
 #import "NotificationDef.h"
+#import "NetworkManager.h"
+#import "MBProgressHUD.h"
 
 @interface AliveSexSettingViewController ()<UITableViewDelegate>
 @property (nonatomic, strong) NSArray *items;
@@ -72,9 +74,27 @@
     } else {
         sex = @"female";
     }
-    
-    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateAliveSexNotification object:sex];
-    [self.navigationController popViewControllerAnimated:YES];
+
+    [self updateSex:sex];
+//    [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateAliveSexNotification object:sex];
+//    [self.navigationController popViewControllerAnimated:YES];
 }
 
+- (void)updateSex:(NSString *)sex {
+
+    NSDictionary *dict = @{@"sex": sex?:@""};
+    __weak AliveSexSettingViewController *wself = self;
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_AliveUpdateUserSex parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            [wself.navigationController popViewControllerAnimated:YES];
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"性别修改失败";
+            [hud hideAnimated:YES afterDelay:0.8];
+        }
+    }];
+}
 @end

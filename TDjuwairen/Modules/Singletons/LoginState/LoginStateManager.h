@@ -18,6 +18,13 @@ typedef enum : NSUInteger {
     kUserLevelGold      =3,
 } UserLevelType;
 
+// 0表示没有设置，1表示女，2表示男
+typedef enum : NSUInteger {
+    kUserSexNone        =0,
+    kUserSexWoman       =1,
+    kUserSexMan         =2,
+} UserSexType;
+
 @interface LoginStateManager : NSObject
 
 @property (nonatomic, copy) NSString *userId;
@@ -27,6 +34,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, copy) NSString *nickName;
 @property (nonatomic, copy) NSString *company;
 @property (nonatomic, copy) NSString *post;
+@property (nonatomic, copy) NSString *city;
 @property (nonatomic, copy) NSString *personal;
 @property (nonatomic, assign) NSInteger userLevel;
 @property (nonatomic, assign) NSInteger sex;
@@ -38,6 +46,9 @@ typedef enum : NSUInteger {
 
 @property (nonatomic,assign) BOOL isReply;
 @property (nonatomic, assign) BOOL isPush;
+
+- (id)initWithDictionary:(NSDictionary *)dict;
+- (NSString *)sexString;
 
 + (instancetype)sharedInstance;
 @end

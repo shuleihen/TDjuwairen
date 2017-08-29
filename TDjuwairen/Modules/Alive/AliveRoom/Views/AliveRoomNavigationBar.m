@@ -41,7 +41,7 @@
 }
 
 - (void)showNavigationBar:(BOOL)isShow withTitle:(NSString *)title {
-    self.bg.hidden = !isShow;
+    self.hidden = !isShow;
     self.titleLabel.text = title;
 }
 

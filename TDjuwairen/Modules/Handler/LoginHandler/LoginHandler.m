@@ -39,8 +39,9 @@
     US.company = data[@"userinfo_company"];
     US.post = data[@"userinfo_occupation"];
     US.personal = data[@"userinfo_info"];
-    US.sex = [data[@"user_sex"] integerValue];
+    US.sex = [data[@"userinfo_sex"] integerValue];
     US.userLevel = [data[@"user_level"] integerValue];
+    US.city = data[@"userinfo_address"];
 }
 
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password {

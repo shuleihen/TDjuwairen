@@ -99,7 +99,7 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     __weak CenterViewController *wself = self;
     
-    [manager POST:API_GetUserInfo parameters:nil completion:^(id data, NSError *error){
+    [manager GET:API_GetUserInfo parameters:nil completion:^(id data, NSError *error){
         
         if (!error) {
             [wself setupAliveInfoWithDictionary:data];
@@ -132,7 +132,7 @@
         [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:TDCenterUserAvatar options:SDWebImageRefreshCached];
         
         self.nickNameLabel.text = US.nickName;
-        self.sexImageView.image = US.sex?[UIImage imageNamed:@"ico_sex-man.png"]:[UIImage imageNamed:@"ico_sex-women.png"];
+        self.sexImageView.image = (US.sex==kUserSexMan)?[UIImage imageNamed:@"ico_sex-man.png"]:[UIImage imageNamed:@"ico_sex-women.png"];
     } else {
         [self.avatarBtn setImage:TDCenterUserAvatar forState:UIControlStateNormal];
         self.nickNameLabel.text = @"登陆注册";
@@ -182,15 +182,24 @@
 //}
 
 - (IBAction)avatarPressed:(id)sender {
-    if (US.isLogIn == NO) {
-        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
         login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
     } else {
-        UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:US.userId];
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
+//    if (US.isLogIn == NO) {
+//        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
+//        login.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:login animated:YES];
+//    } else {
+//        UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.navigationController pushViewController:vc animated:YES];
+//    }
 }
 
 - (IBAction)liveDynamicPressed:(id)sender {

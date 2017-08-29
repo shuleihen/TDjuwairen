@@ -19,6 +19,7 @@
 @optional
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender;
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView sharePressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView messagePressed:(id)sender;
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender;
 @end

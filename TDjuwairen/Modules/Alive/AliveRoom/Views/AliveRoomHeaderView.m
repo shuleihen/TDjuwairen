@@ -53,25 +53,22 @@
     _headerModel = master;
     
     
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar];
- 
-    self.aNickNameLabel.text = master.masterNickName;
-    self.aAddressLabel.text = master.city;
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
+    self.aNickNameLabel.text = US.nickName;
+    self.aAddressLabel.text = US.city;
+    self.aRoomInfoLabel.text = US.personal;
     
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateHighlighted];
     
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateNormal];
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateHighlighted];
+
     
-    if (master.roomInfo.length) {
-        self.aRoomInfoLabel.text = master.roomInfo;
-    }
-    
-    if ([master.sex isEqualToString:@"女"]) {
+    if (US.sex == kUserSexWoman) {
         self.aSexImageView.highlighted = NO;
         self.aSexImageView.hidden = NO;
-    } else if ([master.sex isEqualToString:@"男"]){
+    } else if (US.sex == kUserSexMan){
         self.aSexImageView.highlighted = YES;
         self.aSexImageView.hidden = NO;
     } else {
@@ -115,8 +112,8 @@
 }
 
 - (IBAction)sharePressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:editPressed:)]) {
-        [self.delegate aliveRommHeaderView:self editPressed:sender];
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:sharePressed:)]) {
+        [self.delegate aliveRommHeaderView:self sharePressed:sender];
     }
 }
 

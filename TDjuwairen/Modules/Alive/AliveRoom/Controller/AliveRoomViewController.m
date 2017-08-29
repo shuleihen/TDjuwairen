@@ -10,7 +10,6 @@
 #import "AliveRoomMasterModel.h"
 #import "AliveRoomLiveViewController.h"
 #import "AliveMasterListViewController.h"
-#import "AliveEditMasterViewController.h"
 #import "AliveRoomHeaderView.h"
 #import "HMSegmentedControl.h"
 #import "MJRefresh.h"
@@ -251,6 +250,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -515,10 +516,7 @@
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar editPressed:(id)sender {
-    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
-    vc.masterId = self.masterId;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar messagePressed:(id)sender {
@@ -579,8 +577,7 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender {
-    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
-    vc.masterId = self.masterId;
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
     vc.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -652,8 +649,12 @@
     }
 }
 
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView sharePressed:(id)sender {
+    
+}
+
 - (void)showGuessRateInfoOrShowAttentionInfo:(BOOL)isGuessRate {
-    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
+    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Popup" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
     
     if (isGuessRate == YES) {
         vc.titleString = @"股神指数规则";

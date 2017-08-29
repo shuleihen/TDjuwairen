@@ -9,6 +9,8 @@
 #import "AliveCitySettingViewController.h"
 #import "HexColors.h"
 #import "NotificationDef.h"
+#import "NetworkManager.h"
+#import "MBProgressHUD.h"
 
 @interface AliveCitySettingViewController ()
 
@@ -83,12 +85,40 @@
         NSString *title = [[dict allKeys] firstObject];
         
         if ([title isEqualToString:self.parent]) {
-            [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateAliveCityNotification object:title];
+            [self updateCity:title];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateAliveCityNotification object:title];
         } else {
             NSString *string = [NSString stringWithFormat:@"%@ %@",self.parent,title];
-            [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateAliveCityNotification object:string];
+            [self updateCity:string];
+//            [[NSNotificationCenter defaultCenter] postNotificationName:kUpdateAliveCityNotification object:string];
         }
         
     }
+}
+
+- (void)updateCity:(NSString *)city {
+    
+    NSDictionary *dict = @{@"address": city?:@""};
+    __weak AliveCitySettingViewController *wself = self;
+    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_AliveUpdateUserCity parameters:dict completion:^(id data, NSError *error) {
+        if (!error) {
+            [hud hideAnimated:YES];
+            
+            [wself popToAccountVc];
+        } else {
+            hud.label.text = @"修改城市失败";
+            [hud hideAnimated:YES afterDelay:0.8];
+        }
+    }];
+}
+
+- (void)popToAccountVc {
+    NSArray *array = self.navigationController.viewControllers;
+    NSArray *marray = [array subarrayWithRange:NSMakeRange(0, array.count-2)];
+    [self.navigationController setViewControllers:marray animated:YES];
 }
 @end

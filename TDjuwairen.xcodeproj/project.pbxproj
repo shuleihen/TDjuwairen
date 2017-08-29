@@ -74,6 +74,8 @@
 		190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65E71E36E73000B83ADF /* RecordModel.m */; };
 		190F65FD1E36E73000B83ADF /* PopupExchangeView.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65EA1E36E73000B83ADF /* PopupExchangeView.m */; };
 		190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65EC1E36E73000B83ADF /* PopUsExchangeSuccessView.m */; };
+		1918CE281F553531002288FE /* AliveCitySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE241F553531002288FE /* AliveCitySettingViewController.m */; };
+		1918CE291F553531002288FE /* AliveSexSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE271F553531002288FE /* AliveSexSettingViewController.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
 		19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B241E03B402000A6AD2 /* PlayStockViewController.m */; };
 		19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B291E03C748000A6AD2 /* HMSegmentedControl.m */; };
@@ -191,7 +193,6 @@
 		19517F2C1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19517F2B1EE64B4D009E24D1 /* AliveRoomNavigationBar.xib */; };
 		1953CA461E6BE93100A64B3C /* TDRechargeTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */; };
 		1953CA471E6BE93100A64B3C /* TDRechargeTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */; };
-		1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1953CAEB1E716FCC00A64B3C /* Alive.storyboard */; };
 		1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAF21E7172DB00A64B3C /* AliveListBottomTableViewCell.m */; };
 		1953CB071E7172DB00A64B3C /* AliveListBottomTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1953CAF31E7172DB00A64B3C /* AliveListBottomTableViewCell.xib */; };
 		1953CB081E7172DB00A64B3C /* AliveListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1953CAF51E7172DB00A64B3C /* AliveListTableViewCell.m */; };
@@ -371,8 +372,6 @@
 		19C257F61E73E69F00433D0D /* AlivePublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C257F51E73E69F00433D0D /* AlivePublishViewController.m */; };
 		19C257FA1E75250000433D0D /* ImagePickerHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C257F91E75250000433D0D /* ImagePickerHandler.m */; };
 		19C258021E753DA300433D0D /* AliveEditMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258011E753DA300433D0D /* AliveEditMasterViewController.m */; };
-		19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */; };
-		19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258091E76379200433D0D /* AliveCitySettingViewController.m */; };
 		19C2580D1E763E7C00433D0D /* AliveIntroSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */; };
 		19C258151E76499100433D0D /* AliveMessageListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258141E76499100433D0D /* AliveMessageListViewController.m */; };
 		19C258191E7649C200433D0D /* AliveMessageListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C258171E7649C200433D0D /* AliveMessageListCell.m */; };
@@ -860,6 +859,10 @@
 		191027AE1DE52B1B006A2275 /* NotificationDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NotificationDef.h; sourceTree = "<group>"; };
 		191027B01DE52FFE006A2275 /* YXSearchButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXSearchButton.h; sourceTree = "<group>"; };
 		191027B11DE52FFE006A2275 /* YXSearchButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXSearchButton.m; sourceTree = "<group>"; };
+		1918CE231F553531002288FE /* AliveCitySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCitySettingViewController.h; sourceTree = "<group>"; };
+		1918CE241F553531002288FE /* AliveCitySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCitySettingViewController.m; sourceTree = "<group>"; };
+		1918CE261F553531002288FE /* AliveSexSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSexSettingViewController.h; sourceTree = "<group>"; };
+		1918CE271F553531002288FE /* AliveSexSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSexSettingViewController.m; sourceTree = "<group>"; };
 		19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayStock.storyboard; sourceTree = "<group>"; };
 		19193B231E03B402000A6AD2 /* PlayStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockViewController.h; sourceTree = "<group>"; };
 		19193B241E03B402000A6AD2 /* PlayStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockViewController.m; sourceTree = "<group>"; };
@@ -1084,7 +1087,6 @@
 		1953CA431E6BE93100A64B3C /* TDRechargeTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeTableViewCell.h; sourceTree = "<group>"; };
 		1953CA441E6BE93100A64B3C /* TDRechargeTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDRechargeTableViewCell.m; sourceTree = "<group>"; };
 		1953CA451E6BE93100A64B3C /* TDRechargeTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TDRechargeTableViewCell.xib; sourceTree = "<group>"; };
-		1953CAEB1E716FCC00A64B3C /* Alive.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Alive.storyboard; sourceTree = "<group>"; };
 		1953CAF11E7172DB00A64B3C /* AliveListBottomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListBottomTableViewCell.h; sourceTree = "<group>"; };
 		1953CAF21E7172DB00A64B3C /* AliveListBottomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListBottomTableViewCell.m; sourceTree = "<group>"; };
 		1953CAF31E7172DB00A64B3C /* AliveListBottomTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListBottomTableViewCell.xib; sourceTree = "<group>"; };
@@ -1427,10 +1429,6 @@
 		19C257F91E75250000433D0D /* ImagePickerHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImagePickerHandler.m; sourceTree = "<group>"; };
 		19C258001E753DA300433D0D /* AliveEditMasterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveEditMasterViewController.h; sourceTree = "<group>"; };
 		19C258011E753DA300433D0D /* AliveEditMasterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveEditMasterViewController.m; sourceTree = "<group>"; };
-		19C258041E758E7A00433D0D /* AliveSexSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSexSettingViewController.h; sourceTree = "<group>"; };
-		19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSexSettingViewController.m; sourceTree = "<group>"; };
-		19C258081E76379200433D0D /* AliveCitySettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveCitySettingViewController.h; sourceTree = "<group>"; };
-		19C258091E76379200433D0D /* AliveCitySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCitySettingViewController.m; sourceTree = "<group>"; };
 		19C2580B1E763E7C00433D0D /* AliveIntroSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveIntroSettingViewController.h; sourceTree = "<group>"; };
 		19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveIntroSettingViewController.m; sourceTree = "<group>"; };
 		19C258131E76499100433D0D /* AliveMessageListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveMessageListViewController.h; sourceTree = "<group>"; };
@@ -2301,6 +2299,24 @@
 			path = YXTitleButton;
 			sourceTree = "<group>";
 		};
+		1918CE221F553531002288FE /* SettingCity */ = {
+			isa = PBXGroup;
+			children = (
+				1918CE231F553531002288FE /* AliveCitySettingViewController.h */,
+				1918CE241F553531002288FE /* AliveCitySettingViewController.m */,
+			);
+			path = SettingCity;
+			sourceTree = "<group>";
+		};
+		1918CE251F553531002288FE /* SettingSex */ = {
+			isa = PBXGroup;
+			children = (
+				1918CE261F553531002288FE /* AliveSexSettingViewController.h */,
+				1918CE271F553531002288FE /* AliveSexSettingViewController.m */,
+			);
+			path = SettingSex;
+			sourceTree = "<group>";
+		};
 		19193B171E03B3E9000A6AD2 /* PlayStock */ = {
 			isa = PBXGroup;
 			children = (
@@ -2782,10 +2798,6 @@
 			children = (
 				19C258001E753DA300433D0D /* AliveEditMasterViewController.h */,
 				19C258011E753DA300433D0D /* AliveEditMasterViewController.m */,
-				19C258041E758E7A00433D0D /* AliveSexSettingViewController.h */,
-				19C258051E758E7A00433D0D /* AliveSexSettingViewController.m */,
-				19C258081E76379200433D0D /* AliveCitySettingViewController.h */,
-				19C258091E76379200433D0D /* AliveCitySettingViewController.m */,
 				19C2580B1E763E7C00433D0D /* AliveIntroSettingViewController.h */,
 				19C2580C1E763E7C00433D0D /* AliveIntroSettingViewController.m */,
 			);
@@ -2934,6 +2946,8 @@
 			isa = PBXGroup;
 			children = (
 				194186C81DF81284000C5197 /* AccountInfo */,
+				1918CE221F553531002288FE /* SettingCity */,
+				1918CE251F553531002288FE /* SettingSex */,
 				194186CB1DF81284000C5197 /* SettingCompany */,
 				194186CE1DF81284000C5197 /* SettingIntro */,
 				194186D11DF81284000C5197 /* SettingNickName */,
@@ -5711,7 +5725,6 @@
 				84E333ED1CE2BA3D00E5DCEE /* AppDelegate.h */,
 				84E333EE1CE2BA3D00E5DCEE /* AppDelegate.m */,
 				84E333F31CE2BA3D00E5DCEE /* Main.storyboard */,
-				1953CAEB1E716FCC00A64B3C /* Alive.storyboard */,
 				190F65C21E34F19300B83ADF /* Launch.storyboard */,
 				19A5AC401E0A49AC00FE953A /* Recharge.storyboard */,
 				19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */,
@@ -6215,7 +6228,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1953CAEC1E716FCC00A64B3C /* Alive.storyboard in Resources */,
 				19E58D7C1EF3C2E900ADA1B8 /* MessageListTableViewCell.xib in Resources */,
 				19E638571F3C05A300DEEB20 /* StockPoolListCell.xib in Resources */,
 				9E2233CB1E8AA6A200B1FAC4 /* PlayItemPersonView.xib in Resources */,
@@ -6512,6 +6524,7 @@
 				19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */,
 				1987B28D1EE688F700BD852E /* StockCommentModel.m in Sources */,
 				19E5F2A61E13653200984DBC /* SQTopicTableViewCell.m in Sources */,
+				1918CE281F553531002288FE /* AliveCitySettingViewController.m in Sources */,
 				8497E0661CEF0B2800D7D105 /* TADotView.m in Sources */,
 				19959BAA1E2DE28C00AB26DF /* GradeDetailModel.m in Sources */,
 				1955B4A21D644D9800DC102E /* CategoryView.m in Sources */,
@@ -6537,6 +6550,7 @@
 				19ED17511F1644B400EC89DF /* MGCellContentView.m in Sources */,
 				19ED174F1F1644B400EC89DF /* IndexStockRecordModel.m in Sources */,
 				1955B4A81D644D9800DC102E /* SelectFontView.m in Sources */,
+				1918CE291F553531002288FE /* AliveSexSettingViewController.m in Sources */,
 				1987B2B11EE6CE8900BD852E /* AliveListViewpointView.m in Sources */,
 				196F5EDB1E5485B700928B60 /* SAMKeychainQuery.m in Sources */,
 				1966A6681E8BD8C5007DDA14 /* UIButton+LikeAnimation.m in Sources */,
@@ -6568,7 +6582,6 @@
 				19C348731D3F76DB008ABD16 /* MJRefreshConst.m in Sources */,
 				1953CB061E7172DB00A64B3C /* AliveListBottomTableViewCell.m in Sources */,
 				19ED17501F1644B400EC89DF /* IndividualStockRecordModel.m in Sources */,
-				19C258061E758E7A00433D0D /* AliveSexSettingViewController.m in Sources */,
 				19C3486A1D3F76DB008ABD16 /* MJRefreshAutoNormalFooter.m in Sources */,
 				19D6B9FD1E50902C00475AA1 /* AccouontManagerViewController.m in Sources */,
 				191CB4931D5C709300E4AFB5 /* YXTextFieldPanel.m in Sources */,
@@ -6732,7 +6745,6 @@
 				19FB54451D5C81EA0011BA33 /* YXCheckBox.m in Sources */,
 				19F07A611F1F39B5004449BB /* TDWebViewHandler.m in Sources */,
 				19042E361F3D7DFE0004D3C6 /* AliveListBaseViewController.m in Sources */,
-				19C2580A1E76379200433D0D /* AliveCitySettingViewController.m in Sources */,
 				190F65EF1E36E73000B83ADF /* ExchangeTableViewCell.m in Sources */,
 				19AA7DDB1F3AE64400716F38 /* UIImage+Caputure.m in Sources */,
 				19F07A301F1D9FDD004449BB /* UIImageView+XHLaunchAdCache.m in Sources */,

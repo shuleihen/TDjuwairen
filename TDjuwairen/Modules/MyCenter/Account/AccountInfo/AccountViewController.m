@@ -15,12 +15,17 @@
 #import "NotificationDef.h"
 #import "UIMacroDef.h"
 #import "HexColors.h"
+#import "NotificationDef.h"
+#import "AliveCitySettingViewController.h"
+#import "AliveSexSettingViewController.h"
+#import "LoginHandler.h"
 
 @interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
 @property (nonatomic,strong) NSString *str;
 @property (nonatomic,strong) UIImage *headImage;
+@property (nonatomic, strong) LoginStateManager *userInfo;
 @end
 
 @implementation AccountViewController
@@ -33,50 +38,58 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
-    
-    self.avatarImageView.layer.cornerRadius = 22.5f;
-    self.avatarImageView.clipsToBounds = YES;
-    [self getValidation];
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.userInfo = US;
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
-    [self.tableView reloadData];
+    [self queryUserInfo];
 }
 
+- (void)queryUserInfo {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager GET:API_GetUserInfo parameters:nil completion:^(id data, NSError *error){
+        if (!error) {
+            self.userInfo = [[LoginStateManager alloc] initWithDictionary:data];
+            [LoginHandler saveUserInfoData:data];
+            
+            [self.tableView reloadData];
+        } else {
+            
+        }
+    }];
+}
+
+#pragma mark - UITableView Delegate
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if ((indexPath.section == 0) && (indexPath.row == 0)) {
         // 头像
         if (self.headImage) {
             self.avatarImageView.image = self.headImage;
         } else {
-            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
+            [self.avatarImageView sd_setImageWithURL:[NSURL URLWithString:self.userInfo.headImage] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
         }
         
     } else if ((indexPath.section == 0) && (indexPath.row == 1)) {
-        // 用户名
-        cell.detailTextLabel.text = US.userName;
-    } else if ((indexPath.section == 0) && (indexPath.row == 2)) {
         // 昵称
-        cell.detailTextLabel.text = US.nickName;
-    } else if ((indexPath.section == 0) && (indexPath.row == 3)) {
-        // 手机号
-        cell.detailTextLabel.text = US.userPhone;
+        cell.detailTextLabel.text = self.userInfo.nickName;
+    } else if ((indexPath.section == 0) && (indexPath.row == 2)) {
+        // 用户名
+        cell.detailTextLabel.text = self.userInfo.userName;
     } else if ((indexPath.section == 1) && (indexPath.row == 0)) {
-        // 公司
-        cell.detailTextLabel.text = US.company;
+        // 性别
+        cell.detailTextLabel.text = self.userInfo.sexString;
     } else if ((indexPath.section == 1) && (indexPath.row == 1)) {
-        // 职位
-        cell.detailTextLabel.text = US.post;
+        // 地区
+        cell.detailTextLabel.text = self.userInfo.city;
     } else if ((indexPath.section == 1) && (indexPath.row == 2)) {
         // 个人简介
-        if (US.personal.length) {
-            self.introLabel.text = US.personal;
-            self.introLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#646464"];
+        if (self.userInfo.personal.length) {
+            self.introLabel.text = self.userInfo.personal;
         } else {
             self.introLabel.text = @"很懒哦，什么也没留下";
-            self.introLabel.textColor = TDDetailTextColor;
         }
     }
 }
@@ -103,6 +116,16 @@
         
         [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
         [self presentViewController:alert animated:YES completion:nil];
+    } else if ((indexPath.section == 1) && (indexPath.row == 0)) {
+        // 性别
+        AliveSexSettingViewController *vc = [[AliveSexSettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.sex = self.userInfo.sexString;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if ((indexPath.section == 1) && (indexPath.row == 1)) {
+        // 地区
+        AliveCitySettingViewController *vc = [[AliveCitySettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.level = 0;
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 
@@ -158,6 +181,7 @@
     //上传头像
     [self requestHead];
 }
+
 - (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
 {
     [self dismissViewControllerAnimated:YES completion:nil];
@@ -184,9 +208,7 @@
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.label.text = @"请稍等";
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":US.userId,
-                         @"encryptedStr":self.str,
-                         @"userid":US.userId};
+    NSDictionary*paras=@{@"userid":self.userInfo.userId};
     
     [manager POST:API_UploadUserface parameters:paras constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         UIImage *image = self.headImage;
@@ -198,7 +220,7 @@
         NSString *str = [formatter stringFromDate:[NSDate date]];
         NSString *fileName = [NSString stringWithFormat:@"%@.png", str];
         
-        [formData appendPartWithFileData:data name:US.userId fileName:fileName mimeType:@"image/png"];
+        [formData appendPartWithFileData:data name:self.userInfo.userId fileName:fileName mimeType:@"image/png"];
         
     } completion:^(id data, NSError *error) {
         if (!error) {
@@ -206,7 +228,7 @@
             [hud hideAnimated:YES afterDelay:1];
             
             // 修改头像
-            US.headImage = data[@"userinfo_facesmall"];
+            self.userInfo.headImage = data[@"userinfo_facesmall"];
             
             [self.tableView reloadData];
             
@@ -214,20 +236,6 @@
         } else {
             hud.label.text = @"网络错误";
             [hud hideAnimated:YES afterDelay:1];
-        }
-    }];
-}
-
-- (void)getValidation{
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para = @{@"validatestring":US.userId};
-    
-    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
-        if (!error) {
-            NSDictionary *dic = data;
-            self.str = dic[@"str"];
-        } else {
-            
         }
     }];
 }
