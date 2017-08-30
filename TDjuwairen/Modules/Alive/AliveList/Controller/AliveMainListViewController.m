@@ -56,30 +56,36 @@
     if (!_contentControllers) {
         AliveListViewController *one = [[AliveListViewController alloc] init];
         one.listType = kAliveListRecommend;
+        one.mainlistType = self.mainListType;
         
         AliveListViewController *two = [[AliveListViewController alloc] init];
         two.listType = kAliveListAttention;
+        two.mainlistType = self.mainListType;
         
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = kAliveListViewpoint;
+        three.mainlistType = self.mainListType;
         
         AliveListViewController *four = [[AliveListViewController alloc] init];
         four.listType = kAliveListVideo;
+        four.mainlistType = self.mainListType;
         
         AliveListViewController *five = [[AliveListViewController alloc] init];
         five.listType = kAlvieListPost;
+        five.mainlistType = self.mainListType;
         
         AliveListStockPoolViewController *six = [[AliveListStockPoolViewController alloc] init];
         six.listType = kAliveListStockPool;
+        six.mainlistType = self.mainListType;
         
         AliveListViewController *sen = [[AliveListViewController alloc] init];
         sen.listType = kAlvieListHot;
-        
+        sen.mainlistType = self.mainListType;
         
         if (self.mainListType == kMainListRecommend) {
             _contentControllers = @[one,six,three,four,five,sen];
         } else {
-            _contentControllers = @[one,six,three,five];
+            _contentControllers = @[two,six,three,four,five,sen];
         }
     }
     
@@ -133,12 +139,7 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     
-    NSArray *tites = @[];
-    if (self.mainListType == kMainListRecommend) {
-        tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单",@"热点"];
-    } else {
-        tites = @[@"全部",@"股票池",@"观点",@"推单"];
-    }
+    NSArray *tites = tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单",@"热点"];
     
     UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:tites];
     segmented.tintColor = [UIColor whiteColor];

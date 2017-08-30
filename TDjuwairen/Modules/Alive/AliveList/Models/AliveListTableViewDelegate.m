@@ -98,13 +98,13 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 
 
 #pragma mark - StockUnlockManagerDelegate
-- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
+- (void)unlockManager:(StockUnlockManager *)manager withSurveyId:(NSString *)surveyId {
     for (AliveListCellData *model in self.itemList) {
-        if ([model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
+        if ([model.aliveModel.aliveId isEqualToString:surveyId] &&
+            [model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
             AliveListExtra *extra = model.aliveModel.extra;
-            if ([extra.companyCode isEqualToString:stockCode]) {
-                extra.isUnlock = YES;
-            }
+            extra.isUnlock = YES;
+            break;
         }
     }
     
@@ -525,8 +525,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
                     [self.viewController.navigationController pushViewController:login animated:YES];
                     return;
                 }
-                
-                [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
+                [self.unlockManager unlockSurvey:model.aliveId withSurveyType:extra.surveyType withSureyTitle:extra.surveyDesc withController:self.viewController];
             } else {
                 StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                 vc.stockCode = extra.companyCode;
@@ -564,7 +563,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
                     return;
                 }
                 
-                [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
+                [self.unlockManager unlockSurvey:model.aliveId withSurveyType:extra.surveyType withSureyTitle:extra.surveyDesc withController:self.viewController];
             } else {
                 StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                 vc.stockCode = extra.companyCode;

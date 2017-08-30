@@ -10,12 +10,13 @@
 
 #define US [LoginStateManager sharedInstance]
 
-// 下个版本 0表示普通用户，1表示青铜会员，2表示白银会员 3表示黄金会员
+// 下个版本 0表示普通用户，1表示黄金会员，2表示青铜会员 ，3表示白银会员
 typedef enum : NSUInteger {
     kUserLevelNormal    =0,
-    kUserLevelBronze    =1,
-    kUserLevelSilver    =2,
-    kUserLevelGold      =3,
+    kUserLevelGold      =1,
+    kUserLevelBronze    =2,
+    kUserLevelSilver    =3,
+    
 } UserLevelType;
 
 // 0表示没有设置，1表示女，2表示男

@@ -10,11 +10,13 @@
 #import <WebKit/WebKit.h>
 #import "TDRechargeViewController.h"
 #import "CocoaLumberjack.h"
+#import "MemberCenterVipManager.h"
 
 @interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate, WKScriptMessageHandler>
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) WKWebView *webView;
 @property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) MemberCenterVipManager *vipManager;
 @end
 
 @implementation TDWebViewController
@@ -26,6 +28,14 @@
     }
     
     return self;
+}
+
+- (MemberCenterVipManager *)vipManager {
+    if (!_vipManager) {
+        _vipManager = [[MemberCenterVipManager alloc] init];
+        
+    }
+    return _vipManager;
 }
 
 - (void)viewDidLoad {
@@ -100,10 +110,11 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     
-    NSLog(@"body:%@", message.body);
+    NSLog(@"Web action name:%@ body:%@",message.name, message.body);
     
-    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"] ||
-        [message.name isEqualToString:@"com_jwr_rechargevip"] ||
+    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"]){
+        [self.vipManager unlockVipIsRenew:NO withController:self];
+    } else if ([message.name isEqualToString:@"com_jwr_rechargevip"] ||
         [message.name isEqualToString:@"com_jwr_membercenter_recharge"]) {
         TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
         vc.isVipRecharge = YES;

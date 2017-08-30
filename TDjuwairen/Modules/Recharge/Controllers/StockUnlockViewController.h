@@ -10,7 +10,7 @@
 #import "StockUnlockModel.h"
 
 @protocol StockUnlockDelegate <NSObject>
-- (void)unlockWithStockCode:(NSString *)stockCode;
+- (void)unlockWithSurveyId:(NSString *)surveyId withSurveyType:(NSInteger)surveyType;
 - (void)rechargePressed:(id)sender;
 - (void)vipPressed:(id)sender;
 @end

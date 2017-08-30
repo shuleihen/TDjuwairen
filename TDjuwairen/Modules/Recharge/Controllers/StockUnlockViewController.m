@@ -26,7 +26,7 @@
     titleLabel.font = [UIFont systemFontOfSize:14.0f];
     titleLabel.textColor = TDTitleTextColor;
     titleLabel.textAlignment = NSTextAlignmentCenter;
-    titleLabel.text = @"解锁股票";
+    titleLabel.text = @"解锁调研";
     [self.view addSubview:titleLabel];
     
     UIButton *closeBtn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-11-30, 6, 30, 30)];
@@ -43,7 +43,7 @@
     stockNameLabel.font = [UIFont systemFontOfSize:15.0f];
     stockNameLabel.textColor = TDTitleTextColor;
     stockNameLabel.textAlignment = NSTextAlignmentCenter;
-    stockNameLabel.text = [NSString stringWithFormat:@"%@(%@)", unlockModel.stockName,unlockModel.stockCode];
+    stockNameLabel.text = unlockModel.sruveyTitle;
     [self.view addSubview:stockNameLabel];
     
     UIButton *key = [[UIButton alloc] initWithFrame:CGRectMake(12, 86, kScreenWidth-24, 30)];
@@ -91,20 +91,13 @@
         balanceLabel.text =  [NSString stringWithFormat:@"账号余额 %ld",(long)unlockModel.userKeyNum];
     }
     
-    UILabel *tipLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 194, kScreenWidth-24, 12)];
-    tipLabel.font = [UIFont systemFontOfSize:11.0f];
-    tipLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
-    tipLabel.text = @"解锁后，所有调研内容均永久解锁";
-    tipLabel.textAlignment = NSTextAlignmentCenter;
-    [self.view addSubview:tipLabel];
-    
     self.contentSizeInPopup = CGSizeMake(kScreenWidth, 220);
 }
 
 - (void)unlockPressed:(id)sender {
     [self.popupController dismissWithCompletion:^{
-        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithStockCode:)]) {
-            [self.delegate unlockWithStockCode:self.unlockModel.stockCode];
+        if (self.delegate && [self.delegate respondsToSelector:@selector(unlockWithSurveyId:withSurveyType:)]) {
+            [self.delegate unlockWithSurveyId:self.unlockModel.sruveyId withSurveyType:self.unlockModel.sruveyType];
         }
     }];
 }

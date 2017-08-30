@@ -76,6 +76,9 @@
 		190F65FE1E36E73000B83ADF /* PopUsExchangeSuccessView.m in Sources */ = {isa = PBXBuildFile; fileRef = 190F65EC1E36E73000B83ADF /* PopUsExchangeSuccessView.m */; };
 		1918CE281F553531002288FE /* AliveCitySettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE241F553531002288FE /* AliveCitySettingViewController.m */; };
 		1918CE291F553531002288FE /* AliveSexSettingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE271F553531002288FE /* AliveSexSettingViewController.m */; };
+		1918CE341F564FA7002288FE /* MemberCenterVipViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE331F564FA7002288FE /* MemberCenterVipViewController.m */; };
+		1918CE371F564FB0002288FE /* MemberCenterVipModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE361F564FB0002288FE /* MemberCenterVipModel.m */; };
+		1918CE3A1F5650A4002288FE /* MemberCenterVipManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1918CE391F5650A4002288FE /* MemberCenterVipManager.m */; };
 		19193B081E03A7C5000A6AD2 /* PlayStock.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */; };
 		19193B251E03B402000A6AD2 /* PlayStockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B241E03B402000A6AD2 /* PlayStockViewController.m */; };
 		19193B2C1E03C748000A6AD2 /* HMSegmentedControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 19193B291E03C748000A6AD2 /* HMSegmentedControl.m */; };
@@ -863,6 +866,12 @@
 		1918CE241F553531002288FE /* AliveCitySettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveCitySettingViewController.m; sourceTree = "<group>"; };
 		1918CE261F553531002288FE /* AliveSexSettingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveSexSettingViewController.h; sourceTree = "<group>"; };
 		1918CE271F553531002288FE /* AliveSexSettingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveSexSettingViewController.m; sourceTree = "<group>"; };
+		1918CE321F564FA7002288FE /* MemberCenterVipViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberCenterVipViewController.h; sourceTree = "<group>"; };
+		1918CE331F564FA7002288FE /* MemberCenterVipViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberCenterVipViewController.m; sourceTree = "<group>"; };
+		1918CE351F564FB0002288FE /* MemberCenterVipModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberCenterVipModel.h; sourceTree = "<group>"; };
+		1918CE361F564FB0002288FE /* MemberCenterVipModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberCenterVipModel.m; sourceTree = "<group>"; };
+		1918CE381F5650A4002288FE /* MemberCenterVipManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemberCenterVipManager.h; sourceTree = "<group>"; };
+		1918CE391F5650A4002288FE /* MemberCenterVipManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemberCenterVipManager.m; sourceTree = "<group>"; };
 		19193B071E03A7C5000A6AD2 /* PlayStock.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PlayStock.storyboard; sourceTree = "<group>"; };
 		19193B231E03B402000A6AD2 /* PlayStockViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PlayStockViewController.h; sourceTree = "<group>"; };
 		19193B241E03B402000A6AD2 /* PlayStockViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockViewController.m; sourceTree = "<group>"; };
@@ -3292,6 +3301,8 @@
 				1978E0711EE166D70065CEE0 /* StockUnlockModel.m */,
 				19042E9B1F4577B90004D3C6 /* StockPoolUnlockModel.h */,
 				19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */,
+				1918CE351F564FB0002288FE /* MemberCenterVipModel.h */,
+				1918CE361F564FB0002288FE /* MemberCenterVipModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -3833,6 +3844,8 @@
 			children = (
 				1978E06D1EE1665E0065CEE0 /* StockUnlockManager.h */,
 				1978E06E1EE1665E0065CEE0 /* StockUnlockManager.m */,
+				1918CE381F5650A4002288FE /* MemberCenterVipManager.h */,
+				1918CE391F5650A4002288FE /* MemberCenterVipManager.m */,
 			);
 			path = Manager;
 			sourceTree = "<group>";
@@ -5087,6 +5100,8 @@
 				1998E2AF1F219EA400EE9E54 /* DeepUnlockViewController.m */,
 				19042E981F4570F80004D3C6 /* StockPoolUnlockViewController.h */,
 				19042E991F4570F80004D3C6 /* StockPoolUnlockViewController.m */,
+				1918CE321F564FA7002288FE /* MemberCenterVipViewController.h */,
+				1918CE331F564FA7002288FE /* MemberCenterVipViewController.m */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -6384,6 +6399,7 @@
 				19B11CAC1D655B9E00BB4DF4 /* DDTTYLogger.m in Sources */,
 				19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */,
 				19AA7DBA1F39684C00716F38 /* DYRefreshAliveView.m in Sources */,
+				1918CE371F564FB0002288FE /* MemberCenterVipModel.m in Sources */,
 				19D6A3071E0D0126008368F4 /* UIResponder+STPopup.m in Sources */,
 				19F07A321F1D9FDD004449BB /* XHLaunchAdButton.m in Sources */,
 				19517F2A1EE64B39009E24D1 /* AliveRoomNavigationBar.m in Sources */,
@@ -6404,6 +6420,7 @@
 				1959D4601F29BCDE002B969A /* UIViewController+NoData.m in Sources */,
 				19386EE81E72432B00D4426E /* AliveListTableViewDelegate.m in Sources */,
 				19E48FFA1E1DDC230012CE6E /* NSString+Emoji.m in Sources */,
+				1918CE3A1F5650A4002288FE /* MemberCenterVipManager.m in Sources */,
 				193325831E4DC9A400E3D500 /* FeedbackViewController.m in Sources */,
 				19D6A3061E0D0126008368F4 /* STPopupNavigationBar.m in Sources */,
 				19ED17591F17759600EC89DF /* CBAutoScrollLabel.m in Sources */,
@@ -6619,6 +6636,7 @@
 				194E0D191EEF8D48009C7AC6 /* TDTopicCellData.m in Sources */,
 				19042EB41F4C0B250004D3C6 /* TDCommentTableViewCell.m in Sources */,
 				8497E0691CEF0B2800D7D105 /* SDCycleScrollView.m in Sources */,
+				1918CE341F564FA7002288FE /* MemberCenterVipViewController.m in Sources */,
 				4DEFF19E1ED7CE89004E3267 /* SearchSectionData.m in Sources */,
 				8497E0671CEF0B2800D7D105 /* TAPageControl.m in Sources */,
 				19E58D821EF7B81500ADA1B8 /* SurveyHandler.m in Sources */,

@@ -97,9 +97,12 @@
 }
 
 #pragma mark -
-- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
+- (void)unlockManager:(StockUnlockManager *)manager withSurveyId:(NSString *)surveyId {
     for (StockSurveyModel *model in self.items) {
-        model.isUnlock = YES;
+        if ([model.surveyId isEqualToString:surveyId]) {
+            model.isUnlock = YES;
+            break;
+        }
     }
     
     if (self.unlockIndexPath) {
@@ -138,7 +141,7 @@
     
     if (model.isUnlock == NO) {
         self.unlockIndexPath = indexPath;
-        [self.unlockManager unlockStock:model.companyCode withStockName:model.companyName withController:self.rootController];
+        [self.unlockManager unlockSurvey:model.surveyId withSurveyType:model.surveyType withSureyTitle:model.title withController:self.rootController];
     } else {
         [self pushControllerWithIndexPath:indexPath];
     }

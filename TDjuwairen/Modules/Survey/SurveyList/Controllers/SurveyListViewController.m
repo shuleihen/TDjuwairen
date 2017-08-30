@@ -357,9 +357,7 @@
         [self.navigationController pushViewController:login animated:YES];
         
     }else {
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
-        NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
-        [TDWebViewHandler openURL:url inNav:self.navigationController];
+        [TDWebViewHandler openURL:API_H5UserVipCenter withUserMark:YES inNav:self.navigationController];
     }
 }
 

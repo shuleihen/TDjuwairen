@@ -11,7 +11,7 @@
 @implementation UIImage (Create)
 + (UIImage *)imageWithSize:(CGSize)size backgroudColor:(UIColor *)bgColor borderColor:(UIColor *)borderColor cornerRadius:(CGFloat)radius {
     
-    return [UIImage imageWithSize:size backgroudColor:bgColor borderColor:borderColor borderWidth:1.0f cornerRadius:radius];
+    return [UIImage imageWithSize:size backgroudColor:bgColor borderColor:borderColor borderWidth:TDPixel cornerRadius:radius];
 }
 
 + (UIImage *)imageWithSize:(CGSize)size backgroudColor:(UIColor *)bgColor borderColor:(UIColor *)borderColor borderWidth:(CGFloat)borderWidth cornerRadius:(CGFloat)radius {

@@ -19,6 +19,8 @@
 #define API_H5UserPointsList    @"https://www.juwairen.net/index.php/UserCenter/showUserPoints"
 #define API_H5UserWalletList    @"https://www.juwairen.net/UserCenter/showUserWallet"
 #define API_H5UserMission       @"https://www.juwairen.net/UserCenter/showUserMission"
+#define API_H5UserVipCenter     @"https://appapi.juwairen.net/User/vipCenter3_3"
+
 // 广告
 #define API_GetBanner           @"Index/indexBanner"
 #define API_SaveDeviceInfo      @"Index/saveDeviceInfo"
@@ -93,6 +95,7 @@
 
 #define API_PayIsShow               @"Pay/isPayShow"
 #define API_IAPVerify               @"Pay/iapVerify"
+#define API_PayGetVipList           @"Pay/getVipPrice"
 
 #define API_AddSharpComment         @"Sharp/addSharpComnment"
 #define API_VideoGetList            @"Sharp/videoList3_1"
@@ -119,7 +122,7 @@
 // 调研
 #define API_SurveyDetailHeader      @"Survey/survey_show_header2_2"
 #define API_SurveyDetail            @"Survey/survey_show_tag2_3"
-#define API_SurveyDetailResearch    @"Survey/survey_show_research"
+#define API_SurveyDetailResearch    @"Survey/survey_show_research3_3"
 #define API_SurveyDetailAnnounce    @"Survey/survey_show_announce"
 #define API_SurveyDetailHot         @"Survey/survey_show_topline"
 #define API_SurveyDetailAsk         @"Survey/survey_show_qa3_1"
@@ -155,6 +158,9 @@
 #define API_SurveyGetDeepList       @"Survey/getDeepList"
 #define API_SurveyIsUnlockDeep      @"Survey/isUserUnlockDeep"
 #define API_SurveyUnlockDeep        @"Survey/unlockSurveyDeep"
+#define API_SurveyIsUnlockSurvey    @"Survey/isUserUnlockSurvey"
+#define API_SurveyUnlockSurvey      @"Survey/unlockSurvey"
+
 
 // 订阅
 #define API_SubscriptionInfo        @"Subscribe/subscribeInfo"

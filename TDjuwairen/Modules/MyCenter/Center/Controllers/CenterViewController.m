@@ -177,9 +177,6 @@
 }
 
 #pragma mark - Action
-//- (IBAction)cancelPressed:(id)sender {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
 
 - (IBAction)avatarPressed:(id)sender {
     if (!US.isLogIn) {
@@ -191,15 +188,6 @@
         vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
-//    if (US.isLogIn == NO) {
-//        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-//        login.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:login animated:YES];
-//    } else {
-//        UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.navigationController pushViewController:vc animated:YES];
-//    }
 }
 
 - (IBAction)liveDynamicPressed:(id)sender {
@@ -256,33 +244,13 @@
         [self.navigationController pushViewController:mySubcriptionVC animated:YES];
     }
 }
-// 会员中心
-- (IBAction)memberCenterPressed:(id)sender {
-    
-    if (US.isLogIn == NO) {
-        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-        login.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:login animated:YES];
-        
-    }else {
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
-        NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
-        
-        TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        
-    }
-}
 
 - (IBAction)walletPressed:(id)sender {
     [TDWebViewHandler openURL:API_H5UserWalletList withUserMark:YES inNav:self.navigationController];
-//    [self pushViewControllerWithClassName:@"WalletViewController"];
 }
 
 - (IBAction)integralPressed:(id)sender {
     [TDWebViewHandler openURL:API_H5UserPointsList withUserMark:YES inNav:self.navigationController];
-//    [self pushViewControllerWithClassName:@"IntegralViewController"];
 }
 
 - (IBAction)settingPressed:(id)sender {
@@ -366,6 +334,7 @@
     if (indexPath.section == 1 &&
         indexPath.row == 0) {
         // 会员中心
+        [TDWebViewHandler openURL:API_H5UserVipCenter withUserMark:YES inNav:self.navigationController];
     } else if (indexPath.section == 1 &&
                indexPath.row == 1) {
         // 任务中心

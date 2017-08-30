@@ -11,6 +11,7 @@
 
 @interface AliveListBaseViewController : UIViewController
 @property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, assign) MainListType mainlistType;
 @property (nonatomic, assign) AliveListType listType;
 @property (nonatomic, assign) NSInteger currentPage;
 @property (nonatomic, strong) NSArray *aliveList;

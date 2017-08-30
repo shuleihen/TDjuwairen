@@ -272,15 +272,14 @@
         return NO;
     }
     
-    if (self.introlModel.isFree) {
-        // 免费
-        return NO;
-    } else if (self.introlModel.isSubscribed == NO) {
-        // 收费未订阅
+    if (self.introlModel.isSubscribed == NO) {
+        // 未订阅
         return YES;
-    } else if (self.introlModel.isSubscribed && (self.introlModel.expireTime > nowTime)) {
-        // 收费订阅未过期
-        return NO;
+    } else {
+        if (self.introlModel.expireTime > nowTime) {
+            // 订阅未过期
+            return NO;
+        }
     }
     
     return [cellModel.record_time longLongValue] > self.introlModel.expireTime;

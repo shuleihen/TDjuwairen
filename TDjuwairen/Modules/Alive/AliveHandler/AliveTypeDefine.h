@@ -9,6 +9,11 @@
 #ifndef AliveTypeDefine_h
 #define AliveTypeDefine_h
 
+typedef enum : NSUInteger {
+    kMainListRecommend,
+    kMainListAttention,
+} MainListType;
+
 // 直播列表类型
 typedef enum : NSUInteger {
     kAliveListRecommend  =0, // 推荐

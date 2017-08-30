@@ -67,31 +67,31 @@
     switch (self.listType) {
         case kAliveListAttention:
             api = API_AliveGetAttenAliveList;
-            dict = @{@"page" :@(page)};
             break;
         case kAliveListRecommend:
             api = API_AliveGetRecAliveList;
-            dict = @{@"page" :@(page)};
             break;
         case kAliveListViewpoint:
             api = API_ViewGetList;
-            dict = @{@"page" :@(page)};
             break;
         case kAliveListVideo:
             api = API_VideoGetList;
-            dict = @{@"page" :@(page)};
             break;
         case kAlvieListPost:
             api = API_AliveGetPostAliveList;
-            dict = @{@"page" :@(page)};
             break;
             case kAlvieListHot:
             api = API_AliveGetHotAliveList;
-            dict = @{@"page" :@(page)};
             break;
         default:
             NSAssert(NO, @"直播列表不支持当前类型");
             break;
+    }
+    
+    if (self.mainlistType == kMainListAttention) {
+        dict = @{@"page" :@(page),@"is_atten": @"1"};
+    } else {
+        dict = @{@"page" :@(page)};
     }
     
     [manager GET:api parameters:dict completion:^(id data, NSError *error){

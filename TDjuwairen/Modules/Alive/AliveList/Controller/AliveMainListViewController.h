@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AliveTypeDefine.h"
 
-typedef enum : NSUInteger {
-    kMainListRecommend,
-    kMainListAttention,
-} MainListType;
 
 @interface AliveMainListViewController : UIViewController
 @property (nonatomic, assign) MainListType mainListType;
