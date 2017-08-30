@@ -16,7 +16,7 @@
 #import "TDSegmentedControl.h"
 #import "StockPoolListViewController.h"
 
-@interface AliveListRootViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@interface AliveListRootViewController ()<UIPageViewControllerDelegate>
 
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;

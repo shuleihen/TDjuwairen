@@ -83,11 +83,11 @@
     [manager GET:API_StockPoolGetDesc parameters:nil completion:^(id data, NSError *error) {
         
         if (!error) {
-            self.introduceStr = data[@"desc"];
-            [self.tableView beginUpdates];
+            wSelf.introduceStr = data[@"desc"];
+            [wSelf.tableView beginUpdates];
             NSIndexPath *indexP = [NSIndexPath indexPathForRow:0 inSection:0];
-            [self.tableView reloadRowsAtIndexPaths:@[indexP] withRowAnimation:UITableViewRowAnimationNone];
-            [self.tableView endUpdates];
+            [wSelf.tableView reloadRowsAtIndexPaths:@[indexP] withRowAnimation:UITableViewRowAnimationNone];
+            [wSelf.tableView endUpdates];
         }
         
     }];

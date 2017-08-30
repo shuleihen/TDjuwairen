@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" tag="1" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" tag="2" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -124,44 +124,6 @@
             </objects>
             <point key="canvasLocation" x="-4380" y="-260"/>
         </scene>
-        <!--视频-->
-        <scene sceneID="2Pf-WV-e9N">
-            <objects>
-                <navigationController id="22j-MB-CLh" customClass="TDNavigationController" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="视频" image="tab_video" selectedImage="tab_video_in" id="BoF-hT-Tyq">
-                        <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
-                    </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YNw-te-wmI">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="fon-Ns-hbc" kind="relationship" relationship="rootViewController" id="jUQ-D6-iae"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="b5d-0t-v43" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1511" y="-1213"/>
-        </scene>
-        <!--视频-->
-        <scene sceneID="qrJ-Kp-8qb">
-            <objects>
-                <viewController id="fon-Ns-hbc" customClass="VideoViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="X9P-t1-cB2"/>
-                        <viewControllerLayoutGuide type="bottom" id="CkH-kp-0ZI"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="w1e-Rx-JHk">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="视频" id="7Zm-rV-xa8"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Z8t-xL-Fla" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1511" y="-397"/>
-        </scene>
         <!--直播-->
         <scene sceneID="kgz-jo-Y8H">
             <objects>
@@ -169,7 +131,7 @@
                     <tabBarItem key="tabBarItem" title="直播" image="tab_alive" selectedImage="tab_alive_in" id="ZNX-aC-Q9m">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ty4-cg-kNd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ty4-cg-kNd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -682,7 +644,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wKM-aS-UqM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wKM-aS-UqM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -712,7 +674,5 @@
         <image name="tab_play_in" width="27" height="27"/>
         <image name="tab_research" width="27" height="27"/>
         <image name="tab_research_in" width="27" height="27"/>
-        <image name="tab_video" width="19" height="19"/>
-        <image name="tab_video_in" width="19" height="19"/>
     </resources>
 </document>

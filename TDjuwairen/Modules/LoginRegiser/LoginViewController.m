@@ -85,11 +85,7 @@
         
         hud.label.text = @"请输入用户名或手机号和密码";
         hud.mode = MBProgressHUDModeText;
-        [hud showAnimated:YES whileExecutingBlock:^{
-            sleep(2);
-        } completionBlock:^{
-            [hud hideAnimated:YES afterDelay:0.1f];
-        }];
+        [hud hideAnimated:YES afterDelay:2];
         return;
     }
     

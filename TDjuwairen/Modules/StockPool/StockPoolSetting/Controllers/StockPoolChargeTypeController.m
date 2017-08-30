@@ -179,7 +179,7 @@
     [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
         
         if (!error) {
-            [self.navigationController popViewControllerAnimated:YES];
+            [weakSelf.navigationController popViewControllerAnimated:YES];
         }
         
     }];

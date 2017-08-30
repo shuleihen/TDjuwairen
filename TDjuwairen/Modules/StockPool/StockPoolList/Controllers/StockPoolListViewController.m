@@ -353,13 +353,13 @@
 
 - (void)refreshActions {
     StockPoolListCellModel *first = self.items.firstObject;
-    self.searchTimeInterval = [first.record_time longLongValue];
+    self.searchTimeInterval = [first.record_time integerValue];
     [self queryStockPoolListWithDirect:YES withTimeInterval:self.searchTimeInterval];
 }
 
 - (void)loadMoreActions{
     StockPoolListCellModel *last = self.items.lastObject;
-    self.searchTimeInterval = [last.record_time longLongValue];
+    self.searchTimeInterval = [last.record_time integerValue];
     [self queryStockPoolListWithDirect:NO withTimeInterval:self.searchTimeInterval];
 }
 
