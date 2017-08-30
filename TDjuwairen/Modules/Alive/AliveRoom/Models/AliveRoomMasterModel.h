@@ -23,6 +23,10 @@
 @property (nonatomic, assign) BOOL isMaster;
 @property (nonatomic, copy) NSString *city;
 @property (nonatomic, assign) BOOL canModifyRoomCover;
+@property (nonatomic, copy) NSString *poolDesc;
+@property (nonatomic, copy) NSString *poolTime;
+@property (nonatomic, copy) NSNumber *poolSubscribeNum;
+
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

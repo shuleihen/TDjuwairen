@@ -36,7 +36,7 @@
                     <tabBarItem key="tabBarItem" tag="1" title="调研" image="tab_research" selectedImage="tab_research_in" id="TSD-S2-w6U">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="N81-7e-smK">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="N81-7e-smK">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -55,7 +55,7 @@
                     <tabBarItem key="tabBarItem" tag="2" title="玩票" image="tab_play" selectedImage="tab_play_in" id="xZQ-Ft-qlN">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="YJn-Fz-McL">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="YJn-Fz-McL">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -131,7 +131,7 @@
                     <tabBarItem key="tabBarItem" title="直播" image="tab_alive" selectedImage="tab_alive_in" id="ZNX-aC-Q9m">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ty4-cg-kNd">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ty4-cg-kNd">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -211,15 +211,15 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oww-PL-hN3">
-                                            <rect key="frame" x="185" y="8" width="30" height="14"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="oww-PL-hN3">
+                                            <rect key="frame" x="179" y="8" width="30" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="Oce-2C-5qp"/>
                                                 <constraint firstAttribute="width" constant="30" id="Pok-hq-LPa"/>
                                             </constraints>
                                         </imageView>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_sex-women" translatesAutoresizingMaskIntoConstraints="NO" id="yA1-Zu-8vf">
-                                            <rect key="frame" x="161" y="8" width="14" height="14"/>
+                                        <imageView userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_sex-women" translatesAutoresizingMaskIntoConstraints="NO" id="yA1-Zu-8vf">
+                                            <rect key="frame" x="159" y="8" width="14" height="14"/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="14" id="FhN-6t-1Ak"/>
                                                 <constraint firstAttribute="width" constant="14" id="RCH-Ws-Rif"/>
@@ -249,12 +249,12 @@
                                         <constraint firstItem="i4B-Yb-OcF" firstAttribute="top" secondItem="gVw-6c-Dzo" secondAttribute="top" constant="5" id="147-Tl-Jvl"/>
                                         <constraint firstItem="PUy-DA-Ya4" firstAttribute="top" secondItem="gVw-6c-Dzo" secondAttribute="top" id="4vx-m2-aLl"/>
                                         <constraint firstItem="wyt-OV-KgM" firstAttribute="leading" secondItem="5D8-au-N4i" secondAttribute="trailing" constant="14" id="5oe-mH-HLW"/>
-                                        <constraint firstItem="oww-PL-hN3" firstAttribute="leading" secondItem="yA1-Zu-8vf" secondAttribute="trailing" constant="10" id="6br-iN-bb5"/>
+                                        <constraint firstItem="oww-PL-hN3" firstAttribute="leading" secondItem="yA1-Zu-8vf" secondAttribute="trailing" constant="6" id="6br-iN-bb5"/>
                                         <constraint firstItem="i4B-Yb-OcF" firstAttribute="leading" secondItem="5D8-au-N4i" secondAttribute="trailing" constant="14" id="D3n-Da-e5g"/>
                                         <constraint firstItem="wyt-OV-KgM" firstAttribute="top" secondItem="i4B-Yb-OcF" secondAttribute="bottom" constant="11" id="Djq-1n-mlu"/>
                                         <constraint firstItem="5D8-au-N4i" firstAttribute="centerY" secondItem="gVw-6c-Dzo" secondAttribute="centerY" id="NKa-Br-BQq"/>
                                         <constraint firstItem="yA1-Zu-8vf" firstAttribute="centerY" secondItem="i4B-Yb-OcF" secondAttribute="centerY" id="O0q-A9-DSO"/>
-                                        <constraint firstItem="yA1-Zu-8vf" firstAttribute="leading" secondItem="i4B-Yb-OcF" secondAttribute="trailing" constant="10" id="Ri4-5O-LoS"/>
+                                        <constraint firstItem="yA1-Zu-8vf" firstAttribute="leading" secondItem="i4B-Yb-OcF" secondAttribute="trailing" constant="8" id="Ri4-5O-LoS"/>
                                         <constraint firstAttribute="height" constant="64" id="VlB-mc-wOP"/>
                                         <constraint firstAttribute="trailing" secondItem="PUy-DA-Ya4" secondAttribute="trailing" id="bad-Yq-Nr6"/>
                                         <constraint firstAttribute="bottom" secondItem="PUy-DA-Ya4" secondAttribute="bottom" id="fG9-Ok-y6t"/>
@@ -644,7 +644,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="-4"/>
                     </tabBarItem>
                     <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="wKM-aS-UqM">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="wKM-aS-UqM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

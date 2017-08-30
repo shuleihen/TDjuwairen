@@ -26,6 +26,9 @@
         self.city = dict[@"address"];
         self.roomInfo = dict[@"room_info"];
         self.roomCover = dict[@"room_cover"];
+        self.poolDesc = dict[@"pool_desc"];
+        self.poolTime = dict[@"pool_last_time"];
+        self.poolSubscribeNum = dict[@"pool_subscribe_num"];
     }
     
     return self;

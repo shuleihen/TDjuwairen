@@ -79,6 +79,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.delegate = self;
         _tableView.dataSource = self;
@@ -259,9 +260,6 @@
 }
 
 - (void)setupTableView {
-    //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = TDViewBackgrouondColor;
-    self.tableView.separatorColor = TDSeparatorColor;
     [self.view addSubview:self.tableView];
     
     // 表头
@@ -292,6 +290,17 @@
     
     BOOL isMaster = [roomMasterModel.masterId isEqualToString:US.userId];
     self.publishBtn.hidden = !isMaster;
+    
+    AliveRoomStockPoolTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (cell) {
+        cell.timeLabel.text = [NSString stringWithFormat:@"最新：%@",roomMasterModel.poolTime];
+        cell.descLabel.text = roomMasterModel.poolDesc;
+        NSString *subscribe = [NSString stringWithFormat:@"%@人已订阅",roomMasterModel.poolSubscribeNum];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:subscribe attributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#548DF5"],NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]}];
+        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#3F3F3F"],NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(subscribe.length -3, 3)];
+        cell.subscribeLabel.attributedText = attr;
+    }
+    
 }
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {
@@ -728,6 +737,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
     return 15.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15.0f)];
+    view.backgroundColor = TDViewBackgrouondColor;
+    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {

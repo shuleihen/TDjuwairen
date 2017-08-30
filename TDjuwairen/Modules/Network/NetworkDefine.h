@@ -212,7 +212,7 @@
 #define API_AliveAddAttention       @"Blog/addAttention"
 #define API_AliveDelAttention       @"Blog/cancelAttention"
 #define API_AliveAddRoomPublish     @"Room/publish"
-#define API_AliveGetRoomInfo        @"Room/getRoomInfo"
+#define API_AliveGetRoomInfo        @"Room/getRoomInfo3_3"
 #define API_AliveGetRoomLiveList    @"RoomV3/roomLiveList3_3"
 #define API_AliveGetGuessRateInfo   @"Room/getGuessRateInfo"
 #define API_AliveGetAttenInfo       @"Room/getAttenInfo"

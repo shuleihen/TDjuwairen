@@ -77,8 +77,10 @@
                     <constraint firstItem="Kj7-MO-cNf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="xr6-35-k3B"/>
                 </constraints>
             </tableViewCellContentView>
+            <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.97254901960784312" alpha="1" colorSpace="calibratedRGB"/>
             <connections>
                 <outlet property="avatar" destination="yPa-SC-zDD" id="9Vu-tH-YoX"/>
+                <outlet property="container" destination="Kj7-MO-cNf" id="DkC-Q8-nra"/>
                 <outlet property="descLabel" destination="Xax-Ic-9jP" id="gH5-Yq-jwL"/>
                 <outlet property="subscribeLabel" destination="Lrn-hz-Wpd" id="QR1-Bx-KEY"/>
                 <outlet property="timeLabel" destination="csk-N5-IVy" id="fYE-c2-raK"/>

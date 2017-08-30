@@ -13,6 +13,9 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    self.container.layer.shadowOffset = CGSizeMake(0, 1);
+    self.container.layer.shadowColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
