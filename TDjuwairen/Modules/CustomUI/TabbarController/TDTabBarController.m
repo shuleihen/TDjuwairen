@@ -143,10 +143,11 @@
     
     
     if (selectedIndex == 0) {
-        //跳转到发布页面
-        PublishViewViewController *publishview = [[PublishViewViewController alloc] init];
-        publishview.hidesBottomBarWhenPushed = YES;
-        [nav pushViewController:publishview animated:YES];
+        // 话题
+        AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+        vc.hidesBottomBarWhenPushed = YES;
+        vc.publishType = kAlivePublishNormal;
+        [nav pushViewController:vc animated:YES];
     } else if (selectedIndex == 1) {
         // 推单
         AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -154,11 +155,11 @@
         vc.publishType = kAlivePublishPosts;
         [nav pushViewController:vc animated:YES];
     } else if (selectedIndex == 2) {
-        // 话题
-        AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        vc.hidesBottomBarWhenPushed = YES;
-        vc.publishType = kAlivePublishNormal;
-        [nav pushViewController:vc animated:YES];
+        // 观点
+        PublishViewViewController *publishview = [[PublishViewViewController alloc] init];
+        publishview.hidesBottomBarWhenPushed = YES;
+        [nav pushViewController:publishview animated:YES];
+        
     } else if (selectedIndex == 3) {
         // 股票池记录，每天只能发2条
         if ([SettingHandler getAddStockPoolRecordCountInOneDay] > 2) {

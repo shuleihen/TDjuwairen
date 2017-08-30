@@ -76,8 +76,8 @@
     [self.view addSubview:closeBtn];
     
     // 按钮
-    NSArray *arrTitle = @[@"观点",@"推单",@"话题",@"记录股票池"];
-    NSArray *arrImage = @[@"button_viewpoint.png",@"button_list.png",@"button_topic.png",@"button_gupiaochi.png"];
+    NSArray *arrTitle = @[@"话题",@"推单",@"观点",@"记录股票池"];
+    NSArray *arrImage = @[@"button_topic.png",@"button_list.png",@"button_viewpoint.png",@"button_gupiaochi.png"];
     
     CGFloat offx = (kScreenWidth - 60*3 - 40*2)/2;
     
