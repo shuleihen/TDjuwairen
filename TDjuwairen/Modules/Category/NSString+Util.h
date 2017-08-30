@@ -12,7 +12,7 @@
 
 - (NSString *)URLEncode;
 - (NSData*)hexToBytes;
-
+- (NSString *)cutStringWithLimit:(NSInteger)limit;
 - (NSString *)truncateByWordWithLimit:(NSInteger)limit;
 - (NSUInteger)getBytesLength;
 

@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -27,6 +27,12 @@
                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ggg-Ib-3vh">
                         <rect key="frame" x="0.0" y="170" width="320" height="64"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="slipLine" translatesAutoresizingMaskIntoConstraints="NO" id="aMo-W1-5VW">
+                                <rect key="frame" x="0.0" y="63" width="320" height="1"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="1" id="Xm9-tG-XKc"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ov2-ns-PF8">
                                 <rect key="frame" x="0.0" y="0.0" width="280" height="64"/>
                             </button>
@@ -54,12 +60,15 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstAttribute="bottom" secondItem="aMo-W1-5VW" secondAttribute="bottom" id="73A-K9-21A"/>
                             <constraint firstItem="5da-fF-i16" firstAttribute="centerY" secondItem="Ggg-Ib-3vh" secondAttribute="centerY" id="9B9-zN-fsb"/>
+                            <constraint firstItem="aMo-W1-5VW" firstAttribute="leading" secondItem="Ggg-Ib-3vh" secondAttribute="leading" id="G50-6d-cax"/>
                             <constraint firstAttribute="height" constant="64" id="NpQ-sO-tRP"/>
                             <constraint firstItem="Ov2-ns-PF8" firstAttribute="leading" secondItem="Ggg-Ib-3vh" secondAttribute="leading" id="Qg1-f1-LrC"/>
                             <constraint firstItem="csM-Iy-gek" firstAttribute="leading" secondItem="5da-fF-i16" secondAttribute="trailing" constant="12" id="QhA-2Y-SeX"/>
                             <constraint firstAttribute="bottom" secondItem="Ov2-ns-PF8" secondAttribute="bottom" id="Sxr-QM-gwO"/>
                             <constraint firstItem="zZs-26-QNu" firstAttribute="centerY" secondItem="Ggg-Ib-3vh" secondAttribute="centerY" id="lM1-uI-67h"/>
+                            <constraint firstAttribute="trailing" secondItem="aMo-W1-5VW" secondAttribute="trailing" id="lTr-JF-fP1"/>
                             <constraint firstAttribute="trailing" secondItem="zZs-26-QNu" secondAttribute="trailing" constant="10" id="oWE-dL-9Jy"/>
                             <constraint firstItem="csM-Iy-gek" firstAttribute="centerY" secondItem="5da-fF-i16" secondAttribute="centerY" id="rmi-9e-6un"/>
                             <constraint firstItem="Ov2-ns-PF8" firstAttribute="top" secondItem="Ggg-Ib-3vh" secondAttribute="top" id="ttZ-1k-y1O"/>
@@ -69,7 +78,7 @@
                     </view>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xgq-XA-jnQ">
                         <rect key="frame" x="12" y="242" width="296" height="24"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                        <fontDescription key="fontDescription" type="system" weight="medium" pointSize="20"/>
                         <color key="textColor" red="0.20000000000000001" green="0.20000000000000001" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -79,9 +88,13 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-nd-2XF">
-                        <rect key="frame" x="67.5" y="273.5" width="20" height="12"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                    <button opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hmT-nd-2XF">
+                        <rect key="frame" x="67.5" y="271" width="50" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="50" id="auy-wL-o1b"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <inset key="titleEdgeInsets" minX="3" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <state key="normal" title="0" image="ico_reading">
                             <color key="titleColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         </state>
@@ -119,5 +132,6 @@
     <resources>
         <image name="ico_reading" width="13" height="8"/>
         <image name="icon_arrow_down" width="16" height="9"/>
+        <image name="slipLine" width="10" height="1"/>
     </resources>
 </document>

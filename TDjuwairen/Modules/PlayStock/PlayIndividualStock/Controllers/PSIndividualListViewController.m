@@ -513,8 +513,8 @@
     void (^errorBlock)(NSString *) = ^(NSString *title){
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = title;
-        [hud hide:YES afterDelay:0.8];
+        hud.label.text = title;
+        [hud hideAnimated:YES afterDelay:0.8];
     };
     
     NetworkManager *ma = [[NetworkManager alloc] init];

@@ -452,8 +452,8 @@
         void (^errorBlock)(NSString *) = ^(NSString *title){
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"竞猜失败";
-            [hud hide:YES afterDelay:0.5];
+            hud.label.text = @"竞猜失败";
+            [hud hideAnimated:YES afterDelay:0.5];
         };
         
         if (!error && data) {

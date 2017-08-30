@@ -19,8 +19,13 @@
 @property (nonatomic, copy) NSString *attenNum;
 /// 用户等级
 @property (nonatomic, assign) NSInteger level;
+/// 用户性别
+@property (nonatomic, copy) NSString *userinfo_sex;
 /// true 表示当前用户已关注
 @property (nonatomic, assign) BOOL isAtten;
+
+- (UIImage *)userInfoSexImage;
+- (UIImage *)userLevelImage;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

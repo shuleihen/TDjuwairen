@@ -40,6 +40,8 @@
     
     self.tableView.delegate = self;
     self.tableView.dataSource = self;
+    self.tableView.separatorStyle = UITableViewCellSelectionStyleNone;
+    
     UINib *nib1 = [UINib nibWithNibName:@"ViewpointHeaderTableViewCell" bundle:nil];
     [self.tableView registerNib:nib1 forCellReuseIdentifier:@"ViewpointHeaderTableViewCellID"];
     
@@ -81,7 +83,7 @@
     self.shareModel = shareModel;
     
     CGSize size = [model.view_title boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:20]} context:nil].size;
-    self.headerCellHeight = 250+size.height+28;
+    self.headerCellHeight = 250+size.height+20;
     
     self.masterID = model.view_userid;
     
@@ -138,17 +140,17 @@
     
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = showDict[@"showMess1"];
+    hud.label.text = showDict[@"showMess1"];
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText =showDict[@"showMess2"];
-            [hud hide:YES afterDelay:0.2];
+            hud.label.text =showDict[@"showMess2"];
+            [hud hideAnimated:YES afterDelay:0.2];
             self.viewModel.view_isCollected = [showDict[@"changeValue"] boolValue];
         } else {
-            hud.labelText = showDict[@"showMess3"];
-            [hud hide:YES afterDelay:0.2];
+            hud.label.text = showDict[@"showMess3"];
+            [hud hideAnimated:YES afterDelay:0.2];
             self.viewModel.view_isCollected = [showDict[@"changeValue"] boolValue];
         }
     }];
@@ -206,17 +208,17 @@
     ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:showDict[@"showMess1"] otherButtonTitles:nil actionSheetBlock:^(NSInteger index){
         if (index == 0) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-            hud.labelText = showDict[@"showMess1"];
+            hud.label.text = showDict[@"showMess1"];
             NetworkManager *manager = [[NetworkManager alloc] init];
             
             [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
                 if (!error) {
-                    hud.labelText =showDict[@"showMess2"];
-                    [hud hide:YES afterDelay:0.2];
+                    hud.label.text =showDict[@"showMess2"];
+                    [hud hideAnimated:YES afterDelay:0.2];
                     weakSelf.viewModel.view_isAtten = [showDict[@"changeValue"] boolValue];
                 } else {
-                    hud.labelText = showDict[@"showMess3"];
-                    [hud hide:YES afterDelay:0.2];
+                    hud.label.text = showDict[@"showMess3"];
+                    [hud hideAnimated:YES afterDelay:0.2];
                     weakSelf.viewModel.view_isAtten = [showDict[@"changeValue"] boolValue];
                 }
             }];

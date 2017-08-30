@@ -17,6 +17,8 @@
 @property (nonatomic, assign) SurveyType surveyType;
 @property (nonatomic, strong) NSString *companyName;
 @property (nonatomic, strong) NSString *companyCode;
+@property (nonatomic, assign) BOOL isUnlock;
+@property (nonatomic, assign) BOOL isVisited;
 
 @property (nonatomic, assign) BOOL isCollection;
 @property (nonatomic, strong) NSString *collectedId;

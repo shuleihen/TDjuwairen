@@ -10,7 +10,6 @@
 #import "AliveRoomMasterModel.h"
 #import "AliveRoomLiveViewController.h"
 #import "AliveMasterListViewController.h"
-#import "AliveEditMasterViewController.h"
 #import "AliveRoomHeaderView.h"
 #import "HMSegmentedControl.h"
 #import "MJRefresh.h"
@@ -25,8 +24,12 @@
 #import "STPopup.h"
 #import "AliveRoomNavigationBar.h"
 #import "MessageTableViewController.h"
+#import "StockPoolListViewController.h"
+#import "AliveRoomStockPoolTableViewCell.h"
+#import "StockPoolListViewController.h"
 
-#define kAliveHeaderHeight  210
+#define kAliveHeaderHeight  195
+#define kAliveStockPoolHeight 151
 #define kAliveSegmentHeight 34
 
 @interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate>
@@ -50,6 +53,8 @@
 @property (copy, nonatomic) NSString *saveGuessRateInfoStr;
 @property (copy, nonatomic) NSString *saveLevelInfo;
 
+/// 股票池button
+@property (strong, nonatomic) UIButton *stockPoolBtn;
 
 @end
 
@@ -74,10 +79,14 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight) style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.alwaysBounceVertical = NO;
+        
+        UINib *nib = [UINib nibWithNibName:@"AliveRoomStockPoolTableViewCell" bundle:nil];
+        [_tableView registerNib:nib forCellReuseIdentifier:@"AliveRoomStockPoolTableViewCellID"];
     }
     return _tableView;
 }
@@ -107,7 +116,7 @@
         view.showsHorizontalScrollIndicator = NO;
         
         [view addSubview:self.segmentControl];
-        
+        [view addSubview:self.stockPoolBtn];
         
         _segmentContentScrollView = view;
     }
@@ -126,8 +135,8 @@
                                                         NSForegroundColorAttributeName : [UIColor hx_colorWithHexRGBAString:@"#3371e2"]};
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        _segmentControl.sectionTitles = @[@"全部动态",@"推单"];
-        _segmentControl.frame = CGRectMake(0, 0, 160, kAliveSegmentHeight);
+        _segmentControl.sectionTitles = @[@"全部动态",@"推单",@"股票池"];
+        _segmentControl.frame = CGRectMake(0, 0, 250, kAliveSegmentHeight);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -212,6 +221,15 @@
     return _publishBtn;
 }
 
+- (UIButton *)stockPoolBtn {
+    if (_stockPoolBtn == nil) {
+        _stockPoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        _stockPoolBtn.frame = CGRectMake(160, 0, 90, kAliveSegmentHeight);
+        [_stockPoolBtn addTarget:self action:@selector(stockPoolBtnClick) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _stockPoolBtn;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
@@ -233,6 +251,8 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    
+    [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -240,9 +260,6 @@
 }
 
 - (void)setupTableView {
-    //    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-    self.tableView.backgroundColor = TDViewBackgrouondColor;
-    self.tableView.separatorColor = TDSeparatorColor;
     [self.view addSubview:self.tableView];
     
     // 表头
@@ -251,7 +268,7 @@
     self.tableView.tableFooterView = self.pageViewController.view;
     
     // 自定义悬浮segment
-    self.segmentContentScrollView.frame = CGRectMake(0, kAliveHeaderHeight+10, kScreenWidth, kAliveSegmentHeight);
+    self.segmentContentScrollView.frame = CGRectMake(0, kAliveHeaderHeight+kAliveStockPoolHeight, kScreenWidth, kAliveSegmentHeight);
     [self.tableView addSubview:self.segmentContentScrollView];
     
     //添加监听，动态观察tableview的contentOffset的改变
@@ -273,6 +290,17 @@
     
     BOOL isMaster = [roomMasterModel.masterId isEqualToString:US.userId];
     self.publishBtn.hidden = !isMaster;
+    
+    AliveRoomStockPoolTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
+    if (cell) {
+        cell.timeLabel.text = [NSString stringWithFormat:@"最新：%@",roomMasterModel.poolTime];
+        cell.descLabel.text = roomMasterModel.poolDesc;
+        NSString *subscribe = [NSString stringWithFormat:@"%@人已订阅",roomMasterModel.poolSubscribeNum];
+        NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:subscribe attributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#548DF5"],NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]}];
+        [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#3F3F3F"],NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(subscribe.length -3, 3)];
+        cell.subscribeLabel.attributedText = attr;
+    }
+    
 }
 
 - (void)queryRoomInfoWithMasterId:(NSString *)masterId {
@@ -301,12 +329,27 @@
 #pragma mark - Action
 - (void)segmentPressed:(HMSegmentedControl *)sender {
     NSInteger index = sender.selectedSegmentIndex;
+    if (index >= self.contentControllers.count) {
+        return;
+    }
     __weak AliveRoomViewController *wself = self;
     AliveRoomLiveViewController *vc = self.contentControllers[index];
     
     [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
         [wself reloadTableView];
     }];
+}
+
+- (void)stockPoolBtnClick {
+    if (self.segmentControl.selectedSegmentIndex !=2) {
+        self.segmentControl.selectedSegmentIndex = 2;
+        [self segmentPressed:self.segmentControl];
+    }
+    StockPoolListViewController *stockPoolVC = [[StockPoolListViewController alloc] init];
+    stockPoolVC.userId = self.masterId;
+    [self.navigationController pushViewController:stockPoolVC animated:YES];
+    
+    
 }
 
 - (void)refreshAction {
@@ -334,7 +377,7 @@
 
 - (void)reloadTableView {
     CGFloat contentHeight = [[self currentContentViewController] contentHeight];
-    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveSegmentHeight-10;
+    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveStockPoolHeight-kAliveSegmentHeight;
     CGFloat height = MAX(contentHeight, minHeight);
     self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, height);
     // iOS10以下需要添加以下
@@ -430,15 +473,15 @@
     
     if (self.roomMasterModel.isAtten) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"取消关注";
+        hud.label.text = @"取消关注";
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
         [manager POST:API_AliveDelAttention parameters:dict completion:^(id data, NSError *error){
             
             if (!error) {
-                hud.labelText = @"取消成功";
-                [hud hide:YES];
+                hud.label.text = @"取消成功";
+                [hud hideAnimated:YES];
                 
                 wself.roomMasterModel.isAtten = NO;
                 
@@ -449,21 +492,21 @@
                 [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
                 [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
             } else {
-                hud.labelText = @"取消失败";
-                [hud hide:YES afterDelay:0.8];
+                hud.label.text = @"取消失败";
+                [hud hideAnimated:YES afterDelay:0.8];
             }
         }];
     } else {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"添加关注";
+        hud.label.text = @"添加关注";
         
         NetworkManager *manager = [[NetworkManager alloc] init];
         NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
         [manager POST:API_AliveAddAttention parameters:dict completion:^(id data, NSError *error){
             
             if (!error) {
-                hud.labelText = @"关注成功";
-                [hud hide:YES];
+                hud.label.text = @"关注成功";
+                [hud hideAnimated:YES];
                 
                 wself.roomMasterModel.isAtten = YES;
                 
@@ -474,18 +517,15 @@
                 [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
                 [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
             } else {
-                hud.labelText = @"关注失败";
-                [hud hide:YES afterDelay:0.8];
+                hud.label.text = @"关注失败";
+                [hud hideAnimated:YES afterDelay:0.8];
             }
         }];
     }
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar editPressed:(id)sender {
-    AliveEditMasterViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveEditMasterViewController"];
-    vc.masterId = self.masterId;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:vc animated:YES];
+
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar messagePressed:(id)sender {
@@ -498,6 +538,9 @@
 }
 
 #pragma mark - AliveRoomHeaderViewDelegate
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView backPressed:(id)sender {
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attentionListPressed:(id)sender {
     if (!self.roomMasterModel) {
@@ -542,8 +585,85 @@
     
 }
 
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView editPressed:(id)sender {
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView attenPressed:(id)sender {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        [self.navigationController pushViewController:login animated:YES];
+        return;
+    }
+    
+    
+    if (!self.roomMasterModel) {
+        return;
+    }
+    
+    __weak AliveRoomViewController *wself = self;
+    
+    if (self.roomMasterModel.isAtten) {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = @"取消关注";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
+        [manager POST:API_AliveDelAttention parameters:dict completion:^(id data, NSError *error){
+            
+            if (!error) {
+                hud.label.text = @"取消成功";
+                [hud hideAnimated:YES];
+                
+                wself.roomMasterModel.isAtten = NO;
+                
+                NSInteger fans = [self.roomMasterModel.fansNum integerValue];
+                NSNumber *fansNumber = [NSNumber numberWithInteger:(fans-1)];
+                wself.roomMasterModel.fansNum = fansNumber;
+                
+                [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
+                [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
+            } else {
+                hud.label.text = @"取消失败";
+                [hud hideAnimated:YES afterDelay:0.8];
+            }
+        }];
+    } else {
+        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.label.text = @"添加关注";
+        
+        NetworkManager *manager = [[NetworkManager alloc] init];
+        NSDictionary *dict = @{@"user_id" :self.masterId?:@""};
+        [manager POST:API_AliveAddAttention parameters:dict completion:^(id data, NSError *error){
+            
+            if (!error) {
+                hud.label.text = @"关注成功";
+                [hud hideAnimated:YES];
+                
+                wself.roomMasterModel.isAtten = YES;
+                
+                NSInteger fans = [self.roomMasterModel.fansNum integerValue];
+                NSNumber *fansNumber = [NSNumber numberWithInteger:(fans+1)];
+                wself.roomMasterModel.fansNum = fansNumber;
+                
+                [wself.roomNavigationBar setupRoomMasterModel:wself.roomMasterModel];
+                [wself.roomHeaderView setupRoomMasterModel:wself.roomMasterModel];
+            } else {
+                hud.label.text = @"关注失败";
+                [hud hideAnimated:YES afterDelay:0.8];
+            }
+        }];
+    }
+}
+
+- (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView sharePressed:(id)sender {
+    
+}
+
 - (void)showGuessRateInfoOrShowAttentionInfo:(BOOL)isGuessRate {
-    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Alive" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
+    AliveRoomPopupViewController *vc = [[UIStoryboard storyboardWithName:@"Popup" bundle:nil] instantiateViewControllerWithIdentifier:@"AliveRoomPopupViewController"];
     
     if (isGuessRate == YES) {
         vc.titleString = @"股神指数规则";
@@ -608,7 +728,7 @@
 
 #pragma mark - UITableViewDelegate
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -616,21 +736,50 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 10.0f;
+    return 15.0f;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 15.0f)];
+    view.backgroundColor = TDViewBackgrouondColor;
+    return view;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    return kAliveSegmentHeight;
+    if (indexPath.section == 0) {
+        return 121.0f;
+    } else if (indexPath.section == 1) {
+        return kAliveSegmentHeight;
+    }
+    return 0.f;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomContentCellID"];
-    if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveRoomContentCellID"];
+    if (indexPath.section == 0) {
+        AliveRoomStockPoolTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomStockPoolTableViewCellID"];
+        cell.selectionStyle = UITableViewCellSelectionStyleNone;
+        return cell;
+    } else {
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveRoomContentCellID"];
+        if (cell == nil) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"AliveRoomContentCellID"];
+        }
+        
+        return cell;
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    return cell;
+    if (indexPath.section == 0) {
+        // 股票池
+        StockPoolListViewController *vc = [[StockPoolListViewController alloc] init];
+        vc.userId = self.roomMasterModel.masterId;
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 }
 
 #pragma mark - UIPageViewControllerDataSource
@@ -690,7 +839,8 @@
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    CGFloat headerHeight = kAliveHeaderHeight + 10;
+    
+    CGFloat headerHeight = kAliveHeaderHeight + kAliveStockPoolHeight;
     if ([keyPath isEqualToString:@"contentOffset"])
     {
         CGPoint offset = [change[NSKeyValueChangeNewKey] CGPointValue];

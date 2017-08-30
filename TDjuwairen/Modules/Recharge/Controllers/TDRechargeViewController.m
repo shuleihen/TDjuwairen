@@ -16,18 +16,22 @@
 #import "LoginStateManager.h"
 #import "LoginManager.h"
 #import "LoginHandler.h"
+#import "TDRechargeCollectionViewCell.h"
+#import "NotificationDef.h"
 
-@interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UITableViewDelegate, UITableViewDataSource, MBProgressHUDDelegate>
-@property (nonatomic, strong) NSArray *productId;
+@interface TDRechargeViewController ()<SKPaymentTransactionObserver,SKProductsRequestDelegate, UICollectionViewDelegate, UICollectionViewDataSource, MBProgressHUDDelegate>
 @property (nonatomic, strong) NSArray *products;
 @property (nonatomic, strong) NSArray *productIdentifiers;
-@property (nonatomic, strong) UITableView *tableView;
+@property (nonatomic, strong) UICollectionView *tableView;
 @property (nonatomic, strong) UIActivityIndicatorView *indicatorView;
+@property (nonatomic, strong) UIButton *doneBtn;
+@property (nonatomic, strong) SKProductsRequest *productRequest;
 @end
 
 @implementation TDRechargeViewController
 - (void)dealloc
 {
+    [self.productRequest cancel];
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
@@ -35,17 +39,16 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.title = @"充值";
-    self.view.backgroundColor = TDViewBackgrouondColor;
+    self.view.backgroundColor = [UIColor whiteColor];
     
-    self.productIdentifiers = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.recharge60",@"com.jwr.recharge200",@"com.jwr.rechargevip"];
     [self.view addSubview:self.tableView];
-    [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
     
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
+
     self.indicatorView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.indicatorView.center = CGPointMake((kScreenWidth)/2, (kScreenHeight-64)/2);
     
+    self.productIdentifiers = @[@"com.jwr.recharge5",@"com.jwr.recharge10",@"com.jwr.recharge60",@"com.jwr.recharge200"];
     [self requestProductWithIdentifiers:self.productIdentifiers];
 }
 
@@ -58,10 +61,13 @@
     [self.view addSubview:self.indicatorView];
     [self.indicatorView startAnimating];
     
+    __weak TDRechargeViewController *wself = self;
+    
     NSSet *nsset = [NSSet setWithArray:array];
     SKProductsRequest *request = [[SKProductsRequest alloc] initWithProductIdentifiers:nsset];
-    request.delegate = self;
+    request.delegate = wself;
     [request start];
+    self.productRequest = request;
 }
 
 
@@ -72,8 +78,8 @@
         [self.indicatorView stopAnimating];
         
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"加载失败";
-        [hud hide:YES afterDelay:0.6];
+        hud.label.text = @"加载失败";
+        [hud hideAnimated:YES afterDelay:0.6];
         DDLogError(@"应用内购买商品为空");
         return;
     }
@@ -102,23 +108,19 @@
     self.products = array;
     [self.tableView reloadData];
     
-    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 60)];
+    UIView *bottom = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-64-64, kScreenWidth, 64)];
     UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
     [btn setTitle:@"购买" forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:15.0f];
-    btn.frame = CGRectMake(12, 15, kScreenWidth-24, 44);
-    btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
+    btn.titleLabel.font = [UIFont systemFontOfSize:17.0f weight:UIFontWeightMedium];
+    btn.frame = CGRectMake(12, 0, kScreenWidth-24, 44);
+    btn.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"];
     [btn addTarget:self action:@selector(donePressed:) forControlEvents:UIControlEventTouchUpInside];
     [bottom addSubview:btn];
-    self.tableView.tableFooterView = bottom;
+    [self.view addSubview:bottom];
+    self.doneBtn = btn;
     
-    // 默认选择第一个
-    if (self.isVipRecharge) {
-        // vip 是最后一个
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:(array.count-1) inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    } else {
-        [self.tableView selectRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UITableViewScrollPositionNone];
-    }
+    [self.tableView selectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO scrollPosition:UICollectionViewScrollPositionNone];
+    [self collectionView:self.tableView didSelectItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
 }
 
 - (void)request:(SKRequest *)request didFailWithError:(NSError *)error{
@@ -127,8 +129,8 @@
     [self.indicatorView stopAnimating];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载失败";
-    [hud hide:YES afterDelay:0.6];
+    hud.label.text = @"加载失败";
+    [hud hideAnimated:YES afterDelay:0.6];
 }
 
 - (void)requestDidFinish:(SKRequest *)request{
@@ -159,7 +161,9 @@
 }
 
 - (void)buyKey {
-    NSIndexPath *indexPath = self.tableView.indexPathForSelectedRow;
+    
+    NSIndexPath *indexPath = self.tableView.indexPathsForSelectedItems.firstObject;
+
     if (!indexPath) {
         return;
     }
@@ -178,9 +182,8 @@
         switch (tran.transactionState) {
             case SKPaymentTransactionStatePurchased:{
                 [self.indicatorView stopAnimating];
-                [self verifyPurchaseWithPaymentTransaction];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                
+                [self verifyPurchaseWithPaymentTransaction];
             }
                 break;
             case SKPaymentTransactionStatePurchasing:
@@ -199,8 +202,8 @@
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-                hud.labelText = @"购买失败";
-                [hud hide:YES afterDelay:0.6];
+                hud.label.text = @"购买失败";
+                [hud hideAnimated:YES afterDelay:0.6];
             }
                 break;
             default:
@@ -219,7 +222,6 @@
     NSData *receiptData=[NSData dataWithContentsOfURL:receiptUrl];
     
     NSString *receiptString=[receiptData base64EncodedStringWithOptions:NSDataBase64EncodingEndLineWithLineFeed];
-//    NSString *bodyString = [NSString stringWithFormat:@"{\"receipt-data\" : \"%@\"}", receiptString];
     
     __weak TDRechargeViewController *wself = self;
     
@@ -244,15 +246,15 @@
         
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            hud.labelText = @"购买成功";
+            hud.label.text = @"购买成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:0.5];
+            [hud hideAnimated:YES afterDelay:0.6];
         }
         else
         {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
-            hud.labelText = @"购买失败";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"购买失败";
+            [hud hideAnimated:YES afterDelay:0.6];
         }
         
         if (US.isLogIn == NO) {
@@ -266,113 +268,76 @@
 }
 
 - (void)hudWasHidden:(MBProgressHUD *)hud {
+    [[NSNotificationCenter defaultCenter] postNotificationName:kRechargeNotification object:nil];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-#pragma mark - UITableView
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return (self.products.count>0)?1:0;
+#pragma mark -
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView {
+    return self.products.count?1:0;
 }
 
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-    return [self.products count];
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section {
+    return self.products.count;
 }
 
-- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
-    return 34.0f;
-}
-
-- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 34)];
-    view.backgroundColor = [UIColor clearColor];
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, 60, 20)];
-    label.font = [UIFont systemFontOfSize:14.0f];
-    label.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
-    label.text = @"充值数量";
-    [view addSubview:label];
-    
-    return view;
-}
-
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    TDRechargeTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"TDRechargeTableViewCellID"];
-
-    UIView *view = [[UIView alloc] init];
-    view.backgroundColor = [UIColor clearColor];
-    cell.selectedBackgroundView = view;
+    TDRechargeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"TDRechargeCollectionViewCellID" forIndexPath:indexPath];
     
     SKProduct *product = self.products[indexPath.row];
-    NSString *productIdentifier = product.productIdentifier;
-    NSAttributedString *attr  = [self attributedStringWithIdentifier:productIdentifier];
-    
-    if ([productIdentifier isEqualToString:@"com.jwr.recharge5"]) {
-        cell.keyLabel.attributedText = attr;
-        
-    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge10"]) {
-        cell.keyLabel.attributedText = attr;
-//        cell.amountLabel.text = @"￥50";
-    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge60"]) {
-        cell.keyLabel.attributedText = attr;
-//        cell.amountLabel.text = @"￥298";
-    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge200"]) {
-        cell.keyLabel.attributedText = attr;
-//        cell.amountLabel.text = @"￥998";
-    } else if ([productIdentifier isEqualToString:@"com.jwr.rechargevip"]) {
-        NSString *str = @"VIP（一次性解锁所有公司调研）";
-        NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
-                                                                                   attributes:nil];
-        [strAtt addAttributes:@{NSFontAttributeName:[UIFont systemFontOfSize:12]} range:NSMakeRange(3, 13)];
-        cell.keyLabel.attributedText = strAtt;
-        
-//        cell.amountLabel.text = @"￥98";
-    }
-    
-    cell.amountLabel.text = [NSString stringWithFormat:@"%@",product.localizedPrice];
+    cell.titleLabel.text = product.localizedTitle;
+    cell.priceLabel.text = [NSString stringWithFormat:@"￥%@",product.price];
     
     return cell;
 }
 
-- (NSMutableAttributedString *)attributedStringWithIdentifier:(NSString *)productIdentifier {
-    NSString *str;
-    if ([productIdentifier isEqualToString:@"com.jwr.recharge5"]) {
-        str = @"钥匙  5";
-    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge10"]) {
-        str = @"钥匙  10";
-    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge60"]) {
-        str = @"钥匙  60";
-    } else if ([productIdentifier isEqualToString:@"com.jwr.recharge200"]) {
-        str = @"钥匙  200";
-    } else {
-        return nil;
+- (UICollectionReusableView *)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath {
+    if([kind isEqualToString:UICollectionElementKindSectionHeader])
+    {
+        UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:kind withReuseIdentifier:@"TDRechargeSectionHeader" forIndexPath:indexPath];
+        
+        UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 36, kScreenWidth, TDPixel)];
+        sep.backgroundColor = TDSeparatorColor;
+        [headerView addSubview:sep];
+        
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, 200, 16)];
+        label.font = [UIFont systemFontOfSize:14.0f weight:UIFontWeightMedium];
+        label.textColor = TDLightGrayColor;
+        label.text = [NSString stringWithFormat:@"充值账号：%@", US.userPhone];
+        [headerView addSubview:label];
+        
+        return headerView;
     }
     
-    NSMutableAttributedString *strAtt = [[NSMutableAttributedString alloc] initWithString:str
-                                                                               attributes:nil];
-    NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
-    attatch.bounds = CGRectMake(0, -4, 19, 22);
-    attatch.image = [UIImage imageNamed:@"icon_key_small.png"];
+    return nil;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath {
+    SKProduct *product = self.products[indexPath.row];
     
-    NSAttributedString *wait = [NSAttributedString attributedStringWithAttachment:attatch];
-    NSRange range = [str rangeOfString:@"钥匙"];
-    if (range.location != NSNotFound) {
-        [strAtt replaceCharactersInRange:range withAttributedString:wait];
-    }
-    
-    return strAtt;
+    NSString *title = [NSString stringWithFormat:@"立即支付(%@元)", product.price];
+    [self.doneBtn setTitle:title forState:UIControlStateNormal];
 }
 
 #pragma mark - Getter
-- (UITableView *)tableView {
+- (UICollectionView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
+        UICollectionViewFlowLayout *layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.minimumLineSpacing = 18.0f;
+        layout.minimumInteritemSpacing = 15.0f;
+        layout.sectionInset = UIEdgeInsetsMake(17, 15, 17, 15);
+        layout.itemSize = CGSizeMake((kScreenWidth-60)/3, 80);
+        layout.headerReferenceSize = CGSizeMake(kScreenWidth, 36);
+        
+        _tableView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-64) collectionViewLayout:layout];
         _tableView.delegate = self;
         _tableView.dataSource = self;
-        _tableView.separatorColor = TDSeparatorColor;
-        _tableView.backgroundColor = TDViewBackgrouondColor;
-        
-        UINib *nib = [UINib nibWithNibName:@"TDRechargeTableViewCell" bundle:nil];
-        [_tableView registerNib:nib forCellReuseIdentifier:@"TDRechargeTableViewCellID"];
+        _tableView.backgroundColor = [UIColor whiteColor];
+
+        UINib *nib = [UINib nibWithNibName:@"TDRechargeCollectionViewCell" bundle:nil];
+        [_tableView registerNib:nib forCellWithReuseIdentifier:@"TDRechargeCollectionViewCellID"];
+        [_tableView registerClass:[UICollectionReusableView class] forSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"TDRechargeSectionHeader"];
     }
     
     return _tableView;

@@ -34,6 +34,8 @@
 /// 新粉丝
 #define kRemoteNewFans  @"isCloseNewFans"
 
-
+// 股票池首次添加提示送3把钥匙
+#define kSPFistAddTip       @"stockPoolFistAddTip"
+#define kSPAddRecordCount   @"kSPAddRecordCount"
 
 #endif /* LocalSetting_h */

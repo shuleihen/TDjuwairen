@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SPDetailPositionsTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="116"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="115.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="2017-06-16 周四 14:23" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fNe-d6-CGf">
+                        <rect key="frame" x="16" y="16" width="150" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="仓位 70%" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EqW-KP-Luf">
+                        <rect key="frame" x="62" y="56.5" width="60" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aAb-qQ-Bhb" customClass="TDGradientProgressView">
+                        <rect key="frame" x="62" y="84.5" width="196" height="11"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="11" id="Wzg-3K-Y6k"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="30% 资金" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ysN-tn-trF">
+                        <rect key="frame" x="197" y="56" width="61" height="17"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                        <color key="textColor" red="0.40000000000000002" green="0.40000000000000002" blue="0.40000000000000002" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="EqW-KP-Luf" firstAttribute="leading" secondItem="aAb-qQ-Bhb" secondAttribute="leading" id="6kA-yz-d4v"/>
+                    <constraint firstItem="fNe-d6-CGf" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="IGW-VM-m8Y"/>
+                    <constraint firstItem="fNe-d6-CGf" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="16" id="Mgt-b6-WOx"/>
+                    <constraint firstItem="aAb-qQ-Bhb" firstAttribute="top" secondItem="EqW-KP-Luf" secondAttribute="bottom" constant="11" id="PkQ-fm-aM2"/>
+                    <constraint firstAttribute="bottom" secondItem="aAb-qQ-Bhb" secondAttribute="bottom" constant="20" id="QKk-PH-f4X"/>
+                    <constraint firstItem="ysN-tn-trF" firstAttribute="trailing" secondItem="aAb-qQ-Bhb" secondAttribute="trailing" id="Tqa-1o-JZz"/>
+                    <constraint firstItem="aAb-qQ-Bhb" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="62" id="Vvc-Oq-8gR"/>
+                    <constraint firstAttribute="trailing" secondItem="aAb-qQ-Bhb" secondAttribute="trailing" constant="62" id="g7f-w3-5ff"/>
+                    <constraint firstItem="aAb-qQ-Bhb" firstAttribute="top" secondItem="ysN-tn-trF" secondAttribute="bottom" constant="11" id="ium-FO-G0z"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="dateLabel" destination="fNe-d6-CGf" id="bIz-hy-V3H"/>
+                <outlet property="moneyLabel" destination="ysN-tn-trF" id="AYV-WQ-9UQ"/>
+                <outlet property="progressView" destination="aAb-qQ-Bhb" id="ctf-b5-ZVv"/>
+                <outlet property="ratioLabel" destination="EqW-KP-Luf" id="W26-uV-5h9"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

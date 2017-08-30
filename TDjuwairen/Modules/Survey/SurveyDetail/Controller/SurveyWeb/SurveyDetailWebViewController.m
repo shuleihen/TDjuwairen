@@ -164,17 +164,17 @@
                            @"user_id":    US.userId};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中";
+    hud.label.text = @"提交中";
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_SurveyAddQuestion parameters:para completion:^(id data, NSError *error) {
         if (!error) {
-            hud.labelText = @"提交成功";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"提交成功";
+            [hud hideAnimated:YES afterDelay:0.4];
         }
         else {
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }
@@ -222,9 +222,9 @@
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
             hud.mode = MBProgressHUDModeText;
             hud.animationType = MBProgressHUDAnimationZoomIn;
-            hud.labelText = @"分享成功";
+            hud.label.text = @"分享成功";
             hud.removeFromSuperViewOnHide = YES;
-            [hud hide:YES afterDelay:0.6];
+            [hud hideAnimated:YES afterDelay:0.6];
         }
     };
     
@@ -282,18 +282,18 @@
     
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = showDict[@"showMess1"];
+    hud.label.text = showDict[@"showMess1"];
     NetworkManager *manager = [[NetworkManager alloc] init];
     
     [manager POST:showDict[@"apiStr"] parameters:dic completion:^(id data, NSError *error){
         if (!error) {
-            hud.labelText =showDict[@"showMess2"];
-            [hud hide:YES afterDelay:0.2];
+            hud.label.text =showDict[@"showMess2"];
+            [hud hideAnimated:YES afterDelay:0.2];
             self.surveyInfoDictM[@"is_collected"] = showDict[@"changeValue"];
             self.shareView.isCollection = [data[@"is_collected"] boolValue];
         } else {
-            hud.labelText = showDict[@"showMess3"];
-            [hud hide:YES afterDelay:0.2];
+            hud.label.text = showDict[@"showMess3"];
+            [hud hideAnimated:YES afterDelay:0.2];
         }
     }];
     

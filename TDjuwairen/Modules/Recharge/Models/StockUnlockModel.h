@@ -11,6 +11,9 @@
 @interface StockUnlockModel : NSObject
 @property (nonatomic, copy) NSString *stockCode;
 @property (nonatomic, copy) NSString *stockName;
+@property (nonatomic, copy) NSString *sruveyId;
+@property (nonatomic, assign) NSInteger sruveyType;
+@property (nonatomic, copy) NSString *sruveyTitle;
 @property (nonatomic, copy) NSString *vipDesc;
 @property (nonatomic, assign) BOOL isUnlock;
 @property (nonatomic, assign) NSInteger userKeyNum;

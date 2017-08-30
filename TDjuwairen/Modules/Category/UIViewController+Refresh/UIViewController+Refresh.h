@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "DYRefresh.h"
 
 @interface UIViewController (Refresh)
 - (void)addHeaderRefreshWithScroll:(UIScrollView *)scrollView action:(SEL)action;
 - (void)endHeaderRefresh;
+- (void)endHeaderRefreshWithDataCount:(NSInteger)count;
 @end

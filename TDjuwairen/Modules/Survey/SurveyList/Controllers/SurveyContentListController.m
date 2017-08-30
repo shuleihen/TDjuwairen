@@ -244,11 +244,12 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
 
 #pragma mark - StockUnlockManagerDelegate
 
-- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
+- (void)unlockManager:(StockUnlockManager *)manager withSurveyId:(NSString *)surveyId {
     
     for (SurveyListModel *model in self.surveyList) {
-        if ([model.companyCode isEqualToString:stockCode]) {
+        if ([model.surveyId isEqualToString:surveyId]) {
             model.isUnlocked = YES;
+            break;
         }
     }
     
@@ -290,7 +291,7 @@ SurveyStockListCellDelegate, StockUnlockManagerDelegate>
         if (model.surveyType == kSurveyTypeShengdu) {
             [self.unlockManager unlockDeep:model.surveyId withController:self.rootController];
         } else {
-            [self.unlockManager unlockStock:model.companyCode withStockName:model.companyName withController:self.rootController];
+            [self.unlockManager unlockSurvey:model.surveyId withSurveyType:model.surveyType withSureyTitle:model.surveyTitle withController:self.rootController];
         }
     }
 

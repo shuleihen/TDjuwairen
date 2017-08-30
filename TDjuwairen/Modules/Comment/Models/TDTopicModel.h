@@ -15,5 +15,5 @@
 @property (nonatomic, copy) NSString *topicTime;
 @property (nonatomic, copy) NSString *userAvatar;
 @property (nonatomic, copy) NSString *userNickName;
-
+@property (nonatomic, strong) NSArray *comments;
 @end

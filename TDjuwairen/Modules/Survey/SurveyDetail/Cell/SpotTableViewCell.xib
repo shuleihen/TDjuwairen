@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12118" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12086"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -49,10 +49,18 @@
                         <color key="textColor" red="0.80000000000000004" green="0.80000000000000004" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ico_chains" translatesAutoresizingMaskIntoConstraints="NO" id="DMp-Cb-wum">
+                        <rect key="frame" x="107" y="65.5" width="17" height="17"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="17" id="8lE-YR-BgV"/>
+                            <constraint firstAttribute="height" constant="17" id="UR7-WC-the"/>
+                        </constraints>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstAttribute="bottom" secondItem="hBz-5y-a7E" secondAttribute="bottom" constant="15" id="00R-fh-mFu"/>
                     <constraint firstItem="ye3-XM-fz4" firstAttribute="leading" secondItem="hBz-5y-a7E" secondAttribute="trailing" constant="12" id="3ut-WZ-XTx"/>
+                    <constraint firstItem="DMp-Cb-wum" firstAttribute="trailing" secondItem="hBz-5y-a7E" secondAttribute="trailing" constant="8.5" id="3uy-qk-MEt"/>
                     <constraint firstItem="hBz-5y-a7E" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="4fz-cg-UVK"/>
                     <constraint firstItem="BO7-bi-bOU" firstAttribute="top" secondItem="hBz-5y-a7E" secondAttribute="top" id="Crd-8i-LXs"/>
                     <constraint firstItem="hBz-5y-a7E" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="15" id="Du1-Tz-3T2"/>
@@ -63,10 +71,12 @@
                     <constraint firstItem="BO7-bi-bOU" firstAttribute="leading" secondItem="hBz-5y-a7E" secondAttribute="trailing" constant="12" id="Zp2-rX-sKB"/>
                     <constraint firstAttribute="trailing" secondItem="V2t-oR-NR9" secondAttribute="trailing" constant="12" id="kdD-YW-rb1"/>
                     <constraint firstItem="V2t-oR-NR9" firstAttribute="leading" secondItem="BO7-bi-bOU" secondAttribute="trailing" constant="5" id="qkW-1y-uRQ"/>
+                    <constraint firstItem="DMp-Cb-wum" firstAttribute="bottom" secondItem="hBz-5y-a7E" secondAttribute="bottom" constant="8.5" id="sHu-66-tSO"/>
                 </constraints>
             </tableViewCellContentView>
             <connections>
                 <outlet property="dateTimeLabel" destination="ye3-XM-fz4" id="bl3-xv-nsk"/>
+                <outlet property="lockImageView" destination="DMp-Cb-wum" id="S67-fz-fYv"/>
                 <outlet property="rightLabel" destination="Pyk-cr-oGs" id="klh-Nn-hqB"/>
                 <outlet property="spotImageView" destination="hBz-5y-a7E" id="dDx-Pl-fhZ"/>
                 <outlet property="titleLabel" destination="BO7-bi-bOU" id="XA8-CG-MHn"/>
@@ -74,4 +84,7 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="ico_chains" width="22" height="22"/>
+    </resources>
 </document>

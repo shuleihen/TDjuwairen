@@ -39,6 +39,8 @@
         self.rightLabel.text = @"";
         self.dateTimeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
     }
+    
+    self.lockImageView.hidden = model.isUnlock;
 }
 
 @end

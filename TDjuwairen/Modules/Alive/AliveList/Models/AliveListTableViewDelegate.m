@@ -98,13 +98,13 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 
 
 #pragma mark - StockUnlockManagerDelegate
-- (void)unlockManager:(StockUnlockManager *)manager withStockCode:(NSString *)stockCode {
+- (void)unlockManager:(StockUnlockManager *)manager withSurveyId:(NSString *)surveyId {
     for (AliveListCellData *model in self.itemList) {
-        if ([model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
+        if ([model.aliveModel.aliveId isEqualToString:surveyId] &&
+            [model.aliveModel.extra isKindOfClass:[AliveListExtra class]]) {
             AliveListExtra *extra = model.aliveModel.extra;
-            if ([extra.companyCode isEqualToString:stockCode]) {
-                extra.isUnlock = YES;
-            }
+            extra.isUnlock = YES;
+            break;
         }
     }
     
@@ -126,36 +126,12 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
 }
 
 #pragma mark - AliveListTableCellDelegate
-
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell avatarPressed:(id)sender {
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell userPressedWithUserId:(NSString *)userId {
     if (!self.avatarPressedEnabled) {
         return;
     }
     
-    NSIndexPath *indexPath = [self.tableView indexPathForCell:cell];
-    if (indexPath) {
-        AliveListCellData *cellData = self.itemList[indexPath.section];
-        
-        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:cellData.aliveModel.masterId];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.viewController.navigationController pushViewController:vc animated:YES];
-    }
-}
-
-- (void)aliveListTableCell:(AliveListTableViewCell *)cell forwardAvatarPressed:(id)sender {
-    if (!self.avatarPressedEnabled) {
-        return;
-    }
-    
-    AliveListCellData *cellData = cell.cellData;
-    AliveListModel *forwardAlive = cellData.aliveModel.forwardModel.forwardList.lastObject;
-    
-    if (forwardAlive.aliveType == kAliveHot ||
-         forwardAlive.aliveType == kAliveSurvey) {
-        return;
-    }
-    
-    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:forwardAlive.masterId];
+    AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:userId];
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
@@ -484,14 +460,14 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.viewController.view animated:YES];
-    hud.labelText = @"取消收藏";
+    hud.label.text = @"取消收藏";
     [manager POST:API_CancelCollection parameters:dict completion:^(id data, NSError *error){
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self deleteSuccessedWithIndexPath:indexPath];
         } else {
-            hud.labelText = @"取消收藏失败";
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = @"取消收藏失败";
+            [hud hideAnimated:YES afterDelay:0.8];
         }
         
     }];
@@ -518,8 +494,10 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts ||
-        model.aliveType == kAlivePlayStock) {
-        // 图文、推单、玩票
+        model.aliveType == kAlivePlayStock ||
+        model.aliveType == kAliveStockPool ||
+        model.aliveType == kAliveStockPoolRecord) {
+        // 图文、推单、玩票、股票池
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = model.aliveId;
         vc.aliveType = model.aliveType;
@@ -541,8 +519,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         AliveListExtra *extra = model.extra;
         if (!extra.isUnlock) {
             if (unlock) {
-                
-                [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
+                [self.unlockManager unlockSurvey:model.aliveId withSurveyType:extra.surveyType withSureyTitle:extra.surveyDesc withController:self.viewController];
             } else {
                 StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                 vc.stockCode = extra.companyCode;
@@ -573,7 +550,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         AliveListExtra *extra = model.extra;
         if (!extra.isUnlock) {
             if (unlock) {
-                [self.unlockManager unlockStock:extra.companyCode withStockName:extra.companyName withController:self.viewController];
+                [self.unlockManager unlockSurvey:model.aliveId withSurveyType:extra.surveyType withSureyTitle:extra.surveyDesc withController:self.viewController];
             } else {
                 StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                 vc.stockCode = extra.companyCode;
@@ -618,7 +595,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [manager POST:API_AliveDeleteRoomAlive parameters:dict completion:^(id data, NSError *error) {
         
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             
             NSMutableArray *array = [NSMutableArray arrayWithArray:wself.itemList];
             [array removeObject:cellData];
@@ -636,8 +613,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
             }
             [wself.tableView endUpdates];
         }else{
-            hud.labelText = @"删除失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"删除失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
@@ -666,7 +643,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [manager POST:str parameters:@{@"user_id":listModel.masterId} completion:^(id data, NSError *error){
         
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             if (data && [data[@"status"] integerValue] == 1) {
                 
                 if (self.listType == kAliveListRecommend || self.listType == kAliveListViewpoint) {
@@ -688,8 +665,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
                 }
             }
         } else {
-            hud.labelText = errorStr;
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = errorStr;
+            [hud hideAnimated:YES afterDelay:0.7];
         }
         
     }];

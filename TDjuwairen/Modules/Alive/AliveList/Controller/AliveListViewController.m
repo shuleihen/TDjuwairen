@@ -14,7 +14,6 @@
 #import "AliveMasterListViewController.h"
 #import "AliveListTableViewDelegate.h"
 #import "AlivePublishViewController.h"
-#import "AliveEditMasterViewController.h"
 #import "LoginStateManager.h"
 #import "ZFCWaveActivityIndicatorView.h"
 #import "UIViewController+Loading.h"
@@ -23,34 +22,17 @@
 #import "AliveNoAttentionTableViewController.h"
 
 @interface AliveListViewController ()
-@property (nonatomic, strong) UITableView *tableView;
-@property (nonatomic, assign) NSInteger currentPage;
-@property (nonatomic, strong) NSArray *aliveList;
+
 @property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
 @property (nonatomic, strong) AliveNoAttentionTableViewController *noAttentionController;
 @end
 
 @implementation AliveListViewController
 
-- (UITableView *)tableView {
-    if (!_tableView) {
-        CGRect rect = CGRectMake(0, 0, kScreenWidth, kScreenHeight-64-50);
-        _tableView = [[UITableView alloc] initWithFrame:rect style:UITableViewStyleGrouped];
-        _tableView.backgroundColor = TDViewBackgrouondColor;
-        _tableView.separatorColor = TDSeparatorColor;
-        _tableView.separatorInset = UIEdgeInsetsZero;
-
-        _tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreActions)];
-    }
-    
-    return _tableView;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-    
-    [self.view addSubview:self.tableView];
     
     AliveListTableViewDelegate *delegate = [[AliveListTableViewDelegate alloc] initWithTableView:self.tableView withViewController:self];
     delegate.listType = self.listType;
@@ -58,17 +40,11 @@
     
     [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
     
-    [self addHeaderRefreshWithScroll:self.tableView action:@selector(refreshActions)];
-    
     [self refreshActions];
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attendChange:) name:kAddAttenNotification object:nil];
 }
 
-- (void)viewDidLayoutSubviews {
-    [super viewDidLayoutSubviews];
-    
-    self.tableView.frame = self.view.bounds;
-}
 
 #pragma mark - Action
 
@@ -77,7 +53,7 @@
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
 }
 
-- (void)loadMoreActions{
+- (void)loadMoreActions {
     [self queryAliveListWithType:self.listType withPage:self.currentPage];
 }
 
@@ -91,27 +67,31 @@
     switch (self.listType) {
         case kAliveListAttention:
             api = API_AliveGetAttenAliveList;
-            dict = @{@"page" :@(page)};
             break;
         case kAliveListRecommend:
             api = API_AliveGetRecAliveList;
-            dict = @{@"page" :@(page)};
             break;
         case kAliveListViewpoint:
             api = API_ViewGetList;
-            dict = @{@"page" :@(page)};
             break;
         case kAliveListVideo:
             api = API_VideoGetList;
-            dict = @{@"page" :@(page)};
             break;
         case kAlvieListPost:
-            api = API_AliveGetPostAlistList;
-            dict = @{@"page" :@(page)};
+            api = API_AliveGetPostAliveList;
+            break;
+            case kAlvieListHot:
+            api = API_AliveGetHotAliveList;
             break;
         default:
             NSAssert(NO, @"直播列表不支持当前类型");
             break;
+    }
+    
+    if (self.mainlistType == kMainListAttention) {
+        dict = @{@"page" :@(page),@"is_atten": @"1"};
+    } else {
+        dict = @{@"page" :@(page)};
     }
     
     [manager GET:api parameters:dict completion:^(id data, NSError *error){
@@ -154,7 +134,7 @@
                         [wself.tableView.mj_footer endRefreshing];
                     }
                     
-                    [wself endHeaderRefresh];
+                    [wself endHeaderRefreshWithDataCount:dataArray.count];
                     [wself removeLoadingAnimation];
                     
                     [wself.tableView reloadData];

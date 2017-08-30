@@ -14,6 +14,7 @@
 - (void)contentDetailController:(SurveyDetailContentViewController *)controller withHeight:(CGFloat)height;
 @optional
 - (BOOL)canRead;
+- (void)unlocked;
 @end
 
 @interface SurveyDetailContentViewController : UIViewController

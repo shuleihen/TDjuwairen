@@ -18,6 +18,8 @@
         self.companyName = dict[@"company_name"];
         self.companyCode = dict[@"company_code"];
         self.surveyType = [dict[@"survey_type"] integerValue];
+        self.isUnlock = [dict[@"is_unlock"] boolValue];
+        self.isVisited = [dict[@"is_visited"] boolValue];
     }
     return self;
 }

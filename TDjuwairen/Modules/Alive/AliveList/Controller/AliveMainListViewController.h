@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AliveTypeDefine.h"
+
 
 @interface AliveMainListViewController : UIViewController
-
+@property (nonatomic, assign) MainListType mainListType;
 @end

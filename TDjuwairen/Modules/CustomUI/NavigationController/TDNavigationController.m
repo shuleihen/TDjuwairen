@@ -62,7 +62,8 @@
                            @"UserInfoViewController",
                            @"PersonalCenterViewController",
                            @"AliveSearchAllTypeViewController",
-                           @"VideoDetailViewController"];
+                           @"VideoDetailViewController",
+                           @"StockPoolSearchViewController"];
     [filtArray enumerateObjectsUsingBlock:^(NSString *string, NSUInteger idx, BOOL *stop){
         if ([string isEqualToString:className]) {
             hidden = YES;
@@ -73,13 +74,22 @@
     return hidden;
 }
 
+- (UIImage *)navBackgroundImageWithController:(NSString *)className {
+    if ([className isEqualToString:@"AliveListRootViewController"] ||
+        [className isEqualToString:@"StockPoolListViewController"] ||
+        [className isEqualToString:@"StockPoolAddAndEditViewController"]) {
+        return [UIImage imageNamed:@"nav_bg.png"];
+    }
+    return nil;
+}
+
 - (void)setupNavigationControllerBackground:(UINavigationController *)navigationController willShowViewController:(UIViewController *)viewController {
-    if ([viewController isKindOfClass:NSClassFromString(@"AliveMainListViewController")]) {
-        // 直播主页面导航条背景修改
-        [navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"nav_bg.png"] forBarMetrics:UIBarMetricsDefault];
+    UIImage *image = [self navBackgroundImageWithController:NSStringFromClass([viewController class])];
+    if (image) {
+        [navigationController.navigationBar setBackgroundImage:image forBarMetrics:UIBarMetricsDefault];
         
-        UIImage *image = [UIImage imageWithColor:[UIColor clearColor]];
-        [navigationController.navigationBar setShadowImage:image];
+        UIImage *shadow = [UIImage imageWithSize:CGSizeMake(kScreenWidth, TDPixel) withColor:[UIColor clearColor]];
+        [navigationController.navigationBar setShadowImage:shadow];
     } else {
         [navigationController.navigationBar setBackgroundImage:nil forBarMetrics:UIBarMetricsDefault];
         [navigationController.navigationBar setShadowImage:nil];

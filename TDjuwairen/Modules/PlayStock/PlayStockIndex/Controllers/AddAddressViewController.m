@@ -58,7 +58,7 @@
     
     __weak AddAddressViewController *wself = self;
     [ma GET:API_GameQueryAddress parameters:dict completion:^(id data,NSError *error){
-        [hud hide:YES];
+        [hud hideAnimated:YES];
         
         if (!error && data) {
             BOOL isSubmit = [data[@"is_submit"] boolValue];
@@ -109,26 +109,26 @@
     if (!name.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"姓名不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"姓名不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(!address) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请选择省市区";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请选择省市区";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(!detail.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请填写详细地址";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请填写详细地址";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -156,17 +156,17 @@
     NetworkManager *ma = [[NetworkManager alloc] init];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
+    hud.label.text = @"提交中...";
     
     __weak AddAddressViewController *wself = self;
     [ma POST:API_GameAddAddress parameters:dict completion:^(id data,NSError *error){
         if (!error && data && [data[@"status"] boolValue]) {
-            hud.labelText = @"提交成功";
+            hud.label.text = @"提交成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:0.4];
+            [hud hideAnimated:YES afterDelay:0.4];
         } else {
-            hud.labelText = error.localizedDescription?:@"提交失败";
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription?:@"提交失败";
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

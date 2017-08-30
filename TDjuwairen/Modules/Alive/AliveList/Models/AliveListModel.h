@@ -13,6 +13,7 @@
 #import "AliveListPlayStockExtra.h"
 #import "AliveListAdExtra.h"
 #import "AliveListPostExtra.h"
+#import "AliveListStockPoolExtra.h"
 
 @interface AliveListModel : NSObject
 
@@ -42,6 +43,8 @@
 @property (nonatomic, assign) NSInteger shareNum;
 /// 分享地址URL
 @property (nonatomic, copy) NSString *shareUrl;
+// 访问数量，暂时只有观点类型有
+@property (nonatomic, assign) NSInteger visitNum;
 
 /// 是否官方认证
 @property (nonatomic, assign) BOOL isOfficial;
@@ -52,6 +55,9 @@
 
 // 是否为转发动态
 @property (nonatomic, assign) BOOL isForward;
+
+@property (nonatomic, strong) NSArray *forwardImgs;
+@property (nonatomic, strong) NSArray *forwardUsers;
 
 // 转发直播内容
 @property (nonatomic, strong) AliveListForwardModel *forwardModel;

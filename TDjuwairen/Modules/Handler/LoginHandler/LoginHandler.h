@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface LoginHandler : NSObject
++ (void)saveUserInfoData:(NSDictionary *)data;
 + (void)saveLoginSuccessedData:(NSDictionary *)data;
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password;
 + (void)saveFastLoginWithPhone:(NSString *)phone;

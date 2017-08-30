@@ -93,31 +93,31 @@
     if (!self.agreeBtn.checked) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先勾选局外人协议";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先勾选局外人协议";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!msg_unique_id.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先获取证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先获取证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!code.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写验证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写验证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"登录";
+    self.hud.label.text = @"登录";
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"msg_unique_id": msg_unique_id,
@@ -131,12 +131,12 @@
             if (is_verify) {
                 [self requestLogin];
             } else {
-                self.hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
-                [self.hud hide:YES afterDelay:0.4];
+                self.hud.label.text = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [self.hud hideAnimated:YES afterDelay:0.4];
             }
         } else {
-            self.hud.labelText = @"验证码错误，请重新输入";
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = @"验证码错误，请重新输入";
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }
@@ -159,7 +159,7 @@
     
     [manager POST:API_LoginWithPhone parameters:dic completion:^(id data, NSError *error){
         if (!error) {
-            [self.hud hide:YES];
+            [self.hud hideAnimated:YES];
             
             if ([data[@"need_complete"] boolValue] == NO) {
                 US.isLogIn = YES;
@@ -181,8 +181,8 @@
             }
         } else {
             NSString *message = error.localizedDescription?:@"登录失败";
-            self.hud.labelText = message;
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = message;
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

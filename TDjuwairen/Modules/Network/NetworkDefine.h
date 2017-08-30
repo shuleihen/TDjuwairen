@@ -15,12 +15,20 @@
 
 #define kAPI_songsong @"http://192.168.1.103/"
 
+#define API_H5UserPointsDesc    @"https://appapi.juwairen.net/Page/index/p/PointDesc"
+#define API_H5UserPointsList    @"https://www.juwairen.net/index.php/UserCenter/showUserPoints"
+#define API_H5UserWalletList    @"https://www.juwairen.net/UserCenter/showUserWallet"
+#define API_H5UserMission       @"https://www.juwairen.net/UserCenter/showUserMission"
+#define API_H5UserVipCenter     @"https://appapi.juwairen.net/User/vipCenter3_3"
+
 // 广告
 #define API_GetBanner           @"Index/indexBanner"
 #define API_SaveDeviceInfo      @"Index/saveDeviceInfo"
 #define API_IndexStartupPage    @"Index/startupPage3_1"
 #define API_IndexSurveyBanner   @"Index/surveyBanner"
 #define API_IndexDeepBanner     @"Index/deepBanner"
+
+#define API_AliyunUpload        @"Upload/getAliyunUploadConfig"
 
 #define API_AddBrowseHistory    @"Public/addBrowseHistory"
 #define API_GetBrowseHistory    @"Public/getBrowseHistory"
@@ -56,7 +64,7 @@
 #define API_UpdateCompanyName   @"User/updateCompanyName"
 #define API_UpdateOccupationName @"User/updateOccupationName"
 #define API_UpdateUserInfo      @"User/updateUserinfo"
-#define API_GetUserInfo         @"User/getUserInfo"
+#define API_GetUserInfo         @"User/getLoginUser"
 #define API_UploadUserface      @"User/userfaceImgUp"
 #define API_UserBindInfo        @"User/userbindInfo"
 #define API_UpdateUserPhone     @"User/updateUserphone"
@@ -71,6 +79,10 @@
 #define API_GetUserOrder        @"User/getUserOrder"
 #define API_DeleteUserOrder     @"User/delUserOrder"
 #define API_UserVipCenter       @"User/vipCenter"
+#define API_UserGetKeyRecordList        @"User/getKeyRecordList3_3"
+#define API_UserGetIntegral     @"User/getUserPoints"
+#define API_UserGetIntegralList @"User/getUserPointsRecord"
+#define API_UserGetNotify       @"User/getUserNotify"
 
 #define API_FirmAccount_firmPlatList    @"FirmAccount/firmPlatList"
 #define API_ShowFirmAccountInfo         @"FirmAccount/showFirmAccountInfo"
@@ -84,6 +96,7 @@
 #define API_PayIsShow               @"Pay/isPayShow"
 #define API_IAPVerify               @"Pay/iapVerify"
 #define API_IAPGuesVerify           @"Pay/guestIapVerify"
+#define API_PayGetVipList           @"Pay/getVipPrice"
 
 #define API_AddSharpComment         @"Sharp/addSharpComnment"
 #define API_VideoGetList            @"Sharp/videoList3_1"
@@ -110,7 +123,7 @@
 // 调研
 #define API_SurveyDetailHeader      @"Survey/survey_show_header2_2"
 #define API_SurveyDetail            @"Survey/survey_show_tag2_3"
-#define API_SurveyDetailResearch    @"Survey/survey_show_research"
+#define API_SurveyDetailResearch    @"Survey/survey_show_research3_3"
 #define API_SurveyDetailAnnounce    @"Survey/survey_show_announce"
 #define API_SurveyDetailHot         @"Survey/survey_show_topline"
 #define API_SurveyDetailAsk         @"Survey/survey_show_qa3_1"
@@ -129,7 +142,7 @@
 #define API_SurveySubject           @"Survey/surveySubject3_1"
 #define API_SurveyAddSubject        @"Survey/addAttenSurveySubject"
 #define API_SurveyAttenSubject      @"Survey/getAttenSurveySubject"
-#define API_SurveySubjectList       @"Survey/lists3_2"
+#define API_SurveySubjectList       @"Survey/lists3_3"
 #define API_SurveyGetMyStockList    @"Survey/getMyStockList3_1"
 #define API_SurveyGradeList         @"Survey/companyRank"
 #define API_SurveyCompanyGrade      @"Survey/companyGrade"
@@ -146,6 +159,9 @@
 #define API_SurveyGetDeepList       @"Survey/getDeepList"
 #define API_SurveyIsUnlockDeep      @"Survey/isUserUnlockDeep"
 #define API_SurveyUnlockDeep        @"Survey/unlockSurveyDeep"
+#define API_SurveyIsUnlockSurvey    @"Survey/isUserUnlockSurvey"
+#define API_SurveyUnlockSurvey      @"Survey/unlockSurvey"
+
 
 // 订阅
 #define API_SubscriptionInfo        @"Subscribe/subscribeInfo"
@@ -178,11 +194,11 @@
 
 // 直播
 #define API_AliveGetRoomList        @"Room/lists"
-
-#define API_AliveGetRecAliveList    @"Room/getRecAliveList3_2"
-#define API_AliveGetAttenAliveList  @"Room/getAttenAliveList3_2"
-#define API_AliveGetPostAlistList   @"Room/getBareList"
-#define API_AliveGetAliveInfo       @"Room/showLiveInfo3_2"
+#define API_AliveGetRecAliveList    @"RoomV3/getRecAliveList3_3"
+#define API_AliveGetAttenAliveList  @"RoomV3/getAttenAliveList3_3"
+#define API_AliveGetPostAliveList   @"Room/getBareList"
+#define API_AliveGetHotAliveList    @"RoomV3/getHotList3_3"
+#define API_AliveGetAliveInfo       @"RoomV3/showLiveInfo3_3"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"
 #define API_AliveGetRoomLike        @"Room/showLiveAssess"
 #define API_AlvieGetRoomShare       @"Room/showLiveShare"
@@ -193,12 +209,12 @@
 #define API_AliveAddShare           @"Room/addShareRecord"
 #define API_AliveGetMasterList      @"Room/getRoomMasters"
 #define API_AliveGetFansList        @"Room/getFansList"
-#define API_AliveGetAttenList       @"Room/getAttenList"
+#define API_AliveGetAttenList       @"RoomV3/getAttenList3_3"
 #define API_AliveAddAttention       @"Blog/addAttention"
 #define API_AliveDelAttention       @"Blog/cancelAttention"
 #define API_AliveAddRoomPublish     @"Room/publish"
-#define API_AliveGetRoomInfo        @"Room/getRoomInfo"
-#define API_AliveGetRoomLiveList    @"Room/roomLiveList3_2"
+#define API_AliveGetRoomInfo        @"Room/getRoomInfo3_3"
+#define API_AliveGetRoomLiveList    @"RoomV3/roomLiveList3_3"
 #define API_AliveGetGuessRateInfo   @"Room/getGuessRateInfo"
 #define API_AliveGetAttenInfo       @"Room/getAttenInfo"
 #define API_AliveUpdateUserSex      @"Room/updateUserSex"
@@ -219,5 +235,40 @@
 #define API_MessageGetSystemList    @"Message/getSysNotifyList"
 #define API_MessageSystemClear      @"Message/clearSysNotify"
 #define API_MessageSystemDelete     @"Message/deleteSysNotify"
+
+
+#define API_StockPoolGetList        @"StockPool/getStockPoolList"
+/// 获取股票池简介
+#define API_StockPoolGetDesc        @"StockPool/getStockPoolDesc"
+/// 设置股票池简介
+#define API_StockPoolSetDesc        @"StockPool/setStockPoolDesc"
+/// 获取设置收费提示
+#define API_StockPoolGetPrice        @"StockPool/getStockPoolPrice"
+/// 设置股票池订阅收费
+#define API_StockPoolSetPrice        @"StockPool/setStockPoolPrice"
+/// 设置股票池 获取订阅用户列表
+#define API_StockPoolGetSubscribeUser        @"StockPool/getSubscribeStockPoolUser"
+/// 获取有记录的月份
+#define API_StockPoolGetRecordMonths        @"StockPool/getRecordMonths"
+/// 获取指定日期前的股票池记录
+#define API_StockPoolGetRecordList        @"StockPool/getRecordList"
+/// 股票池记录列表 的头部信息
+#define API_StockPoolGetShowStockPool        @"StockPool/showStockPool"
+/// 获取指定月份下的有记录的日期
+#define API_StockPoolGetRecordDates       @"StockPool/getRecordDates"
+#define API_StockPoolGetRecordPoint     @"StockPool/getRecordPositionInfo"
+#define API_StockPoolPublish            @"StockPool/saveRecord"
+#define API_StockPoolGetDetailInfo      @"StockPool/showRecordInfo"
+#define API_StockPoolGetDraftList       @"StockPool/getRecordDraft"
+#define API_StockPoolDeleteRecord       @"/StockPool/deleteRecord"
+#define API_StockPoolGetSubscribe       @"StockPool/getSubscribeStockPoolInfo"
+#define API_StockPoolSubscribe          @"StockPool/subscribeStockPool"
+#define API_MyCenterGetUserSubscribeStockPool         @"StockPool/getUserSubscribeStockPool"
+#define API_MyCenterCancelSubscribeStockPool          @"/StockPool/cancelSubscribeStockPool"
+#define API_MyCenterDeleteSubscribeStockPool          @"/StockPool/deleteSubscribeStockPool"
+#define API_StockPoolShare              @"StockPool/shareStockPool"
+#define API_StockPoolGetCommentList     @"StockPool/getStockPoolComment"
+#define API_StockPoolAddComment         @"StockPool/addStockPoolComment"
+#define API_StockPoolReplyComment       @"StockPool/replyStockPoolComment"
 
 #endif /* NetworkDefine_h */

@@ -17,6 +17,11 @@
 #import "AliveRoomViewController.h"
 #import "UIImage+Resize.h"
 #import "TDWebViewController.h"
+#import "LoginHandler.h"
+#import "CenterHeaderItemView.h"
+#import "StockPoolSubscribeController.h"
+#import "CenterTableViewCell.h"
+#import "TDWebViewHandler.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -24,10 +29,18 @@
 @property (weak, nonatomic) IBOutlet UIButton *avatarBtn;
 @property (weak, nonatomic) IBOutlet UILabel *nickNameLabel;
 @property (nonatomic, strong) NSArray *classesArray;
-@property (nonatomic, strong) IBOutlet CenterItemView *dynamicView;
-@property (nonatomic, strong) IBOutlet CenterItemView *attentionView;
-@property (nonatomic, strong) IBOutlet CenterItemView *fansView;
+@property (nonatomic, strong) IBOutlet CenterHeaderItemView *subscribeView;
+@property (nonatomic, strong) IBOutlet CenterHeaderItemView *attentionView;
+@property (nonatomic, strong) IBOutlet CenterHeaderItemView *fansView;
 @property (weak, nonatomic) IBOutlet UIImageView *levelImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *sexImageView;
+@property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (nonatomic, strong) CAGradientLayer *gradientLayer;
+@property (weak, nonatomic) IBOutlet UIView *headerItemContainView;
+@property (weak, nonatomic) IBOutlet UILabel *userPointsLabel;
+@property (weak, nonatomic) IBOutlet UILabel *userKeyLabel;
+@property (nonatomic, assign) NSInteger userLevelExpireDay;
+@property (weak, nonatomic) IBOutlet UIButton *guessRateBtn;
 @end
 
 @implementation CenterViewController
@@ -45,26 +58,32 @@
     self.tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.separatorColor = TDSeparatorColor;
     
-    self.headerImageView.contentMode = UIViewContentModeCenter;
-    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
-    self.headerImageView.image = [image resize:CGSizeMake(kScreenWidth, 210)];
     
     self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
-    self.avatarBtn.layer.borderColor = [UIColor whiteColor].CGColor;
-    self.avatarBtn.layer.borderWidth = 1.0f;
+    
+    CAGradientLayer *gradientLayer = [CAGradientLayer layer];
+    gradientLayer.colors = @[(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#2662D0"].CGColor,(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#1BAFE7"].CGColor];
+    gradientLayer.startPoint = CGPointMake(0, 0);
+    gradientLayer.endPoint = CGPointMake(1, 0);
+    gradientLayer.frame = CGRectMake(0, 0, kScreenWidth, 180);
+    self.gradientLayer = gradientLayer;
+    [self.headerView.layer insertSublayer:gradientLayer atIndex:0];
+    
+    // 投影
+    self.headerItemContainView.layer.shadowColor = [UIColor hx_colorWithHexRGBAString:@"#E8E8E8"].CGColor;
+    self.headerItemContainView.layer.shadowOffset = CGSizeMake(0, 5);
     
     self.classesArray = @[@[],
-                          @[@"MyWalletViewController",@"CollectionViewController",@"SystemMessageViewController"],
-                          @[@"AboutMineViewController"],
-                          @[@"SettingViewController"]];
+                          @[@"", @"",@"CollectionViewController",],
+                          @[@"SystemMessageViewController",@"AboutMineViewController"]];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
     [self queryUserInfo];
-    [self setupUserInfo];
+    [self queryNotifyInfo];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -80,7 +99,7 @@
     NetworkManager *manager = [[NetworkManager alloc] init];
     __weak CenterViewController *wself = self;
     
-    [manager POST:API_GetUserInfo parameters:nil completion:^(id data, NSError *error){
+    [manager GET:API_GetUserInfo parameters:nil completion:^(id data, NSError *error){
         
         if (!error) {
             [wself setupAliveInfoWithDictionary:data];
@@ -92,12 +111,28 @@
     }];
 }
 
-- (void)setupUserInfo {
+- (void)setupAliveInfoWithDictionary:(NSDictionary *)dict {
+    
+    if (dict) {
+        [LoginHandler saveUserInfoData:dict];
+        
+        NSInteger level = US.userLevel;
+        if (level == kUserLevelBronze) {
+            self.levelImageView.image = [UIImage imageNamed:@"tag_level1.png"];
+        } else if (level == kUserLevelSilver) {
+            self.levelImageView.image = [UIImage imageNamed:@"tag_level2.png"];
+        } else if (level == kUserLevelGold) {
+            self.levelImageView.image = [UIImage imageNamed:@"tag_level3.png"];
+        } else {
+            self.levelImageView.image = nil;
+        }
+    }
+    
     if (US.isLogIn == YES) {
-        NSString *bigface = [US.headImage userBigAvatar];
-        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:bigface] forState:UIControlStateNormal placeholderImage:TDCenterUserAvatar options:SDWebImageRefreshCached];
+        [self.avatarBtn sd_setImageWithURL:[NSURL URLWithString:US.headImage] forState:UIControlStateNormal placeholderImage:TDCenterUserAvatar options:SDWebImageRefreshCached];
         
         self.nickNameLabel.text = US.nickName;
+        self.sexImageView.image = (US.sex==kUserSexMan)?[UIImage imageNamed:@"ico_sex-man.png"]:[UIImage imageNamed:@"ico_sex-women.png"];
     } else {
         [self.avatarBtn setImage:TDCenterUserAvatar forState:UIControlStateNormal];
         self.nickNameLabel.text = @"登陆注册";
@@ -105,43 +140,52 @@
     }
 }
 
-- (void)setupAliveInfoWithDictionary:(NSDictionary *)dict {
-    // 1表示黄金会员，0表示普通会员
-    if (dict) {
-        NSInteger dy = [dict[@"alive_num"] integerValue];
-        NSInteger at = [dict[@"atten_num"] integerValue];
-        NSInteger fan = [dict[@"fans_num"] integerValue];
-        NSInteger level = [dict[@"user_level"] integerValue];
+- (void)queryNotifyInfo {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    __weak CenterViewController *wself = self;
+    
+    [manager POST:API_UserGetNotify parameters:nil completion:^(id data, NSError *error){
         
-        [self.dynamicView setupNumber:dy];
-        [self.attentionView setupNumber:at];
-        [self.fansView setupNumber:fan];
-        
-        if (level == kUserLevelNormal) {
-            self.levelImageView.image = [UIImage imageNamed:@"level_nomal.png"];
-        } else if (level == kUserLevelGold) {
-            self.levelImageView.image = [UIImage imageNamed:@"level_huangjin.png"];
-        } else {
-            self.levelImageView.image = nil;
-        }
-        
-        US.userLevel = level;
+        [wself setupNotifiInfoWithDictionary:data];
+    }];
+}
+
+- (void)setupNotifiInfoWithDictionary:(NSDictionary *)dict {
+    if (dict == nil) {
+        return;
     }
+    
+    NSInteger dy = [dict[@"stockpool_sub_num"] integerValue];
+    NSInteger at = [dict[@"atten_num"] integerValue];
+    NSInteger fan = [dict[@"fans_num"] integerValue];
+    NSInteger userinfo_points = [dict[@"userinfo_points"] integerValue];
+    NSInteger user_keynum = [dict[@"user_keynum"] integerValue];
+    NSInteger expireDay = [dict[@"vip_expire_day"] integerValue];
+    NSInteger guess_rate = [dict[@"guess_rate"] integerValue];
+    
+    [self.subscribeView setupNumber:dy];
+    [self.attentionView setupNumber:at];
+    [self.fansView setupNumber:fan];
+    self.userPointsLabel.text = [NSString stringWithFormat:@"%ld",(long)userinfo_points];
+    self.userKeyLabel.text = [NSString stringWithFormat:@"%ld",(long)user_keynum];
+    
+    self.userLevelExpireDay = expireDay;
+    [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
+    
+    NSString *string = [NSString stringWithFormat:@"%ld",(long)guess_rate];
+    [self.guessRateBtn setTitle:string forState:UIControlStateNormal];
 }
 
 #pragma mark - Action
-//- (IBAction)cancelPressed:(id)sender {
-//    [self dismissViewControllerAnimated:YES completion:nil];
-//}
 
 - (IBAction)avatarPressed:(id)sender {
-    if (US.isLogIn == NO) {
-        LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
-         login.hidesBottomBarWhenPushed = YES;
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
     } else {
-        UIViewController *vc = [[UIStoryboard storyboardWithName:@"MyInfoSetting" bundle:nil] instantiateInitialViewController];
-         vc.hidesBottomBarWhenPushed = YES;
+        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:US.userId];
+        vc.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:vc animated:YES];
     }
 }
@@ -187,37 +231,37 @@
     }
 }
 
-// 会员中心
-- (IBAction)memberCenterPressed:(id)sender {
-    
+- (IBAction)subscribePressed:(id)sender {
     if (US.isLogIn == NO) {
         LoginViewController *login = [[LoginViewController alloc] initWithNibName:@"LoginViewController" bundle:nil];
         login.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:login animated:YES];
         
     }else {
-        NSString *accessToken = [[NSUserDefaults standardUserDefaults] stringForKey:@"unique_str"];
-        NSString *url = [NSString stringWithFormat:@"%@%@?unique_str=%@",API_HOST,API_UserVipCenter,accessToken];
-        
-        TDWebViewController *vc = [[TDWebViewController alloc] initWithURL:[NSURL URLWithString:url]];
-        vc.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:vc animated:YES];
-        
+        StockPoolSubscribeController *mySubcriptionVC = [[StockPoolSubscribeController alloc] init];
+        mySubcriptionVC.vcType = kMCSPSubscibeVCCurrentType;
+        mySubcriptionVC.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:mySubcriptionVC animated:YES];
     }
+}
+
+- (IBAction)walletPressed:(id)sender {
+    [TDWebViewHandler openURL:API_H5UserWalletList withUserMark:YES inNav:self.navigationController];
+}
+
+- (IBAction)integralPressed:(id)sender {
+    [TDWebViewHandler openURL:API_H5UserPointsList withUserMark:YES inNav:self.navigationController];
+}
+
+- (IBAction)settingPressed:(id)sender {
+    [self pushViewControllerWithClassName:@"SettingViewController"];
 }
 
 #pragma mark - UIScrollDelegate
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
     CGFloat offy = scrollView.contentOffset.y;
-    UIImage *image = [UIImage imageNamed:@"bg_mine.png"];
-    
     if (offy < 0) {
-        CGFloat f = 1+fabs(offy)/210;
-        self.headerBgImageheight.constant = 210 + fabs(offy);
-        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame)*f, 210*f)];
-    } else {
-        self.headerBgImageheight.constant = 210;
-        self.headerImageView.image = [image resize:CGSizeMake(CGRectGetWidth(scrollView.frame), 210)];
+        self.gradientLayer.frame = CGRectMake(0, offy, kScreenWidth, 180-offy);
     }
 }
 
@@ -230,17 +274,83 @@
     return 10.0f;
 }
 
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 7, 30)];
+        imageView.contentMode = UIViewContentModeCenter;
+        imageView.image = [UIImage imageNamed:@"icon_arrow_light_grey.png"];
+        cell.accessoryView = imageView;
+    }
+    
+    CenterTableViewCell *centerCell;
+    if ([cell isKindOfClass:[CenterTableViewCell class]]) {
+        centerCell = (CenterTableViewCell *)cell;
+    }
+    
+    if (indexPath.section == 1 && indexPath.row == 0) {
+        // 会员中心
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_membership.png"];
+        centerCell.titleLabel.text = @"会员中心";
+        
+        if (self.userLevelExpireDay != 0) {
+            centerCell.detailLabel.text = [NSString stringWithFormat:@"过期%ld天", (long)self.userLevelExpireDay];
+            centerCell.detailLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FF5D5D"];
+        } else {
+            centerCell.detailLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#CCCCCC"];
+            if (US.userLevel == kUserLevelNormal) {
+                centerCell.detailLabel.text = @"成为会员享受更多特权";
+            } else if (US.userLevel == kUserLevelBronze) {
+                centerCell.detailLabel.text = @"青铜会员";
+            } else if (US.userLevel == kUserLevelSilver) {
+                centerCell.detailLabel.text = @"白银会员";
+            } else if (US.userLevel == kUserLevelGold) {
+                centerCell.detailLabel.text = @"黄金会员";
+            }
+        }
+        
+        
+    } else if (indexPath.section == 1 && indexPath.row == 1) {
+        // 任务中心
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_mission.png"];
+        centerCell.titleLabel.text = @"任务中心";
+    } else if (indexPath.section == 1 && indexPath.row == 2) {
+        // 我的收藏
+        centerCell.iconImageView.image = [UIImage imageNamed:@"icon_collection.png"];
+        centerCell.titleLabel.text = @"我的收藏";
+    } else if (indexPath.section == 2 && indexPath.row == 0) {
+        // 系统消息
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_system.png"];
+        centerCell.titleLabel.text = @"系统消息";
+    } else if (indexPath.section == 2 && indexPath.row == 1) {
+        // 关于我们
+        centerCell.iconImageView.image = [UIImage imageNamed:@"ico_aboutus.png"];
+        centerCell.titleLabel.text = @"关于我们";
+    }
+}
+
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    NSArray *array = self.classesArray[indexPath.section];
-    NSString *className = array[indexPath.row];
-    
-    [self pushViewControllerWithClassName:className];
-    
+    if (indexPath.section == 1 &&
+        indexPath.row == 0) {
+        // 会员中心
+        [TDWebViewHandler openURL:API_H5UserVipCenter withUserMark:YES inNav:self.navigationController];
+    } else if (indexPath.section == 1 &&
+               indexPath.row == 1) {
+        // 任务中心
+        [TDWebViewHandler openURL:API_H5UserMission withUserMark:YES inNav:self.navigationController];
+    } else {
+        NSArray *array = self.classesArray[indexPath.section];
+        NSString *className = array[indexPath.row];
+        
+        [self pushViewControllerWithClassName:className];
+    }
 }
 
 - (void)pushViewControllerWithClassName:(NSString *)className {
+    if (!className.length) {
+        return;
+    }
     
     if (!US.isLogIn) {
         LoginViewController *login = [[LoginViewController alloc] init];

@@ -7,11 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "AliveTypeDefine.h"
+#import "AliveListBaseViewController.h"
 
+@interface AliveListViewController : AliveListBaseViewController
 
-@interface AliveListViewController : UIViewController
-@property (nonatomic, assign) AliveListType listType;
-
-- (void)refreshActions;
 @end

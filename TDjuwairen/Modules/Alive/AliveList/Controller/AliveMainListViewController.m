@@ -10,7 +10,6 @@
 #import "AliveListViewController.h"
 #import "UIImage+Color.h"
 #import "AliveMasterListViewController.h"
-#import "DCPathButton.h"
 #import "AlivePublishViewController.h"
 #import "LoginStateManager.h"
 #import "LoginViewController.h"
@@ -25,13 +24,13 @@
 #import "YXUnread.h"
 #import "NetworkManager.h"
 #import "MessageTableViewController.h"
+#import "AliveListStockPoolViewController.h"
 
-@interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate, DCPathButtonDelegate>
+@interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;
 @property (nonatomic, strong) YXUnread *unread;
-@property (nonatomic, strong) DCPathButton *publishBtn;
 @end
 
 @implementation AliveMainListViewController
@@ -57,75 +56,40 @@
     if (!_contentControllers) {
         AliveListViewController *one = [[AliveListViewController alloc] init];
         one.listType = kAliveListRecommend;
+        one.mainlistType = self.mainListType;
         
         AliveListViewController *two = [[AliveListViewController alloc] init];
         two.listType = kAliveListAttention;
+        two.mainlistType = self.mainListType;
         
         AliveListViewController *three = [[AliveListViewController alloc] init];
         three.listType = kAliveListViewpoint;
+        three.mainlistType = self.mainListType;
         
         AliveListViewController *four = [[AliveListViewController alloc] init];
         four.listType = kAliveListVideo;
+        four.mainlistType = self.mainListType;
         
         AliveListViewController *five = [[AliveListViewController alloc] init];
         five.listType = kAlvieListPost;
+        five.mainlistType = self.mainListType;
         
-        _contentControllers = @[one,two,three,four,five];
+        AliveListStockPoolViewController *six = [[AliveListStockPoolViewController alloc] init];
+        six.listType = kAliveListStockPool;
+        six.mainlistType = self.mainListType;
+        
+        AliveListViewController *sen = [[AliveListViewController alloc] init];
+        sen.listType = kAlvieListHot;
+        sen.mainlistType = self.mainListType;
+        
+        if (self.mainListType == kMainListRecommend) {
+            _contentControllers = @[one,six,three,four,five,sen];
+        } else {
+            _contentControllers = @[two,six,three,four,five,sen];
+        }
     }
     
     return _contentControllers;
-}
-
-- (DCPathButton *)publishBtn {
-    if (!_publishBtn) {
-        DCPathButton *dcPathButton = [[DCPathButton alloc]initWithCenterImage:[UIImage imageNamed:@"alive_publish_normal.png"]
-                                                             highlightedImage:[UIImage imageNamed:@"alive_publish_pressed.png"]];
-        dcPathButton.delegate = self;
-        
-        // Configure item buttons
-        //
-        
-        DCPathItemButton *itemButton_0 = [[DCPathItemButton alloc] initWithTitle:@"观点"
-                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
-                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
-        
-        DCPathItemButton *itemButton_1 = [[DCPathItemButton alloc] initWithTitle:@"推单"
-                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
-                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
-        
-        DCPathItemButton *itemButton_2 = [[DCPathItemButton alloc] initWithTitle:@"话题"
-                                                                 backgroundImage:[UIImage imageNamed:@"alive_publish_small.png"]
-                                                      backgroundHighlightedImage:[UIImage imageNamed:@"alive_publish_small.png"]];
-        
-        // Add the item button into the center button
-        //
-        [dcPathButton addPathItems:@[itemButton_0,
-                                     itemButton_1,
-                                     itemButton_2
-                                     ]];
-        
-        dcPathButton.bloomDirection = kDCPathButtonBloomDirectionTopLeft;
-        
-        // Change the bloom radius, default is 105.0f
-        //
-        dcPathButton.bloomRadius = 90.0f;
-        dcPathButton.bloomAngel = 90.0f;
-        
-        // Change the DCButton's center
-        //
-        dcPathButton.dcButtonCenter = CGPointMake(kScreenWidth - 26 - dcPathButton.frame.size.width/2, kScreenHeight -64 - 90);
-        
-        // Setting the DCButton appearance
-        //
-        dcPathButton.allowSounds = YES;
-        dcPathButton.allowCenterButtonRotation = YES;
-        
-        dcPathButton.bottomViewColor = [UIColor grayColor];
-        
-        _publishBtn = dcPathButton;
-    }
-    
-    return _publishBtn;
 }
 
 - (YXUnread *)unread {
@@ -144,8 +108,6 @@
 
     self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
     [self.view addSubview:self.pageViewController.view];
-    
-    [self.view addSubview:self.publishBtn];
     
     if (US.isLogIn) {
         [self reloadView];
@@ -177,7 +139,9 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
     
-    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:@[@"推荐",@"关注",@"观点",@"视频",@"推单"]];
+    NSArray *tites = tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单",@"热点"];
+    
+    UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:tites];
     segmented.tintColor = [UIColor whiteColor];
     segmented.layer.cornerRadius = 0.0f;
     segmented.layer.borderWidth = 1.0f;
@@ -191,7 +155,7 @@
     [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateSelected];
     
-    segmented.frame = CGRectMake(0, 0, 300, 44-TDPixel);
+    segmented.frame = CGRectMake(0, 0, tites.count * 60, 44-TDPixel);
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
@@ -239,9 +203,6 @@
 - (void)segmentValueChanged:(UISegmentedControl *)segment {
     NSInteger index = segment.selectedSegmentIndex;
     
-    // 视频模块不显示 + 按钮
-    self.publishBtn.hidden = (index == kAliveListVideo);
-    
     if (index>=0 && index<self.contentControllers.count) {
         AliveListViewController *vc = self.contentControllers[index];
         [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
@@ -280,33 +241,6 @@
 - (void)reloadView {
     self.segmentControl.selectedSegmentIndex = 0;
     [self segmentValueChanged:self.segmentControl];
-}
-
-#pragma mark - DCPathButtonDelegate
-- (void)pathButton:(DCPathButton *)dcPathButton clickItemButtonAtIndex:(NSUInteger)itemButtonIndex {
-    
-    if (!US.isLogIn) {
-        LoginViewController *login = [[LoginViewController alloc] init];
-        login.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:login animated:YES];
-        return;
-    }
-    
-    
-    if (itemButtonIndex == 0) {
-        //跳转到发布页面
-        PublishViewViewController *publishview = [[PublishViewViewController alloc] init];
-        publishview.hidesBottomBarWhenPushed = YES;
-        [self.navigationController pushViewController:publishview animated:YES];
-    }else {
-        
-        AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-        vc.hidesBottomBarWhenPushed = YES;
-        vc.publishType = (itemButtonIndex == 1)?kAlivePublishPosts:kAlivePublishNormal;
-        [self.navigationController pushViewController:vc animated:YES];
-    }
-    
-    
 }
 
 #pragma mark - UIPageViewControllerDataSource

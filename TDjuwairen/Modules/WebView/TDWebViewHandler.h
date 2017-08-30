@@ -10,4 +10,5 @@
 
 @interface TDWebViewHandler : NSObject
 + (void)openURL:(NSString *)aUrl inNav:(UINavigationController *)nav;
++ (void)openURL:(NSString *)aUrl withUserMark:(BOOL)mark inNav:(UINavigationController *)nav;
 @end

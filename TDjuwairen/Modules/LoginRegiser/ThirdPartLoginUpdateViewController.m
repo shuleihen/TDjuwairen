@@ -63,38 +63,38 @@
     if(![phone isValidateMobile]) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = (phone.length==0)?@"手机号不能为空":@"手机号格式错误";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!msg_unique_id.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先获取证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先获取证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!code.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写验证码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写验证码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!nickName.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写昵称";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写昵称";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!pwd.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"请先填写设置密码";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"请先填写设置密码";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
     // 检测用户名称是否重复
     self.hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    self.hud.labelText = @"提交中...";
+    self.hud.label.text = @"提交中...";
     
     NetworkManager *manager = [[NetworkManager alloc] initWithBaseUrl:API_HOST];
     NSDictionary *dic = @{@"nickname": nickName};
@@ -102,8 +102,8 @@
         if (!error) {
             [self checkPhoneCode];
         } else {
-            self.hud.labelText = @"昵称重复或不合法，请重新输入";
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = @"昵称重复或不合法，请重新输入";
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }
@@ -124,12 +124,12 @@
             if (is_verify) {
                 [self requestLogin];
             } else {
-                self.hud.labelText = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
-                [self.hud hide:YES afterDelay:0.4];
+                self.hud.label.text = is_expire?@"验证码过期，请重新获取":@"验证码错误，请重新输入";
+                [self.hud hideAnimated:YES afterDelay:0.4];
             }
         } else {
-            self.hud.labelText = @"验证码错误，请重新输入";
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = @"验证码错误，请重新输入";
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }
@@ -169,15 +169,15 @@
             [LoginHandler saveLoginAccountId:US.userName password:pwd];
             [LoginHandler checkOpenRemotePush];
             
-            [self.hud hide:YES];
+            [self.hud hideAnimated:YES];
             
             [self.navigationController popToRootViewControllerAnimated:YES];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kLoginStateChangedNotification object:nil];
         } else {
             NSString *message = error.localizedDescription?:@"提交失败";
-            self.hud.labelText = message;
-            [self.hud hide:YES afterDelay:0.4];
+            self.hud.label.text = message;
+            [self.hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

@@ -155,7 +155,7 @@
     UIAlertController*alert=[UIAlertController alertControllerWithTitle:@"" message:@"是否清除缓存？" preferredStyle:UIAlertControllerStyleActionSheet];
     [alert addAction:[UIAlertAction actionWithTitle:@"清除" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-        hud.labelText = @"正在清除...";
+        hud.label.text = @"正在清除...";
         for (NSString *path in self.cachePathArr) {
             //建立文件管理类
             NSFileManager *manager=[NSFileManager defaultManager];
@@ -173,9 +173,9 @@
         
         UITableViewCell *cell = [self.tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:2 inSection:0]];
         cell.detailTextLabel.text = @"0.00M";
-        hud.labelText = @"清除完成";
+        hud.label.text = @"清除完成";
         [self setupClearString];
-        [hud hide:YES afterDelay:1];
+        [hud hideAnimated:YES afterDelay:1];
         [self.tableview reloadData];
     }]];
     [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];

@@ -12,12 +12,9 @@
 #import "MBProgressHUD.h"
 #import "ShareViewController.h"
 #import "STPopup.h"
+#import "NSString+Util.h"
 
 @implementation ShareHandler
-
-+ (void)shareWithModel:(TDShareModel *)model {
-    [ShareHandler shareWithTitle:model.title image:model.image url:model.url];
-}
 
 + (void)shareWithModel:(TDShareModel *)model selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock {
     [ShareHandler shareWithTitle:model.title image:model.images url:model.url selectedBlock:selectedBlock shareState:stateBlock];
@@ -48,23 +45,32 @@
                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                        hud.mode = MBProgressHUDModeText;
                        hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.labelText = @"分享成功";
+                       hud.label.text = @"分享成功";
                        hud.removeFromSuperViewOnHide = YES;
-                       [hud hide:YES afterDelay:0.4];
+                       [hud hideAnimated:YES afterDelay:0.4];
                        
                    } else if (state == SSDKResponseStateFail) {
                        UIWindow *window = [UIApplication sharedApplication].keyWindow;
                        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                        hud.mode = MBProgressHUDModeText;
                        hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.labelText = @"分享失败";
+                       hud.label.text = @"分享失败";
                        hud.removeFromSuperViewOnHide = YES;
-                       [hud hide:YES afterDelay:0.4];
+                       [hud hideAnimated:YES afterDelay:0.4];
                    }
                }];
 }
 
-+ (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock  {
++ (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock {
+    return [ShareHandler shareWithTitle:title detail:@"" image:images url:url selectedBlock:selectedBlock shareState:stateBlock];
+}
+
++ (void)shareWithTitle:(NSString *)title
+                detail:(NSString *)detail
+                 image:(NSArray *)images
+                   url:(NSString *)url
+         selectedBlock:(void(^)(NSInteger index))selectedBlock
+            shareState:(void(^)(BOOL state))stateBlock {
     
     ShareViewController *vc = [[UIStoryboard storyboardWithName:@"Popup" bundle:nil] instantiateViewControllerWithIdentifier:@"ShareViewController"];
     UIViewController *root = [UIApplication sharedApplication].keyWindow.rootViewController.presentedViewController;
@@ -99,11 +105,8 @@
              title：最多200个字符；
              text：最多600个字符；
             */
-            if (title.length > 200) {
-                shareTitle = [title substringToIndex:200];
-            } else {
-                shareTitle = title;
-            }
+            shareTitle = [title cutStringWithLimit:200];
+            shareText = [detail cutStringWithLimit:600];
         } else if (type == SSDKPlatformTypeSinaWeibo) {
             // text：不能超过140个汉字
             NSInteger limit = 140 - url.length;
@@ -121,11 +124,8 @@
             /*  title：512Bytes以内
                 description：1KB以内
              */
-            if (title.length > 512) {
-                shareTitle = [title substringToIndex:512];
-            } else {
-                shareTitle = title;
-            }
+            shareTitle = [title cutStringWithLimit:200];
+            shareText = [detail cutStringWithLimit:600];
         }
         
         NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
@@ -150,18 +150,18 @@
                  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                  hud.mode = MBProgressHUDModeText;
                  hud.animationType = MBProgressHUDAnimationZoomIn;
-                 hud.labelText = @"分享成功";
+                 hud.label.text = @"分享成功";
                  hud.removeFromSuperViewOnHide = YES;
-                 [hud hide:YES afterDelay:0.6];
+                 [hud hideAnimated:YES afterDelay:0.6];
                  
              } else if (state == SSDKResponseStateFail) {
                  UIWindow *window = [UIApplication sharedApplication].keyWindow;
                  MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
                  hud.mode = MBProgressHUDModeText;
                  hud.animationType = MBProgressHUDAnimationZoomIn;
-                 hud.labelText = @"分享失败";
+                 hud.label.text = @"分享失败";
                  hud.removeFromSuperViewOnHide = YES;
-                 [hud hide:YES afterDelay:0.6];
+                 [hud hideAnimated:YES afterDelay:0.6];
              }
              
              if (stateBlock) {

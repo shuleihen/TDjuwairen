@@ -10,11 +10,14 @@
 #import "AliveRoomMasterModel.h"
 #import "UIImageView+WebCache.h"
 #import "LoginStateManager.h"
+#import "TDAvatar.h"
+#import "UIButton+Align.h"
 
 @interface AliveRoomHeaderView ()<UIAlertViewDelegate>
-@property (weak, nonatomic) IBOutlet UIImageView *aImageView;
+@property (weak, nonatomic) IBOutlet TDAvatar *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aNickNameLabel;
 @property (weak, nonatomic) IBOutlet UILabel *aAddressLabel;
+
 @property (weak, nonatomic) IBOutlet UIButton *aFansButton;
 @property (weak, nonatomic) IBOutlet UIButton *aAttentionButton;
 
@@ -26,7 +29,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *addAttenBtn;
 @property (weak, nonatomic) IBOutlet UIButton *editBtn;
-@property (weak, nonatomic) IBOutlet UIButton *messageBtn;
+@property (weak, nonatomic) IBOutlet UIButton *shareBtn;
 
 @end
 
@@ -34,13 +37,9 @@
 
 - (void)awakeFromNib {
     [super awakeFromNib];
-    self.aImageView.layer.cornerRadius = 30;
-    self.aImageView.layer.masksToBounds = YES;
     
     self.addAttenBtn.hidden = YES;
     self.editBtn.hidden = YES;
-    self.messageBtn.hidden = YES;
-    
     self.aSexImageView.hidden = YES;
 }
 
@@ -52,31 +51,24 @@
 - (void)setupRoomMasterModel:(AliveRoomMasterModel *)master {
     
     _headerModel = master;
-    [self.aLevelButton setTitle:[NSString stringWithFormat:@"%@",master.level] forState:UIControlStateNormal];
-    [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",master.guessRate] forState:UIControlStateNormal];
     
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar];
     
-    NSString *string = [NSString stringWithFormat:@"%@ %@",master.masterNickName,master.city];
-    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:string];
-    [attri addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:16.0f] range:NSMakeRange(0, master.masterNickName.length)];
-    [attri addAttribute:NSFontAttributeName value:[UIFont systemFontOfSize:12.0f] range:NSMakeRange(master.masterNickName.length+1, master.city.length)];
-    self.aNickNameLabel.attributedText = attri;
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
+    self.aNickNameLabel.text = US.nickName;
+    self.aAddressLabel.text = US.city;
+    self.aRoomInfoLabel.text = US.personal;
     
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateHighlighted];
     
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateNormal];
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateHighlighted];
+
     
-    if (master.roomInfo.length) {
-        self.aRoomInfoLabel.text = [NSString stringWithFormat:@"直播间介绍：%@",master.roomInfo];
-    }
-    
-    if ([master.sex isEqualToString:@"女"]) {
+    if (US.sex == kUserSexWoman) {
         self.aSexImageView.highlighted = NO;
         self.aSexImageView.hidden = NO;
-    } else if ([master.sex isEqualToString:@"男"]){
+    } else if (US.sex == kUserSexMan){
         self.aSexImageView.highlighted = YES;
         self.aSexImageView.hidden = NO;
     } else {
@@ -84,25 +76,27 @@
     }
     
     if (master.isMaster) {
-        // 自己
+        // 自己，显示编辑和分享，不显示关注
         self.addAttenBtn.hidden = YES;
         self.editBtn.hidden = NO;
-        self.messageBtn.hidden = NO;
     } else {
+        // 显示分享和关注，不显示编辑
         self.addAttenBtn.hidden = NO;
         self.editBtn.hidden = YES;
-        self.messageBtn.hidden = YES;
     }
     
     if (master.isAtten) {
-        [self.addAttenBtn setTitle:@"已关注" forState:UIControlStateNormal];
-        [self.addAttenBtn setImage:nil forState:UIControlStateNormal];
-        self.addAttenBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentCenter;
+        [self.addAttenBtn setTitle:@"取消关注" forState:UIControlStateNormal];
+        [self.addAttenBtn setImage:[UIImage imageNamed:@"ico_reducefriend.png"] forState:UIControlStateNormal];
     } else {
-        [self.addAttenBtn setTitle:@"" forState:UIControlStateNormal];
-        [self.addAttenBtn setImage:[UIImage imageNamed:@"alive_addfriend.png"] forState:UIControlStateNormal];
-        self.addAttenBtn.contentHorizontalAlignment = UIControlContentHorizontalAlignmentRight;
+        [self.addAttenBtn setTitle:@"加关注" forState:UIControlStateNormal];
+        [self.addAttenBtn setImage:[UIImage imageNamed:@"ico_addfriend.png"] forState:UIControlStateNormal];
     }
+    [self.addAttenBtn align:BAVerticalImage withSpacing:2];
+}
+
+- (void)setSroolOffset:(CGPoint)offset {
+    
 }
 
 - (IBAction)backPressed:(id)sender {
@@ -114,6 +108,12 @@
 - (IBAction)editPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:editPressed:)]) {
         [self.delegate aliveRommHeaderView:self editPressed:sender];
+    }
+}
+
+- (IBAction)sharePressed:(id)sender {
+    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveRommHeaderView:sharePressed:)]) {
+        [self.delegate aliveRommHeaderView:self sharePressed:sender];
     }
 }
 

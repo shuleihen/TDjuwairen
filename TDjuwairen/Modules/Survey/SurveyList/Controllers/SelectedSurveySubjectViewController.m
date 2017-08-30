@@ -172,21 +172,21 @@
     NSString *subIds = [NSString stringWithFormat:@"[%@]",[array componentsJoinedByString:@","]];
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中";
+    hud.label.text = @"提交中";
     
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_SurveyAddSubject parameters:@{@"sub_ids": subIds} completion:^(id data, NSError *error) {
         
         if (!error && data) {
             hud.delegate = self;
-            hud.labelText = @"提交成功";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"提交成功";
+            [hud hideAnimated:YES afterDelay:0.6];
             
             [[NSNotificationCenter defaultCenter] postNotificationName:kSubjectChangedNotification object:subjects];
             
         } else {
-            hud.labelText = @"添加关注失败";
-            [hud hide:YES afterDelay:0.8];
+            hud.label.text = @"添加关注失败";
+            [hud hideAnimated:YES afterDelay:0.8];
         }
     }];
 }

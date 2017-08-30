@@ -54,7 +54,7 @@
     __weak AccouontManagerViewController *wself = self;
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+    hud.label.text = @"加载中...";
     
     void (^queryBindInfo)(NSString *) = ^(NSString *string){
         NSDictionary*paras=@{@"authenticationStr":US.userId,
@@ -65,15 +65,15 @@
         NetworkManager *manager = [[NetworkManager alloc] init];
         [manager POST:API_UserBindInfo parameters:paras completion:^(id data, NSError *error){
             if (!error) {
-                [hud hide:YES];
+                [hud hideAnimated:YES];
                 
                 wself.bindPhone = data[@"userinfo_phone"];
                 wself.isBindingWeixin = [data[@"is_wx_bind"] boolValue];
                 wself.isBindingQQ = [data[@"is_qq_bind"] boolValue];
                 [wself.tableView reloadData];
             } else {
-                hud.labelText = @"加载失败";
-                [hud hide:YES];
+                hud.label.text = @"加载失败";
+                [hud hideAnimated:YES];
             }
         }];
     };
@@ -114,17 +114,17 @@
                                    @"userid": US.userId};
              
              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-             hud.labelText = @"绑定中...";
+             hud.label.text = @"绑定中...";
              
              [manager POST:API_BindWeixin parameters:dic completion:^(id data, NSError *error){
-                 [hud hide:YES];
+                 [hud hideAnimated:YES];
                  
                  if (!error && [data[@"status"] boolValue]) {
                      NSString *message = error.localizedDescription?:@"绑定成功";
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
-                     hud.labelText = message;
-                     [hud hide:YES afterDelay:0.4];
+                     hud.label.text = message;
+                     [hud hideAnimated:YES afterDelay:0.4];
                      
                      wself.isBindingWeixin = YES;
                      [wself.tableView reloadData];
@@ -133,8 +133,8 @@
                      
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
-                     hud.labelText = message;
-                     [hud hide:YES afterDelay:0.6];
+                     hud.label.text = message;
+                     [hud hideAnimated:YES afterDelay:0.6];
                  }
              }];
          }
@@ -151,17 +151,17 @@
                           @"userid": US.userId};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"解绑中...";
+    hud.label.text = @"解绑中...";
     
     [manager POST:API_UnbindWeixin parameters:dic completion:^(id data, NSError *error){
-        [hud hide:YES];
+        [hud hideAnimated:YES];
         
         if (!error && [data[@"status"] boolValue]) {
             NSString *message = error.localizedDescription?:@"解绑成功";
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.4];
             
             wself.isBindingWeixin = NO;
             [wself.tableView reloadData];
@@ -170,8 +170,8 @@
             
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.6];
         }
     }];
 }
@@ -194,17 +194,17 @@
                                    @"userid": US.userId};
              
              MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-             hud.labelText = @"绑定中...";
+             hud.label.text = @"绑定中...";
              
              [manager POST:API_BindQQ parameters:dic completion:^(id data, NSError *error){
-                 [hud hide:YES];
+                 [hud hideAnimated:YES];
                  
                  if (!error && [data[@"status"] boolValue]) {
                      NSString *message = error.localizedDescription?:@"绑定成功";
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
-                     hud.labelText = message;
-                     [hud hide:YES afterDelay:0.4];
+                     hud.label.text = message;
+                     [hud hideAnimated:YES afterDelay:0.4];
                      
                      wself.isBindingQQ = YES;
                      [wself.tableView reloadData];
@@ -213,8 +213,8 @@
                      
                      MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
                      hud.mode = MBProgressHUDModeText;
-                     hud.labelText = message;
-                     [hud hide:YES afterDelay:0.6];
+                     hud.label.text = message;
+                     [hud hideAnimated:YES afterDelay:0.6];
                  }
              }];
          }
@@ -231,17 +231,17 @@
                           @"userid": US.userId};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"解绑中...";
+    hud.label.text = @"解绑中...";
     
     [manager POST:API_UnbindQQ parameters:dic completion:^(id data, NSError *error){
-        [hud hide:YES];
+        [hud hideAnimated:YES];
         
         if (!error && [data[@"status"] boolValue]) {
             NSString *message = error.localizedDescription?:@"解绑成功";
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.4];
             
             wself.isBindingQQ = NO;
             [wself.tableView reloadData];
@@ -250,8 +250,8 @@
             
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.6];
         }
     }];
 }

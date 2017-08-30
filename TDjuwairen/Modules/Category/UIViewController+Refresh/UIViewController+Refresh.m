@@ -32,4 +32,8 @@ static char *headerRefreshKey;
 - (void)endHeaderRefresh {
     [self.headerRefresh endRefresh];
 }
+
+- (void)endHeaderRefreshWithDataCount:(NSInteger)count {
+    [self.headerRefresh endRefreshWithDataCount:count];
+}
 @end

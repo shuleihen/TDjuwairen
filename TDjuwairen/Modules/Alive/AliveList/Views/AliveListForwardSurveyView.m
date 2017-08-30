@@ -52,6 +52,8 @@
         self.imageView.frame = CGRectZero;
         self.auhorLabel.frame = CGRectMake(12, CGRectGetHeight(frame)-15-20, CGRectGetWidth(frame)-24, 16);
         self.dateLabel.frame = CGRectMake(CGRectGetWidth(frame)-112, CGRectGetHeight(frame)-15-20, 100, 16);
+        
+        self.auhorLabel.text = [NSString stringWithFormat:@"来源：%@", aliveModel.masterNickName];
     } else {
         CGSize size = [self.titleLabel sizeThatFits:CGSizeMake(CGRectGetWidth(frame)-134, MAXFLOAT)];
         self.titleLabel.frame = CGRectMake(122, 14, size.width, size.height);
@@ -60,9 +62,10 @@
         self.imageView.frame = CGRectMake(12, 15, 100, 60);
         self.auhorLabel.frame = CGRectMake(122, CGRectGetHeight(frame)-15-20, CGRectGetWidth(frame)-224, 16);
         self.dateLabel.frame = CGRectMake(CGRectGetWidth(frame)-112, CGRectGetHeight(frame)-15-20, 100, 16);
+        
+        self.auhorLabel.text = [NSString stringWithFormat:@"作者：%@", aliveModel.masterNickName];
     }
   
-    self.auhorLabel.text = [NSString stringWithFormat:@"作者：%@", aliveModel.masterNickName];
     self.dateLabel.text = aliveModel.aliveTime;
 }
 

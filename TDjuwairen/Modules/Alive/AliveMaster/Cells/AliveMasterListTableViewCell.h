@@ -20,8 +20,10 @@
 @interface AliveMasterListTableViewCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
 @property (weak, nonatomic) IBOutlet UIButton *attentBtn;
-
+@property (weak, nonatomic) IBOutlet UILabel *aLevelLabel;
+@property (weak, nonatomic) IBOutlet UILabel *aFansCountLabel;
 @property (strong, nonatomic) AliveMasterModel *aliveModel;
+
 @property (nonatomic, weak) id<AliveMasterListCellDelegate> delegate;
 
 + (instancetype)loadAliveMasterListTableViewCell:(UITableView *)tableView;

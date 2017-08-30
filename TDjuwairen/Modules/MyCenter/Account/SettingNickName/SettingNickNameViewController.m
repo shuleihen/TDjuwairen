@@ -48,16 +48,16 @@
                             @"userid": US.userId,
                             @"user_nickname": userName};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+    hud.label.text = @"加载中...";
     [self.textField resignFirstResponder];
     [manager POST:API_UpdateNickName parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             US.nickName = userName;
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            hud.labelText = error.localizedDescription?:@"修改失败";
-            [hud hide:YES];
+            hud.label.text = error.localizedDescription?:@"修改失败";
+            [hud hideAnimated:YES];
         }
     }];
 }

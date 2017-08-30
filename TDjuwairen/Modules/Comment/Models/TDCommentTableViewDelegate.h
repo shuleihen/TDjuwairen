@@ -9,5 +9,14 @@
 #import <Foundation/Foundation.h>
 
 @interface TDCommentTableViewDelegate : NSObject
+@property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) NSMutableArray *items;
+@property (nonatomic, weak) UITableView *tableView;
+@property (nonatomic, weak) UIViewController *controller;
 
+- (id)initWithTableView:(UITableView *)tableView controller:(UIViewController *)controller;
+
+- (void)refreshData;
+- (void)loadMoreData;
+- (void)loadDataWithPage:(NSInteger)page;
 @end

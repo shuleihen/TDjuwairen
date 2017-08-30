@@ -15,7 +15,12 @@
 
 + (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock;
 
-+ (void)shareWithModel:(TDShareModel *)model;
 + (void)shareWithModel:(TDShareModel *)model selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock;
 
++ (void)shareWithTitle:(NSString *)title
+                detail:(NSString *)detail
+                 image:(NSArray *)images
+                   url:(NSString *)url
+         selectedBlock:(void(^)(NSInteger index))selectedBlock
+            shareState:(void(^)(BOOL state))stateBlock;
 @end

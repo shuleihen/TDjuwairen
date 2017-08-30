@@ -45,11 +45,21 @@
     } else if (images.count > 1)  {
         int x =0,y =0,i =0;
         
+        CGFloat space = 5.0f;
+        CGFloat border = 12.0f;
+        CGFloat itemW = (kScreenWidth-border*2-space*2)/3;
+        
+        int lineCount;
+        if (images.count == 4) {
+            lineCount = 2;
+        } else {
+            lineCount = 3;
+        }
         
         for (NSString *imageUrl in images) {
             UIImageView *imageView = [[UIImageView alloc] init];
             imageView.userInteractionEnabled = YES;
-            imageView.frame = CGRectMake((80+5)*x, (80+5)*y, 80, 80);
+            imageView.frame = CGRectMake((itemW+space)*x, (itemW+space)*y, itemW, itemW);
             imageView.contentMode = UIViewContentModeScaleAspectFill;
             imageView.clipsToBounds = YES;
             [self.imageViews addObject:imageView];
@@ -65,8 +75,8 @@
             UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
             [imageView addGestureRecognizer:tap];
             
-            x = (i+1)%3;
-            y = (i+1)/3;
+            x = (i+1)%lineCount;
+            y = (i+1)/lineCount;
             i++;
         }
     }

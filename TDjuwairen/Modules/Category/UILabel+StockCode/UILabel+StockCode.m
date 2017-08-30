@@ -19,6 +19,15 @@
                downColor:[UIColor hx_colorWithHexRGBAString:@"#14C76A"]];
 }
 
+- (void)setupForStockPoolDetailStockInfo:(StockInfo *)stock {
+    [self setupStockInfo:stock
+             withMaxFont:[UIFont systemFontOfSize:16 weight:UIFontWeightMedium]
+                 minFont:[UIFont systemFontOfSize:9.0f]
+             normalColor:[UIColor hx_colorWithHexRGBAString:@"#666666"]
+                 upColor:[UIColor hx_colorWithHexRGBAString:@"#E74922"]
+               downColor:[UIColor hx_colorWithHexRGBAString:@"#13C869"]];
+}
+
 - (void)setupStockInfo:(StockInfo *)stock
            withMaxFont:(UIFont *)maxFont
                minFont:(UIFont *)minFont

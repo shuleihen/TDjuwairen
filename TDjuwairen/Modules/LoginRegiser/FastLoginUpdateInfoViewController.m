@@ -40,14 +40,14 @@
     if (!nickName.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"昵称不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"昵称不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     } else if (!pwd.length) {
         MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.mode = MBProgressHUDModeText;
-        hud.labelText = @"密码不能为空";
-        [hud hide:YES afterDelay:0.4];
+        hud.label.text = @"密码不能为空";
+        [hud hideAnimated:YES afterDelay:0.4];
         return;
     }
     
@@ -59,11 +59,11 @@
                           @"password": ecriptPwd};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中...";
+    hud.label.text = @"提交中...";
     __weak FastLoginUpdateInfoViewController *wself = self;
     
     [manager POST:API_LoginWithPhoneAdd parameters:dic completion:^(id data, NSError *error){
-        [hud hide:YES];
+        [hud hideAnimated:YES];
         
         if (!error && data) {
             US.isLogIn = YES;
@@ -80,8 +80,8 @@
             
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = message;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = message;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

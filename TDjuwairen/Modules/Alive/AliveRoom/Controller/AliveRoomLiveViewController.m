@@ -15,7 +15,6 @@
 #import "AliveMasterListViewController.h"
 #import "AliveListTableViewDelegate.h"
 #import "AlivePublishViewController.h"
-#import "AliveEditMasterViewController.h"
 #import "LoginStateManager.h"
 #import "UIViewController+Loading.h"
 #import "UIViewController+NoData.h"
@@ -33,6 +32,7 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStyleGrouped];
         _tableView.backgroundColor = TDViewBackgrouondColor;
+        _tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
         _tableView.separatorColor = TDSeparatorColor;
         _tableView.separatorInset = UIEdgeInsetsZero;
         _tableView.showsVerticalScrollIndicator = NO;

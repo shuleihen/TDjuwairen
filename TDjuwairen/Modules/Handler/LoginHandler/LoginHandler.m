@@ -30,9 +30,23 @@
     [[NSUserDefaults standardUserDefaults] setObject:unique_str forKey:@"unique_str"];
 }
 
++ (void)saveUserInfoData:(NSDictionary *)data {
+    US.userId = data[@"user_id"];
+    US.userName = data[@"user_name"];
+    US.nickName = data[@"user_nickname"];
+    US.headImage = data[@"userinfo_facesmall"];
+    US.userPhone = data[@"userinfo_phone"];
+    US.company = data[@"userinfo_company"];
+    US.post = data[@"userinfo_occupation"];
+    US.personal = data[@"userinfo_info"];
+    US.sex = [data[@"userinfo_sex"] integerValue];
+    US.userLevel = [data[@"user_level"] integerValue];
+    US.city = data[@"userinfo_address"];
+}
+
 + (void)saveLoginAccountId:(NSString *)account password:(NSString *)password {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:@"normal" forKey:@"loginStyle"];
+    [accountDefaults setObject:@"normal" forKey:PLLoginType];
     [accountDefaults setObject:account forKey:@"account"];
     [accountDefaults setObject:password forKey:@"password"];
     [accountDefaults synchronize];
@@ -40,14 +54,14 @@
 
 + (void)saveFastLoginWithPhone:(NSString *)phone {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:@"fast" forKey:@"loginStyle"];
+    [accountDefaults setObject:@"fast" forKey:PLLoginType];
     [accountDefaults setObject:phone forKey:@"fast_phone"];
     [accountDefaults synchronize];
 }
 
 + (void)saveThirdType:(NSString *)typeString unionid:(NSString *)unionid nickName:(NSString *)nickName avatar:(NSString *)avatar {
     NSUserDefaults *accountDefaults = [NSUserDefaults standardUserDefaults];
-    [accountDefaults setObject:typeString forKey:@"loginStyle"];
+    [accountDefaults setObject:typeString forKey:PLLoginType];
     [accountDefaults setObject:unionid forKey:@"third_userId"];
     [accountDefaults setObject:nickName forKey:@"third_nickName"];
     [accountDefaults setObject:avatar forKey:@"third_avatar"];

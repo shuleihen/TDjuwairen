@@ -13,7 +13,6 @@
 #import "UITextView+Placeholder.h"
 
 @interface SettingIntroViewController ()
-@property (nonatomic, strong) NSString *str;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 @end
 
@@ -33,33 +32,25 @@
     self.textView.text = US.personal;
     self.textView.placeholder = @"很懒哦，什么也没留下";
     [self.textView becomeFirstResponder];
-    
-    [self getValidation];
 }
 
 - (void)donePressed:(id)sender {
-    if (!self.str.length) {
-        return;
-    }
-    
+
     NSString *intro = self.textView.text;
     
     NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*paras=@{@"authenticationStr":US.userId,
-                         @"encryptedStr":self.str,
-                         @"userid":US.userId,
-                         @"Userinfo": intro};
+    NSDictionary*paras=@{@"Userinfo": intro};
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"加载中...";
+    hud.label.text = @"提交中...";
     [self.textView resignFirstResponder];
     [manager POST:API_UpdateUserInfo parameters:paras completion:^(id data, NSError *error){
         if (!error) {
             US.personal = intro;
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [self.navigationController popViewControllerAnimated:YES];
         } else {
-            hud.labelText = @"修改失败";
-            [hud hide:YES];
+            hud.label.text = @"修改失败";
+            [hud hideAnimated:YES];
         }
     }];
 }
@@ -68,17 +59,4 @@
     self.navigationItem.rightBarButtonItem.enabled = ![textView.text isEqualToString:US.personal];
 }
 
-- (void)getValidation{
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    NSDictionary*para = @{@"validatestring":US.userId};
-    
-    [manager POST:API_GetApiValidate parameters:para completion:^(id data, NSError *error){
-        if (!error) {
-            NSDictionary *dic = data;
-            self.str = dic[@"str"];
-        } else {
-            
-        }
-    }];
-}
 @end

@@ -7,8 +7,12 @@
 //
 
 #import "SettingHandler.h"
+#import "LoginStateManager.h"
 
 @implementation SettingHandler
++ (NSString *)fullKeyUnionUserIdWithKey:(NSString *)key {
+    return [NSString stringWithFormat:@"%@_%@",US.userId,key];
+}
 
 + (BOOL)isOpenRemoteBell {
     return [[NSUserDefaults standardUserDefaults] boolForKey:kRemoteBell];
@@ -39,5 +43,41 @@
     [[NSUserDefaults standardUserDefaults] setBool:YES forKey:kRemoteShake];
     [[NSUserDefaults standardUserDefaults] synchronize];
     
+}
+
++ (BOOL)isAddFistStockPoolRecord {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPFistAddTip];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+}
+
++ (void)addFirstStockPoolRecord {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPFistAddTip];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSInteger)getAddStockPoolRecordCountInOneDay {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPAddRecordCount];
+    return [[NSUserDefaults standardUserDefaults] integerForKey:key];
+}
+
++ (void)addStockPoolRecord {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPAddRecordCount];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    [[NSUserDefaults standardUserDefaults] setInteger:(count+1) forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)subtractStockPoolRecord {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPAddRecordCount];
+    NSInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:key];
+    [[NSUserDefaults standardUserDefaults] setInteger:(count-1) forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)clearAddStockPoolRecordCount {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPAddRecordCount];
+    [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 @end

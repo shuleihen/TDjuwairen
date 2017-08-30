@@ -19,18 +19,6 @@
         }
         
         self.forwardList = marray;
-//        self.aliveId = dict[@"alive_id"];
-//        self.aliveType = [dict[@"alive_type"] integerValue];
-//        self.aliveImg = dict[@"alive_img"];
-//        self.aliveImgs = dict[@"alive_images"];
-//        self.aliveTitle = dict[@"alive_title"];
-//        self.aliveTime = dict[@"alive_time"];
-//        self.masterId = dict[@"alive_master_id"];
-//        self.masterNickName = dict[@"user_nickname"];
-//        self.aliveTags = dict[@"alive_com_tag"];
-//        self.stockCode = dict[@"company_code"];
-//        self.forwardUrl = dict[@"forward_url"];
-//        self.isLocked = [dict[@"is_lock"] boolValue];
     }
     return self;
 }

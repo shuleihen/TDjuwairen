@@ -19,4 +19,13 @@
 + (BOOL)isRemoteShake;
 + (void)openRemoteShake;
 + (void)closeRemoteShake;
+
+// 首次添加股票池送3把钥匙
++ (BOOL)isAddFistStockPoolRecord;
++ (void)addFirstStockPoolRecord;
+
+// 每天只能发2条
++ (void)addStockPoolRecord;
++ (NSInteger)getAddStockPoolRecordCountInOneDay;
++ (void)clearAddStockPoolRecordCount;
 @end

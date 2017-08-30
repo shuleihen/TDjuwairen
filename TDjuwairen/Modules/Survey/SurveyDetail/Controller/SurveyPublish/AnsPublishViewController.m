@@ -51,17 +51,17 @@
                            @"user_id":  US.userId};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中";
+    hud.label.text = @"提交中";
     
     [manager POST:API_SurveyAnswerQuestion parameters:para completion:^(id data, NSError *error) {
         if (!error) {
-            [hud hide:YES];
+            [hud hideAnimated:YES];
             [[NSNotificationCenter defaultCenter] postNotificationName:kSurveyDetailContentChanged object:nil userInfo:@{@"Tag": @(5)}];
             [self.navigationController popViewControllerAnimated:YES];
         }
         else {
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

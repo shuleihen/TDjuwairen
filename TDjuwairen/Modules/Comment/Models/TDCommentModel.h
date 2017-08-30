@@ -9,5 +9,10 @@
 #import <Foundation/Foundation.h>
 
 @interface TDCommentModel : NSObject
-
+@property (nonatomic, strong) NSString *content;
+@property (nonatomic, strong) NSString *time;
+@property (nonatomic, strong) NSString *avatar;
+@property (nonatomic, strong) NSString *nickName;
+@property (nonatomic, strong) NSString *commentId;
+@property (nonatomic, strong) NSString *replayToUserNickName;
 @end

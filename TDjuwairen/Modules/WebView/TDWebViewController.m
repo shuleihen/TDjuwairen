@@ -8,15 +8,15 @@
 
 #import "TDWebViewController.h"
 #import <WebKit/WebKit.h>
-#import "NJKWebViewProgress.h"
-#import "NJKWebViewProgressView.h"
 #import "TDRechargeViewController.h"
+#import "CocoaLumberjack.h"
+#import "MemberCenterVipManager.h"
 
 @interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate, WKScriptMessageHandler>
 @property (nonatomic, strong) NSURL *url;
 @property (nonatomic, strong) WKWebView *webView;
-@property (nonatomic, strong) NJKWebViewProgressView *progressView;
-@property (nonatomic, strong) NJKWebViewProgress *progressProxy;
+@property (nonatomic, strong) UIActivityIndicatorView *activityView;
+@property (nonatomic, strong) MemberCenterVipManager *vipManager;
 @end
 
 @implementation TDWebViewController
@@ -30,11 +30,21 @@
     return self;
 }
 
+- (MemberCenterVipManager *)vipManager {
+    if (!_vipManager) {
+        _vipManager = [[MemberCenterVipManager alloc] init];
+        
+    }
+    return _vipManager;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     [self setupWebView];
     [self loadWebViewData];
+    
+    DDLogInfo(@"TDWebView load url = %@",self.url);
 }
 
 - (void)viewDidLayoutSubviews {
@@ -42,6 +52,7 @@
     
     self.webView.frame = self.view.bounds;
 }
+
 
 - (void)setupNavigation
 {
@@ -61,9 +72,19 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     [self.view addSubview:self.webView];
+
+    self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activityView.hidesWhenStopped = YES;
+    self.activityView.center = CGPointMake(kScreenWidth/2, (kScreenHeight-64)/2);
+    [self.activityView startAnimating];
+    [self.view addSubview:self.activityView];
+    
     
     [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_upgrade"];
     [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_rechargevip"];
+    [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_recharge"];
+    [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_exchange"];
+    [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_earn_point"];
 }
 
 - (void)loadWebViewData
@@ -89,13 +110,17 @@
 
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     
-    NSLog(@"body:%@", message.body);
+    NSLog(@"Web action name:%@ body:%@",message.name, message.body);
     
-    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"] ||
-        [message.name isEqualToString:@"com_jwr_rechargevip"]) {
+    if ([message.name isEqualToString:@"com_jwr_membercenter_upgrade"]){
+        [self.vipManager unlockVipIsRenew:NO withController:self];
+    } else if ([message.name isEqualToString:@"com_jwr_rechargevip"] ||
+        [message.name isEqualToString:@"com_jwr_membercenter_recharge"]) {
         TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
         vc.isVipRecharge = YES;
         [self.navigationController pushViewController:vc animated:YES];
+    } else if ([message.name isEqualToString:@"com_jwr_membercenter_earn_point"]) {
+        
     }
 }
 
@@ -106,6 +131,8 @@
 }
 
 -(void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
+    [self.activityView stopAnimating];
+    
     __weak TDWebViewController *wself = self;
     [webView evaluateJavaScript:@"document.title" completionHandler:^(NSString *string, NSError *error){
         wself.title = string;
@@ -114,6 +141,7 @@
 
 // 页面加载失败时调用
 - (void)webView:(WKWebView *)webView didFailProvisionalNavigation:(WKNavigation *)navigation;{
+    [self.activityView stopAnimating];
 }
 
 @end

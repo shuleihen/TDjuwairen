@@ -47,18 +47,18 @@
     NSDictionary *dict = @{@"info": self.intro};
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = @"提交中";
+    hud.label.text = @"提交中";
     
     __weak AliveIntroSettingViewController *wself = self;
     NetworkManager *manager = [[NetworkManager alloc] init];
     [manager POST:API_AliveUpdateRoomInfo parameters:dict completion:^(id data, NSError *error) {
         if (!error) {
-            hud.labelText = @"提交成功";
+            hud.label.text = @"提交成功";
             hud.delegate = wself;
-            [hud hide:YES afterDelay:1];
+            [hud hideAnimated:YES afterDelay:1];
         } else {
-            hud.labelText = @"提交失败";
-            [hud hide:YES afterDelay:1];
+            hud.label.text = @"提交失败";
+            [hud hideAnimated:YES afterDelay:1];
         }
     }];
 }

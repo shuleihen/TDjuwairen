@@ -11,11 +11,14 @@
 #import "StockSurveyModel.h"
 #import "NetworkManager.h"
 #import "VideoDetailViewController.h"
+#import "StockUnlockManager.h"
 
-@interface SpotViewController ()<UITableViewDelegate, UITableViewDataSource>
+@interface SpotViewController ()<UITableViewDelegate, UITableViewDataSource, StockUnlockManagerDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray *items;
 @property (nonatomic, assign) NSInteger page;
+@property (nonatomic, strong) StockUnlockManager *unlockManager;
+@property (nonatomic, strong) NSIndexPath *unlockIndexPath;
 @end
 
 @implementation SpotViewController
@@ -25,6 +28,9 @@
     // Do any additional setup after loading the view.
     [self.view addSubview:self.tableView];
     self.page = 1;
+    
+    self.unlockManager = [[StockUnlockManager alloc] init];
+    self.unlockManager.delegate = self;
     
     [self reloadData];
 }
@@ -72,6 +78,43 @@
     return CGRectGetHeight(self.tableView.bounds);
 }
 
+- (void)pushControllerWithIndexPath:(NSIndexPath *)indexPath {
+    StockSurveyModel *model = self.items[indexPath.row];
+    
+    if (model.surveyType == kSurveyTypeVido) {
+        VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.surveyId];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.rootController.navigationController pushViewController:vc animated:YES];
+    } else {
+        SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+        vc.contentId = model.surveyId;
+        vc.stockCode = self.stockCode;
+        vc.stockName = self.stockName;
+        vc.surveyType = model.surveyType;
+        vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:model.surveyType];
+        [self.rootController.navigationController pushViewController:vc animated:YES];
+    }
+}
+
+#pragma mark -
+- (void)unlockManager:(StockUnlockManager *)manager withSurveyId:(NSString *)surveyId {
+    for (StockSurveyModel *model in self.items) {
+        if ([model.surveyId isEqualToString:surveyId]) {
+            model.isUnlock = YES;
+            break;
+        }
+    }
+    
+    if (self.unlockIndexPath) {
+        [self pushControllerWithIndexPath:self.unlockIndexPath];
+    }
+    
+    [self.tableView reloadData];
+    
+    if (self.delegate && [self.delegate respondsToSelector:@selector(unlocked)]) {
+        [self.delegate unlocked];
+    }
+}
 
 #pragma mark - UITableView
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -93,24 +136,14 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    if (self.delegate && [self.delegate respondsToSelector:@selector(canRead)]) {
-        if ([self.delegate canRead]) {
-            StockSurveyModel *model = self.items[indexPath.row];
-            
-            if (model.surveyType == kSurveyTypeVido) {
-                VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:model.surveyId];
-                vc.hidesBottomBarWhenPushed = YES;
-                [self.rootController.navigationController pushViewController:vc animated:YES];
-            } else {
-                SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
-                vc.contentId = model.surveyId;
-                vc.stockCode = self.stockCode;
-                vc.stockName = self.stockName;
-                vc.surveyType = model.surveyType;
-                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:model.surveyId withTag:model.surveyType];
-                [self.rootController.navigationController pushViewController:vc animated:YES];
-            }
-        }
+
+    StockSurveyModel *model = self.items[indexPath.row];
+    
+    if (model.isUnlock == NO) {
+        self.unlockIndexPath = indexPath;
+        [self.unlockManager unlockSurvey:model.surveyId withSurveyType:model.surveyType withSureyTitle:model.title withController:self.rootController];
+    } else {
+        [self pushControllerWithIndexPath:indexPath];
     }
 }
 

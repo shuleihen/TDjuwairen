@@ -10,6 +10,14 @@
 
 @implementation TDAvatar
 
+- (id)initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        self.layer.cornerRadius = CGRectGetWidth(self.bounds)/2;
+        self.clipsToBounds = YES;
+    }
+    return self;
+}
+
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code

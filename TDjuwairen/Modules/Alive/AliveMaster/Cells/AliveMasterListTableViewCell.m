@@ -14,9 +14,7 @@
 @interface AliveMasterListTableViewCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *aImageView;
 @property (weak, nonatomic) IBOutlet UILabel *aTitleLabel;
-@property (weak, nonatomic) IBOutlet UILabel *aLevelLabel;
 
-@property (weak, nonatomic) IBOutlet UILabel *aFansCountLabel;
 
 
 
@@ -57,8 +55,29 @@
 - (void)setAliveModel:(AliveMasterModel *)aliveModel {
     
     _aliveModel = aliveModel;
+    
+    NSMutableAttributedString *attri = [[NSMutableAttributedString alloc] initWithString:aliveModel.masterNickName attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:16.0f], NSForegroundColorAttributeName : TDTitleTextColor}];
+    
+    if ([aliveModel userInfoSexImage] != nil) {
+        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];
+        attatch.bounds = CGRectMake(10, -2, 14, 14);
+        attatch.image = [aliveModel userInfoSexImage];
+        
+        NSAttributedString *sexAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
+        [attri appendAttributedString:sexAttriStr];
+    }
+    
+    if ([aliveModel userLevelImage] != nil) {
+        NSTextAttachment *attatch = [[NSTextAttachment alloc] initWithData:nil ofType:nil];        attatch.bounds = CGRectMake(24, -3, 27, 16);
+        attatch.image = [aliveModel userLevelImage];
+        NSAttributedString *levelAttriStr = [NSAttributedString attributedStringWithAttachment:attatch];
+        [attri appendAttributedString:levelAttriStr];
+    }
+    
+    self.aTitleLabel.attributedText = attri;
+    
+    
     [self.aImageView sd_setImageWithURL:[NSURL URLWithString:aliveModel.avatar] placeholderImage:TDDefaultUserAvatar];
-    self.aTitleLabel.text = aliveModel.masterNickName;
     self.aLevelLabel.text = [NSString stringWithFormat:@"%ld级",(long)aliveModel.level];
     self.aFansCountLabel.text = [NSString stringWithFormat:@"%@粉丝",aliveModel.attenNum];
     self.introLabel.text = (aliveModel.roomIntro.length)?aliveModel.roomIntro:@"暂无介绍";

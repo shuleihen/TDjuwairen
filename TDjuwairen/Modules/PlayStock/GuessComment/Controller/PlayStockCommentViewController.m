@@ -159,9 +159,9 @@
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"发布成功";
-            hud.labelFont = [UIFont systemFontOfSize:14.0f];
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"发布成功";
+            hud.label.font = [UIFont systemFontOfSize:14.0f];
+            [hud hideAnimated:YES afterDelay:0.4];
             
             if (type == kGuessPublishAdd) {
                 [wself addNewTopicWithContent:content];
@@ -172,9 +172,9 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"发布失败";
-            hud.labelFont = [UIFont systemFontOfSize:14.0f];
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = @"发布失败";
+            hud.label.font = [UIFont systemFontOfSize:14.0f];
+            [hud hideAnimated:YES afterDelay:0.4];
         }
     }];
 }

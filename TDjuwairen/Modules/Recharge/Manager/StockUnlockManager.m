@@ -14,32 +14,36 @@
 #import "STPopupController.h"
 #import "TDRechargeViewController.h"
 #import "DeepUnlockViewController.h"
+#import "StockPoolUnlockModel.h"
+#import "StockPoolUnlockViewController.h"
 
-@interface StockUnlockManager ()<StockUnlockDelegate, DeepUnlockDelegate>
+@interface StockUnlockManager ()<StockUnlockDelegate, DeepUnlockDelegate, StockPoolUnlockDelegate>
 @property (nonatomic, weak) UIViewController *viewController;
 @end
 
 @implementation StockUnlockManager
 
 #pragma mark - Stock Unlock
-- (void)unlockStock:(NSString *)stockCode withStockName:(NSString *)stockName withController:(UIViewController *)controller {
-    
-    NSAssert(stockCode.length, @"查询是否解锁股票，股票代码不能为空");
+- (void)unlockSurvey:(NSString *)surveyId withSurveyType:(NSInteger)surveyType withSureyTitle:(NSString *)surveyTitle withController:(UIViewController *)controller {
+    NSAssert(surveyId.length, @"查询是否解锁股票，股票代码不能为空");
     
     self.viewController = controller;
     
-    NSDictionary *para = @{@"code": stockCode};
+    NSDictionary *para = @{@"content_id": surveyId,@"type":@(surveyType)};
     StockUnlockModel *model = [[StockUnlockModel alloc] init];
-    model.stockCode = stockCode;
-    model.stockName = stockName;
+    model.sruveyTitle = surveyTitle;
+    model.sruveyId = surveyId;
+    model.sruveyType = surveyType;
     
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(controller.view.bounds.size.width/2, controller.view.bounds.size.height/2);
     [indicator startAnimating];
     [controller.view addSubview:indicator];
     
+    __weak StockUnlockManager *wself = self;
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_SurveyIsUnlock parameters:para completion:^(id data, NSError *error){
+    [ma POST:API_SurveyIsUnlockSurvey parameters:para completion:^(id data, NSError *error){
         
         [indicator stopAnimating];
         
@@ -57,22 +61,28 @@
             if (isUnlock) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"已经解锁";
-                [hud hide:YES afterDelay:0.7];
+                hud.label.text = @"已经解锁";
+                [hud hideAnimated:YES afterDelay:0.7];
+                
+                hud.completionBlock = ^{
+                    if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withSurveyId:)]) {
+                        [wself.delegate unlockManager:wself withSurveyId:surveyId];
+                    }
+                };
             } else {
-                [self unlockStockWithModel:model withController:controller];
+                [self unlockSurveyWithModel:model withController:controller];
             }
             
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"查询解锁信息失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"查询解锁信息失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
 
-- (void)unlockStockWithModel:(StockUnlockModel *)model withController:(UIViewController *)controller {
+- (void)unlockSurveyWithModel:(StockUnlockModel *)model withController:(UIViewController *)controller {
     
     StockUnlockViewController *vc = [[StockUnlockViewController alloc] init];
     vc.unlockModel = model;
@@ -85,8 +95,8 @@
     [popupController presentInViewController:controller];
 }
 
-- (void)unlockWithStockCode:(NSString *)stockCode {
-    NSDictionary *para = @{@"code": stockCode};
+- (void)unlockWithSurveyId:(NSString *)surveyId withSurveyType:(NSInteger)surveyType {
+    NSDictionary *para = @{@"content_id": surveyId,@"type":@(surveyType)};
     
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
@@ -97,23 +107,23 @@
     __weak StockUnlockManager *wself = self;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma POST:API_SurveyUnlockCompany parameters:para completion:^(id data, NSError *error){
+    [ma POST:API_SurveyUnlockSurvey parameters:para completion:^(id data, NSError *error){
         [indicator stopAnimating];
         
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"解锁成功";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"解锁成功";
+            [hud hideAnimated:YES afterDelay:0.6];
             
-            if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withStockCode:)]) {
-                [wself.delegate unlockManager:wself withStockCode:stockCode];
+            if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withSurveyId:)]) {
+                [wself.delegate unlockManager:wself withSurveyId:surveyId];
             }
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
         
     }];
@@ -133,6 +143,8 @@
     indicator.center = CGPointMake(controller.view.bounds.size.width/2, controller.view.bounds.size.height/2);
     [indicator startAnimating];
     [controller.view addSubview:indicator];
+    
+    __weak StockUnlockManager *wself = self;
     
     NetworkManager *ma = [[NetworkManager alloc] init];
     [ma POST:API_SurveyIsUnlockDeep parameters:para completion:^(id data, NSError *error){
@@ -157,8 +169,14 @@
             if (isUnlock) {
                 MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
                 hud.mode = MBProgressHUDModeText;
-                hud.labelText = @"已经解锁";
-                [hud hide:YES afterDelay:0.7];
+                hud.label.text = @"已经解锁";
+                [hud hideAnimated:YES afterDelay:0.7];
+                hud.completionBlock = ^{
+                    if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withDeepId:)]) {
+                        [wself.delegate unlockManager:wself withDeepId:deepId];
+                    }
+                };
+                
             } else {
                 [self unlockDeepWithModel:model withController:controller];
             }
@@ -166,8 +184,8 @@
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"查询解锁信息失败";
-            [hud hide:YES afterDelay:0.7];
+            hud.label.text = @"查询解锁信息失败";
+            [hud hideAnimated:YES afterDelay:0.7];
         }
     }];
 }
@@ -204,22 +222,116 @@
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = @"解锁成功";
-            [hud hide:YES afterDelay:0.6];
+            hud.label.text = @"解锁成功";
+            [hud hideAnimated:YES afterDelay:0.6];
+            hud.completionBlock = ^{
+                if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withDeepId:)]) {
+                    [wself.delegate unlockManager:wself withDeepId:deepId];
+                }
+            };
             
-            if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withDeepId:)]) {
-                [wself.delegate unlockManager:wself withDeepId:deepId];
-            }
         } else {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.mode = MBProgressHUDModeText;
-            hud.labelText = error.localizedDescription;
-            [hud hide:YES afterDelay:0.4];
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
         }
         
     }];
 }
 
+
+#pragma mark - StockPool Unlock
+- (void)unlockStockPool:(NSString *)masterId withController:(UIViewController *)controller {
+    self.viewController = controller;
+    
+    NSDictionary *para = @{@"master_id": masterId};
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(controller.view.bounds.size.width/2, controller.view.bounds.size.height/2);
+    [indicator startAnimating];
+    [controller.view addSubview:indicator];
+    
+    __weak StockUnlockManager *wself = self;
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_StockPoolGetSubscribe parameters:para completion:^(id data, NSError *error){
+        
+        [indicator stopAnimating];
+        
+        if (!error && [data isKindOfClass:[NSDictionary class]]) {
+            
+            StockPoolUnlockModel *model = [[StockPoolUnlockModel alloc] initWithDictionary:data];
+            model.masterId = masterId;
+            
+            if (model.isSubscribe && model.isSubscribeExpire) {
+                
+                if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withMasterId:)]) {
+                    [wself.delegate unlockManager:wself withMasterId:masterId];
+                }
+            } else {
+                [self unlockStockPoolWithModel:model withController:controller];
+            }
+            
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:controller.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"查询股票池信息失败";
+            [hud hideAnimated:YES afterDelay:0.7];
+        }
+    }];
+}
+
+
+- (void)unlockStockPoolWithModel:(StockPoolUnlockModel *)model withController:(UIViewController *)controller {
+    
+    StockPoolUnlockViewController *vc = [[StockPoolUnlockViewController alloc] init];
+    vc.unlockModel = model;
+    vc.delegate = self;
+    
+    STPopupController *popupController = [[STPopupController alloc] initWithRootViewController:vc];
+    popupController.style = STPopupStyleBottomSheet;
+    popupController.navigationBarHidden = YES;
+    popupController.containerView.layer.cornerRadius = 4;
+    [popupController presentInViewController:controller];
+}
+
+- (void)unlockWithStockPoolMasterId:(NSString *)masterId {
+    NSDictionary *para = @{@"master_id": masterId};
+    
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(kScreenWidth/2, kScreenHeight/2);
+    indicator.hidesWhenStopped = YES;
+    [indicator stopAnimating];
+    [self.viewController.view addSubview:indicator];
+    
+    __weak StockUnlockManager *wself = self;
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma POST:API_StockPoolSubscribe parameters:para completion:^(id data, NSError *error){
+        [indicator stopAnimating];
+        
+        if (!error) {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = @"订阅成功";
+            [hud hideAnimated:YES afterDelay:0.6];
+            
+            if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withMasterId:)]) {
+                [wself.delegate unlockManager:wself withMasterId:masterId];
+            }
+        } else {
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.label.text = error.localizedDescription;
+            [hud hideAnimated:YES afterDelay:0.4];
+        }
+        
+    }];
+}
+
+
+#pragma mark -
 
 - (void)rechargePressed:(id)sender {
     TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
@@ -233,4 +345,5 @@
     vc.hidesBottomBarWhenPushed = YES;
     [self.viewController.navigationController pushViewController:vc animated:YES];
 }
+
 @end
