@@ -22,6 +22,9 @@
 #import "StockPoolSubscribeController.h"
 #import "CenterTableViewCell.h"
 #import "TDWebViewHandler.h"
+#import "AboutMineViewController.h"
+#import "SettingViewController.h"
+#import "SystemMessageViewController.h"
 
 @interface CenterViewController ()<UIScrollViewDelegate>
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *headerBgImageheight;
@@ -41,6 +44,9 @@
 @property (weak, nonatomic) IBOutlet UILabel *userKeyLabel;
 @property (nonatomic, assign) NSInteger userLevelExpireDay;
 @property (weak, nonatomic) IBOutlet UIButton *guessRateBtn;
+@property (weak, nonatomic) IBOutlet UIButton *settingBtn;
+@property (weak, nonatomic) IBOutlet UILabel *loginLabel;
+
 @end
 
 @implementation CenterViewController
@@ -61,6 +67,14 @@
     
     self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
+    self.settingBtn.hidden = !US.isLogIn;
+    self.guessRateBtn.hidden = !US.isLogIn;
+    
+    [self.subscribeView setupNumber:0];
+    [self.attentionView setupNumber:0];
+    [self.fansView setupNumber:0];
+    self.userPointsLabel.text = @"0";
+    self.userKeyLabel.text = @"0";
     
     CAGradientLayer *gradientLayer = [CAGradientLayer layer];
     gradientLayer.colors = @[(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#2662D0"].CGColor,(__bridge id)[UIColor hx_colorWithHexRGBAString:@"#1BAFE7"].CGColor];
@@ -126,6 +140,12 @@
         } else {
             self.levelImageView.image = nil;
         }
+    } else {
+        [self.subscribeView setupNumber:0];
+        [self.attentionView setupNumber:0];
+        [self.fansView setupNumber:0];
+        self.userPointsLabel.text = @"0";
+        self.userKeyLabel.text = @"0";
     }
     
     if (US.isLogIn == YES) {
@@ -133,11 +153,17 @@
         
         self.nickNameLabel.text = US.nickName;
         self.sexImageView.image = (US.sex==kUserSexMan)?[UIImage imageNamed:@"ico_sex-man.png"]:[UIImage imageNamed:@"ico_sex-women.png"];
+        self.loginLabel.hidden = YES;
     } else {
         [self.avatarBtn setImage:TDCenterUserAvatar forState:UIControlStateNormal];
-        self.nickNameLabel.text = @"登陆注册";
+        self.nickNameLabel.text = @"";
         self.levelImageView.image = nil;
+        self.sexImageView.image = nil;
+        self.loginLabel.hidden = NO;
     }
+    
+    self.settingBtn.hidden = !US.isLogIn;
+    self.guessRateBtn.hidden = !US.isLogIn;
 }
 
 - (void)queryNotifyInfo {
@@ -246,15 +272,17 @@
 }
 
 - (IBAction)walletPressed:(id)sender {
-    [TDWebViewHandler openURL:API_H5UserWalletList withUserMark:YES inNav:self.navigationController];
+    [self pushH5WebViewController:API_H5UserWalletList];
 }
 
 - (IBAction)integralPressed:(id)sender {
-    [TDWebViewHandler openURL:API_H5UserPointsList withUserMark:YES inNav:self.navigationController];
+    [self pushH5WebViewController:API_H5UserPointsList];
 }
 
 - (IBAction)settingPressed:(id)sender {
-    [self pushViewControllerWithClassName:@"SettingViewController"];
+    SettingViewController *vc = [[SettingViewController alloc] init];
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - UIScrollDelegate
@@ -334,16 +362,38 @@
     if (indexPath.section == 1 &&
         indexPath.row == 0) {
         // 会员中心
-        [TDWebViewHandler openURL:API_H5UserVipCenter withUserMark:YES inNav:self.navigationController];
+        [self pushH5WebViewController:API_H5UserVipCenter];
     } else if (indexPath.section == 1 &&
                indexPath.row == 1) {
         // 任务中心
-        [TDWebViewHandler openURL:API_H5UserMission withUserMark:YES inNav:self.navigationController];
+        [self pushH5WebViewController:API_H5UserMission];
+    } else if (indexPath.section == 2 &&
+               indexPath.row == 0) {
+        // 系统消息
+        SystemMessageViewController *vc = [[SystemMessageViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    } else if (indexPath.section == 2 &&
+               indexPath.row == 1) {
+        // 关于我们
+        AboutMineViewController *vc = [[AboutMineViewController alloc] init];
+        vc.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:vc animated:YES];
     } else {
         NSArray *array = self.classesArray[indexPath.section];
         NSString *className = array[indexPath.row];
         
         [self pushViewControllerWithClassName:className];
+    }
+}
+
+- (void)pushH5WebViewController:(NSString *)h5String {
+    if (!US.isLogIn) {
+        LoginViewController *login = [[LoginViewController alloc] init];
+        login.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:login animated:YES];
+    } else {
+        [TDWebViewHandler openURL:h5String withUserMark:YES inNav:self.navigationController];
     }
 }
 

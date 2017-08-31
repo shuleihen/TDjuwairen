@@ -9,6 +9,7 @@
 #import "AliveListImagesView.h"
 #import "UIImageView+WebCache.h"
 #import "MYPhotoBrowser.h"
+#import "NSString+ImageSize.h"
 
 @implementation AliveListImagesView
 
@@ -28,7 +29,19 @@
     
     
     if (images.count == 1) {
-        UIImageView *one = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 180, 180)];
+        CGSize size = [images.firstObject imageSize];
+        CGFloat w =180,h=180;
+        if (!CGSizeEqualToSize(size, CGSizeZero)) {
+            if (size.width > size.height) {
+                w = kScreenWidth/2;
+                h = (size.height/size.width)*w;
+            } else if (size.height > size.width) {
+                h = kScreenWidth/2;
+                w = (size.width/size.height)*h;
+            }
+        }
+        
+        UIImageView *one = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, w, h)];
         one.userInteractionEnabled = YES;
         UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showDetailImageView:)];
         one.tag = 0;

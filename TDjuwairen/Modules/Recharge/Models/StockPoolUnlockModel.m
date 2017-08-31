@@ -17,6 +17,7 @@
         self.isSubscribe = [dict[@"user_is_subscribe"] boolValue];
         self.isSubscribeExpire = [dict[@"user_subscribe_expire"] boolValue];
         self.isHaveEnoughKey = [dict[@"user_key_enough"] boolValue];
+        self.poolNextSetTip = dict[@"pool_next_set_tip"];
     }
     return self;
 }

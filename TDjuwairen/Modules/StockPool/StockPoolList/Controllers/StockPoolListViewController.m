@@ -276,8 +276,12 @@
         // 未订阅
         return YES;
     } else {
-        if (self.introlModel.expireTime > nowTime) {
-            // 订阅未过期
+        // 订阅
+        if (self.introlModel.isFree) {
+            // 免费
+            return NO;
+        } else if (self.introlModel.isFree == NO && self.introlModel.expireTime > nowTime) {
+            // 未过期
             return NO;
         }
     }
@@ -441,6 +445,7 @@
     // 订阅以后过期时间：订阅的当天的第二天00：00 开始 +设 置的股票池时间，这里只要保证大于列表数据的添加时间就可以
     
     self.introlModel.expireTime = [[NSDate new] timeIntervalSince1970] + 24*60*60;
+    self.introlModel.isSubscribed = YES;
     
     for (StockPoolListCellModel *cellModel in self.items) {
         if (cellModel.isExpireCell) {

@@ -37,21 +37,32 @@
     [subscribeAttri setAttributes:@{NSForegroundColorAttributeName:TDThemeColor} range:NSMakeRange(0, subscribe.length-3)];
     self.subscriptionNumLabel.attributedText = subscribeAttri;
     
-    if (stockPool.isFree) {
-        self.subscribeLabel.hidden = YES;
-        self.payInfoLabel.text = stockPool.poolSetTip;
-        self.residueDayLabel.text = @"";
+    if (stockPool.isSubscribe && !stockPool.isExpire) {
+        self.subscribeLabel.hidden = NO;
     } else {
-        if (stockPool.isSubscribe && stockPool.isExpire) {
-            self.subscribeLabel.hidden = NO;
-            self.residueDayLabel.text = stockPool.poolSetTip;
-            self.payInfoLabel.text = @"";
-        } else {
-            self.subscribeLabel.hidden = YES;
-            self.residueDayLabel.text = @"";
-            self.payInfoLabel.text = stockPool.poolSetTip;
-        }
+        self.subscribeLabel.hidden = YES;
     }
+    
+    if (stockPool.isSubscribe) {
+        self.residueDayLabel.text = stockPool.poolSetTip;
+        self.payInfoLabel.text = @"";
+    } else {
+        self.residueDayLabel.text = @"";
+        self.payInfoLabel.text = stockPool.poolSetTip;
+    }
+    
+//    if (stockPool.isFree) {
+//        self.payInfoLabel.text = stockPool.poolSetTip;
+//        self.residueDayLabel.text = @"";
+//    } else {
+//        if (stockPool.isSubscribe && stockPool.isExpire) {
+//            self.residueDayLabel.text = stockPool.poolSetTip;
+//            self.payInfoLabel.text = @"";
+//        } else {
+//            self.residueDayLabel.text = @"";
+//            self.payInfoLabel.text = stockPool.poolSetTip;
+//        }
+//    }
     
     self.isNewRecordImageView.hidden = !stockPool.hasNewRecord;
 }

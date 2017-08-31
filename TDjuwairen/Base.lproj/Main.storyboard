@@ -243,6 +243,12 @@
                                             </constraints>
                                             <state key="normal" image="icon_arrow_white"/>
                                         </button>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="登录注册" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zpc-ct-tDd">
+                                            <rect key="frame" x="99" y="22" width="69.5" height="20.5"/>
+                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
                                     </subviews>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <constraints>
@@ -257,7 +263,9 @@
                                         <constraint firstItem="yA1-Zu-8vf" firstAttribute="leading" secondItem="i4B-Yb-OcF" secondAttribute="trailing" constant="8" id="Ri4-5O-LoS"/>
                                         <constraint firstAttribute="height" constant="64" id="VlB-mc-wOP"/>
                                         <constraint firstAttribute="trailing" secondItem="PUy-DA-Ya4" secondAttribute="trailing" id="bad-Yq-Nr6"/>
+                                        <constraint firstItem="zpc-ct-tDd" firstAttribute="centerY" secondItem="5D8-au-N4i" secondAttribute="centerY" id="btD-Wt-ZKf"/>
                                         <constraint firstAttribute="bottom" secondItem="PUy-DA-Ya4" secondAttribute="bottom" id="fG9-Ok-y6t"/>
+                                        <constraint firstItem="zpc-ct-tDd" firstAttribute="leading" secondItem="5D8-au-N4i" secondAttribute="trailing" constant="14" id="fda-8r-5gd"/>
                                         <constraint firstAttribute="trailing" secondItem="s4m-nx-zqO" secondAttribute="trailing" constant="12" id="iLv-ta-qMg"/>
                                         <constraint firstItem="PUy-DA-Ya4" firstAttribute="leading" secondItem="gVw-6c-Dzo" secondAttribute="leading" id="j9E-vd-HJz"/>
                                         <constraint firstItem="oww-PL-hN3" firstAttribute="centerY" secondItem="i4B-Yb-OcF" secondAttribute="centerY" id="kbD-vF-4EK"/>
@@ -625,7 +633,9 @@
                         <outlet property="headerItemContainView" destination="mIH-47-HCt" id="z2t-3Y-BqY"/>
                         <outlet property="headerView" destination="B6g-90-yEJ" id="ebi-Dn-9Sh"/>
                         <outlet property="levelImageView" destination="oww-PL-hN3" id="Xzu-7u-EKA"/>
+                        <outlet property="loginLabel" destination="zpc-ct-tDd" id="ylr-2h-Ar6"/>
                         <outlet property="nickNameLabel" destination="i4B-Yb-OcF" id="5Gp-B5-2Gh"/>
+                        <outlet property="settingBtn" destination="ExZ-UT-zYS" id="IJs-Xs-qEC"/>
                         <outlet property="sexImageView" destination="yA1-Zu-8vf" id="SwH-NR-zcQ"/>
                         <outlet property="subscribeView" destination="W1G-b5-hqc" id="vnE-W4-oUO"/>
                         <outlet property="userKeyLabel" destination="DtR-Kt-ltF" id="5UM-kQ-nza"/>

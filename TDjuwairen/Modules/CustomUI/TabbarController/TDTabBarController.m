@@ -41,27 +41,8 @@
     [self setupViewControllers:self.viewControllers];
     
     self.selectedIndex = 0;
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(loginStatusChanged:) name:kLoginStateChangedNotification object:nil];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
-    
-    [super viewWillAppear:animated];
-    
-    [[self tabBar] bringSubviewToFront:self.lcTabBar];
-}
-
-- (void)removeOriginControls {
-    
-    [self.tabBar.subviews enumerateObjectsUsingBlock:^(__kindof UIView * obj, NSUInteger idx, BOOL * stop) {
-        
-        if ([obj isKindOfClass:[UIControl class]]) {
-            
-            [obj removeFromSuperview];
-        }
-    }];
-}
 
 - (void)setupViewControllers:(NSArray *)viewControllers {
     
@@ -95,11 +76,6 @@
     self.lcTabBar.selectedItem.selected = YES;
 }
 
-- (void)loginStatusChanged:(id)sender {
-    if (self.selectedIndex == 3) {
-        self.selectedIndex = 0;
-    }
-}
 
 #pragma mark - XXTabBarDelegate Method
 
@@ -113,16 +89,7 @@
 
 - (BOOL)tabBar:(TDTabBar *)tabBarView shouldSelectItemIndex:(NSInteger)index {
     
-    if (index == 3 && !US.isLogIn) {
-        UINavigationController *nav = self.selectedViewController;
-        LoginViewController *login = [[LoginViewController alloc] init];
-        login.hidesBottomBarWhenPushed = YES;
-        [nav pushViewController:login animated:YES];
-        
-        return NO;
-    } else {
-        return YES;
-    }
+    return YES;
 }
 
 - (void)tabBar:(TDTabBar *)tabBarView didSelectedItemFrom:(NSInteger)from to:(NSInteger)to {

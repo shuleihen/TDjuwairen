@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		19042EA81F4BFA0E0004D3C6 /* RechargeDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */; };
 		19042E331F3D7DB90004D3C6 /* AliveListStockPoolViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E321F3D7DB90004D3C6 /* AliveListStockPoolViewController.m */; };
 		19042E361F3D7DFE0004D3C6 /* AliveListBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E351F3D7DFE0004D3C6 /* AliveListBaseViewController.m */; };
 		19042E3A1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E381F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m */; };
@@ -44,6 +43,7 @@
 		19042E9A1F4570F80004D3C6 /* StockPoolUnlockViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E991F4570F80004D3C6 /* StockPoolUnlockViewController.m */; };
 		19042E9D1F4577B90004D3C6 /* StockPoolUnlockModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */; };
 		19042EA51F4BDC920004D3C6 /* StockPoolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */; };
+		19042EA81F4BFA0E0004D3C6 /* RechargeDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */; };
 		19042EAB1F4C0A330004D3C6 /* TDCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */; };
 		19042EAE1F4C0AED0004D3C6 /* StockPoolCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */; };
 		19042EB11F4C0B130004D3C6 /* TDTopicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB01F4C0B130004D3C6 /* TDTopicTableViewCell.m */; };
@@ -143,6 +143,7 @@
 		19386F021E73A31400D4426E /* CenterItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386F011E73A31400D4426E /* CenterItemView.m */; };
 		19386F081E73A88800D4426E /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386F071E73A88800D4426E /* CenterViewController.m */; };
 		193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193D42C41ED465480051A7D4 /* YXTitleCustomView.m */; };
+		193ED5171F57E5AB00C23E6A /* NSString+ImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED5161F57E5AB00C23E6A /* NSString+ImageSize.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194186D71DF81284000C5197 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186CA1DF81284000C5197 /* AccountViewController.m */; };
@@ -460,14 +461,14 @@
 		19E5F2A81E13653200984DBC /* SQTopicCellViewModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2A11E13653200984DBC /* SQTopicCellViewModel.m */; };
 		19E5F2AC1E1388F100984DBC /* PlayStockCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */; };
 		19E5F2AF1E138FC300984DBC /* GuessCommentPublishViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */; };
-		19E638D21F3D455800DEEB20 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E638CC1F3D455800DEEB20 /* libWeChatSDK.a */; };
-		19E638D31F3D455800DEEB20 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638D01F3D455800DEEB20 /* WXApiManager.m */; };
 		19E638521F3BFF6100DEEB20 /* StockPoolListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */; };
 		19E638561F3C05A300DEEB20 /* StockPoolListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638541F3C05A300DEEB20 /* StockPoolListCell.m */; };
 		19E638571F3C05A300DEEB20 /* StockPoolListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19E638551F3C05A300DEEB20 /* StockPoolListCell.xib */; };
 		19E6385A1F3C27CA00DEEB20 /* UIImage+StockPool.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638591F3C27CA00DEEB20 /* UIImage+StockPool.m */; };
 		19E6385E1F3C3E1800DEEB20 /* TDGradientProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E6385D1F3C3E1800DEEB20 /* TDGradientProgressView.m */; };
 		19E638611F3C4D2D00DEEB20 /* StockPoolListToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */; };
+		19E638D21F3D455800DEEB20 /* libWeChatSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19E638CC1F3D455800DEEB20 /* libWeChatSDK.a */; };
+		19E638D31F3D455800DEEB20 /* WXApiManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 19E638D01F3D455800DEEB20 /* WXApiManager.m */; };
 		19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */; };
 		19ECB9A01EAAF4440009F625 /* GradeCommReplyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB99F1EAAF4440009F625 /* GradeCommReplyView.m */; };
 		19ECB9A31EAB30040009F625 /* GradeReplyToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19ECB9A21EAB30040009F625 /* GradeReplyToolView.m */; };
@@ -735,8 +736,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		19042EA61F4BFA0E0004D3C6 /* RechargeDoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeDoneViewController.h; sourceTree = "<group>"; };
-		19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeDoneViewController.m; sourceTree = "<group>"; };
 		19042E311F3D7DB90004D3C6 /* AliveListStockPoolViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolViewController.h; sourceTree = "<group>"; };
 		19042E321F3D7DB90004D3C6 /* AliveListStockPoolViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolViewController.m; sourceTree = "<group>"; };
 		19042E341F3D7DFE0004D3C6 /* AliveListBaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListBaseViewController.h; sourceTree = "<group>"; };
@@ -802,6 +801,8 @@
 		19042E9C1F4577B90004D3C6 /* StockPoolUnlockModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolUnlockModel.m; sourceTree = "<group>"; };
 		19042EA31F4BDC920004D3C6 /* StockPoolHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolHandler.h; sourceTree = "<group>"; };
 		19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolHandler.m; sourceTree = "<group>"; };
+		19042EA61F4BFA0E0004D3C6 /* RechargeDoneViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RechargeDoneViewController.h; sourceTree = "<group>"; };
+		19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeDoneViewController.m; sourceTree = "<group>"; };
 		19042EA91F4C0A330004D3C6 /* TDCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentViewController.h; sourceTree = "<group>"; };
 		19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCommentViewController.m; sourceTree = "<group>"; };
 		19042EAC1F4C0AED0004D3C6 /* StockPoolCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolCommentViewController.h; sourceTree = "<group>"; };
@@ -998,6 +999,8 @@
 		19386F071E73A88800D4426E /* CenterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CenterViewController.m; sourceTree = "<group>"; };
 		193D42C31ED465480051A7D4 /* YXTitleCustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXTitleCustomView.h; sourceTree = "<group>"; };
 		193D42C41ED465480051A7D4 /* YXTitleCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTitleCustomView.m; sourceTree = "<group>"; };
+		193ED5151F57E5AB00C23E6A /* NSString+ImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ImageSize.h"; sourceTree = "<group>"; };
+		193ED5161F57E5AB00C23E6A /* NSString+ImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ImageSize.m"; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194186C91DF81284000C5197 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -1604,12 +1607,6 @@
 		19E5F2AB1E1388F100984DBC /* PlayStockCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PlayStockCommentViewController.m; sourceTree = "<group>"; };
 		19E5F2AD1E138FC300984DBC /* GuessCommentPublishViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GuessCommentPublishViewController.h; sourceTree = "<group>"; };
 		19E5F2AE1E138FC300984DBC /* GuessCommentPublishViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GuessCommentPublishViewController.m; sourceTree = "<group>"; };
-		19E638CC1F3D455800DEEB20 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
-		19E638CD1F3D455800DEEB20 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
-		19E638CE1F3D455800DEEB20 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
-		19E638CF1F3D455800DEEB20 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
-		19E638D01F3D455800DEEB20 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
-		19E638D11F3D455800DEEB20 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		19E638501F3BFF6100DEEB20 /* StockPoolListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListViewController.h; sourceTree = "<group>"; };
 		19E638511F3BFF6100DEEB20 /* StockPoolListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListViewController.m; sourceTree = "<group>"; };
 		19E638531F3C05A300DEEB20 /* StockPoolListCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListCell.h; sourceTree = "<group>"; };
@@ -1621,6 +1618,12 @@
 		19E6385D1F3C3E1800DEEB20 /* TDGradientProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDGradientProgressView.m; sourceTree = "<group>"; };
 		19E6385F1F3C4D2D00DEEB20 /* StockPoolListToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolListToolView.h; sourceTree = "<group>"; };
 		19E638601F3C4D2D00DEEB20 /* StockPoolListToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolListToolView.m; sourceTree = "<group>"; };
+		19E638CC1F3D455800DEEB20 /* libWeChatSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeChatSDK.a; sourceTree = "<group>"; };
+		19E638CD1F3D455800DEEB20 /* WechatAuthSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WechatAuthSDK.h; sourceTree = "<group>"; };
+		19E638CE1F3D455800DEEB20 /* WXApi.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApi.h; sourceTree = "<group>"; };
+		19E638CF1F3D455800DEEB20 /* WXApiManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiManager.h; sourceTree = "<group>"; };
+		19E638D01F3D455800DEEB20 /* WXApiManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WXApiManager.m; sourceTree = "<group>"; };
+		19E638D11F3D455800DEEB20 /* WXApiObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WXApiObject.h; sourceTree = "<group>"; };
 		19ECB99B1EAAEF160009F625 /* GradeCommentReplyModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommentReplyModel.h; sourceTree = "<group>"; };
 		19ECB99C1EAAEF160009F625 /* GradeCommentReplyModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GradeCommentReplyModel.m; sourceTree = "<group>"; };
 		19ECB99E1EAAF4440009F625 /* GradeCommReplyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GradeCommReplyView.h; sourceTree = "<group>"; };
@@ -2535,6 +2538,7 @@
 		1924DFED1D62C3CE00FEC383 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				193ED5141F57E58900C23E6A /* NSString+URL */,
 				199BE07D1F511F0E0026A328 /* NSDate+Util */,
 				19042E7D1F43EBA50004D3C6 /* NSString+Json */,
 				19AA7DD21F3AE64400716F38 /* UIImage+Category */,
@@ -2940,6 +2944,15 @@
 			name = YXTitleCustomView;
 			path = TDjuwairen/Tools/YXTitleCustomView;
 			sourceTree = SOURCE_ROOT;
+		};
+		193ED5141F57E58900C23E6A /* NSString+URL */ = {
+			isa = PBXGroup;
+			children = (
+				193ED5151F57E5AB00C23E6A /* NSString+ImageSize.h */,
+				193ED5161F57E5AB00C23E6A /* NSString+ImageSize.m */,
+			);
+			path = "NSString+URL";
+			sourceTree = "<group>";
 		};
 		193EF0761D392CB40043F3EB /* Res */ = {
 			isa = PBXGroup;
@@ -4895,19 +4908,6 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		19E638CB1F3D455800DEEB20 /* WexinSDK1.7.9_NoPay */ = {
-			isa = PBXGroup;
-			children = (
-				19E638CC1F3D455800DEEB20 /* libWeChatSDK.a */,
-				19E638CD1F3D455800DEEB20 /* WechatAuthSDK.h */,
-				19E638CE1F3D455800DEEB20 /* WXApi.h */,
-				19E638CF1F3D455800DEEB20 /* WXApiManager.h */,
-				19E638D01F3D455800DEEB20 /* WXApiManager.m */,
-				19E638D11F3D455800DEEB20 /* WXApiObject.h */,
-			);
-			path = WexinSDK1.7.9_NoPay;
-			sourceTree = "<group>";
-		};
 		19E6383B1F3B32DA00DEEB20 /* StockPool */ = {
 			isa = PBXGroup;
 			children = (
@@ -4978,6 +4978,19 @@
 				19E6385D1F3C3E1800DEEB20 /* TDGradientProgressView.m */,
 			);
 			path = TDGradientProgress;
+			sourceTree = "<group>";
+		};
+		19E638CB1F3D455800DEEB20 /* WexinSDK1.7.9_NoPay */ = {
+			isa = PBXGroup;
+			children = (
+				19E638CC1F3D455800DEEB20 /* libWeChatSDK.a */,
+				19E638CD1F3D455800DEEB20 /* WechatAuthSDK.h */,
+				19E638CE1F3D455800DEEB20 /* WXApi.h */,
+				19E638CF1F3D455800DEEB20 /* WXApiManager.h */,
+				19E638D01F3D455800DEEB20 /* WXApiManager.m */,
+				19E638D11F3D455800DEEB20 /* WXApiObject.h */,
+			);
+			path = WexinSDK1.7.9_NoPay;
 			sourceTree = "<group>";
 		};
 		19ED17331F1644B400EC89DF /* Detail */ = {
@@ -6668,6 +6681,7 @@
 				1955B4981D644D9800DC102E /* PreviewViewController.m in Sources */,
 				19386EEB1E72485A00D4426E /* AliveDetailViewController.m in Sources */,
 				19FB54491D5D7DF40011BA33 /* YXFont.m in Sources */,
+				193ED5171F57E5AB00C23E6A /* NSString+ImageSize.m in Sources */,
 				9EC715F01F3F5DEE00F3A071 /* JTCalendarDayView.m in Sources */,
 				19E638521F3BFF6100DEEB20 /* StockPoolListViewController.m in Sources */,
 				19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */,

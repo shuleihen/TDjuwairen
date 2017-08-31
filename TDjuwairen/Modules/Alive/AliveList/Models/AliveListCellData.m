@@ -10,6 +10,7 @@
 #import "TTTAttributedLabel.h"
 #import "AliveVideoListTableViewCell.h"
 #import "SurveyHandler.h"
+#import "NSString+ImageSize.h"
 
 #define kAliveListMessageLineLimit 5
 #define kAliveListHeaderHeight  52
@@ -260,7 +261,19 @@
     if (images.count == 0) {
         height = 0;
     } else if (images.count == 1) {
-        height = 180.0f;
+        CGSize size = [images.firstObject imageSize];
+        CGFloat w =180,h=180;
+        if (!CGSizeEqualToSize(size, CGSizeZero)) {
+            if (size.width > size.height) {
+                w = kScreenWidth/2;
+                h = (size.height/size.width)*w;
+            } else if (size.height > size.width) {
+                h = kScreenWidth/2;
+                w = (size.width/size.height)*h;
+            }
+        }
+        
+        height = h;
     } else if (images.count > 1 && images.count <=3) {
         height = itemW;
     } else if (images.count <= 6) {

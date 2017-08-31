@@ -15,6 +15,7 @@
 @property (nonatomic, assign) BOOL isSubscribeExpire;
 @property (nonatomic, assign) BOOL isSubscribe;
 @property (nonatomic, copy) NSString *poolSetDesc;
+@property (nonatomic, copy) NSString *poolNextSetTip;
 @property (nonatomic, assign) BOOL isHaveEnoughKey;
 
 - (id)initWithDictionary:(NSDictionary *)dict;

@@ -264,7 +264,7 @@
             StockPoolUnlockModel *model = [[StockPoolUnlockModel alloc] initWithDictionary:data];
             model.masterId = masterId;
             
-            if (model.isSubscribe && model.isSubscribeExpire) {
+            if (model.isSubscribe && !model.isSubscribeExpire) {
                 
                 if (wself.delegate && [wself.delegate respondsToSelector:@selector(unlockManager:withMasterId:)]) {
                     [wself.delegate unlockManager:wself withMasterId:masterId];
