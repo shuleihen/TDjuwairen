@@ -189,7 +189,7 @@
         }
     };
     
-    [ShareHandler shareWithTitle:model.aliveTitle image:model.aliveImgs url:model.shareUrl selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:self.videoinfo.title detail:self.videoinfo.content image:model.aliveImgs url:self.videoinfo.shareUrl selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];

@@ -198,6 +198,7 @@
 - (void)sharePressed {
     
     NSString *title = self.surveyInfoDictM[@"survey_title"];
+    NSString *desc = self.surveyInfoDictM[@"survey_desc"];
     NSString *author = self.surveyInfoDictM[@"survey_author"];
     NSString *cover = self.surveyInfoDictM[@"survey_cover"];
     NSString *url = self.surveyInfoDictM[@"share_url"];
@@ -229,7 +230,7 @@
     };
     
     
-    [ShareHandler shareWithTitle:self.stockName image:images url:url selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:title detail:desc image:images url:url selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
