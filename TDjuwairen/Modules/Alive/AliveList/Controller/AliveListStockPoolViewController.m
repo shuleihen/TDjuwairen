@@ -31,9 +31,7 @@
     UINib *nib = [UINib nibWithNibName:@"AliveListStockPoolTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveListStockPoolTableViewCellID"];
     
-    [self.tableView.mj_header beginRefreshing];
-    
-    [self refreshActions];
+    [self beginRefresh];    
 }
 
 - (void)refreshActions {

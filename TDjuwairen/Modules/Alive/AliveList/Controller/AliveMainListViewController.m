@@ -26,7 +26,11 @@
 #import "MessageTableViewController.h"
 #import "AliveListStockPoolViewController.h"
 
+
+#define kSegmentItemWidth 72
+
 @interface AliveMainListViewController ()<UIPageViewControllerDataSource, UIPageViewControllerDelegate>
+@property (nonatomic, strong) UIScrollView *segmentContentView;
 @property (nonatomic, strong) UISegmentedControl *segmentControl;
 @property (nonatomic, strong) UIPageViewController *pageViewController;
 @property (nonatomic, strong) NSArray *contentControllers;
@@ -134,8 +138,9 @@
 
 - (void)setupSegmentControl {
     
-    CGFloat itemW = 75;
+    CGFloat itemW = kSegmentItemWidth;
     UIScrollView *scroolView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    scroolView.showsHorizontalScrollIndicator = NO;
     scroolView.backgroundColor = [UIColor whiteColor];
     scroolView.contentSize = CGSizeMake(itemW*7, 44);
     
@@ -172,6 +177,7 @@
     
     [self.view addSubview:scroolView];
     
+    self.segmentContentView = scroolView;
     self.segmentControl = segmented;
 }
 
@@ -288,6 +294,7 @@
     
     if (index != self.segmentControl.selectedSegmentIndex) {
         self.segmentControl.selectedSegmentIndex = index;
+        [self.segmentContentView scrollRectToVisible:CGRectMake(index * kSegmentItemWidth, 0, kSegmentItemWidth, 44) animated:YES];
     }
 }
 
