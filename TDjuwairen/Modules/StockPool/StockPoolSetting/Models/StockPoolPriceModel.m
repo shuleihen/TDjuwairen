@@ -12,11 +12,11 @@
 - (instancetype)initWithDict:(NSDictionary *)dict {
     
     if(self = [super init]) {
-        self.is_free = dict[@"pool_is_free"];
+        self.isFree = [dict[@"pool_is_free"] boolValue];
         self.key_num = dict[@"pool_set_keynum"];
         self.day = dict[@"pool_set_expire_day"];
+        self.term = dict[@"pool_set_expire_term"];
     }
     return self;
 }
-
 @end

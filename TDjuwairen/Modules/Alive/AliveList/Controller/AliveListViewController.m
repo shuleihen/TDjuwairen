@@ -38,9 +38,8 @@
     delegate.listType = self.listType;
     self.tableViewDelegate = delegate;
     
-    [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
-    
-    [self refreshActions];
+//    [self refreshActions];
+    [self beginRefresh];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(attendChange:) name:kAddAttenNotification object:nil];
 }
@@ -80,8 +79,11 @@
         case kAlvieListPost:
             api = API_AliveGetPostAliveList;
             break;
-            case kAlvieListHot:
+        case kAlvieListHot:
             api = API_AliveGetHotAliveList;
+            break;
+        case kAliveListStockHolder:
+            api = API_AliveGetStockHolderList;
             break;
         default:
             NSAssert(NO, @"直播列表不支持当前类型");
@@ -135,7 +137,6 @@
                     }
                     
                     [wself endHeaderRefreshWithDataCount:dataArray.count];
-                    [wself removeLoadingAnimation];
                     
                     [wself.tableView reloadData];
                     
@@ -156,8 +157,6 @@
             }
             
             [wself endHeaderRefresh];
-            [wself removeLoadingAnimation];
-            
             
             wself.aliveList = nil;
             [wself.tableViewDelegate setupAliveListArray:wself.aliveList];
@@ -168,7 +167,6 @@
             }
             
             [wself endHeaderRefresh];
-            [wself removeLoadingAnimation];
             
             [self showNoAttetionControllerView:YES];
         } else {
@@ -177,7 +175,6 @@
             }
             
             [wself endHeaderRefresh];
-            [wself removeLoadingAnimation];
         }
     }];
 }

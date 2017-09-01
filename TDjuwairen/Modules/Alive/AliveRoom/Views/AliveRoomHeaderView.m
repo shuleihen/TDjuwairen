@@ -52,11 +52,10 @@
     
     _headerModel = master;
     
-    
-    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:US.headImage] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
-    self.aNickNameLabel.text = US.nickName;
-    self.aAddressLabel.text = US.city;
-    self.aRoomInfoLabel.text = US.personal;
+    [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
+    self.aNickNameLabel.text = master.masterNickName;
+    self.aAddressLabel.text = master.city;
+    self.aRoomInfoLabel.text = master.roomInfo;
     
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateHighlighted];

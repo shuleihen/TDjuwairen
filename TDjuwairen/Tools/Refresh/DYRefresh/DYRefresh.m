@@ -141,6 +141,10 @@ NSString *const DYRefreshKeyPathPanState = @"state";
     _action = action;
 }
 
+- (void)beginRefresh {
+    self.status = kDYRefreshStatusLoading;
+}
+
 - (void)endRefresh {
     [UIView animateWithDuration:0.36 animations:^{
         self.status = kDYRefreshStatusDone;

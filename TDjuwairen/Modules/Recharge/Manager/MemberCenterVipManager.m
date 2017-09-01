@@ -135,7 +135,7 @@
                 [self.indicator stopAnimating];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
                 [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-                [self verifyPurchaseWithPaymentTransaction];
+                [self verifyPurchaseWithPaymentTransaction:tran.transactionIdentifier];
             }
                 break;
             case SKPaymentTransactionStatePurchasing:
@@ -171,7 +171,7 @@
     [[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
 }
 
--(void)verifyPurchaseWithPaymentTransaction{
+-(void)verifyPurchaseWithPaymentTransaction:(NSString *)transactionIdentifier{
     //从沙盒中获取交易凭证并且拼接成请求体数据
     NSURL *receiptUrl=[[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData=[NSData dataWithContentsOfURL:receiptUrl];
@@ -186,17 +186,25 @@
 #endif
     
     NSDictionary *para = @{@"receipt": receiptString,
+                           @"transactionid": transactionIdentifier,
                            @"debug": @(isDebug)};
+    
+    NSString *api = @"";
+    if (US.isLogIn) {
+        api = API_IAPVerify;
+    } else {
+        api = API_IAPGuesVerify;
+    }
+    
     NetworkManager *ma = [[NetworkManager alloc] init];
-    
-    
-    [ma POST:API_IAPVerify parameters:para completion:^(id data, NSError *error){
+    [ma POST:api parameters:para completion:^(id data, NSError *error){
         [MBProgressHUD hideHUDForView:wself.viewController.view animated:YES];
         
         if (!error) {
             MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:wself.viewController.view animated:YES];
             hud.label.text = @"购买成功";
             [hud hideAnimated:YES afterDelay:0.6];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kRechargeNotification object:nil];
         }
         else
         {

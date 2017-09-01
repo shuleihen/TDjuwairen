@@ -29,6 +29,10 @@ static char *headerRefreshKey;
     [self.headerRefresh addTarget:self action:action];
 }
 
+- (void)beginRefresh {
+    [self.headerRefresh beginRefresh];
+}
+
 - (void)endHeaderRefresh {
     [self.headerRefresh endRefresh];
 }

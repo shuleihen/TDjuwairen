@@ -198,6 +198,7 @@
 #define API_AliveGetAttenAliveList  @"RoomV3/getAttenAliveList3_3"
 #define API_AliveGetPostAliveList   @"Room/getBareList"
 #define API_AliveGetHotAliveList    @"RoomV3/getHotList3_3"
+#define API_AliveGetStockHolderList @"RoomV3/getStockMtList"
 #define API_AliveGetAliveInfo       @"RoomV3/showLiveInfo3_3"
 #define API_AliveGetRoomComment     @"Room/showLiveComment"
 #define API_AliveGetRoomLike        @"Room/showLiveAssess"

@@ -10,12 +10,14 @@
 
 @interface StockPoolPriceModel : NSObject
 /// 是否免费
-@property (nonatomic, copy) NSString *is_free;
+@property (nonatomic, assign) BOOL isFree;
 /// 钥匙数量
 @property (nonatomic, copy) NSNumber *key_num;
 /// 天数
 @property (nonatomic, copy) NSNumber *day;
+// 1表示周，2表示月
+@property (nonatomic, copy) NSNumber *term;
+
 
 - (instancetype)initWithDict:(NSDictionary *)dict;
-
 @end

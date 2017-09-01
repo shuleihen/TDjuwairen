@@ -91,8 +91,6 @@
     if (self.changeBillingBlock) {
         self.changeBillingBlock();
     }
-
-    
 }
 
 @end

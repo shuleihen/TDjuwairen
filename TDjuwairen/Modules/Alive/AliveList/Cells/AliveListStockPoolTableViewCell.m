@@ -30,7 +30,7 @@
     [nickAttri setAttributes:@{NSForegroundColorAttributeName:TDThemeColor} range:NSMakeRange(0, stockPool.userNickName.length)];
     self.nickNameLabel.attributedText = nickAttri;
     
-    self.contentLabel.text = stockPool.poolDesc?:@"暂无简介";
+    self.contentLabel.text = stockPool.poolDesc.length?stockPool.poolDesc:@"暂无简介";
     
     NSString *subscribe = [NSString stringWithFormat:@"%ld人已订阅",(long)stockPool.subscribeNum];
     NSMutableAttributedString *subscribeAttri = [[NSMutableAttributedString alloc] initWithString:subscribe attributes:@{NSForegroundColorAttributeName:TDDetailTextColor}];

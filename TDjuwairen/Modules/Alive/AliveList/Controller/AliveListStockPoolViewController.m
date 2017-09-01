@@ -31,7 +31,7 @@
     UINib *nib = [UINib nibWithNibName:@"AliveListStockPoolTableViewCell" bundle:nil];
     [self.tableView registerNib:nib forCellReuseIdentifier:@"AliveListStockPoolTableViewCellID"];
     
-    [self showLoadingAnimationInCenter:CGPointMake(kScreenWidth/2, self.tableView.bounds.size.height/2)];
+    [self.tableView.mj_header beginRefreshing];
     
     [self refreshActions];
 }
@@ -95,8 +95,6 @@
                     }
                     
                     [wself endHeaderRefreshWithDataCount:dataArray.count];
-                    [wself removeLoadingAnimation];
-                    
                     [wself.tableView reloadData];
                     
                     
@@ -113,8 +111,6 @@
             }
             
             [wself endHeaderRefresh];
-            [wself removeLoadingAnimation];
-            
             
             wself.aliveList = nil;
             [wself.tableView reloadData];
@@ -124,14 +120,12 @@
             }
             
             [wself endHeaderRefresh];
-            [wself removeLoadingAnimation];
         } else {
             if (wself.tableView.mj_footer.isRefreshing) {
                 [wself.tableView.mj_footer endRefreshing];
             }
             
             [wself endHeaderRefresh];
-            [wself removeLoadingAnimation];
         }
     }];
 }

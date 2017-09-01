@@ -18,11 +18,12 @@ typedef enum : NSUInteger {
 typedef enum : NSUInteger {
     kAliveListRecommend  =0, // 推荐
     kAliveListAttention  =1, // 关注
-    kAliveListViewpoint  =2, // 观点
-    kAliveListVideo      =3, // 视频
-    kAlvieListPost       =4, // 推单
-    kAliveListStockPool  =5, // 股票池
-    kAlvieListHot        =6, // 热点
+    kAliveListStockHolder=2, // 股东大会
+    kAliveListViewpoint  =3, // 观点
+    kAliveListVideo      =4, // 视频
+    kAlvieListPost       =5, // 推单
+    kAliveListStockPool  =6, // 股票池
+    kAlvieListHot        =7, // 热点
 } AliveListType;
 
 // 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享，5：玩票分享到直播

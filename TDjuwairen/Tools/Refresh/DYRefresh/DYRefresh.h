@@ -29,6 +29,7 @@ typedef enum : NSUInteger {
 
 - (id)initWithScrollView:(UIScrollView *)scrollView;
 - (void)addTarget:(id)target action:(SEL)action;
+- (void)beginRefresh;
 - (void)endRefresh;
 - (void)endRefreshWithDataCount:(NSInteger)dataCount;
 @end

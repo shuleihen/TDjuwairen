@@ -252,6 +252,12 @@
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
     
+    if ([self.masterId isEqualToString:US.userId]) {
+        self.roomMasterModel.masterNickName = US.nickName;
+        self.roomMasterModel.roomInfo = US.personal;
+        self.roomMasterModel.city = US.city;
+    }
+    
     [self.roomHeaderView setupRoomMasterModel:self.roomMasterModel];
 }
 
@@ -294,7 +300,7 @@
     AliveRoomStockPoolTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell) {
         cell.timeLabel.text = [NSString stringWithFormat:@"最新：%@",roomMasterModel.poolTime];
-        cell.descLabel.text = roomMasterModel.poolDesc;
+        cell.descLabel.text = roomMasterModel.poolDesc.length?roomMasterModel.poolDesc:@"他很赖吆~，还没设置股票池简介";
         NSString *subscribe = [NSString stringWithFormat:@"%@人已订阅",roomMasterModel.poolSubscribeNum];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:subscribe attributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#548DF5"],NSFontAttributeName:[UIFont systemFontOfSize:14 weight:UIFontWeightMedium]}];
         [attr setAttributes:@{NSForegroundColorAttributeName:[UIColor hx_colorWithHexRGBAString:@"#3F3F3F"],NSFontAttributeName:[UIFont systemFontOfSize:14]} range:NSMakeRange(subscribe.length -3, 3)];

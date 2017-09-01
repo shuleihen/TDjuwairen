@@ -11,6 +11,7 @@
 
 @interface UIViewController (Refresh)
 - (void)addHeaderRefreshWithScroll:(UIScrollView *)scrollView action:(SEL)action;
+- (void)beginRefresh;
 - (void)endHeaderRefresh;
 - (void)endHeaderRefreshWithDataCount:(NSInteger)count;
 @end

@@ -24,7 +24,7 @@
         self.canModifyRoomCover = [dict[@"is_upload_cover"] boolValue];
         self.guessRate = dict[@"guess_rate"];
         self.city = dict[@"address"];
-        self.roomInfo = dict[@"room_info"];
+        self.roomInfo = dict[@"userinfo_desc"];
         self.roomCover = dict[@"room_cover"];
         self.poolDesc = dict[@"pool_desc"];
         self.poolTime = dict[@"pool_last_time"];

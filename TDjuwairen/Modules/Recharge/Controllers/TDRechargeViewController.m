@@ -183,7 +183,7 @@
             case SKPaymentTransactionStatePurchased:{
                 [self.indicatorView stopAnimating];
                 [[SKPaymentQueue defaultQueue] finishTransaction:tran];
-                [self verifyPurchaseWithPaymentTransaction];
+                [self verifyPurchaseWithPaymentTransaction:tran.transactionIdentifier];
             }
                 break;
             case SKPaymentTransactionStatePurchasing:
@@ -216,7 +216,7 @@
     [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
 }
 
--(void)verifyPurchaseWithPaymentTransaction{
+-(void)verifyPurchaseWithPaymentTransaction:(NSString *)transactionIdentifier{
     //从沙盒中获取交易凭证并且拼接成请求体数据
     NSURL *receiptUrl=[[NSBundle mainBundle] appStoreReceiptURL];
     NSData *receiptData=[NSData dataWithContentsOfURL:receiptUrl];
@@ -231,6 +231,7 @@
 #endif
     
     NSDictionary *para = @{@"receipt": receiptString,
+                           @"transactionid": transactionIdentifier,
                            @"debug": @(isDebug)};
     NetworkManager *ma = [[NetworkManager alloc] init];
 

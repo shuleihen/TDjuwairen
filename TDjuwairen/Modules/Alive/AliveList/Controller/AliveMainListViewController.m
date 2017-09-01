@@ -82,10 +82,14 @@
         sen.listType = kAlvieListHot;
         sen.mainlistType = self.mainListType;
         
+        AliveListViewController *eight = [[AliveListViewController alloc] init];
+        eight.listType = kAliveListStockHolder;
+        eight.mainlistType = self.mainListType;
+        
         if (self.mainListType == kMainListRecommend) {
-            _contentControllers = @[one,six,three,four,five,sen];
+            _contentControllers = @[one,eight,six,three,four,five,sen];
         } else {
-            _contentControllers = @[two,six,three,four,five,sen];
+            _contentControllers = @[two,eight,six,three,four,five,sen];
         }
     }
     
@@ -103,7 +107,6 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self setupNavigationBar];
     [self setupSegmentControl];
 
     self.pageViewController.view.frame = CGRectMake(0, 44, kScreenWidth, kScreenHeight-44);
@@ -131,15 +134,15 @@
 
 - (void)setupSegmentControl {
     
-    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
-    view.backgroundColor = [UIColor whiteColor];
+    CGFloat itemW = 75;
+    UIScrollView *scroolView = [[UIScrollView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 44)];
+    scroolView.backgroundColor = [UIColor whiteColor];
+    scroolView.contentSize = CGSizeMake(itemW*7, 44);
     
+    UIImage *normal = [UIImage imageWithSize:CGSizeMake(itemW, 28) withColor:[UIColor whiteColor]];
+    UIImage *pressed = [UIImage imageWithSize:CGSizeMake(itemW, 28) withColor:[UIColor whiteColor]];
     
-    
-    UIImage *normal = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
-    UIImage *pressed = [UIImage imageWithSize:CGSizeMake(60, 28) withColor:[UIColor whiteColor]];
-    
-    NSArray *tites = tites = @[@"全部",@"股票池",@"观点",@"视频",@"推单",@"热点"];
+    NSArray *tites = tites = @[@"全部",@"股东大会",@"股票池",@"观点",@"视频",@"推单",@"热点"];
     
     UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:tites];
     segmented.tintColor = [UIColor whiteColor];
@@ -148,14 +151,14 @@
     segmented.layer.borderColor = [UIColor whiteColor].CGColor;
     
     [segmented addTarget:self action:@selector(segmentValueChanged:) forControlEvents:UIControlEventValueChanged];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:16.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#666666"]}
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:13.0f weight:UIFontWeightSemibold], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]}
                              forState:UIControlStateNormal];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0f weight:UIFontWeightSemibold], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateHighlighted];
-    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:17.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
+    [segmented setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:15.0f weight:UIFontWeightSemibold], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#3371E2"]}
                              forState:UIControlStateSelected];
     
-    segmented.frame = CGRectMake(0, 0, tites.count * 60, 44-TDPixel);
+    segmented.frame = CGRectMake(0, 0, tites.count * itemW, 44-TDPixel);
     [segmented setBackgroundImage:normal forState:UIControlStateNormal barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateHighlighted barMetrics:UIBarMetricsDefault];
     [segmented setBackgroundImage:pressed forState:UIControlStateSelected barMetrics:UIBarMetricsDefault];
@@ -163,11 +166,11 @@
     
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, 44-TDPixel, kScreenWidth, TDPixel)];
     sep.backgroundColor = TDSeparatorColor;
-    [view addSubview:sep];
+    [scroolView addSubview:sep];
     
-    [view addSubview:segmented];
+    [scroolView addSubview:segmented];
     
-    [self.view addSubview:view];
+    [self.view addSubview:scroolView];
     
     self.segmentControl = segmented;
 }

@@ -43,7 +43,7 @@
 
 - (NSArray *)dataArr {
     if (!_dataArr) {
-        _dataArr = [NSArray arrayWithObjects:@"1",@"3", @"5",@"7",@"30",@"90",nil];
+        _dataArr = [NSArray arrayWithObjects:@"一周",@"一个月",nil];
     }
     return _dataArr;
 }
@@ -51,6 +51,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = [UIColor whiteColor];
+    
     [self congifNavigationBar];
     [self congfigCommonUI];
     
@@ -87,7 +88,7 @@
 
 /** 设置UI */
 - (void)congfigCommonUI {
-    UIImageView *keyImageV  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ico_key_o"]];
+    UIImageView *keyImageV  = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon_key_big.png"]];
     [self.view addSubview:keyImageV];
     [keyImageV mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.mas_equalTo(12);
@@ -102,8 +103,17 @@
         
     }];
     
-    _numDayLabel = [[UILabel alloc] initWithTitle:@"/3天" textColor:TDThemeColor fontSize:17.0 textAlignment:NSTextAlignmentLeft];
+    if (self.priceModel.isFree == NO) {
+        self.keyTextField.text = [NSString stringWithFormat:@"%@",self.priceModel.key_num];
+    }
+    
+    NSString *title = @"/周";
+    if ([self.priceModel.term integerValue] == 2) {
+        title = @"/月";
+    }
+    _numDayLabel = [[UILabel alloc] initWithTitle:title textColor:TDThemeColor fontSize:17.0 textAlignment:NSTextAlignmentLeft];
     [self.view addSubview:_numDayLabel];
+    
     [_numDayLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.keyTextField.mas_right).mas_offset(6);
         make.centerY.equalTo(self.keyTextField.mas_centerY);
@@ -121,35 +131,41 @@
     }];
     
     
-    CGFloat btnW = (kScreenWidth-15*4)/3;
+    CGFloat btnW = (kScreenWidth-12*2-8)/2;
     CGFloat btnH = 60;
-    CGFloat marginX = 15;
+    CGFloat marginX = 12;
     CGFloat marginY = 20;
     CGFloat vHeigth = 120;
+    
+    int defalt = 0;
+    if ([self.priceModel.term integerValue] == 2) {
+        defalt = 1;
+    }
+    
     for (int i=0; i<self.dataArr.count; i++) {
         NSString *titleStr = self.dataArr[i];
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
-        [btn setTitle:[NSString stringWithFormat:@"%@天",titleStr] forState:UIControlStateNormal];
+        [btn setTitle:titleStr forState:UIControlStateNormal];
         [btn setTitleColor:TDThemeColor forState:UIControlStateNormal];
         [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateSelected];
         [btn cutCircular:3];
         [btn addBorder:1 borderColor:TDThemeColor];
         btn.tag = i;
-        btn.frame = CGRectMake(marginX+(btnW+marginX)*(i%3), 140+(btnH+marginY)*(i/3), btnW, btnH);
+        btn.frame = CGRectMake(marginX+(btnW+marginX)*(i%2), 140+(btnH+marginY)*(i/2), btnW, btnH);
         [btn addTarget:self action:@selector(changeChargeTypeClick:) forControlEvents:UIControlEventTouchUpInside];
         [self.view addSubview:btn];
-        if ([titleStr isEqualToString:@"3"]) {
+        
+        if (defalt == i) {
             btn.selected = YES;
             btn.backgroundColor = TDThemeColor;
             self.selectedBtn = btn;
         }
+        
         vHeigth = CGRectGetMaxY(btn.frame);
     }
     
-    
-    
     /// 例：1把钥匙/3天，他人支付1把钥匙即可查阅我的所有股票池记录，有效期：3天
-    UILabel *descLabel = [[UILabel alloc] initWithTitle:@"例：1把钥匙/3天，他人支付1把钥匙即可查阅我的所有股票池记录，有效期：3天" textColor:TDDetailTextColor fontSize:13.0 textAlignment:NSTextAlignmentLeft];
+    UILabel *descLabel = [[UILabel alloc] initWithTitle:@"例：1把钥匙/1周，他人支付1把钥匙即可查阅我的所有股票池记录，有效期：1周" textColor:TDDetailTextColor fontSize:13.0 textAlignment:NSTextAlignmentLeft];
     descLabel.numberOfLines = 0;
     [self.view addSubview:descLabel];
     [descLabel mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -158,10 +174,6 @@
         make.top.equalTo(self.view).mas_offset(vHeigth+15);
         
     }];
-    
-    
-    
-    
 }
 
 - (void)changeChargeType {
@@ -169,12 +181,14 @@
      key_num	int	订阅钥匙数	是
      day	int	订阅天数	是
      is_free	int	1表示免费，0表示收费
+     term           1表示周，2表示月
      */
+    NSString *term = (self.selectedBtn.tag == 0)?@"1":@"2";
     __weak typeof (self)weakSelf = self;
     NetworkManager *manager = [[NetworkManager alloc] init];
     NSDictionary *dict = @{@"key_num":self.keyTextField.text,
-                           @"day":self.dataArr[self.selectedBtn.tag],
-                           @"is_free":@"0"};
+                           @"is_free":@"0",
+                           @"term":term};
     
     [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
         
@@ -205,10 +219,19 @@
         return;
     }
     
-    if ([[self.priceModel.key_num stringValue] isEqualToString:self.keyTextField.text] && [[self.priceModel.day stringValue] isEqualToString:self.dataArr[self.selectedBtn.tag]]) {
+    // term 1表示周，2表示月
+    if ([[self.priceModel.key_num stringValue] isEqualToString:self.keyTextField.text] &&
+        ([self.priceModel.term integerValue] == self.selectedBtn.tag +1)) {
         [self.navigationController popViewControllerAnimated:YES];
     }else {
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:@"收费方式发生改变，新的收费方式将在8月5日生效！是否保存？" message:nil preferredStyle:UIAlertControllerStyleAlert];
+        NSString *title;
+        if (self.priceModel.isFree) {
+            title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在3日后生效！是否保存？"];
+        } else {
+            title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在%@日后生效！是否保存？",self.priceModel.day];
+        }
+        
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
         UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {}];
         [alertVC addAction:cancelAction];
         
@@ -218,18 +241,8 @@
         }];
         [alertVC addAction:doneAction];
         
-        
         [self presentViewController:alertVC animated:YES completion:nil];
-        
     }
-    
-    
-    
-    
-    
-    
-    
-    
 }
 
 - (void)changeChargeTypeClick:(UIButton *)sender {
@@ -243,15 +256,12 @@
     sender.selected = YES;
     sender.backgroundColor = TDThemeColor;
     self.selectedBtn = sender;
-    self.numDayLabel.text = [NSString stringWithFormat:@"/%@",sender.currentTitle];
-    
-    
+    self.numDayLabel.text = [NSString stringWithFormat:@"/%@",(sender.tag==0)?@"周":@"月"];
 }
 
 #pragma - 手势
 - (void)hiddenKeyBorard {
     [self.keyTextField resignFirstResponder];
-    
 }
 
 @end

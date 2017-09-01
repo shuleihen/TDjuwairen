@@ -11,6 +11,7 @@
 #import "TDRechargeViewController.h"
 #import "CocoaLumberjack.h"
 #import "MemberCenterVipManager.h"
+#import "NotificationDef.h"
 
 @interface TDWebViewController ()<WKUIDelegate,WKNavigationDelegate, WKScriptMessageHandler>
 @property (nonatomic, strong) NSURL *url;
@@ -20,6 +21,11 @@
 @end
 
 @implementation TDWebViewController
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (id)initWithURL:(NSURL *)url
 {
@@ -41,8 +47,11 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    
     [self setupWebView];
     [self loadWebViewData];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(recharged:) name:kRechargeNotification object:nil];
     
     DDLogInfo(@"TDWebView load url = %@",self.url);
 }
@@ -72,13 +81,11 @@
     self.webView.UIDelegate = self;
     self.webView.navigationDelegate = self;
     [self.view addSubview:self.webView];
-
+    
     self.activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     self.activityView.hidesWhenStopped = YES;
     self.activityView.center = CGPointMake(kScreenWidth/2, (kScreenHeight-64)/2);
-    [self.activityView startAnimating];
     [self.view addSubview:self.activityView];
-    
     
     [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_membercenter_upgrade"];
     [configuration.userContentController addScriptMessageHandler:self name:@"com_jwr_rechargevip"];
@@ -93,6 +100,8 @@
         return;
     }
     
+    [self.activityView startAnimating];
+    
     [self.webView loadRequest:[NSURLRequest requestWithURL:self.url]];
     [self.webView reload];
 }
@@ -104,6 +113,10 @@
     } else {
         [self.navigationController popViewControllerAnimated:YES];
     }
+}
+
+- (void)recharged:(id)sender {
+    [self loadWebViewData];
 }
 
 #pragma mark - WKScriptMessageHandler
