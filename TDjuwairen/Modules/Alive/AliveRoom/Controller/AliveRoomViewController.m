@@ -126,7 +126,7 @@
         [self.messageBoardBtn setBackgroundColor:TDThemeColor];
         [self.messageBoardBtn setTitle:@"留言板" forState:UIControlStateNormal];
         [self.messageBoardBtn addTarget:self action:@selector(messageBoardBtnClick) forControlEvents:UIControlEventTouchUpInside];
-       
+        
         UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.messageBoardBtn.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
         CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
         maskLayer.frame = self.messageBoardBtn.bounds;
@@ -187,9 +187,9 @@
         
         StockPoolCommentViewController *three = [[StockPoolCommentViewController alloc] init];
         three.masterId = self.masterId;
-        three.commentType = kCommentPlayStock;
+        three.commentType = kCommentAlive;
         three.delegate = self;
-      
+        
         
         _contentControllers = @[one,two,three];
     }
@@ -302,7 +302,7 @@
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSexNotifi:) name:kUpdateAliveSexNotification object:nil];
@@ -369,10 +369,10 @@
 }
 
 - (void)stockPoolBtnClick {
-//    if (self.segmentControl.selectedSegmentIndex !=2) {
-//        self.segmentControl.selectedSegmentIndex = 2;
-//        [self segmentPressed:self.segmentControl];
-//    }
+    //    if (self.segmentControl.selectedSegmentIndex !=2) {
+    //        self.segmentControl.selectedSegmentIndex = 2;
+    //        [self segmentPressed:self.segmentControl];
+    //    }
     
     StockPoolListViewController *stockPoolVC = [[StockPoolListViewController alloc] init];
     stockPoolVC.userId = self.masterId;
@@ -404,8 +404,15 @@
 }
 
 - (void)loadMoreAction {
-    AliveRoomLiveViewController *vc = [self currentContentViewController];
-    [vc loadMoreAction];
+    if (self.segmentControl.selectedSegmentIndex == 3) {
+        StockPoolCommentViewController  *vc = self.contentControllers[2];
+        [vc loadMore];
+       
+    }else {
+        AliveRoomLiveViewController *vc = [self currentContentViewController];
+        [vc loadMoreAction];
+    
+    }
 }
 
 - (AliveRoomLiveViewController *)currentContentViewController {
@@ -587,7 +594,7 @@
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar editPressed:(id)sender {
-
+    
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar messagePressed:(id)sender {
@@ -889,7 +896,7 @@
             self.segmentControl.selectedSegmentIndex = 3;
             [self commentListLoadComplete];
         }else {
-         self.segmentControl.selectedSegmentIndex = index;
+            self.segmentControl.selectedSegmentIndex = index;
             [self reloadTableView];
         }
         

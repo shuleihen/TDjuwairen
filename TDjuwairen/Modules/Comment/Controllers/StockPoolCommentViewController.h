@@ -9,9 +9,9 @@
 #import "TDCommentViewController.h"
 
 typedef enum : NSUInteger {
-    kCommentStockPool,
-    kCommentAlive,
-    kCommentPlayStock,
+    kCommentStockPool = 1,
+    kCommentAlive = 2,
+    kCommentPlayStock = 3,
 } CommentType;
 
 
@@ -25,5 +25,7 @@ typedef enum : NSUInteger {
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, weak) id<StockPoolCommentViewControllerDelegate> delegate;
 - (CGFloat)contentViewControllerHeight;
+- (void)onRefesh;
+- (void)loadMore;
 
 @end

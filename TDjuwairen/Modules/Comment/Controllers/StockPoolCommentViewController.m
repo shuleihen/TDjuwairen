@@ -11,12 +11,12 @@
 #import "UIViewController+NoData.h"
 #import "AliveCommentViewController.h"
 
-#define headerVHeight 55
 
 @interface StockPoolCommentViewController ()
 @property (nonatomic, strong) TDCommentTableViewDelegate *tableViewDelegate;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) CGFloat contentViewH;
+@property (nonatomic, assign) CGFloat headerVHeight;
 @end
 
 
@@ -24,20 +24,26 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, headerVHeight, self.view.bounds.size.width, self.view.bounds.size.height-headerVHeight) style:UITableViewStylePlain];
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.headerVHeight, self.view.bounds.size.width, self.view.bounds.size.height-self.headerVHeight) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = [UIView new];
         _tableView.scrollEnabled = NO;
-         _tableView.contentInset = UIEdgeInsetsMake(headerVHeight, 0, 0, 0);
     }
     return _tableView;
 }
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    if (self.commentType == kCommentAlive) {
+        self.headerVHeight = 55;
+    }else {
+     self.headerVHeight = 0;
+    }
+    
     [self.view addSubview:self.tableView];
     UIView *headerV = [[UIView alloc] init];
-    headerV.frame = CGRectMake(0, 0, kScreenWidth, headerVHeight);
+    headerV.frame = CGRectMake(0, 0, kScreenWidth, self.headerVHeight);
     headerV.layer.borderWidth = 1;
     headerV.layer.borderColor = TDSeparatorColor.CGColor;
     headerV.backgroundColor = [UIColor whiteColor];
@@ -46,7 +52,7 @@
     [btn addTarget:self action:@selector(commentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, kScreenWidth-24, 35)];
     lable.textColor = TDDetailTextColor;
-    lable.text = @"  留个言吧…";
+    
     lable.font = [UIFont systemFontOfSize:14.0f];
     lable.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
     lable.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#DFDFDF"].CGColor;
@@ -55,7 +61,15 @@
     [headerV addSubview:btn];
     [self.view addSubview:headerV];
     
-    [self setupNoDataFrame:CGRectMake(0, headerVHeight, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
+    if (self.commentType == kCommentAlive) {
+        lable.text = @"  留个言吧…";
+    }else {
+        lable.text = @"  发表评论…";
+    
+    }
+    
+    
+    [self setupNoDataFrame:CGRectMake(0, self.headerVHeight, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
     
     __weak typeof(self)weakSelf = self;
     TDStockPoolCommentTableViewDelegate *model = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:self.tableView controller:self];
@@ -63,7 +77,7 @@
     model.reloadBlock = ^(CGFloat tableViewH, BOOL noData) {
         [weakSelf showNoDataView:noData];
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(commentListLoadComplete)]) {
-            weakSelf.contentViewH = tableViewH+headerVHeight;
+            weakSelf.contentViewH = tableViewH+self.headerVHeight;
             [weakSelf.delegate commentListLoadComplete];
         }
     };
@@ -83,6 +97,15 @@
 
 - (CGFloat)contentViewControllerHeight {
     return self.contentViewH;
+}
+
+
+- (void)onRefesh {
+    [self.tableViewDelegate refreshData];
+}
+
+- (void)loadMore {
+[self.tableViewDelegate loadMoreData];
 }
 
 @end

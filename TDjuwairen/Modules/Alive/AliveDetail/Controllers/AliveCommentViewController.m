@@ -85,7 +85,7 @@
         dictM = [NSMutableDictionary dictionaryWithDictionary:@{@"item_id":SafeValue(self.alive_ID),
                                                                 @"item_type" :@(2),
                                                                 @"content":SafeValue(_commentText)}];
-        apiStr = API_AliveCAddComment;
+        apiStr = API_AliveAddComment;
     }
     else {
     
