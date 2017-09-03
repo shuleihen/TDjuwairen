@@ -40,7 +40,13 @@
         self.label_placeHolder.text = @"介绍一下你的股票池吧";
         self.maxCount = 100;
        
-    }else {
+    }else if (self.vcType == CommentVCPublishMessageBoard) {
+        str = @"发表";
+        self.title = @"写留言";
+        self.label_placeHolder.text = @"写点什么吧...";
+        self.maxCount = 200;
+        
+    } else {
         
         self.title = @"评论";
         self.maxCount = 140;
@@ -73,7 +79,15 @@
     if (self.vcType == CommentVCStockPoolSettingType) {
         dictM = [NSMutableDictionary dictionaryWithDictionary:@{@"desc":SafeValue(_commentText)}];
         apiStr = API_StockPoolSetDesc;
-    }else {
+    }
+    else if(self.vcType == CommentVCPublishMessageBoard){
+        
+        dictM = [NSMutableDictionary dictionaryWithDictionary:@{@"item_id":SafeValue(self.alive_ID),
+                                                                @"item_type" :@(2),
+                                                                @"content":SafeValue(_commentText)}];
+        apiStr = API_AliveCAddComment;
+    }
+    else {
     
         dictM = [NSMutableDictionary dictionaryWithDictionary:@{@"alive_id":SafeValue(self.alive_ID),
                                                                 @"alive_type" :SafeValue(_alive_type),

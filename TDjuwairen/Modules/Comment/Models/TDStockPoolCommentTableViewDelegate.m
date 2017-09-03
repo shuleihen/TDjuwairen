@@ -15,9 +15,9 @@
 #import "TDTopicTableViewCell.h"
 #import "TDCommentPublishViewController.h"
 
+
 @interface TDStockPoolCommentTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource,TDTopicTableViewCellDelegate, TDCommentPublishDelegate>
-
 @end
 
 @implementation TDStockPoolCommentTableViewDelegate
@@ -78,10 +78,13 @@
                 
                 height += topicCellData.cellHeight;
             }
-
-            wself.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
+           
+            wself.tableView.frame = CGRectMake(0, 0, kScreenWidth, 1000);
             wself.contentTableView.tableFooterView = wself.tableView;
             wself.items = array;
+            if (self.reloadBlock) {
+                self.reloadBlock(height, wself.items.count<=0);
+            }
         }
         
         [wself.tableView reloadData];

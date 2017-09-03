@@ -29,11 +29,12 @@
 #import "StockPoolListViewController.h"
 #import "StockPoolCommentViewController.h"
 
+
 #define kAliveHeaderHeight  195
 #define kAliveStockPoolHeight 151
 #define kAliveSegmentHeight 34
 
-@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate>
+@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate,StockPoolCommentViewControllerDelegate>
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
@@ -187,6 +188,7 @@
         StockPoolCommentViewController *three = [[StockPoolCommentViewController alloc] init];
         three.masterId = self.masterId;
         three.commentType = kCommentPlayStock;
+        three.delegate = self;
       
         
         _contentControllers = @[one,two,three];
@@ -380,12 +382,16 @@
 }
 
 - (void)messageBoardBtnClick {
+    if (self.segmentControl.selectedSegmentIndex == 3) {
+        return;
+    }
     self.segmentControl.selectedSegmentIndex = 3;
     __weak AliveRoomViewController *wself = self;
-    AliveRoomLiveViewController *vc = self.contentControllers[2];
+    StockPoolCommentViewController *vc = self.contentControllers[2];
     [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
-        [wself reloadTableView];
+        [wself commentListLoadComplete];
     }];
+    
 }
 
 - (void)refreshAction {
@@ -488,6 +494,26 @@
     }
     
     [self reloadTableView];
+}
+
+#pragma mark - StockPoolCommentViewControllerDelegate
+- (void)commentListLoadComplete {
+    if ([self.tableView.mj_footer isRefreshing]) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+    
+    if ([self.tableView.mj_header isRefreshing]) {
+        [self.tableView.mj_header endRefreshing];
+    }
+    CGFloat contentHeight = [self.contentControllers[2] contentViewControllerHeight];
+    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveStockPoolHeight-kAliveSegmentHeight;
+    CGFloat tHeight = MAX(contentHeight, minHeight);
+    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, tHeight);
+    // iOS10以下需要添加以下
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
+    [self.tableView reloadData];
+    
 }
 
 #pragma mark - AliveRoomNavigationBarDelegate
@@ -860,12 +886,14 @@
     
     if (index != self.segmentControl.selectedSegmentIndex) {
         if (index == 2) {
-            
-            index = 3;
+            self.segmentControl.selectedSegmentIndex = 3;
+            [self commentListLoadComplete];
+        }else {
+         self.segmentControl.selectedSegmentIndex = index;
+            [self reloadTableView];
         }
-        self.segmentControl.selectedSegmentIndex = index;
         
-        [self reloadTableView];
+        
     }
 }
 

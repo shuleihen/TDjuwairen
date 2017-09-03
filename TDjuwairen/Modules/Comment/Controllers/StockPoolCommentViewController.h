@@ -14,7 +14,16 @@ typedef enum : NSUInteger {
     kCommentPlayStock,
 } CommentType;
 
+
+@protocol StockPoolCommentViewControllerDelegate <NSObject>
+- (void)commentListLoadComplete;
+
+@end
+
 @interface StockPoolCommentViewController : TDCommentViewController
 @property (nonatomic, assign) CommentType commentType;
 @property (nonatomic, strong) NSString *masterId;
+@property (nonatomic, weak) id<StockPoolCommentViewControllerDelegate> delegate;
+- (CGFloat)contentViewControllerHeight;
+
 @end
