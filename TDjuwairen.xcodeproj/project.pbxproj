@@ -13,7 +13,6 @@
 		19042E3B1F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19042E391F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib */; };
 		19042E3E1F3D8C000004D3C6 /* AliveListStockPoolModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E3D1F3D8C000004D3C6 /* AliveListStockPoolModel.m */; };
 		19042E411F3E9A5D0004D3C6 /* AliveListStockPoolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E401F3E9A5D0004D3C6 /* AliveListStockPoolView.m */; };
-		19042E441F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E431F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m */; };
 		19042E471F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */; };
 		19042E4A1F3EB5E90004D3C6 /* AliyunOSSiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */; };
 		19042E4D1F4177250004D3C6 /* CenterHeaderItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042E4C1F4177250004D3C6 /* CenterHeaderItemView.m */; };
@@ -144,6 +143,9 @@
 		19386F081E73A88800D4426E /* CenterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19386F071E73A88800D4426E /* CenterViewController.m */; };
 		193D42C51ED465480051A7D4 /* YXTitleCustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193D42C41ED465480051A7D4 /* YXTitleCustomView.m */; };
 		193ED5171F57E5AB00C23E6A /* NSString+ImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED5161F57E5AB00C23E6A /* NSString+ImageSize.m */; };
+		193ED51D1F5D1D0200C23E6A /* AliveListForwardVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED51C1F5D1D0200C23E6A /* AliveListForwardVideoView.m */; };
+		193ED5201F5D3F6400C23E6A /* AliveListVisitCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED51F1F5D3F6400C23E6A /* AliveListVisitCardView.m */; };
+		193ED5231F5D425300C23E6A /* AliveListVisitCardExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED5221F5D425300C23E6A /* AliveListVisitCardExtra.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194186D71DF81284000C5197 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186CA1DF81284000C5197 /* AccountViewController.m */; };
@@ -747,8 +749,6 @@
 		19042E3D1F3D8C000004D3C6 /* AliveListStockPoolModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolModel.m; sourceTree = "<group>"; };
 		19042E3F1F3E9A5D0004D3C6 /* AliveListStockPoolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolView.h; sourceTree = "<group>"; };
 		19042E401F3E9A5D0004D3C6 /* AliveListStockPoolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolView.m; sourceTree = "<group>"; };
-		19042E421F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardStockPoolView.h; sourceTree = "<group>"; };
-		19042E431F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardStockPoolView.m; sourceTree = "<group>"; };
 		19042E451F3E9E2F0004D3C6 /* AliveListStockPoolExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListStockPoolExtra.h; sourceTree = "<group>"; };
 		19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListStockPoolExtra.m; sourceTree = "<group>"; };
 		19042E491F3EB5E90004D3C6 /* AliyunOSSiOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = AliyunOSSiOS.framework; sourceTree = "<group>"; };
@@ -1001,6 +1001,12 @@
 		193D42C41ED465480051A7D4 /* YXTitleCustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXTitleCustomView.m; sourceTree = "<group>"; };
 		193ED5151F57E5AB00C23E6A /* NSString+ImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ImageSize.h"; sourceTree = "<group>"; };
 		193ED5161F57E5AB00C23E6A /* NSString+ImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ImageSize.m"; sourceTree = "<group>"; };
+		193ED51B1F5D1D0200C23E6A /* AliveListForwardVideoView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardVideoView.h; sourceTree = "<group>"; };
+		193ED51C1F5D1D0200C23E6A /* AliveListForwardVideoView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardVideoView.m; sourceTree = "<group>"; };
+		193ED51E1F5D3F6400C23E6A /* AliveListVisitCardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListVisitCardView.h; sourceTree = "<group>"; };
+		193ED51F1F5D3F6400C23E6A /* AliveListVisitCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListVisitCardView.m; sourceTree = "<group>"; };
+		193ED5211F5D425300C23E6A /* AliveListVisitCardExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListVisitCardExtra.h; sourceTree = "<group>"; };
+		193ED5221F5D425300C23E6A /* AliveListVisitCardExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListVisitCardExtra.m; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194186C91DF81284000C5197 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -3410,6 +3416,8 @@
 				19F07A501F1F0480004449BB /* AliveListPlayStockExtra.m */,
 				19042E451F3E9E2F0004D3C6 /* AliveListStockPoolExtra.h */,
 				19042E461F3E9E2F0004D3C6 /* AliveListStockPoolExtra.m */,
+				193ED5211F5D425300C23E6A /* AliveListVisitCardExtra.h */,
+				193ED5221F5D425300C23E6A /* AliveListVisitCardExtra.m */,
 				1966A66C1E8CAAA3007DDA14 /* AliveListCellData.h */,
 				1966A66D1E8CAAA3007DDA14 /* AliveListCellData.m */,
 				193419CC1E77F40300F22788 /* AliveListTableViewDelegate.h */,
@@ -3435,6 +3443,8 @@
 				1987B2B31EE6D1FE00BD852E /* AliveListPostView.m */,
 				1987B2AF1EE6CE8900BD852E /* AliveListViewpointView.h */,
 				1987B2B01EE6CE8900BD852E /* AliveListViewpointView.m */,
+				193ED51E1F5D3F6400C23E6A /* AliveListVisitCardView.h */,
+				193ED51F1F5D3F6400C23E6A /* AliveListVisitCardView.m */,
 				19F07A4C1F1EFF35004449BB /* AliveListPlayStockView.h */,
 				19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */,
 				19042E3F1F3E9A5D0004D3C6 /* AliveListStockPoolView.h */,
@@ -3443,8 +3453,8 @@
 				1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */,
 				1987B2B81EEA3AD800BD852E /* AliveListForwardSurveyView.h */,
 				1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */,
-				19042E421F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.h */,
-				19042E431F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m */,
+				193ED51B1F5D1D0200C23E6A /* AliveListForwardVideoView.h */,
+				193ED51C1F5D1D0200C23E6A /* AliveListForwardVideoView.m */,
 				19E58DC11EFB6E0F00ADA1B8 /* AliveListBottomView.h */,
 				19E58DC21EFB6E0F00ADA1B8 /* AliveListBottomView.m */,
 				1959B9BB1F276603007017F0 /* AliveListHeaderView.h */,
@@ -6401,6 +6411,7 @@
 				1987B2761EE688F700BD852E /* HotTableViewCell.m in Sources */,
 				190B37EB1E274E6300A5C1B1 /* SubscriptionModel.m in Sources */,
 				19E5F2A71E13653200984DBC /* SQCommentCellViewModel.m in Sources */,
+				193ED51D1F5D1D0200C23E6A /* AliveListForwardVideoView.m in Sources */,
 				1966A66E1E8CAAA3007DDA14 /* AliveListCellData.m in Sources */,
 				84823CB81DD1ACB3004440A9 /* NSString+GetDevice.m in Sources */,
 				19042E331F3D7DB90004D3C6 /* AliveListStockPoolViewController.m in Sources */,
@@ -6411,6 +6422,7 @@
 				1955B4A31D644D9800DC102E /* FloorInFloorView.m in Sources */,
 				19BA91301E14DECA00C27124 /* PAStepper.m in Sources */,
 				19042E6C1F429B460004D3C6 /* TDRechargeCollectionViewCell.m in Sources */,
+				193ED5231F5D425300C23E6A /* AliveListVisitCardExtra.m in Sources */,
 				194186D71DF81284000C5197 /* AccountViewController.m in Sources */,
 				19386ECC1E7188AD00D4426E /* AliveMasterModel.m in Sources */,
 				196F5EC91E54847700928B60 /* Base64.m in Sources */,
@@ -6697,6 +6709,7 @@
 				1987B2951EE688F700BD852E /* SurveyAnsView.m in Sources */,
 				19F07A021F19A796004449BB /* PSIndividualUserListCell.m in Sources */,
 				19ECB99D1EAAEF160009F625 /* GradeCommentReplyModel.m in Sources */,
+				193ED5201F5D3F6400C23E6A /* AliveListVisitCardView.m in Sources */,
 				19F07A341F1D9FDD004449BB /* XHLaunchAdConfiguration.m in Sources */,
 				190F65FC1E36E73000B83ADF /* RecordModel.m in Sources */,
 				9EC715F61F3F5DEE00F3A071 /* JTVerticalCalendarView.m in Sources */,
@@ -6778,7 +6791,6 @@
 				19AA7DB41F38493D00716F38 /* TDTabBarItem.m in Sources */,
 				194E0D1C1EEF8D66009C7AC6 /* TDCommentTableViewDelegate.m in Sources */,
 				1987B2991EE688F700BD852E /* SelectedSurveySubjectViewController.m in Sources */,
-				19042E441F3E9CCF0004D3C6 /* AliveListForwardStockPoolView.m in Sources */,
 				84E3346C1CE3123700E5DCEE /* UIButton+WebCache.m in Sources */,
 				19475C591EA497B500F749E6 /* SKProduct+LocalizedPrice.m in Sources */,
 				4DD179E61E77C00B00FBE66D /* MYBottomMenuCell.m in Sources */,

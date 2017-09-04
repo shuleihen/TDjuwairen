@@ -7,8 +7,11 @@
 //
 
 #import "AliveListContentView.h"
-#import "AliveListForwardStockPoolView.h"
 
 @interface AliveListStockPoolView : AliveListContentView
-@property (nonatomic, strong) AliveListForwardStockPoolView *stockPoolView;
+@property (nonatomic, strong) UIView *stockPoolView;
+@property (nonatomic, strong) UIImageView *imageView;
+@property (nonatomic, strong) UILabel *titleLabel;
+@property (nonatomic, strong) UILabel *detailLabel;
+
 @end

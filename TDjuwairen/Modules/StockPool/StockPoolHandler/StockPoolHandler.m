@@ -24,8 +24,8 @@
         
         //第三步：通知触发机制。（重复提醒，时间间隔要大于60s）
         NSDateComponents *com = [[NSDateComponents alloc] init];
-        com.hour = 12;
-        com.minute = 7;
+        com.hour = 15;
+        com.minute = 11;
         
         UNCalendarNotificationTrigger *trigger1 = [UNCalendarNotificationTrigger triggerWithDateMatchingComponents:com repeats:YES];
         

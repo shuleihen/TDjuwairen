@@ -48,67 +48,6 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-    NSString *rightButtonTitle = @"";
-    
-    self.tableView.alwaysBounceVertical = YES;
-    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-    
-    switch (self.publishType) {
-        case kAlivePublishNormal:
-            self.title = @"发布话题";
-            self.textFieldPlaceholder = @"写点什么吧...";
-            rightButtonTitle = @"发布";
-            self.imageLimit = 9;
-            break;
-        case kAlivePublishPosts:
-            self.title = @"发布推单";
-            self.textFieldPlaceholder = @"填写买入卖出理由或其他";
-            rightButtonTitle = @"发布";
-            self.imageLimit = 9;
-            break;
-        case kAlivePublishForward:
-        case kAlivePublishShare:
-            self.title = @"转发直播";
-            self.textFieldPlaceholder = @"写点分享心得吧...";
-            rightButtonTitle = @"发布";
-            self.imageLimit = 1;
-            break;
-        default:
-            NSAssert(NO, @"暂不支持的直播发布类型");
-            break;
-    }
-    
-    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(publishPressed:)];
-    [right setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]}
-                         forState:UIControlStateNormal];
-    [right setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}
-                         forState:UIControlStateDisabled];
-    self.navigationItem.rightBarButtonItem = right;
-    
-    self.imageArray = [NSMutableArray arrayWithCapacity:9];
-    
-    self.selectedStockArrM = [NSMutableArray array];
-    
-    NSArray *localArr = [SearchCompanyListModel loadLocalHistoryModel];
-    if (localArr == nil) {
-        self.historySelectedStockArrM = [NSMutableArray array];
-    }else {
-        self.historySelectedStockArrM = [NSMutableArray arrayWithArray:localArr];
-    }
-    
-    self.tableView.backgroundColor = TDViewBackgrouondColor;
-    self.tableView.separatorColor = TDSeparatorColor;
-    self.tableView.separatorInset = UIEdgeInsetsZero;
-    [self.tableView addSubview:self.companyListTableView];
-    
-    [self setupFooterView];
-    [self checkRightBarItemEnabled];
-    
-    [self getAliyunUploadSetting];
-}
 
 - (SearchCompanyListTableView *)companyListTableView {
     if (!_companyListTableView) {
@@ -160,6 +99,68 @@
     return _forwardView;
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    NSString *rightButtonTitle = @"";
+    
+    
+    
+    switch (self.publishType) {
+        case kAlivePublishNormal:
+            self.title = @"发布话题";
+            self.textFieldPlaceholder = @"写点什么吧...";
+            rightButtonTitle = @"发布";
+            self.imageLimit = 9;
+            break;
+        case kAlivePublishPosts:
+            self.title = @"发布推单";
+            self.textFieldPlaceholder = @"填写买入卖出理由或其他";
+            rightButtonTitle = @"发布";
+            self.imageLimit = 9;
+            break;
+        case kAlivePublishForward:
+        case kAlivePublishShare:
+            self.title = @"转发直播";
+            self.textFieldPlaceholder = @"写点分享心得吧...";
+            rightButtonTitle = @"发布";
+            self.imageLimit = 1;
+            break;
+        default:
+            NSAssert(NO, @"暂不支持的直播发布类型");
+            break;
+    }
+    
+    UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:rightButtonTitle style:UIBarButtonItemStylePlain target:self action:@selector(publishPressed:)];
+    [right setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#333333"]}
+                         forState:UIControlStateNormal];
+    [right setTitleTextAttributes:@{NSFontAttributeName: [UIFont systemFontOfSize:14.0f], NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#999999"]}
+                         forState:UIControlStateDisabled];
+    self.navigationItem.rightBarButtonItem = right;
+    
+    self.imageArray = [NSMutableArray arrayWithCapacity:9];
+    
+    self.selectedStockArrM = [NSMutableArray array];
+    
+    NSArray *localArr = [SearchCompanyListModel loadLocalHistoryModel];
+    if (localArr == nil) {
+        self.historySelectedStockArrM = [NSMutableArray array];
+    }else {
+        self.historySelectedStockArrM = [NSMutableArray arrayWithArray:localArr];
+    }
+    
+    self.tableView.backgroundColor = TDViewBackgrouondColor;
+    self.tableView.separatorColor = TDSeparatorColor;
+    self.tableView.separatorInset = UIEdgeInsetsZero;
+    self.tableView.alwaysBounceVertical = YES;
+    self.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
+    [self.tableView addSubview:self.companyListTableView];
+    
+    [self setupFooterView];
+    [self checkRightBarItemEnabled];
+    
+    [self getAliyunUploadSetting];
+}
 
 - (void)setupFooterView {
     UIView *footerView = [[UIView alloc] init];

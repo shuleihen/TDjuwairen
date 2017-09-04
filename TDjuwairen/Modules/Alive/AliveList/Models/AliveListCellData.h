@@ -55,7 +55,9 @@
 @end
 
 @interface AliveListViewpointCellData : AliveListCellData
+@property (nonatomic, assign) BOOL isShowImageView;
 @property (nonatomic, assign) CGRect imageViewFrame;
+@property (nonatomic, assign) CGRect descLabelFrame;
 @end
 
 @interface AliveListForwardCellData : AliveListCellData
@@ -83,4 +85,9 @@
 
 @interface AliveListHotCellData : AliveListCellData
 
+@end
+
+
+@interface AliveListVisitCardCellData : AliveListCellData
+@property (nonatomic, assign) CGRect visitCardViewFrame;
 @end

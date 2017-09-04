@@ -147,7 +147,7 @@
     UIImage *normal = [UIImage imageWithSize:CGSizeMake(itemW, 28) withColor:[UIColor whiteColor]];
     UIImage *pressed = [UIImage imageWithSize:CGSizeMake(itemW, 28) withColor:[UIColor whiteColor]];
     
-    NSArray *tites = tites = @[@"全部",@"股东大会",@"股票池",@"观点",@"视频",@"推单",@"热点"];
+    NSArray *tites = tites = @[@"最新",@"股东大会",@"股票池",@"观点",@"视频",@"推单",@"热点"];
     
     UISegmentedControl *segmented = [[UISegmentedControl alloc] initWithItems:tites];
     segmented.tintColor = [UIColor whiteColor];

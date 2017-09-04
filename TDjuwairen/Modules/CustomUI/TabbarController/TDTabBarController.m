@@ -98,7 +98,7 @@
 }
 
 #pragma mark - TDPopupMenuDelegate
-- (void)popupMenu:(id)popupMenu withIndex:(NSInteger)selectedIndex {
+- (void)popupMenu:(TDPopupMenuViewController *)popupMenu withIndex:(NSInteger)selectedIndex {
     UINavigationController *nav = self.selectedViewController;
     
     if (!US.isLogIn) {
@@ -129,7 +129,7 @@
         
     } else if (selectedIndex == 3) {
         // 股票池记录，每天只能发2条
-        if ([SettingHandler getAddStockPoolRecordCountInOneDay] > 2) {
+        if (popupMenu.canPublishStockPool == NO) {
             UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"" message:@"股票池每天只能发两次哦,等过了凌晨4点再来吧~\n或者您可以删除最新的记录重新发" preferredStyle:UIAlertControllerStyleAlert];
             UIAlertAction *done = [UIAlertAction actionWithTitle:@"好" style:UIAlertActionStyleDefault handler:nil];
             [alert addAction:done];

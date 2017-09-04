@@ -60,10 +60,15 @@
         } else if (self.aliveType == kAliveStockPool ||
                    self.aliveType == kAliveStockPoolRecord) {
             self.extra = [[AliveListStockPoolExtra alloc] initWithDictionary:extraDict];
+        } else if (self.aliveType == kAliveSurvey ||
+                   self.aliveType == kAliveVideo ||
+                   self.aliveType == kAliveHot ||
+                   self.aliveType == kAliveDeep){
+            self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
+        } else if (self.aliveType == kAliveVisitCard) {
+            self.extra = [[AliveListVisitCardExtra alloc] initWithDictionary:extraDict];
         } else {
-            if (extraDict.count) {
-                self.extra = [[AliveListExtra alloc] initWithDictionary:extraDict];
-            }
+            self.extra = extraDict;
         }
         
     }

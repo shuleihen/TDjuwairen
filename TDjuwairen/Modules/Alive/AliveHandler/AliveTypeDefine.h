@@ -26,13 +26,12 @@ typedef enum : NSUInteger {
     kAlvieListHot        =7, // 热点
 } AliveListType;
 
-// 直播发布页面类型，1：图文，2：跟单，3：转发, 4：调研详情页面分享，5：玩票分享到直播
+// 直播发布页面类型，1表示话题或股东大会，2表示贴单,3表示转发直播、观点、股票池分享、股票池记录分享、个人主页分享，4表示调研、热点、视频分享
 typedef enum : NSInteger {
     kAlivePublishNormal     =1,
     kAlivePublishPosts      =2,
     kAlivePublishForward    =3,
     kAlivePublishShare      =4,
-    kAlivePublishSharePlayStock =5,
 } AlivePublishType;
 
 // 直播间列表类型，0：全部，1：跟单
@@ -41,7 +40,7 @@ typedef enum : NSInteger {
     kAliveRoomListPosts    =1
 } AliveRoomListType;
 
-// 直播动态类型，1：图文，2：推单，3：调研，4：热点，5：观点，6：视频，7：玩票，8：广告，9：深度调研,10：股票池，11：股票池记录
+// 直播动态类型，1：图文，2：推单，3：调研，4：热点，5：观点，6：视频，7：玩票，8：广告，9：深度调研,10：股票池，11：股票池记录，13：个人主页
 typedef enum : NSInteger {
     kAliveNormal    =1,
     kAlivePosts     =2,
@@ -54,6 +53,7 @@ typedef enum : NSInteger {
     kAliveDeep      =9,
     kAliveStockPool =10,
     kAliveStockPoolRecord   =11,
+    kAliveVisitCard     =14,
 } AliveType;
 
 // 直播内容类型，0：文本，1：图片

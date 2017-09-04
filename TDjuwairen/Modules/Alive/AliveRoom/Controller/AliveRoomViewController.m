@@ -27,6 +27,7 @@
 #import "StockPoolListViewController.h"
 #import "AliveRoomStockPoolTableViewCell.h"
 #import "StockPoolListViewController.h"
+#import "ShareHandler.h"
 
 #define kAliveHeaderHeight  195
 #define kAliveStockPoolHeight 151
@@ -665,7 +666,51 @@
 }
 
 - (void)aliveRommHeaderView:(AliveRoomHeaderView *)headerView sharePressed:(id)sender {
+    NSString *title = [NSString stringWithFormat:@"@%@的个人主页",self.roomMasterModel.masterNickName];
+    NSString *desc = self.roomMasterModel.roomInfo;
+    NSString *cover = self.roomMasterModel.avatar;
+    NSString *url = self.roomMasterModel.shareUrl;
+    NSString *userId = self.roomMasterModel.masterId;
+    NSString *master = self.roomMasterModel.masterNickName;
     
+    NSArray *images;
+    if (cover.length) {
+        images = @[cover];
+    }
+    
+    __weak AliveRoomViewController *wself = self;
+    AliveListModel *model = [[AliveListModel alloc] init];
+    model.aliveTitle = desc;
+    model.aliveImgs = images;
+    model.shareUrl = url;
+    model.aliveId = userId;
+    model.aliveType = kAliveVisitCard;
+    model.masterNickName = master;
+    
+    void (^shareBlock)(BOOL state) = ^(BOOL state) {
+        if (state) {
+            UIWindow *window = [UIApplication sharedApplication].keyWindow;
+            MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
+            hud.mode = MBProgressHUDModeText;
+            hud.animationType = MBProgressHUDAnimationZoomIn;
+            hud.label.text = @"分享成功";
+            hud.removeFromSuperViewOnHide = YES;
+            [hud hideAnimated:YES afterDelay:0.6];
+        }
+    };
+    
+    
+    [ShareHandler shareWithTitle:title detail:desc image:images url:url selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            vc.aliveListModel = model;
+            vc.publishType = kAlivePublishForward;
+            vc.shareBlock = shareBlock;
+            [wself.navigationController pushViewController:vc animated:YES];
+        }
+    } shareState:nil];
 }
 
 - (void)showGuessRateInfoOrShowAttentionInfo:(BOOL)isGuessRate {

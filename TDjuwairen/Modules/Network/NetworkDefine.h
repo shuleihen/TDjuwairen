@@ -271,5 +271,6 @@
 #define API_StockPoolGetCommentList     @"StockPool/getStockPoolComment"
 #define API_StockPoolAddComment         @"StockPool/addStockPoolComment"
 #define API_StockPoolReplyComment       @"StockPool/replyStockPoolComment"
+#define API_StockPoolGetPublishInfo     @"StockPool/getPublishInfo"
 
 #endif /* NetworkDefine_h */

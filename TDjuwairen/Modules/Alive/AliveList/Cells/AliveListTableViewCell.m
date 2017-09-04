@@ -15,6 +15,7 @@
 #import "AliveListForwardView2.h"
 #import "AliveListPlayStockView.h"
 #import "AliveListStockPoolView.h"
+#import "AliveListVisitCardView.h"
 
 @implementation AliveListTableViewCell
 
@@ -89,20 +90,23 @@
     } else {
         switch (aliveModel.aliveType) {
             case kAliveNormal:
-            case kAlivePosts: {
+            case kAlivePosts:
+            {
                 AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 view.delegate = self;
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
                 break;
-            case kAliveViewpoint: {
+            case kAliveViewpoint:
+            {
                 AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
                 break;
-            case kAlivePlayStock: {
+            case kAlivePlayStock:
+            {
                 AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 view.delegate = self;
                 self.aliveContentView = view;
@@ -110,8 +114,16 @@
             }
                 break;
             case kAliveStockPool:
-            case kAliveStockPoolRecord:{
+            case kAliveStockPoolRecord:
+            {
                 AliveListStockPoolView *view = [[AliveListStockPoolView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+                self.aliveContentView = view;
+                [view setCellData:cellData];
+            }
+                break;
+            case kAliveVisitCard:
+            {
+                AliveListVisitCardView *view = [[AliveListVisitCardView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }

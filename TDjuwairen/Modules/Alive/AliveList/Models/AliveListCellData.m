@@ -69,6 +69,10 @@
                 cellData = [[AliveListStockPoolCellData alloc] initWithAliveModel:model];
             }
                 break;
+            case kAliveVisitCard:{
+                cellData = [[AliveListVisitCardCellData alloc] initWithAliveModel:model];
+            }
+                break;
             default:
                 NSAssert(NO, @"直播类型不支持");
                 break;
@@ -444,8 +448,20 @@
     
     height = CGRectGetMaxY(self.messageLabelFrame);
     
-    self.imageViewFrame = CGRectMake(left, height+8, contentWidht, 178);
-    height = CGRectGetMaxY(self.imageViewFrame);
+    if (self.aliveModel.aliveImgs.count) {
+        self.imageViewFrame = CGRectMake(left, height+8, contentWidht, 178);
+        height = CGRectGetMaxY(self.imageViewFrame);
+        self.isShowImageView = YES;
+    } else {
+        self.isShowImageView = NO;
+        // 没有图片显示简略详情
+        if ([self.aliveModel.extra isKindOfClass:[NSDictionary class]]) {
+            NSString *desc = self.aliveModel.extra[@"view_desc"];
+            CGSize size =[desc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:nil].size;
+            self.descLabelFrame = CGRectMake(12, height+7, kScreenWidth-24, size.height);
+            height = CGRectGetMaxY(self.descLabelFrame);
+        }
+    }
     
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
@@ -493,8 +509,7 @@
         }
             break;
         case kAliveViewpoint:
-        case kAliveVideo:{
-            
+        {
             AliveListViewpointCellData *pCellData = [[AliveListViewpointCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
             pCellData.isShowBottomView = NO;
@@ -502,6 +517,10 @@
             
             self.forwardCellData = pCellData;
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
+        }
+            break;
+        case kAliveVideo:{
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 220);
         }
             break;
         case kAlivePlayStock:{
@@ -524,8 +543,17 @@
             
             self.forwardCellData = pCellData;
             self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
+        }
+            break;
+        case kAliveVisitCard: {
+            AliveListVisitCardCellData *pCellData = [[AliveListVisitCardCellData alloc] initWithAliveModel:forwardAlive];
+            pCellData.isShowDetailMessage = NO;
+            pCellData.isShowBottomView = NO;
+            pCellData.isShowHeaderView = NO;
+            [pCellData setup];
             
-//            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, 85);
+            self.forwardCellData = pCellData;
+            self.forwardViewFrame = CGRectMake(0, height+7, kScreenWidth, pCellData.viewHeight);
         }
             break;
             
@@ -569,7 +597,6 @@
 }
 
 @end
-
 
 #pragma mark - AliveListHotCellData 热点
 
@@ -694,6 +721,34 @@
     
     self.topHeaderHeight = kAliveListHeaderHeight;
     self.viewHeight = height+15;
+    self.bottomHeight =  kAliveListBottomHeight;
+    if (self.isShowBottomView) {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
+    } else {
+        self.cellHeight = self.viewHeight + self.topHeaderHeight;
+    }
+}
+
+@end
+
+
+#pragma mark - AliveListVisitCardCellData 名片
+
+@implementation AliveListVisitCardCellData
+
+- (void)setup {
+    [super setup];
+    
+    CGFloat height = 0.0f;
+    
+    height = CGRectGetMaxY(self.messageLabelFrame);
+    
+    self.visitCardViewFrame = CGRectMake(12, height+8, kScreenWidth-24, 65);
+    height = CGRectGetMaxY(self.visitCardViewFrame);
+    
+    self.topHeaderHeight = kAliveListHeaderHeight;
+    self.viewHeight = height + 15;
+    
     self.bottomHeight =  kAliveListBottomHeight;
     if (self.isShowBottomView) {
         self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;

@@ -14,6 +14,7 @@
 #import "AliveListAdExtra.h"
 #import "AliveListPostExtra.h"
 #import "AliveListStockPoolExtra.h"
+#import "AliveListVisitCardExtra.h"
 
 @interface AliveListModel : NSObject
 

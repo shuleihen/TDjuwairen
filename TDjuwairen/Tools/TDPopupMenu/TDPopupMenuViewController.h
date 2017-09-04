@@ -16,7 +16,7 @@
 @end
 
 @interface TDPopupMenuViewController : UIViewController
-
+@property (nonatomic, assign) BOOL canPublishStockPool;
 @property (strong, nonatomic) UIImage *backImg;
 @property (nonatomic, weak) id<TDPopupMenuDelegate> delegate;
 @end

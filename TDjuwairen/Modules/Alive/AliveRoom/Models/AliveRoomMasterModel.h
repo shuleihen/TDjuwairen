@@ -26,6 +26,7 @@
 @property (nonatomic, copy) NSString *poolDesc;
 @property (nonatomic, copy) NSString *poolTime;
 @property (nonatomic, copy) NSNumber *poolSubscribeNum;
+@property (nonatomic, copy) NSString *shareUrl;
 
 
 - (id)initWithDictionary:(NSDictionary *)dict;

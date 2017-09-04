@@ -9,9 +9,12 @@
 #import "TDPopupMenuViewController.h"
 #import "TDPopupMenuButton.h"
 #import "SettingHandler.h"
+#import "NetworkManager.h"
+#import "UIImageView+WebCache.h"
 
 @interface TDPopupMenuViewController ()
 @property (nonatomic, strong) NSMutableArray *itemButtons;
+@property (nonatomic, strong) NSString *bannerUrl;
 
 @end
 
@@ -44,28 +47,40 @@
 }
 
 - (void)viewDidLoad {
-    
     [super viewDidLoad];
-
-    [self setupUI];
+    self.canPublishStockPool = YES;
     
-    UITapGestureRecognizer *touch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePressed:)];
-    [self.view addGestureRecognizer:touch];
+    [self loadPublishInfo];
 }
 
-- (void)viewDidAppear:(BOOL)animated {
-    [super viewDidAppear:animated];
+- (void)loadPublishInfo {
     
-    [self showAnimationMenu];
+    UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    indicator.center = CGPointMake(kScreenWidth/2, (kScreenHeight-64)/2);
+    [self.view addSubview:indicator];
+    [indicator startAnimating];
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:API_StockPoolGetPublishInfo parameters:nil completion:^(NSError *error,id data){
+        if (!error && data) {
+            self.bannerUrl = data[@"stockpool_banner"];
+            self.canPublishStockPool = [data[@"stockpool_is_enable"] boolValue];
+        }
+        
+        [indicator stopAnimating];
+        [self setupUI];
+    }];
 }
 
 - (void)setupUI {
-    UIImageView *bannerImageView = [[UIImageView alloc] init];
+    UIImageView *bannerImageView = [[UIImageView alloc] initWithFrame:CGRectMake(12, 100, kScreenWidth-24, 150)];
     [self.view addSubview:bannerImageView];
+    if (self.bannerUrl) {
+        [bannerImageView sd_setImageWithURL:[NSURL URLWithString:self.bannerUrl]];
+    }
     
     UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(0, kScreenHeight-44, kScreenWidth, TDPixel)];
     sep.backgroundColor = TDSeparatorColor;
-//    [self.view addSubview:sep];
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeBtn setImage:[UIImage imageNamed:@"button_closed.png"] forState:UIControlStateNormal];
@@ -110,6 +125,10 @@
         [self.itemButtons addObject:one];
     }
     
+    UITapGestureRecognizer *touch = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(closePressed:)];
+    [self.view addGestureRecognizer:touch];
+    
+    [self showAnimationMenu];
 }
 
 - (void)showAnimationMenu {

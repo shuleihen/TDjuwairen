@@ -29,6 +29,7 @@
         self.poolDesc = dict[@"pool_desc"];
         self.poolTime = dict[@"pool_last_time"];
         self.poolSubscribeNum = dict[@"pool_subscribe_num"];
+        self.shareUrl = dict[@"share_url"];
     }
     
     return self;

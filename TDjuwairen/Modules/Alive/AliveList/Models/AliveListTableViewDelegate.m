@@ -577,6 +577,11 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         }
+    } else if (model.aliveType == kAliveVisitCard) {
+        // 名片
+//        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.aliveId];
+//        vc.hidesBottomBarWhenPushed = YES;
+//        [self.viewController.navigationController pushViewController:vc animated:YES];
     } else {
         NSAssert(NO, @"点击的直播类型不支持");
     }

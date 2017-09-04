@@ -13,4 +13,5 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UIImageView *videoImageView;
 @property (nonatomic, strong) UILabel *visitLabel;
+@property (nonatomic, strong) UILabel *descLabel;
 @end
