@@ -15,6 +15,7 @@
 
 - (id)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
     if (self = [super initWithStyle:style reuseIdentifier:reuseIdentifier]) {
+        self.selectionStyle = UITableViewCellSelectionStyleNone;
         _avatar = [[TDAvatar alloc] initWithFrame:CGRectMake(12, 13, 40, 40)];
         [self.contentView addSubview:_avatar];
         

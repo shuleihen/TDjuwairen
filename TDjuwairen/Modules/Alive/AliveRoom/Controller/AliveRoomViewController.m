@@ -921,7 +921,7 @@
     NSInteger index = [self.contentControllers indexOfObject:currentVc];
     
     if (index != self.segmentControl.selectedSegmentIndex) {
-        if (index == 2) {
+        if (index == 3) {
             self.segmentControl.selectedSegmentIndex = 3;
             [self commentListLoadComplete];
         }else {

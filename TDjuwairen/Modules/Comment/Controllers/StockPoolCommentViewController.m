@@ -24,6 +24,11 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
+        if (_commentType == kCommentAlive) {
+            _headerVHeight = 55;
+        }else {
+            _headerVHeight = 0;
+        }
         _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.headerVHeight, self.view.bounds.size.width, self.view.bounds.size.height-self.headerVHeight) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = [UIView new];
@@ -34,13 +39,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
-    if (self.commentType == kCommentAlive) {
-        self.headerVHeight = 55;
-    }else {
-     self.headerVHeight = 0;
-    }
-    
     [self.view addSubview:self.tableView];
     UIView *headerV = [[UIView alloc] init];
     headerV.frame = CGRectMake(0, 0, kScreenWidth, self.headerVHeight);
