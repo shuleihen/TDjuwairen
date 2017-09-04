@@ -9,8 +9,11 @@
 #import "TDCommentTableViewDelegate.h"
 #import "TDTopicTableViewCell.h"
 
+typedef void(^ReloadTableViewBlock)(CGFloat tableViewH,BOOL noData);
 @interface TDStockPoolCommentTableViewDelegate : TDCommentTableViewDelegate
 
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, weak) UITableView *contentTableView;
+@property (nonatomic, copy) ReloadTableViewBlock reloadBlock;
+
 @end

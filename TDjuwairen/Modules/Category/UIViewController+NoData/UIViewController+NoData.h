@@ -10,5 +10,6 @@
 
 @interface UIViewController (NoData)
 - (void)setupNoDataImage:(UIImage *)image message:(NSString *)message;
+- (void)setupNoDataFrame:(CGRect)frame Image:(UIImage *)image message:(NSString *)message;
 - (void)showNoDataView:(BOOL)isShow;
 @end

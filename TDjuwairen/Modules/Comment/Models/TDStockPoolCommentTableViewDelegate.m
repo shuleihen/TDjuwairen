@@ -14,10 +14,11 @@
 #import "TDCommentCellData.h"
 #import "TDTopicTableViewCell.h"
 #import "TDCommentPublishViewController.h"
+#import "StockPoolCommentViewController.h"
+
 
 @interface TDStockPoolCommentTableViewDelegate ()
 <UITableViewDelegate, UITableViewDataSource,TDTopicTableViewCellDelegate, TDCommentPublishDelegate>
-
 @end
 
 @implementation TDStockPoolCommentTableViewDelegate
@@ -36,10 +37,21 @@
     }
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    NSDictionary *dict = @{@"master_id": self.masterId};
+    
+    NSDictionary *dict = nil;
+    NSString *urlAPI = API_AliveGetCommentList;
+    
+    StockPoolCommentViewController *rootV = (StockPoolCommentViewController *)self.controller;
+    dict = @{@"item_type":@(rootV.commentType),@"item_id":self.masterId,@"page":@(self.page)};
+//    urlAPI = API_AliveGetCommentList;
+//    if (rootV.commentType == kCommentAlive) {
+//    }else {
+//        dict = @{@"master_id": self.masterId};
+//    }
+    
     
     __weak TDStockPoolCommentTableViewDelegate *wself = self;
-    [ma GET:API_StockPoolGetCommentList parameters:dict completion:^(id data, NSError *error){
+    [ma GET:urlAPI parameters:dict completion:^(id data, NSError *error){
         
         if (!error && data) {
             CGFloat height = 0.0;
@@ -78,10 +90,20 @@
                 
                 height += topicCellData.cellHeight;
             }
-
-            wself.tableView.frame = CGRectMake(0, 0, kScreenWidth, height);
+            
+            wself.tableView.frame = CGRectMake(0, wself.tableView.frame.origin.y, kScreenWidth, height);
             wself.contentTableView.tableFooterView = wself.tableView;
-            wself.items = array;
+            if (wself.page == 1) {
+                wself.items = [NSMutableArray arrayWithArray:array];
+            }else {
+                
+                [wself.items addObjectsFromArray:array];
+            }
+            wself.page ++;
+            if (self.reloadBlock) {
+                self.reloadBlock(height, wself.items.count<=0);
+            }
+            
         }
         
         [wself.tableView reloadData];

@@ -28,12 +28,14 @@
 #import "AliveRoomStockPoolTableViewCell.h"
 #import "StockPoolListViewController.h"
 #import "ShareHandler.h"
+#import "StockPoolCommentViewController.h"
+
 
 #define kAliveHeaderHeight  195
 #define kAliveStockPoolHeight 151
 #define kAliveSegmentHeight 34
 
-@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate>
+@interface AliveRoomViewController ()<UITableViewDelegate, UITableViewDataSource, UIPageViewControllerDataSource, UIPageViewControllerDelegate, AliveRoomHeaderViewDelegate, AliveRoomLiveContentListDelegate, DCPathButtonDelegate, AliveRoomNavigationBarDelegate,StockPoolCommentViewControllerDelegate>
 @property (nonatomic, strong) NSString *masterId;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) NSInteger currentPage;
@@ -54,8 +56,7 @@
 @property (copy, nonatomic) NSString *saveGuessRateInfoStr;
 @property (copy, nonatomic) NSString *saveLevelInfo;
 
-/// 股票池button
-@property (strong, nonatomic) UIButton *stockPoolBtn;
+@property (nonatomic, strong) UIButton *messageBoardBtn;
 
 @end
 
@@ -117,7 +118,20 @@
         view.showsHorizontalScrollIndicator = NO;
         
         [view addSubview:self.segmentControl];
-        [view addSubview:self.stockPoolBtn];
+
+        self.messageBoardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+        self.messageBoardBtn.frame = CGRectMake(kScreenWidth-72, kAliveSegmentHeight-31, 50, 31);
+        self.messageBoardBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
+        [self.messageBoardBtn setBackgroundColor:TDThemeColor];
+        [self.messageBoardBtn setTitle:@"留言板" forState:UIControlStateNormal];
+        [self.messageBoardBtn addTarget:self action:@selector(messageBoardBtnClick) forControlEvents:UIControlEventTouchUpInside];
+        
+        UIBezierPath *maskPath = [UIBezierPath bezierPathWithRoundedRect:self.messageBoardBtn.bounds byRoundingCorners:UIRectCornerTopLeft|UIRectCornerTopRight cornerRadii:CGSizeMake(5, 5)];
+        CAShapeLayer *maskLayer = [[CAShapeLayer alloc]init];
+        maskLayer.frame = self.messageBoardBtn.bounds;
+        maskLayer.path = maskPath.CGPath;
+        self.messageBoardBtn.layer.mask = maskLayer;
+        [view addSubview:self.messageBoardBtn];
         
         _segmentContentScrollView = view;
     }
@@ -137,7 +151,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         _segmentControl.sectionTitles = @[@"全部动态",@"推单",@"股票池"];
-        _segmentControl.frame = CGRectMake(0, 0, 250, kAliveSegmentHeight);
+        _segmentControl.frame = CGRectMake(0, 0, 270, kAliveSegmentHeight);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     
@@ -170,7 +184,18 @@
         two.listType = kAliveRoomListPosts;
         two.delegate = self;
         
-        _contentControllers = @[one,two];
+        AliveRoomLiveViewController *three = [[AliveRoomLiveViewController alloc] init];
+        three.masterId = self.masterId;
+        three.listType = kAliveRoomListStockPool;
+        three.delegate = self;
+        
+        StockPoolCommentViewController *four = [[StockPoolCommentViewController alloc] init];
+        four.masterId = self.masterId;
+        four.commentType = kCommentAlive;
+        four.delegate = self;
+        
+        
+        _contentControllers = @[one,two,three,four];
     }
     
     return _contentControllers;
@@ -222,14 +247,6 @@
     return _publishBtn;
 }
 
-- (UIButton *)stockPoolBtn {
-    if (_stockPoolBtn == nil) {
-        _stockPoolBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _stockPoolBtn.frame = CGRectMake(160, 0, 90, kAliveSegmentHeight);
-        [_stockPoolBtn addTarget:self action:@selector(stockPoolBtnClick) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _stockPoolBtn;
-}
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -281,7 +298,7 @@
     //添加监听，动态观察tableview的contentOffset的改变
     [self.tableView addObserver:self forKeyPath:@"contentOffset" options:NSKeyValueObservingOptionNew context:nil];
     
-//    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
+    //    self.tableView.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(refreshAction)];
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateSexNotifi:) name:kUpdateAliveSexNotification object:nil];
@@ -336,7 +353,7 @@
 #pragma mark - Action
 - (void)segmentPressed:(HMSegmentedControl *)sender {
     NSInteger index = sender.selectedSegmentIndex;
-    if (index >= self.contentControllers.count) {
+    if (index >= self.contentControllers.count-1) {
         return;
     }
     __weak AliveRoomViewController *wself = self;
@@ -347,15 +364,18 @@
     }];
 }
 
-- (void)stockPoolBtnClick {
-    if (self.segmentControl.selectedSegmentIndex !=2) {
-        self.segmentControl.selectedSegmentIndex = 2;
-        [self segmentPressed:self.segmentControl];
+- (void)messageBoardBtnClick {
+    if (self.segmentControl.selectedSegmentIndex == HMSegmentedControlNoSegment) {
+        return;
     }
-    StockPoolListViewController *stockPoolVC = [[StockPoolListViewController alloc] init];
-    stockPoolVC.userId = self.masterId;
-    [self.navigationController pushViewController:stockPoolVC animated:YES];
     
+    self.segmentControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
+    
+    __weak AliveRoomViewController *wself = self;
+    StockPoolCommentViewController *vc = self.contentControllers[kAliveRoomListComment];
+    [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
+        [wself commentListLoadComplete];
+    }];
     
 }
 
@@ -369,13 +389,20 @@
 }
 
 - (void)loadMoreAction {
-    AliveRoomLiveViewController *vc = [self currentContentViewController];
-    [vc loadMoreAction];
+    if (self.segmentControl.selectedSegmentIndex == 3) {
+        StockPoolCommentViewController  *vc = self.contentControllers[2];
+        [vc loadMore];
+       
+    }else {
+        AliveRoomLiveViewController *vc = [self currentContentViewController];
+        [vc loadMoreAction];
+    
+    }
 }
 
 - (AliveRoomLiveViewController *)currentContentViewController {
     NSInteger index = self.segmentControl.selectedSegmentIndex;
-    if (index >= 0 && index < [self.contentControllers count]) {
+    if (index >= 0 && index < [self.contentControllers count]-1) {
         return self.contentControllers[index];
     } else {
         return nil;
@@ -461,6 +488,26 @@
     [self reloadTableView];
 }
 
+#pragma mark - StockPoolCommentViewControllerDelegate
+- (void)commentListLoadComplete {
+    if ([self.tableView.mj_footer isRefreshing]) {
+        [self.tableView.mj_footer endRefreshing];
+    }
+    
+    if ([self.tableView.mj_header isRefreshing]) {
+        [self.tableView.mj_header endRefreshing];
+    }
+    CGFloat contentHeight = [self.contentControllers[kAliveRoomListComment] contentViewControllerHeight];
+    CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveStockPoolHeight-kAliveSegmentHeight;
+    CGFloat tHeight = MAX(contentHeight, minHeight);
+    self.pageViewController.view.frame = CGRectMake(0, 0, kScreenWidth, tHeight);
+    // iOS10以下需要添加以下
+    self.tableView.tableFooterView = self.pageViewController.view;
+    
+    [self.tableView reloadData];
+    
+}
+
 #pragma mark - AliveRoomNavigationBarDelegate
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar attenPressed:(id)sender {
@@ -532,7 +579,7 @@
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar editPressed:(id)sender {
-
+    
 }
 
 - (void)aliveRoomNavigationBar:(AliveRoomNavigationBar *)navigationBar messagePressed:(id)sender {
@@ -874,9 +921,15 @@
     NSInteger index = [self.contentControllers indexOfObject:currentVc];
     
     if (index != self.segmentControl.selectedSegmentIndex) {
-        self.segmentControl.selectedSegmentIndex = index;
+        if (index == 2) {
+            self.segmentControl.selectedSegmentIndex = 3;
+            [self commentListLoadComplete];
+        }else {
+            self.segmentControl.selectedSegmentIndex = index;
+            [self reloadTableView];
+        }
         
-        [self reloadTableView];
+        
     }
 }
 

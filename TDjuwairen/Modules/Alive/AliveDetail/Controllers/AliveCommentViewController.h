@@ -11,6 +11,7 @@
 typedef enum : NSUInteger {
     CommentVCNormalType = 0, /// 评论
     CommentVCStockPoolSettingType = 1, /// 股票池简介设置
+    CommentVCPublishMessageBoard = 2,
 } CommentVCType;
 
 @interface AliveCommentViewController : UIViewController

@@ -227,6 +227,10 @@
 #define API_AliveDeleteRoomAlive    @"Room/deleteAlive"
 #define API_AliveGetActivityMaster  @"Room/activeMasterList"
 #define API_AliveClosedAD           @"Room/closeAliveAd"
+/// 添加留言板、股票池评论、玩票评论 接口
+#define API_AliveAddComment          @"RoomV3/addComment"
+/// 添加留言板、股票池评论、玩票评论 接口
+#define API_AliveGetCommentList          @"RoomV3/getCommentList"
 
 #define API_MessageGetUnread        @"Message/getMessageCount"
 #define API_MessageGetList          @"Message/getMessageList"

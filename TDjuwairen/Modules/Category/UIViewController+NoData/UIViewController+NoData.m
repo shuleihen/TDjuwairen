@@ -23,6 +23,11 @@ static char YXNoDataViewKey;
     objc_setAssociatedObject(self, &YXNoDataViewKey, noDataView, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
+- (void)setupNoDataFrame:(CGRect)frame Image:(UIImage *)image message:(NSString *)message {
+    self.noDataView = [[YXNoDataView alloc] initWithImage:image withMessage:message withOffy:64];
+    self.noDataView.frame = frame;
+}
+
 - (void)setupNoDataImage:(UIImage *)image message:(NSString *)message {
     self.noDataView = [[YXNoDataView alloc] initWithImage:image withMessage:message withOffy:64];
 }

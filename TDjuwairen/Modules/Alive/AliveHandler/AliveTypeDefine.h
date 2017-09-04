@@ -34,10 +34,12 @@ typedef enum : NSInteger {
     kAlivePublishShare      =4,
 } AlivePublishType;
 
-// 直播间列表类型，0：全部，1：跟单
+// 直播间列表类型，0：全部，1：跟单，2：股票池，3：留言板
 typedef enum : NSInteger {
     kAliveRoomListAll      =0,
-    kAliveRoomListPosts    =1
+    kAliveRoomListPosts    =1,
+    kAliveRoomListStockPool=2,
+    kAliveRoomListComment  =3
 } AliveRoomListType;
 
 // 直播动态类型，1：图文，2：推单，3：调研，4：热点，5：观点，6：视频，7：玩票，8：广告，9：深度调研,10：股票池，11：股票池记录，13：个人主页
