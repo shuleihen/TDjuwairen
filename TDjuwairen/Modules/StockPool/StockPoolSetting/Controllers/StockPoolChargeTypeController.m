@@ -226,7 +226,7 @@
     }else {
         NSString *title;
         if (self.priceModel.isFree) {
-            title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在3日后生效！是否保存？"];
+            title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在1日后生效！是否保存？"];
         } else {
             title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在%@日后生效！是否保存？",self.priceModel.day];
         }

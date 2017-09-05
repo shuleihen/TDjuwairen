@@ -19,13 +19,15 @@
 #import "AliveCitySettingViewController.h"
 #import "AliveSexSettingViewController.h"
 #import "LoginHandler.h"
+#import "ImagePickerHandler.h"
 
-@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ELCImagePickerControllerDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
+@interface AccountViewController ()<UITableViewDelegate,UITableViewDataSource,ImagePickerHanderlDelegate,UINavigationControllerDelegate,UIImagePickerControllerDelegate,UITextFieldDelegate>
 @property (weak, nonatomic) IBOutlet UIImageView *avatarImageView;
 @property (weak, nonatomic) IBOutlet UILabel *introLabel;
 @property (nonatomic,strong) NSString *str;
 @property (nonatomic,strong) UIImage *headImage;
 @property (nonatomic, strong) LoginStateManager *userInfo;
+@property (nonatomic, strong) ImagePickerHandler *imagePicker;
 @end
 
 @implementation AccountViewController
@@ -38,6 +40,7 @@
     
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     // self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    self.imagePicker = [[ImagePickerHandler alloc] initWithDelegate:self];
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.userInfo = US;
 }
@@ -98,24 +101,8 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if ((indexPath.section == 0) && (indexPath.row == 0)) {
-        //修改头像
-        UIAlertController*alert = [[UIAlertController alloc] init];
-        //相机
-        [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self takePhoto];
-        }]];
-        //相册
-        [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            
-            ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
-            elcPicker.maximumImagesCount = 1;
-            elcPicker.returnsOriginalImage = NO; //Only return the fullScreenImage, not the fullResolutionImage
-            elcPicker.imagePickerDelegate = self;
-            [self presentViewController:elcPicker animated:YES completion:nil];
-        }]];
-        
-        [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
+        // 修改头像
+        [self.imagePicker showImagePickerInController:self withLimitSelectedCount:1];
     } else if ((indexPath.section == 1) && (indexPath.row == 0)) {
         // 性别
         AliveSexSettingViewController *vc = [[AliveSexSettingViewController alloc] initWithStyle:UITableViewStyleGrouped];
@@ -129,62 +116,16 @@
     }
 }
 
-//打开相机
--(void)takePhoto
-{
-    UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
-    {
-        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
-        picker.delegate = self;
-        //设置拍照后的图片可被编辑
-        picker.allowsEditing = YES;
-        picker.sourceType = sourceType;
-        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-            self.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-        }
-        [self presentViewController:picker animated:YES completion:nil];
-        
-    }else
-    {
-        
-        UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"无法打开相机" preferredStyle:UIAlertControllerStyleAlert];
-        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
-        [self presentViewController:alert animated:YES completion:nil];
-        
-    }
+#pragma mark - ImagePickerHanderlDelegate
+- (void)imagePickerHanderl:(ImagePickerHandler *)imagePicker didFinishPickingImages:(NSArray *)images {
+    UIImage *image = images.firstObject;
     
-}
-
--(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
-    [picker dismissViewControllerAnimated:YES completion:nil];
     NSData *data = UIImageJPEGRepresentation(image, 0.9);
     UIImage *reSizeImg = [UIImage imageWithData:data];
     reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
     self.headImage = reSizeImg;
     
-    [self requestHead];
-}
-
-- (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info{
-    NSDictionary *dic=[info objectAtIndex:0];
-    UIImage *img = [dic objectForKey:UIImagePickerControllerOriginalImage];
-    
-    [self dismissViewControllerAnimated:YES completion:nil];
-    NSData *data = UIImageJPEGRepresentation(img, 0.9);
-    UIImage *reSizeImg = [UIImage imageWithData:data];
-    reSizeImg = [self imageWithImage:reSizeImg scaledToSize:CGSizeMake(200, 200)];
-    self.headImage = reSizeImg;
-    
-    [self.tableView reloadData];
-    //上传头像
-    [self requestHead];
-}
-
-- (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    [self requestUploadHeadImage];
 }
 
 //修改图片尺寸
@@ -195,12 +136,6 @@
     UIImage* newImage = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     return newImage;
-}
-
-//上传头像
--(void)requestHead
-{
-    [self requestUploadHeadImage];
 }
 
 -(void)requestUploadHeadImage

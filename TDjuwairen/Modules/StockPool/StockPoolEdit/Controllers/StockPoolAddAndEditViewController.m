@@ -159,6 +159,8 @@ UITextViewDelegate, MBProgressHUDDelegate>
         return;
     }
     
+    [self.view endEditing:YES];
+    
     ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:@"不保存" otherButtonTitles:@[@"保存草稿"] actionSheetBlock:^(NSInteger index){
         if (index == 0) {
             [self dismissViewControllerAnimated:YES completion:nil];
@@ -167,8 +169,6 @@ UITextViewDelegate, MBProgressHUDDelegate>
         }
     }];
     [sheet show];
-    
-    
 }
 
 - (void)publishPressed:(id)sender {
@@ -189,19 +189,16 @@ UITextViewDelegate, MBProgressHUDDelegate>
     
     int i=0;
     for (SPEditRecordModel *model in self.list) {
-        if (model.cellType == kSPEidtCellEidt ||
-            model.cellType == kSPEidtCellNormal) {
-            if (!model.ratio.length) {
+        if (model.cellType == kSPEidtCellEidt) {
+            if (!model.ratio.length ||
+                ([model.ratio integerValue] == 0)) {
                 ShowHud(@"添加新股的仓位不得为0");
                 return;
             } else {
-                if ((self.isEdit == NO) &&
-                    ([model.ratio integerValue] == 0)) {
-                    ShowHud(@"添加新股的仓位不得为0");
-                    return;
-                }
                 i += [model.ratio integerValue];
             }
+        } else if (model.cellType == kSPEidtCellNormal) {
+            i += [model.ratio integerValue];
         }
     }
     
@@ -214,6 +211,8 @@ UITextViewDelegate, MBProgressHUDDelegate>
         ShowHud(@"持仓理由不能为空");
         return;
     }
+    
+    [self.view endEditing:YES];
     
     [self publishOrSaveDraft:NO];
 }
@@ -265,7 +264,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
         [marray addObjectsFromArray:array];
     }
     
-    if (self.isEdit) {
+    if (array.count) {
         [marray addObject:add];
     } else {
         [marray addObject:edit];
@@ -315,13 +314,15 @@ UITextViewDelegate, MBProgressHUDDelegate>
     
     int i=0;
     for (SPEditRecordModel *model in self.list) {
-        if (model.cellType == kSPEidtCellEidt ||
-            model.cellType == kSPEidtCellNormal) {
-            if (!model.ratio.length) {
+        if (model.cellType == kSPEidtCellEidt) {
+            if (!model.ratio.length ||
+                ([model.ratio integerValue] == 0)) {
                 return NO;
             } else {
                 i += [model.ratio integerValue];
             }
+        } else if (model.cellType == kSPEidtCellNormal) {
+            i += [model.ratio integerValue];
         }
     }
     

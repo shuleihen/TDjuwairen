@@ -98,30 +98,48 @@
  
     if (self.priceModel.isFree == NO) {
         // 收费变成免费
-        NSDictionary *dict = @{@"key_num":@"0",
-                               @"day":@"0",
-                               @"term": @"0",
-                               @"is_free":@(1)};
+        NSString *title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在%@日后生效！是否保存？",self.priceModel.day];
         
-        NetworkManager *manager = [[NetworkManager alloc] init];
-        [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
-            
-            if (!error) {
-                self.priceModel.isFree = YES;
-                self.priceModel.term = 0;
-                self.priceModel.key_num = @0;
-                self.priceModel.day = @0;
-                self.isOpenEditSwitch = YES;
-                [self.tableView reloadData];
-            }
-            
+        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+            [self.tableView reloadData];
         }];
+        [alertVC addAction:cancelAction];
+        
+        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+            [self sendChangeType];
+        }];
+        [alertVC addAction:doneAction];
+        
+        [self presentViewController:alertVC animated:YES completion:nil];
+        
     } else {
-        self.isOpenEditSwitch = NO;
-        [self.tableView reloadData];
+        StockPoolChargeTypeController *chagerVC = [[StockPoolChargeTypeController alloc] init];
+        chagerVC.priceModel = self.priceModel;
+        [self.navigationController pushViewController:chagerVC animated:YES];
     }
 }
 
+- (void)sendChangeType {
+    NSDictionary *dict = @{@"key_num":@"0",
+                           @"day":@"0",
+                           @"term": @"0",
+                           @"is_free":@(1)};
+    
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
+        
+        if (!error) {
+            self.priceModel.isFree = YES;
+            self.priceModel.term = 0;
+            self.priceModel.key_num = @0;
+            self.priceModel.day = @0;
+            self.isOpenEditSwitch = YES;
+            [self.tableView reloadData];
+        }
+        
+    }];
+}
 
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -196,23 +214,27 @@
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *footerV = [[UIView alloc] init];
+    UIView *footerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
     footerV.backgroundColor = [UIColor clearColor];
     
     UILabel *desLabel = [[UILabel alloc] init];
     desLabel.textColor = TDDetailTextColor;
     desLabel.font = [UIFont systemFontOfSize:13.0];
     desLabel.numberOfLines = 0;
-    desLabel.hidden = section != 2;
     [footerV addSubview:desLabel];
+    
     [desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(footerV).mas_offset(15);
         make.right.equalTo(footerV).mas_offset(-15);
-        make.top.bottom.equalTo(footerV);
+        make.top.equalTo(footerV).mas_offset(10);
     }];
     
     if (section == 1) {
-        desLabel.text = @"不允许其他用户查看我的股票池";
+        if (!self.isOpenEditSwitch) {
+            desLabel.text = @"不允许其他用户查看我的股票池";
+        } else {
+            desLabel.text = @"";
+        }
     } else if (section == 2) {
         if ([self.priceModel.term isEqual:@1]) {
            desLabel.text = [NSString stringWithFormat:@"他人支付%@把钥匙即可查阅我的所有股票池记录\n有效期：1周（不含购买当天）",self.priceModel.key_num];
@@ -221,6 +243,8 @@
         } else {
             desLabel.text = @"";
         }
+    } else {
+        desLabel.text = @"";
     }
     
     return footerV;
@@ -240,11 +264,18 @@
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section {
-    if (section == 2) {
-        return 45;
-    }else {
+    if (section == 0) {
         return 10;
+    } else if (section == 1){
+        if (self.isOpenEditSwitch) {
+            return 10;
+        } else {
+            return 35;
+        }
+    } else if (section == 2){
+        return 45;
     }
+    return 0;
 }
 
 @end

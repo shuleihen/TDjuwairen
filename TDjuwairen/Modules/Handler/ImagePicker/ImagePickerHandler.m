@@ -9,6 +9,7 @@
 #import "ImagePickerHandler.h"
 #import "ELCImagePickerController.h"
 #import "UIImage+Resize.h"
+#import "ACActionSheet.h"
 
 @interface ImagePickerHandler () <ELCImagePickerControllerDelegate, UIImagePickerControllerDelegate>
 @property (nonatomic, weak) UIViewController *controller;
@@ -27,48 +28,43 @@
     
     self.controller = controller;
     
-    UIAlertController*alert = [[UIAlertController alloc] init];
     __weak ImagePickerHandler *wself = self;
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        [wself takePhoto];
-    }]];
-
-    [alert addAction:[UIAlertAction actionWithTitle:@"从相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-        
-        ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
-        elcPicker.maximumImagesCount = limit;
-        elcPicker.returnsOriginalImage = NO;
-        elcPicker.imagePickerDelegate = self;
-        [controller presentViewController:elcPicker animated:YES completion:nil];
-    }]];
-    
-    [alert addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil]];
-    [controller presentViewController:alert animated:YES completion:nil];
+    ACActionSheet *sheet = [[ACActionSheet alloc] initWithTitle:nil cancelButtonTitle:@"取消" destructiveButtonTitle:nil otherButtonTitles:@[@"拍照",@"从相册选择"] actionSheetBlock:^(NSInteger index){
+        if (index == 0) {
+            [wself takePhoto];
+        } else if (index == 1) {
+            [wself selectPhotoAlbumWithLimit:limit];
+        }
+    }];
+    [sheet show];
 }
 
 - (void)takePhoto {
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
-    if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera])
-    {
+    if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;
-        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-            self.controller.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-        }
+//        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
+//            self.controller.modalPresentationStyle=UIModalPresentationOverCurrentContext;
+//        }
         [self.controller presentViewController:picker animated:YES completion:nil];
         
-    }else
-    {
+    } else {
         
         UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"无法打开相机" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
         [self.controller presentViewController:alert animated:YES completion:nil];
-        
     }
+}
+
+- (void)selectPhotoAlbumWithLimit:(NSInteger)limit {
+    ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
+    elcPicker.maximumImagesCount = limit;
+    elcPicker.returnsOriginalImage = NO;
+    elcPicker.imagePickerDelegate = self;
+    [self.controller presentViewController:elcPicker animated:YES completion:nil];
 }
 
 #pragma mark - UIImagePickerControllerDelegate

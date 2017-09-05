@@ -259,8 +259,8 @@
     self.roomNavigationBar.frame = CGRectMake(0, 0, kScreenWidth, 64);
     [self.view addSubview:self.roomNavigationBar];
     
-    self.publishBtn.hidden = YES;
-    [self.view addSubview:self.publishBtn];
+//    self.publishBtn.hidden = YES;
+//    [self.view addSubview:self.publishBtn];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(publishNotifi:) name:kAlivePublishNotification object:nil];
 }
@@ -310,8 +310,8 @@
     [self.roomNavigationBar setupRoomMasterModel:roomMasterModel];
     [self.roomHeaderView setupRoomMasterModel:roomMasterModel];
     
-    BOOL isMaster = [roomMasterModel.masterId isEqualToString:US.userId];
-    self.publishBtn.hidden = !isMaster;
+//    BOOL isMaster = [roomMasterModel.masterId isEqualToString:US.userId];
+//    self.publishBtn.hidden = !isMaster;
     
     AliveRoomStockPoolTableViewCell *cell = [self.tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0]];
     if (cell) {
