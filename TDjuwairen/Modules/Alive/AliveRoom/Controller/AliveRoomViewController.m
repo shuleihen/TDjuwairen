@@ -28,7 +28,7 @@
 #import "AliveRoomStockPoolTableViewCell.h"
 #import "StockPoolListViewController.h"
 #import "ShareHandler.h"
-#import "StockPoolCommentViewController.h"
+#import "AliveRoomCommentViewController.h"
 
 
 #define kAliveHeaderHeight  195
@@ -189,11 +189,9 @@
         three.listType = kAliveRoomListStockPool;
         three.delegate = self;
         
-        StockPoolCommentViewController *four = [[StockPoolCommentViewController alloc] init];
+        AliveRoomCommentViewController *four = [[AliveRoomCommentViewController alloc] init];
         four.masterId = self.masterId;
-        four.commentType = kCommentAlive;
         four.delegate = self;
-        
         
         _contentControllers = @[one,two,three,four];
     }
@@ -372,7 +370,7 @@
     self.segmentControl.selectedSegmentIndex = HMSegmentedControlNoSegment;
     
     __weak AliveRoomViewController *wself = self;
-    StockPoolCommentViewController *vc = self.contentControllers[kAliveRoomListComment];
+    AliveRoomCommentViewController *vc = self.contentControllers[kAliveRoomListComment];
     [self.pageViewController setViewControllers:@[vc] direction:UIPageViewControllerNavigationDirectionReverse animated:NO completion:^(BOOL finish){
         [wself commentListLoadComplete];
     }];
@@ -390,7 +388,7 @@
 
 - (void)loadMoreAction {
     if (self.segmentControl.selectedSegmentIndex == 3) {
-        StockPoolCommentViewController  *vc = self.contentControllers[2];
+        AliveRoomCommentViewController  *vc = self.contentControllers[2];
         [vc loadMore];
        
     }else {

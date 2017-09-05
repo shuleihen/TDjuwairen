@@ -44,7 +44,7 @@
 		19042EA51F4BDC920004D3C6 /* StockPoolHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA41F4BDC920004D3C6 /* StockPoolHandler.m */; };
 		19042EA81F4BFA0E0004D3C6 /* RechargeDoneViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */; };
 		19042EAB1F4C0A330004D3C6 /* TDCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */; };
-		19042EAE1F4C0AED0004D3C6 /* StockPoolCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */; };
+		19042EAE1F4C0AED0004D3C6 /* AliveRoomCommentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EAD1F4C0AED0004D3C6 /* AliveRoomCommentViewController.m */; };
 		19042EB11F4C0B130004D3C6 /* TDTopicTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB01F4C0B130004D3C6 /* TDTopicTableViewCell.m */; };
 		19042EB41F4C0B250004D3C6 /* TDCommentTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB31F4C0B250004D3C6 /* TDCommentTableViewCell.m */; };
 		19042EB71F4C13690004D3C6 /* CenterTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19042EB61F4C13690004D3C6 /* CenterTableViewCell.m */; };
@@ -806,8 +806,8 @@
 		19042EA71F4BFA0E0004D3C6 /* RechargeDoneViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RechargeDoneViewController.m; sourceTree = "<group>"; };
 		19042EA91F4C0A330004D3C6 /* TDCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentViewController.h; sourceTree = "<group>"; };
 		19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDCommentViewController.m; sourceTree = "<group>"; };
-		19042EAC1F4C0AED0004D3C6 /* StockPoolCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StockPoolCommentViewController.h; sourceTree = "<group>"; };
-		19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StockPoolCommentViewController.m; sourceTree = "<group>"; };
+		19042EAC1F4C0AED0004D3C6 /* AliveRoomCommentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveRoomCommentViewController.h; sourceTree = "<group>"; };
+		19042EAD1F4C0AED0004D3C6 /* AliveRoomCommentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveRoomCommentViewController.m; sourceTree = "<group>"; };
 		19042EAF1F4C0B130004D3C6 /* TDTopicTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDTopicTableViewCell.h; sourceTree = "<group>"; };
 		19042EB01F4C0B130004D3C6 /* TDTopicTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDTopicTableViewCell.m; sourceTree = "<group>"; };
 		19042EB21F4C0B250004D3C6 /* TDCommentTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDCommentTableViewCell.h; sourceTree = "<group>"; };
@@ -3200,8 +3200,8 @@
 			children = (
 				19042EA91F4C0A330004D3C6 /* TDCommentViewController.h */,
 				19042EAA1F4C0A330004D3C6 /* TDCommentViewController.m */,
-				19042EAC1F4C0AED0004D3C6 /* StockPoolCommentViewController.h */,
-				19042EAD1F4C0AED0004D3C6 /* StockPoolCommentViewController.m */,
+				19042EAC1F4C0AED0004D3C6 /* AliveRoomCommentViewController.h */,
+				19042EAD1F4C0AED0004D3C6 /* AliveRoomCommentViewController.m */,
 				19FB44011F4FE86B0036E5D7 /* TDCommentPublishViewController.h */,
 				19FB44021F4FE86B0036E5D7 /* TDCommentPublishViewController.m */,
 			);
@@ -6540,7 +6540,7 @@
 				190F65F31E36E73000B83ADF /* AwardViewController.m in Sources */,
 				1924DFE81D62B49C00FEC383 /* AFSecurityPolicy.m in Sources */,
 				19E58DBB1EFA423B00ADA1B8 /* SharpTags.m in Sources */,
-				19042EAE1F4C0AED0004D3C6 /* StockPoolCommentViewController.m in Sources */,
+				19042EAE1F4C0AED0004D3C6 /* AliveRoomCommentViewController.m in Sources */,
 				9EC7157C1F3EC10600F3A071 /* UILabel+TDLabel.m in Sources */,
 				9EBF09311E7933BA007B2DC0 /* UIView+Additions.m in Sources */,
 				19252C1A1D51E830003E5D18 /* ViewController+MASAdditions.m in Sources */,

@@ -14,7 +14,6 @@
 #import "TDCommentCellData.h"
 #import "TDTopicTableViewCell.h"
 #import "TDCommentPublishViewController.h"
-#import "StockPoolCommentViewController.h"
 
 
 @interface TDStockPoolCommentTableViewDelegate ()
@@ -36,22 +35,11 @@
         return;
     }
     
-    NetworkManager *ma = [[NetworkManager alloc] init];
-    
-    NSDictionary *dict = nil;
-    NSString *urlAPI = API_AliveGetCommentList;
-    
-    StockPoolCommentViewController *rootV = (StockPoolCommentViewController *)self.controller;
-    dict = @{@"item_type":@(rootV.commentType),@"item_id":self.masterId,@"page":@(self.page)};
-//    urlAPI = API_AliveGetCommentList;
-//    if (rootV.commentType == kCommentAlive) {
-//    }else {
-//        dict = @{@"master_id": self.masterId};
-//    }
-    
-    
     __weak TDStockPoolCommentTableViewDelegate *wself = self;
-    [ma GET:urlAPI parameters:dict completion:^(id data, NSError *error){
+    NSDictionary *dict = @{@"item_type":@(self.commentType),@"item_id":self.masterId?:@"",@"page":@(self.page)};
+    
+    NetworkManager *ma = [[NetworkManager alloc] init];
+    [ma GET:API_AliveGetCommentList parameters:dict completion:^(id data, NSError *error){
         
         if (!error && data) {
             CGFloat height = 0.0;

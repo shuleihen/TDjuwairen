@@ -6,13 +6,13 @@
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
-#import "StockPoolCommentViewController.h"
+#import "AliveRoomCommentViewController.h"
 #import "TDStockPoolCommentTableViewDelegate.h"
 #import "UIViewController+NoData.h"
 #import "AliveCommentViewController.h"
 
 
-@interface StockPoolCommentViewController ()
+@interface AliveRoomCommentViewController ()
 @property (nonatomic, strong) TDCommentTableViewDelegate *tableViewDelegate;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) CGFloat contentViewH;
@@ -20,7 +20,7 @@
 @end
 
 
-@implementation StockPoolCommentViewController
+@implementation AliveRoomCommentViewController
 
 - (UITableView *)tableView {
     if (!_tableView) {
@@ -35,11 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    if (self.commentType == kCommentAlive) {
-        self.headerVHeight = 55;
-    }else {
-     self.headerVHeight = 0;
-    }
+    self.headerVHeight = 55;
     
     [self.view addSubview:self.tableView];
     UIView *headerV = [[UIView alloc] init];
@@ -50,30 +46,25 @@
     
     UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(12, 10, kScreenWidth-24, 35)];
     [btn addTarget:self action:@selector(commentBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    
     UILabel *lable = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, kScreenWidth-24, 35)];
     lable.textColor = TDDetailTextColor;
-    
     lable.font = [UIFont systemFontOfSize:14.0f];
     lable.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f8f8f8"];
     lable.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#DFDFDF"].CGColor;
     lable.layer.borderWidth = 1;
+    lable.text = @"  留个言吧…";
+    
     [headerV addSubview:lable];
     [headerV addSubview:btn];
     [self.view addSubview:headerV];
-    
-    if (self.commentType == kCommentAlive) {
-        lable.text = @"  留个言吧…";
-    }else {
-        lable.text = @"  发表评论…";
-    
-    }
     
     
     [self setupNoDataFrame:CGRectMake(0, self.headerVHeight, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
     
     __weak typeof(self)weakSelf = self;
     TDStockPoolCommentTableViewDelegate *model = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:self.tableView controller:self];
-
+    model.commentType = kCommentAliveRoom;
     model.reloadBlock = ^(CGFloat tableViewH, BOOL noData) {
         [weakSelf showNoDataView:noData];
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(commentListLoadComplete)]) {
@@ -105,7 +96,7 @@
 }
 
 - (void)loadMore {
-[self.tableViewDelegate loadMoreData];
+    [self.tableViewDelegate loadMoreData];
 }
 
 @end

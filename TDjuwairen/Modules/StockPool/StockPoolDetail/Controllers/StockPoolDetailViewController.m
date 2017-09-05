@@ -19,7 +19,6 @@
 #import "TDNavigationController.h"
 #import "ShareHandler.h"
 #import "MBProgressHUD+Custom.h"
-#import "StockPoolCommentViewController.h"
 #import "TDCommentPublishViewController.h"
 #import "TDStockPoolCommentTableViewDelegate.h"
 #import "NSDate+Util.h"
@@ -35,7 +34,6 @@
 @property (nonatomic, strong) NSDictionary *stockDict;
 @property (nonatomic, strong) StockManager *stockManager;
 @property (nonatomic, strong) NSDateFormatter *formatter;
-@property (nonatomic, strong) StockPoolCommentViewController *commentVC;
 @property (nonatomic, strong) TDStockPoolCommentTableViewDelegate *commentTableViewDelegate;
 
 @end
@@ -81,15 +79,6 @@
         [_formatter setShortWeekdaySymbols:@[@"周日",@"周一",@"周二",@"周三",@"周四",@"周五",@"周六"]];
     }
     return _formatter;
-}
-
-- (StockPoolCommentViewController *)commentVC {
-    if (!_commentVC) {
-        _commentVC = [[StockPoolCommentViewController alloc] init];
-        _commentVC.commentType = kCommentStockPool;
-        _commentVC.masterId = self.detailModel.masterId;
-    }
-    return _commentVC;
 }
 
 - (void)viewDidLoad {
@@ -266,8 +255,10 @@
     UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     tableView.separatorColor = TDSeparatorColor;
     tableView.separatorInset = UIEdgeInsetsZero;
-    self.commentTableViewDelegate = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:tableView controller:self];
     self.tableView.tableFooterView = tableView;
+    
+    self.commentTableViewDelegate = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:tableView controller:self];
+    self.commentTableViewDelegate.commentType = kCommentStockPool;
     self.commentTableViewDelegate.masterId = model.masterId;
     self.commentTableViewDelegate.contentTableView = self.tableView;
     [self.commentTableViewDelegate refreshData];
