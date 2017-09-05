@@ -169,16 +169,16 @@
         return;
     }
     
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = self.videoId;
+    publishModel.image = self.videoinfo.cover;
+    publishModel.title = self.videoinfo.title;
+    publishModel.detail = self.videoinfo.content;
     
-    AliveListModel *model = [[AliveListModel alloc] init];
-    model.aliveId = self.videoId;
-    model.aliveType = 11;
-    model.aliveTitle = self.videoinfo.title;
-//    model.masterId = self.videoinfo.view_userid;
-    model.masterNickName = self.videoinfo.nickName;
-    model.masterAvatar = self.videoinfo.avatar;
-    model.aliveImgs = self.videoinfo.cover?@[self.self.videoinfo.cover]:@[];
-    model.shareUrl = self.videoinfo.shareUrl;
+    NSArray *images;
+    if (self.videoinfo.cover.length) {
+        images = @[self.videoinfo.cover];
+    }
     
     __weak typeof(self)weakSelf = self;
     
@@ -189,13 +189,13 @@
         }
     };
     
-    [ShareHandler shareWithTitle:self.videoinfo.title detail:self.videoinfo.content image:model.aliveImgs url:self.videoinfo.shareUrl selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:self.videoinfo.title detail:self.videoinfo.content image:images url:self.videoinfo.shareUrl selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
             
-            vc.publishType = kAlivePublishShare;
-            vc.aliveListModel = model;
+            vc.publishType = kAlivePublishVideo;
+            vc.publishModel = publishModel;
             vc.shareBlock = shareBlock;
             [weakSelf.navigationController pushViewController:vc animated:YES];
         }

@@ -61,7 +61,7 @@
     [indicator startAnimating];
     
     NetworkManager *ma = [[NetworkManager alloc] init];
-    [ma GET:API_StockPoolGetPublishInfo parameters:nil completion:^(NSError *error,id data){
+    [ma GET:API_StockPoolGetPublishInfo parameters:nil completion:^(id data,NSError *error){
         if (!error && data) {
             self.bannerUrl = data[@"stockpool_banner"];
             self.canPublishStockPool = [data[@"stockpool_is_enable"] boolValue];
@@ -84,7 +84,7 @@
     
     UIButton *closeBtn = [UIButton buttonWithType:UIButtonTypeCustom];
     [closeBtn setImage:[UIImage imageNamed:@"button_closed.png"] forState:UIControlStateNormal];
-    closeBtn.frame = CGRectMake((kScreenWidth-44)/2, kScreenHeight-44, 44, 44);
+    closeBtn.frame = CGRectMake((kScreenWidth-44)/2, kScreenHeight-60, 44, 44);
     [closeBtn addTarget:self action:@selector(closePressed:) forControlEvents:UIControlEventTouchUpInside];
     closeBtn.tag = 300;
     closeBtn.transform = CGAffineTransformMakeRotation(-M_PI_4);

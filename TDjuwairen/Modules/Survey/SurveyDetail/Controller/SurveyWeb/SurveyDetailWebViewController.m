@@ -209,13 +209,22 @@
     }
     
     __weak SurveyDetailWebViewController *wself = self;
-    AliveListModel *model = [[AliveListModel alloc] init];
-    model.aliveTitle = title;
-    model.aliveImgs = images;
-    model.shareUrl = url;
-    model.aliveId = self.contentId;
-    model.aliveType = (NSInteger)self.surveyType;
-    model.masterNickName = author;
+    
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = self.contentId;
+    publishModel.image = cover;
+    publishModel.title = title;
+    publishModel.detail = desc;
+    
+    
+    AlivePublishType publishType;
+    if (self.surveyType == kSurveyTypeSpot) {
+        publishType = kAlivePublishSurvey;
+    } else if (self.surveyType == kSurveyTypeHot) {
+        publishType = kAlivePublishHot;
+    } else if (self.surveyType == kSurveyTypeShengdu){
+        publishType = kAlivePublishDeep;
+    } 
     
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
         if (state) {
@@ -235,8 +244,8 @@
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
             vc.hidesBottomBarWhenPushed = YES;
-            vc.aliveListModel = model;
-            vc.publishType = kAlivePublishShare;
+            vc.publishModel = publishModel;
+            vc.publishType = publishType;
             vc.shareBlock = shareBlock;
             [wself.navigationController pushViewController:vc animated:YES];
         }

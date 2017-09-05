@@ -146,6 +146,7 @@
 		193ED51D1F5D1D0200C23E6A /* AliveListForwardVideoView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED51C1F5D1D0200C23E6A /* AliveListForwardVideoView.m */; };
 		193ED5201F5D3F6400C23E6A /* AliveListVisitCardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED51F1F5D3F6400C23E6A /* AliveListVisitCardView.m */; };
 		193ED5231F5D425300C23E6A /* AliveListVisitCardExtra.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED5221F5D425300C23E6A /* AliveListVisitCardExtra.m */; };
+		193ED5271F5E3BDF00C23E6A /* AlivePublishModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 193ED5261F5E3BDF00C23E6A /* AlivePublishModel.m */; };
 		193EF0781D392CB40043F3EB /* simkai.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0771D392CB40043F3EB /* simkai.ttf */; };
 		193EF07A1D392CE00043F3EB /* availableTags.plist in Resources */ = {isa = PBXBuildFile; fileRef = 193EF0791D392CE00043F3EB /* availableTags.plist */; };
 		194186D71DF81284000C5197 /* AccountViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 194186CA1DF81284000C5197 /* AccountViewController.m */; };
@@ -1007,6 +1008,8 @@
 		193ED51F1F5D3F6400C23E6A /* AliveListVisitCardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListVisitCardView.m; sourceTree = "<group>"; };
 		193ED5211F5D425300C23E6A /* AliveListVisitCardExtra.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListVisitCardExtra.h; sourceTree = "<group>"; };
 		193ED5221F5D425300C23E6A /* AliveListVisitCardExtra.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListVisitCardExtra.m; sourceTree = "<group>"; };
+		193ED5251F5E3BDF00C23E6A /* AlivePublishModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlivePublishModel.h; sourceTree = "<group>"; };
+		193ED5261F5E3BDF00C23E6A /* AlivePublishModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlivePublishModel.m; sourceTree = "<group>"; };
 		193EF0771D392CB40043F3EB /* simkai.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = simkai.ttf; sourceTree = "<group>"; };
 		193EF0791D392CE00043F3EB /* availableTags.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = availableTags.plist; sourceTree = "<group>"; };
 		194186C91DF81284000C5197 /* AccountViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AccountViewController.h; sourceTree = "<group>"; };
@@ -2879,6 +2882,8 @@
 			children = (
 				4D29B9C41E83B30E0019DD20 /* SearchCompanyListModel.h */,
 				4D29B9C51E83B30E0019DD20 /* SearchCompanyListModel.m */,
+				193ED5251F5E3BDF00C23E6A /* AlivePublishModel.h */,
+				193ED5261F5E3BDF00C23E6A /* AlivePublishModel.m */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -6750,6 +6755,7 @@
 				1955B4A71D644D9800DC102E /* SecondEdit.m in Sources */,
 				19E58DA91EF8C55500ADA1B8 /* UIAlertController+ZFPlayerRotation.m in Sources */,
 				19E5193C1D509C7000CFF149 /* TDNavigationController.m in Sources */,
+				193ED5271F5E3BDF00C23E6A /* AlivePublishModel.m in Sources */,
 				19B11CAE1D655B9E00BB4DF4 /* DDDispatchQueueLogFormatter.m in Sources */,
 				19ED174C1F1644B400EC89DF /* MyGuessCell.m in Sources */,
 				19042EB71F4C13690004D3C6 /* CenterTableViewCell.m in Sources */,

@@ -120,6 +120,18 @@
         return;
     }
     
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = aliveModel.aliveId;
+    publishModel.forwardType = aliveModel.aliveType;
+    publishModel.image = aliveModel.aliveImgs.firstObject;
+    publishModel.title = aliveModel.masterNickName;
+    publishModel.detail = aliveModel.aliveTitle;
+    
+    AlivePublishType publishType = kAlivePublishForward;
+    if (aliveModel.aliveType == kAliveViewpoint) {
+        publishType = kAlivePublishViewpoint;
+    }
+    
     __weak typeof(self)weakSelf = self;
     
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
@@ -135,8 +147,8 @@
              AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
              vc.hidesBottomBarWhenPushed = YES;
              
-             vc.publishType = kAlivePublishForward;
-             vc.aliveListModel = aliveModel;
+             vc.publishType = publishType;
+             vc.publishModel = publishModel;
              vc.shareBlock = shareBlock;
              [weakSelf.navigationController pushViewController:vc animated:YES];
          }

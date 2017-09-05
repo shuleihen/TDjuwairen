@@ -13,7 +13,6 @@
 #import "MJRefresh.h"
 #import "AliveMasterListViewController.h"
 #import "AliveListTableViewDelegate.h"
-#import "AlivePublishViewController.h"
 #import "LoginStateManager.h"
 #import "ZFCWaveActivityIndicatorView.h"
 #import "UIViewController+Loading.h"

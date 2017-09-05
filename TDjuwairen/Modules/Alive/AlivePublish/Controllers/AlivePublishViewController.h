@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 #import "AliveTypeDefine.h"
-#import "AliveListModel.h"
+#import "AlivePublishModel.h"
 
 @interface AlivePublishViewController : UITableViewController
 @property (nonatomic, copy) void (^shareBlock)(BOOL state);
 @property (nonatomic, assign) AlivePublishType publishType;
-@property (nonatomic, strong) AliveListModel *aliveListModel;
+@property (nonatomic, strong) AlivePublishModel *publishModel;
 @end

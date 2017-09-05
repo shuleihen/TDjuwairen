@@ -10,7 +10,6 @@
 #import "AliveListViewController.h"
 #import "UIImage+Color.h"
 #import "AliveMasterListViewController.h"
-#import "AlivePublishViewController.h"
 #import "LoginStateManager.h"
 #import "LoginViewController.h"
 #import "NotificationDef.h"

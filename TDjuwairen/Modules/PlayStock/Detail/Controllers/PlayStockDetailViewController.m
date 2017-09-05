@@ -20,7 +20,6 @@
 #import "AddIndividualViewController.h"
 #import "UIView+Toast.h"
 #import "ShareHandler.h"
-#import "AlivePublishViewController.h"
 
 @interface PlayStockDetailViewController ()
 <UITableViewDelegate, UITableViewDataSource,

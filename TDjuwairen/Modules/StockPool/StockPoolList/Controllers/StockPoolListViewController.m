@@ -25,7 +25,6 @@
 #import "StockPoolDraftTableViewController.h"
 #import "StockUnlockManager.h"
 #import "ShareHandler.h"
-#import "AlivePublishViewController.h"
 #import "MBProgressHUD+Custom.h"
 #import "NotificationDef.h"
 #import "SettingHandler.h"

@@ -26,12 +26,20 @@ typedef enum : NSUInteger {
     kAlvieListHot        =7, // 热点
 } AliveListType;
 
-// 直播发布页面类型，1表示话题或股东大会，2表示贴单,3表示转发直播、观点、股票池分享、股票池记录分享、个人主页分享，4表示调研、热点、视频分享
+// 发布类型：1.发布话题，2.发布推单类型，3.发布股东大会，4.分享调研 ，5.分享视频 ，6.分享热点 ，7.分享深度调研 ，8.分享股票池 ，9.分享股票池记录 ，10.分享个人主页 ，11.分享观点，12.转发
 typedef enum : NSInteger {
     kAlivePublishNormal     =1,
     kAlivePublishPosts      =2,
-    kAlivePublishForward    =3,
-    kAlivePublishShare      =4,
+    kAlivePublishStockHolder=3,
+    kAlivePublishSurvey     =4,
+    kAlivePublishVideo      =5,
+    kAlivePublishHot        =6,
+    kAlivePublishDeep       =7,
+    kAlivePublishStockPool  =8,
+    kAlivePublishStockPoolDetail    =9,
+    kAlivePublishVisitCard  =10,
+    kAlivePublishViewpoint  =11,
+    kAlivePublishForward    =12
 } AlivePublishType;
 
 // 直播间列表类型，0：全部，1：跟单，2：股票池，3：留言板

@@ -22,6 +22,9 @@
 #import "UIView+Border.h"
 #import <AliyunOSSiOS/OSSService.h>
 #import "CocoaLumberjack.h"
+#import "UIImageView+WebCache.h"
+#import "NSString+Json.h"
+#import "NSString+Emoji.h"
 
 @interface AlivePublishViewController ()<UITextViewDelegate, ImagePickerHanderlDelegate, MBProgressHUDDelegate,UITextFieldDelegate,PublishSelectedStockCellDelegate>
 
@@ -89,12 +92,7 @@
     if (!_forwardView) {
         _forwardView = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth-30, 80)];
         
-        AliveListModel *forward = [[AliveListModel alloc] init];
-        forward.aliveImgs = self.aliveListModel.aliveImgs;
-        forward.masterNickName = self.aliveListModel.masterNickName;
-        forward.aliveTitle = self.aliveListModel.aliveTitle;
-        
-        [_forwardView setupAlive:forward];
+        [_forwardView setupAlive:self.publishModel];
     }
     return _forwardView;
 }
@@ -103,8 +101,6 @@
     [super viewDidLoad];
     
     NSString *rightButtonTitle = @"";
-    
-    
     
     switch (self.publishType) {
         case kAlivePublishNormal:
@@ -119,15 +115,11 @@
             rightButtonTitle = @"发布";
             self.imageLimit = 9;
             break;
-        case kAlivePublishForward:
-        case kAlivePublishShare:
+        default:
             self.title = @"转发直播";
             self.textFieldPlaceholder = @"写点分享心得吧...";
             rightButtonTitle = @"发布";
             self.imageLimit = 1;
-            break;
-        default:
-            NSAssert(NO, @"暂不支持的直播发布类型");
             break;
     }
     
@@ -218,8 +210,7 @@
         height = CGRectGetMaxY(rect);
     }];
     
-    if (self.publishType == kAlivePublishForward ||
-        self.publishType == kAlivePublishShare) {
+    if (self.publishType > kAlivePublishPosts) {
         self.forwardView.frame = CGRectMake(15, height+15, kScreenWidth-30, 80);
         [footerView addSubview:self.forwardView];
         height = CGRectGetMaxY(self.forwardView.frame);
@@ -241,11 +232,8 @@
             self.navigationItem.rightBarButtonItem.enabled = YES;
         }else {
             self.navigationItem.rightBarButtonItem.enabled = NO;
-            
         }
-        
-    } else if (self.publishType == kAlivePublishForward ||
-               self.publishType == kAlivePublishShare) {
+    } else {
         self.navigationItem.rightBarButtonItem.enabled = YES;
     }
 }
@@ -282,68 +270,37 @@
 
 - (void)publishPressed:(id)sender {
     
-    NSString *stockId = @"";
-    NSString *reasonString = self.reason;
+    self.companyListTableView.hidden = YES;
+    [self.view endEditing:YES];
+    self.navigationItem.rightBarButtonItem.enabled = NO;
     
-    if (self.publishType == kAlivePublishNormal) {
-        // 图文发布，描述不能为空
-        if (!reasonString.length) {
-            return;
-        }
-    } else if (self.publishType == kAlivePublishPosts) {
-        // 推单发布，股票代码和图片不能为空
-        self.companyListTableView.hidden = YES;
+    
+    NSMutableDictionary *dict = [NSMutableDictionary dictionaryWithCapacity:4];
+    dict[@"publish_type"] = @(self.publishType);
+    
+    if (self.reason.length) {
+        dict[@"content"] = [self.reason stringByReplacingEmojiUnicodeWithCheatCodes];
+    }
+    
+    if (self.publishType == kAlivePublishPosts) {
+        
         NSMutableArray *arrM = [NSMutableArray array];
         for (SearchCompanyListModel *model in self.selectedStockArrM) {
             [arrM addObject:model.company_code];
         }
-        
-        if (arrM.count<=0 ||
-            !self.imageArray.count) {
-            return;
+        NSDictionary *extraDict = @{@"stock": arrM};
+        NSString *extra = [NSString jsonStringWithObject:extraDict];
+        dict[@"publish_extra"] = extra;
+    } else if (self.publishType == kAlivePublishForward){
+        NSDictionary *extraDict = @{@"forward_id": self.publishModel.forwardId,@"forward_type": @(self.publishModel.forwardType)};
+        NSString *extra = [NSString jsonStringWithObject:extraDict];
+        dict[@"publish_extra"] = extra;
+    } else {
+        if (self.publishModel) {
+            NSDictionary *extraDict = @{@"forward_id": self.publishModel.forwardId};
+            NSString *extra = [NSString jsonStringWithObject:extraDict];
+            dict[@"publish_extra"] = extra;
         }
-        
-        stockId = [self arrayToJSONString:arrM];
-       
-    } else if (self.publishType == kAlivePublishForward ||
-               self.publishType == kAlivePublishShare) {
-        // 转发，描述可以为空
-    }
-    
-    [self.view endEditing:YES];
-    self.navigationItem.rightBarButtonItem.enabled = NO;
-    
-    NSDictionary *dict = nil;
-    
-    switch (self.publishType) {
-        case kAlivePublishNormal:
-            dict = @{@"alive_type": @"1",
-                     @"content": reasonString?:@""};
-            
-            break;
-        case kAlivePublishPosts:
-        {
-            dict = @{@"alive_type": @"2",
-                     @"content": reasonString?:@"",
-                     @"stock": stockId?:@""};
-            [SearchCompanyListModel saveLocalHistoryModelArr:self.selectedStockArrM];
-        }
-            break;
-        case kAlivePublishForward:
-            dict = @{@"alive_type": @"3",
-                     @"content": reasonString?:@"",
-                     @"forward_type": @(self.aliveListModel.aliveType),
-                     @"forward_id": self.aliveListModel.aliveId};
-            break;
-        case kAlivePublishShare:
-            dict = @{@"alive_type": @"4",
-                     @"content": reasonString?:@"",
-                     @"forward_type": @(self.aliveListModel.aliveType),
-                     @"forward_id": self.aliveListModel.aliveId};
-            break;
-        default:
-            NSAssert(NO, @"不支持的类型发布动态");
-            break;
     }
     
     MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
@@ -360,14 +317,14 @@
             [fileNames addObject:fileName];
         }];
         
-        NSMutableDictionary *mdict = [[NSMutableDictionary alloc] initWithDictionary:dict];
-        NSString *uploadImageNames = [self arrayToJSONString:fileNames];
-        mdict[@"upload_imgs"] = uploadImageNames;
+
+        NSString *uploadImageNames = [NSString jsonStringWithObject:fileNames];
+        dict[@"upload_imgs"] = uploadImageNames;
         
         [self uploadImages:self.imageArray imageFiles:files completion:^{
             
             NetworkManager *manager = [[NetworkManager alloc] init];
-            [manager POST:API_AliveAddRoomPublish parameters:mdict completion:^(id data, NSError *error) {
+            [manager POST:API_AliveAddRoomPublish parameters:dict completion:^(id data, NSError *error) {
                 wself.navigationItem.rightBarButtonItem.enabled = YES;
                 
                 if (!error) {
@@ -412,11 +369,8 @@
 
 #pragma mark - MBProgressHUDDelegate
 - (void)hudWasHidden:(MBProgressHUD *)hud {
-    if (self.publishType == kAlivePublishForward ||
-        self.publishType == kAlivePublishShare) {
-        if (self.shareBlock) {
-            self.shareBlock(YES);
-        }
+    if (self.shareBlock) {
+        self.shareBlock(YES);
     } else {
         [[NSNotificationCenter defaultCenter] postNotificationName:kAlivePublishNotification object:nil];
     }

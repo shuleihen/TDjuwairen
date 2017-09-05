@@ -200,14 +200,23 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         }
     };
     
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = cellModel.aliveId;
+    publishModel.forwardType = cellModel.aliveType;
+    publishModel.image = cellModel.aliveImgs.firstObject;
+    publishModel.title = cellModel.masterNickName;
+    publishModel.detail = cellModel.aliveTitle;
+    
+    AlivePublishType publishType = kAlivePublishForward;
+    
     [ShareHandler shareWithTitle:SafeValue(cellModel.aliveTitle) image:cellModel.aliveImgs url:SafeValue(cellModel.shareUrl) selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
             vc.hidesBottomBarWhenPushed = YES;
             
-            vc.publishType = kAlivePublishForward;
-            vc.aliveListModel = cellModel;
+            vc.publishType = publishType;
+            vc.publishModel = publishModel;
             vc.shareBlock = shareBlock;
             [wself.viewController.navigationController pushViewController:vc animated:YES];
         }

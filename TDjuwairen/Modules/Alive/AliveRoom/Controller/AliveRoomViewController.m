@@ -726,13 +726,13 @@
     }
     
     __weak AliveRoomViewController *wself = self;
-    AliveListModel *model = [[AliveListModel alloc] init];
-    model.aliveTitle = desc;
-    model.aliveImgs = images;
-    model.shareUrl = url;
-    model.aliveId = userId;
-    model.aliveType = kAliveVisitCard;
-    model.masterNickName = master;
+    
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = userId;
+    publishModel.image = cover;
+    publishModel.title = master;
+    publishModel.detail = desc;
+    
     
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
         if (state) {
@@ -752,8 +752,8 @@
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
             vc.hidesBottomBarWhenPushed = YES;
-            vc.aliveListModel = model;
-            vc.publishType = kAlivePublishForward;
+            vc.publishModel = publishModel;
+            vc.publishType = kAlivePublishVisitCard;
             vc.shareBlock = shareBlock;
             [wself.navigationController pushViewController:vc animated:YES];
         }

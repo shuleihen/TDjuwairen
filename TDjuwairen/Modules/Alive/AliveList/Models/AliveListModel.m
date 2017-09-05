@@ -7,6 +7,7 @@
 //
 
 #import "AliveListModel.h"
+#import "NSString+Emoji.h"
 
 @implementation AliveListModel
 - (id)initWithDictionary:(NSDictionary *)dict {
@@ -15,7 +16,7 @@
         self.aliveType = [dict[@"alive_type"] integerValue];
         self.aliveImgs = dict[@"alive_img"];
         self.aliveTime = dict[@"alive_time"];
-        self.aliveTitle = [dict[@"alive_title"] stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+        self.aliveTitle = [dict[@"alive_title"] stringByReplacingEmojiCheatCodesWithUnicode];
         self.masterId = [NSString stringWithFormat:@"%ld",(long)[dict[@"alive_master_id"] integerValue]];
         self.masterNickName = dict[@"user_nickname"];
         self.masterAvatar = dict[@"userinfo_facemin"];
