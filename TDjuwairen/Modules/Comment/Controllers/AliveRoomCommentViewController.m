@@ -16,7 +16,6 @@
 @property (nonatomic, strong) TDCommentTableViewDelegate *tableViewDelegate;
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, assign) CGFloat contentViewH;
-@property (nonatomic, assign) CGFloat headerVHeight;
 @end
 
 
@@ -24,7 +23,8 @@
 
 - (UITableView *)tableView {
     if (!_tableView) {
-        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, self.headerVHeight, self.view.bounds.size.width, self.view.bounds.size.height-self.headerVHeight) style:UITableViewStylePlain];
+        
+        _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, self.view.bounds.size.height) style:UITableViewStylePlain];
         _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
         _tableView.tableFooterView = [UIView new];
         _tableView.scrollEnabled = NO;
@@ -35,11 +35,10 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.headerVHeight = 55;
-    
     [self.view addSubview:self.tableView];
+    
     UIView *headerV = [[UIView alloc] init];
-    headerV.frame = CGRectMake(0, 0, kScreenWidth, self.headerVHeight);
+    headerV.frame = CGRectMake(0, 0, kScreenWidth, 55);
     headerV.layer.borderWidth = 1;
     headerV.layer.borderColor = TDSeparatorColor.CGColor;
     headerV.backgroundColor = [UIColor whiteColor];
@@ -57,10 +56,10 @@
     
     [headerV addSubview:lable];
     [headerV addSubview:btn];
-    [self.view addSubview:headerV];
+    self.tableView.tableHeaderView = headerV;
     
     
-    [self setupNoDataFrame:CGRectMake(0, self.headerVHeight, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
+    [self setupNoDataFrame:CGRectMake(0, 0, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
     
     __weak typeof(self)weakSelf = self;
     TDStockPoolCommentTableViewDelegate *model = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:self.tableView controller:self];
@@ -68,7 +67,8 @@
     model.reloadBlock = ^(CGFloat tableViewH, BOOL noData) {
         [weakSelf showNoDataView:noData];
         if (weakSelf.delegate && [weakSelf.delegate respondsToSelector:@selector(commentListLoadComplete)]) {
-            weakSelf.contentViewH = tableViewH+self.headerVHeight;
+            weakSelf.contentViewH = tableViewH+55;
+            weakSelf.tableView.frame = CGRectMake(0, weakSelf.tableView.frame.origin.y, kScreenWidth, weakSelf.contentViewH);
             [weakSelf.delegate commentListLoadComplete];
         }
     };

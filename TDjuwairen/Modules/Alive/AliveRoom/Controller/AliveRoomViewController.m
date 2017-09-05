@@ -387,8 +387,8 @@
 }
 
 - (void)loadMoreAction {
-    if (self.segmentControl.selectedSegmentIndex == 3) {
-        AliveRoomCommentViewController  *vc = self.contentControllers[2];
+    if (self.segmentControl.selectedSegmentIndex == HMSegmentedControlNoSegment) {
+        AliveRoomCommentViewController  *vc = self.contentControllers[kAliveRoomListComment];
         [vc loadMore];
        
     }else {
@@ -495,6 +495,7 @@
     if ([self.tableView.mj_header isRefreshing]) {
         [self.tableView.mj_header endRefreshing];
     }
+    
     CGFloat contentHeight = [self.contentControllers[kAliveRoomListComment] contentViewControllerHeight];
     CGFloat minHeight = kScreenHeight -kAliveHeaderHeight-kAliveStockPoolHeight-kAliveSegmentHeight;
     CGFloat tHeight = MAX(contentHeight, minHeight);
@@ -919,7 +920,7 @@
     NSInteger index = [self.contentControllers indexOfObject:currentVc];
     
     if (index != self.segmentControl.selectedSegmentIndex) {
-        if (index == 2) {
+        if (index == 3) {
             self.segmentControl.selectedSegmentIndex = 3;
             [self commentListLoadComplete];
         }else {

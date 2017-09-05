@@ -252,15 +252,20 @@
     
     [self.tableView reloadData];
     
-    UITableView *tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
-    tableView.separatorColor = TDSeparatorColor;
-    tableView.separatorInset = UIEdgeInsetsZero;
-    self.tableView.tableFooterView = tableView;
+    UITableView *tableViewC = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
+    tableViewC.separatorColor = TDSeparatorColor;
+    tableViewC.separatorInset = UIEdgeInsetsZero;
+    self.tableView.tableFooterView = tableViewC;
     
-    self.commentTableViewDelegate = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:tableView controller:self];
+    __weak StockPoolDetailViewController *wself = self;
+    self.commentTableViewDelegate = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:tableViewC controller:self];
     self.commentTableViewDelegate.commentType = kCommentStockPool;
     self.commentTableViewDelegate.masterId = model.masterId;
     self.commentTableViewDelegate.contentTableView = self.tableView;
+    self.commentTableViewDelegate.reloadBlock = ^(CGFloat tableViewH, BOOL noData) {
+        tableViewC.frame = CGRectMake(0, tableViewC.frame.origin.y, kScreenWidth, tableViewH);
+        wself.tableView.tableFooterView = tableViewC;
+    };
     [self.commentTableViewDelegate refreshData];
 }
 

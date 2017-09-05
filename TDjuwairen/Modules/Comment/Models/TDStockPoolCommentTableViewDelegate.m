@@ -79,8 +79,6 @@
                 height += topicCellData.cellHeight;
             }
             
-            wself.tableView.frame = CGRectMake(0, wself.tableView.frame.origin.y, kScreenWidth, height);
-            wself.contentTableView.tableFooterView = wself.tableView;
             if (wself.page == 1) {
                 wself.items = [NSMutableArray arrayWithArray:array];
             }else {
@@ -88,10 +86,10 @@
                 [wself.items addObjectsFromArray:array];
             }
             wself.page ++;
+            
             if (self.reloadBlock) {
                 self.reloadBlock(height, wself.items.count<=0);
             }
-            
         }
         
         [wself.tableView reloadData];
