@@ -12,7 +12,7 @@
 #import "MYPhotoBrowser.h"
 #import "AliveListPostView.h"
 #import "AliveListViewpointView.h"
-#import "AliveListForwardView2.h"
+#import "AliveListForwardView.h"
 #import "AliveListPlayStockView.h"
 #import "AliveListStockPoolView.h"
 #import "AliveListVisitCardView.h"
@@ -81,7 +81,7 @@
     
     // 动态内容
     if (aliveModel.isForward) {
-        AliveListForwardView2 *view = [[AliveListForwardView2 alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+        AliveListForwardView *view = [[AliveListForwardView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
         self.aliveContentView = view;
         [view setCellData:cellData];
         

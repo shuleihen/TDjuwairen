@@ -2,49 +2,97 @@
 //  AliveListForwardView.m
 //  TDjuwairen
 //
-//  Created by zdy on 2017/4/3.
+//  Created by zdy on 2017/6/7.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
 #import "AliveListForwardView.h"
-#import "AliveListForwardModel.h"
-#import "UIImageView+WebCache.h"
-#import "HexColors.h"
-#import "AlivePublishModel.h"
+#import "AliveListForwardSurveyView.h"
+#import "AliveListPostView.h"
+#import "AliveListViewpointView.h"
+#import "AliveVideoListTableViewCell.h"
+#import "AliveListPlayStockView.h"
+#import "AliveListStockPoolView.h"
+#import "AliveListVisitCardView.h"
+#import "AliveListForwardVideoView.h"
 
 @implementation AliveListForwardView
 
-- (id)initWithFrame:(CGRect)frame {
-    if (self = [super initWithFrame:frame]) {
-        self.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#EAEAEA"];
-        
-        _imageView = [[UIImageView alloc] initWithFrame:CGRectMake(10, 10, 60, 60)];
-        [self addSubview:_imageView];
-        
-        _nameLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 10, CGRectGetWidth(frame)-90, 16)];
-        _nameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
-        _nameLabel.font = [UIFont systemFontOfSize:14.0f];
-        _nameLabel.userInteractionEnabled = YES;
-        [self addSubview:_nameLabel];
-        
-        _contentLabel = [[UILabel alloc] initWithFrame:CGRectMake(80, 26, CGRectGetWidth(frame)-90, CGRectGetHeight(frame)-26-10)];
-        _contentLabel.numberOfLines = 2;
-        _contentLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#333333"];
-        _contentLabel.font = [UIFont systemFontOfSize:14.0f];
-        [self addSubview:_contentLabel];
+
+- (void)setForwardView:(UIView *)forwardView {
+    if (_forwardView && !_forwardView.superview) {
+        [_forwardView removeFromSuperview];
     }
-    return self;
+    
+    _forwardView = forwardView;
+    [self addSubview:forwardView];
 }
 
-- (void)setupAlive:(AlivePublishModel *)model {
-    if (model.image.length > 0) {
-        [self.imageView sd_setImageWithURL:[NSURL URLWithString:model.image]];
-    } else {
-        self.imageView.image = [UIImage imageNamed:@"app_icon.png"];
+- (void)setCellData:(AliveListCellData *)cellData {
+    [super setCellData:cellData];
+    
+    AliveListForwardCellData *fCellData = (AliveListForwardCellData *)cellData;
+    AliveListModel *model = fCellData.aliveModel.forwardModel.forwardList.lastObject;
+    
+    switch (model.aliveType) {
+        case kAliveNormal:
+        case kAlivePosts:
+        {
+            AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
+        }
+            break;
+        case kAliveSurvey:
+        case kAliveHot:
+        case kAliveDeep:
+        {
+            AliveListForwardSurveyView *view = [[AliveListForwardSurveyView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setAliveModel:model];
+        }
+            break;
+        case kAliveViewpoint: {
+            AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
+        }
+            break;
+        case kAliveVideo:
+        {
+            AliveListForwardVideoView *view = [[AliveListForwardVideoView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setAliveModel:model];
+        }
+            break;
+        case kAlivePlayStock:
+        {
+            AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
+        }
+            break;
+        case kAliveStockPool:
+        case kAliveStockPoolRecord:
+        {
+            AliveListStockPoolView *view = [[AliveListStockPoolView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
+        }
+            break;
+        case kAliveVisitCard:
+        {
+            AliveListVisitCardView *view = [[AliveListVisitCardView alloc] initWithFrame:fCellData.forwardViewFrame];
+            self.forwardView = view;
+            [view setCellData:fCellData.forwardCellData];
+        }
+            break;
+        default:
+            NSAssert(NO, @"当前转发的类型不支持");
+            break;
     }
     
-    self.nameLabel.text = [NSString stringWithFormat:@"%@",model.title];
-    self.contentLabel.text = model.detail;
-    
+    self.forwardView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#f1f1f1"];
 }
+
 @end

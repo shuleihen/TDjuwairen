@@ -131,10 +131,10 @@
         
         if ((offx + size.width+8) > limitWidth) {
             offx =0;
-            offy += 32;
+            offy += 34;
         }
         
-        rect = CGRectMake(offx, offy, size.width+8, 22);
+        rect = CGRectMake(offx, offy, size.width+8, 24);
         
         offx += (size.width+8 + 5);
     }

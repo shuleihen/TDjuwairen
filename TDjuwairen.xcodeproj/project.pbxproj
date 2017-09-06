@@ -318,7 +318,7 @@
 		1987B2AE1EE6CE2D00BD852E /* AliveListContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2AD1EE6CE2D00BD852E /* AliveListContentView.m */; };
 		1987B2B11EE6CE8900BD852E /* AliveListViewpointView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B01EE6CE8900BD852E /* AliveListViewpointView.m */; };
 		1987B2B41EE6D1FE00BD852E /* AliveListPostView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B31EE6D1FE00BD852E /* AliveListPostView.m */; };
-		1987B2B71EE78EC800BD852E /* AliveListForwardView2.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */; };
+		1987B2B71EE78EC800BD852E /* AliveListForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B61EE78EC800BD852E /* AliveListForwardView.m */; };
 		1987B2BA1EEA3AD800BD852E /* AliveListForwardSurveyView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */; };
 		19882FFA1E5FDD6E00862E48 /* TDRechargeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19882FF91E5FDD6E00862E48 /* TDRechargeViewController.m */; };
 		19959B7F1E2C5D4300AB26DF /* GradeListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19959B741E2C5D4300AB26DF /* GradeListCell.m */; };
@@ -363,7 +363,6 @@
 		19AA7DDD1F3AE64400716F38 /* UIImage+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DD81F3AE64400716F38 /* UIImage+Create.m */; };
 		19AA7DDE1F3AE64400716F38 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AA7DDA1F3AE64400716F38 /* UIImage+Resize.m */; };
 		19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */; };
-		19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */; };
 		19AF981A1E24A7880097A585 /* ChineseSubdivisions.plist in Resources */ = {isa = PBXBuildFile; fileRef = 19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */; };
 		19AF981B1E24A7880097A585 /* YXLocationPicker.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF98191E24A7880097A585 /* YXLocationPicker.m */; };
 		19AF98231E24AB270097A585 /* GuessAddPourViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19AF981E1E24AB270097A585 /* GuessAddPourViewController.m */; };
@@ -1339,8 +1338,8 @@
 		1987B2B01EE6CE8900BD852E /* AliveListViewpointView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewpointView.m; sourceTree = "<group>"; };
 		1987B2B21EE6D1FE00BD852E /* AliveListPostView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListPostView.h; sourceTree = "<group>"; };
 		1987B2B31EE6D1FE00BD852E /* AliveListPostView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListPostView.m; sourceTree = "<group>"; };
-		1987B2B51EE78EC800BD852E /* AliveListForwardView2.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView2.h; sourceTree = "<group>"; };
-		1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView2.m; sourceTree = "<group>"; };
+		1987B2B51EE78EC800BD852E /* AliveListForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView.h; sourceTree = "<group>"; };
+		1987B2B61EE78EC800BD852E /* AliveListForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView.m; sourceTree = "<group>"; };
 		1987B2B81EEA3AD800BD852E /* AliveListForwardSurveyView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardSurveyView.h; sourceTree = "<group>"; };
 		1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardSurveyView.m; sourceTree = "<group>"; };
 		19882FF81E5FDD6E00862E48 /* TDRechargeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDRechargeViewController.h; sourceTree = "<group>"; };
@@ -1421,8 +1420,6 @@
 		19AA7DD91F3AE64400716F38 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		19AA7DDA1F3AE64400716F38 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		19AAF36E1E30B91700793A64 /* MobileLoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MobileLoginViewController.xib; sourceTree = "<group>"; };
-		19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListForwardView.h; sourceTree = "<group>"; };
-		19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListForwardView.m; sourceTree = "<group>"; };
 		19AF98171E24A7880097A585 /* ChineseSubdivisions.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = ChineseSubdivisions.plist; sourceTree = "<group>"; };
 		19AF98181E24A7880097A585 /* YXLocationPicker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = YXLocationPicker.h; sourceTree = "<group>"; };
 		19AF98191E24A7880097A585 /* YXLocationPicker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = YXLocationPicker.m; sourceTree = "<group>"; };
@@ -3482,8 +3479,6 @@
 			children = (
 				1953CAFE1E7172DB00A64B3C /* AliveListImagesView.h */,
 				1953CAFF1E7172DB00A64B3C /* AliveListImagesView.m */,
-				19AD633F1E9249A300A9AEC9 /* AliveListForwardView.h */,
-				19AD63401E9249A300A9AEC9 /* AliveListForwardView.m */,
 				19475C531EA4661F00F749E6 /* AliveListTagsView.h */,
 				19475C541EA4661F00F749E6 /* AliveListTagsView.m */,
 				1987B2AC1EE6CE2D00BD852E /* AliveListContentView.h */,
@@ -3498,8 +3493,8 @@
 				19F07A4D1F1EFF35004449BB /* AliveListPlayStockView.m */,
 				19042E3F1F3E9A5D0004D3C6 /* AliveListStockPoolView.h */,
 				19042E401F3E9A5D0004D3C6 /* AliveListStockPoolView.m */,
-				1987B2B51EE78EC800BD852E /* AliveListForwardView2.h */,
-				1987B2B61EE78EC800BD852E /* AliveListForwardView2.m */,
+				1987B2B51EE78EC800BD852E /* AliveListForwardView.h */,
+				1987B2B61EE78EC800BD852E /* AliveListForwardView.m */,
 				1987B2B81EEA3AD800BD852E /* AliveListForwardSurveyView.h */,
 				1987B2B91EEA3AD800BD852E /* AliveListForwardSurveyView.m */,
 				193ED51B1F5D1D0200C23E6A /* AliveListForwardVideoView.h */,
@@ -6547,7 +6542,7 @@
 				19E519411D50A18B00CFF149 /* HexColors.m in Sources */,
 				4D2AB2D01F416F7300565483 /* StockPoolListCellModel.m in Sources */,
 				84E334641CE3123700E5DCEE /* NSData+ImageContentType.m in Sources */,
-				1987B2B71EE78EC800BD852E /* AliveListForwardView2.m in Sources */,
+				1987B2B71EE78EC800BD852E /* AliveListForwardView.m in Sources */,
 				19E5F26E1E12614200984DBC /* BorderButton.m in Sources */,
 				19D6BA011E50948D00475AA1 /* ChangePhoneViewController.m in Sources */,
 				19DFE22B1E10E3C300CC3C3F /* TTTAttributedLabel.m in Sources */,
@@ -6753,7 +6748,6 @@
 				9EC715F01F3F5DEE00F3A071 /* JTCalendarDayView.m in Sources */,
 				19E638521F3BFF6100DEEB20 /* StockPoolListViewController.m in Sources */,
 				19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */,
-				19AD63411E9249A300A9AEC9 /* AliveListForwardView.m in Sources */,
 				8497E0681CEF0B2800D7D105 /* SDCollectionViewCell.m in Sources */,
 				19252C111D51E830003E5D18 /* MASCompositeConstraint.m in Sources */,
 				19042EAB1F4C0A330004D3C6 /* TDCommentViewController.m in Sources */,

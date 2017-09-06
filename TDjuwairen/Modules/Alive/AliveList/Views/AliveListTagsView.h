@@ -17,4 +17,5 @@
 @interface AliveListTagsView : UIView
 @property (nonatomic, weak) id<AliveListTagsViewDelegate> delegate;
 @property (nonatomic, strong) NSArray *tags;
+@property (nonatomic, strong) NSString *stockHolderName;
 @end

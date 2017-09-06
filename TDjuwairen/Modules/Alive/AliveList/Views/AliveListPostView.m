@@ -36,10 +36,13 @@
     self.imagesView.images = pCellData.aliveModel.aliveImgs;
     
     self.tagsView.frame = pCellData.tagsViewFrame;
-    if (pCellData.aliveModel.aliveType == kAlivePosts ||
-        pCellData.aliveModel.aliveType == kAliveStockHolder) {
+    if (pCellData.aliveModel.aliveType == kAlivePosts) {
         AliveListPostExtra *extra = pCellData.aliveModel.extra;
         self.tagsView.tags = extra.aliveTags;
+    } else if (pCellData.aliveModel.aliveType == kAliveStockHolder) {
+        AliveListPostExtra *extra = pCellData.aliveModel.extra;
+        NSString *stockName = [NSString stringWithFormat:@"%@(%@)", extra.aliveTags.firstObject,extra.aliveStockTags.firstObject];
+        self.tagsView.stockHolderName = stockName;
     }
 }
 

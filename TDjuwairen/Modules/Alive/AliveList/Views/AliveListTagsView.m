@@ -11,6 +11,33 @@
 
 @implementation AliveListTagsView
 
+- (void)setStockHolderName:(NSString *)stockHolderName {
+    _stockHolderName = stockHolderName;
+    
+    [self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+    
+    CGSize size = [stockHolderName boundingRectWithSize:CGSizeMake(MAXFLOAT, 15.0f) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName: [UIFont systemFontOfSize:12.0f]} context:nil].size;
+    
+    UIButton *label = [[UIButton alloc] init];
+    label.titleLabel.font = [UIFont systemFontOfSize:12.0f];
+    [label setTitleColor:TDThemeColor forState:UIControlStateNormal];
+    [label setTitle:stockHolderName forState:UIControlStateNormal];
+    label.layer.borderColor = TDThemeColor.CGColor;
+    label.layer.borderWidth = 1.0;
+    label.tag = 0;
+    [label addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:label];
+    
+    label.frame = CGRectMake(0, 0, size.width+8, 24);
+
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(size.width+18, 0, 103, 24)];
+    [btn setImage:[UIImage imageNamed:@"alive_stockHolder.png"] forState:UIControlStateNormal];
+    [btn setImage:[UIImage imageNamed:@"alive_stockHolder.png"] forState:UIControlStateDisabled];
+    btn.enabled = NO;
+    [self addSubview:btn];
+    
+}
+
 - (void)setTags:(NSArray *)tags {
     _tags = tags;
     
@@ -39,10 +66,10 @@
         
         if ((offx + size.width+8) > rect.size.width) {
             offx =0;
-            offy += 32;
+            offy += 34;
         }
         
-        label.frame = CGRectMake(offx, offy, size.width+8, 22);
+        label.frame = CGRectMake(offx, offy, size.width+8, 24);
         
         offx += (CGRectGetWidth(label.frame) + 8);
     }
