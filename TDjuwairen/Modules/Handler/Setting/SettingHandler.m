@@ -80,4 +80,26 @@
     [[NSUserDefaults standardUserDefaults] setInteger:0 forKey:key];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
+
++ (void)saveStockHolderOpenTime:(NSInteger)time {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kPublishStockHolderTime];
+    [[NSUserDefaults standardUserDefaults] setInteger:time forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSInteger)getStockHolderOpenTime {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kPublishStockHolderTime];
+    return [[NSUserDefaults standardUserDefaults] integerForKey:key];
+}
+
++ (void)saveStockHolderName:(NSString *)stockHolderName {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kPublishStockHolderName];
+    [[NSUserDefaults standardUserDefaults] setObject:stockHolderName forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSString *)getStockHolderName {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kPublishStockHolderName];
+    return [[NSUserDefaults standardUserDefaults] objectForKey:key];
+}
 @end

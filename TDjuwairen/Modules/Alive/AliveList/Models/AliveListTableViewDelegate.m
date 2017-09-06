@@ -503,6 +503,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     
     if (model.aliveType == kAliveNormal ||
         model.aliveType == kAlivePosts ||
+        model.aliveType == kAliveStockHolder ||
         model.aliveType == kAlivePlayStock ||
         model.aliveType == kAliveStockPool ||
         model.aliveType == kAliveStockPoolRecord) {

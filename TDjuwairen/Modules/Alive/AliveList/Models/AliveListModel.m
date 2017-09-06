@@ -56,7 +56,11 @@
             self.extra = [[AliveListPlayStockExtra alloc] initWithDictionary:extraDict];
         } else if (self.aliveType == kAliveAd) {
             self.extra = [[AliveListAdExtra alloc] initWithDictionary:extraDict];
-        } else if (self.aliveType == kAlivePosts) {
+        } else if (self.aliveType == kAlivePosts ||
+                   self.aliveType == kAliveStockHolder) {
+            self.extra = [[AliveListPostExtra alloc] initWithDictionary:extraDict];
+        } else if (self.aliveType == kAlivePosts ||
+                   self.aliveType == kAliveStockHolder) {
             self.extra = [[AliveListPostExtra alloc] initWithDictionary:extraDict];
         } else if (self.aliveType == kAliveStockPool ||
                    self.aliveType == kAliveStockPoolRecord) {

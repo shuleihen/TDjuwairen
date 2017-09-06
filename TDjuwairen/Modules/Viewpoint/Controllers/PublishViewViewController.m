@@ -740,21 +740,16 @@
 
 #pragma mark Keyboard
 - (void)registerForKeyboardNotifications{
-    //使用NSNotificationCenter键盘出现时
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardDidShowNotification object:nil];
-    //使用NSNotificationCenter 鍵盤隐藏時
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden) name:UIKeyboardWillHideNotification object:nil];
 }
 
 - (void)keyboardWasShown:(NSNotification *)aNotification{
-    //当键盘出现时计算键盘的高度大小，用于输入框显示
     NSDictionary *info = [aNotification userInfo];
-    //kbSize为键盘尺寸
-    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;//键盘高度
+    CGSize kbSize = [[info objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
     self.keyboardHeight = kbSize.height;
     
     [self beginMoveUpAnimation:kbSize.height];
-    
 }
 
 - (void)keyboardWillBeHidden{

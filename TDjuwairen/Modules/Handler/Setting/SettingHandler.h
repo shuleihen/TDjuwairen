@@ -28,4 +28,9 @@
 + (void)addStockPoolRecord;
 + (NSInteger)getAddStockPoolRecordCountInOneDay;
 + (void)clearAddStockPoolRecordCount;
+
++ (void)saveStockHolderOpenTime:(NSInteger)time;
++ (NSInteger)getStockHolderOpenTime;
++ (void)saveStockHolderName:(NSString *)stockHolderName;
++ (NSString *)getStockHolderName;
 @end

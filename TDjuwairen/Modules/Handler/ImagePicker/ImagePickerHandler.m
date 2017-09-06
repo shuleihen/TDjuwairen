@@ -11,7 +11,7 @@
 #import "UIImage+Resize.h"
 #import "ACActionSheet.h"
 
-@interface ImagePickerHandler () <ELCImagePickerControllerDelegate, UIImagePickerControllerDelegate>
+@interface ImagePickerHandler () <ELCImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 @property (nonatomic, weak) UIViewController *controller;
 @end
 
@@ -46,6 +46,9 @@
         picker.delegate = self;
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;
+//        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
+//        picker.showsCameraControls = NO;
+//        picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
 //        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
 //            self.controller.modalPresentationStyle=UIModalPresentationOverCurrentContext;
 //        }
@@ -81,7 +84,7 @@
 }
 
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker {
-    [self.controller dismissViewControllerAnimated:YES completion:nil];
+    [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - ELCImagePickerControllerDelegate

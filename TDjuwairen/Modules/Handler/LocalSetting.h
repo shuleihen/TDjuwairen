@@ -38,4 +38,7 @@
 #define kSPFistAddTip       @"stockPoolFistAddTip"
 #define kSPAddRecordCount   @"kSPAddRecordCount"
 
+#define kPublishStockHolderTime     @"PublishStockHolderTime"
+#define kPublishStockHolderName     @"PublishStockHolderName"
+
 #endif /* LocalSetting_h */

@@ -21,6 +21,10 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
+    
+    UIView *sep = [[UIView alloc] initWithFrame:CGRectMake(12, 44-TDPixel, kScreenWidth-24, TDPixel)];
+    sep.backgroundColor = TDSeparatorColor;
+    [self.contentView addSubview:sep];
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {

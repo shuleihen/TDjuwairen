@@ -38,6 +38,7 @@
         switch (model.aliveType) {
             case kAliveNormal:
             case kAlivePosts:
+            case kAliveStockHolder:
             {
                 cellData = [[AliveListPostCellData alloc] initWithAliveModel:model];
             }
@@ -408,7 +409,8 @@
     height = CGRectGetMaxY(self.imagesViewFrame);
     
     // 标签
-    if (self.aliveModel.aliveType == kAlivePosts) {
+    if (self.aliveModel.aliveType == kAlivePosts ||
+        self.aliveModel.aliveType == kAliveStockHolder) {
         AliveListPostExtra *extra = self.aliveModel.extra;
         if (extra.aliveTags.count) {
             CGFloat tagsViewHeight = [self tagsViewHeightWithTags:extra.aliveTags withLimitWidth:contentWidht];
@@ -491,8 +493,9 @@
     
     switch (forwardAlive.aliveType) {
         case kAliveNormal:
-        case kAlivePosts: {
-            
+        case kAlivePosts:
+        case kAliveStockHolder:
+        {
             AliveListPostCellData *pCellData = [[AliveListPostCellData alloc] initWithAliveModel:forwardAlive];
             pCellData.isShowDetailMessage = NO;
             pCellData.isShowBottomView = NO;

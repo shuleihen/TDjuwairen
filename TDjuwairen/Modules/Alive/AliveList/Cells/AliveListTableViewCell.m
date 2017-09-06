@@ -91,6 +91,7 @@
         switch (aliveModel.aliveType) {
             case kAliveNormal:
             case kAlivePosts:
+            case kAliveStockHolder:
             {
                 AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
                 view.delegate = self;
