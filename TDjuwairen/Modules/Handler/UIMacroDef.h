@@ -30,6 +30,10 @@
 #define TDDefaultLoginAvatar    [UIImage imageNamed:@"login_avatar.png"]
 #define TDDefaultAppIcon        [UIImage imageNamed:@"app_icon"]
 
+#define TDDefaultRoomCity       @"~火星~"
+#define TDDefaultRoomDesc       @"很懒哦，什么都没有留下"
+#define TDDefaultStockPoolDesc  @"很赖哦，还没设置股票池简介"
+
 #define SetColor(r,g,b,a) [UIColor colorWithRed:r/255.0 green:g/255.0 blue:b/255.0 alpha:a]
 #define MBAlert(title) [Tool alertWithTitle:title];
 

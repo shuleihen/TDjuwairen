@@ -200,7 +200,6 @@
                                                 <constraint firstAttribute="width" constant="63" id="Dzl-v2-Ylf"/>
                                                 <constraint firstAttribute="height" constant="63" id="ndP-wO-ya8"/>
                                             </constraints>
-                                            <state key="normal" image="center_avatar"/>
                                             <connections>
                                                 <action selector="avatarPressed:" destination="1c6-oe-0ol" eventType="touchUpInside" id="1QS-QR-Qsl"/>
                                             </connections>
@@ -669,7 +668,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="center_avatar" width="79" height="79"/>
         <image name="ico_gushen" width="10" height="14"/>
         <image name="ico_key_o" width="17" height="19"/>
         <image name="ico_sex-women" width="14" height="14"/>

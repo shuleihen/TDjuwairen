@@ -11,6 +11,7 @@
 @implementation AliveListStockPoolExtra
 - (id)initWithDictionary:(NSDictionary *)dict {
     if (self = [super init]) {
+        self.stockPoolId = dict[@"item_id"];
         self.title = dict[@"title"];
         self.desc = dict[@"desc"];
     }

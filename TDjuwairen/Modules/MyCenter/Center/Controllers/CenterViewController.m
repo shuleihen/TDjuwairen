@@ -68,7 +68,15 @@
     self.avatarBtn.layer.cornerRadius = 32.5f;
     self.avatarBtn.clipsToBounds = YES;
     self.settingBtn.hidden = !US.isLogIn;
-    self.guessRateBtn.hidden = !US.isLogIn;
+    self.guessRateBtn.hidden = YES;
+    self.loginLabel.hidden = YES;
+    self.sexImageView.image = nil;
+    
+    if (US.isLogIn) {
+        self.nickNameLabel.text = US.nickName;
+    } else {
+        self.nickNameLabel.text = @"";
+    }
     
     [self.subscribeView setupNumber:0];
     [self.attentionView setupNumber:0];
@@ -187,7 +195,7 @@
     NSInteger userinfo_points = [dict[@"userinfo_points"] integerValue];
     NSInteger user_keynum = [dict[@"user_keynum"] integerValue];
     NSInteger expireDay = [dict[@"vip_expire_day"] integerValue];
-    NSInteger guess_rate = [dict[@"guess_rate"] integerValue];
+    float guess_rate = [dict[@"guess_rate"] floatValue];
     
     [self.subscribeView setupNumber:dy];
     [self.attentionView setupNumber:at];
@@ -198,7 +206,7 @@
     self.userLevelExpireDay = expireDay;
     [self.tableView reloadRowsAtIndexPaths:@[[NSIndexPath indexPathForRow:0 inSection:1]] withRowAnimation:UITableViewRowAnimationNone];
     
-    NSString *string = [NSString stringWithFormat:@"%ld",(long)guess_rate];
+    NSString *string = [NSString stringWithFormat:@"%.1lf",guess_rate];
     [self.guessRateBtn setTitle:string forState:UIControlStateNormal];
 }
 

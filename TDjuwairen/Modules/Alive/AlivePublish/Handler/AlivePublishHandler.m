@@ -31,7 +31,7 @@
     NSString *string = [SettingHandler getStockHolderName];
     NSArray *array = [string componentsSeparatedByString:@" "];
     if (array.count == 2) {
-        return array.firstObject;
+        return array.lastObject;
     }
     
     return @"";

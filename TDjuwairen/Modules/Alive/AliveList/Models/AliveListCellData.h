@@ -66,9 +66,7 @@
 @end
 
 @interface AliveListPlayStockCellData : AliveListCellData
-@property (nonatomic, assign) CGRect adImageFrame;
-@property (nonatomic, assign) CGRect stockNameLabelFrame;
-@property (nonatomic, assign) CGRect timeLabelFrame;
+@property (nonatomic, assign) CGRect contentViewFrame;
 @end
 
 @interface AliveListStockPoolCellData : AliveListCellData

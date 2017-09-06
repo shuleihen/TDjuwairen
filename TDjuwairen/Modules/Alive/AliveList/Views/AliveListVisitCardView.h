@@ -10,10 +10,9 @@
 #import "AliveListCellData.h"
 
 @interface AliveListVisitCardView : AliveListContentView
-@property (nonatomic, strong) UIView *visitCardView;
+@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIImageView *avatar;
 @property (nonatomic, strong) UILabel *nickNameLabel;
 @property (nonatomic, strong) UILabel *descLabel;
-
 
 @end

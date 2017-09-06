@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @interface AliveListStockPoolExtra : NSObject
+@property (nonatomic, copy) NSString *stockPoolId;
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *desc;
 

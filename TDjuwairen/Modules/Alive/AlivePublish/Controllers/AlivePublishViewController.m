@@ -332,6 +332,7 @@
     
     if (self.publishType == kAlivePublishNormal) {
         if (self.isOpenStockHolder) {
+            dict[@"publish_type"] = @(kAlivePublishStockHolder);
             NSDictionary *extraDict = @{@"is_stock_mt": @"1",
                                         @"stock": @[self.stockHolderCode]};
             NSString *extra = [NSString jsonStringWithObject:extraDict];

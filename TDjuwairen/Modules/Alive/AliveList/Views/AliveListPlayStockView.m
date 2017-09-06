@@ -14,24 +14,25 @@
 
 - (id)initWithFrame:(CGRect)frame {
     if (self = [super initWithFrame:frame]) {
-        _adImageView = [[UIImageView alloc] init];
-        [self addSubview:_adImageView];
+        _contentView = [[UIView alloc] init];
+        [self addSubview:_contentView];
         
-        _stockNameLabel = [[UILabel alloc] init];
+        _adImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, frame.size.width, 178)];
+        [_contentView addSubview:_adImageView];
+        
+        _stockNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 186, frame.size.width, 14)];
         _stockNameLabel.font = [UIFont systemFontOfSize:13.0f];
         _stockNameLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
         _stockNameLabel.textAlignment = NSTextAlignmentLeft;
         _stockNameLabel.userInteractionEnabled = YES;
-        [self addSubview:_stockNameLabel];
-     
-        UITapGestureRecognizer *nickTap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(stockNamePressed:)];
-        [_stockNameLabel addGestureRecognizer:nickTap];
+        [_contentView addSubview:_stockNameLabel];
+
         
-        _timeLabel = [[UILabel alloc] init];
+        _timeLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 186, frame.size.width, 14)];
         _timeLabel.font = [UIFont systemFontOfSize:13.0f];
         _timeLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
         _timeLabel.textAlignment = NSTextAlignmentRight;
-        [self addSubview:_timeLabel];
+        [_contentView addSubview:_timeLabel];
     }
     
     return self;
@@ -44,18 +45,11 @@
     AliveListModel *alive = cellData.aliveModel;
     AliveListPlayStockExtra *extra = alive.extra;
     
-    self.adImageView.frame = vpCellData.adImageFrame;
-    self.stockNameLabel.frame = vpCellData.stockNameLabelFrame;
-    self.timeLabel.frame = vpCellData.timeLabelFrame;
+    self.contentView.frame = vpCellData.contentViewFrame;
     
     [self.adImageView sd_setImageWithURL:[NSURL URLWithString:alive.aliveImgs.firstObject] placeholderImage:nil];
     self.stockNameLabel.text = [NSString stringWithFormat:@"个股竞猜【%@(%@)】",extra.companyName,extra.companyCode];
     self.timeLabel.text = [NSString stringWithFormat:@"%@ %@",extra.guessTime,extra.guessSeason];
 }
 
-- (void)stockNamePressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(playStockPressed:)]) {
-        [self.delegate playStockPressed:sender];
-    }
-}
 @end

@@ -88,6 +88,8 @@
         UITapGestureRecognizer *tap2 = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(forwardMsgPressed:)];
         [view.forwardView addGestureRecognizer:tap2];
     } else {
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(contentTagGesture:)];
+        
         switch (aliveModel.aliveType) {
             case kAliveNormal:
             case kAlivePosts:
@@ -109,7 +111,7 @@
             case kAlivePlayStock:
             {
                 AliveListPlayStockView *view = [[AliveListPlayStockView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
-                view.delegate = self;
+                [view.contentView addGestureRecognizer:tap];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
@@ -118,6 +120,7 @@
             case kAliveStockPoolRecord:
             {
                 AliveListStockPoolView *view = [[AliveListStockPoolView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+                [view.contentView addGestureRecognizer:tap];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
@@ -125,6 +128,7 @@
             case kAliveVisitCard:
             {
                 AliveListVisitCardView *view = [[AliveListVisitCardView alloc] initWithFrame:CGRectMake(0, cellData.topHeaderHeight, kScreenWidth, cellData.viewHeight)];
+                [view.contentView addGestureRecognizer:tap];
                 self.aliveContentView = view;
                 [view setCellData:cellData];
             }
@@ -147,6 +151,35 @@
         self.aliveBottomView.hidden = YES;
     }
 }
+
+
+#pragma mark - Tap
+- (void)contentTagGesture:(id)sender {
+    // AliveListStockPoolView，AliveListVisitCardView 添加了手势
+
+    AliveListModel *alive = self.cellData.aliveModel;
+    
+    
+    if (alive.aliveType == kAliveVisitCard) {
+        AliveListVisitCardExtra *extra = alive.extra;
+        if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:userPressedWithUserId:)]) {
+            [self.delegate aliveListTableCell:self userPressedWithUserId:extra.masterId];
+        }
+    } else if (alive.aliveType == kAliveStockPool) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:stockPoolPressed:)]) {
+            [self.delegate aliveListTableCell:self stockPoolPressed:sender];
+        }
+    } else if (alive.aliveType == kAliveStockPoolRecord) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:stockPoolDetailPressed:)]) {
+            [self.delegate aliveListTableCell:self stockPoolDetailPressed:sender];
+        }
+    } else if (alive.aliveType == kAlivePlayStock) {
+        if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:playStockPressed:)]) {
+            [self.delegate aliveListTableCell:self playStockPressed:sender];
+        }
+    }
+}
+
 
 #pragma mark - AliveListTagsViewDelegate
 - (void)aliveListTagsView:(AliveListTagsView *)tagsView didSelectedWithIndex:(NSInteger)index {
@@ -175,12 +208,6 @@
     }
 }
 
-#pragma mark - AliveListPlayStockViewDelegate
-- (void)playStockPressed:(id)sender {
-    if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:playStockPressed:)]) {
-        [self.delegate aliveListTableCell:self playStockPressed:sender];
-    }
-}
 
 - (void)forwardMsgPressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:forwardMsgPressed:)]) {
@@ -201,6 +228,7 @@
     }
 }
 
+#pragma mark - BottomTool
 - (void)sharePressed:(id)sender {
     if (self.delegate && [self.delegate respondsToSelector:@selector(aliveListTableCell:sharePressed:)]) {
         [self.delegate aliveListTableCell:self sharePressed:sender];

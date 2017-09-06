@@ -22,6 +22,7 @@
 #import "TDCommentPublishViewController.h"
 #import "TDStockPoolCommentTableViewDelegate.h"
 #import "NSDate+Util.h"
+#import "AlivePublishViewController.h"
 
 @interface StockPoolDetailViewController ()
 <UITableViewDelegate, UITableViewDataSource, StockManagerDelegate, TDCommentPublishDelegate>
@@ -170,26 +171,28 @@
     NSString *title = [NSString stringWithFormat:@"%@的股票池记录(%@)",US.userName, [self.formatter stringFromDate:self.detailModel.date]];
     NSString *detail = self.detailModel.desc;
     
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = self.recordId;
+    publishModel.image = nil;
+    publishModel.title = title;
+    publishModel.detail = detail;
+    
+    AlivePublishType publishType = kAlivePublishStockPoolDetail;
+    
     [ShareHandler shareWithTitle:title
                           detail:detail
                            image:nil
                              url:self.detailModel.shareUrl
                    selectedBlock:^(NSInteger index){
-        if (index == 0) {
-            // 直播分享
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dict = @{@"item_id":SafeValue(weakSelf.detailModel.recordId),
-                                   @"item_type": @(1)};
-            
-            [manager POST:API_StockPoolShare parameters:dict completion:^(NSDictionary *data, NSError *error) {
-                if (!error) {
-                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享功能"];
-                } else {
-                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享失败"];
-                }
-            }];
-        }
-    }  shareState:nil];
+                       if (index == 0) {
+                           AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+                           vc.hidesBottomBarWhenPushed = YES;
+                           
+                           vc.publishType = publishType;
+                           vc.publishModel = publishModel;
+                           [weakSelf.navigationController pushViewController:vc animated:YES];
+                       }
+                   }  shareState:nil];
 }
 
 - (void)startCommentPressed:(id)sender {

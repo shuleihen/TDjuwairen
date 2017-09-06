@@ -92,7 +92,7 @@
         if (self.userInfo.personal.length) {
             self.introLabel.text = self.userInfo.personal;
         } else {
-            self.introLabel.text = @"很懒哦，什么也没留下";
+            self.introLabel.text = TDDefaultRoomDesc;
         }
     }
 }

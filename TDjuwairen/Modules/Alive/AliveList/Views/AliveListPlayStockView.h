@@ -8,14 +8,9 @@
 
 #import "AliveListContentView.h"
 
-@protocol AliveListPlayStockViewDelegate <NSObject>
-- (void)playStockPressed:(id)sender;
-
-@end
-
 @interface AliveListPlayStockView : AliveListContentView
+@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIImageView *adImageView;
 @property (nonatomic, strong) UILabel *stockNameLabel;
 @property (nonatomic, strong) UILabel *timeLabel;
-@property (nonatomic, weak) id<AliveListPlayStockViewDelegate> delegate;
 @end

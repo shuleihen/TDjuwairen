@@ -37,6 +37,7 @@
     switch (model.aliveType) {
         case kAliveNormal:
         case kAlivePosts:
+        case kAliveStockHolder:
         {
             AliveListPostView *view = [[AliveListPostView alloc] initWithFrame:fCellData.forwardViewFrame];
             self.forwardView = view;

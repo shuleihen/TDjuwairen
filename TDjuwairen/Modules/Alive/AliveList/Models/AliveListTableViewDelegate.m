@@ -30,6 +30,7 @@
 #import "TDWebViewHandler.h"
 #import "PlayStockDetailViewController.h"
 #import "UIViewController+Login.h"
+#import "StockPoolListViewController.h"
 
 
 @interface AliveListTableViewDelegate ()
@@ -319,6 +320,19 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     [self deleteADWithIndexPath:indexPath];
 }
 
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPoolPressed:(id)sender {
+    AliveListModel *cellModel = cell.cellData.aliveModel;
+    AliveListStockPoolExtra *extra = cellModel.extra;
+    
+    StockPoolListViewController *vc = [[StockPoolListViewController alloc] init];
+    vc.userId = extra.stockPoolId;
+    vc.hidesBottomBarWhenPushed = YES;
+    [self.viewController.navigationController pushViewController:vc animated:YES];
+}
+
+- (void)aliveListTableCell:(AliveListTableViewCell *)cell stockPoolDetailPressed:(id)sender {
+    
+}
 #pragma mark - UITableView DataSource
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
@@ -506,8 +520,9 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         model.aliveType == kAliveStockHolder ||
         model.aliveType == kAlivePlayStock ||
         model.aliveType == kAliveStockPool ||
-        model.aliveType == kAliveStockPoolRecord) {
-        // 图文、推单、玩票、股票池
+        model.aliveType == kAliveStockPoolRecord ||
+        model.aliveType == kAliveVisitCard) {
+        // 图文、推单、玩票、股票池、名片
         AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
         vc.aliveID = model.aliveId;
         vc.aliveType = model.aliveType;
@@ -587,11 +602,6 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
             vc.hidesBottomBarWhenPushed = YES;
             [self.viewController.navigationController pushViewController:vc animated:YES];
         }
-    } else if (model.aliveType == kAliveVisitCard) {
-        // 名片
-//        AliveRoomViewController *vc = [[AliveRoomViewController alloc] initWithMasterId:model.aliveId];
-//        vc.hidesBottomBarWhenPushed = YES;
-//        [self.viewController.navigationController pushViewController:vc animated:YES];
     } else {
         NSAssert(NO, @"点击的直播类型不支持");
     }

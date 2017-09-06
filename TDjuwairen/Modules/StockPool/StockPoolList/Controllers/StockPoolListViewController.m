@@ -29,6 +29,7 @@
 #import "NotificationDef.h"
 #import "SettingHandler.h"
 #import "StockPoolListIntroModel.h"
+#import "AlivePublishViewController.h"
 
 #define StockPoolExpireCellID @"StockPoolExpireCellID"
 #define StockPoolListNormalCellID @"StockPoolListNormalCellID"
@@ -235,26 +236,35 @@
         return;
     }
 
+    
+    NSString *title = [NSString stringWithFormat:@"%@的股票池",US.userName];
+    NSString *detail = self.introlModel.intro?:@"无简介";
+    
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = self.userId;
+    publishModel.image = nil;
+    publishModel.title = title;
+    publishModel.detail = detail;
+    
+    AlivePublishType publishType = kAlivePublishStockPool;
+
+    
     __weak typeof(self)weakSelf = self;
 
-    [ShareHandler shareWithTitle:[NSString stringWithFormat:@"%@的股票池",US.userName]
-                          detail:self.introlModel.intro?:@"无简介"
-                           image:nil url:self.introlModel.shareURL
+    [ShareHandler shareWithTitle:title
+                          detail:detail
+                           image:nil
+                             url:self.introlModel.shareURL
                    selectedBlock:^(NSInteger index){
-        if (index == 0) {
-            // 直播分享
-            NetworkManager *manager = [[NetworkManager alloc] init];
-            NSDictionary *dict = @{@"item_id":SafeValue(self.userId),
-                                   @"item_type": @(0)};
-            
-            [manager POST:API_StockPoolShare parameters:dict completion:^(NSDictionary *data, NSError *error) {
-                if (!error) {
-                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享功能"];
-                } else {
-                    [MBProgressHUD showHUDAddedTo:weakSelf.view message:@"分享失败"];
-                }
-            }];
-        }
+           if (index == 0) {
+               // 转发
+               AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+               vc.hidesBottomBarWhenPushed = YES;
+               
+               vc.publishType = publishType;
+               vc.publishModel = publishModel;
+               [weakSelf.navigationController pushViewController:vc animated:YES];
+           }
     }  shareState:nil];
     
 }

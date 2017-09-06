@@ -9,7 +9,7 @@
 #import "AliveListContentView.h"
 
 @interface AliveListStockPoolView : AliveListContentView
-@property (nonatomic, strong) UIView *stockPoolView;
+@property (nonatomic, strong) UIView *contentView;
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *titleLabel;
 @property (nonatomic, strong) UILabel *detailLabel;

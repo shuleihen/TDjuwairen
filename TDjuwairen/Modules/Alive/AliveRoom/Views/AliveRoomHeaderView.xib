@@ -66,7 +66,7 @@
                         <constraint firstItem="jOt-ib-4S0" firstAttribute="centerY" secondItem="5we-vo-SVx" secondAttribute="centerY" id="uiu-wj-GSN"/>
                     </constraints>
                 </view>
-                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_avatar" translatesAutoresizingMaskIntoConstraints="NO" id="hSC-04-36v" customClass="TDAvatar">
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hSC-04-36v" customClass="TDAvatar">
                     <rect key="frame" x="22" y="64" width="50" height="50"/>
                     <constraints>
                         <constraint firstAttribute="width" constant="50" id="FA2-ER-R3m"/>
@@ -106,7 +106,7 @@
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                     <inset key="titleEdgeInsets" minX="5" minY="0.0" maxX="0.0" maxY="0.0"/>
-                    <state key="normal" title="10" image="ico_gushen"/>
+                    <state key="normal" image="ico_gushen"/>
                     <connections>
                         <action selector="guestRuleClick:" destination="kdO-EP-rtC" eventType="touchUpInside" id="PzY-lI-eOm"/>
                     </connections>
@@ -125,29 +125,29 @@
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ptB-Rd-JqB">
-                    <rect key="frame" x="84" y="91" width="44" height="20"/>
+                    <rect key="frame" x="84" y="91" width="30" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="u7Y-FO-pcM"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="关注10"/>
+                    <state key="normal" title="关注"/>
                     <connections>
                         <action selector="attentionPressed:" destination="kdO-EP-rtC" eventType="touchUpInside" id="eX3-RY-ZkF"/>
                     </connections>
                 </button>
                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9sV-iB-zN0">
-                    <rect key="frame" x="143" y="91" width="47" height="20"/>
+                    <rect key="frame" x="129" y="91" width="30" height="20"/>
                     <constraints>
                         <constraint firstAttribute="height" constant="20" id="33X-dr-bWP"/>
                     </constraints>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                    <state key="normal" title="粉丝34"/>
+                    <state key="normal" title="粉丝"/>
                     <connections>
                         <action selector="fansPressed:" destination="kdO-EP-rtC" eventType="touchUpInside" id="XZW-xb-tar"/>
                     </connections>
                 </button>
                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="|" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2t-ob-8Ne">
-                    <rect key="frame" x="133" y="92" width="5" height="17"/>
+                    <rect key="frame" x="119" y="92" width="5" height="17"/>
                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     <nil key="highlightedColor"/>
@@ -205,7 +205,6 @@
         <image name="ico_gushen" width="10" height="14"/>
         <image name="ico_sex-man" width="14" height="14"/>
         <image name="ico_sex-women" width="14" height="14"/>
-        <image name="icon_avatar" width="40" height="40"/>
         <image name="nav_backwhite" width="9" height="19"/>
         <image name="nav_bg" width="375" height="64"/>
         <image name="nav_edit" width="19" height="19"/>

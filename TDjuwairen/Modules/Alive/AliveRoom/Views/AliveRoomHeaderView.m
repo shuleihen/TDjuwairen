@@ -41,6 +41,9 @@
     self.addAttenBtn.hidden = YES;
     self.editBtn.hidden = YES;
     self.aSexImageView.hidden = YES;
+    self.aNickNameLabel.text = @"";
+    self.aAddressLabel.text = @"";
+    self.aRoomInfoLabel.text = @"";
 }
 
 + (instancetype)loadAliveRoomeHeaderView {
@@ -52,10 +55,14 @@
     
     _headerModel = master;
     
+    if (master == nil) {
+        return;
+    }
+    
     [self.aImageView sd_setImageWithURL:[NSURL URLWithString:master.avatar] placeholderImage:TDDefaultUserAvatar options:SDWebImageRefreshCached];
     self.aNickNameLabel.text = master.masterNickName;
-    self.aAddressLabel.text = master.city;
-    self.aRoomInfoLabel.text = master.roomInfo;
+    self.aAddressLabel.text = master.city.length?master.city:TDDefaultRoomCity;
+    self.aRoomInfoLabel.text = master.roomInfo.length?master.roomInfo:TDDefaultRoomDesc;
     
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateNormal];
     [self.aAttentionButton setTitle:[NSString stringWithFormat:@"关注%@",master.attenNum] forState:UIControlStateHighlighted];
@@ -63,6 +70,8 @@
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateNormal];
     [self.aFansButton setTitle:[NSString stringWithFormat:@"粉丝%@",master.fansNum] forState:UIControlStateHighlighted];
 
+    
+    [self.aGuessRateButton setTitle:[NSString stringWithFormat:@"%@",master.guessRate] forState:UIControlStateNormal];
     
     if (US.sex == kUserSexWoman) {
         self.aSexImageView.highlighted = NO;
