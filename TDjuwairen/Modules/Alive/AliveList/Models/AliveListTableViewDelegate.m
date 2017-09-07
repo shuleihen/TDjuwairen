@@ -205,12 +205,16 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
     publishModel.forwardId = cellModel.aliveId;
     publishModel.forwardType = cellModel.aliveType;
     publishModel.image = cellModel.aliveImgs.firstObject;
-    publishModel.title = cellModel.masterNickName;
+    publishModel.title = [NSString stringWithFormat:@"@%@", cellModel.masterNickName];
+    publishModel.masterNickName = cellModel.masterNickName;
     publishModel.detail = cellModel.aliveTitle;
     
     AlivePublishType publishType = kAlivePublishForward;
     
-    [ShareHandler shareWithTitle:SafeValue(cellModel.aliveTitle) image:cellModel.aliveImgs url:SafeValue(cellModel.shareUrl) selectedBlock:^(NSInteger index){
+    NSString *shareTitle = [NSString stringWithFormat:@"%@的转发", cellModel.masterNickName];
+    NSString *shareDetail = cellModel.aliveTitle;
+    
+    [ShareHandler shareWithTitle:shareTitle detail:shareDetail images:cellModel.aliveImgs url:SafeValue(cellModel.shareUrl) selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];

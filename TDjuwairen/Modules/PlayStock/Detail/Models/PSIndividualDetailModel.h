@@ -29,6 +29,7 @@
 @property (nonatomic, strong) NSArray *joinList;
 @property (nonatomic, assign) NSInteger extra_keyNum;
 @property (nonatomic, copy) NSString *shareTitle;
+@property (nonatomic, copy) NSString *shareContent;
 @property (nonatomic, copy) NSString *shareUrl;
 @property (nonatomic, copy) NSString *shareImg;
 

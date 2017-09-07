@@ -237,23 +237,23 @@
     }
 
     
-    NSString *title = [NSString stringWithFormat:@"%@的股票池",US.userName];
+    NSString *title = [NSString stringWithFormat:@"%@的股票池", self.introlModel];
     NSString *detail = self.introlModel.intro?:@"无简介";
     
     AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
     publishModel.forwardId = self.userId;
-    publishModel.image = nil;
+    publishModel.image = self.introlModel.masterAvatar;
     publishModel.title = title;
     publishModel.detail = detail;
+    publishModel.masterNickName = self.introlModel.masterNickName;
     
     AlivePublishType publishType = kAlivePublishStockPool;
 
-    
     __weak typeof(self)weakSelf = self;
 
     [ShareHandler shareWithTitle:title
                           detail:detail
-                           image:nil
+                           image:self.introlModel.masterAvatar
                              url:self.introlModel.shareURL
                    selectedBlock:^(NSInteger index){
            if (index == 0) {

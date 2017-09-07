@@ -233,7 +233,11 @@ StockManagerDelegate, PlayGuessViewControllerDelegate>
         return;
     }
     
-    [ShareHandler shareWithTitle:self.individualModel.shareTitle image:@[self.individualModel.shareImg] url:self.individualModel.shareUrl selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:self.individualModel.shareTitle
+                          detail:self.individualModel.shareContent
+                           image:self.individualModel.shareImg
+                             url:self.individualModel.shareUrl
+                   selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 分享到直播
             NetworkManager *ma = [[NetworkManager alloc] init];

@@ -20,6 +20,8 @@
         self.expireTime = [dict[@"user_expire_time"] integerValue];
         self.expireDay = [dict[@"pool_set_expire_day"] integerValue];
         self.isSubscribed = [dict[@"user_is_subscribe"] boolValue];
+        self.masterNickName = dict[@"user_nickname"];
+        self.masterAvatar = dict[@"userinfo_facemin"];
         self.isFree = [dict[@"pool_is_free"] boolValue];
     }
     return self;

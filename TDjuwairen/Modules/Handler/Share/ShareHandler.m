@@ -16,58 +16,26 @@
 
 @implementation ShareHandler
 
-+ (void)shareWithModel:(TDShareModel *)model selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock {
-    [ShareHandler shareWithTitle:model.title image:model.images url:model.url selectedBlock:selectedBlock shareState:stateBlock];
-}
-
-+ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSString *)url {
-    NSMutableDictionary *shareParams = [NSMutableDictionary dictionary];
-    NSArray *images;
-    if (image) {
-        images = @[image];
-    }
++ (void)shareWithTitle:(NSString *)title
+                detail:(NSString *)detail
+                 image:(NSString *)image
+                   url:(NSString *)url
+         selectedBlock:(void(^)(NSInteger index))selectedBlock
+            shareState:(void(^)(BOOL state))stateBlock {
     
     NSArray *imageArray;
-    if (images.count == 0) {
+    if (image.length == 0) {
         imageArray = @[[UIImage imageNamed:@"app_icon.png"]];
     } else {
-        imageArray = images;
+        imageArray = @[image];
     }
     
-    [shareParams SSDKSetupShareParamsByText:nil images:imageArray url:[NSURL URLWithString:SafeValue(url)] title:title type:SSDKContentTypeAuto];
-    
-    [ShareSDK showShareActionSheet:nil
-                             items:nil
-                       shareParams:shareParams
-               onShareStateChanged:^(SSDKResponseState state, SSDKPlatformType platformType, NSDictionary *userData, SSDKContentEntity *contentEntity, NSError *error, BOOL end) {
-                   if (state == SSDKResponseStateSuccess) {
-                       UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                       MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-                       hud.mode = MBProgressHUDModeText;
-                       hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.label.text = @"分享成功";
-                       hud.removeFromSuperViewOnHide = YES;
-                       [hud hideAnimated:YES afterDelay:0.4];
-                       
-                   } else if (state == SSDKResponseStateFail) {
-                       UIWindow *window = [UIApplication sharedApplication].keyWindow;
-                       MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:window animated:YES];
-                       hud.mode = MBProgressHUDModeText;
-                       hud.animationType = MBProgressHUDAnimationZoomIn;
-                       hud.label.text = @"分享失败";
-                       hud.removeFromSuperViewOnHide = YES;
-                       [hud hideAnimated:YES afterDelay:0.4];
-                   }
-               }];
-}
-
-+ (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock {
-    return [ShareHandler shareWithTitle:title detail:@"" image:images url:url selectedBlock:selectedBlock shareState:stateBlock];
+    return [ShareHandler shareWithTitle:title detail:detail images:imageArray url:url selectedBlock:selectedBlock shareState:stateBlock];
 }
 
 + (void)shareWithTitle:(NSString *)title
                 detail:(NSString *)detail
-                 image:(NSArray *)images
+                images:(NSArray *)images
                    url:(NSString *)url
          selectedBlock:(void(^)(NSInteger index))selectedBlock
             shareState:(void(^)(BOOL state))stateBlock {

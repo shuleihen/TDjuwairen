@@ -29,6 +29,7 @@
         self.result = [dict[@"guess_result"] integerValue];
         self.date = dict[@"guess_date"];
         self.shareTitle = dict[@"share_title"];
+        self.shareContent = dict[@"share_content"];
         self.shareUrl = dict[@"share_url"];
         self.shareImg = dict[@"share_img"];
         

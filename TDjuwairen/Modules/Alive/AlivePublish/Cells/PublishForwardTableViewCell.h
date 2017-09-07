@@ -14,5 +14,5 @@
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descLabel;
 
-- (void)setupPublishModel:(AlivePublishModel *)model;
+- (void)setupPublishModel:(AlivePublishModel *)model withPublishType:(NSInteger)publishType;
 @end

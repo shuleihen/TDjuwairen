@@ -601,7 +601,7 @@
         return cell;
     } else if ([sectionTitle isEqualToString:kPublishForward]) {
         PublishForwardTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PublishForwardTableViewCellID"];
-        [cell setupPublishModel:self.publishModel];
+        [cell setupPublishModel:self.publishModel withPublishType:self.publishType];
         
         return cell;
     } else if ([sectionTitle isEqualToString:kPublishStockHolder]) {

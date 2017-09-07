@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *ratio;
 @property (nonatomic, copy) NSString *masterId;
 @property (nonatomic, strong) NSArray *positions;
+@property (nonatomic, strong) NSString *shareIcon;
 @property (nonatomic, strong) NSString *shareUrl;
 @property (nonatomic, assign) BOOL isNewRecord;
 

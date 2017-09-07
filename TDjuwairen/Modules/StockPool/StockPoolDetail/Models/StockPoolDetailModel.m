@@ -19,6 +19,7 @@
         self.masterId = dict[@"record_master_id"];
         self.isMaster = [dict[@"is_master"] boolValue];
         self.shareUrl = dict[@"share_url"];
+        self.shareIcon = dict[@"stock_pool_logo"];
         self.isNewRecord = [dict[@"record_is_new"] boolValue];
         
         NSArray *list = dict[@"record_position_data"];

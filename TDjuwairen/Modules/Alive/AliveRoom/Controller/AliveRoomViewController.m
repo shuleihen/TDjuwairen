@@ -719,11 +719,6 @@
     NSString *userId = self.roomMasterModel.masterId;
     NSString *master = self.roomMasterModel.masterNickName;
     
-    NSArray *images;
-    if (cover.length) {
-        images = @[cover];
-    }
-    
     __weak AliveRoomViewController *wself = self;
     
     AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
@@ -731,7 +726,7 @@
     publishModel.image = cover;
     publishModel.title = master;
     publishModel.detail = desc;
-    
+    publishModel.masterNickName = master;
     
     void (^shareBlock)(BOOL state) = ^(BOOL state) {
         if (state) {
@@ -746,7 +741,7 @@
     };
     
     
-    [ShareHandler shareWithTitle:title detail:desc image:images url:url selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:title detail:desc image:cover url:url selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];

@@ -174,11 +174,8 @@
     publishModel.image = self.videoinfo.cover;
     publishModel.title = self.videoinfo.title;
     publishModel.detail = self.videoinfo.content;
+    publishModel.masterNickName = self.videoinfo.nickName;
     
-    NSArray *images;
-    if (self.videoinfo.cover.length) {
-        images = @[self.videoinfo.cover];
-    }
     
     __weak typeof(self)weakSelf = self;
     
@@ -189,7 +186,11 @@
         }
     };
     
-    [ShareHandler shareWithTitle:self.videoinfo.title detail:self.videoinfo.content image:images url:self.videoinfo.shareUrl selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:self.videoinfo.title
+                          detail:self.videoinfo.content
+                           image:self.videoinfo.cover
+                             url:self.videoinfo.shareUrl
+                   selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];

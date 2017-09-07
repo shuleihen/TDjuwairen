@@ -19,6 +19,8 @@
 @property (nonatomic, assign) BOOL isSubscribed;
 @property (nonatomic, assign) BOOL isFree;
 @property (nonatomic, assign) NSInteger expireDay;
+@property (nonatomic, copy) NSString *masterNickName;
+@property (nonatomic, copy) NSString *masterAvatar;
 
 - (id)initWithDictionary:(NSDictionary *)dict;
 @end

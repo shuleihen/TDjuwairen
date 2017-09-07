@@ -11,15 +11,18 @@
 
 @interface ShareHandler : NSObject
 
-+ (void)shareWithTitle:(NSString *)title image:(NSString *)image url:(NSString *)url;
-
-+ (void)shareWithTitle:(NSString *)title image:(NSArray *)images url:(NSString *)url selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock;
-
-+ (void)shareWithModel:(TDShareModel *)model selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock;
+//+ (void)shareWithModel:(TDShareModel *)model selectedBlock:(void(^)(NSInteger index))selectedBlock shareState:(void(^)(BOOL state))stateBlock;
 
 + (void)shareWithTitle:(NSString *)title
                 detail:(NSString *)detail
-                 image:(NSArray *)images
+                 image:(NSString *)image
+                   url:(NSString *)url
+         selectedBlock:(void(^)(NSInteger index))selectedBlock
+            shareState:(void(^)(BOOL state))stateBlock;
+
++ (void)shareWithTitle:(NSString *)title
+                detail:(NSString *)detail
+                images:(NSArray *)images
                    url:(NSString *)url
          selectedBlock:(void(^)(NSInteger index))selectedBlock
             shareState:(void(^)(BOOL state))stateBlock;

@@ -168,20 +168,20 @@
     
     __weak typeof(self)weakSelf = self;
     [self.formatter setDateFormat:@"MM月dd日"];
-    NSString *title = [NSString stringWithFormat:@"%@的股票池记录(%@)",US.userName, [self.formatter stringFromDate:self.detailModel.date]];
+    NSString *title = [NSString stringWithFormat:@"股票池记录(%@)", [self.formatter stringFromDate:self.detailModel.date]];
     NSString *detail = self.detailModel.desc;
     
     AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
     publishModel.forwardId = self.recordId;
-    publishModel.image = nil;
+    publishModel.image = self.detailModel.shareIcon;
     publishModel.title = title;
     publishModel.detail = detail;
-    
+
     AlivePublishType publishType = kAlivePublishStockPoolDetail;
     
     [ShareHandler shareWithTitle:title
                           detail:detail
-                           image:nil
+                           image:self.detailModel.shareIcon
                              url:self.detailModel.shareUrl
                    selectedBlock:^(NSInteger index){
                        if (index == 0) {

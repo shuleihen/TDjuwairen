@@ -202,12 +202,7 @@
     NSString *author = self.surveyInfoDictM[@"survey_author"];
     NSString *cover = self.surveyInfoDictM[@"survey_cover"];
     NSString *url = self.surveyInfoDictM[@"share_url"];
-    
-    NSArray *images;
-    if (cover.length) {
-        images = @[cover];
-    }
-    
+
     __weak SurveyDetailWebViewController *wself = self;
     
     AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
@@ -215,7 +210,7 @@
     publishModel.image = cover;
     publishModel.title = title;
     publishModel.detail = desc;
-    
+    publishModel.masterNickName = author;
     
     AlivePublishType publishType;
     if (self.surveyType == kSurveyTypeSpot) {
@@ -239,7 +234,7 @@
     };
     
     
-    [ShareHandler shareWithTitle:title detail:desc image:images url:url selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:title detail:desc image:cover url:url selectedBlock:^(NSInteger index){
         if (index == 0) {
             // 转发
             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];

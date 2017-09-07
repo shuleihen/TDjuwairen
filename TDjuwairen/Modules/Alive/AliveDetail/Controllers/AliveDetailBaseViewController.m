@@ -124,13 +124,17 @@
     publishModel.forwardId = aliveModel.aliveId;
     publishModel.forwardType = aliveModel.aliveType;
     publishModel.image = aliveModel.aliveImgs.firstObject;
-    publishModel.title = aliveModel.masterNickName;
+    publishModel.title = [NSString stringWithFormat:@"@%@", aliveModel.masterNickName];
     publishModel.detail = aliveModel.aliveTitle;
+    publishModel.masterNickName = aliveModel.masterNickName;
     
     AlivePublishType publishType = kAlivePublishForward;
     if (aliveModel.aliveType == kAliveViewpoint) {
         publishType = kAlivePublishViewpoint;
     }
+    
+    NSString *shareTitle = [NSString stringWithFormat:@"%@的转发", aliveModel.masterNickName];
+    NSString *shareDetail = aliveModel.aliveTitle;
     
     __weak typeof(self)weakSelf = self;
     
@@ -141,7 +145,7 @@
         }
     };
     
-     [ShareHandler shareWithTitle:aliveModel.aliveTitle image:aliveModel.aliveImgs url:aliveModel.shareUrl selectedBlock:^(NSInteger index){
+    [ShareHandler shareWithTitle:shareTitle detail:shareDetail images:aliveModel.aliveImgs url:aliveModel.shareUrl selectedBlock:^(NSInteger index){
          if (index == 0) {
              // 转发
              AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
