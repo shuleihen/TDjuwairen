@@ -9,7 +9,6 @@
 #import "SurveyListTableViewCell.h"
 #import "NSString+Util.h"
 #import "UIImageView+WebCache.h"
-#import "NSString+GetDevice.h"
 
 @implementation SurveyListTableViewCell
 
@@ -129,18 +128,9 @@
         NSString *string = [NSString stringWithFormat:@"%@  %+.2lf  %+.2lf%%",nowPriString,value,valueB*100];
         NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
         
-        NSString *fo = [NSString getiPHoneDeviceType];
-        UIFont *font1 ;
-        UIFont *font2 ;
-        if ([fo isEqualToString:@"1"]) {
-            font1 = [UIFont systemFontOfSize:26];
-            font2 = [UIFont systemFontOfSize:14];
-        }
-        else
-        {
-            font1 = [UIFont systemFontOfSize:25];
-            font2 = [UIFont systemFontOfSize:13];
-        }
+        UIFont *font1 = [UIFont systemFontOfSize:25];
+        UIFont *font2 = [UIFont systemFontOfSize:13];
+
         [attr setAttributes:@{NSFontAttributeName:font1} range:NSMakeRange(0, nowPriString.length)];
         [attr setAttributes:@{NSFontAttributeName:font2} range:NSMakeRange(nowPriString.length,string.length-nowPriString.length)];
         

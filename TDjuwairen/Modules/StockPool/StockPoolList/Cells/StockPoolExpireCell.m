@@ -9,7 +9,6 @@
 #import "StockPoolExpireCell.h"
 #import "UIImage+StockPool.h"
 #import "StockPoolListCellModel.h"
-#import "UIControl+YMCustom.h"
 
 @interface StockPoolExpireCell ()
 @property (weak, nonatomic) IBOutlet UIImageView *leftImageView;
@@ -24,9 +23,7 @@
 - (void)awakeFromNib {
     [super awakeFromNib];
     UIImage *leftImage = [UIImage imageWithStockPoolListLeft];
-    self.leftImageView.image = [leftImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 0, 10, 0)];
-    _addMoneyButton.custom_acceptEventInterval = 0.5;
-    
+    self.leftImageView.image = [leftImage resizableImageWithCapInsets:UIEdgeInsetsMake(50, 0, 10, 0)];    
     self.selectionStyle = UITableViewCellSelectionStyleNone;
 }
 

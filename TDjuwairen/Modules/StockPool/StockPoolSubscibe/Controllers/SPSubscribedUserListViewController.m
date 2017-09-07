@@ -9,7 +9,6 @@
 #import "SPSubscribedUserListViewController.h"
 #import "LoginStateManager.h"
 #import "NSString+Ext.h"
-#import "NSString+TimeInfo.h"
 #import "NetworkManager.h"
 #import "UIImage+Color.h"
 #import "AliveListTableViewCell.h"

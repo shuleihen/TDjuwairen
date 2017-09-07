@@ -12,7 +12,6 @@
 #import "UIView+Border.h"
 #import "StockPoolSubscibeModel.h"
 #import "UIImageView+WebCache.h"
-#import "UIControl+YMCustom.h"
 
 @interface StockPoolSubscibeCell ()
 /// 头像
@@ -47,7 +46,6 @@
         }];
         
         _sAttentionBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _sAttentionBtn.custom_acceptEventInterval = 0.5;
         [_sAttentionBtn setBackgroundColor:TDThemeColor];
         _sAttentionBtn.titleLabel.font = [UIFont systemFontOfSize:12.0];
         [_sAttentionBtn addTarget:self action:@selector(attentionBtnClick) forControlEvents:UIControlEventTouchUpInside];

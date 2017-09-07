@@ -9,7 +9,6 @@
 #import "SurveryStockListCell.h"
 #import "HexColors.h"
 #import "UIImageView+WebCache.h"
-#import "NSString+GetDevice.h"
 #import "NSString+Util.h"
 #import "SurveyHandler.h"
 
