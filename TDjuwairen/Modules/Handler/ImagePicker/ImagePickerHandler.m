@@ -7,11 +7,14 @@
 //
 
 #import "ImagePickerHandler.h"
-#import "ELCImagePickerController.h"
+#import "TZImagePickerController.h"
 #import "UIImage+Resize.h"
 #import "ACActionSheet.h"
 
-@interface ImagePickerHandler () <ELCImagePickerControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
+@interface ImagePickerHandler ()
+<UIImagePickerControllerDelegate, UINavigationControllerDelegate,
+TZImagePickerControllerDelegate>
+
 @property (nonatomic, weak) UIViewController *controller;
 @end
 
@@ -46,12 +49,7 @@
         picker.delegate = self;
         picker.allowsEditing = YES;
         picker.sourceType = sourceType;
-//        picker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:UIImagePickerControllerSourceTypeCamera];
-//        picker.showsCameraControls = NO;
-//        picker.cameraFlashMode = UIImagePickerControllerCameraFlashModeOff;
-//        if ([[[UIDevice currentDevice] systemVersion] floatValue]>=8.0) {
-//            self.controller.modalPresentationStyle=UIModalPresentationOverCurrentContext;
-//        }
+
         [self.controller presentViewController:picker animated:YES completion:nil];
         
     } else {
@@ -63,12 +61,10 @@
 }
 
 - (void)selectPhotoAlbumWithLimit:(NSInteger)limit {
-    ELCImagePickerController *elcPicker = [[ELCImagePickerController alloc] initImagePicker];
-    elcPicker.maximumImagesCount = limit;
-    elcPicker.returnsOriginalImage = NO;
-    elcPicker.imagePickerDelegate = self;
-    [self.controller presentViewController:elcPicker animated:YES completion:nil];
+    TZImagePickerController *vc = [[TZImagePickerController alloc] initWithMaxImagesCount:limit delegate:self];
+    [self.controller presentViewController:vc animated:YES completion:nil];
 }
+
 
 #pragma mark - UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
@@ -87,17 +83,15 @@
     [picker dismissViewControllerAnimated:YES completion:nil];
 }
 
-#pragma mark - ELCImagePickerControllerDelegate
-- (void)elcImagePickerController:(ELCImagePickerController *)picker didFinishPickingMediaWithInfo:(NSArray *)info{
-    
+#pragma mark - TZImagePickerControllerDelegate
+- (void)imagePickerController:(TZImagePickerController *)picker didFinishPickingPhotos:(NSArray<UIImage *> *)photos sourceAssets:(NSArray *)assets isSelectOriginalPhoto:(BOOL)isSelectOriginalPhoto {
     [self.controller dismissViewControllerAnimated:YES completion:nil];
     
-    NSMutableArray *array = [NSMutableArray arrayWithCapacity:info.count];
+    NSMutableArray *array = [NSMutableArray arrayWithCapacity:photos.count];
     
-    for (NSDictionary *dict in info) {
-        UIImage *img = [dict objectForKey:UIImagePickerControllerOriginalImage];
+    for (UIImage *image in photos) {
         
-        NSData *data = UIImageJPEGRepresentation(img, 0.9);
+        NSData *data = UIImageJPEGRepresentation(image, 0.9);
         UIImage *reSizeImg = [UIImage imageWithData:data];
         [array addObject:reSizeImg];
     }
@@ -107,8 +101,8 @@
     }
 }
 
-- (void)elcImagePickerControllerDidCancel:(ELCImagePickerController *)picker
-{
+- (void)tz_imagePickerControllerDidCancel:(TZImagePickerController *)picker {
     [self.controller dismissViewControllerAnimated:YES completion:nil];
 }
+
 @end

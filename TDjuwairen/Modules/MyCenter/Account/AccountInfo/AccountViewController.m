@@ -9,7 +9,6 @@
 #import "AccountViewController.h"
 #import "UIImageView+WebCache.h"
 #import "LoginStateManager.h"
-#import "ELCImagePickerController.h"
 #import "NetworkManager.h"
 #import "MBProgressHUD.h"
 #import "NotificationDef.h"
