@@ -36,4 +36,9 @@
 + (NSInteger)getStockHolderOpenTime;
 + (void)saveStockHolderName:(NSString *)stockHolderName;
 + (NSString *)getStockHolderName;
+
++ (BOOL)isEverNotShowSysNotice;
++ (void)setEverNotShowSysNotice;
++ (void)saveShowSysNoticTime:(NSInteger)time;
++ (NSInteger)getShowSysNoticTime;
 @end

@@ -451,7 +451,7 @@
     height = CGRectGetMaxY(self.messageLabelFrame);
     
     if (self.aliveModel.aliveImgs.count) {
-        self.imageViewFrame = CGRectMake(left, height+8, contentWidht, 178);
+        self.imageViewFrame = CGRectMake(left, height+8, contentWidht, 122);
         height = CGRectGetMaxY(self.imageViewFrame);
         self.isShowImageView = YES;
     } else {

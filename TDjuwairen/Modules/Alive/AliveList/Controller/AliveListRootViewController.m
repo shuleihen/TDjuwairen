@@ -14,6 +14,7 @@
 #import "UIImage+Create.h"
 #import "UIImage+Color.h"
 #import "TDSegmentedControl.h"
+#import "SysNoticeHandler.h"
 
 @interface AliveListRootViewController ()<UIPageViewControllerDelegate>
 
@@ -56,6 +57,8 @@
     [self setupNavigationBar];
     
     [self.view addSubview:self.pageViewController.view];
+    
+    [SysNoticeHandler showSysNotice];
 }
 
 - (void)setupNavigationBar {

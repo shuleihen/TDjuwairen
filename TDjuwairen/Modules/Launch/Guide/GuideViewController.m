@@ -49,7 +49,8 @@
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.x > (kPageNumber-1)*kScreenWidth) {
         UITabBarController *tabbarView = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
-        [self presentViewController:tabbarView animated:YES completion:nil];
+        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarView;
+//        [self presentViewController:tabbarView animated:YES completion:nil];
     }
     int page = floor((scrollView.contentOffset.x - kScreenWidth/2)/kScreenWidth)+1;
     self.page.currentPage = page;

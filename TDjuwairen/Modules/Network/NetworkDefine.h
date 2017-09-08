@@ -237,9 +237,10 @@
 #define API_MessageClear            @"Message/clearMessageList"
 #define API_MessageDelete           @"Message/deleteMessage"
 #define API_MessageSetRead          @"Message/setMessageReadStatus"
-#define API_MessageGetSystemList    @"Message/getSysNotifyList"
+#define API_MessageGetSystemList    @"Message/getSysNotifyList3_3"
 #define API_MessageSystemClear      @"Message/clearSysNotify"
 #define API_MessageSystemDelete     @"Message/deleteSysNotify"
+#define API_MessageSystemNotice     @"Message/getSysNotice"
 
 
 #define API_StockPoolGetList        @"StockPool/getStockPoolList"

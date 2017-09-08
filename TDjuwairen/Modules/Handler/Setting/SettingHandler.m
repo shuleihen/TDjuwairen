@@ -113,4 +113,26 @@
     NSString *key = [self fullKeyUnionUserIdWithKey:kPublishStockHolderName];
     return [[NSUserDefaults standardUserDefaults] objectForKey:key];
 }
+
++ (BOOL)isEverNotShowSysNotice {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSysNoticeShow];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+}
+
++ (void)setEverNotShowSysNotice {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSysNoticeShow];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (void)saveShowSysNoticTime:(NSInteger)time {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSysNoticeShowTime];
+    [[NSUserDefaults standardUserDefaults] setInteger:time forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
++ (NSInteger)getShowSysNoticTime {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSysNoticeShowTime];
+    return [[NSUserDefaults standardUserDefaults] integerForKey:key];
+}
 @end

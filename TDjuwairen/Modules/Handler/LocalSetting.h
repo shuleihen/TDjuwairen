@@ -42,4 +42,7 @@
 #define kPublishStockHolderTime     @"PublishStockHolderTime"
 #define kPublishStockHolderName     @"PublishStockHolderName"
 
+#define kSysNoticeShow      @"SysNoticeShow"
+#define kSysNoticeShowTime  @"SysNoticeShowTime"
+
 #endif /* LocalSetting_h */
