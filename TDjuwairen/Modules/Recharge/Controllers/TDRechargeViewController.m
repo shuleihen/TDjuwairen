@@ -305,9 +305,13 @@
         UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, 200, 16)];
         label.font = [UIFont systemFontOfSize:14.0f weight:UIFontWeightMedium];
         label.textColor = TDLightGrayColor;
-        label.text = [NSString stringWithFormat:@"充值账号：%@", US.userPhone];
         [headerView addSubview:label];
         
+        if (US.isLogIn) {
+            label.text = [NSString stringWithFormat:@"充值账号：%@", US.userPhone];
+        } else {
+            label.text = [NSString stringWithFormat:@"选择充值金额"];
+        }
         return headerView;
     }
     

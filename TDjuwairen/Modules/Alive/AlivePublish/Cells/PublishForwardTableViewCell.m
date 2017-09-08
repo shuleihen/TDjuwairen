@@ -36,13 +36,13 @@
         attr = [[NSMutableAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:TDThemeColor}];
         [attr setAttributes:@{NSForegroundColorAttributeName:TDTitleTextColor} range:NSMakeRange(model.masterNickName.length+1, title.length-model.masterNickName.length-1)];
         self.titleLabel.attributedText = attr;
-        self.descLabel.text = model.detail;
+        self.descLabel.text = model.detail.length?model.detail:TDDefaultRoomDesc;
     } else if (publishType == kAlivePublishStockPool) {
         NSString *title = [NSString stringWithFormat:@"@%@的股票池", model.masterNickName];
         attr = [[NSMutableAttributedString alloc] initWithString:title attributes:@{NSForegroundColorAttributeName:TDThemeColor}];
         [attr setAttributes:@{NSForegroundColorAttributeName:TDTitleTextColor} range:NSMakeRange(model.masterNickName.length+1, title.length-model.masterNickName.length-1)];
         self.titleLabel.attributedText = attr;
-        self.descLabel.text = model.detail;
+        self.descLabel.text = model.detail.length?model.detail:TDDefaultAliveListStockPoolDesc;
     } else if (publishType == kAlivePublishSurvey ||
                publishType == kAlivePublishHot ||
                publishType == kAlivePublishDeep) {

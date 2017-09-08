@@ -34,5 +34,6 @@
 #define kStockUnlockNotification        @"kStockUnlockNotification"
 #define kRechargeNotification           @"kRechargeNotification"
 #define kStockPoolRecordChangedSuccessed    @"kStockPoolRecordChangedSuccessed"
+#define kStockPoolDescSettingNotification   @"StockPoolDescSettingNotification"
 
 #endif /* NotificationDef_h */

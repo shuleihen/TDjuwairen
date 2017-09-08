@@ -10,6 +10,8 @@
 #import "NetworkManager.h"
 #import "MJRefresh.h"
 #import "MBProgressHUD.h"
+#import "StockPoolAddAndEditViewController.h"
+#import "TDNavigationController.h"
 
 @interface StockPoolDraftTableViewController ()
 @property (nonatomic, strong) NSArray *list;
@@ -33,11 +35,14 @@
     self.tableView.rowHeight = 63.0f;
     
     self.tableView.mj_footer = [MJRefreshBackNormalFooter footerWithRefreshingTarget:self refreshingAction:@selector(loadMoreAction)];
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
     
     self.page = 1;
     [self getDratWithPage:self.page];
 }
-
 
 - (void)loadMoreAction {
     [self getDratWithPage:self.page];
@@ -110,6 +115,18 @@
     return cell;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSDictionary *dict = self.list[indexPath.row];
+    NSString *recordId = dict[@"record_id"];
+    
+    StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
+    vc.recordId = recordId;
+    
+    TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
+    [self presentViewController:editNav animated:YES completion:nil];
+}
 
 - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath {
     return YES;

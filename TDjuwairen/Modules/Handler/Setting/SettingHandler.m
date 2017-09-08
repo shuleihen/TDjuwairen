@@ -45,6 +45,17 @@
     
 }
 
++ (BOOL)isShowSettingStockPoolDescTip {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPIsSettingDescTip];
+    return [[NSUserDefaults standardUserDefaults] boolForKey:key];
+}
+
++ (void)addSettingStockPoolDesc {
+    NSString *key = [self fullKeyUnionUserIdWithKey:kSPIsSettingDescTip];
+    [[NSUserDefaults standardUserDefaults] setBool:YES forKey:key];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
 + (BOOL)isAddFistStockPoolRecord {
     NSString *key = [self fullKeyUnionUserIdWithKey:kSPFistAddTip];
     return [[NSUserDefaults standardUserDefaults] boolForKey:key];

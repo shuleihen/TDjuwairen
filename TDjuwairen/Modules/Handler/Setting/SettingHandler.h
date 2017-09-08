@@ -24,6 +24,9 @@
 + (BOOL)isAddFistStockPoolRecord;
 + (void)addFirstStockPoolRecord;
 
++ (BOOL)isShowSettingStockPoolDescTip;
++ (void)addSettingStockPoolDesc;
+
 // 每天只能发2条
 + (void)addStockPoolRecord;
 + (NSInteger)getAddStockPoolRecordCountInOneDay;

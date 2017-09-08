@@ -14,7 +14,6 @@
 #import "UIImage+Create.h"
 #import "UIImage+Color.h"
 #import "TDSegmentedControl.h"
-#import "StockPoolListViewController.h"
 
 @interface AliveListRootViewController ()<UIPageViewControllerDelegate>
 

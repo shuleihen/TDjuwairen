@@ -121,12 +121,14 @@
     [super viewDidDisappear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stockPoolRecordChangedNotifi:) name:kStockPoolRecordChangedSuccessed object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(stockPoolDescSettingNotifi:) name:kStockPoolDescSettingNotification object:nil];
 }
 
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kStockPoolRecordChangedSuccessed object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kStockPoolDescSettingNotification object:nil];
 }
 
 - (void)setupNavigation {
@@ -341,6 +343,9 @@
     [self queryStockPoolListWithDirect:NO withTimeInterval:self.searchTimeInterval];
 }
 
+- (void)stockPoolDescSettingNotifi:(NSNotification *)notifi {
+    [self.toolView hidSPDescTipImageView];
+}
 
 #pragma mark - StockPoolListToolViewDelegate
 - (void)settingPressed:(id)sender {

@@ -17,7 +17,7 @@
 #import "UIImage+Caputure.h"
 #import "PublishViewViewController.h"
 #import "AlivePublishViewController.h"
-#import "StockPoolAddAndEditViewController.h"
+#import "StockPoolListViewController.h"
 #import "SettingHandler.h"
 
 @interface TDTabBarController ()<TDTabBarDelegate, TDPopupMenuDelegate>
@@ -135,10 +135,10 @@
             [alert addAction:done];
             [self presentViewController:alert animated:YES completion:nil];
         } else {
-            StockPoolAddAndEditViewController *vc = [[StockPoolAddAndEditViewController alloc] init];
-            
-            TDNavigationController *editNav = [[TDNavigationController alloc] initWithRootViewController:vc];
-            [nav presentViewController:editNav animated:YES completion:nil];
+            StockPoolListViewController *vc = [[StockPoolListViewController alloc] init];
+            vc.userId = US.userId;
+            vc.hidesBottomBarWhenPushed = YES;
+            [nav pushViewController:vc animated:YES];
         }
     }
 }

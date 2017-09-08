@@ -151,7 +151,7 @@
         _segmentControl.selectionIndicatorHeight = 3.0f;
         _segmentControl.selectionIndicatorColor = [UIColor hx_colorWithHexRGBAString:@"#3371e2"];
         _segmentControl.sectionTitles = @[@"全部动态",@"推单",@"股票池"];
-        _segmentControl.frame = CGRectMake(0, 0, 270, kAliveSegmentHeight);
+        _segmentControl.frame = CGRectMake(0, 0, 210, kAliveSegmentHeight);
         [_segmentControl addTarget:self action:@selector(segmentPressed:) forControlEvents:UIControlEventValueChanged];
     }
     

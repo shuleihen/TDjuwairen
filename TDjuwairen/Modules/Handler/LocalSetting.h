@@ -36,6 +36,7 @@
 
 // 股票池首次添加提示送3把钥匙
 #define kSPFistAddTip       @"stockPoolFistAddTip"
+#define kSPIsSettingDescTip @"SPIsSettingDescTip"
 #define kSPAddRecordCount   @"kSPAddRecordCount"
 
 #define kPublishStockHolderTime     @"PublishStockHolderTime"

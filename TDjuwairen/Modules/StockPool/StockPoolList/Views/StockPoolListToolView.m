@@ -50,6 +50,16 @@
         attention.frame = CGRectMake(frame.size.width-45, (frame.size.height-30)/2, 30, 30);
         [attention addTarget:self action:@selector(attentionPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:attention];
+        
+        
+        // 设置股票池提示
+        if (![SettingHandler isShowSettingStockPoolDescTip]) {
+            UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 121, 34)];
+            imageView.image = [UIImage imageNamed:@"sp_set_desc.png"];
+            imageView.center = CGPointMake(76, -24);
+            [setting addSubview:imageView];
+            self.stockPoolDescTipImageView = imageView;
+        }
     }
     return self;
 }
@@ -59,6 +69,12 @@
         [self.tipImageView removeFromSuperview];
         
         [SettingHandler addFirstStockPoolRecord];
+    }
+}
+
+- (void)hidSPDescTipImageView {
+    if ([SettingHandler isShowSettingStockPoolDescTip]) {
+        [self.stockPoolDescTipImageView removeFromSuperview];
     }
 }
 

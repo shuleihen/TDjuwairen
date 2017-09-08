@@ -46,7 +46,7 @@
     
     
     self.titleLabel.text = extra.title;
-    self.detailLabel.text = extra.desc;
+    self.detailLabel.text = extra.desc.length?extra.desc:TDDefaultAliveListStockPoolDesc;
     CGSize size = [self.detailLabel sizeThatFits:CGSizeMake(CGRectGetWidth(self.frame)-76, 42)];
     self.detailLabel.frame = CGRectMake(64, 35, size.width, size.height);
 }

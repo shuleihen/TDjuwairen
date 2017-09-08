@@ -14,6 +14,7 @@
 #import "NetworkManager.h"
 #import "StockPoolPriceModel.h"
 #import "StockPoolFreeSettingViewController.h"
+#import "SettingHandler.h"
 
 
 #define kStockPoolSettingCellID @"kStockPoolSettingCellID"
@@ -143,6 +144,8 @@
         editVC.vcType = CommentVCStockPoolSettingType;
         __weak typeof(self)weakSelf = self;
         editVC.commentBlock = ^(){
+            [SettingHandler addSettingStockPoolDesc];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kStockPoolDescSettingNotification object:nil];
             [weakSelf loadStockPoolIntroductMessage];
         };
         [self.navigationController pushViewController:editVC animated:YES];

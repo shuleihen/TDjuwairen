@@ -42,7 +42,7 @@
     
     self.contentView.frame = vpCellData.visitCardViewFrame;
     self.nickNameLabel.text = [NSString stringWithFormat:@"@%@ 的个人主页",extra.masterNickName];
-    self.descLabel.text = extra.desc;
+    self.descLabel.text = extra.desc.length?extra.desc:TDDefaultRoomDesc;
     [self.avatar sd_setImageWithURL:[NSURL URLWithString:extra.avatar] placeholderImage:TDDefaultUserAvatar];
 }
 
