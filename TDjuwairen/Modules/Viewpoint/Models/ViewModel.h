@@ -12,7 +12,7 @@
 
 @property (nonatomic,copy) NSString *view_id;
 @property (nonatomic,copy) NSString *view_title;
-
+@property (nonatomic,copy) NSString *view_desc;
 @property (nonatomic, copy) NSString *view_thumb;
 
 @property (nonatomic,strong) NSArray *tags;

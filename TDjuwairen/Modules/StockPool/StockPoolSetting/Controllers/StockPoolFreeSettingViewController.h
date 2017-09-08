@@ -1,15 +1,14 @@
 //
-//  StockPoolChargeTypeController.h
+//  StockPoolFreeSettingViewController.h
 //  TDjuwairen
 //
-//  Created by deng shu on 2017/8/12.
+//  Created by zdy on 2017/9/7.
 //  Copyright © 2017年 团大网络科技. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
-@class StockPoolPriceModel;
+#import "StockPoolPriceModel.h"
 
-@interface StockPoolChargeTypeController : UIViewController
+@interface StockPoolFreeSettingViewController : UIViewController
 @property (nonatomic, strong) StockPoolPriceModel *priceModel;
-
 @end

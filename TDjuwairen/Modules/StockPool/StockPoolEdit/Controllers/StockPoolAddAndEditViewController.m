@@ -16,6 +16,9 @@
 #import "NSString+Json.h"
 #import "ACActionSheet.h"
 #import "NotificationDef.h"
+#import "StockPoolPriceModel.h"
+#import "UIImage+Create.h"
+#import "StockPoolFreeSettingViewController.h"
 
 @interface StockPoolAddAndEditViewController ()
 <UITableViewDelegate, UITableViewDataSource, SPEditTableViewCellDelegate,
@@ -24,6 +27,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
 @property (nonatomic, strong) NSMutableArray *list;
 @property (nonatomic, strong) NSString *reason;
 @property (nonatomic, assign) BOOL isEdit;
+@property (nonatomic, strong) StockPoolPriceModel *priceModel;
 @end
 
 @implementation StockPoolAddAndEditViewController
@@ -76,6 +80,8 @@ UITextViewDelegate, MBProgressHUDDelegate>
                                              selector:@selector(keyboardWillHide:)
                                                  name:UIKeyboardWillHideNotification
                                                object:nil];
+    
+    [self loadStockPoolPriceType];
 }
 
 - (void)viewWillDisappear:(BOOL)animated {
@@ -218,6 +224,55 @@ UITextViewDelegate, MBProgressHUDDelegate>
 }
 
 
+- (void)loadStockPoolPriceType {
+    NetworkManager *manager = [[NetworkManager alloc] init];
+    
+    [manager GET:API_StockPoolGetPrice parameters:nil completion:^(NSDictionary *data, NSError *error) {
+        if (!error) {
+            if (data != nil) {
+                self.priceModel = [[StockPoolPriceModel alloc] initWithDict:data];
+                [self loadTableHeaderViewWithPriceModel:self.priceModel];
+            }
+        }
+    }];
+}
+
+- (void)loadTableHeaderViewWithPriceModel:(StockPoolPriceModel *)model {
+    
+    UIView *view = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 64)];
+    view.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
+    
+    UIView *content = [[UIView alloc] initWithFrame:CGRectMake(-1, 20, kScreenWidth+2, 44)];
+    content.backgroundColor = [UIColor whiteColor];
+    
+    UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(15, 11, 200, 20)];
+    label.font = [UIFont systemFontOfSize:15.0f];
+    
+    NSString *string = @"";
+    if (model.isFree) {
+        string = [NSString stringWithFormat:@"收费方式：免费"];
+    } else {
+        string = [NSString stringWithFormat:@"收费方式：%@把钥匙/月", model.key_num];
+    }
+    
+    NSMutableAttributedString *attr = [[NSMutableAttributedString alloc] initWithString:string];
+    [attr setAttributes:@{NSForegroundColorAttributeName: TDTitleTextColor} range:NSMakeRange(0, 5)];
+    [attr setAttributes:@{NSForegroundColorAttributeName: [UIColor hx_colorWithHexRGBAString:@"#FF6C00"]} range:NSMakeRange(5,string.length- 5)];
+    label.attributedText = attr;
+    [content addSubview:label];
+    
+    UIImage *image = [UIImage imageWithSize:CGSizeMake(48, 24) backgroudColor:[UIColor hx_colorWithHexRGBAString:@"#FF523B"] borderColor:[UIColor hx_colorWithHexRGBAString:@"#FF523B"] cornerRadius:4];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(kScreenWidth-48-15, 10, 48, 24)];
+    [btn setBackgroundImage:image forState:UIControlStateNormal];
+    [btn setTitle:@"更改" forState:UIControlStateNormal];
+    btn.titleLabel.font = [UIFont systemFontOfSize:14.0f];
+    [btn addTarget:self action:@selector(changeFreeTypePressed:) forControlEvents:UIControlEventTouchUpInside];
+    [content addSubview:btn];
+    
+    [view addSubview:content];
+    self.tableView.tableHeaderView = view;
+}
+
 - (void)queryRecordList {
     
     UIActivityIndicatorView *indicator = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
@@ -274,6 +329,13 @@ UITextViewDelegate, MBProgressHUDDelegate>
     self.list = marray;
     [self.tableView reloadData];
 }
+
+- (void)changeFreeTypePressed:(id)sender {
+    StockPoolFreeSettingViewController *chagerVC = [[StockPoolFreeSettingViewController alloc] init];
+    chagerVC.priceModel = self.priceModel;
+    [self.navigationController pushViewController:chagerVC animated:YES];
+}
+
 
 - (void)addRecordPressed:(id)sender {
     SPEditRecordModel *edit = [[SPEditRecordModel alloc] init];
@@ -505,6 +567,7 @@ UITextViewDelegate, MBProgressHUDDelegate>
         UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"SPEditTableViewCellContentID"];
         if (cell == nil) {
             cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"SPEditTableViewCellContentID"];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.contentView.backgroundColor = [UIColor hx_colorWithHexRGBAString:@"#F3FBFF"];
             
             UITextView *textView = [[UITextView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 268)];
@@ -512,15 +575,15 @@ UITextViewDelegate, MBProgressHUDDelegate>
             textView.font = [UIFont systemFontOfSize:15.0f];
             textView.textColor = TDTitleTextColor;
             textView.delegate = self;
+            textView.textContainerInset = UIEdgeInsetsMake(12, 15, 10, 15);
             
             textView.placeholderColor = [UIColor hx_colorWithHexRGBAString:@"#999999"];
             textView.placeholderLabel.font = [UIFont systemFontOfSize:14.0f];
-            textView.placeholderLabel.frame = CGRectMake(20, 19, 150, 16);
             textView.placeholder = @"写一下你的持仓理由吧~";
             textView.text = self.reason;
             [cell.contentView addSubview:textView];
             
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            
         }
         
         return cell;

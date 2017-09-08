@@ -12,8 +12,8 @@
 #import "StockPoolSettingCell.h"
 #import "AliveCommentViewController.h"
 #import "NetworkManager.h"
-#import "StockPoolChargeTypeController.h"
 #import "StockPoolPriceModel.h"
+#import "StockPoolFreeSettingViewController.h"
 
 
 #define kStockPoolSettingCellID @"kStockPoolSettingCellID"
@@ -21,9 +21,7 @@
 
 @interface StockPoolSettingController ()<UITableViewDelegate,UITableViewDataSource>
 @property (nonatomic, strong) UITableView *tableView;
-@property (strong, nonatomic) NSArray *titleArr;
 @property (copy, nonatomic) NSString *introduceStr;
-@property (nonatomic, assign) BOOL isOpenEditSwitch;
 @property (nonatomic, strong) StockPoolPriceModel *priceModel;
 
 @end
@@ -33,7 +31,8 @@
     if (!_tableView) {
         _tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
         _tableView.backgroundColor = TDViewBackgrouondColor;
-        _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+        _tableView.separatorColor = TDSeparatorColor;
+        _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
         _tableView.delegate = self;
         _tableView.dataSource = self;
         _tableView.rowHeight = 44.0f;
@@ -51,7 +50,6 @@
     self.view.backgroundColor = TDViewBackgrouondColor;
     [self.view addSubview:self.tableView];
     
-    self.titleArr = @[@"股票池设置",@"免费查看股票池",@"收费方式"];
     self.introduceStr = @"";
     
     [self loadStockPoolIntroductMessage];
@@ -76,7 +74,6 @@
             [wSelf.tableView reloadData];
         }
     }];
-
 }
 
 - (void)loadStockPoolPriceType {
@@ -86,7 +83,6 @@
         if (!error) {
             if (data != nil) {
                 self.priceModel = [[StockPoolPriceModel alloc] initWithDict:data];
-                self.isOpenEditSwitch = self.priceModel.isFree;
                 [self.tableView reloadData];
             }
         }
@@ -94,59 +90,9 @@
 }
 
 
-- (void)configChangeChargeType {
- 
-    if (self.priceModel.isFree == NO) {
-        // 收费变成免费
-        NSString *title = [NSString stringWithFormat:@"收费方式发生改变，新的收费方式将在%@日后生效！是否保存？",self.priceModel.day];
-        
-        UIAlertController *alertVC = [UIAlertController alertControllerWithTitle:nil message:title preferredStyle:UIAlertControllerStyleAlert];
-        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-            [self.tableView reloadData];
-        }];
-        [alertVC addAction:cancelAction];
-        
-        UIAlertAction *doneAction = [UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-            [self sendChangeType];
-        }];
-        [alertVC addAction:doneAction];
-        
-        [self presentViewController:alertVC animated:YES completion:nil];
-        
-    } else {
-        StockPoolChargeTypeController *chagerVC = [[StockPoolChargeTypeController alloc] init];
-        chagerVC.priceModel = self.priceModel;
-        [self.navigationController pushViewController:chagerVC animated:YES];
-    }
-}
-
-- (void)sendChangeType {
-    NSDictionary *dict = @{@"key_num":@"0",
-                           @"day":@"0",
-                           @"term": @"0",
-                           @"is_free":@(1)};
-    
-    NetworkManager *manager = [[NetworkManager alloc] init];
-    [manager POST:API_StockPoolSetPrice parameters:dict completion:^(id data, NSError *error) {
-        
-        if (!error) {
-            self.priceModel.isFree = YES;
-            self.priceModel.term = 0;
-            self.priceModel.key_num = @0;
-            self.priceModel.day = @0;
-            self.isOpenEditSwitch = YES;
-            [self.tableView reloadData];
-        }
-        
-    }];
-}
-
 #pragma mark -UITableViewDataSource
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    if (self.priceModel == nil) {
-        return 0;
-    }
-    return self.isOpenEditSwitch? 2 : 3;
+    return 2;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -154,38 +100,39 @@
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    StockPoolSettingCell *cell = [tableView dequeueReusableCellWithIdentifier:kStockPoolSettingCellID];
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"StockPoolSettingCellID"];
     if (cell == nil) {
-        cell = [[StockPoolSettingCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kStockPoolSettingCellID];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"StockPoolSettingCellID"];
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+        cell.textLabel.font = [UIFont systemFontOfSize:15.0f];
+        cell.textLabel.textColor = TDTitleTextColor;
+        
+        cell.detailTextLabel.font = [UIFont systemFontOfSize:15.0f];
+        cell.detailTextLabel.textColor = TDDetailTextColor;
     }
     
     if (indexPath.section == 0) {
-        cell.sDescTextView.text = self.introduceStr;
+        cell.textLabel.text = @"股票池介绍";
+        cell.detailTextLabel.text = self.introduceStr;
     } else if (indexPath.section == 1) {
-        cell.sSwitch.hidden = NO;
-        cell.sSwitch.on = self.isOpenEditSwitch;
-    } else if (indexPath.section == 2){
-        if ([self.priceModel.term isEqual:@1]) {
-            cell.billingLabel.text = [NSString stringWithFormat:@"%@把钥匙/周",self.priceModel.key_num];
-        } else if ([self.priceModel.term isEqual:@2]) {
-            cell.billingLabel.text = [NSString stringWithFormat:@"%@把钥匙/月",self.priceModel.key_num];
+        cell.textLabel.text = @"收费方式";
+        if (self.priceModel.isFree) {
+            cell.detailTextLabel.text = @"免费";
         } else {
-            cell.billingLabel.text = @"";
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%@把钥匙/月",self.priceModel.key_num];
         }
-        
-    } else {
-        cell.sDescTextView.text = @"";
-        cell.billingLabel.text = @"";
-        cell.sSwitch.hidden = YES;
     }
     
-    cell.sTitleLabel.text = self.titleArr[indexPath.section];
-    __weak typeof(self)weakSelf = self;
-    cell.changeBillingBlock = ^() {
-        [weakSelf configChangeChargeType];
-    };
-    
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 8, 30)];
+        imageView.contentMode = UIViewContentModeCenter;
+        imageView.image = [UIImage imageNamed:@"icon_arrow.png"];
+        cell.accessoryView = imageView;
+    }
 }
 
 #pragma mark - UITableViewDelegate
@@ -199,9 +146,9 @@
             [weakSelf loadStockPoolIntroductMessage];
         };
         [self.navigationController pushViewController:editVC animated:YES];
-    }else if (indexPath.section == 2) {
+    } else if (indexPath.section == 1) {
     
-        StockPoolChargeTypeController *chagerVC = [[StockPoolChargeTypeController alloc] init];
+        StockPoolFreeSettingViewController *chagerVC = [[StockPoolFreeSettingViewController alloc] init];
         chagerVC.priceModel = self.priceModel;
         [self.navigationController pushViewController:chagerVC animated:YES];
     }
@@ -214,48 +161,27 @@
 }
 
 - (nullable UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section {
-    UIView *footerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
-    footerV.backgroundColor = [UIColor clearColor];
-    
-    UILabel *desLabel = [[UILabel alloc] init];
-    desLabel.textColor = TDDetailTextColor;
-    desLabel.font = [UIFont systemFontOfSize:13.0];
-    desLabel.numberOfLines = 0;
-    [footerV addSubview:desLabel];
-    
-    [desLabel mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(footerV).mas_offset(15);
-        make.right.equalTo(footerV).mas_offset(-15);
-        make.top.equalTo(footerV).mas_offset(10);
-    }];
-    
-    if (section == 1) {
-        if (!self.isOpenEditSwitch) {
-            desLabel.text = @"不允许其他用户查看我的股票池";
-        } else {
-            desLabel.text = @"";
-        }
-    } else if (section == 2) {
-        if ([self.priceModel.term isEqual:@1]) {
-           desLabel.text = [NSString stringWithFormat:@"他人支付%@把钥匙即可查阅我的所有股票池记录\n有效期：1周（不含购买当天）",self.priceModel.key_num];
-        } else if ([self.priceModel.term isEqual:@2]) {
-            desLabel.text = [NSString stringWithFormat:@"他人支付%@把钥匙即可查阅我的所有股票池记录\n有效期：1个月（不含购买当天）",self.priceModel.key_num];
-        } else {
-            desLabel.text = @"";
-        }
+    if (section == 0) {
+        UIView *footerV = [[UIView alloc] init];
+        footerV.backgroundColor = [UIColor clearColor];
+        return footerV;
     } else {
-        desLabel.text = @"";
+        UIView *footerV = [[UIView alloc] initWithFrame:CGRectMake(0, 0, kScreenWidth, 45)];
+        footerV.backgroundColor = [UIColor clearColor];
+        
+        UILabel *desLabel = [[UILabel alloc] initWithFrame:CGRectMake(12, 10, kScreenWidth-24, 35)];
+        desLabel.textColor = TDDetailTextColor;
+        desLabel.font = [UIFont systemFontOfSize:13.0];
+        desLabel.numberOfLines = 0;
+        desLabel.text = @"例：1把钥匙/月，支付1把钥匙即可查阅我的所有股票池记录，有效期：一个月";
+        [footerV addSubview:desLabel];
+        
+        return footerV;
     }
-    
-    return footerV;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.section == 0) {
-        return [StockPoolSettingCell loadStockPoolSettingCellHeight:self.introduceStr];
-    }else {
-        return 44;
-    }
+    return 44.0f;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
@@ -267,14 +193,9 @@
     if (section == 0) {
         return 10;
     } else if (section == 1){
-        if (self.isOpenEditSwitch) {
-            return 10;
-        } else {
-            return 35;
-        }
-    } else if (section == 2){
         return 45;
     }
+    
     return 0;
 }
 

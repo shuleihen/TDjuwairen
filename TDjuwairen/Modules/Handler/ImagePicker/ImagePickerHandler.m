@@ -47,7 +47,7 @@ TZImagePickerControllerDelegate>
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
         picker.delegate = self;
-        picker.allowsEditing = YES;
+        picker.allowsEditing = NO;
         picker.sourceType = sourceType;
 
         [self.controller presentViewController:picker animated:YES completion:nil];
@@ -68,7 +68,7 @@ TZImagePickerControllerDelegate>
 
 #pragma mark - UIImagePickerControllerDelegate
 -(void)imagePickerController:(UIImagePickerController*)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
-    UIImage *image = [info objectForKey:UIImagePickerControllerEditedImage];
+    UIImage *image = [info objectForKey:UIImagePickerControllerOriginalImage];
     [picker dismissViewControllerAnimated:YES completion:nil];
     
     NSData *data = UIImageJPEGRepresentation(image, 0.9);

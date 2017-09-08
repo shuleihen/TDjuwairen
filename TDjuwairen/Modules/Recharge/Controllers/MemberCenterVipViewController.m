@@ -59,7 +59,7 @@
             title.text = model.levelString;
             [btn addSubview:title];
             
-            UILabel *detail = [[UILabel alloc] initWithFrame:CGRectMake(15, 35, 140, 18)];
+            UILabel *detail = [[UILabel alloc] initWithFrame:CGRectMake(15, 35, 180, 18)];
             detail.font = [UIFont systemFontOfSize:12.0f];
             detail.textColor = TDLightGrayColor;
             detail.text = [NSString stringWithFormat:@"首充送%@把钥匙和%@积分",model.keyNum,model.pointsNum];

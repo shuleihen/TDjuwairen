@@ -12,6 +12,8 @@
 #import "UIViewController+Loading.h"
 #import "AliveListModel.h"
 #import "AliveDetailFooterViewController.h"
+#import "AlivePublishViewController.h"
+#import "ShareHandler.h"
 
 @interface AliveDetailViewController ()
 @property (nonatomic, strong) AliveListTableViewDelegate *tableViewDelegate;
@@ -70,7 +72,55 @@
     [self setupIsLike:model.isLike withAnimation:NO];
 }
 
-- (AliveListModel *)shareAliveListModel {
-    return self.aliveModel;
+- (void)sharePressed {
+    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
+    publishModel.forwardId = self.aliveModel.aliveId;
+    publishModel.forwardType = self.aliveModel.aliveType;
+    publishModel.image = self.aliveModel.aliveImgs.firstObject;
+    publishModel.detail = self.aliveModel.aliveTitle;
+    publishModel.masterNickName = self.aliveModel.masterNickName;
+    
+    NSString *shareTitle = [NSString stringWithFormat:@"%@的转发",self.aliveModel.masterNickName];
+    NSString *shareDetail = self.aliveModel.aliveTitle;
+    
+    AlivePublishType publishType = kAlivePublishViewpoint;
+    
+    
+    __weak typeof(self)weakSelf = self;
+    
+    void (^shareBlock)(BOOL state) = ^(BOOL state) {
+        if (state) {
+            // 转发服务器会将分享数加1
+            [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
+        }
+    };
+    
+    [ShareHandler shareWithTitle:shareTitle
+                          detail:shareDetail
+                           image:self.aliveModel.aliveImgs.firstObject
+                             url:self.aliveModel.shareUrl
+                   selectedBlock:^(NSInteger index){
+        if (index == 0) {
+            // 转发
+            AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
+            vc.hidesBottomBarWhenPushed = YES;
+            
+            vc.publishType = publishType;
+            vc.publishModel = publishModel;
+            vc.shareBlock = shareBlock;
+            [weakSelf.navigationController pushViewController:vc animated:YES];
+        }
+    }  shareState:^(BOOL state) {
+        if (state) {
+            NetworkManager *manager = [[NetworkManager alloc] init];
+            NSDictionary *dict = @{@"item_id":weakSelf.aliveID,@"type":@(weakSelf.aliveType)};
+            
+            [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
+                if (!error) {
+                    [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
+                }
+            }];
+        }
+    }];
 }
 @end

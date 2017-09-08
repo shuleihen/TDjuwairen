@@ -12,6 +12,8 @@
 @property (nonatomic, copy) NSString *title;
 @property (nonatomic, copy) NSString *detail;
 @property (nonatomic, strong) NSArray *images;
+@property (nonatomic, copy) NSString *image;
 @property (nonatomic, copy) NSString *url;
+@property (nonatomic, copy) NSString *masterNickName;
 
 @end

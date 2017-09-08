@@ -8,10 +8,8 @@
 
 #import "AliveDetailBaseViewController.h"
 #import "AliveListBottomTableViewCell.h"
-#import "ShareHandler.h"
 #import "NetworkManager.h"
 #import "UIButton+LikeAnimation.h"
-#import "AlivePublishViewController.h"
 #import "AliveCommentViewController.h"
 #import "AliveDetailFooterViewController.h"
 
@@ -104,6 +102,14 @@
     return nil;
 }
 
+- (TDShareModel *)shareModel {
+    return nil;
+}
+
+- (void)sharePressed {
+    
+}
+
 #pragma mark - AliveListBottomTableCellDelegate
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell sharePressed:(id)sender {
@@ -114,60 +120,7 @@
         return;
     }
     
-    
-    AliveListModel *aliveModel = [self shareAliveListModel];
-    if (!aliveModel) {
-        return;
-    }
-    
-    AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
-    publishModel.forwardId = aliveModel.aliveId;
-    publishModel.forwardType = aliveModel.aliveType;
-    publishModel.image = aliveModel.aliveImgs.firstObject;
-    publishModel.title = [NSString stringWithFormat:@"@%@", aliveModel.masterNickName];
-    publishModel.detail = aliveModel.aliveTitle;
-    publishModel.masterNickName = aliveModel.masterNickName;
-    
-    AlivePublishType publishType = kAlivePublishForward;
-    if (aliveModel.aliveType == kAliveViewpoint) {
-        publishType = kAlivePublishViewpoint;
-    }
-    
-    NSString *shareTitle = [NSString stringWithFormat:@"%@的转发", aliveModel.masterNickName];
-    NSString *shareDetail = aliveModel.aliveTitle;
-    
-    __weak typeof(self)weakSelf = self;
-    
-    void (^shareBlock)(BOOL state) = ^(BOOL state) {
-        if (state) {
-            // 转发服务器会将分享数加1
-            [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
-        }
-    };
-    
-    [ShareHandler shareWithTitle:shareTitle detail:shareDetail images:aliveModel.aliveImgs url:aliveModel.shareUrl selectedBlock:^(NSInteger index){
-         if (index == 0) {
-             // 转发
-             AlivePublishViewController *vc = [[AlivePublishViewController alloc] initWithStyle:UITableViewStyleGrouped];
-             vc.hidesBottomBarWhenPushed = YES;
-             
-             vc.publishType = publishType;
-             vc.publishModel = publishModel;
-             vc.shareBlock = shareBlock;
-             [weakSelf.navigationController pushViewController:vc animated:YES];
-         }
-     }  shareState:^(BOOL state) {
-         if (state) {
-             NetworkManager *manager = [[NetworkManager alloc] init];
-             NSDictionary *dict = @{@"item_id":weakSelf.aliveID,@"type":@(weakSelf.aliveType)};
-             
-             [manager POST:API_AliveAddShare parameters:dict completion:^(id data, NSError *error) {
-             if (!error) {
-                 [[NSNotificationCenter defaultCenter] postNotificationName:kAddLikeNotification object:nil userInfo:@{@"notiType":@"fenxiang"}];
-             }
-         }];
-         }
-     }];
+    [self sharePressed];
 }
 
 - (void)aliveListBottomTableCell:(AliveListBottomTableViewCell *)cell commentPressed:(id)sender {

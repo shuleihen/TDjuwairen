@@ -21,5 +21,7 @@
 - (id)initWithAliveId:(NSString *)aliveId aliveType:(AliveType)aliveType;
 - (void)loadTabelView;
 - (void)setupIsLike:(BOOL)isLike withAnimation:(BOOL)animation;
+- (void)sharePressed;
 - (AliveListModel *)shareAliveListModel;
+- (TDShareModel *)shareModel;
 @end

@@ -29,6 +29,7 @@
     model.view_content_url = dic[@"view_content_url"];
     model.view_id = dic[@"view_id"];
     model.view_title = dic[@"view_title"];
+    model.view_desc = dic[@"view_desc"];
     model.tags = dic[@"tags"];
     model.view_thumb = dic[@"view_thumb"];
     model.view_isCollected = [dic[@"is_collection"] boolValue];

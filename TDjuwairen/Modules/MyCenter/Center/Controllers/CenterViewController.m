@@ -312,7 +312,7 @@
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (cell.accessoryType == UITableViewCellAccessoryDisclosureIndicator) {
-        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 7, 30)];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, 8, 30)];
         imageView.contentMode = UIViewContentModeCenter;
         imageView.image = [UIImage imageNamed:@"icon_arrow_light_grey.png"];
         cell.accessoryView = imageView;
