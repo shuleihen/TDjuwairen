@@ -17,6 +17,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *keyTextField;
 @property (weak, nonatomic) IBOutlet UILabel *monthLabel;
 @property (weak, nonatomic) IBOutlet UIButton *doneBtn;
+@property (weak, nonatomic) IBOutlet UIImageView *keyImageView;
 
 @end
 
@@ -41,12 +42,14 @@
         self.keyTextField.enabled = NO;
         self.keyTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
         self.monthLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+        self.keyImageView.image = [UIImage imageNamed:@"icon_key_small_disable.png"];
     } else {
         self.switchBtn.on = NO;
         self.keyTextField.enabled = YES;
         self.keyTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#3370E2"];
         self.monthLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3370E2"];
         self.keyTextField.text = [NSString stringWithFormat:@"%@", self.priceModel.key_num];
+        self.keyImageView.image = [UIImage imageNamed:@"icon_key_small.png"];
     }
 }
 
@@ -56,12 +59,14 @@
         self.keyTextField.enabled = NO;
         self.keyTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
         self.monthLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#cccccc"];
+        self.keyImageView.image = [UIImage imageNamed:@"icon_key_small_disable.png"];
     } else {
         self.switchBtn.on = NO;
         self.keyTextField.enabled = YES;
         self.keyTextField.textColor = [UIColor hx_colorWithHexRGBAString:@"#3370E2"];
         self.monthLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#3370E2"];
         self.keyTextField.text = [NSString stringWithFormat:@"%@", self.priceModel.key_num];
+        self.keyImageView.image = [UIImage imageNamed:@"icon_key_small.png"];
     }
 }
 

@@ -11,6 +11,7 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="StockPoolFreeSettingViewController">
             <connections>
+                <outlet property="keyImageView" destination="JxZ-1l-Dzh" id="RZJ-9P-KJG"/>
                 <outlet property="keyTextField" destination="ikK-I7-VH9" id="qBy-7f-KMD"/>
                 <outlet property="monthLabel" destination="9VY-8H-jvY" id="jWV-0Y-8Gv"/>
                 <outlet property="switchBtn" destination="pUT-0I-4LZ" id="6SA-b0-eeG"/>
