@@ -119,6 +119,7 @@
         
         [view addSubview:self.segmentControl];
 
+        /*
         self.messageBoardBtn = [UIButton buttonWithType:UIButtonTypeCustom];
         self.messageBoardBtn.frame = CGRectMake(kScreenWidth-72, kAliveSegmentHeight-31, 50, 31);
         self.messageBoardBtn.titleLabel.font = [UIFont systemFontOfSize:14.0];
@@ -132,6 +133,7 @@
         maskLayer.path = maskPath.CGPath;
         self.messageBoardBtn.layer.mask = maskLayer;
         [view addSubview:self.messageBoardBtn];
+        */
         
         _segmentContentScrollView = view;
     }
@@ -193,7 +195,7 @@
         four.masterId = self.masterId;
         four.delegate = self;
         
-        _contentControllers = @[one,two,three,four];
+        _contentControllers = @[one,two,three];
     }
     
     return _contentControllers;

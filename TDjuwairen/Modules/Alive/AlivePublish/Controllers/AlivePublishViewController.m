@@ -61,6 +61,7 @@
 
 @property (nonatomic, assign) BOOL isOpenStockHolder;
 @property (nonatomic, strong) NSString *stockHolderCode;
+@property (nonatomic, strong) NSString *stockHolderName;
 @end
 
 @implementation AlivePublishViewController
@@ -174,10 +175,7 @@
         self.historySelectedStockArrM = [NSMutableArray arrayWithArray:localArr];
     }
     
-    self.isOpenStockHolder = [AlivePublishHandler isOpenStockHolder];
-    if (self.isOpenStockHolder) {
-        self.stockHolderCode = [AlivePublishHandler getStockHolderCode];
-    }
+    self.isOpenStockHolder = NO;
     
     self.tableView.backgroundColor = TDViewBackgrouondColor;
     self.tableView.backgroundView.backgroundColor = TDViewBackgrouondColor;
@@ -302,17 +300,15 @@
         vc.selectedBlock = ^(NSString *stockName, NSString *stockCode){
             self.isOpenStockHolder = YES;
             self.stockHolderCode = stockCode;
-            NSInteger time = [[NSDate new] timeIntervalSince1970];
-            [SettingHandler saveStockHolderOpenTime:time];
-            [SettingHandler saveStockHolderName:[NSString stringWithFormat:@"%@ %@",stockName, stockCode]];
+            self.stockHolderName = [NSString stringWithFormat:@"%@ %@",stockName, stockCode];
             [self.tableView reloadData];
         };
         [self.navigationController pushViewController:vc animated:YES];
         sender.on = NO;
     } else {
         self.isOpenStockHolder = NO;
-        [SettingHandler saveStockHolderOpenTime:0];
-        [SettingHandler saveStockHolderName:@""];
+        self.stockHolderCode = @"";
+        self.stockHolderName = @"";
         [self.tableView reloadData];
     }
 }
@@ -609,7 +605,7 @@
         [cell.switchBtn addTarget:self action:@selector(stockHolderSwitchChanged:) forControlEvents:UIControlEventValueChanged];
         
         if (self.isOpenStockHolder) {
-            cell.stockNameLabel.text = [AlivePublishHandler getStockHolderName];
+            cell.stockNameLabel.text = self.stockHolderName;
             cell.switchBtn.on = YES;
         } else {
             cell.stockNameLabel.text = @"";
