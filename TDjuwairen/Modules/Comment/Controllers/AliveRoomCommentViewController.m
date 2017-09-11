@@ -59,7 +59,7 @@
     self.tableView.tableHeaderView = headerV;
     
     
-    [self setupNoDataFrame:CGRectMake(0, 0, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
+    [self setupNoDataFrame:CGRectMake(0, 55, kScreenWidth, 200) Image:[UIImage imageNamed:@"no_result.png"] message:@"还没有任何动态哦~"];
     
     __weak typeof(self)weakSelf = self;
     TDStockPoolCommentTableViewDelegate *model = [[TDStockPoolCommentTableViewDelegate alloc] initWithTableView:self.tableView controller:self];

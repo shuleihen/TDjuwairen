@@ -32,7 +32,7 @@
     self.typeImageView.image = [SurveyHandler imageWithSurveyType:model.surveyType];
     self.descLabel.text = model.deepPayTip;
     
-    if (model.isUnlock) {
+    if (!model.isUnlock) {
         self.descLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#FE8E3A"];
     } else {
         self.descLabel.textColor = [UIColor hx_colorWithHexRGBAString:@"#CCCCCC"];

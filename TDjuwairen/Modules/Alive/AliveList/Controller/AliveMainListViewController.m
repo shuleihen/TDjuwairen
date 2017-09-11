@@ -176,6 +176,11 @@
     
     [self.view addSubview:scroolView];
     
+    // 股东大会标示
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"alive_stockHolderTip.png"]];
+    imageView.frame = CGRectMake(130, 7, 16, 10);
+    [scroolView addSubview:imageView];
+    
     self.segmentContentView = scroolView;
     self.segmentControl = segmented;
 }
