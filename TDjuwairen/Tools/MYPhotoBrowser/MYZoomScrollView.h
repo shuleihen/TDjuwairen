@@ -19,4 +19,5 @@
 @property (nonatomic, assign,getter=isNeedAnimation) BOOL animation;
 @property (nonatomic, strong) NSArray *handleNames;
 
+
 @end
