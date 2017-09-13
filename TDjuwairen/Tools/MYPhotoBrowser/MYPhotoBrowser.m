@@ -30,6 +30,7 @@
 @property (nonatomic, strong) NSArray *imageViews;
 //图片操作回调
 @property (nonatomic, copy) longpressCallback callback;
+
 //是否需要动画
 @property (nonatomic, assign,getter=isNeedAnimation) BOOL animation;
 @end
@@ -43,7 +44,6 @@
         
         __weak typeof(self) weakself    = self;
         _rollScrollView                 = [[MYRollScrollView alloc]initWithFrame:self.bounds callBack:^(NSInteger currentPage) {
-            
             [weakself loadImage:currentPage];
             
             if (weakself.pageControl.hidden) {
@@ -135,13 +135,14 @@
         MYZoomScrollView *zooScrollView = [[MYZoomScrollView alloc]initWithFrame:CGRectMake(index *kScreen_with, 0, kScreen_with, kScreen_height)];
         zooScrollView.handleNames       = handleNames; //长按操作
         [self.rollScrollView addSubview:zooScrollView];
+        
         [self.rollScrollView.zoomViews addObject:zooScrollView];
         //计算imageView大小
         [self imageFrame:zooScrollView index:index];
         if (!_imageViews.count) continue;
         //记录当前对应的原始imageView
         zooScrollView.currentImgView     = self.imageViews[index];
-     }
+    }
     if (self.imagesUrlString.count == 1) return;
     //初始化pageControl
     [self configPageControl];
@@ -233,42 +234,47 @@
 
 - (void)loadImage:(NSInteger )idx
 {
-        NSString *imageUrlString         = self.imagesUrlString[idx];
-        NSURL *url                       = [NSURL URLWithString:imageUrlString];
-        CGSize imageActualSize           = [UIImage getImageSizeWithURL:url];
+    NSString *imageUrlString         = self.imagesUrlString[idx];
+    NSURL *url                       = [NSURL URLWithString:imageUrlString];
+    
+    [UIImage getImageSizeWithURL:url backBlock:^(CGSize size) {
         MYImageInfo *imageModel          = [[MYImageInfo alloc]init];
         imageModel.urlString             = imageUrlString;
         imageModel.placeholderName       = self.placeholderName;
-        imageModel.imageActualSize       = imageActualSize;
+        imageModel.imageActualSize       = size;
         imageModel.callback              = _callback;
-        imageModel.k_scale               = [self configZoomScaleWithImageSize:imageActualSize];
+        imageModel.k_scale               = [self configZoomScaleWithImageSize:size];
         MYZoomScrollView *zoomScrollView = self.rollScrollView.zoomViews[idx];
         zoomScrollView.imageModel        = imageModel;
+    }];
+    
 }
 
 - (void)imageFrame:(MYZoomScrollView *)zooScrollView index:(NSInteger)index
 {
     NSURL *url = [NSURL URLWithString:self.imagesUrlString[index]];
-    CGSize imageActualSize           = [UIImage getImageSizeWithURL:url];
-    if (!imageActualSize.width || !imageActualSize.height) {
-        imageActualSize              = [UIScreen mainScreen].bounds.size;
-    }
-    CGFloat width                    = imageActualSize.width;
-    CGFloat height                   = imageActualSize.height;
-    if (width >= height) {
+    [UIImage getImageSizeWithURL:url backBlock:^(CGSize size) {
+        if (!size.width || !size.height) {
+            size              = [UIScreen mainScreen].bounds.size;
+        }
+        CGFloat width                    = size.width;
+        CGFloat height                   = size.height;
+        if (width >= height) {
+            
+            CGFloat showHeight   = kScreen_with/width * height;
+            zooScrollView.imageView.frame = CGRectMake(0,(self.frame.size.height - showHeight) *0.5, self.frame.size.width,showHeight);
+        }else{
+            zooScrollView.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
+        }
         
-        CGFloat showHeight   = kScreen_with/width * height;
-        zooScrollView.imageView.frame = CGRectMake(0,(self.frame.size.height - showHeight) *0.5, self.frame.size.width,showHeight);
-    }else{
-        zooScrollView.imageView.frame = CGRectMake(0, 0, self.frame.size.width, self.frame.size.height);
-    }
+        if (!_imageViews.count) {
+            [self loadImage:0 ];
+            return;
+        }
+        UIImageView *currentImageView     = _imageViews[index];
+        zooScrollView.imageView.image     = currentImageView.image;
+    }];
     
-    if (!_imageViews.count) {
-        [self loadImage:0 ];
-        return;
-    }
-    UIImageView *currentImageView     = _imageViews[index];
-    zooScrollView.imageView.image     = currentImageView.image;
 }
 
 

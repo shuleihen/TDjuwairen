@@ -100,7 +100,6 @@
 #pragma  mark - 双击放大
 - (void)imageZoomClick:(UITapGestureRecognizer *)tap
 {
-    
     //缩小
     if (self.zoomScale >1.f) {
         
@@ -161,15 +160,39 @@
 #pragma mark - 捏合缩放
 - (void)imageZoomOperation:(UIPinchGestureRecognizer *)pin
 {
+    if (pin.numberOfTouches < 2) {
+        [pin setCancelsTouchesInView:YES];
+        [pin setValue:@(UIGestureRecognizerStateEnded) forKeyPath:@"state"];
+    }
     switch (pin.state) {
             
         case UIGestureRecognizerStateChanged:
+        {
+            [UIView animateWithDuration:0.25  delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.imageView.transform = CGAffineTransformMakeScale(pin.scale, pin.scale);
+            } completion:^(BOOL finished) {
+            }];
+        
+        }
             
-            self.imageView.transform = CGAffineTransformMakeScale(pin.scale, pin.scale);
             break;
         case UIGestureRecognizerStateEnded:
+        case UIGestureRecognizerStateFailed:
+        case UIGestureRecognizerStateCancelled:
+        {
+            CGFloat scale = 1;
+            if (self.frame.size.width <= kScreenWidth) {
+                // 放大
+                scale = kScreenWidth / self.frame.size.width;
+            } else if (self.frame.size.width > kScreenWidth * 2) { // 最大放大3倍
+                scale = kScreenWidth * 2 / self.frame.size.width;
+            }
+            // 复位
+            [UIView animateWithDuration:0.25  delay:0 options:UIViewAnimationOptionCurveEaseIn animations:^{
+                self.transform = CGAffineTransformScale(self.transform, scale, scale);
+            } completion:nil];
             
-            self.imageView.transform = CGAffineTransformIdentity;
+        }
             
             break;
         default:
@@ -219,14 +242,13 @@
 {
     [self setZoomScale:1.f animated:NO];
     if (self.animation) {
-        [[MYAnimationHelper shareInstance]coreAnimationWithAnimationView:self.imageView relativeView:self.currentImgView style:MYRemoveAnimation finished:^{
+        [[MYAnimationHelper shareInstance] coreAnimationWithAnimationView:self.imageView relativeView:self.currentImgView style:MYRemoveAnimation finished:^{
         }];
     }
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [self.superview.superview removeFromSuperview];
     });
 }
-
 
 
 @end

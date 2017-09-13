@@ -20,7 +20,7 @@
 {
     if (!_lineLabel) {
         _lineLabel = [[UILabel alloc]init];
-        _lineLabel.backgroundColor = [UIColor colorWithWhite:0 alpha:0.1];
+        _lineLabel.backgroundColor = [UIColor redColor];
     }
     return _lineLabel;
 }

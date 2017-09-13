@@ -8,8 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
+
 @interface UIImage (imageSize)
 
-+(CGSize)getImageSizeWithURL:(id)imageURL;
-
++ (void)getImageSizeWithURL:(id)imageURL backBlock:(void (^)(CGSize))block;
 @end
