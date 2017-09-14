@@ -10,6 +10,7 @@
 #import "TZImagePickerController.h"
 #import "UIImage+Resize.h"
 #import "ACActionSheet.h"
+#import "TZImageManager.h"
 
 @interface ImagePickerHandler ()
 <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
@@ -43,6 +44,14 @@ TZImagePickerControllerDelegate>
 }
 
 - (void)takePhoto {
+    AVAuthorizationStatus authStatus = [AVCaptureDevice authorizationStatusForMediaType:AVMediaTypeVideo];
+    if ((authStatus == AVAuthorizationStatusRestricted || authStatus ==AVAuthorizationStatusDenied) && iOS7Later) {
+        UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"您没有权限！" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+        [self.controller presentViewController:alert animated:YES completion:nil];
+        return;
+    }
+    
     UIImagePickerControllerSourceType sourceType = UIImagePickerControllerSourceTypeCamera;
     if ([UIImagePickerController isSourceTypeAvailable:sourceType]) {
         UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -61,8 +70,15 @@ TZImagePickerControllerDelegate>
 }
 
 - (void)selectPhotoAlbumWithLimit:(NSInteger)limit {
-    TZImagePickerController *vc = [[TZImagePickerController alloc] initWithMaxImagesCount:limit delegate:self];
-    [self.controller presentViewController:vc animated:YES completion:nil];
+    if ([[TZImageManager manager] authorizationStatusAuthorized]) {
+        TZImagePickerController *vc = [[TZImagePickerController alloc] initWithMaxImagesCount:limit delegate:self];
+        [self.controller presentViewController:vc animated:YES completion:nil];
+    }else {
+        UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"您没有权限！" preferredStyle:UIAlertControllerStyleAlert];
+        [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
+        [self.controller presentViewController:alert animated:YES completion:nil];
+    }
+   
 }
 
 
