@@ -15,6 +15,7 @@
 #import "TZImageManager.h"
 
 @interface TZImagePickerController () {
+    UILabel *_tipLabel;
     BOOL _pushPhotoPickerVc;
     UIButton *_progressHUD;
     UIView *_HUDContainer;
@@ -123,7 +124,6 @@
     _pushPhotoPickerVc = pushPhotoPickerVc;
     _columnNumber = columnNumber;
     TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
-    photoPickerVc.isFirstAppear = YES;
     photoPickerVc.columnNumber = self.columnNumber;
     self = [super initWithRootViewController:photoPickerVc];
     
@@ -135,6 +135,19 @@
         
         self.columnNumber = columnNumber;
         [self configDefaultSetting];
+        if (![[TZImageManager manager] authorizationStatusAuthorized]) {
+            _tipLabel = [[UILabel alloc] init];
+            _tipLabel.frame = CGRectMake(8, 120, self.view.tz_width - 16, 60);
+            _tipLabel.textAlignment = NSTextAlignmentCenter;
+            _tipLabel.numberOfLines = 0;
+            _tipLabel.font = [UIFont systemFontOfSize:16];
+            _tipLabel.textColor = [UIColor blackColor];
+            NSString *appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleDisplayName"];
+            if (!appName) appName = [[NSBundle mainBundle].infoDictionary valueForKey:@"CFBundleName"];
+            NSString *tipText = [NSString stringWithFormat:@"请在 \"设置 -> 隐私 -> 照片\"，设置%@权限 ",appName];
+            _tipLabel.text = tipText;
+            [self.view addSubview:_tipLabel];
+        }
         
     }
     return self;
@@ -173,9 +186,6 @@
     self.barItemTextFont = [UIFont systemFontOfSize:15];
     self.barItemTextColor = [UIColor whiteColor];
   
-}
-
-- (void)observeAuthrizationStatusChange {
 }
 
 - (id)showAlertWithTitle:(NSString *)title {
