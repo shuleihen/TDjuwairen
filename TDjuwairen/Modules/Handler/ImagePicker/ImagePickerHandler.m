@@ -10,12 +10,14 @@
 #import "TZImagePickerController.h"
 #import "UIImage+Resize.h"
 #import "ACActionSheet.h"
+#import "TZImageManager.h"
 
 @interface ImagePickerHandler ()
 <UIImagePickerControllerDelegate, UINavigationControllerDelegate,
 TZImagePickerControllerDelegate>
 
 @property (nonatomic, weak) UIViewController *controller;
+@property (assign, nonatomic) NSInteger saveLimit;
 @end
 
 @implementation ImagePickerHandler
@@ -36,6 +38,7 @@ TZImagePickerControllerDelegate>
         if (index == 0) {
             [wself takePhoto];
         } else if (index == 1) {
+            self.saveLimit = limit;
             [wself selectPhotoAlbumWithLimit:limit];
         }
     }];
@@ -49,11 +52,8 @@ TZImagePickerControllerDelegate>
         picker.delegate = self;
         picker.allowsEditing = NO;
         picker.sourceType = sourceType;
-
         [self.controller presentViewController:picker animated:YES completion:nil];
-        
     } else {
-        
         UIAlertController *alert =[UIAlertController alertControllerWithTitle:nil message:@"无法打开相机" preferredStyle:UIAlertControllerStyleAlert];
         [alert addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleCancel handler:nil]];
         [self.controller presentViewController:alert animated:YES completion:nil];
@@ -61,8 +61,14 @@ TZImagePickerControllerDelegate>
 }
 
 - (void)selectPhotoAlbumWithLimit:(NSInteger)limit {
-    TZImagePickerController *vc = [[TZImagePickerController alloc] initWithMaxImagesCount:limit delegate:self];
-    [self.controller presentViewController:vc animated:YES completion:nil];
+    if ([TZImageManager authorizationStatus] == 0) { // 未请求过相册权限
+        [[TZImageManager manager] requestAuthorizationWithCompletion:^{
+            [self selectPhotoAlbumWithLimit:self.saveLimit];
+        }];
+    }else {
+        TZImagePickerController *vc = [[TZImagePickerController alloc] initWithMaxImagesCount:limit delegate:self];
+        [self.controller presentViewController:vc animated:YES completion:nil];
+    }
 }
 
 

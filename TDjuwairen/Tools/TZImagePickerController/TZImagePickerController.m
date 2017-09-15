@@ -16,9 +16,7 @@
 
 @interface TZImagePickerController () {
     UILabel *_tipLabel;
-    UIButton *_settingBtn;
     BOOL _pushPhotoPickerVc;
-    
     UIButton *_progressHUD;
     UIView *_HUDContainer;
     UIActivityIndicatorView *_HUDIndicatorView;
@@ -126,7 +124,6 @@
     _pushPhotoPickerVc = pushPhotoPickerVc;
     _columnNumber = columnNumber;
     TZPhotoPickerController *photoPickerVc = [[TZPhotoPickerController alloc] init];
-    photoPickerVc.isFirstAppear = YES;
     photoPickerVc.columnNumber = self.columnNumber;
     self = [super initWithRootViewController:photoPickerVc];
     
@@ -138,7 +135,6 @@
         
         self.columnNumber = columnNumber;
         [self configDefaultSetting];
-        
         if (![[TZImageManager manager] authorizationStatusAuthorized]) {
             _tipLabel = [[UILabel alloc] init];
             _tipLabel.frame = CGRectMake(8, 120, self.view.tz_width - 16, 60);
@@ -151,15 +147,8 @@
             NSString *tipText = [NSString stringWithFormat:@"请在 \"设置 -> 隐私 -> 照片\"，设置%@权限 ",appName];
             _tipLabel.text = tipText;
             [self.view addSubview:_tipLabel];
-            
-            _settingBtn = [UIButton buttonWithType:UIButtonTypeSystem];
-            [_settingBtn setTitle:@"Setting" forState:UIControlStateNormal];
-            _settingBtn.frame = CGRectMake(0, 180, self.view.tz_width, 44);
-            _settingBtn.titleLabel.font = [UIFont systemFontOfSize:18];
-            [_settingBtn addTarget:self action:@selector(settingBtnClick) forControlEvents:UIControlEventTouchUpInside];
-            [self.view addSubview:_settingBtn];
-        } else {
         }
+        
     }
     return self;
 }
@@ -197,14 +186,6 @@
     self.barItemTextFont = [UIFont systemFontOfSize:15];
     self.barItemTextColor = [UIColor whiteColor];
   
-}
-
-- (void)observeAuthrizationStatusChange {
-    if ([[TZImageManager manager] authorizationStatusAuthorized]) {
-        [_tipLabel removeFromSuperview];
-        [_settingBtn removeFromSuperview];
-        
-    }
 }
 
 - (id)showAlertWithTitle:(NSString *)title {
@@ -308,7 +289,6 @@
 }
 
 - (void)dealloc {
-    // NSLog(@"%@ dealloc",NSStringFromClass(self.class));
 }
 
 #pragma mark - UIContentContainer
@@ -359,8 +339,6 @@
 }
 
 @end
-
-
 
 
 

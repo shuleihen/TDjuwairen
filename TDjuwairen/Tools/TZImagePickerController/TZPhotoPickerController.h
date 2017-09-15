@@ -10,13 +10,8 @@
 
 
 @interface TZPhotoPickerController : UIViewController
-
-@property (nonatomic, assign) BOOL isFirstAppear;
 @property (nonatomic, assign) NSInteger columnNumber;
-
-
 @end
-
 
 @interface TZCollectionView : UICollectionView
 

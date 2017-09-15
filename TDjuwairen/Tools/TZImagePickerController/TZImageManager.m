@@ -73,6 +73,7 @@ static dispatch_once_t onceToken;
 - (BOOL)authorizationStatusAuthorized {
     NSInteger status = [self.class authorizationStatus];
     if (status == 0) {
+        
         /**
          * 当某些情况下AuthorizationStatus == AuthorizationStatusNotDetermined时，无法弹出系统首次使用的授权alertView，系统应用设置里亦没有相册的设置，此时将无法使用，故作以下操作，弹出系统首次使用的授权alertView
          */
