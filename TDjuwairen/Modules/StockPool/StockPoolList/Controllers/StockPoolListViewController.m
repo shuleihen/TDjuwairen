@@ -239,7 +239,7 @@
     }
 
     
-    NSString *title = [NSString stringWithFormat:@"%@的股票池", self.introlModel];
+    NSString *title = [NSString stringWithFormat:@"%@的股票池", self.introlModel.masterAvatar];
     NSString *detail = self.introlModel.intro?:@"无简介";
     
     AlivePublishModel *publishModel = [[AlivePublishModel alloc] init];
