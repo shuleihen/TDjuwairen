@@ -34,6 +34,10 @@
 }
 
 + (void)showSysNoticeWithText:(NSString *)text {
+    if (!text.length) {
+        return;
+    }
+    
     CGSize size = [text boundingRectWithSize:CGSizeMake(300-38, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.f]} context:nil].size;
  
     CGFloat h = size.height + 132;

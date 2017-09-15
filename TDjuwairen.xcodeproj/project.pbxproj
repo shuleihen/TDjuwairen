@@ -2326,6 +2326,7 @@
 		191027AD1DE52B04006A2275 /* Handler */ = {
 			isa = PBXGroup;
 			children = (
+				19D64C471F6A6E3D00D573D7 /* PushHandler */,
 				193ED5A81F6298FF00C23E6A /* SysNoticeHandler */,
 				1959D4711F29E5E7002B969A /* SystemAudio */,
 				1959D46D1F29E49A002B969A /* LoginHandler */,
@@ -4760,6 +4761,13 @@
 				19F07A601F1F39B5004449BB /* TDWebViewHandler.m */,
 			);
 			path = WebView;
+			sourceTree = "<group>";
+		};
+		19D64C471F6A6E3D00D573D7 /* PushHandler */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PushHandler;
 			sourceTree = "<group>";
 		};
 		19D6A2F01E0D0126008368F4 /* STPopup */ = {

@@ -31,6 +31,13 @@
         UIImageView *image = [[UIImageView alloc]initWithFrame:CGRectMake(imagex, 0, kScreenWidth, kScreenHeight)];
         image.image = [UIImage imageNamed:imageName];
         [self.scrollview addSubview:image];
+        
+        if (i == (kPageNumber-1)) {
+            // 最后一张
+            image.userInteractionEnabled = YES;
+            UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(switchToMain)];
+            [image addGestureRecognizer:tap];
+        }
     }
     self.scrollview.pagingEnabled = YES;//设置分页
     self.scrollview.showsHorizontalScrollIndicator = NO;
@@ -48,12 +55,14 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView{
     if (scrollView.contentOffset.x > (kPageNumber-1)*kScreenWidth) {
-        UITabBarController *tabbarView = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
-        [UIApplication sharedApplication].keyWindow.rootViewController = tabbarView;
-//        [self presentViewController:tabbarView animated:YES completion:nil];
+        [self switchToMain];
     }
     int page = floor((scrollView.contentOffset.x - kScreenWidth/2)/kScreenWidth)+1;
     self.page.currentPage = page;
 }
 
+- (void)switchToMain {
+    UITabBarController *tabbarView = [[UIStoryboard storyboardWithName:@"Main" bundle:nil] instantiateInitialViewController];
+    [UIApplication sharedApplication].keyWindow.rootViewController = tabbarView;
+}
 @end

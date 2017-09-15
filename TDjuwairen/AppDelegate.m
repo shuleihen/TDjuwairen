@@ -45,7 +45,9 @@
 #import "AliveRoomViewController.h"
 #import "SurveyDeepTableViewController.h"
 #import "SettingHandler.h"
+#import "SurveyDetailWebViewController.h"
 #import "StockPoolHandler.h"
+
 
 @interface AppDelegate ()<UNUserNotificationCenterDelegate>
 @property (nonatomic, strong) UITabBarController *tabBarController;
@@ -188,7 +190,7 @@
 
 #pragma mark - Push
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-    DDLogInfo(@"Register deviceToken = %@",[[NSString alloc] initWithData:deviceToken encoding:NSUTF8StringEncoding]);
+    DDLogInfo(@"Register deviceToken = %@", [deviceToken description]);
     
     [CloudPushSDK registerDevice:deviceToken withCallback:^(CloudPushCallbackResult *res) {
         if (res.success) {
@@ -316,9 +318,7 @@
     
     if([response.notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]]) {
         // 应用处于后台时的远程推送接受
-        if ([response.actionIdentifier isEqualToString:@"查看"]) {
-            [self handlePushNotificationWithUserInfo:userInfo];
-        }
+        [self handlePushNotificationWithUserInfo:userInfo];
     }else{
         // 应用处于后台时的本地推送接受
         if ([response.notification.request.trigger isKindOfClass:[UNCalendarNotificationTrigger class]]) {
@@ -335,48 +335,70 @@
         NSInteger type = [userInfo[@"type"] integerValue];
         
         
-        if (type == 1 ||
-            type == 2) {
+        if (type == 1) {
+            // 调研
             NSString *stock_id = userInfo[@"code"];
+            NSString *stock_name = userInfo[@"com_name"];
+            NSString *content_id = userInfo[@"content_id"];
+            BOOL isLock = [userInfo[@"is_lock"] boolValue];
             
-            if (stock_id.length) {
+            if (isLock) {
                 StockDetailViewController *vc = [[UIStoryboard storyboardWithName:@"SurveyDetail" bundle:nil] instantiateInitialViewController];
                 vc.stockCode = stock_id;
                 vc.hidesBottomBarWhenPushed = YES;
-                
-                self.tabBarController.selectedIndex = 0;
                 [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
-                return;
+            } else {
+                SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+                vc.contentId = content_id;
+                vc.stockCode = stock_id;
+                vc.stockName = stock_name;
+                vc.surveyType = kSurveyTypeSpot;
+                vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:content_id withTag:kSurveyTypeSpot];
+                vc.hidesBottomBarWhenPushed = YES;
+                [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
             }
+        } else if (type == 2) {
+            // 热点
+            NSString *stock_id = userInfo[@"code"];
+            NSString *stock_name = userInfo[@"com_name"];
+            NSString *content_id = userInfo[@"content_id"];
+            // BOOL isLock = [userInfo[@"is_lock"] boolValue];
+            
+            SurveyDetailWebViewController *vc = [[SurveyDetailWebViewController alloc] init];
+            vc.contentId = content_id;
+            vc.stockCode = stock_id;
+            vc.stockName = stock_name;
+            vc.surveyType = kSurveyTypeSpot;
+            vc.url = [SurveyDetailContentViewController contenWebUrlWithContentId:content_id withTag:kSurveyTypeHot];
+            vc.hidesBottomBarWhenPushed = YES;
+            [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
         } else if (type == 15) {
+            // 视频
             NSString *content_id = userInfo[@"content_id"];
             
             if (content_id.length) {
                 VideoDetailViewController *vc = [[VideoDetailViewController alloc] initWithVideoId:content_id];
                 vc.hidesBottomBarWhenPushed = YES;
-                self.tabBarController.selectedIndex = 1;
                 [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
                 return;
             }
         } else if (type == 10) {
             NSString *content_id = userInfo[@"content_id"];
             NSInteger aliveType = [userInfo[@"content_type"] integerValue];
+            // 动态类型 1表示话题、2表示推单、5表示观点
             
             if (aliveType == kAliveViewpoint) {
                 ViewpointDetailViewController *vc = [[ViewpointDetailViewController alloc] initWithAliveId:content_id aliveType:aliveType];
                 vc.hidesBottomBarWhenPushed = YES;
-                self.tabBarController.selectedIndex = 1;
                 [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
             } else {
                 AliveDetailViewController *vc = [[AliveDetailViewController alloc] init];
                 vc.aliveID = content_id;
                 vc.aliveType = aliveType;
                 vc.hidesBottomBarWhenPushed = YES;
-                self.tabBarController.selectedIndex = 1;
                 [self.tabBarController.selectedViewController pushViewController:vc animated:YES];
             }
         }
-        
         
     });
 }

@@ -80,7 +80,13 @@
     publishModel.detail = self.aliveModel.aliveTitle;
     publishModel.masterNickName = self.aliveModel.masterNickName;
     
-    NSString *shareTitle = [NSString stringWithFormat:@"%@的转发",self.aliveModel.masterNickName];
+    NSString *type = @"话题";
+    if (self.aliveType == kAlivePosts) {
+        type = @"推单";
+    }
+    
+    NSString *shareTitle = [NSString stringWithFormat:@"%@的%@",self.aliveModel.masterNickName,type];
+    
     NSString *shareDetail = self.aliveModel.aliveTitle;
     
     AlivePublishType publishType = kAlivePublishViewpoint;
