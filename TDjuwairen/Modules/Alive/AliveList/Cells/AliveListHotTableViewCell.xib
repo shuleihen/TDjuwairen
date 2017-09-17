@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16F73" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -30,10 +30,9 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-il-w8V">
-                        <rect key="frame" x="12" y="67.5" width="200" height="24"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vSP-il-w8V">
+                        <rect key="frame" x="29" y="68" width="31" height="24"/>
                         <constraints>
-                            <constraint firstAttribute="width" constant="200" id="09v-hN-W50"/>
                             <constraint firstAttribute="height" constant="24" id="OIo-n8-Yrq"/>
                         </constraints>
                         <fontDescription key="fontDescription" type="system" pointSize="12"/>
@@ -46,16 +45,21 @@
                         <color key="textColor" red="0.59999999999999998" green="0.59999999999999998" blue="0.59999999999999998" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="alive_stock" translatesAutoresizingMaskIntoConstraints="NO" id="WX8-cW-evW">
+                        <rect key="frame" x="12" y="72.5" width="12" height="15"/>
+                    </imageView>
                 </subviews>
                 <constraints>
                     <constraint firstItem="xiG-hk-IZ6" firstAttribute="top" secondItem="0L1-4R-ft4" secondAttribute="top" constant="12" id="3xN-wL-5kO"/>
+                    <constraint firstItem="vSP-il-w8V" firstAttribute="leading" secondItem="WX8-cW-evW" secondAttribute="trailing" constant="5" id="H2M-C6-jIl"/>
                     <constraint firstItem="xiG-hk-IZ6" firstAttribute="leading" secondItem="0L1-4R-ft4" secondAttribute="leading" constant="12" id="Q5a-XV-82y"/>
                     <constraint firstItem="nfl-r7-ZyT" firstAttribute="centerY" secondItem="vSP-il-w8V" secondAttribute="centerY" id="SFq-3C-GGN"/>
                     <constraint firstAttribute="trailing" secondItem="nfl-r7-ZyT" secondAttribute="trailing" constant="12" id="YIZ-2W-IqZ"/>
+                    <constraint firstItem="WX8-cW-evW" firstAttribute="leading" secondItem="0L1-4R-ft4" secondAttribute="leading" constant="12" id="aIp-Ga-dOM"/>
+                    <constraint firstItem="vSP-il-w8V" firstAttribute="centerY" secondItem="WX8-cW-evW" secondAttribute="centerY" id="hUR-4y-IgA"/>
                     <constraint firstItem="39x-hy-Dgg" firstAttribute="top" secondItem="xiG-hk-IZ6" secondAttribute="bottom" constant="8" id="hYg-rA-cjz"/>
                     <constraint firstAttribute="trailing" secondItem="39x-hy-Dgg" secondAttribute="trailing" constant="12" id="jxJ-DM-Hih"/>
                     <constraint firstAttribute="trailing" secondItem="xiG-hk-IZ6" secondAttribute="trailing" constant="12" id="lgS-7q-X2S"/>
-                    <constraint firstItem="vSP-il-w8V" firstAttribute="leading" secondItem="0L1-4R-ft4" secondAttribute="leading" constant="12" id="pTz-Iv-DFT"/>
                     <constraint firstItem="vSP-il-w8V" firstAttribute="top" secondItem="39x-hy-Dgg" secondAttribute="bottom" constant="10" id="xIJ-Ij-2v3"/>
                     <constraint firstItem="39x-hy-Dgg" firstAttribute="leading" secondItem="0L1-4R-ft4" secondAttribute="leading" constant="12" id="zVU-Oc-cIf"/>
                 </constraints>
@@ -64,10 +68,12 @@
                 <outlet property="contentLabel" destination="39x-hy-Dgg" id="Jym-mU-N0f"/>
                 <outlet property="dateTimeLabel" destination="nfl-r7-ZyT" id="CJc-Ma-lpV"/>
                 <outlet property="stockNameLabel" destination="vSP-il-w8V" id="Q8z-Ky-HvL"/>
-                <outlet property="stockNameWidth" destination="09v-hN-W50" id="ZJR-MR-smy"/>
                 <outlet property="titleLabel" destination="xiG-hk-IZ6" id="djI-eJ-AvQ"/>
             </connections>
             <point key="canvasLocation" x="25" y="15"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <image name="alive_stock" width="12" height="15"/>
+    </resources>
 </document>

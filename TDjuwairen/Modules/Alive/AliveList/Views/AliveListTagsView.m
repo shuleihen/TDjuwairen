@@ -8,6 +8,7 @@
 
 #import "AliveListTagsView.h"
 #import "HexColors.h"
+#import "UIButton+Align.h"
 
 @implementation AliveListTagsView
 
@@ -22,15 +23,15 @@
     label.titleLabel.font = [UIFont systemFontOfSize:12.0f];
     [label setTitleColor:TDThemeColor forState:UIControlStateNormal];
     [label setTitle:stockHolderName forState:UIControlStateNormal];
-    label.layer.borderColor = TDThemeColor.CGColor;
-    label.layer.borderWidth = 1.0;
+    [label setImage:[UIImage imageNamed:@"alive_stock.png"] forState:UIControlStateNormal];
     label.tag = 0;
     [label addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
     [self addSubview:label];
+    [label align:BAHorizontalImage withSpacing:10];
     
-    label.frame = CGRectMake(0, 0, size.width+8, 24);
+    label.frame = CGRectMake(0, 0, size.width+30, 24);
 
-    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(size.width+18, 0, 103, 24)];
+    UIButton *btn = [[UIButton alloc] initWithFrame:CGRectMake(CGRectGetMaxX(label.frame)+10, 0, 103, 24)];
     [btn setImage:[UIImage imageNamed:@"alive_stockHolder.png"] forState:UIControlStateNormal];
     [btn setImage:[UIImage imageNamed:@"alive_stockHolder.png"] forState:UIControlStateDisabled];
     btn.enabled = NO;
@@ -58,18 +59,18 @@
         label.titleLabel.font = [UIFont systemFontOfSize:12.0f];
         [label setTitleColor:TDThemeColor forState:UIControlStateNormal];
         [label setTitle:tag forState:UIControlStateNormal];
-        label.layer.borderColor = TDThemeColor.CGColor;
-        label.layer.borderWidth = 1.0;
+        [label setImage:[UIImage imageNamed:@"alive_stock.png"] forState:UIControlStateNormal];
         label.tag = i++;
         [label addTarget:self action:@selector(buttonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:label];
+        [label align:BAHorizontalImage withSpacing:10];
         
-        if ((offx + size.width+8) > rect.size.width) {
+        if ((offx + size.width+30) > rect.size.width) {
             offx =0;
             offy += 34;
         }
         
-        label.frame = CGRectMake(offx, offy, size.width+8, 24);
+        label.frame = CGRectMake(offx, offy, size.width+30, 24);
         
         offx += (CGRectGetWidth(label.frame) + 8);
     }

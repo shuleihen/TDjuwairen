@@ -15,8 +15,8 @@
     [super awakeFromNib];
     // Initialization code
     
-    self.stockNameLabel.layer.borderWidth = 1.0f;
-    self.stockNameLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"].CGColor;
+//    self.stockNameLabel.layer.borderWidth = 1.0f;
+//    self.stockNameLabel.layer.borderColor = [UIColor hx_colorWithHexRGBAString:@"#3371E2"].CGColor;
 }
 
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
@@ -69,8 +69,8 @@
     self.contentLabel.attributedText = contentAttra;
     
     NSString *stock = [NSString stringWithFormat:@"%@(%@)",extra.companyName,extra.companyCode];
-    CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
-    self.stockNameWidth.constant = stockSize.width+10;
+//    CGSize stockSize = [stock boundingRectWithSize:CGSizeMake(MAXFLOAT, 20) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName : [UIFont systemFontOfSize:12.0f]} context:nil].size;
+//    self.stockNameWidth.constant = stockSize.width+10;
     self.stockNameLabel.text = stock;
     
     self.dateTimeLabel.text = model.aliveTime;

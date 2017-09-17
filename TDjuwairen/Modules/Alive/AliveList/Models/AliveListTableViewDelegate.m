@@ -359,7 +359,7 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         
         return cell;
     } else if (model.aliveType == kAliveAd) {
-        // 广告 AliveListAdTableViewCell
+        // 广告
         AliveListAdTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListAdTableViewCellID"];
         cell.delegate = self;
         cell.indexPath = indexPath;
