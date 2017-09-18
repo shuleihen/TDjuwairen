@@ -31,6 +31,7 @@
 #import "PlayStockDetailViewController.h"
 #import "UIViewController+Login.h"
 #import "StockPoolListViewController.h"
+#import "AliveListViewpointTableViewCell.h"
 
 
 @interface AliveListTableViewDelegate ()
@@ -58,6 +59,8 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         [self.tableView registerNib:nib2 forCellReuseIdentifier:@"AliveListAdTableViewCellID"];
         UINib *nib3 = [UINib nibWithNibName:@"AliveListHotTableViewCell" bundle:nil];
         [self.tableView registerNib:nib3 forCellReuseIdentifier:@"AliveListHotTableViewCellID"];
+        UINib *nib4 = [UINib nibWithNibName:@"AliveListViewpointTableViewCell" bundle:nil];
+        [self.tableView registerNib:nib4 forCellReuseIdentifier:@"AliveListViewpointTableViewCellID"];
         
         self.unlockManager = [[StockUnlockManager alloc] init];
         self.unlockManager.delegate = self;
@@ -370,6 +373,11 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         AliveListHotTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListHotTableViewCellID"];
         
         return cell;
+    } else if (model.aliveType == kAliveViewpoint) {
+        // 观点
+        AliveListViewpointTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListViewpointTableViewCellID"];
+        
+        return cell;
     } else {
         AliveListTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AliveListTableViewCellID"];
         cell.tag = indexPath.section;
@@ -393,6 +401,9 @@ AliveListTableCellDelegate, StockUnlockManagerDelegate>
         [scell setupAliveModel:model];
     } else if (model.aliveType == kAliveAd) {
         AliveListAdTableViewCell *scell = (AliveListAdTableViewCell *)cell;
+        [scell setupAliveModel:model];
+    } else if (model.aliveType == kAliveViewpoint) {
+        AliveListViewpointTableViewCell *scell = (AliveListViewpointTableViewCell *)cell;
         [scell setupAliveModel:model];
     } else  {
         AliveListTableViewCell *scell = (AliveListTableViewCell *)cell;

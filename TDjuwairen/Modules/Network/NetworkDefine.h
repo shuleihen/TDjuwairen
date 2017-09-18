@@ -103,7 +103,7 @@
 #define API_VideoGetInfo            @"Sharp/getVideoInfo"
 
 // 观点
-#define API_ViewGetList             @"View/getViewList3_1"
+#define API_ViewGetList             @"View/getViewList3_3"
 #define API_ViewAddLike             @"View/addViewAssess"
 #define API_ViewCancelLike          @"View/cancelViewAssess"
 #define API_ViewGetLikeList         @"View/showViewAssess"

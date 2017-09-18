@@ -15,6 +15,7 @@
 #import "AliveListStockPoolView.h"
 #import "AliveListVisitCardView.h"
 #import "AliveListForwardVideoView.h"
+#import "AliveListViewpointTableViewCell.h"
 
 @implementation AliveListForwardView
 
@@ -54,9 +55,10 @@
         }
             break;
         case kAliveViewpoint: {
-            AliveListViewpointView *view = [[AliveListViewpointView alloc] initWithFrame:fCellData.forwardViewFrame];
-            self.forwardView = view;
-            [view setCellData:fCellData.forwardCellData];
+            AliveListViewpointTableViewCell *cell = [[NSBundle mainBundle] loadNibNamed:@"AliveListViewpointTableViewCell" owner:nil options:nil].firstObject;
+            cell.frame = fCellData.forwardViewFrame;
+            self.forwardView = cell;
+            [cell setupAliveModel:model];
         }
             break;
         case kAliveVideo:

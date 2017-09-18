@@ -432,6 +432,8 @@
 		19C398DA1EF00D7C001C34B0 /* AliveDetailSegmentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C398D91EF00D7C001C34B0 /* AliveDetailSegmentView.m */; };
 		19C398DE1EF13417001C34B0 /* SurveyListTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C398DD1EF13416001C34B0 /* SurveyListTableViewCell.m */; };
 		19C526281D49EE090039F85D /* TDWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C526271D49EE090039F85D /* TDWebViewController.m */; };
+		19C5639A1F6E52D700905C74 /* AliveListViewpointTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 19C563981F6E52D700905C74 /* AliveListViewpointTableViewCell.m */; };
+		19C5639B1F6E52D700905C74 /* AliveListViewpointTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 19C563991F6E52D700905C74 /* AliveListViewpointTableViewCell.xib */; };
 		19C7B0191DE2CD550069D990 /* MyInfoSetting.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */; };
 		19D6A3021E0D0126008368F4 /* STPopupController.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2F41E0D0126008368F4 /* STPopupController.m */; };
 		19D6A3031E0D0126008368F4 /* STPopupControllerTransitioningFade.m in Sources */ = {isa = PBXBuildFile; fileRef = 19D6A2F61E0D0126008368F4 /* STPopupControllerTransitioningFade.m */; };
@@ -1561,6 +1563,9 @@
 		19C398DD1EF13416001C34B0 /* SurveyListTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SurveyListTableViewCell.m; sourceTree = "<group>"; };
 		19C526261D49EE090039F85D /* TDWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TDWebViewController.h; sourceTree = "<group>"; };
 		19C526271D49EE090039F85D /* TDWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TDWebViewController.m; sourceTree = "<group>"; };
+		19C563971F6E52D700905C74 /* AliveListViewpointTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AliveListViewpointTableViewCell.h; sourceTree = "<group>"; };
+		19C563981F6E52D700905C74 /* AliveListViewpointTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AliveListViewpointTableViewCell.m; sourceTree = "<group>"; };
+		19C563991F6E52D700905C74 /* AliveListViewpointTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AliveListViewpointTableViewCell.xib; sourceTree = "<group>"; };
 		19C7B0181DE2CD550069D990 /* MyInfoSetting.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = MyInfoSetting.storyboard; sourceTree = "<group>"; };
 		19D6A2CF1E0CED53008368F4 /* PlistFileDef.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PlistFileDef.h; sourceTree = "<group>"; };
 		19D6A2F21E0D0126008368F4 /* STPopup.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = STPopup.h; sourceTree = "<group>"; };
@@ -3515,6 +3520,9 @@
 				19042E371F3D80890004D3C6 /* AliveListStockPoolTableViewCell.h */,
 				19042E381F3D80890004D3C6 /* AliveListStockPoolTableViewCell.m */,
 				19042E391F3D80890004D3C6 /* AliveListStockPoolTableViewCell.xib */,
+				19C563971F6E52D700905C74 /* AliveListViewpointTableViewCell.h */,
+				19C563981F6E52D700905C74 /* AliveListViewpointTableViewCell.m */,
+				19C563991F6E52D700905C74 /* AliveListViewpointTableViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -6376,6 +6384,7 @@
 				19A5AC411E0A49AC00FE953A /* Recharge.storyboard in Resources */,
 				193ED55D1F5F9B3C00C23E6A /* PublishForwardTableViewCell.xib in Resources */,
 				19AAF36F1E30B91700793A64 /* MobileLoginViewController.xib in Resources */,
+				19C5639B1F6E52D700905C74 /* AliveListViewpointTableViewCell.xib in Resources */,
 				842D58011D8938FD006385CB /* availableTags.plist in Resources */,
 				19F43C331E233A1C001B72CD /* playStock.wav in Resources */,
 				19042E5B1F41966A0004D3C6 /* WalletTableViewCell.xib in Resources */,
@@ -6957,6 +6966,7 @@
 				19ED17521F1644B400EC89DF /* MGCellWinKeyView.m in Sources */,
 				1955B4A41D644D9800DC102E /* FloorView.m in Sources */,
 				194186EF1DF90CA4000C5197 /* WelcomeView.m in Sources */,
+				19C5639A1F6E52D700905C74 /* AliveListViewpointTableViewCell.m in Sources */,
 				19C3486B1D3F76DB008ABD16 /* MJRefreshAutoStateFooter.m in Sources */,
 				84E334711CE3123700E5DCEE /* UIImageView+WebCache.m in Sources */,
 				9E614E4E1EAC85710014DC0B /* OpenAnAccountController.m in Sources */,

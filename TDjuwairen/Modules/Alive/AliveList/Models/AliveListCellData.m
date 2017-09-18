@@ -442,37 +442,13 @@
 @implementation AliveListViewpointCellData
 
 - (void)setup {
-    [super setup];
     
-    CGFloat contentWidht = kScreenWidth-24;
-    CGFloat left = 12.0f;
-    CGFloat height = 0.0f;
-    
-    height = CGRectGetMaxY(self.messageLabelFrame);
-    
-    if (self.aliveModel.aliveImgs.count) {
-        self.imageViewFrame = CGRectMake(left, height+8, contentWidht, 122);
-        height = CGRectGetMaxY(self.imageViewFrame);
-        self.isShowImageView = YES;
-    } else {
-        self.isShowImageView = NO;
-        // 没有图片显示简略详情
-        if ([self.aliveModel.extra isKindOfClass:[NSDictionary class]]) {
-            NSString *desc = self.aliveModel.extra[@"view_desc"];
-            CGSize size =[desc boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:14.0f]} context:nil].size;
-            self.descLabelFrame = CGRectMake(12, height+7, kScreenWidth-24, size.height);
-            height = CGRectGetMaxY(self.descLabelFrame);
-        }
-    }
-    
-    self.topHeaderHeight = kAliveListHeaderHeight;
-    self.viewHeight = height+15;
-    self.bottomHeight =  kAliveListBottomHeight;
-    if (self.isShowBottomView) {
-        self.cellHeight = self.viewHeight + self.topHeaderHeight + self.bottomHeight;
-    } else {
-        self.cellHeight = self.viewHeight + self.topHeaderHeight;
-    }
+    AliveListModel *model = self.aliveModel;
+    CGSize size = [model.aliveTitle boundingRectWithSize:CGSizeMake(kScreenWidth-24, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:17]} context:nil].size;
+    self.topHeaderHeight = 0;
+    self.isShowBottomView = NO;
+    self.viewHeight = size.height + 160;
+    self.cellHeight = self.viewHeight;
 }
 @end
 
