@@ -43,7 +43,6 @@
         }
         case kADTypeRecharge:{
             TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
-            vc.isVipRecharge = YES;
             vc.hidesBottomBarWhenPushed = YES;
             [nav pushViewController:vc animated:YES];
             break;

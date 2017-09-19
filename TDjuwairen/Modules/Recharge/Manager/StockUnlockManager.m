@@ -16,9 +16,11 @@
 #import "DeepUnlockViewController.h"
 #import "StockPoolUnlockModel.h"
 #import "StockPoolUnlockViewController.h"
+#import "MemberCenterVipManager.h"
 
 @interface StockUnlockManager ()<StockUnlockDelegate, DeepUnlockDelegate, StockPoolUnlockDelegate>
 @property (nonatomic, weak) UIViewController *viewController;
+@property (nonatomic, strong) MemberCenterVipManager *vipManager;
 @end
 
 @implementation StockUnlockManager
@@ -340,10 +342,8 @@
 }
 
 - (void)vipPressed:(id)sender {
-    TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
-    vc.isVipRecharge = YES;
-    vc.hidesBottomBarWhenPushed = YES;
-    [self.viewController.navigationController pushViewController:vc animated:YES];
+    self.vipManager = [[MemberCenterVipManager alloc] init];
+    [self.vipManager unlockVipIsRenew:NO withController:self.viewController];
 }
 
 @end

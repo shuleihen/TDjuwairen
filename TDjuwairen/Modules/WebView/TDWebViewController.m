@@ -130,7 +130,6 @@
     } else if ([message.name isEqualToString:@"com_jwr_rechargevip"] ||
         [message.name isEqualToString:@"com_jwr_membercenter_recharge"]) {
         TDRechargeViewController *vc = [[TDRechargeViewController alloc] init];
-        vc.isVipRecharge = YES;
         [self.navigationController pushViewController:vc animated:YES];
     } else if ([message.name isEqualToString:@"com_jwr_membercenter_earn_point"]) {
         

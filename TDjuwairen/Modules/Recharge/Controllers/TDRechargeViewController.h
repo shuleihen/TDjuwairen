@@ -9,5 +9,4 @@
 #import <UIKit/UIKit.h>
 
 @interface TDRechargeViewController : UIViewController
-@property (nonatomic, assign) BOOL isVipRecharge;
 @end
