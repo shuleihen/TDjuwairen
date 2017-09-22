@@ -10,7 +10,7 @@
 
 @interface SelectedSurveySubjectViewController : UIViewController
 
-@property (nonatomic, strong) NSArray *selectedArray;
+@property (nonatomic, strong) NSMutableArray *selectedArray;
 
 @property (nonatomic, copy) void (^selectedBlock)(NSArray *array);
 @end
