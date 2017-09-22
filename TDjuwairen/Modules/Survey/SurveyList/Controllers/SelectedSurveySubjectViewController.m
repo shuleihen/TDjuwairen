@@ -47,7 +47,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.view.backgroundColor = TDViewBackgrouondColor;
-    self.title = @"关注选择";
+    self.title = @"添加板块";
     self.dataArrM = [NSMutableArray array];
     [self.view addSubview:self.collectionView];
     UIBarButtonItem *right = [[UIBarButtonItem alloc] initWithTitle:@"确定" style:UIBarButtonItemStylePlain target:self action:@selector(donePressed:)];
